@@ -1,0 +1,47 @@
+{% overextends "base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+
+{% block additional_meta %}
+<meta name="google-site-verification" content="upljx19ZJVGT73Sx1miWKLOWBKga4LQJ_hqFl0vhhJE" />
+{% endblock %}
+
+{% block footer_menu_custom %}
+<li>
+  <a href="http://blog.fragdenstaat.de/">{% trans "Blog" %}</a>
+</li>
+<li>
+  <a href="https://twitter.com/fragdenstaat">@fragdenstaat</a>
+</li>
+<li>
+  <a href="http://lists.okfn.org/mailman/listinfo/fragdenstaat">
+    {% trans "Mailinglist!" %}
+  </a>
+</li>
+<li>
+  <a href="{% url 'help-about' %}#impressum">{% trans "Impressum" %}</a>
+</li>
+{% endblock %}
+
+{% block footer_description %}
+<p>
+  {% url 'help-donate' as about_url %}
+  {% blocktrans with url=about_url %}Froide is a free and Open Source Project by <a href="http://www.okfn.org">the Open Knowledge Foundation</a>. If you want to support Froide, please visit the <a href="{{url}}">repository on GitHub</a>.{% endblocktrans %}
+</p>
+{% endblock %}
+
+{% block tracking_code %}
+<!-- Piwik --> 
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://fragdenstaat.de/piwik/" : "http://fragdenstaat.de/piwik/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="https://fragdenstaat.de/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tracking Code -->
+{% endblock %}
