@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: froide-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-22 17:43+0100\n"
-"PO-Revision-Date: 2013-01-19 20:36-0500\n"
+"POT-Creation-Date: 2013-01-28 16:58+0100\n"
+"PO-Revision-Date: 2013-01-23 17:45+0100\n"
 "Last-Translator: Stefan Wehrmeyer <mail@stefanwehrmeyer.com>\n"
 "Language-Team: OKF-DE <info@fragdenstaat.de>\n"
 "Language: de\n"
@@ -32,7 +32,7 @@ msgid "Impressum"
 msgstr "Impressum"
 
 #: templates/base.html:30
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Froide is a free and Open Source Project by <a href=\"http://www.okfn.org"
 "\">the Open Knowledge Foundation</a>. If you want to support Froide, please "
