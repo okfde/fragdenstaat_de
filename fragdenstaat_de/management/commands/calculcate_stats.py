@@ -45,6 +45,7 @@ class Command(BaseCommand):
                 encoding='utf-8')
         writer = unicodecsv.DictWriter(file(output, 'w'),
             ('id', 'name', 'type', 'official_count', 'fds_count'), encoding='utf-8')
+        writer.writeheader()
         for row in reader:
             name = row['name']
             if 'Gesamt' in name:
