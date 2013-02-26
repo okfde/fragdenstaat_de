@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block body %}
+<div class="span8">
+
+<h2>Rekord bei IFG-Anfragen &mdash;
+<br/>FragDenStaat.de stärkt die Informationsfreiheit</h2>
+
+<p class="lead">Über 6000 Anfragen wurden 2012 nach dem Informationsfreiheitsgesetz des Bundes gestellt, davon mehr als ein Drittel über das Webportal FragDenStaat.de.</p>
+
+<p>2099 Anfragen wurden im Jahr 2012 über FragDenStaat.de an Bundesbehörden gestellt. Dies entspricht 34,5% aller Bundesanfragen, wie eine seit kurzem verfügbare
+
+<h4>Entwicklung der Bundes-IFG-Anfragen</h4>
+
+<iframe src="http://charts-datawrapper.s3.amazonaws.com/7Cwa5/index.html?rev=41" frameborder="0" allowtransparency="true" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" oallowfullscreen="oallowfullscreen" msallowfullscreen="msallowfullscreen" width="920" height="600"></iframe>
+
+<h4>Entwicklung der Anfragen auf FragDenStaat.de</h4>
+
+<img src="{{ STATIC_URL }}img/stats/anfragenentwicklung-20130226.png" alt="Anfragenentwicklung"/>
+
+
+<h4>Downloads</h4>
+<ul class="unstyled">
+  <li>
+    <a href="{{ STATIC_URL }}data/IFG_2012.csv">
+      <i class="icon-download-alt"></i>
+      Download der BMI-Statistik 2012 als CSV
+    </a>
+  </li>
+  <li>
+    <a href="{{ STATIC_URL }}data/fds_stats_2012.csv">
+      <i class="icon-download-alt"></i>
+      Download Zahlenvergleich als CSV
+    </a>
+  </li>
+  <li>
+    <a href="{{ STATIC_URL }}img/logo_fragdenstaat.png">
+      <i class="icon-download-alt"></i>
+      FragDenStaat.de-Logo als PNG
+    </a>
+  </li>
+</ul>
+
+<h4>API</h4>
+<p>Die <a href="/api/v1/docs/">FragDenStaat.de-API</a> steht für eigene Auswertungen zur Verfügung.</p>
+
+</div>
+{% endblock %}
