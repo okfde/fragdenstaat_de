@@ -63,12 +63,14 @@ class Command(BaseCommand):
                 pbs = PublicBody.objects.filter(root=pb)
                 reqs = FoiRequest.objects.filter(
                     first_message__year=2012,
+                    visibility__gt=0,
                     public_body__in=pbs, is_foi=True)
                 stats = stats_for_queryset(reqs, u"GB: %s" % pb.name)
                 name = '%s (GB)' % pb.name
                 count = len(reqs)
             else:
                 reqs = FoiRequest.objects.filter(first_message__year=2012,
+                    visibility__gt=0,
                     public_body=pb, is_foi=True)
                 stats = stats_for_queryset(reqs)
                 name = pb.name
