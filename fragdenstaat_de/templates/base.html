@@ -3,6 +3,21 @@
 {% load url from future %}
 {% load i18n %}
 
+{% block header_font %}
+  {% if debug %}
+    <style type="text/css" media="screen">
+      @font-face {
+        font-family: 'Kreon';
+        font-style: normal;
+        font-weight: 700;
+        src: local('Kreon regular'), local('Kreon-regular'), url('{{ STATIC_URL }}font/Kreon-Regular.woff') format('woff');
+      }
+    </style>
+  {% else %}
+  <link href='https://fonts.googleapis.com/css?family=Kreon' rel='stylesheet' type='text/css'>
+  {% endif %}
+{% endblock %}
+
 {% block additional_meta %}
 <meta name="google-site-verification" content="upljx19ZJVGT73Sx1miWKLOWBKga4LQJ_hqFl0vhhJE" />
 {% endblock %}
