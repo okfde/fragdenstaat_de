@@ -8,37 +8,6 @@
 
 {% block header_headline_extraclass %}state-headline-white{% endblock %}
 
-<div class="state-header" style="background-image: url('{{ STATIC_URL }}img/jurisdictions/nrw_panorama.jpg')">
-  <div class="state-headline" style="">
-    <h1>Informationsfreiheit<br/>in Nordrhein-Westfalen</h1>
-    <h2>Fragen Sie Landesbehörden nach Verwaltungsinformationen – es ist Ihr gutes Recht.</h2>
-  </div>
-  <ul class="state-points thumbnails">
-    <li class="span3">
-      <div class="thumbnail">
-        <h3>Welche Behörden?</h3>
-        <p>Alle Einrichtungen, die Verwaltungs&shy;aufgaben des Landes wahrnehmen.</p>
-        <p>Stellen Sie eine Anfrage an eine von <a href="{% url 'publicbody-show-pb_jurisdiction' slug=object.slug %}">{{ pb_count }} Behörden in NRW.</a></p>
-      </div>
-    </li>
-    <li class="span3">
-      <div class="thumbnail">
-        <h3>Welche Informationen?</h3>
-        <p>Verträge, Protokolle, Gutachten und andere Dokumente aus der Verwaltung:
-          Sie haben das Recht auf Einsicht.</p>
-        <p><a href="{% url 'foirequest-make_request' %}">Stellen Sie eine Anfrage!</a></p>
-      </div>
-    </li>
-    <li class="span3">
-      <div class="thumbnail">
-        <h3>Welches Recht?</h3>
-        <p>Das Informations&shy;freiheits&shy;gesetz von NRW erlaubt Ihnen den Zugang zu Informationen der Verwaltung.</p>
-        <p><a href="{% url 'publicbody-foilaw-show' slug='ifg-nrw' %}">Lernen Sie Ihr Recht kennen.</a></p>
-      </div>
-    </li>
-  </ul>
-</div>
-
 {% block jurisdiction_text %}
     <h3>Pressemitteilung</h3>
     <h4>Bürger fragen, Behörden antworten</h4>
@@ -46,28 +15,28 @@
 </p><p>
 Düsseldorf, 27.04.2012 – Ab sofort können Bürgerinnen und Bürger in Nordrhein-Westfalen Anfragen an Kommunal- und Landesbehörden über eine zentrale Internetseite stellen. Die Organisationen Mehr Demokratie, Open Knowledge Foundation Deutschland und Transparency Deutschland haben heute den offiziellen Startschuss für das Internetportal FragDenStaat.de/NRW gegeben.
 </p><p>
-Das unabhängige Portal ermöglicht es Bürgerinnen und Bürgern, Anfragen nach den Informationsfreiheitsgesetzen (IFG) an Bundesbehörden zu stellen. Die Antwort der Behörde wird automatisch an die Plattform geleitet und dort zusammen mit der Anfrage des Nutzers veröffentlicht. Auch die Kommunal- und Landesbehörden von NRW sind jetzt in das Portal eingebunden. Damit ist NRW das erste Bundesland, in dem Bürgerinnen und Bürger über FragDenStaat.de/NRW Anfragen an Kommunal- und Landesbehörden stellen können. 
+Das unabhängige Portal ermöglicht es Bürgerinnen und Bürgern, Anfragen nach den Informationsfreiheitsgesetzen (IFG) an Bundesbehörden zu stellen. Die Antwort der Behörde wird automatisch an die Plattform geleitet und dort zusammen mit der Anfrage des Nutzers veröffentlicht. Auch die Kommunal- und Landesbehörden von NRW sind jetzt in das Portal eingebunden. Damit ist NRW das erste Bundesland, in dem Bürgerinnen und Bürger über FragDenStaat.de/NRW Anfragen an Kommunal- und Landesbehörden stellen können.
 </p><p>
 „FragDenStaat.de ist zu einer zentralen Sammelstelle für Anfragen und Antworten nach dem Informationsfreiheitsgesetz geworden. Seit dem Start des Portals im August 2011 wurden über dreihundert Anfragen gestellt. Diesen Erfolg wollen wir in NRW fortsetzen“, erläuterte <strong>Stefan Wehrmeyer, Projektleiter FragDenStaat.de von Open Knowledge Foundation Deutschland.</strong>
 </p><p>
-Bürgerinnen und Bürger nutzen das Informationsfreiheitsgesetz immer häufiger. Das zeigt auch der am Dienstag veröffentlichte 3. Tätigkeitsbericht zur Informationsfreiheit des Bundesbeauftragten für den Datenschutz und die Informationsfreiheit (BfDI) Peter Schaar. Im Jahr 2011 wurden doppelt so viele Anträge nach dem Bundesinformationsfreiheitgesetz gestellt als im Vorjahr. Insgesamt gingen 2011 3.280 IFG-Anfragen ein. 
+Bürgerinnen und Bürger nutzen das Informationsfreiheitsgesetz immer häufiger. Das zeigt auch der am Dienstag veröffentlichte 3. Tätigkeitsbericht zur Informationsfreiheit des Bundesbeauftragten für den Datenschutz und die Informationsfreiheit (BfDI) Peter Schaar. Im Jahr 2011 wurden doppelt so viele Anträge nach dem Bundesinformationsfreiheitgesetz gestellt als im Vorjahr. Insgesamt gingen 2011 3.280 IFG-Anfragen ein.
 </p><p>
 “Informationsfreiheit ist ein wichtiger Bestandteil demokratischer Teilhabe. FragDenStaat.de/NRW erleichtert es Bürgerinnen und Bürgern, Informationen der Kommunal- und Landesbehörden einzufordern, so zum Beispiel über geplante Infrastruktur- und Bauprojekte“, erklärte <strong>Mehr Demokratie-Landesgeschäftsführer Alexander Slonka</strong> dazu.
 </p><p>
- „Das Informationsfreiheitsgesetz in NRW hat eine lange Tradition und weist relativ wenige Ausnahmetatbestände auf. Wir wollen Verbesserungen für ein noch moderneres Informationsfreiheitsgesetz in NRW, um das Vertrauen und die Akzeptanz öffentlichen Handelns weiter zu fördern“, fordert <strong>Andreas Riegel, Leiter der Regionalgruppe Rheinland von Transparency Deutschland</strong>. 
+ „Das Informationsfreiheitsgesetz in NRW hat eine lange Tradition und weist relativ wenige Ausnahmetatbestände auf. Wir wollen Verbesserungen für ein noch moderneres Informationsfreiheitsgesetz in NRW, um das Vertrauen und die Akzeptanz öffentlichen Handelns weiter zu fördern“, fordert <strong>Andreas Riegel, Leiter der Regionalgruppe Rheinland von Transparency Deutschland</strong>.
 </p><p>
 Das Online-Portal soll die Rechenschaftspflicht der öffentlichen Verwaltung stärken. Gleichzeitig sollen Verbesserungen des Gesetzes den Schutz vor Manipulation und Korruption erhöhen. Die zivilgesellschaftlichen Organisationen fordern die sich im Wahlkampf befindlichen Parteien auf, sich zu Verbesserungen des IFG in NRW zu bekennen.
 </p><p>
-Es ist im Bereich der Daseinsvorsorge so auszubauen, dass Betriebs- und Geschäftsgeheimnisse wie nach den Berliner und Bremer Gesetzen veröffentlicht werden müssen, wenn das Informationsinteresse der Allgemeinheit das schutzwürdige Geheimhaltungsinteresse des privaten Vertragspartners überwiegt. Außerdem fordern die Organisationen eine Ausweitung des Kreises möglicher Antragssteller, so dass nicht nur natürliche, sondern auch juristische Personen Anträge stellen können – wie es im Bundes-IFG und den anderen Länder-IFGs längst üblich. 
+Es ist im Bereich der Daseinsvorsorge so auszubauen, dass Betriebs- und Geschäftsgeheimnisse wie nach den Berliner und Bremer Gesetzen veröffentlicht werden müssen, wenn das Informationsinteresse der Allgemeinheit das schutzwürdige Geheimhaltungsinteresse des privaten Vertragspartners überwiegt. Außerdem fordern die Organisationen eine Ausweitung des Kreises möglicher Antragssteller, so dass nicht nur natürliche, sondern auch juristische Personen Anträge stellen können – wie es im Bundes-IFG und den anderen Länder-IFGs längst üblich.
 </p><p>
 Das Informationsfreiheitsgesetz in NRW ist seit dem 01.01.2002 in Kraft.
 </p><p>
-Kontakt: 
+Kontakt:
 <ul>
   <li>
   Stefan Wehrmeyer, Projektleiter FragDenStaat.de<br/>
   <a href="http://www.okfn.de">Open Knowledge Foundation Deutschland e.V.</a><br/>
-  Tel.: 0151 / 15 550 559 
+  Tel.: 0151 / 15 550 559
   </li><li>
   Andreas Riegel<br/>
   Leiter der Regionalgruppe Rheinland von <a href="http://www.transparency.de/">Transparency Deutschland</a><br/>
