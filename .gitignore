@@ -2,3 +2,4 @@
 *.mo
 *.pyc
 build/
+fragdenstaat_de/static/img/jurisdictions/*/*
