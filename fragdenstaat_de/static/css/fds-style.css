@@ -11,11 +11,11 @@
 }
 
 .navbar-fds .navbar-brand {
-  font-size: 32px;
+  font-size: 34px;
   color: #06C;
   font-family: 'Kreon', arial, serif;
   background-image: url('../img/logo.png');
   background-repeat: no-repeat;
-  padding: 15px 15px 15px 60px;
-  background-position: 15px 8px;
+  padding: 18px 15px 12px 60px;
+  background-position: 15px 11px;
 }
