@@ -10,6 +10,22 @@
 <meta name="google-site-verification" content="upljx19ZJVGT73Sx1miWKLOWBKga4LQJ_hqFl0vhhJE" />
 {% endblock %}
 
+{% block navbar-class %}navbar-default navbar-fds{% endblock %}
+
+{% block nav %}
+  <ul class="nav navbar-nav">
+    <li class="{% block nav_requests %}{% endblock %}">
+      <a href="{% url 'foirequest-list' %}">{% blocktrans %}Requests{% endblocktrans %}</a>
+    </li>
+    <li>
+      <a href="http://blog.fragdenstaat.de/">{% trans "Blog" %}</a>
+    </li>
+    <li class="special-nav-item {% block nav_makerequest %}{% endblock %}">
+      <a href="{% url 'foirequest-make_request' %}"><span>{% blocktrans %}Make a Request!{% endblocktrans %}</span></a>
+    </li>
+  </ul>
+{% endblock nav %}
+
 {% block footer_menu_custom %}
 <li>
   <a href="http://blog.fragdenstaat.de/">{% trans "Blog" %}</a>
@@ -24,6 +40,9 @@
 </li>
 <li>
   <a href="{% url 'help-about' %}#impressum">{% trans "Impressum" %}</a>
+</li>
+<li>
+  <a href="{% url 'publicbody-list' %}">{% blocktrans %}Public Bodies{% endblocktrans %}</a>
 </li>
 {% endblock %}
 
