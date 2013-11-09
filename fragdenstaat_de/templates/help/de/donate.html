@@ -39,36 +39,9 @@
 	</div>
 </div>
 
-<h3>Oder spenden Sie einmalig:</h3>
-
-{% comment %}
-<script type="text/javascript">
-	/*
-		Attention: Script is commented out
-		We do not need external scripts to run, we can just embed the iframe.
-	*/
-  /* Configure at https://www.betterplace.org/de/projects/15469-fragdenstaat-de/manage/iframe_donation_form */
-  var _bp_iframe         = _bp_iframe || {};
-  _bp_iframe.project_id  = 15469; /* REQUIRED */
-  _bp_iframe.lang        = 'de'; /* Language of the form */
-  /* Uncomment for further customization but *only* if you really need to! */
-  //_bp_iframe.width  = 600;  /* Custom iframe-tag-width, integer, minimum 450px */
-  //_bp_iframe.height = 840;  /* Custom iframe-tag-height, integer */
-  //_bp_iframe.color  = '6c9c2e'; /* Button and banderole color, hex without "#" */
-  //_bp_iframe.background_color = 'fff'; /* Background-color, hex without "#" */
-  //_bp_iframe.default_amount   = 50;    /* Donation-amount, integer 1-99 */
-  (function() {
-    var bp = document.createElement('script'); bp.type = 'text/javascript'; bp.async = true;
-    bp.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'asset1.betterplace.org/assets/load_donation_iframe.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(bp, s);
-  })();
-</script>
-<div id="betterplace_donation_iframe" style="background: transparent url('http://www.betterplace.org/assets/new_spinner.gif') 275px 20px no-repeat;"><strong><a href="https://www.betterplace.org/de/projects/15469-fragdenstaat-de/donations/new">Jetzt Spenden für &bdquo;FragDenStaat.de&ldquo; bei unserem Partner betterplace.org</a></strong></div>
-{% endcomment %}
-
-<div id="betterplace_donation_iframe" style="background: transparent url('https://www.betterplace.org/assets/new_spinner.gif') 275px 20px no-repeat; text-align: center;">
-	<iframe height="840" width="100%" frameborder="0" src="https://www.betterplace.org/de/projects/15469/iframe_donations/new?donation_presenter[donation_amount]=50&amp;utm_source=iframe_donation_form&amp;utm_medium=project_15469&amp;utm_campaign=external_donation_forms&amp;utm_content={{ SITE_URL }}/hilfe/spenden/&amp;" style="background-color: transparent;"></iframe>
-</div>
+<h3>
+	<a href="https://www.betterplace.org/de/projects/15469-fragdenstaat-de/donations/new">Oder spenden Sie einmalig über unseren Partner BetterPlace.org</a>
+</h3>
 
 
 {% endblock %}
