@@ -1,5 +1,7 @@
 *.egg-info
 *.mo
 *.pyc
+*.db
+local_settings.py
 build/
-fragdenstaat_de/static/img/jurisdictions/*/*
+fragdenstaat_de/theme/static/img/jurisdictions/*/*
