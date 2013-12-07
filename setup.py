@@ -34,7 +34,7 @@ setup(
     author='Stefan Wehrmeyer',
     author_email='mail@stefanwehrmeyer.com',
     packages=find_packages(),
-    install_requires=['froide', 'foiidea'],
+    install_requires=['froide', 'froide-foiidea'],
     include_package_data=True,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
