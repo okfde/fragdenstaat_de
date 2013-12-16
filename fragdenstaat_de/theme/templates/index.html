@@ -1,6 +1,7 @@
 {% overextends "index.html" %}
 
 {% load i18n %}
+{% load static from staticfiles %}
 
 {% comment %}
 {% block index_banner %}
@@ -15,7 +16,7 @@
             </div>
             <div class="col-md-2 col-lg-2">
               <a style="float:right" href="http://flattr.com/thing/520066/FragDenStaat-de" target="_blank">
-                <img src="{{ STATIC_URL }}img/flattr.png" alt="{% trans "Flattr us!" %}" title="{% trans "Flattr us!" %}" border="0" />
+                <img src="{% static "img/flattr.png" %}" alt="{% trans "Flattr us!" %}" title="{% trans "Flattr us!" %}" border="0" />
               </a>
             </div>
           </div>

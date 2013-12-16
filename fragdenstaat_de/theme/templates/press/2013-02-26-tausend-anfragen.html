@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static from staticfiles %}
+
 {% block body %}
 <div class="span9">
 
@@ -67,19 +69,19 @@ Telefon: 0151 15550559
 <h4 id="downloads">Downloads</h4>
 <ul class="unstyled">
   <li>
-    <a href="{{ STATIC_URL }}data/IFG_2012.csv">
+    <a href="{% static "data/IFG_2012.csv" %}">
       <i class="icon-download-alt"></i>
       Download der BMI-Statistik 2012 als CSV
     </a>
   </li>
   <li>
-    <a href="{{ STATIC_URL }}data/fds_stats_2012.csv">
+    <a href="{% static "data/fds_stats_2012.csv" %}">
       <i class="icon-download-alt"></i>
       Download Zahlenvergleich als CSV
     </a>
   </li>
   <li>
-    <a href="{{ STATIC_URL }}img/logo_fragdenstaat.png">
+    <a href="{% static "img/logo_fragdenstaat.png" %}">
       <i class="icon-download-alt"></i>
       FragDenStaat.de-Logo als PNG
     </a>
@@ -93,7 +95,7 @@ Telefon: 0151 15550559
 <h5>Gesamtzahl der Anfragen an Bund und Länder auf FragDenStaat.de</h5>
 
 <p>
-  <img src="{{ STATIC_URL }}img/stats/anfragenentwicklung-20130226.png" alt="Anfragenentwicklung"/>
+  <img src="{% static "img/stats/anfragenentwicklung-20130226.png" %}" alt="Anfragenentwicklung"/>
 </p>
 <p><small>Die Sprünge enstehen durch die beschriebenen 1-Klick-Anfragen.</small></p>
 

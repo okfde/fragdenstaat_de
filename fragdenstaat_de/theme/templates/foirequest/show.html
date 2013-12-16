@@ -1,10 +1,12 @@
 {% overextends "foirequest/show.html" %}
 
+{% load static from staticfiles %}
+
 {% block foirequest_header %}
   {% if object.jurisdiction.slug == "nrw" %}
       <div class="alert alert-info">
         <a href="http://www.nrw-blickt-durch.de/aktuelles/c/a/wenn-behoerden-auskuenfte-verweigern/">
-          <img src="{{ STATIC_URL }}img/logos/logo_nrw-blickt-durch.png" class="pull-right" alt="NRW blickt durch"/>
+          <img src="{% static "img/logos/logo_nrw-blickt-durch.png" %}" class="pull-right" alt="NRW blickt durch"/>
         </a>
         <h4>Ein Transparenzgesetz für NRW</h4>
         <p>Sind Sie unzufrieden damit, wie diese Anfrage beantwortet wurde?</p>

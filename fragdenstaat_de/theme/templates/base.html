@@ -1,9 +1,10 @@
 {% overextends "base.html" %}
 
 {% load i18n %}
+{% load static from staticfiles %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/fds-style.css" />
+  <link rel="stylesheet" href="{% static "css/fds-style.css" %}"/>
 {% endblock %}
 
 {% block additional_meta %}

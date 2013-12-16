@@ -1,10 +1,13 @@
 {% extends "help/base.html" %}
+
+{% load static from staticfiles %}
+
 {% block helpbody %}
 <h2>FragDenStaat.de</h2>
 <h3 id="impressum">Impressum</h3>
 <p>
   <a href="http://www.okfn.de/">
-    <img src="{{ STATIC_URL }}img/logos/okfnde.png" alt="Open Knowledge Foundation Deutschland e.V." />
+    <img src="{% static "img/logos/okfnde.png" %}" alt="Open Knowledge Foundation Deutschland e.V." />
   </a>
 </p>
 <p>Open Knowledge Foundation Deutschland e.V.<br/>
@@ -39,91 +42,91 @@ Telefon: +49 30 57703666 2<br/>
 <ul class="list-unstyled">
   <li>
     <a href="http://www.transparency.de/">
-      <img src="{{ STATIC_URL }}img/logos/ti.png" alt="Transparency International Deutschland e.V." />
+      <img src="{% static "img/logos/ti.png" %}" alt="Transparency International Deutschland e.V." />
     </a>
   </li>
 
   <li>
     <a href="http://www.mehr-demokratie.de/">
-      <img src="{{ STATIC_URL }}img/logos/mehr-demokratie.jpg" alt="Mehr Demokratie e.V." />
+      <img src="{% static "img/logos/mehr-demokratie.jpg" %}" alt="Mehr Demokratie e.V." />
     </a>
   </li>
 
   <li>
     <a href="http://www.dgif.de">
-      <img src="{{ STATIC_URL }}img/logos/dgif.png" alt="Deutsche Gesellschaft für Informationsfreiheit e.V." />
+      <img src="{% static "img/logos/dgif.png" %}" alt="Deutsche Gesellschaft für Informationsfreiheit e.V." />
     </a>
   </li>
 
   <li>
     <a href="http://www.n-ost.org/">
-      <img src="{{ STATIC_URL }}img/logos/n-ost.jpg" alt="Netzwerk für Osteuropa-Berichterstattung e.V." />
+      <img src="{% static "img/logos/n-ost.jpg" %}" alt="Netzwerk für Osteuropa-Berichterstattung e.V." />
     </a>
   </li>
 
   <li>
     <a href="http://www.access-info.org/">
-      <img src="{{ STATIC_URL }}img/logos/access.jpg" alt="Access Info" />
+      <img src="{% static "img/logos/access.jpg" %}" alt="Access Info" />
     </a>
   </li>
 
   <li>
     <a href="http://www.legalleaks.info/">
-      <img src="{{ STATIC_URL }}img/logos/legal-leaks.jpg" alt="Legal Leaks" />
+      <img src="{% static "img/logos/legal-leaks.jpg" %}" alt="Legal Leaks" />
     </a>
   </li>
 
   <li>
     <a href="http://opendata-network.org/">
-      <img src="{{ STATIC_URL }}img/logos/odn.png" alt="Open Data Network" />
+      <img src="{% static "img/logos/odn.png" %}" alt="Open Data Network" />
     </a>
   </li>
 
   <li>
     <a href="http://digitalegesellschaft.de/">
-      <img src="{{ STATIC_URL }}img/logos/digiges.png" alt="Digitale Gesellschaft e.V." />
+      <img src="{% static "img/logos/digiges.png" %}" alt="Digitale Gesellschaft e.V." />
     </a>
   </li>
 
   <li>
     <a href="http://www.djv.de/">
-      <img src="{{ STATIC_URL }}img/logos/djv.png" alt="Deutscher Journalisten-Verband e.V." />
+      <img src="{% static "img/logos/djv.png" %}" alt="Deutscher Journalisten-Verband e.V." />
     </a>
   </li>
 
   <li>
     <a href="http://dju.verdi.de/">
-      <img src="{{ STATIC_URL }}img/logos/dju.jpg" alt="Deutsche Journalistinnen- und Journalisten-Union" />
+      <img src="{% static "img/logos/dju.jpg" %}" alt="Deutsche Journalistinnen- und Journalisten-Union" />
     </a>
   </li>
 
   <li>
     <a href="http://www.netzwerk-recherche.de/">
-      <img src="{{ STATIC_URL }}img/logos/nr.png" alt="netzwerk recherche e. V." />
+      <img src="{% static "img/logos/nr.png" %}" alt="netzwerk recherche e. V." />
     </a>
   </li>
 
   <li>
     <a href="http://www.reporter-ohne-grenzen.de/">
-      <img src="{{ STATIC_URL }}img/logos/reporter-ohne-grenzen.jpg" alt="Reporter ohne Grenzen" />
+      <img src="{% static "img/logos/reporter-ohne-grenzen.jpg" %}" alt="Reporter ohne Grenzen" />
     </a>
   </li>
 
   <li>
     <a href="https://fsfe.org/">
-      <img src="{{ STATIC_URL }}img/logos/fsfe.png" alt="Free Software Foundation Europe" />
+      <img src="{% static "img/logos/fsfe.png" %}" alt="Free Software Foundation Europe" />
     </a>
   </li>
 
   <li>
     <a href="http://www.ccc.de">
-      <img src="{{ STATIC_URL }}img/logos/ccc.png" alt="Chaos Computer Club" />
+      <img src="{% static "img/logos/ccc.png" %}" alt="Chaos Computer Club" />
     </a>
   </li>
 
   <li>
     <a href="https://www.oeffentlichkeitsgesetz.ch/deutsch/">
-      <img src="{{ STATIC_URL }}img/logos/oeffentlichkeitsgesetz_ch.jpg" alt="Öffentlichkeitsgesetz.ch" />
+      <img src="{% static "img/logos/oeffentlichkeitsgesetz_ch.jpg" %}" alt="Öffentlichkeitsgesetz.ch" />
     </a>
   </li>
 </ul>
