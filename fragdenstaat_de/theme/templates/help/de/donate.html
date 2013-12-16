@@ -1,50 +1,196 @@
-{% extends "help/base.html" %}
+{% extends "base.html" %}
 
-{% block helpbody %}
-<h2>Spenden für FragDenStaat.de</h2>
+{% load static from staticfiles %}
 
-<p>FragDenStaat.de ist durch den Einsatz vieler unentgeltlicher Arbeitsstunden entstanden. Ihre Spende hilft uns, den Betrieb von FragDenStaat.de zu sichern und die Plattform so weiterzuentwickeln, dass sie dauerhaft die Informationsfreiheit in Deutschland stärkt.</p>
+{% block body %}
 
-<p>Darüber hinaus setzen wir uns für die Einführung von Informationsfreiheitsgesetzen in Bundesländern wie Niedersachsen oder Bayern ein, die noch kein solches Gesetz haben. Mit Ihrer Unterstützung können wir das Recht auf Informationsfreiheit bekannter und damit Verwaltungshandeln endlich transparenter machen.</p>
+<div class="jumbotron donatotron">
+  <h1>Wir kämpfen für Transparenz!</h1>
+  <p>
+  	 Kämpfen Sie mit! Mehr als ein Drittel aller IFG-Anfragen werden über FragDenStaat.de gestellt – bitte unterstützen Sie uns.
+  </p>
+  <p>
+   	<a href="https://www.betterplace.org/de/projects/15469-fragdenstaat-de/donations/new" class="btn btn-success btn-lg" role="button">
+   		<span class="glyphicon glyphicon-heart"></span>
+   		Spenden über Betterplace
+   	</a>
+  	<a href="#spenden" class="btn btn-primary btn-lg" role="button">Andere Spendenoptionen</a>
 
-<p>
-	<a href="http://okfn.de/2012/12/spenden-fur-die-open-knowledge-foundation/">Warum und wofür die Open Knowledge Foundation Deutschland Ihre Unterstützung braucht, steht hier</a>
-</p>
+  	<a href="#mehr-erfahren" class="btn btn-default btn-lg" role="button">Mehr über FragDenStaat.de erfahren</a>
+  </p>
 
-<h3>Unterstützen Sie FragDenStaat.de mit einem Dauerauftrag!</h3>
+</div>
 
 <div class="row">
-	<div class="col-lg-6 col-md-6">
-		<p>Der <a href="http://okfn.de/organisation/">Open Knowledge Foundation Deutschland e.V.</a> ist ein gemeinnütziger Verein. Ihre Spende ist daher steuerlich absetzbar. Falls Sie eine Spendenquittung wünschen, kontaktieren Sie uns bitte kurz unter Angabe Ihres Namens unter info@fragdenstaat.de.</p>
+	<div class="col-lg-3 col-lg-push-9 col-md-3 col-md-push-9">
+    <ul id="donation-nav" class="nav donation-nav">
+    	<li class="nav-header">
+    		Spendenmöglichkeiten
+    	</li>
+    	<li><a href="#betterplace">Spenden über Betterplace</a></li>
+    	<li><a href="#ueberweisung">Spenden per Überweisung</a></li>
+    	<li><a href="#flattr">Spenden über Flattr</a></li>
+      <li><a href="#bitcoin">Spenden per Bitcoin</a></li>
+      <li><a href="#spendenformular">Spenden über Formular</a></li>
+    </ul>
 	</div>
-	<div class="col-lg-3 col-md-3">
-		<dl>
-			<dt>Empfänger:</dt>
-			<dd>Open Knowledge Foundation Deutschland e.V.</dd>
-			<dt>Konto:</dt>
-			<dd>3009670</dd>
-			<dt>BLZ:</dt>
-			<dd>830 944 95 (EthikBank)</dd>
-		</dl>
+
+	<div class="col-lg-9 col-md-9 col-lg-pull-3 col-md-pull-3">
+		<h3 id="mehr-erfahren">Wer steht hinter FragDenStaat.de?</h3>
+		<p>Der <a href="http://www.okfn.de/">gemeinnützige Verein Open Knowledge Foundation e.V. (OKF)</a> betreibt FragDenStaat.de. Für den Verein haben 2013 folgende Personen bezahlt an FragDenStaat.de gearbeitet:</p>
+
+		<div class="row">
+		  <div class="col-sm-6 col-md-6 col-lg-6">
+		    <div id="stefan" class="thumbnail">
+		      <img title="Stefan Wehrmeyer betreibt FragDenStaat.de momentan alleine." src="{% static "img/donation_photo.jpg" %}" alt="Stefan Wehrmeyer" class="donation-image"/>
+		      <div class="caption">
+		        <h3>
+		        	Stefan Wehrmeyer
+		        	<small>Gründer und Projektleiter</small>
+		        </h3>
+		        <p>
+		        	Von Mai - Dezember 2013 angestellt mit einer halben Stelle,
+		        	vorher ehrenamtlich.
+		        </p>
+		        <ul>
+		        	<li>Hat die Software gebaut und betreut Server</li>
+		        	<li>Beantwortet Ihre Fragen zu Informationsfreiheit</li>
+		        	<li>Kämpft für mehr Transparenz</li>
+		        </ul>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-sm-6 col-md-6 col-lg-6">
+		    <div class="thumbnail">
+		    	<div style="margin: 0 auto;background-color: #ccc; width:148px; height: 47px; text-align: center; padding: 45px 0 100px; color: #fff; font-size: 48px">
+		    		:)
+		    	</div>
+		      <div class="caption">
+		        <h3>
+		        	Martin Koll
+		        	<small>Praktikant</small>
+		        </h3>
+		        <p>Von August - November 2013, engagiert sich weiter ehrenamtlich</p>
+		        <ul>
+		        	<li>Half bei Support-Fragen</li>
+		        	<li>Stellte Anfragen und befreite Dokumente</li>
+		        	<li>Organisierte einen IFG-Workshop</li>
+		        </ul>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<p>
+			Ein Großteil des Betriebs lief in der restlichen Zeit ehrenamtlich.
+		</p>
+		<p>
+			Wir sind dankbar für das ehrenamtliche Engagement von einer handvoll Helferinnen und Helfer auf unserer Mailingliste, unserem Blog, in den FragDenStaat.de-Kommentaren und bei unseren Treffen.
+		</p>
+
+		<h4>Wie lief die Finanzierung bisher?</h4>
+		<p>
+			Der Trägerverein hat das Projekt aus den eigenen knappen Mitteln querfinanziert. <br/>
+			<strong>Diese Querfinanzierung läuft 2014 aus.</strong>
+			Daher ist FragDenStaat.de auf Spenden angewiesen.
+		</p>
+
+		<h4>Wieviel kostet der bloße Betrieb von FragDenStaat.de im Monat?</h4>
+		<ul>
+			<li>Personal (halbe Stelle, Arbeitgeberbrutto): ~2300 EUR</li>
+			<li>Kosten für Technik (Server): ~60 EUR</li>
+		</ul>
+		<p>
+			Unter bloßen Betrieb fallen die Moderation der Webseite, das Beantworten von E-Mails/Anrufen von Nutzern und Behörden, die Administration des Servers und die Instandhaltung der Software.
+			<strong>Doch wir wollen auch inhaltlich arbeiten und Informationsfreiheit voranbringen!</strong> Dafür brauchen wir allerdings mindestens 1,5 Stellen und ein kleines Budget für Kampagnenausgaben.
+		</p>
+
+		<h2 id="spenden">Spendenmöglichkeiten</h2>
+
+		<p>
+			Der <a href="http://okfn.de/organisation/">Trägerverein</a> ist <strong>gemeinnützig</strong> und Ihre Spende ist daher <strong>steuerlich absetzbar</strong>. Falls Sie eine Spendenquittung wünschen, kontaktieren Sie uns bitte kurz unter Angabe Ihres Namens unter info@fragdenstaat.de.
+		</p>
+
+		<h3 id="betterplace">Betterplace.org</h3>
+		<p>
+			<a href="https://www.betterplace.org/de/projects/15469-fragdenstaat-de/donations/new">
+				Über die Spendenplattform Betterplace
+			</a>
+			(100% Ihrer Spende geht an FragDenStaat.de)
+		</p>
+
+		<h3 id="ueberweisung">Überweisung, z.B. als Dauerauftrag</h3>
+		<div class="row">
+			<div class="col-lg-6 col-md-6">
+				<dl>
+					<dt>Empfänger:</dt>
+					<dd>Open Knowledge Foundation Deutschland e.V.</dd>
+					<dt>Konto:</dt>
+					<dd>3009670</dd>
+					<dt>BLZ:</dt>
+					<dd>830 944 95 (EthikBank)</dd>
+				</dl>
+			</div>
+				<div class="col-lg-6 col-md-6">
+				<dl>
+					<dt>IBAN:</dt>
+					<dd>DE89830944950003009670</dd>
+					<dt>BIC:</dt>
+					<dd>GENO DE F1 ETK</dd>
+					<dt>Verwendungszweck:</dt>
+					<dd>FragDenStaat</dd>
+				</dl>
+			</div>
+		</div>
+
+		<h3 id="flattr">Flattr</h3>
+		<p>
+			Flattr bringt momentan jeden Monat ungefähr 10 - 20 EUR rein. Vielen Dank dafür! Das deckt schon fast die Hälfte der Server-Kosten.
+		</p>
+		<p class="text-center">
+			<a href="https://flattr.com/thing/520066/FragDenStaat-de" target="_blank">
+	      <img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr FragDenStaat.de" title="Flattr FragDenStaat.de" border="0" />
+	    </a>
+		</p>
+
+		<h3 id="bitcoin">Bitcoins spenden</h3>
+		<p>
+			Haben Sie zu viele Bitcoins? Unterstützen Sie Informationsfreiheit in Deutschland und senden Sie ein paar davon an diese Adresse:
+		</p>
+		<div class="well text-center">
+			<a href="bitcoin:1DWX9LZTd8SC4zMm3xQXdWj3mdng9d1tkp?label=FragDenStaat.de">1DWX9LZTd8SC4zMm3xQXdWj3mdng9d1tkp</a>
+			<br/>
+			<img src="{% static "img/qr_bitcoin.png" %}" alt="1DWX9LZTd8SC4zMm3xQXdWj3mdng9d1tkp"/>
+		</div>
+
+		<h3 id="spendenformular">Spenden über das Spendenformular</h3>
+
+		<div id="betterplace_donation_iframe" style="background: transparent url('https://www.betterplace.org/assets/new_spinner.gif') 275px 20px no-repeat; text-align: center;">
+		    <iframe height="840" width="100%" frameborder="0" src="https://www.betterplace.org/de/projects/15469/iframe_donations/new?donation_presenter[donation_amount]=50&amp;utm_source=iframe_donation_form&amp;utm_medium=project_15469&amp;utm_campaign=external_donation_forms&amp;utm_content={{ SITE_URL }}/hilfe/spenden/&amp;" style="background-color: transparent;"></iframe>
+		</div>
 	</div>
-		<div class="col-lg-3 col-md-3">
-		<dl>
-			<dt>IBAN:</dt>
-			<dd>DE89830944950003009670</dd>
-			<dt>BIC:</dt>
-			<dd>GENO DE F1 ETK</dd>
-			<dt>Verwendungszweck:</dt>
-			<dd>FragDenStaat</dd>
-		</dl>
-	</div>
+
 </div>
 
-<h3>
-	<a href="https://www.betterplace.org/de/projects/15469-fragdenstaat-de/donations/new">Oder spenden Sie einmalig über unseren Partner BetterPlace.org</a>
-</h3>
+{% endblock %}
 
-<div id="betterplace_donation_iframe" style="background: transparent url('https://www.betterplace.org/assets/new_spinner.gif') 275px 20px no-repeat; text-align: center;">
-    <iframe height="840" width="100%" frameborder="0" src="https://www.betterplace.org/de/projects/15469/iframe_donations/new?donation_presenter[donation_amount]=50&amp;utm_source=iframe_donation_form&amp;utm_medium=project_15469&amp;utm_campaign=external_donation_forms&amp;utm_content={{ SITE_URL }}/hilfe/spenden/&amp;" style="background-color: transparent;"></iframe>
-</div>
 
+{% block donation_script %}
+<script>
+  $(function(){
+    $nav = $('#donation-nav');
+    $nav.css('left', $nav.offset().left +'px');
+
+    $nav.affix({
+      offset: {
+        top: function(){
+          var offsetTop = $('#mehr-erfahren').offset().top;
+          return offsetTop - 20;
+        },
+        bottom: function () {
+          return $('#footer').outerHeight(true);
+        }
+      }
+    });
+  });
+</script>
 {% endblock %}
