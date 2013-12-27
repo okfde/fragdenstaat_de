@@ -1,0 +1,33 @@
+{% extends "press/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block body %}
+<div class="col-lg-9">
+
+<h2>FragDenStaat.de veröffentlicht Stellungnahme des BMI zur EU-Sperrklausel</h2>
+
+<p>
+  Im November 2011 erklärte das Bundesverfassungsgericht die 5% Sperrklausel bei der Wahl zum EU-Parlament für verfassungswidrig. Eine interne Stellungnahme des Bundesinnenministeriums kam kurz nach dem Urteil zu dem Schluss, dass nach der Urteilsbegründung auch eine niedrigere Sperrklausel verfassungswidrig sei. Dennoch brachte die Bundesregierung 2013 eine Gesetzesänderung ein, die die Sperrklausel auf 3 % festlegt, anstatt sie abzuschaffen.
+</p>
+
+<p>
+  Das BMI gab zwar diese Stellungnahme nach einer IFG-Anfrage heraus, widersprach aber einer Veröffentlichung, da das Dokument nicht für die Veröffentlichung hergestellt worden sei, sondern nur zur Unterrichtung der Hausleitung.
+</p>
+
+<p>
+  Für FragDenStaat.de ist es nicht nachvollziehbar, warum ein Dokument nach IFG erfragbar, aber nicht veröffentlichbar sein soll. Alle Dokumente, die nach dem IFG herausgegeben werden können, sind im Interesse der Öffentlichkeit und sollten demnach auch ohne Probleme zugänglich gemacht werden können. Das öffentliche Interesse ist hier besonders gegeben, da in dem vorliegenden Fall die politische Führung von der fachlichen Bewertung abgewichen ist.
+</p>
+
+<p>
+  Daher finden Sie hier die interne Stellungnahme des BMI zur EU-Sperrklausel zum Download:
+</p>
+
+<p>
+  <a class="btn btn-primary" href="{% static "docs/vermerk_eusperrklausel.pdf" %}">
+    Download Stellungnahme zur EU-Sperrklausel
+  </a>
+</p>
+
+</div>
+{% endblock %}
