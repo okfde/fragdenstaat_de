@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block top_block %}
-<div class="donation-banner" style="display:none">
+<div class="donation-banner">
   <div class="container">
     <div class="row">
       <button type="button" id="close-donation" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -103,10 +103,7 @@
 {% block donation_script %}
 <script>
   $(function(){
-    window.setTimeout(function(){
-      $('.navbar').addClass('donation-top');
-      $('.donation-banner').fadeIn();
-    }, 5000);
+    $('.donation-banner').show();
     $('#close-donation').click(function(){
       $('.navbar').removeClass('donation-top');
       $('.donation-banner').hide();

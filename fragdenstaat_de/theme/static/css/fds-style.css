@@ -59,7 +59,7 @@
     padding-top: 165px;
   }
   .donation-banner {
-    position: fixed;
+    /*position: fixed;*/
   }
   .donation-image {
     display: block;
