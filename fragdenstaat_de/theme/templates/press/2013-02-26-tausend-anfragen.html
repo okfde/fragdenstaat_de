@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "press/base.html" %}
 
 {% load static from staticfiles %}
 
 {% block body %}
-<div class="span9">
+<div class="col-lg-9">
 
 <aside>Pressemitteilung</aside>
 
@@ -45,7 +45,7 @@ Telefon: 0151 15550559
 </p>
 
 <h4 id="links">Links</h4>
-<ul class="unstyled">
+<ul class="list-unstyled">
   <li>
     <a href="http://bmi.bund.de/SharedDocs/Downloads/DE/Themen/Politik_Gesellschaft/Verwaltungsrecht/IFG_Statistik_2012.html">
       <i class="icon-globe"></i>
@@ -67,7 +67,7 @@ Telefon: 0151 15550559
 </ul>
 
 <h4 id="downloads">Downloads</h4>
-<ul class="unstyled">
+<ul class="list-unstyled">
   <li>
     <a href="{% static "data/IFG_2012.csv" %}">
       <i class="icon-download-alt"></i>
