@@ -99,3 +99,74 @@
     width: 263px;
   }
 }
+
+.small-icon.topic-wirtschaft {
+    background-image: url('../img/topics/wirtschaft_small.png')
+}
+.small-icon.topic-verteidigung {
+    background-image: url('../img/topics/verteidigung_small.png')
+}
+.small-icon.topic-kultur-und-medien {
+    background-image: url('../img/topics/kultur-und-medien_small.png')
+}
+.small-icon.topic-gesundheit {
+    background-image: url('../img/topics/gesundheit_small.png')
+}
+.small-icon.topic-bildung-und-forschung {
+    background-image: url('../img/topics/bildung-und-forschung_small.png')
+}
+.small-icon.topic-andere {
+    background-image: url('../img/topics/andere_small.png')
+}
+.small-icon.topic-arbeit-und-soziales {
+    background-image: url('../img/topics/arbeit-und-soziales_small.png')
+}
+.small-icon.topic-inneres {
+    background-image: url('../img/topics/inneres_small.png')
+}
+.small-icon.topic-justiz {
+    background-image: url('../img/topics/justiz_small.png')
+}
+.small-icon.topic-umwelt {
+    background-image: url('../img/topics/umwelt_small.png')
+}
+.small-icon.topic-auswartiges {
+    background-image: url('../img/topics/auswartiges_small.png')
+}
+.small-icon.topic-verkehr-und-bau {
+    background-image: url('../img/topics/verkehr-und-bau_small.png')
+}
+.small-icon.topic-finanzen {
+    background-image: url('../img/topics/finanzen_small.png')
+}
+.small-icon.topic-familien-senioren-frauen-und-jugend {
+    background-image: url('../img/topics/familien-senioren-frauen-und-jugend_small.png')
+}
+.small-icon.topic-entwicklung {
+    background-image: url('../img/topics/entwicklung_small.png')
+}
+.small-icon.topic-landwirtschaft {
+    background-image: url('../img/topics/landwirtschaft_small.png')
+}
+.small-icon.topic-verbraucherschutz {
+    background-image: url('../img/topics/verbraucherschutz_small.png')
+}
+
+.small-icon.jurisdiction-bund {
+    background-image: url('../img/jurisdictions/bund_small.png')
+}
+.small-icon.jurisdiction-berlin {
+    background-image: url('../img/jurisdictions/berlin_small.png')
+}
+.small-icon.jurisdiction-brandenburg {
+    background-image: url('../img/jurisdictions/brandenburg_small.png')
+}
+.small-icon.jurisdiction-nrw {
+    background-image: url('../img/jurisdictions/nrw_small.png')
+}
+.small-icon.jurisdiction-hamburg {
+    background-image: url('../img/jurisdictions/hamburg_small.png')
+}
+.small-icon.jurisdiction-rheinland-pfalz {
+    background-image: url('../img/jurisdictions/rheinland-pfalz_small.png')
+}
