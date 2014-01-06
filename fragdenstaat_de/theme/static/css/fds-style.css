@@ -133,8 +133,11 @@
 .small-icon.topic-auswartiges {
     background-image: url('../img/topics/auswartiges_small.png')
 }
-.small-icon.topic-verkehr-und-bau {
-    background-image: url('../img/topics/verkehr-und-bau_small.png')
+.small-icon.topic-verkehr {
+    background-image: url('../img/topics/verkehr_small.png')
+}
+.small-icon.topic-bau {
+    background-image: url('../img/topics/bau_small.png')
 }
 .small-icon.topic-finanzen {
     background-image: url('../img/topics/finanzen_small.png')
