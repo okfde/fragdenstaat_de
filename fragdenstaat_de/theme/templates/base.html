@@ -16,26 +16,20 @@
   <div class="container">
     <div class="row">
       <button type="button" id="close-donation" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <div class="col-lg-2 col-md-2 visible-lg visible-md">
-        <a href="{% url 'help-donate' %}#stefan">
-          <img title="Stefan Wehrmeyer betreibt FragDenStaat.de momentan alleine." src="{% static "img/donation_photo.jpg" %}" alt="Stefan Wehrmeyer" class="donation-image"/>
-          <small class="visible-lg">Stefan Wehrmeyer, Betreiber</small>
-          <small class="hidden-lg">Stefan Wehrmeyer</small>
-        </a>
-      </div>
       <div class="col-lg-10 col-md-10">
-        <h3>Mit Ihrer Hilfe können wir 2014 FragDenStaat.de weiter betreiben</h3>
+        <h3>
+          Das Innenministerium mahnt FragDenStaat.de wegen der Veröffentlichung eines staatlichen Dokuments ab
+          <small><a href="#">Lesen Sie die Geschichte</a></small>
+        </h3>
         <p>
-          {% if user.is_authenticated %}<strong>Hallo {{ user.get_full_name }}!</strong>{% endif %}
-          {# <a style="text-decoration:underline" href="{% url 'help-donate' %}">Die Antwort wird Sie überraschen!</a> #}
-          Helfen Sie uns auch 2014 Dokumente zu befreien und Menschen zu helfen: <br/>
+          Helfen Sie uns Dokumente zu befreien und Menschen zu helfen: <br/>
           Bitte spenden Sie für transparente Informationsfreiheit in Deutschland. <a style="text-decoration:underline" href="{% url 'help-donate' %}">Erfahren Sie mehr...</a>
         </p>
         <div class="row">
           <div class="col-lg-5 col-md-5 col-sm-6">
             <a href="https://www.betterplace.org/de/projects/15469-fragdenstaat-de/donations/new" class="btn btn-success">
               <span class="glyphicon glyphicon-heart"></span>
-              Spenden Sie jetzt über betterplace
+              Spenden Sie jetzt für unsere Verteidigung
             </a>
           </div>
           <div class="col-lg-7 col-md-7 col-sm-6">
@@ -49,6 +43,12 @@
             </small>
           </div>
         </div>
+      </div>
+      <div class="col-lg-2 col-md-2 visible-lg visible-md">
+        <a href="{% url 'help-donate' %}#stefan">
+          <img title="Thomas de Maizière" src="{% static "img/demaiziere.jpg" %}" class="donation-image"/>
+          <small class="visible-lg">Thomas de Maizière, Innenminister</small>
+        </a>
       </div>
     </div>
   </div>

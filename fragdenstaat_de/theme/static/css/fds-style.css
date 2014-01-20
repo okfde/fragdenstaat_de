@@ -22,7 +22,8 @@
 .donation-banner {
   z-index: 1001;
   width: 100%;
-  background-color: #f8f8f8;
+  background-color: #000;
+  color: #fff;
 }
 
 .donation-banner small {
