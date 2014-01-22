@@ -1,0 +1,220 @@
+{% extends "press/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block body %}
+
+<div class="jumbotron" id="top">
+  <h1>#Zensurheberrecht</h1>
+  <p>
+    FragDenStaat.de veröffentlicht ein staatliches Dokument und das Bundesinnenministerium mahnt uns wegen Urheberrechtsverletzung ab.
+  </p>
+  <p>
+    <a href="#dokumente" class="btn btn-primary btn-lg" role="button">&raquo; Die Dokumente</a>
+    <a href="#pressemitteilung" class="btn btn-primary btn-lg" role="button">&raquo; Zur Pressemitteilung</a>
+  </p>
+</div>
+
+<div class="row">
+  <div class="col-lg-8 col-lg-push-2">
+    <p class="lead">
+      Nachdem ein Bürger auf FragDenStaat.de <a href="https://fragdenstaat.de/anfrage/stellungnahme-zur-anderung-der-euwg/">eine Aktenauskunft zur Prozenthürde bei der Europawahl beantragt hat</a>, stellte ihm das Innenministerium das Papier - <a href="{% static "docs/vermerk_eusperrklausel.pdf" %}">eine Stellungsnahme</a> - zur Verfügung. Gleichzeitig untersagte das Ministerium jedoch unter Berufung auf das Urheberrecht eine Veröffentlichung. Damit wird ein Recht, das zur Förderung von Künstlern und Autoren geschaffen wurde, zum Instrument staatlicher Zensur umfunktioniert. Die Open Knowledge Foundation Deutschland, die FragDenStaat.de betreibt, hat sich deshalb entschlossen, die Abmahnung zurückzuweisen und das Dokument weiterhin öffentlich bereitzustellen.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+<div class="col-lg-12">
+
+<div class="row" id="dokumente">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <a href="https://fragdenstaat.de/files/foi/13276/anschreiben.pdf">
+        <img src="{% static "img/presse/2014/anschreiben.png" %}" class="img-responsive" alt="Anschreiben">
+      </a>
+      <div class="caption">
+        <h3>Das Anschreiben</h3>
+        <p>Das Bundesinnenministerium verbietet die Veröffentlichung eines von Hausjuristen erstellten Vermerks.</p>
+        <p>
+          <a href="https://fragdenstaat.de/files/foi/13276/anschreiben.pdf" class="btn btn-primary btn-lg">Download</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <a href="{% static "docs/vermerk_eusperrklausel.pdf" %}">
+        <img src="{% static "img/presse/2014/stellungnahme.png" %}" class="img-responsive" alt="Stellungnahme">
+      </a>
+      <div class="caption">
+        <h3>Die Stellungnahme</h3>
+        <p>Der Vermerk bezieht sich auf das Bundesverassungsurteil zur Prozenthürde bei der Europawahl.</p>
+        <p>
+          <a href="{% static "docs/vermerk_eusperrklausel.pdf" %}" class="btn btn-primary btn-lg">Download</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <a href="{% static "docs/abmahnung_redeker.pdf" %}">
+        <img src="{% static "img/presse/2014/abmahnung.png" %}" class="img-responsive" alt="Abmahnung">
+      </a>
+      <div class="caption">
+        <h3>Die Abmahnung</h3>
+        <p>Das Bundesinnenministerium lässt uns von der Kanzlei Redeker Sellner Dahs abmahnen.</p>
+        <p>
+          <a href="{% static "docs/abmahnung_redeker.pdf" %}" class="btn btn-primary btn-lg">Download</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="row">
+<div class="col-lg-8 col-lg-push-2">
+
+<h3>Was ist Informationsfreiheit?</h3>
+
+<p>Informationsfreiheitsgesetze helfen dabei, Dokumente des Staates für jeden Menschen zugänglich zu machen. Diese Gesetze, die Bürgern das Recht auf Auskunft und Einsicht in Verwaltungsakten einräumen, gibt es in Deutschland auf Bundesebene und in 11 Bundesländern. In zwei weiteren Ländern (Niedersachsen und Baden-Württemberg) ist die Informationsfreiheit im Koalitionsvertrag festgeschrieben. </p>
+
+<p>Viele Bürger wünschen sich einen transparenteren Staat, dessen Entscheidungen nachvollziehbar sind. Informationsgesetze ermöglichen diese Transparenz und Nachvollziehbarkeit, werden aber von Bürgern noch immer viel zu wenig genutzt, da das gesetzliche Verfahren mit Aktenauskunftsantrag und Ausnahmetatbeständen sehr abschreckend wirkt.</p>
+
+<h3>Was macht FragDenStaat.de?</h3>
+
+<p>Über FragDenStaat.de können Bürgerinnen und Bürger ganz leicht Anfragen nach dem Informationsfreiheitsgesetz stellen. Das Informationsfreiheitsgesetz gewährt jedem Menschen Zugang zu Dokumenten der Verwaltung. Insgesamt werden mittlerweile rund ein Drittel der IFG-Anfragen auf Bundesebene über FragDenStaat.de gestellt.</p>
+
+<h3>Handelt es sich um ein geheimes Dokument?</h3>
+
+<p>Nein! Jede Bürgerin und jeder Bürger kann das Dokument über eine Informationsfreiheitsanfrage erhalten. Eine Veröffentlichung des Dokuments scheint daher ein naheliegender Schritt, um viele gleichlautende Anfragen zu vermeiden und Arbeit im Ministerium zu sparen. Das Innenministerium beruft sich auf das Urheberrecht, um eine Veröffentlichung zu verhindern. Wer sich für das Dokument interessiert, kann dieses hier anfragen.</p>
+
+<h3>Wie kann ich helfen?</h3>
+
+<ul>
+  <li>
+    Legt euch eine legale Privatkopie des Dokuments an, da wir nicht wissen, wie lange wir das Dokument noch bereitstellen können. Namentliche Veröffentlichungen anderswo im Internet werden sehr wahrscheinlich ebenfalls vom Innenministerium kostenpflichtig abgemahnt.
+  </li>
+  <li>
+    Der Fall wird wahrscheinlich vor Gericht gehen. <a href="{% url 'help-donate' %}">Über Spenden, die unsere Arbeit unterstützen und die Kosten eines Gerichtsprozesses abfedern, freuen wir uns sehr.</a>
+  </li>
+  <li>
+    <strong>#Zensurheberrecht!</strong>
+    Darüber hinaus braucht dieser Fall Öffentlichkeit: Je mehr Menschen sich für den Kampf von Transparenz gegen Urheberrecht interessieren, umso besser.
+  </li>
+</ul>
+
+</div>
+</div>
+
+<div class="row">
+<div class="col-lg-8 col-lg-push-2">
+<h3>Zeitliche Abfolge</h3>
+<ul>
+  <li>
+    09.11.2011: Bundesverfassungsgerichtsurteil gegen Sperrklausel im bestehenden Europawahlgesetz
+  </li>
+  <li>
+    16.11.2011: Stellungnahme im BMI zu dem Urteil, die sich gegen eine Prozenthürde wendet
+  </li>
+  <li>
+    04.06.2013: <a href="http://dip21.bundestag.de/dip21/btd/17/137/1713705.pdf">Gesetzentwurf zur Änderung des Europawahlgesetzes</a> - mit 3-Prozent-Hürde
+  </li>
+  <li>
+    10.06.2013: Anhörung des Innenausschusses zum Thema
+  </li>
+  <li>
+    12.06.2013: <a href="http://dip21.bundestag.de/dip21/btd/17/139/1713935.pdf">Beschlussempfehlung und Bericht des Innenausschusses</a>
+  </li>
+  <li>07.10.2013: Gesetzesänderung wird mit 3-Prozent-Hürde verabschiedet</li>
+  <li>09.10.2013: Gesetzesänderung wird im Bundesgesetzblatt veröffentlicht und tritt am nächsten Tag in Kraft</li>
+  <li>
+    14.10.2013: <span class="text-success">Stellungnahme</span> wird <a href="https://fragdenstaat.de/anfrage/stellungnahme-zur-anderung-der-euwg/">über FragDenStaat.de angefragt</a>
+  </li>
+  <li>
+    14.11.2013: BMI gibt <span class="text-success">Stellungnahme</span> an Antragsteller mit Veröffentlichungsverbot heraus
+  </li>
+  <li>
+    27.12.2013: FragDenStaat.de veröffentlicht die <span class="text-success">Stellungnahme</span>
+  </li>
+  <li>
+    17.01.2014: BMI mahnt FragDenStaat.de ab
+  </li>
+</ul>
+
+</div>
+</div>
+
+
+<div class="row">
+<div class="col-lg-8 col-lg-push-2">
+
+<h2 id="pressemitteilung">Zensurheberrecht &mdash;
+<br/>FragDenStaat.de widersetzt sich der Abmahnung des Innenministeriums: Europawahl-Gutachten bleibt öffentlich</h2>
+<h3 class="text-muted">
+  Angriff der Bundesregierung auf digitale Informationsfreiheit
+</h3>
+
+<p>
+  <em>Berlin, 22.01.2014</em> – Das Bundesministerium des Innern (BMI) hat das Informationsfreiheitsportal FragDenStaat.de der gemeinnützigen Open Knowledge Foundation Deutschland e.V. wegen der Veröffentlichung einer Stellungnahme abgemahnt, die zuvor vom BMI nach dem Informationsfreiheitsgesetz herausgegeben wurde. Mit diesem Schritt versucht die Bundesregierung das Urheberrecht zu nutzen, um die Berichterstattung über ein brisantes Dokument einzuschränken.
+</p>
+
+<p>
+  In der fraglichen Stellungnahme raten die Hausjuristen des Innenministeriums bei der Änderung des Europawahlgesetzes von einer Prozenthürde ab, da diese nach einem Urteil des Bundesverfassungsgerichts vom November 2011 verfassungswidrig sei. Entgegen dieser Stellungnahme beschloss der Bundestag im Juni 2013 eine 3%-Hürde für die Europawahl, die im Mai 2014 stattfindet. Die Veröffentlichung dieses Widerspruchs zwischen interner Rechtsauffassung und politischem Handeln möchte das Innenministerium nicht veröffentlicht sehen.
+</p>
+
+<p>Stefan Wehrmeyer, Projektleiter von FragDenStaat.de, stellt fest:</p>
+
+<blockquote>
+  <p>
+    „Der Bundesregierung geht es nicht um Autorenrechte. Sie nutzt das Urheberrecht willkürlich, um die Veröffentlichung von brisanten, staatlichen Dokumenten zu verhindern. Es entsteht der Eindruck, dass die Bundesregierung die Nachvollziehbarkeit politischen Handelns erschweren will.”
+  </p>
+</blockquote>
+
+<p>Ansgar Koreng von der Anwaltskanzlei <a href="http://www.jbb.de/">JBB Anwälte</a>, die FragDenStaat.de in dem Fall vertritt, erklärt:</p>
+
+<blockquote>
+  <p>
+    “Der Europäische Gerichtshof für Menschenrechte hat erst kürzlich klargestellt, dass in Fällen wie diesem die Meinungsfreiheit schwerer wiegen kann, als das Urheberrecht. In dieser Abmahnung tritt der Konflikt zwischen Meinungsfreiheit und Urheberrecht außergewöhnlich klar zu Tage. Gerade in politischen Angelegenheiten darf das Urheberrecht nicht zur Zensur missliebiger Veröffentlichungen missbraucht werden.“
+  </p>
+</blockquote>
+
+<p>
+  Das Urheberrecht darf als einfaches Mittel gegen unbequeme Veröffentlichungen von staatlichen Dokumenten keinen Bestand haben, sonst wird journalistische Arbeit und gesellschaftliche Debatten auf Grundlage von Quellmaterial stark erschwert. Ein abgezeichneter Beschluss, der uns vorliegt, zeigt außerdem, dass weitere Veröffentlichungen der Stellungnahme anderswo im Internet auch kostenpflichtig abgemahnt werden sollen.
+</p>
+
+<h4>Hintergrund:</h4>
+<p>Am 16.11.2011 verfassten zwei Mitarbeiter im BMI eine Stellungnahme zum Urteil des Bundesverfassungsgerichts, das die 5%-Hürde bei der Europawahl als verfassungswidrig erklärte. Die BMI-Stellungnahme argumentierte, dass nach dem Urteil auch jede andere Prozent-Hürde nicht verfassungskonform sei und somit ganz abgeschafft werden müsste. Entgegen der BMI-internen Einschätzung beschloss der Bundestag letztes Jahr eine 3%-Hürde für die Europawahl.</p>
+
+<p>Die BMI-Stellungnahme wurde von Guido Strack, Gründer des Whistleblower-Netzwerks, mittels des Informationsfreiheitsgesetzes über FragDenStaat.de angefragt. Die Stellungnahme wurde zwar herausgegeben, allerdings mit der Aufforderung die Veröffentlichung zu unterlassen. Um das Recht auf Informationsfreiheit zu stärken und ein Zeichen gegen willkürliche Beschränkungen zu setzen, veröffentlichte FragDenStaat.de das Dokument Ende Dezember. Die Abmahnung des BMI traf am 17.01.2014 per Fax ein mit einer Frist bis zum 21.01.2014.</p>
+
+
+<p><strong>FragDenStaat.de</strong> ist eine Web-Plattform, die seit mehr als zwei Jahren Bürgerinnen und Bürgern hilft, ihr Recht auf Informationsfreiheit wahrzunehmen und das gesetzlich verbriefte Auskunftsrecht von Behörden gegenüber Bürgern zu bestärken. Anfragen und Antworten werden auf FragDenStaat.de öffentlich dargestellt, um die Transparenz des Prozesses zu erhöhen. Die Plattform hat seit ihrem Launch am 1. August 2011 schon über 2000 Anfragen veröffentlicht. Mehr als ein Drittel aller IFG-Anfragen des Bundes liefen 2012 über FragDenStaat.de.</p>
+
+
+<p><strong>Der Open Knowledge Foundation Deutschland e.V.</strong> (OKF DE) ist ein gemeinnütziger Verein mit Sitz in Berlin und betreibt FragDenStaat.de. Der Verein setzt sich für Open Data, Open Government und Transparenz ein. Andere bekannte Projekte der Open Knowledge Foundation sind das Haushaltstransparenz-Portal OffenerHaushalt.de und die Parlaments-Monitoring-Plattform OffenesParlament.de.</p>
+
+
+<a href="/presse/#materialien">Presse-Materialien (Logos)</a>
+
+<h4>Kontakt</h4>
+
+<p>
+Stefan Wehrmeyer<br/>
+stefan.wehrmeyer@okfn.org<br/>
+030 577036662<br/>
+0151 15550559<br/>
+</p>
+
+<p>
+Ansgar Koreng<br/>
+koreng@jbb.de
+</p>
+
+</div>
+</div>
+{% endblock %}

@@ -18,37 +18,30 @@
       <button type="button" id="close-donation" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <div class="col-lg-10 col-md-10">
         <h3>
-          Das Innenministerium mahnt FragDenStaat.de wegen der Veröffentlichung eines staatlichen Dokuments ab
-          <small><a href="#">Lesen Sie die Geschichte</a></small>
+          Wir wehren uns gegen die Abmahnung durch das Innenministerium wegen der Veröffentlichung eines staatlichen Dokuments.
         </h3>
         <p>
-          Helfen Sie uns Dokumente zu befreien und Menschen zu helfen: <br/>
-          Bitte spenden Sie für transparente Informationsfreiheit in Deutschland. <a style="text-decoration:underline" href="{% url 'help-donate' %}">Erfahren Sie mehr...</a>
+          Mit Ihrer Hilfe können wir die Informationsfreiheit in Deutschland verteidigen – auch vor Gericht.
+          <a href="/presse/2014-01-21-bmi-mahnt-fragdenstaat-ab/#top">Lesen Sie die Geschichte</a>
         </p>
         <div class="row">
           <div class="col-lg-5 col-md-5 col-sm-6">
-            <a href="https://www.betterplace.org/de/projects/15469-fragdenstaat-de/donations/new" class="btn btn-success">
-              <span class="glyphicon glyphicon-heart"></span>
-              Spenden Sie jetzt für unsere Verteidigung
+            <a href="{% url 'help-donate' %}#spenden" class="btn btn-info">
+              Spenden Sie jetzt
             </a>
           </div>
-          <div class="col-lg-7 col-md-7 col-sm-6">
-            <a class="pull-right" href="https://flattr.com/thing/520066/FragDenStaat-de" target="_blank">
-              <img src="{% static "img/flattr-badge-large.png" %}" alt="Flattr FragDenStaat.de" title="Flattr FragDenStaat.de" border="0" />
-            </a>
+          <div class="col-lg-7 col-md-7 col-sm-6 hide">
             <small>
-              Konto: 3009670, BLZ: 830 944 95<br/>
+              Konto: 3009670, BLZ: 830 944 95
+              <br/>
               IBAN:&nbsp;DE89830944950003009670,&nbsp;BIC:&nbsp;GENODEF1ETK<br/>
-              <a style="text-decoration:underline" href="{% url 'help-donate' %}#spenden">Mehr Optionen</a>
             </small>
           </div>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 visible-lg visible-md">
-        <a href="{% url 'help-donate' %}#stefan">
-          <img title="Thomas de Maizière" src="{% static "img/demaiziere.jpg" %}" class="donation-image"/>
-          <small class="visible-lg">Thomas de Maizière, Innenminister</small>
-        </a>
+        <img title="Thomas de Maizière" src="{% static "img/demaiziere.jpg" %}" class="donation-image"/>
+        <small class="visible-lg">Thomas de Maizière, Innenminister</small>
       </div>
     </div>
   </div>
@@ -99,21 +92,6 @@
   FragDenStaat.de ist ein gemeinnütziges Projekt des <a href="http://www.okfn.de">Open Knowledge Foundation Deutschland e.V.</a><br/>
   Wenn Sie FragDenStaat.de unterstützen möchten, <a href="{% url 'help-donate' %}">freuen wir uns über Ihre Spende!</a>
 </p>
-{% endblock %}
-
-{% block scripts %}
-{{ block.super }}
-{% block donation_script %}
-<script>
-  $(function(){
-    $('.donation-banner').show();
-    $('#close-donation').click(function(){
-      $('.navbar').removeClass('donation-top');
-      $('.donation-banner').hide();
-    })
-  });
-</script>
-{% endblock %}
 {% endblock %}
 
 {% block tracking_code %}

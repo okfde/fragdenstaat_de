@@ -26,6 +26,14 @@
   color: #fff;
 }
 
+.donation-banner a {
+  color: #39b3d7;
+}
+
+.donation-banner a.btn {
+  color: inherit;
+}
+
 .donation-banner small {
   font-size: 75%;
 }

@@ -1,19 +1,45 @@
 {% extends "press/base.html" %}
+{% load static from staticfiles %}
 
 {% block body %}
-<h2>FragDenStaat.de - Presse</h2>
+<h2>Presse</h2>
+
+<h3>Presse-Mitteilungen</h3>
 
 <ul>
   <li>
+    <a href="/presse/2014-01-21-bmi-mahnt-fragdenstaat-ab/">
+      22.01.2014: Bundesinnenministerium mahnt FragDenStaat.de ab
+    </a>
+  </li>
+  <li>
     <a href="/presse/2013-12-27-eusperrklausel-stellungnahme-bmi/">
-      Stellungnahme des Bundesinnenministeriums zur EU-Sperrklausel
+      27.12.2013: Stellungnahme des Bundesinnenministeriums zur EU-Sperrklausel
     </a>
   </li>
   <li>
     <a href="/presse/2013-02-26-tausend-anfragen/">
-      Rekord bei IFG-Anfragen
+      26.02.2013: Rekord bei IFG-Anfragen
     </a>
   </li>
 </ul>
+
+<h3 id="materialien">Presse-Materialien</h3>
+
+<ul>
+  <li>
+    <a href="{% static 'img/presse/fragdenstaat_logo.png' %}">FragDenStaat.de-Logo</a>
+  </li>
+  <li>
+    <a href="{% static 'img/presse/fragdenstaat_logo.svg' %}">FragDenStaat.de-Logo (Vektor, SVG)</a>
+  </li>
+  <li>
+    <a href="{% static 'img/presse/okfn_logo.png' %}">OKFN-Logo</a>
+  </li>
+  <li>
+    <a href="{% static 'img/presse/okfn_logo.svg' %}">OKFN-Logo (Vektor, SVG)</a>
+  </li>
+</ul>
+
 
 {% endblock %}
