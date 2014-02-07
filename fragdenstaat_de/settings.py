@@ -72,6 +72,12 @@ class FragDenStaatBase(German, ThemeBase, Base):
 
     EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
     CELERY_EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    CELERY_EMAIL_TASK_CONFIG = {
+        'max_retries': None,
+        'ignore_result': False,
+        'acks_late': True,
+        'store_errors_even_if_ignored': True
+    }
 
 
 class Dev(FragDenStaatBase):
