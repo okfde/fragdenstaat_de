@@ -1,0 +1,8 @@
+{% extends "press/base.html" %}
+{% load static from staticfiles %}
+
+{% block title %}{{ flatpage.title }} - {{ super }}{% endblock %}
+
+{% block body %}
+{{ flatpage.content }}
+{% endblock %}

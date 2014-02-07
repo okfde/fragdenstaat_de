@@ -21,6 +21,8 @@ class FragDenStaatBase(German, ThemeBase, Base):
             'celery_haystack',
             'djcelery_email',
             'djangosecure',
+            'django.contrib.redirects',
+            'django.contrib.flatpages'
         ]
         return installed
 
@@ -35,6 +37,9 @@ class FragDenStaatBase(German, ThemeBase, Base):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.common.CommonMiddleware',
+        'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+        'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+        'froide.account.middleware.AcceptNewTermsMiddleware',
     ]
 
     CACHES = {

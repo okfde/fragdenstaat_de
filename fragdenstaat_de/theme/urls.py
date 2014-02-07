@@ -1,14 +1,9 @@
-from django.conf.urls import patterns, url, include
-from django.http import HttpResponseRedirect
+from django.conf.urls import patterns, include
 
 
 urlpatterns = patterns('fragdenstaat_de.theme.views',
     (r'^presse/$', 'show_press', {}, 'fds-show_press'),
     (r'^presse/(?P<slug>[-\w]+)/$', 'show_press', {}, 'fds-show_press'),
-    url(r'^nordrhein-westfalen/', lambda request: HttpResponseRedirect('/nrw/'),
-        name="jurisdiction-nrw-redirect"),
-    url(r'^rlp/', lambda request: HttpResponseRedirect('/rheinland-pfalz/'),
-        name="jurisdiction-rlp-redirect"),
 )
 
 urlpatterns += patterns('',
