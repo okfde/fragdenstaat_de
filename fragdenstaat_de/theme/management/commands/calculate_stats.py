@@ -10,10 +10,12 @@ from django.conf import settings
 class Command(BaseCommand):
     help = "Calculate stats"
 
-    def handle(self, filename, output, *args, **options):
+    def handle(self, filename, output=None, *args, **options):
         from froide.publicbody.models import PublicBody
         from froide.foirequest.models import FoiRequest
         translation.activate(settings.LANGUAGE_CODE)
+
+        year = 2013
 
         def get_status(status):
             KNOWN_STATUS = (
@@ -41,9 +43,12 @@ class Command(BaseCommand):
                 status_counter[get_status(r.status)] += 1
             return status_counter
 
-        reader = unicodecsv.DictReader(file(filename),
-                encoding='utf-8')
-        writer = unicodecsv.DictWriter(file(output, 'w'),
+        reader = unicodecsv.DictReader(file(filename), encoding='utf-8')
+        if output == '-':
+            output = self.stdout
+        else:
+            output = file(output, 'w')
+        writer = unicodecsv.DictWriter(output,
             ('id', 'name', 'type', 'official_count', 'fds_count'), encoding='utf-8')
         writer.writeheader()
         for row in reader:
@@ -62,14 +67,14 @@ class Command(BaseCommand):
             if is_gb:
                 pbs = PublicBody.objects.filter(root=pb)
                 reqs = FoiRequest.objects.filter(
-                    first_message__year=2012,
+                    first_message__year=year,
                     visibility__gt=0,
                     public_body__in=pbs, is_foi=True)
                 stats = stats_for_queryset(reqs, u"GB: %s" % pb.name)
                 name = '%s (GB)' % pb.name
                 count = len(reqs)
             else:
-                reqs = FoiRequest.objects.filter(first_message__year=2012,
+                reqs = FoiRequest.objects.filter(first_message__year=year,
                     visibility__gt=0,
                     public_body=pb, is_foi=True)
                 stats = stats_for_queryset(reqs)
