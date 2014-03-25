@@ -79,6 +79,28 @@ class FragDenStaatBase(German, ThemeBase, Base):
         'store_errors_even_if_ignored': True
     }
 
+    @property
+    def FROIDE_CONFIG(self):
+        config = super(FragDenStaatBase, self).FROIDE_CONFIG
+        config.update(dict(
+            create_new_publicbody=False,
+            publicbody_empty=True,
+            user_can_hide_web=True,
+            public_body_officials_public=True,
+            public_body_officials_email_public=False,
+            default_law=2,
+            doc_conversion_binary="/usr/bin/libreoffice",
+            dryrun=False,
+            dryrun_domain="fragdenstaat.stefanwehrmeyer.com",
+            allow_pseudonym=True,
+            api_activated=True,
+            search_engine_query='http://www.google.de/search?as_q=%(query)s&as_epq=&as_oq=&as_eq=&hl=en&lr=&cr=&as_ft=i&as_filetype=&as_qdr=all&as_occt=any&as_dt=i&as_sitesearch=%(domain)s&as_rights=&safe=images',
+            show_public_body_employee_name=False,
+            greetings=[rec(u"Sehr geehrt(er? (?:Herr|Frau)(?: ?Dr\.?)?(?: ?Prof\.?)? .*)")],
+            closings=[rec(u"[Mm]it( den)? (freundlichen|vielen|besten) Gr\xfc\xdfen,?"), rec("Hochachtungsvoll,?"), rec('i\. ?A\.'), rec('[iI]m Auftrag')]
+        ))
+        return config
+
 
 class Dev(FragDenStaatBase):
     pass
