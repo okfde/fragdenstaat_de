@@ -3,6 +3,43 @@
 {% load i18n %}
 {% load static from staticfiles %}
 
+{% block top_block %}
+<div class="donation-banner">
+  <div class="container">
+    <div class="row">
+      <button type="button" id="close-donation" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <div class="col-lg-10 col-md-10">
+        <h3>
+          Wir wehren uns gegen die Abmahnung durch das Innenministerium wegen der Veröffentlichung eines staatlichen Dokuments.
+        </h3>
+        <p>
+          Mit Ihrer Hilfe können wir die Informationsfreiheit in Deutschland verteidigen – auch vor Gericht.
+          <a href="/presse/2014-01-21-bmi-mahnt-fragdenstaat-ab/#top">Lesen Sie die Geschichte</a>
+        </p>
+        <div class="row">
+          <div class="col-lg-5 col-md-5 col-sm-6">
+            <a href="{% url 'help-donate' %}#spenden" class="btn btn-info">
+              Spenden Sie jetzt
+            </a>
+          </div>
+          <div class="col-lg-7 col-md-7 col-sm-6 hide">
+            <small>
+              Konto: 3009670, BLZ: 830 944 95
+              <br/>
+              IBAN:&nbsp;DE89830944950003009670,&nbsp;BIC:&nbsp;GENODEF1ETK<br/>
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 visible-lg visible-md">
+        <img title="Thomas de Maizière" src="{% static "img/demaiziere.jpg" %}" class="donation-image"/>
+        <small class="visible-lg">Thomas de Maizière, Innenminister</small>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
 {% comment %}
 {% block index_banner %}
   <div class="container">
