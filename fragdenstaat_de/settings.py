@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import os
+import re
 
 from froide.settings import Base, ThemeBase, German
+
+rec = re.compile
 
 
 class FragDenStaatBase(German, ThemeBase, Base):
