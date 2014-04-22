@@ -27,6 +27,13 @@
   </ul>
 {% endblock nav %}
 
+{% block footer_description %}
+<p>
+  FragDenStaat.de ist ein gemeinnütziges Projekt des <a href="http://www.okfn.de">Open Knowledge Foundation Deutschland e.V.</a><br/>
+  Wenn Sie FragDenStaat.de unterstützen möchten, <a href="{% url 'help-donate' %}">freuen wir uns über Ihre Spende!</a>
+</p>
+{% endblock %}
+
 {% block footer_menu_custom %}
 <li>
   <a href="http://blog.fragdenstaat.de/">{% trans "Blog" %}</a>
@@ -48,14 +55,18 @@
 <li>
   <a href="{% url 'publicbody-list' %}">{% blocktrans %}Public Bodies{% endblocktrans %}</a>
 </li>
-{% endblock %}
+{% endblock footer_menu_custom %}
 
-{% block footer_description %}
-<p>
-  FragDenStaat.de ist ein gemeinnütziges Projekt des <a href="http://www.okfn.de">Open Knowledge Foundation Deutschland e.V.</a><br/>
-  Wenn Sie FragDenStaat.de unterstützen möchten, <a href="{% url 'help-donate' %}">freuen wir uns über Ihre Spende!</a>
-</p>
-{% endblock %}
+{% block footer_below %}
+  <hr/>
+  <div class="row text-muted">
+    <div class="col-lg-12">
+      <p>
+        Fragdenstaat nutzt statt den üblichen externen Dienstleistern die datenschutzfreundlichere Technologie von <a href="http://piwik.org/">Piwik</a>, um statistische Auswertungen der Seitennutzung zu erhalten. Wenn sie dies nicht wollen, <a href="https://fragdenstaat.de/piwik/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=de">klicken Sie bitte hier und entfernen Sie den Haken</a>. Näheres in <a href="{% url 'help-privacy' %}">unserer Datenschutzerklärung</a>.
+      </p>
+    </div>
+  </div>
+{% endblock footer_below %}
 
 {% block tracking_code %}
 <!-- Piwik -->
