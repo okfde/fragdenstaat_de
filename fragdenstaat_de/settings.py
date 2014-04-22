@@ -4,7 +4,7 @@ import re
 
 from froide.settings import Base, ThemeBase, German
 
-rec = re.compile
+rec = lambda x: re.compile(x, re.I | re.U)
 
 
 class FragDenStaatBase(German, ThemeBase, Base):
