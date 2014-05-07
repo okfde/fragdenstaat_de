@@ -70,3 +70,25 @@
   Fragen Sie hier nach Behördendokumenten, die für Sie und Ihr Engagement wichtig sind!
 </p>
 {% endblock %}
+
+{% block index_content_row %}
+<div class="row">
+  <div class="col-lg-6 col-md-6">
+    {% block index_sub_left %}
+    <h3>{% blocktrans %}What is Freedom of Information?{% endblocktrans %}</h3>
+    <p>{% blocktrans %}Every citizen has the right under the Freedom of Information Laws to ask for and receive access to information from Public Bodies concerning public affairs.{% endblocktrans %}
+    </p>
+    {% endblock %}
+  </div>
+
+  <div class="col-lg-6 col-md-6">
+    {% block index_sub_right %}
+    <h3>{% blocktrans %}What does this site do?{% endblocktrans %}</h3>
+    <p>{% blocktrans %}This site publishes Freedom of Information requests and replies so that others don't have to ask for the same information and replies can be scrutinized by the public.{% endblocktrans %}
+    <br/>
+     <a href="{% url 'help-index' %}">{% blocktrans %}Read more about the concept!{% endblocktrans %}</a>
+    </p>
+    {% endblock %}
+  </div>
+</div>
+{% endblock %}
