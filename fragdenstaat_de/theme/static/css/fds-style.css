@@ -9,6 +9,10 @@
     border: 0 !important;
 }
 
+.noticeable-break {
+  border: 2px solid #ccc;
+}
+
 .navbar-fds .navbar-brand {
   font-size: 34px;
   color: #06C;
