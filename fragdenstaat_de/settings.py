@@ -52,6 +52,10 @@ class FragDenStaatBase(German, ThemeBase, Base):
         }
     }
 
+    # ######## Celery Haystack ########
+    # Experimental feature to update index after 60s
+    CELERY_HAYSTACK_TIMEOUT = 60
+
     ########## Debug ###########
 
     HAYSTACK_CONNECTIONS = {
