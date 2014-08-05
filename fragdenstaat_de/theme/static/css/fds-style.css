@@ -189,3 +189,36 @@
 .small-icon.jurisdiction-mecklenburg-vorpommern {
     background-image: url('../img/jurisdictions/mecklenburg-vorpommern_small.png')
 }
+
+.frontpage-teaser h3 {
+  margin-top: -6px;
+}
+
+.col-video-7 {
+  width: 100%;
+  height: 430px;
+}
+
+@media screen and (min-width: 768px) {
+  .col-video-7 {
+    width: 669px;
+    height: 376px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .col-video-7 {
+    width: 497px;
+    height: 279px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .col-video-7 {
+    width: 605px;
+    height: 340px;
+  }
+
+.frontpage-teaser h3 {
+  margin-top: -6px;
+}}
