@@ -20,7 +20,6 @@ class FragDenStaatBase(German, ThemeBase, Base):
     def INSTALLED_APPS(self):
         installed = super(FragDenStaatBase, self).INSTALLED_APPS
         installed += [
-            'foiidea',
             'celery_haystack',
             'djcelery_email',
             'djangosecure',

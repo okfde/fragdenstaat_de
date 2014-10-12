@@ -1,7 +1,6 @@
-from django.conf.urls import patterns, include
+from django.conf.urls import patterns, include  # noqa
 
 
 urlpatterns = patterns('',
-    # Translators: URL part
-    (r'^nachrichten/', include('foiidea.urls')),
+    # Add extra URL patterns here
 )
