@@ -85,6 +85,10 @@ class FragDenStaatBase(German, ThemeBase, Base):
         'store_errors_even_if_ignored': True
     }
 
+    # Fig broker setup
+    if 'BROKER_1_PORT' in os.environ:
+        BROKER_URL = 'amqp://guest:**@%s/' % os.environ['BROKER_1_PORT'].replace('tcp://', '')
+
     @property
     def FROIDE_CONFIG(self):
         config = super(FragDenStaatBase, self).FROIDE_CONFIG
