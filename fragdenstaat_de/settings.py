@@ -24,7 +24,6 @@ class FragDenStaatBase(German, ThemeBase, Base):
             'djcelery_email',
             'djangosecure',
             'django.contrib.redirects',
-            'django.contrib.flatpages',
             'tinymce'
         ]
         return installed
