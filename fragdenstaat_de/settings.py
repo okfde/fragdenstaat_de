@@ -24,13 +24,21 @@ class FragDenStaatBase(German, ThemeBase, Base):
             'djcelery_email',
             'djangosecure',
             'django.contrib.redirects',
-            'django.contrib.flatpages'
+            'django.contrib.flatpages',
+            'tinymce'
         ]
         return installed
 
     @property
     def GEOIP_PATH(self):
         return os.path.join(super(FragDenStaatBase, self).PROJECT_ROOT, '..', 'data')
+
+    TINYMCE_DEFAULT_CONFIG = {
+        'plugins': "table,spellchecker,paste,searchreplace",
+        'theme': "advanced",
+        'cleanup_on_startup': False,
+        'custom_undo_redo_levels': 10,
+    }
 
     MIDDLEWARE_CLASSES = [
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -113,10 +121,4 @@ class FragDenStaatBase(German, ThemeBase, Base):
 
 
 class Dev(FragDenStaatBase):
-    pass
-
-
-try:
-    from .local_settings import *  # noqa
-except ImportError:
     pass
