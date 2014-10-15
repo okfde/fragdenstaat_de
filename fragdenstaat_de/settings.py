@@ -35,8 +35,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
     TINYMCE_DEFAULT_CONFIG = {
         'plugins': "table,spellchecker,paste,searchreplace",
         'theme': "advanced",
-        'cleanup_on_startup': False,
-        'custom_undo_redo_levels': 10,
+        'cleanup_on_startup': False
     }
 
     MIDDLEWARE_CLASSES = [
