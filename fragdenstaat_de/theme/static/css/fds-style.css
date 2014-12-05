@@ -265,6 +265,9 @@
 .small-icon.jurisdiction-saarland {
     background-image: url('../img/jurisdictions/saarland_small.png')
 }
+.small-icon.jurisdiction-bremen {
+  background-image: url('../img/jurisdictions/bremen_small.png')
+}
 
 .frontpage-teaser h3 {
   margin-top: -6px;
