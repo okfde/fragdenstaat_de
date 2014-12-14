@@ -51,8 +51,8 @@
 .donation-banner .campaign-image {
   position: absolute;
   bottom:0;
-          transform: rotate(45deg) translate(-5px, 30px);
-  -webkit-transform: rotate(45deg) translate(-5px, 30px);
+          transform: rotate(160deg) translate(0px, 0px);
+  -webkit-transform: rotate(160deg) translate(0px, 0px);
   animation: campaignImageAnimation ease-out 1.5s;
   animation-iteration-count: 1;
   transform-origin: 50% 100%;
@@ -69,6 +69,52 @@
   -ms-animation-iteration-count: 1;
   -ms-transform-origin: 50% 50%;
 }
+
+@keyframes campaignImageAnimation{
+  0% {
+    transform:  translate(0px, -220px)  rotate(90deg) ;
+  }
+  100% {
+    transform:  translate(0px, 0px) rotate(160deg) ;
+  }
+}
+
+@-webkit-keyframes campaignImageAnimation {
+  0% {
+    -webkit-transform:  translate(0px, -220px)  rotate(90deg) ;
+  }
+  100% {
+    -webkit-transform:  rotate(160deg) translate(0px, 0px);
+  }
+}
+
+@-moz-keyframes campaignImageAnimation{
+  0% {
+    -moz-transform:  translate(-120px, 30px)  rotate(0deg) ;
+  }
+  100% {
+    -moz-transform:  rotate(45deg) translate(-5px, 30px);
+  }
+}
+
+@-o-keyframes campaignImageAnimation {
+  0% {
+    -o-transform:  translate(-120px, 30px)  rotate(0deg) ;
+  }
+  100% {
+    -o-transform:  rotate(45deg) translate(-5px, 30px);
+  }
+}
+
+@-ms-keyframes campaignImageAnimation {
+  0% {
+    -ms-transform:  translate(-120px, 30px)  rotate(0deg) ;
+  }
+  100% {
+    -ms-transform:  rotate(45deg) translate(-5px, 30px);
+  }
+}
+
 
 .donation-top {
   padding-top: 0;
@@ -109,51 +155,6 @@
     display: block;
     height: auto;
     max-width: 100%;
-  }
-}
-
-@keyframes campaignImageAnimation{
-  0% {
-    transform:  translate(-120px, 30px)  rotate(0deg) ;
-  }
-  100% {
-    transform:  rotate(45deg) translate(-5px, 30px);
-  }
-}
-
-@-moz-keyframes campaignImageAnimation{
-  0% {
-    -moz-transform:  translate(-120px, 30px)  rotate(0deg) ;
-  }
-  100% {
-    -moz-transform:  rotate(45deg) translate(-5px, 30px);
-  }
-}
-
-@-webkit-keyframes campaignImageAnimation {
-  0% {
-    -webkit-transform:  translate(-120px, 30px)  rotate(0deg) ;
-  }
-  100% {
-    -webkit-transform:  rotate(45deg) translate(-5px, 30px);
-  }
-}
-
-@-o-keyframes campaignImageAnimation {
-  0% {
-    -o-transform:  translate(-120px, 30px)  rotate(0deg) ;
-  }
-  100% {
-    -o-transform:  rotate(45deg) translate(-5px, 30px);
-  }
-}
-
-@-ms-keyframes campaignImageAnimation {
-  0% {
-    -ms-transform:  translate(-120px, 30px)  rotate(0deg) ;
-  }
-  100% {
-    -ms-transform:  rotate(45deg) translate(-5px, 30px);
   }
 }
 
