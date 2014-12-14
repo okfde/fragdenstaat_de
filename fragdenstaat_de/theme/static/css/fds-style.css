@@ -274,6 +274,9 @@
 .small-icon.jurisdiction-thueringen {
   background-image: url('../img/jurisdictions/thueringen_small.png')
 }
+.small-icon.jurisdiction-schleswig-holstein {
+  background-image: url('../img/jurisdictions/schleswig-holstein_small.png')
+}
 
 .frontpage-teaser h3 {
   margin-top: -6px;
