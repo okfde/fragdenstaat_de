@@ -120,3 +120,9 @@ class FragDenStaatBase(German, ThemeBase, Base):
 
 class Dev(FragDenStaatBase):
     pass
+
+
+try:
+    from .local_settings import *  # noqa
+except ImportError:
+    pass
