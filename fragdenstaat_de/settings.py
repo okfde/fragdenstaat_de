@@ -41,7 +41,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
     MIDDLEWARE_CLASSES = [
         'django.contrib.sessions.middleware.SessionMiddleware',
         'djangosecure.middleware.SecurityMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
+        'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.common.CommonMiddleware',
