@@ -1,0 +1,5 @@
+from .settings import FragDenStaatBase
+
+
+class Dev(FragDenStaatBase):
+    GEOIP_PATH = None
