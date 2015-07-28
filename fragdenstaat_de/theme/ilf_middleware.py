@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.utils.crypto import constant_time_compare
+from django.utils.encoding import force_text
 from django.utils.http import same_origin
 from django.middleware.csrf import (CsrfViewMiddleware, _sanitize_token,
                                     _get_new_csrf_key, REASON_BAD_REFERER,
@@ -60,7 +61,11 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                 # Barth et al. found that the Referer header is missing for
                 # same-domain requests in only about 0.2% of cases or less, so
                 # we can use strict Referer checking.
-                referer = request.META.get('HTTP_REFERER')
+                referer = force_text(
+                    request.META.get('HTTP_REFERER'),
+                    strings_only=True,
+                    errors='replace'
+                )
                 if referer is not None:
                     # Note that request.get_host() includes the port.
                     good_referer = 'https://%s/' % request.get_host()
@@ -77,7 +82,15 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
             # Check non-cookie token for match.
             request_csrf_token = ""
             if request.method == "POST":
-                request_csrf_token = request.POST.get('csrfmiddlewaretoken', '')
+                try:
+                    request_csrf_token = request.POST.get('csrfmiddlewaretoken', '')
+                except IOError:
+                    # Handle a broken connection before we've completed reading
+                    # the POST data. process_view shouldn't raise any
+                    # exceptions, so we'll ignore and serve the user a 403
+                    # (assuming they're still listening, which they probably
+                    # aren't because of the error).
+                    pass
 
             if request_csrf_token == "":
                 # Fall back to X-CSRFToken, to make things easier for AJAX,
