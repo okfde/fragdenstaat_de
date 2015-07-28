@@ -22,7 +22,6 @@ class FragDenStaatBase(German, ThemeBase, Base):
         installed += [
             'celery_haystack',
             'djcelery_email',
-            'djangosecure',
             'django.contrib.redirects',
             'tinymce'
         ]
@@ -40,7 +39,6 @@ class FragDenStaatBase(German, ThemeBase, Base):
 
     MIDDLEWARE_CLASSES = [
         'django.contrib.sessions.middleware.SessionMiddleware',
-        'djangosecure.middleware.SecurityMiddleware',
         'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
