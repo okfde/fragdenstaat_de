@@ -213,6 +213,21 @@
 .small-icon.jurisdiction-sachsen-anhalt {
   background-image: url('../img/jurisdictions/sachsen-anhalt_small.png')
 }
+.small-icon.jurisdiction-baden-wurttemberg {
+  background-image: url('../img/jurisdictions/baden-wurttemberg_small.png')
+}
+.small-icon.jurisdiction-bayern {
+  background-image: url('../img/jurisdictions/bayern_small.png')
+}
+.small-icon.jurisdiction-hessen {
+  background-image: url('../img/jurisdictions/hessen_small.png')
+}
+.small-icon.jurisdiction-niedersachsen {
+  background-image: url('../img/jurisdictions/niedersachsen_small.png')
+}
+.small-icon.jurisdiction-sachsen {
+  background-image: url('../img/jurisdictions/sachsen_small.png')
+}
 
 .frontpage-teaser h3 {
   margin-top: -6px;
