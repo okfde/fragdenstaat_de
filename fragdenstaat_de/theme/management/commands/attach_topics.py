@@ -5,25 +5,30 @@ from django.conf import settings
 
 
 class Command(BaseCommand):
-    help = "Loads Berlin"
+    help = "Attach topic to jurisdiction's public bodies"
     topic_cache = {}
 
-    def handle(self, jurisdiction_slug, *args, **options):
+    def add_arguments(self, parser):
+        parser.add_argument('jurisdiction')
 
-        from froide.publicbody.models import (PublicBodyTopic, PublicBody,
+    def handle(self, *args, **options):
+
+        from froide.publicbody.models import (PublicBodyTag, PublicBody,
             Jurisdiction)
 
         translation.activate(settings.LANGUAGE_CODE)
 
-        self.topic_cache = dict([(pb.slug, pb) for pb in PublicBodyTopic.objects.filter(is_topic=True)])
+        jurisdiction_slug = options.get('jurisdiction')
+        self.topic_cache = dict([(tag.slug, tag) for tag in PublicBodyTag.objects.filter(is_topic=True)])
         juris = Jurisdiction.objects.get(slug=jurisdiction_slug)
+
         for pb in PublicBody.objects.filter(jurisdiction=juris):
             topic = self.get_topic(pb)
             if topic is not None:
                 pb.tags.add(topic)
 
     def get_topic(self, pb):
-        name = pb['name'].lower()
+        name = pb.name.lower()
         mapping = {
             'polizei': 'inneres',
             'kriminal': 'inneres',
@@ -46,7 +51,7 @@ class Command(BaseCommand):
 
             'kammer': 'wirtschaft',
 
-            'bauamt': 'verkehr-und-bau',
+            'bauamt': 'bau',
 
             'umwelt': 'umwelt',
             'wald': 'umwelt',
