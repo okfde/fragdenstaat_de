@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: froide-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 23:39+0100\n"
+"POT-Creation-Date: 2015-08-21 18:43+0200\n"
 "PO-Revision-Date: 2013-01-23 17:45+0100\n"
 "Last-Translator: Stefan Wehrmeyer <mail@stefanwehrmeyer.com>\n"
 "Language-Team: OKF-DE <info@fragdenstaat.de>\n"
@@ -19,41 +19,87 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: templates/base.html:12
+#: fragdenstaat_de/theme/templates/base.html:21
+msgid "Requests"
+msgstr "Anfragen"
+
+#: fragdenstaat_de/theme/templates/base.html:24
 msgid "Blog"
 msgstr "Blog"
 
-#: templates/base.html:19
+#: fragdenstaat_de/theme/templates/base.html:27
+msgid "Make a Request!"
+msgstr "Stellen Sie eine Anfrage!"
+
+#: fragdenstaat_de/theme/templates/base.html:64
 msgid "Mailinglist!"
 msgstr "Mailingliste!"
 
-#: templates/base.html:23
+#: fragdenstaat_de/theme/templates/base.html:68
 msgid "Impressum"
 msgstr "Impressum"
 
-#: templates/base.html:30
-#, python-format
+#: fragdenstaat_de/theme/templates/index.html:76
+msgid "Featured Request"
+msgstr "Anfrage der Woche"
+
+#: fragdenstaat_de/theme/templates/index.html:86
+msgid "Read the blog post"
+msgstr "Lesen Sie den Blogeintrag"
+
+#: fragdenstaat_de/theme/templates/index.html:94
+msgid "Visit this request"
+msgstr "Lesen Sie die Anfrage"
+
+#: fragdenstaat_de/theme/templates/index.html:100
+#, fuzzy
+#| msgid ""
+#| "Freedom of Information Request\n"
+#| "\n"
+#| "    To: Ministry of Interior\n"
+#| "\n"
+#| "    Dear Sir or Madam,\n"
+#| "    I request information about the following:\n"
+#| "    ..."
 msgid ""
-"Froide is a free and Open Source Project by <a href=\"http://www.okfn.org"
-"\">the Open Knowledge Foundation</a>. If you want to support Froide, please "
-"visit the <a href=\"%(url)s\">repository on GitHub</a>."
+"Freedom of Information Request\n"
+"\n"
+"To: Ministry of Interior\n"
+"\n"
+"Dear Sir or Madam,\n"
+"I request information about the following:\n"
+"..."
 msgstr ""
-"FragDenStaat.de ist ein gemeinnütziges Projekt des <a href=\"http://okfn.de"
-"\">Open Knowledge Foundation Deutschland e.V.</a><br/>Wenn Sie FragDenStaat."
-"de unterstützen möchten, <a href=\"%(url)s\">freuen wir uns über Ihre Spende!"
-"</a>"
+"Anfrage nach dem Informationsfreiheitsgesetz\n"
+"\n"
+"An: Bundesministerium des Innern\n"
+"\n"
+"Sehr geehrte Damen und Herren,\n"
+"ich beantrage Auskunft zu folgender Sachlage:\n"
+"…"
 
-#: templates/index.html:11
-msgid "Like this? Consider supporting us!"
-msgstr "FragDenStaat.de braucht Deine Unterstützung!"
+#: fragdenstaat_de/theme/templates/index.html:107
+msgid "Write a Request Now!"
+msgstr "Schreiben Sie jetzt eine Anfrage!"
 
-#: templates/index.html:12
-msgid "Donate now!"
-msgstr "Jetzt spenden!"
+#~ msgid ""
+#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn.org"
+#~ "\">the Open Knowledge Foundation</a>. If you want to support Froide, "
+#~ "please visit the <a href=\"%(url)s\">repository on GitHub</a>."
+#~ msgstr ""
+#~ "FragDenStaat.de ist ein gemeinnütziges Projekt des <a href=\"http://okfn."
+#~ "de\">Open Knowledge Foundation Deutschland e.V.</a><br/>Wenn Sie "
+#~ "FragDenStaat.de unterstützen möchten, <a href=\"%(url)s\">freuen wir uns "
+#~ "über Ihre Spende!</a>"
 
-#: templates/index.html:16
-msgid "Flattr us!"
-msgstr "Flattr uns!"
+#~ msgid "Like this? Consider supporting us!"
+#~ msgstr "FragDenStaat.de braucht Deine Unterstützung!"
+
+#~ msgid "Donate now!"
+#~ msgstr "Jetzt spenden!"
+
+#~ msgid "Flattr us!"
+#~ msgstr "Flattr uns!"
 
 #~ msgid "about"
 #~ msgstr "ueber"
@@ -2764,9 +2810,6 @@ msgstr "Flattr uns!"
 #~ "Beste Grüße,\n"
 #~ "%(site_name)s\n"
 
-#~ msgid "Featured Request"
-#~ msgstr "Anfrage der Woche"
-
 #~ msgid "Text"
 #~ msgstr "Text"
 
@@ -3127,12 +3170,6 @@ msgstr "Flattr uns!"
 #~ "Diese Seite läuft momentan im Probebetrieb. Alle E-Mails an Behörden "
 #~ "gehen momentan an folgenden Mail-Server: "
 
-#~ msgid "Requests"
-#~ msgstr "Anfragen"
-
-#~ msgid "Make a Request!"
-#~ msgstr "Stellen Sie eine Anfrage!"
-
 #~ msgid "Account"
 #~ msgstr "Account"
 
@@ -3178,32 +3215,6 @@ msgstr "Flattr uns!"
 
 #~ msgid "Employment"
 #~ msgstr "Arbeit"
-
-#~ msgid "Read the blog post"
-#~ msgstr "Lesen Sie den Blogeintrag"
-
-#~ msgid "Visit this request"
-#~ msgstr "Lesen Sie die Anfrage"
-
-#~ msgid ""
-#~ "Freedom of Information Request\n"
-#~ "\n"
-#~ "    To: Ministry of Interior\n"
-#~ "\n"
-#~ "    Dear Sir or Madam,\n"
-#~ "    I request information about the following:\n"
-#~ "    ..."
-#~ msgstr ""
-#~ "Anfrage nach dem Informationsfreiheitsgesetz\n"
-#~ "\n"
-#~ "An: Bundesministerium des Innern\n"
-#~ "\n"
-#~ "Sehr geehrte Damen und Herren,\n"
-#~ "ich beantrage Auskunft zu folgender Sachlage:\n"
-#~ "…"
-
-#~ msgid "Write a Request Now!"
-#~ msgstr "Schreiben Sie jetzt eine Anfrage!"
 
 #~ msgid "What is Freedom of Information?"
 #~ msgstr "Was ist Informationsfreiheit?"
