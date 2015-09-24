@@ -27,7 +27,7 @@
   z-index: 1001;
   width: 100%;
   color: #333;
-  background-color: #5cb85c;
+  background-color: #fff;
   padding: 10px 0 30px;
   overflow:hidden;
 }
@@ -47,6 +47,92 @@
 .donation-banner .action-links {
   color: #fff;
 }
+
+.donation-banner .campaign-image {
+  position: absolute;
+  bottom:0;
+}
+
+.seehofer-img {
+  transform: translate(-100px, -200px) rotate(135deg);
+  animation: seehofer ease-out 1.5s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 100%;
+}
+
+@keyframes seehofer {
+  0% {
+    transform:  translate(-200px, -200px)  rotate(90deg) ;
+  }
+  100% {
+    transform:  translate(-100px, -200px) rotate(135deg) ;
+  }
+}
+
+.kretschmann-img {
+  transform: translate(0px, 0px) rotate(0deg);
+  animation: kretschmann ease-out 1.5s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 100%;
+}
+
+@keyframes kretschmann {
+  0% {
+    transform:  translate(0px, 100px)  rotate(-40deg) ;
+  }
+  100% {
+    transform:  translate(0px, 0px) rotate(0deg) ;
+  }
+}
+
+.tillich-img {
+  transform: translate(-80px, 0px) rotate(45deg);
+  animation: tillich ease-out 1.5s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 100%;
+}
+
+@keyframes tillich {
+  0% {
+    transform:  translate(-200px, 0px)  rotate(0deg) ;
+  }
+  100% {
+    transform:  translate(-80px, 0px) rotate(45deg) ;
+  }
+}
+
+.bouffier-img {
+  transform: translate(0px, -220px) rotate(150deg);
+  animation: bouffier ease-out 1.5s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 100%;
+}
+
+@keyframes bouffier {
+  0% {
+    transform:  translate(0px, -400px)  rotate(200deg) ;
+  }
+  100% {
+    transform:  translate(0px, -220px) rotate(150deg) ;
+  }
+}
+
+.weil-img {
+  transform: translate(-100px, -50px) rotate(90deg);
+  animation: weil ease-out 1.5s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 100%;
+}
+
+@keyframes weil {
+  0% {
+    transform:  translate(-400px, -50px)  rotate(90deg) ;
+  }
+  100% {
+    transform:  translate(-100px, -50px) rotate(90deg) ;
+  }
+}
+
 
 .donation-top {
   padding-top: 0;
