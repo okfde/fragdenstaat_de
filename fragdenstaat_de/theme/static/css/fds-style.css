@@ -5,6 +5,8 @@
     src: local('Kreon Regular'), local('Kreon-Regular'), url('../fonts/Kreon-Regular.ttf') format('truetype'), url('../fonts/Kreon-Regular.woff') format('woff');
 }
 
+
+
 .navbar-fds {
     border: 0 !important;
 }
@@ -347,3 +349,5 @@
 .frontpage-teaser h3 {
   margin-top: -6px;
 }}
+
+.img
