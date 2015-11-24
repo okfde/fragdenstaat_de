@@ -9,6 +9,10 @@ h1, h2, h3 {
        font-family: 'Kreon';
 }
 
+/* Wau Holland Logo Size (in Impressum) */
+.wau {
+    width: 18em;
+}
 
 
 .navbar-fds {
