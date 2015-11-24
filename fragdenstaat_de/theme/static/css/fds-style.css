@@ -5,6 +5,10 @@
     src: local('Kreon Regular'), local('Kreon-Regular'), url('../fonts/Kreon-Regular.ttf') format('truetype'), url('../fonts/Kreon-Regular.woff') format('woff');
 }
 
+h1, h2, h3 {
+       font-family: 'Kreon';
+}
+
 
 
 .navbar-fds {
