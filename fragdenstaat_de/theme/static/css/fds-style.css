@@ -5,6 +5,16 @@
     src: local('Kreon Regular'), local('Kreon-Regular'), url('../fonts/Kreon-Regular.ttf') format('truetype'), url('../fonts/Kreon-Regular.woff') format('woff');
 }
 
+h1, h2, h3 {
+       font-family: 'Kreon';
+}
+
+/* Wau Holland Logo Size (in Impressum) */
+.wau {
+    width: 18em;
+}
+
+
 .navbar-fds {
     border: 0 !important;
 }
@@ -260,4 +270,4 @@
 
 .frontpage-teaser h3 {
   margin-top: -6px;
-}}
+}
