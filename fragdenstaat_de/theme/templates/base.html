@@ -13,42 +13,7 @@
 
 {% block navbar-class %}navbar-default navbar-fds{% endblock %}
 
-{% block top_block %}
-<div class="donation-banner">
-  <div class="campaign-image visible-lg visible-md">
-    <img class="politician-img seehofer-img" alt="Horst Seehofer" src="{% static "img/kampagnen/2015/non-ifg/seehofer.png" %}" style="display: none" title="Bayern"/>
-    <img class="politician-img kretschmann-img" alt="Winfried Kretschmann" src="{% static "img/kampagnen/2015/non-ifg/kretschmann.png" %}" style="display: none" title="Baden-Württemberg"/>
-    <img class="politician-img tillich-img" alt="Stanislaw Tillich" src="{% static "img/kampagnen/2015/non-ifg/tillich.png" %}" style="display: none" title="Sachsen"/>
-    <img class="politician-img bouffier-img" alt="Volker Bouffier" src="{% static "img/kampagnen/2015/non-ifg/bouffier.png" %}" style="display: none" title="Hessen"/>
-    <img class="politician-img weil-img" alt="Stephan Weil" src="{% static "img/kampagnen/2015/non-ifg/weil.png" %}" style="display: none" title="Niedersachsen"/>
-  </div>
-  <button type="button" id="close-donation" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-offset-2 col-md-offset-2 col-lg-10 col-md-10">
-        <h3>
-          <strong>Tag der Informationsfreiheit!</strong>
-        </h3>
-        <p>
-          <strong id="politician-name"></strong> ist kein Fan von Informationsfreiheit. Sie können Behörden in <strong id="bundesland"></strong> jetzt trotzdem fragen.
-        </p>
-        <div class="row action-links">
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <a href="{% url 'foirequest-make_request' %}" class="btn btn-success">
-              Stellen Sie eine Anfrage
-            </a>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 text-right">
-            <a href="{% url 'help-donate' %}#spenden" class="btn btn-success">
-              Spenden Sie für FragDenStaat.de!
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock %}
+{% block top_block %}{% endblock %}
 
 {% block nav %}
   <ul class="nav navbar-nav">
@@ -111,40 +76,8 @@
       <p>
         Fragdenstaat nutzt statt den üblichen externen Dienstleistern die datenschutzfreundlichere Technologie von <a href="http://piwik.org/">Piwik</a>, um statistische Auswertungen der Seitennutzung zu erhalten. Wenn sie dies nicht wollen, <a href="https://fragdenstaat.de/piwik/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=de">klicken Sie bitte hier und entfernen Sie den Haken</a>. Näheres in <a href="{% url 'help-privacy' %}">unserer Datenschutzerklärung</a>.
       </p>
-
-      <p>
-        <ul>
-          <li>
-            <a href="https://de.wikipedia.org/wiki/Stephan_Weil#/media/File:Weil,_Stephan-8456.jpg">Bild Stephan Weil</a>: <a href="https://creativecommons.org/licenses/by/3.0/deed.en">CC BY-SA 3.0</a> von <a href="http://melle-gymnasium.de/">Foto AG Gymnasium Melle</a>
-          </li>
-          <li>
-            <a href="https://de.wikipedia.org/wiki/Stanislaw_Tillich#/media/File:SACHSEN_CDU_13.06.20130123_-_Portrait.jpg">Bild Stanislaw Tillich</a>: <a href="https://creativecommons.org/licenses/by/3.0/deed.en">CC BY-SA 3.0</a> von <a href="https://commons.wikimedia.org/wiki/User:CDU_Sachsen">CDU Sachsen</a>
-          </li>
-          <li>
-            <a href="https://de.wikipedia.org/wiki/Volker_Bouffier">Bild Volker Bouffier</a>: <a href="https://creativecommons.org/licenses/by/3.0/deed.en">CC BY-SA 3.0</a> von Alexander Kurz
-          </li>
-          <li>
-            <a href="https://de.wikipedia.org/wiki/Winfried_Kretschmann#/media/File:Im_Gespr%C3%A4ch_Sylvia_L%C3%B6hrmann_und_Winfried_Kretschmann_%282%29.jpg">Bild Winfried Kretschmann</a>: <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a> von <a href="http://www.flickr.com/people/31484439@N04">Grüne NRW</a>
-          </li>
-          <li>
-            <a href="https://de.wikipedia.org/wiki/Horst_Seehofer#/media/File:12-07-17-landtagsprojekt-bayern-RalfR-001.jpg">Bild Horst Seehofer</a>: <a href="https://creativecommons.org/licenses/by/3.0/deed.en">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/wiki/User:Ralf_Roletschek">Ralf Roletschek</a>
-          </li>
-        </ul>
-      </p>
-
     </div>
   </div>
-
-  <script>
-  (function(){
-    var politicians = document.getElementsByClassName('politician-img');
-    var politician = politicians[Math.floor(Math.random() * politicians.length)];
-    politician.style.display = 'block';
-    document.getElementById('politician-name').innerHTML = politician.getAttribute('alt');
-    document.getElementById('bundesland').innerHTML = politician.getAttribute('title');
-  }());
-  </script>
-
 {% endblock footer_below %}
 
 {% block tracking_code %}
