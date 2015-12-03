@@ -30,9 +30,9 @@
 {% block site_name %}{% endblock %}
 
 {% block site_description %}
-    <h3>
+    <h2>
       Was ist FragDenStaat?
-    </h3>
+    </h2>
     <p>
       Alle Menschen haben nach dem Informationsfreiheitsgesetz das Recht, Informationen und Dokumente von Behörden einzusehen.
       <br>FragDenStaat ist ein Tool für Alle, um diese Anfragen unkompliziert und schnell zu stellen.
@@ -66,27 +66,37 @@
 {% endblock %}
 
 {% block index_content_row %}
-<div class="row">
-  <div class="col-lg-6 col-md-6">
-    {% block index_sub_left %}
-        Wie funktionierts? (Grafik)
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        {% block index_sub_left %}
+
+            <div class="container-fluid stepbox">
+            <div class="steps">
+                <div class="stepbox"><p>Nutzen Sie diese Seit um einfach eine Informationsfreiheitsanfrage zu stellen. Wir leiten diese weiter an die entsprechende Behörde.</p></div>
+                <div class="stepbox"><p>Sie erhalten eine Mail sobald die Behörde auf Ihre Anfrage reagiert.</p></div>
+                <div class="stepbox"><p>Wir publizieren alle Anfragen online. Jetzt haben Sie ihre Antwort, und jeder andere kann auch darauf zugreifen.</p></div>
+
+            </div>
+            <p><a class="btn btn-default btn-sm" href="#" role="button">Mehr Infos zum Informationsfreiheitsgesetz</a></p>
+            </div>
 
 
-    {% endblock %}
-  </div>
+        {% endblock %}
+      </div>
 
-  <div class="col-lg-6 col-md-6">
+    <div class="col-lg-6 col-md-6">
     {% block index_sub_right %}
     <div class="">
     {% if featured %}
     <div class="frontpage-teaser">
-      <h3>
-        <small>{% trans "Featured Request" %}</small><br/>
-        {{ featured.title }}
-      </h3>
-      <p>
-        {{ featured.text|truncatewords:55|linebreaksbr }}
-      </p>
+
+        <h3>
+            <small>Neues aus dem Blog</small><br/>
+            {{ featured.title }}
+        </h3>
+          <p>
+            {{ featured.text|truncatewords:55|linebreaksbr }}
+          </p>
       {% if featured.url %}
         <p>
           <a href="{{ featured.url }}">
@@ -105,20 +115,20 @@
       {% endif %}
     </div>
     {% else %}
-    <div id="sample-letter" class="frontpage-teaser">{% blocktrans %}Freedom of Information Request
+        <div id="sample-letter" class="frontpage-teaser">{% blocktrans %}Freedom of Information Request
 
-To: Ministry of Interior
+            To: Ministry of Interior
 
-Dear Sir or Madam,
-I request information about the following:
-...{% endblocktrans %}
-  <a class="make-request-icon" href="{% url 'foirequest-make_request' %}">{% blocktrans %}Write a Request Now!{% endblocktrans %}</a>
-  </div>
-  {% endif %}
-  </div>
+            Dear Sir or Madam,
+            I request information about the following:
+            ...{% endblocktrans %}
+            <a class="make-request-icon" href="{% url 'foirequest-make_request' %}">{% blocktrans %}Write a Request Now!{% endblocktrans %}</a>
+        </div>
+    {% endif %}
+    </div>
     {% endblock %}
-  </div>
-</div>
+    </div>
+    </div>
 {% endblock %}
 
 {% block extra_footer %}
