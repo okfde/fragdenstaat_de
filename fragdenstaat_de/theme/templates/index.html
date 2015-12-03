@@ -31,16 +31,23 @@
 
 {% block site_description %}
     <h3>
-      Was ist Informationsfreiheit?
+      Was ist FragDenStaat?
     </h3>
     <p>
-      Alle Menschen haben nach dem Informationsfreiheitsgesetz das Recht, Informationen und Dokumente von Behörden zu erhalten.
-    </p>
-    <p>
-      Diese Seite veröffentlicht Informations­freiheits­anfragen und ihre Antworten, so dass der Vorgang transparent abläuft und die Informationen allen zur Verfügung stehen.
+      Alle Menschen haben nach dem Informationsfreiheitsgesetz das Recht, Informationen und Dokumente von Behörden einzusehen.
+      <br>FragDenStaat ist ein Tool für alle, um diese Anfragen unkompliziert und schnell zu stellen.
     </p>
 {% endblock %}
-
+{% block button %}
+    <input id="index-search"class="form-control col-lg-3" type="text" name="q" autocomplete="off" placeholder="Zum Beispiel: Schule oder NSA"/>
+    <span class="input-group-btn">
+        <button class="btn btn-success" type="submit">
+            <span class="glyphicon glyphicon-search"></span>
+            {% blocktrans %}Search For Information{% endblocktrans %}
+        </button>
+      </span>
+    </div>
+{% endblock button%}
 {% block first_index_row %}
 <div class="col-lg-5 col-md-5">
   {% block first_index_row_search %}

@@ -263,10 +263,26 @@ h1, h2, h3 {
 }
 
 @media screen and (min-width: 1200px) {
-  .col-video-7 {
-    width: 605px;
-    height: 340px;
-  }
+    .col-video-7 {
+        width: 605px;
+        height: 340px;
+    }
+}
 
 .frontpage-teaser h3 {
-  margin-top: -6px;
+    margin-top: -6px;
+}
+
+.btn-success {
+    background-color: #428bca;
+    border-color: #3A79B0;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background-color: #d9edf7;
+    border-color: #DBEFFF;
+    color: #333;
+}
+
+
