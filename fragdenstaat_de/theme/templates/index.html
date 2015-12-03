@@ -27,11 +27,18 @@
 {% endblock %}
 {% endcomment %}
 
+{% block site_name %}{% endblock %}
+
 {% block site_description %}
-<p>
-  Das Informationsfreiheitsportal für Bürger, Initiativen und Vereine.
-  Fragen Sie nach Behördendokumenten, die für Sie und Ihr Engagement wichtig sind!
-</p>
+    <h3>
+      Was ist Informationsfreiheit?
+    </h3>
+    <p>
+      Alle Menschen haben nach dem Informationsfreiheitsgesetz das Recht, Informationen und Dokumente von Behörden zu erhalten.
+    </p>
+    <p>
+      Diese Seite veröffentlicht Informations­freiheits­anfragen und ihre Antworten, so dass der Vorgang transparent abläuft und die Informationen allen zur Verfügung stehen.
+    </p>
 {% endblock %}
 
 {% block first_index_row %}
@@ -55,15 +62,7 @@
 <div class="row">
   <div class="col-lg-6 col-md-6">
     {% block index_sub_left %}
-    <h3>
-      Was ist Informationsfreiheit?
-    </h3>
-    <p>
-      Alle Menschen haben nach dem Informationsfreiheitsgesetz das Recht, Informationen und Dokumente von Behörden zu erhalten.
-    </p>
-    <p>
-      Diese Seite veröffentlicht Informations­freiheits­anfragen und ihre Antworten, so dass der Vorgang transparent abläuft und die Informationen allen zur Verfügung stehen.
-    </p>
+        Wie funktionierts? (Grafik)
     {% endblock %}
   </div>
 
