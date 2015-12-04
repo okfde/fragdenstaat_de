@@ -31,13 +31,15 @@ h1, h2, h3 {
 }
 
 .navbar-fds .navbar-brand {
-  font-size: 34px;
+  font-size: 2.1em;
   color: #06C;
   font-family: 'Kreon', arial, serif;
   background-image: url('../img/logo.png');
+    background-size: 34px auto;
   background-repeat: no-repeat;
   padding: 18px 15px 12px 60px;
   background-position: 15px 11px;
+
 }
 
 .donation-banner {
