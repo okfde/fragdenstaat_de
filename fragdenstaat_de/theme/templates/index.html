@@ -35,17 +35,18 @@
     </h2>
     <p>
       Alle Menschen haben nach dem Informationsfreiheitsgesetz das Recht, Informationen und Dokumente von Behörden einzusehen.
-      <br>FragDenStaat ist ein Tool für Alle, um diese Anfragen unkompliziert und schnell zu stellen.
+      <br><br>FragDenStaat ist ein Tool für Alle, um diese Anfragen unkompliziert und schnell zu stellen.
     </p>
 {% endblock %}
 {% block button %}
+    <div class="input-group">
     <input id="index-search"class="form-control col-lg-3" type="text" name="q" autocomplete="off" placeholder="Zum Beispiel: Schule oder NSA"/>
-    <span class="input-group-btn">
-        <button class="btn btn-success" type="submit">
-            <span class="glyphicon glyphicon-search"></span>
-            {% blocktrans %}Search For Information{% endblocktrans %}
-        </button>
-      </span>
+        <span class="input-group-btn">
+            <button class="btn btn-success" type="submit">
+                <span class="glyphicon glyphicon-search"></span>
+                {% blocktrans %}Search For Information{% endblocktrans %}
+            </button>
+        </span>
     </div>
 {% endblock button%}
 {% block first_index_row %}
@@ -77,7 +78,7 @@
                 <div class="stepbox"><p>Wir publizieren alle Anfragen online. Jetzt haben Sie ihre Antwort, und jeder andere kann auch darauf zugreifen.</p></div>
 
             </div>
-            <p><a class="btn btn-default btn-sm" href="#" role="button">Mehr Infos zum Informationsfreiheitsgesetz</a></p>
+            <p><a class="btn btn-default btn-sm" href="#" role="button">Mehr Infos zum Informationsfreiheitsgesetz <span aria-hidden="true">&rarr;</span></a></p>
             </div>
 
 
