@@ -14,6 +14,10 @@ h1, h2, h3 {
   color: #777;
 }
 
+#request-slogan {
+  padding-top: 8px;
+}
+
 #correspondence div:nth-child(odd) {
 border-radius: 6px;}
 

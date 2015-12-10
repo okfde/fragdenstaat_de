@@ -24,7 +24,7 @@
 
 {% block request_details%}
 <div class="row">
-<div class="col-lg-5">
+<div class="col-lg-6">
   <dt>{% blocktrans %}Request to:{% endblocktrans %}</dt>
   <dd>
     {% if object.public_body %}
@@ -55,8 +55,14 @@
     <dt>{% blocktrans %}Law used:{% endblocktrans %}</dt>
     <dd>{% blocktrans %}Not yet set{% endblocktrans %}</dd>
   {% endif %}
+
   <dt>{% blocktrans %}Status of this request:{% endblocktrans %}</dt>
-  <dd>{{ object.readable_status }}</dd>
+  {% if object.status_representation %}
+    <a class="pull-left icon-bigger icon status-{{ object.status_representation }}" href="{{ object.url }}" title="{{ object.readable_status }}"></a>
+  {% endif %}
+  <div id="request-slogan">
+    <dd>{{ object.readable_status }}</dd>
+  </div>
   {% if object.awaits_response %}
     <dt>{% blocktrans %}Due date:{% endblocktrans %}</dt>
     {% if object.is_overdue %}
@@ -83,7 +89,6 @@
     {% endif %}
 </div>
 <div class="col-lg-5">
-
 </div>
 </div>
 {% endblock request_details%}
