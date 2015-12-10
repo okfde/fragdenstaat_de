@@ -10,6 +10,13 @@ h1, h2, h3 {
         margin-bottom: 22px;
 }
 
+.fa{
+  color: #777;
+}
+
+#correspondence div:nth-child(odd) {
+border-radius: 6px;}
+
 .nav-compact {
     padding-top: 5px;
 }

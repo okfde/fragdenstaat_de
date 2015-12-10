@@ -104,3 +104,19 @@
         </a>
       </li>
 {% endblock %}
+
+{% block feeds %}
+  <li class="nav-header">{% trans "Feeds" %}</li>
+  <li>
+    <a href="{% url 'foirequest-feed' slug=object.slug %}">
+      <i class="fa fa-rss"></i>
+      {% trans "RSS Feed" %}
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'foirequest-feed_atom' slug=object.slug %}">
+      <i class="fa fa-rss"></i>
+      {% trans "Atom Feed" %}
+    </a>
+  </li>
+  {% endblock feeds%}
