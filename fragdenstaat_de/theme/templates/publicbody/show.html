@@ -4,7 +4,5 @@
 {% load static from staticfiles %}
 
 {% block result_image %}
-<p>
-  blabla
-</p>
+  <a class="pull-left icon-bigger icon status-{{ object.status_representation }}" href="{{ object.url }}" title="{{ object.readable_status }}"></a>
 {% endblock result_image %}

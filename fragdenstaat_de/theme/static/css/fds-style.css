@@ -14,6 +14,11 @@ h1, h2, h3 {
   color: #777;
 }
 
+.spendenbutton {
+  height: 72px;
+  margin-left: 10px;
+}
+
 #request-slogan {
   padding-top: 8px;
 }
@@ -52,6 +57,7 @@ border-radius: 6px;}
 
 .navbar-fds {
     border: 0 !important;
+    max-height: 55px;
 }
 
 .noticeable-break {
