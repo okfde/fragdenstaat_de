@@ -351,6 +351,7 @@ border-radius: 6px;}
   border-radius: 6px;
   text-align: center;
   color: #f8f8f8;
+  cursor: pointer;
 }
 
 .box p {
@@ -365,6 +366,7 @@ border-radius: 6px;}
   color: #f8f8f8;
   border-radius: 20px;
   text-align: center;
+  cursor: pointer;
 }
 
 .center {
@@ -374,7 +376,7 @@ border-radius: 6px;}
 }
 
 .ifg-button {
-  margin: 30px;
+  margin: 30px 10px 30px 10px;
 
 }
 
