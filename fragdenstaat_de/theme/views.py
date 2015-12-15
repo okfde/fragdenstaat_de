@@ -10,7 +10,7 @@ from froide.helper.cache import cache_anonymous_page
 @cache_anonymous_page(15 * 60)
 def index(request):
     successful_foi_requests = FoiRequest.published.successful()[:6]
-    unsuccessful_foi_requests = FoiRequest.published.unsuccessful()[:6]
+    unsuccessful_foi_requests = FoiRequest.published.unsuccessful()[:3]
     featured = FeaturedRequest.objects.getFeatured()
     return render(request, 'index.html',
             {'featured': featured,

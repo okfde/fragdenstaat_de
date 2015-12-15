@@ -34,8 +34,9 @@
       Was ist FragDenStaat?
     </h2>
     <p>
-      Alle Menschen haben nach dem Informationsfreiheitsgesetz das Recht, Informationen und Dokumente von Behörden einzusehen.
-      <br><br>FragDenStaat ist ein Tool für Alle, um diese Anfragen unkompliziert und schnell zu stellen.
+      Fragen Sie Behörden in Deutschland nach Dokumenten!
+      <br><br>
+      FragDenStaat hilft Ihnen, Ihr Recht auf Informationen wahrzunehmen.
     </p>
 {% endblock %}
 {% block button %}
@@ -66,31 +67,63 @@
 </div>
 {% endblock %}
 
+
 {% block index_content_row %}
+<div class="container-fluid">
+  <div class="row-fluid threesteps">
+    <div class="step col-md-4">
+      <div class="box center" id="box1">
+        <p>Stellen Sie über FragDenStaat eine Anfrage. Wir leiten sie an die zuständige Behörde weiter.</p>
+      </div>
+      <div class="circle center" id="kreis1">
+        <p>1</p>
+      </div>
+    </div>
+    <div class="step col-md-4">
+      <div class="box center" id="box2">
+        <p>Sie erhalten eine Mail sobald die Behörde auf Ihre Anfrage reagiert.</p>
+      </div>
+      <div class="circle center" id="kreis2">
+        <p>2</p>
+      </div>
+    </div>
+    <div class="step col-md-4">
+      <div class="box center" id="box3">
+        <p>Die Antwort ist für Sie und andere öffentlich einsehbar.</p>
+      </div>
+      <div class="circle center" id="kreis3">
+        <p>3</p>
+      </div>
+    </div>
+  <div class="text-center"><a class="btn btn-default btn-sm ifg-button center" href="#" role="button">Mehr Infos zum Informationsfreiheitsgesetz <span aria-hidden="true">&rarr;</span></a></div>
+  </div> <!-- ende row -->
+</div><!-- ende container -->
+
     <div class="row">
       <div class="col-lg-6 col-md-6">
+        <br><br>
+
         {% block index_sub_left %}
-
-            <div class="container-fluid stepbox">
-            <div class="steps">
-                <div class="stepbox"><p>Nutzen Sie diese Seit um einfach eine Informationsfreiheitsanfrage zu stellen. Wir leiten diese weiter an die entsprechende Behörde.</p></div>
-                <div class="stepbox"><p>Sie erhalten eine Mail sobald die Behörde auf Ihre Anfrage reagiert.</p></div>
-                <div class="stepbox"><p>Wir publizieren alle Anfragen online. Jetzt haben Sie ihre Antwort, und jeder andere kann auch darauf zugreifen.</p></div>
-
-            </div>
-            <p><a class="btn btn-default btn-sm" href="#" role="button">Mehr Infos zum Informationsfreiheitsgesetz <span aria-hidden="true">&rarr;</span></a></p>
-            </div>
-
+        {% if successful_foi_requests %}
+  <h3>{% blocktrans %}Successful Requests{% endblocktrans %}</h3>
+  <ul class="media-list">
+    {% for object in successful_foi_requests %}
+      <li class="media">
+        {% include "foirequest/snippets/request_item.html" %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
 
         {% endblock %}
       </div>
 
     <div class="col-lg-6 col-md-6">
-    {% block index_sub_right %}
-    <div class="">
-    {% if featured %}
-    <div class="frontpage-teaser">
-
+      {% block index_sub_right %}
+      <div class="">
+      {% if featured %}
+        <div class="frontpage-teaser">
+          <br><br>
         <h3>
             <small>Neues aus dem Blog</small><br/>
             {{ featured.title }}
@@ -98,7 +131,7 @@
           <p>
             {{ featured.text|truncatewords:55|linebreaksbr }}
           </p>
-      {% if featured.url %}
+          {% if featured.url %}
         <p>
           <a href="{{ featured.url }}">
             <span class="glyphicon glyphicon-bullhorn"></span>
@@ -127,9 +160,22 @@
         </div>
     {% endif %}
     </div>
+    {% if unsuccessful_foi_requests %}
+  <h3>{% blocktrans %}Unsuccessful Requests{% endblocktrans %}</h3>
+  <ul class="media-list">
+    {% for object in unsuccessful_foi_requests %}
+      <li class="media">
+        {% include "foirequest/snippets/request_item.html" %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
     {% endblock %}
     </div>
     </div>
+{% endblock %}
+
+{% block index_requests_row %}
 {% endblock %}
 
 {% block extra_footer %}
@@ -142,4 +188,29 @@
     $(this).replaceWith('<iframe src="' + $(this).data('url') + '" class="' + $(this).data('class') + '" frameborder="0" style="width:' + width + 'px;height:' + height + 'px" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>')
   });
 </script>
+<script>
+  var pause = 3000;
+  var motion = 400;
+  var boxes = $('.box');
+  var circles = $('.circle');
+  var count = boxes.length;
+  var i = -1;
+
+  setTimeout(loop, pause);
+
+  function loop () {
+    boxes.eq(i).css({"color": "#d9edf7", "background-color": "#428bca"});
+    circles.eq(i).css({"background-color": "#777"});
+
+    if(++i>=count){
+       i=0;
+    }
+
+    boxes.eq(i).css({"color": "#333", "background-color": "#d9edf7"});
+    circles.eq(i).css({"background-color": "#ffb74d"});
+
+    setTimeout(loop, pause);
+
+  }
+  </script>
 {% endblock %}

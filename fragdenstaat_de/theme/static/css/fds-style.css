@@ -327,3 +327,55 @@ border-radius: 6px;}
     border-color: #DBEFFF;
     color: #333;
 }
+
+/* style for animation on index page */
+
+.threesteps {
+  background-color: #f8f8f8;
+  border-radius: 6px;
+  padding-left: 100px;
+  padding-right: 100px;
+
+
+}
+
+
+.box {
+  width: 200px;
+  height: 150px;
+  font-size: 1em;
+  background-color: #428bca;
+  margin-right: 15px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  border-radius: 6px;
+  text-align: center;
+  color: #f8f8f8;
+}
+
+.box p {
+  padding: 10px;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #777;
+  color: #f8f8f8;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+.ifg-button {
+  margin: 30px;
+
+}
+
+/* END: style for animation on index page */
