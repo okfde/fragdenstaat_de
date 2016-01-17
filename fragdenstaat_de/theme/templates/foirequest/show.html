@@ -93,7 +93,10 @@
 </div>
 {% endblock request_details%}
 
-{% block followers %}<li title="Zum Folgen dieser Anfrage einloggen.">{% endblock followers %}
+{% block followers %}<li title="Zum Folgen dieser Anfrage einloggen.">  <span class="badge{% if count %} badge-info{% endif %}">{% blocktrans count counter=count %}{{ counter }} follower{% plural %}{{ counter }} followers{% endblocktrans %}</span>
+
+          <br/>
+        </li>{% endblock followers %}
 
 {% block social_sharing %}
       <li class="nav-header">{% trans "Share this request" %}</li>
