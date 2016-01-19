@@ -5,7 +5,7 @@
     src: local('Kreon Regular'), local('Kreon-Regular'), url('../fonts/Kreon-Regular.ttf') format('truetype'), url('../fonts/Kreon-Regular.woff') format('woff');
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
         font-family: 'Kreon';
         margin-bottom: 22px;
 }
