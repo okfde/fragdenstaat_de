@@ -2480,7 +2480,7 @@ msgstr "Schreiben Sie jetzt eine Anfrage!"
 #~ msgstr "Erhalten Sie Neuigkeiten per Email."
 
 #~ msgid "Share this request"
-#~ msgstr "Anfrage sharen"
+#~ msgstr "Anfrage teilen"
 
 #~ msgid "Feeds"
 #~ msgstr "Feeds"

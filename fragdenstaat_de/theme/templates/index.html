@@ -27,13 +27,29 @@
 {% endblock %}
 {% endcomment %}
 
-{% block site_description %}
-<p>
-  Das Informationsfreiheitsportal für Bürger, Initiativen und Vereine.
-  Fragen Sie nach Behördendokumenten, die für Sie und Ihr Engagement wichtig sind!
-</p>
-{% endblock %}
+{% block site_name %}{% endblock %}
 
+{% block site_description %}
+    <h2>
+      Was ist FragDenStaat?
+    </h2>
+    <p>
+      Jede Person hat das Recht auf Informationen. FragDenStaat hilft Ihnen, Ihr Recht wahrzunehmen.
+      <br><br>
+      Fragen Sie über diese Plattform Behörden in Deutschland nach Informationen und Dokumenten!
+    </p>
+{% endblock %}
+{% block sendrequest-button %}
+    <div class="input-group">
+    <input id="index-search"class="form-control col-lg-3" type="text" name="q" autocomplete="off" placeholder="Zum Beispiel: Schule oder NSA"/>
+        <span class="input-group-btn">
+            <button class="btn btn-success" type="submit">
+                <span class="glyphicon glyphicon-search"></span>
+                {% blocktrans %}Search For Information{% endblocktrans %}
+            </button>
+        </span>
+    </div>
+{% endblock sendrequest-button %}
 {% block first_index_row %}
 <div class="col-lg-5 col-md-5">
   {% block first_index_row_search %}
@@ -51,35 +67,73 @@
 </div>
 {% endblock %}
 
-{% block index_content_row %}
-<div class="row">
-  <div class="col-lg-6 col-md-6">
-    {% block index_sub_left %}
-    <h3>
-      Was ist Informationsfreiheit?
-    </h3>
-    <p>
-      Alle Menschen haben nach dem Informationsfreiheitsgesetz das Recht, Informationen und Dokumente von Behörden zu erhalten.
-    </p>
-    <p>
-      Diese Seite veröffentlicht Informations­freiheits­anfragen und ihre Antworten, so dass der Vorgang transparent abläuft und die Informationen allen zur Verfügung stehen.
-    </p>
-    {% endblock %}
-  </div>
 
-  <div class="col-lg-6 col-md-6">
-    {% block index_sub_right %}
-    <div class="">
-    {% if featured %}
-    <div class="frontpage-teaser">
-      <h3>
-        <small>{% trans "Featured Request" %}</small><br/>
-        {{ featured.title }}
-      </h3>
-      <p>
-        {{ featured.text|truncatewords:55|linebreaksbr }}
-      </p>
-      {% if featured.url %}
+{% block index_content_row %}
+<div class="container-fluid">
+  <div class="row-fluid threesteps">
+    <div class="step col-md-4">
+      <div class="box center" title="Stellen Sie eine Anfrage!" id="box1">
+        <p>Stellen Sie über FragDenStaat eine Anfrage. Wir leiten sie an die zuständige Behörde weiter.</p>
+      </div>
+      <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis1">
+        <p>1</p>
+      </div>
+    </div>
+    <div class="step col-md-4">
+      <div class="box center" title="Stellen Sie eine Anfrage!" id="box2">
+        <p>Sie erhalten eine Mail, sobald die Behörde auf Ihre Anfrage reagiert.</p>
+      </div>
+      <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis2">
+        <p>2</p>
+      </div>
+    </div>
+    <div class="step col-md-4">
+      <div class="box center" title="Stellen Sie eine Anfrage!" id="box3">
+        <p>Die Antwort ist für Sie und auch für andere öffentlich einsehbar</p>
+      </div>
+      <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis3">
+        <p>3</p>
+      </div>
+    </div>
+  <div class="text-center">
+    <a class="btn btn-default btn-sm ifg-button center" href="#" role="button">Mehr Infos zum Informationsfreiheitsgesetz! <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  </div> <!-- ende row -->
+</div><!-- ende container -->
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <br><br>
+
+        {% block index_sub_left %}
+        {% if successful_foi_requests %}
+  <h3>{% blocktrans %}Successful Requests{% endblocktrans %}</h3>
+  <ul class="media-list">
+    {% for object in successful_foi_requests %}
+      <li class="media">
+        {% include "foirequest/snippets/request_item.html" %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+        {% endblock %}
+      </div>
+
+    <div class="col-lg-6 col-md-6">
+      {% block index_sub_right %}
+      <div class="">
+      {% if featured %}
+        <div class="frontpage-teaser">
+          <br><br>
+        <h3>
+            <small>Neues aus dem Blog</small><br/>
+            {{ featured.title }}
+        </h3>
+          <p>
+            {{ featured.text|truncatewords:55|linebreaksbr }}
+          </p>
+          {% if featured.url %}
         <p>
           <a href="{{ featured.url }}">
             <span class="glyphicon glyphicon-bullhorn"></span>
@@ -97,20 +151,33 @@
       {% endif %}
     </div>
     {% else %}
-    <div id="sample-letter" class="frontpage-teaser">{% blocktrans %}Freedom of Information Request
+        <div id="sample-letter" class="frontpage-teaser">{% blocktrans %}Freedom of Information Request
 
-To: Ministry of Interior
+            To: Ministry of Interior
 
-Dear Sir or Madam,
-I request information about the following:
-...{% endblocktrans %}
-  <a class="make-request-icon" href="{% url 'foirequest-make_request' %}">{% blocktrans %}Write a Request Now!{% endblocktrans %}</a>
-  </div>
+            Dear Sir or Madam,
+            I request information about the following:
+            ...{% endblocktrans %}
+            <a class="make-request-icon" href="{% url 'foirequest-make_request' %}">{% blocktrans %}Write a Request Now!{% endblocktrans %}</a>
+        </div>
+    {% endif %}
+    </div>
+    {% if unsuccessful_foi_requests %}
+  <h3>{% blocktrans %}Unsuccessful Requests{% endblocktrans %}</h3>
+  <ul class="media-list">
+    {% for object in unsuccessful_foi_requests %}
+      <li class="media">
+        {% include "foirequest/snippets/request_item.html" %}
+      </li>
+    {% endfor %}
+  </ul>
   {% endif %}
-  </div>
     {% endblock %}
-  </div>
-</div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block index_requests_row %}
 {% endblock %}
 
 {% block extra_footer %}
@@ -123,4 +190,29 @@ I request information about the following:
     $(this).replaceWith('<iframe src="' + $(this).data('url') + '" class="' + $(this).data('class') + '" frameborder="0" style="width:' + width + 'px;height:' + height + 'px" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>')
   });
 </script>
+<script>
+  var pause = 3000;
+  var motion = 400;
+  var boxes = $('.box');
+  var circles = $('.circle');
+  var count = boxes.length;
+  var i = -1;
+
+  setTimeout(loop, pause);
+
+  function loop () {
+    boxes.eq(i).css({"color": "#d9edf7", "background-color": "#428bca"});
+    circles.eq(i).css({"background-color": "#777"});
+
+    if(++i>=count){
+       i=0;
+    }
+
+    boxes.eq(i).css({"color": "#333", "background-color": "#d9edf7"});
+    circles.eq(i).css({"background-color": "#ffb74d"});
+
+    setTimeout(loop, pause);
+
+  }
+  </script>
 {% endblock %}

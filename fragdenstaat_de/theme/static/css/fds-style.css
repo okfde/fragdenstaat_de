@@ -5,9 +5,49 @@
     src: local('Kreon Regular'), local('Kreon-Regular'), url('../fonts/Kreon-Regular.ttf') format('truetype'), url('../fonts/Kreon-Regular.woff') format('woff');
 }
 
-h1, h2, h3 {
-       font-family: 'Kreon';
+h1, h2, h3, h4 {
+        font-family: 'Kreon';
+        margin-bottom: 22px;
 }
+
+.fa{
+  color: #777;
+}
+
+.spendenbutton {
+  height: 72px;
+  margin-left: 10px;
+}
+
+#request-slogan {
+  padding-top: 8px;
+}
+
+#correspondence div:nth-child(odd) {
+border-radius: 6px;}
+
+.nav-compact {
+    padding-top: 5px;
+}
+
+.nav-header {
+  margin-bottom: 5px;
+}
+
+.badge{
+  margin-bottom: 5px;
+}
+
+.stepbox{
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/*.glue-to-bottom{
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}*/
 
 /* Wau Holland Logo Size (in Impressum) */
 .wau {
@@ -17,6 +57,7 @@ h1, h2, h3 {
 
 .navbar-fds {
     border: 0 !important;
+    max-height: 55px;
 }
 
 .noticeable-break {
@@ -24,13 +65,15 @@ h1, h2, h3 {
 }
 
 .navbar-fds .navbar-brand {
-  font-size: 34px;
+  font-size: 2.1em;
   color: #06C;
   font-family: 'Kreon', arial, serif;
   background-image: url('../img/logo.png');
+    background-size: 34px auto;
   background-repeat: no-repeat;
   padding: 18px 15px 12px 60px;
   background-position: 15px 11px;
+
 }
 
 .donation-banner {
@@ -263,11 +306,79 @@ h1, h2, h3 {
 }
 
 @media screen and (min-width: 1200px) {
-  .col-video-7 {
-    width: 605px;
-    height: 340px;
-  }
+    .col-video-7 {
+        width: 605px;
+        height: 340px;
+    }
+}
 
 .frontpage-teaser h3 {
-  margin-top: -6px;
+    margin-top: -6px;
 }
+
+.btn-success {
+    background-color: #428bca;
+    border-color: #3A79B0;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background-color: #d9edf7;
+    border-color: #DBEFFF;
+    color: #333;
+}
+
+/* style for animation on index page */
+
+.threesteps {
+  background-color: #f8f8f8;
+  border-radius: 6px;
+  padding-left: 100px;
+  padding-right: 100px;
+
+
+}
+
+
+.box {
+  width: 200px;
+  height: 150px;
+  font-size: 1em;
+  background-color: #428bca;
+  margin-right: 15px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  border-radius: 6px;
+  text-align: center;
+  color: #f8f8f8;
+  cursor: pointer;
+}
+
+.box p {
+  padding: 10px;
+}
+
+
+.circle {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #777;
+  color: #f8f8f8;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+.ifg-button {
+  margin: 30px 10px 30px 10px;
+
+}
+
+/* END: style for animation on index page */
