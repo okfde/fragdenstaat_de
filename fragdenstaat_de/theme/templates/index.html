@@ -72,28 +72,34 @@
 <div class="container-fluid">
   <div class="row-fluid threesteps">
     <div class="step col-md-4">
-      <div class="box center" title="Stellen Sie eine Anfrage!" id="box1">
-        <p>Stellen Sie über FragDenStaat eine Anfrage. Wir leiten sie an die zuständige Behörde weiter.</p>
-      </div>
-      <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis1">
-        <p>1</p>
-      </div>
+      <a href="{% url 'foirequest-make_request' %}">
+        <div class="box center" title="Stellen Sie eine Anfrage!" id="box1">
+          <p>Stellen Sie über FragDenStaat eine Anfrage. Wir leiten sie an die zuständige Behörde weiter.</p>
+        </div>
+        <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis1">
+          <p>1</p>
+        </div>
+      </a>
     </div>
     <div class="step col-md-4">
-      <div class="box center" title="Stellen Sie eine Anfrage!" id="box2">
-        <p>Sie erhalten eine Mail, sobald die Behörde auf Ihre Anfrage reagiert.</p>
-      </div>
-      <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis2">
-        <p>2</p>
-      </div>
+      <a href="{% url 'foirequest-make_request' %}">
+        <div class="box center" title="Stellen Sie eine Anfrage!" id="box2">
+          <p>Sie erhalten eine Mail, sobald die Behörde auf Ihre Anfrage reagiert.</p>
+        </div>
+        <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis2">
+          <p>2</p>
+        </div>
+      </a>
     </div>
     <div class="step col-md-4">
-      <div class="box center" title="Stellen Sie eine Anfrage!" id="box3">
-        <p>Die Antwort ist für Sie und auch für andere öffentlich einsehbar</p>
-      </div>
-      <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis3">
-        <p>3</p>
-      </div>
+      <a href="{% url 'foirequest-make_request' %}">
+        <div class="box center" title="Stellen Sie eine Anfrage!" id="box3">
+          <p>Die Antwort ist für Sie und auch für andere öffentlich einsehbar</p>
+        </div>
+        <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis3">
+          <p>3</p>
+        </div>
+      </a>
     </div>
   <div class="text-center">
     <a class="btn btn-default btn-sm ifg-button center" href="#" role="button">Mehr Infos zum Informationsfreiheitsgesetz! <span aria-hidden="true">&rarr;</span></a>
