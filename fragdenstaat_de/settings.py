@@ -23,7 +23,8 @@ class FragDenStaatBase(German, ThemeBase, Base):
             'celery_haystack',
             'djcelery_email',
             'django.contrib.redirects',
-            'tinymce'
+            'tinymce',
+            'froide_campaign.apps.FroideCampaignConfig'
         ]
         return installed
 
