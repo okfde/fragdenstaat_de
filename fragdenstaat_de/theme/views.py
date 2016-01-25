@@ -19,3 +19,7 @@ def index(request):
             'foicount': FoiRequest.published.for_list_view().count(),
             'pbcount': PublicBody.objects.get_list().count()
 })
+
+
+def bundestag(request):
+    return render_to_response('fragdenbundestag.html', {})

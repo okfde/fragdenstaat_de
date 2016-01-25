@@ -10,6 +10,10 @@ h1, h2, h3, h4 {
         margin-bottom: 22px;
 }
 
+.animation a:hover {
+  text-decoration: none;
+}
+
 .fa{
   color: #777;
 }
@@ -57,7 +61,6 @@ border-radius: 6px;}
 
 .navbar-fds {
     border: 0 !important;
-    max-height: 55px;
 }
 
 .noticeable-break {
@@ -73,7 +76,12 @@ border-radius: 6px;}
   background-repeat: no-repeat;
   padding: 18px 15px 12px 60px;
   background-position: 15px 11px;
+}
 
+@media screen and (max-width: 400px) {
+  .navbar-fds .navbar-brand {
+    font-size: 1.6em;
+  }
 }
 
 .donation-banner {
@@ -331,28 +339,95 @@ border-radius: 6px;}
 /* style for animation on index page */
 
 .threesteps {
+  position: relative;
   background-color: #f8f8f8;
   border-radius: 6px;
   padding-left: 100px;
   padding-right: 100px;
-
-
 }
 
 
 .box {
+  position: relative;
   width: 200px;
-  height: 150px;
+  height: 120px;
   font-size: 1em;
   background-color: #428bca;
   margin-right: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 35px;
   margin-top: 30px;
   border-radius: 6px;
   text-align: center;
   color: #f8f8f8;
   cursor: pointer;
 }
+
+.box:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 15px 15px 0;
+  border-color: #428bca transparent;
+  display: block;
+  width: 0;
+  z-index: 1;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.box.is-active {
+  color: #333;
+  background-color: #d9edf7;
+}
+.box.is-active:after {
+  border-color: #d9edf7 transparent;
+}
+
+.line {
+  position: absolute;
+  width: 211px;
+  height: 6px;
+  background-color: #777;
+}
+
+.line.is-active {
+  background-color: #ffb74d;
+}
+
+#line1 {
+  top: 203px;
+  left: 142px;
+}
+
+#line2 {
+  top: 203px;
+  left: 140px;
+}
+
+@media screen and (max-width: 992px) {
+  .line {
+    display: none;
+    width: 6px;
+    height: 215px;
+  }
+
+  .line.is-active {
+    background-color: #d9edf7;
+  }
+
+  #line1 {
+    top: 168px;
+    left: 257px;
+  }
+
+  #line2 {
+    top: 180px;
+    left: 257px;
+  }
+
+}
+
 
 .box p {
   padding: 10px;
@@ -368,6 +443,12 @@ border-radius: 6px;}
   border-radius: 20px;
   text-align: center;
   cursor: pointer;
+  position: relative;
+  z-index: 10;
+}
+
+.circle.is-active {
+  background-color: #ffb74d;
 }
 
 .center {

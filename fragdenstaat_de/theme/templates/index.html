@@ -69,12 +69,16 @@
 
 
 {% block index_content_row %}
-<div class="container-fluid">
+<div class="container-fluid animation">
   <div class="row-fluid threesteps">
+
+
     <div class="step col-md-4">
+      <div class="line" id="line1"></div>
+
       <a href="{% url 'foirequest-make_request' %}">
         <div class="box center" title="Stellen Sie eine Anfrage!" id="box1">
-          <p>Stellen Sie über FragDenStaat eine Anfrage. Wir leiten sie an die zuständige Behörde weiter.</p>
+          <p>Stellen Sie eine Anfrage. Wir leiten sie an die zuständige Behörde weiter.</p>
         </div>
         <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis1">
           <p>1</p>
@@ -82,9 +86,11 @@
       </a>
     </div>
     <div class="step col-md-4">
+      <div class="line" id="line2"></div>
+
       <a href="{% url 'foirequest-make_request' %}">
         <div class="box center" title="Stellen Sie eine Anfrage!" id="box2">
-          <p>Sie erhalten eine Mail, sobald die Behörde auf Ihre Anfrage reagiert.</p>
+            <p>Sie erhalten eine Mail, sobald die Behörde auf Ihre Anfrage reagiert.</p>
         </div>
         <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis2">
           <p>2</p>
@@ -94,7 +100,7 @@
     <div class="step col-md-4">
       <a href="{% url 'foirequest-make_request' %}">
         <div class="box center" title="Stellen Sie eine Anfrage!" id="box3">
-          <p>Die Antwort ist für Sie und auch für andere öffentlich einsehbar</p>
+            <p>Die Antwort ist für Sie und auch für andere öffentlich einsehbar</p>
         </div>
         <div class="circle center" title="Stellen Sie eine Anfrage!" id="kreis3">
           <p>3</p>
@@ -197,7 +203,7 @@
   });
 </script>
 <script>
-  var pause = 3000;
+  var pause = 2000;
   var motion = 400;
   var boxes = $('.box');
   var circles = $('.circle');
@@ -207,15 +213,29 @@
   setTimeout(loop, pause);
 
   function loop () {
-    boxes.eq(i).css({"color": "#d9edf7", "background-color": "#428bca"});
-    circles.eq(i).css({"background-color": "#777"});
+    switch (i) {
+      case 0:
+        $('#line1').addClass('is-active');
+        break;
+      case 1:
+        $('#line2').addClass('is-active');
+        break;
+      default:
+        $('.line').removeClass('is-active');
+        boxes.removeClass('is-active');
+        circles.removeClass('is-active');
+        break;
+    }
 
-    if(++i>=count){
+    if(++i > count){
        i=0;
     }
 
-    boxes.eq(i).css({"color": "#333", "background-color": "#d9edf7"});
-    circles.eq(i).css({"background-color": "#ffb74d"});
+    boxes
+      .removeClass('is-active')
+      .eq(i).addClass('is-active');
+    circles
+      .eq(i).addClass('is-active');
 
     setTimeout(loop, pause);
 
