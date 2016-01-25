@@ -24,6 +24,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
             'djcelery_email',
             'django.contrib.redirects',
             'tinymce',
+            'django_filters',
             'froide_campaign.apps.FroideCampaignConfig'
         ]
         return installed
