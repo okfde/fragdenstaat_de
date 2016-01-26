@@ -19,8 +19,13 @@ h1, h2, h3, h4 {
 }
 
 .spendenbutton {
-  height: 72px;
+  height: 50px;
   margin-left: 10px;
+  z-index: 10px;
+}
+
+#spendenbutton-img {
+  height:66px;
 }
 
 #request-slogan {
@@ -304,6 +309,18 @@ border-radius: 6px;}
     width: 669px;
     height: 376px;
   }
+
+}
+
+@media screen and (max-width: 768px) {
+
+  #spendenbutton-img {
+    z-index: 1000; !important
+    top: -10px; !important
+
+
+  }
+
 }
 
 @media screen and (min-width: 992px) {
@@ -336,14 +353,14 @@ border-radius: 6px;}
     color: #333;
 }
 
+
 /* style for animation on index page */
 
 .threesteps {
   position: relative;
   background-color: #f8f8f8;
   border-radius: 6px;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding: 25px 100px 10px 100px;
 }
 
 
@@ -426,11 +443,37 @@ border-radius: 6px;}
     left: 257px;
   }
 
+  #box1 {
+    margin-top: 30px;
+  }
+
+  .video {
+    margin-top: 30px;
+  }
+
+
+}
+
+@media screen and (max-width: 455px) {
+  .threesteps {
+  padding: 25px 0px 10px 0px;
+
+  }
+
+}
+
+
+@media screen and (min-width: 1200px) {
+  .line {
+    width: 320px;
+  }
+
+
 }
 
 
 .box p {
-  padding: 10px;
+  padding: 15px;
 }
 
 
