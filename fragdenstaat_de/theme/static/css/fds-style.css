@@ -328,12 +328,28 @@ border-radius: 6px;}
     height: 279px;
   }
 
+  #wasist {
+    margin-top: 0px;
+  }
+
+.foi-request {
+  height: 280px;
+}
+
+.sendrequest {
+  bottom: 0px;
+}
+
+.search-form {
+  position: absolute;
+  bottom: 0px;
+}
 }
 
 @media screen and (max-width: 1200px) {
   .heroine-unit p {
-    font-size: 15px;
-    line-height: normal;
+    font-size: 16px;
+    line-height: 25px;
 
   }
 }
@@ -343,6 +359,20 @@ border-radius: 6px;}
         width: 605px;
         height: 340px;
     }
+
+    .foi-request {
+      height: 340px;
+      padding-top: 31px;
+
+    }
+
+    .search-form {
+      position: absolute;
+      bottom: 31px;
+    }
+
+
+
 }
 
 .frontpage-teaser h3 {
@@ -476,8 +506,14 @@ border-radius: 6px;}
     width: 320px;
   }
 
+  .box:after {
+    bottom: -14px;
+
+  }
+
 
 }
+
 
 
 .box p {
