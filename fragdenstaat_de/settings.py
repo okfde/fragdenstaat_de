@@ -25,7 +25,8 @@ class FragDenStaatBase(German, ThemeBase, Base):
             'django.contrib.redirects',
             'tinymce',
             'django_filters',
-            'froide_campaign.apps.FroideCampaignConfig'
+            'markdown_deux',
+            'froide_campaign.apps.FroideCampaignConfig',
         ]
         return installed
 
