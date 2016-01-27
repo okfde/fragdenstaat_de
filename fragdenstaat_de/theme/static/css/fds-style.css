@@ -315,7 +315,7 @@ border-radius: 6px;}
 @media screen and (max-width: 768px) {
 
   #spendenbutton-img {
-    margin-top: -10px; 
+    margin-top: -10px;
 
 
   }
@@ -326,6 +326,15 @@ border-radius: 6px;}
   .col-video-7 {
     width: 497px;
     height: 279px;
+  }
+
+}
+
+@media screen and (max-width: 1200px) {
+  .heroine-unit p {
+    font-size: 15px;
+    line-height: normal;
+
   }
 }
 
