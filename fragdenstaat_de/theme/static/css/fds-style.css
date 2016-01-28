@@ -545,7 +545,13 @@ border-radius: 6px;}
 
 .ifg-button {
   margin: 30px 10px 30px 10px;
+  background-color: #777;
+  border: solid 1px #6F6F6F;
+}
 
+.ifg-button:hover {
+  background-color: #ffb74d;
+  border: solid 1px #ffb74d;
 }
 
 /* END: style for animation on index page */
