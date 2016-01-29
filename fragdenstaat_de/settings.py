@@ -113,6 +113,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
             api_activated=True,
             search_engine_query='http://www.google.de/search?as_q=%(query)s&as_epq=&as_oq=&as_eq=&hl=en&lr=&cr=&as_ft=i&as_filetype=&as_qdr=all&as_occt=any&as_dt=i&as_sitesearch=%(domain)s&as_rights=&safe=images',
             show_public_body_employee_name=False,
+            request_throttle=(15, 7),
             greetings=[rec(u"Sehr geehrt(er? (?:Herr|Frau)(?: ?Dr\.?)?(?: ?Prof\.?)? .*)")],
             closings=[rec(u"[Mm]it( den)? (freundlichen|vielen|besten) Gr(\xfc|u)(\xdf|ss)(en)?,?"), rec("Hochachtungsvoll,?"), rec('i\. ?A\.'), rec('[iI]m Auftrag')]
         ))
