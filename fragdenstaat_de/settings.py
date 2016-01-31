@@ -41,6 +41,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
     }
 
     MIDDLEWARE_CLASSES = [
+        'froide.helper.middleware.XForwardedForMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
