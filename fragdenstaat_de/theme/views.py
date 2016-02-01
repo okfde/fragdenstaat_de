@@ -11,9 +11,11 @@ from froide.helper.cache import cache_anonymous_page
 def index(request):
     successful_foi_requests = FoiRequest.published.successful()[:6]
     unsuccessful_foi_requests = FoiRequest.published.unsuccessful()[:4]
-    featured = FeaturedRequest.objects.getFeatured()
+    featured = FeaturedRequest.objects.get_queryset().order_by("-timestamp").select_related('request', 'request__public_body')[:3]
     return render(request, 'index.html',
-            {'featured': featured,
+            {'featured': featured[0],
+            'featured1': featured[1],
+            'featured2': featured[2],
             'successful_foi_requests': successful_foi_requests,
             'unsuccessful_foi_requests': unsuccessful_foi_requests,
             'foicount': FoiRequest.published.for_list_view().count(),

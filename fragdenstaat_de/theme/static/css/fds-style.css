@@ -554,4 +554,15 @@ border-radius: 6px;}
   border: solid 1px #ffb74d;
 }
 
+
 /* END: style for animation on index page */
+
+.blogtitle {
+  margin-bottom: 6px;
+  padding-top: 15px; !important
+}
+
+.blogtitle a {
+  color: #000;
+
+}
