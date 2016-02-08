@@ -2,6 +2,8 @@ from datetime import timedelta
 
 from django.core.cache import cache
 from django.utils import timezone
+from django.core.mail import mail_managers
+from django.utils.translation import ugettext_lazy as _
 
 from froide.foirequest.hooks import registry
 
@@ -25,10 +27,11 @@ def detect_troll_pre_request_creation(request, **kwargs):
         return kwargs
 
     now = timezone.now()
-    diff = now - request.user.date_joined
+    diff = now - user.date_joined
     if (diff < timedelta(days=1) and count > 5) or count > 15:
-        request.user.is_blocked = True
-        request.user.save()
+        user.is_blocked = True
+        user.save()
+        mail_managers(_('User blocked'), user.pk)
         kwargs['blocked'] = True
 
     return kwargs
