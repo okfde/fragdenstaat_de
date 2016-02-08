@@ -13,13 +13,16 @@ def detect_troll_pre_request_creation(request, **kwargs):
     if user.trusted():
         return kwargs
 
-    ip_address = request['REMOTE_ADDR']
+    ip_address = request.META['REMOTE_ADDR']
     cache_key = 'froide:foirequest:request_per_ip:%s' % ip_address
-    count = cache.get_or_set(cache_key, 0)
-    try:
-        cache.incr(cache_key)
-    except ValueError:
-        pass
+    count = cache.get(cache_key, 0)
+    if count == 0:
+        cache.set(cache_key, 1)
+    else:
+        try:
+            cache.incr(cache_key)
+        except ValueError:
+            pass
     count += 1
 
     if user.is_blocked:
