@@ -78,9 +78,32 @@
       </p>
     </div>
   </div>
+  <script>
+  (function (document) {
+  	var body = document.getElementsByTagName('body')[0];
+  	if (!body) return;
+  	var b = document.createElement("div");
+  	b.id = "datenschule_banner";
+  	b.innerHTML =
+  		'<a id="datenschule_banner_close" style="float:right; text-decoration: none !important;">X</a>'+
+  		'Hilf dem Trägerverein von FragDenStaat.de! Unser Projekt <b>Datenschule</b> nimmt an der Google Impact Challenge teil. <a target="_blank" href="https://datenschule.de">Stimme ab auf datenschule.de!</a>'+
+  		'<style>' +
+  		'#datenschule_banner { text-align:center; z-index:99999999; padding:18px; margin: 0; border: 1px solid #ececec; position:fixed; right:4px;' +
+  		'font-family: Montserrat, Arial; font-weight: normal; text-decoration: none; font-size: 16px; bottom:0; left:4px; color:#fff !important; background-color:#c63702 !important; } ' +
+  		'#datenschule_banner a {  cursor:pointer; font-size: 16px; font-weight: bold; text-decoration: underline; margin: 0; padding: 0; color:#fff !important; } ' +
+  		'#datenschule_banner a:hover,#datenschule_banner a:focus { color:#fffbca !important; } ' +
+  		'</style>';
+  	b.addEventListener("click", function () {
+  		body.removeChild(b);
+  		return true;
+  	});
+  	body.appendChild(b);
+  })(document);
+  </script>
 {% endblock footer_below %}
 
 {% block tracking_code %}
+
 <!-- Piwik -->
 <script type="text/javascript">
   var _paq = _paq || [];
