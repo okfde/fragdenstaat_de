@@ -112,6 +112,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
             dryrun_domain="fragdenstaat.stefanwehrmeyer.com",
             allow_pseudonym=True,
             api_activated=True,
+            have_newsletter=True,
             search_engine_query='http://www.google.de/search?as_q=%(query)s&as_epq=&as_oq=&as_eq=&hl=en&lr=&cr=&as_ft=i&as_filetype=&as_qdr=all&as_occt=any&as_dt=i&as_sitesearch=%(domain)s&as_rights=&safe=images',
             show_public_body_employee_name=False,
             request_throttle=[
