@@ -8,7 +8,6 @@ rec = lambda x: re.compile(x, re.I | re.U)
 
 
 class FragDenStaatBase(German, ThemeBase, Base):
-
     gettext = lambda s: s
     LANGUAGES = (
         ('de', gettext('German')),
@@ -63,7 +62,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
     # Experimental feature to update index after 60s
     CELERY_HAYSTACK_COUNTDOWN = 60
 
-    ########## Debug ###########
+    # ######### Debug ###########
 
     HAYSTACK_CONNECTIONS = {
         'default': {
@@ -120,7 +119,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
                 (15, 7 * 24 * 60 * 60),  # 15 requests in 7 days
             ],
             greetings=[rec(u"Sehr geehrt(er? (?:Herr|Frau)(?: ?Dr\.?)?(?: ?Prof\.?)? .*)")],
-            closings=[rec(u"[Mm]it( den)? (freundlichen|vielen|besten) Gr(\xfc|u)(\xdf|ss)(en)?,?"), rec("Hochachtungsvoll,?"), rec('i\. ?A\.'), rec('[iI]m Auftrag')]
+            closings=[rec(u"[Mm]it( den)? (freundliche(n|m)|vielen|besten) Gr(ü|u)(ß|ss)(en)?,?"), rec("Hochachtungsvoll,?"), rec('i\. ?A\.'), rec('[iI]m Auftrag')]
         ))
         return config
 
