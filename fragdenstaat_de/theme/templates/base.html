@@ -31,6 +31,14 @@
   </ul>
 {% endblock nav %}
 
+{% block donation_button %}
+  <div class="spendenbutton pull-right">
+    <a href="{% url 'help-donate' %}">
+      <img class="spendenbutton-img" title="Jetzt spenden!" alt="Jetzt spenden!" src="{% static "img/spendenbutton.svg" %}"/>
+    </a>
+  </div>
+{% endblock donation_button %}
+
 {% block footer_credits %}
   <div class="row">
     <div class="col-lg-8 col-md-8">
