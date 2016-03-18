@@ -1,22 +1,29 @@
 @font-face {
     font-family: 'Kreon';
-    font-style: normal;
-    font-weight: 700;
     src: local('Kreon Regular'), local('Kreon-Regular'), url('../fonts/Kreon-Regular.ttf') format('truetype'), url('../fonts/Kreon-Regular.woff') format('woff');
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
        font-family: 'Kreon';
 }
 
-/* Wau Holland Logo Size (in Impressum) */
-.wau {
-    width: 18em;
-}
-
-
 .navbar-fds {
     border: 0 !important;
+}
+
+.spendenbutton {
+  height: 50px;
+  margin-left: 10px;
+  z-index: 10;
+}
+
+.spendenbutton-img {
+  height:66px;
+}
+
+.heroine-unit h1 {
+  font-size: 2em;
+  margin: 0 0 0.5em;
 }
 
 .noticeable-break {
@@ -132,6 +139,56 @@ h1, h2, h3 {
   }
 }
 
+.video-embed {
+  display: block;
+}
+
+.video-embed-container {
+  text-align: center;
+  margin-top: 1em;
+}
+
+@media screen and (min-width: 1200px) {
+  .video-embed-container {
+    margin-top: 0;
+  }
+}
+
+.video-embed img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.aspect-ratio {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+
+.aspect-ratio iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0; top: 0;
+}
+
+.frontpage-teaser {
+    margin-top: 20px;
+}
+
+.teaser {
+  margin-bottom: 20px;
+}
+
+/* Wau Holland Logo Size (in Impressum) */
+.wau {
+    width: 18em;
+}
+
+
 .small-icon.topic-wirtschaft {
     background-image: url('../img/topics/wirtschaft_small.png')
 }
@@ -239,35 +296,146 @@ h1, h2, h3 {
   background-image: url('../img/jurisdictions/sachsen_small.png')
 }
 
-.frontpage-teaser h3 {
-  margin-top: -6px;
+
+/* style for animation on index page */
+
+.step {
+  display: block;
+}
+.step:hover {
+  text-decoration: none;
 }
 
-.col-video-7 {
-  width: 100%;
-  height: 430px;
+.step-number {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #777;
+  color: #f8f8f8;
+  border-radius: 20px;
+  text-align: center;
+  z-index: 5;
 }
 
-@media screen and (min-width: 768px) {
-  .col-video-7 {
-    width: 669px;
-    height: 376px;
+@media screen and (min-width: 992px) {
+  .step-number {
+    left: 42%;
+    bottom: -120px;
   }
 }
 
 @media screen and (min-width: 992px) {
-  .col-video-7 {
-    width: 497px;
-    height: 279px;
+  .step:nth-last-child(-n+2):after {
+    content: '';
+    width: 100%;
+    height: 6px;
+    background-color: #777;
+    position: absolute;
+    bottom: 27px;
+    left: -50%;
   }
 }
 
-@media screen and (min-width: 1200px) {
-  .col-video-7 {
-    width: 605px;
-    height: 340px;
-  }
-
-.frontpage-teaser h3 {
-  margin-top: -6px;
+.step-box {
+  position: relative;
+  top: -35px;
+  background-color: #428bca;
+  color: #f8f8f8;
+  margin: 15px;
+  border-radius: 6px;
+  text-align: center;
+  padding: 15px;
+  z-index: 1;
 }
+
+@media screen and (min-width: 992px) {
+  .step-box {
+    top: -60px;
+    height: 100px;
+  }
+}
+
+.step .step-number,
+.step:after,
+.step .step-box {
+  animation-duration: 10s;
+  animation-timing-function: step-end;
+  animation-iteration-count: infinite;
+}
+
+.step:nth-child(1) .step-number {
+  animation-name: step-1;
+}
+.step:nth-child(1) .step-box {
+  animation-name: box-step-1;
+}
+
+.step:nth-child(2) .step-number,
+.step:nth-child(2):after {
+  animation-name: step-2;
+}
+.step:nth-child(2) .step-box {
+  animation-name: box-step-2;
+}
+
+.step:nth-child(3) .step-number,
+.step:nth-child(3):after {
+  animation-name: step-3;
+}
+.step:nth-child(3) .step-box {
+  animation-name: box-step-3;
+}
+
+@keyframes step-1 {
+  25% {
+    background-color: #ffb74d;
+  }
+}
+
+@keyframes step-2 {
+  50% {
+    background-color: #ffb74d;
+  }
+}
+
+@keyframes step-3 {
+  75% {
+    background-color: #ffb74d;
+  }
+}
+
+@keyframes box-step-1 {
+  0%, 50%, 100% {
+    color: #f8f8f8;
+    background-color: #428bca;
+  }
+  25% {
+    color: #333;
+    background-color: #d9edf7;
+  }
+}
+
+@keyframes box-step-2 {
+  0%, 75%, 100% {
+    color: #f8f8f8;
+    background-color: #428bca;
+  }
+  50% {
+    color: #333;
+    background-color: #d9edf7;
+  }
+}
+
+@keyframes box-step-3 {
+  0%, 50%, 100% {
+    color: #f8f8f8;
+    background-color: #428bca;
+  }
+  75% {
+    color: #333;
+    background-color: #d9edf7;
+  }
+}
+
+/* END: style for animation on index page */

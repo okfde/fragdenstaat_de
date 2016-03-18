@@ -27,12 +27,21 @@
 {% endblock %}
 {% endcomment %}
 
+{% block site_name %}Was ist FragDenStaat?{% endblock %}
+
 {% block site_description %}
-<p>
-  Das Informationsfreiheitsportal für Bürger, Initiativen und Vereine.
-  Fragen Sie nach Behördendokumenten, die für Sie und Ihr Engagement wichtig sind!
-</p>
+  <p>
+    Jede Person hat das Recht auf Informationen. FragDenStaat hilft Ihnen, Ihr Recht wahrzunehmen.
+  </p>
+  <p>
+    Fragen Sie über diese Plattform Behörden in Deutschland nach Informationen und Dokumenten!
+  </p>
 {% endblock %}
+
+{% block example_search_terms_block %}{% endblock %}
+
+{% block index-search-placeholder %}z.B. Schule oder NSA{% endblock %}
+
 
 {% block first_index_row %}
 <div class="col-lg-5 col-md-5">
@@ -42,9 +51,9 @@
 </div>
 <div class="col-lg-7 col-md-7">
   {% block first_index_row_featured %}
-    <div class="center">
-      <a href="https://vimeo.com/102604678" class="video-embed" data-url="//player.vimeo.com/video/102604678?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1" data-class="col-video-7" data-aspect="1.77777778">
-        <img src="{{ STATIC_URL }}img/video_fds.png" alt="Video FragDenStaat.de on Vimeo" class="img-responsive"/>
+    <div class="aspect-ratio video-embed-container">
+      <a class="video-embed" href="https://vimeo.com/102604678" data-url="//player.vimeo.com/video/102604678?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1">
+        <img src="{{ STATIC_URL }}img/video_fds.png" alt="Video FragDenStaat.de on Vimeo"/>
       </a>
     </div>
   {% endblock first_index_row_featured %}
@@ -52,75 +61,86 @@
 {% endblock %}
 
 {% block index_content_row %}
+<div class="row-fluid">
+  <div class="col-lg-12 well">
+    <h2 class="text-center">Wie funktioniert FragDenStaat?</h2>
+    <div class="row steps">
+
+      <a class="step col-md-4" href="{% url 'foirequest-make_request' %}">
+        <h3 class="step-number">1</h3>
+        <div class="step-box" title="Stellen Sie eine Anfrage!">
+          <p>Stellen Sie eine Anfrage. Wir leiten sie an die zuständige Behörde weiter.</p>
+        </div>
+      </a>
+
+      <a class="step col-md-4" href="{% url 'foirequest-make_request' %}">
+        <h3 class="step-number">2</h3>
+        <div class="step-box" title="Stellen Sie eine Anfrage!">
+          <p>Sie erhalten eine Mail, sobald die Behörde auf Ihre Anfrage reagiert.</p>
+        </div>
+      </a>
+      <a class="step col-md-4" href="{% url 'foirequest-make_request' %}">
+        <h3 class="step-number">3</h3>
+        <div class="step-box" title="Stellen Sie eine Anfrage!">
+          <p>Die Antwort ist für Sie und auch für andere öffentlich einsehbar</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div> <!-- ende row -->
+
+{% endblock %}
+
+{% block index_requests_row %}
 <div class="row">
   <div class="col-lg-6 col-md-6">
-    {% block index_sub_left %}
-    <h3>
-      Was ist Informationsfreiheit?
-    </h3>
-    <p>
-      Alle Menschen haben nach dem Informationsfreiheitsgesetz das Recht, Informationen und Dokumente von Behörden zu erhalten.
-    </p>
-    <p>
-      Diese Seite veröffentlicht Informations­freiheits­anfragen und ihre Antworten, so dass der Vorgang transparent abläuft und die Informationen allen zur Verfügung stehen.
-    </p>
-    {% endblock %}
+    {% if successful_foi_requests %}
+      <h3>
+        {% blocktrans %}Successful Requests{% endblocktrans %}
+      </h3>
+      <ul class="media-list">
+        {% for object in successful_foi_requests %}
+          <li class="media">
+            {% include "foirequest/snippets/request_item.html" %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
 
   <div class="col-lg-6 col-md-6">
-    {% block index_sub_right %}
-    <div class="">
-    {% if featured %}
     <div class="frontpage-teaser">
-      <h3>
-        <small>{% trans "Featured Request" %}</small><br/>
-        {{ featured.title }}
-      </h3>
-      <p>
-        {{ featured.text|truncatewords:55|linebreaksbr }}
-      </p>
-      {% if featured.url %}
-        <p>
-          <a href="{{ featured.url }}">
-            <span class="glyphicon glyphicon-bullhorn"></span>
-            {% blocktrans %}Read the blog post{% endblocktrans %}
-          </a>
-        </p>
-      {% endif %}
-      {% if featured.request %}
-        <p>
-          <a href="{% url 'foirequest-show' slug=featured.request.slug %}">
-            <span class="glyphicon glyphicon-envelope"></span>
-            {% blocktrans %}Visit this request{% endblocktrans %}
-          </a>
-        </p>
-      {% endif %}
+      <small class="text-muted">Neues aus dem Blog</small>
+
+      {% for object in featured %}
+        <div class="teaser">
+          <h3 class="teaser-title">
+            <a href="{{ object.url }}">{{ object.title }}</a>
+          </h3>
+          <p>
+            {{ object.text|truncatewords:55|linebreaksbr }}
+          </p>
+          {% if object.request %}
+            <p>
+              <a href="{% url 'foirequest-show' slug=object.request.slug %}">
+                <span class="glyphicon glyphicon-share-alt"></span>
+                {% blocktrans %}Visit this request{% endblocktrans %}
+              </a>
+            </p>
+          {% endif %}
+        </div>
+      {% endfor %}
     </div>
-    {% else %}
-    <div id="sample-letter" class="frontpage-teaser">{% blocktrans %}Freedom of Information Request
-
-To: Ministry of Interior
-
-Dear Sir or Madam,
-I request information about the following:
-...{% endblocktrans %}
-  <a class="make-request-icon" href="{% url 'foirequest-make_request' %}">{% blocktrans %}Write a Request Now!{% endblocktrans %}</a>
-  </div>
-  {% endif %}
-  </div>
-    {% endblock %}
   </div>
 </div>
 {% endblock %}
+
 
 {% block extra_footer %}
 <script type="text/javascript">
   $('.video-embed').click(function(e){
     e.preventDefault();
-    var width = $(this).parent().width();
-    var aspect = parseFloat($(this).data('aspect'));
-    var height = Math.floor(width / aspect);
-    $(this).replaceWith('<iframe src="' + $(this).data('url') + '" class="' + $(this).data('class') + '" frameborder="0" style="width:' + width + 'px;height:' + height + 'px" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>')
+    $(this).replaceWith('<iframe src="' + $(this).data('url') + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>')
   });
 </script>
 {% endblock %}
