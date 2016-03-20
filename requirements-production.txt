@@ -1,0 +1,4 @@
+-r requirements.txt
+psycopg2==2.6.1
+gunicorn==19.3.0
+pysolr==3.4.0
