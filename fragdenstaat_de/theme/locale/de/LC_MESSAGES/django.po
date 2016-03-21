@@ -80,7 +80,7 @@ msgstr ""
 
 #: fragdenstaat_de/theme/templates/index.html:107
 msgid "Write a Request Now!"
-msgstr "Schreiben Sie jetzt eine Anfrage!"
+msgstr "Stellen Sie jetzt eine Anfrage!"
 
 #~ msgid ""
 #~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn.org"
@@ -93,7 +93,7 @@ msgstr "Schreiben Sie jetzt eine Anfrage!"
 #~ "über Ihre Spende!</a>"
 
 #~ msgid "Like this? Consider supporting us!"
-#~ msgstr "FragDenStaat.de braucht Deine Unterstützung!"
+#~ msgstr "FragDenStaat.de braucht Ihre Unterstützung!"
 
 #~ msgid "Donate now!"
 #~ msgstr "Jetzt spenden!"
@@ -1942,7 +1942,7 @@ msgstr "Schreiben Sie jetzt eine Anfrage!"
 #~ msgstr "Lassen Sie den Betreff Ihrer Nachricht nicht leer."
 
 #~ msgid "Write a request"
-#~ msgstr "Schreiben Sie eine Anfrage"
+#~ msgstr "Stellen Sie eine Anfrage"
 
 #~ msgid "Step 1 - Find the Public Body"
 #~ msgstr "Schritt 1 - Wählen Sie die Behörde"
@@ -2040,7 +2040,7 @@ msgstr "Schreiben Sie jetzt eine Anfrage!"
 #~ msgstr "Klicken Sie hier um zu abgeordnetenwatch.de zu gelangen"
 
 #~ msgid "Step 3 - Write the Request"
-#~ msgstr "Schritt 3 - Schreiben Sie die Anfrage"
+#~ msgstr "Schritt 3 - Stellen Sie die Anfrage"
 
 #~ msgid ""
 #~ "Please have a look if the information you are looking for is already "
@@ -2062,7 +2062,7 @@ msgstr "Schreiben Sie jetzt eine Anfrage!"
 #~ "If you could not find the information you are looking for, write a "
 #~ "request below."
 #~ msgstr ""
-#~ "Falls Sie die gewünschten Informationen nicht finden konnten, schreiben "
+#~ "Falls Sie die gewünschten Informationen nicht finden konnten, stellen "
 #~ "Sie unten eine Anfrage."
 
 #~ msgid "Request Subject"
@@ -2217,7 +2217,7 @@ msgstr "Schreiben Sie jetzt eine Anfrage!"
 #~ "eventually."
 #~ msgstr ""
 #~ "Diese Anfrage ist momentan nicht öffentlich. Bitte machen Sie die Anfrage "
-#~ "letzten Endes öffentlich."
+#~ "am Schluss öffentlich."
 
 #~ msgid ""
 #~ "This request received a reply and is in an unknown state. If you created "
@@ -2642,7 +2642,7 @@ msgstr "Schreiben Sie jetzt eine Anfrage!"
 #~ msgstr "Bitte wählen Sie jetzt einen neuen Status für diese Anfrage aus"
 
 #~ msgid "You can write a reply by clicking here"
-#~ msgstr "Um eine Antwort an die Behörde zu schreiben klicken Sie hier"
+#~ msgstr "Um eine Antwort an die Behörde zu schreiben, klicken Sie hier"
 
 #~ msgid "Write a comment"
 #~ msgstr "Schreiben Sie einen Kommentar"
@@ -2977,7 +2977,7 @@ msgstr "Schreiben Sie jetzt eine Anfrage!"
 #~ msgstr "Bundesministerium für Arbeit"
 
 #~ msgid "Write to us if a public body is missing"
-#~ msgstr "Schreiben Sie uns, falls eine Behörde fehlt."
+#~ msgstr "Schreiben Sie uns, falls eine Behörde fehlt, an info@fragdenstaat.de."
 
 #~ msgid "No Public Bodies found for this query."
 #~ msgstr "Es wurden keine Behörden für diesen Suchbegriff gefunden."
@@ -3051,7 +3051,7 @@ msgstr "Schreiben Sie jetzt eine Anfrage!"
 #~ msgstr "Stellen Sie eine Anfrage"
 
 #~ msgid "Write a request to %(name)s"
-#~ msgstr "Schreiben Sie eine Anfrage an %(name)s"
+#~ msgstr "Stellen Sie eine Anfrage an %(name)s"
 
 #~ msgid "Search Results for &quot;%(query)s&quot; in Public Bodies"
 #~ msgstr "Suchergebnisse in Behörden für \"%(query)s\""
