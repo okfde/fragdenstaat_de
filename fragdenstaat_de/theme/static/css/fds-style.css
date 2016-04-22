@@ -336,7 +336,7 @@ h1, h2, h3, h4 {
 .step-box {
   position: relative;
   top: -35px;
-  background-color: #428bca;
+  background-color: #d9edf7;
   color: #f8f8f8;
   margin: 15px;
   border-radius: 6px;
@@ -403,34 +403,34 @@ h1, h2, h3, h4 {
 
 @keyframes box-step-1 {
   0%, 50%, 100% {
-    color: #f8f8f8;
-    background-color: #428bca;
-  }
-  25% {
     color: #333;
     background-color: #d9edf7;
+  }
+  25% {
+    color: #f8f8f8;
+    background-color: #428bca;
   }
 }
 
 @keyframes box-step-2 {
   0%, 75%, 100% {
-    color: #f8f8f8;
-    background-color: #428bca;
-  }
-  50% {
     color: #333;
     background-color: #d9edf7;
+  }
+  50% {
+    color: #f8f8f8;
+    background-color: #428bca;
   }
 }
 
 @keyframes box-step-3 {
   0%, 50%, 100% {
-    color: #f8f8f8;
-    background-color: #428bca;
-  }
-  75% {
     color: #333;
     background-color: #d9edf7;
+  }
+  75% {
+    color: #f8f8f8;
+    background-color: #428bca;
   }
 }
 
