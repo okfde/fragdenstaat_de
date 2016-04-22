@@ -57,22 +57,40 @@
   <hr/>
 {% endblock %}
 
-{% block footer_menu_custom %}
+
+{% block footer_menu %}
+<li>
+  <a href="{% url 'help-about' %}">{% trans "About" %}</a>
+</li>
 <li>
   <a href="/presse/">Presse</a>
 </li>
 <li>
-  <a href="https://twitter.com/fragdenstaat">FdS auf Twitter</a>
+  <a href="{% url 'help-about' %}#impressum">Impressum</a>
 </li>
+
 <li>
-  <a href="http://lists.okfn.org/mailman/listinfo/fragdenstaat">
+  <a href="{% url 'help-index' %}">{% trans "Help" %}</a>
+<li>
+  <a href="{% url 'help-terms' %}">{% trans "Terms of Use" %}</a>
+</li>
+
+<li>
+  <a href="http://lists.okfn.org/mailman/listinfo/fragdenstaat" target="_blank">
     Mailingliste
   </a>
 </li>
 <li>
-  <a href="{% url 'help-about' %}#impressum">Impressum</a>
+  <a href="https://twitter.com/fragdenstaat" target="_blank">Twitter</a>
 </li>
-{% endblock footer_menu_custom %}
+<li>
+  <a href="https://facebook.com/fragdenstaatde" target="_blank">Facebook</a>
+</li>
+<li>
+  <a href="https://github.com/okfde/fragdenstaat_de" target="_blank">GitHub</a>
+</li>
+
+{% endblock %}
 
 {% block footer_below %}
   <hr/>
