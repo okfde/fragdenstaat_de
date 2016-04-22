@@ -23,6 +23,9 @@
       <a href="{% url 'foirequest-list' %}">{% blocktrans %}Requests{% endblocktrans %}</a>
     </li>
     <li>
+      <a href="{% url "help-index" %}">{% trans "FAQ" %}</a>
+    </li>
+    <li>
       <a href="http://blog.fragdenstaat.de/" target="_blank">{% trans "Blog" %}</a>
     </li>
     <li class="special-nav-item {% block nav_makerequest %}{% endblock %}">
