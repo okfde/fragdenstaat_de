@@ -93,19 +93,24 @@
 
 {% block index_requests_row %}
 <div class="row">
-  <div class="col-lg-6 col-md-6 frontpage-teaser well">
-    {% if successful_foi_requests %}
-      <h3>
-        {% blocktrans %}Successful Requests{% endblocktrans %}
-      </h3>
-      <ul class="media-list">
-        {% for object in successful_foi_requests %}
-          <li class="media">
-            {% include "foirequest/snippets/request_item.html" %}
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+  <div class="col-lg-6 col-md-6 frontpage-teaser">
+    <div class="well">
+      {% if successful_foi_requests %}
+        <h3>
+          {% blocktrans %}Successful Requests{% endblocktrans %}
+        </h3>
+        <ul class="media-list">
+          {% for object in successful_foi_requests %}
+            <li class="media">
+              {% include "foirequest/snippets/request_item.html" %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <p>
+        <a href="{% url "foirequest-list" %}">Weitere Anfragen</a>
+      </p>
+    </div>
   </div>
 
   <div class="col-lg-6 col-md-6">
