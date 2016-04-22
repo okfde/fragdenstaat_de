@@ -317,7 +317,6 @@ h1, h2, h3, h4 {
 @media screen and (min-width: 992px) {
   .step-number {
     left: 42%;
-    bottom: -120px;
   }
 }
 
@@ -328,7 +327,7 @@ h1, h2, h3, h4 {
     height: 6px;
     background-color: #777;
     position: absolute;
-    bottom: 27px;
+    top: 36px;
     left: -50%;
   }
 }
@@ -347,7 +346,7 @@ h1, h2, h3, h4 {
 
 @media screen and (min-width: 992px) {
   .step-box {
-    top: -60px;
+    top: 0px;
     height: 100px;
   }
 }
