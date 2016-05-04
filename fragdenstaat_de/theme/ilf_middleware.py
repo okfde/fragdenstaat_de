@@ -3,10 +3,14 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.utils.crypto import constant_time_compare
 from django.utils.encoding import force_text
-from django.utils.http import same_origin
+from django.utils.http import is_same_domain
+from django.utils.six.moves.urllib.parse import urlparse
 from django.middleware.csrf import (CsrfViewMiddleware, _sanitize_token,
-                                    _get_new_csrf_key, REASON_BAD_REFERER,
-                                    REASON_NO_CSRF_COOKIE, REASON_BAD_TOKEN)
+                                    REASON_BAD_REFERER,
+                                    REASON_NO_CSRF_COOKIE,
+                                    REASON_BAD_TOKEN,
+                                    REASON_MALFORMED_REFERER,
+                                    REASON_INSECURE_REFERER)
 
 
 class CsrfViewIlfMiddleware(CsrfViewMiddleware):
@@ -26,9 +30,6 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
             request.META['CSRF_COOKIE'] = csrf_token
         except KeyError:
             csrf_token = None
-            # Generate token and store it in the request, so it's
-            # available to the view.
-            request.META["CSRF_COOKIE"] = _get_new_csrf_key()
 
         # Wait until request.META["CSRF_COOKIE"] has been manipulated before
         # bailing out, so that get_token still works
@@ -67,10 +68,35 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                     errors='replace'
                 )
                 if referer is not None:
-                    # Note that request.get_host() includes the port.
-                    good_referer = 'https://%s/' % request.get_host()
-                    if not same_origin(referer, good_referer):
-                        reason = REASON_BAD_REFERER % (referer, good_referer)
+                    referer = urlparse(referer)
+
+                    # Make sure we have a valid URL for Referer.
+                    if '' in (referer.scheme, referer.netloc):
+                        return self._reject(request, REASON_MALFORMED_REFERER)
+
+                    # Ensure that our Referer is also secure.
+                    if referer.scheme != 'https':
+                        return self._reject(request, REASON_INSECURE_REFERER)
+
+                    # If there isn't a CSRF_COOKIE_DOMAIN, assume we need an exact
+                    # match on host:port. If not, obey the cookie rules.
+                    if settings.CSRF_COOKIE_DOMAIN is None:
+                        # request.get_host() includes the port.
+                        good_referer = request.get_host()
+                    else:
+                        good_referer = settings.CSRF_COOKIE_DOMAIN
+                        server_port = request.get_port()
+                        if server_port not in ('443', '80'):
+                            good_referer = '%s:%s' % (good_referer, server_port)
+
+                    # Here we generate a list of all acceptable HTTP referers,
+                    # including the current host since that has been validated
+                    # upstream.
+                    good_hosts = list(settings.CSRF_TRUSTED_ORIGINS)
+                    good_hosts.append(good_referer)
+
+                    if not any(is_same_domain(referer.netloc, host) for host in good_hosts):
+                        reason = REASON_BAD_REFERER % referer.geturl()
                         return self._reject(request, reason)
 
             if csrf_token is None:
@@ -95,7 +121,7 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
             if request_csrf_token == "":
                 # Fall back to X-CSRFToken, to make things easier for AJAX,
                 # and possible for PUT/DELETE.
-                request_csrf_token = request.META.get('HTTP_X_CSRFTOKEN', '')
+                request_csrf_token = request.META.get(settings.CSRF_HEADER_NAME, '')
 
             if not constant_time_compare(request_csrf_token, csrf_token):
                 return self._reject(request, REASON_BAD_TOKEN)
