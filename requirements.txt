@@ -1,10 +1,10 @@
-pip==8.1.1
+pip==8.1.2
 Django<1.10
 Markdown==2.6.6
 celery==3.1.23
 celery-haystack==0.10
 django-celery-email==1.1.4
-django-haystack==2.4.1
+django-haystack==2.5.dev1
 django-taggit==0.18.1
 pytz==2016.4
 requests==2.9.1
