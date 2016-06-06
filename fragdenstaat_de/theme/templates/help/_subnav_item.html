@@ -1,0 +1,12 @@
+{% load flatpages %}
+{% get_flatpages help_url as help_pages %}
+
+{% if help_url in request.path %}
+  {% for help_page in help_pages %}
+    <li role="presentation"{% if help_page.url == request.path %} class="active"{% endif %}>
+      <a href="{{ help_page.url }}">
+        {{ help_page.title }}
+      </a>
+    </li>
+  {% endfor %}
+{% endif %}
