@@ -23,10 +23,10 @@
       <a href="{% url 'foirequest-list' %}">Angefragt</a>
     </li>
     <li>
-      <a href="{% url "help-index" %}">{% trans "FAQ" %}</a>
+      <a href="http://blog.fragdenstaat.de/" target="_blank">{% trans "Blog" %}</a>
     </li>
     <li>
-      <a href="http://blog.fragdenstaat.de/" target="_blank">{% trans "Blog" %}</a>
+      <a href="{% url "help-index" %}">{% trans "FAQ" %}</a>
     </li>
     <li class="special-nav-item {% block nav_makerequest %}{% endblock %}">
       <a href="{% url 'foirequest-make_request' %}"><span>{% blocktrans %}Make a Request!{% endblocktrans %}</span></a>
@@ -66,14 +66,14 @@
   <a href="{% url 'help-about' %}">{% trans "About" %}</a>
 </li>
 <li>
-  <a href="/presse/">Presse</a>
+  <a href="{% url 'help-about' %}/presse/">Presse</a>
 </li>
 <li>
-  <a href="{% url 'help-about' %}#impressum">Impressum</a>
+  <a href="{% url 'help-about' %}/impressum/">Impressum</a>
 </li>
 
 <li>
-  <a href="{% url 'help-index' %}">{% trans "Help" %}</a>
+  <a href="{% url 'help-index' %}/howto/">{% trans "Help" %}</a>
 <li>
   <a href="{% url 'help-terms' %}">{% trans "Terms of Use" %}</a>
 </li>
@@ -100,7 +100,7 @@
   <div class="row text-muted">
     <div class="col-lg-12">
       <p>
-        Fragdenstaat nutzt statt den üblichen externen Dienstleistern die datenschutzfreundlichere Technologie von <a href="http://piwik.org/">Piwik</a>, um statistische Auswertungen der Seitennutzung zu erhalten. Wenn sie dies nicht wollen, <a href="https://fragdenstaat.de/piwik/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=de">klicken Sie bitte hier und entfernen Sie den Haken</a>. Näheres in <a href="{% url 'help-privacy' %}">unserer Datenschutzerklärung</a>.
+        Fragdenstaat nutzt statt den üblichen externen Dienstleistern die datenschutzfreundlichere Technologie von <a href="http:s//piwik.org/">Piwik</a>, um statistische Auswertungen der Seitennutzung zu erhalten. Wenn sie dies nicht wollen, <a href="https://fragdenstaat.de/piwik/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=de">klicken Sie bitte hier und entfernen Sie den Haken</a>. Näheres in <a href="{% url 'help-privacy' %}">unserer Datenschutzerklärung</a>.
       </p>
     </div>
   </div>
