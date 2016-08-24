@@ -3155,7 +3155,7 @@ msgstr "Stellen Sie jetzt eine Anfrage!"
 #~ "Information"
 #~ msgstr ""
 #~ "Informationsfreiheitsanfragen, Informationsfreiheitsgesetz, "
-#~ "Behördeninformationen"
+#~ "IFG, Informationsfreiheit, Behörde, Amt, Ämter"
 
 #~ msgid ""
 #~ "%(site)s helps you to make freedom of information requests to public "
