@@ -6,6 +6,7 @@ from django.utils.encoding import force_text
 from django.utils.http import is_same_domain
 from django.utils.six.moves.urllib.parse import urlparse
 from django.middleware.csrf import (CsrfViewMiddleware, _sanitize_token,
+                                    _compare_salted_tokens,
                                     REASON_BAD_REFERER,
                                     REASON_NO_CSRF_COOKIE,
                                     REASON_BAD_TOKEN,
@@ -19,24 +20,28 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
     """
 
     def process_view(self, request, callback, callback_args, callback_kwargs):
-
         if getattr(request, 'csrf_processing_done', False):
             return None
 
         try:
-            csrf_token = _sanitize_token(
-                request.COOKIES[settings.CSRF_COOKIE_NAME])
-            # Use same token next time
-            request.META['CSRF_COOKIE'] = csrf_token
+            cookie_token = request.COOKIES[settings.CSRF_COOKIE_NAME]
         except KeyError:
             csrf_token = None
+        else:
+            csrf_token = _sanitize_token(cookie_token)
+            if csrf_token != cookie_token:
+                # Cookie token needed to be replaced;
+                # the cookie needs to be reset.
+                request.csrf_cookie_needs_reset = True
+            # Use same token next time.
+            request.META['CSRF_COOKIE'] = csrf_token
 
         # Wait until request.META["CSRF_COOKIE"] has been manipulated before
         # bailing out, so that get_token still works
         if getattr(callback, 'csrf_exempt', False):
             return None
 
-        # Assume that anything not defined as 'safe' by RFC2616 needs protection
+        # Assume that anything not defined as 'safe' by RFC7231 needs protection
         if request.method not in ('GET', 'HEAD', 'OPTIONS', 'TRACE'):
             if getattr(request, '_dont_enforce_csrf_checks', False):
                 # Mechanism to turn off CSRF checks for test suite.
@@ -54,7 +59,7 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                 #
                 # The attacker will need to provide a CSRF cookie and token, but
                 # that's no problem for a MITM and the session-independent
-                # nonce we're using. So the MITM can circumvent the CSRF
+                # secret we're using. So the MITM can circumvent the CSRF
                 # protection. This is true for any HTTP connection, but anyone
                 # using HTTPS expects better! For this reason, for
                 # https://example.com/ we need additional protection that treats
@@ -123,7 +128,8 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                 # and possible for PUT/DELETE.
                 request_csrf_token = request.META.get(settings.CSRF_HEADER_NAME, '')
 
-            if not constant_time_compare(request_csrf_token, csrf_token):
+            request_csrf_token = _sanitize_token(request_csrf_token)
+            if not _compare_salted_tokens(request_csrf_token, csrf_token):
                 return self._reject(request, REASON_BAD_TOKEN)
 
         return self._accept(request)
