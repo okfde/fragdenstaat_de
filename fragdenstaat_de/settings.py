@@ -134,6 +134,11 @@ class FragDenStaatBase(German, ThemeBase, Base):
 
 class Dev(FragDenStaatBase):
     GEOIP_PATH = None
+    HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+        }
+    }
 
 
 try:

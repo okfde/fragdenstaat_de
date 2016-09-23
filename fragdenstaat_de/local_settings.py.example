@@ -3,4 +3,9 @@ from .settings import FragDenStaatBase
 
 class Dev(FragDenStaatBase):
     # Your custom settings here
-    pass
+    GEOIP_PATH = None
+    HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+        }
+    }
