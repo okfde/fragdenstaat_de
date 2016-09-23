@@ -1,9 +1,24 @@
 # FragDenStaat.de Theming
 
-This repository contains templates and static files for theming
+This repository contains the theming for
 [FragDenStaat.de](https://fragdenstaat.de) - the German instance of [Froide](https://github.com/stefanw/froide).
 
-Install this app in your environment with `pip install -e .`.
+
+Setup a separate Python virtual environment:
+
+```
+pip install virtualenv
+python -m virtualenv fds-env
+source fds-env/bin/activate
+```
+
+Then install dependencies:
+
+```
+pip install -r requirements.txt -e .
+```
+
+
 Copy `local_settings.py.example` to `local_settings.py`.
 
 ## License

@@ -4,11 +4,17 @@ import re
 
 from froide.settings import Base, ThemeBase, German
 
-rec = lambda x: re.compile(x, re.I | re.U)
+
+def rec(x):
+    return re.compile(x, re.I | re.U)
+
+
+def gettext(s):
+    return s
 
 
 class FragDenStaatBase(German, ThemeBase, Base):
-    gettext = lambda s: s
+
     LANGUAGES = (
         ('de', gettext('German')),
     )
@@ -31,7 +37,8 @@ class FragDenStaatBase(German, ThemeBase, Base):
 
     @property
     def GEOIP_PATH(self):
-        return os.path.join(super(FragDenStaatBase, self).PROJECT_ROOT, '..', 'data')
+        return os.path.join(super(FragDenStaatBase,
+                            self).PROJECT_ROOT, '..', 'data')
 
     TINYMCE_DEFAULT_CONFIG = {
         'plugins': "table,spellchecker,paste,searchreplace",
@@ -94,7 +101,8 @@ class FragDenStaatBase(German, ThemeBase, Base):
 
     # Fig broker setup
     if 'BROKER_1_PORT' in os.environ:
-        BROKER_URL = 'amqp://guest:**@%s/' % os.environ['BROKER_1_PORT'].replace('tcp://', '')
+        BROKER_PORT = os.environ['BROKER_1_PORT'].replace('tcp://', '')
+        BROKER_URL = 'amqp://guest:**@%s/' % BROKER_PORT
 
     @property
     def FROIDE_CONFIG(self):
