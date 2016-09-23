@@ -15,7 +15,7 @@ source fds-env/bin/activate
 Then install dependencies:
 
 ```
-pip install -r requirements.txt -e .
+pip install -r requirements-dev.txt -e .
 ```
 
 

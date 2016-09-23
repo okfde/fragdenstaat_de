@@ -133,7 +133,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
 
 
 class Dev(FragDenStaatBase):
-    pass
+    GEOIP_PATH = None
 
 
 try:
