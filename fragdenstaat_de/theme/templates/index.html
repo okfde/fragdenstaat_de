@@ -123,36 +123,11 @@
     </div>
   </div>
 </div>
-
-
-<div id="hash000000-modal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Schließen"><span aria-hidden="true">&times;</span></button>
-        <a href="http://000000.limited/">
-          <h4 class="text-center modal-title">Limitierte Volkswagen-Edition #000000</h4>
-        </a>
-      </div>
-      <div class="modal-body">
-        <p class="text-center">
-          <a href="http://000000.limited/">
-            <img src="{% static "img/kampagnen/2016/hash000000.jpg" %}" alt="Geschwärztes Dokument">
-          </a>
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
 {% endblock %}
 
 
 {% block extra_footer %}
 <script type="text/javascript">
-  $(function(){
-    $('#hash000000-modal').modal();
-  });
   $('.video-embed').click(function(e){
     e.preventDefault();
     $(this).replaceWith('<iframe src="' + $(this).data('url') + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>')
