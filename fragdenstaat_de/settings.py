@@ -87,6 +87,9 @@ class FragDenStaatBase(German, ThemeBase, Base):
         "admin": "admin",
     }
 
+    ALLOWED_HOSTS = ('fragdenstaat.de')
+    ALLOWED_REDIRECT_HOSTS = ('fragdenstaat.de', 'sanktionsfrei.de')
+
     DEFAULT_FROM_EMAIL = 'info@fragdenstaat.de'
     EMAIL_SUBJECT_PREFIX = '[AdminFragDenStaat] '
 
