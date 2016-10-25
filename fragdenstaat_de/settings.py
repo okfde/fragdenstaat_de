@@ -133,7 +133,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
                 rec(u"Sehr geehrt(er? (?:Herr|Frau)(?: ?Dr\.?)?(?: ?Prof\.?)? .*)"),
             ],
             custom_replacements=[
-                rec(r'[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([0-9\s/]+)')
+                rec(r'[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([a-zA-Z0-9\s/]+)')
             ],
             closings=[rec(u"([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u)(ß|ss)(en?)?,?"), rec("Hochachtungsvoll,?"), rec('i\. ?A\.'), rec('[iI]m Auftrag')]
         ))
