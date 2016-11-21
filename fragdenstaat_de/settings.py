@@ -32,6 +32,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
             'django_filters',
             'markdown_deux',
             'froide_campaign.apps.FroideCampaignConfig',
+            'froide_legalaction.apps.FroideLegalActionConfig',
         ]
         return installed
 

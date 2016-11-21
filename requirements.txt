@@ -25,3 +25,4 @@ django-tinymce==2.4.0
 anyjson==0.3.3
 
 -e git://github.com/okfde/froide-campaign.git@master#egg=froide_campaign
+-e git://github.com/okfde/froide-legalaction.git@master#egg=froide_legalaction
