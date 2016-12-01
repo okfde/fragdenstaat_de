@@ -54,6 +54,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.common.CommonMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
         'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
         'froide.account.middleware.AcceptNewTermsMiddleware',
