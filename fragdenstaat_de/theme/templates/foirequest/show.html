@@ -1,6 +1,9 @@
 {% overextends "foirequest/show.html" %}
 
 {% load static from staticfiles %}
+{% load i18n %}
+
+{% load legalaction %}
 
 {% block foirequest_header %}
   {% if object.jurisdiction.slug == "nrw" %}
@@ -15,4 +18,54 @@
         </p>
       </div>
   {% endif %}
+{% endblock %}
+
+{% block request_action_menu_footer %}
+  {% if object.can_be_escalated and request.user.is_staff %}
+    <li>
+      <a href="#legalaction" data-toggle="tab">
+        {% blocktrans %}File a law suit with us{% endblocktrans %}
+      </a>
+    </li>
+  {% endif %}
+
+{% endblock %}
+
+{% block request_action_pane_footer %}
+  <div class="tab-pane hidden-print" id="legalaction">
+    <h3>{% trans "File a law suit" %}</h3>
+    {% with proposal=object|legalaction_proposal_submitted %}
+      {% if proposal %}
+        <p>
+          {% blocktrans with date=proposal.timestamp|date:"SHORT_DATE_FORMAT" %}
+            We received your legal action proposal on {{ date}} and we are currently reviewing it.
+          {% endblocktrans %}
+        </p>
+      {% else %}
+        <p>
+          Ihre Anfrage wurde zu Unrecht abgelehnt oder Gebühren zu hoch berechnet?
+          Gemeinsam mit unserem Partner von der Gesellschaft für Freiheitsrechte (GFF) übernimmt unser Fonds „Transparenzklagen.de“ die Kosten für Klagen nach den Informationsfreiheitsgesetzen und stellt Anwälte zur Verfügung. Es werden vor allem solche Klagen übernommen, die über den einzelnen Fall hinaus Bedeutung haben und deren Erfolgschancen wir als gut bewerten.
+        </p>
+        <p>
+          Damit wir die Kosten für Ihre Klage übernehmen können, müssen folgende Voraussetzungen erfüllt sein:
+        </p>
+        <ul>
+          <li>
+            Sie haben gegen den Bescheid der Behörde bereits fristgerecht Widerspruch eingereicht und einen ablehnenden Widerspruchsbescheid erhalten.
+          </li>
+          <li>
+            Die einmonatige Klagefrist läuft in nicht weniger als zwei Wochen ab.
+          </li>
+          <li>
+            Sie senden uns über das hier verlinkte Formular sämtlichen Schriftverkehr mit der Behörde zu.
+          </li>
+        </ul>
+        <p>
+          <a class="btn btn-lg btn-primary" href="{% url 'legalaction-request_form' pk=object.pk %}" target="_blank">
+            {% trans "Click here to propose a law suit" %}
+          </a>
+        </p>
+      {% endif %}
+    {% endwith %}
+  </div>
 {% endblock %}
