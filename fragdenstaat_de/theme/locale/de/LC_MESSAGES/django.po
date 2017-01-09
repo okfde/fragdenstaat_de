@@ -131,7 +131,9 @@ msgstr "Lesen Sie die Anfrage"
 #~ "\">the Open Knowledge Foundation</a>. If you want to support Froide, "
 #~ "please visit the <a href=\"%(url)s\">repository on GitHub</a>."
 #~ msgstr ""
-#~ "FragDenStaat.de ist ein gemeinnütziges Projekt des <a href=\"http://okfn."
+#~ "Über FragDenStaat.de können Sie Behörden in Deutschland nach Informationen
+#~ und Dokumenten fragen. Die Basis dafür ist das Informationsfreiheitsgesetz.<br/>
+#~ Die Plattform ist ein gemeinnütziges Projekt des <a href=\"http://okfn."
 #~ "de\">Open Knowledge Foundation Deutschland e.V.</a><br/>Wenn Sie "
 #~ "FragDenStaat.de unterstützen möchten, <a href=\"%(url)s\">freuen wir uns "
 #~ "über Ihre Spende!</a>"
