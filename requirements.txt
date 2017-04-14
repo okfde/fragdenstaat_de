@@ -24,5 +24,6 @@ honcho==0.7.1
 django-tinymce==2.4.0
 anyjson==0.3.3
 
+-e git://github.com/okfde/froide.git@master#egg=froide
 -e git://github.com/okfde/froide-campaign.git@master#egg=froide_campaign
 -e git://github.com/okfde/froide-legalaction.git@master#egg=froide_legalaction
