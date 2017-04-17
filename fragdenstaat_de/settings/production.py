@@ -44,7 +44,6 @@ class FragDenStaat(FragDenStaatBase):
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': env('DATABASE_NAME'),
-            'TIME_ZONE': 'UTC',
             'OPTIONS': {},
             'HOST': env('DATABASE_HOST'),
             'USER': env('DATABASE_USER'),
