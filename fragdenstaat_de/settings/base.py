@@ -75,8 +75,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
 
     HAYSTACK_CONNECTIONS = {
         'default': {
-            'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-            'URL': 'http://127.0.0.1:8983/solr/fragdenstaat'
+            'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
         }
     }
     HAYSTACK_SIGNAL_PROCESSOR = 'celery_haystack.signals.CelerySignalProcessor'
@@ -121,7 +120,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
             default_law=2,
             doc_conversion_binary="/usr/bin/libreoffice",
             dryrun=False,
-            dryrun_domain="fragdenstaat.stefanwehrmeyer.com",
+            dryrun_domain="test.fragdenstaat.de",
             allow_pseudonym=True,
             api_activated=True,
             have_newsletter=True,
@@ -149,9 +148,3 @@ class Dev(FragDenStaatBase):
             'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
         }
     }
-
-
-try:
-    from .local_settings import *  # noqa
-except ImportError:
-    pass
