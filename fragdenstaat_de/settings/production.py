@@ -161,7 +161,7 @@ class FragDenStaat(FragDenStaatBase):
 
     SECRET_KEY = env('DJANGO_SECRET_KEY')
     SECRET_URLS = {
-        'admin': env('DJANGO_SECRTE_URL_ADMIN')
+        'admin': env('DJANGO_SECRET_URL_ADMIN')
     }
 
     SERVER_EMAIL = 'info@fragdenstaat.de'
