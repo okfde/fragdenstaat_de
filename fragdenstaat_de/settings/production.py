@@ -151,6 +151,7 @@ class FragDenStaat(FragDenStaatBase):
     MEDIA_URL = '/files/'
 
     MIDDLEWARE_CLASSES = [
+        'froide.helper.middleware.XForwardedForMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
