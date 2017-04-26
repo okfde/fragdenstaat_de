@@ -7,7 +7,6 @@ def env(key, default=None):
     return os.environ.get(key, default)
 
 
-
 class FragDenStaat(FragDenStaatBase):
     DEBUG = False
     TEMPLATE_DEBUG = False
@@ -32,6 +31,8 @@ class FragDenStaat(FragDenStaatBase):
     X_ACCEL_REDIRECT_PREFIX = '/protected'
 
     ALLOWED_HOSTS = ('fragdenstaat.de',)
+    ALLOWED_REDIRECT_HOSTS = ('fragdenstaat.de', 'sanktionsfrei.de',)
+
     CACHES = {
         'default': {
             'LOCATION': 'unique-snowflake',

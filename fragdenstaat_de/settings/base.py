@@ -48,12 +48,13 @@ class FragDenStaatBase(German, ThemeBase, Base):
     }
 
     MIDDLEWARE_CLASSES = [
+        'django.middleware.security.SecurityMiddleware',
         'froide.helper.middleware.XForwardedForMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
         'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.common.CommonMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
         'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
@@ -88,8 +89,8 @@ class FragDenStaatBase(German, ThemeBase, Base):
         "admin": "admin",
     }
 
-    ALLOWED_HOSTS = ('fragdenstaat.de')
-    ALLOWED_REDIRECT_HOSTS = ('fragdenstaat.de', 'sanktionsfrei.de')
+    ALLOWED_HOSTS = ('*',)
+    ALLOWED_REDIRECT_HOSTS = ('*',)
 
     DEFAULT_FROM_EMAIL = 'info@fragdenstaat.de'
     EMAIL_SUBJECT_PREFIX = '[AdminFragDenStaat] '
@@ -139,12 +140,3 @@ class FragDenStaatBase(German, ThemeBase, Base):
             closings=[rec(u"([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u)(ß|ss)(en?)?,?"), rec("Hochachtungsvoll,?"), rec('i\. ?A\.'), rec('[iI]m Auftrag')]
         ))
         return config
-
-
-class Dev(FragDenStaatBase):
-    GEOIP_PATH = None
-    HAYSTACK_CONNECTIONS = {
-        'default': {
-            'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
-        }
-    }

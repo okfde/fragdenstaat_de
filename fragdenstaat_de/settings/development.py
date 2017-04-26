@@ -2,10 +2,15 @@ from .base import FragDenStaatBase
 
 
 class Dev(FragDenStaatBase):
-    pass
+    GEOIP_PATH = None
+    HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+        }
+    }
 
 
 try:
-    from .local_settings import *  # noqa
-except ImportError:
+    from .local_settings import Dev  # noqa
+except ImportError as e:
     pass
