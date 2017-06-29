@@ -1,0 +1,52 @@
+{% extends base %}
+
+{% block body %}
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Ministerium</th>
+        <th>Transparent</th>
+        <th>Anzahl Stellungnahmen</th>
+        <th>Gestellte IFG-Anfragen</th>
+        <th>Am häufigsten angefragter Verband</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for pb in pbs %}
+        <tr>
+          <th>
+            {{ pb.name }}
+          </th>
+          <td class="{{ pb.publishes_laws.1 }}">
+            {{ pb.publishes_laws.0 }}
+          </td>
+          <td>
+            {{ pb.count }}
+          </td>
+          <td>
+            {{ pb.foirequest_count }} ({{ pb.request_made_percent }}%)
+            <div class="progress">
+              <div title="{{ pb.request_made_percent }}% ({{ pb.foirequest_count }}) gestellt" class="progress-bar progress-bar-success" style="width: {{ pb.request_made_percent }}%">
+                <span class="sr-only">{{ pb.request_made_percent }}% ({{ pb.foirequest_count }}) gestellt</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            {% if pb.top_verband %}
+              <em>{{ pb.top_verband.0 }}</em> mit {{ pb.top_verband.1 }} Stellungnahmen
+            {% else %}
+              {{ pb.top_count.0 }} Verbände mit {{ pb.top_count.1}} Stellungnahme(n)
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+
+
+  </table>
+</div>
+
+{% endblock %}
