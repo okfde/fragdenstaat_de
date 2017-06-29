@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.utils.crypto import constant_time_compare
 from django.utils.encoding import force_text
 from django.utils.http import is_same_domain
 from django.utils.six.moves.urllib.parse import urlparse
