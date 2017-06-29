@@ -25,7 +25,7 @@ def index(request):
 def gesetze_dashboard(request):
     PUBLISHES = {
         'Bundesministerium der Justiz und für Verbraucherschutz': ('<a href="https://www.bmjv.de/SiteGlobals/Forms/Suche/Stellungnahmensuche_Formular.html?nn=7563996&templateQueryString=Nach+Gesetzvorhaben+suchen">ja, seit 2016</a>', 'success'),
-        'Bundesministerium für Wirtschaft und Energie': ('teilweise', 'danger'),
+        'Bundesministerium für Wirtschaft und Energie': ('teilweise', 'warning'),
     }
 
     NUMBER_OF_TOP_ORGS = {
