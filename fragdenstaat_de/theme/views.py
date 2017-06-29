@@ -5,8 +5,6 @@ from froide.publicbody.models import PublicBody
 from froide.frontpage.models import FeaturedRequest
 from froide.helper.cache import cache_anonymous_page
 
-from froide_campaign.models import InformationObject
-
 
 @cache_anonymous_page(15 * 60)
 def index(request):
@@ -27,6 +25,7 @@ def index(request):
 def gesetze_dashboard(request):
     PUBLISHES = {
         'Bundesministerium der Justiz und für Verbraucherschutz': ('ja, seit 2016', 'success'),
+        'Bundesministerium für Wirtschaft und Energie': ('teilweise', 'danger'),
     }
 
     NUMBER_OF_TOP_ORGS = {
