@@ -24,7 +24,7 @@ def index(request):
 @cache_anonymous_page(30 * 60)
 def gesetze_dashboard(request):
     PUBLISHES = {
-        'Bundesministerium der Justiz und für Verbraucherschutz': ('ja, seit 2016', 'success'),
+        'Bundesministerium der Justiz und für Verbraucherschutz': ('<a href="https://www.bmjv.de/SiteGlobals/Forms/Suche/Stellungnahmensuche_Formular.html?nn=7563996&templateQueryString=Nach+Gesetzvorhaben+suchen">ja, seit 2016</a>', 'success'),
         'Bundesministerium für Wirtschaft und Energie': ('teilweise', 'danger'),
     }
 
