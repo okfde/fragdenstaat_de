@@ -4,11 +4,10 @@ This repository contains the theming for
 [FragDenStaat.de](https://fragdenstaat.de) - the German instance of [Froide](https://github.com/stefanw/froide).
 
 
-Setup a separate Python virtual environment:
+Setup a separate Python 3 virtual environment:
 
 ```
-pip install virtualenv
-python -m virtualenv fds-env
+python3 -m venv fds-env
 source fds-env/bin/activate
 ```
 
@@ -17,6 +16,13 @@ Then install dependencies:
 ```
 pip install -U -r requirements-dev.txt -e .
 ```
+
+Create your own local settings:
+```
+cp fragdenstaat_de/local_settings.py.example fragdenstaat_de/local_settings.py
+```
+
+and configure your DATABASES with a Postgres database.
 
 Initialise the database:
 ```
@@ -29,11 +35,6 @@ python manage.py runserver
 ```
 Now you can visit <http://localhost:8000>.
 
-To customise settings, copy the example settings and edit:
-
-```
-cp fragdenstaat_de/local_settings.py.example fragdenstaat_de/local_settings.py
-```
 
 To have the German translation, you need to install [gettext](https://www.gnu.org/software/gettext/gettext.html) on your system. See the [Django documentation for details](https://docs.djangoproject.com/en/1.10/topics/i18n/translation/). Compile translations like this:
 

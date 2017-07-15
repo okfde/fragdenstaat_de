@@ -1,0 +1,60 @@
+from .base import FragDenStaatBase
+
+
+class Dev(FragDenStaatBase):
+    DEBUG = True
+    ALLOWED_HOSTS = '*'
+    # CELERY_ALWAYS_EAGER = False
+
+    INTERNAL_IPS = ('127.0.0.1',)
+
+    USE_X_ACCEL_REDIRECT = False
+    X_ACCEL_REDIRECT_PREFIX = '/protected'
+
+    GEOIP_PATH = None
+
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    CELERY_EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+    @property
+    def INSTALLED_APPS(self):
+        installed = super(Dev, self).INSTALLED_APPS
+        # installed += ['debug_toolbar']
+        return installed
+
+    @property
+    def MIDDLEWARE_CLASSES(self):
+        return super(Dev, self).MIDDLEWARE_CLASSES + [
+            # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+        ]
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'fragdenstaat',                      # Or path to database file if using sqlite3.
+            'USER': 'fragdenstaat',                      # Not used with sqlite3.
+            'PASSWORD': '',                  # Not used with sqlite3.
+            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        }
+    }
+
+    HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+        }
+    }
+
+    # HAYSTACK_CONNECTIONS = {
+    #     'default': {
+    #         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+    #         'URL': 'http://127.0.0.1:9200/',
+    #         'INDEX_NAME': 'fragdenstaat_de',
+    #     }
+    # }
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
+        }
+    }
