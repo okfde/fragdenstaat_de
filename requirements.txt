@@ -23,6 +23,7 @@ unicodecsv==0.14.1
 honcho==0.7.1
 django-tinymce==2.4.0
 anyjson==0.3.3
+psycopg2==2.7.1
 
 -e git://github.com/okfde/froide.git@master#egg=froide
 -e git://github.com/okfde/froide-campaign.git@master#egg=froide_campaign

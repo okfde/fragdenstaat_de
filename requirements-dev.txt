@@ -1,3 +1,2 @@
 -r requirements.txt
 Sphinx==1.3.1
--e git://github.com/stefanw/froide.git@master#egg=froide
