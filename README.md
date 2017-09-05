@@ -35,6 +35,16 @@ python manage.py runserver
 ```
 Now you can visit <http://localhost:8000>.
 
+You can create your own admin user like this:
+
+```
+python manage.py createsuperuser
+```
+
+Start the server again and then login to the admin interface:
+
+    <http://localhost:8000/admin/>
+
 
 To have the German translation, you need to install [gettext](https://www.gnu.org/software/gettext/gettext.html) on your system. See the [Django documentation for details](https://docs.djangoproject.com/en/1.10/topics/i18n/translation/). Compile translations like this:
 
