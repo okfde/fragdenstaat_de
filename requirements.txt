@@ -19,7 +19,6 @@ django-contrib-comments==1.8.0
 unicodecsv==0.14.1
 celery-haystack==0.10
 django-celery-email==1.1.5
-django-haystack==2.6.0
 honcho==0.7.1
 django-tinymce==2.6.0
 anyjson==0.3.3
