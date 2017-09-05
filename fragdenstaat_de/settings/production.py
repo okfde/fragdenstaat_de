@@ -110,7 +110,7 @@ class FragDenStaat(FragDenStaatBase):
             'django.request': {
                 'level': 'ERROR',
                 'propagate': True,
-                'handlers': ['mail_admins', 'normal']
+                'handlers': ['normal']
             },
             'raven': {
                 'handlers': ['normal'],
@@ -168,6 +168,10 @@ class FragDenStaat(FragDenStaatBase):
     SECRET_URLS = {
         'admin': env('DJANGO_SECRET_URL_ADMIN')
     }
+
+    RAVEN_CONFIG = {}
+    if env('DJANGO_SENTRY_DSN') is not None:
+        RAVEN_CONFIG['dsn'] = env('DJANGO_SENTRY_DSN')
 
     SERVER_EMAIL = 'info@fragdenstaat.de'
 

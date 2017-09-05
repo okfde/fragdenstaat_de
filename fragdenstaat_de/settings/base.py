@@ -31,6 +31,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
             'tinymce',
             'django_filters',
             'markdown_deux',
+            'raven.contrib.django.raven_compat',
             'froide_campaign.apps.FroideCampaignConfig',
             'froide_legalaction.apps.FroideLegalActionConfig',
         ]
