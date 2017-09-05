@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django.shortcuts import render
 
 from froide.foirequest.models import FoiRequest
