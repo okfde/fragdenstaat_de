@@ -10,7 +10,7 @@ def env(key, default=None):
 class FragDenStaat(FragDenStaatBase):
     DEBUG = False
     TEMPLATE_DEBUG = False
-    CELERY_ALWAYS_EAGER = False
+    CELERY_TASK_ALWAYS_EAGER = False
     CELERY_SEND_TASK_ERROR_EMAILS = True
 
     ADMINS = (('FragDenStaat.de', 'mail@fragdenstaat.de'),)
@@ -55,7 +55,7 @@ class FragDenStaat(FragDenStaatBase):
         }
     }
 
-    BROKER_URL = env('DJANGO_BROKER_URL')
+    CELERY_BROKER_URL = env('DJANGO_CELERY_BROKER_URL')
 
     CUSTOM_AUTH_USER_MODEL_DB = 'auth_user'
 

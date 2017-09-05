@@ -107,8 +107,8 @@ class FragDenStaatBase(German, ThemeBase, Base):
 
     # Fig broker setup
     if 'BROKER_1_PORT' in os.environ:
-        BROKER_PORT = os.environ['BROKER_1_PORT'].replace('tcp://', '')
-        BROKER_URL = 'amqp://guest:**@%s/' % BROKER_PORT
+        CELERY_BROKER_PORT = os.environ['BROKER_1_PORT'].replace('tcp://', '')
+        BROKER_URL = 'amqp://guest:**@%s/' % CELERY_BROKER_PORT
 
     @property
     def FROIDE_CONFIG(self):
