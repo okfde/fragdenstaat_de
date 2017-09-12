@@ -151,13 +151,14 @@ class FragDenStaat(FragDenStaatBase):
     MEDIA_ROOT = env('DJANGO_MEDIA_ROOT')
     MEDIA_URL = '/files/'
 
-    MIDDLEWARE_CLASSES = [
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
         'froide.helper.middleware.XForwardedForMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
         'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.common.CommonMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
         'django.contrib.redirects.middleware.RedirectFallbackMiddleware',

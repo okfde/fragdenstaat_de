@@ -23,8 +23,8 @@ class Dev(FragDenStaatBase):
         return installed
 
     @property
-    def MIDDLEWARE_CLASSES(self):
-        return super(Dev, self).MIDDLEWARE_CLASSES + [
+    def MIDDLEWARE(self):
+        return super(Dev, self).MIDDLEWARE + [
             # 'debug_toolbar.middleware.DebugToolbarMiddleware',
         ]
 

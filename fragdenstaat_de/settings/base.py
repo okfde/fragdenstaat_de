@@ -49,7 +49,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
         'cleanup_on_startup': False
     }
 
-    MIDDLEWARE_CLASSES = [
+    MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
         'froide.helper.middleware.XForwardedForMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
