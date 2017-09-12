@@ -15,23 +15,16 @@ from django.middleware.csrf import (CsrfViewMiddleware, _sanitize_token,
 
 class CsrfViewIlfMiddleware(CsrfViewMiddleware):
     """
-    Allow empty referer
+    Allow empty referer on secure websites
+    One of our power user disables referers and still wants to use the site.
     """
 
     def process_view(self, request, callback, callback_args, callback_kwargs):
         if getattr(request, 'csrf_processing_done', False):
             return None
 
-        try:
-            cookie_token = request.COOKIES[settings.CSRF_COOKIE_NAME]
-        except KeyError:
-            csrf_token = None
-        else:
-            csrf_token = _sanitize_token(cookie_token)
-            if csrf_token != cookie_token:
-                # Cookie token needed to be replaced;
-                # the cookie needs to be reset.
-                request.csrf_cookie_needs_reset = True
+        csrf_token = self._get_token(request)
+        if csrf_token is not None:
             # Use same token next time.
             request.META['CSRF_COOKIE'] = csrf_token
 
@@ -71,6 +64,11 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                     strings_only=True,
                     errors='replace'
                 )
+                # -- Change from original here -- #
+                # Only checks referer if it is present.
+                # It's not a failure condition if the referer is not present.
+                # Our site is HTTPS-only which does not need to rely on
+                # referer checking. Above example does not apply.
                 if referer is not None:
                     referer = urlparse(referer)
 
@@ -82,16 +80,21 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                     if referer.scheme != 'https':
                         return self._reject(request, REASON_INSECURE_REFERER)
 
-                    # If there isn't a CSRF_COOKIE_DOMAIN, assume we need an exact
-                    # match on host:port. If not, obey the cookie rules.
-                    if settings.CSRF_COOKIE_DOMAIN is None:
-                        # request.get_host() includes the port.
-                        good_referer = request.get_host()
-                    else:
-                        good_referer = settings.CSRF_COOKIE_DOMAIN
+                    # If there isn't a CSRF_COOKIE_DOMAIN, require an exact match
+                    # match on host:port. If not, obey the cookie rules (or those
+                    # for the session cookie, if CSRF_USE_SESSIONS).
+                    good_referer = (
+                        settings.SESSION_COOKIE_DOMAIN
+                        if settings.CSRF_USE_SESSIONS
+                        else settings.CSRF_COOKIE_DOMAIN
+                    )
+                    if good_referer is not None:
                         server_port = request.get_port()
                         if server_port not in ('443', '80'):
                             good_referer = '%s:%s' % (good_referer, server_port)
+                    else:
+                        # request.get_host() includes the port.
+                        good_referer = request.get_host()
 
                     # Here we generate a list of all acceptable HTTP referers,
                     # including the current host since that has been validated
