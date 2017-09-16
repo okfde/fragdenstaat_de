@@ -150,6 +150,8 @@ class FragDenStaat(FragDenStaatBase):
     MANAGERS = (('FragDenStaat.de', 'mail@fragdenstaat.de'),)
     MEDIA_ROOT = env('DJANGO_MEDIA_ROOT')
     MEDIA_URL = '/files/'
+    FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o2750
+    FILE_UPLOAD_PERMISSIONS = 0o2750
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
