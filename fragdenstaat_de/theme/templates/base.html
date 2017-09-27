@@ -15,7 +15,30 @@
 
 {% block navbar-class %}navbar-default navbar-fds{% endblock %}
 
-{% block top_block %}{% endblock %}
+{% block top_block %}
+<div id="edition-2017" style="background-color: #000; color: #fff; display: none;">
+  <div class="container" style="padding-bottom: 20px">
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <a href="http://000000.limited">
+          <img src="{% static "img/kampagnen/2017/edition2017_framed.jpg" %}" alt="Geschwärztes Dokument mit einem lesbaren Satz" class="img-responsive" style="max-height: 300px"/>
+        </a>
+      </div>
+      <div class="col-lg-8 col-md-6">
+        <h1>
+          FragDenStaat 2017 limitierte Fake News-Edition
+          <small>nur 50 Exemplare!</small>
+        </h1>
+        <p class="lead">
+          Willst du uns bei unserem Kampf für Informationsfreiheit unterstützen?<br/>
+          Dann werde jetzt Fördermitglied von FragDenStaat!
+        </p>
+        <a href="http://000000.limited" class="btn btn-lg btn-default">Jetzt bestellen!</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
 
 {% block nav %}
   <ul class="nav navbar-nav">
@@ -105,6 +128,17 @@
     </div>
   </div>
 {% endblock footer_below %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+  // $('#edition-2017').css('height', 0);
+  // $('#edition-2017').css('transform', 'translateY(-'+ h +'px)');
+  window.setTimeout(function() {
+    $('#edition-2017').slideDown(1000);
+  }, 1500)
+</script>
+{% endblock %}
 
 {% block tracking_code %}
 <!-- Piwik -->
