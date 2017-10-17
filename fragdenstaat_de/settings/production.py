@@ -39,8 +39,6 @@ class FragDenStaat(FragDenStaatBase):
             'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
         }
     }
-    COMPRESS_ENABLED = True
-    COMPRESS_OFFLINE = True
 
     CELERY_EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     DATABASES = {
