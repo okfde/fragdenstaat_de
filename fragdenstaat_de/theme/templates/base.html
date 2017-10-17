@@ -13,26 +13,7 @@
 <meta name="google-site-verification" content="upljx19ZJVGT73Sx1miWKLOWBKga4LQJ_hqFl0vhhJE" />
 {% endblock %}
 
-{% block navbar-class %}navbar-default navbar-fds{% endblock %}
-
 {% block top_block %}{% endblock %}
-
-{% block nav %}
-  <ul class="nav navbar-nav">
-    <li class="{% block nav_requests %}{% endblock %}">
-      <a href="{% url 'foirequest-list' %}">Angefragt</a>
-    </li>
-    <li>
-      <a href="http://blog.fragdenstaat.de/" target="_blank">{% trans "Blog" %}</a>
-    </li>
-    <li>
-      <a href="{% url "help-about" %}">{% trans "FAQ" %}</a>
-    </li>
-    <li class="special-nav-item {% block nav_makerequest %}{% endblock %}">
-      <a href="{% url 'foirequest-make_request' %}"><span>{% blocktrans %}Make a Request!{% endblocktrans %}</span></a>
-    </li>
-  </ul>
-{% endblock nav %}
 
 {% block donation_button %}
   <div class="spendenbutton pull-right">
