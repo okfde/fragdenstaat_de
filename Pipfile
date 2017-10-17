@@ -1,0 +1,35 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[packages]
+
+django = "<2.0"
+markdown = "==2.6.9"
+celery = "==4.1.0"
+"celery-haystack" = "==0.10"
+"django-celery-email" = "==2.0.0"
+"django-haystack" = "==2.7.dev0"
+"django-taggit" = "==0.22.1"
+pytz = "==2017.2"
+requests = "==2.18.4"
+"django-floppyforms" = "==1.7.0"
+"django-overextends" = "==0.4.3"
+"python-magic" = "==0.4.13"
+"django-tastypie" = "==0.14.0"
+"python-mimeparse" = ">=0.1.4"
+"django-configurations" = "==2.0"
+"django-storages" = "==1.6.5"
+"dj-database-url" = "==0.4.2"
+"django-cache-url" = "==2.0.0"
+"django-contrib-comments" = "==1.8.0"
+unicodecsv = "==0.14.1"
+honcho = "==0.7.1"
+"django-tinymce" = "==2.6.0"
+anyjson = "==0.3.3"
+"psycopg2" = "==2.7.3.1"
+raven = "==6.2.1"
+froide = {git = "git://github.com/okfde/froide.git", editable = true, ref = "master"}
+"froide-campaign" = {git = "git://github.com/okfde/froide-campaign.git", editable = true, ref = "master"}
+"froide-legalaction" = {git = "git://github.com/okfde/froide-legalaction.git", editable = true, ref = "master"}
+elasticsearch = "*"
