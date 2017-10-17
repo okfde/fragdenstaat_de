@@ -83,7 +83,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
     }
     HAYSTACK_SIGNAL_PROCESSOR = 'celery_haystack.signals.CelerySignalProcessor'
 
-    SITE_NAME = "FragDenStaat.de"
+    SITE_NAME = "FragDenStaat"
     SITE_EMAIL = "info@fragdenstaat.de"
     SITE_URL = 'http://localhost:8000'
 
