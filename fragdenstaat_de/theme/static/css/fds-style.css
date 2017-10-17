@@ -21,23 +21,12 @@ h1, h2, h3, h4 {
   height:66px;
 }
 
-.heroine-unit h1 {
-  font-size: 2em;
-  margin: 0 0 0.5em;
-}
-
 .noticeable-break {
   border: 2px solid #ccc;
 }
 
-.navbar-fds .navbar-brand {
-  font-size: 34px;
-  color: #06C;
-  font-family: 'Kreon', arial, serif;
-  background-image: url('../img/logo.png');
-  background-repeat: no-repeat;
-  padding: 18px 15px 12px 60px;
-  background-position: 15px 16px;
+.navbar-fds .navbar-brand > img{
+  transform: translateY(-10px);
 }
 
 .donation-banner {
@@ -213,7 +202,7 @@ h1, h2, h3, h4 {
     height: 6px;
     background-color: #777;
     position: absolute;
-    top: 36px;
+    top: 18px;
     left: -50%;
   }
 }
