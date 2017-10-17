@@ -21,6 +21,7 @@
 {% block index-search-placeholder %}z.B. Schule oder NSA{% endblock %}
 
 
+
 {% block first_index_row %}
 <div class="col-lg-5 col-md-5">
   {% block first_index_row_search %}
@@ -76,50 +77,53 @@
 
 {% block index_requests_row %}
 <div class="row">
-  <div class="col-lg-6 col-md-6 frontpage-teaser">
-    <div class="well">
+  <div class="col-md-6">
+    <div class="card">
       {% if successful_foi_requests %}
-        <h3>
+        <h4 class="card-header">
           {% blocktrans %}Successful Requests{% endblocktrans %}
-        </h3>
-        <ul class="media-list">
-          {% for object in successful_foi_requests %}
-            <li class="media">
-              {% include "foirequest/snippets/request_item.html" %}
-            </li>
-          {% endfor %}
-        </ul>
+        </h4>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            {% for object in successful_foi_requests %}
+              <li class="media">
+                {% include "foirequest/snippets/request_item.html" %}
+              </li>
+            {% endfor %}
+          </ul>
+          <p>
+            <a class="btn btn-default" href="{% url "foirequest-list" %}">Weitere Anfragen</a>
+          </p>
+        </div>
       {% endif %}
-      <p>
-        <a class="btn btn-default" href="{% url "foirequest-list" %}">Weitere Anfragen</a>
-      </p>
     </div>
   </div>
 
-  <div class="col-lg-6 col-md-6">
-    <div class="frontpage-teaser well">
-      <h3>
-          Blog
-      </h3>
-
-      {% for object in featured %}
-        <div class="teaser">
-          <h3 class="teaser-title">
-            <a href="{{ object.url }}">{{ object.title }}</a>
-          </h3>
-          <p>
-            {{ object.text|truncatewords:55|linebreaksbr }}
-          </p>
-          {% if object.request %}
+  <div class="col-md-6">
+    <div class="card">
+      <h4 class="card-header">
+        Blog
+      </h4>
+      <div class="card-body">
+        {% for object in featured %}
+          <div class="teaser">
+            <h5 class="teaser-title">
+              <a href="{{ object.url }}">{{ object.title }}</a>
+            </h5>
             <p>
-              <a href="{% url 'foirequest-show' slug=object.request.slug %}">
-                <span class="glyphicon glyphicon-share-alt"></span>
-                {% blocktrans %}Visit this request{% endblocktrans %}
-              </a>
+              {{ object.text|truncatewords:55|linebreaksbr }}
             </p>
-          {% endif %}
-        </div>
-      {% endfor %}
+            {% if object.request %}
+              <p>
+                <a href="{% url 'foirequest-show' slug=object.request.slug %}">
+                  <span class="glyphicon glyphicon-share-alt"></span>
+                  {% blocktrans %}Visit this request{% endblocktrans %}
+                </a>
+              </p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>
@@ -128,9 +132,9 @@
 
 {% block extra_footer %}
 <script type="text/javascript">
-  $('.video-embed').click(function(e){
+  document.querySelector('.video-embed').addEventListener('click', function (e) {
     e.preventDefault();
-    $(this).replaceWith('<iframe src="' + $(this).data('url') + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>')
+    this.parentNode.innerHTML = '<iframe src="' + this.dataset.url + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
   });
 </script>
 {% endblock %}
