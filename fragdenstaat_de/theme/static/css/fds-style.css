@@ -1,10 +1,10 @@
 @font-face {
-    font-family: 'Kreon';
-    src: local('Kreon Regular'), local('Kreon-Regular'), url('../fonts/Kreon-Regular.ttf') format('truetype'), url('../fonts/Kreon-Regular.woff') format('woff');
+  font-family: 'Kreon';
+  src: local('Kreon Regular'), local('Kreon-Regular'), url('../fonts/Kreon-Regular.ttf') format('truetype'), url('../fonts/Kreon-Regular.woff') format('woff');
 }
 
 h1, h2, h3, h4 {
-       font-family: 'Kreon';
+  font-family: 'Kreon';
 }
 
 .navbar-fds {
@@ -25,8 +25,8 @@ h1, h2, h3, h4 {
   border: 2px solid #ccc;
 }
 
-.navbar-fds .navbar-brand > img{
-  transform: translateY(-10px);
+.navbar-fds .navbar-brand {
+  font-family: 'Kreon';
 }
 
 .donation-banner {
