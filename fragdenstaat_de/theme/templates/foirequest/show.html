@@ -22,8 +22,8 @@
 
 {% block request_action_menu_footer %}
   {% if object.can_be_escalated %}
-    <li>
-      <a href="#legalaction" data-toggle="tab">
+    <li class="nav-item">
+      <a href="#legalaction" data-toggle="pill" class="nav-link" role="tab" aria-controls="legalaction" aria-expanded="false">
         Jetzt klagen
       </a>
     </li>
@@ -32,7 +32,7 @@
 {% endblock %}
 
 {% block request_action_pane_footer %}
-  <div class="tab-pane hidden-print" id="legalaction">
+  <div class="tab-pane d-print-none" id="legalaction">
     <h3>{% trans "File a law suit" %}</h3>
     {% with proposal=object|legalaction_proposal_submitted %}
       {% if proposal %}
