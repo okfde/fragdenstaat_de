@@ -24,6 +24,7 @@ class FragDenStaat(FragDenStaatBase):
     SESSION_COOKIE_SECURE = True
 
     DATA_UPLOAD_MAX_MEMORY_SIZE = 15728640
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
