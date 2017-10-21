@@ -33,3 +33,4 @@ froide = {git = "git://github.com/okfde/froide.git", editable = true, ref = "mas
 "froide-campaign" = {git = "git://github.com/okfde/froide-campaign.git", editable = true, ref = "master"}
 "froide-legalaction" = {git = "git://github.com/okfde/froide-legalaction.git", editable = true, ref = "master"}
 elasticsearch = "*"
+"python-memcached" = "*"
