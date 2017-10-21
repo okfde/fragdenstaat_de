@@ -1,5 +1,7 @@
 import os
 
+import django_cache_url
+
 from .base import FragDenStaatBase
 
 
@@ -34,12 +36,7 @@ class FragDenStaat(FragDenStaatBase):
     ALLOWED_HOSTS = ('fragdenstaat.de',)
     ALLOWED_REDIRECT_HOSTS = ('fragdenstaat.de', 'sanktionsfrei.de',)
 
-    CACHES = {
-        'default': {
-            'LOCATION': 'unique-snowflake',
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
-        }
-    }
+    CACHES = {'default': django_cache_url.config()}
 
     CELERY_EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     DATABASES = {
