@@ -23,6 +23,9 @@ django-tinymce==2.6.0
 anyjson==0.3.3
 psycopg2==2.7.1
 raven==6.1.0
+reportlab==3.4.0
+PyPDF2==1.26.0
+Wand==0.4.4
 
 -e git://github.com/okfde/froide.git@master#egg=froide
 -e git://github.com/okfde/froide-campaign.git@master#egg=froide_campaign

@@ -34,3 +34,6 @@ froide = {git = "git://github.com/okfde/froide.git", editable = true, ref = "mas
 "froide-legalaction" = {git = "git://github.com/okfde/froide-legalaction.git", editable = true, ref = "master"}
 elasticsearch = "*"
 "python-memcached" = "*"
+"pypdf2" = "*"
+reportlab = "*"
+wand = "*"
