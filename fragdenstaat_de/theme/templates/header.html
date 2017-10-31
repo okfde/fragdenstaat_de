@@ -7,26 +7,41 @@
 
 
 {% block nav %}
-<ul class="navbar-nav col-auto mr-auto">
-  <li class="nav-item {% block nav_requests %}{% endblock %}">
-    <a class="nav-link" href="{% url 'foirequest-list' %}">
-      Angefragt
-    </a>
-  </li>
-    <li class="nav-item">
-      <a class="nav-link" href="http://blog.fragdenstaat.de/" target="_blank" rel="noopener">
-        Blog
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url "help-about" %}">
-        FAQ
+  <ul class="navbar-nav col-auto mr-auto">
+    <li class="nav-item {% block nav_requests %}{% endblock %}">
+      <a class="nav-link" href="{% url 'foirequest-list' %}">
+        Angefragt
       </a>
     </li>
     <li class="nav-item special-nav-item {% block nav_makerequest %}{% endblock %}">
       <a class="nav-link" href="{% url 'foirequest-make_request' %}">
-        <span>{% blocktrans %}Make a Request!{% endblocktrans %}</span>
+        {% blocktrans %}Make a Request!{% endblocktrans %}
       </a>
     </li>
   </ul>
 {% endblock nav %}
+
+{% block nav_secondary %}
+<ul class="navbar-nav navbar-nav-secondary col-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'help-about' %}">
+      {% trans "About" %}
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="http://blog.fragdenstaat.de/" target="_blank" rel="noopener">
+      Blog
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url "help-index" %}">
+      Hilfe
+    </a>
+  </li>
+  <li class="nav-item special-nav-secondary-item">
+    <a class="nav-link" href="{% url 'help-donate' %}">
+      Spenden
+    </a>
+  <li>
+</ul>
+{% endblock nav_secondary %}
