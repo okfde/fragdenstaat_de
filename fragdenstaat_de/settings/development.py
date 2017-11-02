@@ -8,6 +8,11 @@ class Dev(FragDenStaatBase):
             'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
         }
     }
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
+        }
+    }
 
 
 try:
