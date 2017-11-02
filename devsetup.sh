@@ -10,7 +10,7 @@ fi
 
 tmux new-session -d 'docker-compose up'
 tmux split-window -h 'cd froide && \
-npm install yarn && \
+npm install -g yarn && \
 yarn install && \
 npm run dev'
 tmux -2 attach-session -d
