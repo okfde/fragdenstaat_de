@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d1d7429f5263541ea83fe2009682787801e43ee77897323be5c9d9dd0bfa6edf"
+            "sha256": "1350dd809de86c3db71eef98fb1e42f0b74f58658c28c1f5915609eca4d6d792"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -73,6 +73,20 @@
                 "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae"
             ],
             "version": "==3.0.4"
+        },
+        "coreapi": {
+            "hashes": [
+                "sha256:bf39d118d6d3e171f10df9ede5666f63ad80bba9a29a8ec17726a66cf52ee6f3",
+                "sha256:46145fcc1f7017c076a2ef684969b641d18a2991051fddec9458ad3f78ffc1cb"
+            ],
+            "version": "==2.3.3"
+        },
+        "coreschema": {
+            "hashes": [
+                "sha256:5e6ef7bf38c1525d5e55a895934ab4273548629f16aed5c0a6caa74ebf45551f",
+                "sha256:9503506007d482ab0867ba14724b93c18a33b22b6d19fb419ef2d239dd4a1607"
+            ],
+            "version": "==0.0.4"
         },
         "dj-database-url": {
             "hashes": [
@@ -155,6 +169,12 @@
             ],
             "version": "==1.0.5"
         },
+        "django-oauth-toolkit": {
+            "hashes": [
+                "sha256:23ca6ffc06167cf9a1e94f98e7662b5b4724e2b9acc607373b8811ba62adbb23"
+            ],
+            "version": "==1.0.0"
+        },
         "django-overextends": {
             "hashes": [
                 "sha256:e9c1082e384473ec03ab53821691d79a3f160fef43c15a0de44741b5e9430e4d",
@@ -190,16 +210,23 @@
             ],
             "version": "==2.6.0"
         },
+        "djangorestframework": {
+            "hashes": [
+                "sha256:79268055755125caaebface3acbe13150bbc3a83b78e9bf1a1abfde7ab0c5231",
+                "sha256:067960e5e9e5586d3b2d53a1d626c4800dc33cd8309487d404fc63355674556f"
+            ],
+            "version": "==3.7.3"
+        },
         "elasticsearch": {
             "hashes": [
-                "sha256:8f02d626cff98befd298ffb1d19d8e519643d86d3aa27f6d7388566ec4ba48ee",
-                "sha256:e754c688e20fe73160fb6f7f5b63f2a71c78788dc9e6908950681d3a39b56e85"
+                "sha256:f8b9910ac0e336422c3c488ff53f21ba4c39f46e76b9cf1f81257d02052667c9",
+                "sha256:9fd6fe01d5f992666674f6089ff2ec4917ec64ed7dcd7e109cdf95f406303809"
             ],
-            "version": "==5.4.0"
+            "version": "==6.0.0"
         },
         "froide": {
             "editable": true,
-            "git": "git@github.com:okfde/froide.git@b7eedac688d035121d7d354c9ad7605986afdfe9"
+            "git": "git@github.com:okfde/froide.git@faee65175814814e00c3103aa940d673e5b70ea0"
         },
         "froide-campaign": {
             "editable": true,
@@ -223,6 +250,19 @@
             ],
             "version": "==2.6"
         },
+        "itypes": {
+            "hashes": [
+                "sha256:c6e77bb9fd68a4bfeb9d958fea421802282451a25bac4913ec94db82a899c073"
+            ],
+            "version": "==1.1.0"
+        },
+        "jinja2": {
+            "hashes": [
+                "sha256:74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd",
+                "sha256:f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"
+            ],
+            "version": "==2.10"
+        },
         "jsonfield": {
             "hashes": [
                 "sha256:a0a7fdee736ff049059409752b045281a225610fecbda9b9bd588ba976493c12",
@@ -245,9 +285,21 @@
         },
         "markdown2": {
             "hashes": [
-                "sha256:264731e7625402227ff6fb01f2d814882da7705432659a18a419c508e8bfccb1"
+                "sha256:8bb9a24eb2aa02f1427aabe46483f0f0215ab18c8a345315ae8e2ee3c3a09c03"
             ],
-            "version": "==2.3.4"
+            "version": "==2.3.5"
+        },
+        "markupsafe": {
+            "hashes": [
+                "sha256:a6be69091dac236ea9c6bc7d012beab42010fa914c459791d627dad4910eb665"
+            ],
+            "version": "==1.0"
+        },
+        "oauthlib": {
+            "hashes": [
+                "sha256:ce57b501e906ff4f614e71c36a3ab9eacbb96d35c24d1970d2539bbc3ec70ce1"
+            ],
+            "version": "==2.0.6"
         },
         "olefile": {
             "hashes": [
@@ -444,6 +496,14 @@
                 "sha256:018c08037d48649a0412063ff4eda26eaa81eff1546dbffa51fa5293276ff7fc"
             ],
             "version": "==0.14.1"
+        },
+        "uritemplate": {
+            "hashes": [
+                "sha256:01c69f4fe8ed503b2951bef85d996a9d22434d2431584b5b107b2981ff416fbd",
+                "sha256:1b9c467a940ce9fb9f50df819e8ddd14696f89b9a8cc87ac77952ba416e0a8fd",
+                "sha256:c02643cebe23fc8adb5e6becffe201185bf06c40bda5c0b4028a93f1527d011d"
+            ],
+            "version": "==3.0.0"
         },
         "urllib3": {
             "hashes": [
