@@ -13,7 +13,175 @@
   <meta name="google-site-verification" content="upljx19ZJVGT73Sx1miWKLOWBKga4LQJ_hqFl0vhhJE" />
 {% endblock %}
 
-{% block top_block %}{% endblock %}
+{% block top_block %}
+<div class="bg-light border border-dark border-right-0 border-top-0 border-left-0" id="donation-block" style="display:none;z-index:1000">
+  <div class="container mb-5 mt-3">
+    <div class="row">
+      <div class="col-md-8">
+        <h5>Liebe Freunde der Informationsfreiheit!</h5>
+        <p>
+          Für den Betrieb von FragDenStaat.de sind wir auf Spenden angewiesen.
+          Unsere Aufgaben umfassen die Moderation der Webseite, das Beantworten von E-Mails/Anrufen von NutzerInnen und Behörden, die Administration des Servers, die Instandhaltung der Software und die Weiterentwicklung der Website.
+        </p>
+        <p>
+          <strong>Wir wollen noch stärker für Informationsfreiheit einstehen!</strong> Dafür brauchen wir neben den monatlichen Personalkosten auch ein kleines Budget für Kampagnenausgaben.
+        </p>
+        <a class="btn btn-danger btn-lg mr-3 mt-3" href="{% url 'help-donate' %}?banner">
+          Jetzt spenden
+        </a>
+        <a class="btn btn-dark btn-lg mt-3 mr-3" href="http://000000.limited/?banner">
+          Kunstedition verschenken
+        </a>
+        <p class="mt-3">
+          <small>
+            Jetzt <strong>Dauerauftrag</strong> einrichten für Open Knowledge Foundation Deutschland e.V.<br/>
+            IBAN: DE18 8309 4495 0503 0096 70 - BIC: GENODEF1ETK -
+            Verwendungszweck: FragDenStaat
+          </small>
+        </p>
+        <p class="text-right">
+          <a id="already-donation" class="btn btn-sm btn-light hover-btn-success" href="#">
+            Ich habe schon gespendet
+          </a>
+          <a id="cancel-donation" class="btn btn-sm btn-light mr-3" href="#">
+          Nein, gerade nicht
+          </a>
+        </p>
+      </div>
+      <div class="col-md-4 d-flex align-self-end justify-content-end mt-4">
+        <div>
+          <img src="/files/foi/30800/arne.jpg" alt="Arne Semsrott" class="rounded-circle"/>
+          <br/>
+          Vielen Dank
+          <br/>
+          <strong>Ihr Arne Semsrott</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ block.super }}
+  <script>
+  (function(){
+    var getHeight = function(el) {
+      var el_style      = window.getComputedStyle(el),
+        el_display    = el_style.display,
+        el_position   = el_style.position,
+        el_visibility = el_style.visibility,
+        el_max_height = el_style.maxHeight.replace('px', '').replace('%', ''),
+        wanted_height = 0;
+
+      // if its not hidden we just return normal height
+      if(el_display !== 'none' && el_max_height !== '0') {
+        return el.offsetHeight;
+      }
+
+      // the element is hidden so:
+      // making the el block so we can meassure its height but still be hidden
+      el.style.position   = 'absolute';
+      el.style.visibility = 'hidden';
+      el.style.display    = 'block';
+
+      wanted_height     = el.offsetHeight;
+
+      // reverting to the original values
+      el.style.display    = el_display;
+      el.style.position   = el_position;
+      el.style.visibility = el_visibility;
+
+      return wanted_height;
+    }
+
+
+    /**
+    * toggleSlide mimics the jQuery version of slideDown and slideUp
+    * all in one function comparing the max-heigth to 0
+     */
+    var toggleSlide = function(el) {
+      var el_max_height = 0;
+
+      if(el.getAttribute('data-max-height')) {
+        // we've already used this before, so everything is setup
+        if(el.style.maxHeight.replace('px', '').replace('%', '') === '0') {
+          el.style.maxHeight = el.getAttribute('data-max-height');
+        } else {
+          el.style.maxHeight = '0';
+        }
+      } else {
+        el_max_height                  = getHeight(el) + 'px';
+        el.style['transition']         = 'max-height 2s ease-in-out';
+        el.style.overflowY             = 'hidden';
+        el.style.maxHeight             = '0';
+        el.setAttribute('data-max-height', el_max_height);
+        el.style.display               = 'block';
+
+        // we use setTimeout to modify maxHeight later than display (to we have the transition effect)
+        setTimeout(function() {
+          el.style.maxHeight = el_max_height;
+        }, 10);
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function(){
+      window._paq = window._paq || []
+
+      if (document.location.pathname.indexOf('/hilfe/') === 0) {
+        return
+      }
+      var el = document.getElementById('donation-block')
+      var cancel = document.getElementById('cancel-donation')
+      var already = document.getElementById('already-donation')
+      var header = document.getElementById('header')
+      if (header === null) {
+        return
+      }
+      if (!window.localStorage) {
+        return
+      }
+      var itemName = 'donation-banner'
+      var now = (new Date()).getTime()
+      var last = localStorage.getItem(itemName)
+      if (last !== null) {
+        last = JSON.parse(last)
+        if (last.timestamp && (now - last.timestamp) < (60*60*24*1000)) {
+          return
+        }
+      }
+      localStorage.removeItem(itemName)
+      cancel.addEventListener('click', function(e) {
+        e.preventDefault()
+        _paq.push(['trackEvent', 'donations', 'donationBanner', 'action', 'notnow']);
+        localStorage.setItem(itemName, JSON.stringify({
+          timestamp: now
+        }));
+        el.parentNode.removeChild(el)
+      })
+      already.addEventListener('click', function(e) {
+        e.preventDefault()
+        _paq.push(['trackEvent', 'donations', 'donationBanner', 'action', 'donated']);
+        localStorage.setItem(itemName, JSON.stringify({
+          timestamp: Date.parse('2017-12-31')
+        }));
+        el.parentNode.removeChild(el)
+      })
+      window.setTimeout(function(){
+        _paq.push(['trackEvent', 'donations', 'donationBanner', 'shown']);
+        if (window.innerWidth > 768) {
+          el.style.position = 'sticky'
+          el.style.top = '0'
+        }
+        toggleSlide(el)
+        window.setTimeout(function(){
+        }, 2000)
+      }, 3000)
+    });
+    }())
+  </script>
+{% endblock %}
 
 
 {% block tracking_code %}
