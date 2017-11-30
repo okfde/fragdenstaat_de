@@ -1,7 +1,7 @@
 {% overextends "base.html" %}
 
 {% load i18n %}
-{% load static from staticfiles %}
+{% load static %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static "css/fds-style.css" %}"/>
@@ -10,7 +10,7 @@
 {% block metadescription %}Das Portal für Informationsfreiheit für Bürger, Initiativen und Vereine. Stellen Sie eine IFG-Anfrage nach Behördendokumenten, die für Sie und Ihr Engagement wichtig sind! Informieren Sie sich über Informationsfreiheitsanfragen, IFG-Anfragen, IFG, Transparenz, Informationsfreiheitsgesetz, Behördeninformationen, Anfrage Stellen, Behörden, Open Data, Transparenzgesetz, Auskunftsrecht und vieles mehr!{% endblock metadescription %}
 
 {% block additional_meta %}
-<meta name="google-site-verification" content="upljx19ZJVGT73Sx1miWKLOWBKga4LQJ_hqFl0vhhJE" />
+  <meta name="google-site-verification" content="upljx19ZJVGT73Sx1miWKLOWBKga4LQJ_hqFl0vhhJE" />
 {% endblock %}
 
 {% block top_block %}{% endblock %}
