@@ -154,7 +154,7 @@
       localStorage.removeItem(itemName)
       cancel.addEventListener('click', function(e) {
         e.preventDefault()
-        _paq.push(['trackEvent', 'donations', 'donationBanner', 'action', 'notnow']);
+        _paq.push(['trackEvent', 'donations', 'donationBanner', 'notnow']);
         localStorage.setItem(itemName, JSON.stringify({
           timestamp: now
         }));
@@ -162,7 +162,7 @@
       })
       already.addEventListener('click', function(e) {
         e.preventDefault()
-        _paq.push(['trackEvent', 'donations', 'donationBanner', 'action', 'donated']);
+        _paq.push(['trackEvent', 'donations', 'donationBanner', 'donated']);
         localStorage.setItem(itemName, JSON.stringify({
           timestamp: Date.parse('2017-12-31')
         }));
