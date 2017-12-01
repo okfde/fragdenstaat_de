@@ -5,21 +5,6 @@
 
 {% load legalaction %}
 
-{% block foirequest_header %}
-  {% if object.jurisdiction.slug == "nrw" %}
-      <div class="alert alert-info">
-        <a href="http://www.nrw-blickt-durch.de/aktuelles/c/a/wenn-behoerden-auskuenfte-verweigern/">
-          <img src="{% static "img/logos/logo_nrw-blickt-durch.png" %}" class="pull-right" alt="NRW blickt durch"/>
-        </a>
-        <h4>Ein Transparenzgesetz für NRW</h4>
-        <p>Sind Sie unzufrieden damit, wie diese Anfrage beantwortet wurde?</p>
-        <p>
-          <a href="http://www.nrw-blickt-durch.de/aktuelles/c/a/wenn-behoerden-auskuenfte-verweigern/">Unterstützen Sie das Transparenzgesetz für NRW</a> und <a href="http://www.nrw-blickt-durch.de/kontakt/">geben Sie Ihr Feedback über das Kontaktformular</a>.
-        </p>
-      </div>
-  {% endif %}
-{% endblock %}
-
 {% block request_action_menu_footer %}
   {% if object.can_be_escalated %}
     <li class="nav-item">
