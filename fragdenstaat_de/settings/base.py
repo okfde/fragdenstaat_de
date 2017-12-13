@@ -94,7 +94,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
     ALLOWED_HOSTS = ('*',)
     ALLOWED_REDIRECT_HOSTS = ('*',)
 
-    DEFAULT_FROM_EMAIL = 'info@fragdenstaat.de'
+    DEFAULT_FROM_EMAIL = 'FragDenStaat.de <info@fragdenstaat.de>'
     EMAIL_SUBJECT_PREFIX = '[AdminFragDenStaat] '
 
     EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
