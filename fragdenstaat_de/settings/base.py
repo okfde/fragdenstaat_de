@@ -123,6 +123,8 @@ class FragDenStaatBase(German, ThemeBase, Base):
             default_law=2,
             doc_conversion_binary="/usr/bin/libreoffice",
             dryrun=False,
+            read_receipt=True,
+            delivery_receipt=True,
             dryrun_domain="test.fragdenstaat.de",
             allow_pseudonym=True,
             api_activated=True,
