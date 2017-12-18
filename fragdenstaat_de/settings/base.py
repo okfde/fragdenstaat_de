@@ -125,6 +125,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
             dryrun=False,
             read_receipt=True,
             delivery_receipt=True,
+            dsn=True,
             dryrun_domain="test.fragdenstaat.de",
             allow_pseudonym=True,
             api_activated=True,
