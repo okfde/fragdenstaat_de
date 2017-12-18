@@ -126,6 +126,7 @@ class FragDenStaatBase(German, ThemeBase, Base):
             read_receipt=True,
             delivery_receipt=True,
             dsn=True,
+            delivery_reporter='froide.foirequest.delivery.PostfixDeliveryReporter',
             dryrun_domain="test.fragdenstaat.de",
             allow_pseudonym=True,
             api_activated=True,
