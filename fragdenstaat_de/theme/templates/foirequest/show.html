@@ -5,6 +5,14 @@
 
 {% load legalaction %}
 
+{% block foirequest_explain_deadline %}
+  <small>
+    <a class="d-print-none" href="/hilfe/howto/fuer-behoerden/#frist">
+      Wie wird das berechnet?
+    </a>
+  </small>
+{% endblock %}
+
 {% block request_action_menu_footer %}
   {% if object.can_be_escalated %}
     <li class="nav-item">
