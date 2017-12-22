@@ -51,6 +51,16 @@ class FragDenStaat(FragDenStaatBase):
         }
     }
 
+    @property
+    def TEMPLATES(self):
+        TEMP = super(FragDenStaat, self).TEMPLATES
+        TEMP[0]['OPTIONS']['debug'] = False
+        loaders = TEMP[0]['OPTIONS']['loaders']
+        TEMP[0]['OPTIONS']['loaders'] = [
+            ('django.template.loaders.cached.Loader', loaders)
+        ]
+        return TEMP
+
     CELERY_BROKER_URL = env('DJANGO_CELERY_BROKER_URL')
 
     CUSTOM_AUTH_USER_MODEL_DB = 'auth_user'
