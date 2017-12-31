@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1350dd809de86c3db71eef98fb1e42f0b74f58658c28c1f5915609eca4d6d792"
+            "sha256": "ca39a5b370f80729c1b1541644e49e59a663dfa39714db627a6b9c94f024b93c"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -9,9 +9,9 @@
             "os_name": "posix",
             "platform_machine": "x86_64",
             "platform_python_implementation": "CPython",
-            "platform_release": "17.2.0",
+            "platform_release": "17.3.0",
             "platform_system": "Darwin",
-            "platform_version": "Darwin Kernel Version 17.2.0: Fri Sep 29 18:27:05 PDT 2017; root:xnu-4570.20.62~3/RELEASE_X86_64",
+            "platform_version": "Darwin Kernel Version 17.3.0: Thu Nov  9 18:09:22 PST 2017; root:xnu-4570.31.3~1/RELEASE_X86_64",
             "python_full_version": "3.6.3",
             "python_version": "3.6",
             "sys_platform": "darwin"
@@ -97,10 +97,10 @@
         },
         "django": {
             "hashes": [
-                "sha256:75ce405d60f092f6adf904058d023eeea0e6d380f8d9c36134bac73da736023d",
-                "sha256:8918e392530d8fc6965a56af6504229e7924c27265893f3949aa0529cd1d4b99"
+                "sha256:fad46f44f6f4de66aacaa92e7753dbc4fe3ae834aa2daffaca0bf16c64798186",
+                "sha256:fed3e79bb5a3a8d5eb054c7a1ec1de229ef3f43335a67821cc3e489e9582f711"
             ],
-            "version": "==1.11.7"
+            "version": "==1.11.8"
         },
         "django-appconf": {
             "hashes": [
@@ -196,13 +196,6 @@
             ],
             "version": "==0.22.1"
         },
-        "django-tastypie": {
-            "hashes": [
-                "sha256:5015f40e2d37090c25efdab4fe1b46ec9a1749e8bb159f472346dc48747233cc",
-                "sha256:22f8cf7232ebf60974db545e1350ba62b166c001e35f9ac3234cf9505b44da40"
-            ],
-            "version": "==0.14.0"
-        },
         "django-tinymce": {
             "hashes": [
                 "sha256:a3ad14e246ba0d021fdb26e43f2d191a5440b7da4f0194b7f92679780bf354f4",
@@ -210,12 +203,18 @@
             ],
             "version": "==2.6.0"
         },
+        "django-treebeard": {
+            "hashes": [
+                "sha256:c1830d6e98618f524af654e084cd40e9449fdd1c9959f6fe679f08d54b964ba9"
+            ],
+            "version": "==4.2.0"
+        },
         "djangorestframework": {
             "hashes": [
-                "sha256:79268055755125caaebface3acbe13150bbc3a83b78e9bf1a1abfde7ab0c5231",
-                "sha256:067960e5e9e5586d3b2d53a1d626c4800dc33cd8309487d404fc63355674556f"
+                "sha256:1f6baf40ed456ed2af6bd1a4ff8bbc3503cebea16509993aea2b7085bc097766",
+                "sha256:9f9e94e8d22b100ed3a43cee8c47a7ff7b185e778a1f2da9ec5c73fc4e081b87"
             ],
-            "version": "==3.7.3"
+            "version": "==3.7.7"
         },
         "elasticsearch": {
             "hashes": [
@@ -226,7 +225,7 @@
         },
         "froide": {
             "editable": true,
-            "git": "git@github.com:okfde/froide.git@faee65175814814e00c3103aa940d673e5b70ea0"
+            "git": "git@github.com:okfde/froide.git@757aed44556b99fe4b23f5fe8cce13a35f43de9a"
         },
         "froide-campaign": {
             "editable": true,
@@ -234,7 +233,7 @@
         },
         "froide-legalaction": {
             "editable": true,
-            "git": "git@github.com:okfde/froide-legalaction.git@c8bcd177ef56c2d946a97ab9fa1589592d719246"
+            "git": "git@github.com:okfde/froide-legalaction.git@02bfa08242d1db25822ffaf54641210adf47f426"
         },
         "honcho": {
             "hashes": [
@@ -401,13 +400,6 @@
             ],
             "version": "==1.26.0"
         },
-        "python-dateutil": {
-            "hashes": [
-                "sha256:95511bae634d69bc7329ba55e646499a842bc4ec342ad54a8cdb65645a0aad3c",
-                "sha256:891c38b2a02f5bb1be3e4793866c8df49c7d19baabf9c1bad62547e0b4866aca"
-            ],
-            "version": "==2.6.1"
-        },
         "python-magic": {
             "hashes": [
                 "sha256:a1ec69e76cc513b1af164c02982607f96ff3bb668162a688f2b1bb5f6a5fe05d",
@@ -417,9 +409,10 @@
         },
         "python-memcached": {
             "hashes": [
-                "sha256:2775829cb54b9e4c5b3bbd8028680f0c0ab695db154b9c46f0f074ff97540eb6"
+                "sha256:4dac64916871bd3550263323fc2ce18e1e439080a2d5670c594cf3118d99b594",
+                "sha256:a2e28637be13ee0bf1a8b6843e7490f9456fd3f2a4cb60471733c7b5d5557e4f"
             ],
-            "version": "==1.58"
+            "version": "==1.59"
         },
         "python-mimeparse": {
             "hashes": [

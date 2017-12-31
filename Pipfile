@@ -6,8 +6,8 @@ verify_ssl = true
 
 [packages]
 
-Django = "<2.0"
-Markdown = "==2.6.9"
+django = "<2.0"
+markdown = "==2.6.9"
 celery = "==4.1.0"
 celery-haystack = "==0.10"
 django-celery-email = "==2.0.0"
@@ -35,13 +35,14 @@ froide-campaign = {git = "git://github.com/okfde/froide-campaign.git", editable 
 froide-legalaction = {git = "git://github.com/okfde/froide-legalaction.git", editable = true, ref = "master"}
 elasticsearch = "*"
 python-memcached = "*"
-"PyPDF2" = "*"
+"pypdf2" = "*"
 reportlab = "*"
-Wand = "*"
+wand = "*"
 djangorestframework = "*"
 django-oauth-toolkit = "*"
 coreapi = "*"
 django-filter = "*"
+django-treebeard = "*"
 
 
 [dev-packages]
