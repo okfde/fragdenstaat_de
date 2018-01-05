@@ -33,7 +33,7 @@ raven = "==6.2.1"
 froide = {git = "git://github.com/okfde/froide.git", editable = true, ref = "master"}
 froide-campaign = {git = "git://github.com/okfde/froide-campaign.git", editable = true, ref = "master"}
 froide-legalaction = {git = "git://github.com/okfde/froide-legalaction.git", editable = true, ref = "master"}
-elasticsearch = "*"
+elasticsearch = ">=2.0.0,<3.0.0"
 python-memcached = "*"
 "pypdf2" = "*"
 reportlab = "*"
