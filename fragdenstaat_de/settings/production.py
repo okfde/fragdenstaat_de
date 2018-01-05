@@ -94,7 +94,7 @@ class FragDenStaat(FragDenStaatBase):
 
     HAYSTACK_CONNECTIONS = {
         'default': {
-            'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+            'ENGINE': 'froide.helper.elasticsearch.FroideElasticsearch2SearchEngine',
             'URL': 'http://127.0.0.1:9200/',
             'INDEX_NAME': 'fragdenstaat_de',
         }
