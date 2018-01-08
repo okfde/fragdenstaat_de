@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "7ea55db9b6fe6e1aef98e67191cd0263c4417609079a1da404196beeec31f159"
+            "sha256": "ecac067caca76fed20325b1d79ac4445b2d2970703e53b92df061e2c178d7add"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -204,10 +204,9 @@
             "version": "==2.7.0"
         },
         "django-treebeard": {
-            "hashes": [
-                "sha256:c1830d6e98618f524af654e084cd40e9449fdd1c9959f6fe679f08d54b964ba9"
-            ],
-            "version": "==4.2.0"
+            "editable": true,
+            "git": "git://github.com/stefanw/django-treebeard.git",
+            "ref": "deploy"
         },
         "djangorestframework": {
             "hashes": [
@@ -225,18 +224,18 @@
         },
         "froide": {
             "editable": true,
-            "git": "git://github.com/okfde/froide.git",
-            "ref": "master"
+            "git": "//github.com/okfde/froide.git",
+            "ref": "b073e0d5d9f0bb9ffb83851c1bc9c27e3f8ebcab"
         },
         "froide-campaign": {
             "editable": true,
-            "git": "git://github.com/okfde/froide-campaign.git",
-            "ref": "master"
+            "git": "//github.com/okfde/froide-campaign.git",
+            "ref": "dc33c5d5108689c9b7cc53294017e83d107a5eb4"
         },
         "froide-legalaction": {
             "editable": true,
-            "git": "git://github.com/okfde/froide-legalaction.git",
-            "ref": "master"
+            "git": "//github.com/okfde/froide-legalaction.git",
+            "ref": "02bfa08242d1db25822ffaf54641210adf47f426"
         },
         "honcho": {
             "hashes": [
