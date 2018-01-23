@@ -34,7 +34,7 @@ def detect_troll_pre_request_creation(request, **kwargs):
     if (diff < timedelta(days=1) and count > 5) or count > 15:
         user.is_blocked = True
         user.save()
-        mail_managers(_('User blocked'), user.pk)
+        mail_managers(_('User blocked'), str(user.pk))
         kwargs['blocked'] = True
 
     return kwargs
