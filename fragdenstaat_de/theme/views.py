@@ -17,7 +17,7 @@ def index(request):
     return render(request, 'index.html', {
         'featured': featured[:3],
         'successful_foi_requests': successful_foi_requests,
-        'foicount': FoiRequest.published.for_list_view().count(),
+        'foicount': FoiRequest.objects.get_send_foi_requests().count(),
         'pbcount': PublicBody.objects.get_list().count()
     })
 
