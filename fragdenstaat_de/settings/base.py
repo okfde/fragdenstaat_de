@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import os
 import re
 
-from froide.settings import Base, ThemeBase, German
+from froide.settings import Base, German
 
 
 def rec(x):
@@ -14,18 +14,20 @@ def gettext(s):
     return s
 
 
-class FragDenStaatBase(German, ThemeBase, Base):
+THEME_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+
+
+class FragDenStaatBase(German, Base):
+    ROOT_URLCONF = 'fragdenstaat_de.theme.urls'
 
     LANGUAGES = (
         ('de', gettext('German')),
     )
 
-    FROIDE_THEME = 'fragdenstaat_de.theme'
-
     @property
     def INSTALLED_APPS(self):
         installed = super(FragDenStaatBase, self).INSTALLED_APPS
-        installed += [
+        installed.default = ['fragdenstaat_de.theme'] + installed.default + [
             'celery_haystack',
             'djcelery_email',
             'django.contrib.redirects',
@@ -36,7 +38,17 @@ class FragDenStaatBase(German, ThemeBase, Base):
             'froide_campaign.apps.FroideCampaignConfig',
             'froide_legalaction.apps.FroideLegalActionConfig',
         ]
-        return installed
+        return installed.default
+
+    @property
+    def TEMPLATES(self):
+        TEMP = super(FragDenStaatBase, self).TEMPLATES
+        if 'DIRS' not in TEMP[0]:
+            TEMP[0]['DIRS'] = []
+        TEMP[0]['DIRS'] = [
+            os.path.join(THEME_ROOT, 'theme', 'templates'),
+        ] + list(TEMP[0]['DIRS'])
+        return TEMP
 
     @property
     def GEOIP_PATH(self):

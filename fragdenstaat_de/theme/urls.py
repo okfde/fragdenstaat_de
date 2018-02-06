@@ -1,6 +1,8 @@
 from django.conf.urls import include, url
 from django.contrib.flatpages import views
 
+from froide.urls import urlpatterns as froide_urlpatterns
+
 from .views import index, gesetze_dashboard
 
 urlpatterns = [
@@ -10,3 +12,5 @@ urlpatterns = [
     url(r'^gesetze/dashboard/$', gesetze_dashboard, name='fragdenstaat-gesetze_dashboard'),
     url(r'^$', index, name='index'),
 ]
+
+urlpatterns += froide_urlpatterns
