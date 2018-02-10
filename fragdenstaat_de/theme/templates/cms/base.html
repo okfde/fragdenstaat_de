@@ -1,0 +1,48 @@
+{% extends "cms/scaffold.html" %}
+
+{% load cms_tags %}
+
+{% block body_tag %}
+  {% block navbar %}
+    {% include "header.html" %}
+  {% endblock %}
+
+  {% block additional_meta %}
+    <meta name="google-site-verification" content="upljx19ZJVGT73Sx1miWKLOWBKga4LQJ_hqFl0vhhJE" />
+  {% endblock %}
+
+  {% block top_block %}
+    {% include "snippets/donation.html" %}
+  {% endblock %}
+
+  {% block scripts %}
+    {{ block.super }}
+    {% include "snippets/donation_script.html" %}
+  {% endblock %}
+
+  {% block body_wrapper %}
+  <main class="main">
+
+    {% block messages %}
+      {% include "snippets/messages.html" %}
+    {% endblock messages %}
+
+    {% block body %}
+      <div class="container">
+        {% block app_body %}
+          {% placeholder "content" %}
+        {% endblock %}
+      </div>
+    {% endblock %}
+  </main>
+  {% endblock %}
+
+  {% block footer_container %}
+    {% include "footer.html" %}
+  {% endblock %}
+
+  {% block below_scripts %}
+    {% block tracking_code %}{% include "snippets/tracking.html" %}{% endblock %}
+  {% endblock %}
+
+{% endblock %}
