@@ -28,6 +28,18 @@ class FragDenStaatBase(German, Base):
     def INSTALLED_APPS(self):
         installed = super(FragDenStaatBase, self).INSTALLED_APPS
         installed.default = ['fragdenstaat_de.theme'] + installed.default + [
+            'cms',
+            'menus',
+            'sekizai',
+
+            'easy_thumbnails',
+            'filer',
+            'mptt',
+
+            'djangocms_text_ckeditor',
+            'djangocms_picture',
+            'djangocms_video',
+
             'celery_haystack',
             'djcelery_email',
             'django.contrib.redirects',
@@ -35,6 +47,7 @@ class FragDenStaatBase(German, Base):
             'django_filters',
             'markdown_deux',
             'raven.contrib.django.raven_compat',
+
             'froide_campaign.apps.FroideCampaignConfig',
             'froide_legalaction.apps.FroideLegalActionConfig',
         ]
@@ -48,7 +61,91 @@ class FragDenStaatBase(German, Base):
         TEMP[0]['DIRS'] = [
             os.path.join(THEME_ROOT, 'theme', 'templates'),
         ] + list(TEMP[0]['DIRS'])
+        cps = TEMP[0]['OPTIONS']['context_processors']
+        cps.extend([
+            'sekizai.context_processors.sekizai',
+            'cms.context_processors.cms_settings',
+        ])
         return TEMP
+
+    CMS_TEMPLATES = [
+        ('cms/home.html', 'Homepage template'),
+    ]
+
+    FILER_ENABLE_PERMISSIONS = True
+
+    @property
+    def FILER_STORAGES(self):
+        MEDIA_ROOT = self.MEDIA_ROOT
+        return {
+            'public': {
+                'main': {
+                    'ENGINE': 'filer.storage.PublicFileSystemStorage',
+                    'OPTIONS': {
+                        'location': os.path.join(MEDIA_ROOT, 'public'),
+                        'base_url': '/files/public/',
+                    },
+                    'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
+                    'UPLOAD_TO_PREFIX': '',
+                },
+                'thumbnails': {
+                    'ENGINE': 'filer.storage.PublicFileSystemStorage',
+                    'OPTIONS': {
+                        'location': os.path.join(MEDIA_ROOT, 'thumbnails'),
+                        'base_url': '/files/thumbnails/',
+                    },
+                    'THUMBNAIL_OPTIONS': {
+                        'base_dir': '',
+                    },
+                },
+            },
+            'private': {
+                'main': {
+                    'ENGINE': 'filer.storage.PrivateFileSystemStorage',
+                    'OPTIONS': {
+                        'location': os.path.abspath(os.path.join(MEDIA_ROOT, '../smedia/private')),
+                        'base_url': '/smedia/private/',
+                    },
+                    'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
+                    'UPLOAD_TO_PREFIX': '',
+                },
+                'thumbnails': {
+                    'ENGINE': 'filer.storage.PrivateFileSystemStorage',
+                    'OPTIONS': {
+                        'location': os.path.abspath(os.path.join(MEDIA_ROOT, '../smedia/thumbnails')),
+                        'base_url': '/smedia/thumbnails/',
+                    },
+                    'UPLOAD_TO_PREFIX': '',
+                },
+            },
+        }
+
+    # FILER_SERVERS = {
+    #     'private': {
+    #         'main': {
+    #             'ENGINE': 'filer.server.backends.nginx.NginxXAccelRedirectServer',
+    #             'OPTIONS': {
+    #                 'location': FILER_STORAGES['private']['main']['OPTIONS']['location'],
+    #                 'nginx_location': '/nginx_private/private',
+    #             },
+    #         },
+    #         'thumbnails': {
+    #             'ENGINE': 'filer.server.backends.nginx.NginxXAccelRedirectServer',
+    #             'OPTIONS': {
+    #                 'location': FILER_STORAGES['private']['thumbnails']['OPTIONS']['location'],
+    #                 'nginx_location': '/nginx_private/thumbnails',
+    #             },
+    #         },
+    #     },
+    # }
+
+    THUMBNAIL_PROCESSORS = (
+        'easy_thumbnails.processors.colorspace',
+        'easy_thumbnails.processors.autocrop',
+        #'easy_thumbnails.processors.scale_and_crop',
+        'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+        'easy_thumbnails.processors.filters',
+    )
 
     @property
     def GEOIP_PATH(self):
@@ -73,6 +170,12 @@ class FragDenStaatBase(German, Base):
         'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
         'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
         'froide.account.middleware.AcceptNewTermsMiddleware',
+
+        'django.middleware.locale.LocaleMiddleware',
+        'cms.middleware.user.CurrentUserMiddleware',
+        'cms.middleware.page.CurrentPageMiddleware',
+        'cms.middleware.toolbar.ToolbarMiddleware',
+        'cms.middleware.language.LanguageCookieMiddleware',
     ]
 
     CACHES = {
