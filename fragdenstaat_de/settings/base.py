@@ -82,8 +82,8 @@ class FragDenStaatBase(German, Base):
                 'main': {
                     'ENGINE': 'filer.storage.PublicFileSystemStorage',
                     'OPTIONS': {
-                        'location': os.path.join(MEDIA_ROOT, 'public'),
-                        'base_url': '/files/public/',
+                        'location': os.path.join(MEDIA_ROOT, 'main'),
+                        'base_url': '/media/main/',
                     },
                     'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
                     'UPLOAD_TO_PREFIX': '',
@@ -92,7 +92,7 @@ class FragDenStaatBase(German, Base):
                     'ENGINE': 'filer.storage.PublicFileSystemStorage',
                     'OPTIONS': {
                         'location': os.path.join(MEDIA_ROOT, 'thumbnails'),
-                        'base_url': '/files/thumbnails/',
+                        'base_url': '/media/thumbnails/',
                     },
                     'THUMBNAIL_OPTIONS': {
                         'base_dir': '',
@@ -103,8 +103,8 @@ class FragDenStaatBase(German, Base):
                 'main': {
                     'ENGINE': 'filer.storage.PrivateFileSystemStorage',
                     'OPTIONS': {
-                        'location': os.path.abspath(os.path.join(MEDIA_ROOT, '../smedia/private')),
-                        'base_url': '/smedia/private/',
+                        'location': os.path.abspath(os.path.join(MEDIA_ROOT, '../private/main')),
+                        'base_url': '/smedia/main/',
                     },
                     'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
                     'UPLOAD_TO_PREFIX': '',
@@ -112,7 +112,7 @@ class FragDenStaatBase(German, Base):
                 'thumbnails': {
                     'ENGINE': 'filer.storage.PrivateFileSystemStorage',
                     'OPTIONS': {
-                        'location': os.path.abspath(os.path.join(MEDIA_ROOT, '../smedia/thumbnails')),
+                        'location': os.path.abspath(os.path.join(MEDIA_ROOT, '../private/thumbnails')),
                         'base_url': '/smedia/thumbnails/',
                     },
                     'UPLOAD_TO_PREFIX': '',
@@ -129,14 +129,14 @@ class FragDenStaatBase(German, Base):
                     'ENGINE': 'filer.server.backends.nginx.NginxXAccelRedirectServer',
                     'OPTIONS': {
                         'location': FILER_STORAGES['private']['main']['OPTIONS']['location'],
-                        'nginx_location': '/nginx_private/private',
+                        'nginx_location': '/protected-media',
                     },
                 },
                 'thumbnails': {
                     'ENGINE': 'filer.server.backends.nginx.NginxXAccelRedirectServer',
                     'OPTIONS': {
                         'location': FILER_STORAGES['private']['thumbnails']['OPTIONS']['location'],
-                        'nginx_location': '/nginx_private/thumbnails',
+                        'nginx_location': '/protected-media',
                     },
                 },
             },
