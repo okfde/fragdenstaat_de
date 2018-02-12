@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib.flatpages import views
 
-from froide.urls import froide_urlpatterns, help_urlpatterns
+from froide.urls import froide_urlpatterns, help_urlpatterns, jurisdiction_urls
 
 from .views import index, gesetze_dashboard
 
@@ -13,12 +13,7 @@ urlpatterns = [
     url(r'^$', index, name='index'),
 ]
 
-# Catch all Jurisdiction patterns
-# froide_urlpatterns += [
-#     url(r'^(?P<slug>[\w-]+)/', include('froide.publicbody.jurisdiction_urls'))
-# ]
-
-urlpatterns += froide_urlpatterns + help_urlpatterns
+urlpatterns += froide_urlpatterns + help_urlpatterns + jurisdiction_urls
 
 urlpatterns += [
     url(r'^', include('cms.urls')),
