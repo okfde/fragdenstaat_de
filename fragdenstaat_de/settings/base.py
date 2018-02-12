@@ -129,14 +129,14 @@ class FragDenStaatBase(German, Base):
                     'ENGINE': 'filer.server.backends.nginx.NginxXAccelRedirectServer',
                     'OPTIONS': {
                         'location': FILER_STORAGES['private']['main']['OPTIONS']['location'],
-                        'nginx_location': '/protected-media',
+                        'nginx_location': '/private_media',
                     },
                 },
                 'thumbnails': {
                     'ENGINE': 'filer.server.backends.nginx.NginxXAccelRedirectServer',
                     'OPTIONS': {
                         'location': FILER_STORAGES['private']['thumbnails']['OPTIONS']['location'],
-                        'nginx_location': '/protected-media',
+                        'nginx_location': '/private_media',
                     },
                 },
             },
