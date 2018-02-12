@@ -120,29 +120,31 @@ class FragDenStaatBase(German, Base):
             },
         }
 
-    # FILER_SERVERS = {
-    #     'private': {
-    #         'main': {
-    #             'ENGINE': 'filer.server.backends.nginx.NginxXAccelRedirectServer',
-    #             'OPTIONS': {
-    #                 'location': FILER_STORAGES['private']['main']['OPTIONS']['location'],
-    #                 'nginx_location': '/nginx_private/private',
-    #             },
-    #         },
-    #         'thumbnails': {
-    #             'ENGINE': 'filer.server.backends.nginx.NginxXAccelRedirectServer',
-    #             'OPTIONS': {
-    #                 'location': FILER_STORAGES['private']['thumbnails']['OPTIONS']['location'],
-    #                 'nginx_location': '/nginx_private/thumbnails',
-    #             },
-    #         },
-    #     },
-    # }
+    @property
+    def FILER_SERVERS(self):
+        FILER_STORAGES = self.FILER_STORAGES
+        return {
+            'private': {
+                'main': {
+                    'ENGINE': 'filer.server.backends.nginx.NginxXAccelRedirectServer',
+                    'OPTIONS': {
+                        'location': FILER_STORAGES['private']['main']['OPTIONS']['location'],
+                        'nginx_location': '/nginx_private/private',
+                    },
+                },
+                'thumbnails': {
+                    'ENGINE': 'filer.server.backends.nginx.NginxXAccelRedirectServer',
+                    'OPTIONS': {
+                        'location': FILER_STORAGES['private']['thumbnails']['OPTIONS']['location'],
+                        'nginx_location': '/nginx_private/thumbnails',
+                    },
+                },
+            },
+        }
 
     THUMBNAIL_PROCESSORS = (
         'easy_thumbnails.processors.colorspace',
         'easy_thumbnails.processors.autocrop',
-        #'easy_thumbnails.processors.scale_and_crop',
         'filer.thumbnail_processors.scale_and_crop_with_subject_location',
         'easy_thumbnails.processors.filters',
     )
