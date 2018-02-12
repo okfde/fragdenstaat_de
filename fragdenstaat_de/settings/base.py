@@ -82,7 +82,7 @@ class FragDenStaatBase(German, Base):
                 'main': {
                     'ENGINE': 'filer.storage.PublicFileSystemStorage',
                     'OPTIONS': {
-                        'location': os.path.join(MEDIA_ROOT, 'main'),
+                        'location': os.path.join(MEDIA_ROOT, 'media/main'),
                         'base_url': '/media/main/',
                     },
                     'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
@@ -91,7 +91,7 @@ class FragDenStaatBase(German, Base):
                 'thumbnails': {
                     'ENGINE': 'filer.storage.PublicFileSystemStorage',
                     'OPTIONS': {
-                        'location': os.path.join(MEDIA_ROOT, 'thumbnails'),
+                        'location': os.path.join(MEDIA_ROOT, 'media/thumbnails'),
                         'base_url': '/media/thumbnails/',
                     },
                     'THUMBNAIL_OPTIONS': {
