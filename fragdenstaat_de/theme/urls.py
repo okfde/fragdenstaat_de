@@ -13,6 +13,10 @@ urlpatterns = [
     url(r'^$', index, name='index'),
 ]
 
+urlpatterns += [
+    url(r'^', include('filer.server.urls')),
+]
+
 urlpatterns += froide_urlpatterns + help_urlpatterns + jurisdiction_urls
 
 urlpatterns += [
