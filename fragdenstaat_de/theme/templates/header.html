@@ -7,15 +7,15 @@
 
 
 {% block nav %}
-  <ul class="navbar-nav col-auto mr-auto">
-    <li class="nav-item {% block nav_requests %}{% endblock %}">
-      <a class="nav-link" href="{% url 'foirequest-list' %}">
-        Angefragt
+  <ul class="navbar-nav col-auto ml-auto">
+    <li class="nav-item {% block nav_makerequest %}{% endblock %}">
+      <a class="btn btn-primary" href="{% url 'foirequest-make_request' %}">
+        Anfrage stellen
       </a>
     </li>
-    <li class="nav-item special-nav-item {% block nav_makerequest %}{% endblock %}">
-      <a class="nav-link" href="{% url 'foirequest-make_request' %}">
-        {% blocktrans %}Make a Request!{% endblocktrans %}
+    <li class="nav-item {% block nav_requests %}{% endblock %}">
+      <a class="nav-link" href="{% url 'foirequest-list' %}">
+        Anfragen ansehen
       </a>
     </li>
   </ul>
