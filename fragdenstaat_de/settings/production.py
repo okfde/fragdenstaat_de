@@ -186,7 +186,7 @@ class FragDenStaat(FragDenStaatBase):
 
     SITE_EMAIL = 'info@fragdenstaat.de'
     SITE_ID = 1
-    SITE_NAME = 'Frag den Staat'
+    SITE_NAME = 'FragDenStaat'
     SITE_URL = 'https://fragdenstaat.de'
 
     TASTYPIE_DEFAULT_FORMATS = ['json']
