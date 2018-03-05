@@ -190,3 +190,9 @@ class FragDenStaat(FragDenStaatBase):
     SITE_URL = 'https://fragdenstaat.de'
 
     TASTYPIE_DEFAULT_FORMATS = ['json']
+
+    @property
+    def OAUTH2_PROVIDER(self):
+        P = super(FragDenStaat, self).OAUTH2_PROVIDER
+        P['ALLOWED_REDIRECT_URI_SCHEMES'] = ['https', 'fragdenstaat']
+        return P
