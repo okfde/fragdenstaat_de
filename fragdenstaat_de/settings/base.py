@@ -40,6 +40,8 @@ class FragDenStaatBase(German, Base):
             'djangocms_picture',
             'djangocms_video',
 
+            'leaflet',
+
             'celery_haystack',
             'djcelery_email',
             'django.contrib.redirects',
