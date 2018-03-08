@@ -41,7 +41,7 @@ class FragDenStaat(FragDenStaatBase):
     CELERY_EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
             'NAME': env('DATABASE_NAME'),
             'OPTIONS': {},
             'HOST': env('DATABASE_HOST'),
