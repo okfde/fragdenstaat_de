@@ -1,27 +1,42 @@
-<div class="bg-light border border-dark border-right-0 border-top-0 border-left-0" id="donation-block" style="display:none;z-index:1000">
-  <div class="container mb-1 mt-1">
+<style media="screen">
+  .highlight-dark {
+    padding: 0 0.2em;
+    font-weight: normal;
+    background: #d3d6d8;
+    color: #333;
+  }
+</style>
+<div class="bg-dark border border-dark border-right-0 border-top-0 border-left-0" id="top-block" style="color: #d3d6d8; letter-spacing: 0.3px">
+  <button class="float-right" onclick="localStorage.setItem('top-block-hidden-kuciak', true);document.getElementById('top-block').style.display='none';">
+    <i class="fa fa-close"></i>
+  </button>
+  <div class="container mb-1 mt-4">
     <div class="row">
-      <div class="col-md-12">
-        <h5>Klagen gegen BND und Verfassungsschutz</h5>
+      <div class="col-md-4 mb-3 d-none d-sm-block" style="background-image: url(https://fragdenstaat.de/files/media/main/39/c9/39c9ca81-eab2-4168-9624-fa98086d7803/jan_kuciak.png); background-size: contain; background-position: center; background-repeat: no-repeat;">
+      </div>
+      <div class="col-md-8 col-12">
+        <div class="clearfix">
+          <h5 class="text-light float-left">
+            Wir gedenken des ermordeten Journalisten Ján Kuciak
+          </h5>
+        </div>
         <p>
-          Wir verklagen den Bundes&shy;nachrichten&shy;dienst und den Verfassungs&shy;schutz auf Auskunft. Bitte spenden Sie an uns, damit wir die Klagen finanzieren können.<br/>
-          Die Kosten für die Klagen betragen zusammen 10.000 Euro.
-        </p>
-        <iframe style="width:100%;height: 25px;" frameborder="0" src="/hilfe/spenden/fortschritt/"></iframe>
+          Offenbar hängt sein Tod auch mit <strong class="highlight-dark">Recherchen nach dem Informationsfreiheitsgesetz</strong> zusammen.
 
-        <a class="btn btn-danger btn-sm" href="{% url 'help-donate' %}?banner">
-          Jetzt spenden
-        </a>
-        <a class="btn btn-sm btn-secondary mr-5" href="http://blog.fragdenstaat.de/2017/klage-bnd/" target="_blank" rel="noopener">
-          Mehr Infos
-        </a>
-        <a id="already-donation" class="btn btn-sm btn-light hover-btn-success" href="#">
-          Ich habe schon gespendet
-        </a>
-        <a id="cancel-donation" class="btn btn-sm btn-light mr-3" href="#">
-        Nein, gerade nicht
-        </a>
+          Den slowakischen Behörden wird vorgeworfen, Kuciaks Namen an seine künftigen Mörder weitergeleitet zu haben.
+          <br/>
+          Der Fall zeigt, wie wichtig das Recht auf <strong class="highlight-dark">anonyme Antragstellung</strong> ist. Wir fordern deswegen alle deutschen Behörden auf, auch anonyme Anfragen zu bearbeiten.
+        </p>
       </div>
     </div>
   </div>
 </div>
+<script>
+  (function(){
+    var block = document.getElementById('top-block')
+    var hidden = localStorage.getItem('top-block-hidden-kuciak')
+    if (hidden !== null) {
+      block.style.display = 'none'
+    }
+  }());
+</script>
