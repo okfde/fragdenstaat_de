@@ -48,6 +48,9 @@ django-filer = "*"
 djangocms-text-ckeditor = "*"
 djangocms-picture = "*"
 djangocms-video = "*"
+python-slugify = "*"
+django-leaflet = "*"
+phonenumbers = "*"
 
 
 [dev-packages]
