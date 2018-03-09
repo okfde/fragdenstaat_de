@@ -71,6 +71,6 @@ uritemplate==3.0.0
 urllib3==1.22
 vine==1.1.4
 wand==0.4.4
--e git+//github.com/okfde/froide.git@5d5c5cfa2d7dcf7c5284476a8a4ade3307b88d04#egg=froide
--e git+//github.com/okfde/froide-campaign.git@e3b15d5a67e7115cacd0bf56ee110598de7d3210#egg=froide-campaign
--e git+//github.com/okfde/froide-legalaction.git@02bfa08242d1db25822ffaf54641210adf47f426#egg=froide-legalaction
+-e git+git://github.com/okfde/froide.git@master#egg=froide
+-e git+git://github.com/okfde/froide-campaign.git@master#egg=froide-campaign
+-e git+git://github.com/okfde/froide-legalaction.git@master#egg=froide-legalaction
