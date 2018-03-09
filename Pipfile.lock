@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "45a509644e63a756fbb0ffb3c8254dbb4fcc7c1d635216747f5a953d78eda2b1"
+            "sha256": "c69bed567c2cc2ff9d189a7dbb6ada0ccf3902deb8489333025fa60d3fbae082"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -259,9 +259,10 @@
             "version": "==2.7.0"
         },
         "django-treebeard": {
-            "editable": true,
-            "git": "//github.com/stefanw/django-treebeard.git",
-            "ref": "c8d179921da82efb8886a1a04038970bc966c274"
+            "hashes": [
+                "sha256:474275b1de849eba8ead8e197edb5f6c2c835598eafa1ddfe3e3166a3e6c2d1f"
+            ],
+            "version": "==4.2.1"
         },
         "djangocms-admin-style": {
             "hashes": [
@@ -317,7 +318,8 @@
         },
         "froide": {
             "editable": true,
-            "git": "git@github.com:okfde/froide.git@5d5c5cfa2d7dcf7c5284476a8a4ade3307b88d04"
+            "git": "//github.com/okfde/froide.git",
+            "ref": "5d5c5cfa2d7dcf7c5284476a8a4ade3307b88d04"
         },
         "froide-campaign": {
             "editable": true,

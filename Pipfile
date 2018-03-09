@@ -42,7 +42,6 @@ djangorestframework = "*"
 django-oauth-toolkit = "*"
 coreapi = "*"
 django-filter = "*"
-django-treebeard = {git = "git://github.com/stefanw/django-treebeard.git", editable = true, ref = "deploy"}
 django-cms = "*"
 django-filer = "*"
 djangocms-text-ckeditor = "*"
@@ -51,6 +50,7 @@ djangocms-video = "*"
 python-slugify = "*"
 django-leaflet = "*"
 phonenumbers = "*"
+django-treebeard = "*"
 
 
 [dev-packages]
