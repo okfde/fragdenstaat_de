@@ -18,7 +18,7 @@ class TinyMCEFlatPageAdmin(FlatPageAdmin):
         return super(TinyMCEFlatPageAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
 
-class GeoRegionAdmin(LeafletGeoAdmin, georegion_admin.GeoRegionAdmin):
+class GeoRegionAdmin(georegion_admin.GeoRegionMixin, LeafletGeoAdmin):
     display_raw = True
 
 
