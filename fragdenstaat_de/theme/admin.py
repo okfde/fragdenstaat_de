@@ -8,6 +8,9 @@ from leaflet.admin import LeafletGeoAdmin
 from froide.georegion.models import GeoRegion
 from froide.georegion import admin as georegion_admin
 
+from froide.publicbody.models import PublicBody
+from froide.publicbody import admin as pb_admin
+
 
 class TinyMCEFlatPageAdmin(FlatPageAdmin):
     def formfield_for_dbfield(self, db_field, **kwargs):
@@ -22,8 +25,15 @@ class GeoRegionAdmin(georegion_admin.GeoRegionMixin, LeafletGeoAdmin):
     display_raw = True
 
 
+class PublicBodyAdmin(pb_admin.PublicBodyAdminMixin, LeafletGeoAdmin):
+    display_raw = True
+
+
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, TinyMCEFlatPageAdmin)
 
 admin.site.unregister(GeoRegion)
 admin.site.register(GeoRegion, GeoRegionAdmin)
+
+admin.site.unregister(PublicBody)
+admin.site.register(PublicBody, PublicBodyAdmin)
