@@ -3,15 +3,13 @@ from __future__ import unicode_literals
 import os
 import re
 
+from django.utils.translation import ugettext_lazy as _
+
 from froide.settings import Base, German
 
 
 def rec(x):
     return re.compile(x, re.I | re.U)
-
-
-def gettext(s):
-    return s
 
 
 THEME_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
@@ -21,7 +19,7 @@ class FragDenStaatBase(German, Base):
     ROOT_URLCONF = 'fragdenstaat_de.theme.urls'
 
     LANGUAGES = (
-        ('de', gettext('German')),
+        ('de', _('German')),
     )
 
     @property
