@@ -46,7 +46,6 @@ class FragDenStaatBase(German, Base):
             'djcelery_email',
             'django.contrib.redirects',
             'tinymce',
-            'django_filters',
             'markdown_deux',
             'raven.contrib.django.raven_compat',
 
