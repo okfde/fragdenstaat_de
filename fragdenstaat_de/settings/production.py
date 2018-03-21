@@ -188,6 +188,7 @@ class FragDenStaat(FragDenStaatBase):
     SITE_ID = 1
     SITE_NAME = 'FragDenStaat'
     SITE_URL = 'https://fragdenstaat.de'
+    META_SITE_PROTOCOL = 'https'
 
     TASTYPIE_DEFAULT_FORMATS = ['json']
 
