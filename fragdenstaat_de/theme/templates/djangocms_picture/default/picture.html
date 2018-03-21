@@ -1,4 +1,5 @@
 {% load thumbnail %}
+{% load markup %}
 
 {% if picture_link %}
     <a href="{{ picture_link }}"
@@ -16,10 +17,10 @@
 <picture>
   <source
     media="(min-width: 1200px)"
-    srcset="{% thumbnail instance.picture 1140x0 subject_location=instance.image.subject_location %}">
+    srcset="{% thumbnail instance.picture 1140x0 subject_location=instance.picture.subject_location %}">
   <source
     media="(min-width: 992px)"
-    srcset="{% thumbnail instance.picture 940x0 subject_location=instance.image.subject_location %}">
+    srcset="{% thumbnail instance.picture 940x0 subject_location=instance.picture.subject_location %}">
 
 {% endif %}
 
@@ -42,8 +43,14 @@
 
 {# start render figure/figcaption #}
 {% if instance.caption_text %}
-        <figcaption>{{ instance.caption_text }}</figcaption>
-    </figure>
+      <figcaption class="text-right">
+        {{ instance.caption_text }}
+        {% if instance.picture.author %}
+          {% if instance.caption_text %} – {% endif %}
+          {{ instance.picture.author|markdown }}
+        {% endif %}
+      </figcaption>
+  </figure>
 {% endif %}
 {# end render figure/figcaption #}
 

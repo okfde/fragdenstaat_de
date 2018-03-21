@@ -34,6 +34,17 @@ class FragDenStaatBase(German, Base):
             'filer',
             'mptt',
 
+            # Blog and dependencies
+            'aldryn_apphooks_config',
+            'aldryn_search',
+            'cmsplugin_filer_image',
+            'parler',
+            'taggit_autosuggest',
+            'meta',
+            'sortedm2m',
+            'djangocms_blog',
+
+            # Additional CMS plugins
             'djangocms_text_ckeditor',
             'djangocms_picture',
             'djangocms_video',
@@ -69,7 +80,39 @@ class FragDenStaatBase(German, Base):
 
     CMS_TEMPLATES = [
         ('cms/home.html', 'Homepage template'),
+        ('cms/blog_base.html', 'Blog base template'),
     ]
+
+    TEXT_ADDITIONAL_TAGS = ('iframe', 'embed',)
+    TEXT_ADDITIONAL_ATTRIBUTES = ('scrolling', 'frameborder', 'webkitallowfullscreen',
+                                  'mozallowfullscreen', 'allowfullscreen')
+
+    CKEDITOR_SETTINGS = {
+        'language': '{{ language }}',
+        'skin': 'moono-lisa',
+        'toolbar': 'CMS',
+        'toolbarCanCollapse': False,
+        'disableNativeSpellChecker': False,
+        'autocorrect_replacementTable': {
+            "...": "…",
+        },
+        'autocorrect_doubleQuotes': "„“",
+        'entities': False,
+        'stylesSet': []
+    }
+    BLOG_URLCONF = 'fragdenstaat_de.theme.blog_urls'
+    BLOG_AVAILABLE_PERMALINK_STYLES = (
+        ('full_date', _('Full date')),
+        ('short_date', _('Year /  Month')),
+        ('category', _('Category')),
+        ('year_slug', _('Year + Slug')),
+    )
+    BLOG_PERMALINK_URLS = {
+        'full_date': r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>\w[-\w]*)/$',
+        'short_date': r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>\w[-\w]*)/$',
+        'category': r'^(?P<category>\w[-\w]*)/(?P<slug>\w[-\w]*)/$',
+        'year_slug': r'^(?P<year>\d{4})/(?P<slug>\w[-\w]*)/$',
+    }
 
     FILER_ENABLE_PERMISSIONS = True
 
@@ -147,6 +190,8 @@ class FragDenStaatBase(German, Base):
         'filer.thumbnail_processors.scale_and_crop_with_subject_location',
         'easy_thumbnails.processors.filters',
     )
+    META_SITE_PROTOCOL = 'http'
+    META_USE_SITES = True
 
     @property
     def GEOIP_PATH(self):

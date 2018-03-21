@@ -1,0 +1,37 @@
+{% extends "djangocms_blog/base.html" %}
+{% load i18n easy_thumbnails_tags %}{% spaceless %}
+
+{% block canonical_url %}<link rel="canonical" href="{{ view.get_view_url }}"/>{% endblock canonical_url %}
+
+{% block content_blog %}
+<div class="container">
+  <div class="row justify-content-center">
+    <section class="blog-list col-md-8">
+        {% block blog_title %}
+        {% if author or archive_date or tagged_entries or category %}
+          <header>
+              <h2>
+              {% if author %}{% trans "Articles by" %} {{ author.get_full_name }}
+              {% elif archive_date %}{% trans "Archive" %} &ndash; {% if month %}{{ archive_date|date:'F' }} {% endif %}{{ year }}
+              {% elif tagged_entries %}{% trans "Tag" %} &ndash; {{ tagged_entries|capfirst }}
+              {% elif category %}{% trans "Category" %} &ndash; {{ category }}{% endif %}
+              </h2>
+          </header>
+        {% endif %}
+        {% endblock %}
+        {% for post in post_list %}
+            {% include "djangocms_blog/includes/blog_item.html" with post=post image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
+        {% empty %}
+          <p class="blog-empty">{% trans "No article found." %}</p>
+        {% endfor %}
+        {% if author or archive_date or tagged_entries %}
+          <p class="blog-back"><a href="{% url 'djangocms_blog:posts-latest' %}">{% trans "Back" %}</a></p>
+        {% endif %}
+        {% if is_paginated %}
+          {% include "pagination/pagination.html" with page_obj=page_obj %}
+        {% endif %}
+    </section>
+  </div>
+</div>
+{% endblock %}
+{% endspaceless %}

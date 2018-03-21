@@ -1,0 +1,25 @@
+{% load thumbnail %}
+{% load markup %}
+
+<figure class="blog-visual">
+  <picture>
+    <source
+      media="(min-width: 1200px)"
+      srcset="{% thumbnail picture 1140x0 subject_location=picture.subject_location %}">
+    <source
+      media="(min-width: 992px)"
+      srcset="{% thumbnail picture 940x0 subject_location=picture.subject_location %}">
+      <img class="img-fluid" src="{% spaceless %}
+        {% thumbnail picture 768x0 crop=scale subject_location=picture.subject_location %}
+        {% endspaceless %}"
+        {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
+        {{ attributes_str }}>
+  </picture>
+  {% if picture.author %}
+    <figcaption class="text-right">
+      {{ picture.description }}
+      {% if picture.description %} – {% endif %}
+      {{ picture.author|markdown }}
+    </figcaption>
+  {% endif %}
+</figure>

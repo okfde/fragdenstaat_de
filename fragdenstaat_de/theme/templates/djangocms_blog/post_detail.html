@@ -1,0 +1,51 @@
+{% extends "djangocms_blog/base.html" %}
+{% load i18n cms_tags %}
+
+{% block canonical_url %}<link rel="canonical" href="{{ meta.url }}"/>{% endblock canonical_url %}
+{% block title %}{{ post.get_title }}{% endblock %}
+
+{% block content_blog %}{% spaceless %}
+<div class="container">
+  <div class="row justify-content-center">
+    <article id="post-{{ post.slug }}" class="post-item post-detail col-md-8">
+        <header class="mb-3 mt-3">
+            <h2>
+              <small>
+                <time>
+                  {{ post.date_published|date:"DATE_FORMAT" }}
+                </time>
+              </small><br/>
+              {% render_model post "title" %}
+            </h2>
+        </header>
+        {% if post.abstract %}
+          <div class="blog-lead mb-3 font-weight-bold">
+            {% render_model post "abstract" "" "" "safe" %}
+          </div>
+        {% endif %}
+        {% if post.main_image_id %}
+          {% include "djangocms_blog/includes/blog_picture.html" with picture=post.main_image %}
+        {% endif %}
+        {% endspaceless %}
+
+        {% if post.app_config.use_placeholder %}
+            <div class="blog-content">{% render_placeholder post.content %}</div>
+        {% else %}
+            <div class="blog-content">{% render_model post "post_text" "post_text" "" "safe" %}</div>
+        {% endif %}
+    </article>
+  </div>
+</div>
+{% if post.author %}
+  <div class="bg-light">
+    <div class="container">
+      <div class="row justify-content-center pb-5 pt-5">
+        <div class="col-md-8">
+          <a href="{% url 'djangocms_blog:posts-author' post.author.username %}">
+            {{ post.author.get_full_name }}
+        </a>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock content_blog %}

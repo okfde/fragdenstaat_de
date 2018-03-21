@@ -2,15 +2,14 @@
 
 {% load cms_tags %}
 
-{% block body_tag %}
-  {% block navbar %}
-    {% include "header.html" %}
-  {% endblock %}
-
+{% block extra_head %}
   {% block additional_meta %}
     <meta name="google-site-verification" content="upljx19ZJVGT73Sx1miWKLOWBKga4LQJ_hqFl0vhhJE" />
   {% endblock %}
 
+{% endblock %}
+
+{% block body_tag %}
   {% block top_block %}
     {% include "snippets/donation.html" %}
   {% endblock %}
@@ -18,6 +17,10 @@
   {% block scripts %}
     {{ block.super }}
     {# {% include "snippets/donation_script.html" %} #}
+  {% endblock %}
+
+  {% block navbar %}
+    {% include "header.html" %}
   {% endblock %}
 
   {% block body_wrapper %}
