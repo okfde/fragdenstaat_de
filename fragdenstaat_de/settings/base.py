@@ -34,6 +34,17 @@ class FragDenStaatBase(German, Base):
             'filer',
             'mptt',
 
+            # Blog and dependencies
+            'aldryn_apphooks_config',
+            'aldryn_search',
+            'cmsplugin_filer_image',
+            'parler',
+            'taggit_autosuggest',
+            'meta',
+            'sortedm2m',
+            'djangocms_blog',
+
+            # Additional CMS plugins
             'djangocms_text_ckeditor',
             'djangocms_picture',
             'djangocms_video',
