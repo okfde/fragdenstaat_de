@@ -159,20 +159,6 @@ class FragDenStaat(FragDenStaatBase):
     FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o2750
     FILE_UPLOAD_PERMISSIONS = 0o640
 
-    MIDDLEWARE = [
-        'django.middleware.security.SecurityMiddleware',
-        'froide.helper.middleware.XForwardedForMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.common.CommonMiddleware',
-        'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
-        'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-        'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-        'froide.account.middleware.AcceptNewTermsMiddleware',
-    ]
-
     SECRET_KEY = env('DJANGO_SECRET_KEY')
     SECRET_URLS = {
         'admin': env('DJANGO_SECRET_URL_ADMIN')
