@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "621016403a1c201d91e639dc5c7a1c94e3c139f53b2c9953aaf23e11668a48bc"
+            "sha256": "80bec693d018add57a655de98cae34816a753fa9cdc0e918dd486f2b2aac7837"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -28,10 +28,30 @@
     "default": {
         "aldryn-apphooks-config": {
             "hashes": [
-                "sha256:1ba8dff0c82496ffc22143ac558d359e2787d260bce5af807a9b5f54dabd9afa",
-                "sha256:0e21cc21aca0f1f1a5a0bb4f7b900d6ef6b941b4e56df7b8b0f931c0b0d5ebed"
+                "sha256:4439e3ba29e1eae119e5c99c4a256b8a8453cf0365ca2ba92b66c7d2e084ada3",
+                "sha256:1842806281be2de87a5d6f7b439853bb78a8c4b6259239fc45fc4d412598d9a1"
             ],
-            "version": "==0.4.0rc1"
+            "version": "==0.4.0"
+        },
+        "aldryn-boilerplates": {
+            "hashes": [
+                "sha256:2f72db91392c492ac336e0a78443c5c55dc4c00b247b77ebc7dad207c5f6ef53",
+                "sha256:fb6298942e7ad2de9264a73088b708cb6d791e32984e4bc7b162bb26f5fe410f"
+            ],
+            "version": "==0.7.7"
+        },
+        "aldryn-common": {
+            "hashes": [
+                "sha256:3f7ce7d24dd76582879e0ad6b4c0365fe65212ef3e23cda2659e70a3934e84e2"
+            ],
+            "version": "==1.0.4"
+        },
+        "aldryn-search": {
+            "hashes": [
+                "sha256:2777e219e41ec1a26c0649aa728321766df50b707cc0279345ea02354fb7e909",
+                "sha256:8ca477d5969b0a0f25f91d080042245ab048dca24816c1406c6a8855ca7267f6"
+            ],
+            "version": "==0.5.0"
         },
         "amqp": {
             "hashes": [
@@ -285,6 +305,19 @@
             ],
             "version": "==1.5.0"
         },
+        "django-spurl": {
+            "hashes": [
+                "sha256:95e8cb68e9de9744c085e95394ca97be9516da78244e81bd5c474d7b6851e097",
+                "sha256:acc161f1242c2ea3746e700a015796d24f44ba811aedb0d69945e6524774b92f"
+            ],
+            "version": "==0.6.4"
+        },
+        "django-standard-form": {
+            "hashes": [
+                "sha256:33d338e891ecf47ce2c6c892261ec2d62ae763c6b65a216e04edd9e69ccce3e4"
+            ],
+            "version": "==1.1.1"
+        },
         "django-storages": {
             "hashes": [
                 "sha256:ab6be1538cf29511400bce83d0e5ca74d2e935cad82086063bcf5e7edacc1661",
@@ -407,7 +440,7 @@
         },
         "froide": {
             "editable": true,
-            "git": "git@github.com:okfde/froide.git@284d37f014a093b2b04f57fefe1e3a05ca2166db"
+            "git": "git@github.com:okfde/froide.git@d2c5f44bf1d5c63006533ba745424d7e61dd3440"
         },
         "froide-campaign": {
             "editable": true,
@@ -527,10 +560,10 @@
         },
         "phonenumbers": {
             "hashes": [
-                "sha256:5fb9550c03068f500f60e81a7d28723e5ccdbda60c0c67de3da0dab87dd0efb8",
-                "sha256:017a5ee3c5741d428c1a72c6aa918d031c0dff8849cbd6eaf4a3a34cd6cbd50d"
+                "sha256:c165ebf31d30eecd5a962ca228512814e469467c14238135f8c75f6158ff7c00",
+                "sha256:9c60423cdd0eee3a65dd2d8280fab08e4d9fa4675dce1651c164a6408fecacfc"
             ],
-            "version": "==8.9.1"
+            "version": "==8.9.2"
         },
         "pillow": {
             "hashes": [
@@ -735,6 +768,12 @@
             ],
             "version": "==1.22"
         },
+        "urlobject": {
+            "hashes": [
+                "sha256:47b2e20e6ab9c8366b2f4a3566b6ff4053025dad311c4bb71279bbcfa2430caa"
+            ],
+            "version": "==2.4.3"
+        },
         "vine": {
             "hashes": [
                 "sha256:6849544be74ec3638e84d90bc1cf2e1e9224cc10d96cd4383ec3f69e9bce077b",
@@ -748,6 +787,12 @@
                 "sha256:28e0454c9d16d69c5d5034918d96320d8f9f1377b4fdaf4944eec2f938c74704"
             ],
             "version": "==0.4.4"
+        },
+        "yurl": {
+            "hashes": [
+                "sha256:a8ba9c065da393704fc029f13d2d7d850a9dfd6b8deae6960749eecea282693d"
+            ],
+            "version": "==0.13"
         }
     },
     "develop": {

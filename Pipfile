@@ -54,6 +54,7 @@ django-treebeard = "*"
 djangocms-blog = {extras = ["taggit", "search"]}
 aldryn-apphooks-config = ">=0.4.0rc1"
 djangorestframework-jsonp = "*"
+aldryn-search = "*"
 
 
 [dev-packages]
