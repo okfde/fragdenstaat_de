@@ -78,6 +78,7 @@ class FragDenStaatBase(German, Base):
         ])
         return TEMP
 
+    CMS_TOOLBAR_ANONYMOUS_ON = False
     CMS_TEMPLATES = [
         ('cms/home.html', 'Homepage template'),
         ('cms/blog_base.html', 'Blog base template'),
