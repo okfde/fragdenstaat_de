@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^klagen/', include('froide_legalaction.urls')),
     url(r'^gesetze/dashboard/$', gesetze_dashboard, name='fragdenstaat-gesetze_dashboard'),
     url(r'^$', index, name='index'),
+    url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
 ]
 
 urlpatterns += [
