@@ -1,0 +1,27 @@
+{% load i18n easy_thumbnails_tags cms_tags %}
+
+<article id="post-{{ post.slug }}" class="post-item mb-5">
+    <header>
+      <h3 class="blog-list-heading">
+        <small class="text-secondary">
+          {{ post.date_published|date:"DATE_FORMAT" }}
+        </small><br/>
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+      </h3>
+    </header>
+    {% if post.main_image_id %}
+      {% include "djangocms_blog/includes/blog_picture.html" with picture=post.main_image %}
+    {% endif %}
+    {% if post.abstract %}
+      <div class="blog-lead">
+        {% if not TRUNCWORDS_COUNT %}
+            {% render_model post "abstract" "" "" "safe" %}
+        {% else %}
+            {% render_model post "abstract" "" "" "truncatewords_html:TRUNCWORDS_COUNT|safe"  %}
+        {% endif %}
+      </div>
+      <footer class="read-more">
+        <a href="{{ post.get_absolute_url }}">{% trans "read more" %} &raquo;</a>
+      </footer>
+    {% endif %}
+</article>
