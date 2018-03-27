@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.core.mail import mail_managers
 from django.utils.translation import ugettext_lazy as _
 
-from froide.foirequest.hooks import registry
+# from froide.foirequest.hooks import registry
 
 
 def detect_troll_pre_request_creation(request, **kwargs):
@@ -40,4 +40,5 @@ def detect_troll_pre_request_creation(request, **kwargs):
     return kwargs
 
 
-registry.register('pre_request_creation', detect_troll_pre_request_creation)
+# Uncomment to activate troll filter again
+# registry.register('pre_request_creation', detect_troll_pre_request_creation)
