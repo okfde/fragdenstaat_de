@@ -11,3 +11,4 @@ fds-env/
 favicon-result.json
 node_modules/
 froide/
+*.map
