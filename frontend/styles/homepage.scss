@@ -1,0 +1,164 @@
+.video-embed {
+  display: block;
+}
+
+.video-embed-container {
+  text-align: center;
+  margin-top: 1em;
+}
+
+@media screen and (min-width: 1200px) {
+  .video-embed-container {
+    margin-top: 0;
+  }
+}
+
+.video-embed img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+
+/* style for animation on index page */
+
+.step {
+  display: block;
+}
+.step:hover {
+  text-decoration: none;
+}
+
+.step-number {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #777;
+  color: #f8f8f8;
+  border-radius: 20px;
+  text-align: center;
+  z-index: 5;
+}
+
+@media screen and (min-width: 992px) {
+  .step-number {
+    left: 42%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .step:nth-last-child(-n+2):after {
+    content: '';
+    width: 100%;
+    height: 6px;
+    background-color: #777;
+    position: absolute;
+    top: 18px;
+    left: -50%;
+  }
+}
+
+.step-box {
+  position: relative;
+  top: -35px;
+  background-color: #d9edf7;
+  color: #333;
+  margin: 15px;
+  border-radius: 6px;
+  text-align: center;
+  padding: 15px;
+  z-index: 1;
+}
+
+@media screen and (min-width: 992px) {
+  .step-box {
+    top: 0px;
+    height: 100px;
+  }
+}
+
+.step .step-number,
+.step:after,
+.step .step-box {
+  animation-duration: 10s;
+  animation-timing-function: step-end;
+  animation-iteration-count: infinite;
+}
+
+.step:nth-child(1) .step-number {
+  animation-name: step-1;
+}
+.step:nth-child(1) .step-box {
+  animation-name: box-step-1;
+}
+
+.step:nth-child(2) .step-number,
+.step:nth-child(2):after {
+  animation-name: step-2;
+}
+.step:nth-child(2) .step-box {
+  animation-name: box-step-2;
+}
+
+.step:nth-child(3) .step-number,
+.step:nth-child(3):after {
+  animation-name: step-3;
+}
+.step:nth-child(3) .step-box {
+  animation-name: box-step-3;
+}
+
+@keyframes step-1 {
+  25% {
+    background-color: #ffb74d;
+  }
+}
+
+@keyframes step-2 {
+  50% {
+    background-color: #ffb74d;
+  }
+}
+
+@keyframes step-3 {
+  75% {
+    background-color: #ffb74d;
+  }
+}
+
+@keyframes box-step-1 {
+  0%, 50%, 100% {
+    color: #333;
+    background-color: #d9edf7;
+  }
+  25% {
+    color: #f8f8f8;
+    background-color: #428bca;
+  }
+}
+
+@keyframes box-step-2 {
+  0%, 75%, 100% {
+    color: #333;
+    background-color: #d9edf7;
+  }
+  50% {
+    color: #f8f8f8;
+    background-color: #428bca;
+  }
+}
+
+@keyframes box-step-3 {
+  0%, 50%, 100% {
+    color: #333;
+    background-color: #d9edf7;
+  }
+  75% {
+    color: #f8f8f8;
+    background-color: #428bca;
+  }
+}
+
+/* END: style for animation on index page */

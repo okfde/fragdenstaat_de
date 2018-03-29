@@ -9,9 +9,6 @@
 
   {% block css %}
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
-    {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/fds-style.css' %}"/>
-    {% endblock %}
   {% endblock %}
 
   {% render_block "css" %}

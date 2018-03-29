@@ -1,0 +1,19 @@
+@import "~froide/frontend/styles/main.scss";
+
+@font-face {
+  font-family: 'Kreon';
+  src: local('Kreon Regular'), local('Kreon-Regular'),
+    url('~fonts/Kreon-Regular.ttf') format('truetype'),
+    url('~fonts/Kreon-Regular.woff') format('woff');
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Kreon';
+}
+
+.navbar-fds .navbar-brand {
+  font-family: 'Kreon';
+}
+
+@import "homepage";
+@import "misc";
