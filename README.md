@@ -1,56 +1,35 @@
-# FragDenStaat.de Theming
+# FragDenStaat.de
 
 This repository contains the theming for
-[FragDenStaat.de](https://fragdenstaat.de) - the German instance of [Froide](https://github.com/stefanw/froide).
+[FragDenStaat.de](https://fragdenstaat.de) - the German instance of [Froide](https://github.com/okfde/froide).
 
 
-Setup a separate Python 3 virtual environment:
+## Development environment
 
-```
-python3 -m venv fds-env
-source fds-env/bin/activate
-```
+FragDenStaat.de is a Django app with a PostgreSQL+PostGIS database and elasticsearch 2.4.6.
+[There is a production deployment ansible configuration for details.](https://github.com/okfde/fragdenstaat.de-ansible). If you want an easy  start, please use the below instructions with Docker (note that this is for convenience and that the actual deployment does not use Docker at the moment).
 
-Then install dependencies:
+If you do not want to use Docker, you can install this like any Django project with dependencies and services.
 
-```
-pip install -U -r requirements-dev.txt -e .
-```
+### Docker setup
 
-Create your own local settings:
-```
-cp fragdenstaat_de/local_settings.py.example fragdenstaat_de/local_settings.py
-```
-
-and configure your DATABASES with a Postgres database.
-
-Initialise the database:
-```
-python manage.py migrate
-```
-
-Run the server:
-```
-python manage.py runserver
-```
-Now you can visit <http://localhost:8000>.
-
-You can create your own admin user like this:
+You need [docker](https://www.docker.com/community-edition) and [docker-compose](https://docs.docker.com/compose/). Make sure Docker is running and use the following command:
 
 ```
-python manage.py createsuperuser
+make all
 ```
 
-Start the server again and then login to the admin interface:
+This will download the necessary docker images and build a docker image and start a python web server and a webpack watch server for building JS/CSS (includes live reload). The current directory is mounted inside the container, changes to templates are picked up and the frontend files should be rebuild.
 
-    <http://localhost:8000/admin/>
+The following make targets are available:
 
+- `make setup` - updates local froide source and builds docker image
+- `make services` - starts services in the background
+- `make migrate` - runs database migrations
+- `make stop` - stops all services
+- `make build` - build frontend files for production and commit
+- `make shell` - opens shell in web app container
 
-To have the German translation, you need to install [gettext](https://www.gnu.org/software/gettext/gettext.html) on your system. See the [Django documentation for details](https://docs.djangoproject.com/en/1.10/topics/i18n/translation/). Compile translations like this:
-
-```
-python manage.py compilemessages
-```
 
 ## License
 

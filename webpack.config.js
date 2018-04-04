@@ -121,6 +121,20 @@ const config = {
       cssProcessorOptions: { discardComments: { removeAll: true } }
     })] : []),
   optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      })
+    ].concat(process.env.NODE_ENV === 'production' ? [
+      new OptimizeCssAssetsPlugin({
+        assetNameRegExp: /\.css$/,
+        cssProcessorOptions: {
+          discardComments: { removeAll: true }
+        }
+      })
+    ] : []),
     splitChunks: {
       cacheGroups: {
         styles: {

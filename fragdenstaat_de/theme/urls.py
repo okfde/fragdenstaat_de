@@ -53,6 +53,14 @@ urlpatterns += (
     jurisdiction_urls
 )
 
+
+if settings.DEBUG:
+    from django.contrib.sites.models import Site  # noqa
+
+    if not Site.objects.filter(id=settings.SITE_ID).exists():
+        Site.objects.create(id=settings.SITE_ID,
+            domain='localhost:8000', name='localhost')
+
 urlpatterns += [
     url(r'^', include('cms.urls')),
 ]

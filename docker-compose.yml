@@ -2,22 +2,34 @@ version: '3'
 
 services:
   db:
-    image: postgres:9.6.5
+    image: mdillon/postgis:10-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+  elasticsearch:
+    image: elasticsearch:2.4.6
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+      - elasticsearch-log:/var/log
   backend:
     build: .
-    command: bash -c "python /code/manage.py migrate --noinput && python /code/manage.py runserver 0.0.0.0:8000"
+    command: honcho -f Procfile.dev start
     volumes:
       - .:/code
+    links:
+      - db
+      - elasticsearch
     environment:
         - DJANGO_SETTINGS_MODULE=fragdenstaat_de.settings.development
         - DJANGO_CONFIGURATION=Dev
-        - DATABASE_URL=postgres://postgres@db/postgres
+        - DATABASE_URL=postgis://postgres@db/postgres
     ports:
       - "8000:8000"
+      - "35729:35729" # live reload
     depends_on:
       - db
+      - elasticsearch
 
 volumes:
-  postgres_data:
+  postgres_data: {}
+  elasticsearch-data: {}
+  elasticsearch-log: {}
