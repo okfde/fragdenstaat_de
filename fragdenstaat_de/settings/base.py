@@ -60,6 +60,7 @@ class FragDenStaatBase(German, Base):
 
             'froide_campaign.apps.FroideCampaignConfig',
             'froide_legalaction.apps.FroideLegalActionConfig',
+            'froide_food.apps.FroideFoodConfig',
         ]
         return installed.default
 
@@ -308,3 +309,8 @@ class FragDenStaatBase(German, Base):
             closings=[rec(r"([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u)(ß|ss)(en?)?,?"), rec("Hochachtungsvoll,?"), rec(r'i\. ?A\.'), rec('[iI]m Auftrag')]
         ))
         return config
+
+    FROIDE_FOOD_CONFIG = {
+        'api_key_google': '',
+        'api_key_yelp': os.environ.get('YELP_API_KEY', '')
+    }
