@@ -5,18 +5,16 @@
 {% block title %}{{ post.get_title }}{% endblock %}
 
 {% block content_blog %}{% spaceless %}
-<div class="container">
+<div class="blog-container">
   <div class="row justify-content-center">
     <article id="post-{{ post.slug }}" class="post-item post-detail col-md-8">
-        <header class="mb-3 mt-3">
-            <h2>
-              <small>
-                <time>
-                  {{ post.date_published|date:"DATE_FORMAT" }}
-                </time>
-              </small><br/>
-              {% render_model post "title" %}
-            </h2>
+        <header class="blog-header">
+          <time class="blog-header__date">
+            {{ post.date_published|date:"DATE_FORMAT" }}
+          </time>
+          <h2 class="blog-header__title">
+            {% render_model post "title" %}
+          </h2>
         </header>
         {% if post.abstract %}
           <div class="blog-lead mb-3 font-weight-bold">

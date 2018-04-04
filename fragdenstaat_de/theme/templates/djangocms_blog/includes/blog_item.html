@@ -1,7 +1,7 @@
 {% load i18n easy_thumbnails_tags cms_tags %}
 
 <article id="post-{{ post.slug }}" class="post-item mb-5">
-    <header>
+    <header class="blog-list-header">
       <h3 class="blog-list-heading">
         <small class="text-secondary">
           {{ post.date_published|date:"DATE_FORMAT" }}

@@ -9,7 +9,7 @@
     <section class="blog-list col-md-8">
         {% block blog_title %}
         {% if author or archive_date or tagged_entries or category %}
-          <header>
+          <header class="blog-head">
               <h2>
               {% if author %}{% trans "Articles by" %} {{ author.get_full_name }}
               {% elif archive_date %}{% trans "Archive" %} &ndash; {% if month %}{{ archive_date|date:'F' }} {% endif %}{{ year }}
