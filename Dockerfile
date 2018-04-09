@@ -16,11 +16,10 @@ RUN pip install -r /code/requirements-dev.txt
 COPY froide /code/froide
 RUN pip uninstall -y froide && pip install -e /code/froide/
 
-COPY package.json /code/
-# COPY yarn.lock /code/
-RUN cd /code/ && npm install && npm rebuild node-sass --force
-
 COPY . /code/
-WORKDIR /code/
 
+# COPY yarn.lock /code/
+RUN cd /code/ && npm install --dev
+
+WORKDIR /code/
 EXPOSE 8000

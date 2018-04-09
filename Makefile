@@ -30,6 +30,10 @@ setup:
 	./devsetup.sh
 	$(COMPOSE) build
 
+resetup:
+	./devsetup.sh
+	$(COMPOSE) build --no-cache
+
 build:
 	$(COMPOSE) stop backend
 	$(DEVDOCKER) npm run build
