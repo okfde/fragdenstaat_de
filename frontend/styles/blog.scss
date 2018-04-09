@@ -1,0 +1,16 @@
+.blog-container {
+  @extend .container;
+}
+
+.blog-header {
+  margin: 20rem 0;
+}
+
+.blog-header__date {
+  color: $gray-200;
+  font-size: 0.8rem;
+}
+
+.blog-header__title {
+  margin: 0 !important;
+}
