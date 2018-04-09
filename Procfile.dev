@@ -1,0 +1,2 @@
+web: DJANGO_SETTINGS_MODULE=fragdenstaat_de.settings.development python manage.py runserver 0.0.0.0:8000
+npm: cd /code/ && node_modules/.bin/webpack --watch
