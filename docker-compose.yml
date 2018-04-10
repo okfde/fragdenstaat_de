@@ -14,7 +14,9 @@ services:
     build: .
     command: honcho -f Procfile.dev start
     volumes:
-      - .:/code
+      - ./froide:/code/froide
+      - ./frontend:/code/frontend
+      - ./fragdenstaat_de:/code/fragdenstaat_de
     links:
       - db
       - elasticsearch
