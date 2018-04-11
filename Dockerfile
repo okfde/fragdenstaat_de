@@ -18,7 +18,7 @@ RUN pip uninstall -y froide && pip install -e /code/froide/
 COPY yarn.lock /code/
 COPY package.json /code/
 
-RUN cd /code/ && npm install -g yarn && yarn  install
+RUN cd /code/ && npm install -g yarn && yarn install
 
 COPY .babelrc /code/
 COPY manage.py /code/
