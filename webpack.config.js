@@ -1,8 +1,10 @@
 const path = require('path')
-const LiveReloadPlugin = require('webpack-livereload-plugin')
+const fs = require('fs')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const WriteFilePlugin = require('write-file-webpack-plugin')
+
 const webpack = require('webpack')
 
 // Get Froide install path
@@ -14,15 +16,36 @@ console.log('Detected Froide at', FROIDE_PATH)
 
 const config = {
   entry: {
-    main: ['./frontend/javascript/main.js']
+    main: [
+      './frontend/javascript/main.js'
+    ]
   },
   output: {
     path: path.resolve(__dirname, 'fragdenstaat_de/theme/static/js'),
+    publicPath: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8080/static/',
     filename: '[name].js',
     library: ['Froide', 'components', '[name]'],
     libraryTarget: 'umd'
   },
   devtool: 'source-map', // any "source-map"-like devtool is possible
+  devServer: {
+    contentBase: path.resolve(__dirname, 'fragdenstaat_de/theme'),
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    hot: true,
+    proxy: {
+      '/static': {
+        target: 'http://localhost:8000',
+        bypass: function (req, res, proxyOptions) {
+          var urlPath = req.path.substring(1)
+          urlPath = path.resolve(__dirname, 'fragdenstaat_de/theme', urlPath)
+          if (fs.existsSync(urlPath)) {
+            return req.path
+          }
+          return false
+        }
+      }
+    }
+  },
   resolve: {
     modules: [
       'fragdenstaat_de/theme/static',
@@ -48,20 +71,24 @@ const config = {
       {
         test: /\.scss$/,
         use: [
+          'css-hot-loader',
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
-              sourceMap: process.env.NODE_ENV !== 'production'
+              sourceMap: true
             }
           },
-          // {
-          //   loader: 'resolve-url-loader'
-          // },
+          {
+            loader: 'resolve-url-loader',
+            options: {
+              sourceMap: true
+            }
+          },
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: process.env.NODE_ENV !== 'production',
+              sourceMap: true,
               includePaths: [
                 'node_modules/'
               ]
@@ -76,8 +103,8 @@ const config = {
           limit: 10000,
           name: '../fonts/[name].[ext]',
           emitFile: true,
-          context: 'fragdenstaat_de/theme/static/',
-          publicPath: ''
+          context: 'fragdenstaat_de/theme/static/js',
+          publicPath: '/static/fonts/'
         }
       },
       {
@@ -88,38 +115,28 @@ const config = {
             limit: 8192,
             name: '../img/[name].[ext]',
             emitFile: false,
-            // context: '',
-            publicPath: ''
+            context: 'fragdenstaat_de/theme/static/js',
+            publicPath: '/static/img/'
           }
         }
       }
     ]
   },
   plugins: [
-    new LiveReloadPlugin(),
+    new WriteFilePlugin(),
+    new webpack.NamedModulesPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: '../css/[name].css'
+      // publicPath: '../../'
     }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: `"${process.env.NODE_ENV}"`
       }
     })
-  ].concat(process.env.NODE_ENV === 'production' ? [
-    // new UglifyJsPlugin({
-    //   sourceMap: false,
-    //   uglifyOptions: {
-    //     ie8: true,
-    //     ecma: 5,
-    //     mangle: false
-    //   }
-    // }),
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.css$/,
-      cssProcessorOptions: { discardComments: { removeAll: true } }
-    })] : []),
+  ],
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
