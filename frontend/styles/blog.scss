@@ -1,16 +1,81 @@
+/*-----  End of Typography  ------*/
+
 .blog-container {
   @extend .container;
 }
 
-.blog-header {
-  margin: 20rem 0;
-}
-
 .blog-header__date {
-  color: $gray-200;
-  font-size: 0.8rem;
+  color: $gray-600;
+  font-size: .9rem;
 }
 
 .blog-header__title {
-  margin: 0 !important;
+  margin: 0 0 1rem 0 !important;
+}
+
+.blog-date {
+}
+
+
+/*================================
+=           List-Item           =
+================================*/
+
+.blog_item {
+	float: left;
+}
+
+h4.blog-list-heading {
+		margin-top: 0 !important;
+
+	a { 
+		color: $black;
+		@include transition(background-color .25s ease);
+	}
+
+	a:hover {
+		color: $primary;
+	}
+}
+/*================================
+=          Post-Detail          =
+================================*/
+
+.blog-header {
+  margin: 4rem 0 1rem 0;
+
+	.blog-lead {
+		p {
+			color: $black;
+			font-size: 1.3rem;
+			font-weight: 400;
+			line-height: 1.5;
+			text-align: left;
+		}
+	}
+}
+
+
+.blog-content {
+		color: $gray-800;
+		font-size: 1.2rem;
+		font-weight: 400;
+		line-height: 1.55;
+		text-align: left;
+
+	h3 {
+		margin: 4rem 0 1rem 0 !important;
+	}
+
+	a, a:active, a:visited {
+	  border-bottom: 1px solid rgba(30, 32, 35, 0.3);
+		color: $gray-800;
+	  text-decoration: none;
+	  transition: all ease 0.3s;
+	}
+
+	a:focus, a:hover, a:active:focus, a:active:hover, a:visited:focus, a:visited:hover {
+	  border-color: $black;
+	  text-decoration: none !important;
+	}
 }

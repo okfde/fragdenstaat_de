@@ -15,11 +15,11 @@
         {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
         {{ attributes_str }}>
   </picture>
-  {% if picture.author %}
+  <!-- {% if picture.author %}
     <figcaption class="text-right">
       {{ picture.description }}
       {% if picture.description %} – {% endif %}
       {{ picture.author|markdown }}
     </figcaption>
-  {% endif %}
+  {% endif %}-->
 </figure>

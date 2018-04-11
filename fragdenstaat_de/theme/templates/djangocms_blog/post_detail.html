@@ -7,30 +7,43 @@
 {% block content_blog %}{% spaceless %}
 <div class="blog-container">
   <div class="row justify-content-center">
-    <article id="post-{{ post.slug }}" class="post-item post-detail col-md-8">
-        <header class="blog-header">
-          <time class="blog-header__date">
-            {{ post.date_published|date:"DATE_FORMAT" }}
-          </time>
-          <h2 class="blog-header__title">
-            {% render_model post "title" %}
-          </h2>
-        </header>
-        {% if post.abstract %}
-          <div class="blog-lead mb-3 font-weight-bold">
-            {% render_model post "abstract" "" "" "safe" %}
+    <article id="post-{{ post.slug }}" class="post-item post-detail ">
+      <header class="blog-header">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <time class="blog-header__date">
+              {{ post.date_published|date:"DATE_FORMAT" }}
+            </time>
+            <h1 class="blog-header__title">
+              {% render_model post "title" %}
+            </h1>
+            {% if post.abstract %}
+              <div class="blog-lead mb-3">
+                {% render_model post "abstract" "" "" "safe" %}
+              </div>
+            {% endif %}
           </div>
-        {% endif %}
-        {% if post.main_image_id %}
-          {% include "djangocms_blog/includes/blog_picture.html" with picture=post.main_image %}
-        {% endif %}
-        {% endspaceless %}
-
-        {% if post.app_config.use_placeholder %}
-            <div class="blog-content">{% render_placeholder post.content %}</div>
-        {% else %}
-            <div class="blog-content">{% render_model post "post_text" "post_text" "" "safe" %}</div>
-        {% endif %}
+          <div class="col-md-10">
+            {% if post.main_image_id %}
+              {% include "djangocms_blog/includes/blog_picture.html" with picture=post.main_image %}
+            {% endif %}
+            {% endspaceless %}
+          </div>
+        </div>
+      </header>
+      <div class="row justify-content-center">
+        <div class="col-md-7">
+          {% if post.app_config.use_placeholder %}
+              <div class="blog-content">
+                {% render_placeholder post.content %}
+              </div>
+          {% else %}
+              <div class="blog-content">
+                {% render_model post "post_text" "post_text" "" "safe" %}
+              </div>
+          {% endif %}
+        </div>
+      </div>        
     </article>
   </div>
 </div>
