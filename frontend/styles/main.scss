@@ -2,9 +2,12 @@
 
 @font-face {
   font-family: 'Kreon';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
   src: local('Kreon Regular'), local('Kreon-Regular'),
-    url('~fonts/Kreon-Regular.ttf') format('truetype'),
-    url('~fonts/Kreon-Regular.woff') format('woff');
+    url('~typeface-kreon/files/kreon-latin-400.woff2') format('woff2'),
+    url('~typeface-kreon/files/kreon-latin-400.woff') format('woff');
 }
 
 h1, h2, h3, h4 {
