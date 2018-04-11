@@ -12,3 +12,5 @@ favicon-result.json
 node_modules/
 froide/
 *.map
+*hot-update.json
+*hot-update.js
