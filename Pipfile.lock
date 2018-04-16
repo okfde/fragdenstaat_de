@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "14fab8acdd37d6fe0744dc2043b2d70e603a37f0f40021eb6f4727eaa20c5c45"
+            "sha256": "73e800517e8079b6646b2e0c2d82ef3b40f45b7536812a4ebd9f36397843877c"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -402,10 +402,10 @@
         },
         "djangocms-text-ckeditor": {
             "hashes": [
-                "sha256:9c129e294845a3b1237d69273afe478aadea3e862d1353c5dbc32711a75ad8b6",
-                "sha256:e9ef01569d7f7992a6eaf512731d1d6bf0915efb7485cb944624b92ce8d64f01"
+                "sha256:5bd39c0c9c430ad16fbc4e646bba45f615f6b01e5ea51bf35c84a8131b41fc0b",
+                "sha256:a6f23df8647e3bb416d2ed4ce552896597741965faa37a80e201388a24e7ed36"
             ],
-            "version": "==3.6.0"
+            "version": "==3.5.3"
         },
         "djangocms-video": {
             "hashes": [
