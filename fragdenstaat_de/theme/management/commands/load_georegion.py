@@ -28,24 +28,36 @@ class Command(BaseCommand):
         if command == 'de':
             self.load(path)
         elif command == 'berlin':
-            self.load_berlin(path)
+            self.load_boroughs(
+                path,
+                parent='Berlin',
+                name_col='BEZIRK',
+                ident_col='spatial_na'
+            )
+        elif command == 'hamburg':
+            self.load_boroughs(
+                path,
+                parent='Hamburg',
+                name_col='Bezirk_Nam',
+                ident_col='Bezirk'
+            )
         else:
             print('Bad command')
 
-    def load_berlin(self, path):
+    def load_boroughs(self, path, parent=None, name_col=None, ident_col=None):
         ds = DataSource(path)
         mapping = LayerMapping(GeoRegion, ds, {'geom': 'POLYGON'})
         layer = ds[0]
-        berlin = GeoRegion.objects.get(kind='municipality', name='Berlin')
+        parent = GeoRegion.objects.get(kind='municipality', name=parent)
         for i, feature in enumerate(layer):
-            name = feature['BEZIRK'].as_string()
-            identifier = feature['spatial_na'].as_string()[:2]
+            name = feature[name_col].as_string()
+            identifier = feature[ident_col].as_string()[:2]
             kind = 'borough'
             kind_detail = 'Bezirk'
             slug = slugify(name)
             geom = mapping.feature_kwargs(feature)['geom']
 
-            region_identifier = berlin.region_identifier + identifier
+            region_identifier = parent.region_identifier + identifier
 
             GeoRegion.objects.update_or_create(
                 slug=slug, kind=kind,
@@ -59,7 +71,8 @@ class Command(BaseCommand):
                     'population': None,
                     'geom': geom,
                     'area': feature.geom.area,
-                    'valid_on': None
+                    'valid_on': None,
+                    'part_of': parent
                 }
             )
 
