@@ -19,10 +19,49 @@ class Command(BaseCommand):
     help = "load shapefiles to georegion"
 
     def add_arguments(self, parser):
+        parser.add_argument('command', help='Command')
         parser.add_argument('path', help='Add base path')
 
     def handle(self, *args, **options):
-        self.load(options['path'])
+        command = options['command']
+        path = options['path']
+        if command == 'de':
+            self.load(path)
+        elif command == 'berlin':
+            self.load_berlin(path)
+        else:
+            print('Bad command')
+
+    def load_berlin(self, path):
+        ds = DataSource(path)
+        mapping = LayerMapping(GeoRegion, ds, {'geom': 'POLYGON'})
+        layer = ds[0]
+        berlin = GeoRegion.objects.get(kind='municipality', name='Berlin')
+        for i, feature in enumerate(layer):
+            name = feature['BEZIRK'].as_string()
+            identifier = feature['spatial_na'].as_string()[:2]
+            kind = 'borough'
+            kind_detail = 'Bezirk'
+            slug = slugify(name)
+            geom = mapping.feature_kwargs(feature)['geom']
+
+            region_identifier = berlin.region_identifier + identifier
+
+            GeoRegion.objects.update_or_create(
+                slug=slug, kind=kind,
+                defaults={
+                    'name': name,
+                    'kind': kind,
+                    'kind_detail': kind_detail,
+                    'level': 6,
+                    'region_identifier': region_identifier,
+                    'global_identifier': '',
+                    'population': None,
+                    'geom': geom,
+                    'area': feature.geom.area,
+                    'valid_on': None
+                }
+            )
 
     def load(self, path):
         self.stdout.write("\nCountry\n")
