@@ -59,6 +59,7 @@ djangorestframework==3.8.2
 djangorestframework-jsonp==1.0.2
 easy-thumbnails==2.5
 elasticsearch==2.4.1
+geoip2==2.8.0
 honcho==1.0.1
 html5lib==0.9999999
 idna==2.6
