@@ -134,9 +134,6 @@ class Command(BaseCommand):
         for i, feature in enumerate(layer):
             nuts = feature['NUTS'].as_string()
             gf = int(feature['GF'].as_string())
-            if not nuts.startswith('DE'):
-                # Only import Germany
-                continue
             if gf < 4:
                 # Only import land masses
                 continue
