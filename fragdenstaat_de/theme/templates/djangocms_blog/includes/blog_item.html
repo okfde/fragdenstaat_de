@@ -1,19 +1,23 @@
 {% load i18n easy_thumbnails_tags cms_tags %}
 
-<article id="post-{{ post.slug }}" class="post-item mb-5">
-  <div class="row">  
-    <div class="col-md-5">
-      {% if post.main_image_id %}
-         <a href="{{ post.get_absolute_url }}">{% include "djangocms_blog/includes/blog_picture.html" with picture=post.main_image %}</a>
+<article id="post-{{ post.slug }}" class="post-item col-md-4 mb-5">
+  {% if post.main_image_id %}
+     <a href="{{ post.get_absolute_url }}">{% include "djangocms_blog/includes/blog_picture.html" with picture=post.main_image %}</a>
+  {% endif %}
+  <div class="blog-header__date">
+    {{ post.date_published|date:"DATE_FORMAT" }}
+  </div>
+  <h4 class="blog-list-heading">
+    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+  </h4>
+  
+  {% if post.abstract %}
+    <div class="blog-lead">
+      {% if not TRUNCWORDS_COUNT %}
+        {% render_model post "abstract" "" "" "safe" %}
+      {% else %}
+        {% render_model post "abstract" "" "" "truncatewords_html:TRUNCWORDS_COUNT|safe"  %}
       {% endif %}
-    </div>
-    <div class="col-md-5">
-        <div class="blog-header__date">
-          {{ post.date_published|date:"DATE_FORMAT" }}
-        </div>
-        <h4 class="blog-list-heading">
-          <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-        </h4>
-    </div>
+  {% endif %}
   </div>
 </article>

@@ -6,7 +6,21 @@
 {% block content_blog %}
 <div class="container">
   <div class="row justify-content-center">
-    <section class="blog-list col-md-10">
+    <section class="blog-list col-md-12">
+      <div class="blog-header col-md-10 offset-lg-2">
+        <h1> Das Blog zu Informationsfreiehit und Auskunftsrechten </h1>
+      </div>
+      <div class="row">
+        <div class="blog-teaser-large">
+          <img class="img-fluid" src="http://localhost:8000/files/media/thumbnails/85/8e/858ef292-aa86-4444-a6c2-8a6d7fa4cba2/dummy_1200.jpg__1140x0_q85_subsampling-2.jpg">
+          <div class="blog-teaser-text">
+            <h3>Gesetzentwurf zu Geschäftsgeheimnissen: Gefahr für die Informationsfreiheit?</h3>
+            <p>
+              Das Justizministerium will mit einem neuen Gesetz eine EU-Richtlinie zu Geschäftsgeheimnissen umsetzen. Der Gesetzentwurf ist allerdings problematisch: Er schützt Whistleblower unzureichend und könnte zur Gefahr für die Informationsfreiheit werden.
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="row">
         {% block blog_title %}
         {% if author or archive_date or tagged_entries or category %}
