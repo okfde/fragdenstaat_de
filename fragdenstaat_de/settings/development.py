@@ -54,7 +54,7 @@ class Dev(FragDenStaatBase):
     STATICFILES_STORAGE = 'fragdenstaat_de.settings.development.WebpackDevStaticFilesStorage'
 
 
-# try:
-#     from .local_settings import Dev  # noqa
-# except ImportError as e:
-#     pass
+try:
+    from .local_settings import Dev  # noqa
+except ImportError as e:
+    pass
