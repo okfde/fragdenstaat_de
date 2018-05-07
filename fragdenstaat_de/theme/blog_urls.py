@@ -2,10 +2,9 @@ from django.conf.urls import url
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 
-from djangocms_blog.feeds import FBInstantArticles, LatestEntriesFeed, TagFeed
-from djangocms_blog.settings import get_setting
+from djangocms_blog.feeds import LatestEntriesFeed, TagFeed
 from djangocms_blog.views import (
-    AuthorEntriesView, CategoryEntriesView, PostArchiveView, PostDetailView, PostListView,
+    AuthorEntriesView, CategoryEntriesView, PostArchiveView, PostListView,
     TaggedListView,
 )
 from djangocms_blog.urls import get_urls
@@ -30,11 +29,34 @@ class CustomAuthorEntriesView(AuthorEntriesView):
         return context
 
 
+class FeaturedPostListView(PostListView):
+    def get_queryset(self):
+        qs = super(FeaturedPostListView, self).get_queryset()
+
+        self.featured = None
+        page = self.request.GET.get('page', None)
+        if not page or page == '1':
+            try:
+                self.featured = qs.filter(
+                    date_featured__isnull=False).order_by('-date_featured')[0]
+            except IndexError:
+                pass
+
+        if self.featured is not None:
+            qs = qs.exclude(pk=self.featured.pk)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super(FeaturedPostListView, self).get_context_data(**kwargs)
+        context['featured'] = self.featured
+        return context
+
+
 detail_urls = get_urls()
 
 urlpatterns = [
     url(r'^$',
-        PostListView.as_view(), name='posts-latest'),
+        FeaturedPostListView.as_view(), name='posts-latest'),
     url(r'^feed/$',
         LatestEntriesFeed(), name='posts-latest-feed'),
     url(r'^(?P<year>\d{4})/$',

@@ -1,7 +1,7 @@
 {% load thumbnail %}
 {% load markup %}
 
-<figure class="blog-visual">
+<figure>
   <picture>
     <source
       media="(min-width: 1200px)"
@@ -15,4 +15,15 @@
         {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
         {{ attributes_str }}>
   </picture>
+  {% if picture.author %}
+  <figcaption class="no-gutters text-right">
+    <div class="picture-description">
+      {{ picture.description }}
+      {% if picture.description %} – {% endif %}
+    </div>
+    <div class="picture-credits">
+      {{ picture.author|markdown }}
+    </div>
+  </figcaption>
+{% endif %}
 </figure>

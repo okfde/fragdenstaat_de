@@ -1,0 +1,220 @@
+/*-----  End of Typography  ------*/
+
+.blog-container {
+  @extend .container;
+}
+
+.blog-banner {
+  background-color: $gray-100;
+  padding: 1.8rem 0 1.6rem;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 1.2rem;
+
+    a, a:hover {
+      color: $black;
+    }
+  }
+}
+
+/*================================
+=           List-Item           =
+================================*/
+
+h4.blog-list-heading {
+  margin-top: 0 !important;
+
+  a, a:active, a:visited {
+    border-color: $black;
+      text-decoration: none !important;
+      color: $gray-800;
+  }
+
+  a:focus, a:hover, a:active:focus, a:active:hover, a:visited:focus, a:visited:hover {
+    border-bottom: 1px solid rgba(30, 32, 35, 0.3);
+    text-decoration: none;
+  }
+}
+
+.blog-lead {
+  font-family: Georgia, serif;
+  color: $gray-600;
+  font-size: 0.975rem;
+  font-weight: 400;
+  line-height: 1.55;
+  text-align: left;
+  margin-top: 1.25rem;
+
+}
+
+.blog-teaser-large {
+  margin: 1rem 0 3rem 0;
+  max-width: none;
+  position: relative;
+  padding: 0 1rem;
+}
+
+.blog-teaser-text {
+}
+
+@include media-breakpoint-up(md) {
+  .blog-teaser-text {
+    background-color: #fff;
+    bottom: 2.5em;
+    left: 2.5em;
+    padding: 1.5em;
+    position: absolute;
+    width: 50%;
+  }
+}
+
+
+.blog-visual {
+  opacity: 1;
+  transition: opacity 0.5s;
+
+  img {
+    width: 100%;
+  }
+}
+
+.blog-visual:hover {
+  opacity: 0.8;
+}
+
+.has-arrow::after {
+  margin-left: 5px;
+  content: "\2192";
+  display: inline-block;
+  font-family: "Work Sans", sans-serif;
+  line-height: 1;
+}
+
+.teaser-arrow {
+    height: 15px;
+    margin-top: 10px;
+    font-size: 1.5rem;
+    position: relative;
+}
+
+.teaser-arrow:after {
+  margin-left: 0;
+  position: absolute;
+  left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  }
+
+/*================================
+=          Post-Detail          =
+================================*/
+
+.blog-header {
+  margin: 4rem 0 1rem 0;
+
+  .blog-lead {
+    p {
+      color: $black;
+      font-size: 1.3rem;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: left;
+    }
+  }
+}
+
+.blog-header__date {
+  color: $gray-600;
+  font-size: .9rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-header__title {
+  margin: 0 0 1rem 0 !important;
+}
+
+
+.blog-content {
+  font-family: Georgia, serif;
+  color: $gray-800;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.775;
+  text-align: left;
+
+
+  h3 {
+    margin: 4rem 0 1rem 0 !important;
+  }
+
+  a, a:active, a:visited {
+    border-bottom: 1px solid rgba(30, 32, 35, 0.3);
+    color: $gray-800;
+    text-decoration: none;
+    transition: all ease 0.3s;
+  }
+
+  a:focus, a:hover, a:active:focus, a:active:hover, a:visited:focus, a:visited:hover {
+    border-color: $black;
+    text-decoration: none !important;
+    color: $gray-800;
+  }
+}
+
+.author-section{
+  margin-top: 4rem;
+  background-color: #DEE8F1;
+}
+
+.author-title{
+  margin-top: 1.5rem;
+}
+
+.picture-description{
+  font-size: 0.85rem;
+  color: $gray-800;
+}
+
+.picture-credits{
+  font-style:italic;
+  font-size: 0.85rem;
+  color: $gray-500;
+
+  a, a:active, a:visited {
+    border-bottom: 1px solid rgba(30, 32, 35, 0.3);
+    color: $gray-500;
+    text-decoration: none;
+    transition: all ease 0.3s;
+  }
+
+  a:focus, a:hover, a:active:focus, a:active:hover, a:visited:focus, a:visited:hover {
+    border-color: $black;
+    text-decoration: none !important;
+    color: $gray-800;
+  }
+}
+
+.img-circle {
+    border-radius: 50%;
+    width: 100%;
+}
+
+
+/*================================
+=          NEXT READS           =
+================================*/
+
+.next-reads {
+  background-color: $gray-100;
+
+  h3{
+  }
+}
+
+.next-reads__text{
+  vertical-align: middle;
+}
