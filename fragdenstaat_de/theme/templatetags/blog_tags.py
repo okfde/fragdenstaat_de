@@ -9,5 +9,8 @@ register = template.Library()
 def get_next_read(post):
     qs = Post.objects.all()
     if post.date_published:
-        return qs.filter(date_published__lt=post.date_published)[0]
+        try:
+            return qs.filter(date_published__lt=post.date_published)[0]
+        except IndexError:
+            pass
     return qs.exclude(pk=post.pk)[0]
