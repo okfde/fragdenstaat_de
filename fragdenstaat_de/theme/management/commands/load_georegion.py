@@ -1,10 +1,12 @@
 import os
+import csv
 
 from django.core.management.base import BaseCommand
 from django.contrib.gis.gdal import DataSource
 from django.contrib.gis.utils import LayerMapping
 from django.contrib.gis.geos.error import GEOSException
 from django.contrib.gis.db.models.functions import Area
+from django.utils import timezone
 
 from slugify import slugify
 
@@ -40,6 +42,10 @@ class Command(BaseCommand):
                 parent='Hamburg',
                 name_col='Bezirk_Nam',
                 ident_col='Bezirk'
+            )
+        elif command == 'plz':
+            self.load_zip(
+                path
             )
         else:
             print('Bad command')
@@ -161,6 +167,37 @@ class Command(BaseCommand):
                 'area': feature.geom.area,
                 'valid_on': None
             })
+
+    def load_zip(self, filename):
+        path = os.path.abspath(filename)
+        csv_path = os.path.join(os.path.dirname(path), 'plz_einwohner.csv')
+
+        with open(csv_path) as f:
+            reader = csv.DictReader(f)
+            population = {x['plz']: int(x['einwohner']) for x in reader}
+
+        ds = DataSource(path)
+        mapping = LayerMapping(GeoRegion, ds, {'geom': 'geometry'})
+        layer = ds[0]
+        count = float(len(layer))
+        for i, feature in enumerate(layer):
+            self.stdout.write('%.2f%%\r' % (i / count * 100), ending='')
+            name = feature['plz'].as_string()
+            slug = name
+            geom = mapping.feature_kwargs(feature)['geom']
+            GeoRegion.objects.update_or_create(
+                slug=slug, kind='zipcode', defaults={
+                    'name': name,
+                    'geom': geom,
+                    'description': feature['note'].as_string(),
+                    'region_identifier': name,
+                    'global_identifier': 'DE-%s' % name,
+                    'area': feature.geom.area,
+                    'population': population.get(name, None),
+                    'level': 3,
+                    'valid_on': timezone.now()
+                }
+            )
 
     def create_hierarchy(self):
         matches = [
