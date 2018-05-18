@@ -2,6 +2,8 @@ import os
 
 import django_cache_url
 
+import raven
+
 from .base import FragDenStaatBase
 
 
@@ -164,7 +166,12 @@ class FragDenStaat(FragDenStaatBase):
         'admin': env('DJANGO_SECRET_URL_ADMIN')
     }
 
-    RAVEN_CONFIG = {}
+    _base_dir = os.path.abspath(os.path.join(
+        os.path.dirname(__file__), '..', '..')
+    )
+    RAVEN_CONFIG = {
+        'release': raven.fetch_git_sha(_base_dir)
+    }
     if env('DJANGO_SENTRY_DSN') is not None:
         RAVEN_CONFIG['dsn'] = env('DJANGO_SENTRY_DSN')
 
