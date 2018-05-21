@@ -1,7 +1,5 @@
-/*-----  End of Typography  ------*/
-
-.blog-container {
-  @extend .container;
+.blog-header-container {
+  @extend .container;  
 }
 
 .blog-banner {
@@ -146,6 +144,40 @@ h4.blog-list-heading {
   line-height: 1.775;
   text-align: left;
 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  >p, >h2, >h3, >h4, >ul, >ol {
+    @include make-col(12);
+    margin: 1rem auto 0.5rem;
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  @include media-breakpoint-up(sm) {
+    >p, >h2, >h3, >h4, >ul, >ol {
+      @include make-col(10);
+      margin-left: 15%;
+      margin-right: 15%;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    >p, >h2, >h3, >h4, >ul, >ol {
+      @include make-col(8);
+      margin-left: 15%;
+      margin-right: 15%;
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+    >p, >h2, >h3, >h4, >ul, >ol {
+      @include make-col(6);
+      margin-left: 25%;
+      margin-right: 25%;
+    }
+  }
 
   h3 {
     margin: 4rem 0 1rem 0 !important;

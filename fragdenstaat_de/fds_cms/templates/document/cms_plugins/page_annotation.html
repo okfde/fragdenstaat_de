@@ -1,24 +1,30 @@
 {% load thumbnail %}
 
-{% if object.description %}
-    <figure>
-{% endif %}
+<div class="page-annotation">
+    {% if object.title %}
+    <h4>
+        {{ object.title }}
+    </h4>
+    {% endif %}
+    {% if object.description %}
+        <figure>
+    {% endif %}
 
-<picture>
-  <source
-    media="(min-width: 1200px)"
-    srcset="{% thumbnail object.image 1140x0 %}">
-  <source
-    media="(min-width: 992px)"
-    srcset="{% thumbnail object.image 940x0 %}">
+    <picture>
+    <source
+        media="(min-width: 1200px)"
+        srcset="{% thumbnail object.image 1140x0 %}">
+    <source
+        media="(min-width: 992px)"
+        srcset="{% thumbnail object.image 940x0 %}">
 
-<img class="img-fluid" src="{% thumbnail object.image 768x0 crop=scale %}" alt="{{ object.title }}">
-</picture>
+    <img class="img-fluid" src="{% thumbnail object.image 768x0 crop=scale %}" alt="{{ object.title }}">
+    </picture>
 
-{# start render figure/figcaption #}
-{% if object.description %}
-      <figcaption class="text-right">
-        {{ object.description }}
-      </figcaption>
-  </figure>
-{% endif %}
+    {% if object.description %}
+        <figcaption>
+            {{ object.description }}
+        </figcaption>
+    </figure>
+    {% endif %}
+</div>
