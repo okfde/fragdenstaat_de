@@ -6,8 +6,8 @@ verify_ssl = true
 
 [packages]
 
-django = "<2.0"
-markdown = "*"
+Django = "<2.0"
+Markdown = "*"
 celery = "*"
 celery-haystack = "*"
 django-celery-email = "*"
@@ -36,9 +36,9 @@ froide-food = {git = "git://github.com/okfde/froide-food.git", editable = true, 
 froide-legalaction = {git = "git://github.com/okfde/froide-legalaction.git", editable = true, ref = "master"}
 elasticsearch = ">=2.0.0,<3.0.0"
 python-memcached = "*"
-"pypdf2" = "*"
+"PyPDF2" = "*"
 reportlab = "*"
-wand = "*"
+Wand = "*"
 djangorestframework = "*"
 django-oauth-toolkit = "*"
 coreapi = "*"
@@ -57,6 +57,7 @@ aldryn-apphooks-config = ">=0.4.0rc1"
 djangorestframework-jsonp = "*"
 aldryn-search = "*"
 "geoip2" = "*"
+tesserocr = {git = "git://github.com/sirfz/tesserocr.git", editable = true}
 
 
 [dev-packages]
