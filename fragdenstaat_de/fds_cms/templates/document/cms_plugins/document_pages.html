@@ -1,0 +1,11 @@
+{% load thumbnail %}
+
+<div class="row">
+    {% for page in pages %}
+        <div class="col">
+            <picture>
+                <img class="img-fluid" src="{{ page.image_small.url }}" alt="Page {{ page.number }}">
+            </picture>
+        </div>
+    {% endfor %}
+</div>

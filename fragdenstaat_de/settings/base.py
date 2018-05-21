@@ -44,6 +44,8 @@ class FragDenStaatBase(German, Base):
             'sortedm2m',
             'djangocms_blog',
 
+            'fragdenstaat_de.fds_cms',
+
             # Additional CMS plugins
             'djangocms_text_ckeditor',
             'djangocms_picture',
