@@ -31,7 +31,7 @@ class DocumentPagesCMSPlugin(CMSPlugin):
         for part in parts:
             part = part.strip()
             if '-' in part:
-                start_stop = part.split('_')
+                start_stop = part.split('-')
                 yield from range(int(start_stop[0]), int(start_stop[1]) + 1)
             else:
                 yield int(part)
