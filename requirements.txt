@@ -72,6 +72,7 @@ markdown==2.6.11
 markdown2==2.3.5
 markupsafe==1.0
 oauthlib==2.0.7
+pdflib==0.1.7
 phonenumbers==8.9.3
 pillow==5.1.0
 psycopg2==2.7.4
