@@ -93,6 +93,7 @@ urlobject==2.4.3
 vine==1.1.4
 wand==0.4.4
 yurl==0.13
+-e git+git://github.com/sirfz/tesserocr.git@master#egg=tesserocr
 -e git+git://github.com/okfde/froide.git@master#egg=froide
 -e git+git://github.com/okfde/froide-campaign.git@master#egg=froide-campaign
 -e git+git://github.com/okfde/froide-food.git@master#egg=froide-food
