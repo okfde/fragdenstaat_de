@@ -1,11 +1,17 @@
 {% load thumbnail %}
 
-<div class="row">
-    {% for page in pages %}
-        <div class="col">
-            <picture>
-                <img class="img-fluid" src="{{ page.image_small.url }}" alt="Page {{ page.number }}">
-            </picture>
-        </div>
-    {% endfor %}
+<div class="document-pages">
+    {% if object.title %}
+        <h4>{{ object.title }}</h4>
+    {% endif %}
+    <div class="row">
+        {% for page in pages %}
+            <div class="col">
+                <picture>
+                    <img class="img-fluid" src="{{ page.image_small.url }}" alt="Page {{ page.number }}">
+                </picture>
+            </div>
+        {% endfor %}
+    </div>
+
 </div>

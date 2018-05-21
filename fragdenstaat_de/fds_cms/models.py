@@ -13,6 +13,7 @@ class PageAnnotationCMSPlugin(CMSPlugin):
 
 
 class DocumentPagesCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255, blank=True)
     doc = models.ForeignKey(Document, related_name='+',)
     pages = models.CharField(max_length=255, blank=True)
 

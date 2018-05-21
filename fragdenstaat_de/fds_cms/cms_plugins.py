@@ -37,7 +37,7 @@ class DocumentPagesPlugin(CMSPluginBase):
         context = super(DocumentPagesPlugin, self)\
             .render(context, instance, placeholder)
 
-        context['object'] = instance.doc
+        context['object'] = instance
         context['pages'] = instance.get_pages()
 
         return context
