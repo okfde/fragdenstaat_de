@@ -1,24 +1,43 @@
 const path = require('path')
 const fs = require('fs')
+const childProcess = require('child_process')
+
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WriteFilePlugin = require('write-file-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const webpack = require('webpack')
 
-// Get Froide install path
-const FROIDE_PATH = require('child_process').execSync(
-  'python -c "import froide; print(froide.__path__[0])"'
-).toString().trim()
+const devMode = process.env.NODE_ENV !== 'production'
 
-console.log('Detected Froide at', FROIDE_PATH)
+function getPythonPath (name) {
+  return path.resolve(childProcess.execSync(
+    'python -c "import ' + name + '; print(' + name + '.__path__[0])"'
+  ).toString().trim(), '..')
+}
+
+// Get Froide install path
+const FROIDE_PATH = getPythonPath('froide')
+const FROIDE_STATIC = path.resolve(FROIDE_PATH, 'froide', 'static')
+const FROIDE_PLUGINS = {
+  'froide_food': getPythonPath('froide_food')
+}
+
+console.log('Detected Froide at', FROIDE_PATH, FROIDE_STATIC)
+console.log('Froide plugins', FROIDE_PLUGINS)
 
 const config = {
   entry: {
-    main: [
-      './frontend/javascript/main.js'
-    ]
+    main: './frontend/javascript/main.js',
+    food: 'froide_food/frontend/javascript/main.js',
+    publicbody: 'froide/frontend/javascript/publicbody.js',
+    makerequest: 'froide/frontend/javascript/makerequest.js',
+    request: 'froide/frontend/javascript/request.js',
+    redact: 'froide/frontend/javascript/redact.js',
+    tagautocomplete: 'froide/frontend/javascript/tagautocomplete.js'
   },
   output: {
     path: path.resolve(__dirname, 'fragdenstaat_de/theme/static/js'),
@@ -49,14 +68,15 @@ const config = {
   resolve: {
     modules: [
       'fragdenstaat_de/theme/static',
-      path.resolve(FROIDE_PATH, 'static'),
+      FROIDE_STATIC,
       'node_modules'
     ],
-    extensions: ['.js', '.json'],
+    extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'froide': path.resolve(FROIDE_PATH, '..'),
-      'froide_static': path.resolve(FROIDE_PATH, 'static')
+      'froide': FROIDE_PATH,
+      'froide_static': FROIDE_STATIC,
+      ...FROIDE_PLUGINS
     }
   },
   module: {
@@ -69,14 +89,28 @@ const config = {
         }
       },
       {
+        test: /\.vue/,
+        use: {
+          loader: 'vue-loader'
+        }
+      },
+      {
         test: /\.scss$/,
         use: [
-          'css-hot-loader',
-          MiniCssExtractPlugin.loader,
+          devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
               sourceMap: true
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: (loader) => [
+                require('autoprefixer')()
+              ]
             }
           },
           {
@@ -125,12 +159,22 @@ const config = {
   plugins: [
     new WriteFilePlugin(),
     new webpack.NamedModulesPlugin(),
+    new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: '../css/[name].css'
       // publicPath: '../../'
     }),
+    new CopyWebpackPlugin([
+      {from: 'node_modules/pdfjs-dist/build/pdf.worker.min.js'}
+    ]),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      Popper: ['popper.js/dist/popper.js', 'default']
+    }),
+
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: `"${process.env.NODE_ENV}"`
@@ -144,7 +188,7 @@ const config = {
         parallel: true,
         sourceMap: true // set to true if you want JS source maps
       })
-    ].concat(process.env.NODE_ENV === 'production' ? [
+    ].concat(!devMode ? [
       new OptimizeCssAssetsPlugin({
         assetNameRegExp: /\.css$/,
         cssProcessorOptions: {
@@ -153,15 +197,24 @@ const config = {
       })
     ] : []),
     splitChunks: {
+      // name: true,
+      // chunks: 'all',
+      // minChunks: 2,
       cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true
+      //   styles: {
+      //     name: 'styles',
+      //     test: /\.css$/,
+      //     chunks: 'all',
+      //     enforce: true
+      //   },
+        default: {
+          name: 'commons',
+          minChunks: 2,
+          reuseExistingChunk: true
         }
       }
-    }
+    },
+    occurrenceOrder: true
   }
 }
 
