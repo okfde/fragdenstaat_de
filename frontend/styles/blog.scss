@@ -180,7 +180,7 @@ h4.blog-list-heading {
   }
 
   h3 {
-    margin: 4rem 0 1rem 0 !important;
+    margin: 2rem 0 1rem 0;
   }
 
   a, a:active, a:visited {
@@ -194,6 +194,34 @@ h4.blog-list-heading {
     border-color: $black;
     text-decoration: none !important;
     color: $gray-800;
+  }
+
+  blockquote {
+    @include make-col(12);
+    margin: 1rem auto 0.5rem;
+    padding: 1rem 2rem;
+    width: 100%;
+    background-color: $gray-100;
+
+    p {
+      border-left: 4px solid $gray-400;
+      padding: 0.5rem 0 0.5rem 1rem;
+      margin: 0;
+    }
+  }
+  @include media-breakpoint-up(md) {
+    blockquote {
+      @include make-col(10);
+      margin-left: 15%;
+      margin-right: 15%;
+    }
+  }
+  @include media-breakpoint-up(lg) {
+    blockquote {
+      @include make-col(8);
+      margin-left: 25%;
+      margin-right: 25%;
+    }
   }
 }
 
