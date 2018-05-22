@@ -302,6 +302,13 @@ h4.blog-list-heading {
   border-left: 4px solid $primary;
   padding-left: 30px;
   margin-left: 15px;
+  padding-bottom: 1rem;
+
+  h5 {
+    position: relative;
+    top: -0.4rem;
+    margin: 0;
+  }
 }
 
 .timeline>li:last-child {
