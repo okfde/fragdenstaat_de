@@ -46,13 +46,31 @@
   {% endif %}
 </article>
 
-<!-- AUTORENINFOS – Noch nicht fertig -->
+<div class="donation-section">
+  <div class="container">
+    <div class="row justify-content-center pb-5 pt-5">
+      <div class="col-sm-10 col-md-9 col-lg-6">
+        <h3>
+          Spenden
+         </h3>
+        <p>
+          Wenn Sie unsere Recherchen unterstützen wollen, können Sie gerne an FragDenStaat.de spenden.
+        </p>
+        <p>
+          <a class="btn btn-light" href="{% url 'help-donate' %}">
+            ❤️ Jetzt spenden
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% if post.author %}
 <div class="author-section">
   <div class="container">
     <div class="row justify-content-center pb-5 pt-5">
-      <div class="col-xs-1 col-sm-4 col-md-3 col-lg-2">
+      <div class="col-xs-1 col-sm-4 col-md-3 col-lg-2 d-none d-sm-block">
         {% if post.author.profile_photo %}
           <img class="img-circle" src="{{ post.author.profile_photo.url }}">
         {% endif %}
@@ -70,7 +88,6 @@
     </div>
   </div>
 </div>
-
 {% endif %}
 
 <!-- NEXT READS – Noch nicht fertig -->

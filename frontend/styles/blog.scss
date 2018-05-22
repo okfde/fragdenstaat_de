@@ -143,6 +143,7 @@ h4.blog-list-heading {
   font-weight: 400;
   line-height: 1.775;
   text-align: left;
+  margin-bottom: 2rem;
 
   display: flex;
   flex-wrap: wrap;
@@ -225,8 +226,12 @@ h4.blog-list-heading {
   }
 }
 
+.donation-section {
+  background-color: #e87bc1;
+  color: #f0f0f0;
+}
+
 .author-section{
-  margin-top: 4rem;
   background-color: #DEE8F1;
 }
 
