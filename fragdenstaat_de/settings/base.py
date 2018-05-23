@@ -97,6 +97,7 @@ class FragDenStaatBase(German, Base):
         'toolbar': 'CMS',
         'toolbarCanCollapse': False,
         'disableNativeSpellChecker': False,
+        'extraPlugins': 'autocorrect',
         'autocorrect_replacementTable': {
             "...": "…",
         },
