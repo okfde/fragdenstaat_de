@@ -6,6 +6,10 @@
 {% block canonical_url %}<link rel="canonical" href="{{ meta.url }}"/>{% endblock canonical_url %}
 {% block title %}{{ post.get_title }}{% endblock %}
 
+{% block meta %}
+  {% include "djangocms_blog/includes/social_meta.html" with post=post %}
+{% endblock %}
+
 {% block content_blog %}{% spaceless %}
 <article id="post-{{ post.slug }}">
   <div class="blog-header-container">

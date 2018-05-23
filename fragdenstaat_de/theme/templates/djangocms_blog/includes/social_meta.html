@@ -1,0 +1,50 @@
+{% load cms_tags %}
+{% load thumbnail %}
+
+<!-- Schema.org markup for Google+ -->
+<meta itemprop="name" content="{{ post.title }}">
+{% if post.abstract %}
+    <meta itemprop="description" content="{{ post.abstract|striptags }}">
+{% endif %}
+
+  <meta itemprop="image" content="">
+
+
+<!-- Twitter Card data -->
+
+<meta name="twitter:site" content="@fragdenstaat">
+<meta name="twitter:title" content="{{ post.title }}">
+{% if post.abstract %}
+    <meta name="twitter:description" content="{{ post.abstract|striptags }}">
+{% endif %}
+<meta name="twitter:creator" content="@fragdenstaat">
+
+{% if post.main_image %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:src" content="{{ SITE_URL }}{% thumbnail post.main_image 1120x600 crop subject_location=post.main_image.subject_location %}">
+{% else %}
+  <meta name="twitter:card" content="summary">
+{% endif %}
+
+
+
+<!-- Open Graph data -->
+<meta property="og:title" content="{{ post.title }}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{ SITE_URL }}{{ post.get_absolute_url }}" />
+
+{% if post.main_image %}
+  <meta property="og:image" content="{{ SITE_URL }}{% thumbnail post.main_image 1200x630 crop subject_location=post.main_image.subject_location %}" />
+{% endif %}
+
+{% if post.abstract %}
+  <meta property="og:description" content="{{ post.abstract|striptags }}" />
+{% endif %}
+<meta property="og:site_name" content="{{ SITE_NAME }}" />
+
+{% if post.date_published %}
+  <meta property="article:published_time" content="{{ post.date_published.isoformat }}" />
+{% endif %}
+{% if post.date_modified %}
+  <meta property="article:modified_time" content="{{ post.date_modified.isoformat }}" />
+{% endif %}
