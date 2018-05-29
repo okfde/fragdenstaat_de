@@ -8,9 +8,9 @@
   {% block header_font %}{% endblock %}
 
   {% block css %}
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    {% block extra_css %}
+    {% endblock %}
   {% endblock %}
-
   {% render_block "css" %}
 
   {% include "snippets/meta.html" %}
@@ -23,9 +23,7 @@
   {% block body_tag %}{% endblock %}
   {% block extra_footer %}{% endblock %}
 
-  {% block scripts %}
-  <script async src="{% static 'js/main.js' %}"></script>
-  {% endblock %}
+  {% block scripts %}{% endblock %}
   {% render_block "js" %}
 
   {% block below_scripts %}{% endblock %}
