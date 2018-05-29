@@ -29,20 +29,34 @@ const FROIDE_PLUGINS = {
 console.log('Detected Froide at', FROIDE_PATH, FROIDE_STATIC)
 console.log('Froide plugins', FROIDE_PLUGINS)
 
+const ENTRY = {
+  main: ['./frontend/javascript/main.js', 'jquery'],
+  food: 'froide_food/frontend/javascript/main.js',
+  publicbody: 'froide/frontend/javascript/publicbody.js',
+  makerequest: 'froide/frontend/javascript/makerequest.js',
+  request: 'froide/frontend/javascript/request.js',
+  redact: 'froide/frontend/javascript/redact.js',
+  tagautocomplete: 'froide/frontend/javascript/tagautocomplete.js'
+}
+
+const EXCLUDE_CHUNKS = [
+  'main'
+].join('|')
+
+let CHUNK_LIST = []
+for (let key in ENTRY) {
+  if (EXCLUDE_CHUNKS.indexOf(key) !== -1) { continue }
+  CHUNK_LIST.push(key)
+}
+CHUNK_LIST = CHUNK_LIST.join('|')
+
 const config = {
-  entry: {
-    main: './frontend/javascript/main.js',
-    food: 'froide_food/frontend/javascript/main.js',
-    publicbody: 'froide/frontend/javascript/publicbody.js',
-    makerequest: 'froide/frontend/javascript/makerequest.js',
-    request: 'froide/frontend/javascript/request.js',
-    redact: 'froide/frontend/javascript/redact.js',
-    tagautocomplete: 'froide/frontend/javascript/tagautocomplete.js'
-  },
+  entry: ENTRY,
   output: {
     path: path.resolve(__dirname, 'fragdenstaat_de/theme/static/js'),
     publicPath: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8080/static/',
     filename: '[name].js',
+    chunkFilename: '[name].js',
     library: ['Froide', 'components', '[name]'],
     libraryTarget: 'umd'
   },
@@ -172,6 +186,7 @@ const config = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
+      'window.jQuery': 'jquery',
       Popper: ['popper.js/dist/popper.js', 'default']
     }),
 
@@ -197,20 +212,15 @@ const config = {
       })
     ] : []),
     splitChunks: {
-      // name: true,
-      // chunks: 'all',
-      // minChunks: 2,
       cacheGroups: {
-      //   styles: {
-      //     name: 'styles',
-      //     test: /\.css$/,
-      //     chunks: 'all',
-      //     enforce: true
-      //   },
-        default: {
-          name: 'commons',
-          minChunks: 2,
-          reuseExistingChunk: true
+        common: {
+          test: /node_modules/,
+          name: 'common',
+          chunks (chunk) {
+            return CHUNK_LIST.indexOf(chunk.name) !== -1
+          },
+          enforce: true,
+          minChunks: 2
         }
       }
     },
