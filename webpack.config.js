@@ -36,11 +36,11 @@ const ENTRY = {
   makerequest: 'froide/frontend/javascript/makerequest.js',
   request: 'froide/frontend/javascript/request.js',
   redact: 'froide/frontend/javascript/redact.js',
-  tagautocomplete: 'froide/frontend/javascript/tagautocomplete.js'
+  tagautocomplete: ['froide/frontend/javascript/tagautocomplete.js']
 }
 
 const EXCLUDE_CHUNKS = [
-  'main'
+  'main', 'tagautocomplete'
 ].join('|')
 
 let CHUNK_LIST = []
