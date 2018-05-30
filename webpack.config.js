@@ -13,9 +13,11 @@ const webpack = require('webpack')
 
 const devMode = process.env.NODE_ENV !== 'production'
 
+const PYTHON = childProcess.execSync('which python').toString().trim()
+
 function getPythonPath (name) {
   return path.resolve(childProcess.execSync(
-    'python -c "import ' + name + '; print(' + name + '.__path__[0])"'
+    PYTHON + ' -c "import ' + name + '; print(' + name + '.__path__[0])"'
   ).toString().trim(), '..')
 }
 
