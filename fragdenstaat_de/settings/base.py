@@ -89,7 +89,7 @@ class FragDenStaatBase(German, Base):
 
     TEXT_ADDITIONAL_TAGS = ('iframe', 'embed',)
     TEXT_ADDITIONAL_ATTRIBUTES = ('scrolling', 'frameborder', 'webkitallowfullscreen',
-                                  'mozallowfullscreen', 'allowfullscreen')
+                                  'mozallowfullscreen', 'allowfullscreen', 'sandbox')
 
     CKEDITOR_SETTINGS = {
         'language': '{{ language }}',
