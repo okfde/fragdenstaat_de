@@ -101,7 +101,14 @@ const config = {
         test: /\.js$/,
         include: /(\/frontend|node_modules\/(bootstrap))/,
         use: {
-          loader: 'babel-loader'
+          loader: 'babel-loader',
+          options: {
+            presets: [path.resolve('./node_modules/babel-preset-env')],
+            babelrc: false,
+            plugins: [
+              require('babel-plugin-transform-object-rest-spread')
+            ]
+          }
         }
       },
       {
