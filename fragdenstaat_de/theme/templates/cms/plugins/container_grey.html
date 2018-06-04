@@ -1,0 +1,9 @@
+{% load cms_tags %}
+
+<div class="background__grey-bright">
+    <div class="container cms-container">
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+    </div>
+</div>

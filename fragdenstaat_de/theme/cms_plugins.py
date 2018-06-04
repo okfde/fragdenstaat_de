@@ -13,6 +13,14 @@ class ContainerPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
+class ContainerGreyPlugin(CMSPluginBase):
+    module = _("Structure")
+    name = _("Container Grey")
+    render_template = "cms/plugins/container_grey.html"
+    allow_children = True
+
+
+@plugin_pool.register_plugin
 class RowPlugin(CMSPluginBase):
     module = _("Structure")
     name = _("Row")
