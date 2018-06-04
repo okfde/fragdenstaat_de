@@ -4,3 +4,4 @@ import 'froide/frontend/javascript/main.js'
 
 module.exports = {
 }
+

@@ -18,9 +18,11 @@
       {% else %}
         {% render_model post "abstract" "" "" "truncatewords_html:TRUNCWORDS_COUNT|safe"  %}
       {% endif %}
-      <a href="{{ post.get_absolute_url }}">
-        zum Artikel &rarr;
-      </a>
+      <div class="cl-effect-10">
+        <a href="{{ post.get_absolute_url }}" data-hover="&rarr;">
+          zum Artikel
+        </a>
+      </div>
     </div>
   {% endif %}
 </article>
