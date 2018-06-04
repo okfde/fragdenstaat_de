@@ -22,18 +22,20 @@
 
     {% if featured %}
       <div class="row">
-        <div class="blog-teaser-large col-lg-12">
-          {% if featured.main_image %}
-            <a href="{{ featured.get_absolute_url }}">
-              {% include "djangocms_blog/includes/blog_picture.html" with picture=featured.main_image %}
-            </a>
-          {% endif %}
-          <div class="blog-teaser-text">
-            <h3>
-              <a href="{{ featured.get_absolute_url }}">{{ featured.title }}</a>
-            </h3>
-            <div class="blog-lead d-sm-none d-md-block">
-              {% render_model featured "abstract" "" "" "safe" %}
+        <div class="col-lg-12">
+          <div class="blog-teaser-large">
+            {% if featured.main_image %}
+              <a href="{{ featured.get_absolute_url }}">
+                {% include "djangocms_blog/includes/blog_picture.html" with picture=featured.main_image %}
+              </a>
+            {% endif %}
+            <div class="blog-teaser-text">
+              <h3>
+                <a href="{{ featured.get_absolute_url }}">{{ featured.title }}</a>
+              </h3>
+              <div class="blog-lead d-sm-none d-md-block">
+                {% render_model featured "abstract" "" "" "safe" %}
+              </div>
             </div>
           </div>
         </div>

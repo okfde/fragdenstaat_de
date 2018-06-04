@@ -8,7 +8,9 @@
         {% for page in pages %}
             <div class="col">
                 <picture>
-                    <img class="img-fluid" src="{{ page.image_small.url }}" alt="Page {{ page.number }}">
+                    {% if page.image_small %}
+                        <img class="img-fluid" src="{{ page.image_small.url }}" alt="Page {{ page.number }}">
+                    {% endif %}
                 </picture>
             </div>
         {% endfor %}
