@@ -106,6 +106,11 @@ class FragDenStaatBase(German, Base):
         'entities': False,
         'stylesSet': []
     }
+
+    DJANGOCMS_PICTURE_TEMPLATES = [
+        ('hero', _('Hero'))
+    ]
+
     BLOG_URLCONF = 'fragdenstaat_de.theme.blog_urls'
     BLOG_AVAILABLE_PERMALINK_STYLES = (
         ('full_date', _('Full date')),
