@@ -4,25 +4,10 @@
 =          CMS-ELEMENTS          =
 ================================*/
 
-.background__grey-bright {
-  background-color: $gray-100;
-  padding-bottom: 2rem;
-}
-
 
 .lead-in {
   font-size: 1.4rem;
   margin: 4rem 0;
-}
-
-.hero-image{
-  margin: 0;
-  background-image: url("http://localhost:8000/files/media/main/ca/3c/ca3cccaf-5ef2-44e1-947a-98c08dc9da43/fragdenstaat.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  height: 60vh;
 }
 
 .thumbnail {
