@@ -104,7 +104,7 @@ class FragDenStaatBase(German, Base):
         },
         'autocorrect_doubleQuotes': "„“",
         'entities': False,
-        'stylesSet': []
+        'stylesSet': 'default:/static/js/cms/ckeditor.wysiwyg.js',
     }
 
     DJANGOCMS_PICTURE_TEMPLATES = [
