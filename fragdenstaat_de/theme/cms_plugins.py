@@ -57,6 +57,14 @@ for col_count, col_name in COLUMNS:
 
 
 @plugin_pool.register_plugin
+class ColumnTeaserPlugin(CMSPluginBase):
+    module = _("Structure")
+    allow_children = True
+    name = _('Column Teaser Three')
+    render_template = 'cms/plugins/col_teaser.html'
+
+
+@plugin_pool.register_plugin
 class SubMenuPlugin(CMSPluginBase):
     module = _("Menu")
     name = _("Sub Menu")
