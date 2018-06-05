@@ -3,7 +3,10 @@ from django.utils.translation import ugettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import PageAnnotationCMSPlugin, DocumentPagesCMSPlugin
+from .models import (
+    PageAnnotationCMSPlugin, DocumentPagesCMSPlugin,
+    PrimaryLinkCMSPlugin
+)
 
 
 @plugin_pool.register_plugin
@@ -40,4 +43,23 @@ class DocumentPagesPlugin(CMSPluginBase):
         context['object'] = instance
         context['pages'] = instance.get_pages()
 
+        return context
+
+
+@plugin_pool.register_plugin
+class PrimaryLinkPlugin(CMSPluginBase):
+    module = _("Elements")
+    name = _('Primary Link')
+    default_template = "cms/plugins/primarylink/default.html"
+    model = PrimaryLinkCMSPlugin
+
+    def get_render_template(self, context, instance, placeholder):
+        if instance.template:
+            return instance.template
+        return self.default_template
+
+    def render(self, context, instance, placeholder):
+        context = super(PrimaryLinkPlugin, self)\
+            .render(context, instance, placeholder)
+        context['object'] = instance
         return context

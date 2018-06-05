@@ -1,8 +1,12 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
+from cms.models.fields import PageField
 
-from froide.document.models import Document, Page, PageAnnotation
+from filer.fields.image import FilerImageField
+
+from froide.document.models import Document, PageAnnotation
 
 
 class PageAnnotationCMSPlugin(CMSPlugin):
@@ -37,3 +41,40 @@ class DocumentPagesCMSPlugin(CMSPlugin):
             else:
                 yield int(part)
         
+
+class PrimaryLinkCMSPlugin(CMSPlugin):
+    TEMPLATES = [
+        ('', _('Default template')),
+    ]
+
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+
+    image = FilerImageField(null=True, blank=True, default=None,
+        on_delete=models.SET_NULL, verbose_name=_("image"))
+
+    url = models.CharField(_("link"), max_length=255,
+        blank=True, null=True,
+        help_text=_("if present image will be clickable"))
+    page_link = PageField(null=True, blank=True,
+        help_text=_("if present image will be clickable"),
+        verbose_name=_("page link"))
+    anchor = models.CharField(_("anchor"),
+        max_length=128, blank=True, help_text=_("Page anchor."))
+
+    template = models.CharField(_('Template'), choices=TEMPLATES,
+                                default='', max_length=50, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    def link(self):
+        if self.url:
+            link = self.url
+        elif self.page_link_id:
+            link = self.page_link.get_absolute_url()
+        else:
+            link = ""
+        if self.anchor:
+            link += '#' + self.anchor
+        return link
