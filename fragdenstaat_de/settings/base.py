@@ -85,6 +85,7 @@ class FragDenStaatBase(German, Base):
     CMS_TEMPLATES = [
         ('cms/home.html', 'Homepage template'),
         ('cms/page.html', 'Page template'),
+        ('cms/page_headerless.html', 'Page without header'),
         ('cms/blog_base.html', 'Blog base template'),
     ]
 
