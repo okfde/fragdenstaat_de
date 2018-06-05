@@ -34,6 +34,7 @@ CKEDITOR.stylesSet.add('default', [
     { 'name': 'Teaser', 'element': 'p', 'attributes': { 'class': 'teaser-intro' }},
 
     { 'name': 'List Unstyled', 'element': ['ul', 'ol'], 'attributes': { 'class': 'list-unstyled' }},
+    { 'name': 'List Timeline', 'element': ['ul', 'ol'], 'attributes': { 'class': 'timeline' }},
     { 'name': 'List Inline', 'element': ['ul', 'ol'], 'attributes': { 'class': 'list-inline' }},
     { 'name': 'Horizontal Description', 'element': 'dl', 'attributes': { 'class': 'dl-horizontal' }},
 
