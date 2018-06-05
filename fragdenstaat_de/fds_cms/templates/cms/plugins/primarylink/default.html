@@ -1,0 +1,20 @@
+{% load thumbnail markdown_deux_tags %}
+
+<a href="{{ object.link }}" class="teaser">
+  {% if object.image %}
+    <picture>
+      <source
+        media="(min-width: 768px)"
+        srcset="{% thumbnail object.image 0x250 crop subject_location=object.image.subject_location %}" />
+      <img class="teaser-image" src="{% thumbnail object.image 600x250 crop subject_location=object.image.subject_location %}" alt="{{ object.image.default_alt_text }}" />
+    </picture>
+  {% endif %}
+  <div class="teaser-inner">
+    <h5 class="teaser-title">
+      {{ object.title }}
+    </h5>
+    <div class="teaser-description">
+      {{ object.description | markdown }}
+    </div>
+  </div>
+</a>
