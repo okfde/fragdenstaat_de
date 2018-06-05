@@ -40,7 +40,7 @@ class DocumentPagesCMSPlugin(CMSPlugin):
                 yield from range(int(start_stop[0]), int(start_stop[1]) + 1)
             else:
                 yield int(part)
-        
+
 
 class PrimaryLinkCMSPlugin(CMSPlugin):
     TEMPLATES = [
