@@ -1,5 +1,5 @@
 .blog-header-container {
-  @extend .container;  
+  @extend .container;
 }
 
 .blog-banner {
@@ -40,7 +40,7 @@ h4.blog-list-heading {
 }
 
 .blog-lead {
-  font-family: sans-serif;   
+  font-family: sans-serif;
   color: $gray-600;
   font-size: 0.975rem;
   font-weight: 400;
@@ -143,7 +143,7 @@ h4.blog-list-heading {
 .blog-content {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Georgia', serif;   
+  font-family: 'Georgia', serif;
   color: #4C545B;
   font-size: 1.225rem;
   font-weight: 400;
@@ -377,8 +377,8 @@ h3:not(:first-child) {
   font-family: sans-serif;
 
   p{
-    font-family: sans-serif;   
-    margin-bottom: 4rem; 
+    font-family: sans-serif;
+    margin-bottom: 4rem;
   }
 }
 
