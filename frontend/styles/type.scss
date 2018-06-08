@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Kreon';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: local('Kreon Regular'), local('Kreon-Regular'),
+      url('~typeface-kreon/files/kreon-latin-400.woff2') format('woff2'),
+      url('~typeface-kreon/files/kreon-latin-400.woff') format('woff');
+  }
+  
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Kreon';
+}
+  
+.navbar-fds .navbar-brand {
+    font-family: 'Kreon';
+}
+
+.lead {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin: 2rem 0;
+}
+  
