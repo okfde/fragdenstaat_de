@@ -17,19 +17,15 @@
 CKEDITOR.allElements = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div'];
 CKEDITOR.stylesSet.add('default', [
     /* Block Styles */
-    { 'name': 'Text Lead', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'lead' }},
-
     { 'name': 'Text Left', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-left' }},
     { 'name': 'Text Center', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-center' }},
     { 'name': 'Text Right', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-right' }},
     { 'name': 'Text Justify', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-justify' }},
     { 'name': 'Text NoWrap', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-nowrap' }},
 
-    { 'name': 'Spacer', 'element': 'div', 'attributes': { 'class': 'spacer' }},
-    { 'name': 'Spacer Small', 'element': 'div', 'attributes': { 'class': 'spacer-xs' }},
-    { 'name': 'Spacer Large', 'element': 'div', 'attributes': { 'class': 'spacer-lg' }},
-    { 'name': 'Spacer Zero', 'element': 'div', 'attributes': { 'class': 'spacer-zero' }},
+    { 'name': 'Spacer', 'element': 'div', 'attributes': { 'class': 'mt-3 mb-3' }},
 
+    { 'name': 'Text Lead', 'element': 'p', 'attributes': { 'class': 'lead' }},
 
     { 'name': 'Teaser', 'element': 'p', 'attributes': { 'class': 'teaser-intro' }},
 
