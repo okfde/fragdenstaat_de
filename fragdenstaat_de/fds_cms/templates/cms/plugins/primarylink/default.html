@@ -9,7 +9,7 @@
     <picture>
       <source
         media="(min-width: 768px)"
-        srcset="{% thumbnail object.image 0x250 crop subject_location=object.image.subject_location %}" />
+        srcset="{% thumbnail object.image 400x250 crop subject_location=object.image.subject_location %}" />
       <img class="teaser-image" src="{% thumbnail object.image 600x250 crop subject_location=object.image.subject_location %}" alt="{{ object.image.default_alt_text }}" />
     </picture>
   {% endif %}
