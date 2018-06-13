@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.conf.urls import include, url
-from django.contrib.flatpages import views
 from django.contrib.sitemaps import views as sitemaps_views
 from django.views.generic import TemplateView
 
@@ -35,7 +34,6 @@ sitemap_urlpatterns = [
 ]
 
 urlpatterns = [
-    url(r'^hilfe/spenden/$', views.flatpage, {'url': '/hilfe/spenden/'}, name='help-donate'),
     url(r'^kampagne/', include(campaign_urls)),
     url(r'^temp/', TemplateView.as_view(template_name="snippets/temp.html")),
     url(r'^klagen/', include('froide_legalaction.urls')),
