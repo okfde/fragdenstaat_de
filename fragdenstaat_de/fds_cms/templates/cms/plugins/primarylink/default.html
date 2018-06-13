@@ -1,6 +1,10 @@
 {% load thumbnail markdown_deux_tags %}
 
-<a href="{{ object.link }}" class="teaser">
+{% if object.link %}
+  <a href="{{ object.link }}" class="teaser">
+{% else %}
+  <div class="teaser">
+{% endif %}
   {% if object.image %}
     <picture>
       <source
@@ -17,4 +21,8 @@
       {{ object.description | markdown }}
     </div>
   </div>
-</a>
+{% if object.link %}
+  </a>
+{% else %}
+  </div>
+{% endif %}
