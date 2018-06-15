@@ -72,6 +72,7 @@ class ContinueLinkPlugin(CMSPluginBase):
     module = _("Elements")
     name = _('Continue Link')
     text_enabled = True
+    cache = False
     render_template = "cms/plugins/continue_link.html"
 
     def render(self, context, instance, placeholder):
