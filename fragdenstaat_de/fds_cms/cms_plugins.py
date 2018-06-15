@@ -3,6 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
+from froide.helper.utils import get_redirect_url
+
 from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin,
     PrimaryLinkCMSPlugin
@@ -62,4 +64,21 @@ class PrimaryLinkPlugin(CMSPluginBase):
         context = super(PrimaryLinkPlugin, self)\
             .render(context, instance, placeholder)
         context['object'] = instance
+        return context
+
+
+@plugin_pool.register_plugin
+class ContinueLinkPlugin(CMSPluginBase):
+    module = _("Elements")
+    name = _('Continue Link')
+    text_enabled = True
+    render_template = "cms/plugins/continue_link.html"
+
+    def render(self, context, instance, placeholder):
+        context = super(ContinueLinkPlugin, self)\
+            .render(context, instance, placeholder)
+        request = context['request']
+        context['title'] = request.GET.get('next_title', 'Weiter zu Ihrer Anfrage')
+        next_url = get_redirect_url(request)
+        context['next_url'] = next_url
         return context
