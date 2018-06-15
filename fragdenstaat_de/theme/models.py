@@ -1,11 +1,13 @@
 from datetime import timedelta
+from urllib.parse import urlencode
 
+from django.shortcuts import redirect
 from django.core.cache import cache
 from django.utils import timezone
 from django.core.mail import mail_managers
 from django.utils.translation import ugettext_lazy as _
 
-# from froide.foirequest.hooks import registry
+from froide.foirequest.hooks import registry
 
 
 def detect_troll_pre_request_creation(request, **kwargs):
@@ -39,6 +41,19 @@ def detect_troll_pre_request_creation(request, **kwargs):
 
     return kwargs
 
-
 # Uncomment to activate troll filter again
 # registry.register('pre_request_creation', detect_troll_pre_request_creation)
+
+
+def inject_status_change(request, **kwargs):
+    data = kwargs['data']
+    foirequest = data['foirequest']
+    form = data['form']
+    data = form.cleaned_data
+    if data['resolution'] in ('successful', 'partially_successful'):
+        next_url = foirequest.get_absolute_url()
+        params = urlencode({'next': next_url})
+        return redirect('/spenden/erfolgreiche-anfrage/?' + params)
+
+
+registry.register('post_status_set', inject_status_change)
