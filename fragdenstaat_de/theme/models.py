@@ -52,7 +52,7 @@ def inject_status_change(request, **kwargs):
     data = form.cleaned_data
     if data['resolution'] in ('successful', 'partially_successful'):
         next_url = foirequest.get_absolute_url()
-        params = urlencode({'next': next_url})
+        params = urlencode({'pk_keyword': next_url, 'pk_campaign': 'request-successful'})
         return redirect('/spenden/erfolgreiche-anfrage/?' + params)
 
 
