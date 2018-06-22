@@ -30,7 +30,7 @@ class FragDenStaat(FragDenStaatBase):
     DATA_UPLOAD_MAX_MEMORY_SIZE = 15728640
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
     STATIC_URL = 'https://static.frag-den-staat.de/static/'
-    # MEDIA_URL = '/files/'
+    MEDIA_URL = 'https://media.frag-den-staat.de/files/'
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
