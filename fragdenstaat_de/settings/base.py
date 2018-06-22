@@ -131,13 +131,16 @@ class FragDenStaatBase(German, Base):
     @property
     def FILER_STORAGES(self):
         MEDIA_ROOT = self.MEDIA_ROOT
+        MEDIA_DOMAIN = ''
+        if 'https://' in self.MEDIA_URL:
+            MEDIA_DOMAIN = '/'.join(self.MEDIA_URL.split('/')[:3])
         return {
             'public': {
                 'main': {
                     'ENGINE': 'filer.storage.PublicFileSystemStorage',
                     'OPTIONS': {
                         'location': os.path.join(MEDIA_ROOT, 'media/main'),
-                        'base_url': '/files/media/main/',
+                        'base_url': self.MEDIA_URL + 'media/main/',
                     },
                     'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
                     'UPLOAD_TO_PREFIX': '',
@@ -146,7 +149,7 @@ class FragDenStaatBase(German, Base):
                     'ENGINE': 'filer.storage.PublicFileSystemStorage',
                     'OPTIONS': {
                         'location': os.path.join(MEDIA_ROOT, 'media/thumbnails'),
-                        'base_url': '/files/media/thumbnails/',
+                        'base_url': self.MEDIA_URL + 'media/thumbnails/',
                     },
                     'THUMBNAIL_OPTIONS': {
                         'base_dir': '',
@@ -158,7 +161,7 @@ class FragDenStaatBase(German, Base):
                     'ENGINE': 'filer.storage.PrivateFileSystemStorage',
                     'OPTIONS': {
                         'location': os.path.abspath(os.path.join(MEDIA_ROOT, '../private/main')),
-                        'base_url': '/smedia/main/',
+                        'base_url': MEDIA_DOMAIN + '/smedia/main/',
                     },
                     'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
                     'UPLOAD_TO_PREFIX': '',
@@ -167,7 +170,7 @@ class FragDenStaatBase(German, Base):
                     'ENGINE': 'filer.storage.PrivateFileSystemStorage',
                     'OPTIONS': {
                         'location': os.path.abspath(os.path.join(MEDIA_ROOT, '../private/thumbnails')),
-                        'base_url': '/smedia/thumbnails/',
+                        'base_url': MEDIA_DOMAIN + '/smedia/thumbnails/',
                     },
                     'UPLOAD_TO_PREFIX': '',
                 },
