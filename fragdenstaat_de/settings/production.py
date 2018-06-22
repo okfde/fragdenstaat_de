@@ -29,13 +29,15 @@ class FragDenStaat(FragDenStaatBase):
 
     DATA_UPLOAD_MAX_MEMORY_SIZE = 15728640
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+    STATIC_URL = 'https://static.frag-den-staat.de/static/'
+    # MEDIA_URL = '/files/'
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
     USE_X_ACCEL_REDIRECT = True
     X_ACCEL_REDIRECT_PREFIX = '/protected'
 
-    ALLOWED_HOSTS = ('fragdenstaat.de',)
+    ALLOWED_HOSTS = ('fragdenstaat.de', 'media.frag-den-staat.de')
     ALLOWED_REDIRECT_HOSTS = ('fragdenstaat.de', 'sanktionsfrei.de',)
 
     CACHES = {'default': django_cache_url.config()}
