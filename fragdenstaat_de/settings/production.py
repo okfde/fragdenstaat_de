@@ -160,6 +160,9 @@ class FragDenStaat(FragDenStaatBase):
     MEDIA_ROOT = env('DJANGO_MEDIA_ROOT')
     MEDIA_URL = 'https://media.frag-den-staat.de/files/'
 
+    FOI_MEDIA_TOKENS = True
+    FOI_MEDIA_DOMAIN = 'https://media.frag-den-staat.de'
+
     FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o2750
     FILE_UPLOAD_PERMISSIONS = 0o640
 

@@ -270,9 +270,6 @@ class FragDenStaatBase(German, Base):
     ALLOWED_HOSTS = ('*',)
     ALLOWED_REDIRECT_HOSTS = ('*',)
 
-    FOI_MEDIA_TOKENS = True
-    FOI_MEDIA_DOMAIN = 'https://media.frag-den-staat.de'
-
     DEFAULT_FROM_EMAIL = 'FragDenStaat.de <info@fragdenstaat.de>'
     EMAIL_SUBJECT_PREFIX = '[AdminFragDenStaat] '
 
