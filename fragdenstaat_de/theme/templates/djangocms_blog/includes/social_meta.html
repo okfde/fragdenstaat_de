@@ -21,7 +21,7 @@
 
 {% if post.main_image %}
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image:src" content="{{ SITE_URL }}{% thumbnail post.main_image 1120x600 crop subject_location=post.main_image.subject_location %}">
+  <meta name="twitter:image:src" content="{% thumbnail post.main_image 1120x600 crop subject_location=post.main_image.subject_location %}">
 {% else %}
   <meta name="twitter:card" content="summary">
 {% endif %}
@@ -34,7 +34,7 @@
 <meta property="og:url" content="{{ SITE_URL }}{{ post.get_absolute_url }}" />
 
 {% if post.main_image %}
-  <meta property="og:image" content="{{ SITE_URL }}{% thumbnail post.main_image 1200x630 crop subject_location=post.main_image.subject_location %}" />
+  <meta property="og:image" content="{% thumbnail post.main_image 1200x630 crop subject_location=post.main_image.subject_location %}" />
 {% endif %}
 
 {% if post.abstract %}
