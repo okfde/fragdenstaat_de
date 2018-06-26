@@ -1,11 +1,8 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 
-
 [packages]
-
 django = "<2.0"
 markdown = "*"
 celery = "*"
@@ -59,9 +56,9 @@ aldryn-search = "*"
 "geoip2" = "*"
 tesserocr = {git = "git://github.com/sirfz/tesserocr.git", editable = true}
 pdflib = "*"
-
+pylatex = "*"
 
 [dev-packages]
-
 flower = "*"
 gunicorn = "*"
+django-debug-toolbar = "*"
