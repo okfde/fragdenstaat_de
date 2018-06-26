@@ -108,22 +108,20 @@
       </h4>
       <div class="card-body">
         {% for object in featured %}
-          <div class="teaser">
-            <h5 class="teaser-title">
-              <a href="{{ object.url }}">{{ object.title }}</a>
-            </h5>
+          <h5>
+            <a href="{{ object.url }}">{{ object.title }}</a>
+          </h5>
+          <p>
+            {{ object.text|truncatewords:55|linebreaksbr }}
+          </p>
+          {% if object.request %}
             <p>
-              {{ object.text|truncatewords:55|linebreaksbr }}
+              <a href="{% url 'foirequest-show' slug=object.request.slug %}">
+                <span class="glyphicon glyphicon-share-alt"></span>
+                {% blocktrans %}Visit this request{% endblocktrans %}
+              </a>
             </p>
-            {% if object.request %}
-              <p>
-                <a href="{% url 'foirequest-show' slug=object.request.slug %}">
-                  <span class="glyphicon glyphicon-share-alt"></span>
-                  {% blocktrans %}Visit this request{% endblocktrans %}
-                </a>
-              </p>
-            {% endif %}
-          </div>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
