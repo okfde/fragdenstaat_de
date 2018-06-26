@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 # Import early to register with api_router
 from froide_campaign import urls as campaign_urls
 
+from froide.foirequest.views import dashboard
 from froide.urls import (
     froide_urlpatterns, help_urlpatterns,
     jurisdiction_urls, sitemaps
@@ -39,6 +40,7 @@ urlpatterns = [
     url(r'^klagen/', include('froide_legalaction.urls')),
     url(r'^gesetze/dashboard/$', gesetze_dashboard, name='fragdenstaat-gesetze_dashboard'),
     url(r'^$', index, name='index'),
+    url(r'^dashboard/$', dashboard, name='dashboard'),
     url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
 ]
 
