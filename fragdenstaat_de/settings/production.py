@@ -36,7 +36,7 @@ class FragDenStaat(FragDenStaatBase):
     USE_X_ACCEL_REDIRECT = True
     X_ACCEL_REDIRECT_PREFIX = '/protected'
 
-    ALLOWED_HOSTS = ('fragdenstaat.de', 'media.frag-den-staat.de')
+    ALLOWED_HOSTS = ('fragdenstaat.de', 'media.frag-den-staat.de', 'testserver')
     ALLOWED_REDIRECT_HOSTS = ('fragdenstaat.de', 'sanktionsfrei.de',)
 
     CACHES = {'default': django_cache_url.config()}
