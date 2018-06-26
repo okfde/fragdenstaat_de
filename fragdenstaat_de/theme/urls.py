@@ -8,7 +8,7 @@ from froide_campaign import urls as campaign_urls
 
 from froide.foirequest.views import dashboard
 from froide.urls import (
-    froide_urlpatterns, help_urlpatterns,
+    froide_urlpatterns,
     jurisdiction_urls, sitemaps
 )
 
