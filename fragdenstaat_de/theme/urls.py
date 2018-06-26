@@ -51,7 +51,6 @@ urlpatterns += [
 urlpatterns += (
     sitemap_urlpatterns +
     froide_urlpatterns +
-    help_urlpatterns +
     jurisdiction_urls
 )
 

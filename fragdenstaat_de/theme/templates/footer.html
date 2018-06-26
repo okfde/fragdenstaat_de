@@ -1,5 +1,7 @@
 {% overextends "footer.html" %}
 
+{% load content_helper %}
+
 {% block footer_credits %}
   <p class="footer__credits">
     FragDenStaat.de ist ein gemeinnütziges Projekt des <a href="https://okfn.de">Open Knowledge Foundation Deutschland e.V.</a>
@@ -31,16 +33,16 @@
 
 {% block footer_menu %}
 <li>
-  <a href="{% url 'help-about' %}">Über uns</a>
+  <a href="{% content_url 'about' %}">Über uns</a>
 </li>
 <li>
-  <a href="{% url 'help-about' %}presse/">Presse</a>
+  <a href="/hilfe/ueber/presse/">Presse</a>
 </li>
 <li>
-  <a href="{% url 'help-about' %}impressum/">Impressum</a>
+  <a href="/hilfe/ueber/impressum/">Impressum</a>
 </li>
 <li>
-  <a href="{% url 'help-index' %}howto/">Hilfe</a>
+  <a href="{% content_url 'help' %}">Hilfe</a>
 </li>
 <li>
   <a href="https://feeds.feedburner.com/detektorfm_frag-den-staat">
@@ -48,7 +50,7 @@
   </a>
 </li>
 <li>
-  <a href="{% url 'help-privacy' %}">
+  <a href="{% content_url 'privacy' %}">
     Daten&shy;schutz&shy;erklärung
   </a>
 </li>
@@ -58,12 +60,7 @@
   </a>
 </li>
 <li>
-  <a href="http://lists.okfn.org/mailman/listinfo/fragdenstaat" target="_blank" rel="noopener">
-    Mailing&shy;liste
-  </a>
-</li>
-<li>
-  <a href="{% url 'help-index' %}howto/nutzungsbedingungen">
+  <a href="{% content_url 'terms' %}">
     Nutzungs&shy;bedingun&shy;gen
   </a>
 </li>
@@ -75,7 +72,7 @@
   <div class="row small">
     <div class="col-lg-12">
       <p>
-        Fragdenstaat nutzt statt den üblichen externen Dienstleistern die datenschutzfreundlichere Technologie von <a href="https://matomo.org">Matomo</a>, um statistische Auswertungen der Seitennutzung zu erhalten. Wenn sie dies nicht wollen, <a href="https://traffic.okfn.de/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=de">klicken Sie bitte hier und entfernen Sie den Haken</a>. Näheres in <a href="{% url 'help-privacy' %}">unserer Datenschutzerklärung</a>.
+        Fragdenstaat nutzt statt den üblichen externen Dienstleistern die datenschutzfreundlichere Technologie von <a href="https://matomo.org">Matomo</a>, um statistische Auswertungen der Seitennutzung zu erhalten. Wenn sie dies nicht wollen, <a href="https://traffic.okfn.de/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=de">klicken Sie bitte hier und entfernen Sie den Haken</a>. Näheres in <a href="/hilfe/howto/datenschutzerklaerung/">unserer Datenschutzerklärung</a>.
       </p>
     </div>
   </div>
