@@ -341,63 +341,6 @@
   margin: 4.5rem 0 3rem 0;
 }
 
-.submenue{
-  font-size: 1rem;
-  list-style: none;
-  background-color: white;
-  box-shadow: 0 0 10px 0 rgba(197,197,197,0.5);
-  text-align: center;
-
-  ul {
-    list-style:none;
-    padding: 1.2rem 0;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-
-  li{ 
-    display: inline;
-    list-style: none;
-    padding: 1rem;
-    font-weight: 500;
-  }
-
-  li > a {
-    position: relative;
-    color: $primary;
-    padding: 0 0 0.5rem 0;
-    text-decoration: none;
-}
-
-  li > a:hover {
-    color: $primary;
-  }
-
-  li > a:before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    bottom: 0;
-    left: 0;
-    background-color: $primary;
-    visibility: hidden;
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-    -webkit-transition: all 0.3s ease-in-out 0s;
-    transition: all 0.3s ease-in-out 0s;
-  }
-
-  li > a:hover:before {
-    visibility: visible;
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-  }
-
-}
-
-
 .textbox{
   p{
     font-size: 1.2rem;

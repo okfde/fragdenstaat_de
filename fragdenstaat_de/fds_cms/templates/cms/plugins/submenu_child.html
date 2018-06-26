@@ -1,6 +1,6 @@
 {% for child in children %}
-<li class="nav-item">
-  <a class="nav-link {% if child.selected or child.ancestor %}active{% endif %}"
+<li>
+  <a class="{% if child.selected or child.ancestor %}active{% endif %}"
     href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
     {{ child.get_menu_title }}
   </a>
