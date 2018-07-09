@@ -314,6 +314,7 @@ class FragDenStaatBase(German, Base):
                 (30, 7 * 24 * 60 * 60),  # 15 requests in 7 days
             ],
             greetings=[
+                rec(r"Sehr geehrte Damen und Herren,?"),
                 rec(r"Sehr geehrt(er? (?:Herr|Frau)(?: ?Dr\.?)?(?: ?Prof\.?)? .*)"),
             ],
             custom_replacements=[
