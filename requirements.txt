@@ -101,4 +101,5 @@ yurl==0.13
 -e git+git://github.com/okfde/froide.git@master#egg=froide
 -e git+git://github.com/okfde/froide-campaign.git@master#egg=froide-campaign
 -e git+git://github.com/okfde/froide-food.git@master#egg=froide-food
+-e git+git://github.com/okfde/froide-fax.git@master#egg=froide-fax
 -e git+git://github.com/okfde/froide-legalaction.git@master#egg=froide-legalaction

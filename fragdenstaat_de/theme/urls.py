@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^dashboard/$', dashboard, name='dashboard'),
     url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
+    url(r'^fax/', include('froide_fax.urls')),
 ]
 
 urlpatterns += [

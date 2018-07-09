@@ -63,6 +63,7 @@ class FragDenStaatBase(German, Base):
             'froide_campaign.apps.FroideCampaignConfig',
             'froide_legalaction.apps.FroideLegalActionConfig',
             'froide_food.apps.FroideFoodConfig',
+            'froide_fax.apps.FroideFaxConfig',
         ]
         return installed.default
 
@@ -302,6 +303,10 @@ class FragDenStaatBase(German, Base):
             read_receipt=True,
             delivery_receipt=True,
             dsn=True,
+            message_handlers={
+                'email': 'froide.foirequest.message_handlers.EmailMessageHandler',
+                'fax': 'froide.foirequest.message_handlers.EmailMessageHandler'
+            },
             delivery_reporter='froide.foirequest.delivery.PostfixDeliveryReporter',
             dryrun_domain="test.fragdenstaat.de",
             allow_pseudonym=True,
@@ -334,3 +339,6 @@ class FragDenStaatBase(German, Base):
         'api_key_google': '',
         'api_key_yelp': os.environ.get('YELP_API_KEY', '')
     }
+
+    TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', '')
+    TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
