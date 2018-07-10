@@ -3,6 +3,28 @@
 {% load static from staticfiles %}
 {% load i18n %}
 
+{% load foirequest_tags %}
+{% load fax_tags %}
+
+
+{% block foirequest_header %}
+  {% if object|can_write_foirequest:request and object|foirequest_needs_signature %}
+    <div class="alert alert-warning">
+      <h3>
+        Schriftformerfordnis: Bitter hinterlegen Sie Ihre Unterschrift
+      </h3>
+      <div class="row">
+        <div class="col-md-8">
+          <p>
+            Diese Anfrage nach dem {{ object.law.name }} muss in Schriftform erfolgen. Wir können für Sie ein Fax versenden, wenn Sie Ihre Unterschrift hinterlegen.
+          </p>
+        </div>
+      </div>
+      {% include "froide_fax/_signature_form.html" with form=request.user|get_signature_form:True foirequest=object next=request.get_full_path hide_explanation=True save_button="Unterschrift speichern und Fax versenden" %}
+    </div>
+  {% endif %}
+{% endblock %}
+
 {% block foirequest_explain_deadline %}
   <small>
     <a class="d-print-none" href="/hilfe/howto/fuer-behoerden/#frist">

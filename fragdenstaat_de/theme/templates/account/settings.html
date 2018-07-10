@@ -4,6 +4,6 @@
 
 {% block post_password %}
 
-{#  {% include "froide_fax/_signature_form.html" with form=request.user|get_signature_form %} #}
+  {% include "froide_fax/_signature_form.html" with form=request.user|get_signature_form next=request.get_full_path %}
 
 {% endblock %}
