@@ -305,7 +305,7 @@ class FragDenStaatBase(German, Base):
             dsn=True,
             message_handlers={
                 'email': 'froide.foirequest.message_handlers.EmailMessageHandler',
-                'fax': 'froide.foirequest.message_handlers.EmailMessageHandler'
+                'fax': 'froide_fax.fax.FaxMessageHandler'
             },
             delivery_reporter='froide.foirequest.delivery.PostfixDeliveryReporter',
             dryrun_domain="test.fragdenstaat.de",
