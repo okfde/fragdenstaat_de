@@ -76,7 +76,7 @@ class FragDenStaat(FragDenStaatBase):
     EMAIL_SUBJECT_PREFIX = '[AdminFragDenStaat] '
     EMAIL_USE_TLS = True
     EMAIL_PORT = 25
-    FOI_EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    FOI_EMAIL_BACKEND = 'froide.foirequest.smtp.FoiEmailBackend'
     # FOI_EMAIL_ACCOUNT_NAME
     # FOI_EMAIL_ACCOUNT_PASSWORD
     FOI_EMAIL_DOMAIN = ['fragdenstaat.de', 'echtemail.de']
