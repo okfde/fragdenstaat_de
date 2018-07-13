@@ -114,6 +114,7 @@ class FragDenStaatBase(German, Base):
     ]
 
     BLOG_URLCONF = 'fragdenstaat_de.theme.blog_urls'
+    BLOG_PAGINATION = 12
     BLOG_AVAILABLE_PERMALINK_STYLES = (
         ('full_date', _('Full date')),
         ('short_date', _('Year /  Month')),
