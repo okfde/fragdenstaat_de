@@ -16,7 +16,7 @@
   margin-bottom: 20px;
 }
 
-.button {
+.teaser-button {
   margin-top: 1rem;
   color: $primary;
   background-color: transparent;
@@ -28,15 +28,12 @@
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  transition:
-  color 0.15s ease-in-out,
-  background-color 0.15s ease-in-out,
-  border-color 0.15s ease-in-out,
-  box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
 }
 
-.button:focus, .button:hover {
-    background-color: $primary;
-    color: #fff;
-    cursor: pointer;
+.teaser-button:focus, .teaser-button:hover {
+  text-decoration: none;
+  background-color: $primary;
+  color: #fff;
+  cursor: pointer;
 }
