@@ -128,13 +128,3 @@
   </div>
 </div>
 {% endblock %}
-
-
-{% block extra_footer %}
-<script type="text/javascript">
-  document.querySelector('.video-embed').addEventListener('click', function (e) {
-    e.preventDefault();
-    this.parentNode.innerHTML = '<iframe src="' + this.dataset.url + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
-  });
-</script>
-{% endblock %}
