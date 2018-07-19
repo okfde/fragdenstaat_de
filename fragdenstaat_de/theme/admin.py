@@ -8,7 +8,7 @@ from leaflet.admin import LeafletGeoAdmin
 from froide.georegion.models import GeoRegion
 from froide.georegion import admin as georegion_admin
 
-from froide.publicbody.models import PublicBody
+from froide.publicbody.models import PublicBody, ProposedPublicBody
 from froide.publicbody import admin as pb_admin
 
 
@@ -29,6 +29,10 @@ class PublicBodyAdmin(pb_admin.PublicBodyAdminMixin, LeafletGeoAdmin):
     display_raw = True
 
 
+class ProposedPublicBodyAdmin(pb_admin.ProposedPublicBodyAdminMixin, LeafletGeoAdmin):
+    display_raw = True
+
+
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, TinyMCEFlatPageAdmin)
 
@@ -37,3 +41,6 @@ admin.site.register(GeoRegion, GeoRegionAdmin)
 
 admin.site.unregister(PublicBody)
 admin.site.register(PublicBody, PublicBodyAdmin)
+
+admin.site.unregister(ProposedPublicBody)
+admin.site.register(ProposedPublicBody, ProposedPublicBodyAdmin)
