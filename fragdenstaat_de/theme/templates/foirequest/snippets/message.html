@@ -1,4 +1,4 @@
-{% overextends "foirequest/snippets/message.html" %}
+{% extends "foirequest/snippets/message.html" %}
 
 {% load i18n %}
 {% load foirequest_tags %}
@@ -6,16 +6,6 @@
 
 {% block before_meta %}
   {% if object|can_write_foirequest:request and message|can_fax_message %}
-    <div class="alert alert-warning d-print-none">
-      <p>
-        {% trans "This message has been send as an email. If the authority indicated that it is not replying to emails, you can send this message as a fax." %}
-      </p>
-      <form action="{% url 'froide_fax-send_as_fax' message_id=message.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-secondary">
-          {% trans "Send this message as a fax" %}
-        </button>
-      </form>
-    </div>
+    {% include "froide_fax/_send_message_form.html" %}
   {% endif %}
 {% endblock %}
