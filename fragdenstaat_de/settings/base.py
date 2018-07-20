@@ -316,8 +316,10 @@ class FragDenStaatBase(German, Base):
             search_engine_query='http://www.google.de/search?as_q=%(query)s&as_epq=&as_oq=&as_eq=&hl=en&lr=&cr=&as_ft=i&as_filetype=&as_qdr=all&as_occt=any&as_dt=i&as_sitesearch=%(domain)s&as_rights=&safe=images',
             show_public_body_employee_name=False,
             request_throttle=[
-                (5, 5 * 60),  # 2 requests in 5 minutes
-                (30, 7 * 24 * 60 * 60),  # 15 requests in 7 days
+                (5, 5 * 60),  # X requests in X seconds
+                (10, 6 * 60 * 60),
+                (15, 24 * 60 * 60),
+                (30, 7 * 24 * 60 * 60),
             ],
             greetings=[
                 rec(r"Sehr geehrte Damen und Herren,?"),
