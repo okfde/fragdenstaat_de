@@ -33,16 +33,16 @@ def detect_troll_pre_request_creation(request, **kwargs):
 
     now = timezone.now()
     diff = now - user.date_joined
-    if (diff < timedelta(days=1) and count > 5) or count > 15:
+    if (diff < timedelta(days=1) and count > 5):
         user.is_blocked = True
         user.save()
-        mail_managers(_('User blocked'), str(user.pk))
+        mail_managers(_('User auto blocked'), str(user.pk))
         kwargs['blocked'] = True
 
     return kwargs
 
-# Uncomment to activate troll filter again
-# registry.register('pre_request_creation', detect_troll_pre_request_creation)
+
+registry.register('pre_request_creation', detect_troll_pre_request_creation)
 
 
 def inject_status_change(request, **kwargs):
