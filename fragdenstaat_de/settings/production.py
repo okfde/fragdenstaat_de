@@ -4,11 +4,7 @@ import django_cache_url
 
 import raven
 
-from .base import FragDenStaatBase
-
-
-def env(key, default=None):
-    return os.environ.get(key, default)
+from .base import FragDenStaatBase, env
 
 
 class FragDenStaat(FragDenStaatBase):

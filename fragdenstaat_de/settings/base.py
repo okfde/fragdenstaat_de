@@ -12,6 +12,10 @@ def rec(x):
     return re.compile(x, re.I | re.U)
 
 
+def env(key, default=None):
+    return os.environ.get(key, default)
+
+
 THEME_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 

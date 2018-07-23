@@ -4,7 +4,7 @@ import socket
 
 from django.contrib.staticfiles.storage import StaticFilesStorage
 
-from .base import FragDenStaatBase
+from .base import FragDenStaatBase, env
 
 
 CHECK_WEBPACK = {
@@ -48,6 +48,18 @@ class Dev(FragDenStaatBase):
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
+        }
+    }
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': env('DATABASE_NAME'),
+            'OPTIONS': {},
+            'HOST': 'localhost',
+            'USER': env('DATABASE_USER'),
+            'PASSWORD': env('DATABASE_PASSWORD'),
+            'PORT': ''
         }
     }
 
