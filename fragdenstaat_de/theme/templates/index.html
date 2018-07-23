@@ -5,76 +5,8 @@
 
 {% block title %}FragDenStaat - Portal für Informationsfreiheit und Transparenz{% endblock %}
 
-{% block site_name %}Was ist FragDenStaat?{% endblock %}
-
-{% block site_description %}
-  <p>
-    Jede Person hat das Recht auf Informationen. FragDenStaat hilft Ihnen, Ihr Recht wahrzunehmen.
-  </p>
-  <p>
-    Fragen Sie über diese gemeinnützige Plattform Behörden in Deutschland nach Informationen und Dokumenten!
-  </p>
-{% endblock %}
-
-{% block example_search_terms_block %}{% endblock %}
-
-{% block index-search-placeholder %}z.B. Schule oder NSA{% endblock %}
-
-
-
-{% block first_index_row %}
-<div class="col-lg-5 col-md-5">
-  {% block first_index_row_search %}
-    {{ block.super }}
-  {% endblock %}
-</div>
-<div class="col-lg-7 col-md-7">
-  {% block first_index_row_featured %}
-    <div class="aspect-ratio video-embed-container">
-      <a class="video-embed" href="https://vimeo.com/102604678" data-url="//player.vimeo.com/video/102604678?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1">
-        <img src="{% static 'img/video_fds.jpg' %}" alt="Video FragDenStaat.de on Vimeo"/>
-      </a>
-    </div>
-  {% endblock first_index_row_featured %}
-</div>
-{% endblock %}
-
 {% block index_content_row %}
-<div class="row-fluid">
-  <div class="col-lg-12 well">
-    <h2 class="text-center">Wie funktioniert FragDenStaat?</h2>
-    <div class="row steps">
-
-      <a class="step col-md-4" href="{% url 'foirequest-make_request' %}">
-        <h3 class="step-number">1</h3>
-        <div class="step-box" title="Stellen Sie eine Anfrage!">
-          <p>Sie stellen eine Anfrage. Wir leiten diese an die zuständige Behörde weiter.</p>
-        </div>
-      </a>
-
-      <a class="step col-md-4" href="{% url 'foirequest-make_request' %}">
-        <h3 class="step-number">2</h3>
-        <div class="step-box" title="Stellen Sie eine Anfrage!">
-          <p>Sie erhalten eine Mail, sobald die Behörde auf Ihre Anfrage reagiert.</p>
-        </div>
-      </a>
-      <a class="step col-md-4" href="{% url 'foirequest-make_request' %}">
-        <h3 class="step-number">3</h3>
-        <div class="step-box" title="Stellen Sie eine Anfrage!">
-          <p>Die Antwort wird für Sie und auch für andere öffentlich einsehbar.</p>
-        </div>
-      </a>
-    </div>
-    <div class="text-center mt-3 mb-5">
-      <p>
-        <a href="/hilfe/ifg/">
-          Mehr zum<br/>Informations&shy;freiheitsgesetz
-        </a>
-      </p>
-    </div>
-  </div>
-</div> <!-- ende row -->
-
+  {% include "snippets/homepage_how.html" %}
 {% endblock %}
 
 {% block index_requests_row %}
