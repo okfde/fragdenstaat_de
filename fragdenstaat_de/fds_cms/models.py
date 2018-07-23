@@ -23,6 +23,13 @@ class PageAnnotationCMSPlugin(CMSPlugin):
         return str(self.page_annotation)
 
 
+class DocumentEmbedCMSPlugin(CMSPlugin):
+    doc = models.ForeignKey(Document, related_name='+',)
+
+    def __str__(self):
+        return 'Embed %s' % (self.doc,)
+
+
 class DocumentPagesCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=255, blank=True)
     doc = models.ForeignKey(Document, related_name='+',)

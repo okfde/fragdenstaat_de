@@ -8,7 +8,7 @@ from froide.helper.utils import get_redirect_url
 from froide.foirequest.models import FoiRequest
 
 from .models import (
-    PageAnnotationCMSPlugin, DocumentPagesCMSPlugin,
+    PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
     PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin
 )
 
@@ -47,6 +47,24 @@ class DocumentPagesPlugin(CMSPluginBase):
         context['object'] = instance
         context['pages'] = instance.get_pages()
 
+        return context
+
+
+@plugin_pool.register_plugin
+class DocumentEmbedPlugin(CMSPluginBase):
+    model = DocumentEmbedCMSPlugin
+    module = _("Document")
+    name = _("Document embed")
+    text_enabled = True
+    render_template = "document/cms_plugins/document_embed.html"
+    raw_id_fields = ('doc',)
+
+    def render(self, context, instance, placeholder):
+        context = super(DocumentEmbedPlugin, self)\
+            .render(context, instance, placeholder)
+
+        context['object'] = instance.doc
+        context['instance'] = instance
         return context
 
 
