@@ -35,11 +35,11 @@ sitemap_urlpatterns = [
 ]
 
 urlpatterns = [
+    # url(r'^$', index, name='index'),
     url(r'^kampagne/', include(campaign_urls)),
     url(r'^temp/', TemplateView.as_view(template_name="snippets/temp.html")),
     url(r'^klagen/', include('froide_legalaction.urls')),
     url(r'^gesetze/dashboard/$', gesetze_dashboard, name='fragdenstaat-gesetze_dashboard'),
-    url(r'^$', index, name='index'),
     url(r'^dashboard/$', dashboard, name='dashboard'),
     url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
     url(r'^fax/', include('froide_fax.urls')),
