@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
@@ -6,6 +7,12 @@ from cms.models.fields import PageField
 
 from filer.fields.image import FilerImageField
 
+from taggit.models import Tag
+
+from froide.foirequest.models import FoiRequest, FoiProject
+from froide.publicbody.models import (
+    Jurisdiction, Category, Classification, PublicBody
+)
 from froide.document.models import Document, PageAnnotation
 
 
@@ -78,3 +85,72 @@ class PrimaryLinkCMSPlugin(CMSPlugin):
         if self.anchor:
             link += '#' + self.anchor
         return link
+
+
+class FoiRequestListCMSPlugin(CMSPlugin):
+    """
+    CMS Plugin for displaying FoiRequests
+    """
+
+    TEMPLATES = [
+        ('', _('Default template')),
+    ]
+
+    resolution = models.CharField(
+        blank=True, max_length=50,
+        choices=FoiRequest.RESOLUTION_FIELD_CHOICES
+    )
+
+    status = models.CharField(
+        blank=True, max_length=50,
+        choices=FoiRequest.STATUS_FIELD_CHOICES
+    )
+
+    project = models.ForeignKey(
+        FoiProject, null=True, blank=True,
+        on_delete=models.SET_NULL)
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, blank=True)
+
+    tags = models.ManyToManyField(
+        Tag, verbose_name=_('tags'), blank=True)
+
+    jurisdiction = models.ForeignKey(
+        Jurisdiction, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    category = models.ForeignKey(
+        Category, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    classification = models.ForeignKey(
+        Classification, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    publicbody = models.ForeignKey(
+        PublicBody, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+
+    number_of_entries = models.PositiveIntegerField(
+        _('number of entries'), default=1,
+        help_text=_('0 means all the entries'))
+    offset = models.PositiveIntegerField(
+        _('offset'), default=0,
+        help_text=_('number of entries to skip from top of list'))
+    template = models.CharField(
+        _('template'), blank=True,
+        max_length=250, choices=TEMPLATES,
+        help_text=_('template used to display the plugin'))
+
+    @property
+    def render_template(self):
+        """
+        Override render_template to use
+        the template_to_render attribute
+        """
+        return self.template_to_render
+
+    def __str__(self):
+        return _('%s FOI requests') % self.number_of_entries
