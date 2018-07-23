@@ -69,3 +69,17 @@ class SubMenuPlugin(CMSPluginBase):
     module = _("Menu")
     name = _("Sub Menu")
     render_template = "cms/plugins/submenu.html"
+
+
+@plugin_pool.register_plugin
+class HomepageHeroPlugin(CMSPluginBase):
+    module = _("Homepage")
+    name = _("Homepage Hero")
+    render_template = "snippets/homepage_hero.html"
+
+
+@plugin_pool.register_plugin
+class HomepageHowPlugin(CMSPluginBase):
+    module = _("Homepage")
+    name = _("Homepage How")
+    render_template = "snippets/homepage_how.html"
