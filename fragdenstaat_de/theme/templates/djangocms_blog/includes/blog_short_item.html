@@ -1,12 +1,12 @@
 {% load i18n easy_thumbnails_tags cms_tags %}
 
-<article id="post-{{ post.slug }}" class="post-item">
-  {% if post.main_image_id %}
-     <a href="{{ post.get_absolute_url }}">{% include "djangocms_blog/includes/blog_picture.html" with picture=post.main_image %}</a>
-  {% endif %}
+<article id="post-{{ post.slug }}" class="post-item mb-5">
   <div class="blog-header__date">
     {{ post.date_published|date:"DATE_FORMAT" }}
   </div>
+  {% if post.main_image_id %}
+     <a href="{{ post.get_absolute_url }}">{% include "djangocms_blog/includes/blog_picture.html" with picture=post.main_image %}</a>
+  {% endif %}
   <h4 class="blog-list-heading">
     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
   </h4>
