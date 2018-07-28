@@ -9,11 +9,13 @@ from filer.fields.image import FilerImageField
 
 from taggit.models import Tag
 
+from froide.document.models import PageAnnotation
+
 from froide.foirequest.models import FoiRequest, FoiProject
 from froide.publicbody.models import (
     Jurisdiction, Category, Classification, PublicBody
 )
-from froide.document.models import Document, PageAnnotation
+from froide.document.models import Document
 
 
 class PageAnnotationCMSPlugin(CMSPlugin):
