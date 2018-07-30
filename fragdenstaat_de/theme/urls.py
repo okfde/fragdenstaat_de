@@ -15,7 +15,7 @@ from froide.urls import (
 from cms.sitemaps import CMSSitemap
 from djangocms_blog.sitemaps import BlogSitemap
 
-from .views import index, gesetze_dashboard
+from .views import gesetze_dashboard
 
 
 sitemaps['cmspages'] = CMSSitemap

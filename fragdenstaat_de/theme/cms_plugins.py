@@ -3,6 +3,9 @@ from django.utils.translation import ugettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
+from froide.foirequest.models import FoiRequest
+from froide.publicbody.models import PublicBody
+
 
 @plugin_pool.register_plugin
 class ContainerPlugin(CMSPluginBase):
@@ -76,6 +79,15 @@ class HomepageHeroPlugin(CMSPluginBase):
     module = _("Homepage")
     name = _("Homepage Hero")
     render_template = "snippets/homepage_hero.html"
+
+    def render(self, context, instance, placeholder):
+        context = super(HomepageHeroPlugin, self)\
+            .render(context, instance, placeholder)
+        context.update({
+            'foicount': FoiRequest.objects.get_send_foi_requests().count(),
+            'pbcount': PublicBody.objects.get_list().count()
+        })
+        return context
 
 
 @plugin_pool.register_plugin
