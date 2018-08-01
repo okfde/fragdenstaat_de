@@ -48,7 +48,7 @@ django-taggit==0.22.2
 django-templatetag-sugar==1.0
 django-tinymce==2.7.0
 django-treebeard==4.3
-django==1.11.13
+django==1.11.15
 djangocms-admin-style==1.2.8
 djangocms-apphook-setup==0.3.0
 djangocms-attributes-field==0.3.0
