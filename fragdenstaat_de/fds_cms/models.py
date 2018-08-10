@@ -9,7 +9,7 @@ from filer.fields.image import FilerImageField
 
 from taggit.models import Tag
 
-from froide.document.models import PageAnnotation
+from filingcabinet.models import PageAnnotation
 
 from froide.foirequest.models import FoiRequest, FoiProject
 from froide.publicbody.models import (
