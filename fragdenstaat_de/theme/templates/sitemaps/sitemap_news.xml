@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+{% spaceless %}
+{% for url in urlset %}
+  <url>
+    <loc>{{ url.location }}</loc>
+    <news:news>
+      <news:publication>
+        <news:name>{{ SITE_NAME }}</news:name>
+        <news:language>{{ url.item.language_code }}</news:language>
+      </news:publication>
+      <news:publication_date>{{ url.item.date_published.isoformat }}</news:publication_date>
+      <news:title>{{ url.item.title }}</news:title>
+      {% with tags=url.item.tags.all %}
+        {% if tags %}
+        <news:keywords>{% for tag in tags %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</news:keywords>
+        {% endif %}
+      {% endwith %}
+    </news:news>
+  </url>
+  {% endfor %}
+{% endspaceless %}
+</urlset>

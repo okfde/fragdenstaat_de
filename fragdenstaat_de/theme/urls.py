@@ -15,6 +15,7 @@ from froide.urls import (
 from cms.sitemaps import CMSSitemap
 from djangocms_blog.sitemaps import BlogSitemap
 
+from .sitemaps import NewsSitemap
 from .views import gesetze_dashboard
 
 
@@ -30,6 +31,10 @@ for klass in sitemaps.values():
 sitemap_urlpatterns = [
     url(r'^sitemap\.xml$', sitemaps_views.index,
         {'sitemaps': sitemaps, 'sitemap_url_name': 'sitemaps'}),
+    url(r'^sitemap-news.xml$', sitemaps_views.sitemap, {
+        'sitemaps': {'news': NewsSitemap},
+        'template_name': 'sitemaps/sitemap_news.xml'
+        }, name='sitemap-news'),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps_views.sitemap,
         {'sitemaps': sitemaps}, name='sitemaps')
 ]
