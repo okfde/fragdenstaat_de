@@ -59,6 +59,7 @@ tesserocr = {git = "git://github.com/sirfz/tesserocr.git", editable = true}
 pdflib = "*"
 pylatex = "*"
 twilio = "*"
+djangorestframework-csv = "*"
 
 [dev-packages]
 flower = "*"

@@ -56,6 +56,7 @@ djangocms-blog==0.9.7
 djangocms-picture==2.0.6
 djangocms-text-ckeditor==3.5.3
 djangocms-video==2.0.4
+djangorestframework-csv==2.1.0
 djangorestframework-jsonp==1.0.2
 djangorestframework==3.8.2
 easy-thumbnails==2.5
