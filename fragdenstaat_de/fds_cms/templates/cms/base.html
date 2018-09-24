@@ -19,7 +19,7 @@
 
 {% block body_tag %}
   {% block top_block %}
-    {# {% include "snippets/donation.html" %} #}
+    {% include "snippets/donation.html" %}
   {% endblock %}
 
   {% block navbar %}
@@ -52,6 +52,7 @@
 {% block scripts %}
   {% addtoblock "js" %}<script async src="{% static "js/main.js" %}"></script>{% endaddtoblock %}
   {{ block.super }}
+  {% include "snippets/donation_script.html" %}
 {% endblock %}
 
 {% block below_scripts %}
