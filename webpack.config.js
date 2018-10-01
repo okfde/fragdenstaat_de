@@ -187,7 +187,6 @@ const config = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: '../css/[name].css'
-      // publicPath: '../../'
     }),
     new CopyWebpackPlugin([
       {from: 'node_modules/pdfjs-dist/build/pdf.worker.min.js'}
