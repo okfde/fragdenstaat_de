@@ -36,6 +36,6 @@ resetup:
 
 build:
 	$(COMPOSE) stop backend
-	$(DEVDOCKER) npm run build
+	$(DEVDOCKER) yarn build
 
 .PHONY: build

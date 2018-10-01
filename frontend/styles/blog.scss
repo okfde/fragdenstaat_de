@@ -57,9 +57,6 @@ h4.blog-list-heading {
   min-height: 400px;
 }
 
-.blog-teaser-text {
-}
-
 @include media-breakpoint-up(md) {
   .blog-teaser-text {
     background-color: #fff;
@@ -70,7 +67,6 @@ h4.blog-list-heading {
     width: 40%;
   }
 }
-
 
 .blog-visual {
   opacity: 1;
@@ -99,10 +95,10 @@ h4.blog-list-heading {
 }
 
 .teaser-arrow {
-    height: 15px;
-    margin-top: 10px;
-    font-size: 1.5rem;
-    position: relative;
+  height: 15px;
+  margin-top: 10px;
+  font-size: 1.5rem;
+  position: relative;
 }
 
 .teaser-arrow:after {
@@ -114,7 +110,7 @@ h4.blog-list-heading {
   -ms-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
-  }
+}
 
 /*================================
 =          Post-Detail          =
@@ -143,7 +139,6 @@ h4.blog-list-heading {
 .blog-header__title {
   margin: 0 0 1rem 0 !important;
 }
-
 
 .blog-content {
   -webkit-font-smoothing: antialiased;
@@ -191,8 +186,7 @@ h4.blog-list-heading {
     }
   }
 
-
-h3:not(:first-child) {
+  h3:not(:first-child) {
     margin-top: 4rem !important;
   }
 
@@ -228,6 +222,7 @@ h3:not(:first-child) {
       margin: 0;
     }
   }
+
   @include media-breakpoint-up(md) {
     blockquote {
       @include make-col(10);
@@ -235,6 +230,7 @@ h3:not(:first-child) {
       margin-right: 15%;
     }
   }
+
   @include media-breakpoint-up(lg) {
     blockquote {
       @include make-col(8);
@@ -288,8 +284,8 @@ h3:not(:first-child) {
 }
 
 .img-circle {
-    border-radius: 50%;
-    width: 100%;
+  border-radius: 50%;
+  width: 100%;
 }
 
 
@@ -298,7 +294,6 @@ h3:not(:first-child) {
 ================================*/
 
 .next-reads {
-
   h3 {
     a, a:active, a:visited {
       border-color: $black;
@@ -311,7 +306,6 @@ h3:not(:first-child) {
       text-decoration: none;
     }
   }
-
 }
 
 .next-reads__text{
@@ -350,7 +344,7 @@ h3:not(:first-child) {
   padding: 0;
   font-family: sans-serif;
 
-  p{
+  p {
     font-family: sans-serif;
     margin-bottom: 4rem;
   }
@@ -369,7 +363,6 @@ h3:not(:first-child) {
   padding-left: 30px;
   margin-left: 15px;
   padding-bottom: 1rem;
-
 
   h5 {
     position: relative;

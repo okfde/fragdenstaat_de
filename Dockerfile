@@ -8,6 +8,7 @@ ENV NODE_ENV development
 RUN apt-get update -y && apt-get install -y build-essential binutils libproj-dev libpq-dev gdal-bin libgeos-dev libgeos-c1 python-gdal
 
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && apt-get update -y && apt-get install -y nodejs
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 COPY requirements-dev.txt /code/
 COPY requirements.txt /code/
@@ -18,7 +19,7 @@ RUN pip uninstall -y froide && pip install -e /code/froide/
 COPY yarn.lock /code/
 COPY package.json /code/
 
-RUN cd /code/ && npm install -g yarn && yarn install
+RUN cd /code/ && yarn install
 
 COPY .babelrc /code/
 COPY manage.py /code/
