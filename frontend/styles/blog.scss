@@ -160,7 +160,7 @@ h4.blog-list-heading {
   flex-wrap: wrap;
   justify-content: center;
 
-  >p, >h2, >h3, >h4, >ul, >ol {
+  >p, >h2, >h3, >h4, >ul, >ol, >div.text-container {
     @include make-col(12);
     margin: 1rem auto 0.5rem;
     padding: 0 15px;
@@ -168,7 +168,7 @@ h4.blog-list-heading {
   }
 
   @include media-breakpoint-up(sm) {
-    >p, >h2, >h3, >h4, >ul, >ol {
+    >p, >h2, >h3, >h4, >ul, >ol, >div.text-container {
       @include make-col(10);
       margin-left: 15%;
       margin-right: 15%;
@@ -176,7 +176,7 @@ h4.blog-list-heading {
   }
 
   @include media-breakpoint-up(md) {
-    >p, >h2, >h3, >h4, >ul, >ol {
+    >p, >h2, >h3, >h4, >ul, >ol, >div.text-container {
       @include make-col(8);
       margin-left: 15%;
       margin-right: 15%;
@@ -184,7 +184,7 @@ h4.blog-list-heading {
   }
 
   @include media-breakpoint-up(xl) {
-    >p, >h2, >h3, >h4, >ul, >ol {
+    >p, >h2, >h3, >h4, >ul, >ol, >div.text-container {
       @include make-col(6);
       margin-left: 25%;
       margin-right: 25%;
