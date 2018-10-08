@@ -94,6 +94,10 @@ class FragDenStaatBase(German, Base):
         ('cms/blog_base.html', 'Blog base template'),
     ]
 
+    # Set to False until this is fixed
+    # https://github.com/divio/django-cms/issues/5725
+    CMS_PAGE_CACHE = False
+
     TEXT_ADDITIONAL_TAGS = ('iframe', 'embed',)
     TEXT_ADDITIONAL_ATTRIBUTES = ('scrolling', 'frameborder', 'webkitallowfullscreen',
                                   'mozallowfullscreen', 'allowfullscreen', 'sandbox')
