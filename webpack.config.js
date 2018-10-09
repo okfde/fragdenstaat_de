@@ -85,7 +85,8 @@ const config = {
     modules: [
       'fragdenstaat_de/theme/static',
       FROIDE_STATIC,
-      'node_modules'
+      path.resolve(__dirname, 'node_modules'), // Resolve all dependencies first in fds node_modules
+      './node_modules'
     ],
     extensions: ['.js', '.vue', '.json'],
     alias: {
