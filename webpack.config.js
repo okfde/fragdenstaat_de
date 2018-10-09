@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const webpack = require('webpack')
 
@@ -32,13 +33,13 @@ console.log('Detected Froide at', FROIDE_PATH, FROIDE_STATIC)
 console.log('Froide plugins', FROIDE_PLUGINS)
 
 const ENTRY = {
-  main: ['./frontend/javascript/main.js', 'jquery'],
+  main: ['./frontend/javascript/main.js'],
   food: 'froide_food/frontend/javascript/main.js',
   publicbody: 'froide/frontend/javascript/publicbody.js',
   makerequest: 'froide/frontend/javascript/makerequest.js',
   request: 'froide/frontend/javascript/request.js',
   redact: 'froide/frontend/javascript/redact.js',
-  tagautocomplete: ['froide/frontend/javascript/tagautocomplete.js']
+  tagautocomplete: 'froide/frontend/javascript/tagautocomplete.js'
 }
 
 const EXCLUDE_CHUNKS = [
@@ -91,13 +92,23 @@ const config = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.runtime.esm.js',
-      'froide': FROIDE_PATH,
-      'froide_static': FROIDE_STATIC,
-      ...FROIDE_PLUGINS
+      // 'froide': FROIDE_PATH,
+      'froide_static': FROIDE_STATIC
+      // ...FROIDE_PLUGINS
     }
   },
   module: {
     rules: [
+      {
+        test: /bootstrap\.native/,
+        use: {
+          loader: 'bootstrap.native-loader',
+          options: {
+            bsVersion: 4,
+            only: ['modal', 'dropdown', 'collapse', 'alert', 'tab', 'tooltip']
+          }
+        }
+      },
       {
         test: /\.js$/,
         include: /(\/frontend|node_modules\/(bootstrap))/,
@@ -181,6 +192,9 @@ const config = {
     ]
   },
   plugins: [
+    // new BundleAnalyzerPlugin({
+    //   analyzerPort: 8905
+    // }),
     new WriteFilePlugin(),
     new webpack.NamedModulesPlugin(),
     new VueLoaderPlugin(),
@@ -193,13 +207,6 @@ const config = {
     new CopyWebpackPlugin([
       {from: 'node_modules/pdfjs-dist/build/pdf.worker.min.js'}
     ]),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      Popper: ['popper.js/dist/popper.js', 'default']
-    }),
-
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: `"${process.env.NODE_ENV}"`
@@ -224,13 +231,13 @@ const config = {
     splitChunks: {
       cacheGroups: {
         common: {
-          test: /node_modules/,
-          name: 'common',
+          test: /[\\/]node_modules[\\/]/,
           chunks (chunk) {
             return CHUNK_LIST.indexOf(chunk.name) !== -1
           },
-          enforce: true,
-          minChunks: 2
+          name: 'common',
+          minChunks: 2,
+          minSize: 0
         }
       }
     },

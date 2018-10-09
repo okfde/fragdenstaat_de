@@ -6,4 +6,3 @@ import './misc'
 
 module.exports = {
 }
-
