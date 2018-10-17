@@ -40,11 +40,7 @@ class WebpackDevStaticFilesStorage(StaticFilesStorage):
 
 class Dev(FragDenStaatBase):
     GEOIP_PATH = None
-    HAYSTACK_CONNECTIONS = {
-        'default': {
-            'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
-        }
-    }
+
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.dummy.DummyCache'

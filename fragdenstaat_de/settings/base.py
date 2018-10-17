@@ -57,7 +57,6 @@ class FragDenStaatBase(German, Base):
 
             'leaflet',
 
-            'celery_haystack',
             'djcelery_email',
             'django.contrib.redirects',
             'tinymce',
@@ -256,18 +255,7 @@ class FragDenStaatBase(German, Base):
         }
     }
 
-    # ######## Celery Haystack ########
-    # Experimental feature to update index after 60s
-    CELERY_HAYSTACK_COUNTDOWN = 60
-
     # ######### Debug ###########
-
-    HAYSTACK_CONNECTIONS = {
-        'default': {
-            'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
-        }
-    }
-    HAYSTACK_SIGNAL_PROCESSOR = 'celery_haystack.signals.CelerySignalProcessor'
 
     SITE_NAME = "FragDenStaat"
     SITE_EMAIL = "info@fragdenstaat.de"
@@ -317,6 +305,7 @@ class FragDenStaatBase(German, Base):
                 'fax': 'froide_fax.fax.FaxMessageHandler'
             },
             delivery_reporter='froide.foirequest.delivery.PostfixDeliveryReporter',
+            search_text_analyzer='fragdenstaat_de.theme.search.get_text_analyzer',
             dryrun_domain="test.fragdenstaat.de",
             allow_pseudonym=True,
             api_activated=True,

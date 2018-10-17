@@ -91,14 +91,13 @@ class FragDenStaat(FragDenStaatBase):
 
     GEOIP_PATH = env('DJANGO_GEOIP_PATH')
 
-    HAYSTACK_CONNECTIONS = {
+    ELASTICSEARCH_INDEX_PREFIX = 'fragdenstaat_de'
+    ELASTICSEARCH_DSL = {
         'default': {
-            'ENGINE': 'froide.helper.elasticsearch.FroideElasticsearch2SearchEngine',
-            'URL': 'http://127.0.0.1:9200/',
-            'INDEX_NAME': 'fragdenstaat_de',
-        }
+            'hosts': 'localhost:9200'
+        },
     }
-    HAYSTACK_SIGNAL_PROCESSOR = 'celery_haystack.signals.CelerySignalProcessor'
+    ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = 'django_elasticsearch_dsl.signals.RealTimeSignalProcessor'
 
     LOGGING = {
         'loggers': {
