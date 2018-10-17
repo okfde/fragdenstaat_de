@@ -11,6 +11,7 @@ class FragDenStaat(FragDenStaatBase):
     DEBUG = False
     TEMPLATE_DEBUG = False
     CELERY_TASK_ALWAYS_EAGER = False
+    CELERY_TASK_EAGER_PROPAGATES = False
     CELERY_SEND_TASK_ERROR_EMAILS = True
 
     ADMINS = (('FragDenStaat.de', 'mail@fragdenstaat.de'),)
@@ -97,7 +98,7 @@ class FragDenStaat(FragDenStaatBase):
             'hosts': 'localhost:9200'
         },
     }
-    ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = 'django_elasticsearch_dsl.signals.RealTimeSignalProcessor'
+    ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = 'froide.helper.search.CelerySignalProcessor'
 
     LOGGING = {
         'loggers': {
