@@ -5,7 +5,7 @@
     {{ post.date_published|date:"DATE_FORMAT" }}
   </div>
   {% if post.main_image_id %}
-     <a href="{{ post.get_absolute_url }}">{% include "djangocms_blog/includes/blog_picture.html" with picture=post.main_image %}</a>
+     <a href="{{ post.get_absolute_url }}">{% include "djangocms_blog/includes/blog_picture_small.html" with picture=post.main_image %}</a>
   {% endif %}
   <h4 class="blog-list-heading">
     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>

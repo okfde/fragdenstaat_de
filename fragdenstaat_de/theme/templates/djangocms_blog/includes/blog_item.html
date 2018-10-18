@@ -2,7 +2,7 @@
 
 <article id="post-{{ post.slug }}" class="post-item">
   {% if post.main_image_id %}
-     <a href="{{ post.get_absolute_url }}">{% include "djangocms_blog/includes/blog_picture.html" with picture=post.main_image %}</a>
+     <a href="{{ post.get_absolute_url }}">{% include "djangocms_blog/includes/blog_picture_small.html" with picture=post.main_image %}</a>
   {% endif %}
   <div class="blog-header__date">
     {{ post.date_published|date:"DATE_FORMAT" }}
