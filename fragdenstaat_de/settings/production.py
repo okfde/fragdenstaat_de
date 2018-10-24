@@ -90,6 +90,8 @@ class FragDenStaat(FragDenStaatBase):
     FOI_EMAIL_USE_TLS = True
     FOI_MEDIA_PATH = 'foi'
 
+    BOUNCE_EMAIL_PORT_IMAP = 143
+
     GEOIP_PATH = env('DJANGO_GEOIP_PATH')
 
     ELASTICSEARCH_INDEX_PREFIX = 'fragdenstaat_de'
