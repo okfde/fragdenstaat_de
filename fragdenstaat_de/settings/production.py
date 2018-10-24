@@ -38,7 +38,6 @@ class FragDenStaat(FragDenStaatBase):
 
     CACHES = {'default': django_cache_url.config()}
 
-    CELERY_EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -67,13 +66,13 @@ class FragDenStaat(FragDenStaatBase):
 
     DEFAULT_FROM_EMAIL = 'FragDenStaat.de <info@fragdenstaat.de>'
     EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+    CELERY_EMAIL_BACKEND = 'froide.foirequest.smtp.EmailBackend'
     # EMAIL_HOST
     # EMAIL_HOST_PASSWORD
     # EMAIL_HOST_USER
     EMAIL_SUBJECT_PREFIX = '[AdminFragDenStaat] '
     EMAIL_USE_TLS = True
     EMAIL_PORT = 25
-    FOI_EMAIL_BACKEND = 'froide.foirequest.smtp.FoiEmailBackend'
     # FOI_EMAIL_ACCOUNT_NAME
     # FOI_EMAIL_ACCOUNT_PASSWORD
     FOI_EMAIL_DOMAIN = ['fragdenstaat.de', 'echtemail.de']

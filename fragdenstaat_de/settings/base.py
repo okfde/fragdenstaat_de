@@ -280,7 +280,7 @@ class FragDenStaatBase(German, Base):
     EMAIL_SUBJECT_PREFIX = '[AdminFragDenStaat] '
 
     EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
-    CELERY_EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    CELERY_EMAIL_BACKEND = 'froide.foirequest.smtp.EmailBackend'
     CELERY_EMAIL_TASK_CONFIG = {
         'max_retries': None,
         'ignore_result': False,
