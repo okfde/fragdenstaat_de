@@ -55,8 +55,6 @@ class FragDenStaatBase(German, Base):
             'djangocms_picture',
             'djangocms_video',
 
-            'leaflet',
-
             'djcelery_email',
             'django.contrib.redirects',
             'tinymce',
