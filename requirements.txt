@@ -66,6 +66,7 @@ elasticsearch-dsl==6.1.0
 geoip2==2.9.0
 honcho==1.0.1
 html5lib==0.9999999
+icalendar==4.0.3
 idna==2.7
 itypes==1.1.0
 jinja2==2.10
