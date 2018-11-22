@@ -13,7 +13,9 @@
   {% endblock %}
   {% render_block "css" %}
 
-  {% include "snippets/meta.html" %}
+  {% block meta %}
+    {% include "snippets/meta.html" %}
+  {% endblock %}
 
   {% block extra_head %}
   {% endblock %}
