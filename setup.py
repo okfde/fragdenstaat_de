@@ -87,7 +87,7 @@ setup(
         'pylatex',
         'twilio',
         'djangorestframework-csv',
-        'pyisemail'
+        'pyisemail',
         'icalendar',
     ],
     include_package_data=True,
