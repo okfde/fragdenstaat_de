@@ -40,7 +40,6 @@ class FragDenStaatBase(German, Base):
 
             # Blog and dependencies
             'aldryn_apphooks_config',
-            'aldryn_search',
             'cmsplugin_filer_image',
             'parler',
             'taggit_autosuggest',
