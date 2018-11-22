@@ -48,6 +48,8 @@ class FragDenStaatBase(German, Base):
             'sortedm2m',
             'djangocms_blog',
 
+            'overextends',
+
             'fragdenstaat_de.fds_cms',
 
             # Additional CMS plugins
@@ -76,6 +78,7 @@ class FragDenStaatBase(German, Base):
         TEMP[0]['DIRS'] = [
             os.path.join(THEME_ROOT, 'theme', 'templates'),
         ] + list(TEMP[0]['DIRS'])
+        TEMP[0]['OPTIONS']['builtins'] = ['overextends.templatetags.overextends_tags']
         cps = TEMP[0]['OPTIONS']['context_processors']
         cps.extend([
             'sekizai.context_processors.sekizai',
