@@ -1,9 +1,8 @@
-from __future__ import unicode_literals
+from urllib.parse import urlparse
 
 from django.conf import settings
 from django.utils.encoding import force_text
 from django.utils.http import is_same_domain
-from django.utils.six.moves.urllib.parse import urlparse
 from django.middleware.csrf import (CsrfViewMiddleware, _sanitize_token,
                                     _compare_salted_tokens,
                                     REASON_BAD_REFERER,
