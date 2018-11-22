@@ -1,11 +1,7 @@
-# -*- encoding: utf-8 -*-
+import csv
 from collections import Counter
 
-import unicodecsv
-
 from django.core.management.base import BaseCommand
-from django.utils import translation
-from django.conf import settings
 
 
 class Command(BaseCommand):
@@ -48,7 +44,7 @@ class Command(BaseCommand):
             return status_counter
 
         output = open(output, 'w')
-        writer = unicodecsv.DictWriter(output,
+        writer = csv.DictWriter(output,
             ('name', 'gb', 'year', 'total_count'), encoding='utf-8')
         writer.writeheader()
 
@@ -79,7 +75,7 @@ class Command(BaseCommand):
             'BVerfG'
         ]
 
-        for year in range(2011, 2016):
+        for year in range(2011, 2018):
             for short_name in short_names:
                 print(short_name)
                 try:
