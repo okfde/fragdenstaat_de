@@ -39,7 +39,8 @@ const ENTRY = {
   makerequest: 'froide/frontend/javascript/makerequest.js',
   request: 'froide/frontend/javascript/request.ts',
   redact: 'froide/frontend/javascript/redact.js',
-  tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts'
+  tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts',
+  docupload: 'froide/frontend/javascript/docupload.js'
 }
 
 const EXCLUDE_CHUNKS = [
