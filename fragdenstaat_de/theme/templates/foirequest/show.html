@@ -5,6 +5,7 @@
 
 {% load foirequest_tags %}
 {% load fax_tags %}
+{% load fds_cms_tags %}
 
 
 {% block foirequest_header %}
@@ -50,4 +51,8 @@
       {% include "froide_legalaction/includes/request_pane.html" with object=object %}
     </div>
   {% endif %}
+{% endblock %}
+
+{% block before_correspondence %}
+  {% fds_static_placeholder "banner_ad" %}
 {% endblock %}
