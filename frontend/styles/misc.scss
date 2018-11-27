@@ -37,3 +37,15 @@
   color: #fff;
   cursor: pointer;
 }
+
+.donation-block {
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: cover;
+  background-image: url('https://media.frag-den-staat.de/files/media/main/ed/9e/ed9e1c68-325a-4945-9ca6-5befb7a71c0e/markus-spiske-463479-unsplash.jpg');
+
+  .col-md-8 {
+    padding: 1rem;
+    background-color: rgba(255,255,255, 0.5);
+  }
+}

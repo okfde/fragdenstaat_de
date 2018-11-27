@@ -1,0 +1,12 @@
+{% load cms_tags %}
+
+<div class="donation-block bg-light border-dark border-right-0 border-top-0 border-left-0" style="display: none;z-index:900">
+  <button type="button" class="close" aria-label="Schließen">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="container mb-1 mt-4 pb-3">
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+  </div>
+</div>

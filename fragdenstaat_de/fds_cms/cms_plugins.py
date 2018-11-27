@@ -106,6 +106,15 @@ class ContinueLinkPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
+class DropdownBannerPlugin(CMSPluginBase):
+    module = _("Ads")
+    name = _('Dropdown Banner')
+    allow_children = True
+    cache = True
+    render_template = "cms/plugins/dropdown_banner.html"
+
+
+@plugin_pool.register_plugin
 class FoiRequestListPlugin(CMSPluginBase):
     """
     Plugin for including the latest entries filtered
