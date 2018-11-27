@@ -35,12 +35,12 @@ setup(
     author_email='mail@stefanwehrmeyer.com',
     packages=find_packages(),
     install_requires=[
-        # 'froide',
-        # 'froide-campaign',
-        # 'froide-food',
-        # 'froide-fax',
-        # 'froide-legalaction',
-        # 'django-filingcabinet',
+        'froide',
+        'froide-campaign',
+        'froide-food',
+        'froide-fax',
+        'froide-legalaction',
+        'django-filingcabinet',
 
         'django<2.0',
         'markdown',
