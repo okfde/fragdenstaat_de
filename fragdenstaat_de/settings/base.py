@@ -91,6 +91,7 @@ class FragDenStaatBase(German, Base):
         ('cms/page.html', 'Page template'),
         ('cms/page_headerless.html', 'Page without header'),
         ('cms/blog_base.html', 'Blog base template'),
+        ('cms/static_placeholders.html', 'Static Placeholder Overview'),
     ]
 
     # Set to False until this is fixed
