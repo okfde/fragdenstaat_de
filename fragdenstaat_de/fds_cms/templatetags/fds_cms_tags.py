@@ -8,11 +8,16 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def fds_static_placeholder(context, code):
-    static_placeholder = StaticPlaceholder.objects.get(
-        code=code,
-        site_id__isnull=True
-    )
+    try:
+        static_placeholder = StaticPlaceholder.objects.get(
+            code=code,
+            site_id__isnull=True
+        )
+    except StaticPlaceholder.DoesNotExist:
+        return ''
     placeholder = static_placeholder.public
+    if 'request' not in context:
+        return ''
     request = context['request']
     renderer = ContentRenderer(request=request)
     content = renderer.render_placeholder(
