@@ -1,82 +1,192 @@
 {% overextends "footer.html" %}
 
+{% load static %}
 {% load content_helper %}
 
-{% block footer_credits %}
-  <p class="footer__credits">
-    FragDenStaat.de ist ein gemeinnütziges Projekt des <a href="https://okfn.de">Open Knowledge Foundation Deutschland e.V.</a>
-    <br/>
-    Bitte unterstützen Sie unsere Arbeit. <a href="/spenden/?pk_campaign=site-footer&amp;pk_keyword={{ request.path | urlencode }}">Spenden Sie uns jetzt!</a>
-  </p>
-  <ul class="footer__networks">
-    <li>
-      <a href="https://twitter.com/fragdenstaat" target="_blank" rel="noopener">
-        <i class="fa fa-twitter" aria-hidden="true"></i>
-        <span class="sr-only">Twitter</span>
-      </a>
-    </li>
-    <li>
-      <a href="https://www.facebook.com/fragdenstaat.de" target="_blank" rel="noopener">
-        <i class="fa fa-facebook" aria-hidden="true"></i>
-        <span class="sr-only">Facebook</span>
-      </a>
-    </li>
-    <li>
-      <a href="https://github.com/okfde/fragdenstaat_de" target="_blank" rel="noopener">
-        <i class="fa fa-github" aria-hidden="true"></i>
-        <span class="sr-only">GitHub</span>
-      </a>
-    </li>
-  </ul>
-{% endblock %}
+{% block footer %}
+  <div class="row mt-5">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-4 col-6">
+          <h6>FragDenStaat</h6>
+          <ul class="footer__menu">
+            <li>
+              <a href="/blog/">Blog</a>
+            </li>
+            <li>
+              <a href="/blog/kategorie/exklusiv/">Recherchen</a>
+            </li>
+            <li>
+              <a href="/plus/">Für Journalisten</a>
+            </li>
+            <li>
+              <a href="https://app.fragdenstaat.de">FragDenStaat-App</a>
+            </li>
+            <li>
+              <a href="/api/">Entwickler &amp; API</a>
+            </li>
+          </ul>
+        </div>
 
+        <div class="col-md-4 col-6">
+          <h6>Hilfe &amp; Support</h6>
+          <ul class="footer__menu">
+            <li>
+              <a href="{% content_url 'help' %}">Hilfe</a>
+            </li>
+            <li>
+              <a href="/hilfe/fuer-behoerden/">Infos für Behörden</a>
+            </li>
+            <li>
+              <a href="/hilfe/einsteiger-guide/">Einsteiger-Guide</a>
+            </li>
+            <li>
+              <a href="/hilfe/anfrage-ideen/">Ideen für Anfragen</a>
+            </li>
+          </ul>
+        </div>
 
-{% block footer_menu %}
-<li>
-  <a href="{% content_url 'about' %}">Über uns</a>
-</li>
-<li>
-  <a href="/info/informationsfreiheit/einfuehrung/">Informationsfreiheit</a>
-</li>
-<li>
-  <a href="/impressum/">Impressum</a>
-</li>
-<li>
-  <a href="{% content_url 'help' %}">Hilfe</a>
-</li>
-<li>
-  <a href="https://feeds.feedburner.com/detektorfm_frag-den-staat">
-    Podcast
-  </a>
-</li>
-<li>
-  <a href="{% content_url 'privacy' %}">
-    Daten&shy;schutz&shy;erklärung
-  </a>
-</li>
-<li>
-  <a class="footer__highlight" href="/spenden/">
-    Spenden
-  </a>
-</li>
-<li>
-  <a href="/shop/">Shop</a>
-</li>
-<li>
-  <a href="{% content_url 'terms' %}">
-    Nutzungs&shy;bedingun&shy;gen
-  </a>
-</li>
+        <div class="col-md-4 col-6">
+          <h6>Unterstützen</h6>
+          <ul class="footer__menu">
+            <li>
+              <a href="/info/ueber/mitmachen/">Mitmachen</a>
+            </li>
+            <li>
+              <a href="/shop/">Shop</a>
+            </li>
+            <li>
+              <a class="footer__highlight" href="/spenden/?pk_campaign=site-footer&amp;pk_keyword={{ request.path | urlencode }}">
+                Spenden
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-4 col-6">
+          <h6>Informations&shy;freiheit</h6>
+          <ul class="footer__menu">
+            <li>
+              <a href="/info/informationsfreiheit/einfuehrung/">Einführung</a>
+            </li>
+            <li>
+              <a href="/info/informationsfreiheit/fristen-ablehnungen/">Fristen &amp; Ablehnungen</a>
+            </li>
+            <li>
+              <a href="/info/informationsfreiheit/gebuehren/">Gebühren</a>
+            </li>
+            <li>
+              <a href="/info/informationsfreiheit/widersprueche-klagen/">Widersprüche & Klagen</a>
+            </li>
+            <li>
+              <a href="/info/informationsfreiheit/bundeslaender/">Bundesländer</a>
+            </li>
+          </ul>
+        </div>
 
-{% endblock %}
+        <div class="col-md-4 col-6">
+          <h6>Über uns</h6>
+          <ul class="footer__menu">
+            <li>
+              <a href="/info/ueber/team/">Team</a>
+            </li>
+            <li>
+              <a href="/info/ueber/finanzierung/">Finanzierung</a>
+            </li>
+            <li>
+              <a href="/info/ueber/klagen/">Unsere Klagen</a>
+            </li>
+            <li>
+              <a href="/info/ueber/medien/">Presse & Medien</a>
+            </li>
+            <li>
+              <a href="/impressum/">Kontakt</a>
+            </li>
 
-{% block footer_below %}
+          </ul>
+        </div>
+
+        <div class="col-md-4 col-6">
+          <h6>Rechtliches</h6>
+          <ul class="footer__menu">
+            <li>
+              <a href="/impressum/">Impressum</a>
+            </li>
+            <li>
+              <a href="{% content_url 'terms' %}">Nutzungsbedingungen</a>
+            </li>
+            <li>
+              <a href="{% content_url 'privacy' %}">Datenschutzerklärung</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-sm-6 col-md-12 order-1 mb-md-5">
+          <h6>Social media</h6>
+          <ul class="footer__networks">
+            <li>
+              <a href="https://twitter.com/fragdenstaat" target="_blank" rel="noopener">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <span class="sr-only">Twitter</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/fragdenstaat.de" target="_blank" rel="noopener">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+                <span class="sr-only">Facebook</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/okfde/fragdenstaat_de" target="_blank" rel="noopener">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <span class="sr-only">GitHub</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://detektor.fm/feeds/frag-den-staat" target="_blank" rel="noopener">
+                <i class="fa fa-podcast" aria-hidden="true"></i>
+                <span class="sr-only">Podcast</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com/fragdenstaat" target="_blank" rel="noopener">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+                <span class="sr-only">Instagram</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://fragdenstaat.de/blog/feed/" target="_blank" rel="noopener">
+                <i class="fa fa-rss" aria-hidden="true"></i>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/watch?v=HfAgSviLiv0&list=PL9h-RCl9wnxqmamDYOLpULDgNGNL_VLW_&index=1" target="_blank" rel="noopener">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+                <span class="sr-only">Youtube</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-6 col-md-12 order-2 mt-md-5">
+          <a href="https://okfn.de" class="d-block" style="max-width: 250px">
+            <img class="img-fluid" src="{% static 'img/okfde.svg' %}" alt="Open Knowledge Foundation Deutschland"/>
+          </a>
+          <p class="footer__credits mt-3 small">
+            FragDenStaat.de ist ein gemeinnütziges Projekt des <a href="https://okfn.de">Open Knowledge Foundation Deutschland e.V.</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
   <hr/>
-  <div class="row small">
+  <div class="row mt-3 mb-3 small">
     <div class="col-lg-12">
       <p>
         FragDenStaat nutzt statt den üblichen externen Dienstleistern die datenschutzfreundlichere Technologie von <a href="https://matomo.org">Matomo</a>, um statistische Auswertungen der Seitennutzung zu erhalten. Wenn Sie dies nicht wollen, <a href="https://traffic.okfn.de/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=de">klicken Sie bitte hier und entfernen Sie den Haken</a>. Näheres in <a href="/datenschutzerklarung/">unserer Datenschutzerklärung</a>.
       </p>
     </div>
   </div>
-{% endblock footer_below %}
+{% endblock %}
