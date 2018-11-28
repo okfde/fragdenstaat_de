@@ -34,7 +34,7 @@ const getHeight = function (el: HTMLElement) {
 * all in one function comparing the max-heigth to 0
   */
 var toggleSlide = function (el: HTMLElement) {
-  var elMaxHeight = 0
+  var elMaxHeight = '0px'
 
   if (el.getAttribute('data-max-height')) {
     // we've already used this before, so everything is setup
@@ -46,16 +46,16 @@ var toggleSlide = function (el: HTMLElement) {
       el.style.maxHeight = '0'
     }
   } else {
-    let maxHeight = getHeight(el) + 'px'
+    elMaxHeight = getHeight(el) + 'px'
     el.style['transition'] = 'max-height 2s ease-in-out'
     el.style.overflowY = 'hidden'
     el.style.maxHeight = '0'
-    el.setAttribute('data-max-height', maxHeight)
+    el.setAttribute('data-max-height', elMaxHeight)
     el.style.display = 'block'
 
     // we use setTimeout to modify maxHeight later than display (so we have the transition effect)
     setTimeout(function () {
-      el.style.maxHeight = elMaxHeight + 'px'
+      el.style.maxHeight = elMaxHeight
     }, 10)
   }
 }
