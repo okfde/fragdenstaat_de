@@ -33,7 +33,7 @@ console.log('Detected Froide at', FROIDE_PATH, FROIDE_STATIC)
 console.log('Froide plugins', FROIDE_PLUGINS)
 
 const ENTRY = {
-  main: ['./frontend/javascript/main.js'],
+  main: ['./frontend/javascript/main.ts'],
   food: 'froide_food/frontend/javascript/main.js',
   publicbody: 'froide/frontend/javascript/publicbody.js',
   makerequest: 'froide/frontend/javascript/makerequest.js',
@@ -89,7 +89,7 @@ const config = {
       path.resolve(__dirname, 'node_modules'), // Resolve all dependencies first in fds node_modules
       './node_modules'
     ],
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.ts', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.runtime.esm.js',
       // 'froide': FROIDE_PATH,
@@ -108,6 +108,28 @@ const config = {
             only: ['modal', 'dropdown', 'collapse', 'alert', 'tab', 'tooltip']
           }
         }
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [
+          // {
+          //   loader: 'babel-loader',
+          //   options: {
+          //     presets: [path.resolve('./node_modules/babel-preset-env')],
+          //     babelrc: false,
+          //     plugins: [
+          //       require('babel-plugin-transform-object-rest-spread')
+          //     ]
+          //   }
+          // },
+          {
+            loader: 'ts-loader',
+            options: {
+              appendTsSuffixTo: [/\.vue$/]
+            }
+          }
+        ]
       },
       {
         test: /\.js$/,
