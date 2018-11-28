@@ -338,8 +338,8 @@ class FragDenStaatBase(German, Base):
             ],
             closings=[rec(r"([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u)(ß|ss)(en?)?,?"), rec("Hochachtungsvoll,?"), rec(r'i\. ?A\.'), rec('[iI]m Auftrag')],
             content_urls={
-                'terms': '/hilfe/howto/nutzungsbedingungen/',
-                'privacy': '/hilfe/howto/datenschutzerklaerung/',
+                'terms': '/nutzungsbedingungen/',
+                'privacy': '/datenschutzerklaerung/',
                 'about': '/hilfe/ueber/',
                 'help': '/hilfe/',
             },
