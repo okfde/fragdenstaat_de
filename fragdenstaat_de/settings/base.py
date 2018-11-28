@@ -66,6 +66,7 @@ class FragDenStaatBase(German, Base):
             'froide_legalaction.apps.FroideLegalActionConfig',
             'froide_food.apps.FroideFoodConfig',
             'froide_fax.apps.FroideFaxConfig',
+            'froide_exam'
         ]
         return installed.default
 

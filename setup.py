@@ -39,6 +39,7 @@ setup(
         'froide-campaign',
         'froide-food',
         'froide-fax',
+        'froide-exam',
         'froide-legalaction',
         'django-filingcabinet',
 
