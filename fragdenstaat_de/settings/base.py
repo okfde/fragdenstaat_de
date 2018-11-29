@@ -94,6 +94,7 @@ class FragDenStaatBase(German, Base):
         ('cms/blog_base.html', 'Blog base template'),
         ('cms/static_placeholders.html', 'Static Placeholder Overview'),
     ]
+    DJANGOCMS_PICTURE_NESTING = True
 
     # Set to False until this is fixed
     # https://github.com/divio/django-cms/issues/5725
