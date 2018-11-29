@@ -1,6 +1,32 @@
 {% load cms_tags %}
+{% load thumbnail %}
 
-<div class="hero-image" style="background-image: url('{{ instance.picture.url }}')">
+<style>
+#hero-image-{{ instance.pk }} {
+    background-image: url('{% thumbnail instance.picture 576x0 subject_location=instance.picture.subject_location %}');
+}
+@media(min-width:576px){
+    #hero-image-{{ instance.pk }} {
+        background-image: url('{% thumbnail instance.picture 768x0 subject_location=instance.picture.subject_location %}');
+    }
+}
+@media(min-width:768px){
+    #hero-image-{{ instance.pk }} {
+        background-image: url('{% thumbnail instance.picture 992x0 subject_location=instance.picture.subject_location %}');
+    }
+}
+@media(min-width:992px){
+    #hero-image-{{ instance.pk }} {
+        background-image: url('{% thumbnail instance.picture 1200x0 subject_location=instance.picture.subject_location %}');
+    }
+}
+@media(min-width:1200px){
+    #hero-image-{{ instance.pk }} {
+        background-image: url('{% thumbnail instance.picture 1920x0 subject_location=instance.picture.subject_location %}');
+    }
+}
+</style>
+<div class="hero-image" id="hero-image-{{ instance.pk }}">
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% endfor %}
