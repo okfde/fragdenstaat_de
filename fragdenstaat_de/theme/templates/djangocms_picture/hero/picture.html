@@ -1,3 +1,5 @@
+{% load cms_tags %}
+
 <div class="hero-image" style="background-image: url('{{ instance.picture.url }}')">
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
