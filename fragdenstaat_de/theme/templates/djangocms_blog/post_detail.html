@@ -49,6 +49,9 @@
       {% render_model post "post_text" "post_text" "" "safe" %}
     </div>
   {% endif %}
+
+  {% static_placeholder "dropdown_banner" %}
+
   {% if post.author %}
     <div class="container">
       <div class="author-section">
