@@ -16,7 +16,8 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "noImplicitAny":  true
   },
   "include": [
     "./frontend/javascript/**/*"

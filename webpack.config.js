@@ -37,9 +37,9 @@ const ENTRY = {
   food: 'froide_food/frontend/javascript/main.js',
   publicbody: 'froide/frontend/javascript/publicbody.js',
   makerequest: 'froide/frontend/javascript/makerequest.js',
-  request: 'froide/frontend/javascript/request.js',
+  request: 'froide/frontend/javascript/request.ts',
   redact: 'froide/frontend/javascript/redact.js',
-  tagautocomplete: 'froide/frontend/javascript/tagautocomplete.js'
+  tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts'
 }
 
 const EXCLUDE_CHUNKS = [
@@ -124,7 +124,7 @@ const config = {
           //   }
           // },
           {
-            loader: 'ts-loader',
+            loader: 'awesome-typescript-loader',
             options: {
               appendTsSuffixTo: [/\.vue$/]
             }
@@ -135,14 +135,7 @@ const config = {
         test: /\.js$/,
         include: /(\/frontend|node_modules\/(bootstrap))/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [path.resolve('./node_modules/babel-preset-env')],
-            babelrc: false,
-            plugins: [
-              require('babel-plugin-transform-object-rest-spread')
-            ]
-          }
+          loader: 'babel-loader'
         }
       },
       {
