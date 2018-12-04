@@ -19,6 +19,13 @@ function showDonationBanner () {
     }
   }
 
+  const els = document.querySelectorAll('.donation-block')
+  if (els.length === 2) {
+    /* Show second banner like normal */
+    let demoEl = <HTMLElement> els[1]
+    demoEl.style.display = 'block'
+    return
+  }
   if (document.location && document.location.pathname) {
     if (document.location.pathname.indexOf('/spenden/') !== -1 ||
         document.location.pathname.indexOf('/blog/') !== -1 ||
@@ -26,12 +33,6 @@ function showDonationBanner () {
         document.location.pathname.indexOf('/account/') !== -1) {
       return
     }
-  }
-  const els = document.querySelectorAll('.donation-block')
-  if (els.length === 2) {
-    let demoEl = <HTMLElement> els[1]
-    demoEl.style.display = 'block'
-    return
   }
   if (els.length !== 1) {
     return
