@@ -20,8 +20,24 @@ window.document.addEventListener('securitypolicyviolation', (e) => {
     videoEmbed.addEventListener('click', function (this: HTMLElement, e) {
       e.preventDefault()
       let parent = this.parentElement
-      if (parent !== null) {
-        parent.innerHTML = '<iframe src="' + this.dataset.url + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+      if (parent !== null && this.dataset.url) {
+        const iframe = document.createElement('iframe')
+        iframe.src = this.dataset.url
+        iframe.setAttribute('frameBorder', '0')
+        iframe.setAttribute('webkitallowfullscreen', '')
+        iframe.setAttribute('mozallowfullscreen', '')
+        iframe.setAttribute('allowfullscreen', '')
+        parent.appendChild(iframe)
+        if (this.dataset.vimeosubtitlelanguage) {
+          const lang = this.dataset.vimeosubtitlelanguage
+          const origin = this.dataset.url.split('/').slice(0, 3).join('/')
+          const setLanguage = () => {
+            if (!iframe.contentWindow) { return }
+            iframe.contentWindow.postMessage({method:'enableTextTrack', value: {language: lang, kind: 'subtitles'}}, origin)
+          }
+          iframe.addEventListener('load', setLanguage)
+          window.setTimeout(setLanguage, 1000)
+        }
       }
     })
   }
