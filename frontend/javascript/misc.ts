@@ -19,7 +19,7 @@ window.document.addEventListener('securitypolicyviolation', (e) => {
   if (videoEmbed !== null) {
     videoEmbed.addEventListener('click', function (this: HTMLElement, e) {
       e.preventDefault()
-      let parent = <HTMLElement> this.parentNode
+      let parent = this.parentElement
       if (parent !== null) {
         parent.innerHTML = '<iframe src="' + this.dataset.url + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
       }
