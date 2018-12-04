@@ -33,6 +33,6 @@ The following make targets are available:
 
 ## License
 
-Froide and fragdenstaat_de are licensed under the MIT License.
+Froide and fragdenstaat_de are licensed under the AGPL License.
 
 Some folders contain an attributions.txt with more information about the copyright holders for files in this specific folder.
