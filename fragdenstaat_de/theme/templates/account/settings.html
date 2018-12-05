@@ -1,8 +1,11 @@
 {% extends "account/settings.html" %}
 
 {% load fax_tags %}
+{% load newsletter_tags %}
 
 {% block post_password %}
+
+  {% newsletter_settings %}
 
   {% include "froide_fax/_signature_form.html" with form=request.user|get_signature_form next=request.get_full_path %}
 
