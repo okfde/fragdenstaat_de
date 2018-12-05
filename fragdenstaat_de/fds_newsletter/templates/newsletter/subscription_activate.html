@@ -1,0 +1,22 @@
+{% extends "newsletter/common.html" %}
+
+{% load i18n %}
+{% load form_helper %}
+
+{% block title %}{% blocktrans with title=newsletter.title %}„{{ title }}“ Newsletter-Abo bestätigen{% endblocktrans %}{% endblock %}
+
+{% block body %}
+  <h1>{% blocktrans with title=newsletter.title %}„{{ title }}“ Newsletter-Abo bestätigen{% endblocktrans %}</h1>
+
+  <form enctype="multipart/form-data" method="post" action=".">
+      {% csrf_token %}
+      {% render_field form.name_field %}
+      {% render_field form.email_field %}
+      <div style="display:none">
+        {{ form.user_activation_code }}
+      </div>
+      <p>
+        <button type="submit" class="btn btn-primary">{% trans "Activate" %}</button>
+      </p>
+  </form>
+{% endblock body %}

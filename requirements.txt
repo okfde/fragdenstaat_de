@@ -29,6 +29,7 @@ django-markdown-deux==1.0.5
 django-meta-mixin==0.3.0
 django-meta==1.4.1
 django-mptt==0.9.1
+django-newsletter==0.7
 # 1.2 only support Django >=2.0
 django-oauth-toolkit==1.1.2
 django-parler==1.9.2

@@ -1,0 +1,20 @@
+{% extends "newsletter/common.html" %}
+
+{% load i18n %}
+
+{% block title %}{% blocktrans with title=newsletter.title %}„{{ title }}“ Newsletter-Abo bestätigt{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    <h1>
+      {% blocktrans with title=newsletter.title %}„{{ title }}“ Newsletter-Abo bestätigt{% endblocktrans %}
+    </h1>
+
+    <p>
+      Sie haben unseren Newsletter erfolgreich abonniert.
+    </p>
+    <p class="lead">
+      <a href="/blog/">
+        Schauen Sie doch als nächstes auf unserem Blog vorbei!
+      </a>
+    </p>
+{% endblock body %}

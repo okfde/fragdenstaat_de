@@ -1,0 +1,20 @@
+{% autoescape off %}{% if first_name %}Liebe*r {{ first_name }},{% elif name %}Liebe*r {{ name }},{% else %}Hallo!{% endif %}
+
+Du, oder jemand anderes, möchte mit den „{{ newsletter.title }}“-Newsletter abbstellen.
+
+Um das Abbstellen zu bestätigen, klicke bitte diesen Abbstellen-Link:
+
+https://{{ domain }}{{ subscription.unsubscribe_activate_url }}
+
+
+Beste Grüße
+{{ newsletter.sender }}
+
+
+-- 
+
+FragDenStaat.de, ein Projekt der
+Open Knowledge Foundation Deutschland e.V.
+Singerstr. 109, 10179 Berlin
+
+{% endautoescape %}

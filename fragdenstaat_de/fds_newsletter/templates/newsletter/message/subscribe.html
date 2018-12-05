@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Abonnement von {{ newsletter.title }}
+</title>
+</head>
+<body>
+{% if first_name %}Liebe*r {{ first_name }},{% elif name %}Liebe*r {{ name }},{% else %}Hallo!{% endif %}
+
+Du, oder jemand anderes, möchte mit Deiner E-Mail-Adresse den „{{ newsletter.title }}“-Newsletter abonnieren.
+
+Um das Abonnement zu bestätigen, klicke bitte diesen Aktivierung-Link:
+
+https://{{ domain }}{{ subscription.subscribe_activate_url }}
+
+
+Beste Grüße
+{{ newsletter.sender }}
+</body>
+</html>

@@ -90,6 +90,7 @@ setup(
         'djangorestframework-csv',
         'pyisemail',
         'icalendar',
+        'django-newsletter',
     ],
     include_package_data=True,
     classifiers=[

@@ -1,0 +1,20 @@
+{% autoescape off %}{% if first_name %}Liebe*r {{ first_name }},{% elif name %}Liebe*r {{ name }},{% else %}Hallo!{% endif %}
+
+Du, oder jemand anderes, möchte die Abonnement-Details beim „{{ newsletter.title }}“-Newsletter ändern.
+
+Um Änderungen an dem Abonnement durchzuführen, klicke diesen Link:
+
+https://{{ domain }}{{ subscription.update_activate_url }}
+
+
+Beste Grüße
+{{ newsletter.sender }}
+
+
+-- 
+
+FragDenStaat.de, ein Projekt der
+Open Knowledge Foundation Deutschland e.V.
+Singerstr. 109, 10179 Berlin
+
+{% endautoescape %}

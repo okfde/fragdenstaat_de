@@ -1,0 +1,31 @@
+{% load i18n %}<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>{{ newsletter.title }}: {{ message.title }}</title>
+</head>
+<body>
+    <h1>{{ newsletter.title }}</h1>
+    <h2>{{ message.title }}</h2>
+    {% for article in message.articles.all %}
+        <h3>{{ article.title }}</h3>
+        
+        <div>{{ article.text|safe }}</div>
+        
+        {% if article.url %}
+            <div><a href="{{ article.url }}">Weiterlesen</a></div>
+        {% endif %}
+    {% endfor %}
+    
+    <ul>
+        {% if submission.publish %}
+        <li><a href="https://{{ site.domain }}{{ submission.get_absolute_url }}"></a></li>
+        {% endif %}
+        {% if login_url %}
+        <li><a href="{{ login_url }}">Zu Ihrem FragDenStaat.de-Konto</a></li>
+        {% endif %}
+        <li><a href="{{ unsubscribe_url }}">Abbestellen</a></li>
+    </ul>
+</body>
+</html>

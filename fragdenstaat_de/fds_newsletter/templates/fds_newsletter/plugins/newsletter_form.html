@@ -1,0 +1,12 @@
+<form class="ajaxified ajax-parent form-inline" enctype="multipart/form-data" method="post" action="{% url 'newsletter_ajax_subscribe_request' %}">
+  <label for="newsletter_id_email_field" class="sr-only">E-Mail</label>
+  <div class="input-group w-100">
+    <input placeholder="E-Mail" class="form-control" type="email" name="email_field" required id="newsletter_id_email_field">
+    <div class="input-group-append">
+      <button class="btn btn-primary" name="submit" value="Subscribe" type="submit">
+        <span class="fa fa-envelope d-none d-md-inline d-lg-none"></span>
+        <span class="d-md-none d-lg-inline">Abonnieren</span>
+      </button>
+    </div>
+  </div>
+</form>

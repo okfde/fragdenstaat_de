@@ -1,0 +1,37 @@
+{% load i18n %}
+
+<div id="newsletter" class="card mb-3">
+  <h5 class="card-header">
+    Ihre Newsletter-Einstellungen
+  </h5>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-8">
+        <form method="POST" action="{% url 'newsletter_user_settings' %}">
+          {% csrf_token %}
+          {{ formset.management_form }}
+          <table class="table">
+            <thead>
+              <tr>
+                <th colspan="2">{% trans "Newsletter" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for form in formset.forms %}
+                <tr>
+                  <td>{{ form.id }}{{ form.newsletter }}
+                    {{ form.instance.newsletter.title }}
+                  </td>
+                  <td>{{ form.subscribed }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <p>
+            <button class="btn btn-secondary" type="submit">{% trans "Update subscriptions" %}</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

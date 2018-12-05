@@ -1,0 +1,9 @@
+<form class="ajaxified" enctype="multipart/form-data" method="post" action="{% url 'newsletter_ajax_subscribe_request' newsletter_slug=newsletter_slug %}">
+  <label for="id_email_field">
+    E-mail:
+    <input type="email" name="email_field" required id="id_email_field">
+  </label>
+  <button class="btn btn-primary" id="id_submit" name="submit" value="Subscribe" type="submit">
+      Newsletter bekommen
+  </button>
+</form>

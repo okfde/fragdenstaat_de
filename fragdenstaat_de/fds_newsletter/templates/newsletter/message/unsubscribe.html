@@ -1,0 +1,22 @@
+{% load i18n %}<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Abbstellen von „{{ newsletter.title }}“</title>
+</head>
+<body>
+{% if first_name %}Liebe*r {{ first_name }},{% elif name %}Liebe*r {{ name }},{% else %}Hallo!{% endif %}
+
+Du, oder jemand anderes, möchte mit den „{{ newsletter.title }}“-Newsletter abbstellen.
+
+Um das Abbstellen zu bestätigen, klicke bitte diesen Abbstellen-Link:
+
+https://{{ domain }}{{ subscription.unsubscribe_activate_url }}
+
+
+Beste Grüße
+{{ newsletter.sender }}
+
+</body>
+</html>

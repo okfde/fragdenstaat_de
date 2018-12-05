@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Archiv „{{ newsletter.title }}“-Newsletter{% endblock title %}
+
+{% block app_body %}
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2>Archiv des „{{ newsletter.title }}“-Newsletter</h2>
+      <ul class="list-unstyled">
+        {% for submission in latest %}
+          <li>
+            <small>{{ submission.publish_date|date:"DATE_FORMAT" }}</small>
+            <a href="{{ submission.get_absolute_url }}">
+              {{ submission.message.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

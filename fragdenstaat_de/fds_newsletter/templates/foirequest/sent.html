@@ -1,0 +1,15 @@
+{% extends 'foirequest/sent.html' %}
+
+{% block foirequest_sent_footer %}
+  {% if request.user.show_newsletter %}
+    <div class="bg-light pb-5 pt-5">
+      <div class="container">
+        <div class="card">
+          <div class="card-body">
+            {% include "account/includes/newsletter_button.html" with next=url %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% endblock %}

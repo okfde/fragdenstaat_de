@@ -47,6 +47,15 @@ class FragDenStaatBase(German, Base):
             'sortedm2m',
             'djangocms_blog',
 
+            # Newsletter and dependencies
+            # 'sorl.thumbnail',
+            # Customisations
+            'fragdenstaat_de.fds_newsletter',
+
+            'newsletter',
+
+            # No longer needed when PR passes
+            # https://github.com/divio/django-cms/pull/6564
             'overextends',
 
             'fragdenstaat_de.fds_cms',
@@ -85,6 +94,13 @@ class FragDenStaatBase(German, Base):
             'cms.context_processors.cms_settings',
         ])
         return TEMP
+
+    # Newsletter
+
+    NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
+    DEFAULT_NEWSLETTER = 'fragdenstaat'
+
+    # CMS
 
     CMS_TOOLBAR_ANONYMOUS_ON = False
     CMS_TEMPLATES = [
@@ -321,7 +337,6 @@ class FragDenStaatBase(German, Base):
             dryrun_domain="test.fragdenstaat.de",
             allow_pseudonym=True,
             api_activated=True,
-            have_newsletter=True,
             search_engine_query='http://www.google.de/search?as_q=%(query)s&as_epq=&as_oq=&as_eq=&hl=en&lr=&cr=&as_ft=i&as_filetype=&as_qdr=all&as_occt=any&as_dt=i&as_sitesearch=%(domain)s&as_rights=&safe=images',
             show_public_body_employee_name=False,
             request_throttle=[

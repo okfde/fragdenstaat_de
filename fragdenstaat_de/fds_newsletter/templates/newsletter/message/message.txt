@@ -1,0 +1,20 @@
+{% autoescape off %}{% if first_name %}Liebe*r {{ first_name }},{% elif name %}Liebe*r {{ name }},{% else %}Hallo!{% endif %}
+{% for article in message.articles.all %}
+{{ article.text | striptags }}
+{% if article.url %}
+{{ article.url }}
+{% endif %}
+{% endfor %}
+
+-- 
+
+{% if login_url %}
+Zu Ihrem FragDenStaat.de-Account:
+{{ login_url}}
+{% endif %}
+FragDenStaat.de, ein Projekt der
+Open Knowledge Foundation Deutschland e.V.
+Singerstr. 109, 10179 Berlin
+
+Abbstellen: {{ unsubscribe_url }} 
+{% endautoescape %}

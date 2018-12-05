@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block app_body %}
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div>
+        <p class="lead">
+          Abonnieren Sie unseren Newsletter!
+        </p>
+        {% include "fds_newsletter/plugins/newsletter_form.html" %}
+      </div>
+      <hr/>
+      <p class="small">
+        Newsletter vom {{ date|date:"DATE_FORMAT" }}
+      </p>
+      <h2>{{ message.title }}</h2>
+      {% for article in message.articles.all %}
+          <h3>{{ article.title }}</h3>
+          
+          <div>{{ article.text|safe }}</div>
+          
+          {% if article.url %}
+              <div><a href="{{ article.url }}">Weiterlesen</a></div>
+          {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}
