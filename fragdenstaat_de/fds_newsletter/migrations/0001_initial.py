@@ -20,7 +20,7 @@ def subscribe_newsletter(apps, schema_editor):
     Subscription = apps.get_model('newsletter', 'Subscription')
     User = apps.get_model('account', 'User')
 
-    for user in User.objects.filter(active=True, newsletter=True):
+    for user in User.objects.filter(is_active=True, newsletter=True):
         Subscription.objects.create(
             user=user,
             newsletter=newsletter,
