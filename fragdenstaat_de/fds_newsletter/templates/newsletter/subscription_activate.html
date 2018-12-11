@@ -32,7 +32,15 @@
         {{ form.user_activation_code }}
       </div>
       <p>
-        <button type="submit" class="btn btn-primary">Absenden</button>
+        <button type="submit" class="btn btn-primary">
+        {% if action == 'subscribe' %}
+            Abonnieren
+          {% elif action == 'unsubscribe' %}
+            Abmelden
+          {% else %}
+            Aktualisieren
+          {% endif %}
+        </button>
       </p>
   </form>
 {% endblock body %}
