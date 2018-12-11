@@ -52,6 +52,12 @@ class NewsletterAdmin(BaseNewsletterAdmin):
 class SubscriptionAdmin(BaseSubscriptionAdmin):
     raw_id_fields = ('user',)
 
+    def get_queryset(self, request):
+        qs = super(SubscriptionAdmin, self).get_queryset(request)
+        qs = qs.select_related('newsletter')
+        qs = qs.prefetch_related('user')
+        return qs
+
 
 admin.site.unregister(BaseSubmission)
 admin.site.register(Submission, SubmissionAdmin)
