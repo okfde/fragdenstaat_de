@@ -1,16 +1,20 @@
-{% extends "base.html" %}
+{% extends "newsletter/common.html" %}
 
-{% block app_body %}
+{% load newsletter_tags %}
+
+{% block body %}
 
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div>
-        <p class="lead">
-          Abonnieren Sie unseren Newsletter!
-        </p>
-        {% include "fds_newsletter/plugins/newsletter_form.html" %}
+        {% newsletter_subscribe newsletter_slug=newsletter.slug fallback=False %}
       </div>
       <hr/>
+      <p>
+        <a href="{% url 'newsletter_archive' newsletter_slug=newsletter.slug %}">
+          zurück zum Archiv
+        </a>
+      </p>
       <p class="small">
         Newsletter vom {{ date|date:"DATE_FORMAT" }}
       </p>
