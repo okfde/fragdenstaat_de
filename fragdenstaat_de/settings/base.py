@@ -1,9 +1,14 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 import os
 import re
 
 from django.utils.translation import ugettext_lazy as _
+
+# Monkey add CMS Django version flags 
+from cms.utils import compat
+
+compat.DJANGO_1_8 = False
+compat.DJANGO_1_9 = False
+compat.DJANGO_1_10 = False
 
 from froide.settings import Base, German
 
