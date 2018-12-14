@@ -19,14 +19,20 @@ from froide.document.models import Document
 
 
 class PageAnnotationCMSPlugin(CMSPlugin):
-    page_annotation = models.ForeignKey(PageAnnotation, related_name='+',)
+    page_annotation = models.ForeignKey(
+        PageAnnotation, related_name='+',
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return str(self.page_annotation)
 
 
 class DocumentEmbedCMSPlugin(CMSPlugin):
-    doc = models.ForeignKey(Document, related_name='+',)
+    doc = models.ForeignKey(
+        Document, related_name='+',
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return 'Embed %s' % (self.doc,)
@@ -34,7 +40,10 @@ class DocumentEmbedCMSPlugin(CMSPlugin):
 
 class DocumentPagesCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=255, blank=True)
-    doc = models.ForeignKey(Document, related_name='+',)
+    doc = models.ForeignKey(
+        Document, related_name='+',
+        on_delete=models.CASCADE
+    )
     pages = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
@@ -120,7 +129,9 @@ class FoiRequestListCMSPlugin(CMSPlugin):
         on_delete=models.SET_NULL)
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, null=True, blank=True)
+        settings.AUTH_USER_MODEL, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
 
     tags = models.ManyToManyField(
         Tag, verbose_name=_('tags'), blank=True)
