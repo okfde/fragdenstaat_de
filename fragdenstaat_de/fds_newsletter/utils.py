@@ -1,7 +1,7 @@
 from newsletter.models import Subscription
 
 
-def handle_bounce(bounce, should_deactivate=False, **kwargs):
+def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):
     if not should_deactivate:
         return
     if bounce.user:
