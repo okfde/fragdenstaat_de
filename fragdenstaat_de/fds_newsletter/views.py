@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
@@ -17,37 +18,45 @@ from froide.helper.utils import get_client_ip
 @require_POST
 @csrf_exempt
 def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
-    if not request.is_ajax():
-        # Only ajax requests can be reasonably csrf exempt
-        return HttpResponse(status_code=403)
-
     newsletter = get_object_or_404(
         Newsletter,
         slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
     )
-    email_confirmed = False
-    email = request.POST.get('email_field', '')
-    if request.user.is_authenticated and request.user.is_active:
-        if request.user.email == email:
-            email_confirmed = True
 
-    if email_confirmed:
-        already = subscribe_user(request, newsletter)
-        if already:
-            return HttpResponse(content='''<div class="alert alert-info" role="alert">
-            Sie haben unseren Newsletter schon abonniert!
-            </div>'''.encode('utf-8'))
-        else:
-            return HttpResponse(content='''<div class="alert alert-primary" role="alert">
-            Sie haben unseren Newsletter erfolgreich abonniert!
-            </div>'''.encode('utf-8'))
+    if request.is_ajax():
+        # No-CSRF ajax request
+        # are allowed to access current user
+        email_confirmed = False
+        email = request.POST.get('email_field', '')
+        if request.user.is_authenticated and request.user.is_active:
+            if request.user.email == email:
+                email_confirmed = True
+
+        if email_confirmed:
+            already = subscribe_user(request, newsletter)
+            if already:
+                return HttpResponse(content='''<div class="alert alert-info" role="alert">
+                Sie haben unseren Newsletter schon abonniert!
+                </div>'''.encode('utf-8'))
+            else:
+                return HttpResponse(content='''<div class="alert alert-primary" role="alert">
+                Sie haben unseren Newsletter erfolgreich abonniert!
+                </div>'''.encode('utf-8'))
 
     result = subscribe_email(request, newsletter)
     if result:
-        return HttpResponse(content='''<div class="alert alert-primary" role="alert">
-            Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.
-            </div>'''.encode('utf-8'))
-    return HttpResponse(newsletter.get_absolute_url().encode('utf-8'))
+        if request.is_ajax():
+            return HttpResponse(content='''<div class="alert alert-primary" role="alert">
+                Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.
+                </div>'''.encode('utf-8'))
+        messages.add_message(
+            request, messages.INFO,
+            'Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.'
+        )
+        return redirect(newsletter.get_absolute_url())
+    if request.is_ajax():
+        return HttpResponse(newsletter.get_absolute_url().encode('utf-8'))
+    return redirect(newsletter.get_absolute_url())
 
 
 def subscribe_email(request, newsletter):
