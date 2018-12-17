@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.utils.translation import pgettext
 
 from .feeds import LatestArticlesFeed
 from .views import (
@@ -37,12 +38,10 @@ urlpatterns = [
         ArticleArchiveView.as_view(), name='article-archive'),
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/$',
         ArticleArchiveView.as_view(), name='article-archive'),
-    url(r'^autor/(?P<username>[\w\.@+-]+)/$',
+    url(r'^%s/(?P<username>[\w\.@+-]+)/$' % pgettext('url', 'author'),
         AuthorArticleView.as_view(), name='article-author'),
-    url(r'^kategorie/(?P<category>[\w\.@+-]+)/$',
+    url(r'^%s/(?P<category>[\w\.@+-]+)/$' % pgettext('url', 'category'),
         CategoryArticleView.as_view(), name='article-category'),
     url(r'^tag/(?P<tag>[-\w]+)/$',
         TaggedListView.as_view(), name='article-tagged'),
-    # url(r'^tag/(?P<tag>[-\w]+)/feed/$',
-    #     TagFeed(), name='article-tagged-feed'),
 ] + detail_urls
