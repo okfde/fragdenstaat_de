@@ -17,7 +17,7 @@ from parler.models import TranslatableModel, TranslatedFields
 from filer.fields.image import FilerImageField
 
 from taggit.managers import TaggableManager
-from taggit.models import ItemBase, TagBase
+from taggit.models import TaggedItemBase, TagBase
 
 from . import model_bases as entry
 from .utils import get_request
@@ -194,7 +194,7 @@ class ArticleTag(TagBase):
         verbose_name_plural = _("Article Tags")
 
 
-class TaggedArticle(ItemBase):
+class TaggedArticle(TaggedItemBase):
     tag = models.ForeignKey(ArticleTag,
                             related_name="articles")
     content_object = models.ForeignKey('Article')
@@ -202,16 +202,6 @@ class TaggedArticle(ItemBase):
     class Meta:
         verbose_name = _('Tagged Article')
         verbose_name_plural = _('Tagged Articles')
-
-    @classmethod
-    def tags_for(cls, model, instance=None):
-        if instance is not None:
-            return cls.tag_model().objects.filter(**{
-                '%s__content_object' % cls.tag_relname(): instance
-            })
-        return cls.tag_model().objects.filter(**{
-            '%s__content_object__isnull' % cls.tag_relname(): False
-        }).distinct()
 
 
 class TagsEntry(models.Model):
