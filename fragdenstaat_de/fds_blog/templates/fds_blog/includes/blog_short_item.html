@@ -1,0 +1,13 @@
+{% load i18n easy_thumbnails_tags cms_tags %}
+
+<article id="post-{{ article.slug }}" class="post-item mb-5">
+  <div class="blog-header__date">
+    {{ article.start_publication|date:"DATE_FORMAT" }}
+  </div>
+  {% if article.image %}
+     <a href="{{ article.get_absolute_url }}">{% include "fds_blog/includes/blog_picture_small.html" with picture=article.image %}</a>
+  {% endif %}
+  <h4 class="blog-list-heading">
+    <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+  </h4>
+</article>

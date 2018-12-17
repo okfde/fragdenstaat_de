@@ -47,6 +47,9 @@ class FragDenStaatBase(German, Base):
             'sortedm2m',
             'djangocms_blog',
 
+            'fragdenstaat_de.fds_blog',
+            'adminsortable2',
+
             # Newsletter and dependencies
             # 'sorl.thumbnail',
             # Customisations
@@ -99,6 +102,11 @@ class FragDenStaatBase(German, Base):
 
     NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
     DEFAULT_NEWSLETTER = 'fragdenstaat'
+
+    # BLOG
+
+    ARTICLE_CONTENT_TEMPLATES = []
+    ARTICLE_DETAIL_TEMPLATES = []
 
     # CMS
 

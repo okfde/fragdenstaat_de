@@ -1,18 +1,18 @@
-{% extends "djangocms_blog/base.html" %}
+{% extends "fds_blog/base.html" %}
 {% load i18n cms_tags %}
 {% load markup %}
 {% load static %}
 {% load blog_tags %}
 
 {% block canonical_url %}<link rel="canonical" href="{{ meta.url }}"/>{% endblock canonical_url %}
-{% block title %}{{ post.get_title }}{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 
 {% block meta %}
-  {% include "djangocms_blog/includes/social_meta.html" with post=post %}
+  {% include "fds_blog/includes/social_meta.html" with article=article %}
 {% endblock %}
 
 {% block content_blog %}{% spaceless %}
-<article id="post-{{ post.slug }}">
+<article id="post-{{ article.slug }}">
   <div class="blog-header-container">
     <div class="row justify-content-center">
       <div class="post-item post-detail col-12">
@@ -20,18 +20,18 @@
           <div class="row justify-content-center">
             <div class="col-md-12 col-lg-10">
               <time class="blog-header__date">
-                {{ post.date_published|date:"DATE_FORMAT" }}
+                {{ article.start_publication|date:"DATE_FORMAT" }}
               </time>
               <h1 class="blog-header__title">
-                {% render_model post "title" %}
+                {% render_model article "title" %}
               </h1>
-              {% if post.abstract %}
+              {% if article.teaser %}
                 <div class="blog-lead mb-3">
-                  {% render_model post "abstract" "" "" "safe" %}
+                  {% render_model article "teaser" "" "" "safe" %}
                 </div>
               {% endif %}
-              {% if post.main_image_id %}
-                {% include "djangocms_blog/includes/blog_picture_detail.html" with picture=post.main_image %}
+              {% if article.image %}
+                {% include "fds_blog/includes/blog_picture_detail.html" with picture=article.image %}
               {% endif %}
               {% endspaceless %}
             </div>
@@ -40,41 +40,59 @@
       </div>
     </div>
   </div>
-  {% if post.app_config.use_placeholder %}
-    <div class="blog-content">
-      {% render_placeholder post.content %}
-    </div>
-  {% else %}
-    <div class="blog-content">
-      {% render_model post "post_text" "post_text" "" "safe" %}
-    </div>
-  {% endif %}
+  <div class="blog-content">
+    {% render_placeholder article.content_placeholder %}
+  </div>
 
   {% static_placeholder "dropdown_banner" %}
 
-  {% if post.author %}
-    <div class="container">
-      <div class="author-section">
+  <div class="container">
+    <div class="row justify-content-center pt-5">
+      <div class="col-md-8">
+        {% with other_langs=article.other_languages %}
+          {% if other_langs %}
+            <p>
+              {% trans "This article is available in other languages." %}
+            </p>
+            <ul class="list-unstyled">
+              {% for lang_article in other_langs %}
+                <li>
+                  {{ lang_article.language|language_name }}:
+                  <a href="{{ lang_article.get_absolute_url }}">
+                    {{ lang_article.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="author-section">
+      {% for author in article.authors.all %}
         <div class="row justify-content-center pb-5 pt-5">
           <div class="col-xs-1 col-sm-4 col-md-3 col-lg-2 d-none d-sm-block">
-            {% if post.author.profile_photo %}
-              <img class="img-circle" src="{{ post.author.profile_photo.url }}" alt="Bild des Autors">
+            {% if author.user.profile_photo %}
+              <img class="img-circle" src="{{ author.profile_photo.url }}" alt="Bild des Autors">
             {% endif %}
           </div>
           <div class="col-xs-6 col-sm-8 col-md-6 col-lg-5">
             <h4 class="author-title">
-              <a href="{% url 'djangocms_blog:posts-author' post.author.username %}">
-                {{ post.author.get_full_name }}
+              <a href="{% url 'blog:article-author' username=author.username %}">
+                {{ author.get_full_name }}
               </a>
             </h4>
             <div class="author-description">
-              {{ post.author.profile_text | markdown }}
+              {{ author.user.profile_text | markdown }}
             </div>
           </div>
         </div>
-      </div>
+      {% endfor %}
     </div>
-  {% endif %}
+  </div>
 </article>
 
 
@@ -98,14 +116,14 @@
 </div>
 
 
-{% with next_read=post|get_next_read %}
+{% with next_read=article|get_next_read %}
 {% if next_read %}
   <div class="col-md-12 next-reads">
     <div class="container">
       <div class="row justify-content-center pb-5 pt-5">
         <div class="col-md-5">
-          {% if next_read.main_image_id %}
-             <a href="{{ next_read.get_absolute_url }}">{% include "djangocms_blog/includes/blog_picture.html" with picture=next_read.main_image %}</a>
+          {% if next_read.image_id %}
+             <a href="{{ next_read.get_absolute_url }}">{% include "fds_blog/includes/blog_picture.html" with picture=next_read.image %}</a>
           {% endif %}
         </div>
         <div class="col-md-5 next-reads__text">
@@ -113,7 +131,7 @@
             <a href="{{ next_read.get_absolute_url }}">{{ next_read.title }}</a>
           </h3>
           <p>
-            {% render_model next_read "abstract" "" "" "safe" %}
+            {% render_model next_read "teaser" "" "" "safe" %}
           </p>
           <p>
             <div class="cl-effect-10">
@@ -126,6 +144,6 @@
       </div>
     </div>
   </div>
-  {% endif %}
+{% endif %}
 {% endwith %}
 {% endblock content_blog %}
