@@ -90,7 +90,7 @@ class ArticleDetailView(BaseBlogView, DetailView):
                 except Article.DoesNotExist:
                     raise Http404
                 return redirect(self.object, permanent=True)
-        return super().get(*args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
 
 class ArticleListView(BaseBlogListView, ListView):
