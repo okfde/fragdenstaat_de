@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: froide-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-28 20:48+0200\n"
-"PO-Revision-Date: 2016-12-01 16:47+0100\n"
+"POT-Creation-Date: 2018-12-17 15:35+0100\n"
+"PO-Revision-Date: 2018-12-17 15:20+0100\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.org>\n"
 "Language-Team: OKF-DE <info@fragdenstaat.de>\n"
 "Language: de\n"
@@ -19,62 +19,130 @@ msgstr ""
 "X-Generator: Poedit 1.7.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: fragdenstaat_de/theme/models.py:37
-msgid "User blocked"
-msgstr "User blockiert"
+#: fragdenstaat_de/theme/cms_plugins.py:12
+#: fragdenstaat_de/theme/cms_plugins.py:20
+#: fragdenstaat_de/theme/cms_plugins.py:28
+#: fragdenstaat_de/theme/cms_plugins.py:35
+#: fragdenstaat_de/theme/cms_plugins.py:64
+msgid "Structure"
+msgstr "Struktur"
 
-#: fragdenstaat_de/theme/templates/base.html:26
-msgid "Blog"
-msgstr "Blog"
+#: fragdenstaat_de/theme/cms_plugins.py:13
+msgid "Container"
+msgstr "Container"
 
-#: fragdenstaat_de/theme/templates/base.html:29
-msgid "FAQ"
-msgstr "FAQ"
+#: fragdenstaat_de/theme/cms_plugins.py:21
+msgid "Container Grey"
+msgstr "Container Grau"
 
-#: fragdenstaat_de/theme/templates/base.html:32
-msgid "Make a Request!"
-msgstr "Stellen Sie eine Anfrage!"
+#: fragdenstaat_de/theme/cms_plugins.py:29
+msgid "Row"
+msgstr "Zeile"
 
-#: fragdenstaat_de/theme/templates/base.html:66
+#: fragdenstaat_de/theme/cms_plugins.py:41
+msgid "Three"
+msgstr "Drei"
+
+#: fragdenstaat_de/theme/cms_plugins.py:42
+msgid "Four"
+msgstr "Vier"
+
+#: fragdenstaat_de/theme/cms_plugins.py:43
+msgid "Six"
+msgstr "Sechs"
+
+#: fragdenstaat_de/theme/cms_plugins.py:44
+msgid "Eight"
+msgstr "Acht"
+
+#: fragdenstaat_de/theme/cms_plugins.py:45
+msgid "Nine"
+msgstr "Neun"
+
+#: fragdenstaat_de/theme/cms_plugins.py:46
+msgid "Twelve"
+msgstr "Zwölf"
+
+#: fragdenstaat_de/theme/cms_plugins.py:55
+msgid "Column "
+msgstr "Spalte"
+
+#: fragdenstaat_de/theme/cms_plugins.py:66
+msgid "Column Teaser Three"
+msgstr "Spalte Teaser Drei"
+
+#: fragdenstaat_de/theme/cms_plugins.py:72
+msgid "Menu"
+msgstr "Menü"
+
+#: fragdenstaat_de/theme/cms_plugins.py:73
+msgid "Sub Menu"
+msgstr "Unter-Menü"
+
+#: fragdenstaat_de/theme/cms_plugins.py:79
+#: fragdenstaat_de/theme/cms_plugins.py:95
+msgid "Homepage"
+msgstr "Startseite"
+
+#: fragdenstaat_de/theme/cms_plugins.py:80
+msgid "Homepage Hero"
+msgstr "Startseite Held"
+
+#: fragdenstaat_de/theme/cms_plugins.py:96
+msgid "Homepage How"
+msgstr "Startseite Wie?"
+
+#: fragdenstaat_de/theme/models.py:39
+msgid "User auto blocked"
+msgstr "User automatisch blockiert"
+
+#: fragdenstaat_de/theme/templates/djangocms_video/default/video_player.html:20
+msgid "Your browser doesn't support this video format."
+msgstr "Ihr Browser unterstützt dieses Video-Format nicht."
+
+#: fragdenstaat_de/theme/templates/header.html:29
 msgid "About"
 msgstr "Über uns"
 
-#: fragdenstaat_de/theme/templates/base.html:76
-msgid "Help"
-msgstr "Hilfe"
-
-#: fragdenstaat_de/theme/templates/base.html:78
-msgid "Terms of Use"
-msgstr "Nutzungsbedingungen"
-
-#: fragdenstaat_de/theme/templates/foirequest/show.html:36
-msgid "File a law suit"
-msgstr "Klage vorschlagen"
-
-#: fragdenstaat_de/theme/templates/foirequest/show.html:40
-#, python-format
-msgid ""
-"\n"
-"            We received your legal action proposal on %(date)s and we are "
-"currently reviewing it.\n"
-"          "
-msgstr ""
-"\n"
-"            Wir haben Ihren Klagevorschlag am %(date)s erhalten und er ist "
-"in Bearbeitung.\n"
-"          "
-
-#: fragdenstaat_de/theme/templates/foirequest/show.html:65
-msgid "Click here to propose a law suit"
-msgstr "Klicken Sie hier, um einen Vorschlag einzureichen"
-
-#: fragdenstaat_de/theme/templates/index.html:83
+#: fragdenstaat_de/theme/templates/index.html:18
 msgid "Successful Requests"
 msgstr "Erfolgreiche Anfragen"
 
-#: fragdenstaat_de/theme/templates/index.html:117
+#: fragdenstaat_de/theme/templates/index.html:53
 msgid "Visit this request"
 msgstr "Lesen Sie die Anfrage"
+
+#~ msgid "Blog"
+#~ msgstr "Blog"
+
+#~ msgid "FAQ"
+#~ msgstr "FAQ"
+
+#~ msgid "Make a Request!"
+#~ msgstr "Stellen Sie eine Anfrage!"
+
+#~ msgid "Help"
+#~ msgstr "Hilfe"
+
+#~ msgid "Terms of Use"
+#~ msgstr "Nutzungsbedingungen"
+
+#~ msgid "File a law suit"
+#~ msgstr "Klage vorschlagen"
+
+#~ msgid ""
+#~ "\n"
+#~ "            We received your legal action proposal on %(date)s and we are "
+#~ "currently reviewing it.\n"
+#~ "          "
+#~ msgstr ""
+#~ "\n"
+#~ "            Wir haben Ihren Klagevorschlag am %(date)s erhalten und er "
+#~ "ist in Bearbeitung.\n"
+#~ "          "
+
+#~ msgid "Click here to propose a law suit"
+#~ msgstr "Klicken Sie hier, um einen Vorschlag einzureichen"
 
 #~ msgid "File a law suit with us"
 #~ msgstr "Klage vorschlagen"
@@ -1600,9 +1668,6 @@ msgstr "Lesen Sie die Anfrage"
 #~ msgid "No requests yet."
 #~ msgstr "Keine Anfragen bisher."
 
-#~ msgid "Home"
-#~ msgstr "Start"
-
 #~ msgid "Mark multiple requests identical"
 #~ msgstr "Mehrer Anfragen als identische markieren"
 
@@ -2036,9 +2101,6 @@ msgstr "Lesen Sie die Anfrage"
 #~ msgstr ""
 #~ "Anfragen wie \"Wieviel hat X gekostet?\" oder \"Senden Sie mir das "
 #~ "Gutachten zu zu X\""
-
-#~ msgid "Continue"
-#~ msgstr "zum nächsten Schritt"
 
 #~ msgid "Please select one of the above options!"
 #~ msgstr "Bitte wählen Sie eine der oberen Optionen aus!"
