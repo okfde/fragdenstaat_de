@@ -39,17 +39,12 @@ class FragDenStaatBase(German, Base):
             'filer',
             'mptt',
 
-            # Blog and dependencies
-            'aldryn_apphooks_config',
+            # Old Blog dependencies
             'cmsplugin_filer_image',
-            'parler',
-            'taggit_autosuggest',
-            'meta',
-            'sortedm2m',
-            'djangocms_blog',
 
             'fragdenstaat_de.fds_blog',
             'adminsortable2',
+            'parler',
 
             # Newsletter and dependencies
             # 'sorl.thumbnail',

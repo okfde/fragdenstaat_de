@@ -6,15 +6,17 @@ from django.db import migrations
 
 
 def remove_djangocms_plugins(apps, schema_editor):
-    LatestPostsPlugin = apps.get_model('djangocms_blog', 'LatestPostsPlugin')
-    LatestPostsPlugin.objects.all().delete()
+    try:
+        LatestPostsPlugin = apps.get_model('djangocms_blog', 'LatestPostsPlugin')
+        LatestPostsPlugin.objects.all().delete()
+    except Exception:
+        pass
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         ('fds_blog', '0002_auto_20181214_1730'),
-        ('djangocms_blog', '0035_posttranslation_subtitle'),
     ]
 
     operations = [
