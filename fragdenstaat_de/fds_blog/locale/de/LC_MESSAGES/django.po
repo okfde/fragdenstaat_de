@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-17 15:35+0100\n"
+"POT-Creation-Date: 2018-12-17 17:05+0100\n"
 "PO-Revision-Date: 2018-12-17 15:36+0100\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.org>\n"
 "Language-Team: \n"
@@ -29,8 +29,7 @@ msgstr[1] "%(item)s (%(count)i Artikel)"
 msgid "published categories"
 msgstr "Veröffentlichte Kategorien"
 
-#: fragdenstaat_de/fds_blog/admin.py:99
-#: fragdenstaat_de/fds_blog/admin.py:268
+#: fragdenstaat_de/fds_blog/admin.py:99 fragdenstaat_de/fds_blog/admin.py:268
 msgid "Content"
 msgstr "Inhalt"
 
@@ -113,7 +112,7 @@ msgstr "FragDenStaat-Blog"
 msgid "Latest Blog Articles"
 msgstr "Neueste Blog-Artikel"
 
-#: fragdenstaat_de/fds_blog/cms_plugins.py:35
+#: fragdenstaat_de/fds_blog/cms_plugins.py:38
 msgid "Latest Blog Articles - Cache"
 msgstr "Neueste Blog-Artikel - Cache"
 
@@ -221,7 +220,7 @@ msgid "Template used to display the article's detail page."
 msgstr ""
 
 #: fragdenstaat_de/fds_blog/models.py:135
-#: fragdenstaat_de/fds_blog/models.py:428
+#: fragdenstaat_de/fds_blog/models.py:418
 msgid "authors"
 msgstr "Autoren"
 
@@ -239,7 +238,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_blog/models.py:165
 #: fragdenstaat_de/fds_blog/models.py:185
-#: fragdenstaat_de/fds_blog/models.py:425
+#: fragdenstaat_de/fds_blog/models.py:415
 msgid "categories"
 msgstr ""
 
@@ -259,76 +258,76 @@ msgstr ""
 msgid "Tagged Articles"
 msgstr ""
 
-#: fragdenstaat_de/fds_blog/models.py:249
+#: fragdenstaat_de/fds_blog/models.py:239
 msgid "image"
 msgstr "Bild"
 
-#: fragdenstaat_de/fds_blog/models.py:259
+#: fragdenstaat_de/fds_blog/models.py:249
 msgid "featured date"
 msgstr "prominent Datum"
 
-#: fragdenstaat_de/fds_blog/models.py:306
+#: fragdenstaat_de/fds_blog/models.py:296
 msgid "article"
 msgstr "Artikel"
 
-#: fragdenstaat_de/fds_blog/models.py:307
+#: fragdenstaat_de/fds_blog/models.py:297
 msgid "articles"
 msgstr "Artikel"
 
-#: fragdenstaat_de/fds_blog/models.py:315
+#: fragdenstaat_de/fds_blog/models.py:305
 #, python-format
 msgid "Article \"%s\""
 msgstr "Artikel \"%s\""
 
-#: fragdenstaat_de/fds_blog/models.py:407
+#: fragdenstaat_de/fds_blog/models.py:397
 msgid "Normal"
 msgstr "NOrmal"
 
-#: fragdenstaat_de/fds_blog/models.py:417
+#: fragdenstaat_de/fds_blog/models.py:407
 msgid "featured"
 msgstr "prominent"
 
-#: fragdenstaat_de/fds_blog/models.py:419
+#: fragdenstaat_de/fds_blog/models.py:409
 msgid "Show featured articles only"
 msgstr "Zeige prominente Artikel"
 
-#: fragdenstaat_de/fds_blog/models.py:420
+#: fragdenstaat_de/fds_blog/models.py:410
 msgid "Hide featured articles"
 msgstr "Verstecke prominente Artikel"
 
-#: fragdenstaat_de/fds_blog/models.py:422
+#: fragdenstaat_de/fds_blog/models.py:412
 msgid "language"
 msgstr "Sprache"
 
-#: fragdenstaat_de/fds_blog/models.py:431
+#: fragdenstaat_de/fds_blog/models.py:421
 msgid "tags"
 msgstr "Schlagwörter"
 
-#: fragdenstaat_de/fds_blog/models.py:435
+#: fragdenstaat_de/fds_blog/models.py:425
 msgid "number of articles"
 msgstr "Anzahl Artikel"
 
-#: fragdenstaat_de/fds_blog/models.py:436
+#: fragdenstaat_de/fds_blog/models.py:426
 msgid "0 means all the articles"
 msgstr "0 bedeutet alle Artikel"
 
-#: fragdenstaat_de/fds_blog/models.py:438
+#: fragdenstaat_de/fds_blog/models.py:428
 msgid "offset"
 msgstr "Offset"
 
-#: fragdenstaat_de/fds_blog/models.py:439
+#: fragdenstaat_de/fds_blog/models.py:429
 msgid "number of articles to skip from top of list"
 msgstr "Anzahl der Artikel auslassen vom Listenanfang"
 
-#: fragdenstaat_de/fds_blog/models.py:441
+#: fragdenstaat_de/fds_blog/models.py:431
 msgid "template"
 msgstr "Template"
 
-#: fragdenstaat_de/fds_blog/models.py:443
+#: fragdenstaat_de/fds_blog/models.py:433
 msgid "template used to display the plugin"
 msgstr "Template zur Anzeige des Plugins"
 
-#: fragdenstaat_de/fds_blog/models.py:462
+#: fragdenstaat_de/fds_blog/models.py:452
 #, python-format
 msgid "%s entries"
 msgstr "%s Artikel"
