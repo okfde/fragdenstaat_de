@@ -307,10 +307,9 @@ class Article(
         verbose_name_plural = _('articles')
         ordering = ['-start_publication']
         get_latest_by = 'start_publication'
-        unique_together = (('slug', 'creation_date'),)
-        index_together = [['slug', 'creation_date'],
-                          ['status', 'creation_date',
-                           'start_publication', 'end_publication']]
+        unique_together = (('slug', 'start_publication'),)
+        index_together = [['slug', 'start_publication'],
+                          ['status', 'start_publication', 'end_publication']]
 
     def __str__(self):
         return _('Article "%s"') % self.title

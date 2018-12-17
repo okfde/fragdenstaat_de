@@ -27,7 +27,7 @@ class CoreEntry(models.Model):
 
     slug = models.SlugField(
         _('slug'), max_length=255,
-        unique_for_date='creation_date',
+        unique_for_date='start_publication',
         help_text=_("Used to build the entry's URL."))
 
     status = models.IntegerField(
@@ -57,6 +57,9 @@ class CoreEntry(models.Model):
 
     last_update = models.DateTimeField(
         _('last update'), default=timezone.now)
+
+    class Meta:
+        abstract = True
 
     @property
     def publication_date(self):

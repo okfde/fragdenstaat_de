@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=255, verbose_name='title')),
-                ('slug', models.SlugField(help_text="Used to build the entry's URL.", max_length=255, unique_for_date='creation_date', verbose_name='slug')),
+                ('slug', models.SlugField(help_text="Used to build the entry's URL.", max_length=255, unique_for_date='start_publication', verbose_name='slug')),
                 ('status', models.IntegerField(choices=[(0, 'draft'), (1, 'hidden'), (2, 'published')], db_index=True, default=0, verbose_name='status')),
                 ('start_publication', models.DateTimeField(blank=True, db_index=True, help_text='Start date of publication.', null=True, verbose_name='start publication')),
                 ('end_publication', models.DateTimeField(blank=True, db_index=True, help_text='End date of publication.', null=True, verbose_name='end publication')),
@@ -195,10 +195,10 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='article',
-            unique_together=set([('slug', 'creation_date')]),
+            unique_together=set([('slug', 'start_publication')]),
         ),
         migrations.AlterIndexTogether(
             name='article',
-            index_together=set([('status', 'creation_date', 'start_publication', 'end_publication'), ('slug', 'creation_date')]),
+            index_together=set([('status', 'start_publication', 'end_publication'), ('slug', 'start_publication')]),
         ),
     ]
