@@ -37,11 +37,11 @@ class BaseBlogView(object):
         )
         return self.request.build_absolute_uri(url)
 
+    def get_base_queryset(self):
+        return self.model.published.all()
+
     def get_queryset(self):
-        if not getattr(self.request, 'toolbar', False) or not self.request.toolbar.edit_mode:
-            queryset = self.model.published.all()
-        else:
-            queryset = self.model._default_manager.all()
+        queryset = self.get_base_queryset()
         if self.request.LANGUAGE_CODE != settings.LANGUAGE_CODE:
             queryset = queryset.filter(language=self.request.LANGUAGE_CODE)
         return self.optimize(queryset)
@@ -67,6 +67,11 @@ class ArticleDetailView(BaseBlogView, DetailView):
     base_template_name = 'article_detail.html'
     slug_field = 'slug'
     view_url_name = 'fds_blog:article-detail'
+
+    def get_base_queryset(self):
+        if not getattr(self.request, 'toolbar', False) or not self.request.toolbar.edit_mode:
+            return self.model.published.all()
+        return self.model._default_manager.all()
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
