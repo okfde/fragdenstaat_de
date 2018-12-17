@@ -9,7 +9,7 @@
         <news:name>{{ SITE_NAME }}</news:name>
         <news:language>{{ url.item.language_code }}</news:language>
       </news:publication>
-      <news:publication_date>{{ url.item.date_published.isoformat }}</news:publication_date>
+      <news:publication_date>{{ url.item.start_publication.isoformat }}</news:publication_date>
       <news:title>{{ url.item.title }}</news:title>
       {% with tags=url.item.tags.all %}
         {% if tags %}

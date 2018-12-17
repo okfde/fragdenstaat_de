@@ -24,6 +24,7 @@ class FragDenStaatBase(German, Base):
 
     LANGUAGES = (
         ('de', _('German')),
+        ('en', _('English')),
     )
 
     @property
@@ -46,6 +47,9 @@ class FragDenStaatBase(German, Base):
             'meta',
             'sortedm2m',
             'djangocms_blog',
+
+            'fragdenstaat_de.fds_blog',
+            'adminsortable2',
 
             # Newsletter and dependencies
             # 'sorl.thumbnail',
@@ -100,6 +104,11 @@ class FragDenStaatBase(German, Base):
     NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
     DEFAULT_NEWSLETTER = 'fragdenstaat'
 
+    # BLOG
+
+    ARTICLE_CONTENT_TEMPLATES = []
+    ARTICLE_DETAIL_TEMPLATES = []
+
     # CMS
 
     CMS_TOOLBAR_ANONYMOUS_ON = False
@@ -139,21 +148,6 @@ class FragDenStaatBase(German, Base):
     DJANGOCMS_PICTURE_TEMPLATES = [
         ('hero', _('Hero'))
     ]
-
-    BLOG_URLCONF = 'fragdenstaat_de.theme.blog_urls'
-    BLOG_PAGINATION = 12
-    BLOG_AVAILABLE_PERMALINK_STYLES = (
-        ('full_date', _('Full date')),
-        ('short_date', _('Year /  Month')),
-        ('category', _('Category')),
-        ('year_slug', _('Year + Slug')),
-    )
-    BLOG_PERMALINK_URLS = {
-        'full_date': r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>\w[-\w]*)/$',
-        'short_date': r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>\w[-\w]*)/$',
-        'category': r'^(?P<category>\w[-\w]*)/(?P<slug>\w[-\w]*)/$',
-        'year_slug': r'^(?P<year>\d{4})/(?P<slug>\w[-\w]*)/$',
-    }
 
     FILER_ENABLE_PERMISSIONS = True
 
@@ -261,11 +255,11 @@ class FragDenStaatBase(German, Base):
         'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
         'froide.account.middleware.AcceptNewTermsMiddleware',
 
-        # 'django.middleware.locale.LocaleMiddleware',
+        'django.middleware.locale.LocaleMiddleware',
         'cms.middleware.user.CurrentUserMiddleware',
         'cms.middleware.page.CurrentPageMiddleware',
         'cms.middleware.toolbar.ToolbarMiddleware',
-        # 'cms.middleware.language.LanguageCookieMiddleware',
+        'cms.middleware.language.LanguageCookieMiddleware',
     ]
 
     CACHES = {

@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls import include, url
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib.sitemaps import views as sitemaps_views
 from django.views.generic import TemplateView
 
@@ -9,13 +10,12 @@ from froide_campaign import urls as campaign_urls
 from froide.foirequest.views import dashboard
 from froide.urls import (
     froide_urlpatterns,
+    admin_urls,
     jurisdiction_urls, sitemaps
 )
 
 from cms.sitemaps import CMSSitemap
-from djangocms_blog.sitemaps import BlogSitemap
-
-from .sitemaps import NewsSitemap
+from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
 
 
 sitemaps['cmspages'] = CMSSitemap
@@ -32,7 +32,7 @@ sitemap_urlpatterns = [
         {'sitemaps': sitemaps, 'sitemap_url_name': 'sitemaps'}),
     url(r'^sitemap-news.xml$', sitemaps_views.sitemap, {
         'sitemaps': {'news': NewsSitemap},
-        'template_name': 'sitemaps/sitemap_news.xml'
+        'template_name': 'fds_blog/sitemaps/sitemap_news.xml'
         }, name='sitemap-news'),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps_views.sitemap,
         {'sitemaps': sitemaps}, name='sitemaps')
@@ -70,6 +70,8 @@ if settings.DEBUG:
         # Possibly during migration, ignore
         pass
 
-urlpatterns += [
+urlpatterns += i18n_patterns(
+    *admin_urls,
     url(r'^', include('cms.urls')),
-]
+    prefix_default_language=False
+)
