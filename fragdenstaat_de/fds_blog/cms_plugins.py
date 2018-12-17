@@ -2,14 +2,14 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.utils.translation import ugettext_lazy as _
 
-from .models import LatestArticlesPlugin
+from .models import LatestArticlesPlugin, TEMPLATES
 
 
 class BlogPlugin(CMSPluginBase):
     module = 'Blog'
 
     def get_render_template(self, context, instance, placeholder):
-        return instance.template
+        return instance.template or TEMPLATES[0][0]
 
 
 class BlogLatestArticlesPlugin(BlogPlugin):
@@ -24,7 +24,10 @@ class BlogLatestArticlesPlugin(BlogPlugin):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        context['article_list'] = instance.get_posts(context['request'], published_only=False)
+        context['article_list'] = instance.get_articles(
+            context['request'],
+            published_only=False
+        )
         return context
 
 
@@ -38,7 +41,7 @@ class BlogLatestArticlesPluginCached(BlogPlugin):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        context['article_list'] = instance.get_posts(context['request'])
+        context['article_list'] = instance.get_articles(context['request'])
         return context
 
 
