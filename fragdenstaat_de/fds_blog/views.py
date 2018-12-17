@@ -5,7 +5,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.timezone import now
 from django.utils.translation import get_language
 from django.views.generic import DetailView, ListView
@@ -68,9 +68,23 @@ class ArticleDetailView(BaseBlogView, DetailView):
     slug_field = 'slug'
     view_url_name = 'fds_blog:article-detail'
 
-    def get(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
         if hasattr(self.request, 'toolbar'):
-            self.request.toolbar.set_object(self.get_object())
+            self.request.toolbar.set_object(self.object)
+
+        if self.object.language != request.LANGUAGE_CODE:
+            queryset = self.get_queryset()
+            if self.object.uuid is not None:
+                queryset = queryset.filter(
+                    uuid=self.object.uuid,
+                    language=request.LANGUAGE_CODE
+                )
+                try:
+                    self.object = queryset.get()
+                except Article.DoesNotExist:
+                    raise Http404
+                return redirect(self.object, permanent=True)
         return super().get(*args, **kwargs)
 
 
