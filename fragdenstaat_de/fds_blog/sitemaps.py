@@ -17,7 +17,7 @@ class BlogSitemap(Sitemap):
         self.url_cache = {}
 
     def items(self):
-        return Article.objects.published()
+        return Article.published()
 
     def lastmod(self, obj):
         return obj.last_update
