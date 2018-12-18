@@ -4,6 +4,7 @@
   {{ block.super }}
   <link rel="alternate" type="application/rss+xml" title="{{ SITE_NAME }} Blog" href="{% url 'blog:article-latest-feed' %}" />
 {% endblock %}
+
 {% block body %}
   {% block app_body %}
     {% block content %}{% endblock %}
