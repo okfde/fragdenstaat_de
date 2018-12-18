@@ -457,7 +457,7 @@ class LatestArticlesPlugin(CMSPlugin):
 
     def get_articles(self, request, published_only=True):
         if (published_only or not request or not getattr(request, 'toolbar', False) or
-                not request.toolbar.edit_mode):
+                not request.toolbar.edit_mode_active):
             articles = Article.published.all()
         else:
             articles = Article.objects.all()
