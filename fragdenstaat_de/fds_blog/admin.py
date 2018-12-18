@@ -86,7 +86,7 @@ class AuthorshipInlineAdmin(SortableInlineAdminMixin, admin.TabularInline):
 
 class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
     # form = EntryAdminForm
-    date_hierarchy = 'creation_date'
+    date_hierarchy = 'start_publication'
 
     fieldsets = (
         (_('Content'), {
@@ -132,7 +132,7 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         'language',
         'get_is_visible',
         'has_translation',
-        'creation_date'
+        'start_publication'
     )
 
     list_filter = (
