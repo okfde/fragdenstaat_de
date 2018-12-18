@@ -13,7 +13,6 @@ from parler.admin import TranslatableAdmin
 from cms.api import add_plugin
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 
-# from .forms import ArticleCreationForm, EntryAdminForm
 from .models import (
     Article, Author, Category, ArticleTag, TaggedArticle
 )
@@ -52,14 +51,7 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
             return queryset.filter(**params)
 
 
-class CustomTranslatableAdmin(TranslatableAdmin):
-    pass
-    # def get_change_form_base_template(self):
-    #     proxy = super(CustomTranslatableAdmin, self).get_change_form_base_template()
-    #     return str(proxy)
-
-
-class CategoryAdmin(CustomTranslatableAdmin):
+class CategoryAdmin(TranslatableAdmin):
     fields = ('title', 'description', 'slug', 'order',)
     list_display = ('title',)
     search_fields = ('translations__title', 'translations__description')
