@@ -94,6 +94,16 @@ class FragDenStaatBase(German, Base):
     ARTICLE_CONTENT_TEMPLATES = []
     ARTICLE_DETAIL_TEMPLATES = []
 
+    PARLER_LANGUAGES = {
+        1: (
+            {'code': 'de'},
+            {'code': 'en'},
+        ),
+        'default': {
+            'hide_untranslated': False,   # the default; let .active_translations() return fallbacks too.
+        }
+    }
+
     # CMS
 
     CMS_TOOLBAR_ANONYMOUS_ON = False
