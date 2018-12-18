@@ -38,7 +38,8 @@ class AuthorManager(models.Manager):
 class Author(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
-        null=True, related_name='authorship', blank=True
+        null=True, related_name='authorship', blank=True,
+        on_delete=models.SET_NULL
     )
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
@@ -110,8 +111,8 @@ class Author(models.Model):
 
 
 class ArticleAuthorship(models.Model):
-    article = models.ForeignKey('Article')
-    author = models.ForeignKey(Author)
+    article = models.ForeignKey('Article', on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
     order = models.PositiveIntegerField(default=0)
 
@@ -195,9 +196,12 @@ class ArticleTag(TagBase):
 
 
 class TaggedArticle(TaggedItemBase):
-    tag = models.ForeignKey(ArticleTag,
-                            related_name="articles")
-    content_object = models.ForeignKey('Article')
+    tag = models.ForeignKey(
+        ArticleTag, related_name="articles",
+        on_delete=models.CASCADE)
+    content_object = models.ForeignKey(
+        'Article',
+        on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('Tagged Article')
