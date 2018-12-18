@@ -2,7 +2,7 @@ import os.path
 
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.conf import settings
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
@@ -69,7 +69,8 @@ class ArticleDetailView(BaseBlogView, DetailView):
     view_url_name = 'fds_blog:article-detail'
 
     def get_base_queryset(self):
-        if not getattr(self.request, 'toolbar', False) or not self.request.toolbar.edit_mode:
+        if (not getattr(self.request, 'toolbar', False) or
+                not self.request.toolbar.edit_mode_active):
             return self.model.published.all()
         return self.model._default_manager.all()
 

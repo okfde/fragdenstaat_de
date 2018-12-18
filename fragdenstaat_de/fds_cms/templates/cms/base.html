@@ -4,13 +4,6 @@
 {% load static %}
 {% load sekizai_tags %}
 
-{% block extra_head %}
-  {% block additional_meta %}
-    <meta name="google-site-verification" content="upljx19ZJVGT73Sx1miWKLOWBKga4LQJ_hqFl0vhhJE" />
-  {% endblock %}
-{% endblock %}
-
-
 {% block css %}
   {% addtoblock "css" %}<link href="{% static 'css/main.css' %}" rel="stylesheet">{% endaddtoblock %}
   {{ block.super }}

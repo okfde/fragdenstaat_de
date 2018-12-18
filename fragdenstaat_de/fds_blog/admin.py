@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.contrib import admin
 from django.contrib.sites.models import Site
-from django.core.urlresolvers import NoReverseMatch
+from django.urls import NoReverseMatch
 from django.db.models import Count
 from django.utils.encoding import smart_text
 from django.utils.translation import ungettext_lazy, ugettext_lazy as _

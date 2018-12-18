@@ -1,9 +1,14 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 import os
 import re
 
 from django.utils.translation import ugettext_lazy as _
+
+# Monkey add CMS Django version flags 
+from cms.utils import compat
+
+compat.DJANGO_1_8 = False
+compat.DJANGO_1_9 = False
+compat.DJANGO_1_10 = False
 
 from froide.settings import Base, German
 
@@ -39,9 +44,6 @@ class FragDenStaatBase(German, Base):
             'filer',
             'mptt',
 
-            # Old Blog dependencies
-            'cmsplugin_filer_image',
-
             'fragdenstaat_de.fds_blog',
             'adminsortable2',
             'parler',
@@ -52,10 +54,6 @@ class FragDenStaatBase(German, Base):
             'fragdenstaat_de.fds_newsletter',
 
             'newsletter',
-
-            # No longer needed when PR passes
-            # https://github.com/divio/django-cms/pull/6564
-            'overextends',
 
             'fragdenstaat_de.fds_cms',
 
@@ -86,7 +84,6 @@ class FragDenStaatBase(German, Base):
         TEMP[0]['DIRS'] = [
             os.path.join(THEME_ROOT, 'theme', 'templates'),
         ] + list(TEMP[0]['DIRS'])
-        TEMP[0]['OPTIONS']['builtins'] = ['overextends.templatetags.overextends_tags']
         cps = TEMP[0]['OPTIONS']['context_processors']
         cps.extend([
             'sekizai.context_processors.sekizai',
