@@ -68,6 +68,8 @@ h4.blog-list-heading {
     padding: 1.5em;
     position: absolute;
     width: 40%;
+    max-height: 400px;
+    overflow: hidden;
   }
 }
 
