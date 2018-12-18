@@ -341,16 +341,16 @@ class Article(
             if language:
                 translation.activate(language)
 
-            creation_date = self.creation_date
-            if timezone.is_aware(creation_date):
-                creation_date = timezone.localtime(creation_date)
-
+            publication_date = self.publication_date
             kwargs = {
-                'year': creation_date.strftime('%Y'),
-                'month': creation_date.strftime('%m'),
-                'day': creation_date.strftime('%d'),
                 'slug': self.slug
             }
+            if publication_date is not None:
+                kwargs.update({
+                    'year': publication_date.strftime('%Y'),
+                    'month': publication_date.strftime('%m'),
+                    'day': publication_date.strftime('%d'),
+                })
             url = reverse('blog:article-detail', kwargs=kwargs)
         finally:
             if language:
