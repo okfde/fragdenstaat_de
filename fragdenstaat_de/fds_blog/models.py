@@ -6,7 +6,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.utils import translation
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils import html
 from django.contrib.sites.shortcuts import get_current_site
 
