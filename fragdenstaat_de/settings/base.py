@@ -44,9 +44,6 @@ class FragDenStaatBase(German, Base):
             'filer',
             'mptt',
 
-            # Old Blog dependencies
-            'cmsplugin_filer_image',
-
             'fragdenstaat_de.fds_blog',
             'adminsortable2',
             'parler',
