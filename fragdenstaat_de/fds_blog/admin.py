@@ -1,4 +1,5 @@
 from django.utils import timezone
+from django import forms
 from django.contrib import admin
 from django.contrib.sites.models import Site
 from django.urls import NoReverseMatch
@@ -9,6 +10,7 @@ from django.utils.html import format_html
 
 from adminsortable2.admin import SortableInlineAdminMixin
 from parler.admin import TranslatableAdmin
+from tinymce.widgets import TinyMCE
 
 from cms.api import add_plugin
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
@@ -84,8 +86,17 @@ class AuthorshipInlineAdmin(SortableInlineAdminMixin, admin.TabularInline):
     raw_id_fields = ('author',)
 
 
+class ArticleAdminForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = '__all__'
+        widgets = {
+            'teaser': TinyMCE()
+        }
+
+
 class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
-    # form = EntryAdminForm
+    form = ArticleAdminForm
     date_hierarchy = 'start_publication'
 
     fieldsets = (
