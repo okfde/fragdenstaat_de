@@ -13,6 +13,13 @@
     padding: 1rem 2rem;
     background-color: #D4FEFF;
 
+    width: 100%;
+
+    @include media-breakpoint-up(md) {
+        width: 80%;
+        max-width: 1200px;
+    }
+
     figcaption {
         margin: 1rem 0 0.25rem;
         text-align: right;
