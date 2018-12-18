@@ -256,7 +256,6 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
             url=edit_link + '?edit',
             title=_('Edit Content')
         )
-    get_edit_link.allow_tags = True
     get_edit_link.short_description = _('Content')
 
     def has_translation(self, article):
