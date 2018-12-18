@@ -5,6 +5,7 @@ from django.urls import NoReverseMatch
 from django.db.models import Count
 from django.utils.encoding import smart_text
 from django.utils.translation import ungettext_lazy, ugettext_lazy as _
+from django.utils.html import format_html
 
 from adminsortable2.admin import SortableInlineAdminMixin
 from parler.admin import TranslatableAdmin
@@ -232,7 +233,6 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         Return the authors in HTML.
         """
         return ', '.join(str(author) for author in article.authors.all())
-    get_authors.allow_tags = True
     get_authors.short_description = _('author(s)')
 
     def get_categories(self, article):
@@ -260,10 +260,10 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
             edit_link = article.get_absolute_edit_url()
         except NoReverseMatch:
             return _('unavailable for this site')
-        return u'<a href="%(url)s" target="_blank">%(title)s</a>' % {
-            'url': edit_link + '?edit',
-            'title': _('Edit Content')
-        }
+        return format_html('<a href="{url}" target="_blank">{title}</a>',
+            url=edit_link + '?edit',
+            title=_('Edit Content')
+        )
     get_edit_link.allow_tags = True
     get_edit_link.short_description = _('Content')
 
