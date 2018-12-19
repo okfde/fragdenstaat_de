@@ -3,7 +3,6 @@ import uuid
 from django.db import models
 from django.template.loader import render_to_string
 from django.conf import settings
-from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.utils import translation
 from django.urls import reverse
