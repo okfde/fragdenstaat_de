@@ -24,7 +24,7 @@
 
 {% endif %}
 
-<img class="img-fluid" src="{% spaceless %}
+<img class="{% if instance.width or instance.height %}{% else %}img-fluid{% endif %}" src="{% spaceless %}
     {% if instance.external_picture %}
         {{ instance.external_picture }}
     {% elif instance.use_no_cropping %}
