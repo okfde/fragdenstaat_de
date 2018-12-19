@@ -131,11 +131,6 @@ class FragDenStaat(FragDenStaatBase):
                 'filename': os.path.join(env('DJANGO_LOG_DIR'), 'froide.log'),
                 'class': 'logging.FileHandler',
                 'level': 'INFO'
-            },
-            'mail_admins': {
-                'class': 'django.utils.log.AdminEmailHandler',
-                'filters': ['require_debug_false'],
-                'level': 'ERROR'
             }
         },
         'formatters': {
