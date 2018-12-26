@@ -192,21 +192,6 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
             return self.add_fieldsets
         return super().get_fieldsets(request, obj)
 
-    def get_form(self, request, obj=None, **kwargs):
-        """
-        Use special form during user creation
-        """
-        defaults = {}
-        if obj is None:
-            defaults.update({
-                'form': self.add_form,
-                'fields': admin.utils.flatten_fieldsets(self.add_fieldsets),
-            })
-        defaults.update(kwargs)
-
-        form = super().get_form(request, obj, **defaults)
-        return form
-
     def save_model(self, request, article, form, change):
         """
         Save the update time.
