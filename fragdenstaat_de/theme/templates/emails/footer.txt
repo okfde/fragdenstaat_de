@@ -1,0 +1,6 @@
+{% autoescape off %}-- 
+
+FragDenStaaat.de
+
+Wir kämpfen für Transparenz! Kämpfen Sie mit und unterstützen Sie uns: https://fragdenstaat.de/hilfe/spenden/
+{% endautoescape %}
