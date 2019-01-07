@@ -106,6 +106,32 @@ class FragDenStaatBase(German, Base):
 
     # CMS
 
+    CMS_LANGUAGES = {
+        # Customize this
+        'default': {
+            'public': True,
+            'hide_untranslated': False,
+            'redirect_on_fallback': True,
+            'fallbacks': ['en', 'de'],
+        },
+        1: [
+            {
+                'public': True,
+                'code': 'de',
+                'hide_untranslated': False,
+                'name': _('German'),
+                'redirect_on_fallback': True,
+            },
+            {
+                'public': True,
+                'code': 'en',
+                'hide_untranslated': False,
+                'name': _('English'),
+                'redirect_on_fallback': True,
+            }
+        ],
+    }
+
     CMS_TOOLBAR_ANONYMOUS_ON = False
     CMS_TEMPLATES = [
         ('cms/home.html', 'Homepage template'),
