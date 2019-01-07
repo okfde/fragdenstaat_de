@@ -19,4 +19,4 @@ class SmartNewsletterPlugin(CMSPluginBase):
     name = _('Smart Newsletter Formular')
     cache = False
     text_enabled = True
-    render_template = "fds_newsletter/plugins/smart_newsletter_form.html"
+    render_template = "fds_newsletter/plugins/smart_newsletter.html"
