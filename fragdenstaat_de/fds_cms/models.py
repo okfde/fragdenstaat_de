@@ -164,6 +164,9 @@ class FoiRequestListCMSPlugin(CMSPlugin):
         max_length=250, choices=TEMPLATES,
         help_text=_('template used to display the plugin'))
 
+    def __str__(self):
+        return _('%s FOI requests') % self.number_of_entries
+
     @property
     def render_template(self):
         """
@@ -172,5 +175,8 @@ class FoiRequestListCMSPlugin(CMSPlugin):
         """
         return self.template_to_render
 
-    def __str__(self):
-        return _('%s FOI requests') % self.number_of_entries
+    def copy_relations(self, old_instance):
+        """
+        Duplicate ManyToMany relations on plugin copy
+        """
+        self.tags = old_instance.tags.all()
