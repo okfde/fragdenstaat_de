@@ -136,7 +136,17 @@ const config = {
         test: /\.js$/,
         include: /(\/frontend|node_modules\/(bootstrap))/,
         use: {
-          loader: 'babel-loader'
+          loader: 'babel-loader',
+          options: {
+            "presets": [
+              ["@babel/preset-env", {
+                "targets": {
+                  "browsers": ["> 0.25%", "last 2 versions", "ie >= 11", "not dead"]
+                }
+              }]
+            ],
+            "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+          }
         }
       },
       {
