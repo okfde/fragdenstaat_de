@@ -383,7 +383,7 @@ class FragDenStaatBase(German, Base):
         return config
 
     FROIDE_FOOD_CONFIG = {
-        'api_key_google': '',
+        'api_key_google': os.environ.get('GOOGLE_PLACES_API_KEY'),
         'api_key_geocode_here': os.environ.get('HERE_GEOCODE_API_KEY'),
         'api_key_yelp': os.environ.get('YELP_API_KEY', '')
     }
