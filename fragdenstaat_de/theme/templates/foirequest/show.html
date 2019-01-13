@@ -35,7 +35,7 @@
 {% endblock %}
 
 {% block request_action_menu_footer %}
-  {% if object.can_be_escalated %}
+  {% if object.can_be_escalated and not "food:" in object.reference %}
     <li class="nav-item">
       <a href="#legalaction" data-toggle="tab" class="nav-link" role="tab" aria-controls="legalaction" aria-expanded="false">
         Jetzt klagen
@@ -46,7 +46,7 @@
 
 {% block request_action_pane_footer %}
   {# Legal Action #}
-  {% if object.can_be_escalated %}
+  {% if object.can_be_escalated and not "food:" in object.reference %}
     <div class="tab-pane d-print-none" id="legalaction">
       {% include "froide_legalaction/includes/request_pane.html" with object=object %}
     </div>
