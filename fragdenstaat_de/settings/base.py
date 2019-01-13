@@ -137,6 +137,7 @@ class FragDenStaatBase(German, Base):
         ('cms/home.html', 'Homepage template'),
         ('cms/page.html', 'Page template'),
         ('cms/page_headerless.html', 'Page without header'),
+        ('cms/page_reduced.html', 'Page reduced'),
         ('cms/blog_base.html', 'Blog base template'),
         ('cms/static_placeholders.html', 'Static Placeholder Overview'),
     ]
