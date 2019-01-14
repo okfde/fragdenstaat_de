@@ -32,6 +32,10 @@ class SubmissionAdmin(BaseSubmissionAdmin):
             )
             return redirect(change_url)
 
+        if submission.subscriptions.all().count() == 0:
+            message = submission.message
+            submission.subscriptions.set(message.newsletter.get_subscriptions())
+
         submission.prepared = True
         submission.save()
 
