@@ -51,6 +51,7 @@ elasticsearch==6.3.1
 elasticsearch-dsl==6.1.0
 geocoder==1.38.1
 geoip2==2.9.0
+geopy==1.18.1
 honcho==1.0.1
 html5lib==0.999999999
 icalendar==4.0.3
