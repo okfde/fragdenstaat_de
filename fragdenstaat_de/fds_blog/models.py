@@ -447,9 +447,9 @@ class LatestArticlesPlugin(CMSPlugin):
         """
         Duplicate ManyToMany relations on plugin copy
         """
-        self.tags = old_instance.tags.all()
-        self.authors = old_instance.authors.all()
-        self.categories = old_instance.categories.all()
+        self.tags.set(old_instance.tags.all())
+        self.authors.set(old_instance.authors.all())
+        self.categories.set(old_instance.categories.all())
 
     def __str__(self):
         return _('%s entries') % self.number_of_articles

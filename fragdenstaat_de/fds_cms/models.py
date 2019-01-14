@@ -179,4 +179,4 @@ class FoiRequestListCMSPlugin(CMSPlugin):
         """
         Duplicate ManyToMany relations on plugin copy
         """
-        self.tags = old_instance.tags.all()
+        self.tags.set(old_instance.tags.all())
