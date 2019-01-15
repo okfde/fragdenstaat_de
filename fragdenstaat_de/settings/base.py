@@ -64,6 +64,7 @@ class FragDenStaatBase(German, Base):
             'froide_campaign.apps.FroideCampaignConfig',
             'froide_legalaction.apps.FroideLegalActionConfig',
             'froide_food.apps.FroideFoodConfig',
+            'django_amenities.apps.AmenitiesConfig',
             'froide_fax.apps.FroideFaxConfig',
             'froide_exam'
         ]
