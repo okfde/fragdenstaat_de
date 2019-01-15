@@ -11,6 +11,9 @@ from froide.georegion import admin as georegion_admin
 from froide.publicbody.models import PublicBody, ProposedPublicBody
 from froide.publicbody import admin as pb_admin
 
+from django_amenities.models import Amenity
+from django_amenities.admin import AmenityAdmin as OldAmenityAdmin
+
 
 class TinyMCEFlatPageAdmin(FlatPageAdmin):
     def formfield_for_dbfield(self, db_field, **kwargs):
@@ -33,6 +36,10 @@ class ProposedPublicBodyAdmin(pb_admin.ProposedPublicBodyAdminMixin, LeafletGeoA
     display_raw = True
 
 
+class AmenityAdmin(LeafletGeoAdmin, OldAmenityAdmin):
+    display_raw = True
+
+
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, TinyMCEFlatPageAdmin)
 
@@ -44,3 +51,6 @@ admin.site.register(PublicBody, PublicBodyAdmin)
 
 admin.site.unregister(ProposedPublicBody)
 admin.site.register(ProposedPublicBody, ProposedPublicBodyAdmin)
+
+admin.site.unregister(Amenity)
+admin.site.register(Amenity, AmenityAdmin)
