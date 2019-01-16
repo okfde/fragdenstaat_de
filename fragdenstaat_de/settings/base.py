@@ -284,6 +284,7 @@ class FragDenStaatBase(German, Base):
         'cms.middleware.toolbar.ToolbarMiddleware',
         'cms.middleware.language.LanguageCookieMiddleware',
     ]
+    FROIDE_CSRF_MIDDLEWARE = 'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware'
 
     CACHES = {
         'default': {
