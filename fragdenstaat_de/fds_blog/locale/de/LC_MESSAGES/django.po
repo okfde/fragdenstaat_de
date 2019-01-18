@@ -7,37 +7,37 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fragdenstaat.defds_blog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-17 20:19+0100\n"
-"PO-Revision-Date: 2018-12-17 20:22+0100\n"
+"POT-Creation-Date: 2019-01-18 12:23+0100\n"
+"PO-Revision-Date: 2019-01-18 12:26+0100\n"
+"Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.org>\n"
+"Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.org>\n"
-"Language-Team: \n"
 "X-Generator: Poedit 1.7.5\n"
 
-#: admin.py:38
+#: admin.py:40
 #, python-format
 msgid "%(item)s (%(count)i entry)"
 msgid_plural "%(item)s (%(count)i articles)"
 msgstr[0] "%(item)s (%(count)i Artikel)"
 msgstr[1] "%(item)s (%(count)i Artikel)"
 
-#: admin.py:81
+#: admin.py:76
 msgid "published categories"
 msgstr "Veröffentlichte Kategorien"
 
-#: admin.py:99 admin.py:268
+#: admin.py:103 admin.py:255
 msgid "Content"
 msgstr "Inhalt"
 
-#: admin.py:102
+#: admin.py:106
 msgid "URL"
 msgstr "URL"
 
-#: admin.py:104
+#: admin.py:108
 msgid ""
 "Make sure these are correct before publication. Do not change after "
 "publication!"
@@ -45,60 +45,60 @@ msgstr ""
 "Stellen Sie vor Veröffentlichung sicher, dass diese Angaben stimmen. Nicht "
 "nach Veröffentlichung ändern!"
 
-#: admin.py:106
+#: admin.py:110
 msgid "Additional Content"
 msgstr "Weiterer Inhalt"
 
-#: admin.py:109
+#: admin.py:113
 msgid "Templates"
 msgstr "Templates"
 
-#: admin.py:113
+#: admin.py:117
 msgid "Publication Dates"
 msgstr "Veröffentlichungsdatum"
 
-#: admin.py:118
+#: admin.py:122
 msgid "Metadata"
 msgstr "Metadaten"
 
-#: admin.py:122
+#: admin.py:126
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
-#: admin.py:228 model_bases.py:26 models.py:147
+#: admin.py:217 model_bases.py:26 models.py:147
 msgid "title"
 msgstr "Titel"
 
-#: admin.py:236
+#: admin.py:224
 msgid "author(s)"
 msgstr "Autor(en)"
 
-#: admin.py:245
+#: admin.py:233
 msgid "category(s)"
 msgstr "Kategorie(n)"
 
-#: admin.py:253
+#: admin.py:241
 msgid "is visible"
 msgstr "Veröffentlicht"
 
-#: admin.py:262
+#: admin.py:250
 msgid "unavailable for this site"
 msgstr "Nicht verfügbar für diese Seite"
 
-#: admin.py:265
+#: admin.py:253
 msgid "Edit Content"
 msgstr "Inhalt bearbeiten"
 
-#: admin.py:272
+#: admin.py:259
 msgid "Translated"
 msgstr "Übersetzt"
 
-#: admin.py:281
+#: admin.py:268
 msgid "The selected articles are now marked as translations of each other."
 msgstr ""
 "Die markierten Artikel sind jetzt als Übersetzung voneinander markiert."
 
-#: admin.py:282
+#: admin.py:269
 msgid "Set articles as translations of each other"
 msgstr "Markiere Artikel als Übersetzungen voneinander"
 
@@ -180,146 +180,146 @@ msgstr "verwandte Artikel"
 
 #: model_bases.py:147
 msgid "lead"
-msgstr ""
+msgstr "Einstieg"
 
 #: model_bases.py:148
 msgid "Lead paragraph"
-msgstr ""
+msgstr "Einstiegsabsatz"
 
 #: model_bases.py:168
 msgid "excerpt"
-msgstr ""
+msgstr "Auszug"
 
 #: model_bases.py:169
 msgid "Used for SEO purposes."
-msgstr ""
+msgstr "Genutzt für SEO"
 
 #: model_bases.py:191
 msgid "content template"
-msgstr ""
+msgstr "Inhaltsvorlage"
 
 #: model_bases.py:193 model_bases.py:209
 msgid "Default template"
-msgstr ""
+msgstr "Standard-Vorlage"
 
 #: model_bases.py:195
 msgid "Template used to display the article's content."
-msgstr ""
+msgstr "Vorlage wird genutzt um den Inhalt des Artikels anzuzeigen"
 
 #: model_bases.py:207
 msgid "detail template"
-msgstr ""
+msgstr "Artikelvorlage"
 
 #: model_bases.py:211
 msgid "Template used to display the article's detail page."
-msgstr ""
+msgstr "Vorlage wird genutzt um die Artikel-Seite anzuzeigen"
 
-#: models.py:135 models.py:418
+#: models.py:135 models.py:421
 msgid "authors"
 msgstr "Autoren"
 
 #: models.py:150
 msgid "Used to build the category's URL."
-msgstr ""
+msgstr "Wird genutzt um die Kategorie-URL zu erstellen."
 
 #: models.py:152
 msgid "description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: models.py:164
 msgid "category"
-msgstr ""
+msgstr "Kategorie"
 
-#: models.py:165 models.py:185 models.py:415
+#: models.py:165 models.py:185 models.py:418
 msgid "categories"
-msgstr ""
+msgstr "Kategorien"
 
 #: models.py:193
 msgid "Article Tag"
-msgstr ""
+msgstr "Artikel-Schlagwort"
 
 #: models.py:194
 msgid "Article Tags"
-msgstr ""
+msgstr "Artikel-Schlagworte"
 
-#: models.py:203
+#: models.py:206
 msgid "Tagged Article"
-msgstr ""
+msgstr "Verschlagworteter Artikel"
 
-#: models.py:204
+#: models.py:207
 msgid "Tagged Articles"
-msgstr ""
+msgstr "Verschlagwortete Artikel"
 
-#: models.py:239
+#: models.py:242
 msgid "image"
 msgstr "Bild"
 
-#: models.py:249
+#: models.py:252
 msgid "featured date"
 msgstr "prominent Datum"
 
-#: models.py:296
+#: models.py:299
 msgid "article"
 msgstr "Artikel"
 
-#: models.py:297
+#: models.py:300
 msgid "articles"
 msgstr "Artikel"
 
-#: models.py:305
+#: models.py:308
 #, python-format
 msgid "Article \"%s\""
 msgstr "Artikel \"%s\""
 
-#: models.py:397
+#: models.py:400
 msgid "Normal"
 msgstr "NOrmal"
 
-#: models.py:407
+#: models.py:410
 msgid "featured"
 msgstr "prominent"
 
-#: models.py:409
+#: models.py:412
 msgid "Show featured articles only"
 msgstr "Zeige prominente Artikel"
 
-#: models.py:410
+#: models.py:413
 msgid "Hide featured articles"
 msgstr "Verstecke prominente Artikel"
 
-#: models.py:412
+#: models.py:415
 msgid "language"
 msgstr "Sprache"
 
-#: models.py:421
+#: models.py:424
 msgid "tags"
 msgstr "Schlagwörter"
 
-#: models.py:425
+#: models.py:428
 msgid "number of articles"
 msgstr "Anzahl Artikel"
 
-#: models.py:426
+#: models.py:429
 msgid "0 means all the articles"
 msgstr "0 bedeutet alle Artikel"
 
-#: models.py:428
+#: models.py:431
 msgid "offset"
 msgstr "Offset"
 
-#: models.py:429
+#: models.py:432
 msgid "number of articles to skip from top of list"
 msgstr "Anzahl der Artikel auslassen vom Listenanfang"
 
-#: models.py:431
+#: models.py:434
 msgid "template"
 msgstr "Template"
 
-#: models.py:433
+#: models.py:436
 msgid "template used to display the plugin"
 msgstr "Template zur Anzeige des Plugins"
 
-#: models.py:452
+#: models.py:455
 #, python-format
 msgid "%s entries"
 msgstr "%s Artikel"
@@ -366,11 +366,17 @@ msgid "image credit: "
 msgstr "Foto-Credit:"
 
 #: urls.py:41
-msgctxt "url"
-msgid "author"
-msgstr "autor"
+msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
+msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
 
 #: urls.py:43
-msgctxt "url"
-msgid "category"
-msgstr "kategorie"
+msgid "^category/(?P<category>[\\w\\.@+-]+)/$"
+msgstr "^kategorie/(?P<category>[\\w\\.@+-]+)/$"
+
+#~ msgctxt "url"
+#~ msgid "author"
+#~ msgstr "autor"
+
+#~ msgctxt "url"
+#~ msgid "category"
+#~ msgstr "kategorie"
