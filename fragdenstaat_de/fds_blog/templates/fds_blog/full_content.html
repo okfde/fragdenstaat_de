@@ -5,21 +5,6 @@
 
 {% block before_main %}
 <header>
-  {% with authors=object.get_authors %}
-    {% if authors %}
-      <i>
-        {% trans "by" %}
-        {% for author in authors %}
-          <span class="vcard">
-            {% if author.get_absolute_url %}
-            <a href="{{ author.get_absolute_url }}" rel="author">
-            {% endif %}
-            {{ author }}{% if author.get_absolute_url %}</a>{% endif %}</span>{% if not forloop.last %},{% endif %}
-        {% endfor %}
-      </i>
-    {% endif %}
-  {% endwith %}
-
   {% if object.teaser %}{{ object.teaser|safe }}{% endif %}
 
   {% if object.image %}
@@ -49,7 +34,22 @@
 {% endblock %}
 
 {% render_placeholder placeholder language lang %}
-
+<footer>
+  {% with authors=object.get_authors %}
+    {% if authors %}
+      <i>
+        {% trans "by" %}
+        {% for author in authors %}
+          <span class="vcard">
+            {% if author.get_absolute_url %}
+            <a href="{{ author.get_absolute_url }}" rel="author">
+            {% endif %}
+            {{ author }}{% if author.get_absolute_url %}</a>{% endif %}</span>{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      </i>
+    {% endif %}
+  {% endwith %}
+</footer>
 {% block after_main %}
 {% static_placeholder "blog_feed_footer" %}
 {% endblock %}
