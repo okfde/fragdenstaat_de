@@ -94,11 +94,15 @@ a.teaser:hover {
     padding: 1.2rem 0;
     margin: 0 auto;
     width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
   }
 
 
   li { 
-    display: inline;
+    display: flex;
     list-style: none;
     font-weight: 500;
     margin: 0 0.25rem;
