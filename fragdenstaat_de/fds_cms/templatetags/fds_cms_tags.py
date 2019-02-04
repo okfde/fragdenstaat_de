@@ -6,6 +6,11 @@ from cms.models import StaticPlaceholder
 register = template.Library()
 
 
+@register.filter
+def is_campaign(obj, campaign):
+    return obj.reference.startswith(campaign)
+
+
 @register.simple_tag(takes_context=True)
 def fds_static_placeholder(context, code):
     try:

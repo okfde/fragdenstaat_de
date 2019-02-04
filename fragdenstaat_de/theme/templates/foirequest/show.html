@@ -9,6 +9,28 @@
 
 
 {% block foirequest_header %}
+  {% if object|is_campaign:'food:' and not object|can_write_foirequest:request %}
+    <div class="alert alert-info">
+      <div class="row">
+        <div class="col">
+          <a href="/kampagnen/lebensmittelkontrolle/app/?pk_campaign=request">
+            <img src="https://media.frag-den-staat.de/files/media/thumbnails/95/94/9594735c-851f-4192-b86f-9845806ff763/topf_secret_square_1.png__210x0_q85_subject_location-500%2C500_subsampling-2_upscale.png" height="100px" alt="Topf Secret"/>
+          </a>
+        </div>
+        <div class="col-auto">
+          <div>
+            <p class="text-center">
+            Diese Anfrage wurde im Rahmen der Kampagne <a href="/kampagnen/lebensmittelkontrolle/app/?pk_campaign=request">Topf Secret</a> gestellt.
+            </p>
+            <p class="text-right">
+              <a href="/kampagnen/lebensmittelkontrolle/app/?pk_campaign=request" class="btn btn-primary">Selbst eine Anfrage stellen</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
   {% if object|can_write_foirequest:request and object|foirequest_needs_signature %}
     <div class="alert alert-warning">
       <h3>
