@@ -11,82 +11,85 @@ from django.conf import settings
 def migrate_blog(apps, schema_editor):
     from cms.models.fields import PlaceholderField
 
-    BlogCategory = apps.get_model('djangocms_blog', 'BlogCategory')
-    BlogCategoryTranslation = apps.get_model('djangocms_blog', 'BlogCategoryTranslation')
-    Category = apps.get_model('fds_blog', 'Category')
-    CategoryTranslation = apps.get_model('fds_blog', 'CategoryTranslation')
+    try:
+        BlogCategory = apps.get_model('djangocms_blog', 'BlogCategory')
+        BlogCategoryTranslation = apps.get_model('djangocms_blog', 'BlogCategoryTranslation')
+        Category = apps.get_model('fds_blog', 'Category')
+        CategoryTranslation = apps.get_model('fds_blog', 'CategoryTranslation')
 
-    category_mapping = {}
-    for bc in BlogCategory.objects.all():
-        translation = BlogCategoryTranslation.objects.get(
-            master_id=bc.pk, language_code=settings.LANGUAGE_CODE
-        )
-        c = Category()
-        # Don't save translations now
-        c._parler_meta = []
-        c.save()
-        CategoryTranslation.objects.create(
-            master_id=c.pk,
-            language_code=settings.LANGUAGE_CODE,
-            title=translation.name,
-            slug=translation.slug,
-            description=translation.meta_description
-        )
-        category_mapping[bc.id] = c
-
-    Post = apps.get_model('djangocms_blog', 'Post')
-    Article = apps.get_model('fds_blog', 'Article')
-    Author = apps.get_model('fds_blog', 'Author')
-    ArticleAuthorship = apps.get_model('fds_blog', 'ArticleAuthorship')
-
-    PostTranslation = apps.get_model('djangocms_blog', 'PostTranslation')
-
-    for post in Post._default_manager.all():
-        translation = PostTranslation.objects.get(
-            master_id=post.pk, language_code=settings.LANGUAGE_CODE
-        )
-        a = Article(
-            title=translation.title,
-            slug=translation.slug,
-            status=2 if post.publish else 0,
-            start_publication=post.date_published,
-            end_publication=post.date_published_end,
-            creation_date=post.date_created,
-            last_update=post.date_modified,
-            date_featured=post.date_featured,
-            teaser=translation.abstract,
-            image=post.main_image,
-            language=settings.LANGUAGE_CODE
-        )
-
-        # Horrible hack ahead
-        # in which the PlaceholderField pre_save method
-        # is monkey patched to allow direct assignment of placeholders
-        def pre_save(self, model_instance, add):
-            placeholder = getattr(model_instance, self.name)
-            placeholder.slot = self.slotname
-            placeholder.save()
-            return super(PlaceholderField, self).pre_save(model_instance, add)
-
-        field = a._meta.fields[-2]  # content placeholder field
-        field.pre_save = functools.partial(pre_save, field)
-
-        a.content_placeholder = post.content
-        a.save()
-
-        a.sites.set([1])
-        cats = [category_mapping[c.id] for c in post.categories.all()]
-        a.categories.set(cats)
-
-        # Don't migrate tags
-
-        if post.author:
-            author, _ = Author.objects.get_or_create(
-                user=post.author
+        category_mapping = {}
+        for bc in BlogCategory.objects.all():
+            translation = BlogCategoryTranslation.objects.get(
+                master_id=bc.pk, language_code=settings.LANGUAGE_CODE
             )
-            ArticleAuthorship.objects.create(
-                article=a, author=author
+            c = Category()
+            # Don't save translations now
+            c._parler_meta = []
+            c.save()
+            CategoryTranslation.objects.create(
+                master_id=c.pk,
+                language_code=settings.LANGUAGE_CODE,
+                title=translation.name,
+                slug=translation.slug,
+                description=translation.meta_description
             )
+            category_mapping[bc.id] = c
+
+        Post = apps.get_model('djangocms_blog', 'Post')
+        Article = apps.get_model('fds_blog', 'Article')
+        Author = apps.get_model('fds_blog', 'Author')
+        ArticleAuthorship = apps.get_model('fds_blog', 'ArticleAuthorship')
+
+        PostTranslation = apps.get_model('djangocms_blog', 'PostTranslation')
+
+        for post in Post._default_manager.all():
+            translation = PostTranslation.objects.get(
+                master_id=post.pk, language_code=settings.LANGUAGE_CODE
+            )
+            a = Article(
+                title=translation.title,
+                slug=translation.slug,
+                status=2 if post.publish else 0,
+                start_publication=post.date_published,
+                end_publication=post.date_published_end,
+                creation_date=post.date_created,
+                last_update=post.date_modified,
+                date_featured=post.date_featured,
+                teaser=translation.abstract,
+                image=post.main_image,
+                language=settings.LANGUAGE_CODE
+            )
+
+            # Horrible hack ahead
+            # in which the PlaceholderField pre_save method
+            # is monkey patched to allow direct assignment of placeholders
+            def pre_save(self, model_instance, add):
+                placeholder = getattr(model_instance, self.name)
+                placeholder.slot = self.slotname
+                placeholder.save()
+                return super(PlaceholderField, self).pre_save(model_instance, add)
+
+            field = a._meta.fields[-2]  # content placeholder field
+            field.pre_save = functools.partial(pre_save, field)
+
+            a.content_placeholder = post.content
+            a.save()
+
+            a.sites.set([1])
+            cats = [category_mapping[c.id] for c in post.categories.all()]
+            a.categories.set(cats)
+
+            # Don't migrate tags
+
+            if post.author:
+                author, _ = Author.objects.get_or_create(
+                    user=post.author
+                )
+                ArticleAuthorship.objects.create(
+                    article=a, author=author
+                )
+    except LookupError: # djangocms_blog not found
+        pass
 
 
 class Migration(migrations.Migration):
