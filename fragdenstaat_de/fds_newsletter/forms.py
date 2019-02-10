@@ -1,6 +1,5 @@
 from django import forms
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 from froide.helper.widgets import BootstrapCheckboxInput
@@ -13,14 +12,13 @@ class NewsletterUserExtra():
         form.fields['newsletter'] = forms.BooleanField(
             required=False,
             widget=BootstrapCheckboxInput,
-            label=_("Check if you want to receive our newsletter.")
+            label="Erhalten Sie unseren Newsletter zum Thema Informationsfreiheit."
         )
 
     def on_clean(self, form):
         pass
 
     def on_save(self, form, user):
-        # FIXME: remove soon
         user.newsletter = form.cleaned_data['newsletter']
 
         if not form.cleaned_data['newsletter']:
@@ -33,9 +31,11 @@ class NewsletterUserExtra():
         except Newsletter.DoesNotExist:
             return
 
-        Subscription.objects.create(
+        Subscription.objects.update_or_create(
             user=user,
             newsletter=newsletter,
-            subscribed=False,
-            subscribe_date=timezone.now()
+            defaults={
+                'subscribed': False,
+                'subscribe_date': timezone.now()
+            }
         )
