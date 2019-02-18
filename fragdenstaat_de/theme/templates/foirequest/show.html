@@ -31,6 +31,28 @@
     </div>
   {% endif %}
 
+  {% if object|is_campaign:'exam:' and not object|can_write_foirequest:request %}
+    <div class="alert alert-info">
+      <div class="row">
+        <div class="col">
+          <a href="/kampagnen/frag-sie-abi/?pk_campaign=request">
+            <img src="https://media.frag-den-staat.de/files/media/thumbnails/54/7f/547f265d-93a7-4c4e-947f-ae69dbb83a68/fragsieabi.png__0x120_q85_subsampling-2.png" height="100px" alt="Frag Sie Abi"/>
+          </a>
+        </div>
+        <div class="col-auto">
+          <div>
+            <p class="text-center">
+            Diese Anfrage wurde im Rahmen der Kampagne <a href="/kampagnen/frag-sie-abi/?pk_campaign=request">Frag sie Abi!</a> gestellt.
+            </p>
+            <p class="text-right">
+              <a href="/kampagnen/frag-sie-abi/?pk_campaign=request" class="btn btn-primary">Selbst eine Anfrage stellen</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
   {% if object|can_write_foirequest:request and object|foirequest_needs_signature %}
     <div class="alert alert-warning">
       <h3>

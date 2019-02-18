@@ -10,7 +10,7 @@ class NewsletterConfig(AppConfig):
     verbose_name = _('Newsletter FragDenStaat')
 
     def ready(self):
-        from froide.account import account_canceled, account_activated
+        from froide.account import account_canceled, account_activated, account_merged
         from froide.account.export import registry
         from froide.account.forms import user_extra_registry
         from froide.bounce.signals import email_bounced
@@ -19,11 +19,36 @@ class NewsletterConfig(AppConfig):
         from .utils import handle_bounce
 
         account_canceled.connect(cancel_user)
+        account_merged.connect(merge_user)
         account_activated.connect(activate_newsletter_subscription)
         email_bounced.connect(handle_bounce)
         user_extra_registry.register(NewsletterUserExtra())
 
         registry.register(export_user_data)
+
+
+def merge_user(sender, old_user=None, new_user=None, **kwargs):
+    from .models import Subscription
+
+    old_subscribed = Subscription.objects.filter(
+        user=old_user, email_field__isnull=True,
+        subscribed=True
+    ).exists()
+    new_subscribed = Subscription.objects.filter(
+        user=new_user, subscribed=True
+    ).exists()
+    if old_subscribed and not new_subscribed:
+        new_exists = Subscription.objects.filter(
+            user=new_user
+        ).exists()
+        if new_exists:
+            Subscription.objects.filter(
+                user=new_user
+            ).update(subscribed=True)
+        else:
+            Subscription.objects.filter(
+                user=old_user
+            ).update(user=new_user)
 
 
 def cancel_user(sender, user=None, **kwargs):
