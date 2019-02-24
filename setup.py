@@ -42,8 +42,7 @@ setup(
         'froide-exam',
         'froide-legalaction',
         'django-filingcabinet',
-
-        'django<2.0',
+        'django<2.2',
         'markdown',
         'celery',
         'django-celery-email',
