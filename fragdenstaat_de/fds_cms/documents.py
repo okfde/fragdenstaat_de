@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.conf import settings
 from django.template import Context
+from django.utils.html import strip_tags
 
 from django_elasticsearch_dsl import DocType, fields
 
@@ -146,7 +147,7 @@ class CMSDocument(DocType):
         placeholders = self.get_page_placeholders(current_page)
         for placeholder in placeholders:
             text_bits.append(
-                render_placeholder(context, placeholder)
+                strip_tags(render_placeholder(context, placeholder))
             )
 
         page_meta_description = current_page.get_meta_description(fallback=False, language=language)

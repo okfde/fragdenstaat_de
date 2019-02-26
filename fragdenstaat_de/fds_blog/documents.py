@@ -50,7 +50,7 @@ class ArticleDocument(DocType):
         return strip_tags(html)
 
     def prepare_description(self, obj):
-        return obj.description
+        return strip_tags(obj.description)
 
     def prepare_url(self, obj):
         return obj.get_absolute_url()
