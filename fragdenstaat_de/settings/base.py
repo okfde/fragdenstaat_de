@@ -48,7 +48,7 @@ class FragDenStaatBase(German, Base):
 
             'newsletter',
 
-            'fragdenstaat_de.fds_cms',
+            'fragdenstaat_de.fds_cms.apps.FdsCmsConfig',
 
             # Additional CMS plugins
             'djangocms_text_ckeditor',

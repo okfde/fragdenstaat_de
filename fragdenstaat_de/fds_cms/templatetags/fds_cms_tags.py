@@ -1,7 +1,8 @@
 from django import template
 
-from cms.plugin_rendering import ContentRenderer
 from cms.models import StaticPlaceholder
+
+from ..utils import render_placeholder
 
 register = template.Library()
 
@@ -21,15 +22,4 @@ def fds_static_placeholder(context, code):
     except StaticPlaceholder.DoesNotExist:
         return ''
     placeholder = static_placeholder.public
-    if 'request' not in context:
-        return ''
-    request = context['request']
-    renderer = ContentRenderer(request=request)
-    content = renderer.render_placeholder(
-        placeholder,
-        context=context,
-        nodelist=None,
-        editable=False,
-        use_cache=True
-    )
-    return content
+    return render_placeholder(context, placeholder)
