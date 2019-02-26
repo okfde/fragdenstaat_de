@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.urls import reverse
 
 
 def obj_for_value(self, value):
@@ -34,8 +35,10 @@ class BlogConfig(AppConfig):
         AdminFileWidget.obj_for_value = obj_for_value
 
         from froide.account import account_merged
+        from froide.helper.search import search_registry
 
         account_merged.connect(merge_user)
+        search_registry.register(add_search)
 
 
 def merge_user(sender, old_user=None, new_user=None, **kwargs):
@@ -52,3 +55,11 @@ def merge_user(sender, old_user=None, new_user=None, **kwargs):
         ).update(author=new_author)
     elif old_exists:
         Author.objects.filter(user=old_user).update(user=new_user)
+
+
+def add_search(request):
+    return {
+        'title': 'Blog-Artikel',
+        'name': 'blog',
+        'url': reverse('blog:article-search')
+    }

@@ -14,6 +14,7 @@ from django.utils.html import strip_tags
 from django.conf import settings
 
 from cms.toolbar.toolbar import CMSToolbar
+from cms.plugin_rendering import ContentRenderer
 
 
 EXCLUDED_PLUGINS = getattr(settings, 'SEARCH_EXCLUDED_PLUGINS', [])
@@ -105,3 +106,18 @@ def clean_join(separator, iterable):
     Filters out iterable to only join non empty items.
     """
     return separator.join(filter(None, iterable))
+
+
+def render_placeholder(context, placeholder):
+    request = context.get('request')
+    if request is None:
+        return ''
+    renderer = ContentRenderer(request=request)
+    content = renderer.render_placeholder(
+        placeholder,
+        context=context,
+        nodelist=None,
+        editable=False,
+        use_cache=True
+    )
+    return content

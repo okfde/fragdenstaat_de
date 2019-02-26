@@ -309,7 +309,7 @@ class Article(
 
     @property
     def description(self):
-        return self.subheadline or self.excerpt
+        return self.teaser or self.excerpt
 
     def get_html_content(self, request=None, template='fds_blog/content.html'):
         if request is None:

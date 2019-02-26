@@ -10,4 +10,9 @@
   <h4 class="blog-list-heading">
     <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
   </h4>
+  {% if article.es_highlight %}
+    <div class="search-highlight">
+      {{ article.es_highlight }}
+    </div>
+  {% endif %}
 </article>

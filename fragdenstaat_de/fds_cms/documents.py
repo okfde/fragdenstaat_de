@@ -6,17 +6,18 @@ https://github.com/divio/aldryn-search/blob/master/aldryn_search/search_indexes.
 from django.db.models import Q
 from django.utils import timezone
 from django.conf import settings
+from django.template import Context
 
 from django_elasticsearch_dsl import DocType, fields
 
-from cms.models import CMSPlugin, Title
+from cms.models import Title
 
 from froide.helper.search import (
     get_index, get_text_analyzer
 )
 
 from .utils import (
-    get_plugin_index_data, clean_join, get_request
+    render_placeholder, clean_join, get_request
 )
 
 
@@ -44,10 +45,10 @@ class CMSDocument(DocType):
         analyzer=analyzer
     )
 
+    special_signals = True
+
     class Meta:
         model = Title
-        ignore_signals = True
-        auto_refresh = False
         queryset_chunk_size = 100
 
     def get_queryset(self):
@@ -76,10 +77,6 @@ class CMSDocument(DocType):
 
     def prepare_title(self, obj):
         return obj.title
-
-    def get_plugin_queryset(self, language):
-        queryset = CMSPlugin.objects.filter(language=language)
-        return queryset
 
     def get_page_placeholders(self, page):
         """
@@ -141,13 +138,16 @@ class CMSDocument(DocType):
 
     def get_search_data(self, obj, language, request):
         current_page = obj.page
-        placeholders = self.get_page_placeholders(current_page)
-        plugins = self.get_plugin_queryset(language).filter(placeholder__in=placeholders)
-        text_bits = []
 
-        for base_plugin in plugins:
-            plugin_text_content = self.get_plugin_search_text(base_plugin, request)
-            text_bits.append(plugin_text_content)
+        text_bits = []
+        context = Context({
+            'request': get_request()
+        })
+        placeholders = self.get_page_placeholders(current_page)
+        for placeholder in placeholders:
+            text_bits.append(
+                render_placeholder(context, placeholder)
+            )
 
         page_meta_description = current_page.get_meta_description(fallback=False, language=language)
 
@@ -160,7 +160,3 @@ class CMSDocument(DocType):
             text_bits.append(page_meta_keywords())
 
         return clean_join(' ', text_bits)
-
-    def get_plugin_search_text(self, base_plugin, request):
-        plugin_content_bits = get_plugin_index_data(base_plugin, request)
-        return clean_join(' ', plugin_content_bits)

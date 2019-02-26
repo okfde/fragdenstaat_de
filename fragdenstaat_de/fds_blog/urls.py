@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from .feeds import LatestArticlesFeed
 from .views import (
     AuthorArticleView, CategoryArticleView, ArticleArchiveView, ArticleDetailView, ArticleListView,
-    TaggedListView,
+    TaggedListView, ArticleSearchView
 )
 
 
@@ -31,6 +31,8 @@ detail_urls = get_urls()
 urlpatterns = [
     url(r'^$',
         ArticleListView.as_view(), name='article-latest'),
+    url(_(r'^search/$'),
+        ArticleSearchView.as_view(), name='article-search'),
     url(r'^feed/$',
         LatestArticlesFeed(),
         name='article-latest-feed'),
