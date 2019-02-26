@@ -22,4 +22,4 @@ def fds_static_placeholder(context, code):
     except StaticPlaceholder.DoesNotExist:
         return ''
     placeholder = static_placeholder.public
-    return render_placeholder(context, placeholder)
+    return render_placeholder(context, placeholder, use_cache=True)

@@ -42,7 +42,7 @@ def clean_join(separator, iterable):
     return separator.join(filter(None, iterable))
 
 
-def render_placeholder(context, placeholder):
+def render_placeholder(context, placeholder, use_cache=False):
     request = context.get('request')
     if request is None:
         return ''
@@ -52,6 +52,6 @@ def render_placeholder(context, placeholder):
         context=context,
         nodelist=None,
         editable=False,
-        use_cache=True
+        use_cache=use_cache
     )
     return content
