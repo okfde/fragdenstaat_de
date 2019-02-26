@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fragdenstaat.defds_blog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-18 12:23+0100\n"
-"PO-Revision-Date: 2019-01-18 12:26+0100\n"
-"Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.org>\n"
+"POT-Creation-Date: 2019-02-26 18:59+0100\n"
+"PO-Revision-Date: 2019-02-26 18:59+0100\n"
+"Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 2.2\n"
 
 #: admin.py:40
 #, python-format
@@ -357,19 +357,23 @@ msgstr "Zurück"
 msgid "The Freedom of Information Blog"
 msgstr "Das Blog zur Informationsfreiheit"
 
-#: templates/fds_blog/full_content.html:11
-msgid "by"
-msgstr "von"
-
-#: templates/fds_blog/full_content.html:37
+#: templates/fds_blog/full_content.html:22
 msgid "image credit: "
 msgstr "Foto-Credit:"
 
-#: urls.py:41
+#: templates/fds_blog/full_content.html:41
+msgid "by"
+msgstr "von"
+
+#: urls.py:34
+msgid "^search/$"
+msgstr "^suche/$"
+
+#: urls.py:43
 msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
 msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
 
-#: urls.py:43
+#: urls.py:45
 msgid "^category/(?P<category>[\\w\\.@+-]+)/$"
 msgstr "^kategorie/(?P<category>[\\w\\.@+-]+)/$"
 
