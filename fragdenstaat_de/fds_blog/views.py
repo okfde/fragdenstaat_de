@@ -228,7 +228,7 @@ class ArticleSearchView(BaseSearchView):
     facet_config = {
         'category': {
             'model': Category,
-            'getter': lambda x: x['object'].slug,
+            'getter': lambda x: str(x['object'].id),
             'label_getter': lambda x: x['object'].title,
             'label': _('categories'),
         }
