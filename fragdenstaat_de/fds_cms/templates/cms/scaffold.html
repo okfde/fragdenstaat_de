@@ -17,6 +17,7 @@
 
   {% block meta %}
     {% include "snippets/meta.html" %}
+    {% include "fds_cms/social_meta.html" with object=request.current_page %}
   {% endblock %}
 
   {% block extra_head %}

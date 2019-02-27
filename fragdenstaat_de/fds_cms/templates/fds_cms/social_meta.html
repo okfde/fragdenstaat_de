@@ -1,0 +1,38 @@
+{% load cms_tags %}
+{% load thumbnail %}
+
+{% if not object.fdspageextension.search_index %}
+  <meta name="robots" content="noindex"/>
+{% endif %}
+
+<!-- Schema.org markup -->
+<meta itemprop="name" content="{% page_attribute 'page_title' %}">
+<meta itemprop="description" content="{% page_attribute 'meta_description' %}">
+
+<!-- Twitter Card data -->
+
+<meta name="twitter:site" content="@fragdenstaat">
+<meta name="twitter:title" content="{% page_attribute 'page_title' %}">
+<meta name="twitter:description" content="{% page_attribute 'meta_description' %}">
+<meta name="twitter:creator" content="@fragdenstaat">
+
+{% if object.fdspageextension.image %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:src" content="{% thumbnail object.fdspageextension.image 1120x600 crop subject_location=object.fdspageextension.image.subject_location %}">
+{% else %}
+  <meta name="twitter:card" content="summary">
+{% endif %}
+
+
+
+<!-- Open Graph data -->
+<meta property="og:title" content="{% page_attribute 'page_title' %}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{ SITE_URL }}{{ object.get_absolute_url }}" />
+
+{% if object.fdspageextension.image %}
+  <meta property="og:image" content="{% thumbnail object.fdspageextension.image 1200x630 crop subject_location=object.fdspageextension.image.subject_location %}" />
+{% endif %}
+
+<meta property="og:description" content="{% page_attribute 'meta_description' %}" />
+<meta property="og:site_name" content="{{ SITE_NAME }}" />
