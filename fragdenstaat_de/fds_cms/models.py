@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
 from cms.models.fields import PageField
+from cms.extensions import PageExtension
+from cms.extensions.extension_pool import extension_pool
 
 from filer.fields.image import FilerImageField
 
@@ -16,6 +18,15 @@ from froide.publicbody.models import (
     Jurisdiction, Category, Classification, PublicBody
 )
 from froide.document.models import Document
+
+
+@extension_pool.register
+class FdsPageExtension(PageExtension):
+    search_index = models.BooleanField(default=True)
+    image = FilerImageField(
+        null=True, blank=True, default=None,
+        on_delete=models.SET_NULL, verbose_name=_("image")
+    )
 
 
 class PageAnnotationCMSPlugin(CMSPlugin):

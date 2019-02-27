@@ -6,18 +6,11 @@ https://github.com/divio/aldryn-search/blob/master/aldryn_search/helpers.py
 '''
 
 from django.contrib.auth.models import AnonymousUser
-from django.template import RequestContext, Engine
 from django.test import RequestFactory
-from django.utils.text import smart_split
-from django.utils.encoding import force_text
-from django.utils.html import strip_tags
 from django.conf import settings
 
 from cms.toolbar.toolbar import CMSToolbar
 from cms.plugin_rendering import ContentRenderer
-
-
-EXCLUDED_PLUGINS = getattr(settings, 'SEARCH_EXCLUDED_PLUGINS', [])
 
 
 def get_request(language=None):

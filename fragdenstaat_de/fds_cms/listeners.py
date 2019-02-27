@@ -9,8 +9,11 @@ from froide.helper.tasks import (
 
 @receiver(post_publish, dispatch_uid='publish_cms_page')
 def publish_cms_page(sender, instance, language, **kwargs):
-    instance = instance.publisher_public.get_title_obj(language)
-    search_instance_save.delay(instance._meta.label_lower, instance.pk)
+    title = instance.publisher_public.get_title_obj(language)
+    if instance.fdspageextension.search_index:
+        search_instance_save.delay(title._meta.label_lower, title.pk)
+    else:
+        search_instance_delete.delay(title._meta.label_lower, title.pk)
 
 
 @receiver(post_unpublish, dispatch_uid='unpublish_cms_page')
