@@ -24,5 +24,5 @@ class FdsPageExtensionToolbar(ExtensionToolbar):
                     _('FdS Page Settings'),
                     url=url,
                     disabled=not self.toolbar.edit_mode_active,
-                    position=0
+                    position=-1
                 )
