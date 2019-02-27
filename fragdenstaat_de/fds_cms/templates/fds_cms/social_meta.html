@@ -6,14 +6,21 @@
 {% endif %}
 
 <!-- Schema.org markup -->
-<meta itemprop="name" content="{% page_attribute 'page_title' %}">
-<meta itemprop="description" content="{% page_attribute 'meta_description' %}">
+{% page_attribute 'meta_description' as description %}
+{% page_attribute 'page_title' as title %}
+
+<meta itemprop="name" content="{{ title }}">
+{% if description and description != "None" %}
+  <meta itemprop="description" content="{{ description }}">
+{% endif %}
 
 <!-- Twitter Card data -->
 
 <meta name="twitter:site" content="@fragdenstaat">
-<meta name="twitter:title" content="{% page_attribute 'page_title' %}">
-<meta name="twitter:description" content="{% page_attribute 'meta_description' %}">
+<meta name="twitter:title" content="{{ title }}">
+{% if description and description != "None" %}
+  <meta name="twitter:description" content="{{ description }}">
+{% endif %}
 <meta name="twitter:creator" content="@fragdenstaat">
 
 {% if object.fdspageextension.image %}
@@ -26,13 +33,15 @@
 
 
 <!-- Open Graph data -->
-<meta property="og:title" content="{% page_attribute 'page_title' %}" />
+<meta property="og:title" content="{{ title }}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="{{ SITE_URL }}{{ object.get_absolute_url }}" />
 
 {% if object.fdspageextension.image %}
   <meta property="og:image" content="{% thumbnail object.fdspageextension.image 1200x630 crop subject_location=object.fdspageextension.image.subject_location %}" />
 {% endif %}
+{% if description and description != "None" %}
+  <meta property="og:description" content="{{ description }}" />
+{% endif %}
 
-<meta property="og:description" content="{% page_attribute 'meta_description' %}" />
 <meta property="og:site_name" content="{{ SITE_NAME }}" />
