@@ -4,3 +4,14 @@
   Blog-Artikel
 {% endblock %}
 
+
+{% block search_form_filters %}
+  <div class="row">
+    <div class="col-md-6">
+      {{ form.category }}
+    </div>
+    <div class="col-md-6">
+      {{ form.author }}
+    </div>
+  </div>
+{% endblock %}

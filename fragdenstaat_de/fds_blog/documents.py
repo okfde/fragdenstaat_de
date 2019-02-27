@@ -33,6 +33,9 @@ class ArticleDocument(DocType):
         fields={'raw': fields.KeywordField()},
         analyzer=analyzer,
     )
+    start_publication = fields.DateField()
+    author = fields.ListField(fields.IntegerField())
+    category = fields.ListField(fields.IntegerField())
 
     content = fields.TextField(
         analyzer=analyzer
@@ -57,3 +60,14 @@ class ArticleDocument(DocType):
 
     def prepare_title(self, obj):
         return obj.title
+
+    def prepare_start_publication(self, obj):
+        return obj.start_publication
+
+    def prepare_category(self, obj):
+        cats = obj.categories.all()
+        return [o.id for o in cats]
+
+    def prepare_author(self, obj):
+        authors = obj.authors.all()
+        return [o.id for o in authors]

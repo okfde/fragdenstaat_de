@@ -2,19 +2,20 @@ import os.path
 
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.conf import settings
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.timezone import now
 from django.utils.translation import get_language
 from django.views.generic import DetailView, ListView
+from django.utils.translation import ugettext_lazy as _
 
 from froide.helper.search.views import BaseSearchView
-from froide.helper.search.filters import BaseSearchFilterSet
 
 from .documents import ArticleDocument
 from .models import Category, Article
+from .filters import ArticleFilterset
 
 User = get_user_model()
 
@@ -211,10 +212,6 @@ class CategoryArticleView(BaseBlogListView, ListView):
         return context
 
 
-class ArticleFilterset(BaseSearchFilterSet):
-    query_fields = ['title^5', 'description^3', 'content']
-
-
 class ArticleSearchView(BaseSearchView):
     search_name = 'blog'
     template_name = 'fds_blog/search.html'
@@ -222,4 +219,17 @@ class ArticleSearchView(BaseSearchView):
     model = Article
     document = ArticleDocument
     filterset = ArticleFilterset
-    search_url = reverse_lazy('blog:article-search')
+    search_url_name = 'blog:article-search'
+    default_sort = '-start_publication'
+    show_filters = {
+        'category', 'author'
+    }
+    has_facets = True
+    facet_config = {
+        'category': {
+            'model': Category,
+            'getter': lambda x: x['object'].slug,
+            'label_getter': lambda x: x['object'].title,
+            'label': _('categories'),
+        }
+    }
