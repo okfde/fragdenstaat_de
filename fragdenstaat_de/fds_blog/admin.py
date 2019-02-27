@@ -10,8 +10,7 @@ from django.utils.html import format_html
 
 from adminsortable2.admin import SortableInlineAdminMixin
 from parler.admin import TranslatableAdmin
-from tinymce.widgets import TinyMCE
-
+from djangocms_text_ckeditor.widgets import TextEditorWidget
 from cms.api import add_plugin
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 
@@ -91,7 +90,7 @@ class ArticleAdminForm(forms.ModelForm):
         model = Article
         fields = '__all__'
         widgets = {
-            'teaser': TinyMCE()
+            'teaser': TextEditorWidget()
         }
 
 

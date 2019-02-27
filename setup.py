@@ -58,7 +58,6 @@ setup(
         'django-cache-url',
         'django-contrib-comments',
         'honcho',
-        'django-tinymce',
         'anyjson',
         'psycopg2-binary',
         'raven',

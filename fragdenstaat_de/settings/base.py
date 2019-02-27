@@ -57,7 +57,6 @@ class FragDenStaatBase(German, Base):
 
             'djcelery_email',
             'django.contrib.redirects',
-            'tinymce',
             'markdown_deux',
             'raven.contrib.django.raven_compat',
 
@@ -86,8 +85,7 @@ class FragDenStaatBase(German, Base):
         return TEMP
 
     # Newsletter
-
-    NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
+    NEWSLETTER_RICHTEXT_WIDGET = 'djangocms_text_ckeditor.widgets.TextEditorWidget'
     DEFAULT_NEWSLETTER = 'fragdenstaat'
 
     # BLOG
@@ -258,12 +256,6 @@ class FragDenStaatBase(German, Base):
     def GEOIP_PATH(self):
         return os.path.join(super(FragDenStaatBase,
                             self).PROJECT_ROOT, '..', 'data')
-
-    TINYMCE_DEFAULT_CONFIG = {
-        'plugins': "table,spellchecker,paste,searchreplace",
-        'theme': "advanced",
-        'cleanup_on_startup': False
-    }
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',

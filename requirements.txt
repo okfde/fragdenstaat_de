@@ -34,7 +34,6 @@ django-storages==1.7.1
 django-taggit==0.23.0
 django-taggit-autosuggest==0.3.4
 django-templatetag-sugar==1.0
-django-tinymce==2.7.0
 django-treebeard==4.3
 django-wikidata==0.0.6
 django<2.2,>2.0
