@@ -1,5 +1,3 @@
-from django.urls import reverse_lazy
-
 from cms.models import Title
 
 from froide.helper.search.views import BaseSearchView
@@ -19,4 +17,4 @@ class CMSPageSearch(BaseSearchView):
     model = Title
     document = CMSDocument
     filterset = CMSFilterset
-    search_url = reverse_lazy('fds_cms:fds_cms-search')
+    search_url_name = 'fds_cms:fds_cms-search'
