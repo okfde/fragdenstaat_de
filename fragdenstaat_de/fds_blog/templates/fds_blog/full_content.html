@@ -27,7 +27,7 @@
 </header>
 {% endblock %}
 
-{% render_placeholder placeholder language lang %}
+{% block after_main %}
 <footer>
   {% with authors=object.get_authors %}
     {% if authors %}
@@ -44,6 +44,5 @@
     {% endif %}
   {% endwith %}
 </footer>
-{% block after_main %}
 {% static_placeholder "blog_feed_footer" %}
 {% endblock %}
