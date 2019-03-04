@@ -12,18 +12,12 @@
       {# Use full domain URL because of use in feeds #}
       <img src="{{ MEDIA_DOMAIN }}{% thumbnail object.image 768x500 crop subject_location=object.image.subject_location %}" alt="{{ object.image.alt }}" />
     </picture>
-    {% if object.image.description or object.image.author %}
-      <i>
-    {% endif %}
     {% if object.image.description %}
       <p>{{ object.image.description }}</p>
     {% endif %}
     {% if object.image.author %}
       {% trans "image credit: " as article_image_label %}
       {{ article_image_label|add:object.image.author|markdown }}
-    {% endif %}
-    {% if object.image.description or object.image.author %}
-      </i>
     {% endif %}
 
   {% endif %}
