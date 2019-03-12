@@ -36,6 +36,20 @@ class FragDenStaat(FragDenStaatBase):
     ALLOWED_HOSTS = ('fragdenstaat.de', 'media.frag-den-staat.de', 'testserver')
     ALLOWED_REDIRECT_HOSTS = ('fragdenstaat.de', 'sanktionsfrei.de',)
 
+    PAYMENT_HOST = 'fragdenstaat.de'
+    PAYMENT_USES_SSL = True
+    PAYMENT_VARIANTS = {
+        'creditcard': ('froide_payment.provider.StripeIntentProvider', {
+            'public_key': env('STRIPE_PUBLIC_KEY'),
+            'secret_key': env('STRIPE_PRIVATE_KEY'),
+            'signing_secret': env('STRIPE_SIGNING_KEY'),
+        }),
+        'sepa': ('froide_payment.provider.StripeSourceProvider', {
+            'public_key': env('STRIPE_PUBLIC_KEY'),
+            'secret_key': env('STRIPE_PRIVATE_KEY'),
+        })
+    }
+
     CACHES = {'default': django_cache_url.config()}
 
     DATABASES = {
@@ -172,6 +186,7 @@ class FragDenStaat(FragDenStaatBase):
     }
     if env('DJANGO_SENTRY_DSN') is not None:
         RAVEN_CONFIG['dsn'] = env('DJANGO_SENTRY_DSN')
+    RAVEN_JS_URL = env('DJANGO_SENTRY_PUBLIC_DSN')
 
     SERVER_EMAIL = 'info@fragdenstaat.de'
 

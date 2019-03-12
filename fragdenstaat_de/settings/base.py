@@ -59,9 +59,12 @@ class FragDenStaatBase(German, Base):
             'django.contrib.redirects',
             'markdown_deux',
             'raven.contrib.django.raven_compat',
+            'django_prices',
 
             'froide_campaign.apps.FroideCampaignConfig',
             'froide_legalaction.apps.FroideLegalActionConfig',
+            'froide_payment.apps.FroidePaymentConfig',
+            'froide_crowdfunding.apps.FroideCrowdfundingConfig',
             'froide_food.apps.FroideFoodConfig',
             'django_amenities.apps.AmenitiesConfig',
             'froide_fax.apps.FroideFaxConfig',
@@ -81,6 +84,7 @@ class FragDenStaatBase(German, Base):
         cps.extend([
             'sekizai.context_processors.sekizai',
             'cms.context_processors.cms_settings',
+            'fragdenstaat_de.theme.context_processors.theme_settings',
         ])
         return TEMP
 
@@ -309,6 +313,15 @@ class FragDenStaatBase(German, Base):
     DEFAULT_FROM_EMAIL = 'FragDenStaat.de <info@fragdenstaat.de>'
     EMAIL_SUBJECT_PREFIX = '[AdminFragDenStaat] '
 
+    DEFAULT_CURRENCY = 'EUR'
+    DEFAULT_DECIMAL_PLACES = 2
+    PAYMENT_HOST = 'localhost:8000'
+    PAYMENT_USES_SSL = False
+    PAYMENT_MODEL = 'froide_payment.Payment'
+    PAYMENT_VARIANTS = {
+        'default': ('payments.dummy.DummyProvider', {})
+    }
+
     EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
     CELERY_EMAIL_BACKEND = 'froide.foirequest.smtp.EmailBackend'
     CELERY_EMAIL_TASK_CONFIG = {
@@ -389,3 +402,6 @@ class FragDenStaatBase(German, Base):
     TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', '')
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
     TWILIO_FROM_NUMBER = os.environ.get('TWILIO_FROM_NUMBER', '')
+
+    RAVEN_CONFIG = {}
+    RAVEN_JS_URL = ''
