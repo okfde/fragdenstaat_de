@@ -1,7 +1,7 @@
 {% load cms_tags %}
 {% load thumbnail %}
 
-{% if not object.fdspageextension.search_index %}
+{% if object.fdspageextension and not object.fdspageextension.search_index %}
   <meta name="robots" content="noindex"/>
 {% endif %}
 
