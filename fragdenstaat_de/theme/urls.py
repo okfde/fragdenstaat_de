@@ -14,11 +14,11 @@ from froide.urls import (
     jurisdiction_urls, sitemaps
 )
 
-from cms.sitemaps import CMSSitemap
+from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
 
 
-sitemaps['cmspages'] = CMSSitemap
+sitemaps['cmspages'] = FdsCMSSitemap
 sitemaps['blog'] = BlogSitemap
 
 PROTOCOL = settings.SITE_URL.split(':')[0]
