@@ -81,6 +81,7 @@ class FragDenStaatBase(German, Base):
         cps.extend([
             'sekizai.context_processors.sekizai',
             'cms.context_processors.cms_settings',
+            'fragdenstaat_de.theme.context_processors.theme_settings',
         ])
         return TEMP
 

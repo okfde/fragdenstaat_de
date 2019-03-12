@@ -172,6 +172,7 @@ class FragDenStaat(FragDenStaatBase):
     }
     if env('DJANGO_SENTRY_DSN') is not None:
         RAVEN_CONFIG['dsn'] = env('DJANGO_SENTRY_DSN')
+    RAVEN_JS_URL = env('DJANGO_SENTRY_PUBLIC_DSN')
 
     SERVER_EMAIL = 'info@fragdenstaat.de'
 
