@@ -79,6 +79,14 @@
 {% endblock %}
 
 {% block request_action_menu_footer %}
+  {% if object.costs and request.user.is_staff %}
+  <li class="nav-item">
+    <a href="#crowdfunding" data-toggle="pill" class="nav-link" role="tab" aria-controls="crowdfunding" aria-expanded="false">
+      Crowdfunding (Alpha für Mods)
+    </a>
+  </li>
+  {% endif %}
+
   {% if object.can_be_escalated and not "food:" in object.reference %}
     <li class="nav-item">
       <a href="#legalaction" data-toggle="tab" class="nav-link" role="tab" aria-controls="legalaction" aria-expanded="false">
@@ -89,6 +97,13 @@
 {% endblock %}
 
 {% block request_action_pane_footer %}
+  {# Crowdfunding #}
+  {% if request.user.is_staff %}
+  <div class="tab-pane d-print-none" id="crowdfunding">
+    {% include "froide_crowdfunding/includes/request_pane.html" with object=object %}
+  </div>
+  {% endif %}
+
   {# Legal Action #}
   {% if object.can_be_escalated and not "food:" in object.reference %}
     <div class="tab-pane d-print-none" id="legalaction">
@@ -99,4 +114,8 @@
 
 {% block before_correspondence %}
   {% fds_static_placeholder "banner_ad" %}
+  {% if request.user.is_staff %}
+    {% include "froide_crowdfunding/includes/request_block.html" with object=object %}
+  {% endif %}
+  {# {{ block.super }} #}
 {% endblock %}
