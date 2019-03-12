@@ -100,3 +100,5 @@ yurl==0.13
 -e git+git://github.com/okfde/froide-exam.git@master#egg=froide-exam
 -e git+git://github.com/okfde/django-filingcabinet.git@master#egg=django-filingcabinet
 -e git+git://github.com/okfde/django-amenities.git@master#egg=django-amenities
+-e git+git://github.com/okfde/froide-payment.git@master#egg=froide-payment
+-e git+git://github.com/okfde/froide-crowdfunding.git@master#egg=froide-crowdfunding

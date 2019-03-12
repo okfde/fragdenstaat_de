@@ -28,6 +28,9 @@ const FROIDE_STATIC = path.resolve(FROIDE_PATH, 'froide', 'static')
 const FROIDE_PLUGINS = {
   'froide_food': getPythonPath('froide_food')
 }
+for (let key in FROIDE_PLUGINS) {
+  FROIDE_PLUGINS[key + '_static'] = path.resolve(FROIDE_PLUGINS[key], key, 'static')
+}
 
 console.log('Detected Froide at', FROIDE_PATH, FROIDE_STATIC)
 console.log('Froide plugins', FROIDE_PLUGINS)
@@ -35,6 +38,7 @@ console.log('Froide plugins', FROIDE_PLUGINS)
 const ENTRY = {
   main: ['./frontend/javascript/main.ts'],
   food: 'froide_food/frontend/javascript/main.js',
+  payment: 'froide_payment/frontend/javascript/payment.ts',
   publicbody: 'froide/frontend/javascript/publicbody.js',
   makerequest: 'froide/frontend/javascript/makerequest.js',
   request: 'froide/frontend/javascript/request.ts',
