@@ -42,12 +42,25 @@ class FragDenStaat(FragDenStaatBase):
         'creditcard': ('froide_payment.provider.StripeIntentProvider', {
             'public_key': env('STRIPE_PUBLIC_KEY'),
             'secret_key': env('STRIPE_PRIVATE_KEY'),
-            'signing_secret': env('STRIPE_SIGNING_KEY'),
+            'signing_secret': env('STRIPE_WEBHOOK_CC_SIGNING_KEY'),
         }),
-        'sepa': ('froide_payment.provider.StripeSourceProvider', {
+        # 'sepa': ('froide_payment.provider.StripeSourceProvider', {
+        #     'public_key': env('STRIPE_PUBLIC_KEY'),
+        #     'secret_key': env('STRIPE_PRIVATE_KEY'),
+        # }),
+        'paypal': ('payments.paypal.PaypalProvider', {
+            'client_id': env('PAYPAL_CLIENT_ID'),
+            'secret': env('PAYPAL_CLIENT_SECRET'),
+            'endpoint': env('PAYPAL_API_URL'),
+            'capture': True
+        }),
+        'sofort': ('froide_payment.provider.StripeSofortProvider', {
+            # Test API keys
             'public_key': env('STRIPE_PUBLIC_KEY'),
             'secret_key': env('STRIPE_PRIVATE_KEY'),
-        })
+            # separate Webhook signing secret
+            'signing_secret': env('STRIPE_WEBHOOK_SOFORT_SIGNING_KEY'),
+        }),
     }
 
     CACHES = {'default': django_cache_url.config()}
