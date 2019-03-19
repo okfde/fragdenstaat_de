@@ -34,6 +34,11 @@ function showDonationBanner () {
       return
     }
   }
+  const donationIframe = document.querySelector('iframe[src^="https://www.betterplace.org/de/projects/"]')
+  if (donationIframe !== null) {
+    return
+  }
+
   if (els.length !== 1) {
     return
   }
