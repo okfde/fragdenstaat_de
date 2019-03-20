@@ -97,6 +97,8 @@ class FragDenStaatBase(German, Base):
     ARTICLE_CONTENT_TEMPLATES = []
     ARTICLE_DETAIL_TEMPLATES = []
 
+    LANGUAGE_COOKIE_AGE = 0
+
     PARLER_LANGUAGES = {
         1: (
             {'code': 'de'},
