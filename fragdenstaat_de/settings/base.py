@@ -372,7 +372,7 @@ class FragDenStaatBase(German, Base):
             ],
             greetings=[
                 rec(r"Sehr geehrte Damen und Herren,?"),
-                rec(r"Hallo,?"),
+                rec(r"Hallo\s+.*"),
                 rec(r"Sehr (?:Herr|Frau|Fr\.|Hr\.) .*"),
                 rec(r"Sehr geehrt(er? (?:Herr|Frau|Fr\.|Hr\.)?(?: ?Dr\.?)?(?: ?Prof\.?)? .*)"),
                 rec(r"^(?:Von|An|Cc|To|From): .*"),
