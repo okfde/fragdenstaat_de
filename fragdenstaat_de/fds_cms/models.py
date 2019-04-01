@@ -191,3 +191,20 @@ class FoiRequestListCMSPlugin(CMSPlugin):
         Duplicate ManyToMany relations on plugin copy
         """
         self.tags.set(old_instance.tags.all())
+
+
+class OneClickFoiRequestCMSPlugin(CMSPlugin):
+    TEMPLATES = [
+        ('', _('Default template')),
+    ]
+
+    foirequest = models.ForeignKey(
+        FoiRequest, related_name='+',
+        on_delete=models.CASCADE
+    )
+
+    template = models.CharField(_('Template'), choices=TEMPLATES,
+                                default='', max_length=50, blank=True)
+
+    def __str__(self):
+        return _('One click form for {}').format(self.foirequest)

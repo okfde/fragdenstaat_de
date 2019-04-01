@@ -9,7 +9,7 @@ from froide.foirequest.models import FoiRequest
 
 from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
-    PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin
+    PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin
 )
 
 
@@ -164,4 +164,31 @@ class FoiRequestListPlugin(CMSPluginBase):
 
         context = super().render(context, instance, placeholder)
         context['object_list'] = foirequests
+        return context
+
+
+@plugin_pool.register_plugin
+class OneClickFoiRequestPlugin(CMSPluginBase):
+    """
+    Plugin for including the latest entries filtered
+    """
+    model = OneClickFoiRequestCMSPlugin
+    name = _('One click FoiRequest form')
+    default_template = 'foirequest/cms_plugins/one_click.html'
+    text_enabled = True
+    cache = False
+    raw_id_fields = ['foirequest']
+
+    def get_render_template(self, context, instance, placeholder):
+        if instance.template:
+            return instance.template
+        return self.default_template
+
+    def render(self, context, instance, placeholder):
+        """
+        Update the context with plugin's data
+        """
+
+        context = super().render(context, instance, placeholder)
+        context['object'] = instance.foirequest
         return context
