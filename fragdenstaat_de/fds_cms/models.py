@@ -202,6 +202,7 @@ class OneClickFoiRequestCMSPlugin(CMSPlugin):
         FoiRequest, related_name='+',
         on_delete=models.CASCADE
     )
+    redirect_url = models.CharField(default='', max_length=255, blank=True)
 
     template = models.CharField(_('Template'), choices=TEMPLATES,
                                 default='', max_length=50, blank=True)
