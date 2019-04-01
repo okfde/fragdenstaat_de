@@ -138,31 +138,22 @@ class FoiRequestListPlugin(CMSPluginBase):
         """
         foirequests = FoiRequest.published.all()
 
+        FILTER_KEYS = (
+            'user', 'jurisdiction_id', 'category_id',
+            'classification_id', 'status', 'resolution'
+        )
         filters = {}
 
         tag_list = instance.tags.all().values_list('id', flat=True)
         if tag_list:
             filters['tags__in'] = tag_list
 
-        if instance.user is not None:
-            filters['user'] = instance.user
-
-        if instance.jurisdiction_id:
-            filters['jurisdiction_id'] = instance.jurisdiction_id
-
-        if instance.category_id:
-            filters['category_id'] = instance.category_id
-
-        if instance.classification_id:
-            filters['classification_id'] = instance.classification_id
+        for key in FILTER_KEYS:
+            if getattr(instance, key, None):
+                filters[key] = getattr(instance, key)
 
         if instance.publicbody_id:
             filters['public_body_id'] = instance.publicbody_id
-
-        if instance.status:
-            filters['status'] = instance.status
-        if instance.resolution:
-            filters['resolution'] = instance.resolution
 
         foirequests = foirequests.filter(**filters)
 
@@ -171,7 +162,6 @@ class FoiRequestListPlugin(CMSPluginBase):
         if instance.number_of_entries:
             foirequests = foirequests[:instance.number_of_entries]
 
-        context = super(FoiRequestListPlugin, self).render(
-            context, instance, placeholder)
+        context = super().render(context, instance, placeholder)
         context['object_list'] = foirequests
         return context
