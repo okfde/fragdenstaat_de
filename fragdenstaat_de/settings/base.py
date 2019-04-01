@@ -273,7 +273,7 @@ class FragDenStaatBase(German, Base):
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-        'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+        'fragdenstaat_de.theme.redirects.PathRedirectFallbackMiddleware',
         'froide.account.middleware.AcceptNewTermsMiddleware',
 
         'django.middleware.locale.LocaleMiddleware',
