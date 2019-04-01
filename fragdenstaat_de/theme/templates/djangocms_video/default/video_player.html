@@ -12,7 +12,7 @@
     </div>
 {% else %}
     {# render <source> or <track> plugins #}
-    <video controls {{ instance.attributes_str }}
+    <video {{ instance.attributes_str }}
         {% if instance.poster %} poster="{{ instance.poster.url }}"{% endif %}>
         {% for plugin in instance.child_plugin_instances %}
             {% render_plugin plugin %}
