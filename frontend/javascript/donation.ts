@@ -29,6 +29,7 @@ function showDonationBanner () {
   if (document.location && document.location.pathname) {
     if (document.location.pathname.indexOf('/spenden/') !== -1 ||
         document.location.pathname.indexOf('/blog/') !== -1 ||
+        document.location.pathname.indexOf('/gesendet/') !== -1 ||
         document.location.pathname.indexOf('/anfrage-stellen/') !== -1 ||
         document.location.pathname.indexOf('/account/') !== -1) {
       return
