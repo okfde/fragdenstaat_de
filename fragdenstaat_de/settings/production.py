@@ -191,6 +191,12 @@ class FragDenStaat(FragDenStaatBase):
         'admin': env('DJANGO_SECRET_URL_ADMIN')
     }
 
+    THUMBNAIL_OPTIMIZE_COMMAND = {
+        'png': '/usr/bin/optipng {filename}',
+        'gif': '/usr/bin/optipng {filename}',
+        'jpeg': '/usr/bin/jpegoptim {filename}'
+    }
+
     _base_dir = os.path.abspath(os.path.join(
         os.path.dirname(__file__), '..', '..')
     )

@@ -34,6 +34,7 @@ class FragDenStaatBase(German, Base):
             'sekizai',
 
             'easy_thumbnails',
+            'easy_thumbnails.optimize',
             'filer',
             'mptt',
 
