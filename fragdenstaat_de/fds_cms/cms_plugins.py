@@ -192,6 +192,7 @@ class OneClickFoiRequestPlugin(CMSPluginBase):
         context = super().render(context, instance, placeholder)
         context['object'] = instance.foirequest
         context['redirect_url'] = instance.redirect_url
+        context['reference'] = instance.reference
         return context
 
 
