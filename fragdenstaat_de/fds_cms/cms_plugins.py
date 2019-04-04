@@ -193,3 +193,11 @@ class OneClickFoiRequestPlugin(CMSPluginBase):
         context['object'] = instance.foirequest
         context['redirect_url'] = instance.redirect_url
         return context
+
+
+@plugin_pool.register_plugin
+class SetPasswordFormPlugin(CMSPluginBase):
+    module = _("Account")
+    name = _('Set Password Form')
+    text_enabled = True
+    render_template = "account/cms_plugins/set_password.html"
