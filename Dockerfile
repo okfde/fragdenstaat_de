@@ -5,7 +5,7 @@ ENV DJANGO_SETTINGS_MODULE fragdenstaat_de.settings.development
 ENV DJANGO_CONFIGURATION Dev
 ENV NODE_ENV development
 
-RUN apt-get update -y && apt-get install -y build-essential binutils libproj-dev libpq-dev gdal-bin libgeos-dev libgeos-c1 python-gdal
+RUN apt-get update -y && apt-get install -y build-essential binutils libproj-dev libpq-dev gdal-bin libgeos-dev libgeos-c1v5 python-gdal
 
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && apt-get update -y && apt-get install -y nodejs
 
