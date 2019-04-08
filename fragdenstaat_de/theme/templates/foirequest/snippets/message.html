@@ -5,7 +5,7 @@
 {% load fax_tags %}
 
 {% block before_meta %}
-  {% if object|can_write_foirequest:request and message|can_fax_message %}
+  {% if object|can_write_foirequest:request and message|can_fax_message:request %}
     {% include "froide_fax/_send_message_form.html" %}
   {% endif %}
 {% endblock %}
