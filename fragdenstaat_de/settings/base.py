@@ -334,6 +334,9 @@ class FragDenStaatBase(German, Base):
         'store_errors_even_if_ignored': True
     }
 
+    if 'DJANGO_CELERY_BROKER_URL' in os.environ:
+        CELERY_BROKER_URL = env('DJANGO_CELERY_BROKER_URL')
+
     # Fig broker setup
     if 'BROKER_1_PORT' in os.environ:
         CELERY_BROKER_PORT = os.environ['BROKER_1_PORT'].replace('tcp://', '')
