@@ -13,27 +13,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const webpack = require('webpack')
 
 const devMode = process.env.NODE_ENV !== 'production'
-
-const PYTHON = childProcess.execSync('which python').toString().trim()
-
-function getPythonPath (name) {
-  return path.resolve(childProcess.execSync(
-    PYTHON + ' -c "import ' + name + '; print(' + name + '.__path__[0])"'
-  ).toString().trim(), '..')
-}
-
-// Get Froide install path
-const FROIDE_PATH = getPythonPath('froide')
-const FROIDE_STATIC = path.resolve(FROIDE_PATH, 'froide', 'static')
-const FROIDE_PLUGINS = {
-  'froide_food': getPythonPath('froide_food')
-}
-for (let key in FROIDE_PLUGINS) {
-  FROIDE_PLUGINS[key + '_static'] = path.resolve(FROIDE_PLUGINS[key], key, 'static')
-}
-
-console.log('Detected Froide at', FROIDE_PATH, FROIDE_STATIC)
-console.log('Froide plugins', FROIDE_PLUGINS)
+const ASSET_PATH = process.env.ASSET_PATH || '/static/';
 
 const ENTRY = {
   main: ['./frontend/javascript/main.ts'],
@@ -63,7 +43,7 @@ const config = {
   entry: ENTRY,
   output: {
     path: path.resolve(__dirname, 'fragdenstaat_de/theme/static/js'),
-    publicPath: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8080/static/',
+    publicPath: process.env.NODE_ENV === 'production' ? ASSET_PATH : 'http://localhost:8080/static/',
     filename: '[name].js',
     chunkFilename: '[name].js',
     library: ['Froide', 'components', '[name]'],
@@ -99,9 +79,7 @@ const config = {
     extensions: ['.js', '.ts', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.runtime.esm.js',
-      // 'froide': FROIDE_PATH,
       'froide_static': FROIDE_STATIC
-      // ...FROIDE_PLUGINS
     }
   },
   module: {
