@@ -72,14 +72,12 @@ const config = {
   resolve: {
     modules: [
       'fragdenstaat_de/theme/static',
-      FROIDE_STATIC,
       path.resolve(__dirname, 'node_modules'), // Resolve all dependencies first in fds node_modules
       './node_modules'
     ],
     extensions: ['.js', '.ts', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.runtime.esm.js',
-      'froide_static': FROIDE_STATIC
     }
   },
   module: {
