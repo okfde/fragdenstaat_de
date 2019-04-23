@@ -92,7 +92,7 @@ class FragDenStaat(FragDenStaatBase):
     CUSTOM_AUTH_USER_MODEL_DB = 'auth_user'
 
     DEFAULT_FROM_EMAIL = 'FragDenStaat.de <info@fragdenstaat.de>'
-    EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+    EMAIL_BACKEND = 'fragdenstaat_de.theme.email_backend.CustomCeleryEmailBackend'
     CELERY_EMAIL_BACKEND = 'froide.foirequest.smtp.EmailBackend'
     # EMAIL_HOST
     # EMAIL_HOST_PASSWORD

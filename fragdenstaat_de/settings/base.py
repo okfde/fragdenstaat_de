@@ -325,7 +325,7 @@ class FragDenStaatBase(German, Base):
         'default': ('payments.dummy.DummyProvider', {})
     }
 
-    EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+    EMAIL_BACKEND = 'fragdenstaat_de.theme.email_backend.CustomCeleryEmailBackend'
     CELERY_EMAIL_BACKEND = 'froide.foirequest.smtp.EmailBackend'
     CELERY_EMAIL_TASK_CONFIG = {
         'max_retries': None,
