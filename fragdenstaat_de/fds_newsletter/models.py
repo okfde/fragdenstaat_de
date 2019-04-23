@@ -69,7 +69,9 @@ class Submission(BaseSubmission):
         subject = self.message.subject_template.render(context).strip()
         body = self.message.text_template.render(context)
 
-        extra_kwargs = {}
+        extra_kwargs = {
+            'queue': settings.EMAIL_BULK_QUEUE
+        }
         if self.message.html_template:
             extra_kwargs['html'] = self.message.html_template.render(context)
 
