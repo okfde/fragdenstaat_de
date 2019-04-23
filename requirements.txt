@@ -59,7 +59,7 @@ html5lib==0.999999999
 icalendar==4.0.3
 idna==2.8
 itypes==1.1.0
-jinja2==2.10
+jinja2==2.10.1
 jsonfield==2.0.2
 kombu==4.4.0
 lxml==4.3.2
@@ -86,7 +86,7 @@ reportlab==3.5.13
 requests==2.21.0
 unidecode==1.0.23
 uritemplate==3.0.0
-urllib3==1.24.1
+urllib3==1.24.2
 urlobject==2.4.3
 vine==1.2.0
 wand==0.5.1
