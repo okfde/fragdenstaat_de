@@ -23,6 +23,7 @@ class FragDenStaat(FragDenStaatBase):
 
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
+    SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
     DATA_UPLOAD_MAX_MEMORY_SIZE = 15728640
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
@@ -73,6 +74,7 @@ class FragDenStaat(FragDenStaatBase):
             'HOST': env('DATABASE_HOST'),
             'USER': env('DATABASE_USER'),
             'PASSWORD': env('DATABASE_PASSWORD'),
+            'CONN_MAX_AGE': 600,
             'PORT': ''
         }
     }
@@ -152,7 +154,7 @@ class FragDenStaat(FragDenStaatBase):
                 'level': 'DEBUG'
             }
         },
-        'disable_existing_loggers': False,
+        'disable_existing_loggers': True,
         'handlers': {
             'normal': {
                 'filename': os.path.join(env('DJANGO_LOG_DIR'), 'froide.log'),
