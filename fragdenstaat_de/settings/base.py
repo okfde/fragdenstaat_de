@@ -375,12 +375,13 @@ class FragDenStaatBase(German, Base):
                 (30, 7 * 24 * 60 * 60),
             ],
             greetings=[
+                # Important: always needs to capture name to be removed
                 rec(r"Sehr geehrte Damen und Herren,?"),
-                rec(r"Hallo\s+.*"),
-                rec(r"Sehr (?:Herr|Frau|Fr\.|Hr\.) .*"),
-                rec(r"Sehr geehrte.*"),
+                rec(r"Hallo\s+(.*)"),
+                rec(r"Sehr (?:Herr|Frau|Fr\.|Hr\.) (.*)"),
+                rec(r"Sehr geehrte(.*)"),
                 rec(r"Sehr geehrt(er? (?:Herr|Frau|Fr\.|Hr\.)?(?: ?Dr\.?)?(?: ?Prof\.?)? .*)"),
-                rec(r"^(?:Von|An|Cc|To|From): .*"),
+                rec(r"^(?:Von|An|Cc|To|From): (.*)"),
             ],
             custom_replacements=[
                 rec(r'[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([a-zA-Z0-9\s/]+)')
