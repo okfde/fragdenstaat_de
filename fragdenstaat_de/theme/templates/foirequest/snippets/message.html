@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load foirequest_tags %}
 {% load fax_tags %}
+{% load fds_tags %}
 
 {% block before_meta %}
   {% if object|can_write_foirequest:request and message|can_fax_message:request %}
@@ -12,7 +13,7 @@
 
 
 {% block message_toolbar_item %}
-  {% if request.user.is_superuser and message.request.campaign_id == 9 and message.is_response and 'Kennwort lautet:' in message.plaintext %}
+  {% if message|needs_glyphosat_attachment %}
     <button class="btn btn-primary" data-toggle="modal" data-target="#glyphosat-download">
       Gutachten herunterladen und speichern
     </button>
@@ -20,7 +21,7 @@
 {% endblock %}
 
 {% block after_message_container %}
-  {% if message.request.campaign_id == 9 and message.is_response and 'Kennwort lautet:' in message.plaintext %}
+  {% if message|needs_glyphosat_attachment %}
     <div class="modal fade modal-lg" id="glyphosat-download" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
