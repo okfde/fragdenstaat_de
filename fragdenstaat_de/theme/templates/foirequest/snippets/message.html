@@ -9,3 +9,49 @@
     {% include "froide_fax/_send_message_form.html" %}
   {% endif %}
 {% endblock %}
+
+
+{% block message_toolbar_item %}
+  {% if request.user.is_superuser and message.request.campaign_id == 9 and message.is_response and 'Kennwort lautet:' in message.plaintext %}
+    <button class="btn btn-primary" data-toggle="modal" data-target="#glyphosat-download">
+      Gutachten herunterladen und speichern
+    </button>
+  {% endif %}
+{% endblock %}
+
+{% block after_message_container %}
+  {% if message.request.campaign_id == 9 and message.is_response and 'Kennwort lautet:' in message.plaintext %}
+    <div class="modal fade modal-lg" id="glyphosat-download" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Glyphosat-Gutachten</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'fragdenstaat-glyphosat_download' slug=object.slug message_id=message.id %}" method="post" class="horizontal-form disable-submit">
+              {% csrf_token %}
+              <p>
+                Wir laden für Sie mit Ihren persönlichen Zugangsdaten das Dokument herunter,
+                bereiten es auf und stellen es nur Ihnen persönlich dauerhaft auf FragDenStaat.de zur Verfügung.
+              </p>
+              <div class="form-group form-check">
+                <input type="checkbox" id="confirm-notes" name="confirm-notes" value="1" class="form-check-input" required>
+                <label for="confirm-notes" class="form-check-label">
+                  Ich habe <a href="https://dokumente.bfr.bund.de/glypo/" rel="noopener" target="_blank">die Hinweise des BfR</a>, die <a href="https://www.bundesanzeiger.de/ebanzwww/wexsservlet?page.navid=to_official_part" rel="noopener" target="_blank">Allgemeinverfügung des BfR</a> sowie die <a href="https://dokumente.bfr.bund.de/glypo/p/privacy" rel="noopener" target="_blank">Datenschutzhinweise</a> zur Kenntnis genommen.
+                </label>
+              </div>
+              <p class="text-right">
+                <button class="btn btn-primary" type="submit" id="glyphosat-download-button">
+                  &rarr; Jetzt Gutachten herunterladen und speichern
+                </button>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

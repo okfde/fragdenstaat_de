@@ -21,7 +21,7 @@ const ENTRY = {
   payment: 'froide_payment/frontend/javascript/payment.ts',
   publicbody: 'froide/frontend/javascript/publicbody.js',
   makerequest: 'froide/frontend/javascript/makerequest.js',
-  request: 'froide/frontend/javascript/request.ts',
+  request: './frontend/javascript/request.ts',
   redact: 'froide/frontend/javascript/redact.js',
   tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts',
   docupload: 'froide/frontend/javascript/docupload.js',

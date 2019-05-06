@@ -17,6 +17,8 @@ from froide.urls import (
 from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
 
+from .views import glyphosat_download
+
 
 sitemaps['cmspages'] = FdsCMSSitemap
 sitemaps['blog'] = BlogSitemap
@@ -49,6 +51,7 @@ urlpatterns = [
     url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
     url(r'^fax/', include('froide_fax.urls')),
     url(r'^newsletter/', include('fragdenstaat_de.fds_newsletter.urls')),
+    url(r"^glyphosat-bfr/(?P<slug>[-\w]+)/(?P<message_id>\d+)/download-document/$", glyphosat_download, name="fragdenstaat-glyphosat_download"),
 ]
 
 urlpatterns += [
