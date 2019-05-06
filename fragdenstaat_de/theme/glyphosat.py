@@ -12,7 +12,7 @@ except ImportError:
 
 USERNAME_RE = re.compile(r'Ihr Benutzername lautet: ([\w\.]+@fragdenstaat.de)')
 PASSWORD_RE = re.compile(r'Ihr Kennwort lautet: (\w+)')
-FILENAME = 'bfr-stellungnahme.pdf'
+FILENAME = 'bfr-stellungnahme-bad.pdf'
 
 
 def get_glyphosat_document(message):
@@ -46,9 +46,9 @@ def get_glyphosat_document(message):
 
     FoiAttachment.objects.create(
         belongs_to=message,
-        file='foi/8c/b1/f8/8cb1f8c49ef565d648fda46ab6e7dce7143b317b2b560461494c399b527818b5.pdf',
+        file='foi/59/7f/f0/597ff06bb9d18a0b578e10aece646841f136c8ec903e29b4c2ac953323950b9a.pdf',
         name=FILENAME,
-        size=284668,
+        size=1322710,
         filetype='application/pdf',
         can_approve=False,
         approved=False,
