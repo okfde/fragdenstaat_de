@@ -384,7 +384,8 @@ class FragDenStaatBase(German, Base):
                 rec(r"^(?:Von|An|Cc|To|From): (.*)"),
             ],
             custom_replacements=[
-                rec(r'[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([a-zA-Z0-9\s/]+)')
+                rec(r'[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([a-zA-Z0-9\s/]+)'),
+                rec(r'Ihr Kennwort lautet: (.*)')
             ],
             closings=[
                 rec(r"([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u)(ß|ss)(en?)?,?"),
