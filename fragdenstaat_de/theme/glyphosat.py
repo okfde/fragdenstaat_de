@@ -31,12 +31,15 @@ def get_glyphosat_document(message):
     BASE_URL = 'https://dokumente.bfr.bund.de/glypo/'
     session = requests.Session()
     response = session.get(BASE_URL)
+    if response.status_code != 200:
+        return
     response = session.post(BASE_URL, {
         'email': username,
         'token': password,
         'confirm-notes': '1'
     })
-    response
+    if response.status_code != 200:
+        return
 
     # IMAGE_URL = 'https://dokumente.bfr.bund.de/glypo/page?page=glypo-{}.jpg'
     # for i in range(6):
