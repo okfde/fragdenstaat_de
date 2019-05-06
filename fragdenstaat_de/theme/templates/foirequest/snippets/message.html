@@ -31,7 +31,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="{% url 'fragdenstaat-glyphosat_download' slug=object.slug message_id=message.id %}" method="post" class="horizontal-form disable-submit">
+            <form id="glyphosat-download-form" action="{% url 'fragdenstaat-glyphosat_download' slug=object.slug message_id=message.id %}" method="post" class="horizontal-form disable-submit">
               {% csrf_token %}
               <p>
                 Wir laden für Sie mit Ihren persönlichen Zugangsdaten das Dokument herunter,
@@ -40,7 +40,7 @@
               <div class="form-group form-check">
                 <input type="checkbox" id="confirm-notes" name="confirm-notes" value="1" class="form-check-input" required>
                 <label for="confirm-notes" class="form-check-label">
-                  Ich habe <a href="https://dokumente.bfr.bund.de/glypo/" rel="noopener" target="_blank">die Hinweise des BfR</a>, die <a href="https://www.bundesanzeiger.de/ebanzwww/wexsservlet?page.navid=to_official_part" rel="noopener" target="_blank">Allgemeinverfügung des BfR</a> sowie die <a href="https://dokumente.bfr.bund.de/glypo/p/privacy" rel="noopener" target="_blank">Datenschutzhinweise</a> zur Kenntnis genommen.
+                  Ich habe <a href="https://dokumente.bfr.bund.de/glypo/" rel="noopener" target="_blank">die Hinweise des BfR</a>, die <a href="https://fragdenstaat.de/blog/2019/05/06/glyphosat-gutachten-antwort-allgemeinverfugung/" rel="noopener" target="_blank">Allgemeinverfügung des BfR</a> sowie die <a href="https://dokumente.bfr.bund.de/glypo/p/privacy" rel="noopener" target="_blank">Datenschutzhinweise</a> zur Kenntnis genommen.
                 </label>
               </div>
               <p class="text-right">
