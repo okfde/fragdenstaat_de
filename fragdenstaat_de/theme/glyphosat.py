@@ -10,7 +10,7 @@ except ImportError:
     convert_images = lambda x: None
 
 
-USERNAME_RE = re.compile(r'Ihr Benutzername lautet: ([\w\.]+@fragdenstaat.de)')
+USERNAME_RE = re.compile(r'Ihr Benutzername lautet: ([\w\.-]+@fragdenstaat.de)')
 PASSWORD_RE = re.compile(r'Ihr Kennwort lautet: (\w+)')
 FILENAME = 'bfr-stellungnahme-ocr.pdf'
 
