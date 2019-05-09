@@ -74,7 +74,7 @@ class FragDenStaat(FragDenStaatBase):
             'HOST': env('DATABASE_HOST'),
             'USER': env('DATABASE_USER'),
             'PASSWORD': env('DATABASE_PASSWORD'),
-            'CONN_MAX_AGE': 600,
+            'CONN_MAX_AGE': 0,
             'PORT': ''
         }
     }
