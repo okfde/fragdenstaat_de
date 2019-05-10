@@ -419,5 +419,5 @@ class FragDenStaatBase(German, Base):
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
     TWILIO_FROM_NUMBER = os.environ.get('TWILIO_FROM_NUMBER', '')
 
-    RAVEN_CONFIG = {}
-    RAVEN_JS_URL = ''
+    
+    SENTRY_JS_URL = ''

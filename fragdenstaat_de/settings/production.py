@@ -2,7 +2,8 @@ import os
 
 import django_cache_url
 
-import raven
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import FragDenStaatBase, env
 
@@ -160,6 +161,10 @@ class FragDenStaat(FragDenStaatBase):
                 'filename': os.path.join(env('DJANGO_LOG_DIR'), 'froide.log'),
                 'class': 'logging.FileHandler',
                 'level': 'INFO'
+            },
+            'sentry': {
+                'level': 'INFO',  # To capture more than ERROR, change to WARNING, INFO, etc.
+                'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
             }
         },
         'formatters': {
@@ -202,12 +207,7 @@ class FragDenStaat(FragDenStaatBase):
     _base_dir = os.path.abspath(os.path.join(
         os.path.dirname(__file__), '..', '..')
     )
-    RAVEN_CONFIG = {
-        'release': raven.fetch_git_sha(_base_dir)
-    }
-    if env('DJANGO_SENTRY_DSN') is not None:
-        RAVEN_CONFIG['dsn'] = env('DJANGO_SENTRY_DSN')
-    RAVEN_JS_URL = env('DJANGO_SENTRY_PUBLIC_DSN')
+    SENTRY_JS_URL = env('DJANGO_SENTRY_PUBLIC_DSN')
 
     SERVER_EMAIL = 'info@fragdenstaat.de'
 
@@ -224,3 +224,9 @@ class FragDenStaat(FragDenStaatBase):
         P = super(FragDenStaat, self).OAUTH2_PROVIDER
         P['ALLOWED_REDIRECT_URI_SCHEMES'] = ['https', 'fragdenstaat']
         return P
+
+
+sentry_sdk.init(
+    dsn=env('DJANGO_SENTRY_DSN'),
+    integrations=[DjangoIntegration()]
+)
