@@ -59,7 +59,6 @@ class FragDenStaatBase(German, Base):
             'djcelery_email',
             'django.contrib.redirects',
             'markdown_deux',
-            'raven.contrib.django.raven_compat',
             'django_prices',
 
             'froide_campaign.apps.FroideCampaignConfig',
@@ -419,5 +418,4 @@ class FragDenStaatBase(German, Base):
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
     TWILIO_FROM_NUMBER = os.environ.get('TWILIO_FROM_NUMBER', '')
 
-    
     SENTRY_JS_URL = ''

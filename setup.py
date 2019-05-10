@@ -60,7 +60,7 @@ setup(
         'honcho',
         'anyjson',
         'psycopg2-binary',
-        'raven',
+        'sentry-sdk',
         'python-memcached',
         'pypdf2',
         'reportlab',
