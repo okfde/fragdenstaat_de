@@ -149,11 +149,6 @@ class FragDenStaat(FragDenStaatBase):
                 'propagate': True,
                 'handlers': ['normal']
             },
-            'raven': {
-                'handlers': ['normal'],
-                'propagate': False,
-                'level': 'DEBUG'
-            }
         },
         'disable_existing_loggers': True,
         'handlers': {
@@ -162,10 +157,6 @@ class FragDenStaat(FragDenStaatBase):
                 'class': 'logging.FileHandler',
                 'level': 'INFO'
             },
-            'sentry': {
-                'level': 'INFO',  # To capture more than ERROR, change to WARNING, INFO, etc.
-                'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            }
         },
         'formatters': {
             'verbose': {
