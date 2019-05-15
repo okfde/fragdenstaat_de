@@ -8,6 +8,7 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block meta %}
+  {% include "snippets/meta.html" %}
   {% include "fds_blog/includes/social_meta.html" with article=article %}
 {% endblock %}
 
