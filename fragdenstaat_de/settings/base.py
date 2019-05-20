@@ -387,7 +387,7 @@ class FragDenStaatBase(German, Base):
                 rec(r'Ihr Kennwort lautet: (.*)')
             ],
             closings=[
-                rec(r"([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u)(ß|ss)(en?)?,?"),
+                rec(r"([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u|\?)(ß|ss|\?)(en?)?,?"),
                 rec("Hochachtungsvoll,?"),
                 rec(r'i\. ?A\.'),
                 rec('[iI]m Auftrag')
