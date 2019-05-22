@@ -49,9 +49,9 @@ def get_glyphosat_document(message):
 
     FoiAttachment.objects.create(
         belongs_to=message,
-        file='foi/4a/fd/5f/4afd5f1d5cd7494d962482758375d034eafffd53ff66bb33631e6dfafe2951be.pdf',
+        file='foi/44/8f/f7/448ff77e284cffd86256d8c1b3705bd69d5f83ceff040e1a58642d157f80136d.pdf',
         name=FILENAME,
-        size=1289338,
+        size=2436414,
         filetype='application/pdf',
         can_approve=False,
         approved=False,
