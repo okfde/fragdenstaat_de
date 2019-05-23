@@ -55,7 +55,7 @@ def detect_troll_pre_request_creation(request, **kwargs):
 
     now = timezone.now()
     diff = now - user.date_joined
-    if (diff < timedelta(days=1) and count > 5):
+    if (diff < timedelta(days=1) and count > 10):
         user.is_blocked = True
         user.save()
         mail_managers(_('User auto blocked'), str(user.pk))

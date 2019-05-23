@@ -369,9 +369,9 @@ class FragDenStaatBase(German, Base):
             show_public_body_employee_name=False,
             request_throttle=[
                 (5, 5 * 60),  # X requests in X seconds
-                (10, 6 * 60 * 60),
-                (15, 24 * 60 * 60),
-                (30, 7 * 24 * 60 * 60),
+                (6, 6 * 60 * 60),
+                (10, 24 * 60 * 60),
+                (20, 7 * 24 * 60 * 60),
             ],
             greetings=[
                 # Important: always needs to capture name to be removed
