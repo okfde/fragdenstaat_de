@@ -5,14 +5,12 @@
 {% load fax_tags %}
 {% load fds_tags %}
 
-{% block before_meta %}
+
+{% block message_toolbar_item %}
   {% if object|can_write_foirequest:request and message|can_fax_message:request %}
     {% include "froide_fax/_send_message_form.html" %}
   {% endif %}
-{% endblock %}
 
-
-{% block message_toolbar_item %}
   {% if message|needs_glyphosat_attachment %}
     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#glyphosat-download">
       Gutachten herunterladen und speichern
