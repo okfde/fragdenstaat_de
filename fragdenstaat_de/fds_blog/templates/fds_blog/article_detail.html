@@ -89,6 +89,11 @@
             <div class="author-description">
               {{ author.user.profile_text | markdown }}
             </div>
+            {% if account.user.get_absolute_url %}
+              <a href="{{ account.user.get_absolute_url }}">
+                Anfragen des Autors
+              </a>
+            {% endif %}
           </div>
         </div>
       {% endfor %}
