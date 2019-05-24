@@ -24,7 +24,7 @@
       srcset="{% thumbnail instance.picture 940x0 subject_location=instance.picture.subject_location %}">
   {% endif %}
 {% endif %}
-<img class="{% if instance.width or instance.height %}{% else %}img-fluid{% endif %}" src="{% spaceless %}
+<img class="{% if instance.width or instance.height %}{% else %}img-fluid{% endif %}{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}" src="{% spaceless %}
     {% if instance.external_picture %}
         {{ instance.external_picture }}
     {% elif instance.use_no_cropping %}
