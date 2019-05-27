@@ -81,6 +81,7 @@ python-mimeparse==1.6.0
 python-slugify==3.0.0
 pytz==2018.9
 pyyaml==5.1
+pgpy==0.4.3
 sentry-sdk==0.7.14
 reportlab==3.5.13
 requests==2.21.0

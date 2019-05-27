@@ -1,0 +1,11 @@
+{% load form_helper %}
+
+<form action="{% url 'fds_cms_contact:contact' %}" method="post">
+  {% csrf_token %}
+  {% render_form form %}
+  <p class="text-right">
+    <button type="submit" class="btn btn-primary">
+      Abschicken
+    </button>
+  </p>
+</form>

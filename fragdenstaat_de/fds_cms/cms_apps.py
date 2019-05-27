@@ -9,3 +9,12 @@ class FdsCmsSearchApp(CMSApp):
 
     def get_urls(self, page=None, language=None, **kwargs):
         return ['fragdenstaat_de.fds_cms.urls']
+
+
+@apphook_pool.register
+class FdsCmsContactApp(CMSApp):
+    name = 'FragDenStaat-CMS-Kontakt'
+    app_name = 'fds_cms_contact'
+
+    def get_urls(self, page=None, language=None, **kwargs):
+        return ['fragdenstaat_de.fds_cms.contact']

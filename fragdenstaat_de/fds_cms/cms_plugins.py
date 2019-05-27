@@ -11,6 +11,7 @@ from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
     PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin
 )
+from .contact import ContactForm
 
 
 @plugin_pool.register_plugin
@@ -202,3 +203,20 @@ class SetPasswordFormPlugin(CMSPluginBase):
     name = _('Set Password Form')
     text_enabled = True
     render_template = "account/cms_plugins/set_password.html"
+
+
+@plugin_pool.register_plugin
+class PublicBodyFeedbackPlugin(CMSPluginBase):
+    module = _("Contact")
+    name = _('Contact Form')
+    text_enabled = True
+    render_template = "fds_cms/feedback.html"
+
+    def render(self, context, instance, placeholder):
+        """
+        Update the context with plugin's data
+        """
+
+        context = super().render(context, instance, placeholder)
+        context['form'] = ContactForm()
+        return context
