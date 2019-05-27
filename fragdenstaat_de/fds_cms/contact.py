@@ -1,6 +1,7 @@
 from django import forms
 from django.conf.urls import url
 from django.core.mail import mail_managers
+from django.contrib import messages
 
 try:
     import pgpy
@@ -219,6 +220,10 @@ def contact(request):
         form = ContactForm(data=request.POST)
         if form.is_valid():
             form.send_mail()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Wir haben Ihre Nachricht erhalten.'
+            )
     return get_redirect(request)
 
 
