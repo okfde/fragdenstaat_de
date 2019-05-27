@@ -1,0 +1,5 @@
+{% autoescape off %}-- 
+Rechtshinweis: Diese E-Mail wurde über den Webservice fragdenstaat.de versendet. Antworten werden ggf. im Auftrag der Antragstellenden auf dem Internet-Portal veröffentlicht.
+Falls Sie Fragen dazu haben oder ein Idee, was für eine Anfrage bei Ihnen eigentlich notwendig wäre, besuchen Sie:
+https://fragdenstaat.de/hilfe/fuer-behoerden/
+{% endautoescape %}
