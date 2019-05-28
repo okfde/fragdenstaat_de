@@ -16,6 +16,7 @@ django-classy-tags==0.8.0
 django-cms==3.6.0
 django-configurations==2.1
 django-contrib-comments==1.9.1
+django-crossdomainmedia==0.0.1
 django-filer==1.4.4
 django-filter==2.1.0
 django-floppyforms==1.7.0

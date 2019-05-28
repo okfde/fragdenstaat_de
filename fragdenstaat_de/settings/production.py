@@ -32,8 +32,7 @@ class FragDenStaat(FragDenStaatBase):
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
-    USE_X_ACCEL_REDIRECT = True
-    X_ACCEL_REDIRECT_PREFIX = '/protected'
+    INTERNAL_MEDIA_PREFIX = '/protected/'
 
     ALLOWED_HOSTS = ('fragdenstaat.de', 'media.frag-den-staat.de', 'testserver')
     ALLOWED_REDIRECT_HOSTS = ('fragdenstaat.de', 'sanktionsfrei.de',)
@@ -177,9 +176,6 @@ class FragDenStaat(FragDenStaatBase):
     MANAGERS = (('FragDenStaat.de', 'mail@fragdenstaat.de'),)
     MEDIA_ROOT = env('DJANGO_MEDIA_ROOT')
     MEDIA_URL = 'https://media.frag-den-staat.de/files/'
-
-    FOI_MEDIA_TOKENS = True
-    FOI_MEDIA_DOMAIN = 'https://media.frag-den-staat.de'
 
     FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o2750
     FILE_UPLOAD_PERMISSIONS = 0o640

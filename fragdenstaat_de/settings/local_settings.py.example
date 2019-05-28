@@ -8,8 +8,7 @@ class Dev(FragDenStaatBase):
 
     INTERNAL_IPS = ('127.0.0.1',)
 
-    USE_X_ACCEL_REDIRECT = False
-    X_ACCEL_REDIRECT_PREFIX = '/protected'
+    INTERNAL_MEDIA_PREFIX = '/protected/'
 
     GEOIP_PATH = None
 

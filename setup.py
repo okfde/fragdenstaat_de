@@ -53,6 +53,7 @@ setup(
         'python-magic',
         'python-mimeparse>=0.1.4',
         'django-configurations',
+        'django-crossdomainmedia',
         'django-storages',
         'dj-database-url',
         'django-cache-url',
