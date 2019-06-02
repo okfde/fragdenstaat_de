@@ -191,6 +191,15 @@ class ContactForm(forms.Form):
             'class': 'form-control'
         })
     )
+    url = forms.CharField(
+        max_length=255,
+        required=False,
+        widget=forms.HiddenInput()
+    )
+
+    def clean_url(self):
+        if self.cleaned_data['url']:
+            raise forms.ValidationError('')
 
     def send_mail(self):
         text = '''
