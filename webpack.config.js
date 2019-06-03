@@ -18,6 +18,7 @@ const ASSET_PATH = process.env.ASSET_PATH || '/static/';
 const ENTRY = {
   main: ['./frontend/javascript/main.ts'],
   food: 'froide_food/frontend/javascript/main.js',
+  foodreport: 'froide_food/frontend/javascript/report.js',
   payment: 'froide_payment/frontend/javascript/payment.ts',
   publicbody: 'froide/frontend/javascript/publicbody.js',
   makerequest: 'froide/frontend/javascript/makerequest.js',
