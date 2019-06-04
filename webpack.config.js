@@ -88,7 +88,6 @@ const config = {
         use: {
           loader: 'bootstrap.native-loader',
           options: {
-            bsVersion: 4,
             only: ['modal', 'dropdown', 'collapse', 'alert', 'tab', 'tooltip']
           }
         }
