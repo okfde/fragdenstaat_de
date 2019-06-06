@@ -198,9 +198,15 @@ class ContactForm(forms.Form):
         widget=forms.HiddenInput()
     )
 
+    def clean_message(self):
+        if '<a href=' in self.cleaned_data['message']:
+            raise forms.ValidationError('')
+        return self.cleaned_data['message']
+
     def clean_url(self):
         if self.cleaned_data['url']:
             raise forms.ValidationError('')
+        return ''
 
     def send_mail(self):
         text = '''
