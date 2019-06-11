@@ -32,7 +32,7 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
         """
         active_objects = self.model.published.all().annotate(
             count_articles_published=Count('articles')).order_by(
-            '-count_articles_published', '-pk')
+            '-count_articles_published', '-pk').prefetch_related('translations')
         for active_object in active_objects:
             yield (
                 str(active_object.pk), ungettext_lazy(
@@ -172,8 +172,9 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         qs = qs.prefetch_related(
-            'categories',
-            'authors', 'authors__user')
+            'categories', 'categories__translations',
+            'authors', 'authors__user',
+        )
         return qs
 
     def get_changeform_initial_data(self, request):
