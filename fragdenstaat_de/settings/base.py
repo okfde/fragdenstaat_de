@@ -266,6 +266,7 @@ class FragDenStaatBase(German, Base):
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
         'froide.helper.middleware.XForwardedForMiddleware',
+        'django.middleware.locale.LocaleMiddleware',  # needs to be before CommonMiddleware
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware',
@@ -276,7 +277,6 @@ class FragDenStaatBase(German, Base):
         'fragdenstaat_de.theme.redirects.PathRedirectFallbackMiddleware',
         'froide.account.middleware.AcceptNewTermsMiddleware',
 
-        'django.middleware.locale.LocaleMiddleware',
         'cms.middleware.user.CurrentUserMiddleware',
         'cms.middleware.page.CurrentPageMiddleware',
         'cms.middleware.toolbar.ToolbarMiddleware',
