@@ -24,9 +24,10 @@ class FragDenStaat(FragDenStaatBase):
 
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = None
     SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
-    DATA_UPLOAD_MAX_MEMORY_SIZE = 15728640
+    DATA_UPLOAD_MAX_MEMORY_SIZE = 15728640  # 15 MB
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
     STATIC_URL = 'https://static.frag-den-staat.de/static/'
 
