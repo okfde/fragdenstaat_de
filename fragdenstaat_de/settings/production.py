@@ -28,6 +28,7 @@ class FragDenStaat(FragDenStaatBase):
     SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
     DATA_UPLOAD_MAX_MEMORY_SIZE = 15728640  # 15 MB
+    DATA_UPLOAD_MAX_NUMBER_FIELDS = 5000
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
     STATIC_URL = 'https://static.frag-den-staat.de/static/'
 
