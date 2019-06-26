@@ -45,9 +45,20 @@ window.document.addEventListener('securitypolicyviolation', (e) => {
 
 interface Window { _paq: Array<Array<string | string[]>>; }
 
-window._paq = window._paq || []
-window._paq.push(['setSiteId', '25'])
-window._paq.push(['setTrackerUrl', 'https://traffic.okfn.de/piwik.php'])
-window._paq.push(['setDomains', ['*.fragdenstaat.de']])
-window._paq.push(['trackPageView'])
-window._paq.push(['enableLinkTracking'])
+(function () {
+  const MATOMO_DOMAIN = 'https://traffic.okfn.de';
+
+  window._paq = window._paq || []
+  window._paq.push(['trackPageView'])
+  window._paq.push(['enableLinkTracking'])
+  window._paq.push(['setDomains', ['*.fragdenstaat.de']])
+  window._paq.push(['setTrackerUrl', `${MATOMO_DOMAIN}/matomo.php`])
+  window._paq.push(['setSiteId', '25'])
+
+  var script = document.createElement('script')
+  script.type='text/javascript';
+  script.async=true;
+  script.defer=true;
+  script.src=`${MATOMO_DOMAIN}/matomo.js`;
+  document.body.appendChild(script);
+}())
