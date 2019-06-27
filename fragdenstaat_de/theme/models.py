@@ -77,5 +77,5 @@ def inject_status_change(request, **kwargs):
         params = urlencode({'pk_keyword': next_url, 'pk_campaign': 'request-successful'})
         return redirect('/spenden/erfolgreiche-anfrage/?' + params)
 
-# Disable status change inject
-# registry.register('post_status_set', inject_status_change)
+
+registry.register('post_status_set', inject_status_change)
