@@ -377,6 +377,7 @@ class FragDenStaatBase(German, Base):
                 # Important: always needs to capture name to be removed
                 rec(r"Sehr geehrte Damen und Herren,?"),
                 rec(r"Hallo\s+(.*)"),
+                rec(r"Lieber?\s+(.*)"),
                 rec(r"Sehr (?:Herr|Frau|Fr\.|Hr\.) (.*)"),
                 rec(r"Sehr geehrte(.*)"),
                 rec(r"Sehr geehrt(er? (?:Herr|Frau|Fr\.|Hr\.)?(?: ?Dr\.?)?(?: ?Prof\.?)? .*)"),
