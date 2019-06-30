@@ -375,6 +375,7 @@ class FragDenStaatBase(German, Base):
             ],
             greetings=[
                 # Important: always needs to capture name to be removed
+                rec(r"Name des Absenders\s+(.*)"),
                 rec(r"Sehr geehrte Damen und Herren,?"),
                 rec(r"Hallo\s+(.*)"),
                 rec(r"Lieber?\s+(.*)"),
