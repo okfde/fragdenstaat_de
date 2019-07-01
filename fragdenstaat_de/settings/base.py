@@ -7,7 +7,7 @@ from froide.settings import Base, German
 
 
 def rec(x):
-    return re.compile(x, re.I | re.U)
+    return re.compile(x, re.I | re.U | re.M)
 
 
 def env(key, default=None):
@@ -375,14 +375,14 @@ class FragDenStaatBase(German, Base):
             ],
             greetings=[
                 # Important: always needs to capture name to be removed
-                rec(r"Name des Absenders\s+(.*)"),
-                rec(r"Sehr geehrte Damen und Herren,?"),
-                rec(r"Hallo\s+(.*)"),
-                rec(r"Lieber?\s+(.*)"),
-                rec(r"Sehr (?:Herr|Frau|Fr\.|Hr\.) (.*)"),
-                rec(r"Sehr geehrte(.*)"),
-                rec(r"Sehr geehrt(er? (?:Herr|Frau|Fr\.|Hr\.)?(?: ?Dr\.?)?(?: ?Prof\.?)? .*)"),
-                rec(r"^(?:Von|An|Cc|To|From): (.*)"),
+                rec(r"^\s*Name des Absenders\s+(.*)"),
+                rec(r"^\s*Sehr geehrte Damen und Herren,?"),
+                rec(r"^\s*Hallo\s+(.*)"),
+                rec(r"^\s*Lieber?\s+(.*)"),
+                rec(r"^\s*Sehr (?:Herr|Frau|Fr\.|Hr\.) (.*)"),
+                rec(r"^\s*Sehr geehrte(.*)"),
+                rec(r"^\s*Sehr geehrt(er? (?:Herr|Frau|Fr\.|Hr\.)?(?: ?Dr\.?)?(?: ?Prof\.?)? .*)"),
+                rec(r"^\s*(?:Von|An|Cc|To|From): (.*)"),
             ],
             custom_replacements=[
                 rec(r'[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([a-zA-Z0-9\s/]+)'),
