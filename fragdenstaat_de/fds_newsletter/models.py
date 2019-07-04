@@ -63,7 +63,7 @@ class Submission(BaseSubmission):
 
         context = get_email_context(subscription, submission=self)
         extra_headers = {
-            'List-Unsubscribe': context['unsubscribe_url']
+            'List-Unsubscribe': '<{}>'.format(context['unsubscribe_url'])
         }
 
         subject = self.message.subject_template.render(context).strip()
