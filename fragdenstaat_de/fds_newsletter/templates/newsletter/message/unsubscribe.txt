@@ -1,8 +1,8 @@
 {% autoescape off %}{% if first_name %}Liebe*r {{ first_name }},{% elif name %}Liebe*r {{ name }},{% else %}Hallo!{% endif %}
 
-Du, oder jemand anderes, möchte mit den „{{ newsletter.title }}“-Newsletter abbstellen.
+Du, oder jemand anderes, möchte mit den „{{ newsletter.title }}“-Newsletter abbestellen.
 
-Um das Abbstellen zu bestätigen, klicke bitte diesen Abbstellen-Link:
+Um das Abbestellen zu bestätigen, klicke bitte diesen Abbestellen-Link:
 
 https://{{ domain }}{{ subscription.unsubscribe_activate_url }}
 

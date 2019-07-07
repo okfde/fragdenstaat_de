@@ -1,1 +1,1 @@
-{{ newsletter.title }} - Bestätige das Abbstellen
+{{ newsletter.title }} - Bestätige das Abbestellen

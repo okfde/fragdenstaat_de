@@ -16,5 +16,5 @@ FragDenStaat.de, ein Projekt der
 Open Knowledge Foundation Deutschland e.V.
 Singerstr. 109, 10179 Berlin
 
-Abbstellen: {{ unsubscribe_url }} 
+Abbestellen: {{ unsubscribe_url }} 
 {% endautoescape %}
