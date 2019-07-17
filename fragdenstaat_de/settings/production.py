@@ -23,6 +23,7 @@ class FragDenStaat(FragDenStaatBase):
     SECURE_BROWSER_XSS_FILTER = True
 
     CSRF_COOKIE_SECURE = True
+    CSRF_COOKIE_SAMESITE = None
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_SAMESITE = None
     SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
