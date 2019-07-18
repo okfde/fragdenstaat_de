@@ -14,6 +14,8 @@ from djangocms_text_ckeditor.widgets import TextEditorWidget
 from cms.api import add_plugin
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 
+from froide.helper.admin_utils import make_nullfilter
+
 from .models import (
     Article, Author, Category, ArticleTag, TaggedArticle
 )
@@ -149,6 +151,7 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         'status',
         CategoryListFilter, 'date_featured',
         'language',
+        make_nullfilter('image', 'Hat Bild'),
         'sites',
         'creation_date', 'start_publication', 'end_publication',
     )
