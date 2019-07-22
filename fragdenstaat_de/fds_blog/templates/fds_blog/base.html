@@ -11,14 +11,14 @@
   <div class="app app-blog">
     <nav class="navbar navbar-expand-sm navbar-dark navbar-blog">
       <div class="container">
-        <a class="navbar-brand" href="{% page_url 'blog' %}">Recherchen zur Informationsfreiheit</a>
+        <a class="navbar-brand" href="{% page_url 'blog' %}">{% trans "Freedom of Information investigations" %}</a>
         <div class="d-flex">
           <ul class="navbar-nav ml-auto d-none d-sm-block">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Kategorien
+              <a class="nav-link dropdown-toggle" href="#" id="cat-navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% trans "Categories" %}
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu" aria-labelledby="cat-navbarDropdown">
                 {% for cat in categories %}
                   <a class="dropdown-item {% if cat == category %} active{% endif %}" href="{% url 'blog:article-category' category=cat.slug %}">
                     {{ cat.title }}
