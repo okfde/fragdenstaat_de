@@ -19,6 +19,7 @@
           {% elif article_tag %}{% trans "Tag" %} {{ article_tag.name }}
           {% elif category %}{% trans "Category" %} {{ category }}{% endif %}
         </h2>
+        {% if category and category.description %}<p>{{ category.description }}</p>{% endif %}
       </header>
     {% endif %}
     {% endblock %}
