@@ -149,7 +149,10 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
 
     list_filter = (
         'status',
-        CategoryListFilter, 'date_featured',
+        CategoryListFilter,
+        make_nullfilter('categories', 'Hat Kategorie'),
+        'tags',
+        'date_featured',
         'language',
         make_nullfilter('image', 'Hat Bild'),
         'sites',
