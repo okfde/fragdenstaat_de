@@ -10,6 +10,9 @@ from django_elasticsearch_dsl import DocType, fields
 from froide.helper.search import (
     get_index, get_text_analyzer
 )
+from froide.helper.tasks import (
+    search_instance_save, search_instance_delete
+)
 
 from .models import Article
 
@@ -41,6 +44,8 @@ class ArticleDocument(DocType):
         analyzer=analyzer
     )
 
+    special_signals = True
+
     class Meta:
         model = Article
         queryset_chunk_size = 100
@@ -71,3 +76,10 @@ class ArticleDocument(DocType):
     def prepare_author(self, obj):
         authors = obj.authors.all()
         return [o.id for o in authors]
+
+
+def index_article(article):
+    if article.is_visible:
+        search_instance_save.delay(article._meta.label_lower, article.pk)
+    else:
+        search_instance_delete.delay(article._meta.label_lower, article.pk)

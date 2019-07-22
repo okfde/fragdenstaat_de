@@ -19,6 +19,7 @@ from froide.helper.admin_utils import make_nullfilter
 from .models import (
     Article, Author, Category, ArticleTag, TaggedArticle
 )
+from .documents import index_article
 
 
 class RelatedPublishedFilter(admin.SimpleListFilter):
@@ -207,9 +208,18 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
             article.content = content or ''
 
         article.last_update = timezone.now()
+
+        public_changed = False
+        if 'status' in form.changed_data or 'start_publication' in form.changed_data:
+            public_changed = True
+
         super().save_model(request, article, form, change)
 
         article.save()
+
+        if public_changed:
+            index_article(article)
+
         if not change:
             article.sites.add(Site.objects.get_current())
             add_plugin(article.content_placeholder, 'TextPlugin',
