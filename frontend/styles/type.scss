@@ -1,24 +1,30 @@
 @font-face {
-    font-family: 'Kreon';
-    font-style: normal;
-    font-display: swap;
-    font-weight: 400;
-    src: local('Kreon Regular'), local('Kreon-Regular'),
-      url('~typeface-kreon/files/kreon-latin-400.woff2') format('woff2'),
-      url('~typeface-kreon/files/kreon-latin-400.woff') format('woff');
-  }
+  font-family: 'Kreon';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: local('Kreon Regular'), local('Kreon-Regular'),
+    url('~typeface-kreon/files/kreon-latin-400.woff2') format('woff2'),
+    url('~typeface-kreon/files/kreon-latin-400.woff') format('woff');
+}
   
 body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .navbar-fds .navbar-brand {
-    font-family: 'Kreon';
+  font-family: 'Kreon';
+
+  &>a, &>a:visited, &>a:hover, &>a:active {
+    display: inline-block;
+    text-decoration: none;
+    color: $navbar-light-active-color;
+  }
 }
 
 .lead {
-    font-size: 1.4rem !important;
-    font-weight: 400 !important;
-    margin: 2rem 0;
+  font-size: 1.4rem !important;
+  font-weight: 400 !important;
+  margin: 2rem 0;
 }

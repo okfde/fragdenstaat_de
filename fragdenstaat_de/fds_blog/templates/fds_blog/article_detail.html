@@ -20,9 +20,37 @@
         <header class="blog-header">
           <div class="row justify-content-center">
             <div class="col-md-12 col-lg-10">
-              <time class="blog-header__date">
-                {{ article.start_publication|date:"DATE_FORMAT" }}
-              </time>
+              <span class="blog-header__date">
+                <time>
+                  {{ article.start_publication|date:"DATE_FORMAT" }}
+                </time>
+
+                {% with cats=article.categories.all %}
+                  {% if cats %}
+                    –
+                    <ul class="blog-header__categories">
+                      {% for cat in cats %}
+                        <li>
+                          <a href="{% url 'blog:article-category' category=cat.slug %}">{{ cat.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+              </span>
+
+              {% with tags=article.tags.all %}
+                {% if tags %}
+                  <ul class="blog-header__tags">
+                    {% for tag in tags %}
+                      <li>
+                        <a href="{% url 'blog:article-tagged' tag=tag.slug %}">{{ tag.name }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              {% endwith %}
+
               <h1 class="blog-header__title">
                 {% render_model article "title" %}
               </h1>

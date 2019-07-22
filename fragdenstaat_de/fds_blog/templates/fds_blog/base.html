@@ -3,21 +3,51 @@
 {% load i18n %}
 {% load cms_tags %}
 
+{% block navbar %}
+  {% include "fds_blog/header_blog.html" %}
+{% endblock %}
+
 {% block content %}
   <div class="app app-blog">
-    <div class="blog-banner">
+    <nav class="navbar navbar-expand-sm navbar-dark navbar-blog">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <h1>
-              <a href="{% page_url 'blog' %}">
-                {% trans "The Freedom of Information Blog" %}
+        <a class="navbar-brand" href="{% page_url 'blog' %}">Recherchen zur Informationsfreiheit</a>
+        <div class="d-flex">
+          <ul class="navbar-nav ml-auto d-none d-sm-block">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Kategorien
               </a>
-            </h1>
-          </div>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for cat in categories %}
+                  <a class="dropdown-item {% if cat == category %} active{% endif %}" href="{% url 'blog:article-category' category=cat.slug %}">
+                    {{ cat.title }}
+                  </a>
+                {% endfor %}
+              </div>
+            </li>
+          </ul>
+
+          <form class="form-inline ml-2 d-none d-md-inline" role="search" method="get" action="{% url 'blog:article-search' %}">
+            <div class="input-group d-flex d-md-none d-lg-flex">
+              <input class="form-control" type="text" name="q" placeholder="{% trans 'Search' %}" aria-label="{% trans 'Search' %}">
+              <div class="input-group-append">
+                <button class="btn btn-outline-light" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  <span class="sr-only">{% trans "Search" %}</span>
+                </button>
+              </div>
+            </div>
+            <button class="btn btn-outline-light d-none d-md-block d-lg-none" type="submit">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <span class="sr-only">{% trans "Search" %}</span>
+            </button>
+          </form>
         </div>
       </div>
-    </div>
+    </nav>
+    
     {% block content_blog %}{% endblock %}
-</div>
+
+  </div>
 {% endblock %}

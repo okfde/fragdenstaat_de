@@ -3,19 +3,22 @@
 
 {% block canonical_url %}<link rel="canonical" href="{{ view.get_view_url }}"/>{% endblock canonical_url %}
 
+{% block title %}{% if author %}{{ author.get_full_name }} – {% elif archive_date %}{% if month %}{{ archive_date|date:'F' }} {% endif %}{{ year }} – {% elif tagged_entries %}{{ tagged_entries|capfirst }} – {% elif category %}{{ category }} – {% endif %}{{ block.super }}{% endblock %}
+
+
 {% block content_blog %}
 <div class="container">
-  <section class="blog-list">
+  <section class="blog-list mt-3">
 
     {% block blog_title %}
-    {% if author or archive_date or tagged_entries or category %}
+    {% if author or archive_date or article_tag or category %}
       <header class="blog-head">
-          <h2>
+        <h2>
           {% if author %}{% trans "Articles by" %} {{ author.get_full_name }}
-          {% elif archive_date %}{% trans "Archive" %} &ndash; {% if month %}{{ archive_date|date:'F' }} {% endif %}{{ year }}
-          {% elif tagged_entries %}{% trans "Tag" %} &ndash; {{ tagged_entries|capfirst }}
-          {% elif category %}{% trans "Category" %} &ndash; {{ category }}{% endif %}
-          </h2>
+          {% elif archive_date %}{% trans "Archive" %} {% if month %}{{ archive_date|date:'F' }} {% endif %}{{ year }}
+          {% elif article_tag %}{% trans "Tag" %} {{ article_tag.name }}
+          {% elif category %}{% trans "Category" %} {{ category }}{% endif %}
+        </h2>
       </header>
     {% endif %}
     {% endblock %}
@@ -24,17 +27,19 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="blog-teaser-large">
-            {% if featured.image %}
-              <a href="{{ featured.get_absolute_url }}">
-                {% include "fds_blog/includes/blog_picture.html" with picture=featured.image %}
-              </a>
-            {% endif %}
-            <div class="blog-teaser-text">
-              <h3>
-                <a href="{{ featured.get_absolute_url }}">{{ featured.title }}</a>
-              </h3>
-              <div class="blog-lead d-sm-none d-md-block">
-                {% render_model featured "teaser" "" "" "safe" %}
+            <div class="blog-teaser-top">
+              {% if featured.image %}
+                <a href="{{ featured.get_absolute_url }}">
+                  {% include "fds_blog/includes/blog_picture.html" with picture=featured.image %}
+                </a>
+              {% endif %}
+              <div class="blog-teaser-text">
+                <h3>
+                  <a href="{{ featured.get_absolute_url }}">{{ featured.title }}</a>
+                </h3>
+                <div class="blog-lead">
+                  {% render_model featured "teaser" "" "" "safe" %}
+                </div>
               </div>
             </div>
           </div>

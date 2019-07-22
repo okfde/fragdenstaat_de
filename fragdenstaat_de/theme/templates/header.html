@@ -7,6 +7,17 @@
 {% block navbar-class %}navbar-fds{% endblock %}
 
 
+{% block nav_brand %}
+  <div class="navbar-brand">
+    <a href="/">
+      {% block nav_brand_image %}<img src="{% static 'img/logo/logo.svg' %}" height="60" class="navbar-logo" alt="">{% endblock %}
+      <span class="navbar-brand-name">{% block nav_brand_name %}{{ SITE_NAME }}{% endblock %}</span>
+    </a>
+    {% block nav_brand_extra %}{% endblock %}
+  </div>
+{% endblock %}
+
+
 {% block nav %}
   <ul class="navbar-nav col-auto ml-auto">
     <li class="nav-item {% block nav_makerequest %}{% endblock %}">

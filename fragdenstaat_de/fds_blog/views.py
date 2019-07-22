@@ -14,7 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 from froide.helper.search.views import BaseSearchView
 
 from .documents import ArticleDocument
-from .models import Category, Article
+from .models import Category, Article, ArticleTag
 from .filters import ArticleFilterset
 
 User = get_user_model()
@@ -55,14 +55,15 @@ class BaseBlogView(object):
         template_path = 'fds_blog'
         return os.path.join(template_path, self.base_template_name)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(order__lt=10)
+        return context
+
 
 class BaseBlogListView(BaseBlogView):
     context_object_name = 'article_list'
     base_template_name = 'article_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(BaseBlogListView, self).get_context_data(**kwargs)
-        return context
 
     def get_paginate_by(self, queryset):
         return 12
@@ -151,12 +152,12 @@ class TaggedListView(BaseBlogListView, ListView):
     view_url_name = 'fds_blog:article-tagged'
 
     def get_queryset(self):
+        self.tag = get_object_or_404(ArticleTag, slug=self.kwargs['tag'])
         qs = super().get_queryset()
-        return self.optimize(qs.filter(tags__slug=self.kwargs['tag']))
+        return self.optimize(qs.filter(tags=self.tag))
 
     def get_context_data(self, **kwargs):
-        kwargs['tagged_articles'] = (self.kwargs.get('tag')
-                                    if 'tag' in self.kwargs else None)
+        kwargs['article_tag'] = self.tag
         context = super().get_context_data(**kwargs)
         return context
 
