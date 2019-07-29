@@ -27,6 +27,7 @@ const ENTRY = {
   tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts',
   docupload: 'froide/frontend/javascript/docupload.js',
   geomatch: 'froide/frontend/javascript/geomatch.js',
+  messageredaction: 'froide/frontend/javascript/messageredaction.js'
 }
 
 const EXCLUDE_CHUNKS = [
