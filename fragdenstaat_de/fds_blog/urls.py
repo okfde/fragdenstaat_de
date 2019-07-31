@@ -1,11 +1,14 @@
 from django.conf.urls import url
 from django.utils.translation import ugettext_lazy as _
 
+from froide.helper import api_router
+
 from .feeds import LatestArticlesFeed
 from .views import (
     AuthorArticleView, CategoryArticleView, ArticleArchiveView, ArticleDetailView, ArticleListView,
     TaggedListView, ArticleSearchView
 )
+from .api_views import ArticleTagViewSet
 
 
 PERMALINKS_URLS = {
@@ -47,3 +50,9 @@ urlpatterns = [
     url(r'^tag/(?P<tag>[-\w]+)/$',
         TaggedListView.as_view(), name='article-tagged'),
 ] + detail_urls
+
+api_router.register(
+    r'articletag',
+    ArticleTagViewSet,
+    basename='articletag'
+)

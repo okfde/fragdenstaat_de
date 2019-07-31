@@ -1,5 +1,6 @@
 from django.utils import timezone
 from django import forms
+from django.urls import reverse_lazy
 from django.contrib import admin
 from django.contrib.sites.models import Site
 from django.urls import NoReverseMatch
@@ -15,6 +16,7 @@ from cms.api import add_plugin
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 
 from froide.helper.admin_utils import make_nullfilter
+from froide.helper.widgets import TagAutocompleteWidget
 
 from .models import (
     Article, Author, Category, ArticleTag, TaggedArticle
@@ -93,7 +95,10 @@ class ArticleAdminForm(forms.ModelForm):
         model = Article
         fields = '__all__'
         widgets = {
-            'teaser': TextEditorWidget()
+            'teaser': TextEditorWidget(),
+            'tags': TagAutocompleteWidget(
+                autocomplete_url=reverse_lazy('api:articletag-autocomplete')
+            )
         }
 
 

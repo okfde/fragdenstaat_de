@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 
 # Import early to register with api_router
 from froide_campaign import urls as campaign_urls
+import fragdenstaat_de.fds_blog.urls  # noqa
 
 from froide.foirequest.views import dashboard
 from froide.urls import (
