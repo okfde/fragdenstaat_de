@@ -1,9 +1,12 @@
 import os
+import logging
 
 import django_cache_url
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.logging import LoggingIntegration
+from sentry_sdk.integrations.celery import CeleryIntegration
 
 from .base import FragDenStaatBase, env
 
@@ -216,7 +219,11 @@ class FragDenStaat(FragDenStaatBase):
         return P
 
 
+sentry_logging = LoggingIntegration(
+    level=logging.INFO,  # Capture info and above as breadcrumbs
+    event_level=logging.ERROR,  # Send errors as events
+)
 sentry_sdk.init(
     dsn=env('DJANGO_SENTRY_DSN'),
-    integrations=[DjangoIntegration()]
+    integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()]
 )
