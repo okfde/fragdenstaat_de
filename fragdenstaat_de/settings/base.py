@@ -280,7 +280,7 @@ class FragDenStaatBase(German, Base):
         'cms.middleware.user.CurrentUserMiddleware',
         'cms.middleware.page.CurrentPageMiddleware',
         'cms.middleware.toolbar.ToolbarMiddleware',
-        'cms.middleware.language.LanguageCookieMiddleware',
+        'fragdenstaat_de.theme.cms_utils.HostLanguageCookieMiddleware',
     ]
     FROIDE_CSRF_MIDDLEWARE = 'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware'
 
