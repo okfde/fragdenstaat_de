@@ -27,7 +27,8 @@ const ENTRY = {
   tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts',
   docupload: 'froide/frontend/javascript/docupload.js',
   geomatch: 'froide/frontend/javascript/geomatch.js',
-  messageredaction: 'froide/frontend/javascript/messageredaction.js'
+  messageredaction: 'froide/frontend/javascript/messageredaction.js',
+  filingcabinet: 'filingcabinet/frontend/javascript/filingcabinet.js'
 }
 
 const EXCLUDE_CHUNKS = [
@@ -139,7 +140,7 @@ const config = {
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         use: [
           devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
           {
