@@ -13,7 +13,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const webpack = require('webpack')
 
 const devMode = process.env.NODE_ENV !== 'production'
-const ASSET_PATH = process.env.ASSET_PATH || '/static/';
+const ASSET_PATH = process.env.ASSET_PATH || '/static/js/';
 
 const ENTRY = {
   main: ['./frontend/javascript/main.ts'],
@@ -46,7 +46,9 @@ const config = {
   entry: ENTRY,
   output: {
     path: path.resolve(__dirname, 'fragdenstaat_de/theme/static/js'),
-    publicPath: process.env.NODE_ENV === 'production' ? ASSET_PATH : 'http://localhost:8080/static/',
+    publicPath: process.env.NODE_ENV === 'production' ? ASSET_PATH : (
+      process.env.WEBPACK_DEV_SERVER ? 'http://localhost:8080/static/js/' : '/static/js/'
+    ),
     filename: '[name].js',
     chunkFilename: '[name].js',
     library: ['Froide', 'components', '[name]'],
