@@ -37,6 +37,7 @@ class FragDenStaatBase(German, Base):
             'easy_thumbnails.optimize',
             'filer',
             'mptt',
+            'logentry_admin',
 
             'fragdenstaat_de.fds_blog',
             'adminsortable2',

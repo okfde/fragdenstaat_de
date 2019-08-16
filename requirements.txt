@@ -24,6 +24,7 @@ django-formtools==2.1
 django-fsm==2.6.1
 django-elasticsearch-dsl==0.5.1
 django-leaflet==0.24.0
+django-logentry-admin==1.0.5
 django-markdown-deux==1.0.5
 django-mptt==0.9.1
 django-newsletter==0.8b1
