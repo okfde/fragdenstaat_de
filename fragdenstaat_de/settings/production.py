@@ -225,5 +225,6 @@ sentry_logging = LoggingIntegration(
 )
 sentry_sdk.init(
     dsn=env('DJANGO_SENTRY_DSN'),
+    release=env('GIT_COMMIT'),
     integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()]
 )
