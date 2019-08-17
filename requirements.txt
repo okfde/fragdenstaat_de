@@ -69,7 +69,8 @@ markdown2==2.3.8
 markdown==3.1.1
 markupsafe==1.1.1
 maxminddb==1.4.1
-oauthlib==3.1.0
+# 3.1.0 makes it so URL query parameters are not allowed
+oauthlib==3.0.1
 pdflib==0.1.7
 phonenumbers==8.10.16
 pillow==6.1.0
