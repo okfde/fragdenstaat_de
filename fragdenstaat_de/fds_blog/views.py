@@ -82,6 +82,7 @@ class ArticleDetailView(BaseBlogView, DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+        self.request.article = self.object
         if hasattr(self.request, 'toolbar'):
             self.request.toolbar.set_object(self.object)
 
