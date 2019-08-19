@@ -9,7 +9,6 @@ from cms.toolbar_pool import toolbar_pool
 class BlogToolbar(CMSToolbar):
 
     def populate(self):
-        print(self.request.article)
         if not hasattr(self.request, 'article'):
             return
 
