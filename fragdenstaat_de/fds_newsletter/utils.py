@@ -1,5 +1,7 @@
 from newsletter.models import Subscription
 
+REFERENCE_PREFIX = 'newsletter-'
+
 
 def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):
     if not should_deactivate:

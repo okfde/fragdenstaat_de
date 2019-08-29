@@ -9,6 +9,10 @@ from newsletter.models import Subscription, Submission as BaseSubmission
 from newsletter.utils import ACTIONS
 
 from froide.helper.email_sending import send_mail
+from froide.helper.email_utils import make_address
+
+from .utils import REFERENCE_PREFIX
+
 
 logger = logging.getLogger(__name__)
 
@@ -62,9 +66,6 @@ class Submission(BaseSubmission):
     def send_message(self, subscription):
 
         context = get_email_context(subscription, submission=self)
-        extra_headers = {
-            'List-Unsubscribe': '<{}>'.format(context['unsubscribe_url'])
-        }
 
         subject = self.message.subject_template.render(context).strip()
         body = self.message.text_template.render(context)
@@ -81,9 +82,11 @@ class Submission(BaseSubmission):
                 subscription
             )
 
-            send_mail(subject, body, subscription.get_recipient(),
+            send_mail(subject, body, make_address(subscription.email, name=subscription.name),
                 from_email=self.newsletter.get_sender(),
-                headers=extra_headers,
+                unsubscribe_reference='{prefix}{pk}'.format(
+                    prefix=REFERENCE_PREFIX, pk=subscription.id
+                ),
                 **extra_kwargs
             )
 
