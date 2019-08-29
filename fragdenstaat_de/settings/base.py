@@ -396,7 +396,7 @@ class FragDenStaatBase(German, Base):
                 rec('[iI]m Auftrag'),
                 rec(r"(?:Best regards|Kind regards|Sincerely),?")
             ],
-            recipient_blacklist_regex=rec('.*\.de-mail\.de$'),
+            recipient_blacklist_regex=rec('.*\.de-mail\.de$|z@bundesnachrichtendienst.de'),
             content_urls={
                 'terms': '/nutzungsbedingungen/',
                 'privacy': '/datenschutzerklaerung/',
