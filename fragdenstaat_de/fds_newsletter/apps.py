@@ -13,15 +13,16 @@ class NewsletterConfig(AppConfig):
         from froide.account import account_canceled, account_activated, account_merged
         from froide.account.export import registry
         from froide.account.forms import user_extra_registry
-        from froide.bounce.signals import email_bounced
+        from froide.bounce.signals import email_bounced, email_unsubscribed
 
         from .forms import NewsletterUserExtra
-        from .utils import handle_bounce
+        from .utils import handle_bounce, handle_unsubscribe
 
         account_canceled.connect(cancel_user)
         account_merged.connect(merge_user)
         account_activated.connect(activate_newsletter_subscription)
         email_bounced.connect(handle_bounce)
+        email_unsubscribed.connect(handle_unsubscribe)
         user_extra_registry.register(NewsletterUserExtra())
 
         registry.register(export_user_data)
