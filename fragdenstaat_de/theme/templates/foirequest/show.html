@@ -6,6 +6,7 @@
 {% load foirequest_tags %}
 {% load food_tags %}
 {% load fax_tags %}
+{% load crowdfunding %}
 {% load fds_cms_tags %}
 
 
@@ -69,7 +70,7 @@
 {% endblock %}
 
 {% block request_action_menu_footer %}
-  {% if object.costs and request.user.is_staff %}
+  {% if object.costs and request.user|can_crowdfund %}
   <li class="nav-item">
     <a href="#crowdfunding" data-toggle="pill" class="nav-link" role="tab" aria-controls="crowdfunding" aria-expanded="false">
       Crowdfunding (Alpha für Mods)
@@ -88,10 +89,10 @@
 
 {% block request_action_pane_footer %}
   {# Crowdfunding #}
-  {% if request.user.is_staff %}
-  <div class="tab-pane d-print-none" id="crowdfunding">
-    {% include "froide_crowdfunding/includes/request_pane.html" with object=object %}
-  </div>
+  {% if request.user|can_crowdfund %}
+    <div class="tab-pane d-print-none" id="crowdfunding">
+      {% include "froide_crowdfunding/includes/request_pane.html" with object=object %}
+    </div>
   {% endif %}
 
   {# Legal Action #}
