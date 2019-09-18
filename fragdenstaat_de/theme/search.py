@@ -9,7 +9,7 @@ def get_text_analyzer():
         tokenizer='standard',
         filter=[
             'keyword_repeat',
-            token_filter('decomp', type='decompound', subwords_only=False, respect_keywords=True),
+            token_filter('decomp', type='decompound', subwords_only=True, respect_keywords=True),
 
             'lowercase',
             token_filter('stop_de', type='stop', stopwords="_german_"),
@@ -29,7 +29,7 @@ def get_search_analyzer():
         tokenizer='standard',
         filter=[
             'keyword_repeat',
-            token_filter('decomp', type='decompound', subwords_only=False, respect_keywords=True),
+            token_filter('decomp', type='decompound', subwords_only=True, respect_keywords=True),
 
             'lowercase',
             token_filter('stop_de', type='stop', stopwords="_german_"),
