@@ -364,6 +364,7 @@ class FragDenStaatBase(German, Base):
             delivery_reporter='froide.foirequest.delivery.PostfixDeliveryReporter',
             text_analyzer='fragdenstaat_de.theme.search.get_text_analyzer',
             search_analyzer='fragdenstaat_de.theme.search.get_search_analyzer',
+            search_quote_analyzer='fragdenstaat_de.theme.search.get_search_quote_analyzer',
             dryrun_domain="test.fragdenstaat.de",
             allow_pseudonym=True,
             api_activated=True,

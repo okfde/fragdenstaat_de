@@ -12,7 +12,6 @@ def get_text_analyzer():
             token_filter('decomp', type='decompound', subwords_only=True, respect_keywords=True),
 
             'lowercase',
-            token_filter('stop_de', type='stop', stopwords="_german_"),
 
             'german_normalization',
             'asciifolding',
@@ -29,7 +28,7 @@ def get_search_analyzer():
         tokenizer='standard',
         filter=[
             'keyword_repeat',
-            token_filter('decomp', type='decompound', subwords_only=True, respect_keywords=True),
+            token_filter('decomp', type='decompound', subwords_only=False, respect_keywords=True),
 
             'lowercase',
             token_filter('stop_de', type='stop', stopwords="_german_"),
@@ -39,5 +38,20 @@ def get_search_analyzer():
 
             token_filter('de_stemmer', type='stemmer', name='light_german'),
             token_filter('unique_stem', type='unique', only_on_same_position=False)
+        ],
+    )
+
+
+def get_search_quote_analyzer():
+    return analyzer(
+        'fds_search_quote_analyzer',
+        tokenizer='standard',
+        filter=[
+            'lowercase',
+
+            'german_normalization',
+            'asciifolding',
+
+            token_filter('de_stemmer', type='stemmer', name='light_german'),
         ],
     )
