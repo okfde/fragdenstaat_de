@@ -105,8 +105,6 @@
 
 {% block before_correspondence %}
   {% fds_static_placeholder "banner_ad" %}
-  {% if request.user.is_staff %}
-    {% include "froide_crowdfunding/includes/request_block.html" with object=object %}
-  {% endif %}
+  {% include "froide_crowdfunding/includes/request_block.html" with object=object %}
   {# {{ block.super }} #}
 {% endblock %}
