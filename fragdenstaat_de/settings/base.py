@@ -362,7 +362,8 @@ class FragDenStaatBase(German, Base):
                 'fax': 'froide_fax.fax.FaxMessageHandler'
             },
             delivery_reporter='froide.foirequest.delivery.PostfixDeliveryReporter',
-            search_text_analyzer='fragdenstaat_de.theme.search.get_text_analyzer',
+            text_analyzer='fragdenstaat_de.theme.search.get_text_analyzer',
+            search_analyzer='fragdenstaat_de.theme.search.get_search_analyzer',
             dryrun_domain="test.fragdenstaat.de",
             allow_pseudonym=True,
             api_activated=True,
