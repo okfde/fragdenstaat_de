@@ -56,13 +56,24 @@ class DocumentPagesCMSPlugin(CMSPlugin):
         on_delete=models.CASCADE
     )
     pages = models.CharField(max_length=255, blank=True)
+    size = models.CharField(
+        default='small',
+        max_length=10, choices=(
+            ('small', _('Small')),
+            ('normal', _('Normal')),
+            ('large', _('Large')),
+        )
+    )
 
     def __str__(self):
         return '%s: %s' % (self.doc, self.pages)
 
     def get_pages(self):
         page_numbers = list(self.get_page_numbers())
-        return self.doc.page_set.filter(number__in=page_numbers)
+        pages = self.doc.page_set.filter(number__in=page_numbers)
+        for page in pages:
+            page.image_url = getattr(page, 'image_' + self.size, 'image_small').url
+        return pages
 
     def get_page_numbers(self):
         if not self.pages:
