@@ -97,6 +97,10 @@ const config = {
         }
       },
       {
+        test: /\.worker\.js$/,
+        use: { loader: 'worker-loader' }
+      },
+      {
         test: /\.ts$/,
         exclude: /node_modules/,
         use: [
