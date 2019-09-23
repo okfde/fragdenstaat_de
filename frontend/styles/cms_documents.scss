@@ -3,8 +3,18 @@
     padding: 1rem 2rem;
     background-color: #D4FEFF;
 
-    .col {
-        padding: 5px;
+    .cms-document-pages-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+
+        .card {
+            flex: 0 0 auto;
+        }
+        .card:not(:last-child) {
+            margin-right: 15px;
+        }
     }
 }
 
