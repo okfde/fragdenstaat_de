@@ -19,7 +19,7 @@ django-configurations==2.1
 django-contrib-comments==1.9.1
 django-crossdomainmedia==0.0.3
 django-filer==1.5.0
-django-filter==2.1.0
+django-filter==2.2.0
 django-floppyforms==1.7.0
 django-formtools==2.1
 django-fsm==2.6.1
@@ -27,16 +27,16 @@ django-elasticsearch-dsl==0.5.1
 django-leaflet==0.24.0
 django-logentry-admin==1.0.5
 django-markdown-deux==1.0.5
-django-mptt==0.9.1
+django-mptt==0.10.0
 django-newsletter==0.8b1
 django-oauth-toolkit==1.2.0
-django-parler==1.9.2
-django-polymorphic==2.0.3
+django-parler==2.0
+django-polymorphic==2.1.2
 django-sekizai==1.0.0
-django-storages==1.7.1
+django-storages==1.7.2
 # Test taggit 1.0.0, seems broken
-django-taggit==0.24.0
-django-taggit-autosuggest==0.3.4
+django-taggit==1.1.0
+django-taggit-autosuggest==0.3.8
 django-templatetag-sugar==1.0
 django-treebeard==4.3
 django-wikidata==0.0.6
@@ -44,12 +44,12 @@ django>2.1,<2.3
 djangocms-admin-style==1.3.0
 djangocms-apphook-setup==0.3.0
 djangocms-attributes-field==1.1.0
-djangocms-picture==2.2.1
+djangocms-picture==2.3.0
 djangocms-text-ckeditor==3.8.0
 djangocms-video==2.1.1
 djangorestframework-csv==2.1.0
 djangorestframework-jsonp==1.0.2
-djangorestframework==3.9.4
+djangorestframework==3.10.3
 easy-thumbnails==2.6
 elasticsearch==6.3.1
 # Keep back for django-elasticsearch-dsl
@@ -65,24 +65,24 @@ itypes==1.1.0
 jinja2==2.10.1
 jsonfield==2.0.2
 kombu==4.6.4
-lxml==4.3.4
+lxml==4.4.1
 markdown2==2.3.8
 markdown==3.1.1
 markupsafe==1.1.1
 maxminddb==1.4.1
 oauthlib==3.1.0
 pdflib==0.1.7
-phonenumbers==8.10.16
+phonenumbers==8.10.19
 pillow==6.1.0
-psycopg2-binary==2.8.2
+psycopg2-binary==2.8.3
 pyisemail==1.3.2
 pypdf2==1.26.0
 python-magic==0.4.15
 python-memcached==1.59
 python-mimeparse==1.6.0
 python-slugify==3.0.2
-pytz==2019.1
-pyyaml==5.1.1
+pytz==2019.2
+pyyaml==5.1.2
 pgpy==0.4.3
 sentry-sdk==0.9.0
 reportlab==3.5.23
@@ -92,8 +92,8 @@ uritemplate==3.0.0
 urllib3==1.24.2
 urlobject==2.4.3
 vine==1.3.0
-wand==0.5.6
-weasyprint==49
+wand==0.5.7
+weasyprint==50
 yurl==0.13
 # -e git+git://github.com/sirfz/tesserocr.git@35ae0f535f3d33679b3b93d7fc4e08ab2e6a92a1#egg=tesserocr
 
