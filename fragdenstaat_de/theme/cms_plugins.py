@@ -16,6 +16,14 @@ class ContainerPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
+class ContainerFluidPlugin(CMSPluginBase):
+    module = _("Structure")
+    name = _("Container Fluid")
+    render_template = "cms/plugins/container_fluid.html"
+    allow_children = True
+
+
+@plugin_pool.register_plugin
 class ContainerGreyPlugin(CMSPluginBase):
     module = _("Structure")
     name = _("Container Grey")
