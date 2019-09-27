@@ -12,11 +12,18 @@ function showDonationBanner () {
       window.localStorage.setItem(itemName, JSON.stringify({
         timestamp: time
       }))
-      toggleSlide(el)
-      window.setTimeout(function () {
-        el.parentNode && el.parentNode.removeChild(el)
-      }, 5 * 1000)
+      if (requiresAnimation) {
+        toggleSlide(el)
+        window.setTimeout(function () {
+          removeBanner()
+        }, 5 * 1000)
+      } else {
+        removeBanner()
+      }
     }
+  }
+  function removeBanner() {
+    el.parentNode && el.parentNode.removeChild(el)
   }
 
   const els = document.querySelectorAll('.donation-block')
@@ -26,27 +33,29 @@ function showDonationBanner () {
     demoEl.style.display = 'block'
     return
   }
+  if (els.length !== 1) {
+    return
+  }
+  const el = <HTMLElement> els[0]
+
   if (document.location && document.location.pathname) {
     if (document.location.pathname.indexOf('/spenden/') !== -1 ||
         document.location.pathname.indexOf('/blog/') !== -1 ||
         document.location.pathname.indexOf('/gesendet/') !== -1 ||
         document.location.pathname.indexOf('/anfrage-stellen/') !== -1 ||
         document.location.pathname.indexOf('/account/') !== -1) {
-      return
+      return removeBanner()
     }
   }
   const donationIframe = document.querySelector('iframe[src^="https://www.betterplace.org/de/projects/"]')
   if (donationIframe !== null) {
-    return
+    return removeBanner()
   }
 
-  if (els.length !== 1) {
-    return
-  }
-  const el = <HTMLElement> els[0]
   if (!window.localStorage) {
-    return
+    return removeBanner()
   }
+  const requiresAnimation = el.dataset.topbanner === "true"
   const cancel = el.querySelector('.cancel-donation')
   const already = el.querySelector('.already-donation')
   const close = el.querySelector('.close')
@@ -57,7 +66,7 @@ function showDonationBanner () {
   if (data !== null) {
     const last = <DonationBannerStore> JSON.parse(data)
     if (last.timestamp && (now - last.timestamp) < (60 * 60 * 24 * 1000)) {
-      return
+      return removeBanner()
     }
   }
   window.localStorage.removeItem(itemName)
@@ -72,16 +81,21 @@ function showDonationBanner () {
   if (already) {
     already.addEventListener('click', hideBanner('donated', now + (1000 * 60 * 60 * 24 * 30)))
   }
-  window.setTimeout(function () {
-    window._paq.push(['trackEvent', 'donations', 'donationBanner', 'shown'])
-    if (window.innerWidth > 768) {
-      el.style.position = 'sticky'
-      el.style.top = '0'
-    }
-    toggleSlide(el)
+  if (requiresAnimation) {
     window.setTimeout(function () {
-    }, 2000)
-  }, 3000)
+      window._paq.push(['trackEvent', 'donations', 'donationBanner', 'shown'])
+      if (window.innerWidth > 768) {
+        el.style.position = 'sticky'
+        el.style.top = '0'
+      }
+      toggleSlide(el)
+      window.setTimeout(function () {
+      }, 2000)
+    }, 3000)
+  } else {
+    el.style.display = 'block'
+    window._paq.push(['trackEvent', 'donations', 'donationBanner', 'shown'])
+  }
 }
 
 if (document.readyState === 'loading') {
