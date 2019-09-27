@@ -51,6 +51,7 @@ class FragDenStaatBase(German, Base):
             'newsletter',
 
             'fragdenstaat_de.fds_cms.apps.FdsCmsConfig',
+            'fragdenstaat_de.fds_donation.apps.FdsDonationConfig',
 
             # Additional CMS plugins
             'djangocms_text_ckeditor',

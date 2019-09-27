@@ -1,0 +1,12 @@
+{% load form_helper %}
+
+<form action="{% url 'fds_donation:make_order' category=category %}" method="post">
+  {% csrf_token %}
+  {% render_form form %}
+  <input type="hidden" name="next" value="{{ requset.get_full_path }}"/>
+  <p class="text-right">
+    <button type="submit" class="btn btn-primary">
+      Abschicken
+    </button>
+  </p>
+</form>
