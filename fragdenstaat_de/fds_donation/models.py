@@ -17,6 +17,7 @@ class DonationGift(models.Model):
 
 class DonationGiftFormCMSPlugin(CMSPlugin):
     category = models.SlugField()
+    next_url = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return str(self.category)

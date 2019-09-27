@@ -19,6 +19,11 @@ class DonationGiftFormPlugin(CMSPluginBase):
         context = super().render(context, instance, placeholder)
 
         context['category'] = instance.category
+        context['next_url'] = instance.next_url
+
+        if not instance.next_url and context.get('request'):
+            context['next_url'] = context['request'].get_full_path()
+
         initial = {}
         if context.get('request') and context['request'].user.is_authenticated:
             user = context['request'].user
