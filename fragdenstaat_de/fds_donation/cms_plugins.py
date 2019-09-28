@@ -13,6 +13,7 @@ class DonationGiftFormPlugin(CMSPluginBase):
     module = _("Donations")
     name = _("Donation Gift Form")
     text_enabled = True
+    cache = False
     render_template = "fds_donation/cms_plugins/donationgiftform.html"
 
     def render(self, context, instance, placeholder):
