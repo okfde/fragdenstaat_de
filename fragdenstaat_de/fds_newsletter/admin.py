@@ -14,6 +14,8 @@ from newsletter.models import (
     Newsletter
 )
 
+from froide.helper.csv_utils import export_csv, export_csv_response
+
 from .models import Submission
 from .tasks import submit_submission
 
@@ -55,12 +57,21 @@ class NewsletterAdmin(BaseNewsletterAdmin):
 
 class SubscriptionAdmin(BaseSubscriptionAdmin):
     raw_id_fields = ('user',)
+    actions = BaseSubscriptionAdmin.actions + ['export_subscribers_csv']
 
     def get_queryset(self, request):
         qs = super(SubscriptionAdmin, self).get_queryset(request)
         qs = qs.select_related('newsletter')
         qs = qs.prefetch_related('user')
         return qs
+
+    def export_subscribers_csv(self, request, queryset):
+        fields = (
+            "id", "email_field", "name_field", "newsletter_id",
+            "user_id", "subscribed", "subscribe_date",
+        )
+        return export_csv_response(export_csv(queryset, fields))
+    export_subscribers_csv.short_description = _("Export to CSV")
 
 
 admin.site.unregister(BaseSubmission)
