@@ -169,7 +169,9 @@ class FragDenStaatBase(German, Base):
         'autocorrect_replacementTable': {
             "...": "…",
         },
+        'removePlugins': 'elementspath,contextmenu,liststyle,tabletools,tableselection',
         'autocorrect_doubleQuotes': "„“",
+        'disableNativeSpellChecker': False,
         'entities': False,
         'stylesSet': 'default:/static/js/cms/ckeditor.wysiwyg.js',
     }
