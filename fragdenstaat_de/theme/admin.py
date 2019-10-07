@@ -11,6 +11,9 @@ from froide.publicbody import admin as pb_admin
 from django_amenities.models import Amenity
 from django_amenities.admin import AmenityAdmin as OldAmenityAdmin
 
+from filer.admin.permissionadmin import PermissionAdmin as BasePermissionAdmin
+from filer.models import FolderPermission
+
 
 class GeoRegionAdmin(georegion_admin.GeoRegionMixin, LeafletGeoAdmin):
     display_raw = True
@@ -28,6 +31,11 @@ class AmenityAdmin(LeafletGeoAdmin, OldAmenityAdmin):
     display_raw = True
 
 
+class PermissionAdmin(BasePermissionAdmin):
+    # No user in list_filter or admin page doesn't load
+    list_filter = []
+
+
 admin.site.unregister(GeoRegion)
 admin.site.register(GeoRegion, GeoRegionAdmin)
 
@@ -39,3 +47,6 @@ admin.site.register(ProposedPublicBody, ProposedPublicBodyAdmin)
 
 admin.site.unregister(Amenity)
 admin.site.register(Amenity, AmenityAdmin)
+
+admin.site.unregister(FolderPermission)
+admin.site.register(FolderPermission, PermissionAdmin)
