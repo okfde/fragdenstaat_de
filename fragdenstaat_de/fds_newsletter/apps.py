@@ -15,7 +15,7 @@ class NewsletterConfig(AppConfig):
         from froide.account.forms import user_extra_registry
         from froide.bounce.signals import email_bounced, email_unsubscribed
 
-        from .forms import NewsletterUserExtra
+        from .forms import NewsletterUserExtra, DonorNewsletterExtra
         from .utils import handle_bounce, handle_unsubscribe
 
         account_canceled.connect(cancel_user)
@@ -23,7 +23,8 @@ class NewsletterConfig(AppConfig):
         account_activated.connect(activate_newsletter_subscription)
         email_bounced.connect(handle_bounce)
         email_unsubscribed.connect(handle_unsubscribe)
-        user_extra_registry.register(NewsletterUserExtra())
+        user_extra_registry.register('registration', NewsletterUserExtra())
+        user_extra_registry.register('donation', DonorNewsletterExtra())
 
         registry.register(export_user_data)
 

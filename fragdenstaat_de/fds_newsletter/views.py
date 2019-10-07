@@ -9,10 +9,9 @@ from newsletter.views import (
     NewsletterListView, SubmissionArchiveDetailView,
     SubmissionArchiveIndexView
 )
-from newsletter.forms import SubscribeRequestForm
-from newsletter.models import Newsletter, Subscription
+from newsletter.models import Newsletter
 
-from froide.helper.utils import get_client_ip
+from .utils import subscribe, SubscriptionResult
 
 
 @require_POST
@@ -23,67 +22,38 @@ def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
         slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
     )
 
+    email = request.POST.get('email_field', '')
+    if not email:
+        if request.is_ajax():
+            return HttpResponse(newsletter.get_absolute_url().encode('utf-8'))
+        return redirect(newsletter.get_absolute_url())
+
+    result = subscribe(newsletter, email, user=request.user)
+
     if request.is_ajax():
         # No-CSRF ajax request
         # are allowed to access current user
-        email_confirmed = False
-        email = request.POST.get('email_field', '')
-        if request.user.is_authenticated and request.user.is_active:
-            if request.user.email == email:
-                email_confirmed = True
-
-        if email_confirmed:
-            already = subscribe_user(request, newsletter)
-            if already:
-                return HttpResponse(content='''<div class="alert alert-info" role="alert">
-                Sie haben unseren Newsletter schon abonniert!
-                </div>'''.encode('utf-8'))
-            else:
-                return HttpResponse(content='''<div class="alert alert-primary" role="alert">
-                Sie haben unseren Newsletter erfolgreich abonniert!
-                </div>'''.encode('utf-8'))
-
-    result = subscribe_email(request, newsletter)
-    if result:
-        if request.is_ajax():
+        if result == SubscriptionResult.ALREADY_SUBSCRIBED:
+            return HttpResponse(content='''<div class="alert alert-info" role="alert">
+            Sie haben unseren Newsletter schon abonniert!
+            </div>'''.encode('utf-8'))
+        elif result == SubscriptionResult.SUBSCRIBED:
             return HttpResponse(content='''<div class="alert alert-primary" role="alert">
-                Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.
-                </div>'''.encode('utf-8'))
+            Sie haben unseren Newsletter erfolgreich abonniert!
+            </div>'''.encode('utf-8'))
+        elif result == SubscriptionResult.CONFIRM:
+            return HttpResponse(content='''<div class="alert alert-primary" role="alert">
+            Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.
+            </div>'''.encode('utf-8'))
+        return HttpResponse(newsletter.get_absolute_url().encode('utf-8'))
+
+    if result == SubscriptionResult.CONFIRM:
         messages.add_message(
             request, messages.INFO,
             'Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.'
         )
-        return redirect(newsletter.get_absolute_url())
-    if request.is_ajax():
-        return HttpResponse(newsletter.get_absolute_url().encode('utf-8'))
+
     return redirect(newsletter.get_absolute_url())
-
-
-def subscribe_email(request, newsletter):
-    form = SubscribeRequestForm(
-        data=request.POST,
-        newsletter=newsletter,
-        ip=get_client_ip(request)
-    )
-    if form.is_valid():
-        subscription = form.save()
-        subscription.send_activation_email(action='subscribe')
-        return True
-    return False
-
-
-def subscribe_user(request, newsletter):
-    already_subscribed = False
-    instance = Subscription.objects.get_or_create(
-        newsletter=newsletter, user=request.user
-    )[0]
-
-    if instance.subscribed:
-        already_subscribed = True
-    else:
-        instance.subscribed = True
-        instance.save()
-    return already_subscribed
 
 
 @require_POST

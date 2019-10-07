@@ -93,6 +93,7 @@ class FragDenStaatBase(German, Base):
     # Newsletter
     NEWSLETTER_RICHTEXT_WIDGET = 'djangocms_text_ckeditor.widgets.TextEditorWidget'
     DEFAULT_NEWSLETTER = 'fragdenstaat'
+    DONOR_NEWSLETTER = 'spenden'
 
     # BLOG
 
