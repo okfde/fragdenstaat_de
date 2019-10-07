@@ -427,3 +427,9 @@ h3:not(:first-child) {
   border: 0.25rem solid $primary;
   background: #fff;
 }
+
+
+/* CKEditor hacks */
+.textarea.cke_source {
+  resize: auto !important;
+}
