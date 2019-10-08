@@ -66,8 +66,6 @@ class DonorNewsletterExtra():
         pass
 
     def on_save(self, form, user):
-        user.newsletter = form.cleaned_data['donor_newsletter']
-
         if not form.cleaned_data['donor_newsletter']:
             return
 
