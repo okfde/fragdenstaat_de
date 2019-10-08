@@ -1,7 +1,7 @@
 <div class="mt-3 mb-3">
 {% if not has_newsletter %}
   <h4>Erhalten Sie den FragDenStaat-Newsletter</h4>
-  <p class="small">Erhalten Sie den monatlichen Newsletter von FragDenStaat.de mit allen Neuigkeiten rund um diese Kampagne und andere Aktivitäten.</p>
+  <p class="small">Erhalten Sie den Newsletter von FragDenStaat.de mit allen Neuigkeiten rund um diese Kampagne und andere Aktivitäten.</p>
   <form class="form-inline" enctype="multipart/form-data" method="post" action="{% url 'newsletter_subscribe_request' newsletter_slug=newsletter.slug %}">
     {% csrf_token %}
     {% if next %}
