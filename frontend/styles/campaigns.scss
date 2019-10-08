@@ -147,3 +147,12 @@
     color: #fff;
   }
 }
+
+
+.andi-audi {
+  animation: car-drive 1s infinite  alternate ease-in;
+}
+@keyframes car-drive {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(20px); }
+}
