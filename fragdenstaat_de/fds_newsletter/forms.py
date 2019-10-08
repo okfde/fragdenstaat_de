@@ -54,7 +54,7 @@ class DonorNewsletterExtra():
                 (1, 'Ja, ich möchte Neuigkeiten zur Verwendung meiner Spende erhalten!'),
                 (0, 'Nein, ich möchte nicht erfahren, wie meine Spende verwendet wird.'),
             ),
-            coerce=bool,
+            coerce=lambda x: bool(int(x)),
             required=True,
             label='Spendenverwendung',
             error_messages={
