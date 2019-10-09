@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
@@ -23,7 +25,9 @@ def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
     )
 
     email = request.POST.get('email_field', '')
-    if not email:
+    try:
+        validate_email(email)
+    except ValidationError:
         if request.is_ajax():
             return HttpResponse(newsletter.get_absolute_url().encode('utf-8'))
         return redirect(newsletter.get_absolute_url())
