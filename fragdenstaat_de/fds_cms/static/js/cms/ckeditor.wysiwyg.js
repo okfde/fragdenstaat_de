@@ -17,11 +17,19 @@
 CKEDITOR.allElements = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div'];
 CKEDITOR.stylesSet.add('default', [
     /* Block Styles */
-    { 'name': 'Text Left', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-left' }},
-    { 'name': 'Text Center', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-center' }},
-    { 'name': 'Text Right', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-right' }},
-    { 'name': 'Text Justify', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-justify' }},
-    { 'name': 'Text NoWrap', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-nowrap' }},
+    // { 'name': 'Text Left', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-left' }},
+    // { 'name': 'Text Center', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-center' }},
+    // { 'name': 'Text Right', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-right' }},
+    // { 'name': 'Text Justify', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-justify' }},
+    // { 'name': 'Text NoWrap', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'text-nowrap' }},
+
+    { 'name': 'Link-Button Primary', 'element': 'a', 'attributes': { 'class': 'btn btn-primary' }},
+    { 'name': 'Link-Button Success', 'element': 'a', 'attributes': { 'class': 'btn btn-success' }},
+    { 'name': 'Link-Button Info', 'element': 'a', 'attributes': { 'class': 'btn btn-info' }},
+    { 'name': 'Link-Button Warning', 'element': 'a', 'attributes': { 'class': 'btn btn-warning' }},
+    { 'name': 'Link-Button Danger', 'element': 'a', 'attributes': { 'class': 'btn btn-danger' }},
+    { 'name': 'Link-Button Light', 'element': 'a', 'attributes': { 'class': 'btn btn-light' }},
+    { 'name': 'Link-Button Dark', 'element': 'a', 'attributes': { 'class': 'btn btn-dark' }},
 
     { 'name': 'Spacer', 'element': 'div', 'attributes': { 'class': 'mt-3 mb-3' }},
 
@@ -49,19 +57,29 @@ CKEDITOR.stylesSet.add('default', [
 
     /* Inline Styles */
     { 'name': 'Text Primary', 'element': 'span', 'attributes': { 'class': 'text-primary' }},
+    { 'name': 'Text Secondary', 'element': 'span', 'attributes': { 'class': 'text-secondary' }},
     { 'name': 'Text Success', 'element': 'span', 'attributes': { 'class': 'text-success' }},
-    { 'name': 'Text Info', 'element': 'span', 'attributes': { 'class': 'text-info' }},
-    { 'name': 'Text Warning', 'element': 'span', 'attributes': { 'class': 'text-warning' }},
     { 'name': 'Text Danger', 'element': 'span', 'attributes': { 'class': 'text-danger' }},
+    { 'name': 'Text Warning', 'element': 'span', 'attributes': { 'class': 'text-warning' }},
+    { 'name': 'Text Info', 'element': 'span', 'attributes': { 'class': 'text-info' }},
+    { 'name': 'Text Light', 'element': 'span', 'attributes': { 'class': 'text-light bg-dark' }},
+    { 'name': 'Text Dark', 'element': 'span', 'attributes': { 'class': 'text-dark' }},
     { 'name': 'Text Muted', 'element': 'span', 'attributes': { 'class': 'text-muted' }},
+    { 'name': 'Text White', 'element': 'span', 'attributes': { 'class': 'text-white bg-dark' }},
 
-    { 'name': 'Image Responsive', 'element': 'img', 'attributes': { 'class': 'img-responsive' }},
-    { 'name': 'Image Rounded', 'element': 'img', 'attributes': { 'class': 'img-rounded' }},
-    { 'name': 'Image Circle', 'element': 'img', 'attributes': { 'class': 'img-circle' }},
-    { 'name': 'Image Thumbnail', 'element': 'img', 'attributes': { 'class': 'img-thumbnail' }},
+    /* Div Styles */
+    { 'name': 'Block Primary', 'element': 'div', 'attributes': { 'class': 'p-3 mb-2 bg-primary text-white' }},
+    { 'name': 'Block Secondary', 'element': 'div', 'attributes': { 'class': 'p-3 mb-2 bg-secondary text-white' }},
+    { 'name': 'Block Success', 'element': 'div', 'attributes': { 'class': 'p-3 mb-2 bg-success text-white' }},
+    { 'name': 'Block Danger', 'element': 'div', 'attributes': { 'class': 'p-3 mb-2 bg-danger text-white' }},
+    { 'name': 'Block Warning', 'element': 'div', 'attributes': { 'class': 'p-3 mb-2 bg-warning text-dark' }},
+    { 'name': 'Block Info', 'element': 'div', 'attributes': { 'class': 'p-3 mb-2 bg-info text-white' }},
+    { 'name': 'Block Light', 'element': 'div', 'attributes': { 'class': 'p-3 mb-2 bg-light text-dark' }},
+    { 'name': 'Block Dark', 'element': 'div', 'attributes': { 'class': 'p-3 mb-2 bg-dark text-white' }},
+    { 'name': 'Block White', 'element': 'div', 'attributes': { 'class': 'p-3 mb-2 bg-white bg-dark' }},
 
-    { 'name': 'Pull Left', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'pull-left' }},
-    { 'name': 'Pull Right', 'element': CKEDITOR.allElements, 'attributes': { 'class': 'pull-right' }},
+    { 'name': 'Pull Left', 'element': 'div', 'attributes': { 'class': 'pull-left' }},
+    { 'name': 'Pull Right', 'element': 'div', 'attributes': { 'class': 'pull-right' }},
 
     { 'name': 'Blockquote Reverse', 'element': 'blockquote', 'attributes': { 'class': 'blockquote-reverse' }}
 ]);

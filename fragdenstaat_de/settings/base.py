@@ -164,17 +164,36 @@ class FragDenStaatBase(German, Base):
         'language': '{{ language }}',
         'skin': 'moono-lisa',
         'toolbar': 'CMS',
+        'toolbar_CMS': [
+            ['Undo', 'Redo'],
+            ['cmsplugins', '-'],
+            ['Format', 'Styles'],
+            [
+                'TextColor', 'BGColor', '-',
+                'PasteText', 'PasteFromWord'
+            ],
+            # ['Scayt'],
+            ['Maximize', ''],
+            '/',
+            ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['HorizontalRule'],
+            ['NumberedList', 'BulletedList'],
+            ['Outdent', 'Indent', '-', 'Blockquote', '-', 'Link', 'Unlink', '-', 'Table', 'CreateDiv'],
+            ['ShowBlocks', 'Source']
+        ],
         'toolbarCanCollapse': False,
         'disableNativeSpellChecker': False,
         'extraPlugins': 'autocorrect',
         'autocorrect_replacementTable': {
             "...": "…",
         },
-        'removePlugins': 'elementspath,contextmenu,liststyle,tabletools,tableselection',
+        'removePlugins': 'contextmenu',  # liststyle,tabletools,tableselection',
         'autocorrect_doubleQuotes': "„“",
         'disableNativeSpellChecker': False,
         'entities': False,
         'stylesSet': 'default:/static/js/cms/ckeditor.wysiwyg.js',
+        'contentsCss': '/static/css/main.css',
     }
 
     DJANGOCMS_PICTURE_TEMPLATES = [
