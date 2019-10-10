@@ -84,6 +84,7 @@ def subscribe_user(newsletter, user):
     if instance.subscribed:
         already_subscribed = True
     else:
+        instance.email_field = ''
         instance.subscribed = True
         instance.save()
     return already_subscribed
