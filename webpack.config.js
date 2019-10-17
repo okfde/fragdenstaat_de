@@ -28,7 +28,8 @@ const ENTRY = {
   docupload: 'froide/frontend/javascript/docupload.js',
   geomatch: 'froide/frontend/javascript/geomatch.js',
   messageredaction: 'froide/frontend/javascript/messageredaction.js',
-  filingcabinet: 'filingcabinet/frontend/javascript/filingcabinet.js'
+  filingcabinet: 'filingcabinet/frontend/javascript/filingcabinet.js',
+  charts: './frontend/javascript/charts.js'
 }
 
 const EXCLUDE_CHUNKS = [
@@ -117,7 +118,8 @@ const config = {
           {
             loader: 'awesome-typescript-loader',
             options: {
-              appendTsSuffixTo: [/\.vue$/]
+              appendTsSuffixTo: [/\.vue$/],
+              errorsAsWarnings: true,
             }
           }
         ]

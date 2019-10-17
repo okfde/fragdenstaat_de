@@ -9,7 +9,8 @@ from froide.foirequest.models import FoiRequest
 
 from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
-    PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin
+    PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin,
+    VegaChartCMSPlugin
 )
 from .contact import ContactForm
 
@@ -220,3 +221,48 @@ class PublicBodyFeedbackPlugin(CMSPluginBase):
         context = super().render(context, instance, placeholder)
         context['form'] = ContactForm()
         return context
+
+
+@plugin_pool.register_plugin
+class VegaChartPlugin(CMSPluginBase):
+    """
+    Plugin for including the latest entries filtered
+    """
+    model = VegaChartCMSPlugin
+    module = _("Elements")
+    name = _('Vega Chart')
+    render_template = 'fds_cms/vega_chart.html'
+    text_enabled = True
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        """
+        Update the context with plugin's data
+        """
+
+        context = super().render(context, instance, placeholder)
+        context['object'] = instance
+        return context
+
+
+# from .models import ShareLinks
+
+
+# @plugin_pool.register_plugin
+# class ShareLinksPlugin(CMSPluginBase):
+#     model = ShareLinks
+#     module = _("Ads")
+#     name = _('Share Links')
+#     render_template = "design/plugins/engagement/share_box.html"
+#     text_enabled = True
+#     cache = False
+
+#     def render(self, context, instance, placeholder):
+#         context = super().render(context, instance, placeholder)
+#         url = None
+#         if 'request' in context:
+#             req = context['request']
+#             url = req.build_absolute_uri()
+#         context['object'] = instance
+#         context['url'] = instance.url or url
+#         return context

@@ -221,3 +221,15 @@ class OneClickFoiRequestCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return _('One click form for {}').format(self.foirequest)
+
+
+class VegaChartCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+
+    vega_json = models.TextField(
+        default='',
+    )
+
+    def __str__(self):
+        return self.title

@@ -1,0 +1,9 @@
+{% load static %}
+{% load sekizai_tags %}
+
+<div class="vega-chart" data-vegachart="{{ instance.vega_json }}">
+  <h5>{{ instance.title }}</h5>
+  {% if instance.description %}<p>{{ instance.description|linebreaksbr }}</p>{% endif %}
+</div>
+
+{% addtoblock "js" %}<script async src="{% static 'js/charts.js' %}"></script>{% endaddtoblock %}
