@@ -10,7 +10,7 @@ from froide.foirequest.models import FoiRequest
 from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
     PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin,
-    VegaChartCMSPlugin
+    VegaChartCMSPlugin, SVGImageCMSPlugin
 )
 from .contact import ContactForm
 
@@ -244,6 +244,27 @@ class VegaChartPlugin(CMSPluginBase):
         context['object'] = instance
         return context
 
+
+@plugin_pool.register_plugin
+class SVGImagePlugin(CMSPluginBase):
+    """
+    Plugin for including the latest entries filtered
+    """
+    model = SVGImageCMSPlugin
+    module = _("Elements")
+    name = _('SVG Image')
+    render_template = 'fds_cms/svg_image.html'
+    text_enabled = True
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        """
+        Update the context with plugin's data
+        """
+
+        context = super().render(context, instance, placeholder)
+        context['object'] = instance
+        return context
 
 # from .models import ShareLinks
 

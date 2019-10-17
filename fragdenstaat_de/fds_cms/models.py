@@ -8,6 +8,7 @@ from cms.extensions import PageExtension
 from cms.extensions.extension_pool import extension_pool
 
 from filer.fields.image import FilerImageField
+from filer.fields.file import FilerFileField
 
 from taggit.models import Tag
 
@@ -229,6 +230,18 @@ class VegaChartCMSPlugin(CMSPlugin):
 
     vega_json = models.TextField(
         default='',
+    )
+
+    def __str__(self):
+        return self.title
+
+
+class SVGImageCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255)
+
+    svg = FilerFileField(
+        null=True, blank=True, default=None,
+        on_delete=models.SET_NULL, verbose_name=_("image")
     )
 
     def __str__(self):
