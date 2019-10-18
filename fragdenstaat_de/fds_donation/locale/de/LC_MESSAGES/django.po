@@ -1,0 +1,206 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-18 18:38+0200\n"
+"PO-Revision-Date: 2019-10-18 19:20+0200\n"
+"Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.2\n"
+
+#: cms_apps.py:9
+msgid "FragDenStaat Donation Gift App"
+msgstr "FragDenStaat-Spenden-Geschenk-App"
+
+#: cms_plugins.py:13 cms_plugins.py:45
+msgid "Donations"
+msgstr "Spenden"
+
+#: cms_plugins.py:14
+msgid "Donation Gift Form"
+msgstr "Spenden-Geschenk-Form"
+
+#: cms_plugins.py:46
+msgid "Donation Form"
+msgstr "Spendenform"
+
+#: forms.py:120
+msgid "Amount"
+msgstr "Betrag"
+
+#: forms.py:124
+msgid "Amount in Euro, comma as decimal separator"
+msgstr "Betrag in Euro, Komma als Dezimaltrenner"
+
+#: forms.py:135
+msgid "Frequency"
+msgstr "Spendenrhythmus"
+
+#: forms.py:142
+msgid "Donation reference"
+msgstr "Verwendungszweck"
+
+#: forms.py:154
+msgid "Payment method"
+msgstr "Zahlungsweise"
+
+#: forms.py:165
+msgid "Salutation"
+msgstr "Anrede"
+
+#: forms.py:179 forms.py:181
+msgid "First name"
+msgstr "Vorname"
+
+#: forms.py:187 forms.py:189
+msgid "Last name"
+msgstr "Nachname"
+
+#: forms.py:194
+msgid "Company"
+msgstr "Firma"
+
+#: forms.py:199
+msgid "Company name"
+msgstr "Firmenname"
+
+#: forms.py:210 forms.py:279 forms.py:333
+msgid "No, thank you."
+msgstr "Nein, danke."
+
+#: forms.py:211
+msgid "Yes, once a year."
+msgstr "Ja, einmal im Jahr."
+
+#: forms.py:215
+msgid "Do you want a donation receipt?"
+msgstr "Möchten Sie eine Spendenbescheinigung?"
+
+#: forms.py:217 forms.py:285 forms.py:300
+msgid "You have to decide."
+msgstr "Sie müssen sich entscheiden."
+
+#: forms.py:222 forms.py:225
+msgid "Street, house number"
+msgstr "Straße, Hausnummer"
+
+#: forms.py:231 forms.py:234
+msgid "Postcode"
+msgstr "Postleitzahl"
+
+#: forms.py:240 forms.py:243
+msgid "City"
+msgstr "Ort"
+
+#: forms.py:248
+msgid "Country"
+msgstr "Land"
+
+#: forms.py:251
+msgid "Germany"
+msgstr "Deutschland"
+
+#: forms.py:252
+msgid "Austria"
+msgstr "Österreich"
+
+#: forms.py:253
+msgid "Switzerland"
+msgstr "Schweiz"
+
+#: forms.py:260
+msgid "Email"
+msgstr "E-Mail"
+
+#: forms.py:265
+msgid "e.g. name@example.org"
+msgstr "z.B. name@beispiel.de"
+
+#: forms.py:278
+msgid "Yes, please!"
+msgstr "Ja, gerne!"
+
+#: forms.py:283
+msgid "News"
+msgstr "Neuigkeiten"
+
+#: forms.py:295
+msgid ""
+"With your donation you can also create a FragDenStaat account where you can "
+"manage your details, donations and requests."
+msgstr ""
+"In Ihrem FragDenStaat-Konto können Sie Ihre Daten pflegen, Ihre Spenden "
+"einsehen sowie Ihre Anfragen verwalten."
+
+#: forms.py:338
+msgid "once"
+msgstr "einmalig"
+
+#: forms.py:344
+msgid "monthly"
+msgstr "monatlich"
+
+#: forms.py:345
+msgid "quarterly"
+msgstr "vierteljährlich"
+
+#: forms.py:346
+msgid "yearly"
+msgstr "jährlich"
+
+#: forms.py:364 forms.py:375
+#, python-format
+msgid "Donation for %s"
+msgstr "Spende für %s"
+
+#: forms.py:365
+#, python-brace-format
+msgid "{amount} EUR donation {str_interval} to {site_name}"
+msgstr "{amount} EUR Spende {str_interval} an {site_name}"
+
+#: forms.py:404
+msgid "Your name"
+msgstr "Ihr Name"
+
+#: forms.py:411
+msgid "Your email address"
+msgstr "Deine E-Mail-Adresse"
+
+#: forms.py:417
+msgid "Please choose your donation gift"
+msgstr "Wählen Sie Ihr Dankeschön aus"
+
+#: models.py:15
+msgid "Only once"
+msgstr "Nur einmalig"
+
+#: models.py:16
+msgid "Only recurring"
+msgstr "Nur mehrfach"
+
+#: models.py:17
+msgid "Both"
+msgstr "Beides"
+
+#: templates/fds_donation/forms/donation.html:4
+msgid "Donation"
+msgstr "Spende"
+
+#: templates/fds_donation/forms/widgets/amount_input.html:12
+msgid "Other amount"
+msgstr "Anderer Betrag"
+
+#: urls.py:8
+msgctxt "url pattern"
+msgid "donate/"
+msgstr "spenden/"
