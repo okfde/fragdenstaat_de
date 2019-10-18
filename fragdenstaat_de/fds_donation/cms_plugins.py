@@ -1,9 +1,10 @@
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import DonationGiftFormCMSPlugin
+from .models import DonationGiftFormCMSPlugin, DonationFormCMSPlugin
 from .forms import DonationGiftForm
 
 
@@ -37,4 +38,24 @@ class DonationGiftFormPlugin(CMSPluginBase):
             initial=initial
         )
 
+        return context
+
+
+@plugin_pool.register_plugin
+class DonationFormPlugin(CMSPluginBase):
+    model = DonationFormCMSPlugin
+    module = _("Donations")
+    name = _("Donation Form")
+    text_enabled = True
+    cache = False
+    render_template = "fds_donation/forms/_form_wrapper.html"
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        request = context['request']
+        context['object'] = instance
+        context['form'] = instance.make_form(
+            user=request.user,
+            action=instance.form_action or reverse('fds_donation:donate')
+        )
         return context

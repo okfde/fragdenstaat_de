@@ -1,0 +1,148 @@
+{% load i18n %}
+
+<div class="row justify-content-center mb-2 mt-2"><div class="col-lg-8">
+<form action="{{ form.action }}" method="POST" class="donation-form">
+  {% csrf_token %}
+  {{ form.form_settings }}
+  <fieldset>
+    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">Mit meiner Spende Informationen befreien</legend>
+    <div class="row">
+      <div class="col-12">
+        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.amount %}
+      </div>
+    </div>
+    {% if form.interval.is_hidden %}
+      {{ form.interval }}
+    {% else %}
+      <div class="row">
+        <div class="col-12">
+          {% include "helper/forms/bootstrap_field_stacked.html" with field=form.interval %}
+        </div>
+      </div>
+    {% endif %}
+    {% if form.reference.is_hidden %}
+      {{ form.reference }}
+    {% else %}
+    <div class="row">
+      <div class="col-12">
+        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.reference %}
+      </div>
+    </div>
+    {% endif %}
+  </fieldset>
+  <fieldset>
+    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">Persönliche Daten</legend>
+    <div class="row">
+      <div class="col-3">
+        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.salutation %}
+      </div>
+      <div class="col-9">
+        <div class="row">
+          <div class="col-sm-6">
+            {% include "helper/forms/bootstrap_field_stacked.html" with field=form.first_name %}
+          </div>
+          <div class="col-sm-6">
+            {% include "helper/forms/bootstrap_field_stacked.html" with field=form.last_name %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.email %}
+        <small class="mt-5">
+          <a href="#company-field" data-toggle="collapse">
+            &rarr; Möchten Sie als Firma spenden?
+          </a>
+        </small>
+      </div>
+    </div>
+    <div class="row mt-3 collapse" id="company-field">
+      <div class="col-12">
+        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.company %}
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.receipt %}
+      </div>
+    </div>
+    <div class="collapse" id="address-fields">
+      <div class="row">
+        <div class="col-12">
+          {% include "helper/forms/bootstrap_field_stacked.html" with field=form.address %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          {% include "helper/forms/bootstrap_field_stacked.html" with field=form.postcode %}
+        </div>
+        <div class="col-8">
+          {% include "helper/forms/bootstrap_field_stacked.html" with field=form.city %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          {% include "helper/forms/bootstrap_field_stacked.html" with field=form.country %}
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">
+      Zahlungsweise
+    </legend>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          {{ form.payment_method }}
+        </div>
+        
+        <p class="text-muted"><i class="fa fa-lock"></i> Die Bezahlung wird sicher verschüsselt durchgeführt.</p>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">Auf dem Laufenden bleiben</legend>
+    <div class="row">
+      <div class="col-md-6 mt-2">
+        <div class="card border-primary">
+          <div class="card-header"><h4>{{ form.contact.label }}</h4></div>
+          <div class="card-body">
+            <p>Bekomme Neuigkeiten zum Thema Informationsfreiheit direkt in dein Postfach und erfahre mehr über die Wirkung deiner Spende.</p>
+            {{ form.contact }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mt-2">
+        <div class="card">
+          {% if request.user.is_authenticated %}
+            <div class="card-header"><h4>FragDenStaat-Konto</h4></div>
+            <div class="card-body">
+              Sie können Ihre Spenden in Ihrem FragDenStaat-Konto einsehen.
+            </div>
+          {% else %}
+            <div class="card-header"><h4>Account bekommen</h4></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label>{{ form.account.label }}</label>
+                {{ form.account }}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="row mt-3">
+    <div class="col-12 text-right">
+      <button type="submit" class="btn btn-lg w-50 btn-primary btn-threed">
+        Jetzt spenden
+      </button>
+    </div>
+  </div>
+
+</form>
+
+</div></div>

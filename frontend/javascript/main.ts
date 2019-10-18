@@ -4,6 +4,7 @@ import 'froide/frontend/javascript/main.ts'
 
 import './misc.ts'
 import './donation.ts'
+import './donation-form.ts'
 import './betterplace.ts'
 
 if (document.body.dataset.raven) {
