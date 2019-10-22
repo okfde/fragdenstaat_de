@@ -5,5 +5,3 @@
   <h5>{{ instance.title }}</h5>
   {% if instance.description %}<p>{{ instance.description|linebreaksbr }}</p>{% endif %}
 </div>
-
-{% addtoblock "js" %}<script async src="{% static 'js/charts.js' %}"></script>{% endaddtoblock %}
