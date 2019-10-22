@@ -1,5 +1,14 @@
 import { toggleSlide } from 'froide/frontend/javascript/lib/misc'
 
+interface ApplePaySession {
+  canMakePayments(): boolean
+}
+
+declare global {
+  interface Window {
+    ApplePaySession: ApplePaySession | undefined
+  }
+}
 
 function setupDonationForm (form: HTMLFormElement) {
   const amountGroup = form.querySelector('.amount-group')
@@ -11,6 +20,17 @@ function setupDonationForm (form: HTMLFormElement) {
   const intervalGroup = document.getElementById('id_interval')
   if (intervalGroup !== null) {
     setupIntervalGroup(intervalGroup)
+  }
+  const additionalCCProviders = []
+  if (window.ApplePaySession && window.ApplePaySession.canMakePayments) {
+    additionalCCProviders.push('Apple Pay')
+  }
+  if (additionalCCProviders.length > 0) {
+    const ccInput = document.querySelector('input[value="creditcard"]')
+    if (ccInput && ccInput.parentElement) {
+      const parent = ccInput.parentElement
+      parent.childNodes[1].textContent += ' / ' + additionalCCProviders.join(' / ')
+    }
   }
 }
 
