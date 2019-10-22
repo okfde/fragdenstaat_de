@@ -28,6 +28,7 @@ const ENTRY = {
   docupload: 'froide/frontend/javascript/docupload.js',
   geomatch: 'froide/frontend/javascript/geomatch.js',
   messageredaction: 'froide/frontend/javascript/messageredaction.js',
+  publicbodyupload: 'froide/frontend/javascript/publicbodyupload.js',
   filingcabinet: 'filingcabinet/frontend/javascript/filingcabinet.js',
   charts: './frontend/javascript/charts.js'
 }
