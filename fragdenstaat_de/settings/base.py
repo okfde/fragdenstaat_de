@@ -421,6 +421,10 @@ class FragDenStaatBase(German, Base):
                 rec('[iI]m Auftrag'),
                 rec(r"(?:Best regards|Kind regards|Sincerely),?")
             ],
+            hide_content_funcs=[
+                # Hide DHL delivery emails
+                lambda email: email.from_[1] == 'noreply@dhl.com'
+            ],
             recipient_blacklist_regex=rec(r'.*\.de-mail\.de$|z@bundesnachrichtendienst.de|.*\.local$'),
             content_urls={
                 'terms': '/nutzungsbedingungen/',
