@@ -15,6 +15,7 @@ class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         'category',
     )
     search_fields = ('name', 'subject',)
+    date_hierarchy = 'updated'
 
     def get_urls(self):
         urls = super().get_urls()
