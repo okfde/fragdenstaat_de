@@ -1,7 +1,10 @@
+from django.db import transaction
 from django.contrib import admin, messages
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
+from django.conf.urls import url
 from django.utils.translation import ugettext as _
+from django.core.exceptions import PermissionDenied
 
 from newsletter.admin import (
     SubmissionAdmin as BaseSubmissionAdmin,
@@ -16,8 +19,58 @@ from newsletter.models import (
 
 from froide.helper.csv_utils import export_csv, export_csv_response
 
-from .models import Submission
-from .tasks import submit_submission
+from .models import Submission, Mailing
+from .tasks import submit_submission, send_mailing
+
+
+class MailingAdmin(admin.ModelAdmin):
+    raw_id_fields = ('subscriptions', 'email_template')
+    list_display = ('email_template', 'created', 'ready', 'sending', 'sent')
+
+    def get_urls(self):
+        urls = super().get_urls()
+
+        my_urls = [
+            url(
+                r'^(.+)/send/$',
+                self.send,
+                name='fds_newsletter_mailing_send'
+            )
+        ]
+
+        return my_urls + urls
+
+    def send(self, request, object_id):
+        if request.method != 'POST':
+            raise PermissionDenied
+        if not self.has_change_permission(request):
+            raise PermissionDenied
+
+        mailing = get_object_or_404(Mailing, id=object_id)
+
+        change_url = reverse(
+            'admin:fds_newsletter_mailing_change', args=[object_id]
+        )
+
+        if mailing.sent or mailing.submitted:
+            messages.info(request, _("Mailing already sent."))
+            return redirect(change_url)
+
+        if mailing.subscriptions.all().count() == 0:
+            if mailing.newsletter:
+                mailing.subscriptions.set(mailing.newsletter.get_subscriptions())
+            else:
+                messages.info(request, _("Mailing has no newsletter and no recipients."))
+                return redirect(change_url)
+
+        mailing.submitted = True
+        mailing.save()
+
+        transaction.on_commit(lambda: send_mailing.delay(mailing.id))
+
+        messages.info(request, _("Your mailing is being sent."))
+
+        return redirect(change_url)
 
 
 class SubmissionAdmin(BaseSubmissionAdmin):
@@ -41,7 +94,7 @@ class SubmissionAdmin(BaseSubmissionAdmin):
         submission.prepared = True
         submission.save()
 
-        submit_submission.delay(submission.id)
+        transaction.on_commit(lambda: submit_submission.delay(submission.id))
 
         messages.info(request, _("Your submission is being sent."))
 
@@ -76,6 +129,8 @@ class SubscriptionAdmin(BaseSubscriptionAdmin):
 
 admin.site.unregister(BaseSubmission)
 admin.site.register(Submission, SubmissionAdmin)
+
+admin.site.register(Mailing, MailingAdmin)
 
 admin.site.unregister(Subscription)
 admin.site.register(Subscription, SubscriptionAdmin)

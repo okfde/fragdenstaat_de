@@ -1,15 +1,19 @@
 import logging
 
+from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.contrib.sites.models import Site
-from django.utils.translation import ugettext
+from django.utils.translation import ugettext as _
+from django.utils import timezone
 
-from newsletter.models import Subscription, Submission as BaseSubmission
+from newsletter.models import Newsletter, Subscription, Submission as BaseSubmission
 from newsletter.utils import ACTIONS
 
 from froide.helper.email_sending import send_mail
 from froide.helper.email_utils import make_address
+
+from fragdenstaat_de.fds_mailing.models import EmailTemplate
 
 from .utils import REFERENCE_PREFIX
 
@@ -17,7 +21,7 @@ from .utils import REFERENCE_PREFIX
 logger = logging.getLogger(__name__)
 
 
-def get_email_context(subscription, submission=None):
+def get_email_context(subscription, submission=None, mailing=None):
     if subscription.user:
         unsubscribe_url = subscription.user.get_autologin_url(
             reverse('account-settings')
@@ -44,6 +48,7 @@ def get_email_context(subscription, submission=None):
             'newsletter': submission.newsletter,
             'date': submission.publish_date,
         })
+
     if subscription.user:
         user = subscription.user
         context.update({
@@ -57,6 +62,134 @@ def get_email_context(subscription, submission=None):
             'name': subscription.name,
         })
     return context
+
+
+class Mailing(models.Model):
+    email_template = models.ForeignKey(EmailTemplate, null=True, on_delete=models.SET_NULL)
+    newsletter = models.ForeignKey(Newsletter, null=True, on_delete=models.SET_NULL)
+    sender_name = models.CharField(max_length=255, blank=True)
+
+    created = models.DateTimeField(default=timezone.now, editable=False)
+
+    subscriptions = models.ManyToManyField(
+        Subscription,
+        help_text=_('If you select none, the system will automatically find '
+                    'the subscribers for you.'),
+        verbose_name=_('recipients'),
+        blank=True,
+        limit_choices_to={'subscribed': True}
+    )
+
+    publish = models.BooleanField(
+        default=True, verbose_name=_('publish'),
+        help_text=_('Publish in archive.'), db_index=True
+    )
+
+    ready = models.BooleanField(
+        default=False, verbose_name=_('ready'),
+    )
+    submitted = models.BooleanField(
+        default=False, verbose_name=_('submitted'),
+        editable=False
+    )
+    sending_date = models.DateTimeField(
+        verbose_name=_('sending date'), blank=True, null=True,
+        editable=False
+    )
+    sent_date = models.DateTimeField(
+        verbose_name=_('sent date'), blank=True, null=True,
+        editable=False
+    )
+    sent = models.BooleanField(
+        default=False, verbose_name=_('sent'),
+        editable=False
+    )
+    sending = models.BooleanField(
+        default=False, verbose_name=_('sending'),
+        editable=False
+    )
+
+    class Meta:
+        verbose_name = _('mailing')
+        verbose_name_plural = _('mailings')
+
+    def __str__(self):
+        return str(self.email_template)
+
+    def send(self):
+        if self.sending or self.sent or not self.submitted:
+            return
+
+        subscriptions = self.subscriptions.filter(
+            subscribed=True
+        )
+        if self.newsletter:
+            # Force limit to selected newsletter
+            subscriptions = subscriptions.filter(newsletter=self.newsletter)
+
+        logger.info(
+            _(u"Submitting %(submission)s to %(count)d people"),
+            {'submission': self, 'count': subscriptions.count()}
+        )
+        self.sending_date = timezone.now()
+        self.sending = True
+        self.save()
+
+        try:
+            for subscription in subscriptions:
+                self.send_message(subscription)
+            self.sent = True
+            self.sent_date = timezone.now()
+
+        finally:
+            self.sending = False
+            self.save()
+
+    def send_message(self, subscription):
+        context = get_email_context(subscription, mailing=self)
+
+        email_content = self.email_template.get_email_content(context)
+
+        extra_kwargs = {
+            'queue': settings.EMAIL_BULK_QUEUE
+        }
+        if email_content.html:
+            extra_kwargs['html'] = email_content.html
+
+        if self.sender_name:
+            sender_name = self.sender_name
+        elif self.newsletter:
+            sender_name = self.newsletter.sender
+
+        if self.newsletter:
+            email = self.newsletter.email
+            sender = make_address(email, name=sender_name)
+        else:
+            sender = settings.DEFAULT_FROM_EMAIL
+
+        recipient = make_address(subscription.email, name=subscription.name)
+
+        try:
+            logger.debug('Submitting message to: %s.', subscription)
+
+            send_mail(
+                email_content.subject,
+                email_content.text,
+                recipient,
+                from_email=sender,
+                unsubscribe_reference='{prefix}{pk}'.format(
+                    prefix=REFERENCE_PREFIX, pk=subscription.id
+                ),
+                **extra_kwargs
+            )
+
+        except Exception as e:
+            # TODO: Test coverage for this branch.
+            logger.error(
+                'Message %(subscription)s failed with error: %(error)s', {
+                    'subscription': subscription,
+                    'error': e
+                })
 
 
 class Submission(BaseSubmission):
@@ -78,7 +211,7 @@ class Submission(BaseSubmission):
 
         try:
             logger.debug(
-                ugettext(u'Submitting message to: %s.'),
+                _(u'Submitting message to: %s.'),
                 subscription
             )
 
@@ -93,7 +226,7 @@ class Submission(BaseSubmission):
         except Exception as e:
             # TODO: Test coverage for this branch.
             logger.error(
-                ugettext(u'Message %(subscription)s failed '
+                _(u'Message %(subscription)s failed '
                          u'with error: %(error)s'),
                 {'subscription': subscription,
                  'error': e}
