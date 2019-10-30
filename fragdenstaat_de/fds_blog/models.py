@@ -18,8 +18,9 @@ from filer.fields.image import FilerImageField
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase, TagBase
 
+from fragdenstaat_de.fds_cms.utils import get_request
+
 from . import model_bases as entry
-from .utils import get_request
 from .managers import (
     ArticlePublishedManager, CategoryManager, RelatedPublishedManager,
     articles_published
