@@ -13,14 +13,12 @@ from cms.toolbar.toolbar import CMSToolbar
 from cms.plugin_rendering import ContentRenderer
 
 
-def get_request(language=None):
-    """
-    Returns a Request instance populated with cms specific attributes.
-    """
-    request_factory = RequestFactory(HTTP_HOST=settings.ALLOWED_HOSTS[0])
-    request = request_factory.get("/")
+def get_request(language=None, path='/'):
+    request_factory = RequestFactory()
+    request = request_factory.get(path)
     request.session = {}
     request.LANGUAGE_CODE = language or settings.LANGUAGE_CODE
+
     # Needed for plugin rendering.
     request.current_page = None
     request.user = AnonymousUser()
