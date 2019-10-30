@@ -9,9 +9,9 @@ class EmailTemplateMiddleware:
         if template_base is not None:
             intent = template_base
         try:
-            email_temnplate = EmailTemplate.objects.get(
+            email_template = EmailTemplate.objects.get(
                 active=True, mail_intent=intent
             )
         except EmailTemplate.DoesNotExist:
             return
-        return email_temnplate.get_email_content(context)
+        return email_template.get_email_content(context)
