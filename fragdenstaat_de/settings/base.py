@@ -52,6 +52,7 @@ class FragDenStaatBase(German, Base):
 
             'fragdenstaat_de.fds_cms.apps.FdsCmsConfig',
             'fragdenstaat_de.fds_donation.apps.FdsDonationConfig',
+            'fragdenstaat_de.fds_mailing.apps.FdsMailingConfig',
 
             # Additional CMS plugins
             'djangocms_text_ckeditor',
@@ -149,6 +150,23 @@ class FragDenStaatBase(German, Base):
         ('cms/blog_base.html', 'Blog base template'),
         ('cms/static_placeholders.html', 'Static Placeholder Overview'),
     ]
+    CMS_PLACEHOLDER_CONF = {
+        'email_body': {
+            'plugins': [
+                'TextPlugin', 'EmailActionPlugin'
+            ],
+            'text_only_plugins': [],
+            'name': _('E-Mail Body'),
+            'language_fallback': True,
+            'default_plugins': [],
+            'child_classes': {},
+            'parent_classes': {},
+        }
+    }
+    CMS_PLUGIN_CONTEXT_PROCESSORS = [
+        'fragdenstaat_de.fds_mailing.utils.add_style'
+    ]
+
     DJANGOCMS_PICTURE_NESTING = True
 
     # Set to False until this is fixed
