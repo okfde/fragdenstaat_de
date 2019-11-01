@@ -1,7 +1,11 @@
+import json
+
 from django.utils.translation import ugettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
+
+from filingcabinet.views import get_document_viewer_context
 
 from froide.helper.utils import get_redirect_url
 
@@ -60,11 +64,15 @@ class DocumentEmbedPlugin(CMSPluginBase):
     raw_id_fields = ('doc',)
 
     def render(self, context, instance, placeholder):
-        context = super(DocumentEmbedPlugin, self)\
-            .render(context, instance, placeholder)
-
-        context['object'] = instance.doc
+        context = super().render(context, instance, placeholder)
+        ctx = get_document_viewer_context(
+            instance.doc, context['request'],
+            page_number=instance.page_number,
+            defaults=json.loads(instance.settings)
+        )
+        context.update(ctx)
         context['instance'] = instance
+        context['beta'] = context['request'].user.is_staff
         return context
 
 

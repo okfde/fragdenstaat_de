@@ -1,5 +1,15 @@
 {% load static %}
+{% load sekizai_tags %}
 
-<div class="container-sm-full">
-  <iframe src="{% static 'filingcabinet/viewer/web/viewer.html' %}?file={{ object.get_file_url | urlencode }}" frameborder="0" style="width: 100%; height: 90vh; border: 0;"></iframe>
-</div>
+{% include "filingcabinet/_document_viewer.html" with object=object page_number=page_number defaults=defaults config=config beta=beta %}
+
+{% addtoblock "css" %}
+  <link href="{% static 'css/filingcabinet.css' %}" rel="stylesheet">
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+  <script src="{% static 'js/common.js' %}" defer></script>
+{% endaddtoblock %}
+{% addtoblock "js" %}
+  <script src="{% static 'js/filingcabinet.js' %}" defer></script>
+{% endaddtoblock %}
