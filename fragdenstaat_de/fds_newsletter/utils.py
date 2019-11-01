@@ -77,10 +77,17 @@ def subscribe_email(newsletter, email):
 
 def subscribe_user(newsletter, user):
     already_subscribed = False
-    instance = Subscription.objects.get_or_create(
-        newsletter=newsletter, user=user
-    )[0]
-
+    try:
+        instance = Subscription.objects.get_or_create(
+            newsletter=newsletter, user=user
+        )[0]
+    except Subscription.MultipleObjectsReturned:
+        subs = Subscription.objects.filter(
+            newsletter=newsletter, user=user
+        )
+        instance = subs[0]
+        for sub in subs[1:]:
+            sub.delete()
     if instance.subscribed:
         already_subscribed = True
     else:
