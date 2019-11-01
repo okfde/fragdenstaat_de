@@ -45,6 +45,8 @@ class DocumentEmbedCMSPlugin(CMSPlugin):
         Document, related_name='+',
         on_delete=models.CASCADE
     )
+    page_number = models.PositiveIntegerField(default=1)
+    settings = models.TextField(default='{}')
 
     def __str__(self):
         return 'Embed %s' % (self.doc,)
