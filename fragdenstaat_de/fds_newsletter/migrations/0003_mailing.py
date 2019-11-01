@@ -8,7 +8,6 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('newsletter', '0005_auto_20190815_1047'),
         ('fds_mailing', '0003_auto_20191029_1734'),
         ('fds_newsletter', '0002_submission'),
     ]
