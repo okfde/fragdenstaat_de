@@ -25,8 +25,7 @@ class PageAnnotationPlugin(CMSPluginBase):
     raw_id_fields = ('page_annotation',)
 
     def render(self, context, instance, placeholder):
-        context = super(PageAnnotationPlugin, self)\
-            .render(context, instance, placeholder)
+        context = super().render(context, instance, placeholder)
 
         context['object'] = instance.page_annotation
 
@@ -43,8 +42,7 @@ class DocumentPagesPlugin(CMSPluginBase):
     raw_id_fields = ('doc',)
 
     def render(self, context, instance, placeholder):
-        context = super(DocumentPagesPlugin, self)\
-            .render(context, instance, placeholder)
+        context = super().render(context, instance, placeholder)
 
         context['object'] = instance
         context['pages'] = instance.get_pages()
@@ -83,8 +81,7 @@ class PrimaryLinkPlugin(CMSPluginBase):
         return self.default_template
 
     def render(self, context, instance, placeholder):
-        context = super(PrimaryLinkPlugin, self)\
-            .render(context, instance, placeholder)
+        context = super().render(context, instance, placeholder)
         context['object'] = instance
         return context
 
@@ -98,8 +95,7 @@ class ContinueLinkPlugin(CMSPluginBase):
     render_template = "cms/plugins/continue_link.html"
 
     def render(self, context, instance, placeholder):
-        context = super(ContinueLinkPlugin, self)\
-            .render(context, instance, placeholder)
+        context = super().render(context, instance, placeholder)
         request = context['request']
         context['title'] = request.GET.get('next_title', 'Zurück zu Ihrer Anfrage')
         next_url = get_redirect_url(request)
