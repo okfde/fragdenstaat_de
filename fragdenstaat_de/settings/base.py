@@ -153,7 +153,8 @@ class FragDenStaatBase(German, Base):
     CMS_PLACEHOLDER_CONF = {
         'email_body': {
             'plugins': [
-                'TextPlugin', 'EmailActionPlugin'
+                'TextPlugin', 'EmailActionPlugin',
+                'EmailSectionPlugin', 'EmailStoryPlugin'
             ],
             'text_only_plugins': [],
             'name': _('E-Mail Body'),

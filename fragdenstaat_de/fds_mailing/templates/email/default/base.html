@@ -121,6 +121,7 @@
       background-color: #eeeeee;
       font-size: 24px;
       color: #333;
+      padding-top:10px;
     }
 
     .body-cell {
@@ -204,7 +205,7 @@
               <td valign="top" class="wrap-cell" style="padding-top:30px; padding-bottom:30px;">
                 <table cellpadding="0" cellspacing="0" class="force-full-width">
                   <tr>
-                   <td height="60" valign="top" class="header-cell">
+                   <td height="60" valign="top" class="header-cell" style="padding-top:10px">
                       <img width="281" height="60" src="https://media.frag-den-staat.de/files/media/main/38/60/38604ee7-4d0c-4f4a-8347-ec30a0e03e39/frag_den_staat_logo_wide.png" alt="FragDenStaat.de">
                     </td>
                   </tr>
@@ -217,7 +218,8 @@
                   </tr>
                   <tr>
                     <td valign="top" class="footer-cell">
-                      FragDenStaat.de<br>
+                      {{ site_name }}<br>
+                      {% if unsubscribe_url %}<br><a href="{{ unsubscribe_url }}">Abbestellen</a><br>{% endif %}
                     </td>
                   </tr>
                 </table>

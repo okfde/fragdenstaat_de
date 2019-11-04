@@ -177,3 +177,22 @@ class EmailActionCMSPlugin(VariableTemplateMixin, CMSPlugin):
 
     def __str__(self):
         return str(self.heading)
+
+
+class EmailSectionCMSPlugin(VariableTemplateMixin, CMSPlugin):
+    title = models.CharField(max_length=255, blank=True)
+    context_vars = ['title']
+
+    def __str__(self):
+        return str(self.title)
+
+
+class EmailStoryCMSPlugin(VariableTemplateMixin, CMSPlugin):
+    heading = models.CharField(max_length=255, blank=True)
+    url = models.CharField(max_length=255, blank=True)
+    label = models.CharField(max_length=255, blank=True)
+
+    context_vars = ['heading', 'url', 'label']
+
+    def __str__(self):
+        return str(self.heading)

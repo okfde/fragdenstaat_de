@@ -1,0 +1,9 @@
+{% extends "email/default/section.html" %}
+
+{% load cms_tags %}
+
+{% block content %}
+  {% for plugin in instance.child_plugin_instances %}
+    {% render_plugin plugin %}
+  {% endfor %}
+{% endblock %}
