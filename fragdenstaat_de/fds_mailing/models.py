@@ -59,17 +59,19 @@ class EmailTemplate(models.Model):
             template_base = 'default'
         return 'email/{}/{}'.format(template_base, name)
 
-    def render_email_html(self, request=None):
+    def render_email_html(self, request=None, context=None):
         if request is None:
             request = get_request()
-        context = {
+        ctx = {
             'placeholder': self.email_body,
             'object': self,
             'template': self.template
         }
+        if context is not None:
+            ctx.update(context)
         safe_html = render_to_string(
             'fds_mailing/render_base.html',
-            context=context,
+            context=ctx,
             request=request
         )
         # Call strip marks it unsafe again!
@@ -81,10 +83,10 @@ class EmailTemplate(models.Model):
         })
 
     def get_body_html(self, context=None):
-        template_str = self.render_email_html()
         if context is None:
             context = {}
         self.update_context(context)
+        template_str = self.render_email_html(context=context)
         template = Template(template_str)
         html = template.render(Context(context))
         if '{{' in html or '}}' in html:
