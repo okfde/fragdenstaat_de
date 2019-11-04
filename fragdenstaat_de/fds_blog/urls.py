@@ -29,6 +29,7 @@ def get_urls():
     return details
 
 
+app_name = 'blog'
 detail_urls = get_urls()
 
 urlpatterns = [

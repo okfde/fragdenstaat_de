@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.apps import AppConfig
 
 
@@ -27,5 +27,5 @@ def add_search(request):
     return {
         'title': 'Hilfe-Seiten',
         'name': 'cms',
-        'url': reverse('fds_cms:fds_cms-search')
+        'url': reverse_lazy('fds_cms:fds_cms-search')
     }

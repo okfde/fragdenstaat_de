@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from django.urls import reverse
+from django.urls import reverse_lazy
 
 
 def obj_for_value(self, value):
@@ -61,5 +61,5 @@ def add_search(request):
     return {
         'title': 'Blog-Artikel',
         'name': 'blog',
-        'url': reverse('blog:article-search')
+        'url': reverse_lazy('blog:article-search')
     }

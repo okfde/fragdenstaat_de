@@ -243,6 +243,8 @@ def contact(request):
     return get_redirect(request)
 
 
+app_name = 'fds_cms_contact'
+
 urlpatterns = [
     url(r'^$', contact, name='contact'),
 ]
