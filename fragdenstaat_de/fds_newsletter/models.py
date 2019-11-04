@@ -36,6 +36,8 @@ def get_email_context(subscription, submission=None, mailing=None):
         'newsletter': subscription.newsletter,
         'date': subscription.subscribe_date,
         'site': site,
+        'site_name': settings.SITE_NAME,
+        'site_url': settings.SITE_URL,
         'domain': site.domain,
         'unsubscribe_url': unsubscribe_url,
         'STATIC_URL': settings.STATIC_URL,
