@@ -28,7 +28,7 @@ class Command(BaseCommand):
         laws = FoiLaw.objects.filter(jurisdiction=juris)
         # importing Brandenburg
         pb_cache = {}
-        with file(filepath) as f:
+        with open(filepath) as f:
             pbs = json.loads(f.read().decode('utf-8'))
             for pb in pbs:
                 topic = self.get_topic(pb)

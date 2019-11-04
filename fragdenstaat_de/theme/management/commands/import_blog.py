@@ -28,7 +28,7 @@ from django.template.defaultfilters import slugify
 from cms.models.pluginmodel import CMSPlugin
 from cms.api import add_plugin
 
-from filer.models import Image, Folder
+from filer.models import Image
 from djangocms_text_ckeditor.utils import plugin_to_tag
 from djangocms_blog.models import Post
 
@@ -40,7 +40,7 @@ logger = logging.getLogger(__name__)
 YAML_SEPARATOR = '---\n'
 NON_SLUG = re.compile(r'[^-\w]')
 
-LIQUID_STRING = re.compile('\{\{\s*["\']([^"\']+)["\']\s*\}\}')
+LIQUID_STRING = re.compile(r'\{\{\s*["\']([^"\']+)["\']\s*\}\}')
 MKD_IMAGE = re.compile(r'!\[(.*?)\]\((.*?)\)')
 
 

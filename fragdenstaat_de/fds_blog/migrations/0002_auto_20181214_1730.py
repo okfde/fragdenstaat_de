@@ -88,7 +88,7 @@ def migrate_blog(apps, schema_editor):
                 ArticleAuthorship.objects.create(
                     article=a, author=author
                 )
-    except LookupError: # djangocms_blog not found
+    except LookupError:  # djangocms_blog not found
         pass
 
 

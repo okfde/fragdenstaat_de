@@ -68,7 +68,7 @@ if settings.DEBUG:
         if not Site.objects.filter(id=settings.SITE_ID).exists():
             Site.objects.create(id=settings.SITE_ID,
                 domain='localhost:8000', name='localhost')
-    except Exception as e:
+    except Exception:
         # Possibly during migration, ignore
         pass
 

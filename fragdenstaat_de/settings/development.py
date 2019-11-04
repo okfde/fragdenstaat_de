@@ -64,5 +64,5 @@ class Dev(FragDenStaatBase):
 
 try:
     from .local_settings import Dev  # noqa
-except ImportError as e:
+except ImportError:
     pass

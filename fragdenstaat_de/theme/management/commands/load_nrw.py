@@ -29,7 +29,7 @@ class Command(BaseCommand):
         laws = FoiLaw.objects.filter(jurisdiction=juris)
 
         # importing landesverwaltung nrw
-        with file(os.path.join(directory, 'landesverwaltung_nrw.json')) as f:
+        with open(os.path.join(directory, 'landesverwaltung_nrw.json')) as f:
             pbs = json.loads(f.read().decode('utf-8'))
             for pb in pbs:
                 topic = self.get_topic(pb)
@@ -71,7 +71,7 @@ class Command(BaseCommand):
                 self.stdout.write((u"%s\n" % public_body).encode('utf-8'))
 
         # importing kommunalverwaltung nrw
-        with file(os.path.join(directory, 'kommunalverwaltung_nrw.json')) as f:
+        with open(os.path.join(directory, 'kommunalverwaltung_nrw.json')) as f:
             pbs = json.load(f)
             classification = 'Kommunalverwaltung'
             for pb in pbs:

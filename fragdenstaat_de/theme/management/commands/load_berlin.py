@@ -26,7 +26,7 @@ class Command(BaseCommand):
         laws = FoiLaw.objects.filter(jurisdiction=juris)
 
         # importing Berlin
-        with file(filepath) as f:
+        with open(filepath) as f:
             first = True
             for line in f:
                 if first:

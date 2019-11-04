@@ -6,8 +6,8 @@ import phonenumbers
 
 from froide.publicbody.models import PublicBody
 
-FAX_RE = re.compile('(?:Tele)?[fF]ax(?:nummer|nr)?\.?(?:\(\w+\))?:?\s*(\(?\+?[\[\]– \t\d\-\(\)/\.]+)', re.M)
-POST_FAX_RE = re.compile('(\(?\+?[\[\]– \t\d\-\(\)/\.]+)\s*\((?:Tele)?[fF]ax(?:nummer|nr)?\.?\)', re.M)
+FAX_RE = re.compile(r'(?:Tele)?[fF]ax(?:nummer|nr)?\.?(?:\(\w+\))?:?\s*(\(?\+?[\[\]– \t\d\-\(\)/\.]+)', re.M)
+POST_FAX_RE = re.compile(r'(\(?\+?[\[\]– \t\d\-\(\)/\.]+)\s*\((?:Tele)?[fF]ax(?:nummer|nr)?\.?\)', re.M)
 
 
 class Command(BaseCommand):
