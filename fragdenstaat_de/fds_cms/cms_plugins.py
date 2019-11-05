@@ -65,10 +65,18 @@ class DocumentEmbedPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
+        try:
+            saved_defaults = json.loads(instance.settings)
+        except ValueError:
+            saved_defaults = {}
+        defaults = {
+            'maxHeight': '90vh'
+        }
+        defaults.update(saved_defaults)
         ctx = get_document_viewer_context(
             instance.doc, context['request'],
             page_number=instance.page_number,
-            defaults=json.loads(instance.settings)
+            defaults=defaults
         )
         context.update(ctx)
         context['instance'] = instance
