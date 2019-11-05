@@ -204,10 +204,13 @@
             <tr>
               <td valign="top" class="wrap-cell" style="padding-top:30px; padding-bottom:30px;">
                 <table cellpadding="0" cellspacing="0" class="force-full-width">
+                  {% block content %}
                   <tr>
-                   <td height="60" valign="top" class="header-cell" style="padding-top:10px">
+                    {% block header_image %}
+                    <td height="60" valign="top" class="header-cell" style="padding-top:10px">
                       <img width="281" height="60" src="https://media.frag-den-staat.de/files/media/main/38/60/38604ee7-4d0c-4f4a-8347-ec30a0e03e39/frag_den_staat_logo_wide.png" alt="FragDenStaat.de">
                     </td>
+                    {% endblock %}
                   </tr>
                   <tr>
                     <td valign="top" class="body-cell">
@@ -216,10 +219,26 @@
 
                     </td>
                   </tr>
+                  {% endblock content %}
                   <tr>
                     <td valign="top" class="footer-cell">
-                      {{ site_name }}<br>
-                      {% if unsubscribe_url %}<br><a href="{{ unsubscribe_url }}">Abbestellen</a><br>{% endif %}
+                      {% block footer %}
+                      Vernetzen Sie sich mit uns!<br>
+                      <a href="https://twitter.com/fragdenstaat/">Twitter</a> | <a href="https://www.facebook.com/fragdenstaat.de">Facebook</a> | <a href="https://instagram.com/fragdenstaat">Instagram</a>
+                      <br>
+                      {{ site_name }}
+                      <br>
+                      Impressum: Ein Projekt der Open Knowledge Foundation Deutschland e.V.
+                      <br>
+                      Singerstr. 109 | 10179 Berlin
+                      <br>
+                      <a href="mailto:info@fragdenstaat.de">info@fragdenstaat.de</a> | <a href="{{ site_url }}">fragdenstaat.de</a>
+                      <br>
+                      {% if unsubscribe_url %}<br><a href="{{ unsubscribe_url }}">Abbestellen oder ändern</a><br>{% endif %}
+                      <br>
+                      <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzerklärung</a>
+                      <br>
+                      {% endblock %}
                     </td>
                   </tr>
                 </table>

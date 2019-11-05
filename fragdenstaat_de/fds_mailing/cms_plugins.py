@@ -1,33 +1,70 @@
 from django.utils.translation import ugettext_lazy as _
+from django.template.loader import get_template, TemplateDoesNotExist
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from .models import (
-    EmailActionCMSPlugin, EmailSectionCMSPlugin, EmailStoryCMSPlugin
+    EmailActionCMSPlugin, EmailSectionCMSPlugin, EmailStoryCMSPlugin,
+    EmailHeaderCMSPlugin
 )
 from .utils import render_plugin_text
 
 
+class EmailTemplateMixin:
+    def get_render_template(self, context, instance, placeholder):
+        template_name = self.render_template_template.format(
+            name=context.get('template') or 'default'
+        )
+        try:
+            get_template(template_name)
+            return template_name
+        except TemplateDoesNotExist:
+            pass
+        return self.render_template_template.format(
+            name='default'
+        )
+
+
+class EmailRenderMixin:
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context.update(instance.get_context())
+        context['instance'] = instance
+        return context
+
+
 @plugin_pool.register_plugin
-class EmailActionPlugin(CMSPluginBase):
+class EmailBodyPlugin(EmailTemplateMixin, CMSPluginBase):
+    module = _("Email")
+    name = _("Email Body")
+    render_template_template = "email/{name}/body.html"
+    allow_children = True
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context['instance'] = instance
+        return context
+
+    def get_context(self, instance):
+        return instance.get_descendants().filter(
+            depth=instance.depth + 1).order_by('placeholder', 'path')
+
+    def render_text(self, instance):
+        children = self.get_context(instance)
+        return '\n\n'.join(
+            render_plugin_text(c) for c in children
+        ).strip()
+
+
+@plugin_pool.register_plugin
+class EmailActionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     model = EmailActionCMSPlugin
     module = _("Email")
     name = _("Email Action")
     allow_children = True
     child_classes = ['TextPlugin']
     render_template_template = "email/{name}/action_plugin.html"
-
-    def get_render_template(self, context, instance, placeholder):
-        return self.render_template_template.format(
-            name=context.get('template') or 'default'
-        )
-
-    def render(self, context, instance, placeholder):
-        context = super().render(context, instance, placeholder)
-        context.update(instance.get_context())
-        context['instance'] = instance
-        return context
 
     def get_context(self, instance):
         children = instance.get_descendants().order_by('placeholder', 'path')
@@ -65,24 +102,13 @@ class EmailActionPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class EmailSectionPlugin(CMSPluginBase):
+class EmailSectionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     model = EmailSectionCMSPlugin
     module = _("Email")
     name = _("Email Section")
     allow_children = True
     child_classes = ['TextPlugin']
     render_template_template = "email/{name}/section_plugin.html"
-
-    def get_render_template(self, context, instance, placeholder):
-        return self.render_template_template.format(
-            name=context.get('template') or 'default'
-        )
-
-    def render(self, context, instance, placeholder):
-        context = super().render(context, instance, placeholder)
-        context.update(instance.get_context())
-        context['instance'] = instance
-        return context
 
     def get_context(self, instance):
         return instance.get_descendants().order_by('placeholder', 'path')
@@ -102,24 +128,13 @@ class EmailSectionPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class EmailStoryPlugin(CMSPluginBase):
+class EmailStoryPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     model = EmailStoryCMSPlugin
     module = _("Email")
     name = _("Email Story")
     allow_children = True
     child_classes = ['TextPlugin']
     render_template_template = "email/{name}/story_plugin.html"
-
-    def get_render_template(self, context, instance, placeholder):
-        return self.render_template_template.format(
-            name=context.get('template') or 'default'
-        )
-
-    def render(self, context, instance, placeholder):
-        context = super().render(context, instance, placeholder)
-        context.update(instance.get_context())
-        context['instance'] = instance
-        return context
 
     def get_context(self, instance):
         return instance.get_descendants().order_by('placeholder', 'path')
@@ -140,3 +155,18 @@ class EmailStoryPlugin(CMSPluginBase):
 -> {url}
 
 '''.format(**context)
+
+
+@plugin_pool.register_plugin
+class EmailHeaderPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
+    model = EmailHeaderCMSPlugin
+    module = _("Email")
+    name = _("Email Header")
+    allow_children = False
+    render_template_template = "email/{name}/header.html"
+
+    def get_context(self, instance):
+        return instance.get_descendants().order_by('placeholder', 'path')
+
+    def render_text(self, instance):
+        return ''

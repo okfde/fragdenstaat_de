@@ -1,0 +1,7 @@
+{% load thumbnail %}
+
+<tr>
+  <td height="60" valign="top" class="header-cell" style="padding-top:10px">
+    <img height="60" src="{% thumbnail image 280x60 crop=smart subject_location=image.subject_location %}" alt="{{ label }}">
+  </td>
+</tr>

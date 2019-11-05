@@ -1,0 +1,9 @@
+{% load cms_tags %}
+
+<tr>
+  <td valign="top" class="body-cell">
+    {% for plugin in instance.child_plugin_instances %}
+      {% render_plugin plugin %}
+    {% endfor %}
+  </td>
+</tr>

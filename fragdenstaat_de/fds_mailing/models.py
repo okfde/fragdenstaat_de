@@ -11,6 +11,8 @@ from django.conf import settings
 from cms.models.fields import PlaceholderField
 from cms.models.pluginmodel import CMSPlugin
 
+from filer.fields.image import FilerImageField
+
 from froide.helper.email_sending import EmailContent, mail_registry
 
 from fragdenstaat_de.fds_cms.utils import get_request
@@ -18,7 +20,8 @@ from fragdenstaat_de.fds_cms.utils import get_request
 from .utils import render_text
 
 EMAIL_TEMPLATE_CHOICES = [
-    ('', _('Default template'))
+    ('', _('Default template')),
+    ('newsletter', _('Newsletter template'))
 ]
 
 COLLAPSE_NEWLINES = re.compile(r'((?:\r?\n){3,})')
@@ -198,3 +201,15 @@ class EmailStoryCMSPlugin(VariableTemplateMixin, CMSPlugin):
 
     def __str__(self):
         return str(self.heading)
+
+
+class EmailHeaderCMSPlugin(VariableTemplateMixin, CMSPlugin):
+    label = models.CharField(max_length=255)
+
+    image = FilerImageField(null=True, blank=True, default=None,
+        on_delete=models.SET_NULL, verbose_name=_("image"))
+
+    context_vars = ['label', 'image']
+
+    def __str__(self):
+        return self.label

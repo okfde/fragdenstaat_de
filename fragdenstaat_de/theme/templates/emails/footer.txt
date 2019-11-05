@@ -6,4 +6,13 @@ Abbstellen: {{ unsubscribe_url }}
 
 {% endif %}
 Wir befreien Informationen! Unterstützen Sie uns mit Ihrer Spende:  https://fragdenstaat.de/email/spenden/
+
+
+Impressum
+
+Ein Projekt der Open Knowledge Foundation Deutschland e.V.
+Singerstr. 109, 10179 Berlin
+info@fragdenstaat.de
+Datenschutzerklärung: https://fragdenstaat.de/datenschutzerklaerung/
+
 {% endautoescape %}

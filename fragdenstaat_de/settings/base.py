@@ -154,7 +154,8 @@ class FragDenStaatBase(German, Base):
         'email_body': {
             'plugins': [
                 'TextPlugin', 'EmailActionPlugin',
-                'EmailSectionPlugin', 'EmailStoryPlugin'
+                'EmailSectionPlugin', 'EmailStoryPlugin',
+                'EmailBodyPlugin', 'EmailHeaderPlugin'
             ],
             'text_only_plugins': [],
             'name': _('E-Mail Body'),
