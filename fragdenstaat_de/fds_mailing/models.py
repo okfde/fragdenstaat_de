@@ -205,11 +205,12 @@ class EmailStoryCMSPlugin(VariableTemplateMixin, CMSPlugin):
 
 class EmailHeaderCMSPlugin(VariableTemplateMixin, CMSPlugin):
     label = models.CharField(max_length=255)
+    color = models.CharField(max_length=10, blank=True)
 
     image = FilerImageField(null=True, blank=True, default=None,
         on_delete=models.SET_NULL, verbose_name=_("image"))
 
-    context_vars = ['label', 'image']
+    context_vars = ['label', 'image', 'color']
 
     def __str__(self):
         return self.label
