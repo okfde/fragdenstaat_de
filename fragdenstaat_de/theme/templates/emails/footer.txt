@@ -10,7 +10,7 @@ Wir befreien Informationen! Unterstützen Sie uns mit Ihrer Spende:  https://fra
 
 Impressum
 
-Ein Projekt der Open Knowledge Foundation Deutschland e.V.
+{{ site_name }} ist ein Projekt der Open Knowledge Foundation Deutschland e.V.
 Singerstr. 109, 10179 Berlin
 info@fragdenstaat.de
 Datenschutzerklärung: https://fragdenstaat.de/datenschutzerklaerung/
