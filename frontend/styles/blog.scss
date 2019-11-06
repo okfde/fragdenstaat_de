@@ -181,17 +181,21 @@ h4.blog-list-heading {
 .blog-content {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Georgia', serif;
-  color: #26282b;
-  font-size: 1.225rem;
-  font-weight: 400;
-  line-height: 1.65;
-  text-align: left;
   margin-bottom: 2rem;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  >p, >h2, >h3, >h4, >ul, >ol,
+  >div.text-container, >blockquote {
+    font-family: 'Georgia', serif;
+    color: #26282b;
+    font-size: 1.225rem;
+    font-weight: 400;
+    line-height: 1.65;
+    text-align: left;
+  }
 
   >p, >h2, >h3, >h4, >ul, >ol, >div.text-container {
     @include make-col(12);
@@ -225,11 +229,11 @@ h4.blog-list-heading {
   }
 
 
-h3:not(:first-child) {
+  >h3:not(:first-child) {
     margin-top: 4rem !important;
   }
 
-  h3 {
+  >h3 {
     color: $black;
     font-family: sans-serif;
   }
@@ -247,14 +251,14 @@ h3:not(:first-child) {
     color: $gray-800;
   }
 
-  blockquote {
+  >blockquote {
     @include make-col(12);
     margin: 1rem auto 0.5rem;
     padding: 1rem 2rem;
     width: 100%;
     background-color: $gray-100;
 
-    p {
+    >p {
       border-left: 4px solid $gray-400;
       padding: 0.5rem 0 0.5rem 1rem;
       font-size: 1.2rem;
@@ -262,14 +266,14 @@ h3:not(:first-child) {
     }
   }
   @include media-breakpoint-up(md) {
-    blockquote {
+    >blockquote {
       @include make-col(10);
       margin-left: 15%;
       margin-right: 15%;
     }
   }
   @include media-breakpoint-up(lg) {
-    blockquote {
+    >blockquote {
       @include make-col(8);
       margin-left: 25%;
       margin-right: 25%;
