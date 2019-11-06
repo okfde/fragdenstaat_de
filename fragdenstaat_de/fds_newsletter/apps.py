@@ -75,11 +75,22 @@ def cancel_user(sender, user=None, **kwargs):
 def activate_newsletter_subscription(sender, **kwargs):
     from .models import Subscription
 
+    # TODO: make sure entries are related to user action
+
     # Add user to existing newsletter subscriptions
     Subscription.objects.filter(
         email_field=sender.email,
         user__isnull=True
-    ).update(user=sender)
+    ).update(user=sender, email_field='')
+
+    # Remove duplicates
+    user_subs = Subscription.objects.filter(
+        user=sender,
+        newsletter__slug=settings.DEFAULT_NEWSLETTER
+    )
+    if user_subs.count() > 1:
+        first = user_subs[0]
+        user_subs.exclude(id=first.id).delete()
 
     # Activate existing subscribers
     Subscription.objects.filter(

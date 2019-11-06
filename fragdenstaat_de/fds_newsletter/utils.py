@@ -1,4 +1,6 @@
-from newsletter.models import Subscription
+from django.conf import settings
+
+from newsletter.models import Newsletter, Subscription
 
 REFERENCE_PREFIX = 'newsletter-'
 
@@ -41,6 +43,27 @@ def handle_unsubscribe(sender, email, reference, **kwargs):
             (subscription.user and subscription.user.email.lower() == email)):
         subscription.subscribed = False
         subscription.save()
+
+
+def subscribe_to_default_newsletter(email, user=None):
+    return subscribe_to_newsletter(
+        settings.DEFAULT_NEWSLETTER,
+        email,
+        user=user
+    )
+
+
+def subscribe_to_newsletter(slug, email, user=None):
+    try:
+        newsletter = Newsletter.objects.get(
+            slug=slug
+        )
+    except Newsletter.DoesNotExist:
+        return
+    return subscribe(
+        newsletter, email,
+        user=user
+    )
 
 
 def subscribe(newsletter, email, user=None):
@@ -86,8 +109,7 @@ def subscribe_user(newsletter, user):
             newsletter=newsletter, user=user
         )
         instance = subs[0]
-        for sub in subs[1:]:
-            sub.delete()
+        subs.exclude(id=instance.id).delete()
     if instance.subscribed:
         already_subscribed = True
     else:
