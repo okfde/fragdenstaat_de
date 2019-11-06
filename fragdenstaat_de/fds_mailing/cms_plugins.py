@@ -67,7 +67,7 @@ class EmailActionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     render_template_template = "email/{name}/action_plugin.html"
 
     def get_context(self, instance):
-        children = instance.get_descendants().order_by('placeholder', 'path')
+        children = list(instance.get_descendants().order_by('placeholder', 'path'))
         text2_children = []
         if children is None:
             text1_children = []
