@@ -93,7 +93,7 @@ class EmailActionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
         context = instance.get_context()
         context.update({
             'text1': text1,
-            'text2': text2,
+            'text2': '\n{}'.format(text2) if text2 else '',
         })
         return '''{heading}
 
