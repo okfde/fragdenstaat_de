@@ -25,6 +25,10 @@ class EmailTemplateMixin:
             name='default'
         )
 
+    def get_children(self, instance):
+        return instance.get_descendants().filter(
+            depth=instance.depth + 1).order_by('position')
+
 
 class EmailRenderMixin:
     def render(self, context, instance, placeholder):
@@ -40,18 +44,18 @@ class EmailBodyPlugin(EmailTemplateMixin, CMSPluginBase):
     name = _("Email Body")
     render_template_template = "email/{name}/body.html"
     allow_children = True
+    child_classes = [
+        'TextPlugin', 'EmailActionPlugin',
+        'EmailSectionPlugin', 'EmailStoryPlugin',
+    ]
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         context['instance'] = instance
         return context
 
-    def get_context(self, instance):
-        return instance.get_descendants().filter(
-            depth=instance.depth + 1).order_by('placeholder', 'path')
-
     def render_text(self, instance):
-        children = self.get_context(instance)
+        children = self.get_children(instance)
         return '\n\n'.join(
             render_plugin_text(c) for c in children
         ).strip()
@@ -67,7 +71,7 @@ class EmailActionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     render_template_template = "email/{name}/action_plugin.html"
 
     def get_context(self, instance):
-        children = list(instance.get_descendants().order_by('placeholder', 'path'))
+        children = list(self.get_children(instance))
         text2_children = []
         if children is None:
             text1_children = []
@@ -110,11 +114,8 @@ class EmailSectionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     child_classes = ['TextPlugin']
     render_template_template = "email/{name}/section_plugin.html"
 
-    def get_context(self, instance):
-        return instance.get_descendants().order_by('placeholder', 'path')
-
     def render_text(self, instance):
-        children = self.get_context(instance)
+        children = self.get_children(instance)
         text = '\n\n'.join(
             render_plugin_text(c) for c in children
         ).strip()
@@ -136,11 +137,8 @@ class EmailStoryPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     child_classes = ['TextPlugin']
     render_template_template = "email/{name}/story_plugin.html"
 
-    def get_context(self, instance):
-        return instance.get_descendants().order_by('placeholder', 'path')
-
     def render_text(self, instance):
-        children = self.get_context(instance)
+        children = self.get_children(instance)
         text = '\n\n'.join(
             render_plugin_text(c) for c in children
         ).strip()
@@ -164,9 +162,6 @@ class EmailHeaderPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     name = _("Email Header")
     allow_children = False
     render_template_template = "email/{name}/header.html"
-
-    def get_context(self, instance):
-        return instance.get_descendants().order_by('placeholder', 'path')
 
     def render_text(self, instance):
         return ''

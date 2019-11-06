@@ -21,6 +21,8 @@ def render_text(instance, placeholder):
 
 def render_plugin_text(base_plugin):
     instance, plugin = base_plugin.get_plugin_instance()
+    if instance is None:
+        return ''
     if hasattr(plugin, 'render_text'):
         return plugin.render_text(instance)
     if base_plugin.plugin_type == 'TextPlugin':
