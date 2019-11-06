@@ -32,6 +32,7 @@ class DonationGiftFormPlugin(CMSPluginBase):
             initial = {
                 'name': user.get_full_name(),
                 'email': user.email,
+                'address': user.address,
             }
         context['form'] = DonationGiftForm(
             category=instance.category,

@@ -415,6 +415,12 @@ class DonationGiftForm(forms.Form):
             'class': 'form-control'
         })
     )
+    address = forms.CharField(
+        label=_('Shipping address'),
+        widget=forms.Textarea(attrs={
+            'class': 'form-control'
+        })
+    )
     gift = forms.ModelChoiceField(
         label=_('Please choose your donation gift'),
         queryset=None
@@ -432,6 +438,7 @@ class DonationGiftForm(forms.Form):
             'Name', self.cleaned_data['name'],
             'E-Mail', self.cleaned_data['email'],
             'Auswahl', self.cleaned_data['gift'],
+            'Adresse', self.cleaned_data['address'],
         ]
         if request and request.user:
             text.extend([
