@@ -1,13 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 85 85" style="enable-background:new 0 0 85 85;" xml:space="preserve">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 456 398.2" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
 <style type="text/css">
-	.st2{fill:#0069D0;}
-	.st3{fill:#C9D2DC;}
+   .st0{fill:#2A66B0;}
+   .st1{fill:#C9D2DC;}
 </style>
-<g id="Logo_1_">
-	<rect id="Rectangle-3_3_" x="38.3" y="42.3" transform="matrix(0.809 -0.5878 0.5878 0.809 -16.1097 40.5375)" class="st2" width="32" height="5.4"/>
-	<rect id="Rectangle-3_2_" x="28.6" y="29" transform="matrix(0.5878 -0.809 0.809 0.5878 -23.5271 43.9433)" class="st2" width="5.4" height="32"/>
-	<path class="st3" d="M77,38.1v-5.4h-8.5L43,14.1l-0.1,0.2l-0.1-0.2L17.2,32.7H8v5.4h4.4v30.5H8V74H77v-5.4h-2.7V38.1H77z M55.6,38.1v30.5H29.9V38.1H55.6z M42.8,20.8l16.4,11.9H26.4L42.8,20.8z M17.9,38.1h6.6v30.5h-6.6V38.1z M68.8,68.6h-7.7V38.1h7.7
-		V68.6z"/>
+
+<g transform="translate(-68.7,-33)" fill="#3676ff">
+   <polygon class="st0" points="142.9 201.2 142.9 213.8 186.9 240 186.9 201.2"/>
+
+   <polygon class="st0" points="224.4 262.3 298 306 369.9 262.5 369.9 217.5 296.5 261 224.4 217.6"/>
+
+   <polygon class="st0" points="407.4 201.2 407.4 239.8 451.4 213.2 451.4 201.2"/>
+
 </g>
+
+<path class="st1" d="m431 168.2v-38.5h-26.2l-175-109.7-179.5 109.7h-25.3v38.5h11.7v166.5h-11.7v38.5h406v-38.5h-10.8v-166.5zm-129.8 0v166.5h-145.5v-166.5zm-73.9-103.2 110.5 64.7h-215.7zm-153.1 103.2h44v166.5h-44zm308.5 166.5h-44v-166.5h44z"/>
+
 </svg>
