@@ -111,13 +111,12 @@ export default class Magnifier {
 
   handleTouchMove(event: TouchEvent | MouseEvent) {
     event.preventDefault()
-    let touch
-    if (event instanceof TouchEvent) {
-      touch = event.changedTouches[0]
-    } else {
-      touch = event
+    if (event instanceof window.MouseEvent) {
+      this.handleMove(event)
     }
-    this.handleMove(touch)
+    else if (window.TouchEvent && event instanceof window.TouchEvent) {
+      this.handleMove(event.changedTouches[0])
+    }     
   }
 
   handleMove (touch: Touch | MouseEvent) {
@@ -178,15 +177,6 @@ export default class Magnifier {
     const w = offsetWidth * this.zoom
     const h = offsetHeight * this.zoom
     this.lens.style.backgroundSize = `${w}px ${h}px`
-  }
-
-  setStyle(prop: string, value: number | string) {
-    this.lens.style.setProperty(prop, typeof value === 'number' ? `${value}px` : value)
-  }
-
-  className(name: string) {
-    this.lens.className = name;
-    return this;
   }
 
   show() {
