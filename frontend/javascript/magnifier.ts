@@ -197,8 +197,7 @@ export default class Magnifier {
   }
 }
 
-const zoomImages = document.querySelectorAll("img[data-zoom]");
-(Array.from(zoomImages) as HTMLImageElement[]).forEach((zoomImage) => {
+const makeMagnifier = (zoomImage: HTMLImageElement) => {
   const zoomWidth = zoomImage.dataset.zoomwidth;
   if (zoomWidth) {
     if (zoomImage.offsetWidth / parseInt(zoomWidth, 10) > 0.5) {
@@ -207,4 +206,16 @@ const zoomImages = document.querySelectorAll("img[data-zoom]");
     }
   }
   return new Magnifier(zoomImage);
+};
+
+const zoomImages = document.querySelectorAll("img[data-zoom]");
+(Array.from(zoomImages) as HTMLImageElement[]).forEach((zoomImage) => {
+  if (zoomImage.offsetWidth === 0) {
+    /* Wait for image load */
+    zoomImage.addEventListener("load", () => {
+      makeMagnifier(zoomImage);
+    });
+  } else {
+    return new Magnifier(zoomImage);
+  }
 });
