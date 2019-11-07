@@ -21,7 +21,7 @@
     <img class="img-fluid" src="{% thumbnail object.image 768x0 crop=scale %}" alt="{{ object.title }}" data-zoomwidth="{{ object.width }}" data-zoom="{{ object.image.url }}">
     </picture>
 
-    {% if object.description %}
+    {% if object.description or object.highlight %}
         <figcaption>
             {{ object.description }}
             {% if object.highlight %}{% if object.description %}<br/>{% endif %}<small class="text-muted text-right">Hervorhebung von uns</small>{% endif %}
