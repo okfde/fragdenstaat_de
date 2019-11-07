@@ -187,7 +187,12 @@ h4.blog-list-heading {
   flex-wrap: wrap;
   justify-content: center;
 
-  >p, >h2, >h3, >h4, >ul, >ol,
+  >h2, >h3, >h4 {
+    font-family: 'Georgia', serif;
+    color: #26282b;
+  }
+
+  >p, >ul, >ol,
   >div.text-container, >blockquote {
     font-family: 'Georgia', serif;
     color: #26282b;
