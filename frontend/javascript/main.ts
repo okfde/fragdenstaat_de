@@ -6,6 +6,7 @@ import './misc.ts'
 import './donation.ts'
 import './donation-form.ts'
 import './betterplace.ts'
+import './magnifier.ts'
 
 if (document.body.dataset.raven) {
   import(/* webpackChunkName: "@sentry/browser" */ '@sentry/browser').then((Sentry) => {
