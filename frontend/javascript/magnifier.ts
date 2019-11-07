@@ -151,8 +151,10 @@ export default class Magnifier {
     }
     if (zoom + this.zoomStep > this.maxZoom) {
       this.el.style.cursor = 'zoom-out'
+      this.lens.style.cursor = 'zoom-out'
     } else {
       this.el.style.cursor = 'zoom-in'
+      this.lens.style.cursor = 'zoom-in'
     }
     this.setZoom(zoom)
     this.handleMove(e)
