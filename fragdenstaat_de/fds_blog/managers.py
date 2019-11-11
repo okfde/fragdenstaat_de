@@ -22,6 +22,21 @@ def articles_published(queryset):
         status=PUBLISHED, sites=Site.objects.get_current())
 
 
+def articles_visible(queryset):
+    """
+    Return only the entries published.
+    """
+    now = timezone.now()
+    return queryset.filter(
+        models.Q(start_publication__lte=now) |
+        models.Q(start_publication=None),
+        models.Q(end_publication__gt=now) |
+        models.Q(end_publication=None),
+        models.Q(status=PUBLISHED) | models.Q(status=HIDDEN),
+        sites=Site.objects.get_current()
+    )
+
+
 class CategoryManager(TranslatableManager):
     pass
 

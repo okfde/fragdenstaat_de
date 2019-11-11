@@ -16,6 +16,7 @@ from froide.helper.search.views import BaseSearchView
 from .documents import ArticleDocument
 from .models import Category, Article, ArticleTag
 from .filters import ArticleFilterset
+from .managers import articles_visible
 
 User = get_user_model()
 
@@ -77,7 +78,7 @@ class ArticleDetailView(BaseBlogView, DetailView):
     def get_base_queryset(self):
         if (not getattr(self.request, 'toolbar', False) or
                 not self.request.toolbar.edit_mode_active):
-            return self.model.published.all()
+            return articles_visible(self.model._default_manager.all())
         return self.model._default_manager.all()
 
     def get(self, request, *args, **kwargs):
