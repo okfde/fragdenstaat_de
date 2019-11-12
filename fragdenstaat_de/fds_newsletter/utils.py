@@ -45,15 +45,16 @@ def handle_unsubscribe(sender, email, reference, **kwargs):
         subscription.save()
 
 
-def subscribe_to_default_newsletter(email, user=None):
+def subscribe_to_default_newsletter(email, user=None, **kwargs):
     return subscribe_to_newsletter(
         settings.DEFAULT_NEWSLETTER,
         email,
-        user=user
+        user=user,
+        **kwargs
     )
 
 
-def subscribe_to_newsletter(slug, email, user=None):
+def subscribe_to_newsletter(slug, email, user=None, **kwargs):
     try:
         newsletter = Newsletter.objects.get(
             slug=slug
@@ -62,18 +63,18 @@ def subscribe_to_newsletter(slug, email, user=None):
         return
     return subscribe(
         newsletter, email,
-        user=user
+        user=user,
+        **kwargs
     )
 
 
-def subscribe(newsletter, email, user=None):
+def subscribe(newsletter, email, user=None, name='', email_confirmed=False):
     if user and not user.is_authenticated:
         user = None
     if user and not user.is_active:
         # if user is not active, we have no confirmed address
         user = None
 
-    email_confirmed = False
     if user and user.email.lower() == email.lower():
         email_confirmed = True
 
@@ -81,21 +82,31 @@ def subscribe(newsletter, email, user=None):
         if subscribe_user(newsletter, user):
             return SubscriptionResult.ALREADY_SUBSCRIBED
         return SubscriptionResult.SUBSCRIBED
-    return subscribe_email(newsletter, email)
+    return subscribe_email(
+        newsletter, email,
+        email_confirmed=email_confirmed,
+        name=name
+    )
 
 
-def subscribe_email(newsletter, email):
+def subscribe_email(newsletter, email, email_confirmed=False, name=''):
     subscription = Subscription.objects.get_or_create(
         email_field=email,
         newsletter=newsletter,
+        defaults={
+            'name': name
+        }
     )[0]
 
     if subscription.subscribed:
         return SubscriptionResult.ALREADY_SUBSCRIBED
+    if not email_confirmed:
+        subscription.send_activation_email(action='subscribe')
+        return SubscriptionResult.CONFIRM
 
-    subscription.send_activation_email(action='subscribe')
-
-    return SubscriptionResult.CONFIRM
+    subscription.subscribed = True
+    subscription.save()
+    return SubscriptionResult.SUBSCRIBED
 
 
 def subscribe_user(newsletter, user):
