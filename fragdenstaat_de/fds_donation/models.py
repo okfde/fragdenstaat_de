@@ -1,7 +1,19 @@
+import uuid
+from urllib.parse import urlencode
+
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+from django.utils import timezone
+from django.urls import reverse
+from django.utils.translation import pgettext, ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
+
+from django_countries.fields import CountryField
+
+from froide.account.models import User
+
+from froide_payment.models import Order, Payment, Subscription
 
 
 INTERVAL_SETTINGS_CHOICES = [
@@ -9,6 +21,146 @@ INTERVAL_SETTINGS_CHOICES = [
     ('recurring', _('Only recurring')),
     ('once_recurring', _('Both')),
 ]
+
+
+SALUTATION_CHOICES = (
+    ('', pgettext('salutation neutral', 'Hello')),
+    ('formal_f', pgettext(
+        'salutation female formal', 'Dear Ms.')),
+    ('formal_m', pgettext(
+        'salutation male formal', 'Dear Mr.')),
+    ('informal_f', pgettext(
+        'salutation female informal', 'Dear')),
+    ('informal_m', pgettext(
+        'salutation male informal', 'Dear')),
+)
+SALUTATION_DICT = dict(SALUTATION_CHOICES)
+
+
+class Donor(models.Model):
+    salutation = models.CharField(max_length=25, blank=True)
+    first_name = models.CharField(max_length=256, blank=True)
+    last_name = models.CharField(max_length=256, blank=True)
+    company_name = models.CharField(max_length=256, blank=True)
+    address = models.CharField(max_length=256, blank=True)
+    city = models.CharField(max_length=256, blank=True)
+    postcode = models.CharField(max_length=20, blank=True)
+    country = CountryField(blank=True)
+
+    email = models.EmailField(blank=True, default='')
+
+    active = models.BooleanField(default=False)
+    first_donation = models.DateTimeField(default=timezone.now)
+    last_donation = models.DateTimeField(default=timezone.now)
+
+    user = models.ForeignKey(
+        User, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    subscription = models.ForeignKey(
+        Subscription, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    email_confirmation_sent = models.DateTimeField(null=True, blank=True)
+    email_confirmed = models.DateTimeField(null=True, blank=True)
+    contact_allowed = models.BooleanField(default=False)
+    become_user = models.BooleanField(default=False)
+    receipt = models.BooleanField(default=False)
+
+    note = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ('-first_donation',)
+        verbose_name = _('donor')
+        verbose_name_plural = _('donors')
+
+    def get_full_name(self):
+        return '{} {}'.format(self.first_name, self.last_name)
+
+    def get_salutation(self):
+        salutation = SALUTATION_DICT.get(self.salutation, None)
+        if salutation is None:
+            salutation = self.salutation
+        if 'informal' in self.salutation:
+            name = self.first_name
+        elif 'formal' in self.salutation:
+            name = self.last_name
+        else:
+            name = self.get_full_name()
+        return '{} {}'.format(
+            salutation,
+            name
+        )
+
+    def get_full_address(self):
+        return '\n'.join(x for x in [
+            self.address,
+            '{} {}'.format(self.postcode, self.city),
+            self.country.name
+        ] if x)
+
+    def get_absolute_url(self):
+        return reverse('fds_donation:donor', kwargs={
+            'token': str(self.uuid)
+        })
+
+    def get_url(self):
+        return settings.SITE_URL + self.get_absolute_url()
+
+
+class Donation(models.Model):
+    donor = models.ForeignKey(
+        Donor, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    timestamp = models.DateTimeField(default=timezone.now)
+    completed = models.BooleanField(default=False)
+    amount = models.DecimalField(
+        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
+    )
+    received = models.BooleanField(default=False)
+    email_sent = models.DateTimeField(null=True, blank=True)
+
+    note = models.TextField()
+    reference = models.CharField(max_length=255, blank=True)
+
+    order = models.OneToOneField(
+        Order, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    payment = models.OneToOneField(
+        Payment, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+
+    class Meta:
+        ordering = ('-timestamp',)
+        verbose_name = _('donation')
+        verbose_name_plural = _('donations')
+
+    def get_success_url(self):
+        if self.donor and self.donor.user:
+            return self.donor.get_absolute_url()
+        if self.donor:
+            url = reverse('fds_donation:donate-complete')
+            query = {
+                'email': self.donor.email.encode('utf-8'),
+            }
+            if self.order:
+                query.update({
+                    'order': self.order.get_absolute_url().encode('utf-8'),
+                })
+                if self.order.subscription:
+                    sub_url = self.order.subscription.get_absolute_url()
+                    query.update({
+                        'subscription': sub_url.encode('utf-8')
+                    })
+            query = urlencode(query)
+            return '%s?%s' % (url, query)
+        if self.order:
+            return self.order.get_absolute_url()
+        return '/'
 
 
 class DonationGift(models.Model):
