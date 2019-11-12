@@ -1,0 +1,41 @@
+{% extends "fds_donation/base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block app_body %}
+  <h2 class="text-center">{% trans "Thank you for your donation!" %}</h2>
+  <div class="row mt-5 justify-content-center">
+    <div class="col-6 col-md-3">
+        <img src="{% static 'img/onboarding/confirm-email.svg' %}" alt="{% trans 'You got mail' %}">
+    </div>
+  </div>
+  <div class="row mt-5 justify-content-center">
+    <div class="col-md-8 text-center">
+      <h1>
+        {% trans "Please confirm your email address!" %}
+      </h1>
+    </div>
+  </div>
+  <div class="row mb-5 justify-content-center">
+    <div class="col-md-8">
+      {% if email %}
+        <ol class="lead">
+          <li>
+            {% blocktrans%}Check your emails for your account{% endblocktrans %}<br/>
+            <strong class="highlight">{{ email }}</strong>
+          </li>
+          <li>
+            {% blocktrans %}
+              Click the <strong class="highlight">confirmation link</strong> in the email from {{ SITE_NAME }}.
+            {% endblocktrans %}
+          </li>
+        </ol>
+      {% else %}
+        <p class="lead">
+          {% trans "Please go to your email account and <strong>click the confirmation link.</strong>" %}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

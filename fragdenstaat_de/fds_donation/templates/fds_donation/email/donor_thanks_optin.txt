@@ -1,0 +1,12 @@
+{% autoescape off %}{{ salutation }},
+
+vielen Dank für Ihre Spende!
+
+Bitte bestätigen Sie Ihre E-Mail-Adresse, indem Sie hier klicken:
+
+{{ action_url }}
+
+
+Beste Grüße
+{{ site_name }}
+{% endautoescape off %}

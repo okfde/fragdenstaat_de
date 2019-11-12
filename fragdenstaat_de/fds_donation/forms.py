@@ -15,17 +15,22 @@ from froide_payment.models import CHECKOUT_PAYMENT_CHOICES_DICT
 from froide_payment.forms import StartPaymentMixin
 from froide_payment.utils import interval_description
 
-from .models import DonationGift, INTERVAL_SETTINGS_CHOICES
+from .models import (
+    Donation, DonationGift, INTERVAL_SETTINGS_CHOICES,
+    SALUTATION_CHOICES
+)
+from .services import get_or_create_donor
 from .widgets import AmountInput, InlineRadioSelect
 
 
-CROWDFUNDING_METHODS = (
-    'creditcard', 'lastschrift', 'paypal', 'sofort'
+PAYMENT_METHOD_LIST = (
+    'creditcard', 'lastschrift', 'paypal', 'sofort',
+    'banktransfer'
 )
 
 PAYMENT_METHODS = [
     (method, CHECKOUT_PAYMENT_CHOICES_DICT[method])
-    for method in CROWDFUNDING_METHODS
+    for method in PAYMENT_METHOD_LIST
 ]
 
 
@@ -119,12 +124,12 @@ class AmountForm(forms.Form):
         min_value=5,
         max_digits=19,
         decimal_places=2,
-        label=_('Amount'),
+        label=_('Donation amount:'),
         widget=AmountInput(
             attrs={
                 'autocomplete': 'off',
                 'title': _('Amount in Euro, comma as decimal separator'),
-                'pattern': '^[1-9]{1}\d{0,4}(?:,\d\d)?$',
+                'pattern': r'^[1-9]{1}\d{0,4}(?:,\d\d)?$',
             },
             presets=[]
         )
@@ -143,7 +148,7 @@ class AmountForm(forms.Form):
         required=False,
         label=_('Donation reference'),
         choices=[
-            ('', 'Allgemeine Spende'),
+            (_('General donation'), _('General donation')),
         ],
         widget=forms.Select(
             attrs={
@@ -165,13 +170,8 @@ class AmountForm(forms.Form):
 class DonorForm(forms.Form):
     salutation = forms.ChoiceField(
         label=_('Salutation'),
-        required=True,
-        choices=(
-            ('', '----'),
-            ('Frau', 'Frau'),
-            ('Herr', 'Herr'),
-            ('-', 'Divers'),
-        ),
+        required=False,
+        choices=SALUTATION_CHOICES,
         widget=forms.Select(attrs={
             'class': "form-control"
         })
@@ -351,14 +351,15 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
         if len(interval_choices) == 1:
             self.fields['interval'].widget = forms.HiddenInput()
         self.fields['amount'].widget.presets = self.settings['amount_presets']
-
         if self.settings['reference']:
             self.fields['reference'].initial = self.settings['reference']
             self.fields['reference'].widget = forms.HiddenInput()
         else:
-            self.fields['reference'].widget.choices.extend([
-                (x.slug, x.name) for x in Campaign.objects.get_filter_list()
-            ])
+            choices = [
+                (x.name, x.name) for x in Campaign.objects.get_filter_list()
+            ]
+            self.fields['reference'].widget.choices.extend(choices)
+            self.fields['reference'].choices.extend(choices)
 
     def get_payment_metadata(self, data):
         if data['interval'] > 0:
@@ -369,27 +370,35 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
                     str_interval=interval_description(data['interval']),
                     site_name=settings.SITE_NAME
                 ),
-                'description': settings.SITE_NAME,
+                'description': '{} ({})'.format(
+                    data['reference'],
+                    settings.SITE_NAME
+                ),
                 'kind': 'fds_donation.Donation',
             }
         else:
             return {
                 'category': _('Donation for %s') % settings.SITE_NAME,
-                'description': settings.SITE_NAME,
+                'description': '{} ({})'.format(
+                    data['reference'],
+                    settings.SITE_NAME
+                ),
                 'kind': 'fds_donation.Donation',
             }
 
     def create_related_object(self, order, data):
-        pass
-        # Create donor/donation donation
-        # contribution = Contribution.objects.create(
-        #     crowdfunding=self.crowdfunding,
-        #     user=self.user,
-        #     amount=self.cleaned_data['amount'],
-        #     note=self.cleaned_data.get('note', ''),
-        #     public=self.cleaned_data.get('public', False),
-        #     order=order,
-        # )
+        donor = get_or_create_donor(
+            self.cleaned_data,
+            user=self.user,
+            subscription=order.subscription
+        )
+        donation = Donation.objects.create(
+            donor=donor,
+            amount=order.total_gross,
+            reference=data.get('reference', ''),
+            order=order,
+        )
+        return donation
 
     def save(self):
         data = self.cleaned_data

@@ -1,0 +1,7 @@
+{% extends "froide_payment/payment/status/base.html" %}
+
+{% load i18n %}
+
+{% block custom_content %}
+  {% include "fds_donation/includes/banktransfer.html" %}
+{% endblock %}
