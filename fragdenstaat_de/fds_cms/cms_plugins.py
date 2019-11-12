@@ -215,7 +215,7 @@ class SetPasswordFormPlugin(CMSPluginBase):
     module = _("Account")
     name = _('Set Password Form')
     text_enabled = True
-    render_template = "account/cms_plugins/set_password.html"
+    render_template = "account/includes/set_password_now.html"
 
 
 @plugin_pool.register_plugin
