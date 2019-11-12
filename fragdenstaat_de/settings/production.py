@@ -69,6 +69,7 @@ class FragDenStaat(FragDenStaatBase):
             'signing_secret': env('STRIPE_WEBHOOK_SOFORT_SIGNING_KEY'),
         }),
         'lastschrift': ('froide_payment.provider.LastschriftProvider', {}),
+        'banktransfer': ('froide_payment.provider.BanktransferProvider', {}),
     }
 
     CACHES = {'default': django_cache_url.config()}
