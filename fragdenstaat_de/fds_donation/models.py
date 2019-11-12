@@ -75,6 +75,12 @@ class Donor(models.Model):
         verbose_name = _('donor')
         verbose_name_plural = _('donors')
 
+    def __str__(self):
+        return '{} ({})'.format(
+            self.get_full_name(),
+            self.email
+        )
+
     def get_full_name(self):
         return '{} {}'.format(self.first_name, self.last_name)
 
@@ -138,6 +144,11 @@ class Donation(models.Model):
         ordering = ('-timestamp',)
         verbose_name = _('donation')
         verbose_name_plural = _('donations')
+
+    def __str__(self):
+        return '{} ({} - {})'.format(
+            self.amount, self.timestamp, self.donor
+        )
 
     def get_success_url(self):
         if self.donor and self.donor.user:
