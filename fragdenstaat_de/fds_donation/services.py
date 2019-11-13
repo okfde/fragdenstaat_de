@@ -100,6 +100,7 @@ def send_donation_email(donation):
         'last_name': donor.last_name,
         'salutation': donor.get_salutation(),
         'payment': donation.payment,
+        'order': donation.payment.order
     }
     context.update(extra_context)
 
