@@ -8,8 +8,8 @@
 {% endif %}
 
 {# start render figure/figcaption #}
-{% if instance.caption_text %}
-    <figure>
+{% if instance.caption_text or instance.picture.author or instance.picture.description %}
+  <figure>
 {% endif %}
 {# end render figure/figcaption #}
 
@@ -54,14 +54,14 @@
 {% endif %}
 
 {# start render figure/figcaption #}
-{% if instance.caption_text %}
-      <figcaption class="text-right">
-        {{ instance.caption_text }}
-        {% if instance.picture.author %}
-          {% if instance.caption_text %} – {% endif %}
-          {{ instance.picture.author|markdown }}
-        {% endif %}
-      </figcaption>
+{% if instance.caption_text or instance.picture.author or instance.picture.description %}
+  <figcaption class="text-right">
+    {% if instance.caption_text }}{{ instance.caption_text }}{% elif instance.picture.description %}{{ instance.picture.description }}{% endif %}
+    {% if instance.picture.author %}
+      {% if instance.caption_text or instance.picture.description %} – {% endif %}
+      {{ instance.picture.author|markdown }}
+    {% endif %}
+  </figcaption>
   </figure>
 {% endif %}
 {# end render figure/figcaption #}
