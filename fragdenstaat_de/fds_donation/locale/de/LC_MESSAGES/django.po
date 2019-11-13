@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-12 18:08+0100\n"
-"PO-Revision-Date: 2019-11-12 15:51+0100\n"
+"POT-Creation-Date: 2019-11-13 09:55+0100\n"
+"PO-Revision-Date: 2019-11-13 09:55+0100\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "FragDenStaat Donations"
 msgstr "FragDenStaat-Spenden"
 
-#: apps.py:24
+#: apps.py:23
 msgid "Your donations"
 msgstr "Ihre Spenden"
 
@@ -57,6 +57,10 @@ msgstr "Spendenrhythmus"
 #: forms.py:149
 msgid "Donation reference"
 msgstr "Verwendungszweck"
+
+#: forms.py:151
+msgid "General donation"
+msgstr "Allgemeine Spende"
 
 #: forms.py:161
 msgid "Payment method"
@@ -166,7 +170,7 @@ msgstr "vierteljährlich"
 msgid "yearly"
 msgstr "jährlich"
 
-#: forms.py:367 forms.py:378
+#: forms.py:367 forms.py:381
 #, python-format
 msgid "Donation for %s"
 msgstr "Spende für %s"
@@ -176,19 +180,19 @@ msgstr "Spende für %s"
 msgid "{amount} EUR donation {str_interval} to {site_name}"
 msgstr "{amount} EUR Spende {str_interval} an {site_name}"
 
-#: forms.py:409
+#: forms.py:415
 msgid "Your name"
 msgstr "Ihr Name"
 
-#: forms.py:416
+#: forms.py:422
 msgid "Your email address"
 msgstr "Deine E-Mail-Adresse"
 
-#: forms.py:422
+#: forms.py:428
 msgid "Shipping address"
 msgstr "Versandadresse"
 
-#: forms.py:428
+#: forms.py:434
 msgid "Please choose your donation gift"
 msgstr "Wählen Sie Ihr Dankeschön aus"
 
@@ -212,22 +216,22 @@ msgstr "Hallo"
 #: models.py:29
 msgctxt "salutation female formal"
 msgid "Dear Ms."
-msgstr "Sehr geehrte Frau %s"
+msgstr "Sehr geehrte Frau"
 
 #: models.py:31
 msgctxt "salutation male formal"
 msgid "Dear Mr."
-msgstr "Sehr geehrter Herr %s"
+msgstr "Sehr geehrter Herr"
 
 #: models.py:33
 msgctxt "salutation female informal"
 msgid "Dear"
-msgstr "Liebe %s"
+msgstr "Liebe"
 
 #: models.py:35
 msgctxt "salutation male informal"
 msgid "Dear"
-msgstr "Lieber %s"
+msgstr "Lieber"
 
 #: models.py:75
 msgid "donor"
@@ -237,11 +241,11 @@ msgstr "SpenderIn"
 msgid "donors"
 msgstr "SpenderInnen"
 
-#: models.py:139
+#: models.py:145
 msgid "donation"
 msgstr "Spende"
 
-#: models.py:140
+#: models.py:146
 msgid "donations"
 msgstr "Spenden"
 
@@ -315,7 +319,7 @@ msgstr ""
 "^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
 "[0-9a-z]{12})/$"
 
-#: views.py:100
+#: views.py:105
 msgid ""
 "We have no associated donations with your account. If you have donated, let "
 "us know! Otherwise feel free to donate below."
