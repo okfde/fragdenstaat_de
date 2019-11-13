@@ -5,8 +5,10 @@
   Vielen Dank für Ihre Spende!
 </h1>
 
-{% if last_donation and last_donation.payment.variant == 'lastschrift' %}
-  {% include "fds_donation/includes/banktransfer.html" %}
+{% if last_donation and last_donation.payment.variant == 'banktransfer' %}
+<div class="mt-5 mb-5">
+  {% include "fds_donation/includes/banktransfer.html" with payment=last_donation.payment order=last_donation.payment.order %}
+</div>
 {% endif %}
 
 <p>
@@ -35,6 +37,7 @@
       <td>{{ donation.amount }}&nbsp;Euro</td>
       <td>{{ donation.reference }}</td>
       <td>
+        {{ donation.payment.get_status_display }}
         <a href="{{ donation.order.get_absolute_url }}">Details</a>
       </td>
     </li>

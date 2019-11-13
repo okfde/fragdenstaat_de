@@ -1,0 +1,13 @@
+{% if not payment.is_confirmed %}
+## {% if order.is_recurring %}Bitte richten Sie einen Dauerauftrag ein{% else %}Bitte überweisen Sie {{ order.total_gross }} EUR an{% endif %}
+
+Kontoinhaber: Open Knowledge Foundation Deutschland e.V.
+IBAN: DE 36 4306 0967 1173 8932 00
+BIC: GENODEM1GLS
+Betrag: {{ order.total_gross }} EUR
+{% if order.is_recurring %}Turnus:  {{ order.subscription.plan.get_interval_description }}{% endif %}
+Verwendungszweck: {{ order.remote_reference }}
+BLZ: 430 609 67 (GLS Bank)
+
+Vielen Dank!
+{% endif %}
