@@ -6,6 +6,8 @@ from .views import (
     DonationCompleteView
 )
 
+app_name = 'fds_donation'
+
 urlpatterns = [
     path('order/<slug:category>/', make_order, name='make_order'),
     path(pgettext_lazy('url pattern', 'donate/'), DonationView.as_view(), name='donate'),

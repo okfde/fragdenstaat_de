@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -19,7 +19,7 @@ class FdsDonationConfig(AppConfig):
         def get_donation_menu_item(request):
             return MenuItem(
                 section='after_settings', order=0,
-                url=reverse('fds_donation:donor-user'),
+                url=reverse_lazy('fds_donation:donor-user'),
                 label=_('Your donations')
             )
 
