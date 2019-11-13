@@ -126,6 +126,7 @@ def create_donation_from_payment(payment, ):
         pass
     # No donation, so no donor, let's create one
     donor = get_or_create_donor({
+        'email': order.user_email,
         'first_name': order.first_name,
         'last_name': order.last_name,
         'address': order.street_address_1,
