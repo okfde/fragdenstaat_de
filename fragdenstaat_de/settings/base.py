@@ -365,6 +365,8 @@ class FragDenStaatBase(German, Base):
     PAYMENT_USES_SSL = False
     PAYMENT_MODEL = 'froide_payment.Payment'
     PAYMENT_VARIANTS = {
+        'lastschrift': ('froide_payment.provider.LastschriftProvider', {}),
+        'banktransfer': ('froide_payment.provider.BanktransferProvider', {}),
         'default': ('payments.dummy.DummyProvider', {})
     }
 
