@@ -85,14 +85,14 @@ class EmailTemplate(models.Model):
             'subject': self.subject
         })
 
-    def get_body_html(self, context=None):
+    def get_body_html(self, context=None, preview=False):
         if context is None:
             context = {}
         self.update_context(context)
         template_str = self.render_email_html(context=context)
         template = Template(template_str)
         html = template.render(Context(context))
-        if '{{' in html or '}}' in html and context:
+        if '{{' in html or '}}' in html and not preview:
             raise ValueError('Likely variable definition broken')
         return html
 
@@ -145,7 +145,7 @@ class EmailTemplate(models.Model):
         ctx = Context(context)
         subject = self.subject_template.render(ctx)
         text = self.get_body_text(context, preview=preview)
-        html = self.get_body_html(context)
+        html = self.get_body_html(context, preview=preview)
         return EmailContent(subject, text, html)
 
     def get_email_bytes(self, context, recipients=None):
