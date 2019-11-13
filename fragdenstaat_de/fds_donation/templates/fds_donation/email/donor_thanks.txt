@@ -2,7 +2,7 @@
 
 vielen Dank für Ihre anhaltende Unterstützung!
 
-{% if payment.variant == 'lastschrift' %}{% include "fds_donation/includes/banktransfer.txt" %}{% endif %}
+{% if payment.variant == 'banktransfer' %}{% include "fds_donation/includes/banktransfer.txt" %}{% endif %}
 
 Beste Grüße
 {{ site_name }}
