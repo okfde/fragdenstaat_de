@@ -92,7 +92,7 @@ class EmailTemplate(models.Model):
         template_str = self.render_email_html(context=context)
         template = Template(template_str)
         html = template.render(Context(context))
-        if '{{' in html or '}}' in html:
+        if '{{' in html or '}}' in html and context:
             raise ValueError('Likely variable definition broken')
         return html
 
@@ -104,7 +104,7 @@ class EmailTemplate(models.Model):
             text = render_text(self, self.email_body)
         return COLLAPSE_NEWLINES.sub('\r\n\r\n', text)
 
-    def get_body_text(self, context=None):
+    def get_body_text(self, context=None, preview=False):
         template_str = self.render_email_text()
         template_str = '{top}{body}{bottom}{footer}'.format(
             top='{% autoescape off %}',
@@ -117,7 +117,7 @@ class EmailTemplate(models.Model):
         self.update_context(context)
         template = Template(template_str)
         html = template.render(Context(context))
-        if '{{' in html or '}}' in html:
+        if '{{' in html or '}}' in html and not preview:
             raise ValueError('Likely variable definition broken')
         return html
 
@@ -137,14 +137,14 @@ class EmailTemplate(models.Model):
             context_vars.extend(intent.get_context({}, preview=True).keys())
         return context_vars
 
-    def get_email_content(self, context):
+    def get_email_content(self, context, preview=False):
         if self.mail_intent:
             intent = mail_registry.get_intent(self.mail_intent)
             if intent is not None:
                 context = intent.get_context(context)
         ctx = Context(context)
         subject = self.subject_template.render(ctx)
-        text = self.get_body_text(context)
+        text = self.get_body_text(context, preview=preview)
         html = self.get_body_html(context)
         return EmailContent(subject, text, html)
 
@@ -153,7 +153,7 @@ class EmailTemplate(models.Model):
             if context.get('request'):
                 recipients = [context['request'].user.email]
 
-        content = self.get_email_content(context)
+        content = self.get_email_content(context, preview=True)
         email = EmailMultiAlternatives(
             content.subject, content.text,
             settings.DEFAULT_FROM_EMAIL, recipients
