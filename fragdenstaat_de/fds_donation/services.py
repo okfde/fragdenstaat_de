@@ -54,7 +54,7 @@ new_donor_thanks_email = mail_registry.register(
     'fds_donation/email/donor_new_thanks',
     (
         'name', 'first_name', 'last_name', 'salutation',
-        'payment',
+        'payment', 'order',
     )
 )
 
@@ -62,7 +62,7 @@ donor_thanks_email = mail_registry.register(
     'fds_donation/email/donor_thanks',
     (
         'name', 'first_name', 'last_name', 'salutation',
-        'payment',
+        'payment', 'order',
     )
 )
 
@@ -70,7 +70,7 @@ donor_optin_email = mail_registry.register(
     'fds_donation/email/donor_thanks_optin',
     (
         'name', 'first_name', 'last_name', 'salutation',
-        'payment',
+        'payment', 'order',
     )
 )
 
