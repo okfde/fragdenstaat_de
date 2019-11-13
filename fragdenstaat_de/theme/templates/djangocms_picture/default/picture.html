@@ -56,10 +56,14 @@
 {# start render figure/figcaption #}
 {% if instance.caption_text or instance.picture.author or instance.picture.description %}
   <figcaption class="text-right">
-    {% if instance.caption_text %}{{ instance.caption_text }}{% elif instance.picture.description %}{{ instance.picture.description }}{% endif %}
+    <div class="picture-description">
+      {% if instance.caption_text %}{{ instance.caption_text }}{% elif instance.picture.description %}{{ instance.picture.description }}{% endif %}
+      {% if instance.picture.author %} – {% endif %}
+    </div>
     {% if instance.picture.author %}
-      {% if instance.caption_text or instance.picture.description %} – {% endif %}
-      {{ instance.picture.author|markdown }}
+      <div class="picture-credits">
+        {{ instance.picture.author|markdown }}
+      </div>
     {% endif %}
   </figcaption>
   </figure>
