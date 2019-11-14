@@ -129,6 +129,7 @@ class Donation(models.Model):
     email_sent = models.DateTimeField(null=True, blank=True)
 
     note = models.TextField()
+    purpose = models.CharField(max_length=255, blank=True)
     reference = models.CharField(max_length=255, blank=True)
 
     order = models.OneToOneField(
@@ -180,6 +181,8 @@ class DonationGift(models.Model):
     category_slug = models.SlugField(max_length=255, blank=True)
 
     class Meta:
+        verbose_name = _('donation gift')
+        verbose_name_plural = _('donation gifts')
         ordering = ('name',)
 
     def __str__(self):
@@ -202,7 +205,8 @@ class DonationFormCMSPlugin(CMSPlugin):
     initial_amount = models.IntegerField(null=True, blank=True)
     initial_interval = models.IntegerField(null=True, blank=True)
 
-    reference = models.SlugField(blank=True)
+    reference = models.CharField(blank=True, max_length=255)
+    purpose = models.CharField(blank=True, max_length=255)
 
     form_action = models.CharField(max_length=255, blank=True)
     next_url = models.CharField(max_length=255, blank=True)
@@ -223,6 +227,7 @@ class DonationFormCMSPlugin(CMSPlugin):
                 'initial_amount': self.initial_amount,
                 'initial_interval': self.initial_amount,
                 'reference': self.reference,
+                'purpose': self.purpose,
             }
         )
         return form.make_donation_form(**kwargs)
