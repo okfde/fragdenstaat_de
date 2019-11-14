@@ -1,0 +1,12 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+{% block object-tools-items %}
+{% if original.pk %}
+  <li>
+    <a href="{% url 'admin:fds_donation_donation_changelist' %}?donor={{ original.pk }}">
+      {% trans "Donations" %}
+    </a>
+  </li>
+{% endif %}
+{{ block.super }}
+{% endblock %}
