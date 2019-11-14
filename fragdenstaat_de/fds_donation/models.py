@@ -220,13 +220,15 @@ class DonationFormCMSPlugin(CMSPlugin):
     def make_form(self, **kwargs):
         from .forms import DonationSettingsForm
 
+        reference = kwargs.pop('reference', '')
+
         form = DonationSettingsForm(
             data={
                 'interval': self.interval,
                 'amount_presets': self.amount_presets,
                 'initial_amount': self.initial_amount,
                 'initial_interval': self.initial_amount,
-                'reference': self.reference,
+                'reference': self.reference or reference,
                 'purpose': self.purpose,
             }
         )

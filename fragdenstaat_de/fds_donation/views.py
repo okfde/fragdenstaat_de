@@ -35,7 +35,9 @@ class DonationView(FormView):
         """Return an instance of the form to be used in this view."""
 
         form_kwargs = self.get_form_kwargs()
-        form_factory = DonationFormFactory()
+        form_factory = DonationFormFactory(
+            reference=self.request.GET.get('pk_campaign', '')
+        )
         form = form_factory.make_form(
             user=self.request.user,
             action=self.get_form_action(),
