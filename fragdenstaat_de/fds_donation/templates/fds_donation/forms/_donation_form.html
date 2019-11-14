@@ -4,6 +4,7 @@
 <form action="{{ form.action }}" method="POST" class="donation-form">
   {% csrf_token %}
   {{ form.form_settings }}
+  {{ form.reference }}
   <fieldset>
     <legend class="bg-primary text-white px-2 py-0 font-weight-bold">Mit meiner Spende Informationen befreien</legend>
     <div class="row">
@@ -20,12 +21,12 @@
         </div>
       </div>
     {% endif %}
-    {% if form.reference.is_hidden %}
-      {{ form.reference }}
+    {% if form.purpose.is_hidden %}
+      {{ form.purpose }}
     {% else %}
     <div class="row">
       <div class="col-12">
-        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.reference %}
+        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.purpose %}
       </div>
     </div>
     {% endif %}

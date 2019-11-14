@@ -44,6 +44,9 @@ class DonationSettingsForm(forms.Form):
     reference = forms.CharField(
         required=False
     )
+    purpose = forms.CharField(
+        required=False
+    )
 
     def clean_amount_presets(self):
         presets = self.cleaned_data['amount_presets']
@@ -62,6 +65,7 @@ class DonationFormFactory:
     default = {
         'interval': 'once_recurring',
         'reference': '',
+        'purpose': '',
         'amount_presets': [5, 20, 50],
         'initial_amount': None,
         'initial_interval': 0,
@@ -144,9 +148,9 @@ class AmountForm(forms.Form):
             'class': 'form-check-input'
         })
     )
-    reference = forms.ChoiceField(
+    purpose = forms.ChoiceField(
         required=False,
-        label=_('Donation reference'),
+        label=_('Donation purpose'),
         choices=[
             (_('General donation'), _('General donation')),
         ],
@@ -156,6 +160,10 @@ class AmountForm(forms.Form):
                 'class': 'form-control'
             },
         )
+    )
+    reference = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput()
     )
     payment_method = forms.ChoiceField(
         label=_('Payment method'),
@@ -250,6 +258,7 @@ class DonorForm(forms.Form):
         label=_('Country'),
         required=False,
         choices=(
+            ('', '---'),
             ('DE', _('Germany')),
             ('AT', _('Austria')),
             ('CH', _('Switzerland')),
@@ -324,6 +333,7 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
             self.fields['address'].initial = parsed.get('address', '')
             self.fields['postcode'].initial = parsed.get('postcode', '')
             self.fields['city'].initial = parsed.get('city', '')
+            self.fields['country'].initial = 'DE'
             self.fields.pop('account')
         else:
             self.fields['account'].choices = (
@@ -339,8 +349,8 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
         if 'once' in self.settings['interval']:
             interval_choices.append(('0', _('once')),)
         else:
-            # No once option -> not choosing reference
-            self.fields['reference'].widget = forms.HiddenInput()
+            # No once option -> not choosing purpose
+            self.fields['purpose'].widget = forms.HiddenInput()
         if 'recurring' in self.settings['interval']:
             interval_choices.extend([
                 ('1', _('monthly')),
@@ -351,15 +361,16 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
         if len(interval_choices) == 1:
             self.fields['interval'].widget = forms.HiddenInput()
         self.fields['amount'].widget.presets = self.settings['amount_presets']
-        if self.settings['reference']:
-            self.fields['reference'].initial = self.settings['reference']
-            self.fields['reference'].widget = forms.HiddenInput()
+        self.fields['reference'].initial = self.settings['reference']
+        if self.settings['purpose']:
+            self.fields['purpose'].initial = self.settings['reference']
+            self.fields['purpose'].widget = forms.HiddenInput()
         else:
             choices = [
                 (x.name, x.name) for x in Campaign.objects.get_filter_list()
             ]
-            self.fields['reference'].widget.choices.extend(choices)
-            self.fields['reference'].choices.extend(choices)
+            self.fields['purpose'].widget.choices.extend(choices)
+            self.fields['purpose'].choices.extend(choices)
 
     def get_payment_metadata(self, data):
         if data['interval'] > 0:
@@ -370,17 +381,14 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
                     str_interval=interval_description(data['interval']),
                     site_name=settings.SITE_NAME
                 ),
-                'description': '{} ({})'.format(
-                    data['reference'],
-                    settings.SITE_NAME
-                ),
+                'description': _('Donation for %s') % settings.SITE_NAME,
                 'kind': 'fds_donation.Donation',
             }
         else:
             return {
                 'category': _('Donation for %s') % settings.SITE_NAME,
                 'description': '{} ({})'.format(
-                    data['reference'],
+                    data['purpose'],
                     settings.SITE_NAME
                 ),
                 'kind': 'fds_donation.Donation',
@@ -396,6 +404,7 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
             donor=donor,
             amount=order.total_gross,
             reference=data.get('reference', ''),
+            purpose=data.get('purpose', order.description),
             order=order,
         )
         return donation

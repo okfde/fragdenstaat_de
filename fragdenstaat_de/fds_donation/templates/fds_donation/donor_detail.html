@@ -35,7 +35,7 @@
     <tr>
       <td>{{ donation.timestamp|date:"DATE_FORMAT" }}</td>
       <td>{{ donation.amount }}&nbsp;Euro</td>
-      <td>{{ donation.reference }}</td>
+      <td>{{ donation.purpose }}</td>
       <td>
         {{ donation.payment.get_status_display }}
         <a href="{{ donation.order.get_absolute_url }}">Details</a>
