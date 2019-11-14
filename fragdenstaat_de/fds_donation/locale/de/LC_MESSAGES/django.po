@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-13 09:55+0100\n"
-"PO-Revision-Date: 2019-11-13 09:55+0100\n"
+"POT-Creation-Date: 2019-11-14 15:48+0100\n"
+"PO-Revision-Date: 2019-11-14 15:48+0100\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -31,6 +31,7 @@ msgid "FragDenStaat Donation Gift App"
 msgstr "FragDenStaat-Spenden-Geschenk-App"
 
 #: cms_plugins.py:14 cms_plugins.py:48
+#: templates/admin/fds_donation/donor/change_form.html:7
 msgid "Donations"
 msgstr "Spenden"
 
@@ -42,111 +43,111 @@ msgstr "Spenden-Geschenk-Form"
 msgid "Donation Form"
 msgstr "Spendenform"
 
-#: forms.py:127
+#: forms.py:131
 msgid "Donation amount:"
 msgstr "Spendenbetrag:"
 
-#: forms.py:131
+#: forms.py:135
 msgid "Amount in Euro, comma as decimal separator"
 msgstr "Betrag in Euro, Komma als Dezimaltrenner"
 
-#: forms.py:142
+#: forms.py:146
 msgid "Frequency"
 msgstr "Spendenrhythmus"
 
-#: forms.py:149
-msgid "Donation reference"
+#: forms.py:153
+msgid "Donation purpose"
 msgstr "Verwendungszweck"
 
-#: forms.py:151
+#: forms.py:155
 msgid "General donation"
 msgstr "Allgemeine Spende"
 
-#: forms.py:161
+#: forms.py:169
 msgid "Payment method"
 msgstr "Zahlungsweise"
 
-#: forms.py:172
+#: forms.py:180
 msgid "Salutation"
 msgstr "Anrede"
 
-#: forms.py:181 forms.py:183
+#: forms.py:189 forms.py:191
 msgid "First name"
 msgstr "Vorname"
 
-#: forms.py:189 forms.py:191
+#: forms.py:197 forms.py:199
 msgid "Last name"
 msgstr "Nachname"
 
-#: forms.py:196
+#: forms.py:204
 msgid "Company"
 msgstr "Firma"
 
-#: forms.py:201
+#: forms.py:209
 msgid "Company name"
 msgstr "Firmenname"
 
-#: forms.py:212 forms.py:281 forms.py:335
+#: forms.py:220 forms.py:290 forms.py:345
 msgid "No, thank you."
 msgstr "Nein, danke."
 
-#: forms.py:213
+#: forms.py:221
 msgid "Yes, once a year."
 msgstr "Ja, einmal im Jahr."
 
-#: forms.py:217
+#: forms.py:225
 msgid "Do you want a donation receipt?"
 msgstr "Möchten Sie eine Spendenbescheinigung?"
 
-#: forms.py:219 forms.py:287 forms.py:302
+#: forms.py:227 forms.py:296 forms.py:311
 msgid "You have to decide."
 msgstr "Sie müssen sich entscheiden."
 
-#: forms.py:224 forms.py:227
+#: forms.py:232 forms.py:235
 msgid "Street, house number"
 msgstr "Straße, Hausnummer"
 
-#: forms.py:233 forms.py:236
+#: forms.py:241 forms.py:244
 msgid "Postcode"
 msgstr "Postleitzahl"
 
-#: forms.py:242 forms.py:245
+#: forms.py:250 forms.py:253
 msgid "City"
 msgstr "Ort"
 
-#: forms.py:250
+#: forms.py:258
 msgid "Country"
 msgstr "Land"
 
-#: forms.py:253
+#: forms.py:262
 msgid "Germany"
 msgstr "Deutschland"
 
-#: forms.py:254
+#: forms.py:263
 msgid "Austria"
 msgstr "Österreich"
 
-#: forms.py:255
+#: forms.py:264
 msgid "Switzerland"
 msgstr "Schweiz"
 
-#: forms.py:262
+#: forms.py:271
 msgid "Email"
 msgstr "E-Mail"
 
-#: forms.py:267
+#: forms.py:276
 msgid "e.g. name@example.org"
 msgstr "z.B. name@beispiel.de"
 
-#: forms.py:280
+#: forms.py:289
 msgid "Yes, please!"
 msgstr "Ja, gerne!"
 
-#: forms.py:285
+#: forms.py:294
 msgid "News"
 msgstr "Neuigkeiten"
 
-#: forms.py:297
+#: forms.py:306
 msgid ""
 "With your donation you can also create a FragDenStaat account where you can "
 "manage your details, donations and requests."
@@ -154,45 +155,45 @@ msgstr ""
 "In Ihrem FragDenStaat-Konto können Sie Ihre Daten pflegen, Ihre Spenden "
 "einsehen sowie Ihre Anfragen verwalten."
 
-#: forms.py:340
+#: forms.py:350
 msgid "once"
 msgstr "einmalig"
 
-#: forms.py:346
+#: forms.py:356
 msgid "monthly"
 msgstr "monatlich"
 
-#: forms.py:347
+#: forms.py:357
 msgid "quarterly"
 msgstr "vierteljährlich"
 
-#: forms.py:348
+#: forms.py:358
 msgid "yearly"
 msgstr "jährlich"
 
-#: forms.py:367 forms.py:381
+#: forms.py:378 forms.py:384 forms.py:389
 #, python-format
 msgid "Donation for %s"
 msgstr "Spende für %s"
 
-#: forms.py:368
+#: forms.py:379
 #, python-brace-format
 msgid "{amount} EUR donation {str_interval} to {site_name}"
 msgstr "{amount} EUR Spende {str_interval} an {site_name}"
 
-#: forms.py:415
+#: forms.py:424
 msgid "Your name"
 msgstr "Ihr Name"
 
-#: forms.py:422
+#: forms.py:431
 msgid "Your email address"
 msgstr "Deine E-Mail-Adresse"
 
-#: forms.py:428
+#: forms.py:437
 msgid "Shipping address"
 msgstr "Versandadresse"
 
-#: forms.py:434
+#: forms.py:443
 msgid "Please choose your donation gift"
 msgstr "Wählen Sie Ihr Dankeschön aus"
 
@@ -241,11 +242,11 @@ msgstr "SpenderIn"
 msgid "donors"
 msgstr "SpenderInnen"
 
-#: models.py:145
+#: models.py:146 models.py:184
 msgid "donation"
 msgstr "Spende"
 
-#: models.py:146
+#: models.py:147 models.py:185
 msgid "donations"
 msgstr "Spenden"
 
@@ -294,22 +295,22 @@ msgstr "Spende"
 msgid "Other amount"
 msgstr "Anderer Betrag"
 
-#: urls.py:11
+#: urls.py:13
 msgctxt "url pattern"
 msgid "donate/"
 msgstr "spenden/"
 
-#: urls.py:12
+#: urls.py:14
 msgctxt "url pattern"
 msgid "donate/complete/"
 msgstr "spenden/abgeschlossen/"
 
-#: urls.py:14
+#: urls.py:16
 msgctxt "url pattern"
 msgid "your-donation/"
 msgstr "ihre-spenden/"
 
-#: urls.py:16
+#: urls.py:18
 #, python-brace-format
 msgctxt "url pattern"
 msgid ""
@@ -327,6 +328,9 @@ msgstr ""
 "Wir haben keine mit Ihrem Konto verknüpften Spenden gefunden. Falls Sie "
 "gespendet haben, lassen Sie es uns wissen! Ansonsten haben Sie weiter unten "
 "die Gelegenheit zu spenden."
+
+#~ msgid "Donation reference"
+#~ msgstr "Verwendungszweck"
 
 #~ msgid "Please choose your amount:"
 #~ msgstr "Bitte wähle Deinen Betrag:"
