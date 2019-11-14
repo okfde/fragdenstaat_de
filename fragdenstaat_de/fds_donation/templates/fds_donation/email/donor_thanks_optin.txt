@@ -6,9 +6,9 @@ Bitte bestätigen Sie Ihre E-Mail-Adresse, indem Sie hier klicken:
 
 {{ action_url }}
 
----
+{% if payment.variant == 'banktransfer' %}---
 
-{% if payment.variant == 'banktransfer' %}{% include "fds_donation/includes/banktransfer.txt" %}{% endif %}
+{% include "fds_donation/includes/banktransfer.txt" %}{% endif %}
 
 Beste Grüße
 {{ site_name }}
