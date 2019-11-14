@@ -6,9 +6,12 @@ from .models import Donation
 
 def payment_status_changed(sender=None, instance=None, **kwargs):
     order = instance.order
-    obj = order.get_domain_object()
-    if not isinstance(obj, Donation):
+    domain_obj = order.get_domain_object()
+    if not isinstance(domain_obj, Donation):
         obj = create_donation_from_payment(instance)
+    else:
+        obj = domain_obj
+        domain_obj = None
 
     if not obj.payment_id:
         obj.payment = instance
@@ -31,7 +34,7 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         obj.received = False
 
     if obj.completed:
-        send_donation_email(obj)
+        send_donation_email(obj, domain_obj=domain_obj)
     if obj.donor and obj.received and not obj.donor.active:
         obj.donor.active = True
         obj.donor.save()

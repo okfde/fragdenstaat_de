@@ -75,13 +75,14 @@ donor_optin_email = mail_registry.register(
 )
 
 
-def send_donation_email(donation):
+def send_donation_email(donation, domain_obj=None):
     if donation.email_sent:
         return
     donor = donation.donor
 
     extra_context = {}
     if donor.email_confirmed:
+        needs_optin = False
         # No opt-in needed
         if donor.email_confirmation_sent:
             # not a new donor
@@ -89,10 +90,16 @@ def send_donation_email(donation):
         else:
             mail_intent = new_donor_thanks_email
     else:
+        needs_optin = True
         mail_intent = donor_optin_email
         extra_context = {
             'action_url': donor.get_url()
         }
+
+    if domain_obj is not None and not needs_optin:
+        # payment not a donation
+        # and no optin needed
+        return
 
     context = {
         'name': donor.get_full_name(),
