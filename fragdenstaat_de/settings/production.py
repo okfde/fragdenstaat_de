@@ -59,7 +59,8 @@ class FragDenStaat(FragDenStaatBase):
             'client_id': env('PAYPAL_CLIENT_ID'),
             'secret': env('PAYPAL_CLIENT_SECRET'),
             'endpoint': env('PAYPAL_API_URL'),
-            'capture': True
+            'capture': True,
+            'webhook_id': env('PAYPAL_WEBHOOK_ID')
         }),
         'sofort': ('froide_payment.provider.StripeSofortProvider', {
             # Test API keys
