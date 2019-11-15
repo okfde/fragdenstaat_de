@@ -55,7 +55,7 @@ class FragDenStaat(FragDenStaatBase):
         #     'public_key': env('STRIPE_PUBLIC_KEY'),
         #     'secret_key': env('STRIPE_PRIVATE_KEY'),
         # }),
-        'paypal': ('payments.paypal.PaypalProvider', {
+        'paypal': ('froide_payment.provider.PaypalProvider', {
             'client_id': env('PAYPAL_CLIENT_ID'),
             'secret': env('PAYPAL_CLIENT_SECRET'),
             'endpoint': env('PAYPAL_API_URL'),
