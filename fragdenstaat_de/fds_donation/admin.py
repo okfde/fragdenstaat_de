@@ -8,6 +8,7 @@ from .models import DonationGift, Donor, Donation
 class DonorAdmin(admin.ModelAdmin):
     list_display = (
         'email', 'first_name', 'last_name', 'city',
+        'active',
         'last_donation'
     )
     list_filter = (
