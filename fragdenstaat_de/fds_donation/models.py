@@ -71,7 +71,7 @@ class Donor(models.Model):
     note = models.TextField(blank=True)
 
     class Meta:
-        ordering = ('-first_donation',)
+        ordering = ('-last_donation',)
         verbose_name = _('donor')
         verbose_name_plural = _('donors')
 

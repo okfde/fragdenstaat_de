@@ -15,7 +15,10 @@ from .utils import subscribe_donor_newsletter
 def get_or_create_donor(data, user=None, subscription=None):
     if user is not None:
         try:
-            return Donor.objects.get(user=user)
+            donor = Donor.objects.get(user=user)
+            donor.last_donation = timezone.now()
+            donor.save()
+            return donor
         except Donor.DoesNotExist:
             return create_donor(data, user=user, subscription=subscription)
     # TODO: find donor in another way?
