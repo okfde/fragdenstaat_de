@@ -477,7 +477,7 @@ class FragDenStaatBase(German, Base):
     TWILIO_FROM_NUMBER = os.environ.get('TWILIO_FROM_NUMBER', '')
 
     SLACK_DEFAULT_CHANNEL = os.environ.get(
-        'SLACK_DEFAULT_CHANNEL', 'fragdenstaat-alert'
+        'SLACK_DEFAULT_CHANNEL', 'fragdenstaat-alerts'
     )
     SLACK_WEBHOOK_URL = os.environ.get('SLACK_WEBHOOK_URL', '')
 
