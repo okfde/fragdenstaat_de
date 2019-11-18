@@ -227,7 +227,7 @@ class DonationFormCMSPlugin(CMSPlugin):
                 'interval': self.interval,
                 'amount_presets': self.amount_presets,
                 'initial_amount': self.initial_amount,
-                'initial_interval': self.initial_amount,
+                'initial_interval': self.initial_interval,
                 'reference': self.reference or reference,
                 'purpose': self.purpose,
             }

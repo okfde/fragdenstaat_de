@@ -39,13 +39,22 @@ class DonationSettingsForm(forms.Form):
         choices=INTERVAL_SETTINGS_CHOICES,
     )
     amount_presets = forms.RegexField(
-        regex=r'\d+(?:,\d+)*',
+        regex=r'(\d+(?:,\d+)*|\-)',
         required=False,
     )
     reference = forms.CharField(
         required=False
     )
     purpose = forms.CharField(
+        required=False
+    )
+    initial_amount = forms.IntegerField(
+        required=False,
+    )
+    initial_interval = forms.IntegerField(
+        required=False,
+    )
+    initial_receipt = forms.BooleanField(
         required=False
     )
 
