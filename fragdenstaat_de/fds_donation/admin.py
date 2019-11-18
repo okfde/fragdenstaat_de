@@ -16,6 +16,8 @@ class DonorAdmin(admin.ModelAdmin):
         'active',
         make_nullfilter('subscription', _('Dauerspende')),
         'email_confirmed', 'contact_allowed',
+        'become_user',
+        make_nullfilter('user_id', _('has user')),
         ('user', ForeignKeyFilter),
 
     )
