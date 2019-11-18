@@ -1,6 +1,7 @@
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
-from froide.helper.admin_utils import ForeignKeyFilter
+from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
 
 from .models import DonationGift, Donor, Donation
 
@@ -13,8 +14,10 @@ class DonorAdmin(admin.ModelAdmin):
     )
     list_filter = (
         'active',
-        'subscription__plan', 'email_confirmed', 'contact_allowed',
+        make_nullfilter('subscription', _('Dauerspende')),
+        'email_confirmed', 'contact_allowed',
         ('user', ForeignKeyFilter),
+
     )
     date_hierarchy = 'first_donation'
     search_fields = ('email', 'last_name', 'first_name')
@@ -26,6 +29,7 @@ class DonationAdmin(admin.ModelAdmin):
         'donor', 'timestamp', 'amount', 'completed', 'received'
     )
     list_filter = (
+        'completed', 'received',
         ('donor', ForeignKeyFilter),
     )
     date_hierarchy = 'timestamp'
