@@ -40,6 +40,7 @@ class DonationSettingsForm(forms.Form):
     )
     amount_presets = forms.RegexField(
         regex=r'\d+(?:,\d+)*',
+        required=False,
     )
     reference = forms.CharField(
         required=False
@@ -50,9 +51,13 @@ class DonationSettingsForm(forms.Form):
 
     def clean_amount_presets(self):
         presets = self.cleaned_data['amount_presets']
+        if presets == '-':
+            return []
+        if not presets:
+            return [5, 20, 50]
         if '[' in presets:
             presets = presets.replace('[', '').replace(']', '')
-        return [int(x.strip()) for x in presets.split(',')]
+        return [int(x.strip()) for x in presets.split(',') if x.strip()]
 
     def make_donation_form(self, **kwargs):
         d = {}
@@ -346,10 +351,12 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
             )
 
         interval_choices = []
+        has_purpose = True
         if 'once' in self.settings['interval']:
             interval_choices.append(('0', _('once')),)
         else:
             # No once option -> not choosing purpose
+            has_purpose = False
             self.fields['purpose'].widget = forms.HiddenInput()
         if 'recurring' in self.settings['interval']:
             interval_choices.extend([
@@ -357,15 +364,18 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
                 ('3', _('quarterly')),
                 ('12', _('yearly')),
             ])
-        self.fields['interval'].choices = interval_choices
-        if len(interval_choices) == 1:
+        if self.settings['interval'] == 'once':
+            self.fields['interval'].initial = '0'
             self.fields['interval'].widget = forms.HiddenInput()
+            self.fields['amount'].label = _('One time donation amount')
+        else:
+            self.fields['interval'].choices = interval_choices
         self.fields['amount'].widget.presets = self.settings['amount_presets']
         self.fields['reference'].initial = self.settings['reference']
         if self.settings['purpose']:
             self.fields['purpose'].initial = self.settings['reference']
             self.fields['purpose'].widget = forms.HiddenInput()
-        else:
+        elif has_purpose:
             choices = [
                 (x.name, x.name) for x in Campaign.objects.get_filter_list()
             ]
