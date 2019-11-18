@@ -126,7 +126,7 @@ def send_donation_email(donation, domain_obj=None):
     donor.save()
 
 
-def create_donation_from_payment(payment, ):
+def create_donation_from_payment(payment):
     order = payment.order
     try:
         return Donation.objects.get(

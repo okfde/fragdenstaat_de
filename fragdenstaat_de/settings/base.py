@@ -476,4 +476,9 @@ class FragDenStaatBase(German, Base):
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
     TWILIO_FROM_NUMBER = os.environ.get('TWILIO_FROM_NUMBER', '')
 
+    SLACK_DEFAULT_CHANNEL = os.environ.get(
+        'SLACK_DEFAULT_CHANNEL', 'fragdenstaat-alert'
+    )
+    SLACK_WEBHOOK_URL = os.environ.get('SLACK_WEBHOOK_URL', '')
+
     SENTRY_JS_URL = ''

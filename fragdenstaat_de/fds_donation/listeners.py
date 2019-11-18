@@ -1,7 +1,10 @@
+from django.db import transaction
+
 from froide_payment.models import PaymentStatus
 
 from .services import send_donation_email, create_donation_from_payment
 from .models import Donation
+from .tasks import send_donation_notification
 
 
 def payment_status_changed(sender=None, instance=None, **kwargs):
@@ -39,3 +42,22 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         obj.donor.active = True
         obj.donor.save()
     obj.save()
+    process_new_donation(obj)
+
+
+def process_new_donation(donation):
+    payment = donation.payment
+    if payment is None:
+        return
+    if not donation.completed:
+        return
+
+    pending_ok = False
+    if payment.variant in ('lastschrift', 'banktransfer'):
+        pending_ok = True
+    confirmed = payment.status == PaymentStatus.CONFIRMED
+    pending = payment.status == PaymentStatus.PENDING
+    if (confirmed and not pending_ok) or (pending and pending_ok):
+        transaction.on_commit(
+            lambda: send_donation_notification.delay(donation.id)
+        )
