@@ -39,6 +39,38 @@ class RowPlugin(CMSPluginBase):
     allow_children = True
 
 
+@plugin_pool.register_plugin
+class RowLeftPlugin(CMSPluginBase):
+    module = _("Structure")
+    name = _("Row Left Aligned")
+    render_template = "cms/plugins/row_left.html"
+    allow_children = True
+
+
+@plugin_pool.register_plugin
+class RowRightPlugin(CMSPluginBase):
+    module = _("Structure")
+    name = _("Row Right Aligned")
+    render_template = "cms/plugins/row_right.html"
+    allow_children = True
+
+
+@plugin_pool.register_plugin
+class RowAroundPlugin(CMSPluginBase):
+    module = _("Structure")
+    name = _("Row Spaced Around")
+    render_template = "cms/plugins/row_around.html"
+    allow_children = True
+
+
+@plugin_pool.register_plugin
+class RowBetweenPlugin(CMSPluginBase):
+    module = _("Structure")
+    name = _("Row Spaced Between")
+    render_template = "cms/plugins/row_between.html"
+    allow_children = True
+
+
 class ColumnPlugin(CMSPluginBase):
     module = _("Structure")
     allow_children = True
@@ -46,11 +78,15 @@ class ColumnPlugin(CMSPluginBase):
 
 # Generate Column Plugin classes and register them
 COLUMNS = [
+    (2, _('Two')),
     (3, _('Three')),
     (4, _('Four')),
+    (5, _('Five')),
     (6, _('Six')),
+    (7, _('Seven')),
     (8, _('Eight')),
     (9, _('Nine')),
+    (10, _('Ten')),
     (12, _('Twelve')),
 ]
 
@@ -60,7 +96,7 @@ for col_count, col_name in COLUMNS:
             'Column%sPlugin' % col_count,
             (ColumnPlugin,),
             {
-                'name': _("Column " + str(col_name)),
+                'name': _("Column %s") % str(col_name),
                 'render_template': "cms/plugins/col_%d.html" % col_count,
             }
         )

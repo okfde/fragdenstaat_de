@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="{% block colclass %}col-md-{% block colcount %}1{% endblock %}{% endblock %}">
+<div class="{% block colclass %}col-md-{% block colcount %}1{% endblock %}{% endblock %} pt-4 pt-md-0">
   {% for plugin in instance.child_plugin_instances %}
     {% render_plugin plugin %}
   {% endfor %}
