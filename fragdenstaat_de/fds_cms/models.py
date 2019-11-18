@@ -253,6 +253,7 @@ class SVGImageCMSPlugin(CMSPlugin):
 class DesignContainerCMSPlugin(CMSPlugin):
     TEMPLATES = [
         ('', _('Default template')),
+        ('cms/plugins/designs/speech_bubble.html', _('Speech bubble')),
     ]
     BACKGROUND = [
         ('primary', _('Primary')),
@@ -269,6 +270,7 @@ class DesignContainerCMSPlugin(CMSPlugin):
         ('cyan', _('Cyan')),
         ('gray', _('Gray')),
         ('gray-dark', _('Gray Dark')),
+        ('white', _('White')),
     ]
     STYLES = [
         ('', _('Default')),
