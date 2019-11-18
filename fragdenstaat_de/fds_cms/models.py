@@ -248,3 +248,42 @@ class SVGImageCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+class DesignContainerCMSPlugin(CMSPlugin):
+    TEMPLATES = [
+        ('', _('Default template')),
+    ]
+    BACKGROUND = [
+        ('primary', _('Primary')),
+        ('secondary', _('Secondary')),
+        ('info', _('Info')),
+        ('light', _('Light')),
+        ('dark', _('Dark')),
+        ('success', _('Success')),
+        ('warning', _('Warning')),
+        ('danger', _('Danger')),
+        ('purple', _('Purple')),
+        ('pink', _('Pink')),
+        ('yellow', _('Yellow')),
+        ('cyan', _('Cyan')),
+        ('gray', _('Gray')),
+        ('gray-dark', _('Gray Dark')),
+    ]
+    STYLES = [
+        ('', _('Default')),
+        ('heavy', _('Heavy')),
+    ]
+
+    template = models.CharField(
+        _('Template'), choices=TEMPLATES,
+        default='', max_length=50, blank=True
+    )
+    background = models.CharField(
+        _('Background'), choices=BACKGROUND,
+        default='', max_length=50, blank=True
+    )
+    style = models.CharField(
+        _('Style'), choices=STYLES,
+        default='', max_length=50, blank=True
+    )

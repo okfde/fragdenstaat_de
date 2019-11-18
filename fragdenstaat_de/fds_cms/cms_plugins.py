@@ -14,7 +14,7 @@ from froide.foirequest.models import FoiRequest
 from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
     PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin,
-    VegaChartCMSPlugin, SVGImageCMSPlugin
+    VegaChartCMSPlugin, SVGImageCMSPlugin, DesignContainerCMSPlugin
 )
 from .contact import ContactForm
 
@@ -277,6 +277,26 @@ class SVGImagePlugin(CMSPluginBase):
         context = super().render(context, instance, placeholder)
         context['object'] = instance
         return context
+
+
+@plugin_pool.register_plugin
+class DesignContainerPlugin(CMSPluginBase):
+    model = DesignContainerCMSPlugin
+    module = _("Structure")
+    name = _("Design Container")
+    default_template = "cms/plugins/container_design.html"
+    allow_children = True
+
+    def get_render_template(self, context, instance, placeholder):
+        if instance.template:
+            return instance.template
+        return self.default_template
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context['object'] = instance
+        return context
+
 
 # from .models import ShareLinks
 

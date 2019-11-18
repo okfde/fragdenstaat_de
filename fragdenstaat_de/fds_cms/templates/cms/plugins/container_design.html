@@ -1,0 +1,9 @@
+{% load cms_tags %}
+
+<div class="container-wrapper container-design container-design__{{ object.background }} {% if object.style %}--{{ object.style }}{% endif %}">
+    <div class="container cms-container">
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+    </div>
+</div>
