@@ -198,6 +198,7 @@ class DonationGiftFormCMSPlugin(CMSPlugin):
 
 
 class DonationFormCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255, blank=True)
     interval = models.CharField(
         max_length=20, choices=INTERVAL_SETTINGS_CHOICES
     )
@@ -224,6 +225,7 @@ class DonationFormCMSPlugin(CMSPlugin):
 
         form = DonationSettingsForm(
             data={
+                'title': self.title,
                 'interval': self.interval,
                 'amount_presets': self.amount_presets,
                 'initial_amount': self.initial_amount,

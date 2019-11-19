@@ -35,6 +35,9 @@ PAYMENT_METHODS = [
 
 
 class DonationSettingsForm(forms.Form):
+    title = forms.CharField(
+        required=False
+    )
     interval = forms.ChoiceField(
         choices=INTERVAL_SETTINGS_CHOICES,
     )
@@ -77,6 +80,7 @@ class DonationSettingsForm(forms.Form):
 
 class DonationFormFactory:
     default = {
+        'title': '',
         'interval': 'once_recurring',
         'reference': '',
         'purpose': '',
