@@ -9,24 +9,22 @@
       <header class="blog-header">
         <div class="row justify-content-center">
           <div class="col-md-12 col-lg-10">
-            <span class="blog-header__date">
-              <time datetime="{{ article.start_publication|date:'c' }}">
-                {{ article.start_publication|date:"DATE_FORMAT" }}
-              </time>
+            <time class="blog-header__date" datetime="{{ article.start_publication|date:'c' }}">
+              {{ article.start_publication|date:"DATE_FORMAT" }}
+            </time>
 
-              {% with cats=article.categories.all %}
-                {% if cats %}
-                  –
-                  <ul class="blog-header__categories">
-                    {% for cat in cats %}
-                      <li>
-                        <a href="{% url 'blog:article-category' category=cat.slug %}">{{ cat.title }}</a>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                {% endif %}
-              {% endwith %}
-            </span>
+            {% with cats=article.categories.all %}
+              {% if cats %}
+                –
+                <ul class="blog-header__categories">
+                  {% for cat in cats %}
+                    <li>
+                      <a href="{% url 'blog:article-category' category=cat.slug %}">{{ cat.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
 
             {% with tags=article.tags.all %}
               {% if tags %}
