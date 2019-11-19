@@ -91,3 +91,8 @@ class LatestArticlesFeed(BaseFeed):
         URL of latest entries.
         """
         return self.site_url + reverse('blog:article-latest')
+
+
+class LatestArticlesTeaserFeed(LatestArticlesFeed):
+    def item_description(self, obj):
+        return clean(obj.description)

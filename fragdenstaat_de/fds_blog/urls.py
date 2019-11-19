@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from froide.helper import api_router
 
-from .feeds import LatestArticlesFeed
+from .feeds import LatestArticlesFeed, LatestArticlesTeaserFeed
 from .views import (
     AuthorArticleView, CategoryArticleView, ArticleArchiveView, ArticleDetailView, ArticleListView,
     TaggedListView, ArticleSearchView
@@ -39,6 +39,9 @@ urlpatterns = [
         ArticleSearchView.as_view(), name='article-search'),
     url(r'^feed/$',
         LatestArticlesFeed(),
+        name='article-latest-feed'),
+    url(r'^feed/teaser/$',
+        LatestArticlesTeaserFeed(),
         name='article-latest-feed'),
     url(r'^(?P<year>\d{4})/$',
         ArticleArchiveView.as_view(), name='article-archive'),
