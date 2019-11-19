@@ -71,6 +71,14 @@ class RowBetweenPlugin(CMSPluginBase):
     allow_children = True
 
 
+@plugin_pool.register_plugin
+class RowNarrowPlugin(CMSPluginBase):
+    module = _("Structure")
+    name = _("Row Narrow")
+    render_template = "cms/plugins/row_narrow.html"
+    allow_children = True
+
+
 class ColumnPlugin(CMSPluginBase):
     module = _("Structure")
     allow_children = True

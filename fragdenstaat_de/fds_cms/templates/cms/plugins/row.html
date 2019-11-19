@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="row {% block row_class %}justify-content-center{% endblock %} cms-row">
+<div class="row {% block row_class %}justify-content-center{% endblock %} {% block extra_row_class %}cms-row{% endblock %}">
   {% for plugin in instance.child_plugin_instances %}
     {% render_plugin plugin %}
   {% endfor %}
