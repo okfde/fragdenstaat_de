@@ -1,0 +1,131 @@
+{% load i18n cms_tags %}
+{% load markup %}
+{% load static %}
+
+{% block article_header %}
+<div class="blog-header-container">
+  <div class="row justify-content-center">
+    <div class="post-item post-detail col-12">
+      <header class="blog-header">
+        <div class="row justify-content-center">
+          <div class="col-md-12 col-lg-10">
+            <span class="blog-header__date">
+              <time datetime="{{ article.start_publication|date:'c' }}">
+                {{ article.start_publication|date:"DATE_FORMAT" }}
+              </time>
+
+              {% with cats=article.categories.all %}
+                {% if cats %}
+                  –
+                  <ul class="blog-header__categories">
+                    {% for cat in cats %}
+                      <li>
+                        <a href="{% url 'blog:article-category' category=cat.slug %}">{{ cat.title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              {% endwith %}
+            </span>
+
+            {% with tags=article.tags.all %}
+              {% if tags %}
+                <ul class="blog-header__tags">
+                  {% for tag in tags %}
+                    <li>
+                      <a href="{% url 'blog:article-tagged' tag=tag.slug %}">{{ tag.name }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            <h1 class="blog-header__title">
+              {% render_model article "title" %}
+            </h1>
+            {% if article.teaser %}
+              <div class="blog-lead mb-3">
+                {% render_model article "teaser" "" "" "safe" %}
+              </div>
+            {% endif %}
+
+            {% block article_header_image %}
+              {% if article.image %}
+                {% include "fds_blog/includes/blog_picture_detail.html" with picture=article.image %}
+              {% endif %}
+            {% endblock article_header_image %}
+
+          </div>
+        </div>
+      </header>
+    </div>
+  </div>
+</div>
+{% endblock article_header %}
+
+{% block article_content %}
+<div class="blog-content">
+  {% render_placeholder article.content_placeholder %}
+</div>
+{% endblock article_content %}
+
+{% block article_ads %}
+{% static_placeholder "dropdown_banner" %}
+{% endblock article_ads %}
+
+{% block article_languages %}
+<div class="container">
+  <div class="row justify-content-center pt-5">
+    <div class="col-md-8">
+      {% with other_langs=article.other_languages %}
+        {% if other_langs %}
+          <p>
+            {% trans "This article is available in other languages." %}
+          </p>
+          <ul class="list-unstyled">
+            {% for lang_article in other_langs %}
+              <li>
+                {{ lang_article.language|language_name }}:
+                <a href="{{ lang_article.get_absolute_url }}">
+                  {{ lang_article.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+</div>
+{% endblock article_languages %}
+
+{% block article_authors %}
+<div class="container">
+  <div class="author-section">
+    {% for author in article.authors.all %}
+      <div class="row justify-content-center pb-5 pt-5">
+        <div class="col-xs-1 col-sm-4 col-md-3 col-lg-2 d-none d-sm-block">
+          {% if author.user.profile_photo %}
+            <img class="img-circle" src="{{ author.user.profile_photo.url }}" alt="Bild des Autors">
+          {% endif %}
+        </div>
+        <div class="col-xs-6 col-sm-8 col-md-6 col-lg-5">
+          <h4 class="author-title">
+            <a href="{% url 'blog:article-author' username=author.username %}">
+              {{ author.get_full_name }}
+            </a>
+          </h4>
+          <div class="author-description">
+            {{ author.user.profile_text | markdown }}
+          </div>
+          {% if account.user.get_absolute_url %}
+            <a href="{{ account.user.get_absolute_url }}">
+              Anfragen des Autors
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock article_authors %}
