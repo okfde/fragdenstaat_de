@@ -98,7 +98,9 @@ class FragDenStaatBase(German, Base):
 
     # BLOG
 
-    ARTICLE_CONTENT_TEMPLATES = []
+    ARTICLE_CONTENT_TEMPLATES = [
+        ('fds_blog/content/_article_no_image.html', _('No image in article'))
+    ]
     ARTICLE_DETAIL_TEMPLATES = []
 
     LANGUAGE_COOKIE_AGE = 0
