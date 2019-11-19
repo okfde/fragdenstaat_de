@@ -15,7 +15,7 @@ def send_notification_slack(message):
 
     requests.post(settings.SLACK_WEBHOOK_URL, json={
         'channel': channel,
-        'username': 'fds-bot',
+        'username': 'fds-notification-bot',
         'text': message,
         'icon_emoji': ':money_with_wings:'
     })
