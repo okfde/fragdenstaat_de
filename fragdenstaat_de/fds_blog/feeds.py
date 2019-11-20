@@ -13,6 +13,7 @@ from .models import Article
 class BaseFeed(Feed):
     protocol = settings.META_SITE_PROTOCOL
     limit = 20
+    cache_namespace = 'feed'
 
     def __call__(self, request, *args, **kwargs):
         cache_key = self.get_cache_key(*args, **kwargs)
@@ -26,7 +27,8 @@ class BaseFeed(Feed):
 
     def get_cache_key(self, *args, **kwargs):
         # Override this in subclasses for more caching control
-        return "feed:%s-%s" % (
+        return "%s:%s-%s" % (
+            self.cache_namespace,
             self.__class__.__module__,
             '/'.join(['%s,%s' % (key, val) for key, val in kwargs.items()])
         )
@@ -95,5 +97,7 @@ class LatestArticlesFeed(BaseFeed):
 
 
 class LatestArticlesTeaserFeed(LatestArticlesFeed):
+    cache_namespace = 'feed-teaser'
+
     def item_description(self, obj):
         return clean(convert_html_to_text(obj.description))
