@@ -2,6 +2,6 @@
 
 <tr>
   <td height="60" valign="top" class="header-cell" style="padding-top:10px;{% if color %}background-color: {{ color }};{% endif %}">
-    <img height="60" src="{% thumbnail image 0x60 crop=smart subject_location=image.subject_location %}" alt="{{ label }}">
+    <img width="280" height="60" src="{% thumbnail image 280x60 crop=smart subject_location=image.subject_location %}" alt="{{ label }}">
   </td>
 </tr>
