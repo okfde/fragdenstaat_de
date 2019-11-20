@@ -42,7 +42,7 @@ urlpatterns = [
         name='article-latest-feed'),
     url(r'^feed/teaser/$',
         LatestArticlesTeaserFeed(),
-        name='article-latest-feed'),
+        name='article-latest-feed-teaser'),
     url(r'^(?P<year>\d{4})/$',
         ArticleArchiveView.as_view(), name='article-archive'),
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/$',

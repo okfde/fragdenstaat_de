@@ -5,6 +5,7 @@ from django.core.cache import cache
 from django.conf import settings
 
 from froide.foirequest.feeds import clean
+from froide.helper.text_utils import convert_html_to_text
 
 from .models import Article
 
@@ -95,4 +96,4 @@ class LatestArticlesFeed(BaseFeed):
 
 class LatestArticlesTeaserFeed(LatestArticlesFeed):
     def item_description(self, obj):
-        return clean(obj.description)
+        return clean(convert_html_to_text(obj.description))
