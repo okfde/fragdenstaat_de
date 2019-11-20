@@ -89,18 +89,25 @@ function setupRadioCollapse(radioCollapse: HTMLInputElement) {
   radioCollapse.addEventListener("change", () => {
     toggleRadioCollapse(radioCollapse, target);
   });
+  if (radioCollapse.checked) {
+    toggleRadioCollapse(radioCollapse, target);
+  }
 }
 
 function toggleRadioCollapse(input: HTMLInputElement, target: HTMLElement) {
   if (input.value === "1") {
-    target.classList.add("show");
-    toggleSlide(target, 0.5);
+    if (!target.classList.contains("show")) {
+      target.classList.add("show");
+      toggleSlide(target, 0.5);
+    }
     (Array.from(target.querySelectorAll("input,select")) as HTMLInputElement[]).forEach((el) => {
       el.required = true;
     });
   } else {
-    target.classList.remove("show");
-    toggleSlide(target, 0.5);
+    if (target.classList.contains("show")) {
+      target.classList.remove("show");
+      toggleSlide(target, 0.5);
+    }
     (Array.from(target.querySelectorAll("input,select")) as HTMLInputElement[]).forEach((el) => {
       el.required = false;
     });
