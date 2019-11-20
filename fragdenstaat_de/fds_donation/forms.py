@@ -71,6 +71,10 @@ class DonationSettingsForm(forms.Form):
             presets = presets.replace('[', '').replace(']', '')
         return [int(x.strip()) for x in presets.split(',') if x.strip()]
 
+    def clean_initial_receipt(self):
+        receipt = self.cleaned_data['initial_receipt']
+        return int(receipt)
+
     def make_donation_form(self, **kwargs):
         d = {}
         if self.is_valid():
@@ -240,6 +244,7 @@ class DonorForm(forms.Form):
         ),
         coerce=lambda x: bool(int(x)),
         required=True,
+        initial=0,
         label=_('Do you want a donation receipt?'),
         error_messages={
             'required': _('You have to decide.')
@@ -386,7 +391,9 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
         self.fields['amount'].widget.presets = self.settings['amount_presets']
         self.fields['reference'].initial = self.settings['reference']
         if self.settings['purpose']:
-            self.fields['purpose'].initial = self.settings['reference']
+            purpose_choices = [(self.settings['purpose'], self.settings['purpose'])]
+            self.fields['purpose'].initial = self.settings['purpose']
+            self.fields['purpose'].choices = purpose_choices
             self.fields['purpose'].widget = forms.HiddenInput()
         elif has_purpose:
             choices = [
