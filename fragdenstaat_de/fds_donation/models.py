@@ -153,7 +153,7 @@ class Donation(models.Model):
 
     def get_success_url(self):
         if self.donor and self.donor.user:
-            return self.donor.get_absolute_url()
+            return self.donor.get_absolute_url() + '?complete'
         if self.donor:
             url = reverse('fds_donation:donate-complete')
             query = {
