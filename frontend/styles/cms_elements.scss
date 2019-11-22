@@ -152,21 +152,27 @@ a.teaser:hover {
 
 /* Design Container */
 
-@mixin container-variant($background, $border, $hover-background: darken($background, 7.5%)) {
-  color: color-yiq(lighten($background, 20%));
-  @include gradient-bg(lighten($background, 20%));
+@mixin container-variant($background) {
+  color: color-yiq($background);
+  @include gradient-bg($background);
 }
 
 .container-design {
   @each $color, $value in $theme-colors {
     &.container-design__#{$color} {
-      @include container-variant($value, $value);
+      @include container-variant(lighten($value, 20%));
     }
   }
   @each $color, $value in $colors {
     &.container-design__#{$color} {
-      @include container-variant($value, $value);
+      @include container-variant(lighten($value, 20%));
     }
+  }
+  &.container-design__light {
+    @include container-variant($gray-100);
+  }
+  &.container-design__light.speech-bubble:after {
+    border-top-color: $gray-100;
   }
   &.--heavy {
     font-family: 'Kreon';
