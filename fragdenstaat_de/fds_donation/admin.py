@@ -1,4 +1,6 @@
+from django.db.models import Sum, Avg
 from django.contrib import admin
+from django.contrib.admin.views.main import ChangeList
 from django.utils.translation import ugettext_lazy as _
 
 from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
@@ -27,7 +29,22 @@ class DonorAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', 'subscription')
 
 
+class DonationChangeList(ChangeList):
+    def get_results(self, *args, **kwargs):
+        ret = super().get_results(*args, **kwargs)
+        q = self.result_list.aggregate(
+            amount_sum=Sum('amount'),
+            amount_avg=Avg('amount'),
+        )
+        self.amount_sum = q['amount_sum']
+        self.amount_avg = round(q['amount_avg'])
+        return ret
+
+
 class DonationAdmin(admin.ModelAdmin):
+    def get_changelist(self, request):
+        return DonationChangeList
+
     list_display = (
         'donor', 'timestamp', 'amount', 'completed', 'received'
     )
