@@ -14,7 +14,7 @@ django-cache-url==3.0.0
 django-celery-beat==1.5.0
 django-celery-email==2.0.2
 django-classy-tags==0.9.0
-django-cms==3.7.0
+django-cms==3.7.1
 django-configurations==2.1
 django-contrib-comments==1.9.1
 django-crossdomainmedia==0.0.3
