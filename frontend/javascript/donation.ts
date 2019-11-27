@@ -41,10 +41,13 @@ function showDonationBanner() {
   const el = els[0] as HTMLElement;
 
   if (document.location && document.location.pathname) {
-    if (document.location.pathname.indexOf("/spenden/") !== -1 ||
-        document.location.pathname.indexOf("/gesendet/") !== -1 ||
-        document.location.pathname.indexOf("/anfrage-stellen/") !== -1 ||
-        document.location.pathname.indexOf("/account/") !== -1) {
+    const path = document.location.pathname;
+    if (path.indexOf("/spenden/") !== -1 ||
+        path.indexOf("/gesendet/") !== -1 ||
+        path.indexOf("/payment/") !== -1 ||
+        path.indexOf("/abgeschlossen/") !== -1 ||
+        path.indexOf("/anfrage-stellen/") !== -1 ||
+        path.indexOf("/account/") !== -1) {
       return removeBanner();
     }
   }
