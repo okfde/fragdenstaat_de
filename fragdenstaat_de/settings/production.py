@@ -34,7 +34,7 @@ class FragDenStaat(FragDenStaatBase):
     DATA_UPLOAD_MAX_MEMORY_SIZE = 15728640  # 15 MB
     DATA_UPLOAD_MAX_NUMBER_FIELDS = 5000
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-    STATIC_URL = 'https://static.frag-den-staat.de/static/'
+    STATIC_URL = env('STATIC_URL', 'https://static.frag-den-staat.de/static/')
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
@@ -184,7 +184,7 @@ class FragDenStaat(FragDenStaatBase):
     }
     MANAGERS = (('FragDenStaat.de', 'mail@fragdenstaat.de'),)
     MEDIA_ROOT = env('DJANGO_MEDIA_ROOT')
-    MEDIA_URL = 'https://media.frag-den-staat.de/files/'
+    MEDIA_URL = env('MEDIA_URL', 'https://media.frag-den-staat.de/files/')
 
     FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o2750
     FILE_UPLOAD_PERMISSIONS = 0o640
