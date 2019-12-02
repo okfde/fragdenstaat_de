@@ -40,8 +40,9 @@ class FragDenStaat(FragDenStaatBase):
 
     INTERNAL_MEDIA_PREFIX = '/protected/'
 
-    ALLOWED_HOSTS = ('fragdenstaat.de', 'media.frag-den-staat.de', 'testserver')
-    ALLOWED_REDIRECT_HOSTS = ('fragdenstaat.de', 'sanktionsfrei.de',)
+    ALLOWED_HOSTS = [x for x in env('ALLOWED_HOSTS', '').split(',') if x]
+    ALLOWED_HOSTS = ALLOWED_HOSTS + ['fragdenstaat.de', 'media.frag-den-staat.de', 'testserver']
+    ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS + ['sanktionsfrei.de']
 
     PAYMENT_HOST = 'fragdenstaat.de'
     PAYMENT_USES_SSL = True
