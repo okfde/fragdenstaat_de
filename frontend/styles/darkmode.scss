@@ -23,8 +23,11 @@ body.darkmode {
     }
   }
   .navbar-brand, .nav-item.special-nav-secondary-item,
-  #cms-top, img.img-fluid {
+  #cms-top, img.img-fluid, .teaser-image {
     filter: invert(1);
+  }
+  .donation-block img.img-fluid {
+    filter: none;
   }
 
   .navbar-brand .navbar-brand-name {
