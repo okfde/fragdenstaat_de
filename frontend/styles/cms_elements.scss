@@ -171,8 +171,14 @@ a.teaser:hover {
   &.container-design__light {
     @include container-variant($gray-100);
   }
+  &.container-design__dark {
+    @include container-variant($gray-900);
+  }
   &.container-design__light.speech-bubble:after {
     border-top-color: $gray-100;
+  }
+  &.container-design__dark.speech-bubble:after {
+    border-top-color: $gray-900;
   }
   &.--heavy {
     font-family: 'Kreon';
