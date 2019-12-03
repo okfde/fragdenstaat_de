@@ -33,6 +33,12 @@ function setupDonationForm(form: HTMLFormElement) {
       parent.childNodes[1].textContent += " / " + additionalCCProviders.join(" / ");
     }
   }
+  ["creditcard", "paypal", "sofort"].forEach((p) => {
+    const el = document.querySelector(`input[value="${p}"`);
+    if (el && el.parentElement && el.parentElement.parentElement) {
+      el.parentElement.parentElement.classList.add("onion-hide");
+    }
+  });
 }
 
 function setupIntervalGroup(intervalGroup: HTMLElement) {
