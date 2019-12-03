@@ -38,3 +38,12 @@ body.darkmode {
     filter: invert(1) hue-rotate(90deg) invert(1);
   }
 }
+
+body.onion-site {
+  .onion-show {
+    display: block !important;
+  }
+  .onion-hide {
+    display: none !important;
+  }
+}
