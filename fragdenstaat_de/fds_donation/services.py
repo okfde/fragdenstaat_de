@@ -82,6 +82,8 @@ def send_donation_email(donation, domain_obj=None):
     if donation.email_sent:
         return
     donor = donation.donor
+    if not donor.email:
+        return
 
     extra_context = {}
     if donor.email_confirmed:
