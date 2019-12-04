@@ -1,8 +1,20 @@
 {% extends "admin/change_list.html" %}
 
+{% load i18n %}
+
 {% block result_list %}
 {{ block.super }}
 <p>
   Summe: {{ cl.amount_sum }}&nbsp;EUR
   <br/>Durchschnitt: {{ cl.amount_avg }}&nbsp;EUR</p>
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+  <div>
+    <form enctype="multipart/form-data" method="post" action="{% url 'admin:fds_donation-donation-import_banktransfers' %}">{% csrf_token %}
+      <input type="file" name="file"/>
+      <input type="submit" value="Überweisungen importieren"/>
+    </form>
+  </div>
 {% endblock %}

@@ -83,6 +83,7 @@ setup(
         'aldryn-apphooks-config==0.4.1',
         'djangorestframework-jsonp',
         'geoip2',
+        'pandas',
         'pdflib',
         'pylatex',
         'twilio',
@@ -90,6 +91,7 @@ setup(
         'pyisemail',
         'icalendar',
         'django-newsletter',
+        'xlrd',
     ],
     include_package_data=True,
     classifiers=[

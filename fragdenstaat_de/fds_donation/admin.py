@@ -1,16 +1,22 @@
+from io import BytesIO
+
 from django.db.models import Sum, Avg
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.conf.urls import url
 from django.contrib.admin.views.main import ChangeList
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
 
 from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
 
 from .models import DonationGift, Donor, Donation
+from .external import import_banktransfers
 
 
 class DonorAdmin(admin.ModelAdmin):
     list_display = (
-        'email', 'first_name', 'last_name', 'city',
+        'get_name', 'city',
         'active',
         'last_donation'
     )
@@ -22,11 +28,14 @@ class DonorAdmin(admin.ModelAdmin):
         'become_user',
         make_nullfilter('user_id', _('has user')),
         ('user', ForeignKeyFilter),
-
     )
     date_hierarchy = 'first_donation'
     search_fields = ('email', 'last_name', 'first_name')
     raw_id_fields = ('user', 'subscription')
+
+    def get_name(self, obj):
+        return str(obj)
+    get_name.short_description = 'Name'
 
 
 class DonationChangeList(ChangeList):
@@ -46,14 +55,47 @@ class DonationAdmin(admin.ModelAdmin):
         return DonationChangeList
 
     list_display = (
-        'donor', 'timestamp', 'amount', 'completed', 'received'
+        'donor', 'timestamp', 'amount', 'completed', 'received',
+        'reference', 'method'
     )
     list_filter = (
         'completed', 'received',
         ('donor', ForeignKeyFilter),
+        'method',
+        'purpose',
+        'reference',
     )
     date_hierarchy = 'timestamp'
     raw_id_fields = ('donor', 'order', 'payment')
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            url(r'^import-banktransfers/$',
+                self.admin_site.admin_view(self.import_banktransfers),
+                name='fds_donation-donation-import_banktransfers'),
+        ]
+        return my_urls + urls
+
+    def import_banktransfers(self, request):
+        if not request.method == 'POST':
+            raise PermissionDenied
+        if not self.has_change_permission(request):
+            raise PermissionDenied
+
+        xls_file = request.FILES.get('file')
+        xls_file = BytesIO(xls_file.read())
+
+        count, new_count = import_banktransfers(xls_file)
+
+        self.message_user(
+            request, _('Imported %s rows, %s new rows.') % (
+                count, new_count
+            ),
+            level=messages.INFO
+        )
+
+        return redirect('admin:fds_donation_donation_changelist')
 
 
 class DonationGiftAdmin(admin.ModelAdmin):
