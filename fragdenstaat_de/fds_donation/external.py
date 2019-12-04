@@ -21,7 +21,7 @@ def find_donation(transfer_ident, row):
         return None
 
     payments = Payment.objects.filter(
-        transaction_id=match.group(0)
+        transaction_id=match.group(0).upper()
     )
     if not payments:
         return None
