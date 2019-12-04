@@ -46,7 +46,7 @@ class DonationChangeList(ChangeList):
             amount_avg=Avg('amount'),
         )
         self.amount_sum = q['amount_sum']
-        self.amount_avg = round(q['amount_avg'])
+        self.amount_avg = round(q['amount_avg']) if q['amount_avg'] is not None else '-'
         return ret
 
 
