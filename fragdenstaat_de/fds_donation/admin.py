@@ -41,7 +41,7 @@ class DonorAdmin(admin.ModelAdmin):
 class DonationChangeList(ChangeList):
     def get_results(self, *args, **kwargs):
         ret = super().get_results(*args, **kwargs)
-        q = self.result_list.aggregate(
+        q = self.queryset.aggregate(
             amount_sum=Sum('amount'),
             amount_avg=Avg('amount'),
         )
