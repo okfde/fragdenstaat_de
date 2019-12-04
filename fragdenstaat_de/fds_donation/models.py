@@ -48,6 +48,7 @@ class Donor(models.Model):
     country = CountryField(blank=True)
 
     email = models.EmailField(blank=True, default='')
+    identifier = models.CharField(blank=True, max_length=256)
 
     active = models.BooleanField(default=False)
     first_donation = models.DateTimeField(default=timezone.now)
@@ -126,9 +127,13 @@ class Donation(models.Model):
         max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
     )
     received = models.BooleanField(default=False)
+    received_timestamp = models.DateTimeField(blank=True, null=True)
     email_sent = models.DateTimeField(null=True, blank=True)
 
     note = models.TextField()
+
+    method = models.CharField(max_length=256, blank=True)
+    identifier = models.CharField(max_length=256, blank=True)
     purpose = models.CharField(max_length=255, blank=True)
     reference = models.CharField(max_length=255, blank=True)
 
