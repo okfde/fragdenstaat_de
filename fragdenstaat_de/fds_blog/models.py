@@ -468,7 +468,7 @@ class LatestArticlesPlugin(CMSPlugin):
         if self.article_language:
             filters['language'] = self.article_language
         if self.featured is not None:
-            filters['featured__isnull'] = not self.featured
+            filters['date_featured__isnull'] = not self.featured
         tag_list = self.tags.all().values_list('id', flat=True)
         if tag_list:
             filters['tags__in'] = tag_list
