@@ -1,0 +1,16 @@
+{% load i18n %}
+<h3>{% blocktrans with filter_title=title %}By {{ filter_title }}{% endblocktrans %}</h3>
+
+<ul>
+  <li>
+    <form action="{{ choices.0.query_string|iriencode }}" method="get">
+        {{ spec.form.as_p }}
+        {% for choice in choices %}
+            <input type="hidden" id="{{ choice.system_name }}-query-string" value="{{ choice.query_string }}">
+        {% endfor %}
+        <div class="controls">
+            <input type="submit" value="{% trans 'Filter' %}">
+        </div>
+    </form>
+  </li>
+</ul>

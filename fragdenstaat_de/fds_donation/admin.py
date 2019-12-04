@@ -12,6 +12,7 @@ from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
 
 from .models import DonationGift, Donor, Donation
 from .external import import_banktransfers
+from .filters import DateRangeFilter
 
 
 class DonorAdmin(admin.ModelAdmin):
@@ -60,10 +61,11 @@ class DonationAdmin(admin.ModelAdmin):
     )
     list_filter = (
         'completed', 'received',
-        ('donor', ForeignKeyFilter),
+        ('timestamp', DateRangeFilter),
         'method',
         'purpose',
         'reference',
+        ('donor', ForeignKeyFilter),
     )
     date_hierarchy = 'timestamp'
     raw_id_fields = ('donor', 'order', 'payment')
