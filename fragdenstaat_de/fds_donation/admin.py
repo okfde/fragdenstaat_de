@@ -28,6 +28,7 @@ class DonorAdmin(admin.ModelAdmin):
         'email_confirmed', 'contact_allowed',
         'become_user',
         'receipt',
+        'invalid',
         make_nullfilter('user_id', _('has user')),
         ('user', ForeignKeyFilter),
     )

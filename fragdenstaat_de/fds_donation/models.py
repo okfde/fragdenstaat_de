@@ -93,6 +93,8 @@ class Donor(models.Model):
     become_user = models.BooleanField(default=False)
     receipt = models.BooleanField(default=False)
 
+    invalid = models.BooleanField(default=False)
+
     note = models.TextField(blank=True)
     tags = TaggableManager(through=TaggedDonor, blank=True)
 
@@ -166,6 +168,8 @@ class Donation(models.Model):
     purpose = models.CharField(max_length=255, blank=True)
     reference = models.CharField(max_length=255, blank=True)
 
+    receipt_given = models.BooleanField(default=False)
+
     order = models.OneToOneField(
         Order, null=True, blank=True,
         on_delete=models.SET_NULL
@@ -174,6 +178,7 @@ class Donation(models.Model):
         Payment, null=True, blank=True,
         on_delete=models.SET_NULL
     )
+    recurring = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-timestamp',)
