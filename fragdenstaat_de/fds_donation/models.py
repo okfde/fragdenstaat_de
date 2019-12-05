@@ -38,7 +38,10 @@ SALUTATION_DICT = dict(SALUTATION_CHOICES)
 
 
 class Donor(models.Model):
-    salutation = models.CharField(max_length=25, blank=True)
+    salutation = models.CharField(
+        max_length=25, blank=True,
+        choices=SALUTATION_CHOICES
+    )
     first_name = models.CharField(max_length=256, blank=True)
     last_name = models.CharField(max_length=256, blank=True)
     company_name = models.CharField(max_length=256, blank=True)

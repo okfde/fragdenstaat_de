@@ -27,11 +27,12 @@ class DonorAdmin(admin.ModelAdmin):
         'subscription__plan__amount_year',
         'email_confirmed', 'contact_allowed',
         'become_user',
+        'receipt',
         make_nullfilter('user_id', _('has user')),
         ('user', ForeignKeyFilter),
     )
     date_hierarchy = 'first_donation'
-    search_fields = ('email', 'last_name', 'first_name')
+    search_fields = ('email', 'last_name', 'first_name', 'notes')
     raw_id_fields = ('user', 'subscription')
 
     def get_name(self, obj):
@@ -57,6 +58,7 @@ class DonationAdmin(admin.ModelAdmin):
 
     list_display = (
         'donor', 'timestamp', 'amount', 'completed', 'received',
+        'purpose',
         'reference', 'method'
     )
     list_filter = (
