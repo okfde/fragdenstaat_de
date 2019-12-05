@@ -10,6 +10,8 @@ from django.utils.translation import pgettext, ugettext_lazy as _
 from cms.models.pluginmodel import CMSPlugin
 
 from django_countries.fields import CountryField
+from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase, TagBase
 
 from froide.account.models import User
 
@@ -35,6 +37,25 @@ SALUTATION_CHOICES = (
         'salutation male informal', 'Dear')),
 )
 SALUTATION_DICT = dict(SALUTATION_CHOICES)
+
+
+class DonorTag(TagBase):
+    class Meta:
+        verbose_name = _("Donor Tag")
+        verbose_name_plural = _("Donor Tags")
+
+
+class TaggedDonor(TaggedItemBase):
+    tag = models.ForeignKey(
+        DonorTag, related_name="donors",
+        on_delete=models.CASCADE)
+    content_object = models.ForeignKey(
+        'Donor',
+        on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _('Tagged Donor')
+        verbose_name_plural = _('Tagged Donors')
 
 
 class Donor(models.Model):
@@ -73,6 +94,7 @@ class Donor(models.Model):
     receipt = models.BooleanField(default=False)
 
     note = models.TextField(blank=True)
+    tags = TaggableManager(through=TaggedDonor, blank=True)
 
     class Meta:
         ordering = ('-last_donation',)
@@ -117,6 +139,10 @@ class Donor(models.Model):
 
     def get_url(self):
         return settings.SITE_URL + self.get_absolute_url()
+
+    @property
+    def tag_list(self):
+        return ", ".join(o.name for o in self.tags.all())
 
 
 class Donation(models.Model):
