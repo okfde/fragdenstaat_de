@@ -32,7 +32,7 @@ class DonorAdmin(admin.ModelAdmin):
         ('user', ForeignKeyFilter),
     )
     date_hierarchy = 'first_donation'
-    search_fields = ('email', 'last_name', 'first_name', 'notes')
+    search_fields = ('email', 'last_name', 'first_name', 'note')
     raw_id_fields = ('user', 'subscription')
 
     def get_name(self, obj):
@@ -71,6 +71,9 @@ class DonationAdmin(admin.ModelAdmin):
     )
     date_hierarchy = 'timestamp'
     raw_id_fields = ('donor', 'order', 'payment')
+    search_fields = (
+        'donor__email', 'donor__last_name', 'donor__first_name',
+    )
 
     def get_urls(self):
         urls = super().get_urls()
