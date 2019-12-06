@@ -60,7 +60,7 @@ class DonationAdmin(admin.ModelAdmin):
     list_display = (
         'donor', 'timestamp', 'amount', 'completed', 'received',
         'purpose',
-        'reference', 'method'
+        'reference', 'method', 'recurring',
     )
     list_filter = (
         'completed', 'received',
@@ -68,6 +68,8 @@ class DonationAdmin(admin.ModelAdmin):
         'method',
         'purpose',
         'reference',
+        'recurring',
+        'receipt_given',
         ('donor', ForeignKeyFilter),
     )
     date_hierarchy = 'timestamp'
