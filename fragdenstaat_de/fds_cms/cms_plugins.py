@@ -5,7 +5,9 @@ from django.utils.translation import ugettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from filingcabinet.views import get_document_viewer_context
+from filingcabinet.views import (
+    get_document_viewer_context, get_document_collection_context
+)
 
 from froide.helper.utils import get_redirect_url
 
@@ -14,7 +16,8 @@ from froide.foirequest.models import FoiRequest
 from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
     PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin,
-    VegaChartCMSPlugin, SVGImageCMSPlugin, DesignContainerCMSPlugin
+    VegaChartCMSPlugin, SVGImageCMSPlugin, DesignContainerCMSPlugin,
+    DocumentCollectionEmbedCMSPlugin
 )
 from .contact import ContactForm
 
@@ -80,7 +83,26 @@ class DocumentEmbedPlugin(CMSPluginBase):
         )
         context.update(ctx)
         context['instance'] = instance
-        context['beta'] = context['request'].user.is_staff
+        return context
+
+
+@plugin_pool.register_plugin
+class DocumentCollectionEmbedPlugin(CMSPluginBase):
+    model = DocumentCollectionEmbedCMSPlugin
+    module = _("Document")
+    name = _("Document collection embed")
+    text_enabled = True
+    render_template = "document/cms_plugins/document_collection_embed.html"
+    raw_id_fields = ('collection',)
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+
+        ctx = get_document_collection_context(
+            instance.collection, context['request'],
+        )
+        context.update(ctx)
+        context['instance'] = instance
         return context
 
 

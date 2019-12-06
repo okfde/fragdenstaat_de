@@ -18,7 +18,7 @@ from froide.foirequest.models import FoiRequest, FoiProject
 from froide.publicbody.models import (
     Jurisdiction, Category, Classification, PublicBody
 )
-from froide.document.models import Document
+from froide.document.models import Document, DocumentCollection
 
 
 @extension_pool.register
@@ -50,6 +50,17 @@ class DocumentEmbedCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return 'Embed %s' % (self.doc,)
+
+
+class DocumentCollectionEmbedCMSPlugin(CMSPlugin):
+    collection = models.ForeignKey(
+        DocumentCollection, related_name='+',
+        on_delete=models.CASCADE
+    )
+    settings = models.TextField(default='{}')
+
+    def __str__(self):
+        return 'Embed %s' % (self.collection,)
 
 
 class DocumentPagesCMSPlugin(CMSPlugin):
