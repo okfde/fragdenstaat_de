@@ -216,7 +216,7 @@ class TagsEntry(models.Model):
 
     @property
     def tag_list(self):
-        return u", ".join(o.name for o in self.all_tags)
+        return ", ".join(o.name for o in self.all_tags)
 
     @property
     def all_tags(self):
