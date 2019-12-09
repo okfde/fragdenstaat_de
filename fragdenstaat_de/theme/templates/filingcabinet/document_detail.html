@@ -1,0 +1,39 @@
+{% extends "filingcabinet/document_detail.html" %}
+
+{% load thumbnail %}
+
+{% block meta %}
+  {% include "snippets/meta.html" %}
+
+  {% if object.public %}
+  <meta itemprop="name" content="{{ object.title }}">
+  {% if object.description %}
+    <meta itemprop="description" content="{{ object.description }}">
+  {% endif %}
+
+  <!-- Twitter Card data -->
+
+  <meta name="twitter:site" content="@fragdenstaat">
+  <meta name="twitter:title" content="{{ title }}">
+  {% if description and description != "None" %}
+    <meta name="twitter:description" content="{{ description }}">
+  {% endif %}
+  <meta name="twitter:creator" content="@fragdenstaat">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:src" content="{% thumbnail object.get_full_cover_image 1120x600 crop %}">
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="{{ object.title }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ SITE_URL }}{{ object.get_absolute_url }}" />
+
+
+  <meta property="og:image" content="{% thumbnail object.get_full_cover_image 1200x630 crop %}" />
+  {% if description %}
+    <meta property="og:description" content="{{ object.description }}" />
+  {% endif %}
+
+  <meta property="og:site_name" content="{{ SITE_NAME }}" />
+  {% endif %}
+{% endblock %}
