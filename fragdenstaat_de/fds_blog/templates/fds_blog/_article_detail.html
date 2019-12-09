@@ -26,7 +26,7 @@
               {% endif %}
             {% endwith %}
 
-            {% with tags=article.tags.all %}
+            {% with tags=article.all_tags %}
               {% if tags %}
                 <ul class="blog-header__tags">
                   {% for tag in tags %}

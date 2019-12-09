@@ -8,7 +8,7 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block meta %}
-  {% include "snippets/meta.html" %}
+  {% include "snippets/meta.html" with description=article.teaser|striptags keywords=article.tag_list %}
   {% include "fds_blog/includes/social_meta.html" with article=article %}
 {% endblock %}
 

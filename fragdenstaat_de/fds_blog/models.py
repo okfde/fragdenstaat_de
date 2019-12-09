@@ -216,7 +216,13 @@ class TagsEntry(models.Model):
 
     @property
     def tag_list(self):
-        return u", ".join(o.name for o in self.tags.all())
+        return u", ".join(o.name for o in self.all_tags)
+
+    @property
+    def all_tags(self):
+        if not hasattr(self, '_all_tags'):
+            self._all_tags = self.tags.all()
+        return self._all_tags
 
 
 class LanguageEntry(models.Model):
