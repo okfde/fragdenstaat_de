@@ -382,12 +382,13 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
                 ('3', _('quarterly')),
                 ('12', _('yearly')),
             ])
+
+        self.fields['interval'].choices = interval_choices
         if self.settings['interval'] == 'once':
             self.fields['interval'].initial = '0'
             self.fields['interval'].widget = forms.HiddenInput()
             self.fields['amount'].label = _('One time donation amount')
-        else:
-            self.fields['interval'].choices = interval_choices
+
         self.fields['amount'].widget.presets = self.settings['amount_presets']
         self.fields['reference'].initial = self.settings['reference']
         if self.settings['purpose']:
