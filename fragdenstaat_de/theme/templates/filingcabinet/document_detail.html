@@ -14,9 +14,9 @@
   <!-- Twitter Card data -->
 
   <meta name="twitter:site" content="@fragdenstaat">
-  <meta name="twitter:title" content="{{ title }}">
-  {% if description and description != "None" %}
-    <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:title" content="{{ object.title }}">
+  {% if object.description %}
+    <meta name="twitter:description" content="{{ object.description }}">
   {% endif %}
   <meta name="twitter:creator" content="@fragdenstaat">
 
