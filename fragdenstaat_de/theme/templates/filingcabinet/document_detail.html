@@ -21,7 +21,7 @@
   <meta name="twitter:creator" content="@fragdenstaat">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image:src" content="{% thumbnail object.get_full_cover_image 1120x600 crop %}">
+  <meta name="twitter:image:src" content="{% thumbnail object.get_cover_image_file 1120x600 crop %}">
 
   <!-- Open Graph data -->
   <meta property="og:title" content="{{ object.title }}" />
@@ -29,7 +29,7 @@
   <meta property="og:url" content="{{ SITE_URL }}{{ object.get_absolute_url }}" />
 
 
-  <meta property="og:image" content="{% thumbnail object.get_full_cover_image 1200x630 crop %}" />
+  <meta property="og:image" content="{% thumbnail object.get_cover_image_file 1200x630 crop %}" />
   {% if description %}
     <meta property="og:description" content="{{ object.description }}" />
   {% endif %}
