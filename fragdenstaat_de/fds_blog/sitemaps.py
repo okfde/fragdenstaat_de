@@ -28,6 +28,10 @@ class NewsSitemap(BlogSitemap):
         """
         Return published entries.
         """
-        items = super(NewsSitemap, self).items()
+        items = super().items()
         two_days_ago = timezone.now() - timedelta(hours=48)
-        return items.filter(start_publication__gte=two_days_ago)
+        latest_items = items.filter(start_publication__gte=two_days_ago)
+        if latest_items.count() == 0:
+            # If no items are present in time frame, return the last two
+            return items[:2]
+        return latest_items
