@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+{% load thumbnail %}<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 {% spaceless %}
 {% for url in urlset %}
   <url>
@@ -17,6 +17,13 @@
         {% endif %}
       {% endwith %}
     </news:news>
+    {% if url.item.image }
+    <image:image>
+      <image:loc>{% thumbnail url.item.image 940x0 subject_location=url.item.image.subject_location %}</image:loc>
+      {% if url.item.image.author %}<image:caption>{{ url.item.image.author }}</image:caption>{% endif %}
+      {% if url.item.image.description %}<image:title>{{ url.item.image.description }}</image:title>{% endif %}
+    </image:image>
+    {% endif %}
   </url>
   {% endfor %}
 {% endspaceless %}
