@@ -17,7 +17,7 @@
         {% endif %}
       {% endwith %}
     </news:news>
-    {% if url.item.image }
+    {% if url.item.image %}
     <image:image>
       <image:loc>{% thumbnail url.item.image 940x0 subject_location=url.item.image.subject_location %}</image:loc>
       {% if url.item.image.author %}<image:caption>{{ url.item.image.author }}</image:caption>{% endif %}
