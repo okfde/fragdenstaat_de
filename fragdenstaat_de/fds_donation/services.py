@@ -168,12 +168,13 @@ def confirm_donor_email(donor, request=None):
     # Try finding existing user via email
     user = None
     if not donor.user:
-        try:
-            user = User.objects.get(
-                email__iexact=donor.email,
-                is_active=True
-            )
-        except User.DoesNotExist:
+        users = User.objects.filter(
+            email__iexact=donor.email,
+            is_active=True
+        )
+        if len(users) > 1:
+            user = users[0]
+        else:
             user = None
         if user is not None:
             donor.user = user
