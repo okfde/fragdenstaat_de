@@ -3,10 +3,12 @@
 {% load i18n %}
 
 {% block result_list %}
-{{ block.super }}
 <p>
   Summe: {{ cl.amount_sum }}&nbsp;EUR
-  <br/>Durchschnitt: {{ cl.amount_avg }}&nbsp;EUR</p>
+  <br/>Durchschnitt: {{ cl.amount_avg }}&nbsp;EUR
+  <br/>Erhalten: {{ cl.amount_received_sum }}&nbsp;EUR
+</p>
+{{ block.super }}
 {% endblock %}
 
 {% block content %}

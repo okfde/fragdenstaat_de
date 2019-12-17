@@ -47,9 +47,11 @@ class DonationChangeList(ChangeList):
         q = self.queryset.aggregate(
             amount_sum=Sum('amount'),
             amount_avg=Avg('amount'),
+            amount_received_sum=Sum('amount_received')
         )
         self.amount_sum = q['amount_sum']
         self.amount_avg = round(q['amount_avg']) if q['amount_avg'] is not None else '-'
+        self.amount_received_sum = q['amount_received_sum']
         return ret
 
 
