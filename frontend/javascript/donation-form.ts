@@ -1,3 +1,4 @@
+import { Tooltip } from "bootstrap.native";
 import { toggleSlide } from "froide/frontend/javascript/lib/misc";
 
 interface IApplePaySession {
@@ -11,6 +12,16 @@ declare global {
   }
 }
 
+interface IFeeMap {
+  [name: string]: (amount: number) => number;
+}
+
+const fees: IFeeMap = {
+  creditcard: (a: number) => Math.round(((a * 0.014) + 0.25) * 100) / 100,
+  paypal: (a: number) => Math.round(((a * 0.0249) + 0.35) * 100) / 100,
+  sofort: (a: number) => Math.round(((a * 0.014) + 0.25) * 100) / 100,
+};
+
 function setupDonationForm(form: HTMLFormElement) {
   const amountGroup = form.querySelector(".amount-group");
   if (amountGroup !== null) {
@@ -18,6 +29,7 @@ function setupDonationForm(form: HTMLFormElement) {
   }
   const radioCollapse = form.querySelectorAll('[data-toggle="radiocollapse"]');
   (Array.from(radioCollapse) as HTMLInputElement[]).forEach(setupRadioCollapse);
+
   const intervalGroup = document.getElementById("id_interval");
   if (intervalGroup !== null) {
     setupIntervalGroup(intervalGroup);
@@ -34,11 +46,67 @@ function setupDonationForm(form: HTMLFormElement) {
     }
   }
   ["creditcard", "paypal", "sofort"].forEach((p) => {
-    const el = document.querySelector(`input[value="${p}"`);
+    const el = document.querySelector(`input[value="${p}"]`);
     if (el && el.parentElement && el.parentElement.parentElement) {
       el.parentElement.parentElement.classList.add("onion-hide");
     }
   });
+  // End of year lastschrift warning
+  const d = new Date();
+  const decemberDate = 18;
+  if (d.getMonth() + 1 === 12 && d.getDate() >= decemberDate) {
+    const ls = document.querySelector('input[value="lastschrift"]');
+    if (ls && ls.parentElement && ls.parentElement.parentElement) {
+      const nextYear = d.getFullYear() + 1;
+      const container = document.createElement("small");
+      container.classList.add("bg-warning");
+      container.classList.add("ml-2");
+      container.innerHTML = `Ihre Spende wird erst 2020 eingezogen.
+      <a href="#" class="text-dark"
+        data-container="body" data-toggle="tooltip"
+        data-placement="top"
+        title="Wir haben am ${decemberDate}.12. das letzte mal in diesem Jahr Spenden per
+        Lastschrift verarbeitet. Wenn Sie diesen Zahlungsweg wählen, zählt Ihre Spende somit
+        in das Jahr ${nextYear} und wird auf Ihrer Spendenbescheinigung ${d.getFullYear()} nicht erscheinen.">
+        <span class="fa fa-info-circle"></span>
+      </a>
+      `;
+      const li = ls.parentElement.parentElement;
+      li.appendChild(container);
+      // console.log(li.querySelector("a"))
+      const infoLink = li.querySelector("a");
+      if (infoLink) {
+        // tslint:disable-next-line: no-unused-expression
+        new Tooltip(infoLink);
+      }
+    }
+  }
+}
+
+function amountChanged(amountInput: HTMLInputElement) {
+  if (!amountInput) { return; }
+  const amount = parseFloat(amountInput.value);
+  for (const key in fees) {
+    if (fees.hasOwnProperty(key)) {
+      const el = document.querySelector(`input[value="${key}"]`);
+      if (el && el.parentElement && el.parentElement.parentElement) {
+        const li = el.parentElement.parentElement;
+        let feeHint = li.querySelector(".fee-hint");
+        if (feeHint === null) {
+          feeHint = document.createElement("small");
+          feeHint.classList.add("fee-hint");
+          feeHint.classList.add("text-muted");
+          li.appendChild(feeHint);
+          feeHint = li.querySelector(".fee-hint");
+        }
+        if (feeHint !== null) {
+          const fee = fees[key](amount);
+          const displayAmount = (amount - fee).toFixed(2).replace(/\./, ",");
+          feeHint.textContent = `(abzüglich Gebühren erhalten wir ${displayAmount} Euro)`;
+        }
+      }
+    }
+  }
 }
 
 function setupIntervalGroup(intervalGroup: HTMLElement) {
@@ -77,8 +145,8 @@ function toggleRadioInput(inputs: HTMLInputElement[], checked: boolean) {
     }
     input.disabled = !checked;
     // Hide parent label element
-    if (input.parentElement) {
-      input.parentElement.classList.toggle("collapse", !checked);
+    if (input.parentElement && input.parentElement.parentElement) {
+      input.parentElement.parentElement.classList.toggle("collapse", !checked);
     }
   });
 }
@@ -152,6 +220,7 @@ function setupAmountGroup(amountGroup: Element) {
     const value = button.dataset.value || "";
     if (input !== null) {
       input.value = value;
+      inputChanged(input);
     }
     highlightButtonWithValue(value);
   }
@@ -162,6 +231,7 @@ function setupAmountGroup(amountGroup: Element) {
     } else {
       amountInput.classList.remove("border", "border-primary");
     }
+    amountChanged(amountInput);
   }
 
   buttons.forEach((button) => {
