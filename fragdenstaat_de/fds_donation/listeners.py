@@ -20,10 +20,14 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
     if not obj.payment_id:
         obj.payment = instance
 
+    received_now = False
     if instance.status == PaymentStatus.CONFIRMED:
         obj.completed = True
         obj.received = True
+        if instance.received_amount:
+            obj.amount_reveived = instance.received_amount
         if not obj.received_timestamp:
+            received_now = True
             obj.received_timestamp = timezone.now()
 
     elif instance.status in (
@@ -45,10 +49,10 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         obj.donor.active = True
         obj.donor.save()
     obj.save()
-    process_new_donation(obj)
+    process_new_donation(obj, received_now=received_now)
 
 
-def process_new_donation(donation):
+def process_new_donation(donation, received_now=False):
     payment = donation.payment
     if payment is None:
         return
@@ -60,7 +64,7 @@ def process_new_donation(donation):
         pending_ok = True
     confirmed = payment.status == PaymentStatus.CONFIRMED
     pending = payment.status == PaymentStatus.PENDING
-    if (confirmed and not pending_ok) or (pending and pending_ok):
+    if (confirmed and received_now and not pending_ok) or (pending and pending_ok):
         transaction.on_commit(
             lambda: send_donation_notification.delay(donation.id)
         )

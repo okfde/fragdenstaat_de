@@ -94,7 +94,8 @@ def import_banktransfer(transfer_ident, row):
     if donation.payment:
         payment = donation.payment
         if payment.status != PaymentStatus.CONFIRMED:
-            payment.captured_amount += donation.amount
+            payment.captured_amount = donation.amount
+            payment.received_amount = donation.amount
             payment.change_status(PaymentStatus.CONFIRMED)
     return is_new
 
