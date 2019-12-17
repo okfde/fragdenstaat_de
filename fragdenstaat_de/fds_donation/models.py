@@ -155,7 +155,12 @@ class Donation(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
     completed = models.BooleanField(default=False)
     amount = models.DecimalField(
-        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
+        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES,
+        default=0
+    )
+    amount_received = models.DecimalField(
+        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES,
+        default=0
     )
     received = models.BooleanField(default=False)
     received_timestamp = models.DateTimeField(blank=True, null=True)
