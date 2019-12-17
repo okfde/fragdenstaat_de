@@ -53,7 +53,7 @@ function setupDonationForm(form: HTMLFormElement) {
   });
   // End of year lastschrift warning
   const d = new Date();
-  const decemberDate = 18;
+  const decemberDate = 19;
   if (d.getMonth() + 1 === 12 && d.getDate() >= decemberDate) {
     const ls = document.querySelector('input[value="lastschrift"]');
     if (ls && ls.parentElement && ls.parentElement.parentElement) {
