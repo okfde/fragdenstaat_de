@@ -166,6 +166,7 @@ def confirm_donor_email(donor, request=None):
     donor.save()
 
     # Try finding existing user via email
+    new_user = False
     user = None
     if not donor.user:
         users = User.objects.filter(
@@ -174,6 +175,7 @@ def confirm_donor_email(donor, request=None):
         )
         if len(users) > 1:
             user = users[0]
+            new_user = True
         else:
             user = None
         if user is not None:
@@ -184,6 +186,7 @@ def confirm_donor_email(donor, request=None):
 
         elif donor.become_user and not is_auth:
             # Create user
+            new_user = True
             user, created = AccountService.create_user(
                 user_email=donor.email,
                 first_name=donor.first_name,
@@ -209,3 +212,30 @@ def confirm_donor_email(donor, request=None):
             email_confirmed=True
         )
         subscribe_donor_newsletter(donor, email_confirmed=True)
+    if new_user:
+        connect_payments_to_user(donor)
+
+
+def connect_payments_to_user(donor):
+    from froide_payment.models import Subscription, Order, Customer
+
+    if not donor.user:
+        return
+    donations_with_orders = donor.donation_set.all().filter(
+        order__isnull=False
+    )
+    order_ids = donations_with_orders.values_list('order_id', flat=True)
+    Order.objects.filter(id__in=order_ids).update(user=donor.user)
+    sub_orders = Order.objects.filter(
+        id__in=order_ids, subscription__isnull=False
+    )
+    sub_ids = set(sub_orders.values_list('subscription_id', flat=True))
+    customer_ids = set(sub_orders.values_list('customer_id', flat=True))
+    Customer.objects.filter(id__in=customer_ids, user__isnull=True).update(
+        user=donor.user
+    )
+    customer_ids = Subscription.objects.filter(
+        id__in=sub_ids, customer__isnull=False)
+    Customer.objects.filter(id__in=customer_ids, user__isnull=True).update(
+        user=donor.user
+    )
