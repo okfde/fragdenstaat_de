@@ -151,7 +151,9 @@ def create_donation_from_payment(payment):
         timestamp=order.created,
         amount=order.total_gross,
         order=order,
-        payment=payment
+        payment=payment,
+        method=payment.variant,
+        recurring=order.is_recurring
     )
     return donation
 
