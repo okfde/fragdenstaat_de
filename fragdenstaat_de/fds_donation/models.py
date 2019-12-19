@@ -166,7 +166,7 @@ class Donation(models.Model):
     received_timestamp = models.DateTimeField(blank=True, null=True)
     email_sent = models.DateTimeField(null=True, blank=True)
 
-    note = models.TextField()
+    note = models.TextField(blank=True)
 
     method = models.CharField(max_length=256, blank=True)
     identifier = models.CharField(max_length=256, blank=True)
