@@ -183,6 +183,7 @@ class Donation(models.Model):
         Payment, null=True, blank=True,
         on_delete=models.SET_NULL
     )
+    first_recurring = models.BooleanField(default=False)
     recurring = models.BooleanField(default=False)
 
     class Meta:

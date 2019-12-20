@@ -58,6 +58,9 @@ def process_new_donation(donation, received_now=False):
         return
     if not donation.completed:
         return
+    if donation.recurring and not donation.first_recurring:
+        # do not send email for recurring donations
+        return
 
     pending_ok = False
     if payment.variant in ('lastschrift', 'banktransfer'):
