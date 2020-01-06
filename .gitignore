@@ -13,6 +13,7 @@ fds-env/
 favicon-result.json
 node_modules/
 froide/
+data/
 *.map
 *hot-update.json
 *hot-update.js
