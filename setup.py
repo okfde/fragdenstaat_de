@@ -82,7 +82,6 @@ setup(
         'djangorestframework-jsonp',
         'geoip2',
         'pandas',
-        'pdflib',
         'twilio',
         'djangorestframework-csv',
         'pyisemail',

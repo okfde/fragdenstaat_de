@@ -71,7 +71,6 @@ markupsafe==1.1.1
 maxminddb==1.4.1
 oauthlib==3.1.0
 pandas==0.25.3
-pdflib==0.1.7
 phonenumbers==8.10.19
 pillow==6.2.1
 psycopg2-binary==2.8.3
