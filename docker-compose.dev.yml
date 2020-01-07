@@ -1,14 +1,21 @@
 version: "3"
 
 services:
+  db:
+    image: mdillon/postgis:10-alpine
+    volumes:
+      - ./data/postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_USER: fragdenstaat_de
+      POSTGRES_DB: fragdenstaat_de
+      POSTGRES_PASSWORD: fragdenstaat_de
+
   elasticsearch:
     build: ./deps/elasticsearch/
     volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
-      - elasticsearch-log:/var/log
+      - ./data/elasticsearch-data:/usr/share/elasticsearch/data
+      - ./data/elasticsearch-log:/var/log
     ports:
-      - "127.0.0.1:9202:9200"
-
-volumes:
-  elasticsearch-data: {}
-  elasticsearch-log: {}
+      - "127.0.0.1:9200:9200"
