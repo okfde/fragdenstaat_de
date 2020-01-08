@@ -15,7 +15,16 @@ If you do not want to use Docker, you can install this like any Django project w
 
 FragDenStaat.de is a Django project that uses the core `froide` project and other `froide` Django apps as plugins. These froide and related apps are installed from repositories and it makes sense to set them up on your dev machine.
 
-To make this easier the following script (`devsetup.sh`) creates a virtual environment, sets up and installs all repos of the Python backend and installs and links all repos of the JavaScript frontend build. Python 3.6+ and yarn are required dependencies.
+You need to have installed:
+- Python 3.6+
+- yarn
+- GDAL for Django's GeoDjango
+- freetype and imagemagick
+- libmagic
+
+All of these dependencies should be installable paket managers (e.g. `brew` on macOS).
+
+To make the setup easier the following script (`devsetup.sh`) creates a virtual environment, sets up and installs all repos of the Python backend and installs and links all repos of the JavaScript frontend build.
 
 ```
 cd project-dir
@@ -55,13 +64,22 @@ To get started with some data:
 python manage.py loaddata <fixture file>
 # Create a superuser
 python manage.py createsuperuser
-# Run the server
+```
+
+### Quick start after setup
+
+```
+source fds-env/bin/activate
+cd fragdenstaat_de
+# Start service in background with -d
+docker-compose -f docker-compose.dev.yml up -d
 python manage.py runserver
 ```
 
 ### Frontend development
 
 ```
+cd fragdenstaat_de
 yarn run serve
 ```
 
