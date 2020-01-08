@@ -2,6 +2,14 @@ from elasticsearch_dsl import (
     analyzer, token_filter
 )
 
+decomp = token_filter("decomp",
+    type='hyphenation_decompounder',
+    word_list_path="analysis/dictionary-de.txt",
+    hyphenation_patterns_path="analysis/de_DR.xml",
+    only_longest_match=True,
+    min_subword_size=4
+)
+
 
 def get_text_analyzer():
     return analyzer(
@@ -9,7 +17,7 @@ def get_text_analyzer():
         tokenizer='standard',
         filter=[
             'keyword_repeat',
-            token_filter('decomp', type='decompound', subwords_only=True, respect_keywords=True),
+            decomp,
 
             'lowercase',
 
@@ -28,8 +36,7 @@ def get_search_analyzer():
         tokenizer='standard',
         filter=[
             'keyword_repeat',
-            token_filter('decomp', type='decompound', subwords_only=False, respect_keywords=True),
-
+            decomp,
             'lowercase',
             token_filter('stop_de', type='stop', stopwords="_german_"),
 

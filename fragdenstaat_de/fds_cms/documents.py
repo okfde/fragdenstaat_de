@@ -6,10 +6,11 @@ https://github.com/divio/aldryn-search/blob/master/aldryn_search/search_indexes.
 from django.db.models import Q
 from django.utils import timezone
 from django.conf import settings
-from django.template import Context
+from django.template import RequestContext
 from django.utils.html import strip_tags
 
-from django_elasticsearch_dsl import DocType, fields
+from django_elasticsearch_dsl import Document, fields
+from django_elasticsearch_dsl.registries import registry
 
 from cms.models import Title
 
@@ -27,8 +28,9 @@ index = get_index('cmspage')
 analyzer = get_text_analyzer()
 
 
-@index.doc_type
-class CMSDocument(DocType):
+@registry.register_document
+@index.document
+class CMSDocument(Document):
     title = fields.TextField(
         fields={'raw': fields.KeywordField()},
         analyzer=analyzer,
@@ -48,7 +50,7 @@ class CMSDocument(DocType):
 
     special_signals = True
 
-    class Meta:
+    class Django:
         model = Title
         queryset_chunk_size = 100
 
@@ -141,9 +143,7 @@ class CMSDocument(DocType):
         current_page = obj.page
 
         text_bits = []
-        context = Context({
-            'request': get_request()
-        })
+        context = RequestContext(get_request())
         placeholders = self.get_page_placeholders(current_page)
         for placeholder in placeholders:
             text_bits.append(
