@@ -52,7 +52,6 @@ djangorestframework-jsonp==1.0.2
 djangorestframework==3.10.3
 easy-thumbnails==2.6
 elasticsearch>=7.0.0,<8.0.0
-# Keep back for django-elasticsearch-dsl
 elasticsearch-dsl>=7.0.0,<8.0.0
 geocoder==1.38.1
 geoip2==2.9.0
