@@ -17,9 +17,8 @@ def get_text_analyzer():
         tokenizer='standard',
         filter=[
             'keyword_repeat',
-            decomp,
-
             'lowercase',
+            decomp,
 
             'german_normalization',
             'asciifolding',
@@ -36,8 +35,8 @@ def get_search_analyzer():
         tokenizer='standard',
         filter=[
             'keyword_repeat',
-            decomp,
             'lowercase',
+            decomp,
             token_filter('stop_de', type='stop', stopwords="_german_"),
 
             'german_normalization',
