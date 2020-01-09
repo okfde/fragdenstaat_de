@@ -15,7 +15,8 @@ from django_elasticsearch_dsl.registries import registry
 from cms.models import Title
 
 from froide.helper.search import (
-    get_index, get_text_analyzer
+    get_index, get_text_analyzer, get_search_analyzer,
+    get_search_quote_analyzer
 )
 
 from .utils import (
@@ -26,6 +27,8 @@ from .utils import (
 index = get_index('cmspage')
 
 analyzer = get_text_analyzer()
+search_analyzer = get_search_analyzer()
+search_quote_analyzer = get_search_quote_analyzer()
 
 
 @registry.register_document
@@ -45,7 +48,10 @@ class CMSDocument(Document):
     )
 
     content = fields.TextField(
-        analyzer=analyzer
+        analyzer=analyzer,
+        search_analyzer=search_analyzer,
+        search_quote_analyzer=search_quote_analyzer,
+        index_options='offsets'
     )
 
     special_signals = True
