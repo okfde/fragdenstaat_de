@@ -9,7 +9,8 @@ from django_elasticsearch_dsl import Document, fields
 from django_elasticsearch_dsl.registries import registry
 
 from froide.helper.search import (
-    get_index, get_text_analyzer
+    get_index, get_text_analyzer,
+    get_search_analyzer, get_search_quote_analyzer
 )
 from froide.helper.tasks import (
     search_instance_save, search_instance_delete
@@ -21,6 +22,8 @@ from .models import Article
 index = get_index('article')
 
 analyzer = get_text_analyzer()
+search_analyzer = get_search_analyzer()
+search_quote_analyzer = get_search_quote_analyzer()
 
 
 @registry.register_document
@@ -43,7 +46,10 @@ class ArticleDocument(Document):
     category = fields.ListField(fields.IntegerField())
 
     content = fields.TextField(
-        analyzer=analyzer
+        analyzer=analyzer,
+        search_analyzer=search_analyzer,
+        search_quote_analyzer=search_quote_analyzer,
+        index_options='offsets'
     )
 
     special_signals = True
