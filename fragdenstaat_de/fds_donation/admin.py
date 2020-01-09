@@ -13,6 +13,7 @@ from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
 from .models import DonationGift, Donor, Donation
 from .external import import_banktransfers
 from .filters import DateRangeFilter
+from .services import send_donation_email
 
 
 class DonorAdmin(admin.ModelAdmin):
@@ -79,6 +80,27 @@ class DonationAdmin(admin.ModelAdmin):
     search_fields = (
         'donor__email', 'donor__last_name', 'donor__first_name',
     )
+
+    actions = ['resend_donation_mail']
+
+    def resend_donation_mail(self, request, queryset):
+        resent = 0
+        sent = 0
+        for donation in queryset:
+            if donation.email_sent:
+                resent += 1
+            donation.email_sent = None
+            result = send_donation_email(donation)
+            if result:
+                sent += 1
+
+        self.message_user(
+            request, _('Send %s donation mails (%s resent).') % (
+                sent, resent
+            ),
+            level=messages.INFO
+        )
+    resend_donation_mail.short_description = _('Resend donation email')
 
     def get_urls(self):
         urls = super().get_urls()

@@ -126,6 +126,7 @@ def send_donation_email(donation, domain_obj=None):
     donation.save()
     donor.email_confirmation_sent = donation.email_sent
     donor.save()
+    return True
 
 
 def create_donation_from_payment(payment):
