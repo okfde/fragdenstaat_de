@@ -442,6 +442,7 @@ class FragDenStaatBase(German, Base):
                 rec(r"([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u|\?)(ß|ss|\?)(en?)?,?"),
                 rec("Hochachtungsvoll,?"),
                 rec(r'i\. ?A\.'),
+                rec(r'MfG'),
                 rec(r'[iI]m Auftrag'),
                 rec(r"(?:Best regards|Kind regards|Sincerely),?")
             ],
