@@ -60,6 +60,7 @@ const config = {
   devServer: {
     contentBase: path.resolve(__dirname, 'fragdenstaat_de/theme'),
     headers: { 'Access-Control-Allow-Origin': '*' },
+    port: 8080,
     hot: true,
     proxy: {
       '/static': {
