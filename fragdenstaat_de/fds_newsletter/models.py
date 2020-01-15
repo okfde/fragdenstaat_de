@@ -95,8 +95,7 @@ class Mailing(models.Model):
         editable=False
     )
     sending_date = models.DateTimeField(
-        verbose_name=_('sending date'), blank=True, null=True,
-        editable=False
+        verbose_name=_('sending date'), blank=True, null=True
     )
     sent_date = models.DateTimeField(
         verbose_name=_('sent date'), blank=True, null=True,
@@ -133,7 +132,6 @@ class Mailing(models.Model):
             _(u"Submitting %(submission)s to %(count)d people"),
             {'submission': self, 'count': subscriptions.count()}
         )
-        self.sending_date = timezone.now()
         self.sending = True
         self.save()
 

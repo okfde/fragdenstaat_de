@@ -4,6 +4,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.conf.urls import url
 from django.utils.translation import ugettext as _
+from django.utils import timezone
 from django.core.exceptions import PermissionDenied
 
 from newsletter.admin import (
@@ -25,7 +26,7 @@ from .tasks import submit_submission, send_mailing
 
 class MailingAdmin(admin.ModelAdmin):
     raw_id_fields = ('subscriptions', 'email_template')
-    list_display = ('email_template', 'created', 'ready', 'sending', 'sent')
+    list_display = ('email_template', 'created', 'ready', 'sending_date', 'sending', 'sent')
 
     def get_urls(self):
         urls = super().get_urls()
@@ -52,8 +53,13 @@ class MailingAdmin(admin.ModelAdmin):
             'admin:fds_newsletter_mailing_change', args=[object_id]
         )
 
+        now = timezone.now()
         if mailing.sent or mailing.submitted:
-            messages.info(request, _("Mailing already sent."))
+            messages.error(request, _("Mailing already sent."))
+            return redirect(change_url)
+
+        if mailing.sending_date and mailing.sending_date < now:
+            messages.error(request, _("Mailing sending date in the past."))
             return redirect(change_url)
 
         if mailing.subscriptions.all().count() == 0:
@@ -64,9 +70,15 @@ class MailingAdmin(admin.ModelAdmin):
                 return redirect(change_url)
 
         mailing.submitted = True
+        if not mailing.sending_date:
+            mailing.sending_date = timezone.now()
         mailing.save()
 
-        transaction.on_commit(lambda: send_mailing.delay(mailing.id))
+        transaction.on_commit(lambda: send_mailing.apply_async(
+            (mailing.id, mailing.sending_date),
+            eta=mailing.sending_date,
+            retry=False
+        ))
 
         messages.info(request, _("Your mailing is being sent."))
 
