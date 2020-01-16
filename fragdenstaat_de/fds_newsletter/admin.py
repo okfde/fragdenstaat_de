@@ -26,7 +26,10 @@ from .tasks import submit_submission, send_mailing
 
 class MailingAdmin(admin.ModelAdmin):
     raw_id_fields = ('subscriptions', 'email_template')
-    list_display = ('email_template', 'created', 'ready', 'sending_date', 'sending', 'sent')
+    list_display = (
+        'email_template', 'created', 'newsletter',
+        'ready', 'sending_date', 'sending', 'sent'
+    )
 
     def get_urls(self):
         urls = super().get_urls()

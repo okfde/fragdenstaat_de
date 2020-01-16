@@ -49,7 +49,7 @@ class EmailTemplate(models.Model):
     )
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('-created',)
         verbose_name = _('email template')
         verbose_name_plural = _('email templates')
 
