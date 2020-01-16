@@ -129,7 +129,7 @@ class Mailing(models.Model):
             subscriptions = subscriptions.filter(newsletter=self.newsletter)
 
         logger.info(
-            _(u"Submitting %(submission)s to %(count)d people"),
+            _("Submitting %(submission)s to %(count)d people"),
             {'submission': self, 'count': subscriptions.count()}
         )
         self.sending = True
@@ -226,7 +226,7 @@ class Submission(BaseSubmission):
         except Exception as e:
             # TODO: Test coverage for this branch.
             logger.error(
-                _(u'Message %(subscription)s failed '
+                _('Message %(subscription)s failed '
                          u'with error: %(error)s'),
                 {'subscription': subscription,
                  'error': e}
@@ -254,8 +254,8 @@ def send_activation_email(self, action):
     )
 
     logger.debug(
-        u'Activation email sent for action "%(action)s" to %(subscriber)s '
-        u'with activation code "%(action_code)s".', {
+        'Activation email sent for action "%(action)s" to %(subscriber)s '
+        'with activation code "%(action_code)s".', {
             'action_code': self.activation_code,
             'action': action,
             'subscriber': self
