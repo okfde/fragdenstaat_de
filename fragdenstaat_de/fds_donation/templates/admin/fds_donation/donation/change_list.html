@@ -15,9 +15,17 @@
 {% block content %}
   {{ block.super }}
   <div>
+    <h4>Überweisungen</h4>
     <form enctype="multipart/form-data" method="post" action="{% url 'admin:fds_donation-donation-import_banktransfers' %}">{% csrf_token %}
       <input type="file" name="file"/>
       <input type="submit" value="Überweisungen importieren"/>
+    </form>
+  </div>
+  <div>
+    <h4>Paypal</h4>
+    <form enctype="multipart/form-data" method="post" action="{% url 'admin:fds_donation-donation-import_paypal' %}">{% csrf_token %}
+      <input type="file" name="file"/>
+      <input type="submit" value="Paypal importieren"/>
     </form>
   </div>
 {% endblock %}

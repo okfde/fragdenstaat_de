@@ -11,7 +11,7 @@ from django.shortcuts import redirect
 from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
 
 from .models import DonationGift, Donor, Donation
-from .external import import_banktransfers
+from .external import import_banktransfers, import_paypal
 from .filters import DateRangeFilter
 from .services import send_donation_email
 
@@ -112,6 +112,9 @@ class DonationAdmin(admin.ModelAdmin):
             url(r'^import-banktransfers/$',
                 self.admin_site.admin_view(self.import_banktransfers),
                 name='fds_donation-donation-import_banktransfers'),
+            url(r'^import-paypal/$',
+                self.admin_site.admin_view(self.import_paypal),
+                name='fds_donation-donation-import_paypal'),
         ]
         return my_urls + urls
 
@@ -125,6 +128,26 @@ class DonationAdmin(admin.ModelAdmin):
         xls_file = BytesIO(xls_file.read())
 
         count, new_count = import_banktransfers(xls_file)
+
+        self.message_user(
+            request, _('Imported %s rows, %s new rows.') % (
+                count, new_count
+            ),
+            level=messages.INFO
+        )
+
+        return redirect('admin:fds_donation_donation_changelist')
+
+    def import_paypal(self, request):
+        if not request.method == 'POST':
+            raise PermissionDenied
+        if not self.has_change_permission(request):
+            raise PermissionDenied
+
+        csv_file = request.FILES.get('file')
+        csv_file = BytesIO(csv_file.read())
+
+        count, new_count = import_paypal(csv_file)
 
         self.message_user(
             request, _('Imported %s rows, %s new rows.') % (
