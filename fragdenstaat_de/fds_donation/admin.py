@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from django.db.models import Sum, Avg
+from django.db.models import Sum, Avg, Count
 from django.contrib import admin, messages
 from django.conf.urls import url
 from django.contrib.admin.views.main import ChangeList
@@ -34,7 +34,9 @@ class DonorAdmin(admin.ModelAdmin):
         ('user', ForeignKeyFilter),
     )
     date_hierarchy = 'first_donation'
-    search_fields = ('email', 'last_name', 'first_name', 'note')
+    search_fields = (
+        'email', 'last_name', 'first_name', 'identifier', 'note'
+    )
     raw_id_fields = ('user', 'subscription')
 
     def get_name(self, obj):
@@ -48,11 +50,13 @@ class DonationChangeList(ChangeList):
         q = self.queryset.aggregate(
             amount_sum=Sum('amount'),
             amount_avg=Avg('amount'),
-            amount_received_sum=Sum('amount_received')
+            amount_received_sum=Sum('amount_received'),
+            donor_count=Count('donor_id', distinct=True),
         )
         self.amount_sum = q['amount_sum']
         self.amount_avg = round(q['amount_avg']) if q['amount_avg'] is not None else '-'
         self.amount_received_sum = q['amount_received_sum']
+        self.donor_count = q['donor_count']
         return ret
 
 
