@@ -5,10 +5,12 @@ https://github.com/divio/aldryn-search/blob/master/aldryn_search/search_indexes.
 
 from django.utils.html import strip_tags
 
-from django_elasticsearch_dsl import DocType, fields
+from django_elasticsearch_dsl import Document, fields
+from django_elasticsearch_dsl.registries import registry
 
 from froide.helper.search import (
-    get_index, get_text_analyzer
+    get_index, get_text_analyzer,
+    get_search_analyzer, get_search_quote_analyzer
 )
 from froide.helper.tasks import (
     search_instance_save, search_instance_delete
@@ -20,10 +22,13 @@ from .models import Article
 index = get_index('article')
 
 analyzer = get_text_analyzer()
+search_analyzer = get_search_analyzer()
+search_quote_analyzer = get_search_quote_analyzer()
 
 
-@index.doc_type
-class ArticleDocument(DocType):
+@registry.register_document
+@index.document
+class ArticleDocument(Document):
     title = fields.TextField(
         fields={'raw': fields.KeywordField()},
         analyzer=analyzer,
@@ -41,12 +46,15 @@ class ArticleDocument(DocType):
     category = fields.ListField(fields.IntegerField())
 
     content = fields.TextField(
-        analyzer=analyzer
+        analyzer=analyzer,
+        search_analyzer=search_analyzer,
+        search_quote_analyzer=search_quote_analyzer,
+        index_options='offsets'
     )
 
     special_signals = True
 
-    class Meta:
+    class Django:
         model = Article
         queryset_chunk_size = 100
 
