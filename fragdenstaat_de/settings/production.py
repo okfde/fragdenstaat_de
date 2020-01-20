@@ -143,7 +143,21 @@ class FragDenStaat(FragDenStaatBase):
 
     LOGGING = {
         'loggers': {
+            '': {
+                'handlers': ['normal'],
+                'level': 'WARNING'
+            },
             'froide': {
+                'level': 'INFO',
+                'propagate': True,
+                'handlers': ['normal']
+            },
+            'fragdenstaat_de': {
+                'level': 'INFO',
+                'propagate': True,
+                'handlers': ['normal']
+            },
+            'froide_payment': {
                 'level': 'INFO',
                 'propagate': True,
                 'handlers': ['normal']
