@@ -252,8 +252,8 @@ def connect_payments_to_user(donor):
     )
     logger.info('Connected customers to donor user %s: %s', donor.user.id, customer_ids)
     customer_ids = Subscription.objects.filter(
-        id__in=sub_ids, customer__isnull=False)
+        id__in=sub_ids, customer__isnull=False).values_list('customer_id', flat=True)
     Customer.objects.filter(id__in=customer_ids, user__isnull=True).update(
         user=donor.user
     )
-    logger.info('Connected more customers to donor %s: %s', donor.user.id, customer_ids)
+    logger.info('Connected more customers to donor user %s: %s', donor.user.id, customer_ids)
