@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from django.utils import timezone
 from django.contrib import auth
@@ -151,7 +153,7 @@ def create_donation_from_payment(payment):
         donor=donor,
         timestamp=order.created,
         amount=order.total_gross,
-        amount_received=payment.received_amount,
+        amount_received=payment.received_amount or Decimal('0.0'),
         order=order,
         payment=payment,
         method=payment.variant,
