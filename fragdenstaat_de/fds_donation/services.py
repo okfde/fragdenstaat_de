@@ -1,3 +1,4 @@
+import logging
 from decimal import Decimal
 
 from django.db import models
@@ -12,6 +13,8 @@ from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
 from .models import Donor, Donation
 from .utils import subscribe_donor_newsletter
+
+logger = logging.getLogger(__name__)
 
 
 def get_or_create_donor(data, user=None, subscription=None):
@@ -48,6 +51,7 @@ def create_donor(data, user=None, subscription=None):
         become_user=data.get('account', False),
         receipt=data.get('receipt', False),
     )
+    logger.info('Donor created %s', donor.id)
     if donor.email_confirmed and donor.contact_allowed:
         subscribe_to_default_newsletter(donor.email, user=user)
         subscribe_donor_newsletter(donor)
@@ -159,6 +163,7 @@ def create_donation_from_payment(payment):
         method=payment.variant,
         recurring=order.is_recurring,
     )
+    logger.info('Donation created %s', donation.id)
     return donation
 
 
@@ -170,6 +175,7 @@ def confirm_donor_email(donor, request=None):
 
     donor.email_confirmed = timezone.now()
     donor.save()
+    logger.info('Donor confirmed %s', donor.id)
 
     # Try finding existing user via email
     new_user = False
@@ -203,6 +209,7 @@ def confirm_donor_email(donor, request=None):
             AccountService(user)._confirm_account()
             donor.user = user
             donor.save()
+            logger.info('Donor user created %s for donor %s', user.id, donor.id)
             # Login new user
             if request:
                 auth.login(request, user)
@@ -227,11 +234,14 @@ def connect_payments_to_user(donor):
 
     if not donor.user:
         return
+    logger.info('Connect payments to donor %s', donor.id)
+
     donations_with_orders = donor.donation_set.all().filter(
         order__isnull=False
     )
     order_ids = donations_with_orders.values_list('order_id', flat=True)
     Order.objects.filter(id__in=order_ids).update(user=donor.user)
+    logger.info('Connected orders to donor user %s: %s', donor.user.id, order_ids)
     sub_orders = Order.objects.filter(
         id__in=order_ids, subscription__isnull=False
     )
@@ -240,8 +250,10 @@ def connect_payments_to_user(donor):
     Customer.objects.filter(id__in=customer_ids, user__isnull=True).update(
         user=donor.user
     )
+    logger.info('Connected customers to donor user %s: %s', donor.user.id, customer_ids)
     customer_ids = Subscription.objects.filter(
         id__in=sub_ids, customer__isnull=False)
     Customer.objects.filter(id__in=customer_ids, user__isnull=True).update(
         user=donor.user
     )
+    logger.info('Connected more customers to donor %s: %s', donor.user.id, customer_ids)
