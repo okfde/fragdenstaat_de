@@ -1,5 +1,4 @@
 from django.db import transaction
-from django.utils import timezone
 
 from froide_payment.models import PaymentStatus
 
@@ -21,6 +20,8 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         obj.payment = instance
 
     received_now = False
+    obj.amount_received = instance.received_amount
+
     if instance.status == PaymentStatus.CONFIRMED:
         obj.completed = True
         obj.received = True
@@ -28,7 +29,7 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
             obj.amount_reveived = instance.received_amount
         if not obj.received_timestamp:
             received_now = True
-            obj.received_timestamp = timezone.now()
+            obj.received_timestamp = instance.received_timestamp
 
     elif instance.status in (
             PaymentStatus.ERROR, PaymentStatus.REFUNDED,

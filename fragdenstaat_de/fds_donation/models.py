@@ -152,6 +152,7 @@ class Donor(models.Model):
 class Donation(models.Model):
     donor = models.ForeignKey(
         Donor, null=True, blank=True,
+        related_name='donations',
         on_delete=models.SET_NULL
     )
     timestamp = models.DateTimeField(default=timezone.now)
