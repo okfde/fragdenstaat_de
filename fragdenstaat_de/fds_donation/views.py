@@ -85,7 +85,7 @@ class DonorView(DetailView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        donations = self.object.donation_set.all()
+        donations = self.object.donations.all()
         try:
             last_donation = donations[0]
         except IndexError:

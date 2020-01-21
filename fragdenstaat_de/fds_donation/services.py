@@ -236,7 +236,7 @@ def connect_payments_to_user(donor):
         return
     logger.info('Connect payments to donor %s', donor.id)
 
-    donations_with_orders = donor.donation_set.all().filter(
+    donations_with_orders = donor.donations.all().filter(
         order__isnull=False
     )
     order_ids = donations_with_orders.values_list('order_id', flat=True)
