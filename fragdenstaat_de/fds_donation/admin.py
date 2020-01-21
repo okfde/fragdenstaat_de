@@ -1,12 +1,13 @@
 from io import BytesIO
 
-from django.db.models import Sum, Avg, Count
+from django.db.models import Q, Sum, Avg, Count
 from django.contrib import admin, messages
 from django.conf.urls import url
 from django.contrib.admin.views.main import ChangeList
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
+from django.utils import timezone
 
 from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
 
@@ -20,7 +21,9 @@ class DonorAdmin(admin.ModelAdmin):
     list_display = (
         'get_name', 'city',
         'active',
-        'last_donation'
+        'last_donation',
+        'amount_total',
+        'amount_last_year',
     )
     list_filter = (
         'active',
@@ -38,6 +41,29 @@ class DonorAdmin(admin.ModelAdmin):
         'email', 'last_name', 'first_name', 'identifier', 'note'
     )
     raw_id_fields = ('user', 'subscription')
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        donations_filter = Q(donations__received=True)
+        last_year = timezone.now().year - 1
+        qs = qs.annotate(
+            amount_total=Sum('donations__amount', filter=donations_filter),
+            amount_last_year=Sum(
+                'donations__amount',
+                filter=donations_filter & Q(
+                    donations__received_timestamp__year=last_year
+                )
+            )
+        )
+        return qs
+
+    def amount_total(self, obj):
+        return obj.amount_total
+    amount_total.admin_order_field = 'amount_total'
+
+    def amount_last_year(self, obj):
+        return obj.amount_last_year
+    amount_last_year.admin_order_field = 'amount_last_year'
 
     def get_name(self, obj):
         return str(obj)
