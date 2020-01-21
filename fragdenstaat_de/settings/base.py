@@ -29,6 +29,8 @@ class FragDenStaatBase(German, Base):
     def INSTALLED_APPS(self):
         installed = super(FragDenStaatBase, self).INSTALLED_APPS
         installed.default = ['fragdenstaat_de.theme'] + installed.default + [
+            'django.contrib.postgres',
+
             'cms',
             'menus',
             'sekizai',

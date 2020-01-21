@@ -2,6 +2,7 @@ import uuid
 from urllib.parse import urlencode
 
 from django.db import models
+from django.contrib.postgres.fields import HStoreField
 from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
@@ -73,6 +74,7 @@ class Donor(models.Model):
 
     email = models.EmailField(blank=True, default='')
     identifier = models.CharField(blank=True, max_length=256)
+    attributes = HStoreField(null=True, blank=True)
 
     active = models.BooleanField(default=False)
     first_donation = models.DateTimeField(default=timezone.now)
