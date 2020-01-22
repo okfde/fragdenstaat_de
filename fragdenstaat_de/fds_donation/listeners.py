@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import transaction
 
 from froide_payment.models import PaymentStatus
@@ -20,7 +22,7 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         obj.payment = instance
 
     received_now = False
-    obj.amount_received = instance.received_amount
+    obj.amount_received = instance.received_amount or Decimal('0.0')
 
     if instance.status == PaymentStatus.CONFIRMED:
         obj.completed = True
