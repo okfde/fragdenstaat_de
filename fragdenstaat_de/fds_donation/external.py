@@ -39,23 +39,33 @@ def find_donation(transfer_ident, row):
         return None
 
     donor = donation.donor
-    if donor and not donor.identifier:
-        donor.identifier = row['iban']
-        donor.save()
+    if donor:
+        if not donor.attributes or 'iban' not in donor.attributes:
+            donor.attributes = donor.attributes or {}
+            donor.attributes['iban'] = row['iban']
+            donor.save()
     return donation
 
 
 def get_or_create_bank_transfer_donor(row):
-    donors = Donor.objects.filter(
-        identifier=row['iban']
-    )
-    if len(donors) > 0:
-        return donors[0]
+    if pd.notnull(row['iban']):
+        donors = Donor.objects.filter(
+            attributes__iban=row['iban']
+        )
+        if len(donors) > 0:
+            return donors[0]
 
     name = row['name']
     names = name.strip().rsplit(' ', 1)
     first_name = ' '.join(names[:-1])
     last_name = ' '.join(names[-1:])
+    attrs = {}
+    ident = ''
+    country = ''
+    if pd.notnull(row['iban']):
+        attrs = {'iban': row['iban']}
+        country = row['iban'][:2]
+        ident = row['iban']
     return Donor.objects.create(
         active=True,
         salutation='',
@@ -65,9 +75,10 @@ def get_or_create_bank_transfer_donor(row):
         address='',
         postcode='',
         city='',
-        country=row['iban'][:2],
+        country=country,
         email='',
-        identifier=row['iban'],
+        identifier=ident,
+        attributes=attrs,
         contact_allowed=False,
         become_user=False,
         receipt=False,
@@ -102,6 +113,7 @@ def import_banktransfer(transfer_ident, row):
         if payment.status != PaymentStatus.CONFIRMED:
             payment.captured_amount = donation.amount
             payment.received_amount = donation.amount
+            payment.received_timestamp = donation.received_timestamp
             payment.change_status(PaymentStatus.CONFIRMED)
     return is_new
 
@@ -117,7 +129,9 @@ def import_banktransfers(xls_file):
         'Konto': 'iban',
         'Bank': 'bic'
     })
-
+    local_tz = pytz.timezone('Europe/Berlin')
+    df['date'] = df['date'].apply(local_tz.localize)
+    df['date_received'] = df['date_received'].apply(local_tz.localize)
     count = 0
     new_count = 0
     for i, row in df.iterrows():
@@ -181,8 +195,7 @@ def import_paypal(csv_file):
 def get_or_create_paypal_donor(row):
     try:
         return Donor.objects.get(
-            active=True,
-            email=row['paypal_email']
+            attributes__paypal_email=row['paypal_email']
         )
     except Donor.DoesNotExist:
         pass
@@ -201,7 +214,7 @@ def get_or_create_paypal_donor(row):
         city=row['city'],
         country=row['country'],
         email=row['paypal_email'],
-        identifier=row['subscription_id'],
+        attributes={'paypal_email': row['paypal_email']},
         contact_allowed=False,
         become_user=False,
         receipt=False,
@@ -220,7 +233,9 @@ def import_paypal_row(row):
     if payment:
         if not payment.received_amount:
             payment.received_amount = Decimal(str(row['amount_received']))
-            payment.save()
+        if not payment.received_timestamp:
+            payment.received_timestamp = row['date']
+        payment.save()
         # Make sure has donation
         create_donation_from_payment(payment)
         return False
