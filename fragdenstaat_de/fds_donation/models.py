@@ -96,6 +96,7 @@ class Donor(models.Model):
     receipt = models.BooleanField(default=False)
 
     invalid = models.BooleanField(default=False)
+    duplicate = models.UUIDField(editable=False, null=True, blank=True)
 
     note = models.TextField(blank=True)
     tags = TaggableManager(through=TaggedDonor, blank=True)
