@@ -1,4 +1,5 @@
 from io import BytesIO
+import uuid
 
 from django.db.models import Q, Sum, Avg, Count, Value
 from django.db.models.functions import Concat
@@ -9,6 +10,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.contrib.admin import helpers
+from django.template.response import TemplateResponse
 
 from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
 
@@ -16,6 +19,8 @@ from .models import DonationGift, Donor, Donation
 from .external import import_banktransfers, import_paypal
 from .filters import DateRangeFilter
 from .services import send_donation_email
+from .forms import get_merge_donor_form
+from .utils import propose_donor_merge, merge_donors
 
 
 class DonorAdmin(admin.ModelAdmin):
@@ -34,6 +39,7 @@ class DonorAdmin(admin.ModelAdmin):
         'become_user',
         'receipt',
         'invalid',
+        make_nullfilter('duplicate', _('has duplicate')),
         make_nullfilter('user_id', _('has user')),
         ('user', ForeignKeyFilter),
     )
@@ -42,6 +48,7 @@ class DonorAdmin(admin.ModelAdmin):
         'email', 'last_name', 'first_name', 'identifier', 'note'
     )
     raw_id_fields = ('user', 'subscription')
+    actions = ['merge_donors', 'detect_duplicates', 'clear_duplicates']
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -69,6 +76,108 @@ class DonorAdmin(admin.ModelAdmin):
     def get_name(self, obj):
         return str(obj)
     get_name.short_description = 'Name'
+    get_name.admin_order_field = Concat('first_name', Value(' '), 'last_name')
+
+    def clear_duplicates(self, request, queryset):
+        queryset.update(duplicate=None)
+        self.message_user(request, _('Duplicate flags cleared.'))
+    clear_duplicates.short_description = _("Clear duplicate flag on donors")
+
+    def detect_duplicates(self, request, queryset):
+        from collections import defaultdict
+
+        emails = defaultdict(list)
+        full_names = defaultdict(list)
+        id_sets = defaultdict(set)
+
+        for obj in queryset:
+            if obj.email:
+                emails[obj.email].append(obj.id)
+            full_names[obj.get_full_name()].append(obj.id)
+
+        for ddict in (emails, full_names):
+            for k, id_list in ddict.items():
+                if len(id_list) > 1:
+                    id_set = set()
+                    for x in id_list:
+                        if x in id_sets:
+                            id_set.update(id_sets[x])
+                        id_set.add(x)
+                        id_sets[x] = id_set
+        already = set()
+        count = 0
+        for key, id_set in id_sets.items():
+            if key in already:
+                continue
+            already.update(id_set)
+            Donor.objects.filter(id__in=id_set).update(duplicate=uuid.uuid4())
+            count += 1
+        self.message_user(request, _('Detected %s duplicate sets with %s donors') % (
+            count, len(already)
+        ))
+
+    detect_duplicates.short_description = _("Detect duplicate donors")
+
+    def merge_donors(self, request, queryset):
+        """
+        Send mail to users
+
+        """
+
+        select_across = request.POST.get('select_across', '0') == '1'
+        if select_across:
+            self.message_user(request, _('Select across not allowed!'))
+            return
+
+        candidates = queryset.order_by('-id')
+        candidate_ids = [x.id for x in candidates]
+        if len(candidate_ids) < 2:
+            self.message_user(request, _('Need to select more than one!'))
+            return
+        has_sub = 0
+        for c in candidates:
+            if c.subscription_id:
+                has_sub += 1
+        if has_sub > 1:
+            self.message_user(request, _('Two subscriptions detected!'))
+            return
+
+        MergeDonorForm = get_merge_donor_form(self.admin_site)
+
+        donor_form = None
+        if 'salutation' in request.POST:
+            donor_form = MergeDonorForm(data=request.POST)
+            if donor_form.is_valid():
+                primary_id = None
+                if request.POST.get('primary') is not None:
+                    primary_id = request.POST['primary']
+                    if primary_id not in candidate_ids:
+                        primary_id = None
+                if primary_id is None:
+                    primary_id = candidate_ids[0]
+
+                donor = merge_donors(candidates, primary_id, donor_form.cleaned_data)
+
+                self.message_user(request, _('Merged %s donors into %s') % (
+                    len(candidates), donor
+                ))
+                return None
+
+        if donor_form is None:
+            merged_donor = propose_donor_merge(candidates, MergeDonorForm.Meta.fields)
+            donor_form = MergeDonorForm(instance=merged_donor)
+
+        context = {
+            'opts': self.model._meta,
+            'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
+            'queryset': candidates,
+            'form': donor_form,
+        }
+
+        # Display the confirmation page
+        return TemplateResponse(request, 'admin/fds_donation/donor/merge_donors.html',
+            context)
+    merge_donors.short_description = _("Merge donors")
 
 
 class DonationChangeList(ChangeList):

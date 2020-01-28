@@ -6,6 +6,7 @@ from django.core.mail import mail_managers
 from django.utils.translation import ugettext_lazy as _
 from django.utils.html import format_html
 from django.conf import settings
+from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 
 from froide.account.utils import parse_address
 from froide.helper.content_urls import get_content_url
@@ -16,7 +17,7 @@ from froide_payment.forms import StartPaymentMixin
 from froide_payment.utils import interval_description
 
 from .models import (
-    Donation, DonationGift, INTERVAL_SETTINGS_CHOICES,
+    Donor, Donation, DonationGift, INTERVAL_SETTINGS_CHOICES,
     SALUTATION_CHOICES
 )
 from .services import get_or_create_donor
@@ -501,3 +502,27 @@ class DonationGiftForm(forms.Form):
             'Neue Bestellung von %s' % self.category,
             str('\n'.join(str(t) for t in text))
         )
+
+
+def get_merge_donor_form(admin_site):
+
+    class MergeDonorForm(forms.ModelForm):
+        class Meta:
+            model = Donor
+            fields = [
+                'salutation', 'first_name', 'last_name', 'company_name',
+                'address', 'city', 'postcode', 'country',
+                'email', 'identifier', 'attributes',
+                'email_confirmed',
+                'contact_allowed', 'receipt',
+                'note',
+                'user',
+            ]
+            widgets = {
+                'user': ForeignKeyRawIdWidget(
+                    Donor._meta.get_field('user').remote_field,
+                    admin_site
+                ),
+            }
+
+    return MergeDonorForm
