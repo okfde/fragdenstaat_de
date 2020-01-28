@@ -31,6 +31,7 @@ class DonorAdmin(admin.ModelAdmin):
         'last_donation',
         'amount_total',
         'amount_last_year',
+        'receipt',
     )
     list_filter = (
         'active',
