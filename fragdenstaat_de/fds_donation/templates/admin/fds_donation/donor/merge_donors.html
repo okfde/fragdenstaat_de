@@ -30,7 +30,7 @@
           {% for donor in queryset %}
             <td>
               <label>
-                <input type="radio" name="chosen_candidate" value="{{ donor.id }}">
+                <input type="radio" name="primary" value="{{ donor.id }}">
                 Donor {{ donor.id }}
               </label>
             </td>
