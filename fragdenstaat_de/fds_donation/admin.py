@@ -1,3 +1,4 @@
+from collections import Counter
 from io import BytesIO
 import uuid
 
@@ -134,12 +135,12 @@ class DonorAdmin(admin.ModelAdmin):
         if len(candidate_ids) < 2:
             self.message_user(request, _('Need to select more than one!'))
             return
-        has_sub = 0
+        subs = Counter()
         for c in candidates:
             if c.subscription_id:
-                has_sub += 1
-        if has_sub > 1:
-            self.message_user(request, _('Two subscriptions detected!'))
+                subs[c.subscription_id] += 1
+        if len(subs) > 1:
+            self.message_user(request, _('Two different subscriptions detected!'))
             return
 
         MergeDonorForm = get_merge_donor_form(self.admin_site)
