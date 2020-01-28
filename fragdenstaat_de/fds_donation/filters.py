@@ -26,7 +26,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class DateRangeFilter(admin.filters.FieldListFilter):
-    template = "fds_donation/forms/widgets/date_range_filter.html"
+    template = "fds_donation/forms/widgets/range_filter.html"
 
     def __init__(self, field, request, params, model, model_admin, field_path):
         self.lookup_kwarg_gte = '{0}__range__gte'.format(field_path)
@@ -131,6 +131,81 @@ class DateRangeFilter(admin.filters.FieldListFilter):
                         }
                     ),
                     localize=True,
+                    required=False
+                )),
+            )
+        )
+
+
+def make_rangefilter(field, title):
+    return type(str('%sRangeFilter' % field.title()), (RangeFilter,), {
+        'title': title,
+        'parameter_name': field
+    })
+
+
+class RangeFilter(admin.filters.SimpleListFilter):
+    title = ''
+    parameter_name = ''
+    template = "fds_donation/forms/widgets/range_filter.html"
+
+    def __init__(self, request, params, model, model_admin):
+        super().__init__(request, params, model, model_admin)
+        self.request = request
+
+    def lookups(self, request, model_admin):
+        return ()
+
+    def has_output(self):
+        return True
+
+    def queryset(self, request, queryset):
+        val = self.value()
+        if not val:
+            return queryset
+
+        if '-' in val:
+            val = [x.strip() for x in val.split('-')]
+        else:
+            val = [val]
+        if len(val) < 2:
+            val.append(None)
+
+        filt = {}
+        if val[0]:
+            filt['%s__gte' % self.parameter_name] = float(val[0])
+        if val[1]:
+            filt['%s__lte' % self.parameter_name] = float(val[1])
+
+        return queryset.filter(**filt)
+
+    def choices(self, changelist):
+        yield {
+            'selected': self.value() is None,
+            'query_string': changelist.get_query_string(remove=[self.parameter_name]),
+            'form': self.get_form()
+        }
+
+    def get_form(self):
+        form_class = self._get_form_class()
+        return form_class(self.used_parameters)
+
+    def _get_form_class(self):
+        fields = self._get_form_fields()
+
+        form_class = type(
+            str('RangeForm'),
+            (forms.BaseForm,),
+            {'base_fields': fields}
+        )
+
+        return form_class
+
+    def _get_form_fields(self):
+        return OrderedDict(
+            (
+                (self.parameter_name, forms.CharField(
+                    label=_('From - To'),
                     required=False
                 )),
             )

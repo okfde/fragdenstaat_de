@@ -18,7 +18,7 @@ from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
 
 from .models import DonationGift, Donor, Donation
 from .external import import_banktransfers, import_paypal
-from .filters import DateRangeFilter
+from .filters import DateRangeFilter, make_rangefilter
 from .services import send_donation_email
 from .forms import get_merge_donor_form
 from .utils import propose_donor_merge, merge_donors
@@ -35,6 +35,7 @@ class DonorAdmin(admin.ModelAdmin):
     list_filter = (
         'active',
         make_nullfilter('subscription', _('Dauerspende')),
+        make_rangefilter('amount_last_year', _('amount last year')),
         'subscription__plan__amount_year',
         'email_confirmed', 'contact_allowed',
         'become_user',
