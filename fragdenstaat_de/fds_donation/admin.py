@@ -26,6 +26,22 @@ from .utils import propose_donor_merge, merge_donors
 from .export import get_zwbs
 
 
+class DonorChangeList(ChangeList):
+    def get_results(self, *args, **kwargs):
+        ret = super().get_results(*args, **kwargs)
+        q = self.queryset.aggregate(
+            amount_total_sum=Sum('amount_total'),
+            amount_last_year_sum=Sum('amount_last_year'),
+            amount_total_avg=Avg('amount_total'),
+            amount_last_year_avg=Avg('amount_last_year')
+        )
+        self.amount_total_sum = q['amount_total_sum']
+        self.amount_total_avg = round(q['amount_total_avg']) if q['amount_total_avg'] is not None else '-'
+        self.amount_last_year_sum = q['amount_last_year_sum']
+        self.amount_last_year_avg = round(q['amount_last_year_avg']) if q['amount_last_year_avg'] is not None else '-'
+        return ret
+
+
 class DonorAdmin(admin.ModelAdmin):
     list_display = (
         'get_name', 'city',
@@ -57,6 +73,9 @@ class DonorAdmin(admin.ModelAdmin):
         'merge_donors', 'detect_duplicates', 'clear_duplicates',
         'export_zwbs'
     ]
+
+    def get_changelist(self, request):
+        return DonorChangeList
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
