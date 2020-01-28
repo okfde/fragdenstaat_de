@@ -39,7 +39,7 @@ def get_zwb(donor, year):
         address_name = donor.company_name
         if donor.last_name:
             address_name += '\nz.Hd. %s' % (
-                ' '.join(donor.first_name, donor.last_name).strip()
+                ' '.join([donor.first_name, donor.last_name]).strip()
             )
     else:
         address_name = donor.get_full_name()
