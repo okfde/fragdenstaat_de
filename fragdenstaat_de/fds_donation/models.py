@@ -113,7 +113,12 @@ class Donor(models.Model):
         )
 
     def get_full_name(self):
-        return '{} {}'.format(self.first_name, self.last_name)
+        name = '{} {}'.format(self.first_name, self.last_name)
+        if self.company_name:
+            if not name:
+                return self.company_name
+            return '%s (%s)' % (name, self.company_name)
+        return name
 
     def get_salutation(self):
         salutation = SALUTATION_DICT.get(self.salutation, None)
