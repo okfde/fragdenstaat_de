@@ -113,7 +113,7 @@ class Donor(models.Model):
         )
 
     def get_full_name(self):
-        name = '{} {}'.format(self.first_name, self.last_name)
+        name = '{} {}'.format(self.first_name, self.last_name).strip()
         if self.company_name:
             if not name:
                 return self.company_name
