@@ -78,6 +78,7 @@ setup(
         'python-slugify',
         'django-leaflet',
         'phonenumbers',
+        'num2words',
         'django-treebeard',
         'djangorestframework-jsonp',
         'geoip2',

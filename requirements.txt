@@ -68,6 +68,7 @@ markdown2==2.3.8
 markdown==3.1.1
 markupsafe==1.1.1
 maxminddb==1.4.1
+num2words==0.5.10
 oauthlib==3.1.0
 pandas==0.25.3
 phonenumbers==8.10.19

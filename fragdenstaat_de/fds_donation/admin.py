@@ -15,6 +15,7 @@ from django.contrib.admin import helpers
 from django.template.response import TemplateResponse
 
 from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
+from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 
 from .models import DonationGift, Donor, Donation
 from .external import import_banktransfers, import_paypal
@@ -22,6 +23,7 @@ from .filters import DateRangeFilter, make_rangefilter
 from .services import send_donation_email
 from .forms import get_merge_donor_form
 from .utils import propose_donor_merge, merge_donors
+from .export import get_zwbs
 
 
 class DonorAdmin(admin.ModelAdmin):
@@ -51,7 +53,10 @@ class DonorAdmin(admin.ModelAdmin):
         'email', 'last_name', 'first_name', 'identifier', 'note'
     )
     raw_id_fields = ('user', 'subscription')
-    actions = ['merge_donors', 'detect_duplicates', 'clear_duplicates']
+    actions = [
+        'merge_donors', 'detect_duplicates', 'clear_duplicates',
+        'export_zwbs'
+    ]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -181,6 +186,12 @@ class DonorAdmin(admin.ModelAdmin):
         return TemplateResponse(request, 'admin/fds_donation/donor/merge_donors.html',
             context)
     merge_donors.short_description = _("Merge donors")
+
+    def export_zwbs(self, request, queryset):
+        return export_csv_response(
+            dict_to_csv_stream(get_zwbs(queryset))
+        )
+    export_zwbs.short_description = _("Export ZWBs")
 
 
 class DonationChangeList(ChangeList):
