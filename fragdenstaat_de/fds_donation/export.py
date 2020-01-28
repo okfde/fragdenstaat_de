@@ -16,7 +16,9 @@ def get_zwbs(donors, year=None):
         year = timezone.now().year - 1
 
     for donor in donors:
-        yield get_zwb(donor, year)
+        data = get_zwb(donor, year)
+        if data:
+            yield data
 
 
 def get_zwb(donor, year):
@@ -28,6 +30,8 @@ def get_zwb(donor, year):
 
     if len(donations) > MAX_DONATIONS:
         raise ValueError('Too many donations for %s' % donor.id)
+    if not donations:
+        return
 
     total_amount = sum(donation.amount for donation in donations)
 
