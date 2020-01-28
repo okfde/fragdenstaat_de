@@ -1,6 +1,7 @@
 from io import BytesIO
 
-from django.db.models import Q, Sum, Avg, Count
+from django.db.models import Q, Sum, Avg, Count, Value
+from django.db.models.functions import Concat
 from django.contrib import admin, messages
 from django.conf.urls import url
 from django.contrib.admin.views.main import ChangeList
@@ -91,7 +92,7 @@ class DonationAdmin(admin.ModelAdmin):
         return DonationChangeList
 
     list_display = (
-        'donor', 'timestamp', 'amount', 'completed', 'received',
+        'get_name', 'timestamp', 'amount', 'completed', 'received',
         'purpose',
         'reference', 'method', 'recurring',
     )
@@ -112,6 +113,15 @@ class DonationAdmin(admin.ModelAdmin):
     )
 
     actions = ['resend_donation_mail']
+
+    def get_name(self, obj):
+        return str(obj.donor)
+    get_name.short_description = 'Name'
+    get_name.admin_order_field = Concat('donor__first_name', Value(' '), 'donor__last_name')
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.select_related('donor')
 
     def resend_donation_mail(self, request, queryset):
         resent = 0
