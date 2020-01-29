@@ -1,5 +1,3 @@
-from django.utils import timezone
-
 from num2words import num2words
 
 
@@ -10,11 +8,7 @@ def format_number(num):
     return (u'%.2f €' % num).replace('.', ',')
 
 
-def get_zwbs(donors, year=None):
-    if year is None:
-        # Default to last year
-        year = timezone.now().year - 1
-
+def get_zwbs(donors, year):
     for donor in donors:
         data = get_zwb(donor, year)
         if data:
@@ -46,21 +40,24 @@ def get_zwb(donor, year):
 
     donor_name = donor.get_full_name()
 
+    donor_account = 'Ihre Spendenübersicht finden Sie auch eingeloggt auf fragdenstaat.de. Melden Sie sich einfach bei uns, falls Sie noch nicht registriert sind.'
+    if donor.user_id:
+        donor_account = 'Ihre Spendenübersicht können Sie in Ihrem Nutzerkonto unter „Ihre Spenden“ einsehen.'
+
     data = {
         'Adressname': address_name,
         'Spendenname': donor_name,
         'Vorname': donor.first_name,
         'Nachname': donor.last_name,
-        'Straße': donor.address,
+        'Strasse': donor.address,
         'PLZ': donor.postcode,
         'Ort': donor.city,
         'Land': donor.country.name,
         'Anrede': donor.get_salutation_display(),
         'Briefanrede': donor.get_salutation(),
         'Jahressumme': format_number(total_amount),
-        'Jahressumme in Worten': '- %s Euro -' % (
-            num2words(total_amount, lang='de')
-        )
+        'JahressummeInWorten': amount_to_words(total_amount),
+        'NutzerKonto': donor_account
     }
 
     for i in range(1, MAX_DONATIONS + 1):
@@ -68,12 +65,27 @@ def get_zwb(donor, year):
             data.update({
                 'Datum%s' % i: '',
                 'Betrag%s' % i: '',
+                'Zuwendung%s' % i: '',
+                'Verzicht%s' % i: '',
             })
             continue
         donation = donations[i - 1]
         data.update({
             'Datum%s' % i: donation.received_timestamp.strftime('%d.%m.%Y'),
             'Betrag%s' % i: format_number(donation.amount),
+            'Zuwendung%s' % i: 'Geldzuwendung',
+            'Verzicht%s' % i: 'Nein',
         })
 
     return data
+
+
+def amount_to_words(amount):
+    euro, cents = [int(x) for x in str(amount).split('.')]
+    euro_word = num2words(euro, lang='de')
+    if cents:
+        cent_words = num2words(cents, lang='de')
+        return '- %s Euro und %s Cent -' % (
+            euro_word, cent_words
+        )
+    return '- %s Euro -' % euro_word

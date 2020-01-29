@@ -207,8 +207,33 @@ class DonorAdmin(admin.ModelAdmin):
     merge_donors.short_description = _("Merge donors")
 
     def export_zwbs(self, request, queryset):
+        # Filter by ZWB criteria
+        # Only valid records
+        queryset = queryset.filter(invalid=False)
+
+        # Last year received donations that have not yet been ZWBed
+        last_year = timezone.now().year - 1
+        donations_filter = Q(
+            donations__received=True, donations__receipt_given=False,
+            donations__received_timestamp__year=last_year
+        )
+
+        last_year = timezone.now().year - 1
+        queryset = queryset.annotate(
+            amount_last_year=Sum(
+                'donations__amount',
+                filter=donations_filter
+            )
+        )
+
+        # Only (with receipt AND > 25) OR (> 50)
+        queryset = queryset.filter(
+            Q(receipt=True, amount_last_year__gte=25) |
+            Q(amount_last_year__gte=50)
+        )
+
         return export_csv_response(
-            dict_to_csv_stream(get_zwbs(queryset))
+            dict_to_csv_stream(get_zwbs(queryset, year=last_year))
         )
     export_zwbs.short_description = _("Export ZWBs")
 
