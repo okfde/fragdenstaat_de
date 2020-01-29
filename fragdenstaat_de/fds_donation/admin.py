@@ -232,6 +232,8 @@ class DonorAdmin(admin.ModelAdmin):
             Q(amount_last_year__gte=50)
         )
 
+        queryset = queryset.order_by('last_name', 'first_name')
+
         return export_csv_response(
             dict_to_csv_stream(get_zwbs(queryset, year=last_year))
         )
