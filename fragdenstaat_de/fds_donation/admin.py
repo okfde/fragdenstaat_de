@@ -17,7 +17,9 @@ from django.utils.text import slugify
 from django.contrib.admin import helpers
 from django.template.response import TemplateResponse
 
-from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
+from froide.helper.admin_utils import (
+    ForeignKeyFilter, make_nullfilter, AdminTagAllMixIn
+)
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 
 from .models import DonationGift, Donor, Donation
@@ -45,7 +47,7 @@ class DonorChangeList(ChangeList):
         return ret
 
 
-class DonorAdmin(admin.ModelAdmin):
+class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
     list_display = (
         'get_name', 'city',
         'active',
@@ -66,15 +68,17 @@ class DonorAdmin(admin.ModelAdmin):
         make_nullfilter('duplicate', _('has duplicate')),
         make_nullfilter('user_id', _('has user')),
         ('user', ForeignKeyFilter),
+        'tags',
     )
     date_hierarchy = 'first_donation'
     search_fields = (
         'email', 'last_name', 'first_name', 'identifier', 'note'
     )
     raw_id_fields = ('user', 'subscription')
+    tag_all_config = ('tags', None)
     actions = [
         'merge_donors', 'detect_duplicates', 'clear_duplicates',
-        'export_zwbs', 'get_zwb_pdf'
+        'export_zwbs', 'get_zwb_pdf', 'tag_all'
     ]
 
     def get_changelist(self, request):
