@@ -1,7 +1,7 @@
 from datetime import datetime
 from num2words import num2words
 
-from django.utils import formats
+from django.utils import formats, timezone
 
 from froide.foirequest.pdf_generator import PDFGenerator
 
@@ -82,6 +82,13 @@ def get_zwb_data(donor, donations):
     return data
 
 
+def format_date(date):
+    return formats.date_format(
+        timezone.localtime(date),
+        'SHORT_DATE_FORMAT'
+    )
+
+
 def get_donations(donor, year):
     donations = donor.donations.all().filter(
         received=True,
@@ -92,8 +99,9 @@ def get_donations(donor, year):
         raise ValueError('Too many donations for %s' % donor.id)
     if not donations:
         return
+
     return [{
-        'date': formats.date_format(donation.received_timestamp, 'SHORT_DATE_FORMAT'),
+        'date': format_date(donation.received_timestamp),
         'formatted_amount': format_number(donation.amount),
         'receipt_date': donation.receipt_date,
         'amount': donation.amount
