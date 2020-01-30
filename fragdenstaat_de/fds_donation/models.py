@@ -189,6 +189,7 @@ class Donation(models.Model):
     reference = models.CharField(max_length=255, blank=True)
 
     receipt_given = models.BooleanField(default=False)
+    receipt_date = models.DateTimeField(null=True, blank=True)
 
     order = models.OneToOneField(
         Order, null=True, blank=True,
