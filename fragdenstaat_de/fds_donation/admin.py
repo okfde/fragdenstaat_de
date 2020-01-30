@@ -72,7 +72,8 @@ class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
     )
     date_hierarchy = 'first_donation'
     search_fields = (
-        'email', 'last_name', 'first_name', 'identifier', 'note'
+        'email', 'last_name', 'first_name', 'company_name',
+        'identifier', 'note'
     )
     raw_id_fields = ('user', 'subscription')
     tag_all_config = ('tags', None)
