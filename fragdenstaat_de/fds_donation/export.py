@@ -59,7 +59,8 @@ def get_zwb_data(donor, donations):
         'Jahressumme': format_number(total_amount),
         'JahressummeInWorten': amount_to_words(total_amount),
         'NutzerKonto': donor_account,
-        'receipt_already': any(d['receipt_date'] for d in donations)
+        'receipt_already': any(d['receipt_date'] for d in donations),
+        'current_date': format_date(timezone.now())
     }
 
     for i in range(1, MAX_DONATIONS + 1):
