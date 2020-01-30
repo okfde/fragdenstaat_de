@@ -1,0 +1,252 @@
+{% load i18n %}<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+        @charset "UTF-8";
+        @page {
+          margin: 1.5cm;
+        }
+        body {
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          hyphens: auto;
+        }
+        section {
+          break-after: always;
+        }
+        small {
+          font-size: 7pt;
+          white-space: nowrap;
+          display: block;
+        }
+        .logo {
+          margin-top: 5px;
+          margin-right: 10px;
+          width: 50px;
+          height: 50px;
+          float: left;
+        }
+        .fineprint {
+          font-size: 7pt;
+        }
+        p {
+          font-size: 9pt;
+          margin: 4pt 0;
+        }
+        .lead {
+          font-size: 12pt;
+          margin: 6pt 0;
+        }
+        .center {
+          text-align: center;
+        }
+        .box {
+          border: 1px solid #000;
+          max-width: 100%;
+          padding: 5pt;
+          margin: 4pt 0;
+        }
+        h3 {
+          font-size: 12pt;
+          font-weight: bold;
+          margin: 6pt 0;
+        }
+
+        .flex-container {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+          align-content: stretch;
+          align-items: flex-start;
+        }
+        .flex-item {
+          flex: 0 1 auto;
+          align-self: stretch;
+        }
+      
+        .flex-grow {
+          flex: 1 1 auto;
+          align-self: stretch;
+        }
+        .flex-big {
+          flex: 2 2 auto;
+          align-self: stretch;
+        }
+        .flex-container .box {
+          border-right: 0px;
+        }
+        .flex-container .box:last-child {
+          border-right: 1px solid #000;
+        }
+        .checkbox {
+          margin-left: 12pt;
+        }
+        .checkbox-indent {
+          text-indent: -11pt;
+          margin-left: 11pt;
+        }
+        .mt-3 {
+          margin-top: 12pt;
+        }
+        hr {
+          margin-top: 96pt;
+        }
+
+        table {
+          border-collapse: collapse
+        }
+
+        td, th {
+          border: 1pt solid #000;
+          text-align: left;
+          padding: 5pt;
+        }
+        td {
+          white-space: nowrap;
+        }
+        .breakwords {
+          hyphens: auto;
+        }
+      
+    </style>
+    <title>{{ object.title }}</title>
+    <meta name="description" content="{{ object.description }}">
+    <meta name="author" content="{{ SITE_NAME }}">
+  </head>
+
+  <body>
+      <section>
+        <div class="box">
+          <small>Aussteller (Bezeichnung und Anschrift der steuerbegünstigten Einrichtung):</small>
+          
+          <img class="logo" alt="OKF Logo" src="data:image/png;base64,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"/>
+
+          <p class="lead">
+            Open Knowledge Foundation Deutschland e. V.; <br/>
+            Singerstraße 109; 10179 Berlin
+          </p>
+        </div>
+
+        <h3>Bestätigung über Geldzuwendungen/Mitgliedsbeitrag</h3>
+        <p>
+          im Sinne des § 10b des Einkommensteuergesetzes an eine der in § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes bezeichneten Körperschaften, Personenvereinigungen oder Vermögensmassen
+        </p>
+
+        <div class="box">
+          <small>Name und Anschrift des Zuwendenden:</small>
+          <p class="lead center">
+            {{ Spendenname }}; {{ Strasse }}; {{ PLZ }} {{ Ort }}
+          </p>
+        </div>
+
+        <div class="flex-container">
+          <div class="box flex-grow">
+            <small> Betrag der Zuwendung - in Ziffern - </small>
+            <p class="lead center">
+              {{ Jahressumme }}
+            </p>
+          </div>
+
+          <div class="box flex-big">
+            <small> -&nbsp;in Buchstaben&nbsp;- </small>
+            <p class="lead center breakwords">
+              {{ JahressummeInWorten }}
+            </p>
+          </div>
+
+          <div class="box flex-item">
+            <small> Tag der Zuwendung: </small>
+            <p class="lead center">
+              01.01. - 31.12.{{ year }}
+            </p>
+          </div>
+        </div>
+
+        <p>Es handelt sich um den Verzicht auf Erstattung von Aufwendungen <span class="checkbox">Ja ☐</span> <span class="checkbox">Nein ☒</span></p>
+
+        <p class="checkbox-indent">
+          ☒  Wir sind wegen Förderung von Wissenschaft und Forschung sowie Förderung der Volks- und Berufsbildung nach dem Freistellungsbescheid bzw. nach der Anlage zum Körperschaftsteuerbescheid des Finanzamtes Berlin für Körperschaften I StNr. 27/674/52428 vom 05.08.2019 für den letzten Veranlagungszeitraum 2018 nach § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes von der Körperschaftsteuer und nach § 3 Nr. 6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit. 
+        </p>
+        <p class="checkbox-indent">
+          ☒  Die Einhaltung der satzungsmäßigen Voraussetzungen nach den §§ 51, 59, 60 und 61 AO wurde vom Finanzamt Berlin für Körperschaften I StNr. 27/674/52428 mit Bescheid vom 14.08.2014 nach § 60a AO gesondert festgestellt. Wir fördern nach unserer Satzung die Wissenschaft und Forschung sowie die Volks- und Berufsbildung.
+        </p>
+
+        <div class="box">
+          <p>
+            Es wird bestätigt, dass die Zuwendung nur zur Förderung (Angabe des begünstigten Zwecks / der begünstigten Zwecke)
+          </p>
+
+          <p class="lead center">
+            der Wissenschaft und Forschung sowie von Volks- und Berufsbildung
+          </p>
+          
+          <p>
+            verwendet wird.<br/>
+            
+            <strong>Nur für steuerbegünstigte Einrichtungen, bei denen die Mitgliedsbeiträge steuerlich nicht abziehbar sind:</strong><br/>
+            
+            ☐  Es wird bestätigt, dass es sich nicht um einen Mitgliedsbeitrag handelt, dessen Abzug nach § 10b Abs. 1 des Einkommensteuergesetzes ausgeschlossen ist. 
+          </p>
+
+        </div>
+
+
+        <hr/>
+
+        <small> (Ort, Datum und Unterschrift des Zuwendungsempfängers) </small>
+
+        <p class="fineprint mt-3">
+          <strong>Hinweis:</strong><br/>
+          Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt oder veranlasst, dass Zuwendungen nicht zu den in der Zuwendungsbestätigung angegebenen steuerbegünstigten Zwecken verwendet werden, haftet für die entgangene Steuer (§ 10b Abs. 4 EStG, § 9 Abs. 3 KStG, § 9 Nr. 5 GewStG).
+        </p>
+        <p class="fineprint">
+          Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der Zuwendung anerkannt, wenn das Datum des Freistellungs-bescheides länger als 5 Jahre bzw. <strong>das Datum der Feststellung der Einhaltung der satzungsmäßigen Voraussetzungen nach § 60a Abs. 1 AO länger als 3 Jahre seit Ausstellung des Bescheides zurückliegt (§ 63 Abs. 5 AO).</strong>
+        </p>
+      </section>
+
+      <section>
+        <h3>Anlage zur Sammelbestätigung</h3>
+        <h3>Seite 1/1</h3>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Datum der Zuwendung
+              </th>
+              <th>
+                Art der Zuwendung (Geldzuwendung / Mitgliedsbeitrag)
+              </th>
+              <th>
+                Verzicht auf die Erstattung von Aufwendungen (ja/nein)
+              </th> 
+              <th>
+                Betrag in Euro
+              </th>             
+            </tr>
+          </thead>
+          <tbody>
+            {% for donation in donations %}
+            <tr>
+              <td>
+                {{ donation.date }}
+              </td>
+              <td>
+                Geldzuwendung
+              </td>
+              <td>
+                Nein
+              </td>
+              <td>
+                {{ donation.formatted_amount }}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <h3 class="mt-3">Gesamtsumme: {{ Jahressumme }}</h3>
+      </section>
+  </body>
+</html>

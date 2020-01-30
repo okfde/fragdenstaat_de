@@ -1,9 +1,11 @@
 from collections import Counter
 from io import BytesIO
 import uuid
+import zipfile
 
 from django.db.models import Q, Sum, Avg, Count, Value
 from django.db.models.functions import Concat
+from django.http import HttpResponse
 from django.contrib import admin, messages
 from django.conf.urls import url
 from django.contrib.admin.views.main import ChangeList
@@ -11,6 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.utils.text import slugify
 from django.contrib.admin import helpers
 from django.template.response import TemplateResponse
 
@@ -23,7 +26,7 @@ from .filters import DateRangeFilter, make_rangefilter
 from .services import send_donation_email
 from .forms import get_merge_donor_form
 from .utils import propose_donor_merge, merge_donors
-from .export import get_zwbs
+from .export import get_zwbs, ZWBPDFGenerator
 
 
 class DonorChangeList(ChangeList):
@@ -71,7 +74,7 @@ class DonorAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', 'subscription')
     actions = [
         'merge_donors', 'detect_duplicates', 'clear_duplicates',
-        'export_zwbs'
+        'export_zwbs', 'get_zwb_pdf'
     ]
 
     def get_changelist(self, request):
@@ -206,6 +209,38 @@ class DonorAdmin(admin.ModelAdmin):
             context)
     merge_donors.short_description = _("Merge donors")
 
+    def get_zwb_pdf(self, request, queryset):
+        if queryset.count() == 1:
+            donor = queryset[0]
+            pdf_generator = ZWBPDFGenerator(donor)
+            response = HttpResponse(
+                pdf_generator.get_pdf_bytes(),
+                content_type='application/pdf'
+            )
+            filename = '%s_%s.pdf' % (
+                slugify(donor.get_full_name()), donor.id
+            )
+            response['Content-Disposition'] = 'attachment; filename="%s"' % filename
+            return response
+
+        zfile_obj = BytesIO()
+        zfile = zipfile.ZipFile(zfile_obj, 'w')
+        for donor in queryset:
+            pdf_generator = ZWBPDFGenerator(donor)
+            filename = '%s_%s.pdf' % (
+                slugify(donor.get_full_name()), donor.id
+            )
+            zfile.writestr(filename, pdf_generator.get_pdf_bytes())
+        zfile.close()
+
+        response = HttpResponse(
+            zfile_obj.getvalue(),
+            content_type='application/zip'
+        )
+        response['Content-Disposition'] = 'attachment; filename="zwbs_%s.zip"' % (timezone.now().isoformat())
+        return response
+    get_zwb_pdf.short_description = _("Generate ZWB PDFs")
+
     def export_zwbs(self, request, queryset):
         # Filter by ZWB criteria
         # Only valid records
@@ -237,7 +272,7 @@ class DonorAdmin(admin.ModelAdmin):
         return export_csv_response(
             dict_to_csv_stream(get_zwbs(queryset, year=last_year))
         )
-    export_zwbs.short_description = _("Export ZWBs")
+    export_zwbs.short_description = _("Export ZWB mail merge data")
 
 
 class DonationChangeList(ChangeList):

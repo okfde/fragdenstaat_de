@@ -1,4 +1,7 @@
+from datetime import datetime
 from num2words import num2words
+
+from froide.foirequest.pdf_generator import PDFGenerator
 
 
 MAX_DONATIONS = 18
@@ -16,18 +19,14 @@ def get_zwbs(donors, year):
 
 
 def get_zwb(donor, year):
-    donations = donor.donations.all().filter(
-        received=True,
-        receipt_given=False,
-        received_timestamp__year=year
-    ).order_by('received_timestamp')
-
-    if len(donations) > MAX_DONATIONS:
-        raise ValueError('Too many donations for %s' % donor.id)
+    donations = get_donations(donor, year)
     if not donations:
         return
+    return get_zwb_data(donor, donations)
 
-    total_amount = sum(donation.amount for donation in donations)
+
+def get_zwb_data(donor, donations):
+    total_amount = sum(donation['amount'] for donation in donations)
 
     if donor.company_name:
         address_name = donor.company_name
@@ -71,13 +70,31 @@ def get_zwb(donor, year):
             continue
         donation = donations[i - 1]
         data.update({
-            'Datum%s' % i: donation.received_timestamp.strftime('%d.%m.%Y'),
-            'Betrag%s' % i: format_number(donation.amount),
+            'Datum%s' % i: donation['date'],
+            'Betrag%s' % i: donation['formatted_amount'],
             'Zuwendung%s' % i: 'Geldzuwendung',
             'Verzicht%s' % i: 'Nein',
         })
 
     return data
+
+
+def get_donations(donor, year):
+    donations = donor.donations.all().filter(
+        received=True,
+        receipt_given=False,
+        received_timestamp__year=year
+    ).order_by('received_timestamp')
+
+    if len(donations) > MAX_DONATIONS:
+        raise ValueError('Too many donations for %s' % donor.id)
+    if not donations:
+        return
+    return [{
+        'date': donation.received_timestamp.strftime('%d.%m.%Y'),
+        'formatted_amount': format_number(donation.amount),
+        'amount': donation.amount
+    } for donation in donations]
 
 
 def amount_to_words(amount):
@@ -89,3 +106,19 @@ def amount_to_words(amount):
             euro_word, cent_words
         )
     return '- %s Euro -' % euro_word
+
+
+class ZWBPDFGenerator(PDFGenerator):
+    template_name = 'fds_donation/pdf/zwb.html'
+
+    def get_context_data(self, obj):
+        ctx = super().get_context_data(obj)
+        year = datetime.now().year - 1
+        donations = get_donations(obj, year)
+
+        data = get_zwb_data(obj, donations)
+        data['donations'] = donations
+        data['year'] = year
+
+        ctx.update(data)
+        return ctx
