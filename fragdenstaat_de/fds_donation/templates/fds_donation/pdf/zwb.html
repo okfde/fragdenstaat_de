@@ -239,6 +239,7 @@
               </td>
               <td>
                 {{ donation.formatted_amount }}
+                {% if donation.receipt_date %}*{% endif %}
               </td>
             </tr>
             {% endfor %}
@@ -246,6 +247,11 @@
         </table>
 
         <h3 class="mt-3">Gesamtsumme: {{ Jahressumme }}</h3>
+        {% if receipt_already %}
+          <p>
+            * Zuwendung wurde bereits bestätigt.
+          </p>
+        {% endif %}
       </section>
   </body>
 </html>

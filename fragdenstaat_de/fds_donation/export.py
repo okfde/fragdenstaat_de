@@ -1,6 +1,8 @@
 from datetime import datetime
 from num2words import num2words
 
+from django.utils import formats
+
 from froide.foirequest.pdf_generator import PDFGenerator
 
 
@@ -56,7 +58,8 @@ def get_zwb_data(donor, donations):
         'Briefanrede': donor.get_salutation(),
         'Jahressumme': format_number(total_amount),
         'JahressummeInWorten': amount_to_words(total_amount),
-        'NutzerKonto': donor_account
+        'NutzerKonto': donor_account,
+        'receipt_already': any(d['receipt_date'] for d in donations)
     }
 
     for i in range(1, MAX_DONATIONS + 1):
@@ -82,7 +85,6 @@ def get_zwb_data(donor, donations):
 def get_donations(donor, year):
     donations = donor.donations.all().filter(
         received=True,
-        receipt_given=False,
         received_timestamp__year=year
     ).order_by('received_timestamp')
 
@@ -91,8 +93,9 @@ def get_donations(donor, year):
     if not donations:
         return
     return [{
-        'date': donation.received_timestamp.strftime('%d.%m.%Y'),
+        'date': formats.date_format(donation.received_timestamp, 'SHORT_DATE_FORMAT'),
         'formatted_amount': format_number(donation.amount),
+        'receipt_date': donation.receipt_date,
         'amount': donation.amount
     } for donation in donations]
 

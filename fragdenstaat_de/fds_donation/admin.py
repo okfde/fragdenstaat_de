@@ -254,7 +254,8 @@ class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
         # Last year received donations that have not yet been ZWBed
         last_year = timezone.now().year - 1
         donations_filter = Q(
-            donations__received=True, donations__receipt_given=False,
+            donations__received=True,
+            donations__receipt_date__isnull=True,
             donations__received_timestamp__year=last_year
         )
 
