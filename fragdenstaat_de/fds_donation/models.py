@@ -126,6 +126,12 @@ class Donor(models.Model):
             return '%s (%s)' % (name, self.company_name)
         return name
 
+    def get_order_name(self):
+        name = '{} {}'.format(self.last_name, self.first_name).strip()
+        if self.company_name and not name:
+            return self.company_name
+        return name
+
     def get_salutation(self):
         salutation = SALUTATION_DICT.get(self.salutation, None)
         if salutation is None:

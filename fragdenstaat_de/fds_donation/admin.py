@@ -223,7 +223,7 @@ class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
                 content_type='application/pdf'
             )
             filename = '%s_%s.pdf' % (
-                slugify(donor.get_full_name()), donor.id
+                slugify(donor.get_order_name()), donor.id
             )
             response['Content-Disposition'] = 'attachment; filename="%s"' % filename
             return response
@@ -233,7 +233,7 @@ class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
         for donor in queryset:
             pdf_generator = ZWBPDFGenerator(donor)
             filename = '%s_%s.pdf' % (
-                slugify(donor.get_full_name()), donor.id
+                slugify(donor.get_order_name()), donor.id
             )
             zfile.writestr(filename, pdf_generator.get_pdf_bytes())
         zfile.close()
