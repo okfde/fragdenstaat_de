@@ -122,8 +122,8 @@ def import_banktransfers(xls_file):
     df = pd.read_excel(xls_file)
     df = df.rename(columns={
         'Betrag': 'amount',
-        'Datum': 'date',
-        'Wertstellung': 'date_received',
+        'Datum': 'date_received',
+        'Wertstellung': 'date',
         'Name': 'name',
         'Verwendungszweck': 'reference',
         'Konto': 'iban',
