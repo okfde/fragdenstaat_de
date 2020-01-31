@@ -94,7 +94,11 @@ def get_donations(donor, year):
     donations = donor.donations.all().filter(
         received=True,
         received_timestamp__year=year
-    ).order_by('received_timestamp')
+    )
+
+    donations.update(export_date=timezone.now())
+
+    donations = donations.order_by('received_timestamp')
 
     if len(donations) > MAX_DONATIONS:
         raise ValueError('Too many donations for %s' % donor.id)

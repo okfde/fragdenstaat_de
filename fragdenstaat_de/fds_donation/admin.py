@@ -313,7 +313,8 @@ class DonationAdmin(admin.ModelAdmin):
         'purpose',
         'reference',
         'recurring',
-        'receipt_given',
+        make_nullfilter('export_date', _('Receipt exported')),
+        make_nullfilter('receipt_date', _('Receipt sent')),
         ('donor', ForeignKeyFilter),
     )
     date_hierarchy = 'timestamp'
