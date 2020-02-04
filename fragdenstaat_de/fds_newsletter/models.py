@@ -13,62 +13,21 @@ from newsletter.utils import ACTIONS
 from froide.helper.email_sending import send_mail
 from froide.helper.email_utils import make_address
 
-from fragdenstaat_de.fds_mailing.models import EmailTemplate
-
 from .utils import REFERENCE_PREFIX
 
 
 logger = logging.getLogger(__name__)
 
 
-def get_email_context(subscription, submission=None, mailing=None):
-    if subscription.user:
-        unsubscribe_url = subscription.user.get_autologin_url(
-            reverse('account-settings')
-        ) + '#newsletter'
-    else:
-        unsubscribe_url = (
-            settings.SITE_URL + subscription.unsubscribe_activate_url()
-        )
-    site = Site.objects.get_current()
-    context = {
-        'subscription': subscription,
-        'newsletter': subscription.newsletter,
-        'date': subscription.subscribe_date,
-        'site': site,
-        'site_name': settings.SITE_NAME,
-        'site_url': settings.SITE_URL,
-        'domain': site.domain,
-        'unsubscribe_url': unsubscribe_url,
-        'STATIC_URL': settings.STATIC_URL,
-        'MEDIA_URL': settings.MEDIA_URL
-    }
-    if submission is not None:
-        context.update({
-            'submission': submission,
-            'message': submission.message,
-            'newsletter': submission.newsletter,
-            'date': submission.publish_date,
-        })
-
-    if subscription.user:
-        user = subscription.user
-        context.update({
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'name': user.get_full_name(),
-            'login_url': user.get_autologin_url('/'),
-        })
-    else:
-        context.update({
-            'name': subscription.name,
-        })
-    return context
-
-
 class Mailing(models.Model):
-    email_template = models.ForeignKey(EmailTemplate, null=True, on_delete=models.SET_NULL)
-    newsletter = models.ForeignKey(Newsletter, null=True, on_delete=models.SET_NULL)
+    email_template = models.ForeignKey(
+        'fds_mailing.EmailTemplate', null=True, on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    newsletter = models.ForeignKey(
+        Newsletter, null=True, on_delete=models.SET_NULL,
+        related_name='+'
+    )
     sender_name = models.CharField(max_length=255, blank=True)
 
     created = models.DateTimeField(default=timezone.now, editable=False)
@@ -231,6 +190,55 @@ class Submission(BaseSubmission):
                 {'subscription': subscription,
                  'error': e}
             )
+
+
+def get_email_context(subscription):
+    if subscription.user:
+        unsubscribe_url = subscription.user.get_autologin_url(
+            reverse('account-settings')
+        ) + '#newsletter'
+    else:
+        unsubscribe_url = (
+            settings.SITE_URL + subscription.unsubscribe_activate_url()
+        )
+    site = Site.objects.get_current()
+    context = {
+        'subscription': subscription,
+        'newsletter': subscription.newsletter,
+        'date': subscription.subscribe_date,
+        'site': site,
+        'site_name': settings.SITE_NAME,
+        'site_url': settings.SITE_URL,
+        'domain': site.domain,
+        'unsubscribe_url': unsubscribe_url,
+        'STATIC_URL': settings.STATIC_URL,
+        'MEDIA_URL': settings.MEDIA_URL,
+        'unsubscribe_reference': '{prefix}{pk}'.format(
+            prefix=REFERENCE_PREFIX, pk=subscription.id
+        )
+    }
+
+    if subscription.user:
+        user = subscription.user
+        context.update({
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'name': user.get_full_name(),
+            'login_url': user.get_autologin_url('/'),
+        })
+    else:
+        context.update({
+            'name': subscription.name,
+        })
+    return context
+
+
+class MailingSubscription(Subscription):
+    class Meta:
+        proxy = True
+
+    def get_email_context(self):
+        return get_email_context(self)
 
 
 def send_activation_email(self, action):

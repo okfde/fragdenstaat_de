@@ -166,6 +166,48 @@ class Donor(models.Model):
     def tag_list(self):
         return ", ".join(o.name for o in self.tags.all())
 
+    def get_email_context(self):
+        context = {
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'name': self.get_full_name(),
+            'email': self.email,
+            'company_name': self.company_name,
+            'salutation': self.get_salutation(),
+            'address': self.get_full_address(),
+            'donor_url': self.get_url(),
+        }
+
+        if self.user:
+            context['donor_url'] = (
+                settings.SITE_URL + self.user.get_autologin_url(
+                    reverse('fds_donation:donor-user')
+                )
+            )
+        else:
+            context['donor_url'] = self.get_url()
+
+        last_year = timezone.now().year - 1
+        donations = Donation.objects.filter(
+            donor=self, received=True
+        )
+        aggregate = donations.aggregate(
+            amount_total=models.Sum('amount'),
+            amount_last_year=models.Sum(
+                'amount',
+                filter=models.Q(received_timestamp__year=last_year)
+            ),
+        )
+
+        context.update({
+            'amount_total': aggregate['amount_total'],
+            'amount_last_year': aggregate['amount_last_year'],
+            'last_year': last_year,
+            'donations': donations,
+        })
+
+        return context
+
 
 class Donation(models.Model):
     donor = models.ForeignKey(
