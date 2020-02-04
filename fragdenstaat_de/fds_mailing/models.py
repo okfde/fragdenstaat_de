@@ -1,3 +1,4 @@
+import logging
 import re
 
 from django.db import models
@@ -7,17 +8,27 @@ from django.template.loader import render_to_string
 from django.template import Template, Context
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from django.contrib.auth import get_user_model
 
 from cms.models.fields import PlaceholderField
 from cms.models.pluginmodel import CMSPlugin
 
 from filer.fields.image import FilerImageField
+from newsletter.models import Newsletter
 
-from froide.helper.email_sending import EmailContent, mail_registry
+from froide.helper.email_sending import EmailContent, mail_registry, send_mail
+from froide.helper.email_utils import make_address
 
 from fragdenstaat_de.fds_cms.utils import get_request
+from fragdenstaat_de.fds_donation.models import Donor
+from fragdenstaat_de.fds_newsletter.models import MailingSubscription
 
 from .utils import render_text
+
+
+User = get_user_model()
+logger = logging.getLogger()
+
 
 EMAIL_TEMPLATE_CHOICES = [
     ('', _('Default template')),
@@ -214,3 +225,204 @@ class EmailHeaderCMSPlugin(VariableTemplateMixin, CMSPlugin):
 
     def __str__(self):
         return self.label
+
+
+class Mailing(models.Model):
+    name = models.CharField(max_length=255)
+    email_template = models.ForeignKey(
+        EmailTemplate, null=True, on_delete=models.SET_NULL
+    )
+    newsletter = models.ForeignKey(
+        Newsletter, blank=True, null=True, on_delete=models.SET_NULL
+    )
+    sender_name = models.CharField(max_length=255)
+    sender_email = models.EmailField(
+        max_length=255, default=settings.SITE_EMAIL
+    )
+
+    created = models.DateTimeField(default=timezone.now, editable=False)
+
+    publish = models.BooleanField(
+        default=True, verbose_name=_('publish'),
+        help_text=_('Publish in archive.'), db_index=True
+    )
+
+    ready = models.BooleanField(
+        default=False, verbose_name=_('ready'),
+    )
+    submitted = models.BooleanField(
+        default=False, verbose_name=_('submitted'),
+        editable=False
+    )
+    sending_date = models.DateTimeField(
+        verbose_name=_('sending date'), blank=True, null=True
+    )
+    sent_date = models.DateTimeField(
+        verbose_name=_('sent date'), blank=True, null=True,
+        editable=False
+    )
+    sent = models.BooleanField(
+        default=False, verbose_name=_('sent'),
+        editable=False
+    )
+    sending = models.BooleanField(
+        default=False, verbose_name=_('sending'),
+        editable=False
+    )
+
+    class Meta:
+        ordering = ('-created',)
+        verbose_name = _('mailing')
+        verbose_name_plural = _('mailings')
+
+    def __str__(self):
+        return self.name
+
+    def get_sender(self):
+        return make_address(self.sender_email, name=self.sender_name)
+
+    def get_email_context(self):
+        ctx = {
+            'mailing': self,
+            'newsletter': self.newsletter,
+        }
+        return ctx
+
+    def finalize(self):
+        from newsletter.models import Subscription
+
+        if self.newsletter:
+            # Remove and re-add all newsletter recipients
+            self.recipients.all().delete()
+            subscriptions = Subscription.objects.filter(
+                newsletter=self.newsletter, subscribed=True
+            )
+            for subscription in subscriptions:
+                MailingMessage.objects.create(
+                    mailing=self,
+                    subscription=subscription,
+                    name=subscription.name,
+                    email=subscription.email
+                )
+            return
+        for recipient in self.recipients.all():
+            recipient.finalize()
+            recipient.save()
+
+    def send(self):
+        if self.sending or self.sent or not self.submitted:
+            return
+
+        recipients = self.recipients.all()
+
+        if self.newsletter:
+            # Force limit to selected newsletter
+            recipients = recipients.filter(
+                subscription__newsletter=self.newsletter,
+                subscription__subscribed=True
+            )
+
+        logger.info(
+            _("Sending %(mailing)s to %(count)d people"),
+            {'mailing': self, 'count': recipients.count()}
+        )
+        self.sending = True
+        self.save()
+
+        context = self.get_email_context()
+
+        try:
+            for recipient in recipients:
+                recipient.send_message(context)
+
+            self.sent = True
+            self.sent_date = timezone.now()
+
+        finally:
+            self.sending = False
+            self.save()
+
+
+class MailingMessage(models.Model):
+    mailing = models.ForeignKey(
+        Mailing, on_delete=models.CASCADE,
+        related_name='recipients'
+    )
+
+    name = models.CharField(max_length=255, blank=True)
+    email = models.EmailField(max_length=255)
+
+    sent = models.DateTimeField(null=True, blank=True)
+    bounced = models.BooleanField(default=False)
+
+    message = models.TextField(blank=True)
+
+    subscription = models.ForeignKey(
+        MailingSubscription, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    donor = models.ForeignKey(
+        Donor, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    user = models.ForeignKey(
+        User, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+
+    class Meta:
+        ordering = ('-sent',)
+        verbose_name = _('mailing message')
+        verbose_name_plural = _('mailing messages')
+
+    def __str__(self):
+        return 'MailingRecipient  %s (%s)' % (self.email, self.mailing)
+
+    def get_email_context(self):
+        ctx = {}
+        for obj in (self.subscription, self.donor, self.user):
+            if hasattr(obj, 'get_email_context'):
+                ctx.update(obj.get_email_context())
+        return ctx
+
+    def finalize(self):
+        if self.donor:
+            self.name = self.donor.get_full_name()
+            self.email = self.donor.email
+        elif self.user:
+            self.name = self.user.get_full_name()
+            self.email = self.user.email
+
+    def send_message(self, mailing_context=None, email_template=None):
+        context = self.get_email_context()
+        if mailing_context is not None:
+            context.update(mailing_context)
+        if email_template is None:
+            email_template = self.mailing.email_template
+
+        email_content = email_template.get_email_content(context)
+
+        extra_kwargs = {
+            'queue': settings.EMAIL_BULK_QUEUE
+        }
+        if email_content.html:
+            extra_kwargs['html'] = email_content.html
+
+        unsubscribe_reference = context.get('unsubscribe_reference')
+
+        try:
+            logger.debug('Sending mailing message to: %s.', self)
+
+            send_mail(email_content.subject, email_content.text,
+                make_address(self.email, name=self.name),
+                from_email=self.mailing.get_sender(),
+                unsubscribe_reference=unsubscribe_reference,
+                **extra_kwargs
+            )
+            self.sent = timezone.now()
+            self.save()
+
+        except Exception as e:
+            logger.error(
+                'Mailing message %s failed with error: %s' % (self, e)
+            )

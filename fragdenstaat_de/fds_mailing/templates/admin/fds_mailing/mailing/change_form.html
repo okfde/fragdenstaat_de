@@ -1,0 +1,26 @@
+{% extends "admin/change_form.html" %}
+
+{% load i18n %}
+
+{% block object-tools-items %}
+  {% if original.pk %}
+    {% if original.newsletter %}
+      <li>{% trans "Sending to all newsletter subscribers" %}</li>
+    {% else %}
+      <li>
+        <a href="{% url 'admin:fds_mailing_mailingmessage_changelist' %}?mailing={{ original.pk }}">
+          {% trans "See recipients" %}
+        </a>
+      </li>
+    {% endif %}
+  {% endif %}
+  {% if original and original.ready and not original.submitted %}
+    <li>
+      <form method="post" action="{% url 'admin:fds_mailing_mailing_send' original.pk %}">
+        {% csrf_token %}
+        <button type="submit">{% trans "Send now" %}</button>
+      </form>
+    </li>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}

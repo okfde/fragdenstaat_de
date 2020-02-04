@@ -20,9 +20,12 @@ from django.contrib.admin import helpers
 from django.template.response import TemplateResponse
 
 from froide.helper.admin_utils import (
-    ForeignKeyFilter, make_nullfilter, AdminTagAllMixIn
+    ForeignKeyFilter, make_nullfilter, AdminTagAllMixIn,
 )
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
+
+from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
+from fragdenstaat_de.fds_mailing.models import MailingMessage
 
 from .models import DonationGift, Donor, Donation
 from .external import import_banktransfers, import_paypal
@@ -49,7 +52,7 @@ class DonorChangeList(ChangeList):
         return ret
 
 
-class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
+class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
     list_display = (
         'get_name', 'admin_link_donations', 'city',
         'active',
@@ -81,8 +84,9 @@ class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
     tag_all_config = ('tags', None)
     actions = [
         'merge_donors', 'detect_duplicates', 'clear_duplicates',
-        'export_zwbs', 'get_zwb_pdf', 'tag_all'
-    ]
+        'export_zwbs', 'get_zwb_pdf', 'tag_all',
+        'send_mailing'
+    ] + SetupMailingMixin.actions
 
     def get_changelist(self, request):
         return DonorChangeList
@@ -267,7 +271,6 @@ class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
             donations__received_timestamp__year=last_year
         )
 
-        last_year = timezone.now().year - 1
         queryset = queryset.annotate(
             amount_last_year=Sum(
                 'donations__amount',
@@ -287,6 +290,24 @@ class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
             dict_to_csv_stream(get_zwbs(queryset, year=last_year))
         )
     export_zwbs.short_description = _("Export ZWB mail merge data")
+
+    def setup_mailing_messages(self, mailing, queryset):
+        queryset = queryset.exclude(email='')
+
+        count = queryset.count()
+        MailingMessage.objects.bulk_create([
+            MailingMessage(
+                mailing_id=mailing.id,
+                donor_id=donor_id
+            )
+            for donor_id in queryset.values_list('id', flat=True)
+        ])
+
+        return _(
+            'Prepared mailing of emailable donors'
+            'with {count} recipients').format(
+                count=count
+        )
 
 
 class DonationChangeList(ChangeList):
