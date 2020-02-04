@@ -8,12 +8,14 @@ from django.db.models.functions import Concat
 from django.http import HttpResponse
 from django.contrib import admin, messages
 from django.conf.urls import url
+from django.urls import reverse
 from django.contrib.admin.views.main import ChangeList
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.utils.text import slugify
+from django.utils.html import format_html
 from django.contrib.admin import helpers
 from django.template.response import TemplateResponse
 
@@ -49,7 +51,7 @@ class DonorChangeList(ChangeList):
 
 class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
     list_display = (
-        'get_name', 'city',
+        'get_name', 'admin_link_donations', 'city',
         'active',
         'last_donation',
         'amount_total',
@@ -112,6 +114,12 @@ class DonorAdmin(AdminTagAllMixIn, admin.ModelAdmin):
         return str(obj)
     get_name.short_description = 'Name'
     get_name.admin_order_field = Concat('first_name', Value(' '), 'last_name')
+
+    def admin_link_donations(self, obj):
+        return format_html('<a href="{}">{}</a>',
+            reverse('admin:fds_donation_donation_changelist') + (
+                '?donor=%s' % obj.pk), _('donations'))
+    admin_link_donations.short_description = _('donations')
 
     def clear_duplicates(self, request, queryset):
         queryset.update(duplicate=None)
