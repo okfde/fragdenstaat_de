@@ -68,8 +68,8 @@ class Donor(models.Model):
     last_name = models.CharField(max_length=256, blank=True)
     company_name = models.CharField(max_length=256, blank=True)
     address = models.CharField(max_length=256, blank=True)
-    city = models.CharField(max_length=256, blank=True)
     postcode = models.CharField(max_length=20, blank=True)
+    city = models.CharField(max_length=256, blank=True)
     country = CountryField(blank=True)
 
     email = models.EmailField(blank=True, default='')
