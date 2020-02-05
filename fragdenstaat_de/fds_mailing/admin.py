@@ -1,4 +1,4 @@
-from django.db import transaction
+from django.db import transaction, models
 from django.contrib import admin, messages
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -73,7 +73,8 @@ class MailingAdmin(admin.ModelAdmin):
     raw_id_fields = ('email_template', 'newsletter')
     list_display = (
         'name', 'email_template', 'created', 'newsletter',
-        'ready', 'sending_date', 'sending', 'sent'
+        'ready', 'sending_date', 'sending', 'sent',
+        'sent_percentage'
     )
     list_filter = (
         'ready', 'submitted', 'sending', 'sent',
@@ -92,6 +93,25 @@ class MailingAdmin(admin.ModelAdmin):
         ]
 
         return my_urls + urls
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+
+        qs = qs.annotate(
+            total_recipients=models.Count('recipients'),
+            sent_recipients=models.Count(
+                'recipients', filter=models.Q(sent__isnull=False)
+            ),
+        )
+
+        return qs.select_related('email_template', 'newsletter')
+
+    def sent_percentage(self, obj):
+        if obj.total_recipients == 0:
+            return '-'
+        return '{0:.2f}%'.format(
+            obj.sent_recipients / obj.total_recipients * 100
+        )
 
     def send(self, request, object_id):
         if request.method != 'POST':
