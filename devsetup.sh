@@ -79,6 +79,12 @@ for name in "${REPOS[@]}"; do
   pip install -e $name
 done
 
+for name in "${REPOS[@]}"; do
+  pushd $name
+  git pull
+  popd
+done
+
 echo "Installing all frontend dependencies..."
 
 for name in "${FRONTEND[@]}"; do
