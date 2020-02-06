@@ -2,6 +2,7 @@
 *.mo
 *.pyc
 *.db
+.DS_Store
 local_settings.py
 build/
 fragdenstaat_de/theme/static/img/_*
