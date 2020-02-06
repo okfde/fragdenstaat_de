@@ -65,6 +65,10 @@ echo "Cloning / installing $MAIN"
 
 if [ ! -d $MAIN ]; then
   git clone git@github.com:okfde/$MAIN.git
+else
+  pushd $MAIN
+    git pull
+  popd
 fi
 pip install -U -r $MAIN/requirements-dev.txt
 pip install -e $MAIN
@@ -74,15 +78,13 @@ echo "Cloning / installing all editable dependencies..."
 for name in "${REPOS[@]}"; do
   if [ ! -d $name ]; then
     git clone git@github.com:okfde/$name.git
+  else
+    pushd $MAIN
+      git pull
+    popd
   fi
   pip uninstall -y $name
   pip install -e $name
-done
-
-for name in "${REPOS[@]}"; do
-  pushd $name
-  git pull
-  popd
 done
 
 echo "Installing all frontend dependencies..."
