@@ -66,7 +66,7 @@ echo "Cloning / installing $MAIN"
 if [ ! -d $MAIN ]; then
   git clone git@github.com:okfde/$MAIN.git
 fi
-pip install -r $MAIN/requirements-dev.txt
+pip install -U -r $MAIN/requirements-dev.txt
 pip install -e $MAIN
 
 echo "Cloning / installing all editable dependencies..."
