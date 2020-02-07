@@ -9,7 +9,7 @@
     "serve": "NODE_ENV=development webpack-dev-server -d --progress --mode development --hot --host 0.0.0.0",
     "dev": "NODE_ENV=development webpack -d --progress --mode development --watch",
     "build": "NODE_ENV=production webpack --mode production",
-    "favicon": "real-favicon generate fragdenstaat_de/theme/static/img/logo/favicon.json favicon-result.json fragdenstaat_de/theme/static/img/logo"
+    "favicon": "real-favicon generate fragdenstaat_de/theme/static/img/favicon/favicon.json favicon-result.json fragdenstaat_de/theme/static/img/favicon"
   },
   "homepage": "https://github.com/okfde/fragdenstaat_de#readme",
   "devDependencies": {
