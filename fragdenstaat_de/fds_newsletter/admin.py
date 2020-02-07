@@ -6,7 +6,7 @@ from newsletter.admin import (
     NewsletterAdmin as BaseNewsletterAdmin
 )
 from newsletter.models import (
-    Submission as BaseSubmission,
+    Submission,
     Subscription,
     Newsletter
 )
@@ -60,7 +60,7 @@ class SubscriptionAdmin(BaseSubscriptionAdmin):
     export_subscribers_csv.short_description = _("Export to CSV")
 
 
-admin.site.unregister(BaseSubmission)
+admin.site.unregister(Submission)
 
 admin.site.unregister(Subscription)
 admin.site.register(Subscription, SubscriptionAdmin)
