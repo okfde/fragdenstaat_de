@@ -44,10 +44,10 @@
 {% endblock %}
 
 {% block request_action_menu_footer %}
-  {% if object.costs and request.user|can_crowdfund %}
+  {% if object.costs %}
   <li class="nav-item">
     <a href="#crowdfunding" data-toggle="pill" class="nav-link" role="tab" aria-controls="crowdfunding" aria-expanded="false">
-      Crowdfunding (Alpha für Mods)
+      Crowdfunding
     </a>
   </li>
   {% endif %}
@@ -63,11 +63,9 @@
 
 {% block request_action_pane_footer %}
   {# Crowdfunding #}
-  {% if request.user|can_crowdfund %}
     <div class="tab-pane d-print-none" id="crowdfunding">
       {% include "froide_crowdfunding/includes/request_pane.html" with object=object %}
     </div>
-  {% endif %}
 
   {# Legal Action #}
   {% if object.can_be_escalated and not "food:" in object.reference %}
