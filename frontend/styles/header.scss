@@ -1,0 +1,108 @@
+.header {
+  &__branding {}
+    &__logo {
+      // height: 2.125rem;
+      height: 2.5rem;
+      // @include media-breakpoint-up(md) {
+      // }
+    }
+  &__menu {}
+}
+
+.mobile-menu {
+  &__toggle {
+    
+  }
+  &__content {
+    display: none;
+    position: fixed;
+    width: 14.375rem;
+    height: 100%;
+    background-color: $white;
+    top: 0;
+    right: 0;
+    z-index: $zindex-fixed;
+    overflow-y: auto;
+  }
+}
+
+// @media (max-width: 400px) {
+//   .navbar-toggler-title {
+//     display: none;
+//   }
+// }
+
+// .navbar .nav > li > a:hover {
+//     color: #06C;
+// }
+
+// .navbar-secondary {
+//   padding-top: 0;
+// }
+
+// .navbar-collapse {
+//   flex-wrap: wrap;
+// }
+
+// .navbar-nav-secondary {
+//   &.navbar-nav .nav-link {
+//     color: $gray-800;
+//   }
+// }
+
+@include media-breakpoint-up(md) {
+
+  // .navbar-nav-secondary {
+  //   padding-bottom: $spacer;
+  //   width: 100%;
+  //   order: -1;
+  //   justify-content: flex-end;
+
+  //   .nav-item {
+  //     background-color: $gray-200;
+  //     margin-left: $spacer * 0.25;
+
+  //     &.special-nav-secondary-item {
+  //       border-radius: 0px;
+  //       background: theme-color("danger");
+  //       font-weight: bold;
+  //       .nav-link {
+  //         color: $white !important;
+  //       }
+  //     }
+
+  //     .nav-link {
+  //       padding: $spacer * 0.25;
+  //     }
+  //   }
+  // }
+}
+
+// .account-dropdown-link {
+//   padding: 0 !important;
+//   margin: 8px 0;
+//   background-color: transparent !important;
+
+//   .account-name {
+//       float: left;
+//       font-size: 60%;
+//       margin: 2px 0 0 5px;
+//       line-height: 110%;
+//   }
+// }
+
+// @include media-breakpoint-down(sm) {
+//   .account-dropdown-link {
+//     display: none;
+//   }
+
+//   .account-dropdown .dropdown-menu {
+//     border: 0;
+//     display: block;
+//   }
+
+//   .dropdown-item {
+//     padding: 0.25rem 0;
+//   }
+
+// }
