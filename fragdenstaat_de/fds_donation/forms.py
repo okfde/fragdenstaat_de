@@ -436,7 +436,7 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
             donor=donor,
             amount=order.total_gross,
             reference=data.get('reference', ''),
-            purpose=data.get('purpose', order.description),
+            purpose=data.get('purpose', '') or order.description,
             order=order,
             recurring=order.is_recurring,
             first_recurring=order.is_recurring,
