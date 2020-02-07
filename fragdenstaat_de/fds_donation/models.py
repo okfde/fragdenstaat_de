@@ -159,6 +159,11 @@ class Donor(models.Model):
             'token': str(self.uuid)
         })
 
+    def get_absolute_change_url(self):
+        return reverse('fds_donation:donor-change', kwargs={
+            'token': str(self.uuid)
+        })
+
     def get_url(self):
         return settings.SITE_URL + self.get_absolute_url()
 

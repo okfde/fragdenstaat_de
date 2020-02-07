@@ -223,7 +223,7 @@ class DonorForm(forms.Form):
             'class': 'form-control'
         })
     )
-    company = forms.CharField(
+    company_name = forms.CharField(
         label=_('Company'),
         required=False,
         widget=forms.TextInput(
@@ -526,3 +526,26 @@ def get_merge_donor_form(admin_site):
             }
 
     return MergeDonorForm
+
+
+class DonorDetailsForm(forms.ModelForm, DonorForm):
+    class Meta:
+        model = Donor
+        fields = [
+            'salutation', 'first_name', 'last_name', 'company_name',
+            'address', 'city', 'postcode', 'country',
+            # 'email', # TODO: implement email confirmation flow
+            'receipt',
+        ]
+
+    email = None
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.get('instance')
+        if instance:
+            initial = kwargs.pop('initial', {})
+            initial.update({
+                'receipt': int(instance.receipt),
+            })
+            kwargs['initial'] = initial
+        super().__init__(*args, **kwargs)

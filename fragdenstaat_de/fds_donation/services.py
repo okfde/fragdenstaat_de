@@ -38,7 +38,7 @@ def create_donor(data, user=None, subscription=None):
         salutation=data.get('salutation', ''),
         first_name=data['first_name'],
         last_name=data['last_name'],
-        company_name=data.get('company', ''),
+        company_name=data.get('company_name', ''),
         address=data.get('address', ''),
         postcode=data.get('postcode', ''),
         city=data.get('city', ''),
