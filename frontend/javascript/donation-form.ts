@@ -19,6 +19,7 @@ interface IFeeMap {
 const fees: IFeeMap = {
   creditcard: (a: number) => Math.round(((a * 0.014) + 0.25) * 100) / 100,
   paypal: (a: number) => Math.round(((a * 0.0249) + 0.35) * 100) / 100,
+  sepa: () => 0.3,
   sofort: (a: number) => Math.round(((a * 0.014) + 0.25) * 100) / 100,
 };
 
@@ -45,7 +46,7 @@ function setupDonationForm(form: HTMLFormElement) {
       parent.childNodes[1].textContent += " / " + additionalCCProviders.join(" / ");
     }
   }
-  ["creditcard", "paypal", "sofort"].forEach((p) => {
+  ["creditcard", "paypal", "sofort", "sepa"].forEach((p) => {
     const el = document.querySelector(`input[value="${p}"]`);
     if (el && el.parentElement && el.parentElement.parentElement) {
       el.parentElement.parentElement.classList.add("onion-hide");

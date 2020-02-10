@@ -69,7 +69,7 @@ def process_new_donation(donation, received_now=False, domain_obj=None):
         return
 
     pending_ok = False
-    if payment.variant in ('lastschrift', 'banktransfer'):
+    if payment.variant in ('lastschrift', 'banktransfer', 'sepa'):
         pending_ok = True
     confirmed = payment.status == PaymentStatus.CONFIRMED
     pending = payment.status == PaymentStatus.PENDING

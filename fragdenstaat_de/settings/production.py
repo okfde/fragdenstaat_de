@@ -52,10 +52,11 @@ class FragDenStaat(FragDenStaatBase):
             'secret_key': env('STRIPE_PRIVATE_KEY'),
             'signing_secret': env('STRIPE_WEBHOOK_CC_SIGNING_KEY'),
         }),
-        # 'sepa': ('froide_payment.provider.StripeSourceProvider', {
-        #     'public_key': env('STRIPE_PUBLIC_KEY'),
-        #     'secret_key': env('STRIPE_PRIVATE_KEY'),
-        # }),
+        'sepa': ('froide_payment.provider.StripeSEPAProvider', {
+            'public_key': env('STRIPE_PUBLIC_KEY'),
+            'secret_key': env('STRIPE_PRIVATE_KEY'),
+            'signing_secret': env('STRIPE_WEBHOOK_SEPA_SIGNING_KEY'),
+        }),
         'paypal': ('froide_payment.provider.PaypalProvider', {
             'client_id': env('PAYPAL_CLIENT_ID'),
             'secret': env('PAYPAL_CLIENT_SECRET'),

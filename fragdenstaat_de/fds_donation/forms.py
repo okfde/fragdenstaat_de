@@ -25,7 +25,7 @@ from .widgets import AmountInput, InlineRadioSelect
 
 
 PAYMENT_METHOD_LIST = (
-    'creditcard', 'lastschrift', 'paypal', 'sofort',
+    'creditcard', 'sepa', 'paypal', 'sofort',
     'banktransfer'
 )
 
