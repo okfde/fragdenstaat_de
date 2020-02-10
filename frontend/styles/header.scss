@@ -6,23 +6,51 @@
       // @include media-breakpoint-up(md) {
       // }
     }
-  &__menu {}
 }
 
 .mobile-menu {
+  $transition: .2s ease;
   &__toggle {
-    
+    position: relative;
+    top: 0.2rem;
+    min-width: 2.5rem;
+    font-size: 1.5rem;
   }
-  &__content {
-    display: none;
+  &__wrapper {
+    z-index: 100;
     position: fixed;
     width: 14.375rem;
     height: 100%;
     background-color: $white;
     top: 0;
     right: 0;
-    z-index: $zindex-fixed;
     overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform $transition;
+    will-change: transform;
+    &--inital { width: 0; }
+  }
+
+  &__backdrop {
+    z-index: 80;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity $transition, visibility $transition;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  &--visible {
+  }
+  &--visible &__wrapper {
+    transform: translateX(0%);
+  }
+  &--visible &__backdrop {
+    opacity: 1;
+    visibility: visible;
   }
 }
 

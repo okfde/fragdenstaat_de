@@ -40,6 +40,8 @@
 $fa-font-path: '~font-awesome/fonts';
 @import '~font-awesome/scss/font-awesome';
 
+// letter-spacing: .03rem;
+
 // Own components
 // FIXME: these are not really components
 @import '~froide/frontend/styles/components/alerts';
