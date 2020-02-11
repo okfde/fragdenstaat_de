@@ -6,7 +6,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   elasticsearch:
-    image: elasticsearch:2.4.6
+    build: ./deps/elasticsearch/
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
       - elasticsearch-log:/var/log
