@@ -44,13 +44,36 @@
 
       <!-- Page Menu -->
       <ul class="list-unstyled mb-0">
-        <li class="py-3 px-3"><a role="button" href="/info/ueber/kampagnen">{% blocktrans %}Kampagnen{% endblocktrans %}</a></li>
-        <li class="py-3 px-3"><a role="button" href="/blog/kategorie/exklusiv">{% blocktrans %}Recherchen{% endblocktrans %}</a></li>
-        <li class="py-3 px-3"><a role="button" href="/blog/kategorie/exklusiv">{% blocktrans %}Recherchen{% endblocktrans %}</a></li>
+        <li>
+          <a role="button" class="d-flex py-3 px-3 text-body font-weight-bold text-decoration-none header-dropdown-trigger" href="/anfragen">
+            <span class="mr-1">{% blocktrans %}Anfragen{% endblocktrans %}</span>
+            <i class="fa fa-sort-down" aria-hidden="true"></i>
+          </a>
+
+          <!-- Anfragen header-dropdown -->
+          <ul class="list-unstyled mb-0 px-4 header-dropdown-content">
+            <li><a role="button" class="d-block py-3 text-body font-weight-bold text-decoration-none" href="/info/ueber/kampagnen">{% blocktrans %}Anfragen entdecken{% endblocktrans %}</a></li>
+            <li><a role="button" class="d-block py-3 text-body font-weight-bold text-decoration-none" href="/info/ueber/kampagnen">{% blocktrans %}Anfrage stellen{% endblocktrans %}</a></li>
+            <li><a role="button" class="d-block py-3 text-body font-weight-bold text-decoration-none" href="/info/ueber/kampagnen">{% blocktrans %}Einsteiger-Guide{% endblocktrans %}</a></li>
+          </ul>
+        </li>
+        <li><a role="button" class="d-block text-body font-weight-bold text-decoration-none py-3 px-3" href="/info/ueber/kampagnen">{% blocktrans %}Kampagnen{% endblocktrans %}</a></li>
+        <li><a role="button" class="d-block text-body font-weight-bold text-decoration-none py-3 px-3" href="/blog/kategorie/exklusiv">{% blocktrans %}Recherchen{% endblocktrans %}</a></li>
         {% if not user.is_authenticated %}
-        <li class="py-3 px-3"><a role="button" href="{% url 'account-login' %}">{% blocktrans %}Sign in{% endblocktrans %}</a></li>
+        <li>
+          <a role="button" class="d-block text-body font-weight-bold text-decoration-none py-3 px-3" href="{% url 'account-login' %}">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            <span>{% blocktrans %}Sign in{% endblocktrans %}</span>
+          </a>
+        </li>
         {% endif %}
       </ul>
+
+      <!-- Spenden CTA -->
+      <p class="py-3 px-3">
+        Ihnen gefällt unsere Arbeit? Unterstützen Sie uns mit einer Spende!<br>
+        <a role="button" class="btn btn-outline-primary mt-2" href="/spenden">{% blocktrans %}Jetzt spenden{% endblocktrans %}</a>
+      </p>
       
     </nav>
     <div class="mobile-menu__backdrop"></div>

@@ -54,6 +54,26 @@
   }
 }
 
+.header-dropdown-trigger {
+  
+}
+
+.header-dropdown-content {
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  // transform: translateY(-15px);
+  transition: all .1s ease;
+  will-change: transform;
+  &--visible {
+    // transform: translateY(0px);
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .2s ease-in;
+  }
+}
+
 // @media (max-width: 400px) {
 //   .navbar-toggler-title {
 //     display: none;
