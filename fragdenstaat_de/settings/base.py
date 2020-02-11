@@ -425,6 +425,11 @@ class FragDenStaatBase(German, Base):
                 (10, 24 * 60 * 60),
                 (20, 7 * 24 * 60 * 60),
             ],
+            message_throttle=[
+                (2, 5 * 60),  # X messages in X seconds
+                (6, 6 * 60 * 60),
+                (8, 24 * 60 * 60),
+            ],
             greetings=[
                 # Important: always needs to capture name to be removed
                 rec(r"^\s*Name des Absenders\s+(.*)"),
