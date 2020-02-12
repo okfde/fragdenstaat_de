@@ -102,7 +102,10 @@ def import_banktransfer(transfer_ident, row):
     donation.amount_received = Decimal(str(row['amount']))
     donation.received_timestamp = row['date_received']
     if is_new:
-        donation.timestamp = row['date']
+        if pd.notnull(row['date']) and row['date']:
+            donation.timestamp = row['date']
+        else:
+            donation.timestamp = row['date_received']
     donation.method = 'banktransfer'
     donation.received = True
     donation.completed = True
@@ -118,6 +121,9 @@ def import_banktransfer(transfer_ident, row):
     return is_new
 
 
+BLOCK_LIST = set(['Stripe Payments UK Ltd'])
+
+
 def import_banktransfers(xls_file):
     df = pd.read_excel(xls_file)
     df = df.rename(columns={
@@ -130,13 +136,18 @@ def import_banktransfers(xls_file):
         'Bank': 'bic'
     })
     local_tz = pytz.timezone('Europe/Berlin')
-    df['date'] = df['date'].apply(local_tz.localize)
     df['date_received'] = df['date_received'].apply(local_tz.localize)
+    if 'date' in df.columns:
+        df['date'] = df['date'].apply(local_tz.localize)
+    else:
+        df['date'] = None
     count = 0
     new_count = 0
     for i, row in df.iterrows():
+        if row['name'] in BLOCK_LIST:
+            continue
         transfer_ident = '{date}-{ref}-{iban}-{i}'.format(
-            date=row['date'],
+            date=row['date_received'],
             ref=row['reference'],
             iban=row['iban'],
             i=i
