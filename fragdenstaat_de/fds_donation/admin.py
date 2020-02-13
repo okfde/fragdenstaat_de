@@ -402,6 +402,12 @@ class DonationAdmin(admin.ModelAdmin):
             raise PermissionDenied
 
         xls_file = request.FILES.get('file')
+        if xls_file is None:
+            self.message_user(
+                request, _('No file provided.'), level=messages.ERROR
+            )
+            return redirect('admin:fds_donation_donation_changelist')
+
         xls_file = BytesIO(xls_file.read())
 
         count, new_count = import_banktransfers(xls_file)
@@ -422,6 +428,12 @@ class DonationAdmin(admin.ModelAdmin):
             raise PermissionDenied
 
         csv_file = request.FILES.get('file')
+        if csv_file is None:
+            self.message_user(
+                request, _('No file provided.'), level=messages.ERROR
+            )
+            return redirect('admin:fds_donation_donation_changelist')
+
         csv_file = BytesIO(csv_file.read())
 
         count, new_count = import_paypal(csv_file)
