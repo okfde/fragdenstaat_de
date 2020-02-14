@@ -1,4 +1,5 @@
 // importing FROIDE variables
+@import 'variables';
 @import '~froide/frontend/styles/variables';
 
 // Bootstrap imports
@@ -13,12 +14,12 @@
 @import 'bootstrap/scss/forms';
 @import 'bootstrap/scss/buttons';
 @import 'bootstrap/scss/transitions';
-@import 'bootstrap/scss/dropdown';
+@import 'dropdown';
 @import 'bootstrap/scss/button-group';
 @import 'bootstrap/scss/input-group';
 // @import 'bootstrap/scss/custom-forms';
 @import 'bootstrap/scss/nav';
-// @import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/navbar';
 @import 'bootstrap/scss/card';
 // @import 'bootstrap/scss/breadcrumb';
 @import 'bootstrap/scss/pagination';
