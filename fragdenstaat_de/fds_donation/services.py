@@ -22,6 +22,8 @@ def get_or_create_donor(data, user=None, subscription=None):
         try:
             donor = Donor.objects.get(user=user)
             donor.last_donation = timezone.now()
+            if subscription:
+                donor.subscription = subscription
             donor.save()
             return donor
         except Donor.DoesNotExist:

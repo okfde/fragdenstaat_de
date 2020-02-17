@@ -7,7 +7,7 @@ from django.utils import timezone
 from froide_payment.models import PaymentStatus
 
 from .services import send_donation_email, create_donation_from_payment
-from .models import Donation
+from .models import Donor, Donation
 from .tasks import send_donation_notification
 
 
@@ -78,3 +78,15 @@ def process_new_donation(donation, received_now=False, domain_obj=None):
         transaction.on_commit(
             lambda: send_donation_notification.delay(donation.id)
         )
+
+
+def subscription_was_canceled(sender, **kwargs):
+    if sender is None:
+        return
+
+    try:
+        donor = Donor.objects.get(subscription=sender)
+    except Donor.DoesNotExist:
+        return
+    donor.subscription = None
+    donor.save()
