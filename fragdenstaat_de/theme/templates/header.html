@@ -94,17 +94,11 @@
         <button type="button" class="top-menu__link dropdown-toggle" id="anfragenDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {% blocktrans %}Anfragen{% endblocktrans %}
         </button>
-        <ul class="list-unstyled mb-0 dropdown-menu top-menu--drop-left" aria-labelledby="anfragenDropdownMenu">
-          <li class="top-menu__listitem dropdown-item">
-            <a role="button" class="top-menu__link" href="/anfragen/">{% blocktrans %}Anfragen entdecken{% endblocktrans %}</a>
-          </li>
-          <li class="top-menu__listitem dropdown-item">
-            <a role="button" class="top-menu__link" href="/anfrage-stellen/">{% blocktrans %}Anfrage stellen{% endblocktrans %}</a>
-          </li>
-          <li class="top-menu__listitem dropdown-item">
-            <a role="button" class="top-menu__link" href="/hilfe/einsteiger-guide/">{% blocktrans %}Einsteiger-Guide{% endblocktrans %}</a>
-          </li>
-        </ul>
+        <div class="dropdown-menu top-menu--drop-left" aria-labelledby="anfragenDropdownMenu">
+          <a role="button" class="dropdown-item top-menu__link" href="/anfragen/">{% blocktrans %}Anfragen entdecken{% endblocktrans %}</a>
+          <a role="button" class="dropdown-item top-menu__link" href="/anfrage-stellen/">{% blocktrans %}Anfrage stellen{% endblocktrans %}</a>
+          <a role="button" class="dropdown-item top-menu__link" href="/hilfe/einsteiger-guide/">{% blocktrans %}Einsteiger-Guide{% endblocktrans %}</a>
+        </div>
       </li>
       <li class="top-menu__listitem mr-md-3 mr-lg-4">
         <a role="button" class="top-menu__link" href="/info/ueber/kampagnen/">{% blocktrans %}Kampagnen{% endblocktrans %}</a>
@@ -128,30 +122,24 @@
             <i class="fa fa-user" aria-hidden="true"></i>
             <span>{{ user.first_name }}</span>
           </button>
-          <ul class="list-unstyled pt-0 dropdown-menu top-menu--drop-right" aria-labelledby="userDropdownMenu">
-            <li class="top-menu__listitem top-menu__listitem--blue py-3 px-3 mb-2">
+          <div class="dropdown-menu top-menu--drop-right pt-0" aria-labelledby="userDropdownMenu">
+            <div class="top-menu__usermenu py-3 px-3 mb-1">
               <span class="d-block text-truncate">{{user.get_full_name}}</span>
               <small class="d-block text-truncate">{{user.email}}</small>
-            </li>
-            <li class="top-menu__listitem dropdown-item">
-              <a role="button" class="top-menu__link" href="/account/">{% blocktrans %}Meine Anfragen{% endblocktrans %}</a>
-            </li>
-            <li class="top-menu__listitem dropdown-item">
-              <a role="button" class="top-menu__link" href="/spenden/spende/ihre-spenden/">{% blocktrans %}Meine Spenden{% endblocktrans %}</a>
-            </li>
-            <li class="top-menu__listitem dropdown-item">
-              <a role="button" class="top-menu__link" href="/account/settings/">{% blocktrans %}Einstellungen{% endblocktrans %}</a>
-            </li>
-            <li class="dropdown-divider"></li>
-            <li class="top-menu__listitem dropdown-item">
+            </div>
+            <a role="button" class="dropdown-item top-menu__link" href="/account/">{% blocktrans %}Meine Anfragen{% endblocktrans %}</a>
+            <a role="button" class="dropdown-item top-menu__link" href="/spenden/spende/ihre-spenden/">{% blocktrans %}Meine Spenden{% endblocktrans %}</a>
+            <a role="button" class="dropdown-item top-menu__link" href="/account/settings/">{% blocktrans %}Einstellungen{% endblocktrans %}</a>
+            <div class="dropdown-divider my-1"></div>
+            <div class="dropdown-item">
               <form action="{% url 'account-logout' %}" method="post" class="form-inline">
                 {% csrf_token %}
                 <button type="submit" class="top-menu__link w-100">
                   {% blocktrans %}Abmelden{% endblocktrans %}
                 </button>
               </form>
-            </li>
-          </ul>
+            </div>
+          </div>
         {% else %}
           <a role="button" class="top-menu__link" href="{% url 'account-login' %}">
             <i class="fa fa-user" aria-hidden="true"></i>

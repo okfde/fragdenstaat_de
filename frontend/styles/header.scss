@@ -74,12 +74,13 @@
     &--blue {
       color: $white;
       background-color: $blue-800;
-      border-bottom: 1px solid $white;
+      border-bottom: 1px solid $gray-500;
       &:hover {
         color: $white;
       }
       &:active, &:focus {
-        color: $blue-400;
+        color: $blue-100;
+        background-color: $blue-700;
       }
     }
     &--white {
@@ -88,6 +89,7 @@
       &:active, &:focus {
         &:not(.drawer-menu__dropdown-trigger) {
           color: $blue-600;
+          background-color: $blue-200;
         }
       }
       &:hover {
@@ -95,12 +97,15 @@
       }
     }
   }
+  &__dropdown-trigger {}
   &__dropdown-content &__link {
     padding-left: $spacer * 2;
     background-color: $gray-200;
-    // padding-right: 0;
+    &:active,
+    &:focus {
+      background-color: $gray-300;
+    }
   }
-  &__dropdown-trigger {}
   &__dropdown-content {
     height: 0;
     opacity: 0;
@@ -130,13 +135,11 @@
     margin: 0;
     padding: 0;
   }
-  &__listitem {
-    &--blue {
-      color: $white;
-      background-color: $blue-800;
-      border-top-left-radius: $border-radius-lg;
-      border-top-right-radius: $border-radius-lg;
-    }
+  &__usermenu {
+    color: $white;
+    background-color: $blue-800;
+    border-top-left-radius: $border-radius-lg;
+    border-top-right-radius: $border-radius-lg;
   }
   &__link {
     display: block;
@@ -144,14 +147,10 @@
     font-weight: 700;
     text-decoration: none;
     color: $body-color;
-    background-color: transparent;
-    border: 0;
-    padding: 0;
-    margin: 0;
     text-align: left;
     &:hover {
       text-decoration: none;
-      color: $blue-600
+      color: $blue-600;
     }
     &:active,
     &:focus {
@@ -165,5 +164,13 @@
   &--drop-left {
     right: auto;
     left: -#{$spacer};
+  }
+}
+
+.dropdown-item.top-menu__link {
+  &:active,
+  &:focus {
+    color: $blue-600;
+    background-color: $blue-200;
   }
 }
