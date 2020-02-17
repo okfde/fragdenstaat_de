@@ -29,7 +29,8 @@ const ENTRY = {
   geomatch: 'froide/frontend/javascript/geomatch.js',
   messageredaction: 'froide/frontend/javascript/messageredaction.js',
   publicbodyupload: 'froide/frontend/javascript/publicbodyupload.js',
-  filingcabinet: 'filingcabinet/frontend/javascript/filingcabinet.js'
+  filingcabinet: 'filingcabinet/frontend/javascript/filingcabinet.js',
+  document: 'froide/frontend/javascript/document.js'
 }
 
 const EXCLUDE_CHUNKS = [
