@@ -301,7 +301,7 @@ class Mailing(models.Model):
                 MailingMessage.objects.create(
                     mailing=self,
                     subscription=subscription,
-                    name=subscription.name,
+                    name=subscription.name or '',
                     email=subscription.email
                 )
             return
