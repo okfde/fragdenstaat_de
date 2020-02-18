@@ -159,8 +159,8 @@ class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
             already.update(id_set)
             Donor.objects.filter(id__in=id_set).update(duplicate=uuid.uuid4())
             count += 1
-        self.message_user(request, _('Detected %s duplicate sets with %s donors') % (
-            count, len(already)
+        self.message_user(request, _('Detected {dup} duplicate sets with {donors} donors').format(
+            dup=count, donors=len(already)
         ))
 
     detect_duplicates.short_description = _("Detect duplicate donors")
@@ -205,8 +205,8 @@ class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
 
                 donor = merge_donors(candidates, primary_id, donor_form.cleaned_data)
 
-                self.message_user(request, _('Merged %s donors into %s') % (
-                    len(candidates), donor
+                self.message_user(request, _('Merged {count} donors into {donor}').format(
+                    count=len(candidates), donor=donor
                 ))
                 return None
 
@@ -376,8 +376,8 @@ class DonationAdmin(admin.ModelAdmin):
                 sent += 1
 
         self.message_user(
-            request, _('Send %s donation mails (%s resent).') % (
-                sent, resent
+            request, _('Send {sent} donation mails ({resent} resent).').format(
+                sent=sent, resent=resent
             ),
             level=messages.INFO
         )
@@ -413,8 +413,8 @@ class DonationAdmin(admin.ModelAdmin):
         count, new_count = import_banktransfers(xls_file)
 
         self.message_user(
-            request, _('Imported %s rows, %s new rows.') % (
-                count, new_count
+            request, _('Imported {rows} rows, {new} new rows.').format(
+                rows=count, new=new_count
             ),
             level=messages.INFO
         )
@@ -439,8 +439,8 @@ class DonationAdmin(admin.ModelAdmin):
         count, new_count = import_paypal(csv_file)
 
         self.message_user(
-            request, _('Imported %s rows, %s new rows.') % (
-                count, new_count
+            request, _('Imported {rows} rows, {new} new rows.').format(
+                rows=count, new=new_count
             ),
             level=messages.INFO
         )
