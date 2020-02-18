@@ -148,6 +148,12 @@
     text-decoration: none;
     color: $body-color;
     text-align: left;
+    &:not(.dropdown-item) {
+      background-color: transparent;
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
     &:hover {
       text-decoration: none;
       color: $blue-600;
