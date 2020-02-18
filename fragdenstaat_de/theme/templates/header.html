@@ -135,7 +135,7 @@
             <a role="button" class="dropdown-item top-menu__link" href="/spenden/spende/ihre-spenden/">{% blocktrans %}Meine Spenden{% endblocktrans %}</a>
             <a role="button" class="dropdown-item top-menu__link" href="/account/settings/">{% blocktrans %}Einstellungen{% endblocktrans %}</a>
             <div class="dropdown-divider my-1"></div>
-            <div class="dropdown-item">
+            <div class="dropdown-item top-menu__link">
               <form action="{% url 'account-logout' %}" method="post" class="form-inline">
                 {% csrf_token %}
                 <button type="submit" class="top-menu__link w-100">
