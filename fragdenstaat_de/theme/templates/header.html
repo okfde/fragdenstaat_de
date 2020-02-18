@@ -88,6 +88,8 @@
   <!-- Desktop/Tablet top-menu -->
   <nav class="top-menu d-none d-sm-none d-md-flex justify-content-between flex-lg-fill ml-md-4 ml-lg-5">
     <!-- left top-menu -->
+
+    {% block nav %}
     <ul class="top-menu__list">
       <li class="top-menu__listitem dropdown mr-md-3 mr-lg-4">
         <!-- Anfragen top-menu__dropdown -->
@@ -107,6 +109,7 @@
         <a role="button" class="top-menu__link" href="/blog/kategorie/exklusiv/">{% blocktrans %}Recherchen{% endblocktrans %}</a>
       </li>
     </ul>
+    {% endblock %}
 
     <!-- right top-menu -->
     <ul class="top-menu__list ml-auto">
@@ -116,6 +119,7 @@
           <span>{% blocktrans %}Spenden{% endblocktrans %}</span>
         </a>
       </li>
+      {% block nav_account_login %}
       <li class="top-menu__listitem dropdown ml-md-3 ml-lg-4">
         {% if user.is_authenticated %}
           <button type="button" class="top-menu__link dropdown-toggle" id="userDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -147,6 +151,7 @@
           </a>
         {% endif %}
       </li>
+      {% endblock %}
     </ul>
   </nav>
   <!-- Desktop/Tablet top-menu END -->
