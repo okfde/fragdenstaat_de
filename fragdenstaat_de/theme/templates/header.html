@@ -2,6 +2,9 @@
 {% load static %}
 {% load content_helper %}
 
+{% load account_tags %}
+
+{% get_menu_items as menu_items %}
 
 <header id="header" class="header container d-flex justify-content-between align-items-center pt-4 pt-md-5 pb-2">
 
@@ -32,9 +35,29 @@
           <span class="d-block text-truncate">{{user.get_full_name}}</span>
           <small class="d-block text-truncate">{{user.email}}</small>
         </li>
-        <li><a role="button" class="drawer-menu__link drawer-menu__link--blue" href="/account/">{% blocktrans %}Meine Anfragen{% endblocktrans %}</a></li>
-        <li><a role="button" class="drawer-menu__link drawer-menu__link--blue" href="/spenden/spende/ihre-spenden/">{% blocktrans %}Meine Spenden{% endblocktrans %}</a></li>
-        <li><a role="button" class="drawer-menu__link drawer-menu__link--blue" href="/account/settings/">{% blocktrans %}Einstellungen{% endblocktrans %}</a></li>
+        {% for menu_item in menu_items.before_request %}
+          <li>
+            <a class="drawer-menu__link drawer-menu__link--blue" href="{{ menu_item.url }}">
+              {{ menu_item.label }}
+            </a>
+          </li>
+        {% endfor %}
+
+        {% for menu_item in menu_items.before_settings %}
+          <li>
+            <a class="drawer-menu__link drawer-menu__link--blue" href="{{ menu_item.url }}">
+              {{ menu_item.label }}
+            </a>
+          </li>
+        {% endfor %}
+
+        {% for menu_item in menu_items.after_settings %}
+          <li>
+            <a class="drawer-menu__link drawer-menu__link--blue" href="{{ menu_item.url }}">
+              {{ menu_item.label }}
+            </a>
+          </li>
+        {% endfor %}
         <li>
           <form action="{% url 'account-logout' %}" method="post" class="form-inline">
             {% csrf_token %}
@@ -51,22 +74,42 @@
       <ul class="list-unstyled mb-0 {% if not user.is_authenticated %}mt-3{% endif %}">
         <!-- Anfragen drawer-menu__dropdown -->
         <li>
-          <a role="button" class="drawer-menu__link drawer-menu__link--white drawer-menu__dropdown-trigger" href="/anfragen/">
+          <a class="drawer-menu__link drawer-menu__link--white drawer-menu__dropdown-trigger" href="/anfragen/">
             <span>{% blocktrans %}Anfragen{% endblocktrans %}</span>
             <i class="fa fa-caret-down" aria-hidden="true"></i>
           </a>
 
           <ul class="list-unstyled mb-0 drawer-menu__dropdown-content">
-            <li><a role="button" class="drawer-menu__link drawer-menu__link--white" href="/anfragen/">{% blocktrans %}Anfragen entdecken{% endblocktrans %}</a></li>
-            <li><a role="button" class="drawer-menu__link drawer-menu__link--white" href="/anfrage-stellen/">{% blocktrans %}Anfrage stellen{% endblocktrans %}</a></li>
-            <li><a role="button" class="drawer-menu__link drawer-menu__link--white" href="/hilfe/einsteiger-guide/">{% blocktrans %}Einsteiger-Guide{% endblocktrans %}</a></li>
+            <li>
+              <a class="drawer-menu__link drawer-menu__link--white" href="/anfragen/">
+                {% blocktrans %}Anfragen entdecken{% endblocktrans %}
+              </a>
+            </li>
+            <li>
+              <a class="drawer-menu__link drawer-menu__link--white" href="/anfrage-stellen/">
+                {% blocktrans %}Anfrage stellen{% endblocktrans %}
+              </a>
+            </li>
+            <li>
+              <a class="drawer-menu__link drawer-menu__link--white" href="/hilfe/einsteiger-guide/">
+                {% blocktrans %}Einsteiger-Guide{% endblocktrans %}
+              </a>
+            </li>
           </ul>
         </li>
-        <li><a role="button" class="drawer-menu__link drawer-menu__link--white" href="/info/ueber/kampagnen/">{% blocktrans %}Kampagnen{% endblocktrans %}</a></li>
-        <li><a role="button" class="drawer-menu__link drawer-menu__link--white" href="/blog/">{% blocktrans %}Recherchen{% endblocktrans %}</a></li>
+        <li>
+          <a class="drawer-menu__link drawer-menu__link--white" href="/info/ueber/kampagnen/">
+            {% blocktrans %}Kampagnen{% endblocktrans %}
+          </a>
+        </li>
+        <li>
+          <a class="drawer-menu__link drawer-menu__link--white" href="/blog/">
+            {% blocktrans %}Recherchen{% endblocktrans %}
+          </a>
+        </li>
         {% if not user.is_authenticated %}
         <li>
-          <a role="button" class="drawer-menu__link drawer-menu__link--white" href="{% url 'account-login' %}">
+          <a class="drawer-menu__link drawer-menu__link--white" href="{% url 'account-login' %}">
             <i class="fa fa-sign-in" aria-hidden="true"></i>
             <span>{% blocktrans %}Sign in{% endblocktrans %}</span>
           </a>
@@ -77,7 +120,7 @@
       <!-- Spenden CTA -->
       <p class="py-3 px-3">
         Ihnen gefällt unsere Arbeit? Unterstützen Sie uns mit einer Spende!<br>
-        <a role="button" class="btn btn-outline-primary mt-2" href="/spenden/">{% blocktrans %}Jetzt spenden{% endblocktrans %}</a>
+        <a class="btn btn-outline-primary mt-2" href="/spenden/">{% blocktrans %}Jetzt spenden{% endblocktrans %}</a>
       </p>
       
     </nav>
@@ -97,16 +140,26 @@
           {% blocktrans %}Anfragen{% endblocktrans %}
         </button>
         <div class="dropdown-menu top-menu--drop-left" aria-labelledby="anfragenDropdownMenu">
-          <a role="button" class="dropdown-item top-menu__link" href="/anfragen/">{% blocktrans %}Anfragen entdecken{% endblocktrans %}</a>
-          <a role="button" class="dropdown-item top-menu__link" href="/anfrage-stellen/">{% blocktrans %}Anfrage stellen{% endblocktrans %}</a>
-          <a role="button" class="dropdown-item top-menu__link" href="/hilfe/einsteiger-guide/">{% blocktrans %}Einsteiger-Guide{% endblocktrans %}</a>
+          <a class="dropdown-item top-menu__link" href="/anfragen/">
+            {% blocktrans %}Anfragen entdecken{% endblocktrans %}
+          </a>
+          <a class="dropdown-item top-menu__link" href="/anfrage-stellen/">
+            {% blocktrans %}Anfrage stellen{% endblocktrans %}
+          </a>
+          <a class="dropdown-item top-menu__link" href="/hilfe/einsteiger-guide/">
+            {% blocktrans %}Einsteiger-Guide{% endblocktrans %}
+          </a>
         </div>
       </li>
       <li class="top-menu__listitem mr-md-3 mr-lg-4">
-        <a role="button" class="top-menu__link" href="/info/ueber/kampagnen/">{% blocktrans %}Kampagnen{% endblocktrans %}</a>
+        <a class="top-menu__link" href="/info/ueber/kampagnen/">
+          {% blocktrans %}Kampagnen{% endblocktrans %}
+        </a>
       </li>
       <li class="top-menu__listitem mr-md-3 mr-lg-0">
-        <a role="button" class="top-menu__link" href="/blog/kategorie/exklusiv/">{% blocktrans %}Recherchen{% endblocktrans %}</a>
+        <a class="top-menu__link" href="/blog/kategorie/exklusiv/">
+          {% blocktrans %}Recherchen{% endblocktrans %}
+        </a>
       </li>
     </ul>
     {% endblock %}
@@ -114,7 +167,7 @@
     <!-- right top-menu -->
     <ul class="top-menu__list ml-auto">
       <li class="top-menu__listitem">
-        <a role="button" class="top-menu__link text-danger" href="/spenden/?pk_campaign=site-header&pk_keyword=/spenden/">
+        <a class="top-menu__link text-danger" href="/spenden/?pk_campaign=site-header&pk_keyword=/spenden/">
           <i class="fa fa-heart d-md-none d-lg-inline-block" aria-hidden="true"></i>
           <span>{% blocktrans %}Spenden{% endblocktrans %}</span>
         </a>
@@ -128,12 +181,12 @@
           </button>
           <div class="dropdown-menu top-menu--drop-right pt-0" aria-labelledby="userDropdownMenu">
             <div class="top-menu__usermenu py-3 px-3 mb-1">
-              <span class="d-block text-truncate">{{user.get_full_name}}</span>
-              <small class="d-block text-truncate">{{user.email}}</small>
+              <span class="d-block text-truncate">{{ user.get_full_name }}</span>
+              <small class="d-block text-truncate">{{ user.email }}</small>
             </div>
-            <a role="button" class="dropdown-item top-menu__link" href="/account/">{% blocktrans %}Meine Anfragen{% endblocktrans %}</a>
-            <a role="button" class="dropdown-item top-menu__link" href="/spenden/spende/ihre-spenden/">{% blocktrans %}Meine Spenden{% endblocktrans %}</a>
-            <a role="button" class="dropdown-item top-menu__link" href="/account/settings/">{% blocktrans %}Einstellungen{% endblocktrans %}</a>
+
+            {% include "account/menu.html" with menu_items=menu_items %}
+
             <div class="dropdown-divider my-1"></div>
             <div class="dropdown-item top-menu__link">
               <form action="{% url 'account-logout' %}" method="post" class="form-inline">
@@ -145,7 +198,7 @@
             </div>
           </div>
         {% else %}
-          <a role="button" class="top-menu__link" href="{% url 'account-login' %}">
+          <a class="top-menu__link" href="{% url 'account-login' %}">
             <i class="fa fa-user" aria-hidden="true"></i>
             <span>{% blocktrans %}Sign in{% endblocktrans %}</span>
           </a>
@@ -157,4 +210,3 @@
   <!-- Desktop/Tablet top-menu END -->
 
 </header>
-
