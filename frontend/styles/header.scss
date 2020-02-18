@@ -4,10 +4,11 @@
     top: -.45rem;
   }
     &__logo {
-      // height: 2.125rem;
       height: 2.5rem;
-      // @include media-breakpoint-up(md) {
-      // }
+    }
+    @include media-breakpoint-up(md) {
+      &__branding { top: -0.5rem }
+      &__logo { height: 2.75rem; }
     }
 }
 
