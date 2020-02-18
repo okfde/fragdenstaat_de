@@ -4,6 +4,10 @@ $border-radius: .25rem;
 $border-radius-lg: .375rem;
 // $border-radius-sm: .2rem;
 
+$caret-width: .3em;
+$caret-vertical-align: $caret-width * .85;
+$caret-spacing: $caret-width * .5;
+
 // Typography
 $font-family-sans-serif: 'Inter', sans-serif;
 // $dropdown-header-color: $gray-600;
