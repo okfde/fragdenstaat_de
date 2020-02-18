@@ -37,12 +37,16 @@ const EXCLUDE_CHUNKS = [
   'main', 'tagautocomplete'
 ].join('|')
 
+const ENTRY_LIST = []
 let CHUNK_LIST = []
 for (let key in ENTRY) {
+  ENTRY_LIST.push('(' + key + '\\.(css|js))')
   if (EXCLUDE_CHUNKS.indexOf(key) !== -1) { continue }
   CHUNK_LIST.push(key)
 }
 CHUNK_LIST = CHUNK_LIST.join('|')
+
+const BUILD_FILE_REGEX = new RegExp('.*/(' + ENTRY_LIST.join('|') + ')$')
 
 const config = {
   entry: ENTRY,
@@ -56,13 +60,14 @@ const config = {
     library: ['Froide', 'components', '[name]'],
     libraryTarget: 'umd'
   },
-  devtool: 'source-map', // any "source-map"-like devtool is possible
+  devtool: 'inline-source-map', // any "source-map"-like devtool is possible
   node: false,
   devServer: {
     contentBase: path.resolve(__dirname, 'fragdenstaat_de/theme'),
     headers: { 'Access-Control-Allow-Origin': '*' },
     port: 8080,
     hot: true,
+    hotOnly: true,
     proxy: {
       '/static': {
         target: 'http://localhost:8000',
@@ -70,9 +75,17 @@ const config = {
           var urlPath = req.path.substring(1)
           urlPath = path.resolve(__dirname, 'fragdenstaat_de/theme', urlPath)
           if (fs.existsSync(urlPath)) {
+            // Path exists in local folder
+            if (urlPath.match(BUILD_FILE_REGEX)) {
+              // console.log('Skip path in favor of hot reload:', urlPath)
+              return false
+            }
+            // console.log('Load path:', urlPath)
             return req.path
           }
-          return false
+          // use proxy
+          // console.log('Proxy this:', urlPath)
+          return null
         }
       }
     }

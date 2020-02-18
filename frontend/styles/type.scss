@@ -1,26 +1,31 @@
+$inter-font-path: '~inter-ui/Inter (web)';
 @font-face {
-  font-family: 'Kreon';
+  font-family: 'Inter';
   font-style: normal;
-  font-display: swap;
   font-weight: 400;
-  src: local('Kreon Regular'), local('Kreon-Regular'),
-    url('~typeface-kreon/files/kreon-latin-400.woff2') format('woff2'),
-    url('~typeface-kreon/files/kreon-latin-400.woff') format('woff');
+  font-display: swap;
+  src: url("#{$inter-font-path}/Inter-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("#{$inter-font-path}/Inter-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("#{$inter-font-path}/Inter-Medium.woff2") format("woff2");
 }
   
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.navbar-fds .navbar-brand {
-  font-family: 'Kreon';
-
-  &>a, &>a:visited, &>a:hover, &>a:active {
-    display: inline-block;
-    text-decoration: none;
-    color: $navbar-light-active-color;
-  }
 }
 
 .lead {

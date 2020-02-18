@@ -1,7 +1,16 @@
 import "../styles/main.scss";
 
-import "froide/frontend/javascript/main.ts";
+import "es6-promise/auto";
 
+import "bootstrap.native";
+
+import "froide/frontend/javascript/snippets/copy-input.ts";
+import "froide/frontend/javascript/snippets/form-ajax.ts";
+import "froide/frontend/javascript/snippets/misc.ts";
+import "froide/frontend/javascript/snippets/search.ts";
+
+import "./drawer-menu.ts";
+import "./top-menu.ts";
 import "./betterplace.ts";
 import "./donation-form.ts";
 import "./donation.ts";
