@@ -35,6 +35,7 @@ class PageAnnotationCMSPlugin(CMSPlugin):
         PageAnnotation, related_name='+',
         on_delete=models.CASCADE
     )
+    zoom = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.page_annotation)

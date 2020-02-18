@@ -33,7 +33,7 @@ class PageAnnotationPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-
+        context['instance'] = instance
         context['object'] = instance.page_annotation
 
         return context
