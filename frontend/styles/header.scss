@@ -171,6 +171,8 @@
     left: 0;
     right: auto;
   }
+  &--drop-right,
+  &--drop-left { margin-top: $spacer * .25; }
   @include media-breakpoint-up(lg) {
     &--drop-right { right: -#{$spacer}; }
     &--drop-left { left: -#{$spacer}; }
