@@ -22,9 +22,9 @@ class FdsDonationConfig(AppConfig):
 
         def get_donation_menu_item(request):
             return MenuItem(
-                section='after_settings', order=0,
+                section='before_settings', order=999,
                 url=reverse_lazy('fds_donation:donor-user'),
-                label=_('Your donations')
+                label=_('My donations')
             )
 
         menu_registry.register(get_donation_menu_item)
