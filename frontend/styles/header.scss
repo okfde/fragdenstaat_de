@@ -164,12 +164,16 @@
     }
   }
   &--drop-right {
-    right: -#{$spacer};
+    right: 0;
     left: auto;
   }
   &--drop-left {
+    left: 0;
     right: auto;
-    left: -#{$spacer};
+  }
+  @include media-breakpoint-up(lg) {
+    &--drop-right { right: -#{$spacer}; }
+    &--drop-left { left: -#{$spacer}; }
   }
 }
 
