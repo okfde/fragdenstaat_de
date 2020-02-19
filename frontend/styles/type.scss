@@ -15,14 +15,6 @@ $inter-font-path: '~inter-ui/Inter (web)';
   src: url("#{$inter-font-path}/Inter-Bold.woff2") format("woff2");
 }
 
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("#{$inter-font-path}/Inter-Medium.woff2") format("woff2");
-}
-  
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
