@@ -257,7 +257,8 @@ const config = {
       new OptimizeCssAssetsPlugin({
         assetNameRegExp: /\.css$/,
         cssProcessorOptions: {
-          discardComments: { removeAll: true }
+          discardComments: { removeAll: true },
+          reduceIdents: false
         }
       })
     ] : []),
