@@ -258,7 +258,9 @@ const config = {
         assetNameRegExp: /\.css$/,
         cssProcessorOptions: {
           discardComments: { removeAll: true },
-          reduceIdents: false
+          mergeIdents: false,
+          reduceIdents: false,
+          zindex: false
         }
       })
     ] : []),
