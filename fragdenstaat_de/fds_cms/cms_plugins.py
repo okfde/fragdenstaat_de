@@ -337,4 +337,5 @@ class ShareLinksPlugin(CMSPluginBase):
             url = req.build_absolute_uri()
         context['object'] = instance
         context['url'] = instance.url or url
+        context['text'] = instance.text
         return context
