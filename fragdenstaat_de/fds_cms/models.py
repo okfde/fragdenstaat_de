@@ -301,3 +301,11 @@ class DesignContainerCMSPlugin(CMSPlugin):
         _('Style'), choices=STYLES,
         default='', max_length=50, blank=True
     )
+
+
+class ShareLinksCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255)
+    url = models.URLField(blank=True)
+
+    def __str__(self):
+        return self.title

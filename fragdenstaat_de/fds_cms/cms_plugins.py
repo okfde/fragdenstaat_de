@@ -17,7 +17,7 @@ from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
     PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin,
     VegaChartCMSPlugin, SVGImageCMSPlugin, DesignContainerCMSPlugin,
-    DocumentCollectionEmbedCMSPlugin
+    DocumentCollectionEmbedCMSPlugin, ShareLinksCMSPlugin
 )
 from .contact import ContactForm
 
@@ -320,24 +320,21 @@ class DesignContainerPlugin(CMSPluginBase):
         return context
 
 
-# from .models import ShareLinks
+@plugin_pool.register_plugin
+class ShareLinksPlugin(CMSPluginBase):
+    model = ShareLinksCMSPlugin
+    module = _("Elements")
+    name = _('Share Links')
+    render_template = "fds_cms/share_buttons.html"
+    text_enabled = True
+    cache = True
 
-
-# @plugin_pool.register_plugin
-# class ShareLinksPlugin(CMSPluginBase):
-#     model = ShareLinks
-#     module = _("Ads")
-#     name = _('Share Links')
-#     render_template = "design/plugins/engagement/share_box.html"
-#     text_enabled = True
-#     cache = False
-
-#     def render(self, context, instance, placeholder):
-#         context = super().render(context, instance, placeholder)
-#         url = None
-#         if 'request' in context:
-#             req = context['request']
-#             url = req.build_absolute_uri()
-#         context['object'] = instance
-#         context['url'] = instance.url or url
-#         return context
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        url = ''
+        if 'request' in context:
+            req = context['request']
+            url = req.build_absolute_uri()
+        context['object'] = instance
+        context['url'] = instance.url or url
+        return context
