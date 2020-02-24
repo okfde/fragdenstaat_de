@@ -1,7 +1,6 @@
 # FragDenStaat.de
 
-This repository contains the theming for
-[FragDenStaat.de](https://fragdenstaat.de) - the German instance of [Froide](https://github.com/okfde/froide).
+[FragDenStaat.de](https://fragdenstaat.de) is the German instance of [Froide](https://github.com/okfde/froide) – a freedom of information portal software.
 
 
 ## Development environment
