@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="container cms-container">
+<div class="container">
   {% for plugin in instance.child_plugin_instances %}
     {% render_plugin plugin %}
   {% endfor %}
