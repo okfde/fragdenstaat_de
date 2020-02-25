@@ -156,20 +156,27 @@ a.teaser:hover {
 .container-design {
   @each $color, $value in $theme-colors {
     &.container-design__#{$color} {
-      @include container-variant(lighten($value, 20%));
+      @include container-variant($value);
     }
   }
   @each $color, $value in $colors {
     &.container-design__#{$color} {
-      @include container-variant(lighten($value, 20%));
+      @include container-variant($value);
     }
   }
+  @each $color, $value in $grays {
+    &.container-design__gray-#{$color} {
+      @include container-variant($value);
+    }
+  }
+  /* Deprecated */
   &.container-design__light {
     @include container-variant($gray-100);
   }
   &.container-design__dark {
     @include container-variant($gray-900);
   }
+
   &.container-design__light.speech-bubble:after {
     border-top-color: $gray-100;
   }
@@ -177,7 +184,7 @@ a.teaser:hover {
     border-top-color: $gray-900;
   }
   &.--heavy {
-    font-family: 'Kreon';
+    font-weight: 700;
   }
 }
 
