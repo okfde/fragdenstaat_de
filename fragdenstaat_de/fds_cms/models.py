@@ -283,6 +283,12 @@ class DesignContainerCMSPlugin(CMSPlugin):
         ('gray', _('Gray')),
         ('gray-dark', _('Gray Dark')),
         ('white', _('White')),
+    ] + [
+        ('gray-{}'.format(i), 'Gray {}'.format(i))
+        for i in range(100, 1000, 100)
+    ] + [
+        ('blue-{}'.format(i), 'Blue {}'.format(i))
+        for i in range(100, 900, 100)
     ]
     STYLES = [
         ('', _('Default')),
@@ -301,6 +307,7 @@ class DesignContainerCMSPlugin(CMSPlugin):
         _('Style'), choices=STYLES,
         default='', max_length=50, blank=True
     )
+    container = models.BooleanField(default=True)
 
 
 class ShareLinksCMSPlugin(CMSPlugin):
