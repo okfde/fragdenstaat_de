@@ -26,7 +26,7 @@
     }
 }
 </style>
-<div class="hero-image" id="hero-image-{{ instance.pk }}">
+<div class="hero-image" id="hero-image-{{ instance.pk }}" {{ instance.attributes_str }}>
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% endfor %}
