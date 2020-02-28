@@ -3,7 +3,7 @@
 
 <figure class="blog-visual">
   <picture>
-    <img class="img-fluid" src="{% spaceless %}
+    <img class="img-fluid" loading="lazy" src="{% spaceless %}
       {% thumbnail picture 540x0 crop=smart subject_location=picture.subject_location %}
       {% endspaceless %}"
       {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
