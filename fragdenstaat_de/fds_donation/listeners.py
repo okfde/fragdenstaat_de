@@ -1,5 +1,6 @@
 from datetime import timedelta
 from decimal import Decimal
+import json
 
 from django.db import transaction
 from django.utils import timezone
@@ -90,3 +91,46 @@ def subscription_was_canceled(sender, **kwargs):
         return
     donor.subscription = None
     donor.save()
+
+
+def cancel_user(sender, user=None, **kwargs):
+    if user is None:
+        return
+
+    # remove user reference from donor as account is canceled
+    Donor.objects.filter(user=user).update(user=None)
+
+
+def merge_user(sender, old_user=None, new_user=None, **kwargs):
+    Donor.objects.filter(user=old_user).update(user=new_user)
+
+
+def export_user_data(user):
+    try:
+        donor = Donor.objects.get(user=user)
+    except Donor.DoesNotExist:
+        return
+
+    yield ('donor.json', json.dumps({
+        'salutation': donor.salutation,
+        'first_name': donor.first_name,
+        'last_name': donor.last_name,
+        'company_name': donor.company_name,
+        'address': donor.address,
+        'postcode': donor.postcode,
+        'city': donor.city,
+        'country': donor.country,
+        'email': donor.email,
+        'attributes': dict(donor.attributes)
+    }).encode('utf-8'))
+    donations = Donation.objects.filter(donor=donor)
+    yield ('donations.json', json.dumps([
+        {
+            'amount': d.amount,
+            'amount_received': d.amount_received,
+            'method': d.method,
+            'recurring': d.recurring,
+            'timestamp': d.timestamp.isoformat(),
+            'received_timestamp': d.received_timestamp.isoformat(),
+        } for d in donations
+    ]))
