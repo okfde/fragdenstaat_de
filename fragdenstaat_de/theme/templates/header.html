@@ -166,12 +166,14 @@
 
     <!-- right top-menu -->
     <ul class="top-menu__list ml-auto">
+      {% block nav_donate %}
       <li class="top-menu__listitem">
         <a class="top-menu__link text-danger" href="/spenden/?pk_campaign=site-header&pk_keyword=/spenden/">
           <i class="fa fa-heart d-md-none d-lg-inline-block" aria-hidden="true"></i>
           <span>{% blocktrans %}Spenden{% endblocktrans %}</span>
         </a>
       </li>
+      {% endblock %}
       {% block nav_account_login %}
       <li class="top-menu__listitem dropdown ml-md-3 ml-lg-4">
         {% if user.is_authenticated %}
