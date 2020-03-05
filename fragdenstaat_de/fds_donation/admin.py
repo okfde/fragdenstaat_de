@@ -3,7 +3,7 @@ from io import BytesIO
 import uuid
 import zipfile
 
-from django.db.models import Q, Sum, Avg, Count, Value
+from django.db.models import Q, Sum, Avg, Count, Value, Aggregate, F
 from django.db.models.functions import Concat
 from django.http import HttpResponse
 from django.contrib import admin, messages
@@ -36,12 +36,21 @@ from .utils import propose_donor_merge, merge_donors
 from .export import get_zwbs, ZWBPDFGenerator
 
 
+def median(field):
+    return Aggregate(
+        F(field),
+        function="percentile_cont",
+        template="%(function)s(0.5) WITHIN GROUP (ORDER BY %(expressions)s)",
+    )
+
+
 class DonorChangeList(ChangeList):
     def get_results(self, *args, **kwargs):
         ret = super().get_results(*args, **kwargs)
         q = self.queryset.aggregate(
             amount_total_sum=Sum('amount_total'),
             amount_last_year_sum=Sum('amount_last_year'),
+            amount_total_median=median('amount_total'),
             amount_total_avg=Avg('amount_total'),
             amount_last_year_avg=Avg('amount_last_year')
         )
@@ -49,6 +58,7 @@ class DonorChangeList(ChangeList):
         self.amount_total_avg = round(q['amount_total_avg']) if q['amount_total_avg'] is not None else '-'
         self.amount_last_year_sum = q['amount_last_year_sum']
         self.amount_last_year_avg = round(q['amount_last_year_avg']) if q['amount_last_year_avg'] is not None else '-'
+        self.amount_total_median = q['amount_total_median']
         return ret
 
 
@@ -318,9 +328,11 @@ class DonationChangeList(ChangeList):
             amount_avg=Avg('amount'),
             amount_received_sum=Sum('amount_received'),
             donor_count=Count('donor_id', distinct=True),
+            amount_median=median('amount')
         )
         self.amount_sum = q['amount_sum']
         self.amount_avg = round(q['amount_avg']) if q['amount_avg'] is not None else '-'
+        self.amount_median = q['amount_median']
         self.amount_received_sum = q['amount_received_sum']
         self.donor_count = q['donor_count']
         return ret
