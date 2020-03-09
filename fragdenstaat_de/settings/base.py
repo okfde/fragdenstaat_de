@@ -447,12 +447,12 @@ class FragDenStaatBase(German, Base):
                 rec(r'Token: ([A-Z0-9]+)')
             ],
             closings=[
-                rec(r"([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u|\?)(ß|ss|\?)(en?)?,?"),
-                rec("Hochachtungsvoll,?"),
-                rec(r'i\. ?A\.'),
-                rec(r'MfG'),
-                rec(r'[iI]m Auftrag'),
-                rec(r"(?:Best regards|Kind regards|Sincerely),?")
+                rec(r"\b([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u|\?)(ß|ss|\?)(en?)?,?"),
+                rec(r"\bHochachtungsvoll,?"),
+                rec(r'\bi\. ?A\.'),
+                rec(r'\bMfG'),
+                rec(r'\b[iI]m Auftrag'),
+                rec(r"\b(?:Best regards|Kind regards|Sincerely),?")
             ],
             hide_content_funcs=[
                 # Hide DHL delivery emails
