@@ -21,7 +21,7 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         obj = domain_obj
         domain_obj = None
 
-    if not obj.payment_id:
+    if not obj.payment_id or obj.payment_id != instance.id:
         obj.payment = instance
 
     obj.amount_received = instance.received_amount or Decimal('0.0')
