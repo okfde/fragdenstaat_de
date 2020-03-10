@@ -109,7 +109,7 @@
         </li>
         {% if not user.is_authenticated %}
         <li>
-          <a class="drawer-menu__link drawer-menu__link--white" href="{% url 'account-login' %}">
+          <a class="drawer-menu__link drawer-menu__link--white" href="{% url 'account-login' %}?next={{ request.path|urlencode }}">
             <i class="fa fa-sign-in" aria-hidden="true"></i>
             <span>{% blocktrans %}Sign in{% endblocktrans %}</span>
           </a>
@@ -200,7 +200,7 @@
             </div>
           </div>
         {% else %}
-          <a class="top-menu__link" href="{% url 'account-login' %}">
+          <a class="top-menu__link" href="{% url 'account-login' %}?next={{ request.path|urlencode }}">
             <i class="fa fa-user" aria-hidden="true"></i>
             <span>{% blocktrans %}Sign in{% endblocktrans %}</span>
           </a>
