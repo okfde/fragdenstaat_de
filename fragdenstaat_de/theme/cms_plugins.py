@@ -7,6 +7,24 @@ from froide.foirequest.models import FoiRequest
 from froide.publicbody.models import PublicBody
 
 
+COLUMNS = [
+    (2, _('Two')),
+    (3, _('Three')),
+    (4, _('Four')),
+    (5, _('Five')),
+    (6, _('Six')),
+    (7, _('Seven')),
+    (8, _('Eight')),
+    (9, _('Nine')),
+    (10, _('Ten')),
+    (12, _('Twelve')),
+]
+
+COLUMN_PLUGINS = [
+    'Column%sPlugin' % col_count for col_count, _ in COLUMNS
+]
+
+
 @plugin_pool.register_plugin
 class ContainerPlugin(CMSPluginBase):
     module = _("Structure")
@@ -31,12 +49,21 @@ class ContainerGreyPlugin(CMSPluginBase):
     allow_children = True
 
 
+CONTAINER_PLUGINS = [
+    'ContainerPlugin', 'ContainerFluidPlugin',
+    'ContainerGreyPlugin',
+    'DesignContainer'  # TODO: remove this one
+]
+
+
 @plugin_pool.register_plugin
 class RowPlugin(CMSPluginBase):
     module = _("Structure")
     name = _("Row")
     render_template = "cms/plugins/row.html"
     allow_children = True
+    child_classes = COLUMN_PLUGINS
+    parent_classes = CONTAINER_PLUGINS
 
 
 @plugin_pool.register_plugin
@@ -45,6 +72,8 @@ class RowLeftPlugin(CMSPluginBase):
     name = _("Row Left Aligned")
     render_template = "cms/plugins/row_left.html"
     allow_children = True
+    child_classes = COLUMN_PLUGINS
+    parent_classes = CONTAINER_PLUGINS
 
 
 @plugin_pool.register_plugin
@@ -53,6 +82,8 @@ class RowRightPlugin(CMSPluginBase):
     name = _("Row Right Aligned")
     render_template = "cms/plugins/row_right.html"
     allow_children = True
+    child_classes = COLUMN_PLUGINS
+    parent_classes = CONTAINER_PLUGINS
 
 
 @plugin_pool.register_plugin
@@ -61,6 +92,8 @@ class RowAroundPlugin(CMSPluginBase):
     name = _("Row Spaced Around")
     render_template = "cms/plugins/row_around.html"
     allow_children = True
+    child_classes = COLUMN_PLUGINS
+    parent_classes = CONTAINER_PLUGINS
 
 
 @plugin_pool.register_plugin
@@ -69,6 +102,8 @@ class RowBetweenPlugin(CMSPluginBase):
     name = _("Row Spaced Between")
     render_template = "cms/plugins/row_between.html"
     allow_children = True
+    child_classes = COLUMN_PLUGINS
+    parent_classes = CONTAINER_PLUGINS
 
 
 @plugin_pool.register_plugin
@@ -77,6 +112,8 @@ class RowNarrowPlugin(CMSPluginBase):
     name = _("Row Narrow")
     render_template = "cms/plugins/row_narrow.html"
     allow_children = True
+    child_classes = COLUMN_PLUGINS
+    parent_classes = CONTAINER_PLUGINS
 
 
 class ColumnPlugin(CMSPluginBase):
@@ -85,18 +122,6 @@ class ColumnPlugin(CMSPluginBase):
 
 
 # Generate Column Plugin classes and register them
-COLUMNS = [
-    (2, _('Two')),
-    (3, _('Three')),
-    (4, _('Four')),
-    (5, _('Five')),
-    (6, _('Six')),
-    (7, _('Seven')),
-    (8, _('Eight')),
-    (9, _('Nine')),
-    (10, _('Ten')),
-    (12, _('Twelve')),
-]
 
 for col_count, col_name in COLUMNS:
     plugin_pool.register_plugin(
