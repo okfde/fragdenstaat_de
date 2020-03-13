@@ -308,6 +308,7 @@ class DesignContainerCMSPlugin(CMSPlugin):
         default='', max_length=50, blank=True
     )
     container = models.BooleanField(default=True)
+    padding = models.BooleanField(default=True)
 
 
 class ShareLinksCMSPlugin(CMSPlugin):
