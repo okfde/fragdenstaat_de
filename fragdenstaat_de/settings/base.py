@@ -159,7 +159,8 @@ class FragDenStaatBase(German, Base):
             'plugins': [
                 'TextPlugin', 'EmailActionPlugin',
                 'EmailSectionPlugin', 'EmailStoryPlugin',
-                'EmailBodyPlugin', 'EmailHeaderPlugin'
+                'EmailBodyPlugin', 'EmailHeaderPlugin',
+                'PicturePlugin'
             ],
             'text_only_plugins': [],
             'name': _('E-Mail Body'),
@@ -221,7 +222,8 @@ class FragDenStaatBase(German, Base):
     }
 
     DJANGOCMS_PICTURE_TEMPLATES = [
-        ('hero', _('Hero'))
+        ('hero', _('Hero')),
+        ('email', _('Email'))
     ]
 
     FILER_ENABLE_PERMISSIONS = True

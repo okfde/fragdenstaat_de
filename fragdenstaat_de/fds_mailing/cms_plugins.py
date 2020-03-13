@@ -47,6 +47,7 @@ class EmailBodyPlugin(EmailTemplateMixin, CMSPluginBase):
     child_classes = [
         'TextPlugin', 'EmailActionPlugin',
         'EmailSectionPlugin', 'EmailStoryPlugin',
+        'PicturePlugin'
     ]
 
     def render(self, context, instance, placeholder):
@@ -67,7 +68,7 @@ class EmailActionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     module = _("Email")
     name = _("Email Action")
     allow_children = True
-    child_classes = ['TextPlugin']
+    child_classes = ['TextPlugin', 'PicturePlugin']
     render_template_template = "email/{name}/action_plugin.html"
 
     def get_context(self, instance):
@@ -111,7 +112,7 @@ class EmailSectionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     module = _("Email")
     name = _("Email Section")
     allow_children = True
-    child_classes = ['TextPlugin']
+    child_classes = ['TextPlugin', 'PicturePlugin']
     render_template_template = "email/{name}/section_plugin.html"
 
     def render_text(self, instance):
@@ -134,7 +135,7 @@ class EmailStoryPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     module = _("Email")
     name = _("Email Story")
     allow_children = True
-    child_classes = ['TextPlugin']
+    child_classes = ['TextPlugin', 'PicturePlugin']
     render_template_template = "email/{name}/story_plugin.html"
 
     def render_text(self, instance):
