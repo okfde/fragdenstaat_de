@@ -69,9 +69,7 @@ def process_new_donation(donation, received_now=False, domain_obj=None):
         # do not send email for recurring donations
         return
 
-    pending_ok = False
-    if payment.variant in ('lastschrift', 'banktransfer', 'sepa'):
-        pending_ok = True
+    pending_ok = payment.variant in ('lastschrift', 'banktransfer', 'sepa')
     confirmed = payment.status == PaymentStatus.CONFIRMED
     pending = payment.status == PaymentStatus.PENDING
     if (confirmed and received_now and not pending_ok) or (pending and pending_ok):
