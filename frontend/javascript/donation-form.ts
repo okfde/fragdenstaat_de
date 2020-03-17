@@ -54,21 +54,21 @@ function setupDonationForm(form: HTMLFormElement) {
   });
   // End of year lastschrift warning
   const d = new Date();
-  const decemberDate = 19;
+  const decemberDate = 22;
   if (d.getMonth() + 1 === 12 && d.getDate() >= decemberDate) {
-    const ls = document.querySelector('input[value="lastschrift"]');
+    const ls = document.querySelector('input[value="sepa"]');
     if (ls && ls.parentElement && ls.parentElement.parentElement) {
       const nextYear = d.getFullYear() + 1;
       const container = document.createElement("small");
       container.classList.add("bg-warning");
       container.classList.add("ml-2");
-      container.innerHTML = `Ihre Spende wird erst 2020 eingezogen.
+      container.innerHTML = `Ihre Spende wird ggf. erst ${nextYear} eingezogen.
       <a href="#" class="text-dark"
         data-container="body" data-toggle="tooltip"
         data-placement="top"
-        title="Wir haben am ${decemberDate}.12. das letzte mal in diesem Jahr Spenden per
-        Lastschrift verarbeitet. Wenn Sie diesen Zahlungsweg wählen, zählt Ihre Spende somit
-        in das Jahr ${nextYear} und wird auf Ihrer Spendenbescheinigung ${d.getFullYear()} nicht erscheinen.">
+        title="Wenn Sie diesen Zahlungsweg wählen, kann es sein, dass Ihre Spende durch Banklaufzeiten
+        erst ${nextYear} abgebucht wird. Damit wird sie ggf. auf Ihrer Spendenbescheinigung
+        ${d.getFullYear()} nicht erscheinen.">
         <span class="fa fa-info-circle"></span>
       </a>
       `;
