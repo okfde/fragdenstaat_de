@@ -14,6 +14,7 @@ class NewsletterConfig(AppConfig):
         from froide.account.export import registry
         from froide.account.forms import user_extra_registry
         from froide.bounce.signals import email_bounced, email_unsubscribed
+        from froide.foirequestfollower.models import FoiRequestFollower
 
         from .forms import NewsletterUserExtra, DonorNewsletterExtra
         from .utils import handle_bounce, handle_unsubscribe
@@ -24,7 +25,9 @@ class NewsletterConfig(AppConfig):
         email_bounced.connect(handle_bounce)
         email_unsubscribed.connect(handle_unsubscribe)
         user_extra_registry.register('registration', NewsletterUserExtra())
+        user_extra_registry.register('follow', NewsletterUserExtra())
         user_extra_registry.register('donation', DonorNewsletterExtra())
+        FoiRequestFollower.followed.connect(subscribe_follower)
 
         registry.register(export_user_data)
 
@@ -128,3 +131,21 @@ def export_user_data(user):
             }
             for s in subscriptions]).encode('utf-8')
         )
+
+
+def subscribe_follower(sender, **kwargs):
+    if not sender.confirmed:
+        return
+    if not sender.context:
+        return
+    if not sender.context.get('newsletter'):
+        return
+    from .utils import subscribe_to_default_newsletter
+
+    email = sender.email
+    if not email:
+        email = sender.user.email
+
+    subscribe_to_default_newsletter(
+        email, user=sender.user, email_confirmed=True
+    )
