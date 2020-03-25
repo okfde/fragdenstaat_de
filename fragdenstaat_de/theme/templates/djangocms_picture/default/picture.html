@@ -1,17 +1,17 @@
 {% load thumbnail %}
 {% load markup %}
 
-{% if picture_link %}
-    <a href="{{ picture_link }}"
-    {% if instance.link_target %} target="{{ instance.link_target }}"{% endif %}
-    {{ instance.link_attributes_str }}>
-{% endif %}
-
 {# start render figure/figcaption #}
 {% if instance.caption_text or instance.picture.author or instance.picture.description %}
   <figure>
 {% endif %}
 {# end render figure/figcaption #}
+
+{% if picture_link %}
+    <a href="{{ picture_link }}"
+    {% if instance.link_target %} target="{{ instance.link_target }}" rel="noopener"{% endif %}
+    {{ instance.link_attributes_str }}>
+{% endif %}
 
 {% if not instance.external_picture and not instance.use_no_cropping %}
 <picture>
@@ -53,6 +53,10 @@
 </picture>
 {% endif %}
 
+{% if picture_link %}
+    </a>
+{% endif %}
+
 {# start render figure/figcaption #}
 {% if instance.caption_text or instance.picture.author or instance.picture.description %}
   <figcaption class="text-right">
@@ -71,10 +75,6 @@
   </figure>
 {% endif %}
 {# end render figure/figcaption #}
-
-{% if picture_link %}
-    </a>
-{% endif %}
 
 {% comment %}
     # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
