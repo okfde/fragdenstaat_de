@@ -19,7 +19,7 @@ def add_style(instance, placeholder, context):
     }
 
 
-def render_text(instance, placeholder):
+def render_text(placeholder):
     plugins = placeholder.get_plugins()
     return '\n'.join(
         render_plugin_text(plugin) for plugin in plugins

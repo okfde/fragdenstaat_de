@@ -10,6 +10,8 @@ from django.urls import reverse
 from django.utils import timezone
 
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
+from cms.admin.static_placeholder import StaticPlaceholderAdmin
+from cms.models.static_placeholder import StaticPlaceholder
 
 from froide.helper.admin_utils import ForeignKeyFilter
 
@@ -45,9 +47,17 @@ class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
             raise PermissionDenied
 
         email_template = get_object_or_404(EmailTemplate, pk=pk)
+        static_placholder = email_template.get_extra_placeholder_name()
+        static_placeholder_id = None
+        if static_placholder:
+            try:
+                static_placeholder_id = StaticPlaceholder.objects.get(code=static_placholder).pk
+            except StaticPlaceholder.DoesNotExist:
+                pass
 
         return render(request, 'fds_mailing/emailtemplate_update_form.html', {
-            'object': email_template
+            'object': email_template,
+            'static_placeholder_id': static_placeholder_id
         })
 
     def preview(self, request, pk):
@@ -171,3 +181,18 @@ class MailingMessageAdmin(admin.ModelAdmin):
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
 admin.site.register(Mailing, MailingAdmin)
 admin.site.register(MailingMessage, MailingMessageAdmin)
+
+
+class CustomStaticPlaceholderAdmin(StaticPlaceholderAdmin):
+    actions = ['publish']
+
+    def publish(self, request, queryset):
+        for obj in queryset:
+            obj.publish(request, request.LANGUAGE_CODE)
+        next_url = request.POST.get('next')
+        if next_url:
+            return redirect(next_url)
+
+
+admin.site.unregister(StaticPlaceholder)
+admin.site.register(StaticPlaceholder, CustomStaticPlaceholderAdmin)

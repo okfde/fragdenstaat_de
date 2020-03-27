@@ -11,6 +11,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 
 from cms.models.fields import PlaceholderField
+from cms.models.static_placeholder import StaticPlaceholder
 from cms.models.pluginmodel import CMSPlugin
 
 from filer.fields.image import FilerImageField
@@ -73,13 +74,25 @@ class EmailTemplate(models.Model):
             template_base = 'default'
         return 'email/{}/{}'.format(template_base, name)
 
+    def get_mail_intent_app(self):
+        if not self.mail_intent:
+            return
+        return self.mail_intent.split('/', 1)[0]
+
+    def get_extra_placeholder_name(self):
+        mail_intent_app = self.get_mail_intent_app()
+        if not mail_intent_app:
+            return
+        return "email_extra_{}".format(mail_intent_app)
+
     def render_email_html(self, request=None, context=None):
         if request is None:
             request = get_request()
         ctx = {
             'placeholder': self.email_body,
             'object': self,
-            'template': self.template
+            'template': self.template,
+            'extra_email_placeholder': self.get_extra_placeholder_name()
         }
         if context is not None:
             ctx.update(context)
@@ -112,7 +125,18 @@ class EmailTemplate(models.Model):
         if self.text:
             text = self.text
         elif self.email_body:
-            text = render_text(self, self.email_body)
+            text = render_text(self.email_body)
+        extra_placeholder = self.get_extra_placeholder_name()
+        if extra_placeholder:
+            try:
+                sp = StaticPlaceholder.objects.filter(
+                    code=extra_placeholder
+                ).select_related('public').get()
+                text = '{}\r\n\r\n{}'.format(
+                    text, render_text(sp.public)
+                )
+            except StaticPlaceholder.DoesNotExist:
+                pass
         return COLLAPSE_NEWLINES.sub('\r\n\r\n', text)
 
     def get_body_text(self, context=None, preview=False):
