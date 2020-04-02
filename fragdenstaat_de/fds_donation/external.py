@@ -201,6 +201,7 @@ def import_paypal(csv_file):
         'Name': 'name',
         'Ländervorwahl': 'country',
         'Adresszeile 1': 'address',
+        'Adresszusatz': 'address2',
         'Ort': 'city',
         'PLZ': 'postcode',
         'Hinweis': 'note',
@@ -210,6 +211,7 @@ def import_paypal(csv_file):
     make_empty = (
         'country',
         'address',
+        'address2',
         'city',
         'note',
         'postcode',
@@ -220,6 +222,11 @@ def import_paypal(csv_file):
     for c in make_empty:
         df[c] = df[c].fillna('')
 
+    df['address'] = df.apply(
+        lambda r: '{} {}'.format(
+            r['address'], r['address2']
+        ).strip(), 1
+    )
     count = 0
     new_count = 0
     for i, row in df.iterrows():
@@ -309,7 +316,7 @@ def find_paypal_payment(row):
     cond = Q(extra_data__contains=row['sale_id'])
     if row['subscription_id']:
         cond |= Q(extra_data__contains=row['subscription_id'])
-
+ 
     payments = Payment.objects.filter(
         variant='paypal',
         status=PaymentStatus.CONFIRMED,
