@@ -31,7 +31,7 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         obj.received = True
         if instance.received_amount:
             obj.amount_reveived = instance.received_amount
-        if not obj.received_timestamp:
+        if instance.received_timestamp:
             obj.received_timestamp = instance.received_timestamp
     elif instance.status in (
             PaymentStatus.ERROR, PaymentStatus.REFUNDED,

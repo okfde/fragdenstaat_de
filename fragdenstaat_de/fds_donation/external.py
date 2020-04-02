@@ -1,7 +1,9 @@
 from datetime import timedelta
 from decimal import Decimal
+import re
 
 from django.db.models import Q
+from django.utils import timezone
 
 import pandas as pd
 import pytz
@@ -122,6 +124,27 @@ def import_banktransfer(transfer_ident, row):
 
 
 BLOCK_LIST = set(['Stripe Payments UK Ltd'])
+LOCAL_TZ = pytz.timezone('Europe/Berlin')
+DEBIT_PATTERN = re.compile(r' \(P(\d+)\)')
+
+
+def localize_date(d):
+    if timezone.is_naive(d):
+        d = LOCAL_TZ.localize(d)
+    return pytz.utc.normalize(d.astimezone(pytz.utc))
+
+
+def update_direct_debit(row):
+    match = DEBIT_PATTERN.search(row['reference'])
+    try:
+        payment = Payment.objects.get(id=int(match.group(1)))
+    except Payment.DoesNotExist:
+        return
+    amount = Decimal(str(row['amount']))
+    payment.captured_amount = amount
+    payment.received_amount = amount
+    payment.received_timestamp = row['date_received']
+    payment.change_status(PaymentStatus.CONFIRMED)
 
 
 def import_banktransfers(xls_file):
@@ -135,10 +158,10 @@ def import_banktransfers(xls_file):
         'Konto': 'iban',
         'Bank': 'bic'
     })
-    local_tz = pytz.timezone('Europe/Berlin')
-    df['date_received'] = df['date_received'].apply(local_tz.localize)
+    df = df.dropna(subset=['date_received'])
+    df['date_received'] = df['date_received'].apply(localize_date)
     if 'date' in df.columns:
-        df['date'] = df['date'].apply(local_tz.localize)
+        df['date'] = df['date'].apply(localize_date)
     else:
         df['date'] = None
     count = 0
@@ -146,8 +169,12 @@ def import_banktransfers(xls_file):
     for i, row in df.iterrows():
         if row['name'] in BLOCK_LIST:
             continue
+        if DEBIT_PATTERN.search(row['reference']):
+            update_direct_debit(row)
+            continue
+        local_date = LOCAL_TZ.normalize(row['date_received'].astimezone(LOCAL_TZ)).date()
         transfer_ident = '{date}-{ref}-{iban}-{i}'.format(
-            date=row['date_received'],
+            date=local_date.isoformat(),
             ref=row['reference'],
             iban=row['iban'],
             i=i
