@@ -2,7 +2,7 @@
 
 FragDenStaat.de
 {% if unsubscribe_url %}
-Abbstellen: {{ unsubscribe_url }}
+Abbestellen: {{ unsubscribe_url }}
 
 {% endif %}
 Wir befreien Informationen! Unterstützen Sie uns mit Ihrer Spende:  https://fragdenstaat.de/email/spenden/
