@@ -24,28 +24,13 @@ def get_text_analyzer():
             'asciifolding',
 
             token_filter('de_stemmer', type='stemmer', name='light_german'),
-            token_filter('unique_stem', type='unique', only_on_same_position=True)
+            'remove_duplicates'
         ],
     )
 
 
 def get_search_analyzer():
-    return analyzer(
-        'fds_search_analyzer',
-        tokenizer='standard',
-        filter=[
-            'keyword_repeat',
-            'lowercase',
-            decomp,
-            token_filter('stop_de', type='stop', stopwords="_german_"),
-
-            'german_normalization',
-            'asciifolding',
-
-            token_filter('de_stemmer', type='stemmer', name='light_german'),
-            token_filter('unique_stem', type='unique', only_on_same_position=False)
-        ],
-    )
+    return get_text_analyzer()
 
 
 def get_search_quote_analyzer():
@@ -53,11 +38,11 @@ def get_search_quote_analyzer():
         'fds_search_quote_analyzer',
         tokenizer='standard',
         filter=[
+            'keyword_repeat',
             'lowercase',
-
             'german_normalization',
             'asciifolding',
-
             token_filter('de_stemmer', type='stemmer', name='light_german'),
+            'remove_duplicates'
         ],
     )
