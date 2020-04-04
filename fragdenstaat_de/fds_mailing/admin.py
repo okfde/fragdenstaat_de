@@ -90,7 +90,7 @@ class MailingAdmin(admin.ModelAdmin):
         'ready', 'submitted', 'sending', 'sent',
     )
     search_fields = ('name',)
-    actions = ['continue_sending']
+    actions = ['trigger_continue_sending']
 
     def get_urls(self):
         urls = super().get_urls()
@@ -124,7 +124,7 @@ class MailingAdmin(admin.ModelAdmin):
             obj.sent_recipients / obj.total_recipients * 100
         )
 
-    def continue_sending(self, request, queryset):
+    def trigger_continue_sending(self, request, queryset):
         for mailing in queryset:
             continue_sending.delay(mailing.id)
 
@@ -132,7 +132,7 @@ class MailingAdmin(admin.ModelAdmin):
             request, _('Continue sending selected mailings.'),
             level=messages.INFO
         )
-    continue_sending.short_description = _("Continue sending mailing")
+    trigger_continue_sending.short_description = _("Continue sending mailing")
 
     def send(self, request, object_id):
         if request.method != 'POST':

@@ -26,7 +26,7 @@ def send_mailing(mailing_id, sending_date):
     mailing.send()
 
 
-@celery_app.task(name='fragdenstaat_de.fds_mailing.send_mailing')
+@celery_app.task(name='fragdenstaat_de.fds_mailing.continue_sending')
 def continue_sending(mailing_id):
     from .models import Mailing
 
