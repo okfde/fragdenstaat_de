@@ -418,6 +418,8 @@ class MailingMessage(models.Model):
             self.email = self.user.email
 
     def send_message(self, mailing_context=None, email_template=None):
+        assert self.sent is None
+
         context = self.get_email_context()
         if mailing_context is not None:
             context.update(mailing_context)

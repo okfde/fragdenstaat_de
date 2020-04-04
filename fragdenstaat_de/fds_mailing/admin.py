@@ -16,7 +16,7 @@ from cms.models.static_placeholder import StaticPlaceholder
 from froide.helper.admin_utils import ForeignKeyFilter
 
 from .models import EmailTemplate, Mailing, MailingMessage
-from .tasks import send_mailing
+from .tasks import send_mailing, continue_sending
 
 
 class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
@@ -90,6 +90,7 @@ class MailingAdmin(admin.ModelAdmin):
         'ready', 'submitted', 'sending', 'sent',
     )
     search_fields = ('name',)
+    actions = ['continue_sending']
 
     def get_urls(self):
         urls = super().get_urls()
@@ -110,7 +111,7 @@ class MailingAdmin(admin.ModelAdmin):
         qs = qs.annotate(
             total_recipients=models.Count('recipients'),
             sent_recipients=models.Count(
-                'recipients', filter=models.Q(sent__isnull=False)
+                'recipients', filter=models.Q(recipients__sent__isnull=False)
             ),
         )
 
@@ -122,6 +123,16 @@ class MailingAdmin(admin.ModelAdmin):
         return '{0:.2f}%'.format(
             obj.sent_recipients / obj.total_recipients * 100
         )
+
+    def continue_sending(self, request, queryset):
+        for mailing in queryset:
+            continue_sending.delay(mailing.id)
+
+        self.message_user(
+            request, _('Continue sending selected mailings.'),
+            level=messages.INFO
+        )
+    continue_sending.short_description = _("Continue sending mailing")
 
     def send(self, request, object_id):
         if request.method != 'POST':
