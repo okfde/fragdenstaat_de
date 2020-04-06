@@ -36,7 +36,7 @@ def continue_sending(mailing_id):
             ready=True,
             submitted=True,
             sent=False,
-            sending=True
+            sending=False
         )
     except Mailing.DoesNotExist:
         return
