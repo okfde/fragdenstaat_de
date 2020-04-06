@@ -40,6 +40,7 @@ class FragDenStaatBase(German, Base):
             'filer',
             'mptt',
             'logentry_admin',
+            'localflavor',
 
             'fragdenstaat_de.fds_blog',
             'adminsortable2',
