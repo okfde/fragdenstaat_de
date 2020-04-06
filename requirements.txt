@@ -29,8 +29,7 @@ django-logentry-admin==1.0.5
 django-markdown-deux==1.0.5
 django-mptt==0.10.0
 django-newsletter==0.8b1
-# Re-enable once django-oauth-toolkit 1.3 is released, remove source dependency
-# django-oauth-toolkit==1.2.0
+django-oauth-toolkit==1.3.2
 django-parler==2.0
 django-polymorphic==2.0.3
 django-sekizai==1.0.0
@@ -95,9 +94,6 @@ wand==0.5.7
 weasyprint==49
 xlrd==1.2.0
 yurl==0.13
-# Remove once django-oauth-toolkit 1.3 is released
--e git+git://github.com/jazzband/django-oauth-toolkit.git@392257a77473b7eb75899dd2475482a7c3729e3f#egg=django-oauth-toolkit
-# -e git+git://github.com/sirfz/tesserocr.git@35ae0f535f3d33679b3b93d7fc4e08ab2e6a92a1#egg=tesserocr
 
 -e git+git://github.com/okfde/froide.git@master#egg=froide
 -e git+git://github.com/okfde/froide-campaign.git@master#egg=froide-campaign
