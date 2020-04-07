@@ -11,7 +11,7 @@
 
 
 {% block foirequest_header %}
-  {% if "corona" in object.title|lower %}
+  {% if "corona" in object.title|lower or "covid" in object.title|lower or "virus" in object.title|lower  %}
   <div class="alert alert-warning text-center">
     🦠<a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/nCoV.html">Allgemeine Infos zum Corona-Virus finden Sie hier beim Robert-Koch-Institut</a>🦠
   </div>
