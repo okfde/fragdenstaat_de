@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 from django.template import Template, Context
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, mail_managers
 from django.conf import settings
 from django.contrib.auth import get_user_model
 
@@ -362,6 +362,12 @@ class Mailing(models.Model):
             self.sent = True
             self.sent_date = timezone.now()
 
+        except Exception:
+            mail_managers(
+                'Sending out {} partly failed'.format(self.name),
+                ''
+            )
+
         finally:
             self.sending = False
             self.save()
@@ -419,6 +425,10 @@ class MailingMessage(models.Model):
 
     def send_message(self, mailing_context=None, email_template=None):
         assert self.sent is None
+
+        if not self.email:
+            self.delete()
+            return
 
         context = self.get_email_context()
         if mailing_context is not None:
