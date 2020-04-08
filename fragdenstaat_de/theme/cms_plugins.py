@@ -52,7 +52,7 @@ class ContainerGreyPlugin(CMSPluginBase):
 CONTAINER_PLUGINS = [
     'ContainerPlugin', 'ContainerFluidPlugin',
     'ContainerGreyPlugin',
-    'DesignContainer'  # TODO: remove this one
+    'DesignContainerPlugin'  # TODO: remove this one
 ]
 
 
