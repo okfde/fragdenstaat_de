@@ -5,12 +5,12 @@
   <picture>
     <source
       media="(min-width: 1200px)"
-      srcset="{% thumbnail picture 1140x0 subject_location=picture.subject_location %}">
+      srcset="{% thumbnail picture 1140x0 subject_location=picture.subject_location quality=90 %}">
     <source
       media="(min-width: 992px)"
-      srcset="{% thumbnail picture 940x0 subject_location=picture.subject_location %}">
+      srcset="{% thumbnail picture 940x0 subject_location=picture.subject_location quality=90 %}">
       <img class="img-fluid" src="{% spaceless %}
-        {% thumbnail picture 768x0 crop=scale subject_location=picture.subject_location %}
+        {% thumbnail picture 768x0 crop=scale subject_location=picture.subject_location quality=90 %}
         {% endspaceless %}"
         {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
         {{ attributes_str }}>
