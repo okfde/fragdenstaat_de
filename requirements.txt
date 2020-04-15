@@ -16,7 +16,6 @@ django-celery-email==2.0.2
 django-classy-tags==0.9.0
 django-cms==3.7.1
 django-configurations==2.1
-django-contractor==0.0.2
 django-contrib-comments==1.9.1
 django-crossdomainmedia==0.0.3
 django-filer==1.5.0
@@ -108,3 +107,4 @@ yurl==0.13
 -e git+git://github.com/okfde/django-amenities.git@master#egg=django-amenities
 -e git+git://github.com/okfde/froide-payment.git@master#egg=froide-payment
 -e git+git://github.com/okfde/froide-crowdfunding.git@master#egg=froide-crowdfunding
+-e git+git://github.com/stefanw/django-contractor.git@master#egg=django-contractor
