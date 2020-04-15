@@ -20,25 +20,7 @@
 </article>
 {% endspaceless %}
 
-<div class="donation-teaser">
-  <div class="container col-xs-12 ">
-    <div class="row justify-content-center pb-5 pt-5">
-      <div class="col-md-3 offset-md-1">
-        <img class="col-md-12" src="{% static 'img/illustrations/donate.png' %}" alt="Spendenaufruf">
-      </div>
-      <div class="col-md-6">
-        <h2 class="pb-3 pt-3">Unterstützen Sie unsere Arbeit!</h2>
-        <p>
-            Wir kämpfen für mehr Transparenz in Politik und Verwaltung! Spenden Sie uns! Damit unterstützen Sie unsere Kampagnen, Klagen und Recherchen.
-        </p>
-        <a href="/spenden/?pk_campaign=blog-footer&amp;pk_keyword={{ request.path | urlencode }}" class="teaser-button">
-          Jetzt spenden!
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
+{% static_placeholder "blog_donation_banner" %}
 
 {% with next_read=article|get_next_read %}
 {% if next_read %}

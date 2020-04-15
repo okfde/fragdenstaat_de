@@ -16,28 +16,6 @@
   margin-bottom: 20px;
 }
 
-.teaser-button {
-  margin-top: 1rem;
-  color: $primary;
-  background-color: transparent;
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  border: 1px solid;
-  border-color: $primary;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
-}
-
-.teaser-button:focus, .teaser-button:hover {
-  text-decoration: none;
-  background-color: $primary;
-  color: #fff;
-  cursor: pointer;
-}
-
 .btn-threed {
   box-shadow: 0px 4px 4px #333;
 }

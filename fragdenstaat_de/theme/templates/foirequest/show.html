@@ -85,3 +85,20 @@
   {% include "froide_crowdfunding/includes/request_block.html" with object=object %}
   {# {{ block.super }} #}
 {% endblock %}
+
+{% block foirequest_messages %}
+  {% for message in object.messages %}
+    {% if forloop.last and object.messages|length > 1 %}
+      {% fds_static_placeholder "message_donation_banner" %}
+    {% endif %}
+    {% include "foirequest/snippets/message.html" %}
+    {% if not forloop.last %}
+      <div class="page-break"></div>
+    {% endif %}
+    {% empty %}
+    <p>{% blocktrans %}No messages yet{% endblocktrans %}</p>
+  {% endfor %}
+  {% if object.messages|length == 1 %}
+    {% fds_static_placeholder "message_donation_banner" %}
+  {% endif %}
+{% endblock foirequest_messages %}
