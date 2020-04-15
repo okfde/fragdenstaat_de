@@ -10,7 +10,6 @@ from django.urls import reverse
 from django.utils import timezone
 
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
-from cms.admin.static_placeholder import StaticPlaceholderAdmin
 from cms.models.static_placeholder import StaticPlaceholder
 
 from froide.helper.admin_utils import ForeignKeyFilter
@@ -192,18 +191,3 @@ class MailingMessageAdmin(admin.ModelAdmin):
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
 admin.site.register(Mailing, MailingAdmin)
 admin.site.register(MailingMessage, MailingMessageAdmin)
-
-
-class CustomStaticPlaceholderAdmin(StaticPlaceholderAdmin):
-    actions = ['publish']
-
-    def publish(self, request, queryset):
-        for obj in queryset:
-            obj.publish(request, request.LANGUAGE_CODE)
-        next_url = request.POST.get('next')
-        if next_url:
-            return redirect(next_url)
-
-
-admin.site.unregister(StaticPlaceholder)
-admin.site.register(StaticPlaceholder, CustomStaticPlaceholderAdmin)
