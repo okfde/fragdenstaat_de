@@ -61,6 +61,7 @@ class FragDenStaatBase(German, Base):
             'djangocms_text_ckeditor',
             'djangocms_picture',
             'djangocms_video',
+            'contractor',
 
             'djcelery_email',
             'django.contrib.redirects',

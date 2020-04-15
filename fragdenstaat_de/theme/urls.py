@@ -50,6 +50,7 @@ urlpatterns = [
     url(r'^payment/', include('froide_payment.urls')),
     url(r'^dashboard/$', dashboard, name='dashboard'),
     url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
+    url(r'^contractor/', include('contractor.urls')),
     url(r'^fax/', include('froide_fax.urls')),
     url(r'^newsletter/', include('fragdenstaat_de.fds_newsletter.urls')),
     url(r"^glyphosat-bfr/(?P<slug>[-\w]+)/(?P<message_id>\d+)/download-document/$", glyphosat_download, name="fragdenstaat-glyphosat_download"),
