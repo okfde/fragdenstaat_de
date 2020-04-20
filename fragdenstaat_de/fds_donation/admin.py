@@ -345,15 +345,16 @@ class DonationAdmin(admin.ModelAdmin):
     list_display = (
         'get_name', 'timestamp', 'amount', 'completed', 'received',
         'purpose',
-        'reference', 'method', 'recurring',
+        'reference', 'keyword', 'method', 'recurring',
     )
     list_filter = (
         'completed', 'received',
         ('timestamp', DateRangeFilter),
         'method',
         'purpose',
-        'reference',
         'recurring',
+        'reference',
+        'keyword',
         make_nullfilter('export_date', _('Receipt exported')),
         make_nullfilter('receipt_date', _('Receipt sent')),
         ('donor', ForeignKeyFilter),
