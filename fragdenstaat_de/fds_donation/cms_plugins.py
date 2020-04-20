@@ -58,6 +58,7 @@ class DonationFormPlugin(CMSPluginBase):
         context['form'] = instance.make_form(
             user=request.user,
             reference=request.GET.get('pk_campaign', ''),
+            keyword=request.GET.get('pk_keyword', ''),
             action=instance.form_action or reverse('fds_donation:donate')
         )
         return context
