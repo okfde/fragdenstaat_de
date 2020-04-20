@@ -29,13 +29,13 @@ class SignupUserCheckExtra():
         except forms.ValidationError as e:
             logger.exception(e)
             raise
-        if self.request:
+        if form.request:
             try:
                 g = GeoIP2()
-                info = g.country(get_client_ip(self.request))
+                info = g.country(get_client_ip(form.request))
                 if info['country_code'] not in ('DE', 'CH', 'AT'):
                     logger.error('Signup from non-German speaking IP.', extra={
-                        'request': self.request
+                        'request': form.request
                     })
             except Exception as e:
                 logger.exception(e)
