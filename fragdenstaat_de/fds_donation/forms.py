@@ -49,6 +49,9 @@ class DonationSettingsForm(forms.Form):
     reference = forms.CharField(
         required=False
     )
+    keyword = forms.CharField(
+        required=False
+    )
     purpose = forms.CharField(
         required=False
     )
@@ -88,6 +91,7 @@ class DonationFormFactory:
         'title': '',
         'interval': 'once_recurring',
         'reference': '',
+        'keyword': '',
         'purpose': '',
         'amount_presets': [5, 20, 50],
         'initial_amount': None,
@@ -185,6 +189,10 @@ class AmountForm(forms.Form):
         )
     )
     reference = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput()
+    )
+    keyword = forms.CharField(
         required=False,
         widget=forms.HiddenInput()
     )
@@ -392,6 +400,7 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
 
         self.fields['amount'].widget.presets = self.settings['amount_presets']
         self.fields['reference'].initial = self.settings['reference']
+        self.fields['keyword'].initial = self.settings['keyword']
         if self.settings['purpose']:
             purpose_choices = [(self.settings['purpose'], self.settings['purpose'])]
             self.fields['purpose'].initial = self.settings['purpose']
@@ -436,6 +445,7 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
             donor=donor,
             amount=order.total_gross,
             reference=data.get('reference', ''),
+            keyword=data.get('keyword', ''),
             purpose=data.get('purpose', '') or order.description,
             order=order,
             recurring=order.is_recurring,

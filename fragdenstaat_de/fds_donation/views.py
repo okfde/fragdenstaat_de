@@ -36,7 +36,8 @@ class DonationView(FormView):
 
         form_kwargs = self.get_form_kwargs()
         form_factory = DonationFormFactory(
-            reference=self.request.GET.get('pk_campaign', '')
+            reference=self.request.GET.get('pk_campaign', ''),
+            keyword=self.request.GET.get('pk_keyword', '')
         )
         form = form_factory.make_form(
             user=self.request.user,
