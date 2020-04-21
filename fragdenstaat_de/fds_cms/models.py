@@ -319,3 +319,13 @@ class ShareLinksCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+class CollapsibleCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255, blank=True)
+    collapsed = models.BooleanField(default=True)
+
+    extra_classes = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return self.title

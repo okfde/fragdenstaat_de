@@ -17,7 +17,7 @@ from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
     PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin,
     VegaChartCMSPlugin, SVGImageCMSPlugin, DesignContainerCMSPlugin,
-    DocumentCollectionEmbedCMSPlugin, ShareLinksCMSPlugin
+    DocumentCollectionEmbedCMSPlugin, ShareLinksCMSPlugin, CollapsibleCMSPlugin
 )
 from .contact import ContactForm
 
@@ -338,4 +338,19 @@ class ShareLinksPlugin(CMSPluginBase):
         context['object'] = instance
         context['url'] = instance.url or url
         context['text'] = instance.title
+        return context
+
+
+@plugin_pool.register_plugin
+class CollapsiblePlugin(CMSPluginBase):
+    model = CollapsibleCMSPlugin
+    module = _("Elements")
+    name = _('Collapsible')
+    render_template = "fds_cms/collapsible.html"
+    allow_children = True
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context['object'] = instance
         return context
