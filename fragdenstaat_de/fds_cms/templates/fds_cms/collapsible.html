@@ -1,0 +1,8 @@
+{% load cms_tags %}
+
+<details class="collapsible {% if object.extra_classes %} {{ object.extra_classes }}{% endif %}" {% if not object.collapsed %}open{% endif %}>
+  <summary>{{ object.title }}</summary>
+  {% for plugin in instance.child_plugin_instances %}
+    {% render_plugin plugin %}
+  {% endfor %}  
+</details>
