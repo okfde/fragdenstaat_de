@@ -55,6 +55,8 @@ CONTAINER_PLUGINS = [
     'DesignContainerPlugin'  # TODO: remove this one
 ]
 
+ROW_PARENTS = COLUMN_PLUGINS + COLUMN_PLUGINS
+
 
 @plugin_pool.register_plugin
 class RowPlugin(CMSPluginBase):
@@ -63,7 +65,7 @@ class RowPlugin(CMSPluginBase):
     render_template = "cms/plugins/row.html"
     allow_children = True
     child_classes = COLUMN_PLUGINS
-    parent_classes = CONTAINER_PLUGINS
+    parent_classes = ROW_PARENTS
 
 
 @plugin_pool.register_plugin
@@ -73,7 +75,7 @@ class RowLeftPlugin(CMSPluginBase):
     render_template = "cms/plugins/row_left.html"
     allow_children = True
     child_classes = COLUMN_PLUGINS
-    parent_classes = CONTAINER_PLUGINS
+    parent_classes = ROW_PARENTS
 
 
 @plugin_pool.register_plugin
@@ -83,7 +85,7 @@ class RowRightPlugin(CMSPluginBase):
     render_template = "cms/plugins/row_right.html"
     allow_children = True
     child_classes = COLUMN_PLUGINS
-    parent_classes = CONTAINER_PLUGINS
+    parent_classes = ROW_PARENTS
 
 
 @plugin_pool.register_plugin
@@ -93,7 +95,7 @@ class RowAroundPlugin(CMSPluginBase):
     render_template = "cms/plugins/row_around.html"
     allow_children = True
     child_classes = COLUMN_PLUGINS
-    parent_classes = CONTAINER_PLUGINS
+    parent_classes = ROW_PARENTS
 
 
 @plugin_pool.register_plugin
@@ -103,7 +105,7 @@ class RowBetweenPlugin(CMSPluginBase):
     render_template = "cms/plugins/row_between.html"
     allow_children = True
     child_classes = COLUMN_PLUGINS
-    parent_classes = CONTAINER_PLUGINS
+    parent_classes = ROW_PARENTS
 
 
 @plugin_pool.register_plugin
@@ -113,7 +115,7 @@ class RowNarrowPlugin(CMSPluginBase):
     render_template = "cms/plugins/row_narrow.html"
     allow_children = True
     child_classes = COLUMN_PLUGINS
-    parent_classes = CONTAINER_PLUGINS
+    parent_classes = ROW_PARENTS
 
 
 class ColumnPlugin(CMSPluginBase):
