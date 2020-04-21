@@ -268,6 +268,7 @@ class DesignContainerCMSPlugin(CMSPlugin):
         ('cms/plugins/designs/speech_bubble.html', _('Speech bubble')),
     ]
     BACKGROUND = [
+        ('', _('None')),
         ('primary', _('Primary')),
         ('secondary', _('Secondary')),
         ('info', _('Info')),
@@ -307,6 +308,7 @@ class DesignContainerCMSPlugin(CMSPlugin):
         _('Style'), choices=STYLES,
         default='', max_length=50, blank=True
     )
+    extra_classes = models.CharField(max_length=255, blank=True)
     container = models.BooleanField(default=True)
     padding = models.BooleanField(default=True)
 

@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="container-design container-design__{{ object.background }} {% if object.style %}--{{ object.style }}{% endif %} {% block extraclass %}{% if object.padding %}p-3{% endif %}{% endblock %}">
+<div class="container-design{% if object.background %} container-design__{{ object.background }}{% endif %}{% if object.style %}--{{ object.style }}{% endif %} {% block extraclass %}{{ object.extra_classes }}{% if object.padding %}p-3{% endif %}{% endblock %}">
     {% if object.container %}<div class="container">{% endif %}
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
