@@ -55,7 +55,7 @@ CONTAINER_PLUGINS = [
     'DesignContainerPlugin'  # TODO: remove this one
 ]
 
-ROW_PARENTS = COLUMN_PLUGINS + COLUMN_PLUGINS
+ROW_PARENTS = COLUMN_PLUGINS + CONTAINER_PLUGINS
 
 
 @plugin_pool.register_plugin
