@@ -24,8 +24,10 @@ class SignupUserCheckExtra():
 
     def on_clean(self, form):
         try:
-            validate_not_too_many_uppercase(form.cleaned_data['first_name'])
-            validate_not_too_many_uppercase(form.cleaned_data['last_name'])
+            if 'first_name' in form.cleaned_data:
+                validate_not_too_many_uppercase(form.cleaned_data['first_name'])
+            if 'last_name' in form.cleaned_data:
+                validate_not_too_many_uppercase(form.cleaned_data['last_name'])
         except forms.ValidationError as e:
             logger.exception(e)
             raise
