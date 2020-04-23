@@ -10,8 +10,9 @@
     &:focus { outline: none; }
     &::-webkit-details-marker { display: none; }
     &::before {
-      display: inline-block;
+      flex: 0 0 auto;
       width: $spacing-left-normal;
+      margin-top: 0.1rem;
       margin-left: -#{$spacing-left-normal};
       font-family: FontAwesome;
       font-size: 0.8rem;
