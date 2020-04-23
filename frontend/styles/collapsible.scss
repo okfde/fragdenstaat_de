@@ -1,5 +1,37 @@
 .collapsible {
-  &> summary {
-    font-weight: bold;
+  $spacing-left-normal: 1.2rem;
+  $spacing-left-large: 1.4rem;
+  &__title {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    margin-top: 1rem;
+    list-style: none;
+    &:focus { outline: none; }
+    &::-webkit-details-marker { display: none; }
+    &::before {
+      display: inline-block;
+      width: $spacing-left-normal;
+      margin-left: -#{$spacing-left-normal};
+      font-family: FontAwesome;
+      font-size: 0.8rem;
+      text-align: center;
+      content: "\f054";
+    }
+  }
+
+  &[open] &__title::before {
+    text-align: left;
+    content: "\f078";
+  }
+
+  &--large &__title {
+    font-size: $h4-font-size;
+    margin-top: 1.25rem;
+    &::before {
+      width: $spacing-left-large;
+      margin-left: -#{$spacing-left-large};
+      font-size: 1rem;
+    }
   }
 }
