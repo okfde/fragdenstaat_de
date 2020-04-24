@@ -6,17 +6,9 @@
     &__logo {
       height: 2.5rem;
     }
-    &__logo--kronprinz {
-      height: 3.645rem;
-      margin-top: -0.8rem;
-    }
     @include media-breakpoint-up(md) {
       &__branding { top: -0.5rem }
       &__logo { height: 2.75rem; }
-      &__logo--kronprinz {
-        height: 4.005rem;
-        margin-top: -1.25rem;
-      }
     }
 }
 
