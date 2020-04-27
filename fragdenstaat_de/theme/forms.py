@@ -28,17 +28,14 @@ class SignupUserCheckExtra():
                 validate_not_too_many_uppercase(form.cleaned_data['first_name'])
             if 'last_name' in form.cleaned_data:
                 validate_not_too_many_uppercase(form.cleaned_data['last_name'])
-        except forms.ValidationError as e:
-            logger.exception(e)
+        except forms.ValidationError:
             raise
         if form.request:
             try:
                 g = GeoIP2()
                 info = g.country(get_client_ip(form.request))
                 if info['country_code'] not in ('DE', 'CH', 'AT'):
-                    logger.error('Signup from non-German speaking IP.', extra={
-                        'request': form.request
-                    })
+                    pass
             except Exception as e:
                 logger.exception(e)
 
