@@ -104,7 +104,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /bootstrap\.native/,
+        test: /bootstrap\.native$/,
         use: {
           loader: 'bootstrap.native-loader',
           options: {
