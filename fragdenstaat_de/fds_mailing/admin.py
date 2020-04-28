@@ -19,7 +19,7 @@ from .tasks import send_mailing, continue_sending
 
 
 class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
-    list_display = ('name', 'category', 'created', 'updated',)
+    list_display = ('name', 'category', 'created', 'updated', 'active')
     list_filter = (
         'category',
     )
