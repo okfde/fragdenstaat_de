@@ -12,7 +12,7 @@ from django.utils import timezone
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from cms.models.static_placeholder import StaticPlaceholder
 
-from froide.helper.admin_utils import ForeignKeyFilter
+from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
 
 from .models import EmailTemplate, Mailing, MailingMessage
 from .tasks import send_mailing, continue_sending
@@ -83,10 +83,12 @@ class MailingAdmin(admin.ModelAdmin):
     list_display = (
         'name', 'email_template', 'created', 'newsletter',
         'ready', 'sending_date', 'sending', 'sent',
-        'sent_percentage'
+        'sent_percentage', 'publish'
     )
     list_filter = (
-        'ready', 'submitted', 'sending', 'sent',
+        'ready', 'submitted',
+        make_nullfilter('newsletter', 'Newsletter'),
+        'publish', 'sending', 'sent',
     )
     search_fields = ('name',)
     actions = ['trigger_continue_sending']
