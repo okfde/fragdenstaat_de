@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block app_body %}
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <p>
+        <a href="{% url 'newsletter_archive' newsletter_slug=newsletter.slug %}">
+          zurück zum Archiv
+        </a>
+      </p>
+      <p class="small">
+        Newsletter vom {{ date|date:"DATE_FORMAT" }}
+      </p>
+      <h2>{{ message.subject }}</h2>
+
+      {{ content }}
+
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      {% include "fds_newsletter/plugins/newsletter_form.html" %}
+    </div>
+  </div>
+
+{% endblock %}

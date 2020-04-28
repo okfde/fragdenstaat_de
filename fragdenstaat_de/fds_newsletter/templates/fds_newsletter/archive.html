@@ -1,0 +1,28 @@
+{% extends "newsletter/common.html" %}
+
+{% block title %}{{ newsletter.title }}{% endblock title %}
+
+{% block body %}
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <h2>{{ newsletter.title }}</h2>
+
+      <div class="row justify-content-center m-5">
+        <div class="col-md-8">
+          {% include "fds_newsletter/plugins/newsletter_form.html" %}
+        </div>
+      </div>
+
+      <ul class="list-unstyled">
+        {% for mailing in latest %}
+          <li>
+            <small>{{ mailing.sending_date|date:"DATE_FORMAT" }}</small>
+            <a href="{% url 'newsletter_archive_detail' newsletter_slug=newsletter.slug year=mailing.sending_date.year month=mailing.sending_date.month day=mailing.sending_date.day pk=mailing.pk %}">
+              {{ mailing.email_template.subject }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

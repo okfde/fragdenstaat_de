@@ -19,7 +19,7 @@ urlpatterns = [
         name='newsletter_ajax_subscribe_request'
     ),
 ] + nl_urlpatterns + [
-    url(r'^(?P<newsletter_slug>[\w-]+)/archiv/(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w-]+)/$',
+    url(r'^(?P<newsletter_slug>[\w-]+)/archiv/(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)/(?P<pk>\d+)/$',
         NicerSubmissionArchiveDetailView.as_view(),
         name='newsletter_archive_detail'),
     url(r'^(?P<newsletter_slug>[\w-]+)/archiv/$',

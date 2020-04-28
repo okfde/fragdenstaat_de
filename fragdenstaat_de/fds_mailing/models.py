@@ -85,7 +85,8 @@ class EmailTemplate(models.Model):
             return
         return "email_extra_{}".format(mail_intent_app)
 
-    def render_email_html(self, request=None, context=None):
+    def render_email_html(self, request=None, context=None,
+                          template=None):
         if request is None:
             request = get_request()
         ctx = {
@@ -97,7 +98,7 @@ class EmailTemplate(models.Model):
         if context is not None:
             ctx.update(context)
         safe_html = render_to_string(
-            'fds_mailing/render_base.html',
+            template,
             context=ctx,
             request=request
         )
@@ -109,11 +110,14 @@ class EmailTemplate(models.Model):
             'subject': self.subject
         })
 
-    def get_body_html(self, context=None, preview=False):
+    def get_body_html(self, context=None, preview=False,
+                      template='fds_mailing/render_base.html'):
         if context is None:
             context = {}
         self.update_context(context)
-        template_str = self.render_email_html(context=context)
+        template_str = self.render_email_html(
+            context=context, template=template
+        )
         template = Template(template_str)
         html = template.render(Context(context))
         if '{{' in html or '}}' in html and not preview:

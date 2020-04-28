@@ -6,12 +6,16 @@ from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import ArchiveIndexView, DateDetailView
 
 from newsletter.views import (
     NewsletterListView, SubmissionArchiveDetailView,
     SubmissionArchiveIndexView
 )
+
 from newsletter.models import Newsletter
+
+from fragdenstaat_de.fds_mailing.models import Mailing
 
 from .utils import subscribe, SubscriptionResult
 
@@ -67,14 +71,59 @@ def newsletter_user_settings(request):
     return redirect('account-settings')
 
 
-class NicerSubmissionArchiveDetailView(SubmissionArchiveDetailView):
-    template_name = 'fds_newsletter/submission_detail.html'
+class NewsletterEditionMixin:
+    date_field = 'sending_date'
+    date_list_period = 'month'
+    allow_empty = True
 
-    def render_to_response(self, context, **response_kwargs):
-        return super(SubmissionArchiveDetailView, self).render_to_response(
-            context, **response_kwargs
+    year_format = '%Y'
+    month_format = '%m'
+    day_format = '%d'
+
+    def dispatch(self, *args, **kwargs):
+        newsletter_slug = kwargs['newsletter_slug']
+        self.newsletter = get_object_or_404(
+            Newsletter.on_site.filter(visible=True),
+            slug=newsletter_slug,
+        )
+        return super().dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return Mailing.objects.filter(
+            publish=True, ready=True, submitted=True,
+            newsletter__slug=settings.DEFAULT_NEWSLETTER
         )
 
+    def get_context_data(self, **kwargs):
+        """ Add newsletter to context. """
+        context = super().get_context_data(**kwargs)
 
-class NicerSubmissionArchiveIndexView(SubmissionArchiveIndexView):
-    template_name = 'fds_newsletter/submission_archive.html'
+        context['newsletter'] = self.newsletter
+
+        return context
+
+
+class NicerSubmissionArchiveIndexView(NewsletterEditionMixin, ArchiveIndexView):
+    template_name = 'fds_newsletter/archive.html'
+
+
+class NicerSubmissionArchiveDetailView(NewsletterEditionMixin, DateDetailView):
+    template_name = 'fds_newsletter/detail.html'
+
+    def get_context_data(self, **kwargs):
+        """
+        Make sure the actual message is available.
+        """
+        context = super().get_context_data(**kwargs)
+
+        message = self.object.email_template
+
+        context.update({
+            'message': message,
+            'content': message.get_body_html(
+                template='fds_mailing/render_browser.html'
+            ),
+            'date': self.object.sending_date,
+        })
+
+        return context
