@@ -8,10 +8,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ArchiveIndexView, DateDetailView
 
-from newsletter.views import (
-    NewsletterListView, SubmissionArchiveDetailView,
-    SubmissionArchiveIndexView
-)
+from newsletter.views import NewsletterListView
 
 from newsletter.models import Newsletter
 
