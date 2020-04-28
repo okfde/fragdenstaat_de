@@ -131,7 +131,7 @@ const config = {
           //   }
           // },
           {
-            loader: 'awesome-typescript-loader',
+            loader: 'ts-loader',
             options: {
               appendTsSuffixTo: [/\.vue$/],
             }
@@ -168,7 +168,7 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true
+              sourceMap: devMode
             }
           },
           {
@@ -183,13 +183,13 @@ const config = {
           {
             loader: 'resolve-url-loader',
             options: {
-              sourceMap: true
+              sourceMap: devMode
             }
           },
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
+              sourceMap: devMode,
               includePaths: [
                 'node_modules/'
               ]
@@ -251,7 +251,7 @@ const config = {
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true // set to true if you want JS source maps
+        sourceMap: devMode // set to true if you want JS source maps
       })
     ].concat(!devMode ? [
       new OptimizeCssAssetsPlugin({
