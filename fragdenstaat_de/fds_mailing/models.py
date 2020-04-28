@@ -86,7 +86,7 @@ class EmailTemplate(models.Model):
         return "email_extra_{}".format(mail_intent_app)
 
     def render_email_html(self, request=None, context=None,
-                          template=None):
+                          template='fds_mailing/render_base.html'):
         if request is None:
             request = get_request()
         ctx = {
