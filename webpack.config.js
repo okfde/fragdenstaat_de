@@ -132,9 +132,6 @@ const config = {
           // },
           {
             loader: 'ts-loader',
-            options: {
-              appendTsSuffixTo: [/\.vue$/],
-            }
           }
         ]
       },
