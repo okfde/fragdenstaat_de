@@ -1,4 +1,4 @@
-import { Tooltip } from "bootstrap.native";
+import { Tooltip } from "bootstrap.native/dist/bootstrap-native-v4"
 import { toggleSlide } from "froide/frontend/javascript/lib/misc";
 
 interface IApplePaySession {
