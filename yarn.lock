@@ -1674,7 +1674,7 @@ boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap.native-loader@^2.0.0:
+bootstrap.native-loader@^2.0.27:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/bootstrap.native-loader/-/bootstrap.native-loader-2.0.0.tgz#9aa833d7565453058547b08b1905c2af4fa48f18"
   integrity sha512-Olau+W5+mPotQJ5BCfIiP/SWQd8/zXqnTwhrTiyViciMvqBI+RgmtJD5aHOKhdBnHz5H1korn7Pf2s4dhAZ1RA==

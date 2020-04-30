@@ -19,7 +19,7 @@
     "@babel/preset-env": "^7.2.0",
     "autoprefixer": "^8.5.0",
     "babel-loader": "^8.0.4",
-    "bootstrap.native-loader": "^2.0.0",
+    "bootstrap.native-loader": "^2.0.27",
     "cli-real-favicon": "0.0.7",
     "copy-webpack-plugin": "^4.5.1",
     "css-hot-loader": "^1.3.9",
