@@ -502,7 +502,7 @@ class DonationGiftForm(forms.Form):
     def clean_test(self):
         t = self.cleaned_data['test']
         if t.lower() not in ('7', 'sieben'):
-            raise form.ValidationError('Fehlgeschlagen')
+            raise forms.ValidationError('Fehlgeschlagen')
         return t
 
     def save(self, request=None):
