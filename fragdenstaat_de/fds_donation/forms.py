@@ -488,6 +488,9 @@ class DonationGiftForm(forms.Form):
         label=_('Please choose your donation gift'),
         queryset=None
     )
+    test = forms.CharField(
+        label='Was ist drei plus vier?'
+    )
 
     def __init__(self, *args, **kwargs):
         self.category = kwargs.pop('category')
@@ -495,6 +498,12 @@ class DonationGiftForm(forms.Form):
         self.fields['gift'].queryset = DonationGift.objects.filter(
             category_slug=self.category
         )
+
+    def clean_test(self):
+        t = self.cleaned_data['test']
+        if t.lower() not in ('7', 'sieben'):
+            raise form.ValidationError('Fehlgeschlagen')
+        return t
 
     def save(self, request=None):
         text = [
