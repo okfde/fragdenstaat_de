@@ -1,4 +1,5 @@
 {% load thumbnail %}
+{% load markup %}
 
 <!--[if gte MSO 9]>
   <table width="640">
@@ -19,7 +20,13 @@
 {% if picture_link %}
     </a>
 {% endif %}
-</td></tr></table>
+</td></tr>
+{% if instance.picture.author %}
+<tr><td>
+{{ instance.picture.author|markdown }}
+</td></tr>
+{% endif %}
+</table>
 <!--[if gte MSO 9]>
       </td>
     </tr>
