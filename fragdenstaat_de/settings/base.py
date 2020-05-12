@@ -436,6 +436,7 @@ class FragDenStaatBase(German, Base):
                 (6, 6 * 60 * 60),
                 (8, 24 * 60 * 60),
             ],
+            target_countries=('DE', 'CH', 'AT'),
             greetings=[
                 # Important: always needs to capture name to be removed
                 rec(r"^\s*Name des Absenders\s+(.*)"),
