@@ -1,38 +1,55 @@
+from urllib.parse import urlencode
+
 from django.http import HttpResponse
 from django.conf import settings
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
 from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ArchiveIndexView, DateDetailView
 
-from newsletter.views import NewsletterListView
+from newsletter.views import NewsletterListView, SubscribeRequestView as DNSubscribeRequestView
 
 from newsletter.models import Newsletter
 
 from fragdenstaat_de.fds_mailing.models import Mailing
 
+from .forms import NewsletterForm
 from .utils import subscribe, SubscriptionResult
 
 
-@require_POST
+class SubscribeRequestView(DNSubscribeRequestView):
+    form_class = NewsletterForm
+
+
 @csrf_exempt
 def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
+    return newsletter_subscribe_request(
+        request, newsletter_slug=newsletter_slug
+    )
+
+
+@require_POST
+def newsletter_subscribe_request(request, newsletter_slug=None):
     newsletter = get_object_or_404(
         Newsletter,
         slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
     )
-
-    email = request.POST.get('email_field', '')
-    try:
-        validate_email(email)
-    except ValidationError:
+    form = NewsletterForm(data=request.POST, request=request)
+    if not form.is_valid():
         if request.is_ajax():
-            return HttpResponse(newsletter.get_absolute_url().encode('utf-8'))
-        return redirect(newsletter.get_absolute_url())
+            messages.add_message(
+                request, messages.INFO,
+                'Bitte bestätigen Sie Ihre Eingabe.'
+            )
+            url = '{}?{}'.format(
+                newsletter.get_absolute_url(),
+                urlencode({'email': form.data.get('email', '')})
+            )
+            return HttpResponse(url)
+        return redirect(url)
 
+    email = form.cleaned_data['email']
     result = subscribe(newsletter, email, user=request.user)
 
     if request.is_ajax():

@@ -5,6 +5,8 @@ from django.forms.models import modelformset_factory
 from newsletter.models import Newsletter, Subscription
 from newsletter.forms import UserUpdateForm
 
+from ..forms import NewsletterForm
+
 
 register = template.Library()
 
@@ -36,9 +38,7 @@ def newsletter_settings(context):
     }
 
 
-@register.inclusion_tag('fds_newsletter/plugins/smart_newsletter_form.html',
-                        takes_context=True)
-def newsletter_subscribe(context, next=None, newsletter_slug=None, fallback=True):
+def get_newsletter_context(context, next=None, newsletter_slug=None, fallback=True):
     ctx = {
         'next': next,
         'fallback': fallback
@@ -53,8 +53,9 @@ def newsletter_subscribe(context, next=None, newsletter_slug=None, fallback=True
         return ctx
 
     ctx['newsletter'] = newsletter
-
+    ctx['form'] = NewsletterForm(request=context['request'])
     user = context['request'].user
+
     if user.is_authenticated:
         try:
             instance = Subscription.objects.get(
@@ -69,3 +70,11 @@ def newsletter_subscribe(context, next=None, newsletter_slug=None, fallback=True
         ctx['user'] = user
 
     return ctx
+
+
+@register.inclusion_tag('fds_newsletter/plugins/smart_newsletter_form.html',
+                        takes_context=True)
+def newsletter_subscribe(context, next=None, newsletter_slug=None, fallback=True):
+    return get_newsletter_context(
+        context, next=next, newsletter_slug=newsletter_slug, fallback=fallback
+    )
