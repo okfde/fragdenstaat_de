@@ -10,6 +10,7 @@ from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 
 from froide.account.utils import parse_address
 from froide.helper.content_urls import get_content_url
+from froide.helper.spam import SpamProtectionMixin
 from froide.campaign.models import Campaign
 
 from froide_payment.models import CHECKOUT_PAYMENT_CHOICES_DICT
@@ -463,7 +464,7 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
         return order, related_obj
 
 
-class DonationGiftForm(forms.Form):
+class DonationGiftForm(SpamProtectionMixin, forms.Form):
     name = forms.CharField(
         max_length=255,
         label=_('Your name'),
@@ -488,9 +489,10 @@ class DonationGiftForm(forms.Form):
         label=_('Please choose your donation gift'),
         queryset=None
     )
-    test = forms.CharField(
-        label='Was ist drei plus vier?'
-    )
+
+    SPAM_PROTECTION = {
+        'captcha': 'always',
+    }
 
     def __init__(self, *args, **kwargs):
         self.category = kwargs.pop('category')
@@ -498,12 +500,6 @@ class DonationGiftForm(forms.Form):
         self.fields['gift'].queryset = DonationGift.objects.filter(
             category_slug=self.category
         )
-
-    def clean_test(self):
-        t = self.cleaned_data['test']
-        if t.lower() not in ('7', 'sieben'):
-            raise forms.ValidationError('Fehlgeschlagen')
-        return t
 
     def save(self, request=None):
         text = [

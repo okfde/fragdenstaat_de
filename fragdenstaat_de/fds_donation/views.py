@@ -16,7 +16,9 @@ from .services import confirm_donor_email
 
 @require_POST
 def make_order(request, category):
-    form = DonationGiftForm(data=request.POST, category=category)
+    form = DonationGiftForm(
+        data=request.POST, category=category, request=request
+    )
     if form.is_valid():
         form.save(request)
         return get_redirect(request)
