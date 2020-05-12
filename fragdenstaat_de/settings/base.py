@@ -210,7 +210,6 @@ class FragDenStaatBase(German, Base):
             ['ShowBlocks', 'Source']
         ],
         'toolbarCanCollapse': False,
-        'disableNativeSpellChecker': False,
         'extraPlugins': 'autocorrect',
         'autocorrect_replacementTable': {
             "...": "…",
