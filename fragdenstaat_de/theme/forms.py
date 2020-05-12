@@ -2,9 +2,6 @@ import re
 import logging
 
 from django import forms
-from django.contrib.gis.geoip2 import GeoIP2
-
-from froide.helper.utils import get_client_ip
 
 logger = logging.getLogger(__name__)
 
@@ -30,14 +27,6 @@ class SignupUserCheckExtra():
                 validate_not_too_many_uppercase(form.cleaned_data['last_name'])
         except forms.ValidationError:
             raise
-        if form.request:
-            try:
-                g = GeoIP2()
-                info = g.country(get_client_ip(form.request))
-                if info['country_code'] not in ('DE', 'CH', 'AT'):
-                    pass
-            except Exception as e:
-                logger.exception(e)
 
     def on_save(self, form, user):
         pass
