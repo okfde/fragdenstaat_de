@@ -1,16 +1,18 @@
 from urllib.parse import urlencode
 
 from django.http import HttpResponse
+from django.urls import reverse
 from django.conf import settings
 from django.contrib import messages
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, Http404, render
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ArchiveIndexView, DateDetailView
 
 from newsletter.views import NewsletterListView, SubscribeRequestView as DNSubscribeRequestView
-
 from newsletter.models import Newsletter
+
+from froide.helper.utils import get_redirect
 
 from fragdenstaat_de.fds_mailing.models import Mailing
 
@@ -24,58 +26,73 @@ class SubscribeRequestView(DNSubscribeRequestView):
 
 @csrf_exempt
 def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
+    if not request.is_ajax():
+        raise Http404
     return newsletter_subscribe_request(
         request, newsletter_slug=newsletter_slug
     )
 
 
-@require_POST
 def newsletter_subscribe_request(request, newsletter_slug=None):
     newsletter = get_object_or_404(
         Newsletter,
         slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
     )
-    form = NewsletterForm(data=request.POST, request=request)
-    if not form.is_valid():
-        if request.is_ajax():
-            messages.add_message(
-                request, messages.INFO,
-                'Bitte bestätigen Sie Ihre Eingabe.'
-            )
-            url = '{}?{}'.format(
-                newsletter.get_absolute_url(),
-                urlencode({'email': form.data.get('email', '')})
-            )
-            return HttpResponse(url)
-        return redirect(url)
 
-    email = form.cleaned_data['email']
-    result = subscribe(newsletter, email, user=request.user)
+    if request.method == 'POST':
+        form = NewsletterForm(
+            data=request.POST, request=request,
+        )
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            result = subscribe(newsletter, email, user=request.user)
+
+            if request.is_ajax():
+                # No-CSRF ajax request
+                # are allowed to access current user
+                if result == SubscriptionResult.ALREADY_SUBSCRIBED:
+                    return HttpResponse(content='''<div class="alert alert-info" role="alert">
+                    Sie haben unseren Newsletter schon abonniert!
+                    </div>'''.encode('utf-8'))
+                elif result == SubscriptionResult.SUBSCRIBED:
+                    return HttpResponse(content='''<div class="alert alert-primary" role="alert">
+                    Sie haben unseren Newsletter erfolgreich abonniert!
+                    </div>'''.encode('utf-8'))
+                elif result == SubscriptionResult.CONFIRM:
+                    return HttpResponse(content='''<div class="alert alert-primary" role="alert">
+                    Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.
+                    </div>'''.encode('utf-8'))
+                return HttpResponse('/')
+
+            if result == SubscriptionResult.CONFIRM:
+                messages.add_message(
+                    request, messages.INFO,
+                    'Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.'
+                )
+
+            return get_redirect(request, default='/')
+        else:
+            messages.add_message(
+                request, messages.WARNING,
+                'Bitte überprüfen Sie Ihre Eingabe.'
+            )
+    else:
+        form = NewsletterForm(request=request, initial={
+            'email': request.GET.get('email', '')
+        })
 
     if request.is_ajax():
-        # No-CSRF ajax request
-        # are allowed to access current user
-        if result == SubscriptionResult.ALREADY_SUBSCRIBED:
-            return HttpResponse(content='''<div class="alert alert-info" role="alert">
-            Sie haben unseren Newsletter schon abonniert!
-            </div>'''.encode('utf-8'))
-        elif result == SubscriptionResult.SUBSCRIBED:
-            return HttpResponse(content='''<div class="alert alert-primary" role="alert">
-            Sie haben unseren Newsletter erfolgreich abonniert!
-            </div>'''.encode('utf-8'))
-        elif result == SubscriptionResult.CONFIRM:
-            return HttpResponse(content='''<div class="alert alert-primary" role="alert">
-            Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.
-            </div>'''.encode('utf-8'))
-        return HttpResponse(newsletter.get_absolute_url().encode('utf-8'))
-
-    if result == SubscriptionResult.CONFIRM:
-        messages.add_message(
-            request, messages.INFO,
-            'Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.'
+        url = '{}?{}'.format(
+            reverse('fds_newsletter_subscribe_request', kwargs={
+                'newsletter_slug': newsletter.slug
+            }),
+            urlencode({'email': form.data.get('email', '')})
         )
-
-    return redirect(newsletter.get_absolute_url())
+        return HttpResponse(url)
+    return render(request, "fds_newsletter/subscribe.html", {
+        'newsletter': newsletter,
+        'form': form
+    })
 
 
 @require_POST

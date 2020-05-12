@@ -1,0 +1,22 @@
+{% extends "newsletter/common.html" %}
+
+{% load form_helper %}
+
+{% block title %}{{ newsletter.title }}{% endblock title %}
+
+{% block body %}
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <h2>{{ newsletter.title }}</h2>
+
+      <form method="post" action=".">
+        {% csrf_token %}
+
+        {% render_form form %}
+
+        <button class="btn btn-primary" type="submit">Abonnieren</button>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

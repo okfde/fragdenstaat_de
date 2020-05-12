@@ -16,11 +16,19 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
     SPAM_PROTECTION = {
         'captcha': 'ip',
         'action': 'newsletter',
-        'action_limit': 5,
+        'action_limit': 3,
         'action_block': True
     }
 
-    email = forms.EmailField(label=_("Email"))
+    email = forms.EmailField(
+        label=_("Email"),
+        required=True,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
