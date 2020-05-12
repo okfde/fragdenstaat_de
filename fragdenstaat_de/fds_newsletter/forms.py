@@ -1,12 +1,31 @@
 from django import forms
 from django.conf import settings
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from froide.helper.widgets import BootstrapCheckboxInput
 
 from newsletter.models import Newsletter, Subscription
 
+from froide.helper.spam import SpamProtectionMixin
+
 from .utils import subscribe
+
+
+class NewsletterForm(SpamProtectionMixin, forms.Form):
+    SPAM_PROTECTION = {
+        'captcha': 'ip',
+        'action': 'newsletter',
+        'action_limit': 5,
+        'action_block': True
+    }
+
+    email = forms.EmailField(label=_("Email"))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.request.user.is_authenticated:
+            self.fields['email'].initial = self.request.user.email
 
 
 class NewsletterUserExtra():
