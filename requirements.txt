@@ -87,7 +87,6 @@ geocoder==1.38.1
 geographiclib==1.50
 geoip2==3.0.0
 geopy==1.21.0
-honcho==1.0.1
 html5lib==1.0.1
 icalendar==4.0.5
 idna==2.9
