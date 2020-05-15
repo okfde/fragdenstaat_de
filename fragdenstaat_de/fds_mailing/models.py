@@ -214,7 +214,7 @@ class VariableTemplateMixin:
 
 class EmailActionCMSPlugin(VariableTemplateMixin, CMSPlugin):
     heading = models.CharField(max_length=255, blank=True)
-    action_url = models.URLField(max_length=255, blank=True)
+    action_url = models.CharField(max_length=255, blank=True)
     action_label = models.CharField(max_length=255, blank=True)
 
     context_vars = ['heading', 'action_url', 'action_label']
