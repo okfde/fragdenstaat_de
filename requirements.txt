@@ -66,6 +66,7 @@ djangocms-apphook-setup==0.4.1
 djangocms-attributes-field==1.2.0
 djangocms-picture==2.4.0
 djangocms-text-ckeditor==3.9.0
+djangocms-transfer==0.3.0
 djangocms-video==2.3.0
 djangorestframework==3.11.0
 djangorestframework-csv==2.1.0
