@@ -3,6 +3,7 @@ set -ex
 
 MAIN=fragdenstaat_de
 REPOS=("froide" "froide-campaign" "froide-legalaction" "froide-food" "froide-payment" "froide-crowdfunding" "froide-fax" "froide-exam" "django-filingcabinet")
+FRONTEND_DIR=("froide" "froide_food" "froide_payment" "filingcabinet")
 FRONTEND=("froide" "froide_food" "froide_payment" "@okfde/filingcabinet")
 
 ask() {
@@ -89,7 +90,7 @@ done
 
 echo "Installing all frontend dependencies..."
 
-for name in "${FRONTEND[@]}"; do
+for name in "${FRONTEND_DIR[@]}"; do
   pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
   yarn install
   yarn link
