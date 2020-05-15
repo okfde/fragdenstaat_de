@@ -64,8 +64,8 @@ python manage.py loaddata <fixture file>
 # Create a superuser
 python manage.py createsuperuser
 # Create and populate search index
-python search_index --create
-python search_index --populate
+python manage.py search_index --create
+python manage.py search_index --populate
 ```
 
 ### Quick start after setup
