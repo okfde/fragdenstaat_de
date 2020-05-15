@@ -1,9 +1,11 @@
 <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+    {% if heading %}
     <tr>
       <td valign="top" style="padding-bottom:15px; background-color:#ffffff;">
         <h1>{{ heading }}</h1>
       </td>
     </tr>
+    {% endif %}
     <tr>
       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
         {% block top_text %}{% endblock %}
