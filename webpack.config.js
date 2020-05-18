@@ -30,7 +30,8 @@ const ENTRY = {
   messageredaction: 'froide/frontend/javascript/messageredaction.js',
   publicbodyupload: 'froide/frontend/javascript/publicbodyupload.js',
   filingcabinet: '@okfde/filingcabinet/frontend/javascript/filingcabinet.js',
-  document: 'froide/frontend/javascript/document.js'
+  document: 'froide/frontend/javascript/document.js',
+  pivot: './frontend/javascript/pivot.js'
 }
 
 const EXCLUDE_CHUNKS = [

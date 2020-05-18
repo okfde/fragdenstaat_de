@@ -5,6 +5,7 @@ import zipfile
 
 from django.db.models import Q, Sum, Avg, Count, Value, Aggregate, F
 from django.db.models.functions import Concat
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import admin, messages
 from django.conf.urls import url
@@ -32,7 +33,10 @@ from .external import import_banktransfers, import_paypal
 from .filters import DateRangeFilter, make_rangefilter
 from .services import send_donation_email
 from .forms import get_merge_donor_form
-from .utils import propose_donor_merge, merge_donors
+from .utils import (
+    propose_donor_merge, merge_donors,
+    get_donation_pivot_data_and_config
+)
 from .export import get_zwbs, ZWBPDFGenerator
 
 
@@ -365,7 +369,7 @@ class DonationAdmin(admin.ModelAdmin):
         'donor__company_name',
     )
 
-    actions = ['resend_donation_mail']
+    actions = ['resend_donation_mail', 'pivot']
 
     def get_name(self, obj):
         return str(obj.donor)
@@ -394,6 +398,18 @@ class DonationAdmin(admin.ModelAdmin):
             level=messages.INFO
         )
     resend_donation_mail.short_description = _('Resend donation email')
+
+    def pivot(self, request, queryset):
+        opts = self.model._meta
+        data, config = get_donation_pivot_data_and_config(queryset)
+        ctx = {
+            'app_label': opts.app_label,
+            'opts': opts,
+            'pivot_data': data,
+            'pivot_config': config,
+        }
+        return render(request, "pivot/admin_pivot.html", ctx)
+    pivot.short_description = _('Pivot table for selected...')
 
     def get_urls(self):
         urls = super().get_urls()

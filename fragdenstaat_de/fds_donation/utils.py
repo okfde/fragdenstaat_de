@@ -114,3 +114,19 @@ def merge_donors(candidates, primary_id, validated_data):
     merged_donor.save()
 
     return merged_donor
+
+
+def get_donation_pivot_data_and_config(queryset):
+    keys = [
+        'donor_id', 'amount', 'timestamp', 'method', 'reference', 'keyword',
+        'purpose', 'recurring', 'first_recurring'
+    ]
+    data = [
+        [getattr(x, k) for k in keys] for x in queryset
+    ]
+    config = {
+        'vals': ['amount']
+    }
+    final_data = [keys]
+    final_data.extend(data)
+    return final_data, config
