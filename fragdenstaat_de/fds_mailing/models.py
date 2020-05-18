@@ -205,10 +205,13 @@ class EmailTemplate(models.Model):
 
 
 class VariableTemplateMixin:
+    empty_vars = set()
+
     def get_context(self):
         return {
-            key: getattr(self, key) or '{{ %s }}' % key
-            for key in self.context_vars
+            key: getattr(self, key) or (
+                '{{ %s }}' % key if key not in self.empty_vars else ''
+            ) for key in self.context_vars
         }
 
 
@@ -218,6 +221,7 @@ class EmailActionCMSPlugin(VariableTemplateMixin, CMSPlugin):
     action_label = models.CharField(max_length=255, blank=True)
 
     context_vars = ['heading', 'action_url', 'action_label']
+    empty_vars = set(['heading'])
 
     def __str__(self):
         return str(self.heading)
