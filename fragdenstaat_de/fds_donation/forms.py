@@ -442,11 +442,14 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
             user=self.user,
             subscription=order.subscription
         )
+        keyword = data.get('keyword', '')
+        if keyword.startswith(settings.SITE_URL):
+            keyword = keyword.replace(settings.SITE_URL, '', 1)
         donation = Donation.objects.create(
             donor=donor,
             amount=order.total_gross,
             reference=data.get('reference', ''),
-            keyword=data.get('keyword', ''),
+            keyword=keyword,
             purpose=data.get('purpose', '') or order.description,
             order=order,
             recurring=order.is_recurring,
