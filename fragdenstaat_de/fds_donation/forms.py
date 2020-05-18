@@ -23,6 +23,7 @@ from .models import (
 )
 from .services import get_or_create_donor
 from .widgets import AmountInput, InlineRadioSelect
+from .utils import MERGE_DONOR_FIELDS
 
 
 PAYMENT_METHOD_LIST = (
@@ -520,18 +521,6 @@ class DonationGiftForm(SpamProtectionMixin, forms.Form):
             'Neue Bestellung von %s' % self.category,
             str('\n'.join(str(t) for t in text))
         )
-
-
-MERGE_DONOR_FIELDS = [
-    'salutation', 'first_name', 'last_name', 'company_name',
-    'address', 'city', 'postcode', 'country',
-    'email', 'identifier', 'attributes',
-    'email_confirmed',
-    'contact_allowed', 'receipt',
-    'note',
-    'active',
-    'user',
-]
 
 
 def get_merge_donor_form(admin_site):

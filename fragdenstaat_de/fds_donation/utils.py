@@ -4,7 +4,18 @@ from django.db.models import Max, Min, Q
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_newsletter
 
 from .models import Donor, Donation
-from .forms import MERGE_DONOR_FIELDS
+
+
+MERGE_DONOR_FIELDS = [
+    'salutation', 'first_name', 'last_name', 'company_name',
+    'address', 'city', 'postcode', 'country',
+    'email', 'identifier', 'attributes',
+    'email_confirmed',
+    'contact_allowed', 'receipt',
+    'note',
+    'active',
+    'user',
+]
 
 
 def subscribe_donor_newsletter(donor, email_confirmed=False):
