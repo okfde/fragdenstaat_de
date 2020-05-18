@@ -12,7 +12,9 @@ from froide.helper.email_sending import mail_registry
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
 from .models import Donor, Donation
-from .utils import subscribe_donor_newsletter
+from .utils import (
+    subscribe_donor_newsletter, propose_donor_merge, merge_donors
+)
 
 logger = logging.getLogger(__name__)
 
@@ -169,6 +171,30 @@ def create_donation_from_payment(payment):
     return donation
 
 
+def assign_and_merge_donors(donor, user):
+    # Check if there's a confirmed donor with that user
+    try:
+        other_donor = Donor.objects.get(
+            user=user,
+            email_confirmed__isnull=False
+        )
+    except Donor.DoesNotExist:
+        donor.user = user
+        donor.save()
+    else:
+        # Merge the two donors with the same user
+        candidates = [
+            donor, other_donor
+        ]
+        merged_donor = propose_donor_merge(candidates)
+        merged_donor.id = donor.id
+        candidates = [
+            merged_donor, other_donor
+        ]
+        donor = merge_donors(candidates, donor.id)
+    return donor
+
+
 def confirm_donor_email(donor, request=None):
     if request and request.user.is_staff:
         # Don't trigger things as staff
@@ -193,9 +219,8 @@ def confirm_donor_email(donor, request=None):
         else:
             user = None
         if user is not None:
-            donor.user = user
-            donor.save()
-            if request:
+            donor = assign_and_merge_donors(donor, user)
+            if request and is_auth:
                 auth.login(request, user)
 
         elif donor.become_user and not is_auth:

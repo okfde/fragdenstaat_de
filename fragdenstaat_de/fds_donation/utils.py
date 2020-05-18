@@ -4,6 +4,7 @@ from django.db.models import Max, Min, Q
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_newsletter
 
 from .models import Donor, Donation
+from .forms import MERGE_DONOR_FIELDS
 
 
 def subscribe_donor_newsletter(donor, email_confirmed=False):
@@ -14,7 +15,9 @@ def subscribe_donor_newsletter(donor, email_confirmed=False):
     )
 
 
-def propose_donor_merge(candidates, fields):
+def propose_donor_merge(candidates, fields=None):
+    if fields is None:
+        fields = MERGE_DONOR_FIELDS
     merged_donor_data = {}
     for field in fields:
         best_value = None
@@ -50,9 +53,10 @@ def merge_donors(candidates, primary_id, validated_data):
 
     merged_donor = [c for c in candidates if c.id == primary_id][0]
 
-    # Set form data on primary
-    for key, val in validated_data.items():
-        setattr(merged_donor, key, val)
+    if validated_data:
+        # Set form data on primary
+        for key, val in validated_data.items():
+            setattr(merged_donor, key, val)
 
     # Add old ids to attributes
     attrs = merged_donor.attributes or {}

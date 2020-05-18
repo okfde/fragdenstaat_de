@@ -519,20 +519,24 @@ class DonationGiftForm(SpamProtectionMixin, forms.Form):
         )
 
 
+MERGE_DONOR_FIELDS = [
+    'salutation', 'first_name', 'last_name', 'company_name',
+    'address', 'city', 'postcode', 'country',
+    'email', 'identifier', 'attributes',
+    'email_confirmed',
+    'contact_allowed', 'receipt',
+    'note',
+    'active',
+    'user',
+]
+
+
 def get_merge_donor_form(admin_site):
 
     class MergeDonorForm(forms.ModelForm):
         class Meta:
             model = Donor
-            fields = [
-                'salutation', 'first_name', 'last_name', 'company_name',
-                'address', 'city', 'postcode', 'country',
-                'email', 'identifier', 'attributes',
-                'email_confirmed',
-                'contact_allowed', 'receipt',
-                'note',
-                'user',
-            ]
+            fields = MERGE_DONOR_FIELDS
             widgets = {
                 'user': ForeignKeyRawIdWidget(
                     Donor._meta.get_field('user').remote_field,
