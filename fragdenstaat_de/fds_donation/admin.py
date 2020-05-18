@@ -354,7 +354,6 @@ class DonationAdmin(admin.ModelAdmin):
         'purpose',
         'recurring',
         'reference',
-        'keyword',
         make_nullfilter('export_date', _('Receipt exported')),
         make_nullfilter('receipt_date', _('Receipt sent')),
         ('donor', ForeignKeyFilter),
