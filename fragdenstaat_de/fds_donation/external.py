@@ -240,7 +240,8 @@ def import_paypal(csv_file):
 def get_or_create_paypal_donor(row):
     try:
         return Donor.objects.get(
-            attributes__paypal_email=row['paypal_email']
+            Q(attributes__paypal_email=row['paypal_email']) |
+            Q(email=row['paypal_email'], email_confirmed__isnull=False)
         )
     except Donor.DoesNotExist:
         pass
@@ -316,7 +317,7 @@ def find_paypal_payment(row):
     cond = Q(extra_data__contains=row['sale_id'])
     if row['subscription_id']:
         cond |= Q(extra_data__contains=row['subscription_id'])
- 
+
     payments = Payment.objects.filter(
         variant='paypal',
         status=PaymentStatus.CONFIRMED,
