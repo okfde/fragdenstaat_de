@@ -127,7 +127,8 @@ def get_donation_pivot_data_and_config(queryset):
     config = {
         'extra': {
             'vals': ['amount']
-        }
+        },
+        'dateColumn': 'timestamp'
     }
     final_data = [keys]
     final_data.extend(data)
