@@ -369,7 +369,22 @@ class DonationAdmin(admin.ModelAdmin):
         'donor__company_name',
     )
 
-    actions = ['resend_donation_mail', 'pivot']
+    actions = ['resend_donation_mail']
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            url(r'^pivot/$',
+                self.admin_site.admin_view(self.show_pivot),
+                name='fds_donation-donation-show_pivot'),
+            url(r'^import-banktransfers/$',
+                self.admin_site.admin_view(self.import_banktransfers),
+                name='fds_donation-donation-import_banktransfers'),
+            url(r'^import-paypal/$',
+                self.admin_site.admin_view(self.import_paypal),
+                name='fds_donation-donation-import_paypal'),
+        ]
+        return my_urls + urls
 
     def get_name(self, obj):
         return str(obj.donor)
@@ -379,6 +394,23 @@ class DonationAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         return qs.select_related('donor')
+
+    def show_pivot(self, request):
+        response = self.changelist_view(request)
+        try:
+            queryset = response.context_data['cl'].queryset
+        except (AttributeError, KeyError):
+            return response
+
+        opts = self.model._meta
+        data, config = get_donation_pivot_data_and_config(queryset)
+        ctx = {
+            'app_label': opts.app_label,
+            'opts': opts,
+            'pivot_data': data,
+            'pivot_config': config,
+        }
+        return render(request, "pivot/admin_pivot.html", ctx)
 
     def resend_donation_mail(self, request, queryset):
         resent = 0
@@ -398,30 +430,6 @@ class DonationAdmin(admin.ModelAdmin):
             level=messages.INFO
         )
     resend_donation_mail.short_description = _('Resend donation email')
-
-    def pivot(self, request, queryset):
-        opts = self.model._meta
-        data, config = get_donation_pivot_data_and_config(queryset)
-        ctx = {
-            'app_label': opts.app_label,
-            'opts': opts,
-            'pivot_data': data,
-            'pivot_config': config,
-        }
-        return render(request, "pivot/admin_pivot.html", ctx)
-    pivot.short_description = _('Pivot table for selected...')
-
-    def get_urls(self):
-        urls = super().get_urls()
-        my_urls = [
-            url(r'^import-banktransfers/$',
-                self.admin_site.admin_view(self.import_banktransfers),
-                name='fds_donation-donation-import_banktransfers'),
-            url(r'^import-paypal/$',
-                self.admin_site.admin_view(self.import_paypal),
-                name='fds_donation-donation-import_paypal'),
-        ]
-        return my_urls + urls
 
     def import_banktransfers(self, request):
         if not request.method == 'POST':

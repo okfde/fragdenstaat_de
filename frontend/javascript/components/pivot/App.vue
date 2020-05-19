@@ -55,9 +55,7 @@ export default {
       })
     })
 
-    config.dateCol = 'timestamp'
-
-    const yearDeriver = derivers.dateFormat(config.dateCol, "%y")
+    const yearDeriver = derivers.dateFormat(config.dateColumn, "%y")
     
     return {
       pivotData: data,
@@ -66,11 +64,11 @@ export default {
 
       derivedAttributes: {
         "year": yearDeriver,
-        "year month": derivers.dateFormat(config.dateCol, "%y-%m"),
-        "month": derivers.dateFormat(config.dateCol, "%m"),
-        "day name": derivers.dateFormat(config.dateCol, "%w"),
-        "year week": (r) => `${yearDeriver(r)}-KW${getWeek(r[config.dateCol])}`,
-        "week": (r) => `KW${getWeek(r[config.dateCol])}`
+        "year month": derivers.dateFormat(config.dateColumn, "%y-%m"),
+        "month": derivers.dateFormat(config.dateColumn, "%m"),
+        "day name": derivers.dateFormat(config.dateColumn, "%w"),
+        "year week": (r) => `${yearDeriver(r)}-KW${getWeek(r[config.dateColumn])}`,
+        "week": (r) => `KW${getWeek(r[config.dateColumn])}`
       },
       vals: [],
       rows: [],

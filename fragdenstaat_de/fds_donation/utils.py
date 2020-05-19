@@ -125,7 +125,9 @@ def get_donation_pivot_data_and_config(queryset):
         [getattr(x, k) for k in keys] for x in queryset
     ]
     config = {
-        'vals': ['amount']
+        'extra': {
+            'vals': ['amount']
+        }
     }
     final_data = [keys]
     final_data.extend(data)

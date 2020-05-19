@@ -2,6 +2,16 @@
 
 {% load i18n %}
 
+{% block object-tools-items %}
+  <li>
+    <a href="{% url 'admin:fds_donation-donation-show_pivot' %}?{{ request.META.QUERY_STRING }}">
+      {% trans "Pivot Data" %}
+    </a>
+  </li>
+  {{ block.super }}
+{% endblock %}
+
+
 {% block result_list %}
 <p>
   Summe: {{ cl.amount_sum }}&nbsp;EUR
