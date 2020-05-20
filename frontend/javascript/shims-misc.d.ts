@@ -7,4 +7,9 @@ declare module "bootstrap.native/dist/bootstrap-native-v4" {
     constructor (el: HTMLElement);
     show(): void
   }
+  export class Modal {
+    constructor (el: HTMLElement, options?: Object);
+    show(): void
+    setContent(text: string): void
+  }
 }

@@ -4,7 +4,7 @@ services:
   db:
     image: mdillon/postgis:10-alpine
     volumes:
-      - ./data/postgres_data:/var/lib/postgresql/data/
+      - ./data/postgres_data:/var/lib/postgresql/
     ports:
       - "127.0.0.1:5432:5432"
     environment:
