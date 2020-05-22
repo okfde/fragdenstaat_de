@@ -95,6 +95,7 @@ class Donor(models.Model):
     become_user = models.BooleanField(default=False)
     receipt = models.BooleanField(default=False)
 
+    recurring = models.BooleanField(default=False)
     invalid = models.BooleanField(default=False)
     duplicate = models.UUIDField(editable=False, null=True, blank=True)
 
