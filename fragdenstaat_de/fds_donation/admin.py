@@ -63,7 +63,7 @@ class DonorChangeList(ChangeList):
         self.amount_total_avg = round(q['amount_total_avg']) if q['amount_total_avg'] is not None else '-'
         self.amount_last_year_sum = q['amount_last_year_sum']
         self.amount_last_year_avg = round(q['amount_last_year_avg']) if q['amount_last_year_avg'] is not None else '-'
-        self.amount_total_median = round(q['amount_total_median'])
+        self.amount_total_median = round(q['amount_total_median']) if q['amount_total_median'] is not None else '-'
         self.total_amount_recurring = q['recurring_total']
         return ret
 
@@ -340,6 +340,7 @@ class DonationChangeList(ChangeList):
         self.amount_sum = q['amount_sum']
         self.amount_avg = round(q['amount_avg']) if q['amount_avg'] is not None else '-'
         self.amount_median = round(q['amount_median'])
+        self.amount_median = round(q['amount_median']) if q['amount_median'] is not None else '-'
         self.amount_received_sum = q['amount_received_sum']
         self.donor_count = q['donor_count']
         return ret
