@@ -423,15 +423,21 @@ class MailingMessage(models.Model):
             'user': self.user,
             'donor': self.donor
         }
+        # Try to find a user
         if not self.user and self.subscription and self.subscription.user:
             ctx['user'] = self.subscription.user
         elif not self.user and self.donor and self.donor.user:
             ctx['user'] = self.donor.user
 
-        if ctx['user'] and not self.donor:
-            donors = Donor.objects.filter(user=ctx['user'])
-            if donors:
-                ctx['donor'] = donors[0]
+        # Try to find a donor
+        if ctx['user'] and not ctx.get('donor'):
+            ctx['donor'] = Donor.objects.filter(user=ctx['user']).first()
+
+        if not ctx['donor'] and self.subscription and self.subscription.email_field:
+            ctx['donor'] = Donor.objects.filter(
+                email=self.subscription.email_field,
+                email_confirmed__isnull=False
+            ).first()
 
         for obj in (self.subscription, ctx['donor'], ctx['user']):
             if hasattr(obj, 'get_email_context'):
