@@ -124,12 +124,14 @@ class EmailTemplate(models.Model):
             raise ValueError('Likely variable definition broken')
         return html
 
-    def render_email_text(self):
+    def render_email_text(self, context=None):
+        if context is None:
+            context = {}
         text = ''
         if self.text:
             text = self.text
         elif self.email_body:
-            text = render_text(self.email_body)
+            text = render_text(self.email_body, context)
         extra_placeholder = self.get_extra_placeholder_name()
         if extra_placeholder:
             try:
@@ -144,7 +146,7 @@ class EmailTemplate(models.Model):
         return COLLAPSE_NEWLINES.sub('\r\n\r\n', text)
 
     def get_body_text(self, context=None, preview=False):
-        template_str = self.render_email_text()
+        template_str = self.render_email_text(context)
         template_str = '{top}{body}{bottom}{footer}'.format(
             top='{% autoescape off %}',
             body=template_str,

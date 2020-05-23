@@ -19,20 +19,25 @@ def add_style(instance, placeholder, context):
     }
 
 
-def render_text(placeholder):
+def get_plugin_children(instance):
+    return instance.get_descendants().filter(
+        depth=instance.depth + 1).order_by('position')
+
+
+def render_text(placeholder, context):
     plugins = placeholder.get_plugins()
     return '\n'.join(
-        render_plugin_text(plugin) for plugin in plugins
+        render_plugin_text(context, plugin) for plugin in plugins
         if plugin.depth == 1
     )
 
 
-def render_plugin_text(base_plugin):
+def render_plugin_text(context, base_plugin):
     instance, plugin = base_plugin.get_plugin_instance()
     if instance is None:
         return ''
     if hasattr(plugin, 'render_text'):
-        return plugin.render_text(instance)
+        return plugin.render_text(context, instance)
     if base_plugin.plugin_type == 'TextPlugin':
         return convert_html_to_text(instance.body)
     return ''
