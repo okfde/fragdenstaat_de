@@ -1,7 +1,0 @@
-{% load cms_tags %}
-
-{% if not is_donor or not donor.recently_donated %}
-{% for plugin in instance.child_plugin_instances %}
-  {% render_plugin plugin %}
-{% endfor %}
-{% endif %}
