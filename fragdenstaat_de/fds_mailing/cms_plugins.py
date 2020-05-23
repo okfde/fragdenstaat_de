@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import get_template, TemplateDoesNotExist
 
@@ -47,8 +48,8 @@ class EmailBodyPlugin(EmailTemplateMixin, CMSPluginBase):
     child_classes = [
         'TextPlugin', 'EmailActionPlugin',
         'EmailSectionPlugin', 'EmailStoryPlugin',
-        'PicturePlugin'
-    ]
+        'PicturePlugin',
+    ] + settings.DONATION_LOGIC_PLUGINS
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)

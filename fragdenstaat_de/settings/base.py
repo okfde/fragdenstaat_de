@@ -157,14 +157,19 @@ class FragDenStaatBase(German, Base):
         ('cms/blog_base.html', 'Blog base template'),
         ('cms/static_placeholders.html', 'Static Placeholder Overview'),
     ]
+    DONATION_LOGIC_PLUGINS = [
+        'IsDonorPlugin', 'IsNotDonorPlugin',
+        'IsRecurringDonorPlugin', 'IsNotRecurringDonorPlugin',
+        'IsRecentDonor', 'IsNotRecentDonor',
+    ]
     CMS_PLACEHOLDER_CONF = {
         'email_body': {
             'plugins': [
                 'TextPlugin', 'EmailActionPlugin',
                 'EmailSectionPlugin', 'EmailStoryPlugin',
                 'EmailBodyPlugin', 'EmailHeaderPlugin',
-                'PicturePlugin'
-            ],
+                'PicturePlugin',
+            ] + DONATION_LOGIC_PLUGINS,
             'text_only_plugins': [],
             'name': _('E-Mail Body'),
             'language_fallback': True,

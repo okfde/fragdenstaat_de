@@ -1,0 +1,7 @@
+{% load cms_tags %}
+
+{% if is_donor and donor.recurring_amount %}
+{% for plugin in instance.child_plugin_instances %}
+  {% render_plugin plugin %}
+{% endfor %}
+{% endif %}

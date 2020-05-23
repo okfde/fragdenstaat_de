@@ -4,7 +4,7 @@ from django.urls import reverse
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import DonationGiftFormCMSPlugin, DonationFormCMSPlugin
+from .models import Donor, DonationGiftFormCMSPlugin, DonationFormCMSPlugin
 from .forms import DonationGiftForm
 
 
@@ -64,3 +64,59 @@ class DonationFormPlugin(CMSPluginBase):
             action=instance.form_action or reverse('fds_donation:donate')
         )
         return context
+
+
+class DonorLogigMixin:
+    module = _("Donations")
+    cache = False
+    allow_children = True
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        if 'donor' not in context:
+            if 'user' not in context and 'request' in context:
+                if context['request'].user.is_authenticated:
+                    context['user'] = context['request'].user
+            if 'user' in context and context['user'].is_authenticated:
+                donors = Donor.objects.filter(user=context['user'])
+                if donors:
+                    context['donor'] = donors[0]
+
+        context['is_donor'] = 'donor' in context
+        return context
+
+
+@plugin_pool.register_plugin
+class IsDonorPlugin(DonorLogigMixin, CMSPluginBase):
+    name = _("Is donor")
+    render_template = "fds_donation/cms_plugins/is_donor.html"
+
+
+@plugin_pool.register_plugin
+class IsNotDonorPlugin(DonorLogigMixin, CMSPluginBase):
+    name = _("Is donor")
+    render_template = "fds_donation/cms_plugins/is_not_donor.html"
+
+
+@plugin_pool.register_plugin
+class IsRecurringDonorPlugin(DonorLogigMixin, CMSPluginBase):
+    name = _("Is recurring donor")
+    render_template = "fds_donation/cms_plugins/is_recurring_donor.html"
+
+
+@plugin_pool.register_plugin
+class IsNotRecurringDonorPlugin(DonorLogigMixin, CMSPluginBase):
+    name = _("Is not recurring donor")
+    render_template = "fds_donation/cms_plugins/is_not_recurring_donor.html"
+
+
+@plugin_pool.register_plugin
+class IsRecentDonor(DonorLogigMixin, CMSPluginBase):
+    name = _("Is recent donor")
+    render_template = "fds_donation/cms_plugins/is_recent_donor.html"
+
+
+@plugin_pool.register_plugin
+class IsNotRecentDonor(DonorLogigMixin, CMSPluginBase):
+    name = _("Is not recent donor")
+    render_template = "fds_donation/cms_plugins/is_not_recent_donor.html"
