@@ -417,8 +417,21 @@ class MailingMessage(models.Model):
         return 'MailingRecipient  %s (%s)' % (self.email, self.mailing)
 
     def get_email_context(self):
-        ctx = {}
-        for obj in (self.subscription, self.donor, self.user):
+        ctx = {
+            'user': self.user,
+            'donor': self.donor
+        }
+        if not self.user and self.subscription and self.subscription.user:
+            ctx['user'] = self.subscription.user
+        elif not self.user and self.donor and self.donor.user:
+            ctx['user'] = self.donor.user
+
+        if ctx['user'] and not self.donor:
+            donors = Donor.objects.filter(user=ctx['user'])
+            if donors:
+                ctx['donor'] = donors[0]
+
+        for obj in (self.subscription, ctx['donor'], ctx['user']):
             if hasattr(obj, 'get_email_context'):
                 ctx.update(obj.get_email_context())
         return ctx
