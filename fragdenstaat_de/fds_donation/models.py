@@ -1,5 +1,6 @@
-import uuid
+from datetime import timedelta
 from urllib.parse import urlencode
+import uuid
 
 from django.db import models
 from django.contrib.postgres.fields import HStoreField
@@ -95,7 +96,10 @@ class Donor(models.Model):
     become_user = models.BooleanField(default=False)
     receipt = models.BooleanField(default=False)
 
-    recurring = models.BooleanField(default=False)
+    recurring_amount = models.DecimalField(
+        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES,
+        default=0
+    )
     invalid = models.BooleanField(default=False)
     duplicate = models.UUIDField(editable=False, null=True, blank=True)
 
@@ -171,6 +175,14 @@ class Donor(models.Model):
     @property
     def tag_list(self):
         return ", ".join(o.name for o in self.tags.all())
+
+    @property
+    def recently_donated(self):
+        recently_donated = False
+        if self.last_donation:
+            year = timedelta(days=365)
+            recently_donated = timezone.now() - self.last_donation <= year
+        return recently_donated
 
     def get_email_context(self):
         context = {

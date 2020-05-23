@@ -1,5 +1,8 @@
-import logging
+from collections import Counter
+from datetime import timedelta
 from decimal import Decimal
+import logging
+from typing import Optional, Tuple
 
 from django.db import models
 from django.utils import timezone
@@ -25,6 +28,7 @@ def get_or_create_donor(data, user=None, subscription=None):
             donor = Donor.objects.get(user=user)
             donor.last_donation = timezone.now()
             if subscription:
+                donor.recurring_amount = subscription.plan.amount_year / 12
                 donor.subscription = subscription
             donor.save()
             return donor
@@ -38,6 +42,9 @@ def create_donor(data, user=None, subscription=None):
     email_confirmed = None
     if user is not None and user.email.lower() == data['email'].lower():
         email_confirmed = user.date_joined
+    recurring_amount = Decimal(0)
+    if subscription:
+        recurring_amount = subscription.plan.amount_year / 12
     donor = Donor.objects.create(
         salutation=data.get('salutation', ''),
         first_name=data['first_name'],
@@ -51,6 +58,7 @@ def create_donor(data, user=None, subscription=None):
         user=user,
         email_confirmed=email_confirmed,
         subscription=subscription,
+        recurring_amount=recurring_amount,
         contact_allowed=data.get('contact', False),
         become_user=data.get('account', False),
         receipt=data.get('receipt', False),
@@ -284,3 +292,65 @@ def connect_payments_to_user(donor):
         user=donor.user
     )
     logger.info('Connected more customers to donor user %s: %s', donor.user.id, customer_ids)
+
+
+recurring_buckets = [  # in days
+    (20, 40, 1),  # monthly
+    (80, 100, 3),  # quarterly
+    (160, 205, 6),  # half-yearly
+    (340, 390, 12),  # yearly
+]
+
+
+def get_bucket(days: int) -> Optional[Tuple[int, int]]:
+    for bucket in recurring_buckets:
+        if bucket[0] <= days <= bucket[1]:
+            return bucket
+    return None
+
+
+def detect_recurring_on_donor(donor):
+    monthly_amount = detect_recurring_monthly_amount(donor)
+    if monthly_amount:
+        donor.recurring_amount = monthly_amount
+        donor.save()
+        return True
+    return False
+
+
+def detect_recurring_monthly_amount(donor):
+    if donor.subscription and not donor.subscription.canceled:
+        return donor.subscription.plan.amount_year / 12
+    donations = donor.donations.filter(received=True)
+    donation_count = donations.count()
+    if donation_count < 2:
+        return Decimal(0)
+    donations = donations.order_by('-timestamp')
+    time_diffs = Counter()
+    amounts = Counter()
+    prev_donation = None
+    for donation in donations:
+        amounts[donation.amount] += 1
+        if prev_donation is None:
+            prev_donation = donation
+            continue
+        days_diff = (prev_donation.timestamp - donation.timestamp).days
+        bucket = get_bucket(days_diff)
+        if bucket is not None:
+            time_diffs[bucket] += 1
+        prev_donation = donation
+
+    if time_diffs:
+        most_common_period = time_diffs.most_common(1)[0]
+        most_common_period_count = most_common_period[1]
+        most_common_period_month = most_common_period[0][2]
+        fraction = most_common_period_count / donation_count
+        if fraction < 0.5:
+            # recurring donation fraction is too low (?)
+            return Decimal(0)
+        one_period_ago = timezone.now() - timedelta(days=31) * most_common_period_month
+        if donor.last_donation < one_period_ago:
+            # last donation is too long ago
+            return Decimal(0)
+        return amounts.most_common(1)[0][0] / most_common_period_month
+    return Decimal(0)

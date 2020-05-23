@@ -11,7 +11,7 @@ import pytz
 from froide_payment.models import Payment, PaymentStatus
 from froide_payment.provider.banktransfer import TRANSFER_RE
 
-from .services import create_donation_from_payment
+from .services import create_donation_from_payment, detect_recurring_on_donor
 from .models import Donor, Donation
 
 
@@ -112,6 +112,8 @@ def import_banktransfer(transfer_ident, row):
     donation.received = True
     donation.completed = True
     donation.save()
+
+    detect_recurring_on_donor(donor)
 
     if donation.payment:
         payment = donation.payment
@@ -296,7 +298,7 @@ def import_paypal_row(row):
 
     donor = get_or_create_paypal_donor(row)
 
-    return Donation.objects.create(
+    donation = Donation.objects.create(
         donor=donor,
         identifier=row['sale_id'],
         completed=True,
@@ -309,6 +311,9 @@ def import_paypal_row(row):
         note=row['note'],
         recurring=bool(row['subscription_id'])
     )
+    detect_recurring_on_donor(donor)
+
+    return donation
 
 
 def find_paypal_payment(row):

@@ -87,6 +87,7 @@ def subscription_was_canceled(sender, **kwargs):
         donor = Donor.objects.get(subscription=sender)
     except Donor.DoesNotExist:
         return
+    donor.received_amount = Decimal(0)
     donor.subscription = None
     donor.save()
 
