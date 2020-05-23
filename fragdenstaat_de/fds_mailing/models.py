@@ -139,7 +139,7 @@ class EmailTemplate(models.Model):
                     code=extra_placeholder
                 ).select_related('public').get()
                 text = '{}\r\n\r\n{}'.format(
-                    text, render_text(sp.public)
+                    text, render_text(sp.public, context)
                 )
             except StaticPlaceholder.DoesNotExist:
                 pass
