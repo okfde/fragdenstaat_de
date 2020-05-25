@@ -120,7 +120,7 @@ def export_user_data(user):
         'city': donor.city,
         'country': donor.country,
         'email': donor.email,
-        'attributes': dict(donor.attributes)
+        'attributes': dict(donor.attributes or {}) or None
     }).encode('utf-8'))
     donations = Donation.objects.filter(donor=donor)
     yield ('donations.json', json.dumps([
