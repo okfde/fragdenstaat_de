@@ -130,6 +130,9 @@ def export_user_data(user):
             'method': d.method,
             'recurring': d.recurring,
             'timestamp': d.timestamp.isoformat(),
-            'received_timestamp': d.received_timestamp.isoformat(),
+            'received_timestamp': (
+                d.received_timestamp.isoformat()
+                if d.received_timestamp else None
+            ),
         } for d in donations
     ]))
