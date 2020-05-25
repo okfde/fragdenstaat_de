@@ -118,7 +118,7 @@ def export_user_data(user):
         'address': donor.address,
         'postcode': donor.postcode,
         'city': donor.city,
-        'country': donor.country,
+        'country': str(donor.country),
         'email': donor.email,
         'attributes': dict(donor.attributes or {}) or None
     }).encode('utf-8'))
