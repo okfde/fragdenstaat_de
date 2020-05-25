@@ -125,8 +125,11 @@ def export_user_data(user):
     donations = Donation.objects.filter(donor=donor)
     yield ('donations.json', json.dumps([
         {
-            'amount': d.amount,
-            'amount_received': d.amount_received,
+            'amount': float(d.amount),
+            'amount_received': (
+                float(d.amount_received) if d.amount_received
+                else None
+            ),
             'method': d.method,
             'recurring': d.recurring,
             'timestamp': d.timestamp.isoformat(),
