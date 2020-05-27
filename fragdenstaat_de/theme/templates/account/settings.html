@@ -3,6 +3,15 @@
 {% load fax_tags %}
 {% load newsletter_tags %}
 
+{% block post_password_menu %}
+<a href="#newsletter" class="list-group-item list-group-item-action">
+  Newsletter
+</a>
+<a href="#signature-setting" class="list-group-item list-group-item-action">
+  Unterschrift
+</a>
+{% endblock %}
+
 {% block post_password %}
 
   {% newsletter_settings %}
