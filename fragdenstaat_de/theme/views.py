@@ -1,7 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from froide.account.models import UserPreference
 from froide.foirequest.models import FoiRequest, FoiMessage
 from froide.foirequest.views.request_actions import allow_write_foirequest
 from froide.publicbody.models import PublicBody
@@ -9,6 +12,7 @@ from froide.frontpage.models import FeaturedRequest
 from froide.helper.cache import cache_anonymous_page
 
 from .glyphosat import get_glyphosat_document
+from .forms import TippspielForm
 
 
 @cache_anonymous_page(15 * 60)
@@ -49,3 +53,20 @@ def glyphosat_download(request, foirequest, message_id):
 
     messages.add_message(request, messages.ERROR, 'Leider ist etwas schief gelaufen.')
     return redirect(foirequest)
+
+
+@login_required
+def meisterschaften_tippspiel(request):
+    if request.method == 'POST':
+        form = TippspielForm(request.POST)
+        if form.is_valid():
+            form.save(request.user)
+
+    prefs = UserPreference.objects.get_preferences(
+        request.user,
+        key_prefix='fds_meisterschaften_2020_'
+    )
+
+    return JsonResponse({
+        'user': prefs
+    })

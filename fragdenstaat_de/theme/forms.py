@@ -3,6 +3,8 @@ import logging
 
 from django import forms
 
+from froide.account.models import UserPreference
+
 logger = logging.getLogger(__name__)
 
 UPPERCASE_LETTERS = re.compile(r'[A-Z]')
@@ -30,3 +32,35 @@ class SignupUserCheckExtra():
 
     def on_save(self, form, user):
         pass
+
+
+BET_CHOICES = [
+    ('bw', 'Baden-Württemberg'),
+    ('by', 'Bayern'),
+    ('be', 'Berlin'),
+    ('bb', 'Brandenburg'),
+    ('hb', 'Bremen'),
+    ('hh', 'Hamburg'),
+    ('he', 'Hessen'),
+    ('mv', 'Mecklenburg-Vorpommern'),
+    ('ni', 'Niedersachsen'),
+    ('nw', 'Nordrhein-Westfalen'),
+    ('rp', 'Rheinland-Pfalz'),
+    ('sl', 'Saarland'),
+    ('sn', 'Sachsen'),
+    ('st', 'Sachsen-Anhalt'),
+    ('sh', 'Schleswig-Holstein'),
+    ('th', 'Thüringen'),
+]
+
+
+class TippspielForm(forms.Form):
+    match = forms.IntegerField(min_value=1, max_value=8)
+    bet = forms.ChoiceField(choices=BET_CHOICES)
+
+    def save(self, user):
+        key = 'fds_meisterschaften_2020_{}'.format(self.cleaned_data['match'])
+        UserPreference.objects.update_or_create(
+            user=user, key=key,
+            defaults={'value': self.cleaned_data['bet']}
+        )
