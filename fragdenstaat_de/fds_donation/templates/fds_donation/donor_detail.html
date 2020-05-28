@@ -21,10 +21,12 @@
   Hier finden Sie eine Übersicht Ihrer Spenden.
 </p>
 
-{% if subscription %}
-  <p>
-    <a href="{{ subscription.get_absolute_url }}">Details zu Ihrer Dauerspende</a>
-  </p>
+{% if subscriptions %}
+  {% for subscription in subscriptions %}
+    <p>
+      <a href="{{ subscription.get_absolute_url }}">Details zu Ihrer Dauerspende</a>
+    </p>
+  {% endfor %}
 {% endif %}
 
 <table class="table">

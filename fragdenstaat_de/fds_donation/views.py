@@ -112,7 +112,7 @@ class DonorView(DonorMixin, DetailView):
         except IndexError:
             last_donation = None
         ctx.update({
-            'subscription': self.object.subscription,
+            'subscriptions': self.object.subscriptions.filter(canceled=None),
             'donations': donations,
             'last_donation': last_donation,
         })
