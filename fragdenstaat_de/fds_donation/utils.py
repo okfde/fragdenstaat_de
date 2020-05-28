@@ -54,14 +54,15 @@ def merge_donors(candidates, primary_id, validated_data):
     # Collect old ids and references
     old_uuids = []
     old_ids = []
-    subscription = None
+    subscriptions = []
     for candidate in candidates:
         if candidate.id == primary_id:
             continue
         old_uuids.append(str(candidate.uuid))
         old_ids.append(str(candidate.id))
-        if candidate.subscription_id:
-            subscription = candidate.subscription
+
+        for sub in candidate.subscriptions.all():
+            subscriptions.append(sub)
 
     merged_donor = [c for c in candidates if c.id == primary_id][0]
 
@@ -86,10 +87,10 @@ def merge_donors(candidates, primary_id, validated_data):
     # Clear duplicate flag
     merged_donor.duplicate = None
 
-    # Set a valid subscription, if present
-    if not merged_donor.subscription:
-        merged_donor.subscription = subscription
     merged_donor.save()
+
+    # Add other candidates subscriptions
+    merged_donor.subscriptions.add(*subscriptions)
 
     # Merge tags
     for candidate in candidates:

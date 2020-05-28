@@ -29,7 +29,7 @@ def get_or_create_donor(data, user=None, subscription=None):
             donor.last_donation = timezone.now()
             if subscription:
                 donor.recurring_amount = subscription.plan.amount_year / 12
-                donor.subscription = subscription
+                donor.subscriptions.add(subscription)
             donor.save()
             return donor
         except Donor.DoesNotExist:
@@ -57,12 +57,13 @@ def create_donor(data, user=None, subscription=None):
         email=data['email'].lower(),
         user=user,
         email_confirmed=email_confirmed,
-        subscription=subscription,
         recurring_amount=recurring_amount,
         contact_allowed=data.get('contact', False),
         become_user=data.get('account', False),
         receipt=data.get('receipt', False),
     )
+    if subscription:
+        donor.subscriptions.add(subscription)
     logger.info('Donor created %s', donor.id)
     if donor.email_confirmed and donor.contact_allowed:
         subscribe_to_default_newsletter(donor.email, user=user)
@@ -319,8 +320,9 @@ def detect_recurring_on_donor(donor):
 
 
 def detect_recurring_monthly_amount(donor):
-    if donor.subscription and not donor.subscription.canceled:
-        return donor.subscription.plan.amount_year / 12
+    subs = donor.subscriptions.filter(canceled=None)
+    if subs:
+        return sum([s.plan.amount_year for s in subs]) / 12
     donations = donor.donations.filter(received=True)
     donation_count = donations.count()
     if donation_count < 2:

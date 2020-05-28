@@ -85,10 +85,7 @@ class Donor(models.Model):
         User, null=True, blank=True,
         on_delete=models.SET_NULL
     )
-    subscription = models.ForeignKey(
-        Subscription, null=True, blank=True,
-        on_delete=models.SET_NULL
-    )
+    subscriptions = models.ManyToManyField(Subscription, blank=True)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     email_confirmation_sent = models.DateTimeField(null=True, blank=True)
     email_confirmed = models.DateTimeField(null=True, blank=True)

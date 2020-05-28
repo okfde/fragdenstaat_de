@@ -84,12 +84,13 @@ def subscription_was_canceled(sender, **kwargs):
         return
 
     try:
-        donor = Donor.objects.get(subscription=sender)
+        donor = Donor.objects.get(subscriptions=sender)
     except Donor.DoesNotExist:
         return
-    donor.received_amount = Decimal(0)
-    donor.subscription = None
-    donor.save()
+
+    from .services import detect_recurring_on_donor
+
+    detect_recurring_on_donor(donor)
 
 
 def cancel_user(sender, user=None, **kwargs):

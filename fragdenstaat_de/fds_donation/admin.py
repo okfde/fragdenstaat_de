@@ -80,7 +80,7 @@ class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
     )
     list_filter = (
         'active',
-        make_nullfilter('subscription', _('Dauerspende')),
+        make_nullfilter('subscriptions', _('Dauerspende')),
         make_rangefilter('amount_last_year', _('amount last year')),
         make_rangefilter('recurring_amount', _('recurring monthly amount')),
         'email_confirmed', 'contact_allowed',
@@ -97,7 +97,7 @@ class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
         'email', 'last_name', 'first_name', 'company_name',
         'identifier', 'note'
     )
-    raw_id_fields = ('user', 'subscription')
+    raw_id_fields = ('user', 'subscriptions')
     tag_all_config = ('tags', None)
     actions = [
         'merge_donors', 'detect_duplicates', 'clear_duplicates',
@@ -197,13 +197,6 @@ class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
         candidate_ids = [x.id for x in candidates]
         if len(candidate_ids) < 2:
             self.message_user(request, _('Need to select more than one!'))
-            return
-        subs = Counter()
-        for c in candidates:
-            if c.subscription_id:
-                subs[c.subscription_id] += 1
-        if len(subs) > 1:
-            self.message_user(request, _('Two different subscriptions detected!'))
             return
 
         MergeDonorForm = get_merge_donor_form(self.admin_site)
