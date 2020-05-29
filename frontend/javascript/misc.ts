@@ -59,6 +59,7 @@ window._paq.push(["trackPageView"]);
 window._paq.push(["enableLinkTracking"]);
 window._paq.push(["setDomains", ["*.fragdenstaat.de"]]);
 window._paq.push(["setTrackerUrl", `${MATOMO_DOMAIN}/matomo.php`]);
+window._paq.push(['disableCookies']);
 window._paq.push(["setSiteId", "25"]);
 
 if (document.location.hostname.indexOf(".onion") !== -1) {
@@ -67,7 +68,6 @@ if (document.location.hostname.indexOf(".onion") !== -1) {
   const root = document.getElementsByTagName("html")[0];
   root.setAttribute("class", "darkmode");
 } else {
-
   const script = document.createElement("script");
   script.type = "text/javascript";
   script.async = true;
