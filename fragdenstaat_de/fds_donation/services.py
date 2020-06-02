@@ -252,6 +252,10 @@ def confirm_donor_email(donor, request=None):
     else:
         user = donor.user
 
+    if 'newsletter' in request.GET:
+        donor.contact_allowed = True
+        donor.save()
+
     if donor.contact_allowed:
         # Subscribe to normal and donor newsletter
         # TODO: subscribe email address / if different from user?
