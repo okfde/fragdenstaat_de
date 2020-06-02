@@ -55,10 +55,16 @@ BET_CHOICES = [
 
 
 class TippspielForm(forms.Form):
+    name = forms.CharField(max_length=50)
     match = forms.IntegerField(min_value=1, max_value=8)
     bet = forms.ChoiceField(choices=BET_CHOICES)
 
     def save(self, user):
+        key = 'fds_meisterschaften_2020_name'
+        UserPreference.objects.update_or_create(
+            user=user, key=key,
+            defaults={'value': self.cleaned_data['name']}
+        )
         key = 'fds_meisterschaften_2020_{}'.format(self.cleaned_data['match'])
         UserPreference.objects.update_or_create(
             user=user, key=key,
