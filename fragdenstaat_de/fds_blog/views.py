@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.timezone import now
 from django.utils.translation import get_language
 from django.views.generic import DetailView, ListView
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from froide.helper.search.views import BaseSearchView
 

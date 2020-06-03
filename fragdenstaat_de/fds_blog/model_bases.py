@@ -6,7 +6,7 @@ from django.utils.text import Truncator
 from django.utils.html import strip_tags
 from django.utils.html import linebreaks
 from django.contrib.sites.models import Site
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 from .managers import DRAFT, HIDDEN, PUBLISHED

@@ -6,7 +6,7 @@ from django.contrib.sites.models import Site
 from django.urls import NoReverseMatch
 from django.db.models import Count
 from django.utils.encoding import smart_text
-from django.utils.translation import ungettext_lazy, ugettext_lazy as _
+from django.utils.translation import ngettext_lazy, gettext_lazy as _
 from django.utils.html import format_html
 
 from adminsortable2.admin import SortableInlineAdminMixin
@@ -40,7 +40,7 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
             '-count_articles_published', '-pk').prefetch_related('translations')
         for active_object in active_objects:
             yield (
-                str(active_object.pk), ungettext_lazy(
+                str(active_object.pk), ngettext_lazy(
                     '%(item)s (%(count)i entry)',
                     '%(item)s (%(count)i articles)',
                     active_object.count_articles_published) % {

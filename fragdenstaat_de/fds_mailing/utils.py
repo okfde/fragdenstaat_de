@@ -2,7 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.admin import helpers
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
 from froide.helper.text_utils import convert_html_to_text

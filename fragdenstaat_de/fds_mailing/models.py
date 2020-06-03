@@ -3,7 +3,7 @@ import re
 
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.template.loader import render_to_string
 from django.template import Template, Context
 from django.core.mail import EmailMultiAlternatives, mail_managers

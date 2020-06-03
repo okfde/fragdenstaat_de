@@ -7,7 +7,7 @@ from django.contrib.postgres.fields import HStoreField
 from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
-from django.utils.translation import pgettext, ugettext_lazy as _
+from django.utils.translation import pgettext, gettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
 

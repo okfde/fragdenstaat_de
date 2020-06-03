@@ -1,7 +1,7 @@
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import DetailView, TemplateView, UpdateView

@@ -1,4 +1,3 @@
-from collections import Counter
 from io import BytesIO
 import uuid
 import zipfile
@@ -11,7 +10,7 @@ from django.contrib import admin, messages
 from django.conf.urls import url
 from django.urls import reverse
 from django.contrib.admin.views.main import ChangeList
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.utils import timezone

@@ -2,7 +2,7 @@ from django.db import transaction, models
 from django.contrib import admin, messages
 from django.http import HttpResponse
 from django.shortcuts import redirect
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, get_object_or_404
 from django.conf.urls import url

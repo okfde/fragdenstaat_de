@@ -6,7 +6,7 @@ from django.core.cache import cache
 from django.utils import timezone
 from django.core.mail import mail_managers
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.translation import trans_real
 
 from froide.foirequest.hooks import registry

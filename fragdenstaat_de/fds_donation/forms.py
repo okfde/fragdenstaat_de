@@ -3,7 +3,7 @@ import json
 
 from django import forms
 from django.core.mail import mail_managers
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
 from django.conf import settings
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
