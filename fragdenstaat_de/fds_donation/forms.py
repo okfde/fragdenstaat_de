@@ -501,9 +501,13 @@ class DonationGiftForm(SpamProtectionMixin, forms.Form):
     def __init__(self, *args, **kwargs):
         self.category = kwargs.pop('category')
         super().__init__(*args, **kwargs)
-        self.fields['gift'].queryset = DonationGift.objects.filter(
+        gifts = DonationGift.objects.filter(
             category_slug=self.category
         )
+        self.fields['gift'].queryset = gifts
+        if len(gifts) == 1:
+            self.fields['gift'].initial = gifts[0].id
+            self.fields['gift'].widget = forms.HiddenInput()
 
     def save(self, request=None):
         text = [
