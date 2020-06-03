@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from django.urls import reverse_lazy
+from django.urls import reverse, NoReverseMatch
 
 
 def obj_for_value(self, value):
@@ -58,8 +58,11 @@ def merge_user(sender, old_user=None, new_user=None, **kwargs):
 
 
 def add_search(request):
-    return {
-        'title': 'Blog-Artikel',
-        'name': 'blog',
-        'url': reverse_lazy('blog:article-search')
-    }
+    try:
+        return {
+            'title': 'Blog-Artikel',
+            'name': 'blog',
+            'url': reverse('blog:article-search')
+        }
+    except NoReverseMatch:
+        return

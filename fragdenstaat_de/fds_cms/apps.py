@@ -1,5 +1,5 @@
-from django.urls import reverse_lazy
 from django.apps import AppConfig
+from django.urls import reverse, NoReverseMatch
 
 
 class FdsCmsConfig(AppConfig):
@@ -24,8 +24,11 @@ def merge_user(sender, old_user=None, new_user=None, **kwargs):
 
 
 def add_search(request):
-    return {
-        'title': 'Hilfe-Seiten',
-        'name': 'cms',
-        'url': reverse_lazy('fds_cms:fds_cms-search')
-    }
+    try:
+        return {
+            'title': 'Hilfe-Seiten',
+            'name': 'cms',
+            'url': reverse('fds_cms:fds_cms-search')
+        }
+    except NoReverseMatch:
+        return
