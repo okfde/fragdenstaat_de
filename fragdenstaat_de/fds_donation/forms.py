@@ -486,7 +486,8 @@ class DonationGiftForm(SpamProtectionMixin, forms.Form):
     address = forms.CharField(
         label=_('Shipping address'),
         widget=forms.Textarea(attrs={
-            'class': 'form-control'
+            'class': 'form-control',
+            'rows': '3'
         })
     )
     gift = forms.ModelChoiceField(
