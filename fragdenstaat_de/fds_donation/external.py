@@ -98,6 +98,8 @@ def import_banktransfer(transfer_ident, row):
             received=True,
         )
         is_new = True
+    else:
+        donor = donation.donor
 
     donation.identifier = transfer_ident
     donation.amount = Decimal(str(row['amount']))
