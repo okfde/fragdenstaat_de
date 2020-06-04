@@ -242,13 +242,14 @@ def import_paypal(csv_file):
 
 
 def get_or_create_paypal_donor(row):
-    try:
-        return Donor.objects.get(
-            Q(attributes__paypal_email=row['paypal_email']) |
-            Q(email=row['paypal_email'], email_confirmed__isnull=False)
-        )
-    except Donor.DoesNotExist:
-        pass
+    donor = Donor.objects.filter(
+        Q(attributes__paypal_email=row['paypal_email']) |
+        Q(email=row['paypal_email'],
+        email_confirmed__isnull=False)
+    ).order_by('id').first()
+    if donor is not None:
+        return donor
+
     name = row['name']
     names = name.strip().rsplit(' ', 1)
     first_name = ' '.join(names[:-1])
