@@ -35,7 +35,10 @@ def propose_donor_merge(candidates, fields=None):
         for donor in candidates:
             val = getattr(donor, field)
             if best_value is None:
-                best_value = val
+                if isinstance(val, dict):
+                    best_value = dict(val)
+                else:
+                    best_value = val
                 continue
             if isinstance(val, dict):
                 best_value.update(val)
