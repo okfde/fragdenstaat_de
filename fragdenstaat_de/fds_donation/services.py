@@ -34,7 +34,10 @@ def get_or_create_donor(data, user=None, subscription=None):
             return donor
         except Donor.DoesNotExist:
             return create_donor(data, user=user, subscription=subscription)
-    # TODO: find donor in another way?
+    if subscription is not None:
+        donor = Donor.objects.filter(subscriptions=subscription).first()
+        if donor is not None:
+            return donor
     return create_donor(data, user=user, subscription=subscription)
 
 
