@@ -55,8 +55,9 @@ function showDonationBanner() {
   if (donationForm !== null) {
     return removeBanner();
   }
-  const donationIframe = document.querySelector('iframe[src^="https://www.betterplace.org/de/projects/"]');
-  if (donationIframe !== null) {
+
+  const noBanner = document.querySelector("[data-nobanner]");
+  if (noBanner !== null) {
     return removeBanner();
   }
 
