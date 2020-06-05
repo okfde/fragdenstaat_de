@@ -12,7 +12,9 @@
 
 {% block body_tag %}
   {% block top_block %}
-    {% static_placeholder "dropdown_banner" %}
+    <div class="dropdown-wrapper">
+      {% static_placeholder "dropdown_banner" %}
+    </div>
   {% endblock %}
 
   {% block navbar %}

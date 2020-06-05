@@ -28,13 +28,7 @@ function showDonationBanner() {
     }
   }
 
-  const els = document.querySelectorAll(".donation-block");
-  if (els.length === 2) {
-    /* Show second banner like normal */
-    const demoEl = els[1] as HTMLElement;
-    demoEl.style.display = "block";
-    return;
-  }
+  const els = document.querySelectorAll(".dropdown-wrapper");
   if (els.length !== 1) {
     return;
   }
@@ -64,7 +58,7 @@ function showDonationBanner() {
   if (!window.localStorage) {
     return removeBanner();
   }
-  const requiresAnimation = el.dataset.topbanner === "true";
+
   const cancel = el.querySelector(".cancel-donation");
   const already = el.querySelector(".already-donation");
   const close = el.querySelector(".close");
@@ -90,6 +84,17 @@ function showDonationBanner() {
   if (already) {
     already.addEventListener("click", hideBanner("donated", now + (1000 * 60 * 60 * 24 * 30)));
   }
+
+  if (el.style.display === 'block') {
+    return
+  }
+
+  const banner = el.querySelector('.donation-block') as HTMLElement;
+  let requiresAnimation = false;
+  if (banner) {
+    requiresAnimation = banner.dataset.topbanner === "true";
+  }
+
   if (requiresAnimation) {
     window.setTimeout(() => {
       window._paq.push(["trackEvent", "donations", "donationBanner", "shown"]);
