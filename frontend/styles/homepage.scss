@@ -94,6 +94,7 @@
   &__number {
     flex: 0 0 auto;
     display: flex;
+    align-self: flex-start;
     justify-content: center;
     align-items: center;
     width: 38px;
