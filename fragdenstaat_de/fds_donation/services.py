@@ -193,18 +193,17 @@ def assign_and_merge_donors(donor, user):
     except Donor.DoesNotExist:
         donor.user = user
         donor.save()
-    else:
-        # Merge the two donors with the same user
-        candidates = [
-            donor, other_donor
-        ]
-        merged_donor = propose_donor_merge(candidates)
-        merged_donor.id = donor.id
-        candidates = [
-            merged_donor, other_donor
-        ]
-        donor = merge_donors(candidates, donor.id)
-    return donor
+        return donor
+
+    # Merge the two donors with the same user
+    return merge_donor_list([donor, other_donor])
+
+
+def merge_donor_list(donors):
+    merged_donor = propose_donor_merge(donors)
+    merged_donor.id = donors[0].id
+    candidates = [merged_donor, *donors[1:]]
+    return merge_donors(candidates, merged_donor.id)
 
 
 def confirm_donor_email(donor, request=None):

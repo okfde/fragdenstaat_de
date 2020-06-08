@@ -1,6 +1,6 @@
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, Http404
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.urls import reverse
@@ -11,7 +11,7 @@ from froide.helper.utils import get_redirect
 
 from .models import Donor
 from .forms import DonationGiftForm, DonationFormFactory, DonorDetailsForm
-from .services import confirm_donor_email
+from .services import confirm_donor_email, merge_donor_list
 
 
 @require_POST
@@ -144,13 +144,15 @@ class DonorUserMixin:
         return redirect('/spenden/')
 
     def get_object(self, queryset=None):
-        try:
-            return Donor.objects.get(
-                user=self.request.user,
-                email_confirmed__isnull=False
-            )
-        except Donor.DoesNotExist:
-            return None
+        donors = Donor.objects.filter(
+            user=self.request.user,
+            email_confirmed__isnull=False
+        )
+        if len(donors) == 0:
+            raise Http404
+        if len(donors) == 1:
+            return donors[0]
+        return merge_donor_list(donors)
 
 
 class DonorUserView(LoginRequiredMixin, DonorUserMixin, DonorView):
