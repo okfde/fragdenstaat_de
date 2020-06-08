@@ -1,49 +1,61 @@
 {% load static %}
 
-<div class="container pt-5 bg-blue-10 text-blue-700 text-center">
-  <h1>Wir bringen Licht ins Dunkel der Behörden</h1>
-  <p>Jede Person hat das Recht auf Informationen aus Politik und Verwaltung. FragDenStaat hilft Ihnen dabei, Ihr Recht durchzusetzen.</p>
-  <img class="w-50" src="{% static 'img/illustrations/question_mark.png' %}">
-</div>
-
-<div class="process">
-  <h3>So funktioniert's</h3>
-  
-  <div class="steps">
-    <div class="steps__wrap">
-      <div class="step">
-        <div class="step__number">1</div>
-        <div class="step__text">
-          Sie stellen eine Anfrage. Wir leiten diese an die zuständige Behörde weiter.
-        </div>
-      </div>
-      <div class="step">
-        <div class="step__number step__number--highlight">2</div>
-        <div class="step__text">
-          Sie erhalten eine E-Mail, sobald die Behörde auf Ihre Anfrage reagiert.
-        </div>
-      </div>
-      <div class="step">
-        <div class="step__number">3</div>
-        <div class="step__text">
-          Die Antwort wird für Sie und auch für andere öffentlich einsehbar.
-        </div>
-      </div>
+<div class="hero container position-relative bg-blue-10 text-center text-md-left">
+  <div class="row">
+    <div class="col-md-8 col-lg-6 pl-md-4 pl-lg-4 pt-5 pt-lg-6 pb-lg-4 offset-lg-1 d-md-flex flex-md-column justify-content-center text-blue-700">
+      <h1>Wir bringen Licht ins Dunkel der Behörden</h1>
+      <p>Jede Person hat das Recht auf Informationen aus Politik und Verwaltung. FragDenStaat hilft Ihnen dabei, Ihr Recht durchzusetzen.</p>
     </div>
-    <div class="steps__line"></div>
-  </div>
-  
-  <div class="d-flex flex-column">
-    <a href="" class="btn btn-primary mr-auto mb-3">Anfrage erstellen</a>
-    <a href="" class="btn btn-outline-primary mr-auto mb-3">Einsteiger-Guide</a>
-    <a id="videoModalTrigger" data-toggle="modal" href="#videoModal">Sehen Sie sich ein Video an <i class="fa fa-play-circle-o" aria-hidden="true"></i></a>
-  </div>
-
-  <div id="videoModalContainer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content"></div>
+    <div class="col col-md-4 d-md-flex align-items-end justify-content-end pt-lg-5">
+      <img class="hero__image" src="{% static 'img/illustrations/question_mark.png' %}">
     </div>
   </div>
-
-
 </div>
+
+<div class="container position-relative mb-4 mb-lg-6">
+
+  <div class="process row">
+    <div class="process__wrap col-lg-10 offset-lg-1">
+      
+      <h3>So funktioniert's</h3>
+        
+        <div class="steps">
+          <div class="steps__wrap">
+            <div class="step">
+              <div class="step__number">1</div>
+              <div class="step__text">
+                Sie stellen eine Anfrage. Wir leiten diese an die zuständige Behörde weiter.
+              </div>
+            </div>
+            <div class="step">
+              <div class="step__number step__number--highlight">2</div>
+              <div class="step__text">
+                Sie erhalten eine E-Mail, sobald die Behörde auf Ihre Anfrage reagiert.
+              </div>
+            </div>
+            <div class="step">
+              <div class="step__number">3</div>
+              <div class="step__text">
+                Die Antwort wird für Sie und auch für andere öffentlich einsehbar.
+              </div>
+            </div>
+          </div>
+          <div class="steps__line"></div>
+        </div>
+        
+        <div class="d-flex flex-column flex-md-row justify-content-start">
+          <a href="" class="btn btn-primary mr-auto mr-md-3 mb-3 mb-md-0">Anfrage erstellen</a>
+          <a href="" class="btn btn-outline-primary mr-auto mb-3 mb-md-0">Einsteiger-Guide</a>
+          <a id="videoModalTrigger" data-toggle="modal" href="#videoModal">Sehen Sie sich ein Video an <i class="fa fa-play-circle-o" aria-hidden="true"></i></a>
+        </div>
+  
+        <div id="videoModalContainer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content"></div>
+          </div>
+        </div>
+  
+    </div>
+  </div>
+</div>
+

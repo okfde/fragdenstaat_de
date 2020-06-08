@@ -1,4 +1,35 @@
-// steps
+.hero__image {
+  width: 225px;
+  @include media-breakpoint-up(lg) {
+    width: 250px;
+  }
+}
+
+
+.process {
+  &::before {
+    // z-index: 0;
+    background: $blue-10;
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+  // margin-bottom: $spacer * 4;
+  &__wrap {
+    background-color: white;
+    border: 2px solid $blue-20;
+    padding: $spacer * 1.5 $spacer * 1.5;
+    @include media-breakpoint-up(lg) {
+      padding: $spacer * 2.5 $spacer * 2;
+    }
+
+  }
+}
+
 .steps {
   position: relative;
   &__wrap {
@@ -8,6 +39,10 @@
     flex-direction: column;
     margin-top: $spacer * 1.5;
     margin-bottom: $spacer * 2;
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+      margin-bottom: $spacer;
+    }
   }
   &__line {
     z-index: 5;
@@ -17,19 +52,25 @@
     width:  1px;
     height: 95%;
     border-left: 1px dashed $gray-500;
+    @include media-breakpoint-up(md) {
+      top: 18px;
+      left: 19px; // half of number circle
+      width: 100.5%;
+      height: 1px;
+      border-left: 0;
+      border-bottom: 1px dashed $gray-500;
+    }
+    @include media-breakpoint-up(lg) {
+      width: 101.3%;
+      top: 22px;
+    }
   }
 }
 
-.process {
-  border: 2px solid $blue-20;
-  margin-left: $spacer;
-  margin-right: $spacer;
-  margin-bottom: $spacer * 4;
-  padding: $spacer * 1.5 $spacer;
-}
 
 .step {
   display: flex;
+  align-items: center;
   margin-bottom: $spacer * 1.5;
   &:last-child {
     margin-bottom: 0;
@@ -57,6 +98,31 @@
       color: $white;
     }
   }
+  @include media-breakpoint-up(md) {
+    align-items: flex-start;
+    flex-direction: column;
+    &:last-child { background-color: transparent; }
+    &__text {
+      margin-left: 19px; // half of number circle
+    }
+    &__number {
+      width: 38px;
+      height: 38px;
+      margin-bottom: $spacer;
+      margin-right: 0;
+    }
+  }
+  @include media-breakpoint-up(lg) {
+    &__text {
+      font-size: inherit;
+      line-height: inherit;
+      margin-left: 22px; // half of number circle
+    }
+    &__number {
+      width: 44px;
+      height: 44px;
+    }
+  }
 }
 
 // Video embed
@@ -69,7 +135,7 @@
   margin-top: 1em;
 }
 
-@media screen and (min-width: 1200px) {
+@include media-breakpoint-up(xl) {
   .video-embed-container {
     margin-top: 0;
   }
