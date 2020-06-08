@@ -470,7 +470,7 @@ class FragDenStaatBase(German, Base):
                 # Hide DHL delivery emails
                 lambda email: email.from_[1] == 'noreply@dhl.com'
             ],
-            recipient_blacklist_regex=rec(r'.*\.de-mail\.de$|z@bundesnachrichtendienst.de|.*\.local$'),
+            recipient_blocklist_regex=rec(r'.*\.de-mail\.de$|z@bundesnachrichtendienst.de|.*\.local$'),
             content_urls={
                 'terms': '/nutzungsbedingungen/',
                 'privacy': '/datenschutzerklaerung/',
