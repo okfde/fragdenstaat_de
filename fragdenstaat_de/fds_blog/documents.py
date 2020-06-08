@@ -63,7 +63,16 @@ class ArticleDocument(Document):
 
     def prepare_content(self, obj):
         html = obj.get_html_content()
-        return strip_tags(html)
+        return ' '.join([
+            obj.title,
+            obj.description,
+            strip_tags(html)
+            ] + [
+                o.title for o in obj.categories.all()
+            ] + [
+                t.name for t in obj.tags.all()
+            ]
+        )
 
     def prepare_description(self, obj):
         return strip_tags(obj.description)
