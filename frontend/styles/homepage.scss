@@ -72,7 +72,7 @@
 .step {
   display: flex;
   align-items: center;
-  margin-bottom: $spacer * 1.5;
+  margin-bottom: $spacer * 1.5;  
   &:last-child {
     margin-bottom: 0;
     background-color: white; // hide dashed line
@@ -95,10 +95,7 @@
     background-color: white;
     box-shadow: 2px 3px 0 transparentize($gray-500, .75);
     &--highlight {
-      background-color: $blue-600;
-      border-color: $blue-600;
-      color: $white;
-      box-shadow: 2px 3px 0 transparentize($gray-500, .60);
+
     }
   }
   @include media-breakpoint-up(md) {
@@ -127,6 +124,49 @@
     }
   }
 }
+
+
+// animation
+.step {
+  &__number {
+    animation-duration: 10s;
+    animation-timing-function: step-end;
+    animation-iteration-count: infinite;
+  }
+  
+  &:nth-child(1) &__number { animation-name: step-1; }
+  &:nth-child(2) &__number { animation-name: step-2; }
+  &:nth-child(3) &__number { animation-name: step-3; }
+}
+
+@mixin number-highlight() {
+  background-color: $blue-600;
+  border-color: $blue-600;
+  color: $white;
+  box-shadow: 2px 3px 0 transparentize($gray-500, .60);
+}
+
+@keyframes step-1 {
+  25% {
+    @include number-highlight;
+  }
+}
+
+@keyframes step-2 {
+  50% {
+    @include number-highlight;
+  }
+}
+
+@keyframes step-3 {
+  75% {
+    @include number-highlight;
+  }
+}
+
+
+
+
 
 // Video embed
 .video-embed {
