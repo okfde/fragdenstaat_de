@@ -334,6 +334,7 @@ class DonationFormCMSPlugin(CMSPlugin):
     reference = models.CharField(blank=True, max_length=255)
     keyword = models.CharField(blank=True, max_length=255)
     purpose = models.CharField(blank=True, max_length=255)
+    collapsed = models.BooleanField(default=False)
 
     form_action = models.CharField(max_length=255, blank=True)
     next_url = models.CharField(max_length=255, blank=True)
@@ -360,6 +361,7 @@ class DonationFormCMSPlugin(CMSPlugin):
                 'reference': self.reference or reference,
                 'keyword': self.keyword or keyword,
                 'purpose': self.purpose,
+                'collapsed': self.collapsed,
             }
         )
         return form.make_donation_form(**kwargs)

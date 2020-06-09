@@ -66,6 +66,9 @@ class DonationSettingsForm(forms.Form):
     initial_receipt = forms.BooleanField(
         required=False
     )
+    collapsed = forms.BooleanField(
+        required=False
+    )
 
     def clean_amount_presets(self):
         presets = self.cleaned_data['amount_presets']
@@ -99,6 +102,7 @@ class DonationFormFactory:
         'initial_amount': None,
         'initial_interval': 0,
         'initial_receipt': '0',
+        'collapsed': False
     }
     initials = {
         'initial_amount': 'amount',

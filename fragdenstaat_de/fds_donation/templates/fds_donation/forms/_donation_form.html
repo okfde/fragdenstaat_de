@@ -37,7 +37,19 @@
       </div>
     </div>
     {% endif %}
+
+    {% if form.settings.collapsed %}
+      <button type="button" class="btn btn-primary btn-lg mb-3" data-toggle="collapse" data-target="#donation-form-detail" aria-expanded="false" aria-controls="donation-form-detail">
+        <span class="hideparent">Weiter</span>
+      </button>
+    {% endif %}
+
   </fieldset>
+
+  {% if form.settings.collapsed %}
+  <div class="collapse" id="donation-form-detail">
+  {% endif%}
+
   <fieldset>
     <legend class="bg-primary text-white px-2 py-0 font-weight-bold">Persönliche Daten</legend>
     <div class="row">
@@ -153,6 +165,10 @@
       </button>
     </div>
   </div>
+
+  {% if form.settings.collapsed %}
+    </div>
+  {% endif %}
 
 </form>
 
