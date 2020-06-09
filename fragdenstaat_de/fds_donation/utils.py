@@ -51,7 +51,7 @@ def propose_donor_merge(candidates, fields=None):
     return merged_donor
 
 
-def merge_donors(candidates, primary_id, validated_data):
+def merge_donors(candidates, primary_id, validated_data=None):
     from .services import detect_recurring_on_donor
 
     # Collect old ids and references
