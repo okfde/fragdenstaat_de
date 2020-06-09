@@ -219,9 +219,46 @@
   }
 }
 
+.campaign-slider {
+  &::before {
+    // z-index: 0;
+    background: $yellow-100;
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+  &__wrap {
+
+  }
+}
+
+.campaign-card {
+  border: 2px solid $yellow-100;
+  &__image {}
+  &__title {}
+  &__content {}
+  &__footer {}
+}
+
+/*
+
+  Investigations area
+
+*/
+
 .investigation-area {
   background-color: $gray-200;
 }
+
+/*
+
+  Newsletter area
+
+*/
 
 .newsletter-area {
   &__image {
@@ -232,9 +269,22 @@
   }
 }
 
+
+/*
+
+  Lawsuits area
+
+*/
+
 .lawsuits-area {
   background-color: $gray-200;
 }
+
+/*
+
+  Donate area
+
+*/
 
 .donate-area {
   &__image {
@@ -244,6 +294,12 @@
     }
   }
 }
+
+/*
+
+  Testimonials area
+
+*/
 
 .testimonial-area {
   background-color: $blue-10;
