@@ -29,6 +29,7 @@ INTERVAL_SETTINGS_CHOICES = [
 
 SALUTATION_CHOICES = (
     ('', pgettext('salutation neutral', 'Hello')),
+    ('formal', pgettext('salutation formal', 'Good day')),
     ('formal_f', pgettext(
         'salutation female formal', 'Dear Ms.')),
     ('formal_m', pgettext(
@@ -37,6 +38,8 @@ SALUTATION_CHOICES = (
         'salutation female informal', 'Dear')),
     ('informal_m', pgettext(
         'salutation male informal', 'Dear')),
+    ('informal_n', pgettext(
+        'salutation neutral informal', 'Dear')),
 )
 SALUTATION_DICT = dict(SALUTATION_CHOICES)
 
@@ -138,9 +141,9 @@ class Donor(models.Model):
         salutation = SALUTATION_DICT.get(self.salutation, None)
         if salutation is None:
             salutation = self.salutation
-        if 'informal' in self.salutation:
+        if 'informal_' in self.salutation:
             name = self.first_name
-        elif 'formal' in self.salutation:
+        elif 'formal_' in self.salutation:
             name = self.last_name
         else:
             name = self.get_full_name()
