@@ -1,5 +1,5 @@
 import { Modal} from "bootstrap.native/dist/bootstrap-native-v4";
-
+import Glide from '@glidejs/glide'
 
 // Video introduction
 const modalTrigger = document.getElementById('videoModalTrigger')
@@ -18,3 +18,31 @@ if (modalTrigger && modalContainer) {
   }, false);
 
 }
+
+// glide slider
+// ref: https://glidejs.com/docs/options/
+new Glide('.campaign-slider__wrap', {
+  // startAt: 0,
+  perView: 3,
+  gap: 15,
+  peek: 80,
+
+  // apply bootstrap breakepoints
+  // "Collection of options applied at specified media breakpoints.
+  // For example, display two slides per view under 800px"
+  breakpoints: {
+    576: {
+      perView: 1,
+      gap: 10,
+      peek: 0,
+    },
+    768: {
+      perView: 1,
+      gap: 10,
+      peek: 0,
+    },
+    1200: {
+      perView: 2
+    }
+  }
+}).mount()

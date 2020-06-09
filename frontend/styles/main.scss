@@ -41,10 +41,6 @@
 $fa-font-path: '~font-awesome/fonts';
 @import '~font-awesome/scss/font-awesome';
 
-// GlideJS slider
-@import "@glidejs/glide/src/assets/sass/glide.core"; // Required Core Stylesheet
-@import "@glidejs/glide/src/assets/sass/glide.theme"; // Optional Theme Stylesheet
-
 // letter-spacing: .03rem;
 
 // Own components
@@ -86,3 +82,4 @@ $fa-font-path: '~font-awesome/fonts';
 @import 'donations';
 @import 'darkmode';
 @import 'collapsible';
+@import 'glider';
