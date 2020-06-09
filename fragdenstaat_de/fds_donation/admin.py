@@ -313,7 +313,7 @@ class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
         ])
 
         return _(
-            'Prepared mailing of emailable donors'
+            'Prepared mailing of emailable donors '
             'with {count} recipients').format(
                 count=count
         )
