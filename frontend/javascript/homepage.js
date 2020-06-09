@@ -50,3 +50,21 @@ new Glide('.campaign-slider__wrap', {
     }
   }
 }).mount()
+
+new Glide('.lawsuits-slider__wrap', {
+  // startAt: 0,
+  perView: 1,
+  gap: 0,
+  peek: { before: 50, after: 450 },
+
+  breakpoints: {
+    992: {
+      perView: 1,
+      peek: 0,
+    },
+    1200: {
+      perView: 1,
+      peek: { before: 30, after: 270 },
+    }
+  }
+}).mount()

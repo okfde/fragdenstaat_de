@@ -212,12 +212,103 @@
 </div>
 
 <!-- Lawsuits area -->
-<div class="lawsuits-area container position-relative mb-6">
+<div class="lawsuits-area container position-relative">
   <div class="row">
-    <div class="col-md-8 col-lg-6 pl-md-5 pl-lg-0 pt-3 pt-md-6 pb-md-4 offset-lg-1 text-blue-700 text-center text-md-left">
+    <div class="col-md-8 col-lg-6 pl-md-5 pl-lg-0 pt-5 pb-2 offset-lg-1 text-blue-700 text-center text-md-left">
       <h1>Unsere Klagen</h1>
       <p>Wenn Behörden Informationen rechtswidrig nicht herausgeben, setzen wir die Informationsfreiheit vor Gericht durch.</p>
       <p><a href="" class="btn btn-primary">Alle Klagen ansehen</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- Lawsuits area slider -->
+<div class="container position-relative mb-6 px-lg-0">
+  <div class="lawsuits-slider row">
+    <div class="glide lawsuits-slider__wrap d-flex flex-column justify-content-center col px-0">
+
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides m-0">
+
+          <li class="glide__slide py-3">
+            <!-- lawsuits card -->
+            <div class="lawsuits-card mx-auto">
+              <div class="lawsuits-card__image">
+                <img class="lawsuits-card__image-element" src="{% static 'img/homepage/lawsuit-test-image-1.png' %}">
+              </div>
+              <div class="lawsuits-card__content position-relative mx-3 mt-n5 mt-lg-n6 p-3">
+                <ul class="lawsuits-card__taglist list-unstyled d-flex text-blue-600 font-weight-bold mb-1">
+                  <li class="lawsuits-card__tag mr-2">#Bundeswehr</li>
+                  <li class="lawsuits-card__tag">#Umwelt</li>
+                </ul>
+                <h3 class="h4 mt-0 mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet sed eget tellus morbi</h3>
+                <div class="lawsuits-card__date">21. Januar 2020</div>
+              </div>
+            </div>
+          </li>
+
+          <li class="glide__slide py-3">
+            <!-- lawsuits card -->
+            <div class="lawsuits-card mx-auto">
+              <div class="lawsuits-card__image">
+                <img class="lawsuits-card__image-element" src="{% static 'img/homepage/lawsuit-test-image-2.png' %}">
+              </div>
+              <div class="lawsuits-card__content position-relative mx-3 mt-n5 mt-lg-n6 p-3">
+                <ul class="lawsuits-card__taglist list-unstyled d-flex text-blue-600 font-weight-bold mb-1">
+                  <li class="lawsuits-card__tag mr-2">#Bundeswehr</li>
+                  <li class="lawsuits-card__tag">#Umwelt</li>
+                </ul>
+                <h3 class="h4 mt-0 mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet sed eget tellus morbi</h3>
+                <div class="lawsuits-card__date">21. Januar 2020</div>
+              </div>
+            </div>
+          </li>
+          
+          <li class="glide__slide py-3">
+            <!-- lawsuits card -->
+            <div class="lawsuits-card mx-auto">
+              <div class="lawsuits-card__image">
+                <img class="lawsuits-card__image-element" src="{% static 'img/homepage/lawsuit-test-image-1.png' %}">
+              </div>
+              <div class="lawsuits-card__content position-relative mx-3 mt-n5 mt-lg-n6 p-3">
+                <ul class="lawsuits-card__taglist list-unstyled d-flex text-blue-600 font-weight-bold mb-1">
+                  <li class="lawsuits-card__tag mr-2">#Bundeswehr</li>
+                  <li class="lawsuits-card__tag">#Umwelt</li>
+                </ul>
+                <h3 class="h4 mt-0 mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet sed eget tellus morbi</h3>
+                <div class="lawsuits-card__date">21. Januar 2020</div>
+              </div>
+            </div>
+          </li>
+
+          <li class="glide__slide py-3">
+            <!-- lawsuits card -->
+            <div class="lawsuits-card mx-auto">
+              <div class="lawsuits-card__image">
+                <img class="lawsuits-card__image-element" src="{% static 'img/homepage/lawsuit-test-image-2.png' %}">
+              </div>
+              <div class="lawsuits-card__content position-relative mx-3 mt-n5 mt-lg-n6 p-3">
+                <ul class="lawsuits-card__taglist list-unstyled d-flex text-blue-600 font-weight-bold mb-1">
+                  <li class="lawsuits-card__tag mr-2">#Bundeswehr</li>
+                  <li class="lawsuits-card__tag">#Umwelt</li>
+                </ul>
+                <h3 class="h4 mt-0 mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet sed eget tellus morbi</h3>
+                <div class="lawsuits-card__date">21. Januar 2020</div>
+              </div>
+            </div>
+          </li>
+
+
+        </ul>
+      </div>
+
+      <div class="glide__bullets" data-glide-el="controls[nav]">
+        <button class="glide__bullet" data-glide-dir="=0"></button>
+        <button class="glide__bullet" data-glide-dir="=1"></button>
+        <button class="glide__bullet" data-glide-dir="=2"></button>
+        <button class="glide__bullet" data-glide-dir="=3"></button>
+      </div>
+
     </div>
   </div>
 </div>

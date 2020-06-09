@@ -78,7 +78,6 @@
   }
 }
 
-
 .step {
   display: flex;
   align-items: center;
@@ -174,9 +173,6 @@
 }
 
 
-
-
-
 // Video embed
 .video-embed {
   display: block;
@@ -228,9 +224,6 @@
     left: 0;
     right: 0;
     top: 0;
-  }
-  &__wrap {
-
   }
 
   .glide__bullets {
@@ -310,6 +303,74 @@
 
 .lawsuits-area {
   background-color: $gray-200;
+}
+
+.lawsuits-slider {
+  &::before {
+    background: $gray-200;
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+
+  .glide__bullets {
+    margin-top: $spacer;
+    margin-left: auto;
+    margin-right: auto;
+    @include media-breakpoint-up(xl) {
+      margin-left: 130px;
+    }
+  }
+}
+
+.lawsuits-card {
+  width: 320px;
+  &__image {
+    z-index: 10;
+  }
+    &__image-element {
+      height: 190px;
+    }
+  &__content {
+    z-index: 20;
+    // width: 300px;
+    background-color: white;
+    border: 2px solid $gray-300;
+    box-shadow: 7px 7px 0 transparentize($gray-300, .5);
+  }
+    &__taglist, &__date {
+      font-size: $smaller-font-size;
+      line-height: $line-height-smaller;
+    }
+      &__tag {}
+    &__date {
+      font-weight: 600;
+      color: $gray-500;
+    }
+  @include media-breakpoint-up(sm) {
+    width: 500px;
+    &__image-element {
+      width: 100%;
+      height: auto;
+    }
+    &__content {
+      
+    }
+  }
+  @include media-breakpoint-up(md) {
+    width: 630px;
+    &__image-element {
+      width: 100%;
+      height: auto;
+    }
+    &__content {
+      
+    }
+  }
 }
 
 /*
