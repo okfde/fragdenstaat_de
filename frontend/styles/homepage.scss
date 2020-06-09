@@ -88,6 +88,7 @@
     background-color: white; // hide dashed line
   }
   &__text {
+    max-width: 255px;
     font-size: $smaller-font-size;
     line-height: $line-height-smaller;
   }

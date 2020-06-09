@@ -24,7 +24,7 @@ if (modalTrigger && modalContainer) {
 new Glide('.campaign-slider__wrap', {
   // startAt: 0,
   perView: 3,
-  gap: 15,
+  gap: 30,
   peek: 80,
 
   // apply bootstrap breakepoints
@@ -33,16 +33,20 @@ new Glide('.campaign-slider__wrap', {
   breakpoints: {
     576: {
       perView: 1,
-      gap: 10,
       peek: 0,
     },
     768: {
       perView: 1,
-      gap: 10,
       peek: 0,
     },
+    992: {
+      perView: 2,
+      peek: { before: 0, after: 0 },
+    },
     1200: {
-      perView: 2
+      perView: 2,
+      gap: 0,
+      peek: { before: 50, after: 250 },
     }
   }
 }).mount()
