@@ -327,13 +327,15 @@ class DonationChangeList(ChangeList):
             amount_avg=Avg('amount'),
             amount_received_sum=Sum('amount_received'),
             donor_count=Count('donor_id', distinct=True),
-            amount_median=median('amount')
+            amount_median=median('amount'),
+            recurring_donor_amount=Sum('donor__recurring_amount')
         )
         self.amount_sum = q['amount_sum']
         self.amount_avg = round(q['amount_avg']) if q['amount_avg'] is not None else '-'
         self.amount_median = round(q['amount_median']) if q['amount_median'] is not None else '-'
         self.amount_received_sum = q['amount_received_sum']
         self.donor_count = q['donor_count']
+        self.recurring_donor_amount = q['recurring_donor_amount']
         return ret
 
 
