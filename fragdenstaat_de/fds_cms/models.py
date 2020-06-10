@@ -294,6 +294,9 @@ class DesignContainerCMSPlugin(CMSPlugin):
     ] + [
         ('blue-{}'.format(i), 'Blue {}'.format(i))
         for i in range(100, 900, 100)
+    ] + [
+        ('yellow-{}'.format(i), 'Yellow {}'.format(i))
+        for i in range(100, 400, 100)
     ]
     STYLES = [
         ('', _('Default')),
