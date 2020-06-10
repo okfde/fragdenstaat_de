@@ -19,8 +19,19 @@ if (modalTrigger && modalContainer) {
 
 }
 
-// glide slider
-// ref: https://glidejs.com/docs/options/
+const glides = document.querySelectorAll('.glide')
+Array.from(glides).forEach((el) => {
+  let options = {}
+  if (el.dataset.options) {
+    try {
+      options = JSON.parse(el.dataset.options)
+    } catch {}
+  }
+  new Glide(el, options).mount()
+})
+
+// // glide slider
+// // ref: https://glidejs.com/docs/options/
 new Glide('.campaign-slider__wrap', {
   // startAt: 0,
   perView: 3,
