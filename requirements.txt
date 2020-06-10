@@ -64,6 +64,7 @@ django-wikidata==0.0.6
 djangocms-admin-style==1.5.0
 djangocms-apphook-setup==0.4.1
 djangocms-attributes-field==1.2.0
+djangocms-bootstrap4==1.6.0
 djangocms-picture==2.4.0
 djangocms-text-ckeditor==3.9.0
 djangocms-transfer==0.3.0
