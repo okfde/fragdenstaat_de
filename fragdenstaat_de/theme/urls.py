@@ -44,7 +44,7 @@ sitemap_urlpatterns = [
 urlpatterns = [
     # url(r'^$', index, name='index'),
     url(r'^kampagne/', include(campaign_urls)),
-    url(r'^temp/', TemplateView.as_view(template_name="snippets/temp.html")),
+    url(r'^temp/', TemplateView.as_view(template_name="snippets/homepage/hero.html")),
     url(r'^klagen/', include('froide_legalaction.urls')),
     url(r'^payments/', include('froide_payment.payments_urls')),
     url(r'^payment/', include('froide_payment.urls')),

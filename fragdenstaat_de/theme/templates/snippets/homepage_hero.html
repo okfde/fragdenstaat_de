@@ -1,4 +1,39 @@
-{% load i18n %}
-{% load humanize %}
+{% extends "snippets/homepage_hero.html" %}
 
-{% include "snippets/homepage/hero.html" %}
+{% load humanize %}
+{% load static %}
+
+
+{% block site_name %}Was ist FragDenStaat?{% endblock %}
+
+{% block site_description %}
+  <p>
+    Jede Person hat das Recht auf Informationen. FragDenStaat hilft Ihnen, Ihr Recht wahrzunehmen.
+  </p>
+  <p>
+    Fragen Sie über diese gemeinnützige Plattform Behörden in Deutschland nach Informationen und Dokumenten!
+  </p>
+{% endblock %}
+
+{% block example_search_terms_block %}{% endblock %}
+
+{% block index-search-placeholder %}z.B. Schule oder NSA{% endblock %}
+
+
+
+{% block first_index_row %}
+<div class="col-lg-5 col-md-5">
+  {% block first_index_row_search %}
+    {{ block.super }}
+  {% endblock %}
+</div>
+<div class="col-lg-7 col-md-7">
+  {% block first_index_row_featured %}
+    <div class="aspect-ratio video-embed-container">
+      <a class="video-embed" href="https://vimeo.com/102604678" data-url="https://player.vimeo.com/video/102604678?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1" data-vimeosubtitlelanguage="de">
+        <img src="{% static 'img/video_fds.jpg' %}" alt="Video FragDenStaat.de on Vimeo"/>
+      </a>
+    </div>
+  {% endblock first_index_row_featured %}
+</div>
+{% endblock %}
