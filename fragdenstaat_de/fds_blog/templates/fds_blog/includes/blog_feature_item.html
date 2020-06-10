@@ -4,11 +4,21 @@
   <div class="investigation-article__image">
     {% if article.image %}
       <a href="{{ article.get_absolute_url }}" class="investigation-article__image-link">
-        <img class="investigation-article__image-element" loading="lazy" src="{% spaceless %}
-        {% thumbnail picture 630x0 crop=smart subject_location=picture.subject_location %}
-        {% endspaceless %}"
-        {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
-        {{ attributes_str }}>
+        {% with picture=article.image %}
+        <picture>
+          <source
+            media="(min-width: 992px)"
+            srcset="{% thumbnail picture 630x365 crop=smart subject_location=picture.subject_location %}">
+          <source
+            media="(min-width: 768px)"
+            srcset="{% thumbnail picture 500x290 crop=smart subject_location=picture.subject_location %}">
+          <img class="investigation-article__image-element" loading="lazy" src="{% spaceless %}
+              {% thumbnail picture 320x185 crop=smart subject_location=picture.subject_location %}
+              {% endspaceless %}"
+              {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
+              {{ attributes_str }}>
+        </picture>
+        {% endwith %}
       </a>
     {% endif %}
   </div>
