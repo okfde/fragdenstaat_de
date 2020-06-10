@@ -492,4 +492,4 @@ class LatestArticlesPlugin(CMSPlugin):
             'categories', 'categories__translations',
             'authors', 'tags',
         )
-        return articles[self.offset:self.number_of_articles]
+        return articles[self.offset:self.offset + self.number_of_articles]
