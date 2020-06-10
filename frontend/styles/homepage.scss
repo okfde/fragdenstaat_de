@@ -213,6 +213,17 @@
   }
 }
 
+.glide {
+  .glide__bullets {
+    margin-top: $spacer;
+    margin-left: auto;
+    margin-right: auto;
+    @include media-breakpoint-up(xl) {
+      margin-left: 130px;
+    }
+  }
+}
+
 .campaign-slider {
   &::before {
     // z-index: 0;
@@ -224,15 +235,6 @@
     left: 0;
     right: 0;
     top: 0;
-  }
-
-  .glide__bullets {
-    margin-top: $spacer;
-    margin-left: auto;
-    margin-right: auto;
-    @include media-breakpoint-up(xl) {
-      margin-left: 130px;
-    }
   }
 }
 
@@ -372,15 +374,6 @@
     left: 0;
     right: 0;
     top: 0;
-  }
-
-  .glide__bullets {
-    margin-top: $spacer;
-    margin-left: auto;
-    margin-right: auto;
-    @include media-breakpoint-up(xl) {
-      margin-left: 130px;
-    }
   }
 }
 
