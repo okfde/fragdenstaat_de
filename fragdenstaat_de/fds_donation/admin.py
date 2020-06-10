@@ -344,7 +344,8 @@ class DonationAdmin(admin.ModelAdmin):
     list_display = (
         'get_name', 'timestamp', 'amount', 'completed', 'received',
         'purpose',
-        'reference', 'keyword', 'method', 'recurring',
+        'reference', 'keyword', 'method',
+        'recurring', 'first_recurring'
     )
     list_filter = (
         'completed', 'received',
