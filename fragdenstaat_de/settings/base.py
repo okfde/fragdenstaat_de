@@ -76,7 +76,8 @@ class FragDenStaatBase(German, Base):
             'djangocms_bootstrap4.contrib.bootstrap4_link',
             'djangocms_bootstrap4.contrib.bootstrap4_listgroup',
             'djangocms_bootstrap4.contrib.bootstrap4_media',
-            'djangocms_bootstrap4.contrib.bootstrap4_picture',
+            # This unregisters the normal picture plugin, disabling
+            # 'djangocms_bootstrap4.contrib.bootstrap4_picture',
             'djangocms_bootstrap4.contrib.bootstrap4_tabs',
             'djangocms_bootstrap4.contrib.bootstrap4_utilities',
 
