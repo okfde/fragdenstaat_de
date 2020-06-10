@@ -8,6 +8,7 @@ build/
 fragdenstaat_de/theme/static/img/_*
 fragdenstaat_de/theme/static/js/
 fragdenstaat_de/theme/static/css/
+fragdenstaat_de/theme/static/fonts/
 fragdenstaat_de/theme/static/img/jurisdictions/*/*
 .idea/
 fds-env/

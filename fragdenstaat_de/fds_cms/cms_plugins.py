@@ -17,7 +17,8 @@ from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
     PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin,
     VegaChartCMSPlugin, SVGImageCMSPlugin, DesignContainerCMSPlugin,
-    DocumentCollectionEmbedCMSPlugin, ShareLinksCMSPlugin, CollapsibleCMSPlugin
+    DocumentCollectionEmbedCMSPlugin, ShareLinksCMSPlugin, CollapsibleCMSPlugin,
+    SliderCMSPlugin
 )
 from .contact import ContactForm
 
@@ -115,7 +116,7 @@ class PrimaryLinkPlugin(CMSPluginBase):
 
     def get_render_template(self, context, instance, placeholder):
         if instance.template:
-            return instance.template
+            return 'cms/plugins/primarylink/%s' % instance.template
         return self.default_template
 
     def render(self, context, instance, placeholder):
@@ -347,6 +348,21 @@ class CollapsiblePlugin(CMSPluginBase):
     module = _("Elements")
     name = _('Collapsible')
     render_template = "fds_cms/collapsible.html"
+    allow_children = True
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context['object'] = instance
+        return context
+
+
+@plugin_pool.register_plugin
+class SliderPlugin(CMSPluginBase):
+    model = SliderCMSPlugin
+    module = _("Elements")
+    name = _('Slider')
+    render_template = "fds_cms/slider.html"
     allow_children = True
     cache = True
 

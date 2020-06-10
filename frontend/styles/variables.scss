@@ -10,6 +10,10 @@ $caret-vertical-align: $caret-width * .85;
 $caret-spacing: $caret-width * .5;
 
 // Typography
+$enable-responsive-font-sizes: false;
 $font-family-sans-serif: 'Inter', sans-serif;
+$headings-font-weight: 600;
+$smaller-font-size: .875rem;
+$line-height-smaller: 1.25;
 // $dropdown-header-color: $gray-600;
 

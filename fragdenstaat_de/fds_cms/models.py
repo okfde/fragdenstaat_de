@@ -107,6 +107,7 @@ class DocumentPagesCMSPlugin(CMSPlugin):
 class PrimaryLinkCMSPlugin(CMSPlugin):
     TEMPLATES = [
         ('', _('Default template')),
+        ('campaign.html', _('Campaign template')),
     ]
 
     title = models.CharField(max_length=255)
@@ -123,6 +124,9 @@ class PrimaryLinkCMSPlugin(CMSPlugin):
         verbose_name=_("page link"))
     anchor = models.CharField(_("anchor"),
         max_length=128, blank=True, help_text=_("Page anchor."))
+
+    link_label = models.CharField(max_length=255, blank=True)
+    extra_classes = models.CharField(max_length=255, blank=True)
 
     template = models.CharField(_('Template'), choices=TEMPLATES,
                                 default='', max_length=50, blank=True)
@@ -290,6 +294,9 @@ class DesignContainerCMSPlugin(CMSPlugin):
     ] + [
         ('blue-{}'.format(i), 'Blue {}'.format(i))
         for i in range(100, 900, 100)
+    ] + [
+        ('yellow-{}'.format(i), 'Yellow {}'.format(i))
+        for i in range(100, 400, 100)
     ]
     STYLES = [
         ('', _('Default')),
@@ -326,6 +333,15 @@ class CollapsibleCMSPlugin(CMSPlugin):
     collapsed = models.BooleanField(default=True)
 
     extra_classes = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+class SliderCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255, blank=True)
+    extra_classes = models.CharField(max_length=255, blank=True)
+    options = models.TextField(blank=True)
 
     def __str__(self):
         return self.title
