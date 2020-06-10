@@ -352,6 +352,7 @@ class DonationAdmin(admin.ModelAdmin):
         'method',
         'purpose',
         'recurring',
+        'first_recurring',
         'reference',
         make_nullfilter('export_date', _('Receipt exported')),
         make_nullfilter('receipt_date', _('Receipt sent')),
