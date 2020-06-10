@@ -405,6 +405,8 @@ class Article(
 
 TEMPLATES = [
     ('fds_blog/plugins/latest_articles.html', _('Normal')),
+    ('fds_blog/plugins/featured_articles.html', _('Featured')),
+    ('fds_blog/plugins/simple_articles.html', _('Simple')),
 ]
 
 

@@ -1,11 +1,7 @@
 {% load i18n %}{% spaceless %}
-<div class="plugin plugin-blog">
-    <div class="blog-latest-entries">
+<div>
     {% for article in article_list %}
-        {% include "fds_blog/includes/blog_short_item.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
-    {% empty %}
-    <p class="blog-empty">{% trans "No article found." %}</p>
+      {% include "fds_blog/includes/blog_short_item.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
     {% endfor %}
-    </div>
 </div>
 {% endspaceless %}

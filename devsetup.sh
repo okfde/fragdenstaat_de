@@ -80,7 +80,7 @@ for name in "${REPOS[@]}"; do
   if [ ! -d $name ]; then
     git clone git@github.com:okfde/$name.git
   else
-    pushd $MAIN
+    pushd $name
       git pull
     popd
   fi

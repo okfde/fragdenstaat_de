@@ -1,0 +1,44 @@
+{% load thumbnail %}
+
+<article class="investigation-article mx-auto">
+  <div class="investigation-article__image">
+    {% if article.image %}
+      <a href="{{ article.get_absolute_url }}" class="investigation-article__image-link">
+        {% with picture=article.image %}
+        <picture>
+          <source
+            media="(min-width: 992px)"
+            srcset="{% thumbnail picture 630x365 crop=smart subject_location=picture.subject_location %}">
+          <source
+            media="(min-width: 768px)"
+            srcset="{% thumbnail picture 500x290 crop=smart subject_location=picture.subject_location %}">
+          <img class="investigation-article__image-element" loading="lazy" src="{% spaceless %}
+              {% thumbnail picture 320x185 crop=smart subject_location=picture.subject_location %}
+              {% endspaceless %}"
+              {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
+              {{ attributes_str }}>
+        </picture>
+        {% endwith %}
+      </a>
+    {% endif %}
+  </div>
+  <div class="investigation-article__content position-relative mx-3 mt-n5 mt-lg-n6 p-3">
+    {% with tags=article.all_tags %}
+      {% if tags %}
+        <ul class="investigation-article__taglist list-unstyled d-flex text-blue-600 font-weight-bold mb-1">
+        {% for tag in tags %}
+          <li class="investigation-article__tag mr-2">#{{ tag.name }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    {% endwith %}
+    <h3 class="h4 mt-0 mb-1">
+      <a class="investigation-article__link" href="{{ article.get_absolute_url }}">
+        {{ article.title }}
+      </a>
+    </h3>
+    <div class="investigation-article__date">
+      {{ article.start_publication|date:"DATE_FORMAT" }}
+    </div>
+  </div>
+</article>
