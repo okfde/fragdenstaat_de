@@ -116,7 +116,7 @@ class PrimaryLinkPlugin(CMSPluginBase):
 
     def get_render_template(self, context, instance, placeholder):
         if instance.template:
-            return instance.template
+            return 'cms/plugins/primarylink/%s' % instance.template
         return self.default_template
 
     def render(self, context, instance, placeholder):
