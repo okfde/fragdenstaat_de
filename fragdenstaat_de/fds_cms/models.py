@@ -292,6 +292,10 @@ class DesignContainerCMSPlugin(CMSPlugin):
         ('gray-{}'.format(i), 'Gray {}'.format(i))
         for i in range(100, 1000, 100)
     ] + [
+        ('blue-10', _('Blue 10')),
+        ('blue-20', _('Blue 20')),
+        ('blue-30', _('Blue 30')),
+    ] + [
         ('blue-{}'.format(i), 'Blue {}'.format(i))
         for i in range(100, 900, 100)
     ] + [
