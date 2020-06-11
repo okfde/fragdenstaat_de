@@ -81,7 +81,7 @@ for name in "${REPOS[@]}"; do
     git clone git@github.com:okfde/$name.git
   else
     pushd $name
-      git pull
+      git pull origin master
     popd
   fi
   pip uninstall -y $name
