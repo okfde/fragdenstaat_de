@@ -6,7 +6,7 @@
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides m-0">
         {% for plugin in instance.child_plugin_instances %}
-          <li class="glide__slide py-sm-3 pr-sm-3">
+          <li class="glide__slide py-sm-3">
             {% render_plugin plugin %}
           </li>
         {% endfor %}
