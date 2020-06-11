@@ -16,7 +16,6 @@ if (modalTrigger && modalContainer) {
     // remove content so player stop playing
     videoModalInstance.setContent('');
   }, false);
-
 }
 
 const glides = document.querySelectorAll('.glide')
@@ -29,53 +28,3 @@ Array.from(glides).forEach((el) => {
   }
   new Glide(el, options).mount()
 })
-
-// // glide slider
-// // ref: https://glidejs.com/docs/options/
-new Glide('.campaign-slider__wrap', {
-  // startAt: 0,
-  perView: 3,
-  gap: 30,
-  peek: 80,
-
-  // apply bootstrap breakepoints
-  // "Collection of options applied at specified media breakpoints.
-  // For example, display two slides per view under 800px"
-  breakpoints: {
-    576: {
-      perView: 1,
-      peek: 0,
-    },
-    768: {
-      perView: 1,
-      peek: 0,
-    },
-    992: {
-      perView: 2,
-      peek: { before: 0, after: 0 },
-    },
-    1200: {
-      perView: 2,
-      gap: 0,
-      peek: { before: 50, after: 250 },
-    }
-  }
-}).mount()
-
-new Glide('.lawsuits-slider__wrap', {
-  // startAt: 0,
-  perView: 1,
-  gap: 0,
-  peek: { before: 50, after: 450 },
-
-  breakpoints: {
-    992: {
-      perView: 1,
-      peek: 0,
-    },
-    1200: {
-      perView: 1,
-      peek: { before: 30, after: 270 },
-    }
-  }
-}).mount()
