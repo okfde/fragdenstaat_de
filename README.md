@@ -30,6 +30,13 @@ cd project-dir
 curl https://raw.githubusercontent.com/okfde/fragdenstaat_de/master/devsetup.sh | bash
 ```
 
+To update your setup later:
+
+```
+cd project-dir
+bash fragdenstaat_de/devsetup.sh
+```
+
 ### Start services
 
 You can run your own Postgres+PostGIS database and Elasticsearch service or run them with Docker.
