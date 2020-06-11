@@ -10,7 +10,7 @@
   {% endif %}
   <div class="campaign-card__image d-flex justify-content-center align-items-center">
     {% if object.image %}
-      <img class="campaign-card__image-element" loading="lazy" src="{% thumbnail object.image 100x crop subject_location=object.image.subject_location %}" alt="{{ object.image.default_alt_text }}" />
+        <img class="campaign-card__image-element" loading="lazy" src="{% thumbnail object.image 100x0 crop subject_location=object.image.subject_location %}" alt="{{ object.image.default_alt_text }}" />
     {% endif %}
   </div>
   <h3 class="h4 mt-3 mb-3">{{ object.title }}</h3>
