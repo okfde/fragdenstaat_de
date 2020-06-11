@@ -1,6 +1,6 @@
 {% load i18n %}{% spaceless %}
   {% for article in article_list %}
-    <div class="row mb-4">
+    <div class="row {% if not forloop.last %}mb-4{% endif %}">
       <div class="col px-0">
         {% include "fds_blog/includes/blog_simple_item.html" with article=article image="true" %}
       </div>
