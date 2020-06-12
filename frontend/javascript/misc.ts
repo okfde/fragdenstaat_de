@@ -16,38 +16,17 @@ window.document.addEventListener("securitypolicyviolation", (e) => {
   }
 });
 
-const videoEmbed = document.querySelector(".video-embed");
-if (videoEmbed !== null) {
-  videoEmbed.addEventListener("click", function(this: HTMLElement, e) {
-    e.preventDefault();
-    const parent = this.parentElement;
-    if (parent !== null && this.dataset.url) {
-      const iframe = document.createElement("iframe");
-      iframe.src = this.dataset.url;
-      iframe.setAttribute("frameBorder", "0");
-      iframe.setAttribute("webkitallowfullscreen", "");
-      iframe.setAttribute("mozallowfullscreen", "");
-      iframe.setAttribute("allowfullscreen", "");
-      parent.appendChild(iframe);
-      if (this.dataset.vimeosubtitlelanguage) {
-        const lang = this.dataset.vimeosubtitlelanguage;
-        const origin = this.dataset.url.split("/").slice(0, 3).join("/");
-        const setLanguage = () => {
-          if (!iframe.contentWindow) { return; }
-          iframe.contentWindow.postMessage({
-            method: "enableTextTrack",
-            value: {
-              kind: "subtitles",
-              language: lang,
-            },
-          }, origin);
-        };
-        iframe.addEventListener("load", setLanguage);
-        window.setTimeout(setLanguage, 1000);
-      }
-    }
-  });
+const pauseModalVideo = function (this: HTMLVideoElement) {
+  const video = this.querySelector('video')
+  if (video) {
+    video.pause()
+  }
 }
+
+const videoModals = document.querySelectorAll('[data-modal="video"]')
+Array.from(videoModals).forEach((videoModal) => {
+  videoModal.addEventListener('hidden.bs.modal', pauseModalVideo)
+})
 
 // tslint:disable-next-line: interface-name
 interface Window { _paq: Array<Array<string | string[]>>; }
