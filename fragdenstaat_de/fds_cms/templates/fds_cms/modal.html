@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<{{ instance.tag_type }} tabindex="-1" role="dialog" aria-hidden="true" {{ instance.attributes_str }}>
+<{{ instance.tag_type }} id="{{ instance.identifier }}" tabindex="-1" role="dialog" aria-hidden="true" {{ instance.attributes_str }}>
   <div {{ instance.dialog_attributes_str }}>
     <div class="modal-content">
       {% for plugin in instance.child_plugin_instances %}
