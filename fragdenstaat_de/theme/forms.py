@@ -1,7 +1,9 @@
-import re
+import datetime
 import logging
+import re
 
 from django import forms
+from django.utils import timezone
 
 from froide.account.models import UserPreference
 
@@ -58,6 +60,12 @@ class TippspielForm(forms.Form):
     name = forms.CharField(max_length=50)
     match = forms.IntegerField(min_value=1, max_value=8)
     bet = forms.ChoiceField(choices=BET_CHOICES)
+
+    def clean(self):
+        deadline = datetime.datetime(2020, 6, 12, 12, 0, 0)
+        deadline = timezone.get_current_timezone().localize(deadline)
+        if timezone.now() >= deadline:
+            raise forms.ValidationError('Tipp-Spiel-Runde abgelaufen!')
 
     def save(self, user):
         key = 'fds_meisterschaften_2020_name'

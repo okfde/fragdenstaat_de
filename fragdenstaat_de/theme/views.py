@@ -57,10 +57,13 @@ def glyphosat_download(request, foirequest, message_id):
 
 @login_required
 def meisterschaften_tippspiel(request):
+    error = None
     if request.method == 'POST':
         form = TippspielForm(request.POST)
         if form.is_valid():
             form.save(request.user)
+        else:
+            error = ' '.join(' '.join(v) for k, v in form.errors.items())
 
     prefs = UserPreference.objects.get_preferences(
         request.user,
@@ -68,5 +71,6 @@ def meisterschaften_tippspiel(request):
     )
 
     return JsonResponse({
-        'user': prefs
+        'user': prefs,
+        'error': error
     })
