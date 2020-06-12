@@ -5,6 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
+from djangocms_bootstrap4.helpers import concat_classes
+
 from filingcabinet.views import (
     get_document_viewer_context, get_document_collection_context
 )
@@ -18,7 +20,7 @@ from .models import (
     PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin,
     VegaChartCMSPlugin, SVGImageCMSPlugin, DesignContainerCMSPlugin,
     DocumentCollectionEmbedCMSPlugin, ShareLinksCMSPlugin, CollapsibleCMSPlugin,
-    SliderCMSPlugin
+    SliderCMSPlugin, ModalCMSPlugin
 )
 from .contact import ContactForm
 
@@ -370,3 +372,29 @@ class SliderPlugin(CMSPluginBase):
         context = super().render(context, instance, placeholder)
         context['object'] = instance
         return context
+
+
+@plugin_pool.register_plugin
+class ModalPlugin(CMSPluginBase):
+    model = ModalCMSPlugin
+    module = _("Elements")
+    name = _('Modal')
+    render_template = "fds_cms/modal.html"
+    allow_children = True
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        classes = concat_classes([
+            'modal fade',
+            instance.attributes.get('class'),
+        ])
+        instance.attributes['class'] = classes
+        dialog_classes = concat_classes([
+            'modal-dialog',
+            instance.dialog_attributes.get('class'),
+        ])
+        instance.dialog_attributes['class'] = dialog_classes
+
+        return super().render(
+            context, instance, placeholder
+        )

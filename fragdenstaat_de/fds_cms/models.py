@@ -12,6 +12,10 @@ from filer.fields.file import FilerFileField
 
 from taggit.models import Tag
 
+from djangocms_bootstrap4.fields import (
+    AttributesField, TagTypeField,
+)
+
 from filingcabinet.models import PageAnnotation
 
 from froide.foirequest.models import FoiRequest, FoiProject
@@ -349,3 +353,13 @@ class SliderCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+class ModalCMSPlugin(CMSPlugin):
+    identifier = models.CharField(max_length=255)
+    tag_type = TagTypeField()
+    attributes = AttributesField()
+    dialog_attributes = AttributesField()
+
+    def __str__(self):
+        return self.identifier
