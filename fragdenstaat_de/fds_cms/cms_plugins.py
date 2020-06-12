@@ -177,7 +177,7 @@ class FoiRequestListPlugin(CMSPluginBase):
 
         FILTER_KEYS = (
             'user', 'jurisdiction_id', 'category_id',
-            'classification_id', 'status', 'resolution'
+            'classification_id', 'project_id', 'status', 'resolution'
         )
         filters = {}
 
@@ -197,7 +197,7 @@ class FoiRequestListPlugin(CMSPluginBase):
         if instance.offset:
             foirequests = foirequests[instance.offset:]
         if instance.number_of_entries:
-            foirequests = foirequests[:instance.number_of_entries]
+            foirequests = foirequests[:instance.offset + instance.number_of_entries]
 
         context = super().render(context, instance, placeholder)
         context['object_list'] = foirequests
