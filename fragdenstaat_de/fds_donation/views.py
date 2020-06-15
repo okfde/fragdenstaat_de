@@ -213,7 +213,9 @@ class DonorDonationActionView(DonorMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['donor_has_subscription'] = self.has_subscription
+        context.update({
+            'subscriptions': self.object.subscriptions.filter(canceled=None),
+        })
         return context
 
     def form_valid(self, form):
