@@ -1,0 +1,60 @@
+{% extends "fds_donation/base.html" %}
+
+{% load form_helper %}
+
+{% block title %}Ihre Spende aktualisieren{% endblock %}
+
+{% block app_body %}
+<div class="row justify-content-center"><div class="col-8">
+
+<h3>
+  Legen Sie eine neue Spende an
+</h3>
+
+{% if subscriptions %}
+  <div class="alert alert-warning">
+    <p>Bitte beachten Sie, dass momentan folgende Dauerspenden für Sie aktiv sind:</p>
+    <ul>
+    {% for subscription in subscriptions %}
+      <li>
+        {{ subscription.plan }} (<a href="{{ subscription.get_absolute_url }}">Details / Kündigung</a>)
+      </li>
+    {% endfor %}
+    </ul>
+    <p>Wenn Sie Ihre Dauerspende anpassen wollen, können Sie diese auf der Detailseite kündigen und hier eine neue anlegen.</p>
+  </div>
+{% endif %}
+
+<form action="{{ form.action }}" method="POST" class="donation-form">
+  {% csrf_token %}
+  {{ form.form_settings }}
+  {{ form.reference }}
+  {{ form.keyword }}
+
+  {% for field in form %}
+    {% if field.is_hidden %}
+      {{ field }}
+    {% else %}
+      <div class="row">
+        <div class="col-12">
+          {% include "helper/forms/bootstrap_field_stacked.html" with field=field %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+{% if donor_has_subscription %}
+  <button type="submit" class="btn btn-primary">
+    Dauerspende aktualisieren
+  </button>
+{% else %}
+  <button type="submit" class="btn btn-primary">
+    Spenden
+  </button>
+{% endif %}
+  <a href="{{ object.get_absolute_url }}" class="btn btn-secondary text-right">
+    Abbrechen
+  </a>
+</form>
+</div></div>
+{% endblock %}

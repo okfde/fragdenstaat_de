@@ -115,7 +115,7 @@ class DonationFormFactory:
         for key in self.default:
             self.settings[key] = kwargs.get(key, self.default[key])
 
-    def make_form(self, **kwargs):
+    def get_form_kwargs(self, **kwargs):
         if 'data' in kwargs:
             form_settings = kwargs['data'].get('form_settings')
             raw_data = self.deserialize(form_settings)
@@ -129,7 +129,10 @@ class DonationFormFactory:
             kwargs['initial'][v] = self.settings[k]
 
         kwargs['form_settings'] = self.settings
+        return kwargs
 
+    def make_form(self, **kwargs):
+        kwargs = self.get_form_kwargs(**kwargs)
         return DonationForm(**kwargs)
 
     def serialize(self):
@@ -153,7 +156,7 @@ class DonationFormFactory:
         return raw_data
 
 
-class AmountForm(forms.Form):
+class SimpleDonationForm(StartPaymentMixin, forms.Form):
     amount = forms.DecimalField(
         localize=True,
         required=True,
@@ -210,6 +213,112 @@ class AmountForm(forms.Form):
         }),
         initial=PAYMENT_METHODS[0][0]
     )
+
+    def __init__(self, *args, **kwargs):
+        self.action = kwargs.pop('action', None)
+
+        user = kwargs.pop('user', None)
+        if not user.is_authenticated:
+            user = None
+        self.user = user
+        self.settings = kwargs.pop(
+            'form_settings',
+            DonationFormFactory.default
+        )
+
+        super().__init__(*args, **kwargs)
+
+        interval_choices = []
+        has_purpose = True
+        if 'once' in self.settings['interval']:
+            interval_choices.append(('0', _('once')),)
+        else:
+            # No once option -> not choosing purpose
+            has_purpose = False
+            self.fields['purpose'].widget = forms.HiddenInput()
+        if 'recurring' in self.settings['interval']:
+            interval_choices.extend([
+                ('1', _('monthly')),
+                ('3', _('quarterly')),
+                ('12', _('yearly')),
+            ])
+
+        self.fields['interval'].choices = interval_choices
+        if self.settings['interval'] == 'once':
+            self.fields['interval'].initial = '0'
+            self.fields['interval'].widget = forms.HiddenInput()
+            self.fields['amount'].label = _('One time donation amount')
+
+        self.fields['amount'].widget.presets = self.settings['amount_presets']
+        self.fields['reference'].initial = self.settings['reference']
+        self.fields['keyword'].initial = self.settings['keyword']
+        if self.settings['purpose']:
+            purpose_choices = [(self.settings['purpose'], self.settings['purpose'])]
+            self.fields['purpose'].initial = self.settings['purpose']
+            self.fields['purpose'].choices = purpose_choices
+            self.fields['purpose'].widget = forms.HiddenInput()
+        elif has_purpose:
+            choices = [
+                (x.name, x.name) for x in Campaign.objects.get_filter_list()
+            ]
+            self.fields['purpose'].widget.choices.extend(choices)
+            self.fields['purpose'].choices.extend(choices)
+
+    def get_payment_metadata(self, data):
+        if data['interval'] > 0:
+            return {
+                'category': _('Donation for %s') % settings.SITE_NAME,
+                'plan_name': _('{amount} EUR donation {str_interval} to {site_name}').format(
+                    amount=data['amount'],
+                    str_interval=interval_description(data['interval']),
+                    site_name=settings.SITE_NAME
+                ),
+                'description': _('Donation for %s') % settings.SITE_NAME,
+                'kind': 'fds_donation.Donation',
+            }
+        else:
+            return {
+                'category': _('Donation for %s') % settings.SITE_NAME,
+                'description': '{} ({})'.format(
+                    data['purpose'],
+                    settings.SITE_NAME
+                ),
+                'kind': 'fds_donation.Donation',
+            }
+
+    def create_related_object(self, order, data):
+        donor = data.get('donor')
+        if donor is None:
+            donor = get_or_create_donor(
+                self.cleaned_data,
+                user=self.user,
+                subscription=order.subscription
+            )
+        keyword = data.get('keyword', '')
+        if keyword.startswith(settings.SITE_URL):
+            keyword = keyword.replace(settings.SITE_URL, '', 1)
+        donation = Donation.objects.create(
+            donor=donor,
+            amount=order.total_gross,
+            reference=data.get('reference', ''),
+            keyword=keyword,
+            purpose=data.get('purpose', '') or order.description,
+            order=order,
+            recurring=order.is_recurring,
+            first_recurring=order.is_recurring,
+            method=data.get('payment_method', '')
+        )
+        return donation
+
+    def save(self, extra_data=None):
+        data = self.cleaned_data.copy()
+        if extra_data is not None:
+            data.update(extra_data)
+        data['is_donation'] = True
+        order = self.create_order(data)
+        related_obj = self.create_related_object(order, data)
+
+        return order, related_obj
 
 
 class DonorForm(forms.Form):
@@ -316,7 +425,7 @@ class DonorForm(forms.Form):
         ))
 
 
-class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
+class DonationForm(SimpleDonationForm, DonorForm):
     form_settings = forms.CharField(
         widget=forms.HiddenInput)
     contact = forms.TypedChoiceField(
@@ -351,17 +460,6 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
     )
 
     def __init__(self, *args, **kwargs):
-        self.action = kwargs.pop('action', None)
-
-        user = kwargs.pop('user', None)
-        if not user.is_authenticated:
-            user = None
-        self.user = user
-        self.settings = kwargs.pop(
-            'form_settings',
-            DonationFormFactory.default
-        )
-
         super().__init__(*args, **kwargs)
         if self.user is not None:
             self.fields['email'].initial = self.user.email
@@ -382,94 +480,6 @@ class DonationForm(StartPaymentMixin, AmountForm, DonorForm):
                 )),
                 (0, _('No, thank you.')),
             )
-
-        interval_choices = []
-        has_purpose = True
-        if 'once' in self.settings['interval']:
-            interval_choices.append(('0', _('once')),)
-        else:
-            # No once option -> not choosing purpose
-            has_purpose = False
-            self.fields['purpose'].widget = forms.HiddenInput()
-        if 'recurring' in self.settings['interval']:
-            interval_choices.extend([
-                ('1', _('monthly')),
-                ('3', _('quarterly')),
-                ('12', _('yearly')),
-            ])
-
-        self.fields['interval'].choices = interval_choices
-        if self.settings['interval'] == 'once':
-            self.fields['interval'].initial = '0'
-            self.fields['interval'].widget = forms.HiddenInput()
-            self.fields['amount'].label = _('One time donation amount')
-
-        self.fields['amount'].widget.presets = self.settings['amount_presets']
-        self.fields['reference'].initial = self.settings['reference']
-        self.fields['keyword'].initial = self.settings['keyword']
-        if self.settings['purpose']:
-            purpose_choices = [(self.settings['purpose'], self.settings['purpose'])]
-            self.fields['purpose'].initial = self.settings['purpose']
-            self.fields['purpose'].choices = purpose_choices
-            self.fields['purpose'].widget = forms.HiddenInput()
-        elif has_purpose:
-            choices = [
-                (x.name, x.name) for x in Campaign.objects.get_filter_list()
-            ]
-            self.fields['purpose'].widget.choices.extend(choices)
-            self.fields['purpose'].choices.extend(choices)
-
-    def get_payment_metadata(self, data):
-        if data['interval'] > 0:
-            return {
-                'category': _('Donation for %s') % settings.SITE_NAME,
-                'plan_name': _('{amount} EUR donation {str_interval} to {site_name}').format(
-                    amount=data['amount'],
-                    str_interval=interval_description(data['interval']),
-                    site_name=settings.SITE_NAME
-                ),
-                'description': _('Donation for %s') % settings.SITE_NAME,
-                'kind': 'fds_donation.Donation',
-            }
-        else:
-            return {
-                'category': _('Donation for %s') % settings.SITE_NAME,
-                'description': '{} ({})'.format(
-                    data['purpose'],
-                    settings.SITE_NAME
-                ),
-                'kind': 'fds_donation.Donation',
-            }
-
-    def create_related_object(self, order, data):
-        donor = get_or_create_donor(
-            self.cleaned_data,
-            user=self.user,
-            subscription=order.subscription
-        )
-        keyword = data.get('keyword', '')
-        if keyword.startswith(settings.SITE_URL):
-            keyword = keyword.replace(settings.SITE_URL, '', 1)
-        donation = Donation.objects.create(
-            donor=donor,
-            amount=order.total_gross,
-            reference=data.get('reference', ''),
-            keyword=keyword,
-            purpose=data.get('purpose', '') or order.description,
-            order=order,
-            recurring=order.is_recurring,
-            first_recurring=order.is_recurring,
-            method=data.get('payment_method', '')
-        )
-        return donation
-
-    def save(self):
-        data = self.cleaned_data
-        data['is_donation'] = True
-        order = self.create_order(data)
-        related_obj = self.create_related_object(order, data)
-
-        return order, related_obj
 
 
 class DonationGiftForm(SpamProtectionMixin, forms.Form):

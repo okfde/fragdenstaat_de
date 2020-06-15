@@ -5,6 +5,7 @@ from .views import (
     make_order, DonationView, DonationCompleteView,
     DonorUserView, DonorView,
     DonorChangeUserView, DonorChangeView,
+    DonorDonationActionView, DonorDonationActionUserView
 )
 
 app_name = 'fds_donation'
@@ -22,8 +23,17 @@ urlpatterns = [
 
     path(pgettext_lazy('url pattern', 'your-donation/change/'),
          DonorChangeUserView.as_view(), name='donor-user-change'),
-    re_path(pgettext_lazy('url pattern', r'^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-'
-        '[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})/change/$'), DonorChangeView.as_view(),
+    re_path(pgettext_lazy('url pattern',
+        r'^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-'
+        r'[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})/change/$'),
+        DonorChangeView.as_view(),
         name='donor-change'),
 
+    path(pgettext_lazy('url pattern', 'your-donation/donate/'),
+         DonorDonationActionUserView.as_view(), name='donor-user-donate'),
+    re_path(pgettext_lazy('url pattern',
+        r'^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-'
+        r'[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})/donate/$'),
+        DonorDonationActionView.as_view(),
+        name='donor-donate'),
 ]

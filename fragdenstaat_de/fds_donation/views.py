@@ -5,12 +5,14 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import DetailView, TemplateView, UpdateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, FormMixin
 
 from froide.helper.utils import get_redirect
 
 from .models import Donor
-from .forms import DonationGiftForm, DonationFormFactory, DonorDetailsForm
+from .forms import (
+    DonationGiftForm, DonationFormFactory, DonorDetailsForm, SimpleDonationForm
+)
 from .services import confirm_donor_email, merge_donor_list
 
 
@@ -87,7 +89,9 @@ class DonorMixin:
 
     def should_redirect_user(self):
         is_auth = self.request.user.is_authenticated
-        if is_auth and self.object.user == self.request.user:
+        has_token = 'token' in self.kwargs
+        is_same_user = self.object.user == self.request.user
+        if is_auth and has_token and is_same_user:
             # User is logged in and donor user, redirect to user view
             return redirect(self.get_user_url())
         return None
@@ -174,4 +178,58 @@ class DonorChangeView(DonorMixin, UpdateView):
 
 
 class DonorChangeUserView(LoginRequiredMixin, DonorUserMixin, DonorChangeView):
+    pass
+
+
+class DonorDonationActionView(DonorMixin, FormView):
+    form_class = SimpleDonationForm
+    template_name = 'fds_donation/donation_form.html'
+
+    def get_user_url(self):
+        return reverse('fds_donation:donor-user-donate')
+
+    def get_form_kwargs(self):
+        donor = self.object
+        self.has_subscription = donor.has_active_subscription()
+        if self.has_subscription:
+            form_settings = {
+                'interval': 'recurring'
+            }
+        else:
+            form_settings = {
+                'interval': 'once_recurring'
+            }
+
+        form_factory = DonationFormFactory(
+            reference='donation-update',
+        )
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs.update(form_factory.get_form_kwargs(
+            form_settings=form_settings,
+            user=self.request.user,
+            action=self.request.path
+        ))
+        return form_kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['donor_has_subscription'] = self.has_subscription
+        return context
+
+    def form_valid(self, form):
+        extra_data = {
+            'donor': self.object,
+            ** self.object.get_form_data()
+        }
+        order, related_obj = form.save(extra_data=extra_data)
+        method = form.cleaned_data['payment_method']
+        return redirect(order.get_absolute_payment_url(method))
+
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR, 'Form-Fehler!')
+        return super().form_invalid(form)
+
+
+class DonorDonationActionUserView(
+        LoginRequiredMixin, DonorUserMixin, DonorDonationActionView):
     pass

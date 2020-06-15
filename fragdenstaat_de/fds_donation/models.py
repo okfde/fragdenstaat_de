@@ -169,12 +169,33 @@ class Donor(models.Model):
             'token': str(self.uuid)
         })
 
+    def get_absolute_donate_url(self):
+        return reverse('fds_donation:donor-donate', kwargs={
+            'token': str(self.uuid)
+        })
+
     def get_url(self):
         return settings.SITE_URL + self.get_absolute_url()
 
     @property
     def tag_list(self):
         return ", ".join(o.name for o in self.tags.all())
+
+    def has_active_subscription(self):
+        return self.subscriptions.filter(
+            canceled__isnull=False).exists()
+
+    def get_form_data(self):
+        return {
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'company_name': self.company_name,
+            'address': self.address,
+            'city': self.city,
+            'postcode': self.postcode,
+            'country': self.country,
+        }
 
     @property
     def recently_donated(self):
