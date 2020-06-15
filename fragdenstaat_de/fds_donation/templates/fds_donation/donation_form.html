@@ -43,15 +43,10 @@
     {% endif %}
   {% endfor %}
 
-{% if donor_has_subscription %}
-  <button type="submit" class="btn btn-primary">
-    Dauerspende aktualisieren
-  </button>
-{% else %}
   <button type="submit" class="btn btn-primary">
     Spenden
   </button>
-{% endif %}
+
   <a href="{{ object.get_absolute_url }}" class="btn btn-secondary text-right">
     Abbrechen
   </a>
