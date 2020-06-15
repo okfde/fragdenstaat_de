@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-09 20:02+0200\n"
-"PO-Revision-Date: 2020-06-09 20:02+0200\n"
+"POT-Creation-Date: 2020-06-15 13:06+0200\n"
+"PO-Revision-Date: 2020-06-15 13:06+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -38,7 +38,7 @@ msgstr "hat Duplikat"
 msgid "has user"
 msgstr "hat Nutzerkonto"
 
-#: admin.py:141 admin.py:142 models.py:275
+#: admin.py:141 admin.py:142 models.py:296
 msgid "donations"
 msgstr "Spenden"
 
@@ -89,28 +89,28 @@ msgstr "Exportiere ZWB-Mail-Merge-Daten"
 msgid "Prepared mailing of emailable donors with {count} recipients"
 msgstr "Mailing wurde an {count} Empfänger vorbereitet"
 
-#: admin.py:356
+#: admin.py:360
 msgid "Receipt exported"
 msgstr "Spendenbestätigung exportiert"
 
-#: admin.py:357
+#: admin.py:361
 msgid "Receipt sent"
 msgstr "Spendenbestätigung versendet"
 
-#: admin.py:422
+#: admin.py:426
 #, python-brace-format
 msgid "Send {sent} donation mails ({resent} resent)."
 msgstr "{sent} Spenden-Mails gesendet ({resent} neu versendet)."
 
-#: admin.py:427
+#: admin.py:431
 msgid "Resend donation email"
 msgstr "Spenden-E-Mail neu verschicken"
 
-#: admin.py:438 admin.py:464
+#: admin.py:442 admin.py:468
 msgid "No file provided."
 msgstr "Keine Datei ausgewählt."
 
-#: admin.py:447 admin.py:473
+#: admin.py:451 admin.py:477
 #, python-brace-format
 msgid "Imported {rows} rows, {new} new rows."
 msgstr "{rows} Zeilen importiert, {new} neue Zeilen."
@@ -180,111 +180,141 @@ msgstr "Bis Datum"
 msgid "From - To"
 msgstr "Von - Bis"
 
-#: forms.py:164
+#: forms.py:167
 msgid "Donation amount:"
 msgstr "Spendenbetrag:"
 
-#: forms.py:168
+#: forms.py:171
 msgid "Amount in Euro, comma as decimal separator"
 msgstr "Betrag in Euro, Komma als Dezimaltrenner"
 
-#: forms.py:179
+#: forms.py:182
 msgid "Frequency"
 msgstr "Spendenrhythmus"
 
-#: forms.py:186
+#: forms.py:189
 msgid "Donation purpose"
 msgstr "Verwendungszweck"
 
-#: forms.py:188
+#: forms.py:191
 msgid "General donation"
 msgstr "Allgemeine Spende"
 
-#: forms.py:206
+#: forms.py:209
 msgid "Payment method"
 msgstr "Zahlungsweise"
 
-#: forms.py:217
+#: forms.py:234
+msgid "once"
+msgstr "einmalig"
+
+#: forms.py:241
+msgid "monthly"
+msgstr "monatlich"
+
+#: forms.py:242
+msgid "quarterly"
+msgstr "vierteljährlich"
+
+#: forms.py:243
+msgid "yearly"
+msgstr "jährlich"
+
+#: forms.py:250
+msgid "One time donation amount"
+msgstr "Einmaliger Spendenbetrag"
+
+#: forms.py:270 forms.py:276 forms.py:281
+#, python-format
+msgid "Donation for %s"
+msgstr "Spende für %s"
+
+#: forms.py:271
+#, python-brace-format
+msgid "{amount} EUR donation {str_interval} to {site_name}"
+msgstr "{amount} EUR Spende {str_interval} an {site_name}"
+
+#: forms.py:326
 msgid "Salutation"
 msgstr "Anrede"
 
-#: forms.py:226 forms.py:228
+#: forms.py:335 forms.py:337
 msgid "First name"
 msgstr "Vorname"
 
-#: forms.py:234 forms.py:236
+#: forms.py:343 forms.py:345
 msgid "Last name"
 msgstr "Nachname"
 
-#: forms.py:241
+#: forms.py:350
 msgid "Company"
 msgstr "Firma"
 
-#: forms.py:246
+#: forms.py:355
 msgid "Company name"
 msgstr "Firmenname"
 
-#: forms.py:257 forms.py:328 forms.py:383
+#: forms.py:366 forms.py:437 forms.py:481
 msgid "No, thank you."
 msgstr "Nein, danke."
 
-#: forms.py:258
+#: forms.py:367
 msgid "Yes, once a year."
 msgstr "Ja, einmal im Jahr."
 
-#: forms.py:263
+#: forms.py:372
 msgid "Do you want a donation receipt?"
 msgstr "Möchten Sie eine Spendenbescheinigung?"
 
-#: forms.py:265 forms.py:334 forms.py:349
+#: forms.py:374 forms.py:443 forms.py:458
 msgid "You have to decide."
 msgstr "Sie müssen sich entscheiden."
 
-#: forms.py:270 forms.py:273
+#: forms.py:379 forms.py:382
 msgid "Street, house number"
 msgstr "Straße, Hausnummer"
 
-#: forms.py:279 forms.py:282
+#: forms.py:388 forms.py:391
 msgid "Postcode"
 msgstr "Postleitzahl"
 
-#: forms.py:288 forms.py:291
+#: forms.py:397 forms.py:400
 msgid "City"
 msgstr "Ort"
 
-#: forms.py:296
+#: forms.py:405
 msgid "Country"
 msgstr "Land"
 
-#: forms.py:300
+#: forms.py:409
 msgid "Germany"
 msgstr "Deutschland"
 
-#: forms.py:301
+#: forms.py:410
 msgid "Austria"
 msgstr "Österreich"
 
-#: forms.py:302
+#: forms.py:411
 msgid "Switzerland"
 msgstr "Schweiz"
 
-#: forms.py:309
+#: forms.py:418
 msgid "Email"
 msgstr "E-Mail"
 
-#: forms.py:314
+#: forms.py:423
 msgid "e.g. name@example.org"
 msgstr "z.B. name@beispiel.de"
 
-#: forms.py:327
+#: forms.py:436
 msgid "Yes, please!"
 msgstr "Ja, gerne!"
 
-#: forms.py:332
+#: forms.py:441
 msgid "News"
 msgstr "Neuigkeiten"
 
-#: forms.py:344
+#: forms.py:453
 msgid ""
 "With your donation you can also create a FragDenStaat account where you can "
 "manage your details, donations and requests."
@@ -292,49 +322,19 @@ msgstr ""
 "In Ihrem FragDenStaat-Konto können Sie Ihre Daten pflegen, Ihre Spenden "
 "einsehen sowie Ihre Anfragen verwalten."
 
-#: forms.py:389
-msgid "once"
-msgstr "einmalig"
-
-#: forms.py:396
-msgid "monthly"
-msgstr "monatlich"
-
-#: forms.py:397
-msgid "quarterly"
-msgstr "vierteljährlich"
-
-#: forms.py:398
-msgid "yearly"
-msgstr "jährlich"
-
-#: forms.py:405
-msgid "One time donation amount"
-msgstr "Einmaliger Spendenbetrag"
-
-#: forms.py:425 forms.py:431 forms.py:436
-#, python-format
-msgid "Donation for %s"
-msgstr "Spende für %s"
-
-#: forms.py:426
-#, python-brace-format
-msgid "{amount} EUR donation {str_interval} to {site_name}"
-msgstr "{amount} EUR Spende {str_interval} an {site_name}"
-
-#: forms.py:478
+#: forms.py:488
 msgid "Your name"
 msgstr "Ihr Name"
 
-#: forms.py:485
+#: forms.py:495
 msgid "Your email address"
 msgstr "Deine E-Mail-Adresse"
 
-#: forms.py:491
+#: forms.py:501
 msgid "Shipping address"
 msgstr "Versandadresse"
 
-#: forms.py:498
+#: forms.py:508
 msgid "Please choose your donation gift"
 msgstr "Wählen Sie Ihr Dankeschön aus"
 
@@ -409,15 +409,15 @@ msgstr "SpenderIn"
 msgid "donors"
 msgstr "SpenderInnen"
 
-#: models.py:274
+#: models.py:295
 msgid "donation"
 msgstr "Spende"
 
-#: models.py:312
+#: models.py:333
 msgid "donation gift"
 msgstr "Spendengeschenk"
 
-#: models.py:313
+#: models.py:334
 msgid "donation gifts"
 msgstr "Spendengeschenke"
 
@@ -484,22 +484,22 @@ msgstr "Nach %(filter_title)s"
 msgid "Filter"
 msgstr "Filter"
 
-#: urls.py:14
+#: urls.py:15
 msgctxt "url pattern"
 msgid "donate/"
 msgstr "spenden/"
 
-#: urls.py:15
+#: urls.py:16
 msgctxt "url pattern"
 msgid "donate/complete/"
 msgstr "spenden/abgeschlossen/"
 
-#: urls.py:17
+#: urls.py:18
 msgctxt "url pattern"
 msgid "your-donation/"
 msgstr "ihre-spenden/"
 
-#: urls.py:19
+#: urls.py:20
 #, python-brace-format
 msgctxt "url pattern"
 msgid ""
@@ -509,12 +509,12 @@ msgstr ""
 "^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
 "[0-9a-z]{12})/$"
 
-#: urls.py:23
+#: urls.py:24
 msgctxt "url pattern"
 msgid "your-donation/change/"
 msgstr "ihre-spenden/change/"
 
-#: urls.py:25
+#: urls.py:27
 #, python-brace-format
 msgctxt "url pattern"
 msgid ""
@@ -524,7 +524,26 @@ msgstr ""
 "^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
 "[0-9a-z]{12})/change/$"
 
-#: views.py:139
+#: urls.py:32
+msgctxt "url pattern"
+msgid "your-donation/donate/"
+msgstr "ihre-spenden/spenden/"
+
+#: urls.py:35
+#, python-brace-format
+#| msgctxt "url pattern"
+#| msgid ""
+#| "^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
+#| "[0-9a-z]{12})/$"
+msgctxt "url pattern"
+msgid ""
+"^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
+"[0-9a-z]{12})/donate/$"
+msgstr ""
+"^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
+"[0-9a-z]{12})/spenden/$"
+
+#: views.py:143
 msgid ""
 "We have no associated donations with your account. If you have donated, let "
 "us know! Otherwise feel free to donate below."
@@ -533,7 +552,7 @@ msgstr ""
 "gespendet haben, lassen Sie es uns wissen! Ansonsten haben Sie weiter unten "
 "die Gelegenheit zu spenden."
 
-#: views.py:168
+#: views.py:172
 msgid "Your donor info has been updated!"
 msgstr "Ihre Spender-Informationen wurden aktualisiert!"
 
