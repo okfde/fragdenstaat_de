@@ -294,9 +294,13 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
                 user=self.user,
                 subscription=order.subscription
             )
+        if order.subscription:
+            donor.subscriptions.add(order.subscription)
+
         keyword = data.get('keyword', '')
         if keyword.startswith(settings.SITE_URL):
             keyword = keyword.replace(settings.SITE_URL, '', 1)
+
         donation = Donation.objects.create(
             donor=donor,
             amount=order.total_gross,
