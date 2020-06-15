@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import DetailView, TemplateView, UpdateView
-from django.views.generic.edit import FormView, FormMixin
+from django.views.generic.edit import FormView
 
 from froide.helper.utils import get_redirect
 
@@ -181,7 +181,7 @@ class DonorChangeUserView(LoginRequiredMixin, DonorUserMixin, DonorChangeView):
     pass
 
 
-class DonorDonationActionView(DonorMixin, FormView):
+class DonorDonationActionView(DonorMixin, UpdateView):
     form_class = SimpleDonationForm
     template_name = 'fds_donation/donation_form.html'
 
@@ -204,6 +204,7 @@ class DonorDonationActionView(DonorMixin, FormView):
             reference='donation-update',
         )
         form_kwargs = super().get_form_kwargs()
+        del form_kwargs['instance']
         form_kwargs.update(form_factory.get_form_kwargs(
             form_settings=form_settings,
             user=self.request.user,
