@@ -27,7 +27,7 @@
     border: none;
   }
   &__wrapper {
-    z-index: 100;
+    z-index: $zindex-modal;
     position: fixed;
     width: 14.375rem;
     height: 100%;
@@ -42,7 +42,7 @@
     &--inital { width: 0; }
   }
   &__backdrop {
-    z-index: 80;
+    z-index: $zindex-modal-backdrop;
     position: fixed;
     top: 0;
     left: 0;
