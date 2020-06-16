@@ -93,10 +93,12 @@ $glide-modifier-separator: '--' !default;
     color: white;
     text-transform: uppercase;
     padding: .6rem;
-    background-color: transparent;
-    border: 1px solid transparent;
+    background-color: white;
+    // border: 1px solid transparent;
+    border: none;
     border-radius: 50%;
-    box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 3px 0 transparentize($gray-500, .75);
+    // box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.1);
     opacity: 1;
     cursor: pointer;
     transition: all 250ms ease;
@@ -106,7 +108,7 @@ $glide-modifier-separator: '--' !default;
     &:focus { outline: none; }
     &:hover {
       background-color: $blue-600;
-      border-color: $blue-600;
+      // border-color: $blue-600;
       svg path {
         fill: white;
       }
