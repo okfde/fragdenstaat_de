@@ -92,27 +92,36 @@ $glide-modifier-separator: '--' !default;
     z-index: 2;
     color: white;
     text-transform: uppercase;
-    padding: 9px 12px;
+    padding: .6rem;
     background-color: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 4px;
+    border: 1px solid $gray-300;
+    border-radius: 50%;
     box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.1);
-    text-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
     opacity: 1;
     cursor: pointer;
-    transition: opacity 150ms ease, border 300ms ease-in-out;
+    transition: all 250ms ease;
     transform: translateY(-50%);
     line-height: 1;
 
     &:focus { outline: none; }
-    &:hover { border-color: white; }
+    &:hover {
+      background-color: $blue-600;
+      border-color: $blue-600;
+      svg path {
+        fill: white;
+      }
+    }
+
+    svg path {
+      fill: $blue-600;
+    }
 
     &#{$sm}left {
-      left: 2em;
+      left: 1rem;
     }
 
     &#{$sm}right {
-      right: 2em;
+      right: 1rem;
     }
 
     &#{$sm}disabled {
