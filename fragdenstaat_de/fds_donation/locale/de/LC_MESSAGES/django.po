@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-15 13:06+0200\n"
-"PO-Revision-Date: 2020-06-15 13:06+0200\n"
+"PO-Revision-Date: 2020-06-17 12:45+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -146,11 +146,11 @@ msgstr "Ist Spender:in"
 
 #: cms_plugins.py:127
 msgid "Is recurring donor"
-msgstr "Ist keine Dauerspender:in"
+msgstr "Ist Dauerspender:in"
 
 #: cms_plugins.py:135
 msgid "Is not recurring donor"
-msgstr "Ist Dauerspender:in"
+msgstr "Ist nicht Dauerspender:in"
 
 #: cms_plugins.py:143
 msgid "Is recent donor"
