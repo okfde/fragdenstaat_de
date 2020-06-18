@@ -476,7 +476,9 @@ class FragDenStaatBase(German, Base):
             custom_replacements=[
                 rec(r'[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([a-zA-Z0-9\s/]+)'),
                 rec(r'Ihr Kennwort lautet: (.*)'),
-                rec(r'Token: ([A-Z0-9]+)')
+                rec(r'Token: ([A-Z0-9]+)'),
+                rec(r'(https://wetransfer.com/downloads/.*)'),
+                rec(r'(https://send.firefox.com/download/.*)'),
             ],
             closings=[
                 rec(r"\b([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u|\?)(ß|ss|\?)(en?)?,?"),
