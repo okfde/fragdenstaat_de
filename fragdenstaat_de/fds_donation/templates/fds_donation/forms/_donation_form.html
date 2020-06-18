@@ -1,7 +1,7 @@
 {% load i18n %}
 
-<div class="row justify-content-center mb-2 mt-2"><div class="col-lg-8">
-<form action="{{ form.action }}" method="POST" class="donation-form">
+<div class="row justify-content-center"><div class="col-lg-8">
+<form action="{{ form.action }}" method="POST" class="donation-form bg-white text-body">
   {% csrf_token %}
   {{ form.form_settings }}
   {{ form.reference }}
