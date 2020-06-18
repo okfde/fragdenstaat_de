@@ -19,7 +19,7 @@
         <strong>Verwendungszweck:&nbsp;</strong>{{ order.remote_reference }}<br>
         <strong>BLZ:</strong>&nbsp;430 609 67 (GLS Bank)
       </p>
-      <p>
+      {% comment %} <p>
         Falls Sie eine Banking-App verwenden, die Direktaufrufe unterstützt, können Sie diesen Link verwenden:<br/>
         {% if order.is_recurring %}
           <a class="btn btn-secondary" href="bank://periodicsinglepaymentsepa?name={{ 'Open Knowledge Foundation Deutschland e.V.'|urlencode }}&amp;iban=DE36430609671173893200&amp;bic=GENODEM1GLS&amp;amount={{ order.subscription.plan.amount }}&amp;reason={{ order.remote_reference }}&amp;periodictimeunit=M&amp;periodictimeunitrotation={{ order.subscription.plan.interval }}">
@@ -28,7 +28,7 @@
         {% endif %}
           Direktlink für Banking-App
         </a>
-      </p>
+      </p> {% endcomment %}
       <p>
         Vielen Dank!
       </p>
