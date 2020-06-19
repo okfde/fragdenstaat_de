@@ -411,8 +411,17 @@ class DonorForm(forms.Form):
         choices=(
             ('', '---'),
             ('DE', _('Germany')),
+            # Germany, its neighbours and German speaking countries
             ('AT', _('Austria')),
             ('CH', _('Switzerland')),
+            ('BE', _('Belgium')),
+            ('NL', _('Netherlands')),
+            ('LU', _('Luxembourg')),
+            ('FR', _('France')),
+            ('LI', _('Liechtenstein')),
+            ('DK', _('Denmark')),
+            ('PL', _('Poland')),
+            ('CZ', _('Czech Republic')),
         ),
         widget=forms.Select(attrs={
             'class': 'form-control'
