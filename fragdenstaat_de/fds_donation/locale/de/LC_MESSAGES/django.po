@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-15 13:06+0200\n"
-"PO-Revision-Date: 2020-06-17 12:45+0200\n"
+"POT-Creation-Date: 2020-06-19 17:54+0200\n"
+"PO-Revision-Date: 2020-06-19 17:55+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -234,87 +234,119 @@ msgstr "Spende für %s"
 msgid "{amount} EUR donation {str_interval} to {site_name}"
 msgstr "{amount} EUR Spende {str_interval} an {site_name}"
 
-#: forms.py:326
+#: forms.py:330
 msgid "Salutation"
 msgstr "Anrede"
 
-#: forms.py:335 forms.py:337
+#: forms.py:339 forms.py:341
 msgid "First name"
 msgstr "Vorname"
 
-#: forms.py:343 forms.py:345
+#: forms.py:347 forms.py:349
 msgid "Last name"
 msgstr "Nachname"
 
-#: forms.py:350
+#: forms.py:354
 msgid "Company"
 msgstr "Firma"
 
-#: forms.py:355
+#: forms.py:359
 msgid "Company name"
 msgstr "Firmenname"
 
-#: forms.py:366 forms.py:437 forms.py:481
+#: forms.py:370 forms.py:450 forms.py:494
 msgid "No, thank you."
 msgstr "Nein, danke."
 
-#: forms.py:367
+#: forms.py:371
 msgid "Yes, once a year."
 msgstr "Ja, einmal im Jahr."
 
-#: forms.py:372
+#: forms.py:376
 msgid "Do you want a donation receipt?"
 msgstr "Möchten Sie eine Spendenbescheinigung?"
 
-#: forms.py:374 forms.py:443 forms.py:458
+#: forms.py:378 forms.py:456 forms.py:471
 msgid "You have to decide."
 msgstr "Sie müssen sich entscheiden."
 
-#: forms.py:379 forms.py:382
+#: forms.py:383 forms.py:386
 msgid "Street, house number"
 msgstr "Straße, Hausnummer"
 
-#: forms.py:388 forms.py:391
+#: forms.py:392 forms.py:395
 msgid "Postcode"
 msgstr "Postleitzahl"
 
-#: forms.py:397 forms.py:400
+#: forms.py:401 forms.py:404
 msgid "City"
 msgstr "Ort"
 
-#: forms.py:405
+#: forms.py:409
 msgid "Country"
 msgstr "Land"
 
-#: forms.py:409
+#: forms.py:413
 msgid "Germany"
 msgstr "Deutschland"
 
-#: forms.py:410
+#: forms.py:415
 msgid "Austria"
 msgstr "Österreich"
 
-#: forms.py:411
+#: forms.py:416
 msgid "Switzerland"
 msgstr "Schweiz"
 
+#: forms.py:417
+msgid "Belgium"
+msgstr "Belgien"
+
 #: forms.py:418
+msgid "Netherlands"
+msgstr "Niederlande"
+
+#: forms.py:419
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+#: forms.py:420
+msgid "France"
+msgstr "Frankreich"
+
+#: forms.py:421
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: forms.py:422
+msgid "Denmark"
+msgstr "Dänemark"
+
+#: forms.py:423
+msgid "Poland"
+msgstr "Polen"
+
+#: forms.py:424
+msgid "Czech Republic"
+msgstr "Tschechien"
+
+#: forms.py:431
 msgid "Email"
 msgstr "E-Mail"
 
-#: forms.py:423
+#: forms.py:436
 msgid "e.g. name@example.org"
 msgstr "z.B. name@beispiel.de"
 
-#: forms.py:436
+#: forms.py:449
 msgid "Yes, please!"
 msgstr "Ja, gerne!"
 
-#: forms.py:441
+#: forms.py:454
 msgid "News"
 msgstr "Neuigkeiten"
 
-#: forms.py:453
+#: forms.py:466
 msgid ""
 "With your donation you can also create a FragDenStaat account where you can "
 "manage your details, donations and requests."
@@ -322,19 +354,19 @@ msgstr ""
 "In Ihrem FragDenStaat-Konto können Sie Ihre Daten pflegen, Ihre Spenden "
 "einsehen sowie Ihre Anfragen verwalten."
 
-#: forms.py:488
+#: forms.py:501
 msgid "Your name"
 msgstr "Ihr Name"
 
-#: forms.py:495
+#: forms.py:508
 msgid "Your email address"
 msgstr "Deine E-Mail-Adresse"
 
-#: forms.py:501
+#: forms.py:514
 msgid "Shipping address"
 msgstr "Versandadresse"
 
-#: forms.py:508
+#: forms.py:521
 msgid "Please choose your donation gift"
 msgstr "Wählen Sie Ihr Dankeschön aus"
 
@@ -531,10 +563,6 @@ msgstr "ihre-spenden/spenden/"
 
 #: urls.py:35
 #, python-brace-format
-#| msgctxt "url pattern"
-#| msgid ""
-#| "^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
-#| "[0-9a-z]{12})/$"
 msgctxt "url pattern"
 msgid ""
 "^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
