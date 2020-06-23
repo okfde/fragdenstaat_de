@@ -481,12 +481,12 @@ class FragDenStaatBase(German, Base):
                 rec(r'(https://send.firefox.com/download/.*)'),
             ],
             closings=[
-                rec(r"\b([Mm]it )?(den )?(freundliche(n|m)?|vielen|besten)? ?Gr(ü|u|\?)(ß|ss|\?)(en?)?,?"),
+                rec(r"\b([Mm]it *)?(den *)?(freundliche(n|m)?|vielen|besten)? *Gr(ü|u|\?)(ß|ss|\?)(en?)?,?"),
                 rec(r"\bHochachtungsvoll,?"),
                 rec(r'\bi\. ?A\.'),
                 rec(r'\bMfG'),
                 rec(r'\b[iI]m Auftrag'),
-                rec(r"\b(?:Best regards|Kind regards|Sincerely),?")
+                rec(r"\b(?:Best *regards|Kind *regards|Sincerely),?")
             ],
             hide_content_funcs=[
                 # Hide DHL delivery emails
