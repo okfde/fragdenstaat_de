@@ -1,7 +1,9 @@
 <ul class="list-unstyled">
   {% for object in object_list %}
     <li class="media">
+      {% block pre_item %}{% endblock %}
       {% include "foirequest/snippets/request_item.html" %}
+      {% block post_item %}{% endblock %}
     </li>
   {% endfor %}
 </ul>
