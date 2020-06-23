@@ -1,3 +1,4 @@
+from collections import Counter
 import datetime
 import logging
 import re
@@ -55,6 +56,8 @@ BET_CHOICES = [
     ('th', 'Thüringen'),
 ]
 
+TIPP_SPIEL_NAME = 'fds_meisterschaften_2020_name'
+
 
 class TippspielForm(forms.Form):
     name = forms.CharField(max_length=50)
@@ -68,9 +71,8 @@ class TippspielForm(forms.Form):
             raise forms.ValidationError('Tipp-Spiel-Runde abgelaufen!')
 
     def save(self, user):
-        key = 'fds_meisterschaften_2020_name'
         UserPreference.objects.update_or_create(
-            user=user, key=key,
+            user=user, key=TIPP_SPIEL_NAME,
             defaults={'value': self.cleaned_data['name']}
         )
         key = 'fds_meisterschaften_2020_{}'.format(self.cleaned_data['match'])
@@ -78,3 +80,38 @@ class TippspielForm(forms.Form):
             user=user, key=key,
             defaults={'value': self.cleaned_data['bet']}
         )
+
+
+WINNERS = {
+    1: 'sh',
+    5: 'ni',
+    8: 'sl'
+}
+
+TOP_COUNT = 20
+
+
+def calculate_tipp_table(top_count=TOP_COUNT):
+    import pandas as pd
+
+    tipper = Counter()
+    for match_number, winner in WINNERS.items():
+        key = 'fds_meisterschaften_2020_{}'.format(match_number)
+        tipper.update(
+            UserPreference.objects.filter(
+                key=key, value=winner
+            ).values_list('user_id', flat=True)
+        )
+    df = pd.DataFrame(tipper.items(), columns=['user_id', 'points'])
+    df['rank'] = df['points'].rank(method='dense', ascending=False).apply(int)
+    df = df.sort_values('rank')
+    df = df[:top_count]
+    names = UserPreference.objects.filter(
+        key=TIPP_SPIEL_NAME,
+        user_id__in=list(df['user_id'])
+    )
+    names = {x.user_id: x.value for x in names}
+    df['name'] = df['user_id'].apply(lambda x: names.get(x, '-'))
+    return df
+
+    return df[['rank', 'name', 'points']].to_csv(index=False)
