@@ -82,20 +82,14 @@ class TippspielForm(forms.Form):
         )
 
 
-WINNERS = {
-    1: 'sh',
-    5: 'ni',
-    8: 'sl'
-}
-
 TOP_COUNT = 20
 
 
-def calculate_tipp_table(top_count=TOP_COUNT):
+def calculate_tipp_table(winners, top_count=TOP_COUNT):
     import pandas as pd
 
     tipper = Counter()
-    for match_number, winner in WINNERS.items():
+    for match_number, winner in winners.items():
         key = 'fds_meisterschaften_2020_{}'.format(match_number)
         tipper.update(
             UserPreference.objects.filter(
@@ -113,5 +107,3 @@ def calculate_tipp_table(top_count=TOP_COUNT):
     names = {x.user_id: x.value for x in names}
     df['name'] = df['user_id'].apply(lambda x: names.get(x, '-'))
     return df
-
-    return df[['rank', 'name', 'points']].to_csv(index=False)
