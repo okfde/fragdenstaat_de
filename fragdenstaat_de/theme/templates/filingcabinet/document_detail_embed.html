@@ -1,0 +1,15 @@
+{% extends "filingcabinet/document_detail_embed.html" %}
+
+{% load static %}
+
+{% block body_tag %}
+{{ block.super }}
+<div style="position:fixed;bottom:0;right:0;" class="bg-white w-100 px-1 pb-1">
+  <a class="float-left mt-1" href="{{ SITE_URL }}{{ object.get_absolute_url }}" target="_blank" rel="noopener">
+    <small>„{{ object.title|truncatechars:20 }}“</small>
+  </a>
+  <a class="float-right" href="{{ SITE_URL }}" target="_blank" rel="noopener">
+    <img class="mt-1" style="height:25px;" src="{% static 'img/header_logo.svg' %}" alt="FragDenStaat.de"/>
+  </a>
+</div>
+{% endblock %}
