@@ -5,6 +5,13 @@ from django.utils.translation import gettext_lazy as _
 from .models import LatestArticlesPlugin, TEMPLATES
 
 
+@plugin_pool.register_plugin
+class BlogContent(CMSPluginBase):
+    module = 'Blog'
+    render_template = 'fds_blog/plugins/blog_content.html'
+    allow_children = True
+
+
 class BlogPlugin(CMSPluginBase):
     module = 'Blog'
 
