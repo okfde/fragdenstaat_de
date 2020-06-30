@@ -153,7 +153,7 @@ class DonorUserMixin:
             email_confirmed__isnull=False
         )
         if len(donors) == 0:
-            raise Http404
+            return None
         if len(donors) == 1:
             return donors[0]
         return merge_donor_list(donors)
