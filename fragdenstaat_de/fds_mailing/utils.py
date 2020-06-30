@@ -39,7 +39,7 @@ def render_plugin_text(context, base_plugin):
     if hasattr(plugin, 'render_text'):
         return plugin.render_text(context, instance)
     if base_plugin.plugin_type == 'TextPlugin':
-        return convert_html_to_text(instance.body)
+        return convert_html_to_text(instance.body, ignore_tags=('b', 'strong'))
     return ''
 
 
