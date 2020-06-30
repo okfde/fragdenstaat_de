@@ -181,6 +181,7 @@ class FragDenStaatBase(German, Base):
         'IsDonorPlugin', 'IsNotDonorPlugin',
         'IsRecurringDonorPlugin', 'IsNotRecurringDonorPlugin',
         'IsRecentDonor', 'IsNotRecentDonor',
+        'ConcactAllowedDonor', 'ConcactNotAllowedDonor',
     ]
     CMS_PLACEHOLDER_CONF = {
         'email_body': {
