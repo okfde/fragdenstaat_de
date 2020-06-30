@@ -79,7 +79,7 @@ new_donor_thanks_email = mail_registry.register(
     'fds_donation/email/donor_new_thanks',
     (
         'name', 'first_name', 'last_name', 'salutation',
-        'payment', 'order',
+        'payment', 'order', 'donor', 'donation'
     )
 )
 
@@ -87,7 +87,7 @@ donor_thanks_email = mail_registry.register(
     'fds_donation/email/donor_thanks',
     (
         'name', 'first_name', 'last_name', 'salutation',
-        'payment', 'order',
+        'payment', 'order', 'donor', 'donation'
     )
 )
 
@@ -95,7 +95,7 @@ donor_optin_email = mail_registry.register(
     'fds_donation/email/donor_thanks_optin',
     (
         'name', 'first_name', 'last_name', 'salutation',
-        'payment', 'order',
+        'payment', 'order', 'donor', 'donation'
     )
 )
 
@@ -134,7 +134,10 @@ def send_donation_email(donation, domain_obj=None):
         'last_name': donor.last_name,
         'salutation': donor.get_salutation(),
         'payment': donation.payment,
-        'order': donation.payment.order
+        'order': donation.payment.order,
+        'donor': donor,
+        'donation': donation,
+        'user': donor.user,
     }
     context.update(extra_context)
 
