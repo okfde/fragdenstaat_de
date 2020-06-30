@@ -152,3 +152,19 @@ class IsNotRecentDonor(DonorLogigMixin, CMSPluginBase):
 
     def should_render(self, context):
         return not context.get('donor') or not context['donor'].recently_donated
+
+
+@plugin_pool.register_plugin
+class ConcactAllowedDonor(DonorLogigMixin, CMSPluginBase):
+    name = _("Is contact allowed donor")
+
+    def should_render(self, context):
+        return context.get('donor') and context['donor'].contact_allowed
+
+
+@plugin_pool.register_plugin
+class ConcactNotAllowedDonor(DonorLogigMixin, CMSPluginBase):
+    name = _("Is contact not allowed donor")
+
+    def should_render(self, context):
+        return not context.get('donor') or not context['donor'].contact_allowed
