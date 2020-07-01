@@ -409,9 +409,10 @@ class DonationAdmin(admin.ModelAdmin):
 
     list_display = (
         'get_name', 'timestamp', 'amount', 'completed', 'received',
+        'get_number',
+        'recurring',
         'purpose',
-        'reference', 'keyword', 'method',
-        'recurring', 'first_recurring'
+        'method', 'reference', 'keyword',
     )
     list_filter = (
         'completed', 'received',
@@ -419,6 +420,8 @@ class DonationAdmin(admin.ModelAdmin):
         'method',
         'purpose',
         'recurring',
+        make_rangefilter('number', 'Nr.'),
+        make_rangefilter('amount', _('amount')),
         'first_recurring',
         'reference',
         make_nullfilter('export_date', _('Receipt exported')),
@@ -447,6 +450,9 @@ class DonationAdmin(admin.ModelAdmin):
             url(r'^pivot/$',
                 self.admin_site.admin_view(self.show_pivot),
                 name='fds_donation-donation-show_pivot'),
+            url(r'^export-csv/$',
+                self.admin_site.admin_view(self.export_csv),
+                name='fds_donation-donation-export_csv'),
             url(r'^import-banktransfers/$',
                 self.admin_site.admin_view(self.import_banktransfers),
                 name='fds_donation-donation-import_banktransfers'),
@@ -461,8 +467,16 @@ class DonationAdmin(admin.ModelAdmin):
     get_name.short_description = 'Name'
     get_name.admin_order_field = Concat('donor__first_name', Value(' '), 'donor__last_name')
 
+    def get_number(self, obj):
+        return obj.number
+    get_number.short_description = 'Nr.'
+    get_number.admin_order_field = 'number'
+
     def get_queryset(self, request):
         qs = super().get_queryset(request)
+        return self.enhance_queryset(qs)
+
+    def enhance_queryset(self, qs):
         return qs.select_related('donor')
 
     def show_pivot(self, request):
@@ -481,6 +495,51 @@ class DonationAdmin(admin.ModelAdmin):
             'pivot_config': config,
         }
         return render(request, "pivot/admin_pivot.html", ctx)
+
+    def export_csv(self, request):
+        def to_local(date):
+            if date is None:
+                return None
+            return timezone.localtime(date).isoformat()
+
+        def make_dicts(queryset):
+            for donation in queryset:
+                yield {
+                    'timestamp': to_local(donation.timestamp),
+                    'amount': donation.amount,
+                    'amount_received': donation.amount_received,
+                    'received': donation.received,
+                    'received_timestamp': to_local(donation.received_timestamp),
+                    'method': donation.method,
+                    'purpose': donation.purpose,
+                    'reference': donation.reference,
+                    'keyword': donation.keyword,
+                    'recurring': donation.recurring,
+                    'first_recurring': donation.first_recurring,
+                    'donor_id': donation.donor_id,
+                    'number': donation.number,
+                    'city': donation.donor.city,
+                    'country': donation.donor.country,
+                    'postcode': donation.donor.postcode,
+                    'donor_recurring_amount': donation.donor.recurring_amount,
+                    'first_donation': to_local(donation.donor.first_donation),
+                    'last_donation': to_local(donation.donor.last_donation),
+                    'contact_allowed': donation.donor.contact_allowed,
+                    'become_user': donation.donor.become_user,
+                    'receipt': donation.donor.receipt,
+                    'tags': ', '.join(x.name for x in donation.donor.tags.all())
+                }
+
+        response = self.changelist_view(request)
+        try:
+            queryset = response.context_data['cl'].queryset
+        except (AttributeError, KeyError):
+            return response
+
+        return export_csv_response(
+            dict_to_csv_stream(make_dicts(queryset))
+        )
+    export_csv.short_description = _("Export to CSV")
 
     def resend_donation_mail(self, request, queryset):
         resent = 0
