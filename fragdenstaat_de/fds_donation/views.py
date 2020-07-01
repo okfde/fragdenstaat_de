@@ -1,6 +1,6 @@
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, Http404
+from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.urls import reverse
