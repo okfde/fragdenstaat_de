@@ -3,6 +3,7 @@ from urllib.parse import urlencode
 import uuid
 
 from django.db import models
+from django.db.models.functions import RowNumber
 from django.contrib.postgres.fields import HStoreField
 from django.conf import settings
 from django.utils import timezone
@@ -273,6 +274,7 @@ class Donation(models.Model):
     received = models.BooleanField(default=False)
     received_timestamp = models.DateTimeField(blank=True, null=True)
     email_sent = models.DateTimeField(null=True, blank=True)
+    number = models.IntegerField(default=0)
 
     note = models.TextField(blank=True)
 
@@ -305,6 +307,26 @@ class Donation(models.Model):
         return '{} ({} - {})'.format(
             self.amount, self.timestamp, self.donor
         )
+
+    def save(self, *args, **kwargs):
+        ret = super().save(*args, **kwargs)
+
+        donations = Donation.objects.filter(
+            donor_id=self.donor_id, completed=True
+        ).annotate(
+            new_number=models.Window(
+                expression=RowNumber(),
+                order_by=models.F('timestamp').asc(),
+            )
+        )
+        # Can't call .update() directly due to Django
+        # ORM limitations, loop and update:
+        for d in donations:
+            if d.number != d.new_number:
+                Donation.objects.filter(id=d.id).update(
+                    number=d.new_number
+                )
+        return ret
 
     def get_success_url(self):
         if self.donor and self.donor.user:
