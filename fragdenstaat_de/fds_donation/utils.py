@@ -112,10 +112,8 @@ def merge_donors(candidates, primary_id, validated_data=None):
     # Recalculate stored aggregates
     aggs = Donation.objects.filter(donor=merged_donor).aggregate(
         first_donation=Min('timestamp', filter=Q(received=True)),
-        last_donation=Max('timestamp', filter=Q(received=True))
     )
     merged_donor.first_donation = aggs['first_donation']
-    merged_donor.last_donation = aggs['last_donation']
     merged_donor.save()
 
     detect_recurring_on_donor(merged_donor)

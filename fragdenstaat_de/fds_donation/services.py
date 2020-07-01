@@ -26,7 +26,6 @@ def get_or_create_donor(data, user=None, subscription=None):
     if user is not None:
         try:
             donor = Donor.objects.get(user=user)
-            donor.last_donation = timezone.now()
             if subscription:
                 donor.recurring_amount = subscription.plan.amount_year / 12
                 donor.subscriptions.add(subscription)

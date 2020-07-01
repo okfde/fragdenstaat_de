@@ -167,6 +167,9 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             donation_count=Count(
                 'donations', filter=donations_filter
             ),
+            last_donation=Max(
+                'donations__timestamp',
+                filter=donations_filter
             )
         )
         return qs
@@ -183,6 +186,11 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     def amount_last_year(self, obj):
         return obj.amount_last_year
     amount_last_year.admin_order_field = 'amount_last_year'
+
+    def last_donation(self, obj):
+        return obj.last_donation
+    last_donation.admin_order_field = 'last_donation'
+    last_donation.short_description = 'Letzte Spende'
 
     def get_name(self, obj):
         return str(obj)

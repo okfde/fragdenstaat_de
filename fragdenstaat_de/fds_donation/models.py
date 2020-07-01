@@ -7,6 +7,7 @@ from django.contrib.postgres.fields import HStoreField
 from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import pgettext, gettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
@@ -82,7 +83,6 @@ class Donor(models.Model):
 
     active = models.BooleanField(default=False)
     first_donation = models.DateTimeField(default=timezone.now)
-    last_donation = models.DateTimeField(default=timezone.now)
 
     user = models.ForeignKey(
         User, null=True, blank=True,
@@ -107,7 +107,7 @@ class Donor(models.Model):
     tags = TaggableManager(through=TaggedDonor, blank=True)
 
     class Meta:
-        ordering = ('-last_donation',)
+        ordering = ('-id',)
         verbose_name = _('donor')
         verbose_name_plural = _('donors')
 
@@ -197,7 +197,13 @@ class Donor(models.Model):
             'country': self.country,
         }
 
-    @property
+    @cached_property
+    def last_donation(self):
+        return self.donations.filter(received=True).aggregate(
+            last_donation=models.Max('timestamp')
+        )['last_donation']
+
+    @cached_property
     def recently_donated(self):
         recently_donated = False
         if self.last_donation:
