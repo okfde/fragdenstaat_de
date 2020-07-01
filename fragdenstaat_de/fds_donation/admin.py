@@ -5,10 +5,11 @@ import zipfile
 from django.db.models import Q, Sum, Avg, Count, Value, Aggregate, F
 from django.db.models.functions import Concat
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django import forms
 from django.contrib import admin, messages
 from django.conf.urls import url
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.admin.views.main import ChangeList
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import PermissionDenied
@@ -20,14 +21,15 @@ from django.contrib.admin import helpers
 from django.template.response import TemplateResponse
 
 from froide.helper.admin_utils import (
-    ForeignKeyFilter, make_nullfilter, AdminTagAllMixIn,
+    ForeignKeyFilter, make_nullfilter, make_batch_tag_action,
 )
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
+from froide.helper.widgets import TagAutocompleteWidget
 
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 from fragdenstaat_de.fds_mailing.models import MailingMessage
 
-from .models import DonationGift, Donor, Donation
+from .models import DonationGift, Donor, Donation, DonorTag
 from .external import import_banktransfers, import_paypal
 from .filters import DateRangeFilter, make_rangefilter
 from .services import send_donation_email
@@ -45,6 +47,45 @@ def median(field):
         function="percentile_cont",
         template="%(function)s(0.5) WITHIN GROUP (ORDER BY %(expressions)s)",
     )
+
+
+DONOR_TAG_AUTOCOMPLETE = reverse_lazy(
+    'admin:fds_donation-donortag-autocomplete'
+)
+
+
+class DonorTagAdmin(admin.ModelAdmin):
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            url(r'^autocomplete/$',
+                self.admin_site.admin_view(self.autocomplete),
+                name='fds_donation-donortag-autocomplete'),
+        ]
+        return my_urls + urls
+
+    def autocomplete(self, request):
+        if not request.method == 'GET':
+            raise PermissionDenied
+        if not self.has_change_permission(request):
+            raise PermissionDenied
+
+        query = request.GET.get('query', '')
+        tags = []
+        if query:
+            tags = DonorTag.objects.filter(name__istartswith=query)
+            tags = [t for t in tags.values_list('name', flat=True)]
+        return JsonResponse(tags, safe=False)
+
+
+class DonorAdminForm(forms.ModelForm):
+    class Meta:
+        model = Donor
+        fields = '__all__'
+        widgets = {
+            'tags': TagAutocompleteWidget(
+                autocomplete_url=DONOR_TAG_AUTOCOMPLETE),
+        }
 
 
 class DonorChangeList(ChangeList):
@@ -67,7 +108,9 @@ class DonorChangeList(ChangeList):
         return ret
 
 
-class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
+class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
+    form = DonorAdminForm
+
     list_display = (
         'get_name', 'admin_link_donations', 'city',
         'active',
@@ -75,6 +118,7 @@ class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
         'amount_total',
         'amount_last_year',
         'recurring_amount',
+        'donation_count',
         'receipt',
     )
     list_filter = (
@@ -97,12 +141,13 @@ class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
         'identifier', 'note'
     )
     raw_id_fields = ('user', 'subscriptions')
-    tag_all_config = ('tags', None)
     actions = [
         'merge_donors', 'detect_duplicates', 'clear_duplicates',
         'export_zwbs', 'get_zwb_pdf', 'tag_all',
         'send_mailing'
     ] + SetupMailingMixin.actions
+
+    tag_all = make_batch_tag_action(autocomplete_url=DONOR_TAG_AUTOCOMPLETE)
 
     def get_changelist(self, request):
         return DonorChangeList
@@ -118,9 +163,18 @@ class DonorAdmin(SetupMailingMixin, AdminTagAllMixIn, admin.ModelAdmin):
                 filter=donations_filter & Q(
                     donations__received_timestamp__year=last_year
                 )
+            ),
+            donation_count=Count(
+                'donations', filter=donations_filter
+            ),
             )
         )
         return qs
+
+    def donation_count(self, obj):
+        return obj.donation_count
+    donation_count.admin_order_field = 'donation_count'
+    donation_count.short_description = 'Anzahl'
 
     def amount_total(self, obj):
         return obj.amount_total
@@ -368,7 +422,14 @@ class DonationAdmin(admin.ModelAdmin):
         'donor__company_name',
     )
 
-    actions = ['resend_donation_mail']
+    actions = ['resend_donation_mail', 'tag_donors']
+
+    tag_donors = make_batch_tag_action(
+        action_name='tag_donors',
+        autocomplete_url=DONOR_TAG_AUTOCOMPLETE,
+        field=lambda obj, tags: obj.donor.tags.add(*tags),
+        short_description='Füge Tag zu zugehörigen Spender:innen hinzu'
+    )
 
     def get_urls(self):
         urls = super().get_urls()
@@ -492,3 +553,4 @@ class DonationGiftAdmin(admin.ModelAdmin):
 admin.site.register(Donor, DonorAdmin)
 admin.site.register(Donation, DonationAdmin)
 admin.site.register(DonationGift, DonationGiftAdmin)
+admin.site.register(DonorTag, DonorTagAdmin)
