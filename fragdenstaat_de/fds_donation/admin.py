@@ -2,7 +2,9 @@ from io import BytesIO
 import uuid
 import zipfile
 
-from django.db.models import Q, Sum, Avg, Count, Value, Aggregate, F
+from django.db.models import (
+    Q, Max, Sum, Avg, Count, Value, Aggregate, F
+)
 from django.db.models.functions import Concat
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
