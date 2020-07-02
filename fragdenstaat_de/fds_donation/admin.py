@@ -527,7 +527,8 @@ class DonationAdmin(admin.ModelAdmin):
                     'contact_allowed': donation.donor.contact_allowed,
                     'become_user': donation.donor.become_user,
                     'receipt': donation.donor.receipt,
-                    'tags': ', '.join(x.name for x in donation.donor.tags.all())
+                    'tags': ', '.join(x.name for x in donation.donor.tags.all()),
+                    'donation_count': donation.donor.donations.all().count()
                 }
 
         response = self.changelist_view(request)
