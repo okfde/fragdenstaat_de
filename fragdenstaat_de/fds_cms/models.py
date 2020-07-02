@@ -89,7 +89,7 @@ class DocumentPagesCMSPlugin(CMSPlugin):
 
     def get_pages(self):
         page_numbers = list(self.get_page_numbers())
-        pages = self.doc.page_set.filter(number__in=page_numbers)
+        pages = self.doc.pages.filter(number__in=page_numbers)
         for page in pages:
             page.image_url = getattr(page, 'image_' + self.size, 'image_small').url
         return pages
