@@ -111,7 +111,7 @@ def merge_donors(candidates, primary_id, validated_data=None):
 
     # Recalculate stored aggregates
     aggs = Donation.objects.filter(donor=merged_donor).aggregate(
-        first_donation=Min('timestamp', filter=Q(received=True)),
+        first_donation=Min('timestamp'),
     )
     merged_donor.first_donation = aggs['first_donation']
     merged_donor.save()
