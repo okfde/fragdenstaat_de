@@ -332,6 +332,8 @@ class Mailing(models.Model):
                 newsletter=self.newsletter, subscribed=True
             )
             for subscription in subscriptions:
+                if not subscription.email:
+                    continue
                 MailingMessage.objects.create(
                     mailing=self,
                     subscription=subscription,
