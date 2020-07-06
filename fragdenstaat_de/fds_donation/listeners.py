@@ -36,7 +36,6 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
     elif instance.status in (
             PaymentStatus.ERROR, PaymentStatus.REFUNDED,
             PaymentStatus.REJECTED):
-        obj.completed = False
         obj.received = False
     elif instance.status in (PaymentStatus.PENDING,):
         obj.completed = True
