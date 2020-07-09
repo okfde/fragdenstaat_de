@@ -65,7 +65,7 @@ class DocumentEmbedPlugin(CMSPluginBase):
     model = DocumentEmbedCMSPlugin
     module = _("Document")
     name = _("Document embed")
-    text_enabled = True
+    text_enabled = False
     render_template = "document/cms_plugins/document_embed.html"
     raw_id_fields = ('doc',)
 
@@ -94,7 +94,7 @@ class DocumentCollectionEmbedPlugin(CMSPluginBase):
     model = DocumentCollectionEmbedCMSPlugin
     module = _("Document")
     name = _("Document collection embed")
-    text_enabled = True
+    text_enabled = False
     render_template = "document/cms_plugins/document_collection_embed.html"
     raw_id_fields = ('collection',)
 
