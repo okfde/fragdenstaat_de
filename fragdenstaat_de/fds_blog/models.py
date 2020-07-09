@@ -10,6 +10,7 @@ from django.utils import html
 from django.contrib.sites.shortcuts import get_current_site
 
 from cms.models.pluginmodel import CMSPlugin
+from cms.utils.plugins import get_plugins
 from cms.models.fields import PlaceholderField
 
 from parler.models import TranslatableModel, TranslatedFields
@@ -321,9 +322,19 @@ class Article(
     def get_html_content(self, request=None, template='fds_blog/content.html'):
         if request is None:
             request = get_request(language=self.language)
+
+        plugins = get_plugins(
+            request=request,
+            placeholder=self.content_placeholder,
+            template=template,
+            lang=self.language
+        )
+        blog_content_plugins = [
+            p for p in plugins if p.plugin_type == 'BlogContent'
+        ]
+
         context = {
-            'placeholder': self.content_placeholder,
-            'lang': self.language,
+            'plugins': blog_content_plugins,
             'object': self
         }
         return render_to_string(template, context=context, request=request)

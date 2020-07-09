@@ -1,4 +1,9 @@
 {% load cms_tags %}
 {% block before_main %}{% endblock %}
 {% render_placeholder placeholder language lang %}
+
+{% for plugin in plugins %}
+  {% render_plugin plugin %}
+{% endfor %}
+
 {% block after_main %}{% endblock %}
