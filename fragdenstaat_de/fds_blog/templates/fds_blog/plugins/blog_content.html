@@ -1,17 +1,7 @@
 {% load cms_tags %}
 
-{% for plugin in instance.child_plugin_instances %}
-  {% ifchanged plugin.plugin_type %}
-    {% if plugin.plugin_type == "TextPlugin" %}
-      <div class="blog-content">
-    {% endif %}
-  {% endifchanged %}
-
-  {% render_plugin plugin %}
-
-  {% ifchanged plugin.plugin_type %}
-    {% if plugin.plugin_type == "TextPlugin" %}
-      </div>
-    {% endif %}
-  {% endifchanged %}
-{% endfor %}
+<div class="blog-content">
+  {% for plugin in instance.child_plugin_instances %}
+    {% render_plugin plugin %}
+  {% endfor %}
+</div>
