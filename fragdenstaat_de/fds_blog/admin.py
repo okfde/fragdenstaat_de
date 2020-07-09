@@ -227,8 +227,15 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
 
         if not change:
             article.sites.add(Site.objects.get_current())
-            add_plugin(article.content_placeholder, 'TextPlugin',
-                       article.language, body='')
+            blog_content = add_plugin(
+                article.content_placeholder, 'BlogContent', article.language
+            )
+            add_plugin(
+                article.content_placeholder, 'TextPlugin',
+                article.language, body='<p>Content</p>',
+                position='first-child',
+                target=blog_content,
+            )
 
     def get_title(self, article):
         """
