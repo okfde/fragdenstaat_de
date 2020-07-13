@@ -90,6 +90,15 @@ class FragDenStaat(FragDenStaatBase):
         }
     }
 
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [('localhost', 6379)],
+            },
+        },
+    }
+
     @property
     def TEMPLATES(self):
         TEMP = super(FragDenStaat, self).TEMPLATES
