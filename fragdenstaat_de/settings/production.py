@@ -98,6 +98,7 @@ class FragDenStaat(FragDenStaatBase):
             },
         },
     }
+    REDIS_URL = 'redis://localhost'
 
     @property
     def TEMPLATES(self):
