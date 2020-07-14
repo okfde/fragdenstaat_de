@@ -241,7 +241,7 @@ class FragDenStaatBase(German, Base):
         'autocorrect_replacementTable': {
             "...": "…",
         },
-        'removePlugins': 'contextmenu',  # liststyle,tabletools,tableselection',
+        'removePlugins': 'contextmenu,liststyle,tabletools,tableselection',
         'autocorrect_doubleQuotes': "„“",
         'disableNativeSpellChecker': False,
         'entities': False,
