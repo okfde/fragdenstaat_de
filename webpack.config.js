@@ -17,21 +17,23 @@ const ASSET_PATH = process.env.ASSET_PATH || '/static/js/';
 
 const ENTRY = {
   main: ['./frontend/javascript/main.ts'],
+  document: 'froide/frontend/javascript/document.js',
+  docupload: 'froide/frontend/javascript/docupload.js',
+  fds_cms: './frontend/javascript/fds_cms.js',
+  filingcabinet: '@okfde/filingcabinet/frontend/javascript/filingcabinet.js',
   food: 'froide_food/frontend/javascript/main.js',
   foodreport: 'froide_food/frontend/javascript/report.js',
-  payment: 'froide_payment/frontend/javascript/payment.ts',
-  publicbody: 'froide/frontend/javascript/publicbody.js',
-  makerequest: 'froide/frontend/javascript/makerequest.js',
-  request: './frontend/javascript/request.ts',
-  redact: 'froide/frontend/javascript/redact.js',
-  tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts',
-  docupload: 'froide/frontend/javascript/docupload.js',
   geomatch: 'froide/frontend/javascript/geomatch.js',
+  makerequest: 'froide/frontend/javascript/makerequest.js',
   messageredaction: 'froide/frontend/javascript/messageredaction.js',
+  moderation: 'froide/frontend/javascript/moderation.js',
+  payment: 'froide_payment/frontend/javascript/payment.ts',
+  pivot: './frontend/javascript/pivot.js',
+  publicbody: 'froide/frontend/javascript/publicbody.js',
   publicbodyupload: 'froide/frontend/javascript/publicbodyupload.js',
-  filingcabinet: '@okfde/filingcabinet/frontend/javascript/filingcabinet.js',
-  document: 'froide/frontend/javascript/document.js',
-  pivot: './frontend/javascript/pivot.js'
+  redact: 'froide/frontend/javascript/redact.js',
+  request: './frontend/javascript/request.ts',
+  tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts',
 }
 
 const EXCLUDE_CHUNKS = [

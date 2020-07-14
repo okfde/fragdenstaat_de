@@ -46,6 +46,11 @@
 
 {% block scripts %}
   {% addtoblock "js" %}<script async src="{% static 'js/main.js' %}"></script>{% endaddtoblock %}
+
+  {% if cms_toolbar.edit_mode_active %}
+    {% addtoblock "js" %}<script async src="{% static 'js/fds_cms.js' %}"></script>{% endaddtoblock %}
+  {% endif %}
+
   {{ block.super }}
 {% endblock %}
 
