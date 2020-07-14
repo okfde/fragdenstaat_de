@@ -248,6 +248,20 @@ class FragDenStaat(FragDenStaatBase):
         return P
 
 
+class FragDenStaatDebug(FragDenStaat):
+    LOGGING = FragDenStaat.LOGGING
+    LOGGING['disable_existing_loggers'] = False
+    LOGGING['loggers'][''] = {
+        'handlers': ['normal'],
+        'level': 'DEBUG'
+    }
+    LOGGING['handlers']['normal'] = {
+        'filename': os.path.join(env('DJANGO_LOG_DIR'), 'froide_debug.log'),
+        'class': 'logging.FileHandler',
+        'level': 'INFO'
+    }
+
+
 sentry_logging = LoggingIntegration(
     level=logging.INFO,  # Capture info and above as breadcrumbs
     event_level=logging.ERROR,  # Send errors as events
