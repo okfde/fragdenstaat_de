@@ -31,7 +31,7 @@ class CMSPluginEditConsumer(AsyncJsonWebsocketConsumer):
 
     async def update_userlist(self, action='joined'):
         users = await self.pm.list_present()
-        userdict = {u.id: u.get_full_name() for u in users}
+        userdict = {str(u.id): u.get_full_name() for u in users}
 
         await self.channel_layer.group_send(
             self.room,
@@ -56,7 +56,7 @@ class CMSPluginEditConsumer(AsyncJsonWebsocketConsumer):
             'type': 'userlist',
             'userlist': [
                 name for user_id, name in event['userdict'].items()
-                if user_id != self.scope['user'].id
+                if user_id != str(self.scope['user'].id)
             ],
             'user': event['user']
         })
