@@ -19,6 +19,7 @@ THEME_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 class FragDenStaatBase(German, Base):
     ROOT_URLCONF = 'fragdenstaat_de.theme.urls'
+    ASGI_APPLICATION = "fragdenstaat_de.routing.application"
 
     LANGUAGES = (
         ('de', _('German')),
