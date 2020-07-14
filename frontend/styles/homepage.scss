@@ -237,8 +237,11 @@
 .campaign-card {
   position: relative;
   width: 300px;
+  min-height: 434px;
   background-color: white;
   border: 2px solid $yellow-200;
+  justify-content: center;
+
   &__check-icon {
     display: none;
   }
@@ -252,7 +255,8 @@
       max-height: 60px;
     }
   &__content {
-    height: 192px;
+    flex-grow: 1;
+    max-height: 165px;
     overflow: hidden;
   }
 
