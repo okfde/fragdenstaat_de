@@ -11,6 +11,22 @@
 
 
 {% block foirequest_header %}
+
+  {# Kampagne Abwendungsvereinbarungen Banner in Berlin #}
+  {% if object.jurisdiction_id == 4 %}
+  <div class="row justify-content-center py-2 mb-5 border-top border-bottom border-warning">
+    <div class="col-lg-3 col-md-5">
+      <img class="img-fluid" alt="Spekulation abwenden" src="https://media.frag-den-staat.de/files/media/main/6d/3e/6d3ea39b-2f50-4ad9-b257-f8a112d1f3ca/abwendungsvereinbarung.jpg"/>
+    </div>
+    <div class="col-lg-9 col-md-7">
+      <h3 class="mt-3">Für eine transparente Berliner Wohnungspolitik:</h3>
+      <a class="btn btn-warning btn-lg mt-3" href="/kampagnen/abwendungsvereinbarungen/">
+        Jetzt Abwendungsvereinbarungen anfragen!
+      </a>
+    </div>
+  </div>
+  {% endif %}
+
   {% if "corona" in object.title|lower or "covid" in object.title|lower or "virus" in object.title|lower  %}
   <div class="alert alert-warning text-center">
     🦠<a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/nCoV.html">Allgemeine Infos zum Corona-Virus finden Sie hier beim Robert-Koch-Institut</a>🦠
