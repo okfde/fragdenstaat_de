@@ -12,6 +12,7 @@ from django.utils import timezone
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from cms.models.static_placeholder import StaticPlaceholder
 
+from froide.account.admin import UserAdmin
 from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
 
 from .models import EmailTemplate, Mailing, MailingMessage
@@ -189,6 +190,40 @@ class MailingMessageAdmin(admin.ModelAdmin):
         qs = qs.prefetch_related('donor', 'subscription', 'user')
         return qs
 
+
+# Monkey-Patch UserAdmin.send_mail to create mailing instead
+
+original_send_mail = UserAdmin.send_mail
+
+
+def send_mail(self, request, queryset):
+    """
+    Send mail to users
+
+    """
+
+    if request.POST.get('subject'):
+        subject = request.POST.get('subject', '')
+        mailing = Mailing.objects.create(
+            name=subject, publish=False
+        )
+        MailingMessage.objects.bulk_create([
+            MailingMessage(
+                mailing=mailing,
+                name=user.get_full_name(),
+                email=user.email,
+                user=user
+            ) for user in queryset
+        ])
+        change_url = reverse(
+            'admin:fds_mailing_mailing_change', args=[mailing.id]
+        )
+        return redirect(change_url)
+
+    return original_send_mail(self, request, queryset)
+
+
+UserAdmin.send_mail = send_mail
 
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
 admin.site.register(Mailing, MailingAdmin)
