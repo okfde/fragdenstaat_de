@@ -1,3 +1,4 @@
+from websockets.exceptions import ConnectionClosedOK
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from froide.helper.presence import get_presence_manager
@@ -52,14 +53,17 @@ class CMSPluginEditConsumer(AsyncJsonWebsocketConsumer):
             return
 
     async def userlist(self, event):
-        await self.send_json({
-            'type': 'userlist',
-            'userlist': [
-                name for user_id, name in event['userdict'].items()
-                if user_id != str(self.scope['user'].id)
-            ],
-            'user': event['user']
-        })
+        try:
+            await self.send_json({
+                'type': 'userlist',
+                'userlist': [
+                    name for user_id, name in event['userdict'].items()
+                    if user_id != str(self.scope['user'].id)
+                ],
+                'user': event['user']
+            })
+        except ConnectionClosedOK:
+            pass
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(
