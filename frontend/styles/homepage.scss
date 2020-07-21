@@ -84,7 +84,7 @@
   }
   &__text {
     max-width: 255px;
-    font-size: $smaller-font-size;
+    font-size: $font-size-sm;
     line-height: $line-height-smaller;
   }
   &__number {
@@ -302,7 +302,7 @@
     box-shadow: 7px 7px 0 transparentize($gray-300, .6);
   }
     &__taglist, &__date {
-      font-size: $smaller-font-size;
+      font-size: $font-size-sm;
       line-height: $line-height-smaller;
     }
       &__tag {}
@@ -429,7 +429,7 @@
     border-radius: 50%;
   }
   &__author-info {
-    font-size: $smaller-font-size;
+    font-size: $font-size-sm;
     line-height: $line-height-smaller;
   }
 }
