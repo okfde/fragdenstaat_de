@@ -71,6 +71,8 @@ $fa-font-path: '~font-awesome/fonts';
 @import '~froide/frontend/styles/components/type';
 @import '~froide/frontend/styles/components/print';
 
+// request alpha
+@import '~froide/frontend/styles/components/alpha/request_head';
 
 @import 'type';
 @import 'homepage';
