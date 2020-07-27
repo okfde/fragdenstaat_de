@@ -68,7 +68,7 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                         return self._reject(request, REASON_MALFORMED_REFERER)
 
                     # Ensure that our Referer is also secure.
-                    if referer.scheme != 'https':
+                    if referer.scheme != 'https' and not referer.netloc.endswith('.onion'):
                         return self._reject(request, REASON_INSECURE_REFERER)
 
                     # If there isn't a CSRF_COOKIE_DOMAIN, require an exact match
