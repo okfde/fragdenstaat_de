@@ -35,6 +35,7 @@ class FragDenStaat(FragDenStaatBase):
     DATA_UPLOAD_MAX_NUMBER_FIELDS = 5000
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
     STATIC_URL = env('STATIC_URL', 'https://static.frag-den-staat.de/static/')
+    CONTRACTOR_URL = STATIC_URL.replace('/static/', '/assets/')
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
