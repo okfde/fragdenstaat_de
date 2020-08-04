@@ -1,37 +1,39 @@
+$inter-font-path: '../fonts/inter';
 
-$inter-font-path: '~inter-ui/Inter (web)';
+$unicode-ranges: (
+  "latin": "U+0000-007a,U+A0,U+AB,U+AD,U+BB,U+C4,U+D6,U+D7,U+DC,U+DF,U+E4,U+E9,U+F6,U+FC,U+2013,U+2018-201A,U+201C-201E,U+2026,U+2192,U+2764",
+  "latin-ext": "U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F"
+);
 
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("#{$inter-font-path}/Inter-Regular.woff2") format("woff2");
+@mixin makeFont($name, $weight: 400, $style: normal, $range: false) {
+  @font-face {
+    font-family: 'Inter';
+    font-style: $style;
+    font-weight: $weight;
+    font-display: swap;
+    @if $range {
+      src: local("Inter #{$name}"), local("Inter-#{$name}"),
+        url("#{$inter-font-path}/Inter-#{$name}-#{$range}.woff2") format("woff2"),
+        url("#{$inter-font-path}/Inter-#{$name}-#{$range}.woff") format("woff");
+      unicode-range: unquote(map-get($unicode-ranges, $range));
+    } @else {
+      src: local("Inter #{$name}"), local("Inter-#{$name}"),
+        url("#{$inter-font-path}/Inter-#{$name}.woff2") format("woff2"),
+        url("#{$inter-font-path}/Inter-#{$name}.woff") format("woff");
+    }
+  }
 }
 
-@font-face {
-  font-family: 'Inter';
-  font-style:  italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url("#{$inter-font-path}/Inter-Italic.woff2") format("woff2");
-}
+@include makeFont('Regular', $range: "latin");
+@include makeFont('Italic', $style: italic, $range: "latin");
+@include makeFont('Semibold', $weight: 600, $range: "latin");
+@include makeFont('Bold', $weight: 600, $range: "latin");
 
-@font-face {
-  font-family: 'Inter';
-  font-style:  normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("#{$inter-font-path}/Inter-SemiBold.woff2") format("woff2");
-}
+@include makeFont('Regular', $range: "latin-ext");
+@include makeFont('Italic', $style: italic, $range: "latin-ext");
+@include makeFont('Semibold', $weight: 600, $range: "latin-ext");
+@include makeFont('Bold', $weight: 600, $range: "latin-ext");
 
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("#{$inter-font-path}/Inter-Bold.woff2") format("woff2");
-}
 
 body {
   -webkit-font-smoothing: antialiased;
