@@ -81,6 +81,8 @@ class FragDenStaatBase(German, Base):
             # 'djangocms_bootstrap4.contrib.bootstrap4_picture',
             'djangocms_bootstrap4.contrib.bootstrap4_tabs',
             'djangocms_bootstrap4.contrib.bootstrap4_utilities',
+            # Additional CMS plugins
+            'sortabletable',
 
             'djangocms_transfer',
             'contractor',
