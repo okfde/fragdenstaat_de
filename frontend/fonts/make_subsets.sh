@@ -11,6 +11,10 @@ GOOGLE_LATIN_EXT="U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-
 LATIN="U+0000-007a,U+A0,U+AB,U+AD,U+BB,U+C4,U+D6,U+D7,U+DC,U+DF,U+E4,U+E9,U+F6,U+FC,U+2013,U+2018-201A,U+201C-201E,U+2026,U+2192,U+2764"
 LATIN_EXT="U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F"
 
+# Check layout features on https://wakamaifondue.com/
+# https://rsms.me/inter/lab/?feat-cv05=1&feat-cv07=1&feat-tnum=1
+ADD_LAYOUT_FEATURES="cv05,cv07,tnum"
+
 SUBSETS=( "$LATIN" "$LATIN_EXT" )
 SUBSET_NAMES=("latin" "latin-ext")
 FORMATS=( "woff" "woff2" )
@@ -29,6 +33,7 @@ subset_name=${SUBSET_NAMES[subsetindex]}
 pyftsubset "${PATH_TO_FONT}/Inter-$style.woff" \
     --unicodes="${subset}" \
     --flavor="${format}" \
+    --layout-features+="${ADD_LAYOUT_FEATURES}" \
     --output-file="inter/Inter-${style}-${subset_name}.${format}"
 
 done
