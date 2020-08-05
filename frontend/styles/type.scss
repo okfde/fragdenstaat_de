@@ -38,6 +38,8 @@ $unicode-ranges: (
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  // Activates nicer l and German sz in Inter
+  font-feature-settings: "cv05", "cv07";
 }
 
 .lead {
