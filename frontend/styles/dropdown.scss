@@ -147,7 +147,10 @@ $dropdown-item-padding-x: $spacer;
 
 // Dividers (basically an `<hr>`) within the dropdown
 .dropdown-divider {
-  @include nav-divider($dropdown-divider-bg, $dropdown-divider-margin-y);
+  height: 0;
+  margin: $dropdown-divider-margin-y 0;
+  overflow: hidden;
+  border-top: 1px solid $dropdown-divider-bg;
 }
 
 // Links, buttons, and more within the dropdown menu
