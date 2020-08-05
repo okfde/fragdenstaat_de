@@ -166,8 +166,7 @@ class ContactForm(forms.Form):
     name = forms.CharField(
         max_length=255,
         required=False,
-        label='Ihre Behörde',
-        help_text='Name und ggf. Abteilung Ihrer Behörde',
+        label='Name',
         widget=forms.TextInput(attrs={
             'class': 'form-control'
         })
@@ -177,7 +176,6 @@ class ContactForm(forms.Form):
         max_length=255,
         required=False,
         label='Nachricht',
-        help_text='Beschreiben Sie welches Dokument oder welches Aktenzeichen eine Informationsfreiheitsanfrage nötig hätte.',
         widget=forms.Textarea(attrs={
             'class': 'form-control'
         })
@@ -186,12 +184,13 @@ class ContactForm(forms.Form):
     contact = forms.CharField(
         max_length=255,
         required=False,
-        label='Optional Kontaktmöglichkeit',
+        label='Optionale Kontaktmöglichkeit',
         help_text='Zum Beispiel eine private E-Mail-Adresse',
         widget=forms.TextInput(attrs={
             'class': 'form-control'
         })
     )
+    # Honey pot field
     url = forms.CharField(
         max_length=255,
         required=False,
@@ -199,11 +198,13 @@ class ContactForm(forms.Form):
     )
 
     def clean_message(self):
+        # Simple spam protection
         if '<a href=' in self.cleaned_data['message']:
             raise forms.ValidationError('')
         return self.cleaned_data['message']
 
     def clean_url(self):
+        # Simple spam protection
         if self.cleaned_data['url']:
             raise forms.ValidationError('')
         return ''
@@ -226,7 +227,7 @@ class ContactForm(forms.Form):
             message = pgpy.PGPMessage.new(text)
             text = public_key.encrypt(message)
         mail_managers(
-            'Behörden-Kontaktformular',
+            'Kontaktformular',
             str(text)
         )
 
