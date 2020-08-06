@@ -1,5 +1,6 @@
 from contextlib import closing
 from datetime import datetime, timedelta
+import re
 import socket
 
 from django.contrib.staticfiles.storage import StaticFilesStorage
@@ -31,10 +32,14 @@ def use_webpack_dev_server():
     return CHECK_WEBPACK['result']
 
 
+WEBPACK_PATTERN = re.compile(r'(css|js)/\w+\.(css|js)$')
+
+
 class WebpackDevStaticFilesStorage(StaticFilesStorage):
     def url(self, name):
-        if use_webpack_dev_server():
-            return 'http://localhost:8080/static/' + name
+        if WEBPACK_PATTERN.match(name):
+            if use_webpack_dev_server():
+                return 'http://localhost:8080/static/' + name
         return super(WebpackDevStaticFilesStorage, self).url(name)
 
 

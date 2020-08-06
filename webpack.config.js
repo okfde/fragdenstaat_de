@@ -5,7 +5,7 @@ const childProcess = require('child_process')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const WriteFilePlugin = require('write-file-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -66,32 +66,10 @@ const config = {
   devtool: 'inline-source-map', // any "source-map"-like devtool is possible
   node: false,
   devServer: {
-    contentBase: path.resolve(__dirname, 'fragdenstaat_de/theme'),
+    // contentBase: path.resolve(__dirname, 'fragdenstaat_de/theme'),
     headers: { 'Access-Control-Allow-Origin': '*' },
     port: 8080,
     hot: true,
-    hotOnly: true,
-    proxy: {
-      '/static': {
-        target: 'http://localhost:8000',
-        bypass: function (req, res, proxyOptions) {
-          var urlPath = req.path.substring(1)
-          urlPath = path.resolve(__dirname, 'fragdenstaat_de/theme', urlPath)
-          if (fs.existsSync(urlPath)) {
-            // Path exists in local folder
-            if (urlPath.match(BUILD_FILE_REGEX)) {
-              // console.log('Skip path in favor of hot reload:', urlPath)
-              return false
-            }
-            // console.log('Load path:', urlPath)
-            return req.path
-          }
-          // use proxy
-          // console.log('Proxy this:', urlPath)
-          return null
-        }
-      }
-    }
   },
   resolve: {
     modules: [
@@ -224,10 +202,17 @@ const config = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin({
+      dry: false,
+      cleanStaleWebpackAssets: true,
+      protectWebpackAssets: false,
+      // relative to static/js directory
+      cleanOnceBeforeBuildPatterns: ['**/*', '../css/*'],
+      dangerouslyAllowCleanPatternsOutsideProject: true
+    }),
     // new BundleAnalyzerPlugin({
     //   analyzerPort: 8905
     // }),
-    new WriteFilePlugin(),
     new webpack.NamedModulesPlugin(),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
