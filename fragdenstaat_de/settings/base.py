@@ -485,7 +485,7 @@ class FragDenStaatBase(German, Base):
                 rec(r'(https://send.firefox.com/download/.*)'),
             ],
             closings=[
-                rec(r"\b([Mm]it *)?(den *)?(freundliche(n|m)?|vielen|besten)? *Gr(ü|u|\?)(ß|ss|\?)(en?)?,?"),
+                rec(r"\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? *Gr(ü|u|\?)(ß|ss|\?)(en?)?,?"),
                 rec(r"\bHochachtungsvoll,?"),
                 rec(r'\bi\. ?A\.'),
                 rec(r'\bMfG'),
