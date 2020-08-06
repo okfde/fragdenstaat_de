@@ -33,6 +33,7 @@ const ENTRY = {
   publicbodyupload: 'froide/frontend/javascript/publicbodyupload.js',
   redact: 'froide/frontend/javascript/redact.js',
   request: './frontend/javascript/request.ts',
+  'request-alpha': ['froide/frontend/javascript/alpha/request-alpha.ts'],
   tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts',
 }
 
