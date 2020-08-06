@@ -75,6 +75,16 @@ python manage.py search_index --create
 python manage.py search_index --populate
 ```
 
+### Import SQL dumps
+
+Example of loading SQL dumps into Docker postgres:
+
+```
+docker-compose -f docker-compose.dev.yml exec db dropdb -U fragdenstaat_de fragdenstaat_de
+docker-compose -f docker-compose.dev.yml exec db createdb -U fragdenstaat_de -O fragdenstaat_de fragdenstaat_de
+gunzip -k -c dump.sql.gz | docker-compose -f docker-compose.dev.yml exec -T db psql -U fragdenstaat_de
+```
+
 ### Quick start after setup
 
 ```
