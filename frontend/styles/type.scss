@@ -1,8 +1,8 @@
 $inter-font-path: '../fonts/inter';
 
 $unicode-ranges: (
-  "latin": "U+0000-007a,U+A0,U+AB,U+AD,U+BB,U+C4,U+D6,U+D7,U+DC,U+DF,U+E4,U+E9,U+F6,U+FC,U+2013,U+2018-201A,U+201C-201E,U+2026,U+2192,U+2764",
-  "latin-ext": "U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F"
+  "latin": "U+0000-007a,U+00A0-00FF,U+2010-2027,U+20AC,U+2192,U+2764",
+  "latin-ext": "U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF"
 );
 
 @mixin makeFont($name, $weight: 400, $style: normal, $range: false) {
