@@ -158,7 +158,7 @@ sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.4
 sqlparse==0.3.1
 stripe==2.46.0
-sortabletable==0.0.12
+sortabletable==0.0.13
 suds-jurko==0.6
 surlex==0.2.0
 tblib==1.4.0
