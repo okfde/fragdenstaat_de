@@ -17,8 +17,6 @@ from django_countries.fields import CountryField
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase, TagBase
 
-from froide.account.models import User
-
 from froide_payment.models import Order, Payment, Subscription
 
 
@@ -86,7 +84,7 @@ class Donor(models.Model):
     first_donation = models.DateTimeField(default=timezone.now)
 
     user = models.ForeignKey(
-        User, null=True, blank=True,
+        settings.AUTH_USER_MODEL, null=True, blank=True,
         on_delete=models.SET_NULL
     )
     subscriptions = models.ManyToManyField(Subscription, blank=True)
