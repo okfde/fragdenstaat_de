@@ -250,7 +250,7 @@ const config = {
         }
       })
     ] : []),
-    splitChunks: {
+    splitChunks: !devMode ? {
       cacheGroups: {
         pdfjs: {
           test: /[\\/]node_modules[\\/](pdfjs-dist\/build\/pdf\.js)/,
@@ -267,7 +267,7 @@ const config = {
           minSize: 0
         }
       }
-    },
+    } : undefined,
     occurrenceOrder: true
   }
 }
