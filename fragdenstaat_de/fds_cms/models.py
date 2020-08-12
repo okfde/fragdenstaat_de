@@ -162,12 +162,12 @@ class FoiRequestListCMSPlugin(CMSPlugin):
 
     resolution = models.CharField(
         blank=True, max_length=50,
-        choices=FoiRequest.RESOLUTION_FIELD_CHOICES
+        choices=FoiRequest.RESOLUTION.choices
     )
 
     status = models.CharField(
         blank=True, max_length=50,
-        choices=FoiRequest.STATUS_FIELD_CHOICES
+        choices=FoiRequest.STATUS.choices
     )
 
     project = models.ForeignKey(
