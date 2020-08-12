@@ -99,7 +99,7 @@
 {% block before_correspondence %}
   {% fds_static_placeholder "banner_ad" %}
   {% include "froide_crowdfunding/includes/request_block.html" with object=object %}
-  {# {{ block.super }} #}
+  {{ block.super }}
 {% endblock %}
 
 {% block foirequest_messages %}
