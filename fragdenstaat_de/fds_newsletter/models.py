@@ -1,18 +1,31 @@
 import logging
 
+from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.contrib.sites.models import Site
+from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+from django.utils.crypto import get_random_string
 
-from newsletter.models import Subscription
+from newsletter.models import Subscription as NLSubscription
 from newsletter.utils import ACTIONS
 
 from froide.helper.email_sending import send_mail
+from froide.helper.email_sending import mail_registry
 
 from .utils import REFERENCE_PREFIX
 
 
 logger = logging.getLogger(__name__)
+
+
+subscriber_confirm_email = mail_registry.register(
+    'fds_newsletter/email/subscriber_confirm',
+    (
+        'name', 'newsletter',
+    )
+)
 
 
 def get_email_context(subscription):
@@ -56,7 +69,128 @@ def get_email_context(subscription):
     return context
 
 
-class MailingSubscription(Subscription):
+class NewsletterManager(models.Manager):
+    def get_visible(self):
+        return self.filter(visible=True)
+
+
+class Newsletter(models.Model):
+    title = models.CharField(
+        max_length=200, verbose_name=_('newsletter title')
+    )
+    slug = models.SlugField(db_index=True, unique=True)
+    url = models.URLField(blank=True)
+
+    email = models.EmailField(
+        verbose_name=_('e-mail'), help_text=_('Sender e-mail')
+    )
+    sender = models.CharField(
+        max_length=200, verbose_name=_('sender'), help_text=_('Sender name')
+    )
+
+    visible = models.BooleanField(
+        default=True, verbose_name=_('visible')
+    )
+
+    objects = NewsletterManager()
+
+    class Meta:
+        verbose_name = _('newsletter')
+        verbose_name_plural = _('newsletters')
+
+    def __str__(self):
+        return self.title
+
+
+class Subscription(models.Model):
+    newsletter = models.ForeignKey(
+        Newsletter, verbose_name=_('newsletter'), on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('user'),
+        on_delete=models.CASCADE, related_name='+'
+    )
+
+    name = models.CharField(
+        db_column='name', max_length=30, blank=True, null=True,
+        verbose_name=_('name'), help_text=_('optional')
+    )
+    subscriber_email = models.EmailField(
+        db_column='email', verbose_name=_('e-mail'), db_index=True,
+        blank=True, null=True
+    )
+    send_html = models.BooleanField(default=True)
+
+    create_date = models.DateTimeField(editable=False, default=timezone.now)
+
+    last_activation_sent = models.DateTimeField(null=True, blank=True)
+
+    activation_code = models.CharField(
+        verbose_name=_('activation code'), max_length=40,
+        default=lambda: get_random_string(length=40)
+    )
+
+    subscribed = models.NullBooleanField(
+        default=None, verbose_name=_('subscribed'), db_index=True
+    )
+    subscribe_date = models.DateTimeField(
+        verbose_name=_("subscribe date"), null=True, blank=True
+    )
+
+    unsubscribe_date = models.DateTimeField(
+        verbose_name=_("unsubscribe date"), null=True, blank=True
+    )
+
+    reference = models.CharField(max_length=255, blank=True)
+    keyword = models.CharField(max_length=255, blank=True)
+
+    class Meta:
+        verbose_name = _('newsletter subscription')
+        verbose_name_plural = _('newsletter subscriptions')
+        ordering = ('-subscribe_date',)
+        constraints = [
+            models.UniqueConstraint(
+                fields=['newsletter', 'user'],
+                condition=models.Q(user__isnull=False),
+                name='unique_user_newsletter'
+            ),
+            models.UniqueConstraint(
+                fields=['newsletter', 'email'],
+                condition=models.Q(email__isnull=False),
+                name='unique_email_newsletter'
+            ),
+            models.CheckConstraint(
+                check=models.Q(
+                    user__isnull=True, email__isnull=False
+                ) | models.Q(user__isnull=False, email__isnull=True),
+                name='newsletter_subscription_user_email')
+        ]
+
+    def __str__(self):
+        return '<{}> - {}'.format(
+            self.email, self.newsletter
+        )
+
+    @property
+    def email(self):
+        if self.user:
+            return self.user.email
+        return self.subscriber_email
+
+    def send_activation_email(self, action):
+
+        context = get_email_context(self)
+
+        subscriber_confirm_email.send(
+            email=self.email,
+            user=self.user,
+            context=context,
+            ignore_active=True, priority=True
+        )
+
+
+class MailingSubscription(NLSubscription):
     class Meta:
         proxy = True
 
@@ -92,8 +226,3 @@ def send_activation_email(self, action):
             'subscriber': self
         }
     )
-
-# FIXME: monkey patch subscription
-
-
-Subscription.send_activation_email = send_activation_email

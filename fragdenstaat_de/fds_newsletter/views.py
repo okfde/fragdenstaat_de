@@ -7,23 +7,71 @@ from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404, Http404, render
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ArchiveIndexView, DateDetailView
-
-from newsletter.views import NewsletterListView, SubscribeRequestView as DNSubscribeRequestView
-from newsletter.models import Newsletter
+from django.views.generic import (
+    ListView, DetailView, ArchiveIndexView, DateDetailView,
+    TemplateView, FormView
+)
 
 from froide.helper.utils import get_redirect
 
 from fragdenstaat_de.fds_mailing.models import Mailing
 
-from .forms import NewsletterForm
+from .models import Newsletter
 from .utils import subscribe, SubscriptionResult
 
 
-class SubscribeRequestView(DNSubscribeRequestView):
-    form_class = NewsletterForm
+class NewsletterDetailView(DetailView):
+    slug_url_kwarg = 'newsletter_slug'
 
 
+class NewsletterListView(ListView):
+    queryset = Newsletter.objects.get_visible()
+
+
+class NewsletterMixin(object):
+    """
+    Mixin retrieving newsletter based on newsletter_slug from url
+    and adding it to context and form kwargs.
+    """
+
+    def process_url_data(self, *args, **kwargs):
+        """
+        Get newsletter based on `newsletter_slug` from url
+        and add it to instance attributes.
+        """
+
+        assert 'newsletter_slug' in kwargs
+
+        super().process_url_data(*args, **kwargs)
+
+        newsletter_queryset = kwargs.get(
+            'newsletter_queryset',
+            Newsletter.on_site.all()
+        )
+        newsletter_slug = kwargs['newsletter_slug']
+
+        self.newsletter = get_object_or_404(
+            newsletter_queryset, slug=newsletter_slug,
+        )
+
+    def get_form_kwargs(self):
+        """ Add newsletter to form kwargs. """
+        kwargs = super().get_form_kwargs()
+
+        kwargs['newsletter'] = self.newsletter
+
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        """ Add newsletter to context. """
+        context = super().get_context_data(**kwargs)
+
+        context['newsletter'] = self.newsletter
+
+        return context
+
+
+@require_POST
 @csrf_exempt
 def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
     if not request.is_ajax():
