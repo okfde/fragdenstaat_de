@@ -1,41 +1,10 @@
-COMPOSE=docker-compose
-DEVDOCKER=$(COMPOSE) run --rm backend
+export DJANGO_SETTINGS_MODULE=fragdenstaat_de.settings.test
+export DJANGO_CONFIGURATION=Test
+export PYTHONWARNINGS=default
 
-all: setup migrate web
+test:
+	flake8 froide
+	python manage.py test tests --keepdb
 
-services:
-	$(COMPOSE) up -d db elasticsearch
-
-shell: services
-	$(DEVDOCKER) /bin/bash
-
-migrate: build services
-	$(DEVDOCKER) python manage.py migrate --noinput
-
-web: services
-	$(COMPOSE) up backend
-
-stop:
-	$(COMPOSE) down
-	$(COMPOSE) rm -f
-
-clean:
-	rm -rf dist build .eggs
-	find . -name '*.egg-info' -exec rm -fr {} +
-	find . -name '*.egg' -exec rm -f {} +
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-
-setup:
-	./devsetup.sh
-	$(COMPOSE) build
-
-resetup:
-	./devsetup.sh
-	$(COMPOSE) build --no-cache
-
-build:
-	$(COMPOSE) stop backend
-	$(DEVDOCKER) npm run build
-
-.PHONY: build
+testci:
+	python manage.py test tests --keepdb
