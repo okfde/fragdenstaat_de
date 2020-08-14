@@ -24,16 +24,7 @@ class Test(FragDenStaatBase):
 
     GEOIP_PATH = None
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.contrib.gis.db.backends.postgis',
-            'NAME': 'fragdenstaat_de',
-            'USER': 'fragdenstaat_de',
-            'PASSWORD': 'fragdenstaat_de',
-            'HOST': '',
-            'PORT': '',
-        }
-    }
+    DATABASES = values.DatabaseURLValue('postgis://fragdenstaat_de:fragdenstaat_de@localhost:5432/fragdenstaat_de')
     ELASTICSEARCH_INDEX_PREFIX = 'fds_test'
     ELASTICSEARCH_DSL = {
         'default': {
