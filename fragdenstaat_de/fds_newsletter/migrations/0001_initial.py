@@ -35,6 +35,9 @@ class Migration(migrations.Migration):
         ('account', '0014_user_date_deactivated'),
         ('newsletter', '0004_auto_20180407_1043'),
     ]
+    run_before = [
+        ('account', '0025_auto_20200812_1212'),
+    ]
 
     operations = [
         migrations.RunPython(subscribe_newsletter),
