@@ -36,7 +36,7 @@ WEBPACK_PATTERN = re.compile(r'(css|js)/[\w-]+\.(css|js)$')
 
 
 class WebpackDevStaticFilesStorage(StaticFilesStorage):
-    def url(self, name): 
+    def url(self, name):
         if WEBPACK_PATTERN.match(name):
             if use_webpack_dev_server():
                 return 'http://localhost:8080/static/' + name

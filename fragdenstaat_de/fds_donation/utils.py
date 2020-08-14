@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.db.models import Max, Min, Q
+from django.db.models import Min
 
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_newsletter
 
