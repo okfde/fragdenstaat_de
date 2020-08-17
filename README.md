@@ -1,5 +1,7 @@
 # FragDenStaat.de
 
+![FragDenStaat CI](https://github.com/okfde/fragdenstaat_de/workflows/FragDenStaat%20CI/badge.svg)
+
 [FragDenStaat.de](https://fragdenstaat.de) is the German instance of [Froide](https://github.com/okfde/froide) – a freedom of information portal software.
 
 
