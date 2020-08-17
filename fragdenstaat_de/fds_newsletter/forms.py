@@ -48,8 +48,6 @@ class NewsletterUserExtra():
         pass
 
     def on_save(self, form, user):
-        user.newsletter = form.cleaned_data['newsletter']
-
         if not form.cleaned_data['newsletter']:
             return
 
