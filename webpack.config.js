@@ -35,6 +35,7 @@ const ENTRY = {
   request: './frontend/javascript/request.ts',
   'request-alpha': ['froide/frontend/javascript/alpha/request-alpha.ts'],
   tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts',
+  campaign_map: 'froide_campaign/frontend/javascript/main.js',
 }
 
 const EXCLUDE_CHUNKS = [
