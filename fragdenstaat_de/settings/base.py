@@ -124,6 +124,12 @@ class FragDenStaatBase(German, Base):
     DEFAULT_NEWSLETTER = 'fragdenstaat'
     DONOR_NEWSLETTER = 'spenden'
 
+    # Campaign
+
+    CAMPAIGN_PROVIDERS = [
+        ('', 'froide_campaign.providers.base.BaseProvider'),
+    ]
+
     # BLOG
 
     ARTICLE_CONTENT_TEMPLATES = [
