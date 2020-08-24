@@ -17,7 +17,7 @@ If you do not want to use Docker, you can install this like any Django project w
 FragDenStaat.de is a Django project that uses the core `froide` project and other `froide` Django apps as plugins. These froide and related apps are installed from repositories and it makes sense to set them up on your dev machine.
 
 You need to have installed:
-- Python 3.6+
+- Python 3.8+
 - yarn
 - GDAL for Django's GeoDjango
 - freetype and imagemagick

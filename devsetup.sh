@@ -43,7 +43,7 @@ ask() {
     done
 }
 
-echo "You need python3 >= 3.6 and yarn installed."
+echo "You need python3 >= 3.8 and yarn installed."
 
 python3 --version
 yarn --version
