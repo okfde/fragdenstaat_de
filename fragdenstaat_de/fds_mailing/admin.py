@@ -223,6 +223,10 @@ def send_mail(self, request, queryset):
     return original_send_mail(self, request, queryset)
 
 
+send_mail.short_description = _("Send mail to users...")
+send_mail.allowed_permissions = ('change',)
+
+
 UserAdmin.send_mail = send_mail
 
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
