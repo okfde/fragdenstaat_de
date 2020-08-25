@@ -61,11 +61,11 @@ TIPP_SPIEL_NAME = 'fds_meisterschaften_2020_name'
 
 class TippspielForm(forms.Form):
     name = forms.CharField(max_length=50)
-    match = forms.IntegerField(min_value=9, max_value=12)
+    match = forms.IntegerField(min_value=13, max_value=14)
     bet = forms.ChoiceField(choices=BET_CHOICES)
 
     def clean(self):
-        deadline = datetime.datetime(2020, 7, 22, 12, 0, 0)
+        deadline = datetime.datetime(2020, 8, 28, 12, 0, 0)
         deadline = timezone.get_current_timezone().localize(deadline)
         if timezone.now() >= deadline:
             raise forms.ValidationError('Tipp-Spiel-Runde abgelaufen!')
