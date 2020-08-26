@@ -414,6 +414,12 @@ class FragDenStaatBase(German, Base):
         'banktransfer': ('froide_payment.provider.BanktransferProvider', {}),
         'default': ('payments.dummy.DummyProvider', {})
     }
+    DONATION_PROJECTS = [
+        ('FDS', 'FragDenStaat'),  # First project becomes default project
+        ('CFG', 'Code for Germany'),
+        ('JH', 'Jugend hackt'),
+        ('GM', 'Gemeinkosten'),
+    ]
 
     EMAIL_BACKEND = 'fragdenstaat_de.theme.email_backend.CustomCeleryEmailBackend'
     CELERY_EMAIL_BACKEND = 'froide.foirequest.smtp.EmailBackend'

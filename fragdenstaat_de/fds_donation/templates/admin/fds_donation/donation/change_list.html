@@ -34,6 +34,11 @@
   <div>
     <h4>Überweisungen (XLS/XLSX)</h4>
     <form enctype="multipart/form-data" method="post" action="{% url 'admin:fds_donation-donation-import_banktransfers' %}">{% csrf_token %}
+      <select name="project">
+        {% for project, name in cl.DONATION_PROJECTS %}
+          <option value="{{ project }}">{{ name }}</option>
+        {% endfor %}
+      </select>
       <input type="file" name="file"/>
       <input type="submit" value="Überweisungen importieren"/>
     </form>

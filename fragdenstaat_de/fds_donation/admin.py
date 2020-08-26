@@ -31,7 +31,10 @@ from froide.helper.widgets import TagAutocompleteWidget
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 from fragdenstaat_de.fds_mailing.models import MailingMessage
 
-from .models import DonationGift, Donor, Donation, DonorTag
+from .models import (
+    DonationGift, Donor, Donation, DonorTag,
+    DefaultDonation, DONATION_PROJECTS
+)
 from .external import import_banktransfers, import_paypal
 from .filters import DateRangeFilter, make_rangefilter
 from .services import send_donation_email
@@ -400,6 +403,8 @@ class DonationChangeList(ChangeList):
         self.amount_received_sum = q['amount_received_sum']
         self.donor_count = q['donor_count']
         self.recurring_donor_amount = q['recurring_donor_amount']
+
+        self.DONATION_PROJECTS = DONATION_PROJECTS
         return ret
 
 
@@ -411,6 +416,7 @@ class DonationAdmin(admin.ModelAdmin):
         'get_name', 'timestamp', 'amount', 'completed', 'received',
         'get_number',
         'recurring',
+        'project',
         'purpose',
         'method', 'reference', 'keyword',
     )
@@ -418,6 +424,7 @@ class DonationAdmin(admin.ModelAdmin):
         'completed', 'received',
         ('timestamp', DateRangeFilter),
         'method',
+        'project',
         'purpose',
         'recurring',
         make_rangefilter('number', 'Nr.'),
@@ -568,6 +575,7 @@ class DonationAdmin(admin.ModelAdmin):
             raise PermissionDenied
 
         xls_file = request.FILES.get('file')
+        project = request.POST['project']
         if xls_file is None:
             self.message_user(
                 request, _('No file provided.'), level=messages.ERROR
@@ -576,7 +584,7 @@ class DonationAdmin(admin.ModelAdmin):
 
         xls_file = BytesIO(xls_file.read())
 
-        count, new_count = import_banktransfers(xls_file)
+        count, new_count = import_banktransfers(xls_file, project)
 
         self.message_user(
             request, _('Imported {rows} rows, {new} new rows.').format(
@@ -620,7 +628,13 @@ class DonationGiftAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
+class DefaultDonationAdmin(DonationAdmin):
+    list_display = [x for x in DonationAdmin.list_display if x != 'project']
+    list_filter = [x for x in DonationAdmin.list_filter if x != 'project']
+
+
 admin.site.register(Donor, DonorAdmin)
 admin.site.register(Donation, DonationAdmin)
 admin.site.register(DonationGift, DonationGiftAdmin)
 admin.site.register(DonorTag, DonorTagAdmin)
+admin.site.register(DefaultDonation, DonationAdmin)

@@ -87,7 +87,7 @@ def get_or_create_bank_transfer_donor(row):
     )
 
 
-def import_banktransfer(transfer_ident, row):
+def import_banktransfer(transfer_ident, row, project):
     is_new = False
     donation = find_donation(transfer_ident, row)
     if donation is None:
@@ -101,6 +101,7 @@ def import_banktransfer(transfer_ident, row):
     else:
         donor = donation.donor
 
+    donation.project = project
     donation.identifier = transfer_ident
     donation.amount = Decimal(str(row['amount']))
     donation.amount_received = Decimal(str(row['amount']))
@@ -151,7 +152,7 @@ def update_direct_debit(row):
     payment.change_status(PaymentStatus.CONFIRMED)
 
 
-def import_banktransfers(xls_file):
+def import_banktransfers(xls_file, project):
     df = pd.read_excel(xls_file)
     df = df.rename(columns={
         'Betrag': 'amount',
@@ -183,7 +184,7 @@ def import_banktransfers(xls_file):
             iban=row['iban'],
             i=i
         )
-        is_new = import_banktransfer(transfer_ident, row)
+        is_new = import_banktransfer(transfer_ident, row, project)
         count += 1
         if is_new:
             new_count += 1

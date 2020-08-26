@@ -44,6 +44,10 @@ SALUTATION_CHOICES = (
 SALUTATION_DICT = dict(SALUTATION_CHOICES)
 
 
+DONATION_PROJECTS = getattr(settings, 'DONATION_PROJECTS', [('', _('Default'))])
+DEFAULT_DONATION_PROJECT = DONATION_PROJECTS[0][0]
+
+
 class DonorTag(TagBase):
     class Meta:
         verbose_name = _("Donor Tag")
@@ -295,6 +299,11 @@ class Donation(models.Model):
     )
     first_recurring = models.BooleanField(default=False)
     recurring = models.BooleanField(default=False)
+    project = models.CharField(
+        max_length=40,
+        default=DEFAULT_DONATION_PROJECT,
+        choices=DONATION_PROJECTS,
+    )
 
     class Meta:
         ordering = ('-timestamp',)
@@ -348,6 +357,20 @@ class Donation(models.Model):
         if self.order:
             return self.order.get_absolute_url()
         return '/'
+
+
+class DefaultDonationManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(project=DEFAULT_DONATION_PROJECT)
+
+
+class DefaultDonation(Donation):
+    objects = DefaultDonationManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = 'FragDenStaat Spenden'
+        verbose_name_plural = 'FragDenStaat Spenden'
 
 
 class DonationGift(models.Model):
