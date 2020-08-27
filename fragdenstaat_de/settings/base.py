@@ -538,6 +538,7 @@ class FragDenStaatBase(German, Base):
     AMENITY_CATEGORY_FUNC = None
     AMENITY_TOPICS = {
         "public": (
+            ("building", "public"),
             ("building", "civic"),
             ("building", "school"),
             ("building", "government"),
