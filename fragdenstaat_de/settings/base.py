@@ -129,6 +129,8 @@ class FragDenStaatBase(German, Base):
     CAMPAIGN_PROVIDERS = [
         ('', 'froide_campaign.providers.base.BaseProvider'),
         ('amenity', 'froide_campaign.providers.amenity.AmenityProvider'),
+        ('publicbody', 'froide_campaign.providers.publicbody.PublicBodyProvider'),
+        ('amenity_local', 'froide_campaign.providers.amenity_local.AmenityLocalProvider'),
     ]
 
     # BLOG
