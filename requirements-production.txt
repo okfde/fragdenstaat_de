@@ -6,3 +6,4 @@ gunicorn==19.7.1
 python-memcached==1.59
 channels_redis==3.0.1
 uvicorn==0.11.8
+sentry-sdk==0.17.0

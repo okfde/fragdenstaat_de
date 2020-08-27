@@ -144,7 +144,6 @@ ratelim==0.1.6
 reportlab==3.5.42
 requests==2.23.0
 selenium==3.141.0
-sentry-sdk==0.14.3
 singledispatch==3.4.0.3
 six==1.14.0
 snowballstemmer==2.0.0
