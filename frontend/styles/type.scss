@@ -27,12 +27,12 @@ $unicode-ranges: (
 @include makeFont('Regular', $range: "latin");
 @include makeFont('Italic', $style: italic, $range: "latin");
 @include makeFont('SemiBold', $weight: 600, $range: "latin");
-@include makeFont('Bold', $weight: 600, $range: "latin");
+@include makeFont('Bold', $weight: 700, $range: "latin");
 
 @include makeFont('Regular', $range: "latin-ext");
 @include makeFont('Italic', $style: italic, $range: "latin-ext");
 @include makeFont('SemiBold', $weight: 600, $range: "latin-ext");
-@include makeFont('Bold', $weight: 600, $range: "latin-ext");
+@include makeFont('Bold', $weight: 700, $range: "latin-ext");
 
 
 body {
