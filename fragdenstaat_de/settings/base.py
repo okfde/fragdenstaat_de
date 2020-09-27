@@ -538,6 +538,8 @@ class FragDenStaatBase(German, Base):
     AMENITY_CATEGORY_FUNC = None
     AMENITY_TOPICS = {
         "public": (
+            ("building", "sports_centre"),
+            ("leisure", "sports_centre"),
             ("building", "public"),
             ("building", "civic"),
             ("building", "school"),
@@ -550,6 +552,7 @@ class FragDenStaatBase(German, Base):
             ("amenity", "archive"),
             ("amenity", "courthouse"),
             ("amenity", "hospital"),
+            ("amenity", "clinic"),
             ("amenity", "public_building"),
             ("office", "government"),
             ("office", "administrative"),
