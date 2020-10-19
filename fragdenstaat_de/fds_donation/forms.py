@@ -253,10 +253,16 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         self.fields['reference'].initial = self.settings['reference']
         self.fields['keyword'].initial = self.settings['keyword']
         if self.settings['purpose']:
-            purpose_choices = [(self.settings['purpose'], self.settings['purpose'])]
-            self.fields['purpose'].initial = self.settings['purpose']
-            self.fields['purpose'].choices = purpose_choices
-            self.fields['purpose'].widget = forms.HiddenInput()
+            purpose = self.settings['purpose']
+            purpose_split = purpose.split(',')
+            if len(purpose_split) == 1:
+                purpose_choices = [(purpose, purpose)]
+                self.fields['purpose'].initial = purpose
+                self.fields['purpose'].choices = purpose_choices
+                self.fields['purpose'].widget = forms.HiddenInput()
+            else:
+                purpose_choices = [(purpose, purpose) for purpose in purpose_split]
+                self.fields['purpose'].choices = purpose_choices
         elif has_purpose:
             choices = [
                 (x.name, x.name) for x in Campaign.objects.get_filter_list()
