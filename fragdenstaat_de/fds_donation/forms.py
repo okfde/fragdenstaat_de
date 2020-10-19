@@ -262,7 +262,6 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
                 self.fields['purpose'].widget = forms.HiddenInput()
             else:
                 purpose_choices = [(purpose, purpose) for purpose in purpose_split]
-                self.fields['purpose'].initial = purpose
                 self.fields['purpose'].choices = purpose_choices
         elif has_purpose:
             choices = [
