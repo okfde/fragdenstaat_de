@@ -16,7 +16,7 @@ click==7.1.1
 coreapi==2.3.3
 coreschema==0.0.4
 coverage==5.1
-cryptography==2.9.2
+cryptography==3.2
 cssselect2==0.3.0
 Cython==0.29.16
 decorator==4.4.2
