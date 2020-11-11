@@ -217,7 +217,6 @@ const config = {
     // new BundleAnalyzerPlugin({
     //   analyzerPort: 8905
     // }),
-    new webpack.NamedModulesPlugin(),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -236,6 +235,7 @@ const config = {
     })
   ],
   optimization: {
+    namedModules: true,
     minimizer: [
       new UglifyJsPlugin({
         cache: true,
