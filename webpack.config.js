@@ -41,7 +41,7 @@ const ENTRY = {
 }
 
 const EXCLUDE_CHUNKS = [
-  'main', 'tagautocomplete'
+  'main', 'tagautocomplete', 'request-alpha'
 ].join('|')
 
 const ENTRY_LIST = []
