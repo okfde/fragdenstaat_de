@@ -1,3 +1,5 @@
+from django.db.models import Sum
+
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
@@ -6,7 +8,8 @@ from cms.plugin_pool import plugin_pool
 
 from fragdenstaat_de.fds_mailing.utils import get_plugin_children
 
-from .models import Donor, DonationGiftFormCMSPlugin, DonationFormCMSPlugin
+from .models import (Donor, DonationGiftFormCMSPlugin, DefaultDonation,
+                     DonationFormCMSPlugin, DonationProgressBarCMSPlugin)
 from .forms import DonationGiftForm
 
 
@@ -168,3 +171,33 @@ class ConcactNotAllowedDonor(DonorLogigMixin, CMSPluginBase):
 
     def should_render(self, context):
         return not context.get('donor') or not context['donor'].contact_allowed
+
+
+@plugin_pool.register_plugin
+class DonationProgressBarPlugin(CMSPluginBase):
+    model = DonationProgressBarCMSPlugin
+    module = _("Donations")
+    name = _("Donation Progress Bar")
+    text_enabled = True
+    cache = False
+    render_template = "fds_donation/cms_plugins/donation_progress_bar.html"
+
+    def get_donation_count(self, instance):
+        date = instance.start_date
+        donation_goal = instance.donation_goal
+        count = DefaultDonation.objects.filter(
+            timestamp__gte=date
+        ).aggregate(Sum('amount'))
+
+        amount = count.get('amount__sum', 0)
+        if amount and amount > donation_goal:
+            amount = donation_goal
+        perc = min(int(amount / donation_goal * 100), 100)
+        return amount, perc
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        amount, perc = self.get_donation_count(instance)
+        context['amount'] = amount
+        context['percentage'] = perc
+        return context
