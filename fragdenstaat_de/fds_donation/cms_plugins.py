@@ -1,5 +1,6 @@
 from django.db.models import Sum
 
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
@@ -185,15 +186,20 @@ class DonationProgressBarPlugin(CMSPluginBase):
     def get_donation_count(self, instance):
         date = instance.start_date
         donation_goal = instance.donation_goal
+
         count = DefaultDonation.objects.filter(
             timestamp__gte=date
         ).aggregate(Sum('amount'))
 
-        amount = count.get('amount__sum', 0)
+        amount = count.get('amount__sum')
         if amount and amount > donation_goal:
             amount = donation_goal
-        perc = min(int(amount / donation_goal * 100), 100)
-        return amount, perc
+
+        if amount and amount > 0 and donation_goal > 0:
+            perc = min(int(amount / donation_goal * 100), 100)
+            return amount, perc
+        else:
+            return 0, 0
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
