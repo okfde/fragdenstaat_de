@@ -44,7 +44,8 @@ SALUTATION_CHOICES = (
 SALUTATION_DICT = dict(SALUTATION_CHOICES)
 
 
-DONATION_PROJECTS = getattr(settings, 'DONATION_PROJECTS', [('', _('Default'))])
+DONATION_PROJECTS = getattr(settings, 'DONATION_PROJECTS',
+                            [('', _('Default'))])
 DEFAULT_DONATION_PROJECT = DONATION_PROJECTS[0][0]
 
 
@@ -438,3 +439,9 @@ class DonationFormCMSPlugin(CMSPlugin):
             }
         )
         return form.make_donation_form(**kwargs)
+
+
+class DonationProgressBarCMSPlugin(CMSPlugin):
+    start_date = models.DateTimeField()
+    donation_goal = models.DecimalField(decimal_places=2,
+                                        max_digits=10)
