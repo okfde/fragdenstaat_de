@@ -1,6 +1,5 @@
 from django.db.models import Sum
 
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
@@ -183,6 +182,10 @@ class DonationProgressBarPlugin(CMSPluginBase):
     cache = False
     render_template = "fds_donation/cms_plugins/donation_progress_bar.html"
 
+    def german_number_display(self, number):
+        number = '{0:,}'.format(number)
+        return number.replace(",", "X").replace(".", ",").replace("X", ".")
+
     def get_donation_count(self, instance):
         date = instance.start_date
         donation_goal = instance.donation_goal
@@ -192,12 +195,10 @@ class DonationProgressBarPlugin(CMSPluginBase):
         ).aggregate(Sum('amount'))
 
         amount = count.get('amount__sum')
-        if amount and amount > donation_goal:
-            amount = donation_goal
 
         if amount and amount > 0 and donation_goal > 0:
             perc = min(int(amount / donation_goal * 100), 100)
-            return amount, perc
+            return self.german_number_display(amount), perc
         else:
             return 0, 0
 
@@ -206,4 +207,6 @@ class DonationProgressBarPlugin(CMSPluginBase):
         amount, perc = self.get_donation_count(instance)
         context['amount'] = amount
         context['percentage'] = perc
+        context['donation_goal'] = self.german_number_display(
+            instance.donation_goal)
         return context
