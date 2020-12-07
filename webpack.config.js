@@ -19,6 +19,7 @@ const ENTRY = {
   main: ['./frontend/javascript/main.ts'],
   document: 'froide/frontend/javascript/document.js',
   docupload: 'froide/frontend/javascript/docupload.js',
+  exam_curriculum: 'froide_exam/frontend/javascript/curriculum.js',
   fds_cms: './frontend/javascript/fds_cms.js',
   filingcabinet: '@okfde/filingcabinet/frontend/javascript/filingcabinet.js',
   food: 'froide_food/frontend/javascript/main.js',
