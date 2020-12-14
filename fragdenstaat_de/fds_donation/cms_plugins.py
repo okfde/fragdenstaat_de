@@ -197,8 +197,12 @@ class DonationProgressBarPlugin(CMSPluginBase):
         amount = count.get('amount__sum')
 
         if amount and amount > 0 and donation_goal > 0:
-            perc = min(int(amount / donation_goal * 100), 100)
-            return self.german_number_display(amount), perc
+            if donation_goal >= amount:
+                perc = min(int(amount / donation_goal * 100), 100)
+                return self.german_number_display(amount), perc
+            else:
+                perc = min(int(donation_goal / amount * 100), 100)
+                return self.german_number_display(amount), perc
         else:
             return 0, 0
 
