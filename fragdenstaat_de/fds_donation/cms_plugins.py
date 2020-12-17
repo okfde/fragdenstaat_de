@@ -225,7 +225,7 @@ class DonationProgressBarPlugin(CMSPluginBase):
             instance.donation_goal)
         if instance.reached_goal and instance.reached_goal < donated_amount:
             context['reached_goal'] = self.german_number_display(
-              instance.reached_goal)
+                instance.reached_goal)
             context['reached_goal_perc'] = self.get_percentage(
                 instance.reached_goal,
                 instance.donation_goal)
