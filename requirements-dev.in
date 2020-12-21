@@ -1,0 +1,15 @@
+Sphinx
+django-debug-toolbar
+coverage
+factory-boy
+faker
+flake8
+mccabe
+mock
+pbr
+pycodestyle
+pyflakes
+selenium
+django-coverage-plugin
+tblib
+honcho
