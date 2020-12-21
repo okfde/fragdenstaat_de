@@ -166,7 +166,7 @@ sentry-sdk==0.19.5        # via -r requirements-production.in, -r requirements.i
 service-identity==18.1.0  # via twisted
 six==1.15.0               # via automat, click-repl, cryptography, django-configurations, django-elasticsearch-dsl, django-newsletter, djangorestframework-csv, elasticsearch-dsl, geocoder, html5lib, pyopenssl, python-dateutil, python-memcached, twilio
 sorl-thumbnail==12.7.0    # via django-newsletter
-sortabletable==0.0.13     # via -r requirements.in
+sortabletable==0.0.15     # via -r requirements.in
 sqlparse==0.4.1           # via django
 stripe==2.55.1            # via -r requirements.in, django-payments, froide-payment
 suds-jurko==0.6           # via django-payments
