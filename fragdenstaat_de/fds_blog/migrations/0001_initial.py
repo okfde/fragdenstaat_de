@@ -123,7 +123,7 @@ class Migration(migrations.Migration):
             name='LatestArticlesPlugin',
             fields=[
                 ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_blog_latestarticlesplugin', serialize=False, to='cms.CMSPlugin')),
-                ('featured', models.NullBooleanField(choices=[(True, 'Show featured articles only'), (False, 'Hide featured articles')], verbose_name='featured')),
+                ('featured', models.BooleanField(choices=[(True, 'Show featured articles only'), (False, 'Hide featured articles')], null=True, verbose_name='featured')),
                 ('article_language', models.CharField(blank=True, choices=[('de', 'German')], default='de', max_length=5, verbose_name='language')),
                 ('number_of_articles', models.PositiveIntegerField(default=1, help_text='0 means all the articles', verbose_name='number of articles')),
                 ('offset', models.PositiveIntegerField(default=0, help_text='number of articles to skip from top of list', verbose_name='offset')),

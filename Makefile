@@ -3,7 +3,7 @@ export DJANGO_CONFIGURATION=Test
 export PYTHONWARNINGS=ignore,default:::fragdenstaat_de
 
 test:
-	flake8 froide
+	flake8 fragdenstaat_de
 	python manage.py test tests --keepdb
 
 testci:

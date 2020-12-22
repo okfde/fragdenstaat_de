@@ -68,10 +68,11 @@ if [ ! -d $MAIN ]; then
   git clone git@github.com:okfde/$MAIN.git
 else
   pushd $MAIN
-    git pull
+    git pull origin master
   popd
 fi
-pip install -U -r $MAIN/requirements-dev.txt
+pip install -U pip-tools
+pip-sync $MAIN/requirements.txt $MAIN/requirements-dev.txt
 pip install -e $MAIN
 
 echo "Cloning / installing all editable dependencies..."

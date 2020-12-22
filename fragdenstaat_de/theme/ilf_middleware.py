@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.exceptions import DisallowedHost
 from django.utils.http import is_same_domain
 from django.middleware.csrf import (CsrfViewMiddleware, _sanitize_token,
-                                    _compare_salted_tokens,
+                                    _compare_masked_tokens,
                                     REASON_BAD_REFERER,
                                     REASON_NO_CSRF_COOKIE,
                                     REASON_BAD_TOKEN,
@@ -100,7 +100,7 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                         reason = REASON_BAD_REFERER % referer.geturl()
                         return self._reject(request, reason)
 
-            csrf_token = request.META.get('CSRF_COOKIE')
+            csrf_token = self._get_token(request)
             if csrf_token is None:
                 # No CSRF cookie. For POST requests, we insist on a CSRF cookie,
                 # and in this way we can avoid all CSRF attacks, including login
@@ -112,7 +112,7 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
             if request.method == "POST":
                 try:
                     request_csrf_token = request.POST.get('csrfmiddlewaretoken', '')
-                except IOError:
+                except OSError:
                     # Handle a broken connection before we've completed reading
                     # the POST data. process_view shouldn't raise any
                     # exceptions, so we'll ignore and serve the user a 403
@@ -126,7 +126,7 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                 request_csrf_token = request.META.get(settings.CSRF_HEADER_NAME, '')
 
             request_csrf_token = _sanitize_token(request_csrf_token)
-            if not _compare_salted_tokens(request_csrf_token, csrf_token):
+            if not _compare_masked_tokens(request_csrf_token, csrf_token):
                 return self._reject(request, REASON_BAD_TOKEN)
 
         return self._accept(request)

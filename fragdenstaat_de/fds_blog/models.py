@@ -427,7 +427,7 @@ class LatestArticlesPlugin(CMSPlugin):
     CMS Plugin for displaying latest articles
     """
 
-    featured = models.NullBooleanField(
+    featured = models.BooleanField(
         _('featured'),
         blank=True, null=True,
         choices=((True, _('Show featured articles only')),
