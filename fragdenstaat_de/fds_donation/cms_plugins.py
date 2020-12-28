@@ -186,31 +186,48 @@ class DonationProgressBarPlugin(CMSPluginBase):
         number = '{0:,}'.format(number)
         return number.replace(",", "X").replace(".", ",").replace("X", ".")
 
-    def get_donation_count(self, instance):
-        date = instance.start_date
-        donation_goal = instance.donation_goal
+    def get_percentage(self, amount, max):
+        if amount > 0 and max > 0:
+            return min(int(amount / max * 100), 100)
+        return 0
 
+    def get_donated_amount(self, instance):
+        date = instance.start_date
         count = DefaultDonation.objects.filter(
             timestamp__gte=date
         ).aggregate(Sum('amount'))
+        return count.get('amount__sum')
 
-        amount = count.get('amount__sum')
+    def get_donation_goal_perc(self, instance, donated_amount):
+        donation_goal = instance.donation_goal
+        reached_goal = instance.reached_goal
 
-        if amount and amount > 0 and donation_goal > 0:
-            if donation_goal >= amount:
-                perc = min(int(amount / donation_goal * 100), 100)
-                return self.german_number_display(amount), perc
+        if donated_amount and donated_amount > 0 and donation_goal > 0:
+            if donation_goal >= donated_amount:
+                if reached_goal and donated_amount > reached_goal:
+                    donated_amount = donated_amount - reached_goal
+                perc = self.get_percentage(donated_amount, donation_goal)
             else:
-                perc = min(int(donation_goal / amount * 100), 100)
-                return self.german_number_display(amount), perc
-        else:
-            return 0, 0
+                if reached_goal and donation_goal > reached_goal:
+                    donation_goal = donation_goal - reached_goal
+                perc = self.get_percentage(donation_goal, donated_amount)
+            return perc
+        return 0
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        amount, perc = self.get_donation_count(instance)
-        context['amount'] = amount
-        context['percentage'] = perc
+        donated_amount = self.get_donated_amount(instance)
+        donated_amount_perc = self.get_donation_goal_perc(instance,
+                                                          donated_amount)
+        context['amount'] = self.german_number_display(donated_amount)
+        context['percentage'] = donated_amount_perc
         context['donation_goal'] = self.german_number_display(
             instance.donation_goal)
+        if instance.reached_goal and instance.reached_goal < donated_amount:
+            context['reached_goal'] = self.german_number_display(
+                instance.reached_goal)
+            context['reached_goal_perc'] = self.get_percentage(
+                instance.reached_goal,
+                instance.donation_goal)
+
         return context
