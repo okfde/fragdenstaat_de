@@ -136,7 +136,8 @@ class ZWBPDFGenerator(PDFGenerator):
         data = get_zwb_data(obj, donations)
         data['donations'] = donations
         data['year'] = year
-        data['singature_string'] = settings.SIGNATURE_STRING
+        if hasattr(settings, 'SIGNATURE_STRING'):
+            data['singature_string'] = settings.SIGNATURE_STRING
 
         ctx.update(data)
         return ctx
