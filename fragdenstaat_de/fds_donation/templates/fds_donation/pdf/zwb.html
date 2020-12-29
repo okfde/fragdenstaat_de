@@ -96,6 +96,11 @@
           top: 90pt;
           position: relative;
         }
+        .signature {
+          width: 100px;
+          height: 100px;
+          margin-left: 20px;
+        }
 
         table {
           border-collapse: collapse
@@ -194,7 +199,7 @@
 
         </div>
 
-        <aside>Berlin, {{ current_date }}</aside>
+        <aside>Berlin, {{ current_date }}<img class="signature" alt="OKF Logo" src="data:image/png;base64,{{ singature_string }}"/></aside>
         <hr/>
 
         <small> (Ort, Datum und Unterschrift des Zuwendungsempfängers) </small>

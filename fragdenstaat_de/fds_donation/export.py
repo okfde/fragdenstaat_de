@@ -1,5 +1,6 @@
 from datetime import datetime
 from num2words import num2words
+from django.conf import settings
 
 from django.utils import formats, timezone
 
@@ -135,6 +136,7 @@ class ZWBPDFGenerator(PDFGenerator):
         data = get_zwb_data(obj, donations)
         data['donations'] = donations
         data['year'] = year
+        data['singature_string'] = settings.SIGNATURE_STRING
 
         ctx.update(data)
         return ctx
