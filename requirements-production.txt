@@ -27,7 +27,7 @@ babel==2.9.0              # via django-prices, enmerkar, prices
 billiard==3.6.3.0         # via celery
 braintree==4.5.0          # via django-payments
 cairocffi==1.2.0          # via cairosvg, weasyprint
-cairosvg==2.5.0           # via weasyprint
+cairosvg==2.5.1           # via weasyprint
 celery==5.0.5             # via -r requirements.in, django-celery-beat, django-celery-email, django-contractor, flower, froide
 certifi==2020.12.5        # via elasticsearch, requests, sentry-sdk
 cffi==1.14.4              # via cairocffi, cryptography, weasyprint
