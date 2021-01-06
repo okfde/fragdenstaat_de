@@ -78,7 +78,10 @@ class DonationSettingsForm(forms.Form):
             return [5, 20, 50]
         if '[' in presets:
             presets = presets.replace('[', '').replace(']', '')
-        return [int(x.strip()) for x in presets.split(',') if x.strip()]
+        try:
+            return [int(x.strip()) for x in presets.split(',') if x.strip()]
+        except ValueError:
+            return []
 
     def clean_initial_receipt(self):
         receipt = self.cleaned_data['initial_receipt']
