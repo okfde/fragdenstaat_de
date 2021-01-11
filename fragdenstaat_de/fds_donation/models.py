@@ -282,7 +282,7 @@ class Donation(models.Model):
     note = models.TextField(blank=True)
 
     method = models.CharField(max_length=256, blank=True)
-    identifier = models.CharField(max_length=256, blank=True)
+    identifier = models.CharField(max_length=1024, blank=True)
     purpose = models.CharField(max_length=255, blank=True)
     reference = models.CharField(max_length=255, blank=True)
     keyword = models.CharField(max_length=255, blank=True)
