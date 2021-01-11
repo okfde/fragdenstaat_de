@@ -153,7 +153,10 @@ def update_direct_debit(row):
 
 
 def import_banktransfers(xls_file, project):
-    df = pd.read_excel(xls_file)
+    df = pd.read_excel(
+        xls_file,
+        engine='xlrd' if xls_file.name.endswith('.xls') else 'openpyxl'
+    )
     df = df.rename(columns={
         'Betrag': 'amount',
         'Datum': 'date_received',

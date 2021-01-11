@@ -574,15 +574,16 @@ class DonationAdmin(admin.ModelAdmin):
         if not self.has_change_permission(request):
             raise PermissionDenied
 
-        xls_file = request.FILES.get('file')
+        xls_file_obj = request.FILES.get('file')
         project = request.POST['project']
-        if xls_file is None:
+        if xls_file_obj is None:
             self.message_user(
                 request, _('No file provided.'), level=messages.ERROR
             )
             return redirect('admin:fds_donation_donation_changelist')
 
-        xls_file = BytesIO(xls_file.read())
+        xls_file = BytesIO(xls_file_obj.read())
+        xls_file.name = xls_file_obj.name
 
         count, new_count = import_banktransfers(xls_file, project)
 
