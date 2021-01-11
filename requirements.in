@@ -41,6 +41,7 @@ geoip2
 icalendar
 markdown
 num2words
+openpyxl
 pandas
 phonenumbers
 psycopg2-binary

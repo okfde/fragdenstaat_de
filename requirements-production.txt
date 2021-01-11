@@ -101,6 +101,7 @@ easy-thumbnails==2.7.1    # via django-filer, djangocms-picture
 elasticsearch-dsl==7.3.0  # via -r requirements.in, django-elasticsearch-dsl
 elasticsearch==7.10.1     # via -r requirements.in, elasticsearch-dsl
 enmerkar==0.7.1           # via django-prices
+et-xmlfile==1.0.1         # via openpyxl
 fdfgen==0.16.1            # via froide-food
 flower==0.9.5             # via -r requirements-production.in
 future==0.18.2            # via geocoder
@@ -118,6 +119,7 @@ icalendar==4.0.7          # via -r requirements.in, froide
 idna==2.10                # via hyperlink, requests, twisted, yarl
 incremental==17.5.0       # via twisted
 itypes==1.2.0             # via coreapi
+jdcal==1.4.1              # via openpyxl
 jinja2==2.11.2            # via coreschema
 jsonfield==3.1.0          # via froide-campaign
 kombu==5.0.2              # via celery
@@ -132,8 +134,8 @@ multidict==5.1.0          # via aiohttp, yarl
 num2words==0.5.10         # via -r requirements.in
 numpy==1.19.4             # via pandas
 oauthlib==3.1.0           # via django-oauth-toolkit
+openpyxl==3.0.5           # via -r requirements.in
 pandas==1.1.5             # via -r requirements.in
-pdflib==0.3.0             # manually via -r requirements.in
 phonenumbers==8.12.15     # via -r requirements.in, froide, froide-fax
 pikepdf==2.2.1            # via django-filingcabinet
 pillow==8.0.1             # via cairosvg, django-filingcabinet, django-newsletter, djangocms-text-ckeditor, easy-thumbnails, pikepdf, reportlab, weasyprint
