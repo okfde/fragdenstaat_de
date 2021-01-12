@@ -14,6 +14,7 @@ class CMSPluginEditConsumer(AsyncJsonWebsocketConsumer):
         return get_presence_manager(self.room)
 
     async def connect(self):
+        self.room = None
         user = self.scope['user']
         if not user.is_staff:
             await self.close()
@@ -66,6 +67,9 @@ class CMSPluginEditConsumer(AsyncJsonWebsocketConsumer):
             pass
 
     async def disconnect(self, close_code):
+        if self.room is None:
+            return
+
         await self.channel_layer.group_discard(
             self.room,
             self.channel_name
