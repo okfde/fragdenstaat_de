@@ -360,7 +360,7 @@ def detect_recurring_monthly_amount(donor):
             # recurring donation fraction is too low (?)
             return Decimal(0)
         one_period_ago = timezone.now() - timedelta(days=31) * most_common_period_month
-        if donor.last_donation < one_period_ago:
+        if donor.last_donation is None or donor.last_donation < one_period_ago:
             # last donation is too long ago
             return Decimal(0)
         return amounts.most_common(1)[0][0] / most_common_period_month
