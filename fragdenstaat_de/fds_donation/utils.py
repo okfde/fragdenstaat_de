@@ -3,7 +3,7 @@ from django.db.models import Min
 
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_newsletter
 
-from .models import Donor, Donation
+from .models import Donor, Donation, update_donation_numbers
 
 
 MERGE_DONOR_FIELDS = [
@@ -115,6 +115,8 @@ def merge_donors(candidates, primary_id, validated_data=None):
     )
     merged_donor.first_donation = aggs['first_donation']
     merged_donor.save()
+
+    update_donation_numbers(merged_donor.id)
 
     detect_recurring_on_donor(merged_donor)
 

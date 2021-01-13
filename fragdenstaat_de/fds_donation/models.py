@@ -258,6 +258,24 @@ class Donor(models.Model):
         return context
 
 
+def update_donation_numbers(donor_id):
+    donations = Donation.objects.filter(
+        donor_id=donor_id, completed=True
+    ).annotate(
+        new_number=models.Window(
+            expression=RowNumber(),
+            order_by=models.F('timestamp').asc(),
+        )
+    )
+    # Can't call .update() directly due to Django
+    # ORM limitations, loop and update:
+    for d in donations:
+        if d.number != d.new_number:
+            Donation.objects.filter(id=d.id).update(
+                number=d.new_number
+            )
+
+
 class Donation(models.Model):
     donor = models.ForeignKey(
         Donor, null=True, blank=True,
@@ -319,21 +337,8 @@ class Donation(models.Model):
     def save(self, *args, **kwargs):
         ret = super().save(*args, **kwargs)
 
-        donations = Donation.objects.filter(
-            donor_id=self.donor_id, completed=True
-        ).annotate(
-            new_number=models.Window(
-                expression=RowNumber(),
-                order_by=models.F('timestamp').asc(),
-            )
-        )
-        # Can't call .update() directly due to Django
-        # ORM limitations, loop and update:
-        for d in donations:
-            if d.number != d.new_number:
-                Donation.objects.filter(id=d.id).update(
-                    number=d.new_number
-                )
+        update_donation_numbers(self.donor_id)
+
         return ret
 
     def get_success_url(self):
