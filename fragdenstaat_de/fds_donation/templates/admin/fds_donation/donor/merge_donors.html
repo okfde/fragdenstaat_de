@@ -39,14 +39,19 @@
         {% for field in form %}
           <tr>
             <td>{{ field.label }}</td>
-            <td>
+            <td data-value="{{ field.value }}" data-field="{{ field.name }}">
               {{ field }}
             </td>
             {% for donor in queryset %}
-              <td>{{ donor|get_field_by_key:field.name }}</td>
+              {% with val=donor|get_field_by_key:field.name %}
+                <td>
+                  <span data-donor="{{ donor.id }}" data-value="{% if val is None %}{% else %}{{ val }}{% endif %}" data-field="{{ field.name }}">
+                    {{ val }}
+                  </span>
+                </td>
+              {% endwith %}
             {% endfor %}
           </tr>
-          {{ form.field }}
         {% endfor %}
       </tbody>
 
@@ -61,4 +66,5 @@
     <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk|unlocalize }}" />
   {% endfor %}
 </form>
+<script src="{% static 'js/merge_donors.js' %}"></script>
 {% endblock %}
