@@ -13,6 +13,7 @@ MERGE_DONOR_FIELDS = [
     'email_confirmed',
     'contact_allowed', 'receipt',
     'note',
+    'invalid',
     'active',
     'user',
 ]
