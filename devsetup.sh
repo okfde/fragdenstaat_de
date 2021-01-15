@@ -3,7 +3,7 @@ set -ex
 
 MAIN=fragdenstaat_de
 REPOS=("froide" "froide-campaign" "froide-legalaction" "froide-food" "froide-payment" "froide-crowdfunding" "froide-fax" "froide-exam" "django-filingcabinet")
-FRONTEND_DIR=("froide" "froide_food" "froide_campaign" "froide_payment" "filingcabinet")
+FRONTEND_DIR=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "filingcabinet")
 FRONTEND=("froide" "froide_food" "froide_campaign" "froide_payment" "@okfde/filingcabinet")
 
 ask() {
