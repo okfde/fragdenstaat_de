@@ -2,7 +2,6 @@ import base64
 
 from datetime import datetime
 from num2words import num2words
-from django.conf import settings
 
 from django.utils import formats, timezone
 
