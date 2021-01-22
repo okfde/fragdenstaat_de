@@ -1,8 +1,11 @@
+import base64
+
 from datetime import datetime
 from num2words import num2words
 
 from django.utils import formats, timezone
 
+from filer.models.foldermodels import Folder
 from froide.foirequest.pdf_generator import PDFGenerator
 
 
@@ -127,6 +130,16 @@ def amount_to_words(amount):
 class ZWBPDFGenerator(PDFGenerator):
     template_name = 'fds_donation/pdf/zwb.html'
 
+    def get_signature_string(self):
+        try:
+            folder = Folder.objects.get(name='Signature')
+            files = folder.files
+            if files and files.first().mime_type == 'image/png':
+                with open(files.first().path, "rb") as image_file:
+                    return base64.b64encode(image_file.read()).decode("utf-8")
+        except Folder.DoesNotExist:
+            return ''
+
     def get_context_data(self, obj):
         ctx = super().get_context_data(obj)
         year = datetime.now().year - 1
@@ -135,6 +148,6 @@ class ZWBPDFGenerator(PDFGenerator):
         data = get_zwb_data(obj, donations)
         data['donations'] = donations
         data['year'] = year
-
+        data['signature_string'] = self.get_signature_string()
         ctx.update(data)
         return ctx

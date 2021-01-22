@@ -2,7 +2,6 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.sitemaps import views as sitemaps_views
-from django.views.generic import TemplateView
 
 # Import early to register with api_router
 from froide_campaign import urls as campaign_urls
