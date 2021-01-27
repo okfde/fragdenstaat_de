@@ -16,6 +16,10 @@ def format_number(num):
     return (u'%.2f €' % num).replace('.', ',')
 
 
+def format_number_no_currency(num):
+    return (u'%.2f' % num).replace('.', ',')
+
+
 def get_zwbs(donors, year):
     for donor in donors:
         data = get_zwb(donor, year)
@@ -42,7 +46,7 @@ def get_zwb_data(donor, donations):
     else:
         address_name = donor.get_full_name()
 
-    donor_name = donor.get_full_name()
+    donor_name = donor.get_company_name_or_name()
 
     donor_account = 'Ihre Spendenübersicht finden Sie auch eingeloggt auf fragdenstaat.de. Melden Sie sich einfach bei uns, falls Sie noch nicht registriert sind.'
     if donor.user_id:
@@ -58,8 +62,8 @@ def get_zwb_data(donor, donations):
         'Ort': donor.city,
         'Land': donor.country.name,
         'Anrede': donor.get_salutation_display(),
-        'Briefanrede': donor.get_salutation(),
-        'Jahressumme': format_number(total_amount),
+        'Briefanrede': donor.get_german_salutation(),
+        'Jahressumme': format_number_no_currency(total_amount),
         'JahressummeInWorten': amount_to_words(total_amount),
         'NutzerKonto': donor_account,
         'receipt_already': any(d['receipt_date'] for d in donations),

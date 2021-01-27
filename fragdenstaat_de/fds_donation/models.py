@@ -127,6 +127,16 @@ class Donor(models.Model):
             return self.company_name
         return name
 
+    def get_company_name_or_name(self):
+        if self.company_name:
+            return self.company_name
+        return self.get_full_name()
+
+    def get_german_salutation(self):
+        if self.company_name and (not self.first_name or not self.last_name):
+            return 'Sehr geehrte Damen und Herren,'
+        return self.get_salutation()
+
     def get_complete_name(self):
         name = '{} {}'.format(self.first_name, self.last_name).strip()
         if self.company_name:
