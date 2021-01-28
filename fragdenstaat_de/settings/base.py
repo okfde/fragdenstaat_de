@@ -488,7 +488,7 @@ class FragDenStaatBase(German, Base):
                 rec(r"^\s*Hallo\s+(.*)"),
                 rec(r"^\s*Lieber?\s+(.*)"),
                 rec(r"^\s*Sehr (?:Herr|Frau|Fr\.|Hr\.) (.*)"),
-                rec(r"^\s*Sehr geehrte(.*)"),
+                rec(r"^\s*Sehr geehrte[sr]? (.+)"),
                 rec(r"^\s*Sehr geehrt(er? (?:Herr|Frau|Fr\.|Hr\.)?(?: ?Dr\.?)?(?: ?Prof\.?)? .*)"),
                 rec(r"^\s*(?:Von|An|Cc|To|From): (.*)"),
             ],
