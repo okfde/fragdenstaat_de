@@ -9,7 +9,7 @@ from filer.models.foldermodels import Folder
 from froide.foirequest.pdf_generator import PDFGenerator
 
 
-MAX_DONATIONS = 18
+MAX_DONATIONS = 24
 
 
 def format_number(num):
