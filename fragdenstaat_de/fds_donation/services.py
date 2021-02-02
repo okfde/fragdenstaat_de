@@ -172,6 +172,13 @@ def create_donation_from_payment(payment):
         'postcode': order.postcode,
         'country': order.country,
     }, user=order.user, subscription=order.subscription)
+    domain_obj = order.get_domain_object()
+    extra_kwargs = {}
+    if not isinstance(domain_obj, Donation):
+        if callable(getattr(domain_obj, 'get_reference_data', None)):
+            ref_data = domain_obj.get_reference_data()
+            extra_kwargs['reference'] = ref_data.get('reference', '')
+            extra_kwargs['keyword'] = ref_data.get('keyword', '')
     donation = Donation.objects.create(
         donor=donor,
         timestamp=order.created,
@@ -181,6 +188,7 @@ def create_donation_from_payment(payment):
         payment=payment,
         method=payment.variant,
         recurring=order.is_recurring,
+        **extra_kwargs
     )
     logger.info('Donation created %s', donation.id)
     return donation
