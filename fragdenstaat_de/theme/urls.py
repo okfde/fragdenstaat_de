@@ -1,6 +1,7 @@
 from django.conf import settings
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import pgettext_lazy
 from django.contrib.sitemaps import views as sitemaps_views
 
 # Import early to register with api_router
@@ -31,33 +32,36 @@ for klass in sitemaps.values():
 
 
 sitemap_urlpatterns = [
-    url(r'^sitemap\.xml$', sitemaps_views.index,
+    path('sitemap.xml', sitemaps_views.index,
         {'sitemaps': sitemaps, 'sitemap_url_name': 'sitemaps'}),
-    url(r'^sitemap-news.xml$', sitemaps_views.sitemap, {
+    path('sitemap-news.xml', sitemaps_views.sitemap, {
         'sitemaps': {'news': NewsSitemap},
         'template_name': 'fds_blog/sitemaps/sitemap_news.xml'
         }, name='sitemap-news'),
-    url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps_views.sitemap,
+    path('sitemap-<slug:section>.xml', sitemaps_views.sitemap,
         {'sitemaps': sitemaps}, name='sitemaps')
 ]
 
 urlpatterns = [
     # url(r'^$', index, name='index'),
-    url(r'^kampagne/', include(campaign_urls)),
-    url(r'^klagen/', include('froide_legalaction.urls')),
-    url(r'^payments/', include('froide_payment.payments_urls')),
-    url(r'^payment/', include('froide_payment.urls')),
-    url(r'^dashboard/$', dashboard, name='dashboard'),
-    url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
-    url(r'^contractor/', include('contractor.urls')),
-    url(r'^fax/', include('froide_fax.urls')),
-    url(r'^newsletter/', include('fragdenstaat_de.fds_newsletter.urls')),
-    url(r"^glyphosat-bfr/(?P<slug>[-\w]+)/(?P<message_id>\d+)/download-document/$", glyphosat_download, name="fragdenstaat-glyphosat_download"),
-    url(r"^tippspiel/$", meisterschaften_tippspiel, name="fragdenstaat-meisterschaften_tippspiel"),
+    path('klagen/', include('froide_legalaction.urls')),
+    path('payments/', include('froide_payment.payments_urls')),
+    path('payment/', include('froide_payment.urls')),
+    path('dashboard/$', dashboard, name='dashboard'),
+    path('taggit_autosuggest/', include('taggit_autosuggest.urls')),
+    path('contractor/', include('contractor.urls')),
+    path('fax/', include('froide_fax.urls')),
+    path('newsletter/', include('fragdenstaat_de.fds_newsletter.urls')),
+    path("glyphosat-bfr/<slug:slug>/<int:message_id>/download-document/", glyphosat_download, name="fragdenstaat-glyphosat_download"),
+    path("tippspiel/", meisterschaften_tippspiel, name="fragdenstaat-meisterschaften_tippspiel"),
 ]
 
+urlpatterns += i18n_patterns(
+    path(pgettext_lazy('url part', 'campaign/'), include(campaign_urls)),
+)
+
 urlpatterns += [
-    url(r'^', include('filer.server.urls')),
+    path('', include('filer.server.urls')),
 ]
 
 urlpatterns += api_urlpatterns
@@ -79,6 +83,6 @@ urlpatterns += i18n_patterns(
     *froide_urlpatterns,
     *jurisdiction_urls,
     *admin_urls,
-    url(r'^', include('cms.urls')),
+    path('', include('cms.urls')),
     prefix_default_language=False
 )
