@@ -10,6 +10,7 @@ import fragdenstaat_de.fds_blog.urls  # noqa
 from froide.foirequest.views import dashboard
 from froide.urls import (
     froide_urlpatterns,
+    api_urlpatterns,
     admin_urls,
     jurisdiction_urls, sitemaps
 )
@@ -59,6 +60,7 @@ urlpatterns += [
     url(r'^', include('filer.server.urls')),
 ]
 
+urlpatterns += api_urlpatterns
 urlpatterns += sitemap_urlpatterns
 
 
