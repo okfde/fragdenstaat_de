@@ -1,0 +1,10 @@
+{% load static %}
+
+<div style="position:fixed;bottom:0;right:0;" class="bg-white w-100 px-1 pb-1">
+  <a class="w-50 text-truncate float-left mt-1" href="{{ SITE_URL }}{{ object.get_absolute_url }}" target="_blank" rel="noopener">
+    <small>„{{ object.title }}“</small>
+  </a>
+  <a class="float-right" href="{{ SITE_URL }}" target="_blank" rel="noopener">
+    <img class="mt-1" style="height:25px;" src="{% static 'img/header_logo.svg' %}" alt="FragDenStaat.de"/>
+  </a>
+</div>
