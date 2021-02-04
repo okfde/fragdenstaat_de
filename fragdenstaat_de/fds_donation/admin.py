@@ -24,6 +24,7 @@ from django.template.response import TemplateResponse
 
 from froide.helper.admin_utils import (
     ForeignKeyFilter, make_nullfilter, make_batch_tag_action,
+    make_emptyfilter
 )
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 from froide.helper.widgets import TagAutocompleteWidget
@@ -135,6 +136,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         'become_user',
         'receipt',
         'invalid',
+        make_emptyfilter('email', _('has email')),
         make_nullfilter('duplicate', _('has duplicate')),
         make_nullfilter('user_id', _('has user')),
         ('user', ForeignKeyFilter),
