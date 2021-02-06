@@ -72,7 +72,7 @@ else
   popd
 fi
 pip install -U pip-tools
-pip-sync $MAIN/requirements.txt $MAIN/requirements-dev.txt
+pip-sync $MAIN/requirements-dev.txt
 pip install -e $MAIN
 
 echo "Cloning / installing all editable dependencies..."

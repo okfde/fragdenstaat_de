@@ -1,3 +1,4 @@
+-r requirements.in
 Sphinx
 django-debug-toolbar
 coverage
@@ -13,3 +14,4 @@ selenium
 django-coverage-plugin
 tblib
 honcho
+ipdb

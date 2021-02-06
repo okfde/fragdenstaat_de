@@ -4,49 +4,729 @@
 #
 #    pip-compile requirements-dev.in
 #
-alabaster==0.7.12         # via sphinx
-asgiref==3.3.1            # via django
-babel==2.9.0              # via sphinx
-certifi==2020.12.5        # via requests
-chardet==3.0.4            # via requests
-coverage==5.3.1           # via -r requirements-dev.in, django-coverage-plugin
-django-coverage-plugin==1.8.0  # via -r requirements-dev.in
-django-debug-toolbar==3.2  # via -r requirements-dev.in
-django==3.1.4             # via django-debug-toolbar
-docutils==0.16            # via sphinx
-factory-boy==3.1.0        # via -r requirements-dev.in
-faker==5.0.2              # via -r requirements-dev.in, factory-boy
-flake8==3.8.4             # via -r requirements-dev.in
-honcho==1.0.1             # via -r requirements-dev.in
-idna==2.10                # via requests
-imagesize==1.2.0          # via sphinx
-jinja2==2.11.2            # via sphinx
-markupsafe==1.1.1         # via jinja2
-mccabe==0.6.1             # via -r requirements-dev.in, flake8
-mock==4.0.3               # via -r requirements-dev.in
-packaging==20.8           # via sphinx
-pbr==5.5.1                # via -r requirements-dev.in
-pycodestyle==2.6.0        # via -r requirements-dev.in, flake8
-pyflakes==2.2.0           # via -r requirements-dev.in, flake8
-pygments==2.7.3           # via sphinx
-pyparsing==2.4.7          # via packaging
-python-dateutil==2.8.1    # via faker
-pytz==2020.4              # via babel, django
-requests==2.25.1          # via sphinx
-selenium==3.141.0         # via -r requirements-dev.in
-six==1.15.0               # via django-coverage-plugin, python-dateutil
-snowballstemmer==2.0.0    # via sphinx
-sphinx==3.4.0             # via -r requirements-dev.in
-sphinxcontrib-applehelp==1.0.2  # via sphinx
-sphinxcontrib-devhelp==1.0.2  # via sphinx
-sphinxcontrib-htmlhelp==1.0.3  # via sphinx
-sphinxcontrib-jsmath==1.0.1  # via sphinx
-sphinxcontrib-qthelp==1.0.3  # via sphinx
-sphinxcontrib-serializinghtml==1.1.4  # via sphinx
-sqlparse==0.4.1           # via django, django-debug-toolbar
-tblib==1.7.0              # via -r requirements-dev.in
-text-unidecode==1.3       # via faker
-urllib3==1.26.2           # via requests, selenium
+-e git+git://github.com/okfde/django-amenities.git@master#egg=django-amenities
+    # via -r requirements.in
+-e git+git://github.com/stefanw/django-contractor.git@master#egg=django-contractor
+    # via -r requirements.in
+-e git+git://github.com/okfde/django-filingcabinet.git@master#egg=django-filingcabinet
+    # via
+    #   -r requirements.in
+    #   froide
+-e git+git://github.com/okfde/froide.git@main#egg=froide
+    # via
+    #   -r requirements.in
+    #   froide-campaign
+    #   froide-crowdfunding
+    #   froide-exam
+    #   froide-fax
+    #   froide-food
+    #   froide-legalaction
+-e git+git://github.com/okfde/froide-campaign.git@master#egg=froide-campaign
+    # via -r requirements.in
+-e git+git://github.com/okfde/froide-crowdfunding.git@master#egg=froide-crowdfunding
+    # via -r requirements.in
+-e git+git://github.com/okfde/froide-exam.git@master#egg=froide-exam
+    # via -r requirements.in
+-e git+git://github.com/okfde/froide-fax.git@master#egg=froide-fax
+    # via -r requirements.in
+-e git+git://github.com/okfde/froide-food.git@master#egg=froide-food
+    # via -r requirements.in
+-e git+git://github.com/okfde/froide-legalaction.git@master#egg=froide-legalaction
+    # via -r requirements.in
+-e git+git://github.com/okfde/froide-payment.git@master#egg=froide-payment
+    # via
+    #   -r requirements.in
+    #   froide-crowdfunding
+aiohttp==3.7.3
+    # via geoip2
+alabaster==0.7.12
+    # via sphinx
+amqp==5.0.5
+    # via kombu
+appnope==0.1.2
+    # via ipython
+asgiref==3.3.1
+    # via
+    #   channels
+    #   daphne
+    #   django
+async-timeout==3.0.1
+    # via aiohttp
+attrs==20.3.0
+    # via
+    #   aiohttp
+    #   automat
+    #   service-identity
+    #   twisted
+autobahn==21.1.1
+    # via daphne
+automat==20.2.0
+    # via twisted
+babel==2.9.0
+    # via
+    #   django-prices
+    #   enmerkar
+    #   prices
+    #   sphinx
+backcall==0.2.0
+    # via ipython
+billiard==3.6.3.0
+    # via celery
+braintree==4.6.0
+    # via django-payments
+cairocffi==1.2.0
+    # via
+    #   cairosvg
+    #   weasyprint
+cairosvg==2.5.1
+    # via weasyprint
+celery==5.0.5
+    # via
+    #   -r requirements.in
+    #   django-celery-beat
+    #   django-celery-email
+    #   django-contractor
+    #   froide
+certifi==2020.12.5
+    # via
+    #   elasticsearch
+    #   requests
+    #   sentry-sdk
+cffi==1.14.4
+    # via
+    #   cairocffi
+    #   cryptography
+    #   weasyprint
+channels==3.0.3
+    # via -r requirements.in
+chardet==3.0.4
+    # via
+    #   aiohttp
+    #   django-newsletter
+    #   requests
+click-didyoumean==0.0.3
+    # via celery
+click-plugins==1.1.1
+    # via celery
+click-repl==0.1.6
+    # via celery
+click==7.1.2
+    # via
+    #   celery
+    #   click-didyoumean
+    #   click-plugins
+    #   click-repl
+    #   geocoder
+constantly==15.1.0
+    # via twisted
+coreapi==2.3.3
+    # via -r requirements.in
+coreschema==0.0.4
+    # via coreapi
+coverage==5.4
+    # via
+    #   -r requirements-dev.in
+    #   django-coverage-plugin
+cryptography==3.3.1
+    # via
+    #   autobahn
+    #   django-payments
+    #   pyopenssl
+    #   service-identity
+cssselect2==0.4.1
+    # via
+    #   cairosvg
+    #   weasyprint
+daphne==3.0.1
+    # via channels
+decorator==4.4.2
+    # via
+    #   ipython
+    #   ratelim
+defusedxml==0.6.0
+    # via cairosvg
+dj-database-url==0.5.0
+    # via
+    #   -r requirements.in
+    #   froide
+django-admin-sortable2==0.7.8
+    # via -r requirements.in
+django-appconf==1.0.4
+    # via django-celery-email
+django-cache-url==3.2.2
+    # via
+    #   -r requirements.in
+    #   froide
+django-celery-beat==2.2.0
+    # via -r requirements.in
+django-celery-email==3.0.0
+    # via -r requirements.in
+django-classy-tags==2.0.0
+    # via
+    #   django-cms
+    #   django-sekizai
+django-cms==3.8.0
+    # via
+    #   -r requirements.in
+    #   djangocms-attributes-field
+    #   djangocms-bootstrap4
+    #   djangocms-icon
+    #   djangocms-link
+    #   djangocms-picture
+    #   djangocms-text-ckeditor
+    #   djangocms-transfer
+    #   djangocms-video
+    #   sortabletable
+django-configurations==2.2
+    # via
+    #   -r requirements.in
+    #   froide
+django-contrib-comments==2.0.0
+    # via -r requirements.in
+django-countries==7.0
+    # via froide-payment
+django-coverage-plugin==1.8.0
+    # via -r requirements-dev.in
+django-crossdomainmedia==0.0.3
+    # via
+    #   -r requirements.in
+    #   froide
+django-debug-toolbar==3.2
+    # via -r requirements-dev.in
+django-elasticsearch-dsl==7.1.4
+    # via froide
+django-filer==2.0.2
+    # via
+    #   -r requirements.in
+    #   djangocms-bootstrap4
+    #   djangocms-link
+    #   djangocms-picture
+    #   djangocms-video
+django-filter==2.4.0
+    # via
+    #   -r requirements.in
+    #   django-filingcabinet
+    #   froide
+    #   froide-campaign
+django-floppyforms==1.9.0
+    # via -r requirements.in
+django-formtools==2.2
+    # via django-cms
+django-fsm==2.7.1
+    # via froide-legalaction
+django-js-asset==1.2.2
+    # via django-mptt
+django-leaflet==0.27.1
+    # via -r requirements.in
+django-localflavor==3.0.1
+    # via froide-payment
+django-logentry-admin==1.0.6
+    # via -r requirements.in
+django-markdown-deux==1.0.5
+    # via froide-campaign
+django-mptt==0.11.0
+    # via
+    #   django-filer
+    #   django-filingcabinet
+django-newsletter==0.9.1
+    # via -r requirements.in
+django-oauth-toolkit==1.3.3
+    # via -r requirements.in
+django-parler==2.2
+    # via -r requirements.in
+django-payments==0.13.0
+    # via froide-payment
+django-polymorphic==3.0.0
+    # via django-filer
+django-prices==2.2.0
+    # via froide-payment
+django-sekizai==2.0.0
+    # via
+    #   -r requirements.in
+    #   django-cms
+django-storages==1.11.1
+    # via
+    #   -r requirements.in
+    #   froide
+django-taggit-autosuggest==0.3.8
+    # via -r requirements.in
+django-taggit==1.3.0
+    # via
+    #   -r requirements.in
+    #   django-filingcabinet
+    #   django-taggit-autosuggest
+    #   froide
+django-timezone-field==4.1.1
+    # via django-celery-beat
+django-treebeard==4.4
+    # via
+    #   -r requirements.in
+    #   django-cms
+django==3.1.6
+    # via
+    #   -r requirements.in
+    #   channels
+    #   django-admin-sortable2
+    #   django-amenities
+    #   django-appconf
+    #   django-celery-beat
+    #   django-celery-email
+    #   django-classy-tags
+    #   django-cms
+    #   django-contractor
+    #   django-contrib-comments
+    #   django-crossdomainmedia
+    #   django-debug-toolbar
+    #   django-filer
+    #   django-filingcabinet
+    #   django-filter
+    #   django-formtools
+    #   django-leaflet
+    #   django-localflavor
+    #   django-logentry-admin
+    #   django-mptt
+    #   django-newsletter
+    #   django-oauth-toolkit
+    #   django-payments
+    #   django-polymorphic
+    #   django-prices
+    #   django-sekizai
+    #   django-storages
+    #   django-taggit
+    #   django-timezone-field
+    #   django-treebeard
+    #   djangorestframework
+    #   easy-thumbnails
+    #   enmerkar
+    #   froide
+    #   jsonfield
+    #   sortabletable
+djangocms-admin-style==2.0.2
+    # via django-cms
+djangocms-attributes-field==2.0.0
+    # via
+    #   djangocms-bootstrap4
+    #   djangocms-icon
+    #   djangocms-link
+    #   djangocms-picture
+    #   djangocms-video
+djangocms-bootstrap4==2.0.0
+    # via -r requirements.in
+djangocms-icon==2.0.0
+    # via
+    #   -r requirements.in
+    #   djangocms-bootstrap4
+djangocms-link==3.0.0
+    # via djangocms-bootstrap4
+djangocms-picture==3.0.0
+    # via
+    #   -r requirements.in
+    #   djangocms-bootstrap4
+djangocms-text-ckeditor==4.0.0
+    # via
+    #   -r requirements.in
+    #   djangocms-bootstrap4
+djangocms-transfer==1.0.0
+    # via -r requirements.in
+djangocms-video==3.0.0
+    # via -r requirements.in
+djangorestframework-csv==2.1.0
+    # via
+    #   -r requirements.in
+    #   froide
+djangorestframework-jsonp==1.0.2
+    # via
+    #   -r requirements.in
+    #   froide
+djangorestframework==3.12.2
+    # via
+    #   -r requirements.in
+    #   djangorestframework-csv
+    #   froide
+dnspython==2.1.0
+    # via pyisemail
+docopt==0.6.2
+    # via num2words
+docutils==0.16
+    # via sphinx
+easy-thumbnails==2.7.1
+    # via
+    #   django-filer
+    #   djangocms-picture
+elasticsearch-dsl==7.3.0
+    # via
+    #   -r requirements.in
+    #   django-elasticsearch-dsl
+elasticsearch==7.10.1
+    # via
+    #   -r requirements.in
+    #   elasticsearch-dsl
+enmerkar==0.7.1
+    # via django-prices
+et-xmlfile==1.0.1
+    # via openpyxl
+factory-boy==3.2.0
+    # via -r requirements-dev.in
+faker==6.0.0
+    # via
+    #   -r requirements-dev.in
+    #   factory-boy
+fdfgen==0.16.1
+    # via froide-food
+flake8==3.8.4
+    # via -r requirements-dev.in
+future==0.18.2
+    # via geocoder
+geocoder==1.38.1
+    # via
+    #   django-amenities
+    #   froide-food
+geographiclib==1.50
+    # via geopy
+geoip2==4.1.0
+    # via
+    #   -r requirements.in
+    #   froide
+geopy==2.1.0
+    # via
+    #   django-amenities
+    #   froide-food
+honcho==1.0.1
+    # via -r requirements-dev.in
+html5lib==1.1
+    # via
+    #   djangocms-text-ckeditor
+    #   weasyprint
+hyperlink==21.0.0
+    # via
+    #   autobahn
+    #   twisted
+icalendar==4.0.7
+    # via
+    #   -r requirements.in
+    #   froide
+idna==2.10
+    # via
+    #   hyperlink
+    #   requests
+    #   twisted
+    #   yarl
+imagesize==1.2.0
+    # via sphinx
+incremental==17.5.0
+    # via twisted
+ipdb==0.13.4
+    # via -r requirements-dev.in
+ipython-genutils==0.2.0
+    # via traitlets
+ipython==7.20.0
+    # via ipdb
+itypes==1.2.0
+    # via coreapi
+jdcal==1.4.1
+    # via openpyxl
+jedi==0.18.0
+    # via ipython
+jinja2==2.11.3
+    # via
+    #   coreschema
+    #   sphinx
+jsonfield==3.1.0
+    # via froide-campaign
+kombu==5.0.2
+    # via celery
+ldif3==3.1.1
+    # via django-newsletter
+lxml==4.6.2
+    # via
+    #   django-amenities
+    #   django-contractor
+    #   pikepdf
+markdown2==2.4.0
+    # via django-markdown-deux
+markdown==3.3.3
+    # via
+    #   -r requirements.in
+    #   froide
+markupsafe==1.1.1
+    # via jinja2
+maxminddb==2.0.3
+    # via geoip2
+mccabe==0.6.1
+    # via
+    #   -r requirements-dev.in
+    #   flake8
+mock==4.0.3
+    # via -r requirements-dev.in
+multidict==5.1.0
+    # via
+    #   aiohttp
+    #   yarl
+num2words==0.5.10
+    # via -r requirements.in
+numpy==1.20.0
+    # via pandas
+oauthlib==3.1.0
+    # via django-oauth-toolkit
+openpyxl==3.0.6
+    # via -r requirements.in
+packaging==20.9
+    # via sphinx
+pandas==1.2.1
+    # via -r requirements.in
+parso==0.8.1
+    # via jedi
+pbr==5.5.1
+    # via -r requirements-dev.in
+pexpect==4.8.0
+    # via ipython
+phonenumbers==8.12.17
+    # via
+    #   -r requirements.in
+    #   froide
+    #   froide-fax
+pickleshare==0.7.5
+    # via ipython
+pikepdf==2.5.2
+    # via django-filingcabinet
+pillow==8.1.0
+    # via
+    #   cairosvg
+    #   django-filingcabinet
+    #   django-newsletter
+    #   djangocms-text-ckeditor
+    #   easy-thumbnails
+    #   pikepdf
+    #   reportlab
+    #   weasyprint
+prices==1.1.0
+    # via
+    #   django-prices
+    #   froide-payment
+prompt-toolkit==3.0.14
+    # via
+    #   click-repl
+    #   ipython
+psycopg2-binary==2.8.6
+    # via -r requirements.in
+ptyprocess==0.7.0
+    # via pexpect
+pyasn1-modules==0.2.8
+    # via service-identity
+pyasn1==0.4.8
+    # via
+    #   pyasn1-modules
+    #   service-identity
+pycodestyle==2.6.0
+    # via
+    #   -r requirements-dev.in
+    #   flake8
+pycparser==2.20
+    # via cffi
+pyflakes==2.2.0
+    # via
+    #   -r requirements-dev.in
+    #   flake8
+pygments==2.7.4
+    # via
+    #   ipython
+    #   sphinx
+pyhamcrest==2.0.2
+    # via twisted
+pyisemail==1.3.2
+    # via -r requirements.in
+pyjwt==1.7.1
+    # via
+    #   django-payments
+    #   twilio
+pyopenssl==20.0.1
+    # via twisted
+pyparsing==2.4.7
+    # via packaging
+pypdf2==1.26.0
+    # via
+    #   -r requirements.in
+    #   django-filingcabinet
+pyphen==0.10.0
+    # via weasyprint
+python-card-me==0.9.3
+    # via django-newsletter
+python-crontab==2.5.1
+    # via django-celery-beat
+python-dateutil==2.8.1
+    # via
+    #   elasticsearch-dsl
+    #   faker
+    #   froide-payment
+    #   icalendar
+    #   pandas
+    #   python-card-me
+    #   python-crontab
+python-magic==0.4.18
+    # via
+    #   -r requirements.in
+    #   froide
+python-mimeparse==1.6.0
+    # via
+    #   -r requirements.in
+    #   froide
+python-slugify==4.0.1
+    # via -r requirements.in
+python-stdnum==1.15
+    # via django-localflavor
+pytz==2021.1
+    # via
+    #   -r requirements.in
+    #   babel
+    #   celery
+    #   django
+    #   django-timezone-field
+    #   froide
+    #   icalendar
+    #   pandas
+    #   twilio
+ratelim==0.1.6
+    # via geocoder
+reportlab==3.5.59
+    # via -r requirements.in
+requests==2.25.1
+    # via
+    #   -r requirements.in
+    #   braintree
+    #   coreapi
+    #   django-contractor
+    #   django-oauth-toolkit
+    #   django-payments
+    #   froide
+    #   froide-food
+    #   froide-payment
+    #   geocoder
+    #   geoip2
+    #   sphinx
+    #   stripe
+    #   twilio
+selenium==3.141.0
+    # via -r requirements-dev.in
+sentry-sdk==0.19.5
+    # via -r requirements.in
+service-identity==18.1.0
+    # via twisted
+six==1.15.0
+    # via
+    #   automat
+    #   click-repl
+    #   cryptography
+    #   django-configurations
+    #   django-coverage-plugin
+    #   django-elasticsearch-dsl
+    #   django-newsletter
+    #   djangorestframework-csv
+    #   elasticsearch-dsl
+    #   geocoder
+    #   html5lib
+    #   pyopenssl
+    #   python-dateutil
+    #   twilio
+snowballstemmer==2.1.0
+    # via sphinx
+sorl-thumbnail==12.7.0
+    # via django-newsletter
+sortabletable==0.0.15
+    # via -r requirements.in
+sphinx==3.4.3
+    # via -r requirements-dev.in
+sphinxcontrib-applehelp==1.0.2
+    # via sphinx
+sphinxcontrib-devhelp==1.0.2
+    # via sphinx
+sphinxcontrib-htmlhelp==1.0.3
+    # via sphinx
+sphinxcontrib-jsmath==1.0.1
+    # via sphinx
+sphinxcontrib-qthelp==1.0.3
+    # via sphinx
+sphinxcontrib-serializinghtml==1.1.4
+    # via sphinx
+sqlparse==0.4.1
+    # via
+    #   django
+    #   django-debug-toolbar
+stripe==2.55.2
+    # via
+    #   -r requirements.in
+    #   django-payments
+    #   froide-payment
+suds-jurko==0.6
+    # via django-payments
+surlex==0.2.0
+    # via django-newsletter
+tblib==1.7.0
+    # via -r requirements-dev.in
+text-unidecode==1.3
+    # via
+    #   faker
+    #   python-slugify
+tinycss2==1.1.0
+    # via
+    #   cairosvg
+    #   cssselect2
+    #   weasyprint
+traitlets==5.0.5
+    # via ipython
+twilio==6.51.1
+    # via
+    #   -r requirements.in
+    #   froide-fax
+twisted[tls]==20.3.0
+    # via daphne
+txaio==20.12.1
+    # via autobahn
+typing-extensions==3.7.4.3
+    # via aiohttp
+unicodecsv==0.14.1
+    # via
+    #   django-newsletter
+    #   djangorestframework-csv
+unidecode==1.1.2
+    # via django-filer
+uritemplate==3.0.1
+    # via coreapi
+urllib3==1.26.3
+    # via
+    #   elasticsearch
+    #   geoip2
+    #   requests
+    #   selenium
+    #   sentry-sdk
+vine==5.0.0
+    # via
+    #   amqp
+    #   celery
+wand==0.6.5
+    # via
+    #   -r requirements.in
+    #   django-filingcabinet
+wcwidth==0.2.5
+    # via prompt-toolkit
+weasyprint==52.2
+    # via
+    #   -r requirements.in
+    #   froide-fax
+webencodings==0.5.1
+    # via
+    #   cssselect2
+    #   html5lib
+    #   tinycss2
+websockets==8.1
+    # via -r requirements.in
+xlrd==2.0.1
+    # via -r requirements.in
+xmltodict==0.12.0
+    # via django-payments
+yarl==1.6.3
+    # via aiohttp
+zope.interface==5.2.0
+    # via twisted
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
