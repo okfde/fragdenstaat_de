@@ -106,6 +106,11 @@ class FragDenStaatBase(German, Base):
     @property
     def TEMPLATES(self):
         TEMP = super().TEMPLATES
+        if 'DIRS' not in TEMP[0]:
+            TEMP[0]['DIRS'] = []
+        TEMP[0]['DIRS'] = [
+            os.path.join(THEME_ROOT, 'templates'),
+        ] + list(TEMP[0]['DIRS'])
         cps = TEMP[0]['OPTIONS']['context_processors']
         cps.extend([
             'sekizai.context_processors.sekizai',
