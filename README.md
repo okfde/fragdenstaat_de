@@ -104,6 +104,15 @@ cd fragdenstaat_de
 yarn run serve
 ```
 
+### Upgrade dependencies
+
+```
+pip-compile -U requirements.in
+pip-compile -U requirements-dev.in
+pip-compile -U requirements-production.in
+```
+
+
 ## License
 
 Froide and fragdenstaat_de are licensed under the AGPL License.
