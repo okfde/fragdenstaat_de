@@ -47,7 +47,7 @@ urlpatterns = [
     path('klagen/', include('froide_legalaction.urls')),
     path('payments/', include('froide_payment.payments_urls')),
     path('payment/', include('froide_payment.urls')),
-    path('dashboard/$', dashboard, name='dashboard'),
+    path('dashboard/', dashboard, name='dashboard'),
     path('taggit_autosuggest/', include('taggit_autosuggest.urls')),
     path('contractor/', include('contractor.urls')),
     path('fax/', include('froide_fax.urls')),
