@@ -50,8 +50,14 @@
       <td>{{ donation.amount }}&nbsp;Euro</td>
       <td>{{ donation.purpose }}</td>
       <td>
-        {{ donation.payment.get_status_display }}
-        <a href="{{ donation.order.get_absolute_url }}">Details</a>
+        {% if donation.payment %}
+          {{ donation.payment.get_status_display }}
+          <a href="{{ donation.order.get_absolute_url }}">Details</a>
+        {% else %}
+          {% if donation.received %}
+            Bestätigt
+          {% endif %}
+        {% endif %}
       </td>
     </li>
   {% endfor %}
