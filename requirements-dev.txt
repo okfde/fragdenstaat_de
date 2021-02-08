@@ -4,15 +4,15 @@
 #
 #    pip-compile requirements-dev.in
 #
--e git+git://github.com/okfde/django-amenities.git@master#egg=django-amenities
+-e git+https://github.com/okfde/django-amenities.git@master#egg=django-amenities
     # via -r requirements.in
--e git+git://github.com/stefanw/django-contractor.git@master#egg=django-contractor
+-e git+https://github.com/stefanw/django-contractor.git@master#egg=django-contractor
     # via -r requirements.in
--e git+git://github.com/okfde/django-filingcabinet.git@master#egg=django-filingcabinet
+-e git+https://github.com/okfde/django-filingcabinet.git@master#egg=django-filingcabinet
     # via
     #   -r requirements.in
     #   froide
--e git+git://github.com/okfde/froide.git@main#egg=froide
+-e git+https://github.com/okfde/froide.git@main#egg=froide
     # via
     #   -r requirements.in
     #   froide-campaign
@@ -21,19 +21,19 @@
     #   froide-fax
     #   froide-food
     #   froide-legalaction
--e git+git://github.com/okfde/froide-campaign.git@master#egg=froide-campaign
+-e git+https://github.com/okfde/froide-campaign.git@master#egg=froide-campaign
     # via -r requirements.in
--e git+git://github.com/okfde/froide-crowdfunding.git@master#egg=froide-crowdfunding
+-e git+https://github.com/okfde/froide-crowdfunding.git@master#egg=froide-crowdfunding
     # via -r requirements.in
--e git+git://github.com/okfde/froide-exam.git@master#egg=froide-exam
+-e git+https://github.com/okfde/froide-exam.git@master#egg=froide-exam
     # via -r requirements.in
--e git+git://github.com/okfde/froide-fax.git@master#egg=froide-fax
+-e git+https://github.com/okfde/froide-fax.git@master#egg=froide-fax
     # via -r requirements.in
--e git+git://github.com/okfde/froide-food.git@master#egg=froide-food
+-e git+https://github.com/okfde/froide-food.git@master#egg=froide-food
     # via -r requirements.in
--e git+git://github.com/okfde/froide-legalaction.git@master#egg=froide-legalaction
+-e git+https://github.com/okfde/froide-legalaction.git@master#egg=froide-legalaction
     # via -r requirements.in
--e git+git://github.com/okfde/froide-payment.git@master#egg=froide-payment
+-e git+https://github.com/okfde/froide-payment.git@master#egg=froide-payment
     # via
     #   -r requirements.in
     #   froide-crowdfunding
