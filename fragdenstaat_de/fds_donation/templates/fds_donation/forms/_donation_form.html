@@ -11,7 +11,7 @@
       {% if form.settings.title %}
         {{ form.settings.title }}
       {% else %}
-        Mit meiner Spende Informationen befreien
+        {% trans "Your donation frees information" %}
       {% endif %}
     </legend>
     <div class="row">
@@ -40,7 +40,9 @@
 
     {% if form.settings.collapsed %}
       <button type="button" class="btn btn-primary btn-lg mb-3" data-toggle="collapse" data-target="#donation-form-detail" aria-expanded="false" aria-controls="donation-form-detail">
-        <span class="hideparent">Weiter</span>
+        <span class="hideparent">
+          {% trans "Continue" %}
+        </span>
       </button>
     {% endif %}
 
@@ -51,7 +53,9 @@
   {% endif%}
 
   <fieldset>
-    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">Persönliche Daten</legend>
+    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">
+      {% trans "Your details" %}
+    </legend>
     <div class="row">
       <div class="col-12 col-md-3">
         {% include "helper/forms/bootstrap_field_stacked.html" with field=form.salutation %}
@@ -72,7 +76,7 @@
         {% include "helper/forms/bootstrap_field_stacked.html" with field=form.email %}
         <small class="mt-5">
           <a href="#company-field" data-toggle="collapse">
-            &rarr; Möchten Sie als Firma spenden?
+            {% trans "&rarr; Do you want to donate as a company?" %}
           </a>
         </small>
       </div>
@@ -110,29 +114,35 @@
   </fieldset>
   <fieldset>
     <legend class="bg-primary text-white px-2 py-0 font-weight-bold">
-      Zahlungsweise
+      {% trans "Payment method" %}
     </legend>
     <div class="row">
       <div class="col-12">
         <div class="d-none onion-show alert alert-danger">
-          Spenden per Kreditkarte, Sofort-Überweisung oder Paypal funktionieren leider nicht über unsere .onion-Seite.
+          {% trans "Donations via credit card, SOFORT-Überweisung or Paypal do not work via our .onion-site" %}
         </div>
         <div class="form-group">
           {{ form.payment_method }}
         </div>
 
-        <p class="text-muted"><i class="fa fa-lock"></i> Die Eingabe Ihrer Zahlungsinformationen erfolgt sicher verschlüsselt im nächsten Schritt.</p>
+        <p class="text-muted">
+          <i class="fa fa-lock"></i>
+          {% trans "Your payment details will be transmitted securely in the next step." %}</p>
       </div>
     </div>
   </fieldset>
   <fieldset>
-    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">Auf dem Laufenden bleiben</legend>
+    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">
+      {% trans "Stay up to date" %}
+    </legend>
     <div class="row">
       <div class="col-md-6 mt-2">
         <div class="card border-primary">
           <div class="card-header"><h4>{{ form.contact.label }}</h4></div>
           <div class="card-body">
-            <p>Erhalten Sie Neuigkeiten zum Thema Informationsfreiheit direkt in Ihr Postfach und erfahren Sie mehr über die Wirkung Ihrer Spende.</p>
+            <p>
+              {% trans "Receive our newsletter about freedom of information in German." %}
+            </p>
             {{ form.contact }}
           </div>
         </div>
@@ -140,12 +150,16 @@
       <div class="col-md-6 mt-2">
         <div class="card">
           {% if request.user.is_authenticated %}
-            <div class="card-header"><h4>FragDenStaat-Konto</h4></div>
+            <div class="card-header">
+              <h4>{% trans "FragDenStaat Account" %}</h4>
+            </div>
             <div class="card-body">
-              Sie können Ihre Spenden in Ihrem FragDenStaat-Konto einsehen und verwalten.
+              {% trans "You can manage your donation in your FragDenStaat account." %}
             </div>
           {% else %}
-            <div class="card-header"><h4>Account bekommen</h4></div>
+            <div class="card-header">
+              <h4>{% trans "Get an account" %}</h4>
+            </div>
             <div class="card-body">
               <div class="form-group">
                 <label>{{ form.account.label }}</label>
@@ -161,7 +175,7 @@
   <div class="row mt-3">
     <div class="col-12 col-md-6 text-right ml-auto">
       <button id="donate-now" type="submit" class="btn btn-lg btn-block btn-primary btn-threed mb-3">
-        Jetzt spenden
+        {% trans "Donate now" %}
       </button>
     </div>
   </div>
