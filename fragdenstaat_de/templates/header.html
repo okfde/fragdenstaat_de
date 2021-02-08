@@ -2,6 +2,7 @@
 {% load static %}
 {% load content_helper %}
 
+{% load cms_tags %}
 {% load account_tags %}
 
 {% get_menu_items as menu_items %}
@@ -68,7 +69,7 @@
             {% csrf_token %}
             <button type="submit" class="drawer-menu__link drawer-menu__link--blue border-0">
               <i class="fa fa-sign-out" aria-hidden="true"></i>
-              <span>{% blocktrans %}Abmelden{% endblocktrans %}</span>
+              <span>{% blocktrans %}Log out{% endblocktrans %}</span>
             </button>
           </form>
         </li>
@@ -79,37 +80,39 @@
       <ul class="list-unstyled mb-0 {% if not user.is_authenticated %}mt-3{% endif %}">
         <!-- Anfragen drawer-menu__dropdown -->
         <li>
-          <a class="drawer-menu__link drawer-menu__link--white drawer-menu__dropdown-trigger" href="/anfragen/">
-            <span>{% blocktrans %}Anfragen{% endblocktrans %}</span>
+          <a class="drawer-menu__link drawer-menu__link--white drawer-menu__dropdown-trigger" href="{% url 'foirequest-list' %}">
+            <span>{% blocktrans %}Requests{% endblocktrans %}</span>
             <i class="fa fa-caret-down" aria-hidden="true"></i>
           </a>
 
           <ul class="list-unstyled mb-0 drawer-menu__dropdown-content">
             <li>
-              <a class="drawer-menu__link drawer-menu__link--white" href="/anfragen/">
-                {% blocktrans %}Anfragen entdecken{% endblocktrans %}
+              <a class="drawer-menu__link drawer-menu__link--white" href="{% url 'foirequest-list' %}">
+                {% blocktrans %}See requests{% endblocktrans %}
               </a>
             </li>
             <li>
-              <a class="drawer-menu__link drawer-menu__link--white" href="/anfrage-stellen/">
-                {% blocktrans %}Anfrage stellen{% endblocktrans %}
+              <a class="drawer-menu__link drawer-menu__link--white" href="{% url 'foirequest-make_request' %}">
+                {% blocktrans %}Make request{% endblocktrans %}
               </a>
             </li>
             <li>
               <a class="drawer-menu__link drawer-menu__link--white" href="/hilfe/einsteiger-guide/">
-                {% blocktrans %}Einsteiger-Guide{% endblocktrans %}
+                {% blocktrans %}Beginner's guide{% endblocktrans %}
               </a>
             </li>
           </ul>
         </li>
         <li>
-          <a class="drawer-menu__link drawer-menu__link--white" href="/info/ueber/kampagnen/">
-            {% blocktrans %}Kampagnen{% endblocktrans %}
+          {% page_url "campaigns" as campaigns_url %}
+          <a class="drawer-menu__link drawer-menu__link--white" href="{{ campaigns_url|default:'/kampagnen/' }}">
+            {% blocktrans %}Campaigns{% endblocktrans %}
           </a>
         </li>
         <li>
-          <a class="drawer-menu__link drawer-menu__link--white" href="/blog/">
-            {% blocktrans %}Recherchen{% endblocktrans %}
+          {% page_url "blog" as blog_url %}
+          <a class="drawer-menu__link drawer-menu__link--white" href="{{ blog_url|default:'/blog/' }}">
+            {% blocktrans %}Investigations{% endblocktrans %}
           </a>
         </li>
         {% if not user.is_authenticated %}
@@ -124,8 +127,11 @@
 
       <!-- Spenden CTA -->
       <p class="py-3 px-3">
-        Ihnen gefällt unsere Arbeit? Unterstützen Sie uns mit einer Spende!<br>
-        <a class="btn btn-outline-primary mt-2" href="/spenden/?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">{% blocktrans %}Jetzt spenden{% endblocktrans %}</a>
+        {% trans "You like our work? Support us with a donation!" %}<br>
+        {% page_url "donate" as donate_url %}
+        <a class="btn btn-outline-primary mt-2" href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+          {% blocktrans %}Donate now{% endblocktrans %}
+        </a>
       </p>
       
     </nav>
@@ -142,28 +148,28 @@
       <li class="top-menu__listitem dropdown mr-md-3 mr-lg-4">
         <!-- Anfragen top-menu__dropdown -->
         <button type="button" class="top-menu__link dropdown-toggle" id="anfragenDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {% blocktrans %}Anfragen{% endblocktrans %}
+          {% blocktrans %}Requests{% endblocktrans %}
         </button>
         <div class="dropdown-menu top-menu--drop-left" aria-labelledby="anfragenDropdownMenu">
-          <a class="dropdown-item top-menu__link" href="/anfragen/">
-            {% blocktrans %}Anfragen entdecken{% endblocktrans %}
+          <a class="dropdown-item top-menu__link" href="{% url 'foirequest-list' %}">
+            {% blocktrans %}See requests{% endblocktrans %}
           </a>
-          <a class="dropdown-item top-menu__link" href="/anfrage-stellen/">
-            {% blocktrans %}Anfrage stellen{% endblocktrans %}
+          <a class="dropdown-item top-menu__link" href="{% url 'foirequest-make_request' %}">
+            {% blocktrans %}Make requests{% endblocktrans %}
           </a>
           <a class="dropdown-item top-menu__link" href="/hilfe/einsteiger-guide/">
-            {% blocktrans %}Einsteiger-Guide{% endblocktrans %}
+            {% blocktrans %}Beginner's guide{% endblocktrans %}
           </a>
         </div>
       </li>
       <li class="top-menu__listitem mr-md-3 mr-lg-4">
-        <a class="top-menu__link" href="/info/ueber/kampagnen/">
-          {% blocktrans %}Kampagnen{% endblocktrans %}
+        <a class="top-menu__link" href="{{ campaigns_url|default:'/kampagnen/' }}">
+          {% blocktrans %}Campaigns{% endblocktrans %}
         </a>
       </li>
       <li class="top-menu__listitem mr-md-3 mr-lg-0">
-        <a class="top-menu__link" href="/blog/">
-          {% blocktrans %}Recherchen{% endblocktrans %}
+        <a class="top-menu__link" href="{{ blog_url|default:'/blog/' }}">
+          {% blocktrans %}Investigations{% endblocktrans %}
         </a>
       </li>
     </ul>
@@ -173,9 +179,9 @@
     <ul class="top-menu__list ml-auto">
       {% block nav_donate %}
       <li class="top-menu__listitem">
-        <a class="top-menu__link text-danger" href="/spenden/?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+        <a class="top-menu__link text-danger" href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
           <i class="fa fa-heart d-md-none d-lg-inline-block" aria-hidden="true"></i>
-          <span>{% blocktrans %}Spenden{% endblocktrans %}</span>
+          <span>{% blocktrans %}Donate{% endblocktrans %}</span>
         </a>
       </li>
       {% endblock %}
@@ -199,7 +205,7 @@
               <form action="{% url 'account-logout' %}" method="post" class="form-inline">
                 {% csrf_token %}
                 <button type="submit" class="top-menu__link w-100">
-                  {% blocktrans %}Abmelden{% endblocktrans %}
+                  {% blocktrans %}Log out{% endblocktrans %}
                 </button>
               </form>
             </div>

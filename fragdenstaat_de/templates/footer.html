@@ -1,6 +1,7 @@
 {% extends "footer.html" %}
 
-{% load static %}
+{% load static i18n %}
+{% load cms_tags %}
 {% load content_helper %}
 
 {% block footer %}
@@ -11,6 +12,7 @@
           <h6>FragDenStaat</h6>
           <ul class="footer__menu">
             <li>
+              {% page_url "blog" as blog_url %}
               <a href="/blog/">Blog</a>
             </li>
             <li>
@@ -57,11 +59,12 @@
               <a href="/info/ueber/mitmachen/">Jobs &amp; Mitmachen</a>
             </li>
             <li>
-              <a href="/hilfe/crowdfunding/">Crowdfunding</a>
+              <a href="/hilfecrowdfunding/">Crowdfunding</a>
             </li>
             <li>
-              <a class="footer__highlight" href="/spenden/?pk_campaign=site-footer&amp;pk_keyword={{ request.path | urlencode }}">
-                Spenden
+              {% page_url "donate" as donate_url %}
+              <a class="footer__highlight" href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-footer&amp;pk_keyword={{ request.path | urlencode }}">
+                {% trans "Donate" %}
               </a>
             </li>
             <li>
