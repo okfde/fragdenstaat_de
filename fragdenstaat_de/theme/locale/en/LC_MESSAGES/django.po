@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-17 17:05+0100\n"
+"POT-Creation-Date: 2021-02-08 19:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,95 +17,115 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: fragdenstaat_de/theme/cms_plugins.py:12
-#: fragdenstaat_de/theme/cms_plugins.py:20
-#: fragdenstaat_de/theme/cms_plugins.py:28
-#: fragdenstaat_de/theme/cms_plugins.py:35
-#: fragdenstaat_de/theme/cms_plugins.py:64
-msgid "Structure"
+#: theme/apps.py:7
+msgid "FragDenStaat"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:13
-msgid "Container"
+#: theme/cms_plugins.py:8
+msgid "Two"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:21
-msgid "Container Grey"
-msgstr ""
-
-#: fragdenstaat_de/theme/cms_plugins.py:29
-msgid "Row"
-msgstr ""
-
-#: fragdenstaat_de/theme/cms_plugins.py:41
+#: theme/cms_plugins.py:9
 msgid "Three"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:42
+#: theme/cms_plugins.py:10
 msgid "Four"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:43
+#: theme/cms_plugins.py:11
+msgid "Five"
+msgstr ""
+
+#: theme/cms_plugins.py:12
 msgid "Six"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:44
+#: theme/cms_plugins.py:13
+msgid "Seven"
+msgstr ""
+
+#: theme/cms_plugins.py:14
 msgid "Eight"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:45
+#: theme/cms_plugins.py:15
 msgid "Nine"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:46
+#: theme/cms_plugins.py:16
+msgid "Ten"
+msgstr ""
+
+#: theme/cms_plugins.py:17
 msgid "Twelve"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:55
-msgid "Column "
+#: theme/cms_plugins.py:27 theme/cms_plugins.py:35 theme/cms_plugins.py:43
+#: theme/cms_plugins.py:60 theme/cms_plugins.py:70 theme/cms_plugins.py:80
+#: theme/cms_plugins.py:90 theme/cms_plugins.py:100 theme/cms_plugins.py:110
+#: theme/cms_plugins.py:119 theme/cms_plugins.py:140
+msgid "Structure"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:66
+#: theme/cms_plugins.py:28
+msgid "Container"
+msgstr ""
+
+#: theme/cms_plugins.py:36
+msgid "Container Fluid"
+msgstr ""
+
+#: theme/cms_plugins.py:44
+msgid "Container Grey"
+msgstr ""
+
+#: theme/cms_plugins.py:61
+msgid "Row"
+msgstr ""
+
+#: theme/cms_plugins.py:71
+msgid "Row Left Aligned"
+msgstr ""
+
+#: theme/cms_plugins.py:81
+msgid "Row Right Aligned"
+msgstr ""
+
+#: theme/cms_plugins.py:91
+msgid "Row Spaced Around"
+msgstr ""
+
+#: theme/cms_plugins.py:101
+msgid "Row Spaced Between"
+msgstr ""
+
+#: theme/cms_plugins.py:111
+msgid "Row Narrow"
+msgstr ""
+
+#: theme/cms_plugins.py:131
+#, python-format
+msgid "Column %s"
+msgstr ""
+
+#: theme/cms_plugins.py:142
 msgid "Column Teaser Three"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:72
+#: theme/cms_plugins.py:148
 msgid "Menu"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:73
+#: theme/cms_plugins.py:149
 msgid "Sub Menu"
 msgstr ""
 
-#: fragdenstaat_de/theme/cms_plugins.py:79
-#: fragdenstaat_de/theme/cms_plugins.py:95
-msgid "Homepage"
-msgstr ""
-
-#: fragdenstaat_de/theme/cms_plugins.py:80
-msgid "Homepage Hero"
-msgstr ""
-
-#: fragdenstaat_de/theme/cms_plugins.py:96
-msgid "Homepage How"
-msgstr ""
-
-#: fragdenstaat_de/theme/models.py:39
+#: theme/models.py:61
 msgid "User auto blocked"
 msgstr ""
 
-#: fragdenstaat_de/theme/templates/djangocms_video/default/video_player.html:20
-msgid "Your browser doesn't support this video format."
-msgstr ""
-
-#: fragdenstaat_de/theme/templates/header.html:29
-msgid "About"
-msgstr ""
-
-#: fragdenstaat_de/theme/templates/index.html:18
-msgid "Successful Requests"
-msgstr ""
-
-#: fragdenstaat_de/theme/templates/index.html:53
-msgid "Visit this request"
+#: theme/urls.py:82
+msgctxt "url part"
+msgid "campaign/"
 msgstr ""

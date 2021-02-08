@@ -1,0 +1,712 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-08 19:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: fds_cms/admin.py:44
+msgid "Edit"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:31 fds_cms/cms_plugins.py:48
+#: fds_cms/cms_plugins.py:66 fds_cms/cms_plugins.py:95
+msgid "Document"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:32
+msgid "Page Annotation"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:49
+msgid "Document pages"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:67
+msgid "Document embed"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:96
+msgid "Document collection embed"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:114 fds_cms/cms_plugins.py:132
+#: fds_cms/cms_plugins.py:269 fds_cms/cms_plugins.py:291
+#: fds_cms/cms_plugins.py:329 fds_cms/cms_plugins.py:350
+#: fds_cms/cms_plugins.py:365 fds_cms/cms_plugins.py:380
+msgid "Elements"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:115
+msgid "Primary Link"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:133
+msgid "Continue Link"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:149
+msgid "Ads"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:150
+msgid "Dropdown Banner"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:162
+msgid "Latest FOI requests"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:215
+msgid "One click FoiRequest form"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:240
+msgid "Account"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:241
+msgid "Set Password Form"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:248
+msgid "Contact"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:249
+msgid "Contact Form"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:270
+msgid "Vega Chart"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:292
+msgid "SVG Image"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:310
+msgid "Structure"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:311
+msgid "Design Container"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:330
+msgid "Share Links"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:351
+msgid "Collapsible"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:366
+msgid "Slider"
+msgstr ""
+
+#: fds_cms/cms_plugins.py:381
+msgid "Modal"
+msgstr ""
+
+#: fds_cms/cms_toolbars.py:24
+msgid "FdS Page Settings"
+msgstr ""
+
+#: fds_cms/models.py:33 fds_cms/models.py:121 fds_cms/models.py:267
+#: fds_mailing/models.py:256
+msgid "image"
+msgstr ""
+
+#: fds_cms/models.py:81
+msgid "Small"
+msgstr ""
+
+#: fds_cms/models.py:82
+msgid "Normal"
+msgstr ""
+
+#: fds_cms/models.py:83
+msgid "Large"
+msgstr ""
+
+#: fds_cms/models.py:113 fds_cms/models.py:159 fds_cms/models.py:233
+#: fds_cms/models.py:276 fds_mailing/models.py:35
+msgid "Default template"
+msgstr ""
+
+#: fds_cms/models.py:114
+msgid "Campaign template"
+msgstr ""
+
+#: fds_cms/models.py:123
+msgid "link"
+msgstr ""
+
+#: fds_cms/models.py:125 fds_cms/models.py:127
+msgid "if present image will be clickable"
+msgstr ""
+
+#: fds_cms/models.py:128
+msgid "page link"
+msgstr ""
+
+#: fds_cms/models.py:129
+msgid "anchor"
+msgstr ""
+
+#: fds_cms/models.py:130
+msgid "Page anchor."
+msgstr ""
+
+#: fds_cms/models.py:135 fds_cms/models.py:243 fds_cms/models.py:316
+msgid "Template"
+msgstr ""
+
+#: fds_cms/models.py:160
+msgid "Follow template"
+msgstr ""
+
+#: fds_cms/models.py:183
+msgid "tags"
+msgstr ""
+
+#: fds_cms/models.py:203
+msgid "number of entries"
+msgstr ""
+
+#: fds_cms/models.py:204
+msgid "0 means all the entries"
+msgstr ""
+
+#: fds_cms/models.py:206
+msgid "offset"
+msgstr ""
+
+#: fds_cms/models.py:207
+msgid "number of entries to skip from top of list"
+msgstr ""
+
+#: fds_cms/models.py:209
+msgid "template"
+msgstr ""
+
+#: fds_cms/models.py:211
+msgid "template used to display the plugin"
+msgstr ""
+
+#: fds_cms/models.py:214
+#, python-format
+msgid "%s FOI requests"
+msgstr ""
+
+#: fds_cms/models.py:247
+msgid "One click form for {}"
+msgstr ""
+
+#: fds_cms/models.py:277
+msgid "Speech bubble"
+msgstr ""
+
+#: fds_cms/models.py:280
+msgid "None"
+msgstr ""
+
+#: fds_cms/models.py:281
+msgid "Primary"
+msgstr ""
+
+#: fds_cms/models.py:282
+msgid "Secondary"
+msgstr ""
+
+#: fds_cms/models.py:283
+msgid "Info"
+msgstr ""
+
+#: fds_cms/models.py:284
+msgid "Light"
+msgstr ""
+
+#: fds_cms/models.py:285
+msgid "Dark"
+msgstr ""
+
+#: fds_cms/models.py:286
+msgid "Success"
+msgstr ""
+
+#: fds_cms/models.py:287
+msgid "Warning"
+msgstr ""
+
+#: fds_cms/models.py:288
+msgid "Danger"
+msgstr ""
+
+#: fds_cms/models.py:289
+msgid "Purple"
+msgstr ""
+
+#: fds_cms/models.py:290
+msgid "Pink"
+msgstr ""
+
+#: fds_cms/models.py:291
+msgid "Yellow"
+msgstr ""
+
+#: fds_cms/models.py:292
+msgid "Cyan"
+msgstr ""
+
+#: fds_cms/models.py:293
+msgid "Gray"
+msgstr ""
+
+#: fds_cms/models.py:294
+msgid "Gray Dark"
+msgstr ""
+
+#: fds_cms/models.py:295
+msgid "White"
+msgstr ""
+
+#: fds_cms/models.py:300
+msgid "Blue 10"
+msgstr ""
+
+#: fds_cms/models.py:301
+msgid "Blue 20"
+msgstr ""
+
+#: fds_cms/models.py:302
+msgid "Blue 30"
+msgstr ""
+
+#: fds_cms/models.py:311
+msgid "Default"
+msgstr ""
+
+#: fds_cms/models.py:312
+msgid "Heavy"
+msgstr ""
+
+#: fds_cms/models.py:320
+msgid "Background"
+msgstr ""
+
+#: fds_cms/models.py:324
+msgid "Style"
+msgstr ""
+
+#: fds_cms/templates/cms/plugins/primarylink/campaign.html:23
+msgid "Read more"
+msgstr ""
+
+#: fds_mailing/admin.py:134
+msgid "Continue sending selected mailings."
+msgstr ""
+
+#: fds_mailing/admin.py:137
+msgid "Continue sending mailing"
+msgstr ""
+
+#: fds_mailing/admin.py:153
+msgid "Mailing already sent."
+msgstr ""
+
+#: fds_mailing/admin.py:157
+msgid "Mailing sending date in the past."
+msgstr ""
+
+#: fds_mailing/admin.py:171
+msgid "Your mailing is being sent."
+msgstr ""
+
+#: fds_mailing/admin.py:226
+msgid "Send mail to users..."
+msgstr ""
+
+#: fds_mailing/apps.py:7
+msgid "FragDenStaat Mailings"
+msgstr ""
+
+#: fds_mailing/cms_plugins.py:40 fds_mailing/cms_plugins.py:65
+#: fds_mailing/cms_plugins.py:109 fds_mailing/cms_plugins.py:132
+#: fds_mailing/cms_plugins.py:159 fds_newsletter/forms.py:24
+#: settings/base.py:273
+msgid "Email"
+msgstr ""
+
+#: fds_mailing/cms_plugins.py:41
+msgid "Email Body"
+msgstr ""
+
+#: fds_mailing/cms_plugins.py:66
+msgid "Email Action"
+msgstr ""
+
+#: fds_mailing/cms_plugins.py:110
+msgid "Email Section"
+msgstr ""
+
+#: fds_mailing/cms_plugins.py:133
+msgid "Email Story"
+msgstr ""
+
+#: fds_mailing/cms_plugins.py:160
+msgid "Email Header"
+msgstr ""
+
+#: fds_mailing/models.py:36
+msgid "Newsletter template"
+msgstr ""
+
+#: fds_mailing/models.py:65
+msgid "email template"
+msgstr ""
+
+#: fds_mailing/models.py:66
+msgid "email templates"
+msgstr ""
+
+#: fds_mailing/models.py:280
+msgid "publish"
+msgstr ""
+
+#: fds_mailing/models.py:281
+msgid "Publish in archive."
+msgstr ""
+
+#: fds_mailing/models.py:285
+msgid "ready"
+msgstr ""
+
+#: fds_mailing/models.py:288
+msgid "submitted"
+msgstr ""
+
+#: fds_mailing/models.py:292
+msgid "sending date"
+msgstr ""
+
+#: fds_mailing/models.py:295
+msgid "sent date"
+msgstr ""
+
+#: fds_mailing/models.py:299
+msgid "sent"
+msgstr ""
+
+#: fds_mailing/models.py:303
+msgid "sending"
+msgstr ""
+
+#: fds_mailing/models.py:309
+msgid "mailing"
+msgstr ""
+
+#: fds_mailing/models.py:310
+msgid "mailings"
+msgstr ""
+
+#: fds_mailing/models.py:362
+#, python-format
+msgid "Sending %(mailing)s to %(count)d people"
+msgstr ""
+
+#: fds_mailing/models.py:417
+msgid "mailing message"
+msgstr ""
+
+#: fds_mailing/models.py:418
+msgid "mailing messages"
+msgstr ""
+
+#: fds_mailing/templates/admin/fds_mailing/emailtemplate/change_form.html:7
+msgid "Preview"
+msgstr ""
+
+#: fds_mailing/templates/admin/fds_mailing/emailtemplate/change_form.html:12
+msgid "Download E-Mail"
+msgstr ""
+
+#: fds_mailing/templates/admin/fds_mailing/emailtemplate/change_form.html:17
+msgid "Edit HTML email"
+msgstr ""
+
+#: fds_mailing/templates/admin/fds_mailing/mailing/change_form.html:8
+msgid "Sending to all newsletter subscribers"
+msgstr ""
+
+#: fds_mailing/templates/admin/fds_mailing/mailing/change_form.html:12
+msgid "See recipients"
+msgstr ""
+
+#: fds_mailing/templates/admin/fds_mailing/mailing/change_form.html:21
+msgid "Send now"
+msgstr ""
+
+#: fds_mailing/templates/admin/fds_mailing/mailing/send_mailing.html:5
+#: fds_mailing/templates/admin/fds_mailing/mailing/send_mailing.html:8
+#: fds_mailing/templates/admin/fds_mailing/mailing/send_mailing.html:15
+#: fds_mailing/templates/admin/fds_mailing/mailing/send_mailing.html:30
+msgid "Setup mailing"
+msgstr ""
+
+#: fds_mailing/templates/admin/fds_mailing/mailing/send_mailing.html:19
+msgid "to these recipients:"
+msgstr ""
+
+#: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:18
+msgid "Subject:"
+msgstr ""
+
+#: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:19
+msgid "zurück"
+msgstr ""
+
+#: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:27
+msgid "Context vars:"
+msgstr ""
+
+#: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:35
+msgid "HTML Preview"
+msgstr ""
+
+#: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:38
+msgid "Text Preview"
+msgstr ""
+
+#: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:47
+#, python-format
+msgid "'%(extra_placeholder)s' static placeholder"
+msgstr ""
+
+#: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:58
+msgid "Apply"
+msgstr ""
+
+#: fds_mailing/utils.py:108
+msgid "Prepare mailing to selected recipients..."
+msgstr ""
+
+#: fds_newsletter/admin.py:28
+msgid "Failed to setup mailing: more than one newsletter selected!"
+msgstr ""
+
+#: fds_newsletter/admin.py:37
+#, python-brace-format
+msgid "Prepared mailing of newsletter {name} with currently {count} recipients"
+msgstr ""
+
+#: fds_newsletter/admin.py:60
+msgid "Export to CSV"
+msgstr ""
+
+#: fds_newsletter/apps.py:10
+msgid "Newsletter FragDenStaat"
+msgstr ""
+
+#: fds_newsletter/cms_plugins.py:14 fds_newsletter/cms_plugins.py:23
+#: fds_newsletter/cms_plugins.py:32
+#: fds_newsletter/templates/fds_newsletter/user_settings.html:16
+#: fds_newsletter/templates/newsletter/common.html:4
+msgid "Newsletter"
+msgstr ""
+
+#: fds_newsletter/cms_plugins.py:15
+msgid "Newsletter Formular"
+msgstr ""
+
+#: fds_newsletter/cms_plugins.py:24
+msgid "Smart Newsletter Formular"
+msgstr ""
+
+#: fds_newsletter/cms_plugins.py:33
+msgid "Newsletter Archive"
+msgstr ""
+
+#: fds_newsletter/templates/fds_newsletter/user_settings.html:31
+msgid "Update subscriptions"
+msgstr ""
+
+#: fds_newsletter/templates/newsletter/newsletter_detail.html:11
+msgid "Subscribe"
+msgstr ""
+
+#: fds_newsletter/templates/newsletter/newsletter_detail.html:15
+msgid "Update"
+msgstr ""
+
+#: fds_newsletter/templates/newsletter/newsletter_detail.html:19
+msgid "Unsubscribe"
+msgstr ""
+
+#: fds_newsletter/templates/newsletter/newsletter_detail.html:22
+msgid "Archive"
+msgstr ""
+
+#: fds_newsletter/templates/newsletter/newsletter_detail.html:25
+msgid "Back to list"
+msgstr ""
+
+#: fds_newsletter/templates/newsletter/subscription_activate.html:8
+#: fds_newsletter/templates/newsletter/subscription_activate.html:19
+#, python-format
+msgid "„%(title)s“ Newsletter-Abo bestätigen"
+msgstr ""
+
+#: fds_newsletter/templates/newsletter/subscription_activate.html:10
+#: fds_newsletter/templates/newsletter/subscription_activate.html:21
+#, python-format
+msgid "„%(title)s“ Newsletter-Abo beenden"
+msgstr ""
+
+#: fds_newsletter/templates/newsletter/subscription_activate.html:12
+#: fds_newsletter/templates/newsletter/subscription_activate.html:23
+#, python-format
+msgid "„%(title)s“ Newsletter-Abo aktualisieren"
+msgstr ""
+
+#: fds_newsletter/templates/newsletter/subscription_subscribe_activated.html:5
+#: fds_newsletter/templates/newsletter/subscription_subscribe_activated.html:9
+#, python-format
+msgid "„%(title)s“ Newsletter-Abo bestätigt"
+msgstr ""
+
+#: settings/base.py:25 settings/base.py:177
+msgid "German"
+msgstr ""
+
+#: settings/base.py:26 settings/base.py:184
+msgid "English"
+msgstr ""
+
+#: settings/base.py:146
+msgid "No image in article"
+msgstr ""
+
+#: settings/base.py:214
+msgid "E-Mail Body"
+msgstr ""
+
+#: settings/base.py:272
+msgid "Hero"
+msgstr ""
+
+#: templates/account/admin_send_mail.html:5
+#: templates/account/admin_send_mail.html:8
+msgid "Prepare mailing to users"
+msgstr ""
+
+#: templates/account/admin_send_mail.html:15
+msgid "Mailing name"
+msgstr ""
+
+#: templates/account/admin_send_mail.html:18
+#, python-format
+msgid "Setup mailing to one user"
+msgid_plural "Setup mailing to %(count)s users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/djangocms_video/default/video_player.html:20
+msgid "Your browser doesn't support this video format."
+msgstr ""
+
+#: templates/foirequest/show.html:115
+msgid "No messages yet"
+msgstr ""
+
+#: templates/footer.html:67 templates/header.html:184
+msgid "Donate"
+msgstr ""
+
+#: templates/header.html:25
+msgid "Spenden"
+msgstr ""
+
+#: templates/header.html:72 templates/header.html:208
+msgid "Log out"
+msgstr ""
+
+#: templates/header.html:84 templates/header.html:151
+msgid "Requests"
+msgstr ""
+
+#: templates/header.html:91 templates/header.html:155
+msgid "See requests"
+msgstr ""
+
+#: templates/header.html:96
+msgid "Make request"
+msgstr ""
+
+#: templates/header.html:101 templates/header.html:161
+msgid "Beginner's guide"
+msgstr ""
+
+#: templates/header.html:109 templates/header.html:167
+msgid "Campaigns"
+msgstr ""
+
+#: templates/header.html:115 templates/header.html:172
+msgid "Investigations"
+msgstr ""
+
+#: templates/header.html:122 templates/header.html:216
+msgid "Sign in"
+msgstr ""
+
+#: templates/header.html:130
+msgid "You like our work? Support us with a donation!"
+msgstr ""
+
+#: templates/header.html:133
+msgid "Donate now"
+msgstr ""
+
+#: templates/header.html:158
+msgid "Make requests"
+msgstr ""
+
+#: templates/index.html:18
+msgid "Successful Requests"
+msgstr ""
+
+#: templates/index.html:53
+msgid "Visit this request"
+msgstr ""
+
+#: templates/pivot/admin_pivot.html:6 templates/pivot/admin_pivot.html:9
+msgid "Pivot data"
+msgstr ""
+
+#. Translators: meta keywords
+#: templates/snippets/meta.html:5
+msgid ""
+"Freedom of Information Requests, Freedom of Information Law, Public Body "
+"Information"
+msgstr ""
+
+#. Translators: meta description
+#: templates/snippets/meta.html:7
+#, python-format
+msgid ""
+"%(site)s helps you to make freedom of information requests to public bodies"
+msgstr ""
