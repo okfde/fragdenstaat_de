@@ -431,6 +431,12 @@ class DonorForm(forms.Form):
             ('DK', _('Denmark')),
             ('PL', _('Poland')),
             ('CZ', _('Czech Republic')),
+            # And some more EU countries
+            ('IT', _('Italy')),
+            ('ES', _('Spain')),
+            ('PT', _('Portugal')),
+            ('SE', _('Sweden')),
+            ('FI', _('Finland')),
         ),
         widget=forms.Select(attrs={
             'class': 'form-control'
