@@ -56,10 +56,6 @@ urlpatterns = [
     path("tippspiel/", meisterschaften_tippspiel, name="fragdenstaat-meisterschaften_tippspiel"),
 ]
 
-urlpatterns += i18n_patterns(
-    path(pgettext_lazy('url part', 'campaign/'), include(campaign_urls)),
-)
-
 urlpatterns += [
     path('', include('filer.server.urls')),
 ]
@@ -83,6 +79,7 @@ urlpatterns += i18n_patterns(
     *froide_urlpatterns,
     *jurisdiction_urls,
     *admin_urls,
+    path(pgettext_lazy('url part', 'campaign/'), include(campaign_urls)),
     path('', include('cms.urls')),
     prefix_default_language=False
 )
