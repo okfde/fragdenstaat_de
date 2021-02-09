@@ -11,7 +11,6 @@ import "froide/frontend/javascript/snippets/misc.ts";
 import "froide/frontend/javascript/snippets/search.ts";
 
 import "./drawer-menu.ts";
-import "./top-menu.ts";
 import "./slider.js";
 import "./betterplace.ts";
 import "./donation-form.ts";
