@@ -14,7 +14,7 @@ import "./drawer-menu.ts";
 import "./slider.js";
 import "./betterplace.ts";
 import "./donation-form.ts";
-import "./donation.ts";
+import "./top-banner.ts";
 import "./magnifier.ts";
 import "./misc.ts";
 
