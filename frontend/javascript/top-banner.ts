@@ -12,10 +12,14 @@ function showTopBanner() {
       window.localStorage.setItem(itemName, JSON.stringify({
         timestamp: time,
       }));
-      toggleSlide(el);
-      window.setTimeout(() => {
-        removeBanner();
-      }, 5 * 1000);
+      if (hasAnimation) {
+        toggleSlide(el);
+        window.setTimeout(() => {
+          removeBanner();
+        }, 5 * 1000);
+      } else {
+        removeBanner()
+      }
     };
   }
   function removeBanner() {
@@ -74,7 +78,7 @@ function showTopBanner() {
   }
   window.localStorage.removeItem(itemName);
 
-  const closeButtons = topBanner.querySelectorAll(".close");
+  const closeButtons = topBanner.querySelectorAll(".banner-close");
 
   Array.from(closeButtons).forEach(closeButton => {
     closeButton.addEventListener("click", hideBanner(topBanner, "close", now));
@@ -91,7 +95,7 @@ function showTopBanner() {
   }
 
   const dropdownBanner = topBanner.querySelector('.dropdown-banner') as HTMLElement;
-
+  const hasAnimation = dropdownBanner !== null
   if (dropdownBanner === null) {
     return
   }
