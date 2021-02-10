@@ -494,7 +494,7 @@ class FragDenStaatBase(German, Base):
                 rec(r"^\s*Hallo\s+(.*)"),
                 rec(r"^\s*Lieber?\s+(.*)"),
                 rec(r"^\s*Sehr (?:Herr|Frau|Fr\.|Hr\.) (.*)"),
-                rec(r"^\s*Sehr geehrte([sr]?\s+.+)"),
+                rec(r"^\s*Sehr (geehrte[sr]?\s+.+)"),
                 rec(r"^\s*(?:Von|An|Cc|To|From): (.*)"),
             ],
             custom_replacements=[
