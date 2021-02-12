@@ -82,6 +82,7 @@ class SetupMailingMixin:
 
                 mailing = Mailing.objects.create(
                     name=email_template.name,
+                    creator_user=request.user,
                     email_template=email_template
                 )
 

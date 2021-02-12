@@ -91,6 +91,11 @@ class MailingAdmin(admin.ModelAdmin):
         make_nullfilter('newsletter', 'Newsletter'),
         'publish', 'sending', 'sent',
     )
+    readonly_fields = (
+        'created', 'creator_user', 'submitted',
+        'sender_user', 'sent_date',
+        'sent', 'sending',
+    )
     search_fields = ('name',)
     actions = ['trigger_continue_sending']
 
@@ -118,6 +123,11 @@ class MailingAdmin(admin.ModelAdmin):
         )
 
         return qs.select_related('email_template', 'newsletter')
+
+    def save_model(self, request, obj, form, change):
+        if change is None:
+            obj.creator_user = request.user
+        super().save_model(request, obj, form, change)
 
     def sent_percentage(self, obj):
         if obj.total_recipients == 0:
@@ -160,6 +170,7 @@ class MailingAdmin(admin.ModelAdmin):
         mailing.submitted = True
         if not mailing.sending_date:
             mailing.sending_date = timezone.now()
+        mailing.sender_user = request.user
         mailing.save()
 
         transaction.on_commit(lambda: send_mailing.apply_async(
@@ -205,6 +216,7 @@ def send_mail(self, request, queryset):
     if request.POST.get('subject'):
         subject = request.POST.get('subject', '')
         mailing = Mailing.objects.create(
+            creator_user=request.user,
             name=subject, publish=False
         )
         MailingMessage.objects.bulk_create([

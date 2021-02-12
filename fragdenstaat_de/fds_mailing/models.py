@@ -274,6 +274,14 @@ class Mailing(models.Model):
         max_length=255, default=settings.SITE_EMAIL
     )
 
+    sender_user = models.ForeignKey(
+        User, blank=True, null=True, on_delete=models.SET_NULL,
+        editable=False, related_name='mailings_sent'
+    )
+    creator_user = models.ForeignKey(
+        User, blank=True, null=True, on_delete=models.SET_NULL,
+        editable=False, related_name='mailings_created'
+    )
     created = models.DateTimeField(default=timezone.now, editable=False)
 
     publish = models.BooleanField(
