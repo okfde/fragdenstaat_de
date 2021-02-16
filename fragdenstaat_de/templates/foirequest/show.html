@@ -13,7 +13,7 @@
 {% block foirequest_header %}
 
   {# Wahlprüfsteine BW & RP #}
-  {% if object.jurisdiction_id == 91 %}
+  {% if object.jurisdiction_id == 91 or object.jurisdiction_id == 6 %}
   <div class="row py-2 mb-5">
     <div class="col-lg-3 col-md-5">
       <img class="img-fluid" alt="Wahlprüfsteine" src="https://media.frag-den-staat.de/files/media/thumbnails/3b/56/3b569f94-aa0c-4870-b16e-a26d826efeb8/banner_bild.png__400x0_q85_subject_location-546%2C299_subsampling-2.png"/>
