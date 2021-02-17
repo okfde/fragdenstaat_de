@@ -1,0 +1,11 @@
+{% extends "foirequest/alpha/body/correspondence.html" %}
+
+{% load fds_cms_tags %}
+
+{% block foirequest_message_before_last %}
+{% fds_static_placeholder "message_donation_banner" %}
+{% endblock %}
+
+{% block foirequest_message_after_single %}
+{% fds_static_placeholder "message_donation_banner" %}
+{% endblock %}
