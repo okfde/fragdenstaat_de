@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django import forms
 from django.contrib import admin, messages
+from django.contrib.admin.filters import SimpleListFilter
 from django.conf.urls import url
 from django.urls import reverse, reverse_lazy
 from django.contrib.admin.views.main import ChangeList
@@ -24,7 +25,7 @@ from django.template.response import TemplateResponse
 
 from froide.helper.admin_utils import (
     ForeignKeyFilter, make_nullfilter, make_batch_tag_action,
-    make_emptyfilter
+    make_emptyfilter, TaggitListFilter, MultiFilterMixin
 )
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 from froide.helper.widgets import TagAutocompleteWidget
@@ -33,7 +34,7 @@ from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 from fragdenstaat_de.fds_mailing.models import MailingMessage
 
 from .models import (
-    DonationGift, Donor, Donation, DonorTag,
+    DonationGift, Donor, Donation, DonorTag, TaggedDonor,
     DefaultDonation, DONATION_PROJECTS
 )
 from .external import import_banktransfers, import_paypal
@@ -82,6 +83,22 @@ class DonorTagAdmin(admin.ModelAdmin):
             tags = DonorTag.objects.filter(name__istartswith=query)
             tags = [t for t in tags.values_list('name', flat=True)]
         return JsonResponse(tags, safe=False)
+
+
+class DonorProjectFilter(MultiFilterMixin, SimpleListFilter):
+    title = 'Project'
+    parameter_name = 'donations__project'
+    lookup_name = '__in'
+
+    def lookups(self, request, model_admin):
+        return DONATION_PROJECTS
+
+
+class DonorTagListFilter(MultiFilterMixin, TaggitListFilter):
+    tag_class = TaggedDonor
+    title = 'Tags'
+    parameter_name = 'tags__slug'
+    lookup_name = '__in'
 
 
 class DonorAdminForm(forms.ModelForm):
@@ -136,11 +153,12 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         'become_user',
         'receipt',
         'invalid',
+        DonorProjectFilter,
         make_emptyfilter('email', _('has email')),
         make_nullfilter('duplicate', _('has duplicate')),
         make_nullfilter('user_id', _('has user')),
         ('user', ForeignKeyFilter),
-        'tags',
+        DonorTagListFilter,
     )
     date_hierarchy = 'first_donation'
     search_fields = (
