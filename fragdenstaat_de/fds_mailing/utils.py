@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.core.exceptions import PermissionDenied
 from django.contrib.admin import helpers
 from django.shortcuts import redirect
@@ -107,3 +109,14 @@ class SetupMailingMixin:
         return TemplateResponse(request, 'admin/fds_mailing/mailing/send_mailing.html',
             context)
     setup_mailing.short_description = _("Prepare mailing to selected recipients...")
+
+
+def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):
+    from .models import MailingMessage
+
+    sent_after = bounce.last_update - timedelta(hours=36)
+    MailingMessage.objects.filter(
+        sent__isnull=False,
+        sent__gte=sent_after,
+        email=bounce.email
+    ).update(bounced=True)

@@ -8,7 +8,10 @@ class FdsMailingConfig(AppConfig):
 
     def ready(self):
         from froide.helper.email_sending import mail_middleware_registry
+        from froide.bounce.signals import email_bounced
 
         from .middleware import EmailTemplateMiddleware
+        from .utils import handle_bounce
 
         mail_middleware_registry.register(EmailTemplateMiddleware())
+        email_bounced.connect(handle_bounce)
