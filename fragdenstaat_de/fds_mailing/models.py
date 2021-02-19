@@ -33,7 +33,8 @@ logger = logging.getLogger()
 
 EMAIL_TEMPLATE_CHOICES = [
     ('', _('Default template')),
-    ('newsletter', _('Newsletter template'))
+    ('newsletter', _('Newsletter template')),
+    ('formal', _('Formal email template'))
 ]
 
 COLLAPSE_NEWLINES = re.compile(r'((?:\r?\n){3,})')
