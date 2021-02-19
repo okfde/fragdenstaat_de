@@ -187,6 +187,7 @@ class MailingAdmin(admin.ModelAdmin):
 class MailingMessageAdmin(admin.ModelAdmin):
     raw_id_fields = ('mailing', 'subscription', 'donor', 'user')
     list_display = ('mailing', 'email', 'name', 'donor', 'user', 'sent', 'bounced')
+    date_hierarchy = 'sent'
     list_filter = (
         'sent', 'bounced',
         ('mailing', ForeignKeyFilter),
