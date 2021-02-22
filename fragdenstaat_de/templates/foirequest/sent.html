@@ -3,17 +3,29 @@
 {% load newsletter_tags %}
 
 {% block foirequest_sent_footer %}
-  <div class="bg-light pb-5 pt-5">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-body">
-              {% newsletter_subscribe %}
-            </div>
-          </div>
-        </div>
+  {% if has_newsletter %}
+    <p class="mb-0">
+      <strong>Unterstützen Sie Ihre Transparenzplattform!</strong>
+    </p>
+    <p class="mt-0 mb-3">
+      FragDenStaat ist gemeinnützig. Nur mithilfe der Spenden Vieler können wir weitermachen, unabhängig bleiben und Informationen befreien. Sind Sie dabei?
+    </p>
+
+    <a href="/spenden/?pk_campaign=request-sent&pk_keyword={{ url | urlencode }}" class="btn btn-primary">
+      Jetzt spenden!
+    </a>
+  {% else %}
+    <p class="mb-0">
+      Erhalten Sie den <strong>FragDenStaat-Newsletter</strong>!
+    </p>
+    <p class="mt-0 mb-3">
+      Wir versorgen Sie regelmäßig mit Neuigkeiten zu unseren <a href="/blog/">Recherchen</a>, <a href="/info/ueber/kampagnen/">Kampagnen</a> und <a href="/info/ueber/klagen/">Klagen</a>.
+    </p>
+
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        {% include "fds_newsletter/plugins/newsletter_form.html" %}
       </div>
     </div>
-  </div>
+  {% endif %}
 {% endblock %}
