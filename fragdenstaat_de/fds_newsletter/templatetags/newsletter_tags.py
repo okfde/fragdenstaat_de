@@ -41,7 +41,8 @@ def newsletter_settings(context):
 def get_newsletter_context(context, next=None, newsletter_slug=None, fallback=True):
     ctx = {
         'next': next,
-        'fallback': fallback
+        'fallback': fallback,
+        'has_newsletter': False
     }
 
     try:
@@ -78,3 +79,7 @@ def newsletter_subscribe(context, next=None, newsletter_slug=None, fallback=True
     return get_newsletter_context(
         context, next=next, newsletter_slug=newsletter_slug, fallback=fallback
     )
+
+@register.simple_tag(takes_context=True)
+def has_newsletter(context):
+    return get_newsletter_context(context)['has_newsletter']
