@@ -38,36 +38,46 @@ def newsletter_settings(context):
     }
 
 
-def get_newsletter_context(context, next=None, newsletter_slug=None, fallback=True):
-    ctx = {
-        'next': next,
-        'fallback': fallback
-    }
-
+def _get_newsletter(newsletter_slug=None):
     try:
-        newsletter = Newsletter.objects.get(
+        return Newsletter.objects.get(
             slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
         )
     except Newsletter.DoesNotExist:
-        ctx['has_newsletter'] = True
-        return ctx
+        return None
 
-    ctx['newsletter'] = newsletter
-    ctx['form'] = NewsletterForm(request=context['request'])
+
+def _has_newsletter(context, newsletter):
     user = context['request'].user
-
     if user.is_authenticated:
         try:
             instance = Subscription.objects.get(
                 newsletter=newsletter, user=user
             )
             if instance.subscribed:
-                ctx['has_newsletter'] = True
-                return ctx
+                return True
         except Subscription.DoesNotExist:
             pass
+    return False
 
-        ctx['user'] = user
+
+def get_newsletter_context(context, next=None, newsletter_slug=None, fallback=True):
+    ctx = {
+        'next': next,
+        'fallback': fallback,
+        'has_newsletter': False
+    }
+
+    newsletter = _get_newsletter(newsletter_slug)
+    if newsletter is None:
+        ctx['has_newsletter'] = True
+        return ctx
+
+    ctx['newsletter'] = newsletter
+    ctx['form'] = NewsletterForm(request=context['request'])
+    ctx['has_newsletter'] = _has_newsletter(context, newsletter)
+    user = context['request'].user
+    ctx['user'] = user
 
     return ctx
 
@@ -78,3 +88,9 @@ def newsletter_subscribe(context, next=None, newsletter_slug=None, fallback=True
     return get_newsletter_context(
         context, next=next, newsletter_slug=newsletter_slug, fallback=fallback
     )
+
+
+@register.simple_tag(takes_context=True)
+def newsletter_is_subscribed(context):
+    newsletter = _get_newsletter()
+    return _has_newsletter(context, newsletter)
