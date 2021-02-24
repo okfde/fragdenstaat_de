@@ -3,6 +3,9 @@
 {% load newsletter_tags %}
 
 {% block foirequest_sent_footer %}
+
+  {% newsletter_is_subscribed as has_newsletter %}
+
   {% if has_newsletter %}
     <p class="mb-0">
       <strong>Unterstützen Sie Ihre Transparenzplattform!</strong>
