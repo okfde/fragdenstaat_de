@@ -38,7 +38,8 @@ const ENTRY = {
   tagautocomplete: 'froide/frontend/javascript/tagautocomplete.ts',
   campaign_map: 'froide_campaign/frontend/javascript/map.js',
   campaign_questionaire: 'froide_campaign/frontend/javascript/questionaire.js',
-  campaign_list: 'froide_campaign/frontend/javascript/list.js'
+  campaign_list: 'froide_campaign/frontend/javascript/list.js',
+  lawsuits_table: 'froide_legalaction/frontend/javascript/table.js'
 }
 
 const EXCLUDE_CHUNKS = [
