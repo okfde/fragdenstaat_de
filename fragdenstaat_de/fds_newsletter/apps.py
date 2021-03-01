@@ -2,6 +2,7 @@ import json
 
 from django.apps import AppConfig
 from django.conf import settings
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 
@@ -10,7 +11,10 @@ class NewsletterConfig(AppConfig):
     verbose_name = _('Newsletter FragDenStaat')
 
     def ready(self):
-        from froide.account import account_canceled, account_activated, account_merged
+        from froide.account import (
+            account_canceled, account_activated, account_merged,
+            account_email_changed
+        )
         from froide.account.export import registry
         from froide.account.forms import user_extra_registry
         from froide.bounce.signals import email_bounced, email_unsubscribed
@@ -21,6 +25,7 @@ class NewsletterConfig(AppConfig):
 
         account_canceled.connect(cancel_user)
         account_merged.connect(merge_user)
+        account_email_changed.connect(user_email_changed)
         account_activated.connect(activate_newsletter_subscription)
         email_bounced.connect(handle_bounce)
         email_unsubscribed.connect(handle_unsubscribe)
@@ -30,6 +35,30 @@ class NewsletterConfig(AppConfig):
         FoiRequestFollower.followed.connect(subscribe_follower)
 
         registry.register(export_user_data)
+
+
+def user_email_changed(sender, old_email=None, **kwargs):
+    from .models import Subscription
+
+    # All subs with the new email
+    subs = Subscription.objects.filter(
+        email=sender.email, user__isnull=True, subscribed=True
+    )
+    for sub in subs:
+        # Find existing user subs on that newsletter
+        existing = Subscription.objects.filter(
+            user=sender,
+            subscribed=True,
+            newsletter=sub.newsletter
+        )
+        if existing.exists():
+            # Delete email sub in favor of existing user sub
+            sub.delete()
+        else:
+            # Change email sub to user sub
+            sub.email = None
+            sub.user = sender
+            sub.save()
 
 
 def merge_user(sender, old_user=None, new_user=None, **kwargs):

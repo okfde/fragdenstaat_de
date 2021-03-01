@@ -92,6 +92,19 @@ def subscription_was_canceled(sender, **kwargs):
     detect_recurring_on_donor(donor)
 
 
+def user_email_changed(sender, old_email=None, **kwargs):
+    try:
+        # Connect user to existing
+        confirmed_email_donor = Donor.objects.get(
+            email=sender.email, user__isnull=True,
+            email_confirmed__isnull=False
+        )
+        confirmed_email_donor.user = sender
+        confirmed_email_donor.save()
+    except Donor.DoesNotExist:
+        pass
+
+
 def cancel_user(sender, user=None, **kwargs):
     if user is None:
         return
