@@ -49,15 +49,17 @@ class DateRangeFilter(admin.filters.FieldListFilter):
                 value = default_tz.localize(value)
         return value
 
-    def choices(self, cl):
+    def choices(self, changelist):
+        params = changelist.params.copy()
+        for f in self._get_expected_fields():
+            params.pop(f, None)
+
         yield {
             # slugify converts any non-unicode characters to empty characters
             # but system_name is required, if title converts to empty string use id
             # https://github.com/silentsokolov/django-admin-rangefilter/issues/18
             'system_name': str(slugify(self.title) if slugify(self.title) else id(self.title)),
-            'query_string': cl.get_query_string(
-                {}, remove=self._get_expected_fields()
-            )
+            'params': params
         }
 
     def expected_parameters(self):
