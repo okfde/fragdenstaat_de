@@ -1,0 +1,62 @@
+{% extends "foirequest/alpha/header/header.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% load foirequest_tags %}
+{% load food_tags %}
+{% load fax_tags %}
+{% load crowdfunding %}
+{% load fds_cms_tags %}
+
+
+{% block foirequest_header %}
+
+  {# Wahlprüfsteine BW & RP #}
+  {% if object.jurisdiction_id == 91 or object.jurisdiction_id == 6 %}
+  <div class="row py-2 mb-5">
+    <div class="col-lg-3 col-md-5">
+      <img class="img-fluid" alt="Wahlprüfsteine" src="https://media.frag-den-staat.de/files/media/thumbnails/3b/56/3b569f94-aa0c-4870-b16e-a26d826efeb8/banner_bild.png__400x0_q85_subject_location-546%2C299_subsampling-2.png"/>
+    </div>
+    <div class="col-lg-9 col-md-7 d-flex align-items-center">
+      <div class="mt-3 mt-md-0">
+        <p class="lead mt-0 mb-3">Am 14. März sind Landtagswahlen in {{ object.jurisdiction }}. Wie stehen die Parteien zur Informationsfreiheit?</p>
+        <a class="btn btn-primary" href="/aktionen/wahlpruefsteine/{{ object.jurisdiction.slug }}/">
+          zu unseren Wahlprüfsteinen
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if "corona" in object.title|lower or "covid" in object.title|lower or "virus" in object.title|lower  %}
+  <div class="alert alert-warning text-center">
+    🦠<a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/nCoV.html">Allgemeine Infos zum Corona-Virus finden Sie hier beim Robert-Koch-Institut</a>🦠
+  </div>
+  {% endif %}
+
+  {% if object|can_write_foirequest:request and object|foirequest_needs_signature %}
+    <div class="alert alert-warning">
+      <h3>
+        Schriftformerfordnis: Bitte hinterlegen Sie Ihre Unterschrift
+      </h3>
+      <div class="row">
+        <div class="col-md-8">
+          <p>
+            Diese Anfrage nach dem {{ object.law.name }} muss in Schriftform erfolgen. Wir können für Sie ein Fax versenden, wenn Sie Ihre Unterschrift hinterlegen.
+          </p>
+        </div>
+      </div>
+      {% include "froide_fax/_signature_form.html" with form=request.user|get_signature_form:True foirequest=object next=request.get_full_path hide_explanation=True save_button="Unterschrift speichern und Fax versenden" %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+
+{% block foirequest_below_header %}
+  {% if object.campaign.slug == "topf-secret" %}
+    <div class="container mt-4">
+      {% food_authority_status object %}
+    </div>
+  {% endif %}
+{% endblock %}
