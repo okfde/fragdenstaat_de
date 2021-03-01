@@ -167,9 +167,7 @@ class RangeFilter(admin.filters.SimpleListFilter):
         if '-' in val:
             val = [x.strip() for x in val.split('-')]
         else:
-            val = [val]
-        if len(val) < 2:
-            val.append(None)
+            val = [val, val]
 
         filt = {}
         if val[0]:
@@ -180,9 +178,11 @@ class RangeFilter(admin.filters.SimpleListFilter):
         return queryset.filter(**filt)
 
     def choices(self, changelist):
+        params = changelist.params.copy()
+        params.pop(self.parameter_name, None)
         yield {
             'selected': self.value() is None,
-            'query_string': changelist.get_query_string(remove=[self.parameter_name]),
+            'params': params,
             'form': self.get_form()
         }
 
