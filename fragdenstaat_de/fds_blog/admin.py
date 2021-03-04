@@ -1,5 +1,6 @@
 from django.utils import timezone
 from django import forms
+from django.db import transaction
 from django.urls import reverse_lazy
 from django.contrib import admin
 from django.contrib.sites.models import Site
@@ -214,16 +215,11 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
 
         article.last_update = timezone.now()
 
-        public_changed = False
-        if 'status' in form.changed_data or 'start_publication' in form.changed_data:
-            public_changed = True
-
         super().save_model(request, article, form, change)
 
         article.save()
 
-        if public_changed:
-            index_article(article)
+        transaction.on_commit(lambda: index_article(article))
 
         if not change:
             article.sites.add(Site.objects.get_current())
