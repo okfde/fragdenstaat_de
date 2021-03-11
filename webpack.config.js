@@ -32,6 +32,7 @@ const ENTRY = {
   pivot: './frontend/javascript/pivot.js',
   publicbody: 'froide/frontend/javascript/publicbody.js',
   publicbodyupload: 'froide/frontend/javascript/publicbodyupload.js',
+  fileuploader: 'froide/frontend/javascript/fileuploader.js',
   redact: 'froide/frontend/javascript/redact.js',
   request: './frontend/javascript/request.ts',
   'request-alpha': ['froide/frontend/javascript/alpha/request-alpha.ts'],
