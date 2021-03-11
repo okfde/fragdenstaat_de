@@ -1,0 +1,35 @@
+{% extends "foirequest/alpha/body/body.html" %}
+
+{% load foirequest_tags %}
+
+{% block request_top_pane %}
+
+{% if object|can_manage_foirequest:request %}
+{% if object.costs %}
+  <div
+  role="tabpanel"
+  class="tab-pane fade"
+  id="crowdfunding-panel"
+  aria-labelledby="crowdfunding-tab"
+  >
+    <div class="container p-5">
+      {% include "froide_crowdfunding/includes/request_pane.html" with object=object %}
+    </div>
+  </div>
+{% endif %}
+
+{% if object.can_be_escalated and not "food:" in object.reference %}
+  <div
+  role="tabpanel"
+  class="tab-pane fade"
+  id="legalaction-panel"
+  aria-labelledby="legalaction-tab"
+  >
+    <div class="container p-5">
+      {% include "froide_legalaction/includes/request_pane.html" with object=object %}
+    </div>
+  </div>
+{% endif %}
+
+{% endif %}
+{% endblock %}

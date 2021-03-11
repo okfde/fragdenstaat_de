@@ -101,9 +101,11 @@
 
 {% block request_action_pane_footer %}
   {# Crowdfunding #}
+  {% if object.costs %}
     <div class="tab-pane d-print-none" id="crowdfunding">
       {% include "froide_crowdfunding/includes/request_pane.html" with object=object %}
     </div>
+  {% endif %}
 
   {# Legal Action #}
   {% if object.can_be_escalated and not "food:" in object.reference %}
