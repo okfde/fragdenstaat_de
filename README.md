@@ -23,7 +23,7 @@ You need to have installed:
 - freetype and imagemagick
 - libmagic
 
-All of these dependencies should be installable paket managers (e.g. `brew` on macOS).
+All of these dependencies should be installable via package managers (e.g. `brew` on macOS).
 
 To make the setup easier the following script (`devsetup.sh`) creates a virtual environment, sets up and installs all repos of the Python backend and installs and links all repos of the JavaScript frontend build.
 
@@ -53,7 +53,7 @@ This will start Postgres and Elasticsearch and listen on port 5432 and 9200 resp
 
 ### Setup database
 
-If you need to adjust settings, you can copy the `fragdenstaat_de/theme/local_settings.py.example` to `fragdenstaat_de/theme/local_settings.py` and edit it.
+If you need to adjust settings, you can copy the `fragdenstaat_de/settings/local_settings.py.example` to `fragdenstaat_de/settings/local_settings.py` and edit it.
 
 To initialise the database:
 
