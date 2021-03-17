@@ -401,6 +401,7 @@ class FragDenStaatBase(German, Base):
     # ######### Debug ###########
 
     SITE_NAME = "FragDenStaat"
+    SITE_LOGO = "https://media.frag-den-staat.de/files/media/main/2a/72/2a720c74-7856-48fe-8eca-97a02f5a0504/logo_name_weiss.jpg"
     SITE_EMAIL = "info@fragdenstaat.de"
     SITE_URL = 'http://localhost:8000'
 
