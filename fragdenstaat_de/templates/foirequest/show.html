@@ -12,23 +12,8 @@
 
 {% block foirequest_header %}
 
-  {# Wahlprüfsteine BW & RP #}
-  {% if object.jurisdiction_id == 91 or object.jurisdiction_id == 6 %}
-  <div class="row py-2 mb-5">
-    <div class="col-lg-3 col-md-5">
-      <img class="img-fluid" alt="Wahlprüfsteine" src="https://media.frag-den-staat.de/files/media/thumbnails/3b/56/3b569f94-aa0c-4870-b16e-a26d826efeb8/banner_bild.png__400x0_q85_subject_location-546%2C299_subsampling-2.png"/>
-    </div>
-    <div class="col-lg-9 col-md-7 d-flex align-items-center">
-      <div class="mt-3 mt-md-0">
-        <p class="lead mt-0 mb-3">Am 14. März sind Landtagswahlen in {{ object.jurisdiction }}. Wie stehen die Parteien zur Informationsfreiheit?</p>
-        <a class="btn btn-primary" href="/aktionen/wahlpruefsteine/{{ object.jurisdiction.slug }}/">
-          zu unseren Wahlprüfsteinen
-        </a>
-      </div>
-    </div>
-  </div>
   {# Transparenzgesetz Sachsen #}
-  {% elif object.jurisdiction.id == 89 %}
+  {% if object.jurisdiction.id == 89 %}
   <div class="row py-2 mb-5">
     <div class="col-lg-2 col-md-3 d-none d-md-flex align-items-center">
       <img class="img-fluid" alt="Wappen Sachsen" src="https://media.frag-den-staat.de/files/media/main/cb/8a/cb8a6fb0-9d58-4feb-87e1-8a8ea233dfc5/sachsen.svg"/>
