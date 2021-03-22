@@ -12,6 +12,16 @@
 
 {% block foirequest_header %}
 
+{% if request.user.is_authenticated %}
+<div class="alert alert-success text-center">
+  <strong>Hallo auf der neuen Anfrageseite! </strong>
+  <a href="https://forum.okfn.de/t/neue-anfrageseite-feedback-bitte-hier/1380" target="_blank" rel="noopener">
+    Feedback gerne im Forum.
+  </a>
+</div>
+{% endif %}
+
+
   {# Transparenzgesetz Sachsen #}
   {% if object.jurisdiction.id == 89 %}
   <div class="row py-2 mb-5">
