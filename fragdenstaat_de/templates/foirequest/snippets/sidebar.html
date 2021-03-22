@@ -1,0 +1,14 @@
+{% extends "foirequest/snippets/sidebar.html" %}
+
+{% block followers %}
+{{ block.super }}
+{% if request.user.is_authenticated %}
+<li class="nav-header">Neue Anfrage-Seite</li>
+<li class="nav-item">
+  <a href="./?alpha=1">
+    <i class="fa fa-gift"></i>
+    Vorschau ausprobieren
+  </a>
+</li>
+{% endif %}
+{% endblock %}
