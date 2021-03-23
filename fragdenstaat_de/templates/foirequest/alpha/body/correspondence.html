@@ -7,9 +7,13 @@
 {% load fds_tags %}
 
 {% block foirequest_message_before_last %}
-{% fds_static_placeholder "message_donation_banner" %}
+  <div class="d-print-none">
+    {% fds_static_placeholder "message_donation_banner" %}
+  </div>
 {% endblock %}
 
 {% block foirequest_message_after_single %}
-{% fds_static_placeholder "message_donation_banner" %}
+  <div class="d-print-none">
+    {% fds_static_placeholder "message_donation_banner" %}
+  </div>
 {% endblock %}
