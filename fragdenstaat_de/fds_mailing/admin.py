@@ -20,11 +20,14 @@ from .tasks import send_mailing, continue_sending
 
 
 class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
-    list_display = ('name', 'category', 'created', 'updated', 'active')
+    list_display = (
+        'name', 'category', 'mail_intent',
+        'created', 'updated', 'active'
+    )
     list_filter = (
         'category',
     )
-    search_fields = ('name', 'subject',)
+    search_fields = ('name', 'subject', 'mail_intent')
     date_hierarchy = 'updated'
 
     def get_urls(self):
