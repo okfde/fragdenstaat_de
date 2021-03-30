@@ -1,3 +1,5 @@
+from fragdenstaat_de.fds_newsletter.utils import has_newsletter
+
 from .models import EmailTemplate
 
 
@@ -21,4 +23,12 @@ class EmailTemplateMiddleware:
                 )
             except EmailTemplate.DoesNotExist:
                 return
+        context = self._enhance_context(context)
         return email_template.get_email_content(context)
+
+    def _enhance_context(self, context):
+        if context.get('user'):
+            user = context['user']
+            context['has_newsletter'] = has_newsletter(user)
+
+        return context

@@ -128,3 +128,18 @@ def subscribe_user(newsletter, user):
         instance.subscribed = True
         instance.save()
     return already_subscribed
+
+
+def has_newsletter(user, newsletter_slug=None):
+    if not user.is_authenticated:
+        return None
+    try:
+        newsletter = Newsletter.objects.get(
+            slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
+        )
+    except Newsletter.DoesNotExist:
+        return None
+
+    return Subscription.objects.filter(
+        newsletter=newsletter, user=user, subscribed=True
+    ).exists()
