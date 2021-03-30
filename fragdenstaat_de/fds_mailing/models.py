@@ -190,6 +190,22 @@ class EmailTemplate(models.Model):
         html = self.get_body_html(context, preview=preview)
         return EmailContent(subject, text, html)
 
+    def send_to_user(self, user, bulk=False):
+        context = {"user": user}
+        email_content = self.get_email_content(context)
+
+        extra_kwargs = {}
+        if bulk:
+            extra_kwargs['queue'] = settings.EMAIL_BULK_QUEUE
+        if email_content.html:
+            extra_kwargs['html'] = email_content.html
+
+        send_mail(email_content.subject, email_content.text,
+            make_address(user.email, name=user.get_full_name()),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            **extra_kwargs
+        )
+
     def get_email_bytes(self, context, recipients=None):
         if recipients is None:
             if context.get('request'):

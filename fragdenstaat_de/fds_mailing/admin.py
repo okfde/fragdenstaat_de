@@ -13,7 +13,9 @@ from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from cms.models.static_placeholder import StaticPlaceholder
 
 from froide.account.admin import UserAdmin
-from froide.helper.admin_utils import ForeignKeyFilter, make_nullfilter
+from froide.helper.admin_utils import (
+    ForeignKeyFilter, make_nullfilter, make_choose_object_action
+)
 
 from .models import EmailTemplate, Mailing, MailingMessage
 from .tasks import send_mailing, continue_sending
@@ -239,11 +241,33 @@ def send_mail(self, request, queryset):
     return original_send_mail(self, request, queryset)
 
 
-send_mail.short_description = _("Send mail to users...")
+send_mail.short_description = _("Setup mailing to users...")
 send_mail.allowed_permissions = ('change',)
-
-
 UserAdmin.send_mail = send_mail
+
+
+def execute_send_mail_template(admin, request, queryset, action_obj):
+    count = queryset.count()
+    if count != 1:
+        admin.message_user(
+            request, _('You can only send to one user at a time.'),
+            level=messages.ERROR
+        )
+        return
+    for user in queryset:
+        action_obj.send_to_user(user)
+
+    admin.message_user(
+        request, _('Email was sent.'),
+        level=messages.INFO
+    )
+
+
+UserAdmin.send_mail_template = make_choose_object_action(
+    EmailTemplate, execute_send_mail_template,
+    _('Send email via template...')
+)
+UserAdmin.actions += ['send_mail_template']
 
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
 admin.site.register(Mailing, MailingAdmin)
