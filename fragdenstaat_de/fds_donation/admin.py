@@ -459,7 +459,7 @@ class DonationAdmin(admin.ModelAdmin):
     raw_id_fields = ('donor', 'order', 'payment')
     search_fields = (
         'donor__email', 'donor__last_name', 'donor__first_name',
-        'donor__company_name',
+        'donor__company_name', 'keyword'
     )
 
     actions = ['resend_donation_mail', 'tag_donors']
