@@ -24,7 +24,7 @@ from fragdenstaat_de.fds_cms.utils import get_request
 from fragdenstaat_de.fds_donation.models import Donor
 from fragdenstaat_de.fds_newsletter.models import MailingSubscription
 
-from .utils import render_text
+from .utils import render_text, add_fake_context
 
 
 User = get_user_model()
@@ -79,6 +79,11 @@ class EmailTemplate(models.Model):
         if not self.mail_intent:
             return
         return self.mail_intent.split('/', 1)[0]
+
+    def get_mail_intent(self):
+        if not self.mail_intent:
+            return
+        return mail_registry.get_intent(self.mail_intent)
 
     def get_extra_placeholder_name(self):
         mail_intent_app = self.get_mail_intent_app()
@@ -172,7 +177,7 @@ class EmailTemplate(models.Model):
         ))
 
     def get_context_vars(self):
-        intent = mail_registry.get_intent(self.mail_intent)
+        intent = self.get_mail_intent()
         context_vars = []
         if intent:
             context_vars.extend(intent.context_vars)
@@ -181,7 +186,7 @@ class EmailTemplate(models.Model):
 
     def get_email_content(self, context, preview=False):
         if self.mail_intent:
-            intent = mail_registry.get_intent(self.mail_intent)
+            intent = self.get_mail_intent()
             if intent is not None:
                 context = intent.get_context(context)
         ctx = Context(context)

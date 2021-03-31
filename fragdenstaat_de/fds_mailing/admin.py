@@ -19,6 +19,7 @@ from froide.helper.admin_utils import (
 
 from .models import EmailTemplate, Mailing, MailingMessage
 from .tasks import send_mailing, continue_sending
+from .utils import add_fake_context
 
 
 class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
@@ -39,7 +40,7 @@ class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
                 self.admin_site.admin_view(self.edit_body),
                 name='fds_mailing-emailtemplate-edit_body'),
             url(r'^(?P<pk>\d+)/preview/$',
-                self.admin_site.admin_view(self.preview),
+                self.admin_site.admin_view(self.preview_html),
                 name='fds_mailing-emailtemplate-preview'),
             url(r'^(?P<pk>\d+)/preview-eml/$',
                 self.admin_site.admin_view(self.preview_eml),
@@ -65,20 +66,27 @@ class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
             'static_placeholder_id': static_placeholder_id
         })
 
-    def preview(self, request, pk):
+    def preview_html(self, request, pk):
         if not self.has_change_permission(request):
             raise PermissionDenied
 
         email_template = get_object_or_404(EmailTemplate, pk=pk)
-        content = email_template.render_email_html().encode('utf-8')
-        return HttpResponse(content=content)
+        context = {'request': request}
+        mail_intent = email_template.get_mail_intent()
+        context = add_fake_context(context, mail_intent)
+        html = email_template.get_body_html(context, preview=True)
+        return HttpResponse(content=html.encode('utf-8'))
 
     def preview_eml(self, request, pk):
         if not self.has_change_permission(request):
             raise PermissionDenied
 
         email_template = get_object_or_404(EmailTemplate, pk=pk)
-        content = email_template.get_email_bytes({'request': request})
+        context = {'request': request}
+        mail_intent = email_template.get_mail_intent()
+        context = add_fake_context(context, mail_intent)
+
+        content = email_template.get_email_bytes(context)
         return HttpResponse(
             content=content, content_type='message/rfc822'
         )

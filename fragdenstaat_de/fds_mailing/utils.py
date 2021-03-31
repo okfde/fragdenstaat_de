@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.core.exceptions import PermissionDenied
+from django.conf import settings
 from django.contrib.admin import helpers
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
@@ -120,3 +121,40 @@ def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):
         sent__gte=sent_after,
         email=bounce.email
     ).update(bounced=True)
+
+
+def add_fake_context(context, intent):
+    if intent is None:
+        return context
+
+    from fragdenstaat_de.fds_donation.models import Donor, Donation
+    from froide.foirequest.models import FoiRequest
+
+    USER_FAKERS = {
+        'user': lambda u: u,
+        'foirequest': lambda u: FoiRequest.objects.filter(user=u)[0],
+        'publicbody': lambda u: FoiRequest.objects.filter(user=u)[0].public_body,
+        'public_body': lambda u: FoiRequest.objects.filter(user=u)[0].public_body,
+        'donor': lambda u: Donor.objects.filter(user=u)[0],
+        'name': lambda u: Donor.objects.filter(user=u)[0].get_full_name(),
+        'first_name': lambda u: Donor.objects.filter(user=u)[0].first_name,
+        'last_name': lambda u: Donor.objects.filter(user=u)[0].last_name,
+        'salutation': lambda u: Donor.objects.filter(user=u)[0].get_salutation(),
+        'donation': lambda u: Donation.objects.filter(donor__user=u)[0],
+        'payment': lambda u: Donation.objects.filter(donor__user=u)[0].payment,
+        'order': lambda u: Donation.objects.filter(donor__user=u)[0].order,
+        'action_url': lambda u: settings.SITE_URL
+    }
+
+    context_vars = []
+    context_vars.extend(intent.context_vars)
+    context_vars.extend(intent.get_context({}, preview=True).keys())
+    request = context['request']
+    user = request.user
+    for var in context_vars:
+        if var in context:
+            continue
+        if var in USER_FAKERS:
+            context[var] = USER_FAKERS[var](user)
+
+    return context
