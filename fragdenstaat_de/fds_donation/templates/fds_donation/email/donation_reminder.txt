@@ -1,0 +1,11 @@
+{% autoescape off %}{{ salutation }},
+
+Sie wollten unser Projekt FragDenStaat per Banküberweisung unterstützen, vielen Dank!
+
+Falls Sie bisher keine Zeit hatten, die Überweisung einzurichten, hier noch einmal die Details:
+
+{% if payment.variant == 'banktransfer' %}{% include "fds_donation/includes/banktransfer.txt" %}{% endif %}
+
+Beste Grüße
+{{ site_name }}
+{% endautoescape off %}

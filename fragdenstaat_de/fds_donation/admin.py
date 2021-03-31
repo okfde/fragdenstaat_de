@@ -39,7 +39,7 @@ from .models import (
 )
 from .external import import_banktransfers, import_paypal
 from .filters import DateRangeFilter, make_rangefilter
-from .services import send_donation_email
+from .services import send_donation_email, send_donation_reminder_email
 from .forms import get_merge_donor_form
 from .utils import (
     propose_donor_merge, merge_donors,
@@ -462,7 +462,7 @@ class DonationAdmin(admin.ModelAdmin):
         'donor__company_name', 'keyword'
     )
 
-    actions = ['resend_donation_mail', 'tag_donors']
+    actions = ['resend_donation_mail', 'send_donation_reminder', 'tag_donors']
 
     tag_donors = make_batch_tag_action(
         action_name='tag_donors',
@@ -587,6 +587,21 @@ class DonationAdmin(admin.ModelAdmin):
             level=messages.INFO
         )
     resend_donation_mail.short_description = _('Resend donation email')
+
+    def send_donation_reminder(self, request, queryset):
+        sent = 0
+        for donation in queryset:
+            result = send_donation_reminder_email(donation)
+            if result:
+                sent += 1
+
+        self.message_user(
+            request, _('Send {sent} reminder mails.').format(
+                sent=sent
+            ),
+            level=messages.INFO
+        )
+    send_donation_reminder.short_description = _('Send donation reminder')
 
     def import_banktransfers(self, request):
         if not request.method == 'POST':

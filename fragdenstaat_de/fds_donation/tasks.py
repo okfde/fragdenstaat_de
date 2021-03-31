@@ -1,3 +1,7 @@
+from django.utils import timezone
+
+from dateutil.relativedelta import relativedelta
+
 from froide.celery import app as celery_app
 
 from fragdenstaat_de.theme.notifications import send_notification
@@ -16,3 +20,30 @@ def send_donation_notification(donation_id):
     send_notification('Neue Spende: {amount} EUR'.format(
         amount=donation.amount
     ))
+
+
+@celery_app.task(name='fragdenstaat_de.fds_donation.new_donation')
+def remind_non_received_banktransfers():
+    """
+    To be run on the 15th of each month
+    """
+    from .models import Donation
+    from .services import send_donation_reminder_email
+
+    today = timezone.now()
+
+    zero = dict(hour=0, minute=0, second=0, microsecond=0)
+
+    last_month = today - relativedelta(months=1)
+    first_of_this_month = today.replace(day=1, **zero)
+    first_of_last_month = last_month.replace(day=1, **zero)
+
+    donations = Donation.objects.filter(
+        completed=True, received=False,
+        method='banktransfer',
+        timestamp__gte=first_of_last_month,
+        timestamp__lt=first_of_this_month
+    ).select_related('donor', 'user', 'payment')
+
+    for donation in donations:
+        send_donation_reminder_email(donation)

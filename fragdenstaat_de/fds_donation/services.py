@@ -99,6 +99,14 @@ donor_optin_email = mail_registry.register(
     )
 )
 
+donation_reminder_email = mail_registry.register(
+    'fds_donation/email/donation_reminder',
+    (
+        'name', 'first_name', 'last_name', 'salutation',
+        'donor', 'donation', 'payment', 'order'
+    )
+)
+
 
 def send_donation_email(donation, domain_obj=None):
     if donation.email_sent:
@@ -373,3 +381,44 @@ def detect_recurring_monthly_amount(donor):
             return Decimal(0)
         return amounts.most_common(1)[0][0] / most_common_period_month
     return Decimal(0)
+
+
+def send_donation_reminder_email(donation):
+    if donation.received:
+        return
+    if donation.method != 'banktransfer':
+        return
+    REMINDER_TEXT = 'REMINDER:'
+    if REMINDER_TEXT in donation.note:
+        return
+
+    now = timezone.now()
+    diff = now - donation.timestamp
+    if diff < timedelta(days=14):
+        return
+
+    donor = donation.donor
+    context = {
+        'name': donor.get_full_name(),
+        'first_name': donor.first_name,
+        'last_name': donor.last_name,
+        'salutation': donor.get_salutation(),
+        'payment': donation.payment,
+        'order': donation.payment.order,
+        'donor': donor,
+        'donation': donation,
+        'user': donor.user,
+    }
+
+    donation_reminder_email.send(
+        user=donor.user,
+        email=donor.email,
+        context=context,
+        ignore_active=True, priority=True
+    )
+    donation.note += '\n\n{} {}\n'.format(
+        REMINDER_TEXT, now.isoformat()
+    )
+    donation.note = donation.note.strip()
+    donation.save()
+    return True
