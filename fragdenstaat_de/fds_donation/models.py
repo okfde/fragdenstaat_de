@@ -225,6 +225,10 @@ class Donor(models.Model):
             recently_donated = timezone.now() - self.last_donation <= year
         return recently_donated
 
+    @property
+    def is_eligible_for_gift(self):
+        return self.recurring_amount >= 10
+
     def get_email_context(self):
         context = {
             'first_name': self.first_name,
