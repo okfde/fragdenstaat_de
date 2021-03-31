@@ -24,7 +24,7 @@ from fragdenstaat_de.fds_cms.utils import get_request
 from fragdenstaat_de.fds_donation.models import Donor
 from fragdenstaat_de.fds_newsletter.models import MailingSubscription
 
-from .utils import render_text, add_fake_context
+from .utils import render_text
 
 
 User = get_user_model()
