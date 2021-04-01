@@ -22,8 +22,8 @@ def send_donation_notification(donation_id):
     ))
 
 
-@celery_app.task(name='fragdenstaat_de.fds_donation.new_donation')
-def remind_non_received_banktransfers():
+@celery_app.task(name='fragdenstaat_de.fds_donation.remind_unreceived_banktransfers')
+def remind_unreceived_banktransfers():
     """
     To be run on the 15th of each month
     """
