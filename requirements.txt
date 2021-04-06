@@ -245,7 +245,7 @@ django-treebeard==4.4
     # via
     #   -r requirements.in
     #   django-cms
-django==3.1.6
+django==3.1.8
     # via
     #   -r requirements.in
     #   channels
