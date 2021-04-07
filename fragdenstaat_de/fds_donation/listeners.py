@@ -7,7 +7,10 @@ from django.utils import timezone
 
 from froide_payment.models import PaymentStatus
 
-from .services import send_donation_email, create_donation_from_payment
+from .services import (
+    send_donation_email, create_donation_from_payment,
+    send_sepa_notification
+)
 from .models import Donor, Donation
 from .tasks import send_donation_notification
 
@@ -115,6 +118,11 @@ def cancel_user(sender, user=None, **kwargs):
 
 def merge_user(sender, old_user=None, new_user=None, **kwargs):
     Donor.objects.filter(user=old_user).update(user=new_user)
+
+
+def sepa_payment_processing(sender, data=None, **kwargs):
+    send_sepa_notification(sender, data)
+    return True
 
 
 def export_user_data(user):

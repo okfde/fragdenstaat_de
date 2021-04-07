@@ -1,0 +1,25 @@
+{% autoescape off %}{{ salutation }},
+
+Ihre Spende für FragDenStaat wird demnächst per SEPA-Lastschriftmandat abgebucht.
+
+Die Lastschrift wird mit der Gläubigeridentifikationsnummer DE17ZZZ00002091662 abgebucht. Ihre Mandatsreferenz-Nr. ist {{ mandate_reference }}.
+Die Abbuchung von {{ payment.total }} {{ payment.currency }} erfolgt regelmäßig {{ order.subscription.plan.get_interval_description }}, das nächste Mal in zwei Tagen.
+Die letzten vier Ziffern des von Ihnen angegebenen Kontos sind {{ last4 }}.
+
+Hinweis: Sie können innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit Ihrem Kreditinstitut vereinbarten Bedingungen.
+
+Danke für Ihre Unterstützung!
+
+Beste Grüße
+
+FragDenStaat.de
+
+-- 
+FragDenStaat ist ein Projekt des
+Open Knowledge Foundation Deutschland e.V.
+Singerstr. 109
+10179 Berlin
+Deutschland
+Vereinsregister-Nr.: VR 30468 B
+Registergericht: Amtsgericht Charlottenburg 
+{% endautoescape %}

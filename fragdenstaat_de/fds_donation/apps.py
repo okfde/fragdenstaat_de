@@ -13,15 +13,16 @@ class FdsDonationConfig(AppConfig):
             account_canceled, account_merged, account_email_changed
         )
         from froide.account.export import registry
-        from froide_payment.signals import subscription_canceled
+        from froide_payment.signals import subscription_canceled, sepa_notification
         from .listeners import (
             payment_status_changed, subscription_was_canceled,
             cancel_user, merge_user, export_user_data,
-            user_email_changed
+            user_email_changed, sepa_payment_processing
         )
 
         status_changed.connect(payment_status_changed)
         subscription_canceled.connect(subscription_was_canceled)
+        sepa_notification.connect(sepa_payment_processing)
         account_canceled.connect(cancel_user)
         account_email_changed.connect(user_email_changed)
         account_merged.connect(merge_user)

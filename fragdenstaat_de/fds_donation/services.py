@@ -22,6 +22,47 @@ from .utils import (
 logger = logging.getLogger(__name__)
 
 
+new_donor_thanks_email = mail_registry.register(
+    'fds_donation/email/donor_new_thanks',
+    (
+        'name', 'first_name', 'last_name', 'salutation',
+        'payment', 'order', 'donor', 'donation'
+    )
+)
+
+donor_thanks_email = mail_registry.register(
+    'fds_donation/email/donor_thanks',
+    (
+        'name', 'first_name', 'last_name', 'salutation',
+        'payment', 'order', 'donor', 'donation'
+    )
+)
+
+donor_optin_email = mail_registry.register(
+    'fds_donation/email/donor_thanks_optin',
+    (
+        'name', 'first_name', 'last_name', 'salutation',
+        'payment', 'order', 'donor', 'donation'
+    )
+)
+
+donation_reminder_email = mail_registry.register(
+    'fds_donation/email/donation_reminder',
+    (
+        'name', 'first_name', 'last_name', 'salutation',
+        'donor', 'donation', 'payment', 'order'
+    )
+)
+
+sepa_notification_email = mail_registry.register(
+    'fds_donation/email/sepa_notification',
+    (
+        'name', 'first_name', 'last_name', 'salutation',
+        'donor', 'payment', 'order', 'mandate_reference', 'last4'
+    )
+)
+
+
 def get_or_create_donor(data, user=None, subscription=None):
     if user is not None:
         try:
@@ -73,39 +114,6 @@ def create_donor(data, user=None, subscription=None):
         subscribe_donor_newsletter(donor)
 
     return donor
-
-
-new_donor_thanks_email = mail_registry.register(
-    'fds_donation/email/donor_new_thanks',
-    (
-        'name', 'first_name', 'last_name', 'salutation',
-        'payment', 'order', 'donor', 'donation'
-    )
-)
-
-donor_thanks_email = mail_registry.register(
-    'fds_donation/email/donor_thanks',
-    (
-        'name', 'first_name', 'last_name', 'salutation',
-        'payment', 'order', 'donor', 'donation'
-    )
-)
-
-donor_optin_email = mail_registry.register(
-    'fds_donation/email/donor_thanks_optin',
-    (
-        'name', 'first_name', 'last_name', 'salutation',
-        'payment', 'order', 'donor', 'donation'
-    )
-)
-
-donation_reminder_email = mail_registry.register(
-    'fds_donation/email/donation_reminder',
-    (
-        'name', 'first_name', 'last_name', 'salutation',
-        'donor', 'donation', 'payment', 'order'
-    )
-)
 
 
 def send_donation_email(donation, domain_obj=None):
@@ -421,4 +429,29 @@ def send_donation_reminder_email(donation):
     )
     donation.note = donation.note.strip()
     donation.save()
+    return True
+
+
+def send_sepa_notification(payment, data):
+    donation = create_donation_from_payment(payment)
+    donor = donation.donor
+    context = {
+        'name': donor.get_full_name(),
+        'first_name': donor.first_name,
+        'last_name': donor.last_name,
+        'salutation': donor.get_salutation(),
+        'payment': payment,
+        'order': payment.order,
+        'donor': donor,
+        'donation': donation,
+        'user': donor.user,
+    }
+    context.update(data)
+
+    sepa_notification_email.send(
+        user=donor.user,
+        email=donor.email,
+        context=context,
+        ignore_active=True, priority=True
+    )
     return True
