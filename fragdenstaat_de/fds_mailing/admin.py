@@ -24,11 +24,11 @@ from .utils import add_fake_context
 
 class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
     list_display = (
-        'name', 'category', 'mail_intent',
+        'name', 'subject', 'category', 'mail_intent',
         'created', 'updated', 'active'
     )
     list_filter = (
-        'category',
+         'active', 'category',
     )
     search_fields = ('name', 'subject', 'mail_intent')
     date_hierarchy = 'updated'
