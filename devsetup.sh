@@ -106,3 +106,5 @@ for name in "${FRONTEND[@]}"; do
 done
 yarn install
 popd
+
+fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de
