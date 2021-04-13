@@ -57,6 +57,8 @@ sentry-sdk
 stripe
 sortabletable
 twilio
+# https://github.com/django/channels/issues/1639
+twisted<21
 Wand
 WeasyPrint
 websockets

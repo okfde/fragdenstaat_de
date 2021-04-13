@@ -1,6 +1,8 @@
 -r requirements.in
 pdflib
 tornado>=4.2.0,<6.0.0
+# https://github.com/django/channels/issues/1639
+twisted<21
 gunicorn
 python-memcached
 channels_redis
