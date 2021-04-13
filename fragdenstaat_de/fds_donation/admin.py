@@ -463,7 +463,10 @@ class DonationAdmin(admin.ModelAdmin):
         'donor__company_name', 'keyword'
     )
 
-    actions = ['resend_donation_mail', 'send_donation_reminder', 'tag_donors']
+    actions = [
+        'resend_donation_mail', 'send_donation_reminder', 'tag_donors',
+        'match_banktransfer'
+    ]
 
     tag_donors = make_batch_tag_action(
         action_name='tag_donors',
@@ -569,6 +572,45 @@ class DonationAdmin(admin.ModelAdmin):
             dict_to_csv_stream(make_dicts(queryset))
         )
     export_csv.short_description = _("Export to CSV")
+
+    def match_banktransfer(self, request, queryset):
+        count = queryset.count()
+        fail = False
+        if count != 2:
+            fail = True
+        pending, received = queryset.order_by('received')
+        if not pending.received or received.received:
+            fail = True
+        if pending.donor != received.donor:
+            fail = True
+        if pending.project != received.project:
+            fail = True
+        if pending.method != 'banktransfer' or received.method != 'banktransfer':
+            fail = True
+        if received.order or received.payment:
+            fail = True
+        if received.export_date or received.receipt_date:
+            fail = True
+
+        if fail:
+            self.message_user(
+                request, _('Need two banktransfer donations from same donor.'),
+                level=messages.WARNING
+            )
+            return
+
+        pending.received = True
+        pending.amount_received = received.amount_received
+        pending.received_timestamp = received.received_timestamp
+        pending.identifier = received.identifier
+        received.delete()
+        # Save after delete so donation number is updated correctly
+        pending.save()
+        self.message_user(
+            request, _('Donations matched.'),
+            level=messages.INFO
+        )
+    match_banktransfer.short_description = _('Match planned to received banktransfer')
 
     def resend_donation_mail(self, request, queryset):
         resent = 0
