@@ -579,7 +579,7 @@ class DonationAdmin(admin.ModelAdmin):
         if count != 2:
             fail = True
         pending, received = queryset.order_by('received')
-        if not pending.received or received.received:
+        if pending.received or not received.received:
             fail = True
         if pending.donor != received.donor:
             fail = True
