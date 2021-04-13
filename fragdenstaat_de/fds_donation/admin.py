@@ -442,13 +442,14 @@ class DonationAdmin(admin.ModelAdmin):
     )
     list_filter = (
         'completed', 'received',
-        ('timestamp', DateRangeFilter),
+        ('received_timestamp', DateRangeFilter),
         'method',
         'project',
         'purpose',
         'recurring',
         make_rangefilter('number', 'Nr.'),
         make_rangefilter('amount', _('amount')),
+        ('timestamp', DateRangeFilter),
         'first_recurring',
         'reference',
         make_nullfilter('export_date', _('Receipt exported')),
