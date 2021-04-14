@@ -46,4 +46,10 @@ def remind_unreceived_banktransfers():
     ).select_related('donor', 'user', 'payment')
 
     for donation in donations:
-        send_donation_reminder_email(donation)
+        donation_from_donor_exists = Donation.objects.filter(
+            completed=True, received=True,
+            donor_id=donation.donor_id,
+            timestamp__gte=donation.timestamp,
+        ).exclude(id=donation.id).exists()
+        if not donation_from_donor_exists:
+            send_donation_reminder_email(donation)
