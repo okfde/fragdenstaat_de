@@ -9,7 +9,7 @@ import pandas as pd
 import pytz
 
 from froide_payment.models import Payment, PaymentStatus
-from froide_payment.provider.banktransfer import TRANSFER_RE
+from froide_payment.provider.banktransfer import find_transfer_code
 
 from .services import create_donation_from_payment, detect_recurring_on_donor
 from .models import Donor, Donation
@@ -23,12 +23,13 @@ def find_donation(transfer_ident, row):
     except Donation.DoesNotExist:
         pass
 
-    match = TRANSFER_RE.search(row['reference'])
-    if match is None:
+    transfer_code = find_transfer_code(row['reference'])
+
+    if transfer_code is None:
         return None
 
     payments = Payment.objects.filter(
-        transaction_id=match.group(0).upper()
+        transaction_id=transfer_code
     )
     if not payments:
         return None
