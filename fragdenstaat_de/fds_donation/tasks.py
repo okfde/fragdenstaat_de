@@ -43,7 +43,7 @@ def remind_unreceived_banktransfers():
         method='banktransfer',
         timestamp__gte=first_of_last_month,
         timestamp__lt=first_of_this_month
-    ).select_related('donor', 'user', 'payment')
+    ).select_related('donor', 'payment')
 
     for donation in donations:
         donation_from_donor_exists = Donation.objects.filter(
