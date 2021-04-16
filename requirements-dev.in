@@ -1,6 +1,6 @@
 -r requirements.in
 Sphinx
-django-debug-toolbar
+django-debug-toolbar>=3.2.1
 coverage
 factory-boy
 faker
