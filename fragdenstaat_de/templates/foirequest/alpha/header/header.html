@@ -36,6 +36,11 @@
       </div>
     </div>
   </div>
+  {# Brüssler Büro #}
+  {% elif object.jurisdiction.id == 107 %}
+  <div class="alert alert-info">
+     🇪🇺 Sie wollen mehr Transparenz in der EU? <a href="/info/ueber/eu-recherchen/">Entdecken Sie unsere EU-Recherchen!</a>
+  </div>
   {% endif %}
 
   {% if "corona" in object.title|lower or "covid" in object.title|lower or "virus" in object.title|lower  %}
