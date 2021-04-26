@@ -169,7 +169,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     actions = [
         'merge_donors', 'detect_duplicates', 'clear_duplicates',
         'export_zwbs', 'get_zwb_pdf', 'tag_all',
-        'send_mailing'
+        'send_mailing', 'update_newsletter_tag'
     ] + SetupMailingMixin.actions
 
     tag_all = make_batch_tag_action(autocomplete_url=DONOR_TAG_AUTOCOMPLETE)
@@ -404,6 +404,31 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             'with {count} recipients').format(
                 count=count
         )
+
+    def update_newsletter_tag(self, request, queryset):
+        '''
+        Find out if donors are in donation newsletter
+        and add tag.
+        '''
+        from newsletter.models import Newsletter, Subscription
+
+        nl = Newsletter.objects.get(slug='spenden')
+        count = 0
+
+        for donor in queryset:
+            has_nl = Subscription.objects.filter(
+                Q(user=donor.user) | Q(email_field=donor.email)
+            ).filter(subscribed=True, newsletter=nl).exists()
+            if has_nl:
+                count += 1
+                donor.tags.add('spenden-newsletter')
+            else:
+                donor.tags.remove('spenden-newsletter')
+
+        self.message_user(request, _('Added tag to {count} donors.').format(
+            count=count
+        ))
+    update_newsletter_tag.short_description = _('Update donation newsletter tag')
 
 
 class DonationChangeList(ChangeList):
