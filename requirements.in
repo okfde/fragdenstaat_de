@@ -76,4 +76,4 @@ xlrd
 -e git+https://github.com/okfde/django-amenities.git@master#egg=django-amenities
 -e git+https://github.com/okfde/froide-payment.git@master#egg=froide-payment
 -e git+https://github.com/okfde/froide-crowdfunding.git@master#egg=froide-crowdfunding
--e git+https://github.com/stefanw/django-contractor.git@master#egg=django-contractor
+-e git+https://github.com/stefanw/django-contractor.git@main#egg=django-contractor
