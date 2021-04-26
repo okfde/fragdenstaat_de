@@ -415,9 +415,14 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         nl = Newsletter.objects.get(slug='spenden')
         count = 0
 
+        queryset = queryset.filter(
+            Q(user__isnull=False) | ~Q(email='')
+        )
+
         for donor in queryset:
             has_nl = Subscription.objects.filter(
-                Q(user=donor.user, user__isnull=False) | Q(email_field=donor.email)
+                Q(user=donor.user, user__isnull=False) |
+                (Q(email_field=donor.email) & ~Q(email_field=''))
             ).filter(subscribed=True, newsletter=nl).exists()
             if has_nl:
                 count += 1
