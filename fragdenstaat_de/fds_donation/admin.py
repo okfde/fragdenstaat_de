@@ -417,7 +417,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
         for donor in queryset:
             has_nl = Subscription.objects.filter(
-                Q(user=donor.user) | Q(email_field=donor.email)
+                Q(user=donor.user, user__isnull=False) | Q(email_field=donor.email)
             ).filter(subscribed=True, newsletter=nl).exists()
             if has_nl:
                 count += 1
