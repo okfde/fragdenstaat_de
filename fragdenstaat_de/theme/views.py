@@ -2,7 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
+from django.utils.decorators import method_decorator
+
+from legal_advice_builder.views import FormWizardView
+from legal_advice_builder.models import LawCase
 
 from froide.account.models import UserPreference
 from froide.foirequest.models import FoiRequest, FoiMessage
@@ -74,3 +79,35 @@ def meisterschaften_tippspiel(request):
         'user': prefs,
         'error': error
     })
+
+
+@staff_member_required
+def klageautomat(request):
+    return render(request, 'legal_advice_builder/foirequest_list.html', {})
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class KlageAutomatWizard(FormWizardView):
+
+    def get_lawcase(self):
+        return LawCase.objects.all().first()
+
+    def get_foirequest(self):
+        slug = self.kwargs.get('slug')
+        return FoiRequest.objects.get(slug=slug)
+
+    def get_initial_dict(self):
+        foi_request = self.get_foirequest()
+        return {
+            'person': {
+                'behoerde_name': foi_request.public_body.name,
+                'behoerde_adresse': foi_request.public_body.address,
+                'anfrage_gesetz': foi_request.law,
+                'anfrage_text': foi_request.messages[0].plaintext,
+                'anfrage_datum': foi_request.first_message.date(),
+                'anfrage_frist': foi_request.due_date.date(),
+                'name': '{} {}'.format(foi_request.user.first_name,
+                                       foi_request.user.last_name),
+                'adresse': foi_request.user.address
+            }
+        }

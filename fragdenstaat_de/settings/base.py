@@ -95,7 +95,9 @@ class FragDenStaatBase(German, Base):
             'froide_food.apps.FroideFoodConfig',
             'django_amenities.apps.AmenitiesConfig',
             'froide_fax.apps.FroideFaxConfig',
-            'froide_exam'
+            'froide_exam',
+
+            'legal_advice_builder.apps.LegalAdviceBuilderConfig'
         ]
         return installed.default
 

@@ -1,0 +1,7 @@
+
+
+{% for foirequest in request.user.foirequest_set.all %}
+<ul>
+    <li><a href="{% url 'fragdenstaat-klageautomat-wizard' foirequest.slug %}">{{ foirequest }}</a></li>
+</ul>
+{% endfor %}
