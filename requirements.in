@@ -77,3 +77,4 @@ xlrd
 -e git+https://github.com/okfde/froide-payment.git@master#egg=froide-payment
 -e git+https://github.com/okfde/froide-crowdfunding.git@master#egg=froide-crowdfunding
 -e git+https://github.com/stefanw/django-contractor.git@main#egg=django-contractor
+-e git+https://github.com/OpenLegalTech/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
