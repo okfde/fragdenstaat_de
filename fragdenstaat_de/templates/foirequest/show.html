@@ -12,23 +12,8 @@
 
 {% block foirequest_header %}
 
-  {# Transparenzgesetz Sachsen #}
-  {% if object.jurisdiction.id == 89 %}
-  <div class="row py-2 mb-5">
-    <div class="col-lg-2 col-md-3 d-none d-md-flex align-items-center">
-      <img class="img-fluid" alt="Wappen Sachsen" src="https://media.frag-den-staat.de/files/media/main/cb/8a/cb8a6fb0-9d58-4feb-87e1-8a8ea233dfc5/sachsen.svg"/>
-    </div>
-    <div class="col-lg-10 col-md-9 d-flex align-items-center">
-      <div class="mt-3 mt-md-0">
-        <p class="lead mt-0 mb-3">Die Sächsische Landesregierung hat bis Ende 2020 ein Transparenzgesetz versprochen - doch bisher ist nicht viel passiert. Lassen Sie uns gemeinsam Aktionen planen, damit das Transparenzgesetz oben auf die Agenda kommt! Sind Sie dabei?</p>
-        <a class="btn btn-primary" href="https://forum.okfn.de/c/fragdenstaat/sachsen-transparenzgesetz-voranbringen/12" target="_blank">
-          Mehr Infos im Forum
-        </a>
-      </div>
-    </div>
-  </div>
   {# Brüssler Büro #}
-  {% elif object.jurisdiction.id == 107 %}
+  {% if object.jurisdiction.id == 107 %}
   <div class="alert alert-info">
      🇪🇺 Sie wollen mehr Transparenz in der EU? <a href="/info/ueber/eu-recherchen/">Entdecken Sie unsere EU-Recherchen!</a>
   </div>
