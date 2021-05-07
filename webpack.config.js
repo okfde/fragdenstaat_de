@@ -175,9 +175,11 @@ const config = {
             loader: 'sass-loader',
             options: {
               sourceMap: devMode,
-              includePaths: [
-                'node_modules/'
-              ]
+              sassOptions: {
+                includePaths: [
+                  'node_modules/'
+                ]
+              }
             }
           }
         ]

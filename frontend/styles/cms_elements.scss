@@ -212,7 +212,7 @@ a.teaser:hover {
   }
 }
 @each $color, $value in $colors {
-  &.container-design__#{$color}.speech-bubble:after {
+  .container-design__#{$color}.speech-bubble:after {
     border-top-color: lighten($value, 20%);
   }
 }
