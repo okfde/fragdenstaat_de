@@ -210,6 +210,8 @@ django-fsm==2.7.1
     # via froide-legalaction
 django-js-asset==1.2.2
     # via django-mptt
+django-json-widget==1.1.1
+    # via -r requirements.in
 django-leaflet==0.27.1
     # via -r requirements.in
 django-localflavor==3.0.1
@@ -359,7 +361,9 @@ et-xmlfile==1.0.1
 fdfgen==0.16.1
     # via froide-food
 future==0.18.2
-    # via geocoder
+    # via
+    #   django-json-widget
+    #   geocoder
 geocoder==1.38.1
     # via
     #   django-amenities

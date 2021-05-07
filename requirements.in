@@ -15,6 +15,7 @@ django-filer
 django-filingcabinet
 django-filter
 django-floppyforms
+django-json-widget
 django-leaflet
 django-logentry-admin
 django-newsletter
