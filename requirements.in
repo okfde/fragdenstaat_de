@@ -41,6 +41,7 @@ elasticsearch<8.0.0,>=7.0.0
 elasticsearch-dsl>=7.0.0<8.0.0
 geoip2
 icalendar
+jsonschema
 markdown
 num2words
 openpyxl
