@@ -17,6 +17,7 @@ from froide.foirequest.models import FoiRequest
 
 from .models import (
     PageAnnotationCMSPlugin, DocumentPagesCMSPlugin, DocumentEmbedCMSPlugin,
+    DocumentPortalEmbedCMSPlugin,
     PrimaryLinkCMSPlugin, FoiRequestListCMSPlugin, OneClickFoiRequestCMSPlugin,
     VegaChartCMSPlugin, SVGImageCMSPlugin, DesignContainerCMSPlugin,
     DocumentCollectionEmbedCMSPlugin, ShareLinksCMSPlugin, CollapsibleCMSPlugin,
@@ -103,6 +104,25 @@ class DocumentCollectionEmbedPlugin(CMSPluginBase):
 
         ctx = get_document_collection_context(
             instance.collection, context['request'],
+        )
+        context.update(ctx)
+        context['instance'] = instance
+        return context
+
+
+@plugin_pool.register_plugin
+class DocumentPortalEmbedPlugin(CMSPluginBase):
+    model = DocumentPortalEmbedCMSPlugin
+    module = _("Document")
+    name = _("Document portal embed")
+    text_enabled = False
+    render_template = "document/cms_plugins/document_collection_embed.html"
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+
+        ctx = get_document_collection_context(
+            instance.portal, context['request'],
         )
         context.update(ctx)
         context['instance'] = instance

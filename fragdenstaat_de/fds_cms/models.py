@@ -16,7 +16,7 @@ from djangocms_bootstrap4.fields import (
     AttributesField, TagTypeField,
 )
 
-from filingcabinet.models import PageAnnotation
+from filingcabinet.models import DocumentPortal, PageAnnotation
 
 from froide.foirequest.models import FoiRequest, FoiProject
 from froide.publicbody.models import (
@@ -66,6 +66,17 @@ class DocumentCollectionEmbedCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return 'Embed %s' % (self.collection,)
+
+
+class DocumentPortalEmbedCMSPlugin(CMSPlugin):
+    portal = models.ForeignKey(
+        DocumentPortal, related_name='+',
+        on_delete=models.CASCADE
+    )
+    settings = models.JSONField(default=dict, blank=True)
+
+    def __str__(self):
+        return 'Portal Embed %s' % (self.portal,)
 
 
 class DocumentPagesCMSPlugin(CMSPlugin):
