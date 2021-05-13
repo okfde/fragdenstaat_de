@@ -3,7 +3,6 @@ import os.path
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
-from django.conf import settings
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.timezone import now
@@ -48,8 +47,7 @@ class BaseBlogView(object):
 
     def get_queryset(self):
         queryset = self.get_base_queryset()
-        if self.request.LANGUAGE_CODE != settings.LANGUAGE_CODE:
-            queryset = queryset.filter(language=self.request.LANGUAGE_CODE)
+        queryset = queryset.filter(language=self.request.LANGUAGE_CODE)
         return self.optimize(queryset)
 
     def get_template_names(self):
