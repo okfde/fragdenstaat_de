@@ -566,6 +566,7 @@ class DonationAdmin(admin.ModelAdmin):
         def make_dicts(queryset):
             for donation in queryset:
                 yield {
+                    'id': donation.id,
                     'timestamp': to_local(donation.timestamp),
                     'amount': donation.amount,
                     'amount_received': donation.amount_received,
