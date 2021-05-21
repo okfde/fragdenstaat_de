@@ -10,6 +10,7 @@
 
       {% if form %}
         <form method="post" class="clearfix mt-5 border p-3">
+          <div class="mb-3 text-end">Schritt: {{ question.questionaire }}</div>
           {% csrf_token %}
           {% render_form form horizontal=False %}
           <input class="btn btn-primary btn-lg pull-right" type="submit" value="Weiter" />
@@ -24,7 +25,7 @@
       {% endif %}
 
       {% if success %}
-        <div class="alert alert-success" role="alert">{{ message }}</div>
+        <div class="alert alert-success mt-5" role="alert">{{ message }}</div>
 
         {% if next %}
         <form method="post">
@@ -40,12 +41,12 @@
       {% endif %}
 
       {% if failure %}
-        <div class="alert alert-danger" role="alert">{{ message }}</div>
+        <div class="alert alert-danger mt-5" role="alert">{{ message }}</div>
       {% endif %}
 
       {% if answer_form %}
         {% if law_case.extra_help %}
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success mt-5" role="alert">
           {{ law_case.extra_help }}
         </div>
         {% endif %}
