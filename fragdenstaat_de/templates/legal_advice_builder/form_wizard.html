@@ -1,72 +1,107 @@
-{% block content %}
-{% if form %}
-<div class="row justify-content-end mt-5">
-    <div class="col-5">
-        <h1>{{ law_case.title }}</h1>
+{% extends "base.html" %}
+{% load form_helper %}
 
-        {% if form %}
+{% block body %}
+
+    {% if form %}
+    <div class="container mb-5 mt-5" style="height: 500px;">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <h3>{{ law_case.title }}</h3>
+          <form method="post">
+            {% csrf_token %}
+            {% render_form form horizontal=False %}
+            <input class="btn btn-primary btn-lg pull-right" type="submit" value="Weiter" />
+        </form>
+        {% if question.information %}
+          {{ question.information }}
+        {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  {% if success %}
+  <div class="container mb-5 mt-5" style="height: 500px;">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+
+        <h1>{{ law_case.title }}</h1>
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+
+        {% if next %}
         <form method="post">
             {% csrf_token %}
-            {{ form }}
-            <div class="row justify-content-center mt-3">
-                <div class="col-4">
-                    <input class="btn btn-primary btn-lg" type="submit" value="Weiter" />
-                </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3 mb-3">
+              <button class="btn btn-primary btn-lg">
+                  <input type="hidden" name="next" value="{{ next.id }}" />
+                  Weiter
+              </button>
             </div>
         </form>
         {% endif %}
+
+      </div>
     </div>
-    <div class="col-5">
-        {% if question.information %}
-        {{ question.information }}
-        {% endif %}
+  </div>
+  {% endif %}
+
+  {% if failure %}
+  <div class="container mb-5 mt-5" style="height: 500px;">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+          <h1>{{ law_case.title }}</h1>
+          <div class="alert alert-danger" role="alert">{{ message }}</div>
+      </div>
     </div>
-</div>
-{% endif %}
+  </div>
+  {% endif %}
 
-{% if success %}
-<div class="row justify-content-end mt-5">
-    <div class="col-5">
-        <h1>{{ law_case.title }}</h1>
-        <div class="alert alert-success" role="alert">{{ success_message }}</div>
-    </div>
-    <div class="col-5"></div>
-    {% if next %}
-    <form method="post">
-        {% csrf_token %}
-        <div class="row justify-content-center mt-3">
-            <div class="col-4">
-                <button class="btn btn-primary btn-lg">
-                    <input type="hidden" name="next" value="{{ next.id }}" />
-                    Weiter
-                </button>
-            </div>
-        </div>
-    </form>
-    {% endif %}
-</div>
-{% endif %}
+  {% if template and not answer_form %}
+  <div>
+      <div class="row">
+          <div class="col p-5 border mt-4">
+              {{ template | safe }}
 
-{% if failure %}
-<div class="row justify-content-end mt-5">
-    <div class="col-5">
-        <h1>{{ law_case.title }}</h1>
-        <div class="alert alert-danger" role="alert">{{ failure_message }}</div>
-    </div>
-    <div class="col-5"></div>
-</div>
-{% endif %}
+              {% if allow_download %}
+              <form method="post">
+                  {% csrf_token %}
+                  <div class="row justify-content-end mt-3">
+                      <div class="col-5">
+                          <input class="btn btn-primary btn-lg" type="submit" name="download" value="download" />
+                      </div>
+                  </div>
+              </form>
+              {% endif %}
+          </div>
+      </div>
+  </div>
+  {% endif %}
 
-{% if answer %}
-<p>{{ answer.template | safe }}</p>
-{% endif %}
-
-
-
-
-
-
-
-
+  {% if preview %}
+  <div>
+      <div class="row justify-content-center mt-5">
+          <div class="col-md-8">
+              {% if answer_form %}
+              <h2 class="text-center">Ihre Klage</h2>
+              {% if law_case.extra_help %}
+              <div class="alert alert-success" role="alert">
+                {{ law_case.extra_help }}
+                </div>
+              {% endif %}
+              {{ answer_form.media }}
+              <form method="post">
+                  {% csrf_token %}
+                  {{ answer_form }}
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3 mb-3">
+                      <input class="btn btn-primary btn-lg" type="submit" name="download" value="download" />
+                      <input class="btn btn-primary btn-lg" type="submit" value="Änderungen speichern" />
+                  </div>
+              </form>
+              {% endif %}
+          </div>
+      </div>
+  </div>
+  {% endif %}
 
 {% endblock %}

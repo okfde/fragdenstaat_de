@@ -1,7 +1,18 @@
+{% extends "base.html" %}
 
 
-{% for foirequest in request.user.foirequest_set.all %}
-<ul>
-    <li><a href="{% url 'fragdenstaat-klageautomat-wizard' foirequest.slug %}">{{ foirequest }}</a></li>
-</ul>
-{% endfor %}
+{% block body %}
+<div class="container mb-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+        <h1>Klageautomat testen:</h1>
+
+        <ul class="list-group">
+            {% for foirequest in request.user.foirequest_set.all %}
+            <li class="list-group-item"><a href="{% url 'klageautomat-form_wizard' foirequest.id %}">{{ foirequest }}</a></li>
+            {% endfor %}
+        </div>
+        </ul>
+    </div>
+</div>
+{% endblock %}
