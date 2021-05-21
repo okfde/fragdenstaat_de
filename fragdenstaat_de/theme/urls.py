@@ -22,9 +22,7 @@ from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 
 from .views import (
     glyphosat_download,
-    meisterschaften_tippspiel,
-    KlageAutomatWizard,
-    klageautomat
+    meisterschaften_tippspiel
 )
 
 
@@ -65,12 +63,7 @@ urlpatterns = [
     ),
     path("glyphosat-bfr/<slug:slug>/<int:message_id>/download-document/", glyphosat_download, name="fragdenstaat-glyphosat_download"),
     path("tippspiel/", meisterschaften_tippspiel, name="fragdenstaat-meisterschaften_tippspiel"),
-    path("", include('fragdenstaat_de.fds_ogimage.urls')),
-    path("klageautomat/",
-         klageautomat, name="fragedenstaat-klageautomat-index"),
-    path("klageautomat/<slug:slug>/",
-         KlageAutomatWizard.as_view(), name="fragdenstaat-klageautomat-wizard")
-
+    path("", include('fragdenstaat_de.fds_ogimage.urls'))
 ]
 
 urlpatterns += [
