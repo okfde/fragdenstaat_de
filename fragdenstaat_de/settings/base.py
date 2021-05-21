@@ -97,7 +97,8 @@ class FragDenStaatBase(German, Base):
             'froide_fax.apps.FroideFaxConfig',
             'froide_exam',
 
-            'legal_advice_builder.apps.LegalAdviceBuilderConfig'
+            'legal_advice_builder.apps.LegalAdviceBuilderConfig',
+            'tinymce'
         ]
         return installed.default
 
