@@ -1,0 +1,10 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with title=newsletter.title %}Hello,
+
+you continue to be subscribed to the {{ title }}.
+
+Cheers,
+{{ site_name }}
+{% endblocktrans %}
+
+{% endautoescape %}
+{% include "emails/footer.txt" %}

@@ -15,14 +15,13 @@ from cms.models.static_placeholder import StaticPlaceholder
 from cms.models.pluginmodel import CMSPlugin
 
 from filer.fields.image import FilerImageField
-from newsletter.models import Newsletter
 
 from froide.helper.email_sending import EmailContent, mail_registry, send_mail
 from froide.helper.email_utils import make_address
 
 from fragdenstaat_de.fds_cms.utils import get_request
 from fragdenstaat_de.fds_donation.models import Donor
-from fragdenstaat_de.fds_newsletter.models import MailingSubscription
+from fragdenstaat_de.fds_newsletter.models import Newsletter, Subscriber
 
 from .utils import render_text
 
@@ -353,22 +352,20 @@ class Mailing(models.Model):
         return ctx
 
     def finalize(self):
-        from newsletter.models import Subscription
+        from fds_newsletter.models import Subscriber
 
         if self.newsletter:
             # Remove and re-add all newsletter recipients
             self.recipients.all().delete()
-            subscriptions = Subscription.objects.filter(
-                newsletter=self.newsletter, subscribed=True
+            subscribers = Subscriber.objects.filter(
+                newsletter=self.newsletter, subscribed__isnull=False
             )
-            for subscription in subscriptions:
-                if not subscription.email:
-                    continue
+            for subscriber in subscribers:
                 MailingMessage.objects.create(
                     mailing=self,
-                    subscription=subscription,
-                    name=subscription.name or '',
-                    email=subscription.email
+                    subscriber=subscriber,
+                    name=subscriber.get_name(),
+                    email=subscriber.get_email()
                 )
             return
         for recipient in self.recipients.all():
@@ -429,8 +426,8 @@ class MailingMessage(models.Model):
 
     message = models.TextField(blank=True)
 
-    subscription = models.ForeignKey(
-        MailingSubscription, null=True, blank=True,
+    subscriber = models.ForeignKey(
+        Subscriber, null=True, blank=True,
         on_delete=models.SET_NULL
     )
     donor = models.ForeignKey(

@@ -1,8 +1,7 @@
 from django.conf import settings
+from django.utils import timezone
 
-from newsletter.models import Newsletter, Subscription
-
-REFERENCE_PREFIX = 'newsletter-'
+from .models import Newsletter, Subscriber
 
 
 class SubscriptionResult:
@@ -11,38 +10,12 @@ class SubscriptionResult:
     CONFIRM = 2
 
 
-def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):
-    if not should_deactivate:
-        return
-    if bounce.user:
-        Subscription.objects.filter(
-            user=bounce.user
-        ).update(subscribed=False)
-    else:
-        Subscription.objects.filter(
-            email_field=bounce.email
-        ).update(subscribed=False)
-
-
-def handle_unsubscribe(sender, email, reference, **kwargs):
-    if not reference.startswith(REFERENCE_PREFIX):
-        # not for us
-        return
-    try:
-        sub_id = int(reference.split(REFERENCE_PREFIX, 1)[1])
-    except ValueError:
-        return
-    try:
-        subscription = Subscription.objects.all().select_related('user').get(
-            id=sub_id
-        )
-    except Subscription.DoesNotExist:
-        return
-    email = email.lower()
-    if ((subscription.email_field and subscription.email_field.lower() == email) or
-            (subscription.user and subscription.user.email.lower() == email)):
-        subscription.subscribed = False
-        subscription.save()
+def unsubscribe_queryset(subscribers, method=''):
+    subscribers.update(
+        subscribed=None,
+        unsubscribed=timezone.now(),
+        unsubscribe_method=method
+    )
 
 
 def subscribe_to_default_newsletter(email, user=None, **kwargs):
@@ -68,7 +41,8 @@ def subscribe_to_newsletter(slug, email, user=None, **kwargs):
     )
 
 
-def subscribe(newsletter, email, user=None, name='', email_confirmed=False):
+def subscribe(newsletter, email, user=None, name='', email_confirmed=False,
+              reference='', keyword=''):
     if user and not user.is_authenticated:
         user = None
     if user and not user.is_active:
@@ -79,55 +53,52 @@ def subscribe(newsletter, email, user=None, name='', email_confirmed=False):
         email_confirmed = True
 
     if user and email_confirmed:
-        if subscribe_user(newsletter, user):
-            return SubscriptionResult.ALREADY_SUBSCRIBED
-        return SubscriptionResult.SUBSCRIBED
+        return subscribe_user(
+            newsletter, user, reference=reference, keyword=keyword
+        )
     return subscribe_email(
         newsletter, email,
         email_confirmed=email_confirmed,
-        name=name
+        name=name,
+        reference=reference, keyword=keyword
     )
 
 
-def subscribe_email(newsletter, email, email_confirmed=False, name=''):
-    subscription = Subscription.objects.get_or_create(
-        email_field=email,
+def subscribe_email(newsletter, email, email_confirmed=False, name='',
+                    reference='', keyword=''):
+    subscriber, created = Subscriber.objects.get_or_create(
+        email=email.lower(),
         newsletter=newsletter,
         defaults={
-            'name': name
+            'name': name,
+            'reference': reference,
+            'keyword': keyword
         }
-    )[0]
+    )
 
-    if subscription.subscribed:
-        return SubscriptionResult.ALREADY_SUBSCRIBED
+    if subscriber.subscribed:
+        return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
     if not email_confirmed:
-        subscription.send_activation_email(action='subscribe')
-        return SubscriptionResult.CONFIRM
+        subscriber.send_activation_email()
+        return (SubscriptionResult.CONFIRM, subscriber)
 
-    subscription.subscribed = True
-    subscription.save()
-    return SubscriptionResult.SUBSCRIBED
+    subscribe.subscribe(reference=reference, keyword=keyword)
+    return (SubscriptionResult.SUBSCRIBED, subscriber)
 
 
-def subscribe_user(newsletter, user):
-    already_subscribed = False
-    try:
-        instance = Subscription.objects.get_or_create(
-            newsletter=newsletter, user=user
-        )[0]
-    except Subscription.MultipleObjectsReturned:
-        subs = Subscription.objects.filter(
-            newsletter=newsletter, user=user
-        )
-        instance = subs[0]
-        subs.exclude(id=instance.id).delete()
-    if instance.subscribed:
-        already_subscribed = True
-    else:
-        instance.email_field = ''
-        instance.subscribed = True
-        instance.save()
-    return already_subscribed
+def subscribe_user(newsletter, user, reference='', keyword='') -> bool:
+    subscriber, created = Subscriber.objects.get_or_create(
+        newsletter=newsletter, user=user,
+        defaults={
+            'reference': reference,
+            'keyword': keyword
+        }
+    )
+    if subscriber.subscribed:
+        return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
+
+    subscriber.subscribe(reference=reference, keyword=keyword)
+    return (SubscriptionResult.SUBSCRIBED, subscriber)
 
 
 def has_newsletter(user, newsletter_slug=None):
@@ -140,6 +111,6 @@ def has_newsletter(user, newsletter_slug=None):
     except Newsletter.DoesNotExist:
         return None
 
-    return Subscription.objects.filter(
-        newsletter=newsletter, user=user, subscribed=True
+    return Subscriber.objects.filter(
+        newsletter=newsletter, user=user, subscribed__isnull=False
     ).exists()

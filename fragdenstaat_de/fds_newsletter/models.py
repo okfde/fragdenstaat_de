@@ -6,56 +6,54 @@ from django.urls import reverse
 from django.contrib.sites.models import Site
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 from django.utils.crypto import get_random_string
+from django.contrib.auth import get_user_model
 
-from newsletter.models import Subscription as NLSubscription
-from newsletter.utils import ACTIONS
+from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase, TagBase
 
-from froide.helper.email_sending import send_mail
 from froide.helper.email_sending import mail_registry
 
-from .utils import REFERENCE_PREFIX
-
-
 logger = logging.getLogger(__name__)
+
+REFERENCE_PREFIX = 'newsletter-'
 
 
 subscriber_confirm_email = mail_registry.register(
     'fds_newsletter/email/subscriber_confirm',
     (
-        'name', 'newsletter',
+        'name', 'newsletter', 'action_url', 'unsubscribe_url'
+    )
+)
+
+subscriber_already_email = mail_registry.register(
+    'fds_newsletter/email/subscriber_already',
+    (
+        'name', 'newsletter', 'unsubscribe_url'
     )
 )
 
 
-def get_email_context(subscription):
-    if subscription.user:
-        unsubscribe_url = subscription.user.get_autologin_url(
-            reverse('account-settings')
-        ) + '#newsletter'
-    else:
-        unsubscribe_url = (
-            settings.SITE_URL + subscription.unsubscribe_activate_url()
-        )
+def get_email_context(subscriber):
     site = Site.objects.get_current()
     context = {
-        'subscription': subscription,
-        'newsletter': subscription.newsletter,
-        'date': subscription.subscribe_date,
+        'subscriber': subscriber,
+        'newsletter': subscriber.newsletter,
         'site': site,
         'site_name': settings.SITE_NAME,
         'site_url': settings.SITE_URL,
         'domain': site.domain,
-        'unsubscribe_url': unsubscribe_url,
+        'unsubscribe_url': subscriber.get_unsubscribe_url(),
         'STATIC_URL': settings.STATIC_URL,
         'MEDIA_URL': settings.MEDIA_URL,
         'unsubscribe_reference': '{prefix}{pk}'.format(
-            prefix=REFERENCE_PREFIX, pk=subscription.id
+            prefix=REFERENCE_PREFIX, pk=subscriber.id
         )
     }
 
-    if subscription.user:
-        user = subscription.user
+    if subscriber.user:
+        user = subscriber.user
         context.update({
             'first_name': user.first_name,
             'last_name': user.last_name,
@@ -64,7 +62,7 @@ def get_email_context(subscription):
         })
     else:
         context.update({
-            'name': subscription.name,
+            'name': subscriber.get_name(),
         })
     return context
 
@@ -81,10 +79,10 @@ class Newsletter(models.Model):
     slug = models.SlugField(db_index=True, unique=True)
     url = models.URLField(blank=True)
 
-    email = models.EmailField(
+    sender_email = models.EmailField(
         verbose_name=_('e-mail'), help_text=_('Sender e-mail')
     )
-    sender = models.CharField(
+    sender_name = models.CharField(
         max_length=200, verbose_name=_('sender'), help_text=_('Sender name')
     )
 
@@ -102,9 +100,33 @@ class Newsletter(models.Model):
         return self.title
 
 
-class Subscription(models.Model):
+class SubscriberTag(TagBase):
+    class Meta:
+        verbose_name = _("Subscriber Tag")
+        verbose_name_plural = _("Subscriber Tags")
+
+
+class TaggedSubscriber(TaggedItemBase):
+    tag = models.ForeignKey(
+        SubscriberTag, related_name="subscribers",
+        on_delete=models.CASCADE)
+    content_object = models.ForeignKey(
+        'Subscriber',
+        on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _('Tagged Subscriber')
+        verbose_name_plural = _('Tagged Subscribers')
+
+
+def make_activation_code():
+    return get_random_string(length=40)
+
+
+class Subscriber(models.Model):
     newsletter = models.ForeignKey(
-        Newsletter, verbose_name=_('newsletter'), on_delete=models.CASCADE
+        Newsletter, verbose_name=_('newsletter'), on_delete=models.CASCADE,
+        related_name='subscribers'
     )
 
     user = models.ForeignKey(
@@ -112,43 +134,43 @@ class Subscription(models.Model):
         on_delete=models.CASCADE, related_name='+'
     )
 
-    name = models.CharField(
-        db_column='name', max_length=30, blank=True, null=True,
-        verbose_name=_('name'), help_text=_('optional')
-    )
-    subscriber_email = models.EmailField(
-        db_column='email', verbose_name=_('e-mail'), db_index=True,
+    name = models.CharField(_('name'), max_length=100, blank=True)
+    email = models.EmailField(
+        verbose_name=_('e-mail'), db_index=True,
         blank=True, null=True
     )
     send_html = models.BooleanField(default=True)
 
-    create_date = models.DateTimeField(editable=False, default=timezone.now)
+    created = models.DateTimeField(editable=False, default=timezone.now)
 
     last_activation_sent = models.DateTimeField(null=True, blank=True)
 
     activation_code = models.CharField(
-        verbose_name=_('activation code'), max_length=40,
-        default=lambda: get_random_string(length=40)
+        _('activation code'), max_length=40,
+        default=make_activation_code
     )
 
-    subscribed = models.NullBooleanField(
-        default=None, verbose_name=_('subscribed'), db_index=True
-    )
-    subscribe_date = models.DateTimeField(
-        verbose_name=_("subscribe date"), null=True, blank=True
+    subscribed = models.DateTimeField(
+        _("subscribe date"), null=True, blank=True
     )
 
-    unsubscribe_date = models.DateTimeField(
+    unsubscribed = models.DateTimeField(
         verbose_name=_("unsubscribe date"), null=True, blank=True
     )
+    unsubscribe_method = models.CharField(
+        max_length=255, blank=True
+    )
+    email_hash = models.CharField(max_length=64, blank=True)
 
     reference = models.CharField(max_length=255, blank=True)
     keyword = models.CharField(max_length=255, blank=True)
 
+    tags = TaggableManager(through=TaggedSubscriber, blank=True)
+
     class Meta:
-        verbose_name = _('newsletter subscription')
-        verbose_name_plural = _('newsletter subscriptions')
-        ordering = ('-subscribe_date',)
+        verbose_name = _('newsletter subscriber')
+        verbose_name_plural = _('newsletter subscribers')
+        ordering = ('-created',)
         constraints = [
             models.UniqueConstraint(
                 fields=['newsletter', 'user'],
@@ -164,7 +186,10 @@ class Subscription(models.Model):
                 check=models.Q(
                     user__isnull=True, email__isnull=False
                 ) | models.Q(user__isnull=False, email__isnull=True),
-                name='newsletter_subscription_user_email')
+                name='newsletter_subscription_user_email'),
+            models.CheckConstraint(
+                check=~models.Q(subscribed__isnull=False, unsubscribed__isnull=False),
+                name='newsletter_subscription_state'),
         ]
 
     def __str__(self):
@@ -172,57 +197,132 @@ class Subscription(models.Model):
             self.email, self.newsletter
         )
 
-    @property
-    def email(self):
+    def clean(self):
+        nl_qs = Subscriber.objects.filter(newsletter=self.newsletter)
+        if self.email and nl_qs.filter(user__email=self.email).exists():
+            raise ValidationError(_('User with that email already present.'))
+        elif self.user and nl_qs.filter(email=self.user.email).exists():
+            raise ValidationError(_('Email for this user already present.'))
+
+    def get_name(self):
+        if self.user:
+            return self.user.get_full_name()
+        return self.name
+
+    def get_email(self):
         if self.user:
             return self.user.email
-        return self.subscriber_email
+        return self.email
 
-    def send_activation_email(self, action):
+    def get_email_context(self):
+        return get_email_context(self)
 
-        context = get_email_context(self)
-
+    def send_activation_email(self):
+        context = self.get_email_context()
+        context['action_url'] = self.get_subscribe_url()
         subscriber_confirm_email.send(
             email=self.email,
             user=self.user,
             context=context,
             ignore_active=True, priority=True
         )
+        self.last_activation_sent = timezone.now()
+        self.save()
 
+    def send_already_email(self):
+        context = self.get_email_context()
+        subscriber_already_email.send(
+            email=self.email,
+            user=self.user,
+            context=context,
+            ignore_active=True, priority=True
+        )
+        self.last_activation_sent = timezone.now()
+        self.save()
 
-class MailingSubscription(NLSubscription):
-    class Meta:
-        proxy = True
+    def get_subscribe_url(self):
+        return settings.SITE_URL + reverse(
+            'newsletter_confirm_subscribe', kwargs={
+                'newsletter_slug': self.newsletter.slug,
+                'pk': self.pk,
+                'activation_code': self.activation_code
+            }
+        )
 
-    def get_email_context(self):
-        return get_email_context(self)
+    def get_unsubscribe_url(self):
+        if self.user:
+            return self.user.get_autologin_url(
+                reverse('account-settings')
+            ) + '#newsletter'
+        return settings.SITE_URL + reverse(
+            'newsletter_confirm_unsubscribe', kwargs={
+                'newsletter_slug': self.newsletter.slug,
+                'pk': self.pk,
+                'activation_code': self.activation_code
+            }
+        )
 
+    def find_user(self):
+        User = get_user_model()
+        try:
+            return User.objects.get(
+                email=self.email,
+                is_active=True
+            )
+        except User.DoesNotExist:
+            return
 
-def send_activation_email(self, action):
-    assert action in ACTIONS, 'Unknown action: %s' % action
+    def find_user_subscriber(self, user):
+        try:
+            return Subscriber.objects.get(
+                newsletter=self.newsletter,
+                user=user
+            )
+        except Subscriber.DoesNotExist:
+            pass
 
-    (subject_template, text_template, html_template) = \
-        self.newsletter.get_templates(action)
+    def subscribe(self, reference='', keyword=''):
+        if self.email:
+            # Check for existing user / subscriber
+            user = self.find_user()
+            if user:
+                user_subscriber = self.find_user_subscriber(user)
+                if user_subscriber:
+                    # remove subscriber in favour of found one
+                    self.delete()
+                    user_subscriber.subscribe()
+                    return user_subscriber
+                else:
+                    # Switch subscriber to user
+                    self.email = None
+                    self.user = user
+                    if self.subscribed:
+                        self.save()
 
-    context = get_email_context(self)
+        if self.subscribed:
+            return
 
-    subject = subject_template.render(context).strip()
-    body = text_template.render(context)
+        self.unsubscribed = None
+        self.subscribed = timezone.now()
+        if reference:
+            self.reference = reference
+        if keyword:
+            self.keyword = keyword
 
-    extra_kwargs = {}
-    if html_template:
-        extra_kwargs['html'] = html_template.render(context)
+        self.save()
 
-    send_mail(subject, body, self.email,
-        from_email=self.newsletter.get_sender(),
-        **extra_kwargs
-    )
+        if self.user:
+            # Delete alternate email subscribers
+            Subscriber.objects.filter(
+                newsletter=self.newsletter,
+                email=self.user.email.lower()
+            ).delete()
+        return self
 
-    logger.debug(
-        'Activation email sent for action "%(action)s" to %(subscriber)s '
-        'with activation code "%(action_code)s".', {
-            'action_code': self.activation_code,
-            'action': action,
-            'subscriber': self
-        }
-    )
+    def unsubscribe(self, method=''):
+        if self.unsubscribed:
+            return
+        self.subscribed = None
+        self.unsubscribed = timezone.now()
+        self.unsubscribe_method = method
+        self.save()

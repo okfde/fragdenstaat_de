@@ -5,9 +5,11 @@ from django.template.loader import get_template, TemplateDoesNotExist
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
+from fragdenstaat_de.fds_newsletter.models import Newsletter
+
 from .models import (
     EmailActionCMSPlugin, EmailSectionCMSPlugin, EmailStoryCMSPlugin,
-    EmailHeaderCMSPlugin
+    EmailHeaderCMSPlugin, Mailing
 )
 from .utils import render_plugin_text, get_plugin_children
 
@@ -163,3 +165,27 @@ class EmailHeaderPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
 
     def render_text(self, context, instance):
         return ''
+
+
+@plugin_pool.register_plugin
+class NewsletterArchivePlugin(CMSPluginBase):
+    module = _("Newsletter")
+    name = _('Newsletter Archive')
+    cache = True
+    text_enabled = False
+    render_template = "fds_mailing/plugins/archive.html"
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context['newsletter'] = None
+        try:
+            context['newsletter'] = Newsletter.objects.get(
+                slug=settings.DEFAULT_NEWSLETTER
+            )
+        except Newsletter.DoesNotExist:
+            return context
+        context['latest'] = Mailing.objects.filter(
+            publish=True, ready=True, submitted=True,
+            newsletter=context['newsletter']
+        ).order_by('-sending_date')
+        return context

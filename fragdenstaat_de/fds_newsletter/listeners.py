@@ -1,0 +1,124 @@
+from .models import Subscriber, REFERENCE_PREFIX
+from .utils import subscribe_to_default_newsletter, unsubscribe_queryset
+
+
+def activate_newsletter_subscription(sender, **kwargs):
+    # Subscribe previously setup subscriber objects
+    unconfirmed_user_subscribers = Subscriber.objects.filter(
+        user=sender,
+        subscribed__isnull=True
+    )
+    for subscriber in unconfirmed_user_subscribers:
+        subscriber.subscribe()
+
+    confirmed_email_subscribers = Subscriber.objects.filter(
+        email=sender.email.lower(),
+        subscribed__isnull=False
+    )
+    for subscriber in confirmed_email_subscribers:
+        subscriber.subscribe()
+
+
+def user_email_changed(sender, old_email=None, **kwargs):
+    # All subs with the new email
+    subs = Subscriber.objects.filter(
+        email=sender.email, user__isnull=True
+    )
+    for sub in subs:
+        # Find existing user subs on that newsletter
+        exists = Subscriber.objects.filter(
+            user=sender,
+            newsletter=sub.newsletter
+        ).exists()
+        if exists:
+            # Delete email sub in favor of existing user sub
+            sub.delete()
+        else:
+            # Change email sub to user sub
+            sub.email = None
+            sub.name = ''
+            sub.user = sender
+            sub.save()
+
+
+def merge_user(sender, old_user=None, new_user=None, **kwargs):
+    old_subscribers = Subscriber.objects.filter(
+        user=old_user
+    )
+    for sub in old_subscribers:
+        new_qs = Subscriber.objects.filter(
+            newsletter_id=sub.newsletter_id,
+            user=new_user
+        )
+        if new_qs.exists():
+            sub.delete()
+        else:
+            sub.user = new_user
+            sub.save()
+
+
+def cancel_user(sender, user=None, **kwargs):
+    if user is None:
+        return
+
+    # Keep NL subscriptions
+    Subscriber.objects.filter(
+        user=user,
+        subscribed__isnull=False
+    ).update(
+        user=None,
+        email=user.email
+    )
+
+
+def subscribe_follower(sender, **kwargs):
+    if not sender.confirmed:
+        return
+    if not sender.context:
+        return
+    if not sender.context.get('newsletter'):
+        return
+
+    email = sender.email
+    if not email:
+        email = sender.user.email
+
+    subscribe_to_default_newsletter(
+        email, user=sender.user, email_confirmed=True,
+        reference='follow_extra',
+        keyword='request:{}'.format(sender.request_id)
+    )
+
+
+def handle_unsubscribe(sender, email, reference, **kwargs):
+    if not reference.startswith(REFERENCE_PREFIX):
+        # not for us
+        return
+    try:
+        sub_id = int(reference.split(REFERENCE_PREFIX, 1)[1])
+    except ValueError:
+        return
+    try:
+        subscriber = Subscriber.objects.all().select_related('user').get(
+            id=sub_id
+        )
+    except Subscriber.DoesNotExist:
+        return
+    email = email.lower()
+    if ((subscriber.email and subscriber.email.lower() == email) or
+            (subscriber.user and subscriber.user.email.lower() == email)):
+        subscriber.unsubscribe(method='unsubscribe-mail')
+
+
+def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):
+    if not should_deactivate:
+        return
+    if bounce.user:
+        subscribers = Subscriber.objects.filter(
+            user=bounce.user
+        )
+    else:
+        subscribers = Subscriber.objects.filter(
+            email=bounce.email
+        )
+    unsubscribe_queryset(subscribers, method='bounced')
