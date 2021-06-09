@@ -10,6 +10,11 @@
 {% block meta %}
   {% include "snippets/meta.html" with description=article.teaser|striptags keywords=article.tag_list %}
   {% include "fds_blog/includes/social_meta.html" with article=article %}
+  {% with other_langs=article.other_languages %}
+    {% for lang_article in other_langs %}
+      <link rel="alternate" hreflang="{{ lang_article.language }}" href="{{ lang_article.get_full_url }}"/>
+    {% endfor %}
+  {% endwith %}
 {% endblock %}
 
 {% block content_blog %}{% spaceless %}
