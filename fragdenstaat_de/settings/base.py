@@ -514,8 +514,10 @@ class FragDenStaatBase(German, Base):
                 rec(r"\b(?:Best *regards|Kind *regards|Sincerely),?")
             ],
             hide_content_funcs=[
-                # Hide DHL delivery emails
-                lambda email: email.from_[1] == 'noreply@dhl.com'
+                lambda email: email.from_[1] in (
+                    'noreply@dhl.com',  # Hide DHL delivery emails
+                    'noreply-bscw@itzbund.de'  # Hide BSCW.bund.de auto messages
+                )
             ],
             recipient_blocklist_regex=rec(r'.*\.de-mail\.de$|z@bundesnachrichtendienst.de|.*\.local$'),
             content_urls={
