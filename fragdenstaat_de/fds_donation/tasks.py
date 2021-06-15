@@ -30,8 +30,7 @@ def remind_unreceived_banktransfers():
     from .models import Donation
     from .services import send_donation_reminder_email
 
-    today = timezone.now()
-
+    today = timezone.localtime(timezone.now())
     zero = dict(hour=0, minute=0, second=0, microsecond=0)
 
     last_month = today - relativedelta(months=1)
