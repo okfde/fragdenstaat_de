@@ -173,9 +173,15 @@ class RangeFilter(admin.filters.SimpleListFilter):
 
         filt = {}
         if val[0]:
-            filt['%s__gte' % self.parameter_name] = float(val[0])
+            try:
+                filt['%s__gte' % self.parameter_name] = float(val[0])
+            except ValueError:
+                pass
         if val[1]:
-            filt['%s__lte' % self.parameter_name] = float(val[1])
+            try:
+                filt['%s__lte' % self.parameter_name] = float(val[1])
+            except ValueError:
+                pass
 
         return queryset.filter(**filt)
 
