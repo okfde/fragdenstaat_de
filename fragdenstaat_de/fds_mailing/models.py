@@ -352,8 +352,6 @@ class Mailing(models.Model):
         return ctx
 
     def finalize(self):
-        from fds_newsletter.models import Subscriber
-
         if self.newsletter:
             # Remove and re-add all newsletter recipients
             self.recipients.all().delete()
@@ -381,8 +379,8 @@ class Mailing(models.Model):
         if self.newsletter:
             # Force limit to selected newsletter
             recipients = recipients.filter(
-                subscription__newsletter=self.newsletter,
-                subscription__subscribed=True
+                subscriber__newsletter=self.newsletter,
+                subscriber__subscribed__isnull=False
             )
 
         logger.info(
@@ -453,8 +451,8 @@ class MailingMessage(models.Model):
             'donor': self.donor
         }
         # Try to find a user
-        if not self.user and self.subscription and self.subscription.user:
-            ctx['user'] = self.subscription.user
+        if not self.user and self.subscriber and self.subscriber.user:
+            ctx['user'] = self.subscriber.user
         elif not self.user and self.donor and self.donor.user:
             ctx['user'] = self.donor.user
 
@@ -462,13 +460,16 @@ class MailingMessage(models.Model):
         if ctx['user'] and not ctx.get('donor'):
             ctx['donor'] = Donor.objects.filter(user=ctx['user']).first()
 
-        if not ctx['donor'] and self.subscription and self.subscription.email_field:
+        if self.subscriber and not ctx.get('donor'):
+            ctx['donor'] = Donor.objects.filter(subscriber=self.subscriber).first()
+
+        if not ctx['donor'] and self.subscriber and self.subscriber.email:
             ctx['donor'] = Donor.objects.filter(
-                email=self.subscription.email_field,
+                email=self.subscriber.email,
                 email_confirmed__isnull=False
             ).first()
 
-        for obj in (self.subscription, ctx['donor'], ctx['user']):
+        for obj in (self.subscriber, ctx['donor'], ctx['user']):
             if hasattr(obj, 'get_email_context'):
                 ctx.update(obj.get_email_context())
         return ctx
