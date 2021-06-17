@@ -138,7 +138,7 @@ class MailingAdmin(admin.ModelAdmin):
         return qs.select_related('email_template', 'newsletter')
 
     def save_model(self, request, obj, form, change):
-        if change is None:
+        if not change:
             obj.creator_user = request.user
         super().save_model(request, obj, form, change)
 
