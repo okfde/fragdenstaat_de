@@ -16,6 +16,7 @@ MERGE_DONOR_FIELDS = [
     'invalid',
     'active',
     'user',
+    'subscriber'
 ]
 
 

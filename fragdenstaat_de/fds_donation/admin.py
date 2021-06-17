@@ -149,7 +149,8 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         make_nullfilter('subscriptions', _('Dauerspende')),
         make_rangefilter('amount_last_year', _('amount last year')),
         make_rangefilter('recurring_amount', _('recurring monthly amount')),
-        'email_confirmed', 'contact_allowed',
+        'subscriber__subscribed',
+        'email_confirmed',
         'become_user',
         'receipt',
         'invalid',
@@ -165,7 +166,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         'email', 'last_name', 'first_name', 'company_name',
         'identifier', 'note'
     )
-    raw_id_fields = ('user', 'subscriptions')
+    raw_id_fields = ('user', 'subscriptions', 'subscriber')
     actions = [
         'merge_donors', 'detect_duplicates', 'clear_duplicates',
         'export_zwbs', 'get_zwb_pdf', 'tag_all',
@@ -178,7 +179,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         return DonorChangeList
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
+        qs = super().get_queryset(request).select_related('subscriber')
         donations_filter = Q(donations__received=True)
         last_year = timezone.now().year - 1
         qs = qs.annotate(
@@ -564,7 +565,7 @@ class DonationAdmin(admin.ModelAdmin):
             return timezone.localtime(date).isoformat()
 
         def make_dicts(queryset):
-            for donation in queryset:
+            for donation in queryset.select_related('donor'):
                 yield {
                     'id': donation.id,
                     'timestamp': to_local(donation.timestamp),
@@ -586,7 +587,7 @@ class DonationAdmin(admin.ModelAdmin):
                     'donor_recurring_amount': donation.donor.recurring_amount,
                     'first_donation': to_local(donation.donor.first_donation),
                     'last_donation': to_local(donation.donor.last_donation),
-                    'contact_allowed': donation.donor.contact_allowed,
+                    'subscribed': donation.donor.subscriber and to_local(donation.donor.subscriber.subscribed),
                     'become_user': donation.donor.become_user,
                     'receipt': donation.donor.receipt,
                     'tags': ', '.join(x.name for x in donation.donor.tags.all()),
