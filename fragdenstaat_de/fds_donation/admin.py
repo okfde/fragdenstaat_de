@@ -406,36 +406,6 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                 count=count
         )
 
-    def update_newsletter_tag(self, request, queryset):
-        '''
-        Find out if donors are in donation newsletter
-        and add tag.
-        '''
-        from newsletter.models import Newsletter, Subscription
-
-        nl = Newsletter.objects.get(slug='spenden')
-        count = 0
-
-        queryset = queryset.filter(
-            Q(user__isnull=False) | ~Q(email='')
-        )
-
-        for donor in queryset:
-            has_nl = Subscription.objects.filter(
-                Q(user=donor.user, user__isnull=False) |
-                (Q(email_field=donor.email) & ~Q(email_field=''))
-            ).filter(subscribed=True, newsletter=nl).exists()
-            if has_nl:
-                count += 1
-                donor.tags.add('spenden-newsletter')
-            else:
-                donor.tags.remove('spenden-newsletter')
-
-        self.message_user(request, _('Added tag to {count} donors.').format(
-            count=count
-        ))
-    update_newsletter_tag.short_description = _('Update donation newsletter tag')
-
 
 class DonationChangeList(ChangeList):
     def get_results(self, *args, **kwargs):
