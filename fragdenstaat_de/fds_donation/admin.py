@@ -90,6 +90,15 @@ class DonorProjectFilter(MultiFilterMixin, SimpleListFilter):
     parameter_name = 'donations__project'
     lookup_name = '__in'
 
+    def queryset(self, request, queryset):
+        """
+        don't filter donors on donation projects here,
+        but in Admin.get_queryset().
+        This avoids double counting donations that are
+        annotated in get_queryset()
+        """
+        return queryset
+
     def lookups(self, request, model_admin):
         return DONATION_PROJECTS
 
@@ -180,6 +189,15 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         donations_filter = Q(donations__received=True)
+
+        donation_projects = request.GET.get(DonorProjectFilter.parameter_name)
+        any_donation = {}
+        if donation_projects:
+            values = donation_projects.split(',')
+            project_q = DonorProjectFilter.get_q(values, 'donations__project__in')
+            donations_filter &= project_q
+            any_donation = {'any_donation': Count('donations', filter=project_q)}
+
         last_year = timezone.now().year - 1
         qs = qs.annotate(
             amount_total=Sum('donations__amount', filter=donations_filter),
@@ -195,8 +213,11 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             last_donation=Max(
                 'donations__timestamp',
                 filter=donations_filter
-            )
+            ),
+            **any_donation
         )
+        if donation_projects:
+            qs = qs.filter(any_donation__gt=0)
         return qs
 
     def donation_count(self, obj):
