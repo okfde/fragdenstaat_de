@@ -291,7 +291,8 @@ def confirm_donor_email(donor, request=None):
         subscribe_to_default_newsletter(
             donor.email, user=user,
             name=donor.get_full_name(),
-            email_confirmed=True
+            email_confirmed=True,
+            reference='donation'
         )
         subscribe_donor_newsletter(donor, email_confirmed=True)
     if new_user:
