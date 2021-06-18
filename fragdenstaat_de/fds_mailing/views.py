@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import DateDetailView
 
-from fds_newsletter.models import Newsletter
+from fragdenstaat_de.fds_newsletter.models import Newsletter
 
 from .models import Mailing
 
