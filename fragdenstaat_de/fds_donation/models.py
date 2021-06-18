@@ -18,6 +18,7 @@ from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase, TagBase
 
 from froide_payment.models import Order, Payment, Subscription
+from fragdenstaat_de.fds_newsletter.models import Subscriber
 
 
 INTERVAL_SETTINGS_CHOICES = [
@@ -99,6 +100,11 @@ class Donor(models.Model):
     contact_allowed = models.BooleanField(default=False)
     become_user = models.BooleanField(default=False)
     receipt = models.BooleanField(default=False)
+
+    subscriber = models.ForeignKey(
+        Subscriber, null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
 
     recurring_amount = models.DecimalField(
         max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES,

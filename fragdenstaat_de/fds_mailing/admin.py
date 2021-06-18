@@ -138,7 +138,7 @@ class MailingAdmin(admin.ModelAdmin):
         return qs.select_related('email_template', 'newsletter')
 
     def save_model(self, request, obj, form, change):
-        if change is None:
+        if not change:
             obj.creator_user = request.user
         super().save_model(request, obj, form, change)
 
@@ -198,21 +198,21 @@ class MailingAdmin(admin.ModelAdmin):
 
 
 class MailingMessageAdmin(admin.ModelAdmin):
-    raw_id_fields = ('mailing', 'subscription', 'donor', 'user')
+    raw_id_fields = ('mailing', 'subscriber', 'donor', 'user')
     list_display = ('mailing', 'email', 'name', 'donor', 'user', 'sent', 'bounced')
     date_hierarchy = 'sent'
     list_filter = (
         'sent', 'bounced',
         ('mailing', ForeignKeyFilter),
         ('donor', ForeignKeyFilter),
-        ('subscription', ForeignKeyFilter),
+        ('subscriber', ForeignKeyFilter),
         ('user', ForeignKeyFilter),
     )
     search_fields = ('email', 'name')
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        qs = qs.prefetch_related('donor', 'subscription', 'user')
+        qs = qs.prefetch_related('donor', 'subscriber', 'user')
         return qs
 
 

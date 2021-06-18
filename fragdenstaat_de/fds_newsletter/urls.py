@@ -1,13 +1,9 @@
-from django.urls import path, re_path
-
-from newsletter.urls import urlpatterns as nl_urlpatterns
+from django.urls import path
 
 from .views import (
-    newsletter_ajax_subscribe_request,
+    newsletter_ajax_subscribe_request, newsletter_user_settings,
     newsletter_subscribe_request,
-    newsletter_user_settings,
-    NicerSubmissionArchiveDetailView,
-    NicerSubmissionArchiveIndexView
+    confirm_subscribe, confirm_unsubscribe
 )
 
 
@@ -20,16 +16,31 @@ urlpatterns = [
         newsletter_ajax_subscribe_request,
         name='newsletter_ajax_subscribe_request'
     ),
-    path('subscribe/<slug:newsletter_slug>/',
+    path(
+        'subscribe/',
         newsletter_subscribe_request,
-        name='fds_newsletter_subscribe_request'
+        name='newsletter_subscribe_request'
     ),
-] + nl_urlpatterns + [
-    # archive URLs
-    re_path(r'^(?P<newsletter_slug>[\w-]+)/archiv/(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)/(?P<pk>\d+)/$',
-        NicerSubmissionArchiveDetailView.as_view(),
-        name='newsletter_archive_detail'),
-    re_path(r'^(?P<newsletter_slug>[\w-]+)/archiv/$',
-        NicerSubmissionArchiveIndexView.as_view(), name='newsletter_archive'
+    path(
+        '<slug:newsletter_slug>/subscribe/',
+        newsletter_subscribe_request,
+        name='newsletter_subscribe_request'
     ),
+    path(
+        '<slug:newsletter_slug>/subscription/<int:pk>/subscribe/<slug:activation_code>/',
+        confirm_subscribe,
+        name='newsletter_confirm_subscribe'
+    ),
+    path(
+        '<slug:newsletter_slug>/subscription/<int:pk>/unsubscribe/<slug:activation_code>/',
+        confirm_unsubscribe,
+        name='newsletter_confirm_unsubscribe'
+    ),
+    # re_path(
+    #     r'^(?P<newsletter_slug>[\w-]+)/subscription/'
+    #     r'(?P<email>[-_a-zA-Z0-9@\.\+~]+)/'
+    #     r'(?P<action>(?:subscribe|update|unsubscribe))/'
+    #     r'activate/(?P<activation_code>[\w-]+)/$',
+    #     SubscribeRequestView.as_view(),
+    # )
 ]

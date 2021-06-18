@@ -16,15 +16,18 @@ MERGE_DONOR_FIELDS = [
     'invalid',
     'active',
     'user',
+    'subscriber'
 ]
 
 
 def subscribe_donor_newsletter(donor, email_confirmed=False):
-    subscribe_to_newsletter(
+    result, subscriber = subscribe_to_newsletter(
         settings.DONOR_NEWSLETTER, donor.email, user=donor.user,
         name=donor.get_full_name(),
         email_confirmed=email_confirmed
     )
+    donor.subscriber = subscriber
+    donor.save(update_fields=['subscriber'])
 
 
 def propose_donor_merge(candidates, fields=None):

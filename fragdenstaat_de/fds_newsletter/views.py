@@ -7,23 +7,16 @@ from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404, Http404, render
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ArchiveIndexView, DateDetailView
-
-from newsletter.views import NewsletterListView, SubscribeRequestView as DNSubscribeRequestView
-from newsletter.models import Newsletter
+from django.contrib.auth.decorators import login_required
 
 from froide.helper.utils import get_redirect
 
-from fragdenstaat_de.fds_mailing.models import Mailing
-
-from .forms import NewsletterForm
-from .utils import subscribe, SubscriptionResult
-
-
-class SubscribeRequestView(DNSubscribeRequestView):
-    form_class = NewsletterForm
+from .models import Newsletter, Subscriber
+from .forms import NewsletterForm, NewslettersUserForm
+from .utils import SubscriptionResult
 
 
+@require_POST
 @csrf_exempt
 def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
     if not request.is_ajax():
@@ -44,25 +37,24 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
             data=request.POST, request=request,
         )
         if form.is_valid():
-            email = form.cleaned_data['email']
-            result = subscribe(newsletter, email, user=request.user)
+            result, subscriber = form.save(newsletter, request.user)
 
             if request.is_ajax():
                 # No-CSRF ajax request
                 # are allowed to access current user
-                if result == SubscriptionResult.ALREADY_SUBSCRIBED:
-                    return HttpResponse(content='''<div class="alert alert-info" role="alert">
-                    Sie haben unseren Newsletter schon abonniert!
-                    </div>'''.encode('utf-8'))
-                elif result == SubscriptionResult.SUBSCRIBED:
-                    return HttpResponse(content='''<div class="alert alert-primary" role="alert">
-                    Sie haben unseren Newsletter erfolgreich abonniert!
-                    </div>'''.encode('utf-8'))
-                elif result == SubscriptionResult.CONFIRM:
-                    return HttpResponse(content='''<div class="alert alert-primary" role="alert">
-                    Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.
-                    </div>'''.encode('utf-8'))
-                return HttpResponse('/')
+                if request.user.is_authenticated:
+                    if result == SubscriptionResult.ALREADY_SUBSCRIBED:
+                        return HttpResponse(content='''<div class="alert alert-info" role="alert">
+                        Sie haben unseren Newsletter schon abonniert!
+                        </div>'''.encode('utf-8'))
+                    elif result == SubscriptionResult.SUBSCRIBED:
+                        return HttpResponse(content='''<div class="alert alert-primary" role="alert">
+                        Sie haben unseren Newsletter erfolgreich abonniert!
+                        </div>'''.encode('utf-8'))
+
+                return HttpResponse(content='''<div class="alert alert-primary" role="alert">
+                Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.
+                </div>'''.encode('utf-8'))
 
             if result == SubscriptionResult.CONFIRM:
                 messages.add_message(
@@ -95,66 +87,49 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
     })
 
 
+def confirm_subscribe(request, newsletter_slug=None, pk=None, activation_code=None):
+    newsletter = get_object_or_404(
+        Newsletter, slug=newsletter_slug
+    )
+    subscriber = get_object_or_404(
+        Subscriber, newsletter=newsletter, pk=pk,
+        activation_code=activation_code
+    )
+    subscriber.subscribe()
+    messages.add_message(
+        request, messages.INFO,
+        'Sie erhalten nun den %s' % newsletter.title
+    )
+
+    return redirect(newsletter.url or '/')
+
+
+def confirm_unsubscribe(request, newsletter_slug=None, pk=None, activation_code=None):
+    newsletter = get_object_or_404(
+        Newsletter, slug=newsletter_slug
+    )
+    subscriber = get_object_or_404(
+        Subscriber, newsletter=newsletter, pk=pk,
+        activation_code=activation_code
+    )
+    subscriber.unsubscribe(method='unsubscribe-link')
+    messages.add_message(
+        request, messages.INFO,
+        'Sie erhalten den %s nun nicht mehr.' % newsletter.title
+    )
+
+    return redirect(newsletter.url or '/')
+
+
 @require_POST
+@login_required
 def newsletter_user_settings(request):
-    view = NewsletterListView.as_view()
-    view(request)
+    form = NewslettersUserForm(request.user, request.POST)
+    if form.is_valid():
+        form.save()
+        messages.add_message(
+            request, messages.SUCCESS,
+            'Ihre Newsletter-Abonnements wurden aktualisiert.'
+        )
+
     return redirect('account-settings')
-
-
-class NewsletterEditionMixin:
-    date_field = 'sending_date'
-    date_list_period = 'month'
-    allow_empty = True
-
-    year_format = '%Y'
-    month_format = '%m'
-    day_format = '%d'
-
-    def dispatch(self, *args, **kwargs):
-        newsletter_slug = kwargs['newsletter_slug']
-        self.newsletter = get_object_or_404(
-            Newsletter.on_site.filter(visible=True),
-            slug=newsletter_slug,
-        )
-        return super().dispatch(*args, **kwargs)
-
-    def get_queryset(self):
-        return Mailing.objects.filter(
-            publish=True, ready=True, submitted=True,
-            newsletter__slug=settings.DEFAULT_NEWSLETTER
-        )
-
-    def get_context_data(self, **kwargs):
-        """ Add newsletter to context. """
-        context = super().get_context_data(**kwargs)
-
-        context['newsletter'] = self.newsletter
-
-        return context
-
-
-class NicerSubmissionArchiveIndexView(NewsletterEditionMixin, ArchiveIndexView):
-    template_name = 'fds_newsletter/archive.html'
-
-
-class NicerSubmissionArchiveDetailView(NewsletterEditionMixin, DateDetailView):
-    template_name = 'fds_newsletter/detail.html'
-
-    def get_context_data(self, **kwargs):
-        """
-        Make sure the actual message is available.
-        """
-        context = super().get_context_data(**kwargs)
-
-        message = self.object.email_template
-
-        context.update({
-            'message': message,
-            'content': message.get_body_html(
-                template='fds_mailing/render_browser.html'
-            ),
-            'date': self.object.sending_date,
-        })
-
-        return context

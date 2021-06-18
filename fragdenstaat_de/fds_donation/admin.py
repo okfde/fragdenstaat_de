@@ -158,7 +158,8 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         make_nullfilter('subscriptions', _('Dauerspende')),
         make_rangefilter('amount_last_year', _('amount last year')),
         make_rangefilter('recurring_amount', _('recurring monthly amount')),
-        'email_confirmed', 'contact_allowed',
+        'subscriber__subscribed',
+        'email_confirmed',
         'become_user',
         'receipt',
         'invalid',
@@ -174,7 +175,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         'email', 'last_name', 'first_name', 'company_name',
         'identifier', 'note'
     )
-    raw_id_fields = ('user', 'subscriptions')
+    raw_id_fields = ('user', 'subscriptions', 'subscriber')
     actions = [
         'merge_donors', 'detect_duplicates', 'clear_duplicates',
         'export_zwbs', 'get_zwb_pdf', 'tag_all',
@@ -187,7 +188,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         return DonorChangeList
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
+        qs = super().get_queryset(request).select_related('subscriber')
         donations_filter = Q(donations__received=True)
 
         donation_projects = request.GET.get(DonorProjectFilter.parameter_name)
@@ -426,36 +427,6 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                 count=count
         )
 
-    def update_newsletter_tag(self, request, queryset):
-        '''
-        Find out if donors are in donation newsletter
-        and add tag.
-        '''
-        from newsletter.models import Newsletter, Subscription
-
-        nl = Newsletter.objects.get(slug='spenden')
-        count = 0
-
-        queryset = queryset.filter(
-            Q(user__isnull=False) | ~Q(email='')
-        )
-
-        for donor in queryset:
-            has_nl = Subscription.objects.filter(
-                Q(user=donor.user, user__isnull=False) |
-                (Q(email_field=donor.email) & ~Q(email_field=''))
-            ).filter(subscribed=True, newsletter=nl).exists()
-            if has_nl:
-                count += 1
-                donor.tags.add('spenden-newsletter')
-            else:
-                donor.tags.remove('spenden-newsletter')
-
-        self.message_user(request, _('Added tag to {count} donors.').format(
-            count=count
-        ))
-    update_newsletter_tag.short_description = _('Update donation newsletter tag')
-
 
 class DonationChangeList(ChangeList):
     def get_results(self, *args, **kwargs):
@@ -585,7 +556,7 @@ class DonationAdmin(admin.ModelAdmin):
             return timezone.localtime(date).isoformat()
 
         def make_dicts(queryset):
-            for donation in queryset:
+            for donation in queryset.select_related('donor'):
                 yield {
                     'id': donation.id,
                     'timestamp': to_local(donation.timestamp),
@@ -607,7 +578,7 @@ class DonationAdmin(admin.ModelAdmin):
                     'donor_recurring_amount': donation.donor.recurring_amount,
                     'first_donation': to_local(donation.donor.first_donation),
                     'last_donation': to_local(donation.donor.last_donation),
-                    'contact_allowed': donation.donor.contact_allowed,
+                    'subscribed': donation.donor.subscriber and to_local(donation.donor.subscriber.subscribed),
                     'become_user': donation.donor.become_user,
                     'receipt': donation.donor.receipt,
                     'tags': ', '.join(x.name for x in donation.donor.tags.all()),

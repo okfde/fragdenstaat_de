@@ -15,14 +15,13 @@ from cms.models.static_placeholder import StaticPlaceholder
 from cms.models.pluginmodel import CMSPlugin
 
 from filer.fields.image import FilerImageField
-from newsletter.models import Newsletter
 
 from froide.helper.email_sending import EmailContent, mail_registry, send_mail
 from froide.helper.email_utils import make_address
 
 from fragdenstaat_de.fds_cms.utils import get_request
 from fragdenstaat_de.fds_donation.models import Donor
-from fragdenstaat_de.fds_newsletter.models import MailingSubscription
+from fragdenstaat_de.fds_newsletter.models import Newsletter, Subscriber
 
 from .utils import render_text
 
@@ -353,22 +352,18 @@ class Mailing(models.Model):
         return ctx
 
     def finalize(self):
-        from newsletter.models import Subscription
-
         if self.newsletter:
             # Remove and re-add all newsletter recipients
             self.recipients.all().delete()
-            subscriptions = Subscription.objects.filter(
-                newsletter=self.newsletter, subscribed=True
+            subscribers = Subscriber.objects.filter(
+                newsletter=self.newsletter, subscribed__isnull=False
             )
-            for subscription in subscriptions:
-                if not subscription.email:
-                    continue
+            for subscriber in subscribers:
                 MailingMessage.objects.create(
                     mailing=self,
-                    subscription=subscription,
-                    name=subscription.name or '',
-                    email=subscription.email
+                    subscriber=subscriber,
+                    name=subscriber.get_name(),
+                    email=subscriber.get_email()
                 )
             return
         for recipient in self.recipients.all():
@@ -384,8 +379,8 @@ class Mailing(models.Model):
         if self.newsletter:
             # Force limit to selected newsletter
             recipients = recipients.filter(
-                subscription__newsletter=self.newsletter,
-                subscription__subscribed=True
+                subscriber__newsletter=self.newsletter,
+                subscriber__subscribed__isnull=False
             )
 
         logger.info(
@@ -429,8 +424,8 @@ class MailingMessage(models.Model):
 
     message = models.TextField(blank=True)
 
-    subscription = models.ForeignKey(
-        MailingSubscription, null=True, blank=True,
+    subscriber = models.ForeignKey(
+        Subscriber, null=True, blank=True,
         on_delete=models.SET_NULL
     )
     donor = models.ForeignKey(
@@ -456,8 +451,8 @@ class MailingMessage(models.Model):
             'donor': self.donor
         }
         # Try to find a user
-        if not self.user and self.subscription and self.subscription.user:
-            ctx['user'] = self.subscription.user
+        if not self.user and self.subscriber and self.subscriber.user:
+            ctx['user'] = self.subscriber.user
         elif not self.user and self.donor and self.donor.user:
             ctx['user'] = self.donor.user
 
@@ -465,13 +460,16 @@ class MailingMessage(models.Model):
         if ctx['user'] and not ctx.get('donor'):
             ctx['donor'] = Donor.objects.filter(user=ctx['user']).first()
 
-        if not ctx['donor'] and self.subscription and self.subscription.email_field:
+        if self.subscriber and not ctx.get('donor'):
+            ctx['donor'] = Donor.objects.filter(subscriber=self.subscriber).first()
+
+        if not ctx['donor'] and self.subscriber and self.subscriber.email:
             ctx['donor'] = Donor.objects.filter(
-                email=self.subscription.email_field,
+                email=self.subscriber.email,
                 email_confirmed__isnull=False
             ).first()
 
-        for obj in (self.subscription, ctx['donor'], ctx['user']):
+        for obj in (self.subscriber, ctx['donor'], ctx['user']):
             if hasattr(obj, 'get_email_context'):
                 ctx.update(obj.get_email_context())
         return ctx

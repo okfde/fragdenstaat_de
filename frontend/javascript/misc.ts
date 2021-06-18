@@ -28,6 +28,46 @@ Array.from(videoModals).forEach((videoModal) => {
   videoModal.addEventListener('hidden.bs.modal', pauseModalVideo)
 })
 
+let referenceData: undefined | any
+
+function getReferenceData () {
+  if (referenceData) {
+    return referenceData
+  }
+  if (!URLSearchParams) {
+    return {}
+  }
+  let urlParams = new URLSearchParams(window.location.search);
+  let reference = urlParams.get('pk_campaign') || ''
+  let keyword = urlParams.get('pk_keyword') || document.referrer || document.location.href
+  referenceData = {
+    reference, keyword
+  }
+  return referenceData
+}
+const formsWithReference = document.querySelectorAll('form[data-reference]')
+Array.from(formsWithReference).forEach(form => {
+  let referenceData = getReferenceData()
+  for (let key in referenceData) {
+    const input = document.createElement('input')
+    input.type = 'hidden'
+    input.name = key
+    input.value = referenceData[key]
+    form.appendChild(input)
+  }
+})
+
+if (document.body.dataset.user) {
+  const userFillInputs = document.querySelectorAll('form[data-userfill] input');
+  (Array.from(userFillInputs) as HTMLInputElement[]).forEach(input => {
+    let name = input.name
+    let val = document.body.dataset[`user${name}`]
+    if (val) {
+      input.value = val
+    }
+  })
+}
+
 // tslint:disable-next-line: interface-name
 interface Window { _paq: Array<Array<string | string[]>>; }
 

@@ -1,11 +1,8 @@
 from django import template
 from django.conf import settings
-from django.forms.models import modelformset_factory
 
-from newsletter.models import Newsletter, Subscription
-from newsletter.forms import UserUpdateForm
-
-from ..forms import NewsletterForm
+from ..models import Newsletter, Subscriber
+from ..forms import NewslettersUserForm, NewsletterForm
 
 
 register = template.Library()
@@ -14,27 +11,9 @@ register = template.Library()
 @register.inclusion_tag('fds_newsletter/user_settings.html', takes_context=True)
 def newsletter_settings(context):
     request = context['request']
-    newsletters = Newsletter.on_site.filter(visible=True)
     user = request.user
-
-    SubscriptionFormSet = modelformset_factory(
-        Subscription, form=UserUpdateForm, extra=0
-    )
-
-    # Before rendering the formset, subscription objects should
-    # already exist.
-    for n in newsletters:
-        Subscription.objects.get_or_create(
-            newsletter=n, user=user
-        )
-
-    # Get all subscriptions for use in the formset
-    qs = Subscription.objects.filter(
-        newsletter__in=newsletters, user=user
-    )
-    formset = SubscriptionFormSet(queryset=qs)
     return {
-        'formset': formset
+        'form': NewslettersUserForm(user)
     }
 
 
@@ -51,12 +30,12 @@ def _has_newsletter(context, newsletter):
     user = context['request'].user
     if user.is_authenticated:
         try:
-            instance = Subscription.objects.get(
+            instance = Subscriber.objects.get(
                 newsletter=newsletter, user=user
             )
             if instance.subscribed:
                 return True
-        except Subscription.DoesNotExist:
+        except Subscriber.DoesNotExist:
             pass
     return False
 
