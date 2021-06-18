@@ -42,7 +42,7 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
             if request.is_ajax():
                 # No-CSRF ajax request
                 # are allowed to access current user
-                if request.user.is_authenticated:
+                if request.user.is_authenticated and subscriber.user == request.user:
                     if result == SubscriptionResult.ALREADY_SUBSCRIBED:
                         return HttpResponse(content='''<div class="alert alert-info" role="alert">
                         Sie haben unseren Newsletter schon abonniert!

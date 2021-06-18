@@ -77,6 +77,7 @@ def subscribe_email(newsletter, email, email_confirmed=False, name='',
     )
 
     if subscriber.subscribed:
+        subscriber.send_already_email()
         return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
     if not email_confirmed:
         subscriber.send_activation_email()
