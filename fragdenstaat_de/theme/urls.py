@@ -52,6 +52,7 @@ urlpatterns = [
     path('contractor/', include('contractor.urls')),
     path('fax/', include('froide_fax.urls')),
     path('newsletter/update/', include('fragdenstaat_de.fds_newsletter.urls')),
+    path('newsletter/archive/', include('fragdenstaat_de.fds_mailing.urls')),
     path("glyphosat-bfr/<slug:slug>/<int:message_id>/download-document/", glyphosat_download, name="fragdenstaat-glyphosat_download"),
     path("tippspiel/", meisterschaften_tippspiel, name="fragdenstaat-meisterschaften_tippspiel"),
 ]
