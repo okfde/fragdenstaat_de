@@ -18,7 +18,7 @@ class NewsletterEditionMixin:
     def dispatch(self, *args, **kwargs):
         newsletter_slug = kwargs['newsletter_slug']
         self.newsletter = get_object_or_404(
-            Newsletter.objects.visible().filter(
+            Newsletter.objects.get_visible().filter(
                 slug=newsletter_slug
             )
         )
