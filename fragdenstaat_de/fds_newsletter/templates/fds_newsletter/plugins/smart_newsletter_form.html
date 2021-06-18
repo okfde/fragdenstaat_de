@@ -3,7 +3,7 @@
 {% if not has_newsletter %}
   <h4>Erhalten Sie den FragDenStaat-Newsletter</h4>
   <p class="small">Erhalten Sie den Newsletter von FragDenStaat.de mit allen Neuigkeiten rund um diese Kampagne und andere Aktivitäten.</p>
-  <form class="form-inline" method="post" action="{% url 'fds_newsletter_subscribe_request' newsletter_slug=newsletter.slug %}">
+  <form class="form-inline" method="post" action="{% url 'newsletter_subscribe_request' newsletter_slug=newsletter.slug %}">
     {% csrf_token %}
     {% if next %}
       <input type="hidden" name="next" value="{{ next }}"/>

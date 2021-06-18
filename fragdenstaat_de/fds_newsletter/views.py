@@ -75,7 +75,7 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
 
     if request.is_ajax():
         url = '{}?{}'.format(
-            reverse('fds_newsletter_subscribe_request', kwargs={
+            reverse('newsletter_subscribe_request', kwargs={
                 'newsletter_slug': newsletter.slug
             }),
             urlencode({'email': form.data.get('email', '')})
