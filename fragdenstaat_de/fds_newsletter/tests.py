@@ -16,7 +16,8 @@ from .listeners import (
     user_email_changed,
     merge_user,
     cancel_user,
-    handle_bounce, handle_unsubscribe
+    handle_bounce, handle_unsubscribe,
+    subscribe_follower
 )
 from .models import Newsletter, Subscriber
 
@@ -379,3 +380,22 @@ class NewsletterSubscriberTest(TestCase):
         self.assertIsNone(subscriber.subscribed)
         self.assertIsNotNone(subscriber.unsubscribed)
         self.assertIsNotNone(subscriber.unsubscribe_method, 'unsubscribe-link')
+
+    def test_subscribe_from_follow(self):
+        class FakeFollower:
+            email = self.email_1
+            confirmed = True
+            user = None
+            request_id = 42
+            context = {
+                "newsletter": True
+            }
+
+        subscribe_follower(FakeFollower)
+
+        self.assertTrue(Subscriber.objects.filter(
+            newsletter=self.nl, email=self.email_1,
+            subscribed__isnull=False,
+            reference='follow_extra',
+            keyword='request:42'
+        ).exists())
