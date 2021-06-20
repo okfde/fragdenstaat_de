@@ -61,14 +61,24 @@ def cancel_user(sender, user=None, **kwargs):
     if user is None:
         return
 
-    # Keep NL subscriptions
     Subscriber.objects.filter(
         user=user,
-        subscribed__isnull=False
-    ).update(
-        user=None,
-        email=user.email
+        subscribed__isnull=True
+    ).delete()
+    # Keep NL subscriptions
+    subs = Subscriber.objects.filter(
+        subscribed__isnull=False,
+        user=user
     )
+    for sub in subs:
+        exists = Subscriber.objects.filter(
+            newsletter_id=sub.newsletter_id,
+            email=user.email
+        ).exists()
+        if not exists:
+            sub.user = None
+            sub.email = user.email
+            sub.save(update_fields=['user', 'email'])
 
 
 def subscribe_follower(sender, **kwargs):
