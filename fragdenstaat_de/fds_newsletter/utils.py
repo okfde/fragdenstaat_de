@@ -1,3 +1,6 @@
+from datetime import timedelta
+import hashlib
+
 from django.conf import settings
 from django.utils import timezone
 
@@ -115,3 +118,36 @@ def has_newsletter(user, newsletter_slug=None):
     return Subscriber.objects.filter(
         newsletter=newsletter, user=user, subscribed__isnull=False
     ).exists()
+
+
+def cleanup_subscribers():
+    now = timezone.now()
+    month_ago = now - timedelta(days=30)
+    three_days_ago = now - timedelta(days=3)
+
+    # Unconfirmed subscribers older than 30 days
+    Subscriber.objects.filter(
+        created__lt=month_ago,
+        subscribed=None,
+        unsubscribed=None
+    ).delete()
+
+    # Unsubscribed more than 30 days ago
+    Subscriber.objects.filter(
+        unsubscribed__lt=month_ago
+    ).delete()
+
+    # Recently unsubscribed: anonymize data
+    # but keep to prove recent existence
+    subs = Subscriber.objects.filter(
+        unsubscribed__lt=three_days_ago,
+        email_hash=''
+    )
+    for sub in subs:
+        m = hashlib.sha256()
+        m.update(sub.get_email().lower().encode('utf-8'))
+        sub.email_hash = m.hexdigest()
+        sub.email = None
+        sub.user = None
+        sub.name = ''
+        sub.save()
