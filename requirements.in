@@ -3,11 +3,11 @@ celery
 channels
 coreapi
 dj-database-url
-django-admin-sortable2
+django-admin-sortable2==1.0
 django-cache-url
 django-celery-email
 django-celery-beat
-django-cms
+django-cms==3.9.0rc3
 django-configurations
 django-contractor
 django-contrib-comments
@@ -26,9 +26,8 @@ django-storages
 django-sekizai>=2.0
 django-taggit
 django-taggit-autosuggest
-# https://stackoverflow.com/questions/66776994/nodealreadysaved-error-when-using-djangocms-publishing-page-changes
-django-treebeard==4.4
-Django>=3.1,<3.2
+django-treebeard==4.5.1
+Django>=3.2,<3.3
 djangocms-bootstrap4
 djangocms-icon
 djangocms-picture
