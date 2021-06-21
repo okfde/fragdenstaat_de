@@ -8,7 +8,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_newsletter', '0005_auto_20200203_1728'),
+        ('fds_newsletter', '0001_squashed_0010_auto_20210621_1022'),
         ('fds_mailing', '0008_auto_20200203_1728'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]

@@ -11,9 +11,6 @@ class Migration(migrations.Migration):
         ('fds_donation', '0017_auto_20200131_1050'),
         ('fds_mailing', '0007_auto_20191216_1321'),
     ]
-    run_before = [
-        ('fds_newsletter', '0006_auto_20200203_1732'),
-    ]
 
     operations = [
         migrations.CreateModel(

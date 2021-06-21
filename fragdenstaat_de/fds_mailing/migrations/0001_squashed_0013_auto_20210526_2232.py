@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('cms', '0022_auto_20180620_1551'),
         ('fds_newsletter', '0001_squashed_0010_auto_20210621_1022'),
+        ('newsletter', '0005_auto_20190918_0122'),
         ('filer', '__first__'),
         ('fds_donation', '0017_auto_20200131_1050'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),

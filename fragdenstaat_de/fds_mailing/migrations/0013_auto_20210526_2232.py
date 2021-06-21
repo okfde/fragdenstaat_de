@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('fds_mailing', '0012_auto_20210526_2155'),
-        ('fds_newsletter', '0009_auto_20210526_2203'),
+        ('fds_newsletter', '0001_squashed_0010_auto_20210621_1022'),
     ]
 
     operations = [
