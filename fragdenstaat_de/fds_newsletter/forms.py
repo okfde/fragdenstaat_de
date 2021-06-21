@@ -88,7 +88,6 @@ class NewslettersUserForm(forms.Form):
                         subscriber.subscribe()
                 else:
                     subscriber.unsubscribe()
-                return
             except Subscriber.DoesNotExist:
                 if wants_nl:
                     subscriber = Subscriber.objects.create(
