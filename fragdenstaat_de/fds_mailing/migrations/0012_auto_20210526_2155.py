@@ -7,13 +7,13 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_newsletter', '0008_auto_20210526_2155'),
+        ('fds_newsletter', '0001_squashed_0010_auto_20210621_1022'),
         ('newsletter', '0005_auto_20190918_0122'),
         ('fds_mailing', '0011_auto_20210212_1326'),
     ]
-    run_before = [
-        ('fds_newsletter', '0009_auto_20210526_2203')
-    ]
+    # run_before = [
+    #     ('fds_newsletter', '0009_auto_20210526_2203')
+    # ]
 
     operations = [
         migrations.AddField(
