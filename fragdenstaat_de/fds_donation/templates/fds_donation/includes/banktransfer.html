@@ -1,4 +1,7 @@
 {% if not payment.is_confirmed %}
+  <div class="alert alert-info">
+    Der Status von Spenden per Überweisung aktualisiert sich erst zu Beginn des Folgemonats, da erst dann die Kontoauszüge abgeglichen werden.
+  </div>
   <div class="card border-danger">
     <div class="card-header">
       {% if order.is_recurring %}
