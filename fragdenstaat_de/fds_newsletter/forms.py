@@ -55,6 +55,7 @@ FORM_REFERENCE = 'settings'
 
 class NewslettersUserForm(forms.Form):
     newsletters = forms.ModelMultipleChoiceField(
+        label=_('Newsletters'),
         queryset=None,
         required=False,
         widget=forms.CheckboxSelectMultiple
