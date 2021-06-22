@@ -39,7 +39,7 @@ function getReferenceData () {
   }
   let urlParams = new URLSearchParams(window.location.search);
   let reference = urlParams.get('pk_campaign') || ''
-  let keyword = urlParams.get('pk_keyword') || document.referrer || document.location.href
+  let keyword = urlParams.get('pk_keyword') || `${document.location.href} @ ${document.referrer}`
   referenceData = {
     reference, keyword
   }
