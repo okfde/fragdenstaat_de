@@ -48,13 +48,15 @@ class SubscriberAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     list_display = (
         'admin_email', 'newsletter', 'subscribed',
-        'unsubscribed',
+        'unsubscribed', 'reference', 'keyword'
     )
     list_filter = (
         'newsletter', 'subscribed', 'unsubscribed',
+        'reference',
+        'unsubscribe_method', 'tags'
     )
     search_fields = (
-        'email', 'user__email'
+        'email', 'user__email', 'keyword'
     )
     readonly_fields = (
         'created', 'activation_code'
