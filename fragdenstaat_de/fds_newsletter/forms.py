@@ -39,6 +39,14 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
         if self.request.user.is_authenticated:
             self.fields['email'].initial = self.request.user.email
 
+    def clean_reference(self):
+        # Avoid validation error, just cut off
+        return self.cleaned_data['reference'][:255]
+
+    def clean_keyword(self):
+        # Avoid validation error, just cut off
+        return self.cleaned_data['reference'][:255]
+
     def save(self, newsletter, user):
         email = self.cleaned_data['email']
         reference = self.cleaned_data['reference']
