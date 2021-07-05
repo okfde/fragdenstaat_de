@@ -65,20 +65,27 @@ def cancel_user(sender, user=None, **kwargs):
         user=user,
         subscribed__isnull=True
     ).delete()
-    # Keep NL subscriptions
-    subs = Subscriber.objects.filter(
-        subscribed__isnull=False,
-        user=user
-    )
-    for sub in subs:
-        exists = Subscriber.objects.filter(
-            newsletter_id=sub.newsletter_id,
-            email=user.email
-        ).exists()
-        if not exists:
-            sub.user = None
-            sub.email = user.email
-            sub.save(update_fields=['user', 'email'])
+
+    # Keep NL subscriptions with email subscription
+    if user.email:
+        subs = Subscriber.objects.filter(
+            subscribed__isnull=False,
+            user=user
+        )
+        for sub in subs:
+            exists = Subscriber.objects.filter(
+                newsletter_id=sub.newsletter_id,
+                email=user.email
+            ).exists()
+            if not exists:
+                sub.user = None
+                sub.email = user.email
+                sub.save(update_fields=['user', 'email'])
+
+    # Delete all other user subscriber connections
+    Subscriber.objects.filter(
+        user=user,
+    ).delete()
 
 
 def subscribe_follower(sender, **kwargs):
