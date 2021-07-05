@@ -197,8 +197,8 @@ class Subscriber(models.Model):
         ]
 
     def __str__(self):
-        return '<{}> - {}'.format(
-            self.email, self.newsletter
+        return '{} <{}> ({})'.format(
+            self.id, self.get_email(), self.newsletter
         )
 
     def clean(self):
