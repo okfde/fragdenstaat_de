@@ -1,0 +1,16 @@
+{% extends "account/profile.html" %}
+
+{% load fds_ogimage %}
+
+{% block extra_head %}
+{{ block.super }}
+
+{% if request.user.is_staff %}
+  {% url 'account-profile-og' slug=object.username as profile_path %}
+  {% ogimage_url path=profile_path as og_image_url %}
+
+  <meta property="og:title" content="{{ object.get_full_name }}" />
+  <meta property="og:image" content="{{ og_image_url }}" />
+{% endif %}
+
+{% endblock %}

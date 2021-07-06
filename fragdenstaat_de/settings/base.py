@@ -57,6 +57,7 @@ class FragDenStaatBase(German, Base):
             'fragdenstaat_de.fds_cms.apps.FdsCmsConfig',
             'fragdenstaat_de.fds_donation.apps.FdsDonationConfig',
             'fragdenstaat_de.fds_mailing.apps.FdsMailingConfig',
+            'fragdenstaat_de.fds_ogimage.apps.FdsOgImageConfig',
 
             # Additional CMS plugins
             'djangocms_text_ckeditor',
@@ -616,6 +617,8 @@ class FragDenStaatBase(German, Base):
             ("tourism", "theme_park"),
         )
     }
+
+    FDS_OGIMAGE_URL = 'https://ogimage.frag-den-staat.de/api/{hash}?path={path}'
 
     TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', '')
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
