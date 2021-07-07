@@ -86,7 +86,7 @@ def subscribe_email(newsletter, email, email_confirmed=False, name='',
         subscriber.send_activation_email()
         return (SubscriptionResult.CONFIRM, subscriber)
 
-    subscriber.subscribe(reference=reference, keyword=keyword)
+    subscriber = subscriber.subscribe(reference=reference, keyword=keyword)
     return (SubscriptionResult.SUBSCRIBED, subscriber)
 
 

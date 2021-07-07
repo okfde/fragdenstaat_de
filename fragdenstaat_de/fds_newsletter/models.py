@@ -304,7 +304,7 @@ class Subscriber(models.Model):
                         self.save()
 
         if self.subscribed:
-            return
+            return self
 
         self.unsubscribed = None
         self.subscribed = timezone.now()
