@@ -101,7 +101,7 @@ def subscribe_user(newsletter, user, reference='', keyword='') -> bool:
     if subscriber.subscribed:
         return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
 
-    subscriber.subscribe(reference=reference, keyword=keyword)
+    subscriber = subscriber.subscribe(reference=reference, keyword=keyword)
     return (SubscriptionResult.SUBSCRIBED, subscriber)
 
 
