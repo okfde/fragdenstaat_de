@@ -1,4 +1,4 @@
-<form class="ajaxified ajax-parent form-inline" method="post" action="{% url 'newsletter_ajax_subscribe_request' %}" data-reference data-userfill>
+<form class="ajaxified ajax-parent form-inline" method="post" action="{% if newsletter %}{% url 'newsletter_ajax_subscribe_request' newsletter_slug=newsletter.slug %}{% else %}{% url 'newsletter_ajax_subscribe_request' %}{% endif %}" data-reference data-userfill>
   <div class="form-group row d-none honigtopf">
     <label class="col-lg-3 col-form-label" for="newsletter_id_phone_{{ instance.pk }}">Bitte geben Sie hier nichts ein</label>
     <div class="col-lg-9">

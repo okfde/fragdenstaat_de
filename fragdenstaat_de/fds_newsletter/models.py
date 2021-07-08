@@ -13,6 +13,8 @@ from django.contrib.auth import get_user_model
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase, TagBase
 
+from cms.models.pluginmodel import CMSPlugin
+
 from froide.helper.email_sending import mail_registry
 
 logger = logging.getLogger(__name__)
@@ -78,6 +80,8 @@ class Newsletter(models.Model):
     )
     slug = models.SlugField(db_index=True, unique=True)
     url = models.URLField(blank=True)
+
+    description = models.TextField(blank=True)
 
     sender_email = models.EmailField(
         verbose_name=_('e-mail'), help_text=_('Sender e-mail')
@@ -330,3 +334,15 @@ class Subscriber(models.Model):
         self.unsubscribed = timezone.now()
         self.unsubscribe_method = method
         self.save()
+
+
+class NewsletterCMSPlugin(CMSPlugin):
+    newsletter = models.ForeignKey(
+        Newsletter, related_name='+',
+        on_delete=models.CASCADE,
+        null=True, blank=True
+    )
+    fallback = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.newsletter)

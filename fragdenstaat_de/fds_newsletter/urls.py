@@ -16,6 +16,10 @@ urlpatterns = [
         newsletter_ajax_subscribe_request,
         name='newsletter_ajax_subscribe_request'
     ),
+    path('<slug:newsletter_slug>/subscribe-ajax/',
+        newsletter_ajax_subscribe_request,
+        name='newsletter_ajax_subscribe_request'
+    ),
     path(
         'subscribe/',
         newsletter_subscribe_request,

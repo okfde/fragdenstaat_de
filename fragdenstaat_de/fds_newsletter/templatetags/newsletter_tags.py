@@ -40,14 +40,13 @@ def _has_newsletter(context, newsletter):
     return False
 
 
-def get_newsletter_context(context, next=None, newsletter_slug=None, fallback=True):
+def get_newsletter_context(context, next=None, newsletter=None, fallback=True):
     ctx = {
         'next': next,
         'fallback': fallback,
         'has_newsletter': False
     }
 
-    newsletter = _get_newsletter(newsletter_slug)
     if newsletter is None:
         ctx['has_newsletter'] = True
         return ctx
@@ -64,8 +63,9 @@ def get_newsletter_context(context, next=None, newsletter_slug=None, fallback=Tr
 @register.inclusion_tag('fds_newsletter/plugins/smart_newsletter_form.html',
                         takes_context=True)
 def newsletter_subscribe(context, next=None, newsletter_slug=None, fallback=True):
+    newsletter = _get_newsletter(newsletter_slug)
     return get_newsletter_context(
-        context, next=next, newsletter_slug=newsletter_slug, fallback=fallback
+        context, next=next, newsletter=newsletter, fallback=fallback
     )
 
 
