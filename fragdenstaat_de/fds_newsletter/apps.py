@@ -53,7 +53,7 @@ def export_user_data(user):
             {
                 'name': s.get_name(),
                 'email': s.get_email(),
-                'create_date': s.create_date.isoformat(),
+                'create_date': s.created.isoformat(),
                 'subscribe_date': (
                     s.subscribed.isoformat()
                     if s.subscribed else None
@@ -62,7 +62,9 @@ def export_user_data(user):
                     s.unsubscribed.isoformat()
                     if s.unsubscribed else None
                 ),
-                'newsletter': s.newsletter.title
+                'newsletter': s.newsletter.title,
+                'reference': s.reference,
+                'keyword': s.keyword,
             }
             for s in subscriptions]).encode('utf-8')
         )
