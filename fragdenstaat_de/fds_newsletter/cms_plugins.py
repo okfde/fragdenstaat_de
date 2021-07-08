@@ -35,7 +35,7 @@ class SmartNewsletterPlugin(CMSPluginBase):
         context = super().render(context, instance, placeholder)
         context.update(
             get_newsletter_context(
-                context, newsletter=instance.newsletter, fallback=False
+                context, newsletter=instance.newsletter, fallback=instance.fallback
             )
         )
         return context
