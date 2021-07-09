@@ -18,3 +18,10 @@ class CMSPageSearch(BaseSearchView):
     document = CMSDocument
     filterset = CMSFilterset
     search_url_name = 'fds_cms:fds_cms-search'
+
+    def get_base_search(self):
+        qs = super().get_base_search()
+        url_prefix = self.request.path.rsplit('/', 2)[0] + '/'
+        return qs.filter(
+            "prefix", **{'url.raw': {"value": url_prefix}}
+        )

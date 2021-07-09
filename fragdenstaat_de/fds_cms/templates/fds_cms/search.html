@@ -1,6 +1,24 @@
-{% extends 'helper/search/search_base.html' %}
+{% extends CMS_TEMPLATE %}
 
-{% block search_title %}
-  Hilfe-Seiten auf FragDenStaat
+{% block app_body %}
+
+<ol class="list-unstyled">
+  {% for object in object_list %}
+    <li>
+      <h5 class="mt-0 mb-1">
+        <a href="{{ object.page.get_absolute_url }}">
+          {{ object.title }}
+        </a>
+      </h5>
+      {% if object.meta_description %}
+        <small>{{ object.meta_description }}</small>
+      {% endif %}
+      {% if object.query_highlight %}
+      <p class="search-highlight">
+        {{ object.query_highlight }}
+      </p>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ol>
 {% endblock %}
-
