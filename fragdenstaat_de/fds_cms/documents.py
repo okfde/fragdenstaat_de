@@ -6,13 +6,13 @@ https://github.com/divio/aldryn-search/blob/master/aldryn_search/search_indexes.
 from django.db.models import Q
 from django.utils import timezone
 from django.conf import settings
-from django.template import RequestContext
 from django.utils.html import strip_tags
 
 from django_elasticsearch_dsl import Document, fields
 from django_elasticsearch_dsl.registries import registry
 
 from cms.models import Title
+from sekizai.context import SekizaiContext
 
 from froide.helper.search import (
     get_index, get_text_analyzer, get_search_analyzer,
@@ -148,12 +148,15 @@ class CMSDocument(Document):
     def get_search_data(self, obj, language, request):
         current_page = obj.page
 
+        MAX_CHARS = 1024 * 400  # 400 kb text
+
         text_bits = []
-        context = RequestContext(get_request())
+        context = SekizaiContext(request)
+        context['request'] = request
         placeholders = self.get_page_placeholders(current_page)
         for placeholder in placeholders:
             text_bits.append(
-                strip_tags(render_placeholder(context, placeholder))
+                strip_tags(render_placeholder(context, placeholder)[:MAX_CHARS])
             )
 
         page_meta_description = current_page.get_meta_description(fallback=False, language=language)
@@ -165,5 +168,4 @@ class CMSDocument(Document):
 
         if callable(page_meta_keywords):
             text_bits.append(page_meta_keywords())
-
         return clean_join(' ', text_bits)
