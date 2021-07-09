@@ -1,0 +1,61 @@
+{% extends "cms/page.html" %}
+
+{% load i18n %}
+{% load cms_tags %}
+{% load menu_tags %}
+
+{% block body %}
+  <div class="app">
+    <nav class="navbar navbar-expand-sm navbar-dark navbar-help">
+      <div class="container">
+        <a class="navbar-brand" href="{% page_url 'help' %}">{% trans "Support for FOI and FragDenStaat" %}</a>
+        <div class="d-flex">
+          <form class="form-inline ml-2 d-none d-md-inline" role="search" method="get" action="{% page_url 'help-search' %}">
+            <div class="input-group d-flex d-md-none d-lg-flex">
+              {% if form %}
+                {{ form.q }}
+              {% else %}
+                <input class="form-control" type="text" name="q" placeholder="{% trans 'Search' %}" aria-label="{% trans 'Search' %}">
+              {% endif %}
+              <div class="input-group-append">
+                <button class="btn btn-outline-light" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  <span class="sr-only">{% trans "Search" %}</span>
+                </button>
+              </div>
+            </div>
+            <button class="btn btn-outline-light d-none d-md-block d-lg-none" type="submit">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <span class="sr-only">{% trans "Search" %}</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <nav aria-label="breadcrumb" class="breadcrumb-container">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% page_url 'help' %}">{% trans "Support" %}</a>
+          </li>
+          {% show_breadcrumb 2 "cms/breadcrumbs.html" %}
+        </ol>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <nav class="col-md-3 mb-3 mt-3">
+          <h5>{% trans "Support topics" %}</h5>
+          <ul class="nav flex-column">
+            {% show_menu_below_id "help" 0 100 0 2 %}
+          </ul>
+        </nav>
+        <div class="col-md-9">
+          {% block app_body %}
+            {% placeholder "content" %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
