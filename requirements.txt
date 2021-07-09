@@ -164,7 +164,7 @@ django-classy-tags==2.0.0
     # via
     #   django-cms
     #   django-sekizai
-django-cms==3.9.0rc3
+django-cms==3.9.0
     # via
     #   -r requirements.in
     #   djangocms-attributes-field

@@ -7,7 +7,7 @@ django-admin-sortable2==1.0
 django-cache-url
 django-celery-email
 django-celery-beat
-django-cms==3.9.0rc3
+django-cms<=3.10.0
 django-configurations
 django-contractor
 django-contrib-comments
