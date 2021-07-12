@@ -6,7 +6,7 @@ from django.urls import reverse
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from fragdenstaat_de.fds_mailing.utils import get_plugin_children
+from fragdenstaat_de.fds_cms.utils import get_plugin_children
 
 from .models import (Donor, DonationGiftFormCMSPlugin, DefaultDonation,
                      DonationFormCMSPlugin, DonationProgressBarCMSPlugin)
@@ -71,7 +71,7 @@ class DonationFormPlugin(CMSPluginBase):
         return context
 
 
-class DonorLogigMixin:
+class DonorLogicMixin:
     module = _("Donations")
     cache = False
     allow_children = True
@@ -110,7 +110,7 @@ class DonorLogigMixin:
 
 
 @plugin_pool.register_plugin
-class IsDonorPlugin(DonorLogigMixin, CMSPluginBase):
+class IsDonorPlugin(DonorLogicMixin, CMSPluginBase):
     name = _("Is donor")
 
     def should_render(self, context):
@@ -118,15 +118,15 @@ class IsDonorPlugin(DonorLogigMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class IsNotDonorPlugin(DonorLogigMixin, CMSPluginBase):
-    name = _("Is donor")
+class IsNotDonorPlugin(DonorLogicMixin, CMSPluginBase):
+    name = _("Is not donor")
 
     def should_render(self, context):
         return not context.get('donor')
 
 
 @plugin_pool.register_plugin
-class IsRecurringDonorPlugin(DonorLogigMixin, CMSPluginBase):
+class IsRecurringDonorPlugin(DonorLogicMixin, CMSPluginBase):
     name = _("Is recurring donor")
 
     def should_render(self, context):
@@ -134,7 +134,7 @@ class IsRecurringDonorPlugin(DonorLogigMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class IsNotRecurringDonorPlugin(DonorLogigMixin, CMSPluginBase):
+class IsNotRecurringDonorPlugin(DonorLogicMixin, CMSPluginBase):
     name = _("Is not recurring donor")
 
     def should_render(self, context):
@@ -142,7 +142,7 @@ class IsNotRecurringDonorPlugin(DonorLogigMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class IsRecentDonor(DonorLogigMixin, CMSPluginBase):
+class IsRecentDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is recent donor")
 
     def should_render(self, context):
@@ -150,7 +150,7 @@ class IsRecentDonor(DonorLogigMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class IsNotRecentDonor(DonorLogigMixin, CMSPluginBase):
+class IsNotRecentDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is not recent donor")
 
     def should_render(self, context):
@@ -158,7 +158,7 @@ class IsNotRecentDonor(DonorLogigMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class ConcactAllowedDonor(DonorLogigMixin, CMSPluginBase):
+class ConcactAllowedDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is contact allowed donor")
 
     def should_render(self, context):
@@ -166,7 +166,7 @@ class ConcactAllowedDonor(DonorLogigMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class ConcactNotAllowedDonor(DonorLogigMixin, CMSPluginBase):
+class ConcactNotAllowedDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is contact not allowed donor")
 
     def should_render(self, context):

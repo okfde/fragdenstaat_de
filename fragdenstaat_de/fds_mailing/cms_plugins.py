@@ -5,13 +5,14 @@ from django.template.loader import get_template, TemplateDoesNotExist
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
+from fragdenstaat_de.fds_cms.utils import get_plugin_children
 from fragdenstaat_de.fds_newsletter.models import Newsletter
 
 from .models import (
     EmailActionCMSPlugin, EmailSectionCMSPlugin, EmailStoryCMSPlugin,
     EmailHeaderCMSPlugin, Mailing
 )
-from .utils import render_plugin_text, get_plugin_children
+from .utils import render_plugin_text
 
 
 class EmailTemplateMixin:

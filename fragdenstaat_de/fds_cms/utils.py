@@ -13,6 +13,11 @@ from cms.toolbar.toolbar import CMSToolbar
 from cms.plugin_rendering import ContentRenderer
 
 
+def get_plugin_children(instance):
+    return instance.get_descendants().filter(
+        depth=instance.depth + 1).order_by('position')
+
+
 def get_request(language=None, path='/'):
     request_factory = RequestFactory()
     request = request_factory.get(path)
