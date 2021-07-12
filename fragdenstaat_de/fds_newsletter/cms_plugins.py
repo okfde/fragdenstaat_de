@@ -46,7 +46,7 @@ class NewsletterLogicMixin:
     module = _("Newsletter")
     cache = False
     allow_children = True
-    render_template = "fds_newsletter/cms_plugins/newsletter_logic.html"
+    render_template = "fds_newsletter/plugins/newsletter_logic.html"
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
