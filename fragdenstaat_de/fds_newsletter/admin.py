@@ -9,6 +9,7 @@ from froide.helper.csv_utils import export_csv, export_csv_response
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
 from .models import Newsletter, Subscriber
+from .utils import unsubscribe_queryset
 
 
 class NewsletterAdmin(SetupMailingMixin, admin.ModelAdmin):
@@ -62,7 +63,7 @@ class SubscriberAdmin(admin.ModelAdmin):
         'created', 'activation_code'
     )
     date_hierarchy = 'created'
-    actions = ['export_subscribers_csv']
+    actions = ['unsubscribe', 'export_subscribers_csv']
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -73,6 +74,11 @@ class SubscriberAdmin(admin.ModelAdmin):
     def admin_email(self, obj):
         return obj.get_email()
     admin_email.short_description = ''
+
+    def unsubscribe(self, request, queryset):
+        queryset = queryset.filter(subscribed__isnull=False)
+        unsubscribe_queryset(queryset, method='admin')
+    unsubscribe.short_description = _("Unsubscribe")
 
     def export_subscribers_csv(self, request, queryset):
         fields = (
