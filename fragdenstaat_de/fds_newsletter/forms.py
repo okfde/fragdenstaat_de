@@ -96,7 +96,7 @@ class NewslettersUserForm(forms.Form):
                         subscriber.reference = FORM_REFERENCE
                         subscriber.subscribe()
                 else:
-                    subscriber.unsubscribe()
+                    subscriber.unsubscribe(method=FORM_REFERENCE)
             except Subscriber.DoesNotExist:
                 if wants_nl:
                     subscriber = Subscriber.objects.create(
