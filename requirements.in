@@ -12,7 +12,7 @@ django-configurations
 django-contractor
 django-contrib-comments
 django-crossdomainmedia
-django-filer
+django-filer>=2.1rc2
 django-filingcabinet
 django-filter
 django-floppyforms
