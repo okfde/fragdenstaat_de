@@ -36,11 +36,11 @@
     <nav class="drawer-menu__wrapper drawer-menu__wrapper--inital">
 
       <!-- User menu -->
-      {% if user.is_authenticated %}
+      {% if request.user.is_authenticated %}
       <ul class="list-unstyled mb-0">
         <li class="py-3 px-3 bg-blue-800 text-white">
-          <span class="d-block text-truncate">{{user.get_full_name}}</span>
-          <small class="d-block text-truncate">{{user.email}}</small>
+          <span class="d-block text-truncate">{{request.user.get_full_name}}</span>
+          <small class="d-block text-truncate">{{request.user.email}}</small>
         </li>
         {% for menu_item in menu_items.before_request %}
           <li>
@@ -78,7 +78,7 @@
       {% endif %}
 
       <!-- Page Menu -->
-      <ul class="list-unstyled mb-0 {% if not user.is_authenticated %}mt-3{% endif %}">
+      <ul class="list-unstyled mb-0 {% if not request.user.is_authenticated %}mt-3{% endif %}">
         <!-- Anfragen drawer-menu__dropdown -->
         <li>
           <a class="drawer-menu__link drawer-menu__link--white drawer-menu__dropdown-trigger" href="{% url 'foirequest-list' %}">
@@ -116,7 +116,7 @@
             {% blocktrans %}Investigations{% endblocktrans %}
           </a>
         </li>
-        {% if not user.is_authenticated %}
+        {% if not request.user.is_authenticated %}
         <li>
           <a class="drawer-menu__link drawer-menu__link--white" href="{% url 'account-login' %}?next={{ request.path|urlencode }}">
             <i class="fa fa-sign-in" aria-hidden="true"></i>
@@ -188,15 +188,15 @@
       {% endblock %}
       {% block nav_account_login %}
       <li class="top-menu__listitem dropdown ml-md-3 ml-lg-4">
-        {% if user.is_authenticated %}
+        {% if request.user.is_authenticated %}
           <button type="button" class="top-menu__link dropdown-toggle" id="userDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <span>{{ user.first_name }}</span>
+            <span>{{ request.user.first_name }}</span>
           </button>
           <div class="dropdown-menu top-menu--drop-right pt-0" aria-labelledby="userDropdownMenu">
             <div class="top-menu__usermenu py-3 px-3 mb-1">
-              <span class="d-block text-truncate">{{ user.get_full_name }}</span>
-              <small class="d-block text-truncate">{{ user.email }}</small>
+              <span class="d-block text-truncate">{{ request.user.get_full_name }}</span>
+              <small class="d-block text-truncate">{{ request.user.email }}</small>
             </div>
 
             {% include "account/menu.html" with menu_items=menu_items %}

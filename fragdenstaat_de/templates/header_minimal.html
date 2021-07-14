@@ -9,10 +9,10 @@
 {% block nav_donate %}{% endblock %}
 
 {% block nav_account_login %}
-  {% if user.is_authenticated %}
+  {% if request.user.is_authenticated %}
     <li class="top-menu__listitem dropdown ml-md-3 ml-lg-4">
       <i class="fa fa-user" aria-hidden="true"></i>
-      <span>{{ user.first_name }}</span>
+      <span>{{ request.user.first_name }}</span>
   </li>
   {% endif %}
 {% endblock nav_account_login %}

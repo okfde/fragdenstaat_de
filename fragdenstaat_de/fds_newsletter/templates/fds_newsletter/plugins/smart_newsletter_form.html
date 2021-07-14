@@ -14,7 +14,7 @@
     {% endif %}
     <label for="newsletter_id_email_field-{{ newsletter.id }}_{{ instance.pk }}" class="sr-only">E-Mail</label>
     <div class="input-group w-100">
-      <input placeholder="E-Mail" class="form-control" type="email" {% if user %}value="{{ user.email }}"{% endif %} name="email" required id="newsletter_id_email_field-{{ newsletter.id }}_{{ instance.pk }}">
+      <input placeholder="E-Mail" class="form-control" type="email" {% if request.user.is_authenticated %}value="{{ request.user.email }}"{% endif %} name="email" required id="newsletter_id_email_field-{{ newsletter.id }}_{{ instance.pk }}">
       <div class="input-group-append">
         <button class="btn btn-primary" name="submit" value="Subscribe" type="submit">
           <span class="fa fa-envelope d-none d-md-inline d-lg-none"></span>
