@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
@@ -6,8 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex"/>
   <title>{% block title %}{% endblock %}</title>
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
   <style>
-
+    .og-container h1 {
+      font-size: 4rem;
+    }
+    .og-container p.lead {
+      font-size: 2.2rem !important;
+    }
+    .og-container .fa {
+      font-size: 2.5rem !important;
+    }
   </style>
 </head>
 <body>

@@ -1,9 +1,82 @@
 {% extends "fds_ogimage/base.html" %}
 
+{% load humanize %}
+
 {% block title %}{{ object.get_full_name }}{% endblock %}
 
 {% block body %}
-<h1>
-  {{ object.get_full_name }}
-</h1>
+<div class="og-container">
+  <div class="bg-light p-5">
+    <div class="row">
+      <div class="col-10">
+        <h1>
+          {{ object.get_full_name }}
+        </h1>
+        {% if object.organization %}
+          <p class="lead mb-1">
+            {{ object.organization }}
+          </p>
+        {% endif %}
+      </div>
+      <div class="col-2">
+        {% if object.profile_photo %}
+          <img class="img-fluid rounded-circle" src="{{ object.profile_photo.url }}" alt="{{ object.get_full_name }}">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="p-5">
+    <div class="row justify-content-between">
+      <div class="col-4">
+        <div class="media">
+          <span class="fa fa-send mr-3"></span>
+          <div class="media-body">
+            <h2 class="mt-0">
+              {{ aggregates.count|intcomma }} Anfragen
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="media">
+          <span class="fa fa-check-circle mr-3 mr-2"></span>
+          <div class="media-body">
+            <h2 class="mt-0">
+              {{ aggregates.successful|intcomma }} erfolgreich
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="media">
+          <span class="fa fa-ban mr-3"></span>
+          <div class="media-body">
+            <h2 class="mt-0">
+              {{ aggregates.refused|intcomma }} abgelehnt
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="px-5 pb-5 pt-3">
+    <div class="row">
+      <div class="col-8">
+        {% if top_publicbodies %}
+          {% with pb=top_publicbodies.0 %}
+            <h2>
+              <span class="badge badge-light">Top-Behörde</span><br/>
+              {{ pb.name }}
+            </h2>
+          {% endwith %}
+        {% endif %}
+      </div>
+      <div class="col-4">
+        <div class="mt-5">
+          <img height="80" src="https://static.frag-den-staat.de/static/img/header_logo.580ed694906e.svg" alt="FragDenStaat.de"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
