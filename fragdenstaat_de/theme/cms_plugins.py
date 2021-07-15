@@ -148,3 +148,10 @@ class SubMenuPlugin(CMSPluginBase):
     module = _("Menu")
     name = _("Sub Menu")
     render_template = "cms/plugins/submenu.html"
+
+
+@plugin_pool.register_plugin
+class PageSubMenuPlugin(CMSPluginBase):
+    module = _("Menu")
+    name = _("Page Sub Menu")
+    render_template = "cms/plugins/page_submenu.html"
