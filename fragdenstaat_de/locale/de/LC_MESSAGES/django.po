@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-09 14:12+0200\n"
-"PO-Revision-Date: 2021-07-09 14:15+0200\n"
+"POT-Creation-Date: 2021-07-15 10:33+0200\n"
+"PO-Revision-Date: 2021-07-15 10:33+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -353,6 +353,15 @@ msgstr "Schließen"
 msgid "Read more"
 msgstr "Mehr lesen"
 
+#. Translators: meta description
+#: fragdenstaat_de/fds_cms/templates/cms/scaffold.html:20
+#, python-format
+msgid ""
+"%(site)s helps you to make freedom of information requests to public bodies"
+msgstr ""
+"%(site)s hilft Ihnen Anfragen nach den Informationsfreiheitsgesetzen an "
+"Behörden zu stellen"
+
 #: fragdenstaat_de/fds_mailing/admin.py:157
 msgid "Continue sending selected mailings."
 msgstr ""
@@ -393,43 +402,44 @@ msgstr ""
 msgid "FragDenStaat Mailings"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:42
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:67
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:111
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:134
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:161
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:43
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:68
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:112
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:135
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:162
 #: fragdenstaat_de/fds_newsletter/forms.py:20
 #: fragdenstaat_de/settings/base.py:278
 msgid "Email"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:43
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:44
 msgid "Email Body"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:68
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:69
 msgid "Email Action"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:112
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:113
 msgid "Email Section"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:135
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:136
 msgid "Email Story"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:162
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:163
 msgid "Email Header"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:172
-#: fragdenstaat_de/fds_newsletter/cms_plugins.py:12
-#: fragdenstaat_de/fds_newsletter/cms_plugins.py:27
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:173
+#: fragdenstaat_de/fds_newsletter/cms_plugins.py:13
+#: fragdenstaat_de/fds_newsletter/cms_plugins.py:28
+#: fragdenstaat_de/fds_newsletter/cms_plugins.py:46
 msgid "Newsletter"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:173
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:174
 msgid "Newsletter Archive"
 msgstr ""
 
@@ -571,19 +581,23 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/utils.py:112
+#: fragdenstaat_de/fds_mailing/utils.py:107
 msgid "Prepare mailing to selected recipients..."
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/admin.py:32
+#: fragdenstaat_de/fds_newsletter/admin.py:33
 msgid "active subscriber count"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/admin.py:42
+#: fragdenstaat_de/fds_newsletter/admin.py:43
 msgid "See all subscribers"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/admin.py:88
+#: fragdenstaat_de/fds_newsletter/admin.py:81
+msgid "Unsubscribe"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/admin.py:94
 msgid "Export to CSV"
 msgstr ""
 
@@ -591,12 +605,20 @@ msgstr ""
 msgid "Newsletter FragDenStaat"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/cms_plugins.py:13
+#: fragdenstaat_de/fds_newsletter/cms_plugins.py:14
 msgid "Newsletter Formular"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/cms_plugins.py:28
+#: fragdenstaat_de/fds_newsletter/cms_plugins.py:29
 msgid "Smart Newsletter Formular"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/cms_plugins.py:76
+msgid "Is newsletter subscriber"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/cms_plugins.py:84
+msgid "Is not newsletter subscriber"
 msgstr ""
 
 #: fragdenstaat_de/fds_newsletter/forms.py:66
@@ -733,7 +755,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_ogimage/urls.py:8
 msgctxt "url part"
-msgid "profile/<str:slug>/og/"
+msgid "profile/<str:slug>/_og/"
 msgstr "profil/<str:slug>/og/"
 
 #: fragdenstaat_de/settings/base.py:25 fragdenstaat_de/settings/base.py:181
@@ -861,15 +883,6 @@ msgid ""
 msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
-
-#. Translators: meta description
-#: fragdenstaat_de/templates/snippets/meta.html:7
-#, python-format
-msgid ""
-"%(site)s helps you to make freedom of information requests to public bodies"
-msgstr ""
-"%(site)s hilft Ihnen Anfragen nach den Informationsfreiheitsgesetzen an "
-"Behörden zu stellen"
 
 #~ msgid "Donations"
 #~ msgstr "Spenden"

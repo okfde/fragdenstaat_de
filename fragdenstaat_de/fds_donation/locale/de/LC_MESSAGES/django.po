@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-09 14:12+0200\n"
+"POT-Creation-Date: 2021-07-15 10:33+0200\n"
 "PO-Revision-Date: 2021-07-09 14:18+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -182,9 +182,14 @@ msgid "Donation Form"
 msgstr "Spendenform"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py:114
-#: fragdenstaat_de/fds_donation/cms_plugins.py:122
 msgid "Is donor"
 msgstr "Ist Spender:in"
+
+#: fragdenstaat_de/fds_donation/cms_plugins.py:122
+#, fuzzy
+#| msgid "Is recent donor"
+msgid "Is not donor"
+msgstr "Hat vor kurzem gespendet"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py:130
 msgid "Is recurring donor"
