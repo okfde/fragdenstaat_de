@@ -121,6 +121,17 @@ def confirm_unsubscribe(request, newsletter_slug=None, pk=None, activation_code=
     return redirect(newsletter.url or '/')
 
 
+def legacy_unsubscribe(request, newsletter_slug=None, email=None, activation_code=None):
+    newsletter = get_object_or_404(
+        Newsletter, slug=newsletter_slug
+    )
+    subscriber = get_object_or_404(
+        Subscriber, newsletter=newsletter, email=email,
+        activation_code=activation_code
+    )
+    return redirect(subscriber.get_unsubscribe_url())
+
+
 @require_POST
 @login_required
 def newsletter_user_settings(request):

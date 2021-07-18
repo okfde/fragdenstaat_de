@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (
     newsletter_ajax_subscribe_request, newsletter_user_settings,
     newsletter_subscribe_request,
-    confirm_subscribe, confirm_unsubscribe
+    confirm_subscribe, confirm_unsubscribe,
+    legacy_unsubscribe
 )
 
 
@@ -40,6 +41,10 @@ urlpatterns = [
         confirm_unsubscribe,
         name='newsletter_confirm_unsubscribe'
     ),
+    path(
+        '<slug:newsletter_slug>/subscription/<str:email>/unsubscribe/activate/<slug:activation_code>/',
+        legacy_unsubscribe, name='newsletter_confirm_unsubscribe_legacy'
+    )
     # re_path(
     #     r'^(?P<newsletter_slug>[\w-]+)/subscription/'
     #     r'(?P<email>[-_a-zA-Z0-9@\.\+~]+)/'
