@@ -18,6 +18,7 @@ from froide.urls import (
 
 from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
+from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 
 from .views import glyphosat_download, meisterschaften_tippspiel
 
@@ -53,6 +54,10 @@ urlpatterns = [
     path('fax/', include('froide_fax.urls')),
     path('newsletter/update/', include('fragdenstaat_de.fds_newsletter.urls')),
     path('newsletter/archive/', include('fragdenstaat_de.fds_mailing.urls')),
+    path(
+        'newsletter/<slug:newsletter_slug>/subscription/<str:email>/unsubscribe/activate/<slug:activation_code>/',
+        legacy_unsubscribe, name='newsletter_confirm_unsubscribe_legacy'
+    ),
     path("glyphosat-bfr/<slug:slug>/<int:message_id>/download-document/", glyphosat_download, name="fragdenstaat-glyphosat_download"),
     path("tippspiel/", meisterschaften_tippspiel, name="fragdenstaat-meisterschaften_tippspiel"),
     path("", include('fragdenstaat_de.fds_ogimage.urls'))
