@@ -5,7 +5,9 @@
 {% load cms_tags %}
 {% load account_tags %}
 
-{% get_menu_items as menu_items %}
+{% if request.user.is_authenticated %}
+  {% get_menu_items as menu_items %}
+{% endif %}
 
 <header id="header" class="header container d-flex justify-content-between align-items-center pt-4 pt-md-5 pb-2">
 
