@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: froide-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-15 10:33+0200\n"
-"PO-Revision-Date: 2021-07-09 14:15+0200\n"
+"POT-Creation-Date: 2021-07-21 11:47+0200\n"
+"PO-Revision-Date: 2021-07-21 11:46+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: OKF-DE <info@fragdenstaat.de>\n"
 "Language: de\n"
@@ -123,6 +123,7 @@ msgid "Column Teaser Three"
 msgstr "Spalte Teaser Drei"
 
 #: fragdenstaat_de/theme/cms_plugins.py:148
+#: fragdenstaat_de/theme/cms_plugins.py:155
 msgid "Menu"
 msgstr "Menü"
 
@@ -130,11 +131,15 @@ msgstr "Menü"
 msgid "Sub Menu"
 msgstr "Unter-Menü"
 
+#: fragdenstaat_de/theme/cms_plugins.py:156
+msgid "Page Sub Menu"
+msgstr "Seiten-Untermenü"
+
 #: fragdenstaat_de/theme/models.py:70
 msgid "User auto blocked"
 msgstr "User automatisch blockiert"
 
-#: fragdenstaat_de/theme/urls.py:84
+#: fragdenstaat_de/theme/urls.py:89
 msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"

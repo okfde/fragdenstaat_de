@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-15 10:33+0200\n"
-"PO-Revision-Date: 2021-07-15 10:48+0200\n"
+"POT-Creation-Date: 2021-07-21 11:47+0200\n"
+"PO-Revision-Date: 2021-07-21 11:45+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -17,350 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
-
-#: fragdenstaat_de/fds_cms/admin.py:44
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:32
-#: fragdenstaat_de/fds_cms/cms_plugins.py:49
-#: fragdenstaat_de/fds_cms/cms_plugins.py:67
-#: fragdenstaat_de/fds_cms/cms_plugins.py:96
-#: fragdenstaat_de/fds_cms/cms_plugins.py:116
-msgid "Document"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:33
-msgid "Page Annotation"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:50
-msgid "Document pages"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:68
-msgid "Document embed"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:97
-msgid "Document collection embed"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:117
-msgid "Document portal embed"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:134
-#: fragdenstaat_de/fds_cms/cms_plugins.py:152
-#: fragdenstaat_de/fds_cms/cms_plugins.py:289
-#: fragdenstaat_de/fds_cms/cms_plugins.py:311
-#: fragdenstaat_de/fds_cms/cms_plugins.py:349
-#: fragdenstaat_de/fds_cms/cms_plugins.py:370
-#: fragdenstaat_de/fds_cms/cms_plugins.py:385
-#: fragdenstaat_de/fds_cms/cms_plugins.py:400
-msgid "Elements"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:135
-msgid "Primary Link"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:153
-msgid "Continue Link"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:169
-msgid "Ads"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:170
-msgid "Dropdown Banner"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:182
-msgid "Latest FOI requests"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:235
-msgid "One click FoiRequest form"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:260
-msgid "Account"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:261
-msgid "Set Password Form"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:268
-msgid "Contact"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:269
-msgid "Contact Form"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:290
-msgid "Vega Chart"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:312
-msgid "SVG Image"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:330
-msgid "Structure"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:331
-msgid "Design Container"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:350
-msgid "Share Links"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:371
-msgid "Collapsible"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:386
-msgid "Slider"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_plugins.py:401
-msgid "Modal"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/cms_toolbars.py:24
-msgid "FdS Page Settings"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:33 fragdenstaat_de/fds_cms/models.py:132
-#: fragdenstaat_de/fds_cms/models.py:278
-#: fragdenstaat_de/fds_mailing/models.py:277
-msgid "image"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:92
-msgid "Small"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:93
-msgid "Normal"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:94
-msgid "Large"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:124 fragdenstaat_de/fds_cms/models.py:170
-#: fragdenstaat_de/fds_cms/models.py:244 fragdenstaat_de/fds_cms/models.py:287
-#: fragdenstaat_de/fds_mailing/models.py:34
-msgid "Default template"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:125
-msgid "Campaign template"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:134
-msgid "link"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:136 fragdenstaat_de/fds_cms/models.py:138
-msgid "if present image will be clickable"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:139
-msgid "page link"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:140
-msgid "anchor"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:141
-msgid "Page anchor."
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:146 fragdenstaat_de/fds_cms/models.py:254
-#: fragdenstaat_de/fds_cms/models.py:327
-msgid "Template"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:171
-msgid "Follow template"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:194
-msgid "tags"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:214
-msgid "number of entries"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:215
-msgid "0 means all the entries"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:217
-msgid "offset"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:218
-msgid "number of entries to skip from top of list"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:220
-msgid "template"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:222
-msgid "template used to display the plugin"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:225
-#, python-format
-msgid "%s FOI requests"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:258
-msgid "One click form for {}"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:288
-msgid "Speech bubble"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:291
-msgid "None"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:292
-msgid "Primary"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:293
-msgid "Secondary"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:294
-msgid "Info"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:295
-msgid "Light"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:296
-msgid "Dark"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:297
-msgid "Success"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:298
-msgid "Warning"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:299
-msgid "Danger"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:300
-msgid "Purple"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:301
-msgid "Pink"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:302
-msgid "Yellow"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:303
-msgid "Cyan"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:304
-msgid "Gray"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:305
-msgid "Gray Dark"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:306
-msgid "White"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:311
-msgid "Blue 10"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:312
-msgid "Blue 20"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:313
-msgid "Blue 30"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:322
-msgid "Default"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:323
-msgid "Heavy"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:331
-msgid "Background"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py:335
-msgid "Style"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:11
-msgid "Support for FOI and FragDenStaat"
-msgstr "Hilfe zu IFG und FragDenStaat"
-
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:18
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:23
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:29
-msgid "Search"
-msgstr "Suche"
-
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:39
-msgid "Support"
-msgstr "Hilfe"
-
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:48
-msgid "Support topics"
-msgstr "Hilfethemen"
-
-#: fragdenstaat_de/fds_cms/templates/cms/plugins/dropdown_banner.html:6
-msgid "Close"
-msgstr "Schließen"
-
-#: fragdenstaat_de/fds_cms/templates/cms/plugins/primarylink/campaign.html:23
-msgid "Read more"
-msgstr "Mehr lesen"
-
-#. Translators: meta description
-#: fragdenstaat_de/fds_cms/templates/cms/scaffold.html:20
-#, python-format
-msgid ""
-"%(site)s helps you to make freedom of information requests to public bodies"
-msgstr ""
-"%(site)s hilft Ihnen Anfragen nach den Informationsfreiheitsgesetzen an "
-"Behörden zu stellen"
 
 #: fragdenstaat_de/fds_mailing/admin.py:157
 msgid "Continue sending selected mailings."
@@ -443,6 +99,10 @@ msgstr ""
 msgid "Newsletter Archive"
 msgstr ""
 
+#: fragdenstaat_de/fds_mailing/models.py:34
+msgid "Default template"
+msgstr ""
+
 #: fragdenstaat_de/fds_mailing/models.py:35
 msgid "Newsletter template"
 msgstr ""
@@ -457,6 +117,10 @@ msgstr ""
 
 #: fragdenstaat_de/fds_mailing/models.py:66
 msgid "email templates"
+msgstr ""
+
+#: fragdenstaat_de/fds_mailing/models.py:277
+msgid "image"
 msgstr ""
 
 #: fragdenstaat_de/fds_mailing/models.py:309
@@ -758,6 +422,11 @@ msgctxt "url part"
 msgid "profile/<str:slug>/_og/"
 msgstr "profil/<str:slug>/_og/"
 
+#: fragdenstaat_de/fds_ogimage/urls.py:10
+msgctxt "url part"
+msgid "request/<str:slug>/_og/"
+msgstr "anfrage/<str:slug>/_og/"
+
 #: fragdenstaat_de/settings/base.py:25 fragdenstaat_de/settings/base.py:181
 msgid "German"
 msgstr "Deutsch"
@@ -803,62 +472,62 @@ msgid "No messages yet"
 msgstr ""
 
 #: fragdenstaat_de/templates/footer.html:73
-#: fragdenstaat_de/templates/header.html:185
+#: fragdenstaat_de/templates/header.html:187
 msgid "Donate"
 msgstr "Spenden"
 
-#: fragdenstaat_de/templates/header.html:26
+#: fragdenstaat_de/templates/header.html:28
 msgid "Spenden"
 msgstr ""
 
-#: fragdenstaat_de/templates/header.html:73
-#: fragdenstaat_de/templates/header.html:209
+#: fragdenstaat_de/templates/header.html:75
+#: fragdenstaat_de/templates/header.html:211
 msgid "Log out"
 msgstr "Abmelden"
 
-#: fragdenstaat_de/templates/header.html:85
-#: fragdenstaat_de/templates/header.html:152
+#: fragdenstaat_de/templates/header.html:87
+#: fragdenstaat_de/templates/header.html:154
 msgid "Requests"
 msgstr "Anfragen"
 
-#: fragdenstaat_de/templates/header.html:92
-#: fragdenstaat_de/templates/header.html:156
+#: fragdenstaat_de/templates/header.html:94
+#: fragdenstaat_de/templates/header.html:158
 msgid "See requests"
 msgstr "Anfragen entdecken"
 
-#: fragdenstaat_de/templates/header.html:97
+#: fragdenstaat_de/templates/header.html:99
 msgid "Make request"
 msgstr "Anfrage stellen"
 
-#: fragdenstaat_de/templates/header.html:102
-#: fragdenstaat_de/templates/header.html:162
+#: fragdenstaat_de/templates/header.html:104
+#: fragdenstaat_de/templates/header.html:164
 msgid "Beginner's guide"
 msgstr "Einsteiger-Guide"
 
-#: fragdenstaat_de/templates/header.html:110
-#: fragdenstaat_de/templates/header.html:168
+#: fragdenstaat_de/templates/header.html:112
+#: fragdenstaat_de/templates/header.html:170
 msgid "Campaigns"
 msgstr "Kampagnen"
 
-#: fragdenstaat_de/templates/header.html:116
-#: fragdenstaat_de/templates/header.html:173
+#: fragdenstaat_de/templates/header.html:118
+#: fragdenstaat_de/templates/header.html:175
 msgid "Investigations"
 msgstr "Recherchen"
 
-#: fragdenstaat_de/templates/header.html:123
-#: fragdenstaat_de/templates/header.html:217
+#: fragdenstaat_de/templates/header.html:125
+#: fragdenstaat_de/templates/header.html:219
 msgid "Sign in"
 msgstr "Anmelden"
 
-#: fragdenstaat_de/templates/header.html:131
+#: fragdenstaat_de/templates/header.html:133
 msgid "You like our work? Support us with a donation!"
 msgstr "Ihnen gefällt unsere Arbeit? Unterstützen Sie uns mit einer Spende!"
 
-#: fragdenstaat_de/templates/header.html:134
+#: fragdenstaat_de/templates/header.html:136
 msgid "Donate now"
 msgstr "Jetzt spenden"
 
-#: fragdenstaat_de/templates/header.html:159
+#: fragdenstaat_de/templates/header.html:161
 msgid "Make requests"
 msgstr "Anfrage stellen"
 
@@ -883,6 +552,41 @@ msgid ""
 msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
+
+#~ msgid "Edit"
+#~ msgstr "Bearbeiten"
+
+#~ msgid "Support for FragDenStaat and FOI"
+#~ msgstr "Hilfe zu FragDenStaat und IFG"
+
+#~ msgid "Support area"
+#~ msgstr "Hilfebereich"
+
+#~ msgid "Search"
+#~ msgstr "Suche"
+
+#~ msgid "Support"
+#~ msgstr "Hilfe"
+
+#~ msgid "Support topics"
+#~ msgstr "Hilfethemen"
+
+#~ msgid "Close"
+#~ msgstr "Schließen"
+
+#~ msgid "Read more"
+#~ msgstr "Mehr lesen"
+
+#, python-format
+#~ msgid ""
+#~ "%(site)s helps you to make freedom of information requests to public "
+#~ "bodies"
+#~ msgstr ""
+#~ "%(site)s hilft Ihnen Anfragen nach den Informationsfreiheitsgesetzen an "
+#~ "Behörden zu stellen"
+
+#~ msgid "Search support topics"
+#~ msgstr "Hilfethemen durchsuchen"
 
 #~ msgid "Donations"
 #~ msgstr "Spenden"
