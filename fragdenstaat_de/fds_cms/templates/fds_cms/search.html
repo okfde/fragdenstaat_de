@@ -1,7 +1,36 @@
 {% extends CMS_TEMPLATE %}
 
+{% load i18n %}
+
+{% block extra_breadcrumbs %}
+<li class="breadcrumb-item">
+  {% comment %}Translators: Search as noun{% endcomment %}
+  <a href="">{% translate "Search" %}</a>
+</li>
+{% endblock %}
+
 {% block app_body %}
 
+<h2>
+  {% translate "Search support topics" %}
+</h2>
+
+<form class="mb-3" role="search" method="get" action=".">
+  <div class="input-group">
+    {{ form.q }}
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" type="submit">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        {% translate "Search" %}
+      </button>
+    </div>
+  </div>
+</form>
+
+{% if object_list %}
+<p>
+  {% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}
+</p>
 <ol class="list-unstyled">
   {% for object in object_list %}
     <li>
@@ -21,4 +50,13 @@
     </li>
   {% endfor %}
 </ol>
+{% elif form.q.value %}
+<p>
+  {% translate "No results found." %}
+</p>
+{% else %}
+<p>
+  {% translate "Please enter a search term." %}
+</p>
+{% endif %}
 {% endblock %}
