@@ -1,114 +1,13 @@
 {% extends "foirequest/show.html" %}
 
-{% load static %}
-{% load i18n %}
-
-{% load foirequest_tags %}
-{% load food_tags %}
-{% load fax_tags %}
-{% load crowdfunding %}
-{% load fds_cms_tags %}
+{% load fds_ogimage %}
 
 
-{% block foirequest_header %}
-
-  {# Brüssler Büro #}
-  {% if object.jurisdiction.id == 107 %}
-  <div class="alert alert-info">
-     🇪🇺 Sie wollen mehr Transparenz in der EU? <a href="/info/ueber/eu-recherchen/">Entdecken Sie unsere EU-Recherchen!</a>
-  </div>
-  {% endif %}
-
-  {% if "corona" in object.title|lower or "covid" in object.title|lower or "virus" in object.title|lower  %}
-  <div class="alert alert-warning text-center">
-    🦠<a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/nCoV.html">Allgemeine Infos zum Corona-Virus finden Sie hier beim Robert-Koch-Institut</a>🦠
-  </div>
-  {% endif %}
-
-  {% if object|can_write_foirequest:request and object|foirequest_needs_signature %}
-    <div class="alert alert-warning">
-      <h3>
-        Schriftformerfordnis: Bitte hinterlegen Sie Ihre Unterschrift
-      </h3>
-      <div class="row">
-        <div class="col-md-8">
-          <p>
-            Diese Anfrage nach dem {{ object.law.name }} muss in Schriftform erfolgen. Wir können für Sie ein Fax versenden, wenn Sie Ihre Unterschrift hinterlegen.
-          </p>
-        </div>
-      </div>
-      {% include "froide_fax/_signature_form.html" with form=request.user|get_signature_form:True foirequest=object next=request.get_full_path hide_explanation=True save_button="Unterschrift speichern und Fax versenden" %}
-    </div>
-  {% endif %}
+{% block share_image %}
+{% if request.user.is_staff %}
+{% url 'foirequest-show-og' slug=object.slug as foirequest_path %}
+{% ogimage_url path=foirequest_path as og_image_url %}
+<meta property="og:image" content="{{ og_image_url }}" />
+<meta name="twitter:card" content="summary_large_image">
+{% endif %}
 {% endblock %}
-
-{% block foirequest_below_header %}
-  {% if object.campaign.slug == "topf-secret" %}
-    {% food_authority_status object %}
-  {% endif %}
-{% endblock %}
-
-{% block foirequest_explain_deadline %}
-  <small>
-    <a class="d-print-none" href="/hilfe/tipps-fur-den-anfrageprozess/fristen/">
-      Wie wird das berechnet?
-    </a>
-  </small>
-{% endblock %}
-
-{% block request_action_menu_footer %}
-  {% if object.costs %}
-  <li class="nav-item">
-    <a href="#crowdfunding" data-toggle="pill" class="nav-link" role="tab" aria-controls="crowdfunding" aria-expanded="false">
-      Crowdfunding
-    </a>
-  </li>
-  {% endif %}
-
-  {% if object.can_be_escalated and not "food:" in object.reference %}
-    <li class="nav-item">
-      <a href="#legalaction" data-toggle="tab" class="nav-link" role="tab" aria-controls="legalaction" aria-expanded="false">
-        Jetzt klagen
-      </a>
-    </li>
-  {% endif %}
-{% endblock %}
-
-{% block request_action_pane_footer %}
-  {# Crowdfunding #}
-  {% if object.costs %}
-    <div class="tab-pane d-print-none" id="crowdfunding">
-      {% include "froide_crowdfunding/includes/request_pane.html" with object=object %}
-    </div>
-  {% endif %}
-
-  {# Legal Action #}
-  {% if object.can_be_escalated and not "food:" in object.reference %}
-    <div class="tab-pane d-print-none" id="legalaction">
-      {% include "froide_legalaction/includes/request_pane.html" with object=object %}
-    </div>
-  {% endif %}
-{% endblock %}
-
-{% block before_correspondence %}
-  {% fds_static_placeholder "banner_ad" %}
-  {% include "froide_crowdfunding/includes/request_block.html" with object=object %}
-  {{ block.super }}
-{% endblock %}
-
-{% block foirequest_messages %}
-  {% for message in object.messages %}
-    {% if forloop.last and object.messages|length > 1 %}
-      {% fds_static_placeholder "message_donation_banner" %}
-    {% endif %}
-    {% include "foirequest/snippets/message.html" %}
-    {% if not forloop.last %}
-      <div class="page-break"></div>
-    {% endif %}
-    {% empty %}
-    <p>{% blocktrans %}No messages yet{% endblocktrans %}</p>
-  {% endfor %}
-  {% if object.messages|length == 1 %}
-    {% fds_static_placeholder "message_donation_banner" %}
-  {% endif %}
-{% endblock foirequest_messages %}

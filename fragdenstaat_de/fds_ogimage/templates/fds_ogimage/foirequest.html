@@ -1,0 +1,82 @@
+{% extends "fds_ogimage/base.html" %}
+
+{% load humanize %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block body %}
+<div class="og-container d-flex flex-column">
+  <div class="bg-light px-5 pt-5">
+    <div class="row">
+      <div class="{% if not object.user.private and object.user.profile_photo %}col-10{% else %}col-12{% endif %}">
+        <h2>
+          {{ object.title|truncatechars:80 }}
+        </h2>
+      </div>
+      {% if not object.user.private and object.user.profile_photo %}
+        <div class="col-2">
+          <img class="img-fluid rounded-circle" src="{{ object.user.profile_photo.url }}" alt="{{ object.user.get_full_name }}">
+        </div>
+      {% endif %}
+    </div>
+    <div class="row">
+      <div class="col-12">
+        {% if object.status_is_final and object.status_representation %}
+        <p class="lead mt-5">
+          {% if object.status_representation %}
+            <span class="float-left request-link__icon icon status-{{ object.status_representation }} {% if object.has_fee %}--has-fee{% endif %}"></span>
+            <strong>{{ object.readable_status }}</strong>
+          {% endif %}
+        </p>
+      {% elif not object.law.meta %}
+        <p class="lead mt-5">
+          &rarr; {{ object.law.name }}
+        </p>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-column flex-grow-1">
+    <div class="px-5 pb-5 pt-3">
+      <div class="row">
+        <div class="col-12">
+          <h3>
+            {{ object.public_body.name|truncatechars:70 }}
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="pb-5 px-5 mt-auto">
+      <div class="row justify-content-between">
+        <div class="col-auto">
+          <div class="media">
+            <span class="fa fa-send mr-3"></span>
+            <div class="media-body">
+              <h2 class="mt-0">
+                {{ object.first_message | date }}
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          {% if not object.status_is_final %}
+            <div class="media {% if object.is_overdue %}text-danger{% endif %}">
+              <span class="fa fa-calendar mr-3"></span>
+              <div class="media-body">
+                <h2 class="mt-0">
+                  {{ object.due_date | date }}
+                </h2>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-auto ml-auto">
+          <div class="mt-n4">
+            <img height="80" src="https://static.frag-den-staat.de/static/img/header_logo.580ed694906e.svg" alt="FragDenStaat.de"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
