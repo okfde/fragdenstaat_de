@@ -81,7 +81,7 @@ cairocffi==1.2.0
     #   weasyprint
 cairosvg==2.5.2
     # via weasyprint
-camelot-py[cv]==0.9.0
+camelot-py[cv]==0.10.1
     # via
     #   -r requirements.in
     #   django-filingcabinet
@@ -125,6 +125,7 @@ click==7.1.2
     #   click-plugins
     #   click-repl
     #   geocoder
+    #   pdftopng
 constantly==15.1.0
     # via twisted
 coreapi==2.3.3
@@ -411,6 +412,8 @@ geopy==2.1.0
     # via
     #   django-amenities
     #   froide-food
+ghostscript==0.7
+    # via camelot-py
 honcho==1.0.1
     # via -r requirements-dev.in
 html5lib==1.1
@@ -513,6 +516,8 @@ parso==0.8.2
 pbr==5.6.0
     # via -r requirements-dev.in
 pdfminer.six==20201018
+    # via camelot-py
+pdftopng==0.2.3
     # via camelot-py
 pexpect==4.8.0
     # via ipython
@@ -709,6 +714,8 @@ surlex==0.2.0
     # via django-newsletter
 svglib==1.1.0
     # via easy-thumbnails
+tabulate==0.8.9
+    # via camelot-py
 tblib==1.7.0
     # via -r requirements-dev.in
 text-unidecode==1.3

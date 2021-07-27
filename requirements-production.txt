@@ -80,7 +80,7 @@ cairocffi==1.2.0
     #   weasyprint
 cairosvg==2.5.2
     # via weasyprint
-camelot-py[cv]==0.9.0
+camelot-py[cv]==0.10.1
     # via
     #   -r requirements.in
     #   django-filingcabinet
@@ -128,6 +128,7 @@ click==7.1.2
     #   click-plugins
     #   click-repl
     #   geocoder
+    #   pdftopng
     #   uvicorn
 constantly==15.1.0
     # via twisted
@@ -393,6 +394,8 @@ geopy==2.1.0
     # via
     #   django-amenities
     #   froide-food
+ghostscript==0.7
+    # via camelot-py
 gunicorn==20.1.0
     # via -r requirements-production.in
 h11==0.12.0
@@ -471,12 +474,12 @@ openpyxl==3.0.7
     #   -r requirements.in
     #   camelot-py
 pandas==1.2.4
-pdflib==0.3.0
-    # via -r requirements-production.in
     # via
     #   -r requirements.in
     #   camelot-py
 pdfminer.six==20201018
+    # via camelot-py
+pdftopng==0.2.3
     # via camelot-py
 phonenumbers==8.12.25
     # via
@@ -633,6 +636,8 @@ surlex==0.2.0
     # via django-newsletter
 svglib==1.1.0
     # via easy-thumbnails
+tabulate==0.8.9
+    # via camelot-py
 text-unidecode==1.3
     # via python-slugify
 tinycss2==1.1.0
