@@ -4,11 +4,6 @@
 
 {% block object-tools-items %}
   <li>
-    <a href="{% url 'admin:fds_donation-donation-show_pivot' %}?{{ request.META.QUERY_STRING }}">
-      {% trans "Pivot Data" %}
-    </a>
-  </li>
-  <li>
     <a href="{% url 'admin:fds_donation-donation-export_csv' %}?{{ request.META.QUERY_STRING }}">
       {% trans "Export CSV" %}
     </a>

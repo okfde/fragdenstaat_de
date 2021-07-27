@@ -29,7 +29,6 @@ const ENTRY = {
   messageredaction: 'froide/frontend/javascript/messageredaction.js',
   moderation: 'froide/frontend/javascript/moderation.js',
   payment: 'froide_payment/frontend/javascript/payment.ts',
-  pivot: './frontend/javascript/pivot.js',
   publicbody: 'froide/frontend/javascript/publicbody.js',
   publicbodyupload: 'froide/frontend/javascript/publicbodyupload.js',
   fileuploader: 'froide/frontend/javascript/fileuploader.js',

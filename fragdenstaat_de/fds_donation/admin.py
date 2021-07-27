@@ -42,8 +42,7 @@ from .filters import DateRangeFilter, make_rangefilter
 from .services import send_donation_email, send_donation_reminder_email
 from .forms import get_merge_donor_form
 from .utils import (
-    propose_donor_merge, merge_donors,
-    get_donation_pivot_data_and_config
+    propose_donor_merge, merge_donors
 )
 from .export import get_zwbs, ZWBPDFGenerator
 
@@ -500,9 +499,6 @@ class DonationAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            url(r'^pivot/$',
-                self.admin_site.admin_view(self.show_pivot),
-                name='fds_donation-donation-show_pivot'),
             url(r'^export-csv/$',
                 self.admin_site.admin_view(self.export_csv),
                 name='fds_donation-donation-export_csv'),
@@ -531,23 +527,6 @@ class DonationAdmin(admin.ModelAdmin):
 
     def enhance_queryset(self, qs):
         return qs.select_related('donor')
-
-    def show_pivot(self, request):
-        response = self.changelist_view(request)
-        try:
-            queryset = response.context_data['cl'].queryset
-        except (AttributeError, KeyError):
-            return response
-
-        opts = self.model._meta
-        data, config = get_donation_pivot_data_and_config(queryset)
-        ctx = {
-            'app_label': opts.app_label,
-            'opts': opts,
-            'pivot_data': data,
-            'pivot_config': config,
-        }
-        return render(request, "pivot/admin_pivot.html", ctx)
 
     def export_csv(self, request):
         def to_local(date):
