@@ -2,8 +2,8 @@ const path = require('path')
 const fs = require('fs')
 const childProcess = require('child_process')
 
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const TerserPlugin = require("terser-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -66,10 +66,13 @@ const config = {
     ),
     filename: '[name].js',
     chunkFilename: '[name].js',
-    library: ['Froide', 'components', '[name]'],
-    libraryTarget: 'umd'
+    library: {
+      name: ['Froide', 'components', '[name]'],
+      type: "umd"
+    },
+    devtoolModuleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]',
   },
-  devtool: 'inline-source-map', // any "source-map"-like devtool is possible
+  devtool: devMode ? 'inline-source-map' : 'source-map', // any "source-map"-like devtool is possible
   node: false,
   devServer: {
     // contentBase: path.resolve(__dirname, 'fragdenstaat_de/theme'),
@@ -85,8 +88,9 @@ const config = {
     ],
     extensions: ['.js', '.ts', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.runtime.esm.js',
-    }
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    fallback: { "zlib": false }
   },
   module: {
     rules: [
@@ -158,10 +162,11 @@ const config = {
           {
             loader: 'postcss-loader',
             options: {
-              ident: 'postcss',
-              plugins: (loader) => [
-                require('autoprefixer')()
-              ]
+              postcssOptions: {
+                plugins: [
+                  ["autoprefixer"]
+                ]
+              }
             }
           },
           {
@@ -185,26 +190,21 @@ const config = {
       },
       {
         test: /(\.(woff2?|eot|ttf|otf)|font\.svg)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: '../fonts/[name].[ext]',
-          emitFile: true,
-          context: 'fragdenstaat_de/theme/static/js',
-          publicPath: '/static/fonts/'
+        type: 'asset/resource',
+        generator: {
+          filename: '../fonts/[name].[ext]'
         }
       },
       {
         test: /\.(jpg|png|svg)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 8192,
-            name: '../img/[name].[ext]',
-            emitFile: false,
-            context: 'fragdenstaat_de/theme/static/js',
-            publicPath: '/static/img/'
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 4 * 1024
           }
+        },
+        generator: {
+          filename: '../img/[name].[ext]'
         }
       }
     ]
@@ -228,9 +228,9 @@ const config = {
       filename: '../css/[name].css'
       // publicPath: '../../'
     }),
-    new CopyWebpackPlugin([
+    new CopyWebpackPlugin({patterns: [
       {from: 'node_modules/pdfjs-dist/build/pdf.worker.min.js'}
-    ]),
+    ]}),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: `"${process.env.NODE_ENV}"`
@@ -239,24 +239,10 @@ const config = {
     })
   ],
   optimization: {
-    namedModules: true,
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: devMode // set to true if you want JS source maps
-      })
-    ].concat(!devMode ? [
-      new OptimizeCssAssetsPlugin({
-        assetNameRegExp: /\.css$/,
-        cssProcessorOptions: {
-          discardComments: { removeAll: true },
-          mergeIdents: false,
-          reduceIdents: false,
-          zindex: false
-        }
-      })
-    ] : []),
+    minimizer: !devMode ? [
+      new TerserPlugin(),
+      new CssMinimizerPlugin()
+    ] : [],
     splitChunks: !devMode ? {
       cacheGroups: {
         pdfjs: {
@@ -274,8 +260,7 @@ const config = {
           minSize: 0
         }
       }
-    } : undefined,
-    occurrenceOrder: true
+    } : undefined
   }
 }
 
