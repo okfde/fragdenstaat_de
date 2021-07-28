@@ -15,3 +15,4 @@ django-coverage-plugin
 tblib
 honcho
 ipdb
+pywatchman
