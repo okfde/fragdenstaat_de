@@ -629,6 +629,8 @@ pytz==2021.1
     #   icalendar
     #   pandas
     #   twilio
+pywatchman==1.4.1
+    # via -r requirements-dev.in
 ratelim==0.1.6
     # via geocoder
 reportlab==3.5.67
