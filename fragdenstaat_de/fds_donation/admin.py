@@ -6,7 +6,6 @@ from django.db.models import (
     Q, Max, Sum, Avg, Count, Value, Aggregate, F
 )
 from django.db.models.functions import Concat
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django import forms
 from django.contrib import admin, messages
