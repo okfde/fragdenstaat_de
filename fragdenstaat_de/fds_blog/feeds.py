@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.core.cache import cache
 from django.conf import settings
 
-from froide.foirequest.feeds import clean
+from froide.helper.feed_utils import clean_feed_output
 from froide.helper.text_utils import convert_html_to_text
 
 from .models import Article
@@ -55,11 +55,13 @@ class BaseFeed(Feed):
         """
         return Article.published.all()
 
+    @clean_feed_output
     def item_title(self, item):
-        return clean(item.title)
+        return item.title
 
+    @clean_feed_output
     def item_description(self, obj):
-        return clean(obj.get_full_html_content())
+        return obj.get_full_html_content()
 
 
 class LatestArticlesFeed(BaseFeed):
@@ -99,5 +101,6 @@ class LatestArticlesFeed(BaseFeed):
 class LatestArticlesTeaserFeed(LatestArticlesFeed):
     cache_namespace = 'feed-teaser'
 
+    @clean_feed_output
     def item_description(self, obj):
-        return clean(convert_html_to_text(obj.description))
+        return convert_html_to_text(obj.description)
