@@ -10,15 +10,11 @@ import fragdenstaat_de.fds_mailing.models
 
 
 class Migration(migrations.Migration):
-
-    replaces = [('fds_mailing', '0001_initial'), ('fds_mailing', '0002_emailactioncmsplugin'), ('fds_mailing', '0003_auto_20191029_1734'), ('fds_mailing', '0004_emailsectioncmsplugin_emailstorycmsplugin'), ('fds_mailing', '0005_auto_20191105_1517'), ('fds_mailing', '0006_emailheadercmsplugin_color'), ('fds_mailing', '0007_auto_20191216_1321'), ('fds_mailing', '0008_auto_20200203_1728'), ('fds_mailing', '0009_auto_20200203_1728'), ('fds_mailing', '0010_auto_20200515_1242'), ('fds_mailing', '0011_auto_20210212_1326'), ('fds_mailing', '0012_auto_20210526_2155'), ('fds_mailing', '0013_auto_20210526_2232')]
-
     initial = True
 
     dependencies = [
         ('cms', '0022_auto_20180620_1551'),
         ('fds_newsletter', '0001_squashed_0010_auto_20210621_1022'),
-        ('newsletter', '0005_auto_20190918_0122'),
         ('filer', '__first__'),
         ('fds_donation', '0017_auto_20200131_1050'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
