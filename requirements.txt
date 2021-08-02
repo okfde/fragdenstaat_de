@@ -74,10 +74,6 @@ cairocffi==1.2.0
     #   weasyprint
 cairosvg==2.5.2
     # via weasyprint
-camelot-py[cv]==0.10.1
-    # via
-    #   -r requirements.in
-    #   django-filingcabinet
 celery==5.1.1
     # via
     #   -r requirements.in
