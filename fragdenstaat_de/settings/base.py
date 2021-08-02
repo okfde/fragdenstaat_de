@@ -47,12 +47,8 @@ class FragDenStaatBase(German, Base):
             'adminsortable2',
             'parler',
 
-            # Newsletter and dependencies
-            # 'sorl.thumbnail',
             # Customisations
             'fragdenstaat_de.fds_newsletter',
-
-            'newsletter',
 
             'fragdenstaat_de.fds_cms.apps.FdsCmsConfig',
             'fragdenstaat_de.fds_donation.apps.FdsDonationConfig',
