@@ -477,6 +477,8 @@ pandas==1.2.4
     # via
     #   -r requirements.in
     #   camelot-py
+pdflib==0.3.0
+    # via -r requirements-production.in
 pdfminer.six==20201018
     # via camelot-py
 pdftopng==0.2.3
