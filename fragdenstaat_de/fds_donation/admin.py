@@ -429,20 +429,22 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 class DonationChangeList(ChangeList):
     def get_results(self, *args, **kwargs):
         ret = super().get_results(*args, **kwargs)
-        q = self.queryset.aggregate(
+        agg = self.queryset.aggregate(
             amount_sum=Sum('amount'),
             amount_avg=Avg('amount'),
             amount_received_sum=Sum('amount_received'),
             donor_count=Count('donor_id', distinct=True),
             amount_median=median('amount'),
-            recurring_donor_amount=Sum('donor__recurring_amount')
         )
-        self.amount_sum = q['amount_sum']
-        self.amount_avg = round(q['amount_avg']) if q['amount_avg'] is not None else '-'
-        self.amount_median = round(q['amount_median']) if q['amount_median'] is not None else '-'
-        self.amount_received_sum = q['amount_received_sum']
-        self.donor_count = q['donor_count']
-        self.recurring_donor_amount = q['recurring_donor_amount']
+        donor_agg = Donor.objects.filter(donations__in=self.queryset).distinct().aggregate(
+            recurring_donor_amount=Sum('recurring_amount')
+        )
+        self.amount_sum = agg['amount_sum']
+        self.amount_avg = round(agg['amount_avg']) if agg['amount_avg'] is not None else '-'
+        self.amount_median = round(agg['amount_median']) if agg['amount_median'] is not None else '-'
+        self.amount_received_sum = agg['amount_received_sum']
+        self.donor_count = agg['donor_count']
+        self.recurring_donor_amount = donor_agg['recurring_donor_amount']
 
         self.DONATION_PROJECTS = DONATION_PROJECTS
         return ret
