@@ -5,10 +5,11 @@
 {% load menu_tags %}
 
 {% block body %}
+  {% page_url 'help' as help_url %}
   <div class="app">
     <nav class="navbar navbar-expand-sm navbar-dark navbar-help">
       <div class="container">
-        <a class="navbar-brand" href="{% page_url 'help' %}">
+        <a class="navbar-brand" href="{{ help_url }}">
           <span class="d-none d-sm-inline">{% translate "Support for FragDenStaat and FOI" %}</span>
           <span class="d-sm-none">{% translate "Support area" %}</span>
         </a>
@@ -39,7 +40,7 @@
       <div class="container">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="{% page_url 'help' %}">{% translate "Support" %}</a>
+            <a href="{{ help_url }}">{% translate "Support" %}</a>
           </li>
           {% show_breadcrumb 2 "cms/breadcrumbs.html" %}
           {% block extra_breadcrumbs %}{% endblock %}
@@ -54,9 +55,17 @@
           {% endblock %}
         </div>
         <nav class="col-md-4 order-md-first mb-3 mt-3">
-          <h5>{% translate "Support topics" %}</h5>
+          <h5>
+            <a href="{{ help_url }}">
+              {% translate "Support topics" %}
+            </a>
+          </h5>
           <ul class="list-unstyled">
-            {% show_menu_below_id "help" 0 100 0 2 %}
+            {% if help_url == request.path %}
+              {% show_menu_below_id "help" 0 0 0 2 %}
+            {% else %}
+              {% show_menu_below_id "help" 0 100 0 2 %}
+            {% endif %}
           </ul>
         </nav>
       </div>
