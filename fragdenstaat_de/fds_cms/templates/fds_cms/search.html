@@ -27,7 +27,7 @@
   </div>
 </form>
 
-{% if object_list %}
+{% if object_list and form.q.value %}
 <p>
   {% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}
 </p>
