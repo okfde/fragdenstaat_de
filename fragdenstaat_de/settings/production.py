@@ -129,6 +129,7 @@ class FragDenStaat(FragDenStaatBase):
     # FOI_EMAIL_ACCOUNT_NAME
     # FOI_EMAIL_ACCOUNT_PASSWORD
     FOI_EMAIL_DOMAIN = ['fragdenstaat.de', 'echtemail.de']
+    FOI_MAIL_SERVER_HOST = 'mail.fragdenstaat.de'
     FOI_EMAIL_FIXED_FROM_ADDRESS = False
     FOI_EMAIL_FUNC = None
     # Values from env
