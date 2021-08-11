@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-11 14:40+0200\n"
-"PO-Revision-Date: 2021-08-11 14:41+0200\n"
+"POT-Creation-Date: 2021-08-11 15:20+0200\n"
+"PO-Revision-Date: 2021-08-11 15:21+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -326,8 +326,12 @@ msgid "Style"
 msgstr ""
 
 #: fragdenstaat_de/fds_cms/templates/cms/help_base.html:13
-msgid "Support area: FragDenStaat and FOI"
-msgstr "Hilfebereich: FragDenStaat und IFG"
+msgid ""
+"Support area: FragDenStaat and <abbr title=\"Freedom of Information\">FOI</"
+"abbr>"
+msgstr ""
+"Hilfebereich: FragDenStaat und <abbr title=\"Informationsfreiheitsgesetz"
+"\">IFG</abbr>"
 
 #: fragdenstaat_de/fds_cms/templates/cms/help_base.html:14
 msgid "Support area"
@@ -361,7 +365,8 @@ msgstr "Weiterlesen"
 #. Translators: meta description
 #: fragdenstaat_de/fds_cms/templates/cms/scaffold.html:20
 #, python-format
-msgid "%(site)s helps you to make freedom of information requests to public bodies"
+msgid ""
+"%(site)s helps you to make freedom of information requests to public bodies"
 msgstr ""
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html:15
