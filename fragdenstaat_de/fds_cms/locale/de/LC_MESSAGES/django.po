@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-11 15:20+0200\n"
-"PO-Revision-Date: 2021-08-11 15:21+0200\n"
+"POT-Creation-Date: 2021-08-30 10:09+0200\n"
+"PO-Revision-Date: 2021-08-30 10:10+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -326,6 +326,10 @@ msgid "Style"
 msgstr ""
 
 #: fragdenstaat_de/fds_cms/templates/cms/help_base.html:13
+msgid "Support area: FragDenStaat and Freedom of Information"
+msgstr "Hilfebereich: FragDenStaat und Informationsfreiheit"
+
+#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:14
 msgid ""
 "Support area: FragDenStaat and <abbr title=\"Freedom of Information\">FOI</"
 "abbr>"
@@ -333,24 +337,24 @@ msgstr ""
 "Hilfebereich: FragDenStaat und <abbr title=\"Informationsfreiheitsgesetz"
 "\">IFG</abbr>"
 
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:14
+#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:15
 msgid "Support area"
 msgstr "Hilfebereich"
 
 #. Translators: Search as noun
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:22
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:27
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:33
+#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:23
+#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:28
+#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:34
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html:8
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html:24
 msgid "Search"
 msgstr "Suchen"
 
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:43
+#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:44
 msgid "Support"
 msgstr "Hilfe"
 
-#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:60
+#: fragdenstaat_de/fds_cms/templates/cms/help_base.html:61
 msgid "Topics"
 msgstr "Themen"
 
