@@ -39,7 +39,8 @@ const ENTRY = {
   campaign_map: 'froide_campaign/frontend/javascript/map.js',
   campaign_questionaire: 'froide_campaign/frontend/javascript/questionaire.js',
   campaign_list: 'froide_campaign/frontend/javascript/list.js',
-  lawsuits_table: 'froide_legalaction/frontend/javascript/table.js'
+  lawsuits_table: 'froide_legalaction/frontend/javascript/table.js',
+  vegacharts: './frontend/javascript/vegacharts.js'
 }
 
 const EXCLUDE_CHUNKS = [
