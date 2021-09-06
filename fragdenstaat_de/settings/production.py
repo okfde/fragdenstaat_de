@@ -253,7 +253,7 @@ class FragDenStaat(FragDenStaatBase):
 
 
 class FragDenStaatDebug(FragDenStaat):
-    LOGGING = FragDenStaat.LOGGING
+    LOGGING = dict(FragDenStaat.LOGGING)
     LOGGING['disable_existing_loggers'] = False
     LOGGING['loggers'][''] = {
         'handlers': ['normal'],
