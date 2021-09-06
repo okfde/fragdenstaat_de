@@ -205,6 +205,9 @@ class FragDenStaat(FragDenStaatBase):
         'filters': {
             'require_debug_false': {
                 '()': 'django.utils.log.RequireDebugFalse'
+            },
+            'ignore_501': {
+                '()': 'fragdenstaat_de.theme.utils.Ignore501Errors'
             }
         },
         'root': {
