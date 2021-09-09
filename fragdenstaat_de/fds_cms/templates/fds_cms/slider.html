@@ -4,10 +4,16 @@
   <div class="glide d-flex flex-column justify-content-center col px-0" data-options="{{ object.options }}">
 
     <div class="glide__track" data-glide-el="track">
-      <ul class="glide__slides m-0">
+      <ul class="glide__slides m-0 d-flex">
         {% for plugin in instance.child_plugin_instances %}
           <li class="glide__slide py-sm-3">
-            {% render_plugin plugin %}
+            {% if instance.wrapper_classes %}
+              <div class="{{ instance.wrapper_classes }}">
+                {% render_plugin plugin %}
+              </div>
+            {% else %}
+              {% render_plugin plugin %}
+            {% endif %}
           </li>
         {% endfor %}
       </ul>

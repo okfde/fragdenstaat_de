@@ -1,9 +1,9 @@
 {% load thumbnail %}
 
-<article class="investigation-article mx-auto">
-  <div class="investigation-article__image">
+<article class="w-100 mx-auto">
+  <div>
     {% if article.image %}
-      <a href="{{ article.get_absolute_url }}" class="investigation-article__image-link">
+      <a href="{{ article.get_absolute_url }}">
         {% with picture=article.image %}
         <picture>
           <source
@@ -12,7 +12,7 @@
           <source
             media="(min-width: 768px)"
             srcset="{% thumbnail picture 500x290 crop=smart subject_location=picture.subject_location %}">
-          <img class="investigation-article__image-element" loading="lazy" src="{% spaceless %}
+          <img class="w-100 z-index-10" loading="lazy" src="{% spaceless %}
               {% thumbnail picture 320x185 crop=smart subject_location=picture.subject_location %}
               {% endspaceless %}"
               {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
@@ -22,22 +22,26 @@
       </a>
     {% endif %}
   </div>
-  <div class="investigation-article__content position-relative mx-3 mt-n5 mt-lg-n6 p-3">
+  <div class="bg-white border-gray shadow-gray z-index-20 position-relative mx-3 mt-n5 mt-lg-n6 p-3">
     {% with tags=article.all_tags %}
       {% if tags %}
-        <ul class="investigation-article__taglist list-unstyled d-flex text-blue-600 font-weight-bold mb-1">
+        <ul class="list-unstyled d-flex text-blue-600 font-weight-semibold font-size-sm mb-1">
         {% for tag in tags %}
-          <li class="investigation-article__tag mr-2">#{{ tag.name }}</li>
+          <li class="mr-2">
+            <a href="/blog/tag/{{ tag.slug }}">
+              #{{ tag.name }}
+            </a>
+          </li>
         {% endfor %}
       </ul>
       {% endif %}
     {% endwith %}
     <h3 class="h4 mt-0 mb-1">
-      <a class="investigation-article__link" href="{{ article.get_absolute_url }}">
+      <a class="text-black" href="{{ article.get_absolute_url }}">
         {{ article.title }}
       </a>
     </h3>
-    <div class="investigation-article__date">
+    <div class="text-gray-500 font-weight-bold font-size-sm">
       {{ article.start_publication|date:"DATE_FORMAT" }}
     </div>
   </div>

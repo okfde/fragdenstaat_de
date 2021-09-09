@@ -362,6 +362,7 @@ class SliderCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=255, blank=True)
     extra_classes = models.CharField(max_length=255, blank=True)
     options = models.TextField(blank=True)
+    wrapper_classes = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return self.title
