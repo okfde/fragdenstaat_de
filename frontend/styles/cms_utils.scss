@@ -1,0 +1,93 @@
+/* utilities/small components used in the cms */
+
+/*  
+  Shadows
+*/
+
+.md\:shadow {
+  @include media-breakpoint-up(md) {
+    box-shadow: $box-shadow;
+  }
+}
+
+.md\:shadow-yellow {
+  @include media-breakpoint-up(md) {
+    box-shadow: $box-shadow-yellow;
+  }
+}
+
+.shadow-gray {
+  box-shadow: $box-shadow-gray;
+}
+
+@mixin border($color) {
+  border: 2px solid $color;
+}
+
+.border-blue { @include border($blue-20) }
+.border-gray { @include border($gray-300); }
+.border-yellow { @include border($yellow-200); }
+
+/*
+  Backdrop with 50% height
+*/
+
+@mixin backdrop($color) {
+  position: relative;
+  &::before {
+    background: $color;
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+}
+
+.backdrop-blue { @include backdrop($blue-10); }
+.backdrop-gray { @include backdrop($gray-200); }
+.backdrop-yellow { @include backdrop($yellow-100); }
+
+/*
+  Font utilities
+*/
+
+.font-size-sm { font-size: $font-size-sm; }
+.font-size-lg { font-size: $font-size-lg; }
+.font-weight-semibold { font-weight: 600; }
+
+/*
+  spacing utilities 
+*/
+
+@each $value in (10, 20) {
+  .z-index-#{$value} {
+    z-index: $value !important;
+  }
+}
+
+/* sizing utilities */
+
+@each $value in (4, 6, 8, 16, 20, 24, 32, 36, 48) {
+  .w-#{$value}rem {
+    width: $value * 1rem !important;
+  }
+
+  .w-md-#{$value}rem {
+    @include media-breakpoint-up(md) {
+      width: $value * 1rem !important;
+    }
+  }
+
+  .h-#{$value}rem {
+    height: $value * 1rem !important;
+  }
+
+  .h-md-#{$value}rem {
+    @include media-breakpoint-up(md) {
+      height: $value * 1rem !important;
+    }
+  }
+}
