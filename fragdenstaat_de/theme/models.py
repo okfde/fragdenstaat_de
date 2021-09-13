@@ -79,6 +79,9 @@ registry.register('pre_request_creation', detect_troll_pre_request_creation)
 def inject_status_change(request, **kwargs):
     data = kwargs['data']
     foirequest = data['foirequest']
+    if request.user != foirequest.user:
+        # Only show when request author takes action
+        return
     form = data['form']
     data = form.cleaned_data
     if data['resolution'] in ('successful', 'partially_successful'):
