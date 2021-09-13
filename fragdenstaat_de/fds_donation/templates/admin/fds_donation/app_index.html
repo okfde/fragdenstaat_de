@@ -1,0 +1,13 @@
+{% extends "admin/app_index.html" %}
+{% load i18n %}
+
+{% load donation_tags %}
+
+{% block content %}
+
+
+{% donor_type_counts %}
+
+
+{{ block.super }}
+{% endblock %}

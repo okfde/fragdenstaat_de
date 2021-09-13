@@ -1,6 +1,8 @@
 {% extends "admin/change_list.html" %}
 
 {% load i18n %}
+{% load donation_tags %}
+
 
 {% block object-tools-items %}
   <li>
@@ -21,6 +23,10 @@
   <br/>Anzahl Spender: {{ cl.donor_count }}
   <br/>Wiederkehrend Monatssumme der Spendenden: {{ cl.recurring_donor_amount }}&nbsp;EUR
 </p>
+
+{% donations_by_month %}
+
+
 {{ block.super }}
 {% endblock %}
 

@@ -1,0 +1,39 @@
+{% load static %}
+
+<div  class="vega-chart" style="width: 100%; max-width: 100%; overflow: scroll;">
+  <div data-vegachart="donation-chart"></div>
+</div>
+
+<script id="donation-chart" type="application/json">
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {},
+  "mark": "bar",
+  "encoding": {
+      "x": {
+          "field": "month",
+          "type": "temporal",
+          "title": "Month of the year"
+      },
+      "y": {
+          "field": "amount_by_month",
+          "title": "Donations",
+          "type": "quantitative"
+      },
+      "color": {
+        "field": "recurring",
+        "type": "nominal",
+        "scale": {
+          "domain": ["true", "false"],
+          "range": ["#e7ba52", "#9467bd"]
+        },
+        "title": "Recurring"
+      }
+  }
+}
+</script>
+
+{{ chart_data|json_script:"donation-chart_data" }}
+
+
+<script src="{% static 'js/vegacharts.js' %}" defer async></script>
