@@ -65,7 +65,7 @@ class ArticleDocument(Document):
         html = obj.get_html_content()
         return ' '.join([
             obj.title,
-            obj.description,
+            strip_tags(obj.description),
             strip_tags(html)
             ] + [
                 o.title for o in obj.categories.all()
