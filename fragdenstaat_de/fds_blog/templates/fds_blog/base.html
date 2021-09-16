@@ -38,7 +38,11 @@
 
           <form class="form-inline ml-2 d-none d-md-inline" role="search" method="get" action="{% url 'blog:article-search' %}">
             <div class="input-group d-flex d-md-none d-lg-flex">
-              <input class="form-control" type="text" name="q" placeholder="{% trans 'Search' %}" aria-label="{% trans 'Search' %}">
+              {% if form %}
+                {{ form.q }}
+              {% else %}
+                <input class="form-control" type="text" name="q" placeholder="{% trans 'Search' %}" aria-label="{% trans 'Search' %}">
+              {% endif %}
               <div class="input-group-append">
                 <button class="btn btn-outline-light" type="submit">
                   <i class="fa fa-search" aria-hidden="true"></i>
