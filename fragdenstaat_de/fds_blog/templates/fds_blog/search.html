@@ -1,17 +1,67 @@
-{% extends 'helper/search/search_base.html' %}
+{% extends "fds_blog/base.html" %}
 
-{% block search_title %}
-  Blog-Artikel
-{% endblock %}
+{% load i18n %}
 
+{% block title %}Artikelsuche – FragDenStaat{% endblock %}
 
-{% block search_form_filters %}
-  <div class="row">
-    <div class="col-md-6">
-      {{ form.category }}
-    </div>
-    <div class="col-md-6">
-      {{ form.author }}
+{% block content_blog %}
+
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-md-9">
+      <h2>
+        Artikel durchsuchen
+      </h2>
+      <form class="mb-3" role="search" method="get" action=".">
+        <div class="input-group mb-3">
+          {% if form %}
+            {{ form.q }}
+          {% else %}
+            <input class="form-control" type="text" name="q" placeholder="{% translate 'Search' %}" aria-label="{% translate 'Search' %}">
+          {% endif %}
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              {% translate "Search" %}
+            </button>
+          </div>
+        </div>
+        {{ form.category }}
+      </form>
+
+      {% if object_list and form.q.value %}
+      <p>
+        {% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}
+      </p>
+      <ol class="list-unstyled">
+        {% for object in object_list %}
+          <li>
+            <h5 class="mt-0 mb-1">
+              <a href="{{ object.get_absolute_url }}">
+                {{ object.title }}
+              </a>
+            </h5>
+            {% if object.image %}
+              <a href="{{ object.get_absolute_url }}">{% include "fds_blog/includes/blog_picture_small.html" with picture=object.image %}</a>
+            {% endif %}
+            {% if object.query_highlight %}
+              <p class="search-highlight">
+                {{ object.query_highlight }}
+              </p>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+      {% elif form.q.value %}
+      <p>
+        {% translate "No results found." %}
+      </p>
+      {% else %}
+      <p>
+        {% translate "Please enter a search term." %}
+      </p>
+      {% endif %}
     </div>
   </div>
+</div>
 {% endblock %}
