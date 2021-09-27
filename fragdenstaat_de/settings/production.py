@@ -276,5 +276,6 @@ sentry_logging = LoggingIntegration(
 sentry_sdk.init(
     dsn=env('DJANGO_SENTRY_DSN'),
     release=env('RELEASE_VERSION'),
-    integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()]
+    integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()],
+    traces_sample_rate=0.2
 )
