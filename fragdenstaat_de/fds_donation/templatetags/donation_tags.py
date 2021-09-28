@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta
 
-from ..models import Donor, Donation
+from ..models import Donor
 
 
 register = template.Library()
@@ -36,14 +36,26 @@ def donor_type_counts(context):
 
 @register.inclusion_tag('fds_donation/stats/donation_chart.html', takes_context=True)
 def donations_by_month(context):
-    donations_by_month = Donation.objects.order_by().filter(
-        received_timestamp__isnull=False
-    ).annotate(
-        month=TruncMonth('timestamp')
-    ).values('month', 'recurring').annotate(
-        amount_by_month=Sum('amount')
-    ).order_by('month', 'recurring')
+    queryset = context['cl'].queryset
+    donations = list(
+        queryset.order_by().filter(
+            received_timestamp__isnull=False
+        ).annotate(
+            month=TruncMonth('timestamp')
+        ).values('month', 'recurring').annotate(
+            amount_by_month=Sum('amount')
+        ).order_by('month', 'recurring')
+    )
+    by_month = {(x['month'].isoformat(), x['recurring']): x for x in donations}
+    prev_year = relativedelta(years=1)
+    # import ipdb ; ipdb.set_trace()
+    for month_data in donations:
+        key = ((month_data['month'] - prev_year).isoformat(), month_data['recurring'])
+        if key in by_month:
+            month_data['previous_year'] = by_month[key]['amount_by_month']
+        else:
+            month_data['previous_year'] = None
 
     return {
-        'chart_data': list(donations_by_month)
+        'chart_data': donations
     }

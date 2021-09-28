@@ -7,10 +7,60 @@
 <script id="donation-chart" type="application/json">
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "data": {},
+  "data": {
+    "format": {
+      "parse": {"month": "date"}
+    }
+  },
+  "transform": [
+    {
+      "joinaggregate": [{
+        "op": "sum",
+        "field": "amount_by_month",
+        "as": "total_by_month"
+      }
+      ],
+      "groupby": ["month"]
+    },
+    {
+      "joinaggregate": [{
+        "op": "sum",
+        "field": "prev_year",
+        "as": "total_prev_year"
+      }],
+      "groupby": ["month"]
+    },
+    {
+      "calculate": "format(datum.amount_by_month/datum.total_by_month, '.0%')",
+      "as": "percentage_fmt"
+    },
+    {
+      "calculate": "format(datum.amount_by_month, '$,.2f')",
+      "as": "amount_fmt"
+    },
+    {
+      "calculate": "format(datum.total_by_month, '$,.2f')",
+      "as": "total_fmt"
+    },
+    {
+      "calculate": "format(datum.previous_year, '$,.2f')",
+      "as": "previous_year_fmt"
+    },
+    {
+      "calculate": "format((datum.amount_by_month - datum.previous_year) / datum.previous_year, '.0%')",
+      "as": "previous_year_percentage"
+    },
+    {
+      "calculate": "format(datum.total_prev_year, '$,.2f')",
+      "as": "previous_year_total_fmt"
+    },
+    {
+      "calculate": "format((datum.total_by_month - datum.total_prev_year) / datum.total_prev_year, '.0%')",
+      "as": "previous_year_total_percentage"
+    }
+  ],
   "mark": {
-    "type": "bar",
-    "tooltip": true
+    "type": "bar"
   },
   "encoding": {
       "x": {
@@ -23,6 +73,16 @@
           "title": "Donations",
           "type": "quantitative"
       },
+      "tooltip": [
+        {"field": "recurring", "title": "Dauerspende"},
+        {"field": "amount_fmt", "title": "Betrag"},
+        {"field": "total_fmt", "title": "Gesamtbetrag"},
+        {"field": "percentage_fmt", "title": "Anteil"},
+        {"field": "previous_year_fmt", "title": "Vorjahresmonat"},
+        {"field": "previous_year_percentage", "title": "Vergleich zum Vorjahresmonat"},
+        {"field": "previous_year_total_fmt", "title": "Gesamtbetrag Vorjahresmonat"},
+        {"field": "previous_year_percentage", "title": "Wachstum gesamt"}
+      ],
       "color": {
         "field": "recurring",
         "type": "nominal",
