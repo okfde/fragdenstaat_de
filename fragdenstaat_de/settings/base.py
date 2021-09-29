@@ -520,7 +520,7 @@ class FragDenStaatBase(German, Base):
                     'noreply-bscw@itzbund.de'  # Hide BSCW.bund.de auto messages
                 )
             ],
-            recipient_blocklist_regex=rec(r'.*\.de-mail\.de$|z@bundesnachrichtendienst.de|.*\.local$'),
+            recipient_blocklist_regex=rec(r'.*\.de-mail\.de$|z@bundesnachrichtendienst.de|empfangsbestaetigung@bahn.de|.*\.local$'),
             content_urls={
                 'terms': '/nutzungsbedingungen/',
                 'privacy': '/datenschutzerklaerung/',
