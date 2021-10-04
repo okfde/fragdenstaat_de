@@ -27,28 +27,20 @@
     }
   }
 
-  // TODO: refactor pixel and odd percentage values
   &__line {
     position: absolute;
-    top: 0;
-    left: 19px;
+    top: 1.5rem;
+    left: 1.5rem;
     width: 1px;
     height: 95%;
     z-index: 5;
     border-left: 1px dashed $gray-500;
 
     @include media-breakpoint-up(md) {
-      top: 18px;
-      left: 19px;
-      width: 100.5%;
+      width: 100%;
       height: 1px;
       border-left: 0;
       border-bottom: 1px dashed $gray-500;
-    }
-
-    @include media-breakpoint-up(lg) {
-      width: 101.3%;
-      top: 22px;
     }
   }
 }
@@ -75,8 +67,8 @@
     align-self: flex-start;
     justify-content: center;
     align-items: center;
-    width: 38px;
-    height: 38px;
+    width: 3rem;
+    height: 3rem;
     border: 1px solid $blue-30;
     border-radius: 50%;
     font-size: $font-size-base * 1.125;
@@ -90,25 +82,19 @@
     flex-direction: column;
     &:last-child { background-color: transparent; }
     &__text {
-      margin-left: 19px; // half of number circle
+      margin-left: 1.5rem; // half of number circle
     }
     &__number {
-      width: 38px;
-      height: 38px;
+      width: 3rem;
+      height: 3rem;
       margin-bottom: $spacer;
-      margin-right: 0;
     }
   }
 
   @include media-breakpoint-up(lg) {
     &__text {
       font-size: inherit;
-      line-height: inherit;
-      margin-left: 22px; // half of number circle
-    }
-    &__number {
-      width: 44px;
-      height: 44px;
+      line-height: inherit; 
     }
   }
 }
@@ -181,14 +167,18 @@
 
   &__check-icon {
     display: none;
+
+    img {
+      width: 2rem;
+    }
   }
 
   @include media-breakpoint-up(sm) {
     &__check-icon {
       display: block;
       position: absolute;
-      top: -18px;
-      right: -19px;
+      top: -1rem;
+      right: -1rem;
     }
   }
 }
@@ -199,17 +189,16 @@
 
 */
 
-.testimonial {
-  width: 300px;
-  
+.testimonial {  
   &__bubble {
     position: relative;
     background-color: white;
     border: 2px solid $blue-20;
     margin-bottom: $spacer * 2;
     @include media-breakpoint-up(md) {
-      box-shadow: 7px 7px 0 transparentize($blue-30, .85);
+      box-shadow: $box-shadow;
     }
+    
     &::before {
       position: absolute;
       top: -16px;
@@ -219,6 +208,7 @@
       background-image: url("data:image/svg+xml, %3Csvg class='testimonial__quote-icon' width='35' height='29' viewBox='0 0 35 29' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.4648 3.13477C13.8278 4.0752 12.5042 4.89372 11.4941 5.59033C10.484 6.25212 9.45654 7.1403 8.41162 8.25488C7.43636 9.2998 6.6875 10.397 6.16504 11.5464C5.64258 12.6958 5.27686 14.1761 5.06787 15.9873H7.57568C9.73519 15.9873 11.4245 16.5272 12.6436 17.6069C13.8975 18.6519 14.5244 20.2018 14.5244 22.2568C14.5244 23.7197 13.9671 25.0955 12.8525 26.3843C11.7728 27.6382 10.2751 28.2651 8.35938 28.2651C5.36393 28.2651 3.22184 27.2899 1.93311 25.3394C0.644369 23.354 0 20.7591 0 17.5547C0 15.2907 0.48763 13.2357 1.46289 11.3896C2.43815 9.50879 3.6224 7.83691 5.01562 6.37402C6.44369 4.8763 7.95882 3.60498 9.56104 2.56006C11.1632 1.51514 12.5042 0.661784 13.584 0L15.4648 3.13477ZM34.7959 3.13477C33.1589 4.0752 31.8353 4.89372 30.8252 5.59033C29.8151 6.25212 28.7876 7.1403 27.7427 8.25488C26.7326 9.33464 25.9663 10.4492 25.4438 11.5986C24.9562 12.7132 24.6079 14.1761 24.3989 15.9873H26.9067C29.0662 15.9873 30.7555 16.5272 31.9746 17.6069C33.2285 18.6519 33.8555 20.2018 33.8555 22.2568C33.8555 23.7197 33.2982 25.0955 32.1836 26.3843C31.1038 27.6382 29.6061 28.2651 27.6904 28.2651C24.695 28.2651 22.5529 27.2899 21.2642 25.3394C19.9754 23.354 19.3311 20.7591 19.3311 17.5547C19.3311 15.2907 19.8187 13.2357 20.7939 11.3896C21.7692 9.50879 22.9535 7.83691 24.3467 6.37402C25.7747 4.8763 27.2899 3.60498 28.8921 2.56006C30.4943 1.51514 31.8353 0.661784 32.915 0L34.7959 3.13477Z' fill='%230034A5'/%3E%3C/svg%3E%0A");
       content: "";
     }
+    
     &::after {
       position: absolute;
       bottom: -25px;
@@ -231,10 +221,11 @@
   }
 
   &__avatar {
-    width: 60px;
-    height: 60px;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
   }
+
   &__author-info {
     font-size: $font-size-sm;
     line-height: $line-height-smaller;
