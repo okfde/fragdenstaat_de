@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db.models import Sum
 
 from django.utils.translation import gettext_lazy as _
@@ -196,7 +198,7 @@ class DonationProgressBarPlugin(CMSPluginBase):
         count = DefaultDonation.objects.filter(
             timestamp__gte=date
         ).aggregate(Sum('amount'))
-        return count.get('amount__sum', 0.0)
+        return count.get('amount__sum', Decimal(0.0))
 
     def get_donation_goal_perc(self, instance, donated_amount):
         donation_goal = instance.donation_goal
@@ -219,12 +221,15 @@ class DonationProgressBarPlugin(CMSPluginBase):
         donated_amount = self.get_donated_amount(instance)
         donated_amount_perc = self.get_donation_goal_perc(instance,
                                                           donated_amount)
-        context['amount'] = self.german_number_display(donated_amount)
+        context['amount'] = donated_amount
+        context['amount_str'] = self.german_number_display(donated_amount)
         context['percentage'] = donated_amount_perc
-        context['donation_goal'] = self.german_number_display(
+        context['donation_goal'] = instance.donation_goal
+        context['donation_goal_str'] = self.german_number_display(
             instance.donation_goal)
         if instance.reached_goal and instance.reached_goal < donated_amount:
-            context['reached_goal'] = self.german_number_display(
+            context['reached_goal'] = instance.reached_goal
+            context['reached_goal_str'] = self.german_number_display(
                 instance.reached_goal)
             context['reached_goal_perc'] = self.get_percentage(
                 instance.reached_goal,
