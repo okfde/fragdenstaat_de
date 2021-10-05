@@ -45,7 +45,6 @@ class FragDenStaatBase(German, Base):
 
             'fragdenstaat_de.fds_blog',
             'adminsortable2',
-            'parler',
 
             # Customisations
             'fragdenstaat_de.fds_newsletter',
