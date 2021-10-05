@@ -2,12 +2,6 @@ import * as vega from 'vega';
 import { expressionInterpreter } from 'vega-interpreter';
 import embed from 'vega-embed';
 
-class CSPVegaView extends vega.View {
-  constructor (runtime, opt) {
-    opt.expr = expressionInterpreter
-    super(runtime, opt);
-  }
-}
 
 const LOCALE = {
   "de": {
@@ -56,8 +50,8 @@ Array.from(document.querySelectorAll('[data-vegachart]')).forEach((el) => {
   spec.width = Math.floor(el.clientWidth * 4/5)
 
   embed(el, spec, {
-    viewClass: CSPVegaView,
     ast: true,
+    expr: expressionInterpreter,
     renderer: 'svg',
     ...extras
   })
