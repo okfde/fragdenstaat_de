@@ -140,7 +140,7 @@ dj-database-url==0.5.0
     # via
     #   -r requirements.in
     #   froide
-django==3.2.7
+django==3.2.8
     # via
     #   -r requirements.in
     #   channels
