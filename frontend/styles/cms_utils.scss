@@ -91,3 +91,15 @@
     }
   }
 }
+
+.min-vw-md-100 {
+  @include media-breakpoint-up(md) {
+    min-width: 100vw;
+  }
+}
+
+.min-vh-md-100 {
+  @include media-breakpoint-up(md) {
+    min-height: 100vh;
+  }
+}
