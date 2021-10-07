@@ -53,6 +53,12 @@ Array.from(document.querySelectorAll('[data-vegachart]')).forEach((el) => {
     ast: true,
     expr: expressionInterpreter,
     renderer: 'svg',
+    actions: {
+      export: true,
+      source: true,
+      compiled: false,
+      editor: false
+    },
     ...extras
   })
 })
