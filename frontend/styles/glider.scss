@@ -139,8 +139,8 @@ $glide-modifier-separator: '--' !default;
     margin-left: auto;
     margin-right: auto;
 
-    @include media-breakpoint-up(xl) {
-      margin-left: $spacer * 2;
+    @include media-breakpoint-up(md) {
+      margin-left: calc(8.3333333333% + 15px);
     }
   }
 
