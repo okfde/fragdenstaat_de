@@ -164,21 +164,16 @@
 
 .slider-card {
   position: relative;
+  padding: 2rem;
 
   &__check-icon {
-    display: none;
+    display: block;
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
 
     img {
       width: 2rem;
-    }
-  }
-
-  @include media-breakpoint-up(sm) {
-    &__check-icon {
-      display: block;
-      position: absolute;
-      top: -1rem;
-      right: -1rem;
     }
   }
 }
