@@ -49,16 +49,13 @@ Array.from(document.querySelectorAll('[data-vegachart]')).forEach((el) => {
   // Slightly smaller than container
   spec.width = Math.floor(el.clientWidth * 4/5)
 
+  const showActions = document.location.href.indexOf('admin') !== -1
+
   embed(el, spec, {
     ast: true,
     expr: expressionInterpreter,
     renderer: 'svg',
-    actions: {
-      export: true,
-      source: true,
-      compiled: false,
-      editor: false
-    },
+    actions: showActions,
     ...extras
   })
 })
