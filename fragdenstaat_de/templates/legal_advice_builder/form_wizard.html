@@ -10,7 +10,9 @@
 
       {% if form %}
         <form method="post" class="clearfix mt-5 border p-3">
-          <div class="mb-3 text-end">Schritt: {{ question.questionaire }}</div>
+          {% if step_count > 1 %}
+            <div class="mb-3 fw-bold border-bottom pb-2">Schritt {{ current_step|add:1}} von {{ step_count }}: {{ question.questionaire }}</div>
+          {% endif %}
           {% csrf_token %}
           {% render_form form horizontal=False %}
           <input class="btn btn-primary btn-lg pull-right" type="submit" value="Weiter" />
