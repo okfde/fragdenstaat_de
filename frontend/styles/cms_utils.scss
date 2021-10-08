@@ -4,6 +4,14 @@
   Shadows
 */
 
+.shadow-sm {
+  box-shadow: $box-shadow-sm;
+}
+
+.shadow-gray {
+  box-shadow: $box-shadow-gray;
+}
+
 .md\:shadow {
   @include media-breakpoint-up(md) {
     box-shadow: $box-shadow;
@@ -14,10 +22,15 @@
   @include media-breakpoint-up(md) {
     box-shadow: $box-shadow-yellow;
   }
-}
+} 
 
-.shadow-gray {
-  box-shadow: $box-shadow-gray;
+.hover-shadow-gray {
+  transition: all 0.15s ease-in-out;
+
+  &:hover {
+    box-shadow: 5px 5px 0 transparentize($gray-300, 0.6);
+    transform: translate(2px, 2px);
+  }
 }
 
 @mixin border($color) {
