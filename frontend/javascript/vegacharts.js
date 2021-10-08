@@ -1,3 +1,5 @@
+import '../styles/vega.scss'
+
 import * as vega from 'vega';
 import { expressionInterpreter } from 'vega-interpreter';
 import embed from 'vega-embed';
@@ -47,8 +49,8 @@ Array.from(document.querySelectorAll('[data-vegachart]')).forEach((el) => {
     }
   }
   // Slightly smaller than container
-  spec.width = Math.floor(el.clientWidth * 4/5)
-
+  spec.width = "container"
+  spec.autosize = "fit"
   const showActions = document.location.href.indexOf('admin') !== -1
 
   embed(el, spec, {

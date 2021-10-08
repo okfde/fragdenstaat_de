@@ -1,13 +1,16 @@
 {% load static %}
 {% load sekizai_tags %}
 
-<div class="vega-chart" style="max-width: 100%; overflow: scroll;">
+<div class="vega-chart">
   <h5>{{ instance.title }}</h5>
   {% if instance.description %}<p>{{ instance.description|linebreaksbr }}</p>{% endif %}
   <div data-vegachart data-vegachartdata="{{ instance.vega_json }}"></div>
 </div>
 
-
 {% addtoblock "js" %}
 <script src="{% static 'js/vegacharts.js' %}" defer async></script>
+{% endaddtoblock %}
+
+{% addtoblock "css" %}
+<link rel="stylesheet" href="{% static 'css/vegacharts.css' %}">
 {% endaddtoblock %}
