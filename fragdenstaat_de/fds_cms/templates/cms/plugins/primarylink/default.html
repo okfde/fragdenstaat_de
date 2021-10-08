@@ -3,7 +3,7 @@
 {% if object.link %}
   <a href="{{ object.link }}" class="text-decoration-none">
 {% endif %}
-  <div class="border-gray shadow-gray bg-white{% if object.link %} hover-shadow-gray{% endif %}">
+  <div class="border-gray md:shadow bg-white{% if object.link %} hover-shadow{% endif %}{% if object.extra_classes %} {{ object.extra_classes }}{% endif %}">
   {% if object.image %}
     <picture>
       <source
