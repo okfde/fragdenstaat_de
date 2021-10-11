@@ -1,5 +1,5 @@
-const elements: NodeListOf<HTMLAnchorElement> = document.querySelectorAll('a.smooth-scroll')
-elements.forEach(element => {
+const anchors: NodeListOf<HTMLAnchorElement> = document.querySelectorAll('a.smooth-scroll')
+anchors.forEach(element => {
   element.addEventListener('click', event => {
     event.preventDefault()
 
