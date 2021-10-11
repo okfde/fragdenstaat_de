@@ -16,6 +16,7 @@ import "./betterplace.ts";
 import "./donation-form.ts";
 import "./top-banner.ts";
 import "./magnifier.ts";
+import "./smooth-scroll.ts"
 import "./misc.ts";
 
 if (document.body.dataset.raven) {
