@@ -116,3 +116,15 @@
     min-height: 100vh;
   }
 }
+
+/* sticky sections */
+
+.sticky-section {
+  min-height: 100vh;
+  @include media-breakpoint-up(md) {
+    position: sticky;
+    top: 0;
+    margin-bottom: 24rem;
+    background: #fff;
+  }
+}
