@@ -22,6 +22,7 @@ from .models import (
     SALUTATION_CHOICES
 )
 from .services import get_or_create_donor
+from .validators import validate_not_too_many_uppercase
 from .widgets import AmountInput, InlineRadioSelect
 from .utils import MERGE_DONOR_FIELDS
 
@@ -346,6 +347,7 @@ class DonorForm(forms.Form):
     first_name = forms.CharField(
         max_length=255,
         label=_('First name'),
+        validators=[validate_not_too_many_uppercase],
         widget=forms.TextInput(attrs={
             'placeholder': _('First name'),
             'class': 'form-control'
@@ -453,7 +455,7 @@ class DonorForm(forms.Form):
         ))
 
 
-class DonationForm(SimpleDonationForm, DonorForm):
+class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
     form_settings = forms.CharField(
         widget=forms.HiddenInput)
     contact = forms.TypedChoiceField(
@@ -486,6 +488,10 @@ class DonationForm(SimpleDonationForm, DonorForm):
             'required': _('You have to decide.')
         },
     )
+
+    SPAM_PROTECTION = {
+        'captcha': 'ip',
+    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

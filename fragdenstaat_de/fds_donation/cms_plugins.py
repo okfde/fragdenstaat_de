@@ -65,6 +65,7 @@ class DonationFormPlugin(CMSPluginBase):
         context['object'] = instance
         context['form'] = instance.make_form(
             user=request.user,
+            request=request,
             reference=request.GET.get('pk_campaign', ''),
             keyword=request.GET.get('pk_keyword',
                                     request.META.get('HTTP_REFERER', '')),

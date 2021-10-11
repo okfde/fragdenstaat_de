@@ -45,6 +45,7 @@ class DonationView(FormView):
         )
         form = form_factory.make_form(
             user=self.request.user,
+            request=self.request,
             action=self.get_form_action(),
             **form_kwargs
         )
