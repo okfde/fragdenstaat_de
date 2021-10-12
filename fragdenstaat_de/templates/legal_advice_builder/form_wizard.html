@@ -6,7 +6,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h3>{{ law_case.title }}</h3>
-      <div>zu: {{ foi_request.title }},</br>an: {{ foi_request.public_body }}</div>
+      <div>zu: <a href="{% url 'foirequest-shortlink' foi_request.id %}" target="_blank">{{ foi_request.title }}</a>,</br>an: {{ foi_request.public_body }}</div>
 
       {% if form %}
         <form method="post" class="clearfix mt-5 border p-3">
