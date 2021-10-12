@@ -9,7 +9,9 @@
 
       <ul class="list-group">
         {% for foirequest in request.user.foirequest_set.all %}
-        <li class="list-group-item"><a href="{% url 'klageautomat-form_wizard' foirequest.id %}">{{ foirequest }}</a>
+        <li class="list-group-item">
+          <a href="{% url 'klageautomat-form_wizard' foirequest.id %}">{{ foirequest }}</a></br>
+          <small>an: {{ foirequest.public_body.name }}</small>
         </li>
         {% endfor %}
     </div>
