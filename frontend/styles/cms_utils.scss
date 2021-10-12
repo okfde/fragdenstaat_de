@@ -121,10 +121,11 @@
 
 .sticky-section {
   min-height: 100vh;
+  
   @include media-breakpoint-up(md) {
     position: sticky;
     top: 0;
-    margin-bottom: 50vh;
+    padding-bottom: 50vh;
     background: #fff;
   }
 }
