@@ -310,7 +310,7 @@ class SVGImagePlugin(CMSPluginBase):
     model = SVGImageCMSPlugin
     module = _("Elements")
     name = _('SVG Image')
-    render_template = 'fds_cms/svg_image.html'
+    render_template = 'fds_cms/svg_embed.html'
     text_enabled = True
     cache = True
 
@@ -321,6 +321,8 @@ class SVGImagePlugin(CMSPluginBase):
 
         context = super().render(context, instance, placeholder)
         context['object'] = instance
+        if instance.svg:
+            context['svg'] = instance.svg.file.read().decode('utf-8')
         return context
 
 
