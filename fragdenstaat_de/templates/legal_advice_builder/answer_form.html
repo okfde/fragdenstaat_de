@@ -17,6 +17,7 @@
         {% csrf_token %}
         {{ form }}
         <div class="mt-3 mb-3 float-right">
+          <a href="{% url 'klageautomat-download-answer' foi_request.id %}" class="btn btn-primary btn-sm">Als PDF herunterladen</a>
           <input class="btn btn-primary btn-sm" type="submit" value="Änderungen speichern" />
         </div>
       </form>
