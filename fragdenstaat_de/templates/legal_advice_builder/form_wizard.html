@@ -2,10 +2,15 @@
 {% load form_helper %}
 
 {% block body %}
-<div class="container mb-5 mt-5" style="min-height: 500px;">
+<div class="container mb-5 mt-5" style="min-height: 1000px;">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h3>{{ law_case.title }}</h3>
+      {% if answer %}
+      <div class="alert alert-info mt-3" role="alert">
+        <i class="fa fa-info" aria-hidden="true"></i> Sie haben den Fragebogen zu dieser Anfrage bereits ausgefüllt. <a  class="alert-link" href="{% url 'klageautomat-edit-answer' foi_request.id %}">Hier</a> können Sie das fertige Dokument editieren.
+      </div>
+      {% endif %}
       <div>zu: <a href="{% url 'foirequest-shortlink' foi_request.id %}" target="_blank">{{ foi_request.title }}</a>,</br>an: {{ foi_request.public_body }}</div>
 
       {% if form %}
@@ -15,7 +20,7 @@
           {% endif %}
           {% csrf_token %}
           {% render_form form horizontal=False %}
-          <input class="btn btn-primary btn-lg pull-right" type="submit" value="Weiter" />
+          <input class="btn btn-primary btn-sm pull-right" type="submit" value="Weiter" />
         </form>
         {% if question.information %}
           <div class="card mt-5">
@@ -39,8 +44,8 @@
         {% if next %}
         <form method="post">
           {% csrf_token %}
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3 mb-3">
-            <button class="btn btn-primary btn-lg">
+          <div class="mt-3 mb-3 float-right">
+            <button class="btn btn-primary btn-sm">
               <input type="hidden" name="next" value="{{ next.id }}" />
               Weiter
             </button>
@@ -59,18 +64,13 @@
       {% endif %}
 
       {% if answer_form %}
-        {% if law_case.extra_help %}
-        <div class="alert alert-success mt-5" role="alert">
-          {{ law_case.extra_help }}
-        </div>
-        {% endif %}
         {{ answer_form.media }}
         <form method="post">
           {% csrf_token %}
           {{ answer_form }}
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3 mb-3">
-            <input class="btn btn-primary btn-lg" type="submit" name="download" value="download" />
-            <input class="btn btn-primary btn-lg" type="submit" value="Änderungen speichern" />
+          <div class="mt-3 mb-3 float-right">
+            <input class="btn btn-primary btn-sm" type="submit" name="download" value="download" />
+            <input class="btn btn-primary btn-sm" type="submit" value="Änderungen speichern" />
           </div>
         </form>
       {% endif %}
