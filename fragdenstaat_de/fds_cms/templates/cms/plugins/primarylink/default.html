@@ -1,28 +1,27 @@
 {% load thumbnail markdown_deux_tags %}
 
 {% if object.link %}
-  <a href="{{ object.link }}" class="teaser">
-{% else %}
-  <div class="teaser">
+  <a href="{{ object.link }}" class="text-decoration-none">
 {% endif %}
+  <div class="border-gray md:shadow bg-white{% if object.link %} hover-shadow{% endif %}{% if object.extra_classes %} {{ object.extra_classes }}{% endif %}">
   {% if object.image %}
     <picture>
       <source
         media="(min-width: 768px)"
         srcset="{% thumbnail object.image 400x250 crop subject_location=object.image.subject_location %}" />
-      <img class="teaser-image" src="{% thumbnail object.image 600x250 crop subject_location=object.image.subject_location %}" alt="{{ object.image.default_alt_text }}" />
+      <img class="w-100" src="{% thumbnail object.image 600x250 crop subject_location=object.image.subject_location %}" alt="{{ object.image.default_alt_text }}" />
     </picture>
   {% endif %}
-  <div class="teaser-inner">
-    <h5 class="teaser-title">
+  
+  <div class="px-3 pt-3">
+    <h5 class="mt-0 mb-3">
       {{ object.title }}
     </h5>
-    <div class="teaser-description">
+    <div class="text-blue-800">
       {{ object.description | markdown }}
     </div>
   </div>
 {% if object.link %}
   </a>
-{% else %}
-  </div>
 {% endif %}
+</div>
