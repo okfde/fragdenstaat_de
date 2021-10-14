@@ -45,7 +45,7 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
 
     def clean_keyword(self):
         # Avoid validation error, just cut off
-        return self.cleaned_data['reference'][:255]
+        return self.cleaned_data['keyword'][:255]
 
     def save(self, newsletter, user):
         email = self.cleaned_data['email']
