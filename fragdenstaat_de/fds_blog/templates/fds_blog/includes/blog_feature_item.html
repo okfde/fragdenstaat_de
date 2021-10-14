@@ -8,12 +8,12 @@
         <picture>
           <source
             media="(min-width: 992px)"
-            srcset="{% thumbnail picture 630x365 crop=smart subject_location=picture.subject_location %}">
+            srcset="{% thumbnail picture 640x370 crop subject_location=picture.subject_location %}">
           <source
             media="(min-width: 768px)"
-            srcset="{% thumbnail picture 500x290 crop=smart subject_location=picture.subject_location %}">
-          <img class="w-100 z-index-10" loading="lazy" src="{% spaceless %}
-              {% thumbnail picture 320x185 crop=smart subject_location=picture.subject_location %}
+            srcset="{% thumbnail picture 480x277 crop subject_location=picture.subject_location %}">
+          <img class="w-100 h-auto z-index-10" loading="lazy" width="320" height="185" src="{% spaceless %}
+              {% thumbnail picture 320x185 crop subject_location=picture.subject_location %}
               {% endspaceless %}"
               {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
               {{ attributes_str }}>
