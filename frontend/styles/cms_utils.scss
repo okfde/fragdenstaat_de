@@ -22,15 +22,6 @@
   @include media-breakpoint-up(md) {
     box-shadow: $box-shadow-yellow;
   }
-} 
-
-.hover-shadow {
-  transition: all 0.15s ease-in-out;
-
-  &:hover {
-    box-shadow: 5px 5px 0 transparentize($blue-30, 0.85);
-    transform: translate(2px, 2px);
-  }
 }
 
 @mixin border($color) {

@@ -1,27 +1,36 @@
 {% load thumbnail markdown_deux_tags %}
 
-{% if object.link %}
-  <a href="{{ object.link }}" class="text-decoration-none">
-{% endif %}
-  <div class="border-gray md:shadow bg-white{% if object.link %} hover-shadow{% endif %}{% if object.extra_classes %} {{ object.extra_classes }}{% endif %}">
+<div>
   {% if object.image %}
-    <picture>
-      <source
-        media="(min-width: 768px)"
-        srcset="{% thumbnail object.image 400x250 crop subject_location=object.image.subject_location %}" />
-      <img class="w-100" src="{% thumbnail object.image 600x250 crop subject_location=object.image.subject_location %}" alt="{{ object.image.default_alt_text }}" />
-    </picture>
+    {% if object.link %}<a href="{{ object.link }}">{% endif %}
+      {% with picture=object.image %}
+        {# TODO: duplicate of blog_feature_item  #}
+        <picture>
+          <source
+            media="(min-width: 992px)"
+            srcset="{% thumbnail picture 640x370 crop subject_location=picture.subject_location %}">
+          <source
+            media="(min-width: 768px)"
+            srcset="{% thumbnail picture 480x277 crop subject_location=picture.subject_location %}">
+          <img class="w-100 h-auto z-index-10" loading="lazy" width="320" height="185" src="{% spaceless %}
+              {% thumbnail picture 320x185 crop subject_location=picture.subject_location %}
+              {% endspaceless %}"
+              {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
+              {{ attributes_str }}>
+        </picture>
+      {% endwith %}
+    {% if object.link %}</a>{% endif %}
   {% endif %}
   
-  <div class="px-3 pt-3">
-    <h5 class="mt-0 mb-3">
-      {{ object.title }}
-    </h5>
-    <div class="text-blue-800">
+  <div class="bg-white border-gray shadow-sm pt-3 px-3 mb-3 {% if object.image %} z-index-20 position-relative mx-3 mt-n4 mb-4{% endif %}{% if object.extra_classes %} {{ object.extra_classes }}{% endif %}">
+    {% if object.link %}<a href="{{ object.link }}" class="text-black">{% endif %}
+      <h4 class="h5 mt-0 mb-1">
+        {{ object.title }}
+      </h4>
+    {% if object.link %}</a>{% endif %}
+
+    <div>
       {{ object.description | markdown }}
     </div>
   </div>
-{% if object.link %}
-  </a>
-{% endif %}
 </div>
