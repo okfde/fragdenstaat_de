@@ -119,13 +119,17 @@
 
 /* sticky sections */
 
-.sticky-section {
-  min-height: 100vh;
-  
-  @include media-breakpoint-up(md) {
+@include media-breakpoint-up(md) {
+  .sticky-section-container {
+    margin-bottom: -50vh;
+  }
+
+  .sticky-section {
     position: sticky;
+    min-height: 100vh;
     top: 0;
     padding-bottom: 50vh;
     background: #fff;
+    box-sizing: content-box;
   }
 }
