@@ -122,6 +122,7 @@ class DocumentPagesCMSPlugin(CMSPlugin):
 class PrimaryLinkCMSPlugin(CMSPlugin):
     TEMPLATES = [
         ('', _('Default template')),
+        ('featured.html', _('Featured template')),
         ('campaign.html', _('Campaign template')),
     ]
 
