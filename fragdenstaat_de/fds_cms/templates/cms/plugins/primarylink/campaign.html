@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load thumbnail %}
 {% load static %}
+{% load markup %}
 
 <div class="slider-card bg-white md:shadow-yellow border-yellow text-blue-700 d-flex flex-column p-4 mx-auto">
   {% if "campaign-card__done" in object.extra_classes %}
@@ -12,8 +13,8 @@
     {% endif %}
   </div>
   <h3 class="h4 mt-3 mb-3">{{ object.title }}</h3>
-  <div class="flex-grow-1 mb-3">
-    {{ object.description }}
+  <div class="flex-grow-1">
+    {{ object.description | markdown }}
   </div>
   {% if object.link %}
   <div>
