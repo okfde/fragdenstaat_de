@@ -1,0 +1,5 @@
+{% load cms_tags %}
+
+{% for plugin in shuffled_children %}
+  {% render_plugin plugin %}
+{% endfor %}
