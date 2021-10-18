@@ -113,14 +113,18 @@
 @include media-breakpoint-up(md) {
   .sticky-section-container {
     margin-bottom: -50vh;
-  }
 
-  .sticky-section {
-    position: sticky;
-    min-height: 100vh;
-    top: 0;
-    padding-bottom: 50vh;
-    background: #fff;
-    box-sizing: content-box;
+    .sticky-section {
+      position: sticky;
+      min-height: 100vh;
+      top: 0;
+      padding-bottom: 50vh;
+      background: #fff;
+      box-sizing: content-box;
+      
+      &:not(:first-child) {
+        box-shadow: 0 -1px 20px transparentize($gray-900, 0.85);
+      }
+    }
   }
 }
