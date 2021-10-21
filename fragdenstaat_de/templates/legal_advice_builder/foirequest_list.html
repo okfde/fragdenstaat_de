@@ -7,15 +7,45 @@
     <div class="col-md-8">
       <h1>Klageautomat testen:</h1>
 
-      <ul class="list-group">
-        {% for foirequest in request.user.foirequest_set.all %}
+      <form action="" method="get" class="row g-3">
+          <div class="col-12">
+            <label for="inputSearch" class="form-label">Suche</label>
+            <input type="text" {% if request.GET.Search %}value="{{ request.GET.Search }}"{% endif %} class="form-control" name="Search" placeholder="Titel der Anfrage">
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gridCheck" name="myRequests" {% if request.GET.myRequests == "on" %}checked{% endif %}>
+              <label class="form-check-label" for="gridCheck">
+                Nur meine Anfragen
+              </label>
+            </div>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary float-right">Go!</button>
+          </div>
+      </form>
+
+      {% if foi_requests %}
+      <ul class="list-group mt-5">
+        {% for foirequest in foi_requests %}
         <li class="list-group-item">
           <a href="{% url 'klageautomat-form_wizard' foirequest.id %}">{{ foirequest }}</a></br>
           <small>an: {{ foirequest.public_body.name }}</small>
         </li>
         {% endfor %}
+      </ul>
+      {% else %}
+        {% if request.GET.Search or request.GET.myRequests == "on" %}
+        <div class="alert alert-info mt-5" role="alert">
+          Nichts gefunden!
+        </div>
+        {% else %}
+        <div class="alert alert-info mt-5" role="alert">
+          Bitte benutze die Suche!
+        </div>
+        {% endif %}
+      {% endif %}
     </div>
-    </ul>
   </div>
 </div>
 {% endblock %}
