@@ -118,21 +118,32 @@ function setupIntervalGroup(intervalGroup: HTMLElement) {
   const oneTimeFields = (Array.from(
     document.querySelectorAll('[data-toggle="nonrecurring"]'),
   ) as HTMLInputElement[]);
+
+  function triggerIntervalChange(input: HTMLInputElement) {
+    const isOneTime = input.value === "0";
+    toggleRadioInput(oneTimePaymentMethods, isOneTime);
+    oneTimeFields.forEach((el) => {
+      if (!isOneTime) {
+        el.value = el.querySelectorAll("option")[0].value;
+        el.disabled = true;
+      } else {
+        el.disabled = false;
+      }
+    });
+  }
+
   const inputs = (Array.from(intervalGroup.querySelectorAll("input")) as HTMLInputElement[]);
   inputs.forEach((input) => {
     input.addEventListener("change", () => {
-      const isOneTime = input.value === "0";
-      toggleRadioInput(oneTimePaymentMethods, isOneTime);
-      oneTimeFields.forEach((el) => {
-        if (!isOneTime) {
-          el.value = el.querySelectorAll("option")[0].value;
-          el.disabled = true;
-        } else {
-          el.disabled = false;
-        }
-      });
+      triggerIntervalChange(input)
     });
   });
+
+  const preChosenIntervalInput = intervalGroup.querySelector("input[checked]") as HTMLInputElement;
+  if (preChosenIntervalInput) {
+    triggerIntervalChange(preChosenIntervalInput)
+  }
+
   const oneTime = document.getElementById("id_interval_0") as HTMLInputElement;
   if (!oneTime || !oneTime.checked) {
     toggleRadioInput(oneTimePaymentMethods, false);
