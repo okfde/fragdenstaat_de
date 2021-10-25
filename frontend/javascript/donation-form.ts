@@ -27,6 +27,7 @@ function setupDonationForm(form: HTMLFormElement) {
   const amountGroup = form.querySelector(".amount-group");
   if (amountGroup !== null) {
     setupAmountGroup(amountGroup);
+    amountChanged(amountGroup.querySelector("input"));
   }
   const radioCollapse = form.querySelectorAll('[data-toggle="radiocollapse"]');
   (Array.from(radioCollapse) as HTMLInputElement[]).forEach(setupRadioCollapse);
@@ -84,7 +85,7 @@ function setupDonationForm(form: HTMLFormElement) {
   }
 }
 
-function amountChanged(amountInput: HTMLInputElement) {
+function amountChanged(amountInput: HTMLInputElement | null) {
   if (!amountInput) { return; }
   const amount = parseFloat(amountInput.value);
   for (const key in fees) {
