@@ -110,6 +110,12 @@
 
 /* sticky sections */
 
+.sticky-section-container {
+  .sticky-section-bullets {
+    display: none;
+  }
+}
+
 @include media-breakpoint-up(md) {
   .sticky-section-container {
     margin-bottom: -50vh;
@@ -124,6 +130,31 @@
       
       &:not(:first-child) {
         box-shadow: 0 -1px 20px transparentize($gray-900, 0.85);
+      }
+    }
+
+    .sticky-section-bullets {
+      display: flex;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 2rem;
+      align-items: center;
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-4rem);
+      z-index: 9;
+
+      .glide__bullets {
+        margin-left: 0;
+        flex-direction: column;
+      }
+
+      .glide__bullet {
+        margin-bottom: 0.25rem;
+      }
+
+      &.visible {
+        transform: translateX(0);
       }
     }
   }
