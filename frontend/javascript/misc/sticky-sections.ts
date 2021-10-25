@@ -9,20 +9,22 @@ stickyContainers.forEach(container => {
 
   const sections = container.querySelectorAll('.sticky-section');
   sections.forEach((section, i) => {
+    const firstChild = section.firstElementChild as HTMLElement;
+    if (!firstChild) return
+
     const bullet = document.createElement('button')
     bullet.classList.add('glide__bullet')
     if (i === 0) bullet.classList.add('glide__bullet--active')
 
     bullet.addEventListener('click', () => {
-      const { top } = section.getBoundingClientRect()
+      const top = container.offsetHeight / 3 * i + container.offsetTop;
       window.scrollTo({ top, behavior: 'smooth' })
+      if (firstChild.id) window.history.pushState(undefined, '', `#${firstChild.id}`)
     })
 
     bullets.appendChild(bullet)
 
-    const ob = new IntersectionObserver(([e]) => {
-      console.log(e)
-
+    new IntersectionObserver(([e]) => {
       Array.from(bullets.children).forEach(el => el.classList.remove('glide__bullet--active'))
 
       if (e.intersectionRatio > 0) {
@@ -33,8 +35,7 @@ stickyContainers.forEach(container => {
       } else {
         bullets.children[i - 1].classList.add('glide__bullet--active')
       }
-    })
-    ob.observe(section)
+    }).observe(firstChild)
   })
 
   bulletContainer.appendChild(bullets)
