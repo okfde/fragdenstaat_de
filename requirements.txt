@@ -12,6 +12,8 @@
     # via
     #   -r requirements.in
     #   froide
+-e git+https://github.com/OpenLegalTech/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
+    # via -r requirements.in
 -e git+https://github.com/okfde/froide.git@main#egg=froide
     # via
     #   -r requirements.in
@@ -66,6 +68,8 @@ babel==2.9.1
     #   prices
 billiard==3.6.4.0
     # via celery
+bleach==4.1.0
+    # via django-legal-advice-builder
 braintree==4.10.0
     # via django-payments
 cairocffi==1.2.0
@@ -159,6 +163,7 @@ django==3.2.8
     #   django-filter
     #   django-formtools
     #   django-leaflet
+    #   django-legal-advice-builder
     #   django-localflavor
     #   django-logentry-admin
     #   django-mptt
@@ -283,10 +288,13 @@ django-taggit-autosuggest==0.3.8
     # via -r requirements.in
 django-timezone-field==4.1.2
     # via django-celery-beat
+django-tinymce==3.3.0
+    # via django-legal-advice-builder
 django-treebeard==4.5.1
     # via
     #   -r requirements.in
     #   django-cms
+    #   django-legal-advice-builder
 djangocms-admin-style==2.0.2
     # via django-cms
 djangocms-attributes-field==2.0.0
@@ -411,6 +419,7 @@ lxml==4.6.3
 markdown==3.3.4
     # via
     #   -r requirements.in
+    #   django-legal-advice-builder
     #   froide
 markdown2==2.4.0
     # via django-markdown-deux
@@ -430,6 +439,8 @@ oauthlib==3.1.1
     # via django-oauth-toolkit
 openpyxl==3.0.7
     # via -r requirements.in
+packaging==21.0
+    # via bleach
 pandas==1.2.4
     # via -r requirements.in
 phonenumbers==8.12.25
@@ -474,6 +485,8 @@ pyjwt==1.7.1
     #   twilio
 pyopenssl==20.0.1
     # via twisted
+pyparsing==3.0.1
+    # via packaging
 pypdf2==1.26.0
     # via
     #   -r requirements.in
@@ -543,6 +556,7 @@ service-identity==21.1.0
 six==1.16.0
     # via
     #   automat
+    #   bleach
     #   click-repl
     #   django-configurations
     #   django-elasticsearch-dsl
@@ -616,9 +630,11 @@ wcwidth==0.2.5
 weasyprint==52.5
     # via
     #   -r requirements.in
+    #   django-legal-advice-builder
     #   froide-fax
 webencodings==0.5.1
     # via
+    #   bleach
     #   cssselect2
     #   html5lib
     #   tinycss2
