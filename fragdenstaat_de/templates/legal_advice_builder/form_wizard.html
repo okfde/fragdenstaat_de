@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load form_helper %}
+
+{% block body %}
+<div class="container mb-5 mt-5" style="min-height: 1000px;">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h3>{{ law_case.title }}</h3>
+      {% if answer %}
+      <div class="alert alert-info mt-3" role="alert">
+        <i class="fa fa-info" aria-hidden="true"></i> Sie haben den Fragebogen zu dieser Anfrage bereits ausgefüllt. <a  class="alert-link" href="{% url 'klageautomat-edit-answer' foi_request.id %}">Hier</a> können Sie das fertige Dokument editieren.
+      </div>
+      {% endif %}
+      <div>zu: <a href="{% url 'foirequest-shortlink' foi_request.id %}" target="_blank">{{ foi_request.title }}</a>,</br>an: {{ foi_request.public_body }}</div>
+
+      {% if form %}
+        <form method="post" class="clearfix mt-5 border p-3">
+          {% if step_count > 1 %}
+            <div class="mb-3 font-weight-bold border-bottom pb-2">Schritt {{ current_step|add:1}} von {{ step_count }}: {{ question.questionaire }}</div>
+          {% endif %}
+          {% csrf_token %}
+          {% render_form form horizontal=False %}
+          <input class="btn btn-primary btn-sm pull-right" type="submit" value="Weiter" />
+        </form>
+        {% if question.information %}
+          <div class="card mt-5">
+            <div class="card-body">
+              {{ question.information }}
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% if success %}
+        <div class="alert alert-success mt-5" role="alert">
+          {% if step_count > 1 %}
+            <div class="mb-3 font-weight-bold pb-2">Schritt {{ current_step|add:1}} von {{ step_count }}: {{ question.questionaire }} <i class="fa fa-check" aria-hidden="true"></i></div>
+          {% endif %}
+          <div>
+            {{ message }}
+          </div>
+        </div>
+
+        {% if next %}
+        <form method="post">
+          {% csrf_token %}
+          <div class="mt-3 mb-3 float-right">
+            <button class="btn btn-primary btn-sm">
+              <input type="hidden" name="next" value="{{ next.id }}" />
+              Weiter
+            </button>
+          </div>
+        </form>
+        {% endif %}
+      {% endif %}
+
+      {% if failure %}
+        <div class="alert alert-danger mt-5" role="alert">
+          {% if step_count > 1 %}
+            <div class="mb-3 font-weight-bold pb-2">Schritt {{ current_step|add:1}} von {{ step_count }}: {{ question.questionaire }} <i class="fa fa-times" aria-hidden="true"></i></div>
+          {% endif %}
+          <div>{{ message }}</div>
+        </div>
+      {% endif %}
+
+      {% if answer_form %}
+        {{ answer_form.media }}
+        <form method="post">
+          {% csrf_token %}
+          {{ answer_form }}
+          <div class="mt-3 mb-3 float-right">
+            <input class="btn btn-primary btn-sm" type="submit" name="download" value="download" />
+            <input class="btn btn-primary btn-sm" type="submit" value="Änderungen speichern" />
+          </div>
+        </form>
+      {% endif %}
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

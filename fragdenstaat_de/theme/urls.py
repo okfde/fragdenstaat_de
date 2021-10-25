@@ -20,7 +20,10 @@ from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
 from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 
-from .views import glyphosat_download, meisterschaften_tippspiel
+from .views import (
+    glyphosat_download,
+    meisterschaften_tippspiel
+)
 
 
 sitemaps['cmspages'] = FdsCMSSitemap
