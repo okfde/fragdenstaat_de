@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
 
 from leaflet.admin import LeafletGeoAdmin
 
@@ -9,15 +11,18 @@ from froide.publicbody.models import PublicBody, ProposedPublicBody
 from froide.publicbody import admin as pb_admin
 
 from froide_campaign.models import InformationObject
-from froide_campaign.admin import (
-    InformationObjectAdmin as OldInformationObjectAdmin
-)
+from froide_campaign.admin import InformationObjectAdmin as OldInformationObjectAdmin
 
 from django_amenities.models import Amenity
 from django_amenities.admin import AmenityAdmin as OldAmenityAdmin
 
 from filer.admin.permissionadmin import PermissionAdmin as BasePermissionAdmin
 from filer.models import FolderPermission
+
+from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
+from fragdenstaat_de.fds_mailing.models import MailingMessage
+from froide_crowdfunding import admin as crowdfunding_admin
+from froide_crowdfunding.models import Contribution
 
 
 class GeoRegionAdmin(georegion_admin.GeoRegionMixin, LeafletGeoAdmin):
@@ -62,3 +67,54 @@ admin.site.register(InformationObject, InformationObjectAdmin)
 
 admin.site.unregister(FolderPermission)
 admin.site.register(FolderPermission, PermissionAdmin)
+
+
+# Monkey patch Crowdfunding contribution admin to support sending mailings
+# to contributors
+class ContributionAdmin(SetupMailingMixin, crowdfunding_admin.ContributionAdmin):
+    actions = crowdfunding_admin.ContributionAdmin.actions + SetupMailingMixin.actions
+
+    def setup_mailing_messages(self, mailing, queryset):
+        queryset = queryset.filter(
+            Q(user__is_active=True) | ~Q(order__user_email="")
+        ).select_related("user", "order")
+
+        already = set()
+        messages = []
+        for contribution in queryset:
+            email = (
+                contribution.order.user_email
+                if contribution.user is None
+                else contribution.user.email
+            )
+            if email in already:
+                continue
+            already.add(email)
+            messages.append(
+                (
+                    contribution.user,
+                    contribution.order.user_email
+                    if contribution.order and not contribution.user
+                    else "",
+                )
+            )
+
+        count = queryset.count()
+        MailingMessage.objects.bulk_create(
+            [
+                MailingMessage(
+                    mailing_id=mailing.id,
+                    user=user,
+                    email=email,
+                )
+                for user, email in messages
+            ]
+        )
+
+        return _(
+            "Prepared mailing to crowdfunding contributors " "with {count} recipients"
+        ).format(count=count)
+
+
+admin.site.unregister(Contribution)
+admin.site.register(Contribution, ContributionAdmin)
