@@ -623,6 +623,11 @@ class FragDenStaatBase(German, Base):
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
     TWILIO_FROM_NUMBER = os.environ.get('TWILIO_FROM_NUMBER', '')
 
+    TELNYX_APP_ID = os.environ.get("TELNYX_APP_ID", "")
+    TELNYX_API_KEY = os.environ.get("TELNYX_API_KEY", "")
+    TELNYX_PUBLIC_KEY = os.environ.get("TELNYX_PUBLIC_KEY", "")
+    TELNYX_FROM_NUMBER = os.environ.get("TELNYX_FROM_NUMBER", "")
+
     SLACK_DEFAULT_CHANNEL = os.environ.get(
         'SLACK_DEFAULT_CHANNEL', 'fragdenstaat-alerts'
     )
