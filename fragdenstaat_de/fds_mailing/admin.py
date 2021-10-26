@@ -135,7 +135,7 @@ class MailingAdmin(admin.ModelAdmin):
             ),
         )
 
-        return qs.select_related('email_template', 'newsletter')
+        return qs.prefetch_related('email_template', 'newsletter')
 
     def save_model(self, request, obj, form, change):
         if not change:
