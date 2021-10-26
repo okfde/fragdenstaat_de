@@ -365,13 +365,14 @@ class FragDenStaatBase(German, Base):
         return os.path.join(super(FragDenStaatBase,
                             self).PROJECT_ROOT, '..', 'data')
 
+    FROIDE_CSRF_MIDDLEWARE = 'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware'
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
         'froide.helper.middleware.XForwardedForMiddleware',
         'django.middleware.locale.LocaleMiddleware',  # needs to be before CommonMiddleware
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
-        'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware',
+        FROIDE_CSRF_MIDDLEWARE,
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -384,7 +385,6 @@ class FragDenStaatBase(German, Base):
         'cms.middleware.toolbar.ToolbarMiddleware',
         'fragdenstaat_de.theme.cms_utils.HostLanguageCookieMiddleware',
     ]
-    FROIDE_CSRF_MIDDLEWARE = 'fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware'
 
     CACHES = {
         'default': {
