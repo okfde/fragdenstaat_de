@@ -96,6 +96,9 @@ class ContributionAdmin(SetupMailingMixin, crowdfunding_admin.ContributionAdmin)
                     contribution.order.user_email
                     if contribution.order and not contribution.user
                     else "",
+                    contribution.order.get_full_name()
+                    if contribution.order and not contribution.user
+                    else "",
                 )
             )
 
@@ -105,9 +108,10 @@ class ContributionAdmin(SetupMailingMixin, crowdfunding_admin.ContributionAdmin)
                 MailingMessage(
                     mailing_id=mailing.id,
                     user=user,
+                    name=name,
                     email=email,
                 )
-                for user, email in messages
+                for user, email, name in messages
             ]
         )
 
