@@ -235,7 +235,7 @@ def import_paypal(csv_file):
     )
     count = 0
     new_count = 0
-    for i, row in df.iterrows():
+    for _, row in df.iterrows():
         is_new = import_paypal_row(row)
         count += 1
         if is_new:

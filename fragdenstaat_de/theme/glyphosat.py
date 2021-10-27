@@ -7,7 +7,9 @@ from froide.foirequest.models import FoiAttachment
 try:
     from glyphosat import convert_images
 except ImportError:
-    convert_images = lambda x: None
+
+    def convert_images(x):
+        return
 
 
 USERNAME_RE = re.compile(r"Ihr Benutzername lautet: ([\w\.-]+@fragdenstaat.de)")

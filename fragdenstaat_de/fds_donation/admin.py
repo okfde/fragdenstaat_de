@@ -1,3 +1,4 @@
+from collections import defaultdict
 from io import BytesIO
 import uuid
 import zipfile
@@ -282,8 +283,6 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     clear_duplicates.short_description = _("Clear duplicate flag on donors")
 
     def detect_duplicates(self, request, queryset):
-        from collections import defaultdict
-
         emails = defaultdict(list)
         full_names = defaultdict(list)
         id_sets = defaultdict(set)
@@ -294,7 +293,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             full_names[obj.get_full_name()].append(obj.id)
 
         for ddict in (emails, full_names):
-            for k, id_list in ddict.items():
+            for id_list in ddict.values():
                 if len(id_list) > 1:
                     id_set = set()
                     for x in id_list:

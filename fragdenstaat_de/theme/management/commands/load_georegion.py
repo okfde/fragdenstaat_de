@@ -48,7 +48,7 @@ class Command(BaseCommand):
         mapping = LayerMapping(GeoRegion, ds, {"geom": "POLYGON"})
         layer = ds[0]
         parent = GeoRegion.objects.get(kind="municipality", name=parent)
-        for i, feature in enumerate(layer):
+        for _, feature in enumerate(layer):
             name = feature[name_col].as_string()
             identifier = feature[ident_col].as_string()[:2]
             kind = "borough"
