@@ -472,6 +472,8 @@ class MailingMessage(models.Model):
         for obj in (self.subscriber, ctx['donor'], ctx['user']):
             if hasattr(obj, 'get_email_context'):
                 ctx.update(obj.get_email_context())
+        if 'name' not in ctx:
+            ctx['name'] = self.name
         return ctx
 
     def finalize(self):
