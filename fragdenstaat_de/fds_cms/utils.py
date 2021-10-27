@@ -1,9 +1,9 @@
-'''
+"""
 Adapted from
 
 https://github.com/divio/aldryn-search/blob/master/aldryn_search/helpers.py
 
-'''
+"""
 
 from django.contrib.auth.models import AnonymousUser
 from django.test import RequestFactory
@@ -14,11 +14,12 @@ from cms.plugin_rendering import ContentRenderer
 
 
 def get_plugin_children(instance):
-    return instance.get_descendants().filter(
-        depth=instance.depth + 1).order_by('position')
+    return (
+        instance.get_descendants().filter(depth=instance.depth + 1).order_by("position")
+    )
 
 
-def get_request(language=None, path='/'):
+def get_request(language=None, path="/"):
     request_factory = RequestFactory()
     request = request_factory.get(path)
     request.session = {}
@@ -39,15 +40,11 @@ def clean_join(separator, iterable):
 
 
 def render_placeholder(context, placeholder, use_cache=False):
-    request = context.get('request')
+    request = context.get("request")
     if request is None:
-        return ''
+        return ""
     renderer = ContentRenderer(request=request)
     content = renderer.render_placeholder(
-        placeholder,
-        context=context,
-        nodelist=None,
-        editable=False,
-        use_cache=use_cache
+        placeholder, context=context, nodelist=None, editable=False, use_cache=use_cache
     )
     return content

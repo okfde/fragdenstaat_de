@@ -4,7 +4,7 @@ from django.db import migrations
 
 
 def move_to_many_subscriptions(apps, schema_editor):
-    Donor = apps.get_model('fds_donation', 'Donor')
+    Donor = apps.get_model("fds_donation", "Donor")
     for donor in Donor.objects.filter(subscription__isnull=False):
         donor.subscriptions.add(donor.subscription)
 
@@ -12,7 +12,7 @@ def move_to_many_subscriptions(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0021_auto_20200528_1201'),
+        ("fds_donation", "0021_auto_20200528_1201"),
     ]
 
     operations = [

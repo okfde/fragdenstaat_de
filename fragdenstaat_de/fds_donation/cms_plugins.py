@@ -10,8 +10,13 @@ from cms.plugin_pool import plugin_pool
 
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
 
-from .models import (Donor, DonationGiftFormCMSPlugin, DefaultDonation,
-                     DonationFormCMSPlugin, DonationProgressBarCMSPlugin)
+from .models import (
+    Donor,
+    DonationGiftFormCMSPlugin,
+    DefaultDonation,
+    DonationFormCMSPlugin,
+    DonationProgressBarCMSPlugin,
+)
 from .forms import DonationGiftForm
 
 
@@ -27,24 +32,22 @@ class DonationGiftFormPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
 
-        context['category'] = instance.category
-        context['next_url'] = instance.next_url
+        context["category"] = instance.category
+        context["next_url"] = instance.next_url
 
-        if not instance.next_url and context.get('request'):
-            context['next_url'] = context['request'].get_full_path()
+        if not instance.next_url and context.get("request"):
+            context["next_url"] = context["request"].get_full_path()
 
         initial = {}
-        if context.get('request') and context['request'].user.is_authenticated:
-            user = context['request'].user
+        if context.get("request") and context["request"].user.is_authenticated:
+            user = context["request"].user
             initial = {
-                'name': user.get_full_name(),
-                'email': user.email,
-                'address': user.address,
+                "name": user.get_full_name(),
+                "email": user.email,
+                "address": user.address,
             }
-        context['form'] = DonationGiftForm(
-            request=context.get('request'),
-            category=instance.category,
-            initial=initial
+        context["form"] = DonationGiftForm(
+            request=context.get("request"), category=instance.category, initial=initial
         )
 
         return context
@@ -61,15 +64,14 @@ class DonationFormPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        request = context['request']
-        context['object'] = instance
-        context['form'] = instance.make_form(
+        request = context["request"]
+        context["object"] = instance
+        context["form"] = instance.make_form(
             user=request.user,
             request=request,
-            reference=request.GET.get('pk_campaign', ''),
-            keyword=request.GET.get('pk_keyword',
-                                    request.META.get('HTTP_REFERER', '')),
-            action=instance.form_action or reverse('fds_donation:donate')
+            reference=request.GET.get("pk_campaign", ""),
+            keyword=request.GET.get("pk_keyword", request.META.get("HTTP_REFERER", "")),
+            action=instance.form_action or reverse("fds_donation:donate"),
         )
         return context
 
@@ -83,18 +85,18 @@ class DonorLogicMixin:
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         context = self.add_to_context(context)
-        context['should_render'] = self.should_render(context)
+        context["should_render"] = self.should_render(context)
         return context
 
     def add_to_context(self, context):
-        if not context.get('donor'):
-            if not context.get('user') and context.get('request'):
-                if context['request'].user.is_authenticated:
-                    context['user'] = context['request'].user
-            if context.get('user') and context['user'].is_authenticated:
-                donors = Donor.objects.filter(user=context['user'])
+        if not context.get("donor"):
+            if not context.get("user") and context.get("request"):
+                if context["request"].user.is_authenticated:
+                    context["user"] = context["request"].user
+            if context.get("user") and context["user"].is_authenticated:
+                donors = Donor.objects.filter(user=context["user"])
                 if donors:
-                    context['donor'] = donors[0]
+                    context["donor"] = donors[0]
         return context
 
     def should_render(self):
@@ -102,14 +104,13 @@ class DonorLogicMixin:
 
     def render_text(self, context, instance):
         from fragdenstaat_de.fds_mailing.utils import render_plugin_text
+
         context = self.add_to_context(context)
 
         if self.should_render(context):
             children = get_plugin_children(instance)
-            return '\n\n'.join(
-                render_plugin_text(context, c) for c in children
-            ).strip()
-        return ''
+            return "\n\n".join(render_plugin_text(context, c) for c in children).strip()
+        return ""
 
 
 @plugin_pool.register_plugin
@@ -117,7 +118,7 @@ class IsDonorPlugin(DonorLogicMixin, CMSPluginBase):
     name = _("Is donor")
 
     def should_render(self, context):
-        return context.get('donor')
+        return context.get("donor")
 
 
 @plugin_pool.register_plugin
@@ -125,7 +126,7 @@ class IsNotDonorPlugin(DonorLogicMixin, CMSPluginBase):
     name = _("Is not donor")
 
     def should_render(self, context):
-        return not context.get('donor')
+        return not context.get("donor")
 
 
 @plugin_pool.register_plugin
@@ -133,7 +134,7 @@ class IsRecurringDonorPlugin(DonorLogicMixin, CMSPluginBase):
     name = _("Is recurring donor")
 
     def should_render(self, context):
-        return context.get('donor') and context['donor'].recurring_amount
+        return context.get("donor") and context["donor"].recurring_amount
 
 
 @plugin_pool.register_plugin
@@ -141,7 +142,7 @@ class IsNotRecurringDonorPlugin(DonorLogicMixin, CMSPluginBase):
     name = _("Is not recurring donor")
 
     def should_render(self, context):
-        return not context.get('donor') or not context['donor'].recurring_amount
+        return not context.get("donor") or not context["donor"].recurring_amount
 
 
 @plugin_pool.register_plugin
@@ -149,7 +150,7 @@ class IsRecentDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is recent donor")
 
     def should_render(self, context):
-        return context.get('donor') and context['donor'].recently_donated
+        return context.get("donor") and context["donor"].recently_donated
 
 
 @plugin_pool.register_plugin
@@ -157,7 +158,7 @@ class IsNotRecentDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is not recent donor")
 
     def should_render(self, context):
-        return not context.get('donor') or not context['donor'].recently_donated
+        return not context.get("donor") or not context["donor"].recently_donated
 
 
 @plugin_pool.register_plugin
@@ -165,7 +166,7 @@ class ConcactAllowedDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is contact allowed donor")
 
     def should_render(self, context):
-        return context.get('donor') and context['donor'].contact_allowed
+        return context.get("donor") and context["donor"].contact_allowed
 
 
 @plugin_pool.register_plugin
@@ -173,7 +174,7 @@ class ConcactNotAllowedDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is contact not allowed donor")
 
     def should_render(self, context):
-        return not context.get('donor') or not context['donor'].contact_allowed
+        return not context.get("donor") or not context["donor"].contact_allowed
 
 
 @plugin_pool.register_plugin
@@ -186,7 +187,7 @@ class DonationProgressBarPlugin(CMSPluginBase):
     render_template = "fds_donation/cms_plugins/donation_progress_bar.html"
 
     def german_number_display(self, number):
-        number = '{0:,}'.format(number)
+        number = "{0:,}".format(number)
         return number.replace(",", "X").replace(".", ",").replace("X", ".")
 
     def get_percentage(self, amount, max):
@@ -196,10 +197,10 @@ class DonationProgressBarPlugin(CMSPluginBase):
 
     def get_donated_amount(self, instance):
         date = instance.start_date
-        count = DefaultDonation.objects.filter(
-            timestamp__gte=date
-        ).aggregate(Sum('amount'))
-        return count.get('amount__sum', Decimal(0.0))
+        count = DefaultDonation.objects.filter(timestamp__gte=date).aggregate(
+            Sum("amount")
+        )
+        return count.get("amount__sum", Decimal(0.0))
 
     def get_donation_goal_perc(self, instance, donated_amount):
         donation_goal = instance.donation_goal
@@ -220,20 +221,21 @@ class DonationProgressBarPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         donated_amount = self.get_donated_amount(instance)
-        donated_amount_perc = self.get_donation_goal_perc(instance,
-                                                          donated_amount)
-        context['amount'] = donated_amount
-        context['amount_str'] = self.german_number_display(donated_amount)
-        context['percentage'] = donated_amount_perc
-        context['donation_goal'] = instance.donation_goal
-        context['donation_goal_str'] = self.german_number_display(
-            instance.donation_goal)
+        donated_amount_perc = self.get_donation_goal_perc(instance, donated_amount)
+        context["amount"] = donated_amount
+        context["amount_str"] = self.german_number_display(donated_amount)
+        context["percentage"] = donated_amount_perc
+        context["donation_goal"] = instance.donation_goal
+        context["donation_goal_str"] = self.german_number_display(
+            instance.donation_goal
+        )
         if instance.reached_goal and instance.reached_goal < donated_amount:
-            context['reached_goal'] = instance.reached_goal
-            context['reached_goal_str'] = self.german_number_display(
-                instance.reached_goal)
-            context['reached_goal_perc'] = self.get_percentage(
-                instance.reached_goal,
-                instance.donation_goal)
+            context["reached_goal"] = instance.reached_goal
+            context["reached_goal_str"] = self.german_number_display(
+                instance.reached_goal
+            )
+            context["reached_goal_perc"] = self.get_percentage(
+                instance.reached_goal, instance.donation_goal
+            )
 
         return context

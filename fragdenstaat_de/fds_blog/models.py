@@ -23,8 +23,10 @@ from fragdenstaat_de.fds_cms.utils import get_request
 
 from . import model_bases as entry
 from .managers import (
-    ArticlePublishedManager, CategoryManager, RelatedPublishedManager,
-    articles_published
+    ArticlePublishedManager,
+    CategoryManager,
+    RelatedPublishedManager,
+    articles_published,
 )
 
 
@@ -39,8 +41,10 @@ class AuthorManager(models.Manager):
 class Author(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
-        null=True, related_name='authorship', blank=True,
-        on_delete=models.SET_NULL
+        null=True,
+        related_name="authorship",
+        blank=True,
+        on_delete=models.SET_NULL,
     )
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
@@ -50,7 +54,7 @@ class Author(models.Model):
     published = RelatedPublishedManager()
 
     class Meta:
-        ordering = ('user__first_name', 'user__last_name', 'first_name', 'last_name')
+        ordering = ("user__first_name", "user__last_name", "first_name", "last_name")
 
     @property
     def email(self):
@@ -79,7 +83,7 @@ class Author(models.Model):
     def get_full_name(self):
         if self.user:
             return self.user.get_full_name()
-        return '%s %s' % (self.first_name, self.last_name)
+        return "%s %s" % (self.first_name, self.last_name)
 
     def get_short_name(self):
         """
@@ -88,7 +92,8 @@ class Author(models.Model):
         user = self.user or self
 
         if len(user.first_name) > 0 and len(user.last_name) > 0:
-            return html.format_html(u"{}.&nbsp;{}",
+            return html.format_html(
+                u"{}.&nbsp;{}",
                 user.first_name[0],
                 user.last_name,
             )
@@ -97,10 +102,10 @@ class Author(models.Model):
 
     def get_absolute_url(self):
         if self.user:
-            return reverse('blog:article-author', kwargs={
-                'username': self.user.username
-            })
-        return ''
+            return reverse(
+                "blog:article-author", kwargs={"username": self.user.username}
+            )
+        return ""
 
     def get_avatar(self):
         if self.user:
@@ -108,20 +113,20 @@ class Author(models.Model):
         return None
 
     def get_username(self):
-        return self.user.get_username() if self.user else 'none'
+        return self.user.get_username() if self.user else "none"
 
 
 class ArticleAuthorship(models.Model):
-    article = models.ForeignKey('Article', on_delete=models.CASCADE)
+    article = models.ForeignKey("Article", on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ('order',)
+        ordering = ("order",)
 
     def __str__(self):
-        return u'%s' % self.author
+        return u"%s" % self.author
 
 
 class OrderedAuthorsEntry(models.Model):
@@ -129,12 +134,14 @@ class OrderedAuthorsEntry(models.Model):
     Abstract model class to add relationship
     between the entries and their authors.
     """
+
     authors = models.ManyToManyField(
         Author,
         through=ArticleAuthorship,
-        related_name='articles',
+        related_name="articles",
         blank=True,
-        verbose_name=_('authors'))
+        verbose_name=_("authors"),
+    )
 
     class Meta:
         abstract = True
@@ -144,14 +151,16 @@ class Category(TranslatableModel):
     """
     Simple model for categorizing entries.
     """
+
     translations = TranslatedFields(
-        title=models.CharField(
-            _('title'), max_length=255),
+        title=models.CharField(_("title"), max_length=255),
         slug=models.SlugField(
-            _('slug'), unique=False, max_length=255,
-            help_text=_("Used to build the category's URL.")),
-        description=models.TextField(
-            _('description'), blank=True)
+            _("slug"),
+            unique=False,
+            max_length=255,
+            help_text=_("Used to build the category's URL."),
+        ),
+        description=models.TextField(_("description"), blank=True),
     )
     order = models.PositiveIntegerField(default=0)
 
@@ -162,9 +171,10 @@ class Category(TranslatableModel):
         """
         Category's meta informations.
         """
-        ordering = ['order']
-        verbose_name = _('category')
-        verbose_name_plural = _('categories')
+
+        ordering = ["order"]
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
 
     def __str__(self):
         return self.title
@@ -180,11 +190,10 @@ class CategoriesEntry(models.Model):
     """
     Abstract model class to categorize the entries.
     """
+
     categories = models.ManyToManyField(
-        Category,
-        related_name='articles',
-        blank=True,
-        verbose_name=_('categories'))
+        Category, related_name="articles", blank=True, verbose_name=_("categories")
+    )
 
     class Meta:
         abstract = True
@@ -198,15 +207,13 @@ class ArticleTag(TagBase):
 
 class TaggedArticle(TaggedItemBase):
     tag = models.ForeignKey(
-        ArticleTag, related_name="articles",
-        on_delete=models.CASCADE)
-    content_object = models.ForeignKey(
-        'Article',
-        on_delete=models.CASCADE)
+        ArticleTag, related_name="articles", on_delete=models.CASCADE
+    )
+    content_object = models.ForeignKey("Article", on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = _('Tagged Article')
-        verbose_name_plural = _('Tagged Articles')
+        verbose_name = _("Tagged Article")
+        verbose_name_plural = _("Tagged Articles")
 
 
 class TagsEntry(models.Model):
@@ -221,16 +228,14 @@ class TagsEntry(models.Model):
 
     @property
     def all_tags(self):
-        if not hasattr(self, '_all_tags'):
+        if not hasattr(self, "_all_tags"):
             self._all_tags = self.tags.all()
         return self._all_tags
 
 
 class LanguageEntry(models.Model):
     language = models.CharField(
-        max_length=5,
-        editable=True, blank=False, null=True,
-        choices=settings.LANGUAGES
+        max_length=5, editable=True, blank=False, null=True, choices=settings.LANGUAGES
     )
     uuid = models.UUIDField(db_index=True, null=True, blank=True)
 
@@ -239,16 +244,19 @@ class LanguageEntry(models.Model):
 
 
 class CMSContentEntry(models.Model):
-    content_placeholder = PlaceholderField('content')
+    content_placeholder = PlaceholderField("content")
 
     class Meta:
         abstract = True
 
 
 class ArticleImageEntry(models.Model):
-    image = FilerImageField(null=True, blank=True,
-            default=None, verbose_name=_("image"),
-            on_delete=models.SET_NULL
+    image = FilerImageField(
+        null=True,
+        blank=True,
+        default=None,
+        verbose_name=_("image"),
+        on_delete=models.SET_NULL,
     )
 
     class Meta:
@@ -256,9 +264,7 @@ class ArticleImageEntry(models.Model):
 
 
 class FeaturedEntry(models.Model):
-    date_featured = models.DateTimeField(
-        _('featured date'), null=True, blank=True
-    )
+    date_featured = models.DateTimeField(_("featured date"), null=True, blank=True)
 
     class Meta:
         abstract = True
@@ -285,32 +291,35 @@ class ArticleManager(models.Manager):
 
 
 class Article(
-        entry.CoreEntry,
-        FeaturedEntry,
-        DetailsEntry,
-        ArticleImageEntry,
-        entry.ContentEntry,
-        CMSContentEntry,
-        entry.RelatedEntry,
-        entry.ExcerptEntry,
-        CategoriesEntry,
-        TagsEntry,
-        OrderedAuthorsEntry,
-        entry.ContentTemplateEntry,
-        entry.DetailTemplateEntry,
-        LanguageEntry):
+    entry.CoreEntry,
+    FeaturedEntry,
+    DetailsEntry,
+    ArticleImageEntry,
+    entry.ContentEntry,
+    CMSContentEntry,
+    entry.RelatedEntry,
+    entry.ExcerptEntry,
+    CategoriesEntry,
+    TagsEntry,
+    OrderedAuthorsEntry,
+    entry.ContentTemplateEntry,
+    entry.DetailTemplateEntry,
+    LanguageEntry,
+):
 
     objects = ArticleManager()
     published = ArticlePublishedManager()
 
     class Meta:
-        verbose_name = _('article')
-        verbose_name_plural = _('articles')
-        ordering = ['-start_publication']
-        get_latest_by = 'start_publication'
-        unique_together = (('slug', 'start_publication'),)
-        index_together = [['slug', 'start_publication'],
-                          ['status', 'start_publication', 'end_publication']]
+        verbose_name = _("article")
+        verbose_name_plural = _("articles")
+        ordering = ["-start_publication"]
+        get_latest_by = "start_publication"
+        unique_together = (("slug", "start_publication"),)
+        index_together = [
+            ["slug", "start_publication"],
+            ["status", "start_publication", "end_publication"],
+        ]
 
     def __str__(self):
         return _('Article "%s"') % self.title
@@ -319,7 +328,7 @@ class Article(
     def description(self):
         return self.teaser or self.excerpt
 
-    def get_html_content(self, request=None, template='fds_blog/content.html'):
+    def get_html_content(self, request=None, template="fds_blog/content.html"):
         if request is None:
             request = get_request(language=self.language)
 
@@ -327,21 +336,16 @@ class Article(
             request=request,
             placeholder=self.content_placeholder,
             template=template,
-            lang=self.language
+            lang=self.language,
         )
-        blog_content_plugins = [
-            p for p in plugins if p.plugin_type == 'BlogContent'
-        ]
+        blog_content_plugins = [p for p in plugins if p.plugin_type == "BlogContent"]
 
-        context = {
-            'plugins': blog_content_plugins,
-            'object': self
-        }
+        context = {"plugins": blog_content_plugins, "object": self}
         return render_to_string(template, context=context, request=request)
 
     def get_full_html_content(self, request=None):
         return self.get_html_content(
-            request=request, template='fds_blog/full_content.html'
+            request=request, template="fds_blog/full_content.html"
         )
 
     def get_absolute_url(self, language=None, nopage=False):
@@ -359,16 +363,16 @@ class Article(
                 translation.activate(language)
 
             publication_date = self.publication_date
-            kwargs = {
-                'slug': self.slug
-            }
+            kwargs = {"slug": self.slug}
             if publication_date is not None:
-                kwargs.update({
-                    'year': publication_date.strftime('%Y'),
-                    'month': publication_date.strftime('%m'),
-                    'day': publication_date.strftime('%d'),
-                })
-            url = reverse('blog:article-detail', kwargs=kwargs)
+                kwargs.update(
+                    {
+                        "year": publication_date.strftime("%Y"),
+                        "month": publication_date.strftime("%m"),
+                        "day": publication_date.strftime("%d"),
+                    }
+                )
+            url = reverse("blog:article-detail", kwargs=kwargs)
         finally:
             if language:
                 translation.activate(cur_language)
@@ -378,19 +382,16 @@ class Article(
         return self.get_absolute_url(nopage=True)
 
     def get_full_url(self):
-        return '%s%s' % (
-            settings.SITE_URL,
-            self.get_absolute_url()
-        )
+        return "%s%s" % (settings.SITE_URL, self.get_absolute_url())
 
     def other_languages(self):
-        if not hasattr(self, '_other_languages'):
+        if not hasattr(self, "_other_languages"):
             if self.uuid is None:
                 self._other_languages = self.__class__.objects.none()
             else:
-                self._other_languages = articles_published(self.__class__.objects
-                                 .filter(uuid=self.uuid)
-                                 .exclude(pk=self.pk))
+                self._other_languages = articles_published(
+                    self.__class__.objects.filter(uuid=self.uuid).exclude(pk=self.pk)
+                )
         return self._other_languages
 
     def get_language_url(self, lang):
@@ -407,18 +408,18 @@ class Article(
         return template
 
     def get_authors(self):
-        if not hasattr(self, '_cached_authors'):
-            self._cached_authors = (Author.objects.filter(
-                articleauthorship__article=self).order_by(
-                'articleauthorship__order'))
+        if not hasattr(self, "_cached_authors"):
+            self._cached_authors = Author.objects.filter(
+                articleauthorship__article=self
+            ).order_by("articleauthorship__order")
         return self._cached_authors
 
 
 TEMPLATES = [
-    ('fds_blog/plugins/latest_articles.html', _('Normal')),
-    ('fds_blog/plugins/featured_articles.html', _('Featured')),
-    ('fds_blog/plugins/simple_articles.html', _('Simple')),
-    ('fds_blog/plugins/slider_articles.html', _('Featured Slider')),
+    ("fds_blog/plugins/latest_articles.html", _("Normal")),
+    ("fds_blog/plugins/featured_articles.html", _("Featured")),
+    ("fds_blog/plugins/simple_articles.html", _("Simple")),
+    ("fds_blog/plugins/slider_articles.html", _("Featured Slider")),
 ]
 
 
@@ -428,33 +429,42 @@ class LatestArticlesPlugin(CMSPlugin):
     """
 
     featured = models.BooleanField(
-        _('featured'),
-        blank=True, null=True,
-        choices=((True, _('Show featured articles only')),
-                 (False, _('Hide featured articles'))))
+        _("featured"),
+        blank=True,
+        null=True,
+        choices=(
+            (True, _("Show featured articles only")),
+            (False, _("Hide featured articles")),
+        ),
+    )
     article_language = models.CharField(
-        _('language'), blank=True, choices=settings.LANGUAGES,
-        default=settings.LANGUAGE_CODE, max_length=5)
+        _("language"),
+        blank=True,
+        choices=settings.LANGUAGES,
+        default=settings.LANGUAGE_CODE,
+        max_length=5,
+    )
     categories = models.ManyToManyField(
-        'Category', verbose_name=_('categories'),
-        blank=True)
-    authors = models.ManyToManyField(
-        'Author', verbose_name=_('authors'),
-        blank=True)
-    tags = models.ManyToManyField(
-        ArticleTag, verbose_name=_('tags'),
-        blank=True)
+        "Category", verbose_name=_("categories"), blank=True
+    )
+    authors = models.ManyToManyField("Author", verbose_name=_("authors"), blank=True)
+    tags = models.ManyToManyField(ArticleTag, verbose_name=_("tags"), blank=True)
 
     number_of_articles = models.PositiveIntegerField(
-        _('number of articles'), default=1,
-        help_text=_('0 means all the articles'))
+        _("number of articles"), default=1, help_text=_("0 means all the articles")
+    )
     offset = models.PositiveIntegerField(
-        _('offset'), default=0,
-        help_text=_('number of articles to skip from top of list'))
+        _("offset"),
+        default=0,
+        help_text=_("number of articles to skip from top of list"),
+    )
     template = models.CharField(
-        _('template'), blank=True,
-        max_length=250, choices=TEMPLATES,
-        help_text=_('template used to display the plugin'))
+        _("template"),
+        blank=True,
+        max_length=250,
+        choices=TEMPLATES,
+        help_text=_("template used to display the plugin"),
+    )
 
     @property
     def render_template(self):
@@ -473,35 +483,41 @@ class LatestArticlesPlugin(CMSPlugin):
         self.categories.set(old_instance.categories.all())
 
     def __str__(self):
-        return _('%s entries') % self.number_of_articles
+        return _("%s entries") % self.number_of_articles
 
     def get_articles(self, request, published_only=True):
-        if (published_only or not request or not getattr(request, 'toolbar', False) or
-                not request.toolbar.edit_mode_active):
+        if (
+            published_only
+            or not request
+            or not getattr(request, "toolbar", False)
+            or not request.toolbar.edit_mode_active
+        ):
             articles = Article.published.all()
         else:
             articles = Article.objects.all()
 
         filters = {}
 
-        filters['sites'] = get_current_site(request)
+        filters["sites"] = get_current_site(request)
         if self.article_language:
-            filters['language'] = self.article_language
+            filters["language"] = self.article_language
         if self.featured is not None:
-            filters['date_featured__isnull'] = not self.featured
-        tag_list = self.tags.all().values_list('id', flat=True)
+            filters["date_featured__isnull"] = not self.featured
+        tag_list = self.tags.all().values_list("id", flat=True)
         if tag_list:
-            filters['tags__in'] = tag_list
-        cat_list = self.categories.all().values_list('id', flat=True)
+            filters["tags__in"] = tag_list
+        cat_list = self.categories.all().values_list("id", flat=True)
         if cat_list:
-            filters['categories__in'] = cat_list
-        author_list = self.authors.all().values_list('id', flat=True)
+            filters["categories__in"] = cat_list
+        author_list = self.authors.all().values_list("id", flat=True)
         if author_list:
-            filters['authors__in'] = author_list
+            filters["authors__in"] = author_list
 
         articles = articles.filter(**filters).distinct()
         articles = articles.prefetch_related(
-            'categories', 'categories__translations',
-            'authors', 'tags',
+            "categories",
+            "categories__translations",
+            "authors",
+            "tags",
         )
-        return articles[self.offset:self.offset + self.number_of_articles]
+        return articles[self.offset : self.offset + self.number_of_articles]

@@ -19,9 +19,7 @@ from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from froide.helper.admin_utils import make_nullfilter
 from froide.helper.widgets import TagAutocompleteWidget
 
-from .models import (
-    Article, Author, Category, ArticleTag, TaggedArticle
-)
+from .models import Article, Author, Category, ArticleTag, TaggedArticle
 from .documents import index_article
 
 
@@ -29,6 +27,7 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
     """
     Base filter for related objects to published articles.
     """
+
     model = None
     lookup_key = None
 
@@ -36,17 +35,24 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
         """
         Return published objects with the number of articles.
         """
-        active_objects = self.model.published.all().annotate(
-            count_articles_published=Count('articles')).order_by(
-            '-count_articles_published', '-pk').prefetch_related('translations')
+        active_objects = (
+            self.model.published.all()
+            .annotate(count_articles_published=Count("articles"))
+            .order_by("-count_articles_published", "-pk")
+            .prefetch_related("translations")
+        )
         for active_object in active_objects:
             yield (
-                str(active_object.pk), ngettext_lazy(
-                    '%(item)s (%(count)i entry)',
-                    '%(item)s (%(count)i articles)',
-                    active_object.count_articles_published) % {
-                    'item': smart_text(active_object),
-                    'count': active_object.count_articles_published}
+                str(active_object.pk),
+                ngettext_lazy(
+                    "%(item)s (%(count)i entry)",
+                    "%(item)s (%(count)i articles)",
+                    active_object.count_articles_published,
+                )
+                % {
+                    "item": smart_text(active_object),
+                    "count": active_object.count_articles_published,
+                },
             )
 
     def queryset(self, request, queryset):
@@ -59,16 +65,19 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
 
 
 class CategoryAdmin(TranslatableAdmin):
-    fields = ('title', 'description', 'slug', 'order',)
-    list_display = ('title',)
-    search_fields = ('translations__title', 'translations__description')
+    fields = (
+        "title",
+        "description",
+        "slug",
+        "order",
+    )
+    list_display = ("title",)
+    search_fields = ("translations__title", "translations__description")
 
     def get_prepopulated_fields(self, request, obj=None):
         # can't use `prepopulated_fields = ..` because it breaks the admin validation
         # for translated fields. This is the official django-parler workaround.
-        return {
-            'slug': ('title',)
-        }
+        return {"slug": ("title",)}
 
 
 class CategoryListFilter(RelatedPublishedFilter):
@@ -76,105 +85,154 @@ class CategoryListFilter(RelatedPublishedFilter):
     List filter for EntryAdmin about categories
     with published articles.
     """
+
     model = Category
-    lookup_key = 'categories__id'
-    title = _('published categories')
-    parameter_name = 'category'
+    lookup_key = "categories__id"
+    title = _("published categories")
+    parameter_name = "category"
 
 
 class AuthorAdmin(admin.ModelAdmin):
-    raw_id_fields = ('user',)
+    raw_id_fields = ("user",)
 
 
 class AuthorshipInlineAdmin(SortableInlineAdminMixin, admin.TabularInline):
     model = Article.authors.through
-    raw_id_fields = ('author',)
+    raw_id_fields = ("author",)
 
 
 class ArticleAdminForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = '__all__'
+        fields = "__all__"
         widgets = {
-            'teaser': TextEditorWidget(),
-            'tags': TagAutocompleteWidget(
-                autocomplete_url=reverse_lazy('api:articletag-autocomplete')
-            )
+            "teaser": TextEditorWidget(),
+            "tags": TagAutocompleteWidget(
+                autocomplete_url=reverse_lazy("api:articletag-autocomplete")
+            ),
         }
 
 
 class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
     form = ArticleAdminForm
-    date_hierarchy = 'start_publication'
+    date_hierarchy = "start_publication"
 
     fieldsets = (
-        (_('Content'), {
-            'fields': ('title', 'status', 'teaser', 'image',),
-        }),
-        (_('URL'), {
-            'fields': ('slug', 'start_publication'),
-            'description': _('Make sure these are correct before publication. Do not change after publication!')
-        }),
-        (_('Additional Content'), {
-            'fields': ('categories', 'tags', 'credits',)
-        }),
-        (_('Templates'), {
-            'fields': ('content_template', 'detail_template'),
-            'classes': ('collapse', 'collapse-closed')
-        }),
-        (_('Publication Dates'), {
-            'fields': (('creation_date', 'end_publication', 'date_featured'),
-            ),
-            'classes': ('collapse', 'collapse-closed')
-        }),
-        (_('Metadata'), {
-            'fields': ('excerpt', 'related', ),
-            'classes': ('collapse', 'collapse-closed')
-        }),
-        (_('Advanced'), {
-            'fields': ('language', 'uuid', 'sites'),
-            'classes': ('collapse', 'collapse-closed')
-        }),
+        (
+            _("Content"),
+            {
+                "fields": (
+                    "title",
+                    "status",
+                    "teaser",
+                    "image",
+                ),
+            },
+        ),
+        (
+            _("URL"),
+            {
+                "fields": ("slug", "start_publication"),
+                "description": _(
+                    "Make sure these are correct before publication. Do not change after publication!"
+                ),
+            },
+        ),
+        (
+            _("Additional Content"),
+            {
+                "fields": (
+                    "categories",
+                    "tags",
+                    "credits",
+                )
+            },
+        ),
+        (
+            _("Templates"),
+            {
+                "fields": ("content_template", "detail_template"),
+                "classes": ("collapse", "collapse-closed"),
+            },
+        ),
+        (
+            _("Publication Dates"),
+            {
+                "fields": (("creation_date", "end_publication", "date_featured"),),
+                "classes": ("collapse", "collapse-closed"),
+            },
+        ),
+        (
+            _("Metadata"),
+            {
+                "fields": (
+                    "excerpt",
+                    "related",
+                ),
+                "classes": ("collapse", "collapse-closed"),
+            },
+        ),
+        (
+            _("Advanced"),
+            {
+                "fields": ("language", "uuid", "sites"),
+                "classes": ("collapse", "collapse-closed"),
+            },
+        ),
     )
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('title', 'slug', 'language',)}
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "title",
+                    "slug",
+                    "language",
+                ),
+            },
         ),
     )
     inlines = (AuthorshipInlineAdmin,)
     list_display = (
-        'get_title',
-        'get_edit_link',
-        'get_authors',
-        'get_categories',
-        'language',
-        'get_is_visible',
-        'has_translation',
-        'start_publication'
+        "get_title",
+        "get_edit_link",
+        "get_authors",
+        "get_categories",
+        "language",
+        "get_is_visible",
+        "has_translation",
+        "start_publication",
     )
 
     list_filter = (
-        'status',
+        "status",
         CategoryListFilter,
-        make_nullfilter('categories', 'Hat Kategorie'),
-        'tags',
-        'date_featured',
-        'language',
-        make_nullfilter('image', 'Hat Bild'),
-        'sites',
-        'creation_date', 'start_publication', 'end_publication',
+        make_nullfilter("categories", "Hat Kategorie"),
+        "tags",
+        "date_featured",
+        "language",
+        make_nullfilter("image", "Hat Bild"),
+        "sites",
+        "creation_date",
+        "start_publication",
+        "end_publication",
     )
-    radio_fields = {'content_template': admin.VERTICAL,
-                    'detail_template': admin.VERTICAL}
-    prepopulated_fields = {'slug': ('title', )}
-    search_fields = ('title', 'excerpt', 'content', 'tags__name')
+    radio_fields = {
+        "content_template": admin.VERTICAL,
+        "detail_template": admin.VERTICAL,
+    }
+    prepopulated_fields = {"slug": ("title",)}
+    search_fields = ("title", "excerpt", "content", "tags__name")
 
-    raw_id_fields = ('related',)
-    filter_horizontal = ('categories', 'authors',)
+    raw_id_fields = ("related",)
+    filter_horizontal = (
+        "categories",
+        "authors",
+    )
     save_on_top = True
 
-    actions = ['set_language']
+    actions = ["set_language"]
     actions_on_top = True
     actions_on_bottom = True
 
@@ -185,8 +243,10 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         qs = qs.prefetch_related(
-            'categories', 'categories__translations',
-            'authors', 'authors__user',
+            "categories",
+            "categories__translations",
+            "authors",
+            "authors__user",
         )
         return qs
 
@@ -196,8 +256,8 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         """
         get_data = super().get_changeform_initial_data(request)
         return get_data or {
-            'sites': [Site.objects.get_current().pk],
-            'authors': [request.user.pk]
+            "sites": [Site.objects.get_current().pk],
+            "authors": [request.user.pk],
         }
 
     def get_fieldsets(self, request, obj=None):
@@ -211,7 +271,7 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         """
         if change:
             content = article.get_html_content(request)
-            article.content = content or ''
+            article.content = content or ""
 
         article.last_update = timezone.now()
 
@@ -224,12 +284,14 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         if not change:
             article.sites.add(Site.objects.get_current())
             blog_content = add_plugin(
-                article.content_placeholder, 'BlogContent', article.language
+                article.content_placeholder, "BlogContent", article.language
             )
             add_plugin(
-                article.content_placeholder, 'TextPlugin',
-                article.language, body='<p>Content</p>',
-                position='first-child',
+                article.content_placeholder,
+                "TextPlugin",
+                article.language,
+                body="<p>Content</p>",
+                position="first-child",
                 target=blog_content,
             )
 
@@ -238,31 +300,34 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         Return the title with word count and number of comments.
         """
         return article.title
-    get_title.short_description = _('title')
+
+    get_title.short_description = _("title")
 
     def get_authors(self, article):
         """
         Return the authors in HTML.
         """
-        return ', '.join(str(author) for author in article.authors.all())
-    get_authors.short_description = _('author(s)')
+        return ", ".join(str(author) for author in article.authors.all())
+
+    get_authors.short_description = _("author(s)")
 
     def get_categories(self, article):
         """
         Return the categories linked in HTML.
         """
-        categories = [category.title for category in
-                      article.categories.all()]
-        return ', '.join(categories)
-    get_categories.short_description = _('category(s)')
+        categories = [category.title for category in article.categories.all()]
+        return ", ".join(categories)
+
+    get_categories.short_description = _("category(s)")
 
     def get_is_visible(self, article):
         """
         Admin wrapper for article.is_visible.
         """
         return article.is_visible
+
     get_is_visible.boolean = True
-    get_is_visible.short_description = _('is visible')
+    get_is_visible.short_description = _("is visible")
 
     def get_edit_link(self, article):
         """
@@ -271,16 +336,19 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         try:
             edit_link = article.get_absolute_edit_url()
         except NoReverseMatch:
-            return _('unavailable for this site')
-        return format_html('<a href="{url}" target="_blank">{title}</a>',
-            url=edit_link + '?edit',
-            title=_('Edit Content')
+            return _("unavailable for this site")
+        return format_html(
+            '<a href="{url}" target="_blank">{title}</a>',
+            url=edit_link + "?edit",
+            title=_("Edit Content"),
         )
-    get_edit_link.short_description = _('Content')
+
+    get_edit_link.short_description = _("Content")
 
     def has_translation(self, article):
         return bool(article.uuid)
-    has_translation.short_description = _('Translated')
+
+    has_translation.short_description = _("Translated")
     has_translation.boolean = True
 
     def set_language(self, request, queryset):
@@ -289,18 +357,21 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         """
         Article.objects.mark_translations(queryset)
         self.message_user(
-            request, _('The selected articles are now marked as translations of each other.'))
-    set_language.short_description = _('Set articles as translations of each other')
+            request,
+            _("The selected articles are now marked as translations of each other."),
+        )
+
+    set_language.short_description = _("Set articles as translations of each other")
 
 
 class ArticleTagAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug']
-    search_fields = ['name']
-    prepopulated_fields = {'slug': ['name']}
+    list_display = ["name", "slug"]
+    search_fields = ["name"]
+    prepopulated_fields = {"slug": ["name"]}
 
 
 class TaggedArticleAdmin(admin.ModelAdmin):
-    raw_id_fields = ('content_object', 'tag')
+    raw_id_fields = ("content_object", "tag")
 
 
 admin.site.register(Article, ArticleAdmin)

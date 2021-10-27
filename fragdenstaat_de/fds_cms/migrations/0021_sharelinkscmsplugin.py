@@ -7,21 +7,32 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0022_auto_20180620_1551'),
-        ('fds_cms', '0020_pageannotationcmsplugin_zoom'),
+        ("cms", "0022_auto_20180620_1551"),
+        ("fds_cms", "0020_pageannotationcmsplugin_zoom"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ShareLinksCMSPlugin',
+            name="ShareLinksCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_cms_sharelinkscmsplugin', serialize=False, to='cms.CMSPlugin')),
-                ('title', models.CharField(max_length=255)),
-                ('url', models.URLField(blank=True)),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_cms_sharelinkscmsplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                ("url", models.URLField(blank=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

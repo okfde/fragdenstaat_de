@@ -8,13 +8,11 @@ from ..forms import NewslettersUserForm, NewsletterForm
 register = template.Library()
 
 
-@register.inclusion_tag('fds_newsletter/user_settings.html', takes_context=True)
+@register.inclusion_tag("fds_newsletter/user_settings.html", takes_context=True)
 def newsletter_settings(context):
-    request = context['request']
+    request = context["request"]
     user = request.user
-    return {
-        'form': NewslettersUserForm(user)
-    }
+    return {"form": NewslettersUserForm(user)}
 
 
 def _get_newsletter(newsletter_slug=None):
@@ -27,12 +25,10 @@ def _get_newsletter(newsletter_slug=None):
 
 
 def _has_newsletter(context, newsletter):
-    user = context['request'].user
+    user = context["request"].user
     if user.is_authenticated:
         try:
-            instance = Subscriber.objects.get(
-                newsletter=newsletter, user=user
-            )
+            instance = Subscriber.objects.get(newsletter=newsletter, user=user)
             if instance.subscribed:
                 return True
         except Subscriber.DoesNotExist:
@@ -41,27 +37,24 @@ def _has_newsletter(context, newsletter):
 
 
 def get_newsletter_context(context, next=None, newsletter=None, fallback=True):
-    ctx = {
-        'next': next,
-        'fallback': fallback,
-        'has_newsletter': False
-    }
+    ctx = {"next": next, "fallback": fallback, "has_newsletter": False}
 
     if newsletter is None:
-        ctx['has_newsletter'] = True
+        ctx["has_newsletter"] = True
         return ctx
 
-    ctx['newsletter'] = newsletter
-    ctx['form'] = NewsletterForm(request=context['request'])
-    ctx['has_newsletter'] = _has_newsletter(context, newsletter)
-    user = context['request'].user
-    ctx['user'] = user
+    ctx["newsletter"] = newsletter
+    ctx["form"] = NewsletterForm(request=context["request"])
+    ctx["has_newsletter"] = _has_newsletter(context, newsletter)
+    user = context["request"].user
+    ctx["user"] = user
 
     return ctx
 
 
-@register.inclusion_tag('fds_newsletter/plugins/smart_newsletter_form.html',
-                        takes_context=True)
+@register.inclusion_tag(
+    "fds_newsletter/plugins/smart_newsletter_form.html", takes_context=True
+)
 def newsletter_subscribe(context, next=None, newsletter_slug=None, fallback=True):
     newsletter = _get_newsletter(newsletter_slug)
     return get_newsletter_context(

@@ -1,4 +1,4 @@
-'''
+"""
 Adapted from
 
 https://github.com/silentsokolov/django-admin-rangefilter
@@ -9,7 +9,7 @@ The MIT License (MIT)
 
 Copyright (c) 2014 Dmitriy Sokolov
 
-'''
+"""
 import datetime
 
 import pytz
@@ -29,8 +29,8 @@ class DateRangeFilter(admin.filters.FieldListFilter):
     template = "fds_donation/forms/widgets/range_filter.html"
 
     def __init__(self, field, request, params, model, model_admin, field_path):
-        self.lookup_kwarg_gte = '{0}__range__gte'.format(field_path)
-        self.lookup_kwarg_lte = '{0}__range__lte'.format(field_path)
+        self.lookup_kwarg_gte = "{0}__range__gte".format(field_path)
+        self.lookup_kwarg_lte = "{0}__range__lte".format(field_path)
 
         super().__init__(field, request, params, model, model_admin, field_path)
         self.request = request
@@ -58,8 +58,10 @@ class DateRangeFilter(admin.filters.FieldListFilter):
             # slugify converts any non-unicode characters to empty characters
             # but system_name is required, if title converts to empty string use id
             # https://github.com/silentsokolov/django-admin-rangefilter/issues/18
-            'system_name': str(slugify(self.title) if slugify(self.title) else id(self.title)),
-            'params': params
+            "system_name": str(
+                slugify(self.title) if slugify(self.title) else id(self.title)
+            ),
+            "params": params,
         }
 
     def expected_parameters(self):
@@ -83,12 +85,12 @@ class DateRangeFilter(admin.filters.FieldListFilter):
         date_value_lte = validated_data.get(self.lookup_kwarg_lte, None)
 
         if date_value_gte:
-            query_params['{0}__gte'.format(self.field_path)] = self.make_dt_aware(
+            query_params["{0}__gte".format(self.field_path)] = self.make_dt_aware(
                 datetime.datetime.combine(date_value_gte, datetime.time.min),
                 self.get_timezone(request),
             )
         if date_value_lte:
-            query_params['{0}__lte'.format(self.field_path)] = self.make_dt_aware(
+            query_params["{0}__lte".format(self.field_path)] = self.make_dt_aware(
                 datetime.datetime.combine(date_value_lte, datetime.time.max),
                 self.get_timezone(request),
             )
@@ -103,9 +105,7 @@ class DateRangeFilter(admin.filters.FieldListFilter):
         fields = self._get_form_fields()
 
         form_class = type(
-            str('DateRangeForm'),
-            (forms.BaseForm,),
-            {'base_fields': fields}
+            str("DateRangeForm"), (forms.BaseForm,), {"base_fields": fields}
         )
 
         return form_class
@@ -113,42 +113,43 @@ class DateRangeFilter(admin.filters.FieldListFilter):
     def _get_form_fields(self):
         return OrderedDict(
             (
-                (self.lookup_kwarg_gte, forms.DateField(
-                    label=_('From'),
-                    widget=AdminDateWidget(
-                        attrs={
-                            'placeholder': _('From date'),
-                            'type': 'date'
-                        }
+                (
+                    self.lookup_kwarg_gte,
+                    forms.DateField(
+                        label=_("From"),
+                        widget=AdminDateWidget(
+                            attrs={"placeholder": _("From date"), "type": "date"}
+                        ),
+                        localize=True,
+                        required=False,
                     ),
-                    localize=True,
-                    required=False
-                )),
-                (self.lookup_kwarg_lte, forms.DateField(
-                    label=_('Until'),
-                    widget=AdminDateWidget(
-                        attrs={
-                            'placeholder': _('To date'),
-                            'type': 'date'
-                        }
+                ),
+                (
+                    self.lookup_kwarg_lte,
+                    forms.DateField(
+                        label=_("Until"),
+                        widget=AdminDateWidget(
+                            attrs={"placeholder": _("To date"), "type": "date"}
+                        ),
+                        localize=True,
+                        required=False,
                     ),
-                    localize=True,
-                    required=False
-                )),
+                ),
             )
         )
 
 
 def make_rangefilter(field, title):
-    return type(str('%sRangeFilter' % field.title()), (RangeFilter,), {
-        'title': title,
-        'parameter_name': field
-    })
+    return type(
+        str("%sRangeFilter" % field.title()),
+        (RangeFilter,),
+        {"title": title, "parameter_name": field},
+    )
 
 
 class RangeFilter(admin.filters.SimpleListFilter):
-    title = ''
-    parameter_name = ''
+    title = ""
+    parameter_name = ""
     template = "fds_donation/forms/widgets/range_filter.html"
 
     def __init__(self, request, params, model, model_admin):
@@ -166,20 +167,20 @@ class RangeFilter(admin.filters.SimpleListFilter):
         if not val:
             return queryset
 
-        if '-' in val:
-            val = [x.strip() for x in val.split('-')]
+        if "-" in val:
+            val = [x.strip() for x in val.split("-")]
         else:
             val = [val, val]
 
         filt = {}
         if val[0]:
             try:
-                filt['%s__gte' % self.parameter_name] = float(val[0])
+                filt["%s__gte" % self.parameter_name] = float(val[0])
             except ValueError:
                 pass
         if val[1]:
             try:
-                filt['%s__lte' % self.parameter_name] = float(val[1])
+                filt["%s__lte" % self.parameter_name] = float(val[1])
             except ValueError:
                 pass
 
@@ -189,9 +190,9 @@ class RangeFilter(admin.filters.SimpleListFilter):
         params = changelist.params.copy()
         params.pop(self.parameter_name, None)
         yield {
-            'selected': self.value() is None,
-            'params': params,
-            'form': self.get_form()
+            "selected": self.value() is None,
+            "params": params,
+            "form": self.get_form(),
         }
 
     def get_form(self):
@@ -201,20 +202,16 @@ class RangeFilter(admin.filters.SimpleListFilter):
     def _get_form_class(self):
         fields = self._get_form_fields()
 
-        form_class = type(
-            str('RangeForm'),
-            (forms.BaseForm,),
-            {'base_fields': fields}
-        )
+        form_class = type(str("RangeForm"), (forms.BaseForm,), {"base_fields": fields})
 
         return form_class
 
     def _get_form_fields(self):
         return OrderedDict(
             (
-                (self.parameter_name, forms.CharField(
-                    label=_('From - To'),
-                    required=False
-                )),
+                (
+                    self.parameter_name,
+                    forms.CharField(label=_("From - To"), required=False),
+                ),
             )
         )

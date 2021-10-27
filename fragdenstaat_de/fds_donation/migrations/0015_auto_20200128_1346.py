@@ -7,18 +7,24 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0014_donor_attributes'),
+        ("fds_donation", "0014_donor_attributes"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='donor',
-            name='duplicate',
+            model_name="donor",
+            name="duplicate",
             field=models.UUIDField(blank=True, editable=False, null=True),
         ),
         migrations.AlterField(
-            model_name='donation',
-            name='donor',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='donations', to='fds_donation.Donor'),
+            model_name="donation",
+            name="donor",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="donations",
+                to="fds_donation.Donor",
+            ),
         ),
     ]

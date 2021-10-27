@@ -7,8 +7,8 @@ project = os.path.dirname(current_dir)
 
 sys.path.append(project)
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fragdenstaat_de.settings.production')
-os.environ.setdefault('DJANGO_CONFIGURATION', 'FragDenStaat')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fragdenstaat_de.settings.production")
+os.environ.setdefault("DJANGO_CONFIGURATION", "FragDenStaat")
 
 from django.conf import settings  # noqa
 from configurations.wsgi import get_wsgi_application  # noqa
@@ -17,6 +17,7 @@ application = get_wsgi_application()
 
 try:
     from whitenoise.django import DjangoWhiteNoise
+
     application = DjangoWhiteNoise(application)
 
     if settings.MEDIA_ROOT and settings.MEDIA_URL:

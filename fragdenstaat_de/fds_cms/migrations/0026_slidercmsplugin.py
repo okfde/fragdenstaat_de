@@ -7,22 +7,33 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0022_auto_20180620_1551'),
-        ('fds_cms', '0025_collapsiblecmsplugin'),
+        ("cms", "0022_auto_20180620_1551"),
+        ("fds_cms", "0025_collapsiblecmsplugin"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SliderCMSPlugin',
+            name="SliderCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_cms_slidercmsplugin', serialize=False, to='cms.CMSPlugin')),
-                ('title', models.CharField(blank=True, max_length=255)),
-                ('extra_classes', models.CharField(blank=True, max_length=255)),
-                ('options', models.TextField(blank=True)),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_cms_slidercmsplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                ("title", models.CharField(blank=True, max_length=255)),
+                ("extra_classes", models.CharField(blank=True, max_length=255)),
+                ("options", models.TextField(blank=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

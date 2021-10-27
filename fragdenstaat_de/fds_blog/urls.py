@@ -5,17 +5,22 @@ from froide.helper import api_router
 
 from .feeds import LatestArticlesFeed, LatestArticlesTeaserFeed
 from .views import (
-    AuthorArticleView, CategoryArticleView, ArticleArchiveView, ArticleDetailView, ArticleListView,
-    TaggedListView, ArticleSearchView
+    AuthorArticleView,
+    CategoryArticleView,
+    ArticleArchiveView,
+    ArticleDetailView,
+    ArticleListView,
+    TaggedListView,
+    ArticleSearchView,
 )
 from .api_views import ArticleTagViewSet
 
 
 PERMALINKS_URLS = {
-    'full_date': r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>\w[-\w]*)/$',
-    'short_date': r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>\w[-\w]*)/$',
-    'category': r'^(?P<category>\w[-\w]*)/(?P<slug>\w[-\w]*)/$',
-    'slug': r'^(?P<slug>\w[-\w]*)/$',
+    "full_date": r"^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>\w[-\w]*)/$",
+    "short_date": r"^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>\w[-\w]*)/$",
+    "category": r"^(?P<category>\w[-\w]*)/(?P<slug>\w[-\w]*)/$",
+    "slug": r"^(?P<slug>\w[-\w]*)/$",
 }
 
 
@@ -24,39 +29,38 @@ def get_urls():
     details = []
     for urlconf in urls.values():
         details.append(
-            url(urlconf, ArticleDetailView.as_view(), name='article-detail'),
+            url(urlconf, ArticleDetailView.as_view(), name="article-detail"),
         )
     return details
 
 
-app_name = 'blog'
+app_name = "blog"
 detail_urls = get_urls()
 
 urlpatterns = [
-    url(r'^$',
-        ArticleListView.as_view(), name='article-latest'),
-    url(_(r'^search/$'),
-        ArticleSearchView.as_view(), name='article-search'),
-    url(r'^feed/$',
-        LatestArticlesFeed(),
-        name='article-latest-feed'),
-    url(r'^feed/teaser/$',
-        LatestArticlesTeaserFeed(),
-        name='article-latest-feed-teaser'),
-    url(r'^(?P<year>\d{4})/$',
-        ArticleArchiveView.as_view(), name='article-archive'),
-    url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/$',
-        ArticleArchiveView.as_view(), name='article-archive'),
-    url(_(r'^author/(?P<username>[\w\.@+-]+)/$'),
-        AuthorArticleView.as_view(), name='article-author'),
-    url(_(r'^category/(?P<category>[\w\.@+-]+)/$'),
-        CategoryArticleView.as_view(), name='article-category'),
-    url(r'^tag/(?P<tag>[-\w]+)/$',
-        TaggedListView.as_view(), name='article-tagged'),
+    url(r"^$", ArticleListView.as_view(), name="article-latest"),
+    url(_(r"^search/$"), ArticleSearchView.as_view(), name="article-search"),
+    url(r"^feed/$", LatestArticlesFeed(), name="article-latest-feed"),
+    url(
+        r"^feed/teaser/$", LatestArticlesTeaserFeed(), name="article-latest-feed-teaser"
+    ),
+    url(r"^(?P<year>\d{4})/$", ArticleArchiveView.as_view(), name="article-archive"),
+    url(
+        r"^(?P<year>\d{4})/(?P<month>\d{1,2})/$",
+        ArticleArchiveView.as_view(),
+        name="article-archive",
+    ),
+    url(
+        _(r"^author/(?P<username>[\w\.@+-]+)/$"),
+        AuthorArticleView.as_view(),
+        name="article-author",
+    ),
+    url(
+        _(r"^category/(?P<category>[\w\.@+-]+)/$"),
+        CategoryArticleView.as_view(),
+        name="article-category",
+    ),
+    url(r"^tag/(?P<tag>[-\w]+)/$", TaggedListView.as_view(), name="article-tagged"),
 ] + detail_urls
 
-api_router.register(
-    r'articletag',
-    ArticleTagViewSet,
-    basename='articletag'
-)
+api_router.register(r"articletag", ArticleTagViewSet, basename="articletag")

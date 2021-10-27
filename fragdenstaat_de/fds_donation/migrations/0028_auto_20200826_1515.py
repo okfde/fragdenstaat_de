@@ -6,26 +6,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0027_auto_20200701_1704'),
+        ("fds_donation", "0027_auto_20200701_1704"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DefaultDonation',
-            fields=[
-            ],
+            name="DefaultDonation",
+            fields=[],
             options={
-                'verbose_name': 'FragDenStaat Spenden',
-                'verbose_name_plural': 'FragDenStaat Spenden',
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "verbose_name": "FragDenStaat Spenden",
+                "verbose_name_plural": "FragDenStaat Spenden",
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('fds_donation.donation',),
+            bases=("fds_donation.donation",),
         ),
         migrations.AddField(
-            model_name='donation',
-            name='project',
-            field=models.CharField(choices=[('FDS', 'FragDenStaat'), ('CFG', 'Code for Germany'), ('JH', 'Jugend hackt'), ('GM', 'Gemeinkosten')], default='FDS', max_length=40),
+            model_name="donation",
+            name="project",
+            field=models.CharField(
+                choices=[
+                    ("FDS", "FragDenStaat"),
+                    ("CFG", "Code for Germany"),
+                    ("JH", "Jugend hackt"),
+                    ("GM", "Gemeinkosten"),
+                ],
+                default="FDS",
+                max_length=40,
+            ),
         ),
     ]

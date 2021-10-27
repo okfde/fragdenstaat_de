@@ -7,22 +7,33 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0022_auto_20180620_1551'),
-        ('fds_cms', '0014_documentpagescmsplugin_size'),
+        ("cms", "0022_auto_20180620_1551"),
+        ("fds_cms", "0014_documentpagescmsplugin_size"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='VegaChartCMSPlugin',
+            name="VegaChartCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_cms_vegachartcmsplugin', serialize=False, to='cms.CMSPlugin')),
-                ('title', models.CharField(max_length=255)),
-                ('description', models.TextField(blank=True)),
-                ('vega_json', models.TextField(default='')),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_cms_vegachartcmsplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                ("description", models.TextField(blank=True)),
+                ("vega_json", models.TextField(default="")),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

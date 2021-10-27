@@ -21,45 +21,46 @@ admin.site.register(FdsPageExtension, FdsPageExtensionAdmin)
 
 
 class CustomStaticPlaceholderAdmin(StaticPlaceholderAdmin):
-    list_display = (
-        'code', 'edit_link'
-    )
-    actions = ['publish']
+    list_display = ("code", "edit_link")
+    actions = ["publish"]
 
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            url(r'^(?P<pk>\d+)/edit-placeholder/$',
+            url(
+                r"^(?P<pk>\d+)/edit-placeholder/$",
                 self.admin_site.admin_view(self.edit_placeholder),
-                name='fds_cms-staticplaceholder-edit_placeholder'),
+                name="fds_cms-staticplaceholder-edit_placeholder",
+            ),
         ]
         return my_urls + urls
 
     def edit_link(self, obj):
-        return format_html('<a href="{}">{}</a>',
+        return format_html(
+            '<a href="{}">{}</a>',
             reverse(
-                'admin:fds_cms-staticplaceholder-edit_placeholder',
-                kwargs={'pk': obj.pk}
+                "admin:fds_cms-staticplaceholder-edit_placeholder",
+                kwargs={"pk": obj.pk},
             ),
-            _('Edit')
+            _("Edit"),
         )
 
     def edit_placeholder(self, request, pk):
         try:
-            static_placeholder = StaticPlaceholder.objects.get(
-                pk=pk
-            )
+            static_placeholder = StaticPlaceholder.objects.get(pk=pk)
         except StaticPlaceholder.DoesNotExist:
             pass
 
-        return render(request, 'fds_cms/admin/static_placeholder.html', {
-            'placeholder': static_placeholder
-        })
+        return render(
+            request,
+            "fds_cms/admin/static_placeholder.html",
+            {"placeholder": static_placeholder},
+        )
 
     def publish(self, request, queryset):
         for obj in queryset:
             obj.publish(request, request.LANGUAGE_CODE)
-        next_url = request.POST.get('next')
+        next_url = request.POST.get("next")
         if next_url:
             return redirect(next_url)
 

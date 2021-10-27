@@ -21,20 +21,18 @@ from .utils import SubscriptionResult
 def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
     if not request.is_ajax():
         raise Http404
-    return newsletter_subscribe_request(
-        request, newsletter_slug=newsletter_slug
-    )
+    return newsletter_subscribe_request(request, newsletter_slug=newsletter_slug)
 
 
 def newsletter_subscribe_request(request, newsletter_slug=None):
     newsletter = get_object_or_404(
-        Newsletter,
-        slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
+        Newsletter, slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
     )
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = NewsletterForm(
-            data=request.POST, request=request,
+            data=request.POST,
+            request=request,
         )
         if form.is_valid():
             result, subscriber = form.save(newsletter, request.user)
@@ -44,90 +42,93 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
                 # are allowed to access current user
                 if request.user.is_authenticated and subscriber.user == request.user:
                     if result == SubscriptionResult.ALREADY_SUBSCRIBED:
-                        return HttpResponse(content='''<div class="alert alert-info" role="alert">
+                        return HttpResponse(
+                            content="""<div class="alert alert-info" role="alert">
                         Sie haben unseren Newsletter schon abonniert!
-                        </div>'''.encode('utf-8'))
+                        </div>""".encode(
+                                "utf-8"
+                            )
+                        )
                     elif result == SubscriptionResult.SUBSCRIBED:
-                        return HttpResponse(content='''<div class="alert alert-primary" role="alert">
+                        return HttpResponse(
+                            content="""<div class="alert alert-primary" role="alert">
                         Sie haben unseren Newsletter erfolgreich abonniert!
-                        </div>'''.encode('utf-8'))
+                        </div>""".encode(
+                                "utf-8"
+                            )
+                        )
 
-                return HttpResponse(content='''<div class="alert alert-primary" role="alert">
+                return HttpResponse(
+                    content="""<div class="alert alert-primary" role="alert">
                 Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.
-                </div>'''.encode('utf-8'))
+                </div>""".encode(
+                        "utf-8"
+                    )
+                )
 
             if result == SubscriptionResult.CONFIRM:
                 messages.add_message(
-                    request, messages.INFO,
-                    'Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.'
+                    request,
+                    messages.INFO,
+                    "Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen.",
                 )
 
-            return get_redirect(request, default='/')
+            return get_redirect(request, default="/")
         else:
             messages.add_message(
-                request, messages.WARNING,
-                'Bitte überprüfen Sie Ihre Eingabe.'
+                request, messages.WARNING, "Bitte überprüfen Sie Ihre Eingabe."
             )
     else:
-        form = NewsletterForm(request=request, initial={
-            'email': request.GET.get('email', '')
-        })
+        form = NewsletterForm(
+            request=request, initial={"email": request.GET.get("email", "")}
+        )
 
     if request.is_ajax():
-        url = '{}?{}'.format(
-            reverse('newsletter_subscribe_request', kwargs={
-                'newsletter_slug': newsletter.slug
-            }),
-            urlencode({'email': form.data.get('email', '')})
+        url = "{}?{}".format(
+            reverse(
+                "newsletter_subscribe_request",
+                kwargs={"newsletter_slug": newsletter.slug},
+            ),
+            urlencode({"email": form.data.get("email", "")}),
         )
         return HttpResponse(url)
-    return render(request, "fds_newsletter/subscribe.html", {
-        'newsletter': newsletter,
-        'form': form
-    })
+    return render(
+        request,
+        "fds_newsletter/subscribe.html",
+        {"newsletter": newsletter, "form": form},
+    )
 
 
 def confirm_subscribe(request, newsletter_slug=None, pk=None, activation_code=None):
-    newsletter = get_object_or_404(
-        Newsletter, slug=newsletter_slug
-    )
+    newsletter = get_object_or_404(Newsletter, slug=newsletter_slug)
     subscriber = get_object_or_404(
-        Subscriber, newsletter=newsletter, pk=pk,
-        activation_code=activation_code
+        Subscriber, newsletter=newsletter, pk=pk, activation_code=activation_code
     )
     subscriber.subscribe()
     messages.add_message(
-        request, messages.INFO,
-        'Sie erhalten nun den %s' % newsletter.title
+        request, messages.INFO, "Sie erhalten nun den %s" % newsletter.title
     )
 
-    return redirect(newsletter.url or '/')
+    return redirect(newsletter.url or "/")
 
 
 def confirm_unsubscribe(request, newsletter_slug=None, pk=None, activation_code=None):
-    newsletter = get_object_or_404(
-        Newsletter, slug=newsletter_slug
-    )
+    newsletter = get_object_or_404(Newsletter, slug=newsletter_slug)
     subscriber = get_object_or_404(
-        Subscriber, newsletter=newsletter, pk=pk,
-        activation_code=activation_code
+        Subscriber, newsletter=newsletter, pk=pk, activation_code=activation_code
     )
-    subscriber.unsubscribe(method='unsubscribe-link')
+    subscriber.unsubscribe(method="unsubscribe-link")
     messages.add_message(
-        request, messages.INFO,
-        'Sie erhalten den %s nun nicht mehr.' % newsletter.title
+        request, messages.INFO, "Sie erhalten den %s nun nicht mehr." % newsletter.title
     )
 
-    return redirect(newsletter.url or '/')
+    return redirect(newsletter.url or "/")
 
 
 def legacy_unsubscribe(request, newsletter_slug=None, email=None, activation_code=None):
-    newsletter = get_object_or_404(
-        Newsletter, slug=newsletter_slug
-    )
+    newsletter = get_object_or_404(Newsletter, slug=newsletter_slug)
     subscriber = get_object_or_404(
-        Subscriber, newsletter=newsletter, email=email,
-        activation_code=activation_code
+        Subscriber, newsletter=newsletter, email=email, activation_code=activation_code
     )
     return redirect(subscriber.get_unsubscribe_url())
 
@@ -139,8 +140,9 @@ def newsletter_user_settings(request):
     if form.is_valid():
         form.save()
         messages.add_message(
-            request, messages.SUCCESS,
-            'Ihre Newsletter-Abonnements wurden aktualisiert.'
+            request,
+            messages.SUCCESS,
+            "Ihre Newsletter-Abonnements wurden aktualisiert.",
         )
 
-    return redirect('account-settings')
+    return redirect("account-settings")

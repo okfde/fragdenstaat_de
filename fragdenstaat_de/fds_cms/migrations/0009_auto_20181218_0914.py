@@ -7,30 +7,30 @@ from django.db import migrations
 
 def replace_cmsplugin_filer_image(apps, schema_editor):
     try:
-        CMSPlugin = apps.get_model('cms', 'CMSPlugin')
-        FilerImagePlugin = apps.get_model('cmsplugin_filer_image', 'FilerImage')
-        DjangCMSPicture = apps.get_model('djangocms_picture', 'Picture')
+        CMSPlugin = apps.get_model("cms", "CMSPlugin")
+        FilerImagePlugin = apps.get_model("cmsplugin_filer_image", "FilerImage")
+        DjangCMSPicture = apps.get_model("djangocms_picture", "Picture")
     except Exception:
         return
-    plugins = CMSPlugin.objects.filter(plugin_type='FilerImagePlugin')
+    plugins = CMSPlugin.objects.filter(plugin_type="FilerImagePlugin")
     for plugin in plugins:
         fip = FilerImagePlugin.objects.get(cmsplugin_ptr=plugin)
         picture = DjangCMSPicture(
             picture_id=fip.image_id,
             width=fip.width,
             height=fip.height,
-            alignment=fip.alignment or '',
-            link_url=fip.free_link or '',
+            alignment=fip.alignment or "",
+            link_url=fip.free_link or "",
             placeholder_id=fip.placeholder_id,
             parent_id=fip.parent_id,
             position=fip.position,
             language=fip.language,
-            plugin_type='PicturePlugin',
+            plugin_type="PicturePlugin",
             creation_date=fip.creation_date,
             changed_date=fip.changed_date,
             depth=fip.depth,
             numchild=fip.numchild,
-            path=fip.path
+            path=fip.path,
         )
         fip.delete()
         picture.save()
@@ -39,9 +39,7 @@ def replace_cmsplugin_filer_image(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0008_auto_20181217_1220'),
+        ("fds_cms", "0008_auto_20181217_1220"),
     ]
 
-    operations = [
-        migrations.RunPython(replace_cmsplugin_filer_image)
-    ]
+    operations = [migrations.RunPython(replace_cmsplugin_filer_image)]

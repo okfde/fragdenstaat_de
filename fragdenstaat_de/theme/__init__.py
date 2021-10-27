@@ -1,3 +1,3 @@
-__version__ = '0.0.1'
+__version__ = "0.0.1"
 
-default_app_config = 'fragdenstaat_de.theme.apps.ThemeConfig'
+default_app_config = "fragdenstaat_de.theme.apps.ThemeConfig"

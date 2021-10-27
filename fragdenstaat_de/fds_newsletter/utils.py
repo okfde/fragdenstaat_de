@@ -13,39 +13,35 @@ class SubscriptionResult:
     CONFIRM = 2
 
 
-def unsubscribe_queryset(subscribers, method=''):
+def unsubscribe_queryset(subscribers, method=""):
     subscribers.update(
-        subscribed=None,
-        unsubscribed=timezone.now(),
-        unsubscribe_method=method
+        subscribed=None, unsubscribed=timezone.now(), unsubscribe_method=method
     )
 
 
 def subscribe_to_default_newsletter(email, user=None, **kwargs):
     return subscribe_to_newsletter(
-        settings.DEFAULT_NEWSLETTER,
-        email,
-        user=user,
-        **kwargs
+        settings.DEFAULT_NEWSLETTER, email, user=user, **kwargs
     )
 
 
 def subscribe_to_newsletter(slug, email, user=None, **kwargs):
     try:
-        newsletter = Newsletter.objects.get(
-            slug=slug
-        )
+        newsletter = Newsletter.objects.get(slug=slug)
     except Newsletter.DoesNotExist:
         return
-    return subscribe(
-        newsletter, email,
-        user=user,
-        **kwargs
-    )
+    return subscribe(newsletter, email, user=user, **kwargs)
 
 
-def subscribe(newsletter, email, user=None, name='', email_confirmed=False,
-              reference='', keyword=''):
+def subscribe(
+    newsletter,
+    email,
+    user=None,
+    name="",
+    email_confirmed=False,
+    reference="",
+    keyword="",
+):
     if user and not user.is_authenticated:
         user = None
     if user and not user.is_active:
@@ -56,27 +52,24 @@ def subscribe(newsletter, email, user=None, name='', email_confirmed=False,
         email_confirmed = True
 
     if user and email_confirmed:
-        return subscribe_user(
-            newsletter, user, reference=reference, keyword=keyword
-        )
+        return subscribe_user(newsletter, user, reference=reference, keyword=keyword)
     return subscribe_email(
-        newsletter, email,
+        newsletter,
+        email,
         email_confirmed=email_confirmed,
         name=name,
-        reference=reference, keyword=keyword
+        reference=reference,
+        keyword=keyword,
     )
 
 
-def subscribe_email(newsletter, email, email_confirmed=False, name='',
-                    reference='', keyword=''):
+def subscribe_email(
+    newsletter, email, email_confirmed=False, name="", reference="", keyword=""
+):
     subscriber, created = Subscriber.objects.get_or_create(
         email=email.lower(),
         newsletter=newsletter,
-        defaults={
-            'name': name,
-            'reference': reference,
-            'keyword': keyword
-        }
+        defaults={"name": name, "reference": reference, "keyword": keyword},
     )
 
     if subscriber.subscribed:
@@ -90,13 +83,11 @@ def subscribe_email(newsletter, email, email_confirmed=False, name='',
     return (SubscriptionResult.SUBSCRIBED, subscriber)
 
 
-def subscribe_user(newsletter, user, reference='', keyword='') -> bool:
+def subscribe_user(newsletter, user, reference="", keyword="") -> bool:
     subscriber, created = Subscriber.objects.get_or_create(
-        newsletter=newsletter, user=user,
-        defaults={
-            'reference': reference,
-            'keyword': keyword
-        }
+        newsletter=newsletter,
+        user=user,
+        defaults={"reference": reference, "keyword": keyword},
     )
     if subscriber.subscribed:
         return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
@@ -127,27 +118,20 @@ def cleanup_subscribers():
 
     # Unconfirmed subscribers older than 30 days
     Subscriber.objects.filter(
-        created__lt=month_ago,
-        subscribed=None,
-        unsubscribed=None
+        created__lt=month_ago, subscribed=None, unsubscribed=None
     ).delete()
 
     # Unsubscribed more than 30 days ago
-    Subscriber.objects.filter(
-        unsubscribed__lt=month_ago
-    ).delete()
+    Subscriber.objects.filter(unsubscribed__lt=month_ago).delete()
 
     # Recently unsubscribed: anonymize data
     # but keep to prove recent existence
-    subs = Subscriber.objects.filter(
-        unsubscribed__lt=three_days_ago,
-        email_hash=''
-    )
+    subs = Subscriber.objects.filter(unsubscribed__lt=three_days_ago, email_hash="")
     for sub in subs:
         m = hashlib.sha256()
-        m.update(sub.get_email().lower().encode('utf-8'))
+        m.update(sub.get_email().lower().encode("utf-8"))
         sub.email_hash = m.hexdigest()
         sub.email = None
         sub.user = None
-        sub.name = ''
+        sub.name = ""
         sub.save()

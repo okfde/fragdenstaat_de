@@ -10,9 +10,9 @@ except ImportError:
     convert_images = lambda x: None
 
 
-USERNAME_RE = re.compile(r'Ihr Benutzername lautet: ([\w\.-]+@fragdenstaat.de)')
-PASSWORD_RE = re.compile(r'Ihr Kennwort lautet: (\w+)')
-FILENAME = 'bfr-stellungnahme-ocr.pdf'
+USERNAME_RE = re.compile(r"Ihr Benutzername lautet: ([\w\.-]+@fragdenstaat.de)")
+PASSWORD_RE = re.compile(r"Ihr Kennwort lautet: (\w+)")
+FILENAME = "bfr-stellungnahme-ocr.pdf"
 
 
 def get_glyphosat_document(message):
@@ -28,16 +28,14 @@ def get_glyphosat_document(message):
     username = username_match.group(1)
     password = password_match.group(1)
 
-    BASE_URL = 'https://dokumente.bfr.bund.de/glypo/'
+    BASE_URL = "https://dokumente.bfr.bund.de/glypo/"
     session = requests.Session()
     response = session.get(BASE_URL)
     if response.status_code != 200:
         return
-    response = session.post(BASE_URL, {
-        'email': username,
-        'token': password,
-        'confirm-notes': '1'
-    })
+    response = session.post(
+        BASE_URL, {"email": username, "token": password, "confirm-notes": "1"}
+    )
     if response.status_code != 200:
         return
 
@@ -49,10 +47,10 @@ def get_glyphosat_document(message):
 
     FoiAttachment.objects.create(
         belongs_to=message,
-        file='foi/44/8f/f7/448ff77e284cffd86256d8c1b3705bd69d5f83ceff040e1a58642d157f80136d.pdf',
+        file="foi/44/8f/f7/448ff77e284cffd86256d8c1b3705bd69d5f83ceff040e1a58642d157f80136d.pdf",
         name=FILENAME,
         size=2436414,
-        filetype='application/pdf',
+        filetype="application/pdf",
         can_approve=False,
         approved=False,
     )

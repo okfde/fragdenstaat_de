@@ -11,20 +11,38 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('document', '0003_auto_20180521_1619'),
-        ('cms', '0020_old_tree_cleanup'),
+        ("document", "0003_auto_20180521_1619"),
+        ("cms", "0020_old_tree_cleanup"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PageAnnotationCMSPlugin',
+            name="PageAnnotationCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_cms_pageannotationcmsplugin', serialize=False, to='cms.CMSPlugin')),
-                ('page_annotation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='document.PageAnnotation')),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_cms_pageannotationcmsplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                (
+                    "page_annotation",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="document.PageAnnotation",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

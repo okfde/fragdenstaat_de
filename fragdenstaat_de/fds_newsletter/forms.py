@@ -10,10 +10,10 @@ from .models import Newsletter, Subscriber
 
 class NewsletterForm(SpamProtectionMixin, forms.Form):
     SPAM_PROTECTION = {
-        'captcha': 'ip',
-        'action': 'newsletter',
-        'action_limit': 3,
-        'action_block': True
+        "captcha": "ip",
+        "action": "newsletter",
+        "action_limit": 3,
+        "action_block": True,
     }
 
     email = forms.EmailField(
@@ -21,75 +21,67 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
         required=True,
         widget=forms.EmailInput(
             attrs={
-                'class': 'form-control',
+                "class": "form-control",
             }
-        )
+        ),
     )
-    reference = forms.CharField(
-        required=False,
-        widget=forms.HiddenInput()
-    )
-    keyword = forms.CharField(
-        required=False,
-        widget=forms.HiddenInput()
-    )
+    reference = forms.CharField(required=False, widget=forms.HiddenInput())
+    keyword = forms.CharField(required=False, widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.request.user.is_authenticated:
-            self.fields['email'].initial = self.request.user.email
+            self.fields["email"].initial = self.request.user.email
 
     def clean_reference(self):
         # Avoid validation error, just cut off
-        return self.cleaned_data['reference'][:255]
+        return self.cleaned_data["reference"][:255]
 
     def clean_keyword(self):
         # Avoid validation error, just cut off
-        return self.cleaned_data['keyword'][:255]
+        return self.cleaned_data["keyword"][:255]
 
     def save(self, newsletter, user):
-        email = self.cleaned_data['email']
-        reference = self.cleaned_data['reference']
-        keyword = self.cleaned_data['keyword']
+        email = self.cleaned_data["email"]
+        reference = self.cleaned_data["reference"]
+        keyword = self.cleaned_data["keyword"]
 
         return subscribe(
-            newsletter, email, user=user,
-            reference=reference, keyword=keyword
+            newsletter, email, user=user, reference=reference, keyword=keyword
         )
 
 
-FORM_REFERENCE = 'settings'
+FORM_REFERENCE = "settings"
 
 
 class NewslettersUserForm(forms.Form):
     newsletters = forms.ModelMultipleChoiceField(
-        label=_('Newsletters'),
+        label=_("Newsletters"),
         queryset=None,
         required=False,
-        widget=forms.CheckboxSelectMultiple
+        widget=forms.CheckboxSelectMultiple,
     )
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
         super().__init__(*args, **kwargs)
         newsletters = Newsletter.objects.get_visible()
-        subscribed_nls = list(Subscriber.objects.filter(
-            newsletter__in=newsletters,
-            user=self.user,
-            subscribed__isnull=False
-        ).values_list('newsletter_id', flat=True))
-        self.fields['newsletters'].queryset = newsletters
-        self.fields['newsletters'].initial = subscribed_nls
+        subscribed_nls = list(
+            Subscriber.objects.filter(
+                newsletter__in=newsletters, user=self.user, subscribed__isnull=False
+            ).values_list("newsletter_id", flat=True)
+        )
+        self.fields["newsletters"].queryset = newsletters
+        self.fields["newsletters"].initial = subscribed_nls
 
     def save(self):
-        chosen_newsletters = set(self.cleaned_data['newsletters'])
+        chosen_newsletters = set(self.cleaned_data["newsletters"])
         newsletters = Newsletter.objects.get_visible()
         for newsletter in newsletters:
             wants_nl = newsletter in chosen_newsletters
             try:
                 subscriber = Subscriber.objects.get(
-                    user=self.user,
-                    newsletter=newsletter
+                    user=self.user, newsletter=newsletter
                 )
                 if wants_nl:
                     if not subscriber.subscribed:
@@ -100,40 +92,37 @@ class NewslettersUserForm(forms.Form):
             except Subscriber.DoesNotExist:
                 if wants_nl:
                     subscriber = Subscriber.objects.create(
-                        newsletter=newsletter,
-                        user=self.user,
-                        reference=FORM_REFERENCE
+                        newsletter=newsletter, user=self.user, reference=FORM_REFERENCE
                     )
                     subscriber.subscribe()
 
 
-class NewsletterUserExtra():
+class NewsletterUserExtra:
     def on_init(self, form):
-        form.fields['newsletter'] = forms.TypedChoiceField(
+        form.fields["newsletter"] = forms.TypedChoiceField(
             widget=forms.RadioSelect,
             choices=(
-                (1, 'Ja, ich möchte den Newsletter zum Thema Informationsfreiheit erhalten!'),
-                (0, 'Nein, ich möchte keinen Newsletter.'),
+                (
+                    1,
+                    "Ja, ich möchte den Newsletter zum Thema Informationsfreiheit erhalten!",
+                ),
+                (0, "Nein, ich möchte keinen Newsletter."),
             ),
             coerce=lambda x: bool(int(x)),
             required=True,
-            label='Newsletter',
-            error_messages={
-                'required': 'Sie müssen sich entscheiden.'
-            },
+            label="Newsletter",
+            error_messages={"required": "Sie müssen sich entscheiden."},
         )
 
     def on_clean(self, form):
         pass
 
     def on_save(self, form, user):
-        if not form.cleaned_data.get('newsletter'):
+        if not form.cleaned_data.get("newsletter"):
             return
 
         try:
-            newsletter = Newsletter.objects.get(
-                slug=settings.DEFAULT_NEWSLETTER
-            )
+            newsletter = Newsletter.objects.get(slug=settings.DEFAULT_NEWSLETTER)
         except Newsletter.DoesNotExist:
             return
 
@@ -141,11 +130,7 @@ class NewsletterUserExtra():
         # tentatively, it will be subscribed
         # via account activation signal when a user subscription is found
         Subscriber.objects.get_or_create(
-            user=user,
-            newsletter=newsletter,
-            defaults={
-                'reference': 'user_extra'
-            }
+            user=user, newsletter=newsletter, defaults={"reference": "user_extra"}
         )
 
 

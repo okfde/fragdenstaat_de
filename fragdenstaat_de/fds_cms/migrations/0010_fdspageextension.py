@@ -10,22 +10,56 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.FILER_IMAGE_MODEL),
-        ('cms', '0022_auto_20180620_1551'),
-        ('fds_cms', '0009_auto_20181218_0914'),
+        ("cms", "0022_auto_20180620_1551"),
+        ("fds_cms", "0009_auto_20181218_0914"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='FdsPageExtension',
+            name="FdsPageExtension",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('search_index', models.BooleanField(default=True)),
-                ('extended_object', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='cms.Page')),
-                ('image', filer.fields.image.FilerImageField(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.FILER_IMAGE_MODEL, verbose_name='image')),
-                ('public_extension', models.OneToOneField(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='draft_extension', to='fds_cms.FdsPageExtension')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("search_index", models.BooleanField(default=True)),
+                (
+                    "extended_object",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cms.Page",
+                    ),
+                ),
+                (
+                    "image",
+                    filer.fields.image.FilerImageField(
+                        blank=True,
+                        default=None,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.FILER_IMAGE_MODEL,
+                        verbose_name="image",
+                    ),
+                ),
+                (
+                    "public_extension",
+                    models.OneToOneField(
+                        editable=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="draft_extension",
+                        to="fds_cms.FdsPageExtension",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

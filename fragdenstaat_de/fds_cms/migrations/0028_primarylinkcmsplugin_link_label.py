@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0027_auto_20200610_1218'),
+        ("fds_cms", "0027_auto_20200610_1218"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='primarylinkcmsplugin',
-            name='link_label',
+            model_name="primarylinkcmsplugin",
+            name="link_label",
             field=models.CharField(blank=True, max_length=255),
         ),
     ]

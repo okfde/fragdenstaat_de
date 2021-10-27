@@ -16,10 +16,9 @@ def is_campaign(obj, campaign):
 def fds_static_placeholder(context, code):
     try:
         static_placeholder = StaticPlaceholder.objects.get(
-            code=code,
-            site_id__isnull=True
+            code=code, site_id__isnull=True
         )
     except StaticPlaceholder.DoesNotExist:
-        return ''
+        return ""
     placeholder = static_placeholder.public
     return render_placeholder(context, placeholder, use_cache=True)

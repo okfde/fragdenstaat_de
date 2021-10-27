@@ -31,53 +31,48 @@ logger = logging.getLogger()
 
 
 EMAIL_TEMPLATE_CHOICES = [
-    ('', _('Default template')),
-    ('newsletter', _('Newsletter template')),
-    ('formal', _('Formal email template'))
+    ("", _("Default template")),
+    ("newsletter", _("Newsletter template")),
+    ("formal", _("Formal email template")),
 ]
 
-COLLAPSE_NEWLINES = re.compile(r'((?:\r?\n){3,})')
+COLLAPSE_NEWLINES = re.compile(r"((?:\r?\n){3,})")
 
 
 class EmailTemplate(models.Model):
     name = models.CharField(max_length=255)
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(default=timezone.now)
-    category = models.CharField(
-        max_length=30, blank=True
-    )
+    category = models.CharField(max_length=30, blank=True)
     subject = models.CharField(max_length=255, blank=True)
     text = models.TextField(blank=True)
 
-    email_body = PlaceholderField('email_body')
+    email_body = PlaceholderField("email_body")
 
     template = models.CharField(
-        max_length=255, blank=True,
-        choices=EMAIL_TEMPLATE_CHOICES
+        max_length=255, blank=True, choices=EMAIL_TEMPLATE_CHOICES
     )
     active = models.BooleanField(default=False)
-    mail_intent = models.CharField(
-        max_length=255, blank=True
-    )
+    mail_intent = models.CharField(max_length=255, blank=True)
 
     class Meta:
-        ordering = ('-created',)
-        verbose_name = _('email template')
-        verbose_name_plural = _('email templates')
+        ordering = ("-created",)
+        verbose_name = _("email template")
+        verbose_name_plural = _("email templates")
 
     def __str__(self):
         return self.name
 
-    def get_template(self, name='base.html'):
+    def get_template(self, name="base.html"):
         template_base = self.template
-        if template_base == '':
-            template_base = 'default'
-        return 'email/{}/{}'.format(template_base, name)
+        if template_base == "":
+            template_base = "default"
+        return "email/{}/{}".format(template_base, name)
 
     def get_mail_intent_app(self):
         if not self.mail_intent:
             return
-        return self.mail_intent.split('/', 1)[0]
+        return self.mail_intent.split("/", 1)[0]
 
     def get_mail_intent(self):
         if not self.mail_intent:
@@ -90,49 +85,43 @@ class EmailTemplate(models.Model):
             return
         return "email_extra_{}".format(mail_intent_app)
 
-    def render_email_html(self, request=None, context=None,
-                          template='fds_mailing/render_base.html'):
+    def render_email_html(
+        self, request=None, context=None, template="fds_mailing/render_base.html"
+    ):
         if request is None:
             request = get_request()
         ctx = {
-            'placeholder': self.email_body,
-            'object': self,
-            'template': self.template,
-            'extra_email_placeholder': self.get_extra_placeholder_name()
+            "placeholder": self.email_body,
+            "object": self,
+            "template": self.template,
+            "extra_email_placeholder": self.get_extra_placeholder_name(),
         }
         if context is not None:
             ctx.update(context)
-        safe_html = render_to_string(
-            template,
-            context=ctx,
-            request=request
-        )
+        safe_html = render_to_string(template, context=ctx, request=request)
         # Call strip marks it unsafe again!
         return safe_html.strip()
 
     def update_context(self, ctx):
-        ctx.update({
-            'subject': self.subject
-        })
+        ctx.update({"subject": self.subject})
 
-    def get_body_html(self, context=None, preview=False,
-                      template='fds_mailing/render_base.html'):
+    def get_body_html(
+        self, context=None, preview=False, template="fds_mailing/render_base.html"
+    ):
         if context is None:
             context = {}
         self.update_context(context)
-        template_str = self.render_email_html(
-            context=context, template=template
-        )
+        template_str = self.render_email_html(context=context, template=template)
         template = Template(template_str)
         html = template.render(Context(context))
-        if '{{' in html or '}}' in html and not preview:
-            raise ValueError('Likely variable definition broken')
+        if "{{" in html or "}}" in html and not preview:
+            raise ValueError("Likely variable definition broken")
         return html
 
     def render_email_text(self, context=None):
         if context is None:
             context = {}
-        text = ''
+        text = ""
         if self.text:
             text = self.text
         elif self.email_body:
@@ -140,40 +129,42 @@ class EmailTemplate(models.Model):
         extra_placeholder = self.get_extra_placeholder_name()
         if extra_placeholder:
             try:
-                sp = StaticPlaceholder.objects.filter(
-                    code=extra_placeholder
-                ).select_related('public').get()
-                text = '{}\r\n\r\n{}'.format(
-                    text, render_text(sp.public, context)
+                sp = (
+                    StaticPlaceholder.objects.filter(code=extra_placeholder)
+                    .select_related("public")
+                    .get()
                 )
+                text = "{}\r\n\r\n{}".format(text, render_text(sp.public, context))
             except StaticPlaceholder.DoesNotExist:
                 pass
-        return COLLAPSE_NEWLINES.sub('\r\n\r\n', text)
+        return COLLAPSE_NEWLINES.sub("\r\n\r\n", text)
 
     def get_body_text(self, context=None, preview=False):
         template_str = self.render_email_text(context)
-        template_str = '{top}{body}{bottom}{footer}'.format(
-            top='{% autoescape off %}',
+        template_str = "{top}{body}{bottom}{footer}".format(
+            top="{% autoescape off %}",
             body=template_str,
-            bottom='{% endautoescape %}',
-            footer='\r\n\r\n{% include "emails/footer.txt" %}'
+            bottom="{% endautoescape %}",
+            footer='\r\n\r\n{% include "emails/footer.txt" %}',
         )
         if context is None:
             context = {}
         self.update_context(context)
         template = Template(template_str)
         html = template.render(Context(context))
-        if '{{' in html or '}}' in html and not preview:
-            raise ValueError('Likely variable definition broken')
+        if "{{" in html or "}}" in html and not preview:
+            raise ValueError("Likely variable definition broken")
         return html
 
     @property
     def subject_template(self):
-        return Template('{}{}{}'.format(
-            '{% autoescape off %}',
-            self.subject,
-            '{% endautoescape %}',
-        ))
+        return Template(
+            "{}{}{}".format(
+                "{% autoescape off %}",
+                self.subject,
+                "{% endautoescape %}",
+            )
+        )
 
     def get_context_vars(self):
         intent = self.get_mail_intent()
@@ -200,11 +191,13 @@ class EmailTemplate(models.Model):
 
         extra_kwargs = {}
         if bulk:
-            extra_kwargs['queue'] = settings.EMAIL_BULK_QUEUE
+            extra_kwargs["queue"] = settings.EMAIL_BULK_QUEUE
         if email_content.html:
-            extra_kwargs['html'] = email_content.html
+            extra_kwargs["html"] = email_content.html
 
-        send_mail(email_content.subject, email_content.text,
+        send_mail(
+            email_content.subject,
+            email_content.text,
             make_address(user.email, name=user.get_full_name()),
             from_email=settings.DEFAULT_FROM_EMAIL,
             **extra_kwargs
@@ -212,18 +205,14 @@ class EmailTemplate(models.Model):
 
     def get_email_bytes(self, context, recipients=None):
         if recipients is None:
-            if context.get('request'):
-                recipients = [context['request'].user.email]
+            if context.get("request"):
+                recipients = [context["request"].user.email]
 
         content = self.get_email_content(context, preview=True)
         email = EmailMultiAlternatives(
-            content.subject, content.text,
-            settings.DEFAULT_FROM_EMAIL, recipients
+            content.subject, content.text, settings.DEFAULT_FROM_EMAIL, recipients
         )
-        email.attach_alternative(
-            content.html,
-            "text/html"
-        )
+        email.attach_alternative(content.html, "text/html")
         return email.message().as_bytes()
 
 
@@ -232,9 +221,9 @@ class VariableTemplateMixin:
 
     def get_context(self):
         return {
-            key: getattr(self, key) or (
-                '{{ %s }}' % key if key not in self.empty_vars else ''
-            ) for key in self.context_vars
+            key: getattr(self, key)
+            or ("{{ %s }}" % key if key not in self.empty_vars else "")
+            for key in self.context_vars
         }
 
 
@@ -243,8 +232,8 @@ class EmailActionCMSPlugin(VariableTemplateMixin, CMSPlugin):
     action_url = models.CharField(max_length=255, blank=True)
     action_label = models.CharField(max_length=255, blank=True)
 
-    context_vars = ['heading', 'action_url', 'action_label']
-    empty_vars = set(['heading'])
+    context_vars = ["heading", "action_url", "action_label"]
+    empty_vars = set(["heading"])
 
     def __str__(self):
         return str(self.heading)
@@ -252,7 +241,7 @@ class EmailActionCMSPlugin(VariableTemplateMixin, CMSPlugin):
 
 class EmailSectionCMSPlugin(VariableTemplateMixin, CMSPlugin):
     title = models.CharField(max_length=255, blank=True)
-    context_vars = ['title']
+    context_vars = ["title"]
 
     def __str__(self):
         return str(self.title)
@@ -263,7 +252,7 @@ class EmailStoryCMSPlugin(VariableTemplateMixin, CMSPlugin):
     url = models.URLField(max_length=255, blank=True)
     label = models.CharField(max_length=255, blank=True)
 
-    context_vars = ['heading', 'url', 'label']
+    context_vars = ["heading", "url", "label"]
 
     def __str__(self):
         return str(self.heading)
@@ -273,10 +262,15 @@ class EmailHeaderCMSPlugin(VariableTemplateMixin, CMSPlugin):
     label = models.CharField(max_length=255)
     color = models.CharField(max_length=10, blank=True)
 
-    image = FilerImageField(null=True, blank=True, default=None,
-        on_delete=models.SET_NULL, verbose_name=_("image"))
+    image = FilerImageField(
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        verbose_name=_("image"),
+    )
 
-    context_vars = ['label', 'image', 'color']
+    context_vars = ["label", "image", "color"]
 
     def __str__(self):
         return self.label
@@ -291,52 +285,55 @@ class Mailing(models.Model):
         Newsletter, blank=True, null=True, on_delete=models.SET_NULL
     )
     sender_name = models.CharField(max_length=255)
-    sender_email = models.EmailField(
-        max_length=255, default=settings.SITE_EMAIL
-    )
+    sender_email = models.EmailField(max_length=255, default=settings.SITE_EMAIL)
 
     sender_user = models.ForeignKey(
-        User, blank=True, null=True, on_delete=models.SET_NULL,
-        editable=False, related_name='mailings_sent'
+        User,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        editable=False,
+        related_name="mailings_sent",
     )
     creator_user = models.ForeignKey(
-        User, blank=True, null=True, on_delete=models.SET_NULL,
-        editable=False, related_name='mailings_created'
+        User,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        editable=False,
+        related_name="mailings_created",
     )
     created = models.DateTimeField(default=timezone.now, editable=False)
 
     publish = models.BooleanField(
-        default=True, verbose_name=_('publish'),
-        help_text=_('Publish in archive.'), db_index=True
+        default=True,
+        verbose_name=_("publish"),
+        help_text=_("Publish in archive."),
+        db_index=True,
     )
 
     ready = models.BooleanField(
-        default=False, verbose_name=_('ready'),
+        default=False,
+        verbose_name=_("ready"),
     )
     submitted = models.BooleanField(
-        default=False, verbose_name=_('submitted'),
-        editable=False
+        default=False, verbose_name=_("submitted"), editable=False
     )
     sending_date = models.DateTimeField(
-        verbose_name=_('sending date'), blank=True, null=True
+        verbose_name=_("sending date"), blank=True, null=True
     )
     sent_date = models.DateTimeField(
-        verbose_name=_('sent date'), blank=True, null=True,
-        editable=False
+        verbose_name=_("sent date"), blank=True, null=True, editable=False
     )
-    sent = models.BooleanField(
-        default=False, verbose_name=_('sent'),
-        editable=False
-    )
+    sent = models.BooleanField(default=False, verbose_name=_("sent"), editable=False)
     sending = models.BooleanField(
-        default=False, verbose_name=_('sending'),
-        editable=False
+        default=False, verbose_name=_("sending"), editable=False
     )
 
     class Meta:
-        ordering = ('-created',)
-        verbose_name = _('mailing')
-        verbose_name_plural = _('mailings')
+        ordering = ("-created",)
+        verbose_name = _("mailing")
+        verbose_name_plural = _("mailings")
 
     def __str__(self):
         return self.name
@@ -346,8 +343,8 @@ class Mailing(models.Model):
 
     def get_email_context(self):
         ctx = {
-            'mailing': self,
-            'newsletter': self.newsletter,
+            "mailing": self,
+            "newsletter": self.newsletter,
         }
         return ctx
 
@@ -363,7 +360,7 @@ class Mailing(models.Model):
                     mailing=self,
                     subscriber=subscriber,
                     name=subscriber.get_name(),
-                    email=subscriber.get_email()
+                    email=subscriber.get_email(),
                 )
             return
         for recipient in self.recipients.all():
@@ -380,12 +377,12 @@ class Mailing(models.Model):
             # Force limit to selected newsletter
             recipients = recipients.filter(
                 subscriber__newsletter=self.newsletter,
-                subscriber__subscribed__isnull=False
+                subscriber__subscribed__isnull=False,
             )
 
         logger.info(
             _("Sending %(mailing)s to %(count)d people"),
-            {'mailing': self, 'count': recipients.count()}
+            {"mailing": self, "count": recipients.count()},
         )
         self.sending = True
         self.save()
@@ -400,10 +397,7 @@ class Mailing(models.Model):
             self.sent_date = timezone.now()
 
         except Exception:
-            mail_managers(
-                'Sending out {} partly failed'.format(self.name),
-                ''
-            )
+            mail_managers("Sending out {} partly failed".format(self.name), "")
 
         finally:
             self.sending = False
@@ -412,8 +406,7 @@ class Mailing(models.Model):
 
 class MailingMessage(models.Model):
     mailing = models.ForeignKey(
-        Mailing, on_delete=models.CASCADE,
-        related_name='recipients'
+        Mailing, on_delete=models.CASCADE, related_name="recipients"
     )
 
     name = models.CharField(max_length=255, blank=True)
@@ -425,55 +418,44 @@ class MailingMessage(models.Model):
     message = models.TextField(blank=True)
 
     subscriber = models.ForeignKey(
-        Subscriber, null=True, blank=True,
-        on_delete=models.SET_NULL
+        Subscriber, null=True, blank=True, on_delete=models.SET_NULL
     )
-    donor = models.ForeignKey(
-        Donor, null=True, blank=True,
-        on_delete=models.SET_NULL
-    )
-    user = models.ForeignKey(
-        User, null=True, blank=True,
-        on_delete=models.SET_NULL
-    )
+    donor = models.ForeignKey(Donor, null=True, blank=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
-        ordering = ('-sent',)
-        verbose_name = _('mailing message')
-        verbose_name_plural = _('mailing messages')
+        ordering = ("-sent",)
+        verbose_name = _("mailing message")
+        verbose_name_plural = _("mailing messages")
 
     def __str__(self):
-        return 'MailingRecipient  %s (%s)' % (self.email, self.mailing)
+        return "MailingRecipient  %s (%s)" % (self.email, self.mailing)
 
     def get_email_context(self):
-        ctx = {
-            'user': self.user,
-            'donor': self.donor
-        }
+        ctx = {"user": self.user, "donor": self.donor}
         # Try to find a user
         if not self.user and self.subscriber and self.subscriber.user:
-            ctx['user'] = self.subscriber.user
+            ctx["user"] = self.subscriber.user
         elif not self.user and self.donor and self.donor.user:
-            ctx['user'] = self.donor.user
+            ctx["user"] = self.donor.user
 
         # Try to find a donor
-        if ctx['user'] and not ctx.get('donor'):
-            ctx['donor'] = Donor.objects.filter(user=ctx['user']).first()
+        if ctx["user"] and not ctx.get("donor"):
+            ctx["donor"] = Donor.objects.filter(user=ctx["user"]).first()
 
-        if self.subscriber and not ctx.get('donor'):
-            ctx['donor'] = Donor.objects.filter(subscriber=self.subscriber).first()
+        if self.subscriber and not ctx.get("donor"):
+            ctx["donor"] = Donor.objects.filter(subscriber=self.subscriber).first()
 
-        if not ctx['donor'] and self.subscriber and self.subscriber.email:
-            ctx['donor'] = Donor.objects.filter(
-                email=self.subscriber.email,
-                email_confirmed__isnull=False
+        if not ctx["donor"] and self.subscriber and self.subscriber.email:
+            ctx["donor"] = Donor.objects.filter(
+                email=self.subscriber.email, email_confirmed__isnull=False
             ).first()
 
-        for obj in (self.subscriber, ctx['donor'], ctx['user']):
-            if hasattr(obj, 'get_email_context'):
+        for obj in (self.subscriber, ctx["donor"], ctx["user"]):
+            if hasattr(obj, "get_email_context"):
                 ctx.update(obj.get_email_context())
-        if 'name' not in ctx:
-            ctx['name'] = self.name
+        if "name" not in ctx:
+            ctx["name"] = self.name
         return ctx
 
     def finalize(self):
@@ -499,18 +481,18 @@ class MailingMessage(models.Model):
 
         email_content = email_template.get_email_content(context)
 
-        extra_kwargs = {
-            'queue': settings.EMAIL_BULK_QUEUE
-        }
+        extra_kwargs = {"queue": settings.EMAIL_BULK_QUEUE}
         if email_content.html:
-            extra_kwargs['html'] = email_content.html
+            extra_kwargs["html"] = email_content.html
 
-        unsubscribe_reference = context.get('unsubscribe_reference')
+        unsubscribe_reference = context.get("unsubscribe_reference")
 
         try:
-            logger.debug('Sending mailing message to: %s.', self)
+            logger.debug("Sending mailing message to: %s.", self)
 
-            send_mail(email_content.subject, email_content.text,
+            send_mail(
+                email_content.subject,
+                email_content.text,
                 make_address(self.email, name=self.name),
                 from_email=self.mailing.get_sender(),
                 unsubscribe_reference=unsubscribe_reference,
@@ -520,6 +502,4 @@ class MailingMessage(models.Model):
             self.save()
 
         except Exception as e:
-            logger.error(
-                'Mailing message %s failed with error: %s' % (self, e)
-            )
+            logger.error("Mailing message %s failed with error: %s" % (self, e))

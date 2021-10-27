@@ -8,8 +8,9 @@ from django.utils import timezone
 from froide_payment.models import PaymentStatus
 
 from .services import (
-    send_donation_email, create_donation_from_payment,
-    send_sepa_notification
+    send_donation_email,
+    create_donation_from_payment,
+    send_sepa_notification,
 )
 from .models import Donor, Donation
 from .tasks import send_donation_notification
@@ -27,7 +28,7 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
     if not obj.payment_id or obj.payment_id != instance.id:
         obj.payment = instance
 
-    obj.amount_received = instance.received_amount or Decimal('0.0')
+    obj.amount_received = instance.received_amount or Decimal("0.0")
 
     if instance.status == PaymentStatus.CONFIRMED:
         obj.completed = True
@@ -37,8 +38,10 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         if instance.received_timestamp:
             obj.received_timestamp = instance.received_timestamp
     elif instance.status in (
-            PaymentStatus.ERROR, PaymentStatus.REFUNDED,
-            PaymentStatus.REJECTED):
+        PaymentStatus.ERROR,
+        PaymentStatus.REFUNDED,
+        PaymentStatus.REJECTED,
+    ):
         obj.received = False
     elif instance.status in (PaymentStatus.PENDING,):
         obj.completed = True
@@ -71,14 +74,12 @@ def process_new_donation(donation, received_now=False, domain_obj=None):
         # do not send email for recurring donations
         return
 
-    pending_ok = payment.variant in ('lastschrift', 'banktransfer', 'sepa')
+    pending_ok = payment.variant in ("lastschrift", "banktransfer", "sepa")
     confirmed = payment.status == PaymentStatus.CONFIRMED
     pending = payment.status == PaymentStatus.PENDING
     if (confirmed and received_now and not pending_ok) or (pending and pending_ok):
         send_donation_email(donation, domain_obj=domain_obj)
-        transaction.on_commit(
-            lambda: send_donation_notification.delay(donation.id)
-        )
+        transaction.on_commit(lambda: send_donation_notification.delay(donation.id))
 
 
 def subscription_was_canceled(sender, **kwargs):
@@ -99,8 +100,7 @@ def user_email_changed(sender, old_email=None, **kwargs):
     try:
         # Connect user to existing
         confirmed_email_donor = Donor.objects.get(
-            email=sender.email, user__isnull=True,
-            email_confirmed__isnull=False
+            email=sender.email, user__isnull=True, email_confirmed__isnull=False
         )
         confirmed_email_donor.user = sender
         confirmed_email_donor.save()
@@ -131,32 +131,43 @@ def export_user_data(user):
     except Donor.DoesNotExist:
         return
 
-    yield ('donor.json', json.dumps({
-        'salutation': donor.salutation,
-        'first_name': donor.first_name,
-        'last_name': donor.last_name,
-        'company_name': donor.company_name,
-        'address': donor.address,
-        'postcode': donor.postcode,
-        'city': donor.city,
-        'country': str(donor.country),
-        'email': donor.email,
-        'attributes': dict(donor.attributes or {}) or None
-    }).encode('utf-8'))
+    yield (
+        "donor.json",
+        json.dumps(
+            {
+                "salutation": donor.salutation,
+                "first_name": donor.first_name,
+                "last_name": donor.last_name,
+                "company_name": donor.company_name,
+                "address": donor.address,
+                "postcode": donor.postcode,
+                "city": donor.city,
+                "country": str(donor.country),
+                "email": donor.email,
+                "attributes": dict(donor.attributes or {}) or None,
+            }
+        ).encode("utf-8"),
+    )
     donations = Donation.objects.filter(donor=donor)
-    yield ('donations.json', json.dumps([
-        {
-            'amount': float(d.amount),
-            'amount_received': (
-                float(d.amount_received) if d.amount_received
-                else None
-            ),
-            'method': d.method,
-            'recurring': d.recurring,
-            'timestamp': d.timestamp.isoformat(),
-            'received_timestamp': (
-                d.received_timestamp.isoformat()
-                if d.received_timestamp else None
-            ),
-        } for d in donations
-    ]))
+    yield (
+        "donations.json",
+        json.dumps(
+            [
+                {
+                    "amount": float(d.amount),
+                    "amount_received": (
+                        float(d.amount_received) if d.amount_received else None
+                    ),
+                    "method": d.method,
+                    "recurring": d.recurring,
+                    "timestamp": d.timestamp.isoformat(),
+                    "received_timestamp": (
+                        d.received_timestamp.isoformat()
+                        if d.received_timestamp
+                        else None
+                    ),
+                }
+                for d in donations
+            ]
+        ),
+    )

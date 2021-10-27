@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0001_initial'),
+        ("fds_donation", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='donationgift',
-            options={'ordering': ('name',)},
+            name="donationgift",
+            options={"ordering": ("name",)},
         ),
         migrations.AddField(
-            model_name='donationgiftformcmsplugin',
-            name='next_url',
+            model_name="donationgiftformcmsplugin",
+            name="next_url",
             field=models.CharField(blank=True, max_length=255),
         ),
     ]

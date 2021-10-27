@@ -7,22 +7,40 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('filingcabinet', '0021_auto_20210511_1546'),
-        ('cms', '0022_auto_20180620_1551'),
-        ('fds_cms', '0030_auto_20210505_1720'),
+        ("filingcabinet", "0021_auto_20210511_1546"),
+        ("cms", "0022_auto_20180620_1551"),
+        ("fds_cms", "0030_auto_20210505_1720"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DocumentPortalEmbedCMSPlugin',
+            name="DocumentPortalEmbedCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_cms_documentportalembedcmsplugin', serialize=False, to='cms.cmsplugin')),
-                ('settings', models.JSONField(blank=True, default=dict)),
-                ('portal', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='filingcabinet.documentportal')),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_cms_documentportalembedcmsplugin",
+                        serialize=False,
+                        to="cms.cmsplugin",
+                    ),
+                ),
+                ("settings", models.JSONField(blank=True, default=dict)),
+                (
+                    "portal",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="filingcabinet.documentportal",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

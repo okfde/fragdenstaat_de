@@ -19,53 +19,52 @@ from froide.helper.email_sending import mail_registry
 
 logger = logging.getLogger(__name__)
 
-REFERENCE_PREFIX = 'newsletter-'
+REFERENCE_PREFIX = "newsletter-"
 
 
 subscriber_confirm_email = mail_registry.register(
-    'fds_newsletter/email/subscriber_confirm',
-    (
-        'name', 'newsletter', 'action_url', 'unsubscribe_url'
-    )
+    "fds_newsletter/email/subscriber_confirm",
+    ("name", "newsletter", "action_url", "unsubscribe_url"),
 )
 
 subscriber_already_email = mail_registry.register(
-    'fds_newsletter/email/subscriber_already',
-    (
-        'name', 'newsletter', 'unsubscribe_url'
-    )
+    "fds_newsletter/email/subscriber_already", ("name", "newsletter", "unsubscribe_url")
 )
 
 
 def get_email_context(subscriber):
     site = Site.objects.get_current()
     context = {
-        'subscriber': subscriber,
-        'newsletter': subscriber.newsletter,
-        'site': site,
-        'site_name': settings.SITE_NAME,
-        'site_url': settings.SITE_URL,
-        'domain': site.domain,
-        'unsubscribe_url': subscriber.get_unsubscribe_url(),
-        'STATIC_URL': settings.STATIC_URL,
-        'MEDIA_URL': settings.MEDIA_URL,
-        'unsubscribe_reference': '{prefix}{pk}'.format(
+        "subscriber": subscriber,
+        "newsletter": subscriber.newsletter,
+        "site": site,
+        "site_name": settings.SITE_NAME,
+        "site_url": settings.SITE_URL,
+        "domain": site.domain,
+        "unsubscribe_url": subscriber.get_unsubscribe_url(),
+        "STATIC_URL": settings.STATIC_URL,
+        "MEDIA_URL": settings.MEDIA_URL,
+        "unsubscribe_reference": "{prefix}{pk}".format(
             prefix=REFERENCE_PREFIX, pk=subscriber.id
-        )
+        ),
     }
 
     if subscriber.user:
         user = subscriber.user
-        context.update({
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'name': user.get_full_name(),
-            'login_url': user.get_autologin_url('/'),
-        })
+        context.update(
+            {
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "name": user.get_full_name(),
+                "login_url": user.get_autologin_url("/"),
+            }
+        )
     else:
-        context.update({
-            'name': subscriber.get_name(),
-        })
+        context.update(
+            {
+                "name": subscriber.get_name(),
+            }
+        )
     return context
 
 
@@ -75,30 +74,26 @@ class NewsletterManager(models.Manager):
 
 
 class Newsletter(models.Model):
-    title = models.CharField(
-        max_length=200, verbose_name=_('newsletter title')
-    )
+    title = models.CharField(max_length=200, verbose_name=_("newsletter title"))
     slug = models.SlugField(db_index=True, unique=True)
     url = models.URLField(blank=True)
 
     description = models.TextField(blank=True)
 
     sender_email = models.EmailField(
-        verbose_name=_('e-mail'), help_text=_('Sender e-mail')
+        verbose_name=_("e-mail"), help_text=_("Sender e-mail")
     )
     sender_name = models.CharField(
-        max_length=200, verbose_name=_('sender'), help_text=_('Sender name')
+        max_length=200, verbose_name=_("sender"), help_text=_("Sender name")
     )
 
-    visible = models.BooleanField(
-        default=True, verbose_name=_('visible')
-    )
+    visible = models.BooleanField(default=True, verbose_name=_("visible"))
 
     objects = NewsletterManager()
 
     class Meta:
-        verbose_name = _('newsletter')
-        verbose_name_plural = _('newsletters')
+        verbose_name = _("newsletter")
+        verbose_name_plural = _("newsletters")
 
     def __str__(self):
         return self.title
@@ -112,15 +107,13 @@ class SubscriberTag(TagBase):
 
 class TaggedSubscriber(TaggedItemBase):
     tag = models.ForeignKey(
-        SubscriberTag, related_name="subscribers",
-        on_delete=models.CASCADE)
-    content_object = models.ForeignKey(
-        'Subscriber',
-        on_delete=models.CASCADE)
+        SubscriberTag, related_name="subscribers", on_delete=models.CASCADE
+    )
+    content_object = models.ForeignKey("Subscriber", on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = _('Tagged Subscriber')
-        verbose_name_plural = _('Tagged Subscribers')
+        verbose_name = _("Tagged Subscriber")
+        verbose_name_plural = _("Tagged Subscribers")
 
 
 def make_activation_code():
@@ -129,19 +122,24 @@ def make_activation_code():
 
 class Subscriber(models.Model):
     newsletter = models.ForeignKey(
-        Newsletter, verbose_name=_('newsletter'), on_delete=models.CASCADE,
-        related_name='subscribers'
+        Newsletter,
+        verbose_name=_("newsletter"),
+        on_delete=models.CASCADE,
+        related_name="subscribers",
     )
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('user'),
-        on_delete=models.CASCADE, related_name='+'
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        verbose_name=_("user"),
+        on_delete=models.CASCADE,
+        related_name="+",
     )
 
-    name = models.CharField(_('name'), max_length=100, blank=True)
+    name = models.CharField(_("name"), max_length=100, blank=True)
     email = models.EmailField(
-        verbose_name=_('e-mail'), db_index=True,
-        blank=True, null=True
+        verbose_name=_("e-mail"), db_index=True, blank=True, null=True
     )
     send_html = models.BooleanField(default=True)
 
@@ -150,20 +148,15 @@ class Subscriber(models.Model):
     last_activation_sent = models.DateTimeField(null=True, blank=True)
 
     activation_code = models.CharField(
-        _('activation code'), max_length=40,
-        default=make_activation_code
+        _("activation code"), max_length=40, default=make_activation_code
     )
 
-    subscribed = models.DateTimeField(
-        _("subscribe date"), null=True, blank=True
-    )
+    subscribed = models.DateTimeField(_("subscribe date"), null=True, blank=True)
 
     unsubscribed = models.DateTimeField(
         verbose_name=_("unsubscribe date"), null=True, blank=True
     )
-    unsubscribe_method = models.CharField(
-        max_length=255, blank=True
-    )
+    unsubscribe_method = models.CharField(max_length=255, blank=True)
     email_hash = models.CharField(max_length=64, blank=True)
 
     reference = models.CharField(max_length=255, blank=True)
@@ -172,45 +165,43 @@ class Subscriber(models.Model):
     tags = TaggableManager(through=TaggedSubscriber, blank=True)
 
     class Meta:
-        verbose_name = _('newsletter subscriber')
-        verbose_name_plural = _('newsletter subscribers')
-        ordering = ('-created',)
+        verbose_name = _("newsletter subscriber")
+        verbose_name_plural = _("newsletter subscribers")
+        ordering = ("-created",)
         constraints = [
             models.UniqueConstraint(
-                fields=['newsletter', 'user'],
+                fields=["newsletter", "user"],
                 condition=models.Q(user__isnull=False),
-                name='unique_user_newsletter'
+                name="unique_user_newsletter",
             ),
             models.UniqueConstraint(
-                fields=['newsletter', 'email'],
+                fields=["newsletter", "email"],
                 condition=models.Q(email__isnull=False),
-                name='unique_email_newsletter'
+                name="unique_email_newsletter",
             ),
             models.CheckConstraint(
-                check=models.Q(
-                    user__isnull=True, email__isnull=False
-                ) | models.Q(user__isnull=False, email__isnull=True
-                ) | models.Q(
-                    user__isnull=True, email__isnull=True,
-                    unsubscribed__isnull=False
+                check=models.Q(user__isnull=True, email__isnull=False)
+                | models.Q(user__isnull=False, email__isnull=True)
+                | models.Q(
+                    user__isnull=True, email__isnull=True, unsubscribed__isnull=False
                 ),
-                name='newsletter_subscription_user_email'),
+                name="newsletter_subscription_user_email",
+            ),
             models.CheckConstraint(
                 check=~models.Q(subscribed__isnull=False, unsubscribed__isnull=False),
-                name='newsletter_subscription_state'),
+                name="newsletter_subscription_state",
+            ),
         ]
 
     def __str__(self):
-        return '{} <{}> ({})'.format(
-            self.id, self.get_email(), self.newsletter
-        )
+        return "{} <{}> ({})".format(self.id, self.get_email(), self.newsletter)
 
     def clean(self):
         nl_qs = Subscriber.objects.filter(newsletter=self.newsletter)
         if self.email and nl_qs.filter(user__email=self.email).exists():
-            raise ValidationError(_('User with that email already present.'))
+            raise ValidationError(_("User with that email already present."))
         elif self.user and nl_qs.filter(email=self.user.email).exists():
-            raise ValidationError(_('Email for this user already present.'))
+            raise ValidationError(_("Email for this user already present."))
 
     def get_name(self):
         if self.user:
@@ -227,12 +218,13 @@ class Subscriber(models.Model):
 
     def send_activation_email(self):
         context = self.get_email_context()
-        context['action_url'] = self.get_subscribe_url()
+        context["action_url"] = self.get_subscribe_url()
         subscriber_confirm_email.send(
             email=self.email,
             user=self.user,
             context=context,
-            ignore_active=True, priority=True
+            ignore_active=True,
+            priority=True,
         )
         self.last_activation_sent = timezone.now()
         self.save()
@@ -243,53 +235,50 @@ class Subscriber(models.Model):
             email=self.email,
             user=self.user,
             context=context,
-            ignore_active=True, priority=True
+            ignore_active=True,
+            priority=True,
         )
         self.last_activation_sent = timezone.now()
         self.save()
 
     def get_subscribe_url(self):
         return settings.SITE_URL + reverse(
-            'newsletter_confirm_subscribe', kwargs={
-                'newsletter_slug': self.newsletter.slug,
-                'pk': self.pk,
-                'activation_code': self.activation_code
-            }
+            "newsletter_confirm_subscribe",
+            kwargs={
+                "newsletter_slug": self.newsletter.slug,
+                "pk": self.pk,
+                "activation_code": self.activation_code,
+            },
         )
 
     def get_unsubscribe_url(self):
         if self.user:
-            return self.user.get_autologin_url(
-                reverse('account-settings')
-            ) + '#newsletter'
+            return (
+                self.user.get_autologin_url(reverse("account-settings")) + "#newsletter"
+            )
         return settings.SITE_URL + reverse(
-            'newsletter_confirm_unsubscribe', kwargs={
-                'newsletter_slug': self.newsletter.slug,
-                'pk': self.pk,
-                'activation_code': self.activation_code
-            }
+            "newsletter_confirm_unsubscribe",
+            kwargs={
+                "newsletter_slug": self.newsletter.slug,
+                "pk": self.pk,
+                "activation_code": self.activation_code,
+            },
         )
 
     def find_user(self):
         User = get_user_model()
         try:
-            return User.objects.get(
-                email=self.email,
-                is_active=True
-            )
+            return User.objects.get(email=self.email, is_active=True)
         except User.DoesNotExist:
             return
 
     def find_user_subscriber(self, user):
         try:
-            return Subscriber.objects.get(
-                newsletter=self.newsletter,
-                user=user
-            )
+            return Subscriber.objects.get(newsletter=self.newsletter, user=user)
         except Subscriber.DoesNotExist:
             pass
 
-    def subscribe(self, reference='', keyword=''):
+    def subscribe(self, reference="", keyword=""):
         if self.email:
             # Check for existing user / subscriber
             user = self.find_user()
@@ -322,12 +311,11 @@ class Subscriber(models.Model):
         if self.user:
             # Delete alternate email subscribers
             Subscriber.objects.filter(
-                newsletter=self.newsletter,
-                email=self.user.email.lower()
+                newsletter=self.newsletter, email=self.user.email.lower()
             ).delete()
         return self
 
-    def unsubscribe(self, method=''):
+    def unsubscribe(self, method=""):
         if self.unsubscribed:
             return
         self.subscribed = None
@@ -338,9 +326,7 @@ class Subscriber(models.Model):
 
 class NewsletterCMSPlugin(CMSPlugin):
     newsletter = models.ForeignKey(
-        Newsletter, related_name='+',
-        on_delete=models.CASCADE,
-        null=True, blank=True
+        Newsletter, related_name="+", on_delete=models.CASCADE, null=True, blank=True
     )
     fallback = models.BooleanField(default=False)
 

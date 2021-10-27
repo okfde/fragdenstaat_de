@@ -21,8 +21,8 @@ class FdsPageExtensionToolbar(ExtensionToolbar):
             if url:
                 # adds a toolbar item in position 0 (at the top of the menu)
                 current_page_menu.add_modal_item(
-                    _('FdS Page Settings'),
+                    _("FdS Page Settings"),
                     url=url,
                     disabled=not self.toolbar.edit_mode_active,
-                    position=-1
+                    position=-1,
                 )

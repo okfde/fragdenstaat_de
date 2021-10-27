@@ -6,13 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0029_auto_20200612_1243'),
+        ("fds_cms", "0029_auto_20200612_1243"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='foirequestlistcmsplugin',
-            name='template',
-            field=models.CharField(blank=True, choices=[('', 'Default template'), ('foirequest/cms_plugins/list_follow.html', 'Follow template')], help_text='template used to display the plugin', max_length=250, verbose_name='template'),
+            model_name="foirequestlistcmsplugin",
+            name="template",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("", "Default template"),
+                    ("foirequest/cms_plugins/list_follow.html", "Follow template"),
+                ],
+                help_text="template used to display the plugin",
+                max_length=250,
+                verbose_name="template",
+            ),
         ),
     ]

@@ -9,21 +9,39 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0020_old_tree_cleanup'),
-        ('document', '0006_auto_20180522_0114'),
-        ('fds_cms', '0005_foirequestlistcmsplugin'),
+        ("cms", "0020_old_tree_cleanup"),
+        ("document", "0006_auto_20180522_0114"),
+        ("fds_cms", "0005_foirequestlistcmsplugin"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DocumentEmbedCMSPlugin',
+            name="DocumentEmbedCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_cms_documentembedcmsplugin', serialize=False, to='cms.CMSPlugin')),
-                ('doc', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='document.Document')),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_cms_documentembedcmsplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                (
+                    "doc",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="document.Document",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

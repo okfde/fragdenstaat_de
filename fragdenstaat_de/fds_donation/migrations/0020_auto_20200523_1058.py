@@ -6,17 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0019_donor_recurring'),
+        ("fds_donation", "0019_donor_recurring"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='donor',
-            name='recurring',
+            model_name="donor",
+            name="recurring",
         ),
         migrations.AddField(
-            model_name='donor',
-            name='recurring_amount',
-            field=models.DecimalField(decimal_places=2, default=0, max_digits=12, null=True),
+            model_name="donor",
+            name="recurring_amount",
+            field=models.DecimalField(
+                decimal_places=2, default=0, max_digits=12, null=True
+            ),
         ),
     ]

@@ -15,51 +15,80 @@ from froide.helper.email_sending import mail_registry
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
 from .models import Donor, Donation
-from .utils import (
-    subscribe_donor_newsletter, propose_donor_merge, merge_donors
-)
+from .utils import subscribe_donor_newsletter, propose_donor_merge, merge_donors
 
 logger = logging.getLogger(__name__)
 
 
 new_donor_thanks_email = mail_registry.register(
-    'fds_donation/email/donor_new_thanks',
+    "fds_donation/email/donor_new_thanks",
     (
-        'name', 'first_name', 'last_name', 'salutation',
-        'payment', 'order', 'donor', 'donation'
-    )
+        "name",
+        "first_name",
+        "last_name",
+        "salutation",
+        "payment",
+        "order",
+        "donor",
+        "donation",
+    ),
 )
 
 donor_thanks_email = mail_registry.register(
-    'fds_donation/email/donor_thanks',
+    "fds_donation/email/donor_thanks",
     (
-        'name', 'first_name', 'last_name', 'salutation',
-        'payment', 'order', 'donor', 'donation'
-    )
+        "name",
+        "first_name",
+        "last_name",
+        "salutation",
+        "payment",
+        "order",
+        "donor",
+        "donation",
+    ),
 )
 
 donor_optin_email = mail_registry.register(
-    'fds_donation/email/donor_thanks_optin',
+    "fds_donation/email/donor_thanks_optin",
     (
-        'name', 'first_name', 'last_name', 'salutation',
-        'payment', 'order', 'donor', 'donation'
-    )
+        "name",
+        "first_name",
+        "last_name",
+        "salutation",
+        "payment",
+        "order",
+        "donor",
+        "donation",
+    ),
 )
 
 donation_reminder_email = mail_registry.register(
-    'fds_donation/email/donation_reminder',
+    "fds_donation/email/donation_reminder",
     (
-        'name', 'first_name', 'last_name', 'salutation',
-        'donor', 'donation', 'payment', 'order'
-    )
+        "name",
+        "first_name",
+        "last_name",
+        "salutation",
+        "donor",
+        "donation",
+        "payment",
+        "order",
+    ),
 )
 
 sepa_notification_email = mail_registry.register(
-    'fds_donation/email/sepa_notification',
+    "fds_donation/email/sepa_notification",
     (
-        'name', 'first_name', 'last_name', 'salutation',
-        'donor', 'payment', 'order', 'mandate_reference', 'last4'
-    )
+        "name",
+        "first_name",
+        "last_name",
+        "salutation",
+        "donor",
+        "payment",
+        "order",
+        "mandate_reference",
+        "last4",
+    ),
 )
 
 
@@ -84,31 +113,31 @@ def get_or_create_donor(data, user=None, subscription=None):
 def create_donor(data, user=None, subscription=None):
     email_confirmed = None
     if user is not None and user.email:
-        if user.email.lower() == data['email'].lower():
+        if user.email.lower() == data["email"].lower():
             email_confirmed = user.date_joined
     recurring_amount = Decimal(0)
     if subscription:
         recurring_amount = subscription.plan.amount_year / 12
     donor = Donor.objects.create(
-        salutation=data.get('salutation', ''),
-        first_name=data['first_name'],
-        last_name=data['last_name'],
-        company_name=data.get('company_name', ''),
-        address=data.get('address', ''),
-        postcode=data.get('postcode', ''),
-        city=data.get('city', ''),
-        country=data.get('country', ''),
-        email=data['email'].lower(),
+        salutation=data.get("salutation", ""),
+        first_name=data["first_name"],
+        last_name=data["last_name"],
+        company_name=data.get("company_name", ""),
+        address=data.get("address", ""),
+        postcode=data.get("postcode", ""),
+        city=data.get("city", ""),
+        country=data.get("country", ""),
+        email=data["email"].lower(),
         user=user,
         email_confirmed=email_confirmed,
         recurring_amount=recurring_amount,
-        contact_allowed=data.get('contact', False),
-        become_user=data.get('account', False),
-        receipt=data.get('receipt', False),
+        contact_allowed=data.get("contact", False),
+        become_user=data.get("account", False),
+        receipt=data.get("receipt", False),
     )
     if subscription:
         donor.subscriptions.add(subscription)
-    logger.info('Donor created %s', donor.id)
+    logger.info("Donor created %s", donor.id)
     if donor.email_confirmed and donor.contact_allowed:
         subscribe_to_default_newsletter(donor.email, user=user)
         subscribe_donor_newsletter(donor)
@@ -135,9 +164,7 @@ def send_donation_email(donation, domain_obj=None):
     else:
         needs_optin = True
         mail_intent = donor_optin_email
-        extra_context = {
-            'action_url': donor.get_url()
-        }
+        extra_context = {"action_url": donor.get_url()}
 
     if domain_obj is not None and not needs_optin:
         # payment not a donation
@@ -145,15 +172,15 @@ def send_donation_email(donation, domain_obj=None):
         return
 
     context = {
-        'name': donor.get_full_name(),
-        'first_name': donor.first_name,
-        'last_name': donor.last_name,
-        'salutation': donor.get_salutation(),
-        'payment': donation.payment,
-        'order': donation.payment.order,
-        'donor': donor,
-        'donation': donation,
-        'user': donor.user,
+        "name": donor.get_full_name(),
+        "first_name": donor.first_name,
+        "last_name": donor.last_name,
+        "salutation": donor.get_salutation(),
+        "payment": donation.payment,
+        "order": donation.payment.order,
+        "donor": donor,
+        "donation": donation,
+        "user": donor.user,
     }
     context.update(extra_context)
 
@@ -161,7 +188,8 @@ def send_donation_email(donation, domain_obj=None):
         user=donor.user,
         email=donor.email,
         context=context,
-        ignore_active=True, priority=True
+        ignore_active=True,
+        priority=True,
     )
     donation.email_sent = timezone.now()
     donation.save()
@@ -173,50 +201,49 @@ def send_donation_email(donation, domain_obj=None):
 def create_donation_from_payment(payment):
     order = payment.order
     try:
-        return Donation.objects.get(
-            models.Q(payment=payment) | models.Q(order=order)
-        )
+        return Donation.objects.get(models.Q(payment=payment) | models.Q(order=order))
     except Donation.DoesNotExist:
         pass
     # No donation, so no donor, let's create one
-    donor = get_or_create_donor({
-        'email': order.user_email,
-        'first_name': order.first_name,
-        'last_name': order.last_name,
-        'address': order.street_address_1,
-        'city': order.city,
-        'postcode': order.postcode,
-        'country': order.country,
-    }, user=order.user, subscription=order.subscription)
+    donor = get_or_create_donor(
+        {
+            "email": order.user_email,
+            "first_name": order.first_name,
+            "last_name": order.last_name,
+            "address": order.street_address_1,
+            "city": order.city,
+            "postcode": order.postcode,
+            "country": order.country,
+        },
+        user=order.user,
+        subscription=order.subscription,
+    )
     domain_obj = order.get_domain_object()
     extra_kwargs = {}
     if not isinstance(domain_obj, Donation):
-        if callable(getattr(domain_obj, 'get_reference_data', None)):
+        if callable(getattr(domain_obj, "get_reference_data", None)):
             ref_data = domain_obj.get_reference_data()
-            extra_kwargs['reference'] = ref_data.get('reference', '')
-            extra_kwargs['keyword'] = ref_data.get('keyword', '')
+            extra_kwargs["reference"] = ref_data.get("reference", "")
+            extra_kwargs["keyword"] = ref_data.get("keyword", "")
     donation = Donation.objects.create(
         donor=donor,
         timestamp=order.created,
         amount=order.total_gross,
-        amount_received=payment.received_amount or Decimal('0.0'),
+        amount_received=payment.received_amount or Decimal("0.0"),
         order=order,
         payment=payment,
         method=payment.variant,
         recurring=order.is_recurring,
         **extra_kwargs
     )
-    logger.info('Donation created %s', donation.id)
+    logger.info("Donation created %s", donation.id)
     return donation
 
 
 def assign_and_merge_donors(donor, user):
     # Check if there's a confirmed donor with that user
     try:
-        other_donor = Donor.objects.get(
-            user=user,
-            email_confirmed__isnull=False
-        )
+        other_donor = Donor.objects.get(user=user, email_confirmed__isnull=False)
     except Donor.DoesNotExist:
         donor.user = user
         donor.save()
@@ -241,16 +268,13 @@ def confirm_donor_email(donor, request=None):
 
     donor.email_confirmed = timezone.now()
     donor.save()
-    logger.info('Donor confirmed %s', donor.id)
+    logger.info("Donor confirmed %s", donor.id)
 
     # Try finding existing user via email
     new_user = False
     user = None
     if not donor.user:
-        users = User.objects.filter(
-            email__iexact=donor.email,
-            is_active=True
-        )
+        users = User.objects.filter(email__iexact=donor.email, is_active=True)
         if len(users) > 1:
             user = users[0]
             new_user = True
@@ -269,19 +293,19 @@ def confirm_donor_email(donor, request=None):
                 first_name=donor.first_name,
                 last_name=donor.last_name,
                 address=donor.get_full_address(),
-                private=True
+                private=True,
             )
             AccountService(user)._confirm_account()
             donor.user = user
             donor.save()
-            logger.info('Donor user created %s for donor %s', user.id, donor.id)
+            logger.info("Donor user created %s for donor %s", user.id, donor.id)
             # Login new user
             if request:
                 auth.login(request, user)
     else:
         user = donor.user
 
-    if 'newsletter' in request.GET:
+    if "newsletter" in request.GET:
         donor.contact_allowed = True
         donor.save()
 
@@ -289,10 +313,11 @@ def confirm_donor_email(donor, request=None):
         # Subscribe to normal and donor newsletter
         # TODO: subscribe email address / if different from user?
         subscribe_to_default_newsletter(
-            donor.email, user=user,
+            donor.email,
+            user=user,
             name=donor.get_full_name(),
             email_confirmed=True,
-            reference='donation'
+            reference="donation",
         )
         subscribe_donor_newsletter(donor, email_confirmed=True)
     if new_user:
@@ -304,29 +329,28 @@ def connect_payments_to_user(donor):
 
     if not donor.user:
         return
-    logger.info('Connect payments to donor %s', donor.id)
+    logger.info("Connect payments to donor %s", donor.id)
 
-    donations_with_orders = donor.donations.all().filter(
-        order__isnull=False
-    )
-    order_ids = donations_with_orders.values_list('order_id', flat=True)
+    donations_with_orders = donor.donations.all().filter(order__isnull=False)
+    order_ids = donations_with_orders.values_list("order_id", flat=True)
     Order.objects.filter(id__in=order_ids).update(user=donor.user)
-    logger.info('Connected orders to donor user %s: %s', donor.user.id, order_ids)
-    sub_orders = Order.objects.filter(
-        id__in=order_ids, subscription__isnull=False
-    )
-    sub_ids = set(sub_orders.values_list('subscription_id', flat=True))
-    customer_ids = set(sub_orders.values_list('customer_id', flat=True))
+    logger.info("Connected orders to donor user %s: %s", donor.user.id, order_ids)
+    sub_orders = Order.objects.filter(id__in=order_ids, subscription__isnull=False)
+    sub_ids = set(sub_orders.values_list("subscription_id", flat=True))
+    customer_ids = set(sub_orders.values_list("customer_id", flat=True))
     Customer.objects.filter(id__in=customer_ids, user__isnull=True).update(
         user=donor.user
     )
-    logger.info('Connected customers to donor user %s: %s', donor.user.id, customer_ids)
+    logger.info("Connected customers to donor user %s: %s", donor.user.id, customer_ids)
     customer_ids = Subscription.objects.filter(
-        id__in=sub_ids, customer__isnull=False).values_list('customer_id', flat=True)
+        id__in=sub_ids, customer__isnull=False
+    ).values_list("customer_id", flat=True)
     Customer.objects.filter(id__in=customer_ids, user__isnull=True).update(
         user=donor.user
     )
-    logger.info('Connected more customers to donor user %s: %s', donor.user.id, customer_ids)
+    logger.info(
+        "Connected more customers to donor user %s: %s", donor.user.id, customer_ids
+    )
 
 
 recurring_buckets = [  # in days
@@ -361,7 +385,7 @@ def detect_recurring_monthly_amount(donor):
     donation_count = donations.count()
     if donation_count < 2:
         return Decimal(0)
-    donations = donations.order_by('-timestamp')
+    donations = donations.order_by("-timestamp")
     time_diffs = Counter()
     amounts = Counter()
     prev_donation = None
@@ -395,9 +419,9 @@ def detect_recurring_monthly_amount(donor):
 def send_donation_reminder_email(donation):
     if donation.received:
         return
-    if donation.method != 'banktransfer':
+    if donation.method != "banktransfer":
         return
-    REMINDER_TEXT = 'REMINDER:'
+    REMINDER_TEXT = "REMINDER:"
     if REMINDER_TEXT in donation.note:
         return
 
@@ -408,26 +432,25 @@ def send_donation_reminder_email(donation):
 
     donor = donation.donor
     context = {
-        'name': donor.get_full_name(),
-        'first_name': donor.first_name,
-        'last_name': donor.last_name,
-        'salutation': donor.get_salutation(),
-        'payment': donation.payment,
-        'order': donation.payment.order,
-        'donor': donor,
-        'donation': donation,
-        'user': donor.user,
+        "name": donor.get_full_name(),
+        "first_name": donor.first_name,
+        "last_name": donor.last_name,
+        "salutation": donor.get_salutation(),
+        "payment": donation.payment,
+        "order": donation.payment.order,
+        "donor": donor,
+        "donation": donation,
+        "user": donor.user,
     }
 
     donation_reminder_email.send(
         user=donor.user,
         email=donor.email,
         context=context,
-        ignore_active=True, priority=True
+        ignore_active=True,
+        priority=True,
     )
-    donation.note += '\n\n{} {}\n'.format(
-        REMINDER_TEXT, now.isoformat()
-    )
+    donation.note += "\n\n{} {}\n".format(REMINDER_TEXT, now.isoformat())
     donation.note = donation.note.strip()
     donation.save()
     return True
@@ -437,15 +460,15 @@ def send_sepa_notification(payment, data):
     donation = create_donation_from_payment(payment)
     donor = donation.donor
     context = {
-        'name': donor.get_full_name(),
-        'first_name': donor.first_name,
-        'last_name': donor.last_name,
-        'salutation': donor.get_salutation(),
-        'payment': payment,
-        'order': payment.order,
-        'donor': donor,
-        'donation': donation,
-        'user': donor.user,
+        "name": donor.get_full_name(),
+        "first_name": donor.first_name,
+        "last_name": donor.last_name,
+        "salutation": donor.get_salutation(),
+        "payment": payment,
+        "order": payment.order,
+        "donor": donor,
+        "donation": donation,
+        "user": donor.user,
     }
     context.update(data)
 
@@ -453,6 +476,7 @@ def send_sepa_notification(payment, data):
         user=donor.user,
         email=donor.email,
         context=context,
-        ignore_active=True, priority=True
+        ignore_active=True,
+        priority=True,
     )
     return True

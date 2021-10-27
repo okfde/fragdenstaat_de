@@ -11,7 +11,7 @@ except ImportError:
 from froide.helper.utils import get_redirect
 
 
-PUBLIC_KEY = '''
+PUBLIC_KEY = """
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQINBFG+2gEBEACoen4h2zCbkAO9UP1RGgmGUfA1L002r5FsUJdegGFQzf9+Avrn
@@ -159,93 +159,79 @@ x1CiVKXMXUiWghtxzUmnI0/JwlXJJ1LseZMpUYWBNbY5AwkMcSOJ2PrHtS6h7xgj
 p4QEptxo4mIS4QmMjTMX5XI=
 =WgO5
 -----END PGP PUBLIC KEY BLOCK-----
-'''
+"""
 
 
 class ContactForm(forms.Form):
     name = forms.CharField(
         max_length=255,
         required=False,
-        label='Name',
-        widget=forms.TextInput(attrs={
-            'class': 'form-control'
-        })
+        label="Name",
+        widget=forms.TextInput(attrs={"class": "form-control"}),
     )
 
     message = forms.CharField(
         max_length=255,
         required=False,
-        label='Nachricht',
-        widget=forms.Textarea(attrs={
-            'class': 'form-control'
-        })
+        label="Nachricht",
+        widget=forms.Textarea(attrs={"class": "form-control"}),
     )
 
     contact = forms.CharField(
         max_length=255,
         required=False,
-        label='Optionale Kontaktmöglichkeit',
-        help_text='Zum Beispiel eine private E-Mail-Adresse',
-        widget=forms.TextInput(attrs={
-            'class': 'form-control'
-        })
+        label="Optionale Kontaktmöglichkeit",
+        help_text="Zum Beispiel eine private E-Mail-Adresse",
+        widget=forms.TextInput(attrs={"class": "form-control"}),
     )
     # Honey pot field
-    url = forms.CharField(
-        max_length=255,
-        required=False,
-        widget=forms.HiddenInput()
-    )
+    url = forms.CharField(max_length=255, required=False, widget=forms.HiddenInput())
 
     def clean_message(self):
         # Simple spam protection
-        if '<a href=' in self.cleaned_data['message']:
-            raise forms.ValidationError('')
-        return self.cleaned_data['message']
+        if "<a href=" in self.cleaned_data["message"]:
+            raise forms.ValidationError("")
+        return self.cleaned_data["message"]
 
     def clean_url(self):
         # Simple spam protection
-        if self.cleaned_data['url']:
-            raise forms.ValidationError('')
-        return ''
+        if self.cleaned_data["url"]:
+            raise forms.ValidationError("")
+        return ""
 
     def send_mail(self):
-        text = '''
+        text = """
 {name}
 
 {contact}
 
 {message}
-        '''.format(
-            name=self.cleaned_data['name'],
-            contact=self.cleaned_data['contact'],
-            message=self.cleaned_data['message'],
+        """.format(
+            name=self.cleaned_data["name"],
+            contact=self.cleaned_data["contact"],
+            message=self.cleaned_data["message"],
         )
         if pgpy is not None:
             public_key = pgpy.PGPKey()
             public_key.parse(PUBLIC_KEY)
             message = pgpy.PGPMessage.new(text)
             text = public_key.encrypt(message)
-        mail_managers(
-            'Kontaktformular',
-            str(text)
-        )
+        mail_managers("Kontaktformular", str(text))
 
 
 def contact(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ContactForm(data=request.POST)
         if form.is_valid():
             form.send_mail()
             messages.add_message(
-                request, messages.SUCCESS,
-                'Wir haben Ihre Nachricht erhalten.'
+                request, messages.SUCCESS, "Wir haben Ihre Nachricht erhalten."
             )
     return get_redirect(request)
 
 
-app_name = 'fds_cms_contact'
+app_name = "fds_cms_contact"
 
 urlpatterns = [
-    url(r'^$', contact, name='contact'),
+    url(r"^$", contact, name="contact"),
 ]

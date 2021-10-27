@@ -7,26 +7,51 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0022_auto_20180620_1551'),
-        ('fds_newsletter', '0001_squashed_0010_auto_20210621_1022'),
+        ("cms", "0022_auto_20180620_1551"),
+        ("fds_newsletter", "0001_squashed_0010_auto_20210621_1022"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='subscriber',
-            name='newsletter',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='subscribers', to='fds_newsletter.newsletter', verbose_name='newsletter'),
+            model_name="subscriber",
+            name="newsletter",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="subscribers",
+                to="fds_newsletter.newsletter",
+                verbose_name="newsletter",
+            ),
         ),
         migrations.CreateModel(
-            name='NewsletterCMSPlugin',
+            name="NewsletterCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_newsletter_newslettercmsplugin', serialize=False, to='cms.cmsplugin')),
-                ('fallback', models.BooleanField(default=False)),
-                ('newsletter', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='fds_newsletter.newsletter')),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_newsletter_newslettercmsplugin",
+                        serialize=False,
+                        to="cms.cmsplugin",
+                    ),
+                ),
+                ("fallback", models.BooleanField(default=False)),
+                (
+                    "newsletter",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="fds_newsletter.newsletter",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

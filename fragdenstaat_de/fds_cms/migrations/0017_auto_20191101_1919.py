@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0016_svgimagecmsplugin'),
+        ("fds_cms", "0016_svgimagecmsplugin"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='documentembedcmsplugin',
-            name='page_number',
+            model_name="documentembedcmsplugin",
+            name="page_number",
             field=models.PositiveIntegerField(default=1),
         ),
         migrations.AddField(
-            model_name='documentembedcmsplugin',
-            name='settings',
-            field=models.TextField(default='{}'),
+            model_name="documentembedcmsplugin",
+            name="settings",
+            field=models.TextField(default="{}"),
         ),
     ]

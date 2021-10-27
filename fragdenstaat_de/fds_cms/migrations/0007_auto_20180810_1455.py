@@ -9,17 +9,21 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0006_documentembedcmsplugin'),
-        ('document', '0008_auto_20180807_1452'),
+        ("fds_cms", "0006_documentembedcmsplugin"),
+        ("document", "0008_auto_20180807_1452"),
     ]
     run_before = [
-        ('document', '0011_auto_20180810_1455'),
+        ("document", "0011_auto_20180810_1455"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='pageannotationcmsplugin',
-            name='page_annotation',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='filingcabinet.PageAnnotation'),
+            model_name="pageannotationcmsplugin",
+            name="page_annotation",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="+",
+                to="filingcabinet.PageAnnotation",
+            ),
         ),
     ]

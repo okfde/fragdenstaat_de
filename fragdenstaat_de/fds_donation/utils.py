@@ -7,27 +7,38 @@ from .models import Donor, Donation, update_donation_numbers
 
 
 MERGE_DONOR_FIELDS = [
-    'salutation', 'first_name', 'last_name', 'company_name',
-    'address', 'city', 'postcode', 'country',
-    'email', 'identifier', 'attributes',
-    'email_confirmed',
-    'contact_allowed', 'receipt',
-    'note',
-    'invalid',
-    'active',
-    'user',
-    'subscriber'
+    "salutation",
+    "first_name",
+    "last_name",
+    "company_name",
+    "address",
+    "city",
+    "postcode",
+    "country",
+    "email",
+    "identifier",
+    "attributes",
+    "email_confirmed",
+    "contact_allowed",
+    "receipt",
+    "note",
+    "invalid",
+    "active",
+    "user",
+    "subscriber",
 ]
 
 
 def subscribe_donor_newsletter(donor, email_confirmed=False):
     result, subscriber = subscribe_to_newsletter(
-        settings.DONOR_NEWSLETTER, donor.email, user=donor.user,
+        settings.DONOR_NEWSLETTER,
+        donor.email,
+        user=donor.user,
         name=donor.get_full_name(),
-        email_confirmed=email_confirmed
+        email_confirmed=email_confirmed,
     )
     donor.subscriber = subscriber
-    donor.save(update_fields=['subscriber'])
+    donor.save(update_fields=["subscriber"])
 
 
 def propose_donor_merge(candidates, fields=None):
@@ -81,13 +92,13 @@ def merge_donors(candidates, primary_id, validated_data=None):
     # Add old ids to attributes
     attrs = merged_donor.attributes or {}
 
-    old_val = attrs.get('old_uuids', '').split(',')
+    old_val = attrs.get("old_uuids", "").split(",")
     old_uuids.extend([x for x in old_val if x])
-    attrs['old_uuids'] = ','.join(old_uuids)
+    attrs["old_uuids"] = ",".join(old_uuids)
 
-    old_val = attrs.get('old_ids', '').split(',')
+    old_val = attrs.get("old_ids", "").split(",")
     old_ids.extend([x for x in old_val if x])
-    attrs['old_ids'] = ','.join(old_ids)
+    attrs["old_ids"] = ",".join(old_ids)
 
     merged_donor.attributes = attrs
 
@@ -107,17 +118,15 @@ def merge_donors(candidates, primary_id, validated_data=None):
 
     old_donor_ids = [c.id for c in candidates if c.id != primary_id]
     # Transfer donations
-    Donation.objects.filter(donor_id__in=old_donor_ids).update(
-        donor=merged_donor
-    )
+    Donation.objects.filter(donor_id__in=old_donor_ids).update(donor=merged_donor)
     # Delete old donors
     Donor.objects.filter(id__in=old_donor_ids).delete()
 
     # Recalculate stored aggregates
     aggs = Donation.objects.filter(donor=merged_donor).aggregate(
-        first_donation=Min('timestamp'),
+        first_donation=Min("timestamp"),
     )
-    merged_donor.first_donation = aggs['first_donation']
+    merged_donor.first_donation = aggs["first_donation"]
     merged_donor.save()
 
     update_donation_numbers(merged_donor.id)
@@ -129,18 +138,18 @@ def merge_donors(candidates, primary_id, validated_data=None):
 
 def get_donation_pivot_data_and_config(queryset):
     keys = [
-        'donor_id', 'amount', 'timestamp', 'method', 'reference', 'keyword',
-        'purpose', 'recurring', 'first_recurring'
+        "donor_id",
+        "amount",
+        "timestamp",
+        "method",
+        "reference",
+        "keyword",
+        "purpose",
+        "recurring",
+        "first_recurring",
     ]
-    data = [
-        [getattr(x, k) for k in keys] for x in queryset
-    ]
-    config = {
-        'extra': {
-            'vals': ['amount']
-        },
-        'dateColumn': 'timestamp'
-    }
+    data = [[getattr(x, k) for k in keys] for x in queryset]
+    config = {"extra": {"vals": ["amount"]}, "dateColumn": "timestamp"}
     final_data = [keys]
     final_data.extend(data)
     return final_data, config

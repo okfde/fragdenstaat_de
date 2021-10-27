@@ -3,10 +3,10 @@ from django.urls import reverse, NoReverseMatch
 
 
 def obj_for_value(self, value):
-    '''
+    """
     Remove when https://github.com/divio/django-filer/pull/1108
-    '''
-    if hasattr(self, '_obj'):
+    """
+    if hasattr(self, "_obj"):
         return self._obj
     try:
         key = self.rel.get_related_field().name
@@ -18,18 +18,18 @@ def obj_for_value(self, value):
 
 
 class BlogConfig(AppConfig):
-    name = 'fragdenstaat_de.fds_blog'
-    verbose_name = 'FragDenStaat Blog'
+    name = "fragdenstaat_de.fds_blog"
+    verbose_name = "FragDenStaat Blog"
 
     def ready(self):
-        '''
+        """
         Remove when https://github.com/divio/django-filer/issues/1103
-        '''
+        """
         from filer.fields.file import AdminFileWidget
 
         AdminFileWidget.Media.js = (
-            'admin/js/vendor/jquery/jquery.js',
-            'admin/js/jquery.init.js',
+            "admin/js/vendor/jquery/jquery.js",
+            "admin/js/jquery.init.js",
         ) + AdminFileWidget.Media.js
 
         AdminFileWidget.obj_for_value = obj_for_value
@@ -50,9 +50,7 @@ def merge_user(sender, old_user=None, new_user=None, **kwargs):
     if old_exists and new_exists:
         old_author = Author.objects.get(user=old_user)
         new_author = Author.objects.get(user=new_user)
-        ArticleAuthorship.objects.filter(
-            author=old_author
-        ).update(author=new_author)
+        ArticleAuthorship.objects.filter(author=old_author).update(author=new_author)
     elif old_exists:
         Author.objects.filter(user=old_user).update(user=new_user)
 
@@ -60,9 +58,9 @@ def merge_user(sender, old_user=None, new_user=None, **kwargs):
 def add_search(request):
     try:
         return {
-            'title': 'Blog-Artikel',
-            'name': 'blog',
-            'url': reverse('blog:article-search')
+            "title": "Blog-Artikel",
+            "name": "blog",
+            "url": reverse("blog:article-search"),
         }
     except NoReverseMatch:
         return

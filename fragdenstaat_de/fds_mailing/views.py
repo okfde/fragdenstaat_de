@@ -7,40 +7,37 @@ from .models import Mailing
 
 
 class NewsletterEditionMixin:
-    date_field = 'sending_date'
-    date_list_period = 'month'
+    date_field = "sending_date"
+    date_list_period = "month"
     allow_empty = True
 
-    year_format = '%Y'
-    month_format = '%m'
-    day_format = '%d'
+    year_format = "%Y"
+    month_format = "%m"
+    day_format = "%d"
 
     def dispatch(self, *args, **kwargs):
-        newsletter_slug = kwargs['newsletter_slug']
+        newsletter_slug = kwargs["newsletter_slug"]
         self.newsletter = get_object_or_404(
-            Newsletter.objects.get_visible().filter(
-                slug=newsletter_slug
-            )
+            Newsletter.objects.get_visible().filter(slug=newsletter_slug)
         )
         return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
         return Mailing.objects.filter(
-            publish=True, ready=True, submitted=True,
-            newsletter=self.newsletter
+            publish=True, ready=True, submitted=True, newsletter=self.newsletter
         )
 
     def get_context_data(self, **kwargs):
-        """ Add newsletter to context. """
+        """Add newsletter to context."""
         context = super().get_context_data(**kwargs)
 
-        context['newsletter'] = self.newsletter
+        context["newsletter"] = self.newsletter
 
         return context
 
 
 class MailingArchiveDetailView(NewsletterEditionMixin, DateDetailView):
-    template_name = 'fds_mailing/archive/mailing_detail.html'
+    template_name = "fds_mailing/archive/mailing_detail.html"
 
     def get_context_data(self, **kwargs):
         """
@@ -50,12 +47,14 @@ class MailingArchiveDetailView(NewsletterEditionMixin, DateDetailView):
 
         message = self.object.email_template
 
-        context.update({
-            'message': message,
-            'content': message.get_body_html(
-                template='fds_mailing/render_browser.html'
-            ),
-            'date': self.object.sending_date,
-        })
+        context.update(
+            {
+                "message": message,
+                "content": message.get_body_html(
+                    template="fds_mailing/render_browser.html"
+                ),
+                "date": self.object.sending_date,
+            }
+        )
 
         return context

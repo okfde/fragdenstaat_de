@@ -7,22 +7,75 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0022_auto_20180620_1551'),
-        ('fds_cms', '0017_auto_20191101_1919'),
+        ("cms", "0022_auto_20180620_1551"),
+        ("fds_cms", "0017_auto_20191101_1919"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DesignContainerCMSPlugin',
+            name="DesignContainerCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_cms_designcontainercmsplugin', serialize=False, to='cms.CMSPlugin')),
-                ('template', models.CharField(blank=True, choices=[('', 'Default template')], default='', max_length=50, verbose_name='Template')),
-                ('background', models.CharField(blank=True, choices=[('primary', 'Primary'), ('secondary', 'Secondary'), ('info', 'Info'), ('light', 'Light'), ('dark', 'Dark'), ('success', 'Success'), ('warning', 'Warning'), ('danger', 'Danger'), ('purple', 'Purple'), ('pink', 'Pink'), ('yellow', 'Yellow'), ('cyan', 'Cyan'), ('gray', 'Gray'), ('gray-dark', 'Gray Dark')], default='', max_length=50, verbose_name='Background')),
-                ('style', models.CharField(blank=True, choices=[('', 'Default'), ('heavy', 'Heavy')], default='', max_length=50, verbose_name='Style')),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_cms_designcontainercmsplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                (
+                    "template",
+                    models.CharField(
+                        blank=True,
+                        choices=[("", "Default template")],
+                        default="",
+                        max_length=50,
+                        verbose_name="Template",
+                    ),
+                ),
+                (
+                    "background",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("primary", "Primary"),
+                            ("secondary", "Secondary"),
+                            ("info", "Info"),
+                            ("light", "Light"),
+                            ("dark", "Dark"),
+                            ("success", "Success"),
+                            ("warning", "Warning"),
+                            ("danger", "Danger"),
+                            ("purple", "Purple"),
+                            ("pink", "Pink"),
+                            ("yellow", "Yellow"),
+                            ("cyan", "Cyan"),
+                            ("gray", "Gray"),
+                            ("gray-dark", "Gray Dark"),
+                        ],
+                        default="",
+                        max_length=50,
+                        verbose_name="Background",
+                    ),
+                ),
+                (
+                    "style",
+                    models.CharField(
+                        blank=True,
+                        choices=[("", "Default"), ("heavy", "Heavy")],
+                        default="",
+                        max_length=50,
+                        verbose_name="Style",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0013_oneclickfoirequestcmsplugin_reference'),
+        ("fds_cms", "0013_oneclickfoirequestcmsplugin_reference"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='documentpagescmsplugin',
-            name='size',
-            field=models.CharField(choices=[('small', 'Small'), ('normal', 'Normal'), ('large', 'Large')], default='small', max_length=10),
+            model_name="documentpagescmsplugin",
+            name="size",
+            field=models.CharField(
+                choices=[("small", "Small"), ("normal", "Normal"), ("large", "Large")],
+                default="small",
+                max_length=10,
+            ),
         ),
     ]

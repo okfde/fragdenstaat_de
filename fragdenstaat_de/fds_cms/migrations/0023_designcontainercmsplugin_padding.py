@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0022_auto_20200225_1747'),
+        ("fds_cms", "0022_auto_20200225_1747"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='designcontainercmsplugin',
-            name='padding',
+            model_name="designcontainercmsplugin",
+            name="padding",
             field=models.BooleanField(default=True),
         ),
     ]

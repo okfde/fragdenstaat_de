@@ -9,8 +9,11 @@ from fragdenstaat_de.fds_cms.utils import get_plugin_children
 from fragdenstaat_de.fds_newsletter.models import Newsletter
 
 from .models import (
-    EmailActionCMSPlugin, EmailSectionCMSPlugin, EmailStoryCMSPlugin,
-    EmailHeaderCMSPlugin, Mailing
+    EmailActionCMSPlugin,
+    EmailSectionCMSPlugin,
+    EmailStoryCMSPlugin,
+    EmailHeaderCMSPlugin,
+    Mailing,
 )
 from .utils import render_plugin_text
 
@@ -18,23 +21,21 @@ from .utils import render_plugin_text
 class EmailTemplateMixin:
     def get_render_template(self, context, instance, placeholder):
         template_name = self.render_template_template.format(
-            name=context.get('template') or 'default'
+            name=context.get("template") or "default"
         )
         try:
             get_template(template_name)
             return template_name
         except TemplateDoesNotExist:
             pass
-        return self.render_template_template.format(
-            name='default'
-        )
+        return self.render_template_template.format(name="default")
 
 
 class EmailRenderMixin:
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         context.update(instance.get_context())
-        context['instance'] = instance
+        context["instance"] = instance
         return context
 
 
@@ -45,21 +46,21 @@ class EmailBodyPlugin(EmailTemplateMixin, CMSPluginBase):
     render_template_template = "email/{name}/body.html"
     allow_children = True
     child_classes = [
-        'TextPlugin', 'EmailActionPlugin',
-        'EmailSectionPlugin', 'EmailStoryPlugin',
-        'PicturePlugin',
+        "TextPlugin",
+        "EmailActionPlugin",
+        "EmailSectionPlugin",
+        "EmailStoryPlugin",
+        "PicturePlugin",
     ] + settings.DONATION_LOGIC_PLUGINS
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        context['instance'] = instance
+        context["instance"] = instance
         return context
 
     def render_text(self, context, instance):
         children = get_plugin_children(instance)
-        return '\n\n'.join(
-            render_plugin_text(context, c) for c in children
-        ).strip()
+        return "\n\n".join(render_plugin_text(context, c) for c in children).strip()
 
 
 @plugin_pool.register_plugin
@@ -68,7 +69,7 @@ class EmailActionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     module = _("Email")
     name = _("Email Action")
     allow_children = True
-    child_classes = ['TextPlugin', 'PicturePlugin']
+    child_classes = ["TextPlugin", "PicturePlugin"]
     render_template_template = "email/{name}/action_plugin.html"
 
     def get_context(self, instance):
@@ -85,25 +86,29 @@ class EmailActionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
 
     def render_text(self, context, instance):
         text1_children, text2_children = self.get_context(instance)
-        text1 = '\n\n'.join(
+        text1 = "\n\n".join(
             render_plugin_text(context, c) for c in text1_children
         ).strip()
-        text2 = '\n\n'.join(
+        text2 = "\n\n".join(
             render_plugin_text(context, c) for c in text2_children
         ).strip()
         context = instance.get_context()
-        context.update({
-            'text1': text1,
-            'text2': '\n{}'.format(text2) if text2 else '',
-        })
-        return '''{heading}
+        context.update(
+            {
+                "text1": text1,
+                "text2": "\n{}".format(text2) if text2 else "",
+            }
+        )
+        return """{heading}
 
 {text1}
 
 {action_label}
 {action_url}
 {text2}
-'''.format(**context)
+""".format(
+            **context
+        )
 
 
 @plugin_pool.register_plugin
@@ -112,21 +117,23 @@ class EmailSectionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     module = _("Email")
     name = _("Email Section")
     allow_children = True
-    child_classes = ['TextPlugin', 'PicturePlugin']
+    child_classes = ["TextPlugin", "PicturePlugin"]
     render_template_template = "email/{name}/section_plugin.html"
 
     def render_text(self, context, instance):
         children = get_plugin_children(instance)
-        text = '\n\n'.join(
-            render_plugin_text(context, c) for c in children
-        ).strip()
+        text = "\n\n".join(render_plugin_text(context, c) for c in children).strip()
         context = instance.get_context()
-        context.update({
-            'text': '\n{}\n\n'.format(text) if text else '',
-        })
-        return '''## {title}
+        context.update(
+            {
+                "text": "\n{}\n\n".format(text) if text else "",
+            }
+        )
+        return """## {title}
 {text}
-'''.format(**context)
+""".format(
+            **context
+        )
 
 
 @plugin_pool.register_plugin
@@ -135,25 +142,23 @@ class EmailStoryPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     module = _("Email")
     name = _("Email Story")
     allow_children = True
-    child_classes = ['TextPlugin', 'PicturePlugin']
+    child_classes = ["TextPlugin", "PicturePlugin"]
     render_template_template = "email/{name}/story_plugin.html"
 
     def render_text(self, context, instance):
         children = get_plugin_children(instance)
-        text = '\n\n'.join(
-            render_plugin_text(context, c) for c in children
-        ).strip()
+        text = "\n\n".join(render_plugin_text(context, c) for c in children).strip()
         context = instance.get_context()
-        context.update({
-            'text': text
-        })
-        return '''### {heading}
+        context.update({"text": text})
+        return """### {heading}
 
 {text}
 
 -> {url}
 
-'''.format(**context)
+""".format(
+            **context
+        )
 
 
 @plugin_pool.register_plugin
@@ -165,28 +170,27 @@ class EmailHeaderPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     render_template_template = "email/{name}/header.html"
 
     def render_text(self, context, instance):
-        return ''
+        return ""
 
 
 @plugin_pool.register_plugin
 class NewsletterArchivePlugin(CMSPluginBase):
     module = _("Newsletter")
-    name = _('Newsletter Archive')
+    name = _("Newsletter Archive")
     cache = True
     text_enabled = False
     render_template = "fds_mailing/plugins/archive.html"
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        context['newsletter'] = None
+        context["newsletter"] = None
         try:
-            context['newsletter'] = Newsletter.objects.get(
+            context["newsletter"] = Newsletter.objects.get(
                 slug=settings.DEFAULT_NEWSLETTER
             )
         except Newsletter.DoesNotExist:
             return context
-        context['latest'] = Mailing.objects.filter(
-            publish=True, ready=True, submitted=True,
-            newsletter=context['newsletter']
-        ).order_by('-sending_date')
+        context["latest"] = Mailing.objects.filter(
+            publish=True, ready=True, submitted=True, newsletter=context["newsletter"]
+        ).order_by("-sending_date")
         return context

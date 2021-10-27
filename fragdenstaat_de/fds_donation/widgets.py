@@ -11,13 +11,13 @@ class AmountInput(forms.TextInput):
 
     def get_context(self, name, value, attrs):
         ctx = super().get_context(name, value, attrs)
-        ctx['widget'].setdefault('attrs', {})
-        ctx['widget']['attrs'].setdefault('class', 'form-control col-3')
-        ctx['widget']['attrs']['pattern'] = "[\\d\\.,]*"
-        ctx['currency'] = settings.FROIDE_CONFIG['currency']
-        ctx['presets'] = self.presets
+        ctx["widget"].setdefault("attrs", {})
+        ctx["widget"]["attrs"].setdefault("class", "form-control col-3")
+        ctx["widget"]["attrs"]["pattern"] = "[\\d\\.,]*"
+        ctx["currency"] = settings.FROIDE_CONFIG["currency"]
+        ctx["presets"] = self.presets
         return ctx
 
 
 class InlineRadioSelect(forms.RadioSelect):
-    template_name = 'fds_donation/forms/widgets/inline_radio.html'
+    template_name = "fds_donation/forms/widgets/inline_radio.html"

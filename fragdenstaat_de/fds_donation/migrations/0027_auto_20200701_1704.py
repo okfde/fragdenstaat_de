@@ -6,15 +6,13 @@ from django.db import migrations, models
 def add_donation_number(apps, schema_editor):
     from django.db.models.functions import RowNumber
 
-    Donation = apps.get_model('fds_donation', 'Donation')
+    Donation = apps.get_model("fds_donation", "Donation")
 
-    donations = Donation.objects.filter(
-        completed=True
-    ).annotate(
+    donations = Donation.objects.filter(completed=True).annotate(
         new_number=models.Window(
             expression=RowNumber(),
-            partition_by=[models.F('donor_id')],
-            order_by=models.F('timestamp').asc(),
+            partition_by=[models.F("donor_id")],
+            order_by=models.F("timestamp").asc(),
         )
     )
     for d in donations:
@@ -25,9 +23,7 @@ def add_donation_number(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0026_donation_number'),
+        ("fds_donation", "0026_donation_number"),
     ]
 
-    operations = [
-        migrations.RunPython(add_donation_number)
-    ]
+    operations = [migrations.RunPython(add_donation_number)]

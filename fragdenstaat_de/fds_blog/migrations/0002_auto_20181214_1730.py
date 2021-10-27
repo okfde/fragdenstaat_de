@@ -12,10 +12,12 @@ def migrate_blog(apps, schema_editor):
     from cms.models.fields import PlaceholderField
 
     try:
-        BlogCategory = apps.get_model('djangocms_blog', 'BlogCategory')
-        BlogCategoryTranslation = apps.get_model('djangocms_blog', 'BlogCategoryTranslation')
-        Category = apps.get_model('fds_blog', 'Category')
-        CategoryTranslation = apps.get_model('fds_blog', 'CategoryTranslation')
+        BlogCategory = apps.get_model("djangocms_blog", "BlogCategory")
+        BlogCategoryTranslation = apps.get_model(
+            "djangocms_blog", "BlogCategoryTranslation"
+        )
+        Category = apps.get_model("fds_blog", "Category")
+        CategoryTranslation = apps.get_model("fds_blog", "CategoryTranslation")
 
         category_mapping = {}
         for bc in BlogCategory.objects.all():
@@ -31,16 +33,16 @@ def migrate_blog(apps, schema_editor):
                 language_code=settings.LANGUAGE_CODE,
                 title=translation.name,
                 slug=translation.slug,
-                description=translation.meta_description
+                description=translation.meta_description,
             )
             category_mapping[bc.id] = c
 
-        Post = apps.get_model('djangocms_blog', 'Post')
-        Article = apps.get_model('fds_blog', 'Article')
-        Author = apps.get_model('fds_blog', 'Author')
-        ArticleAuthorship = apps.get_model('fds_blog', 'ArticleAuthorship')
+        Post = apps.get_model("djangocms_blog", "Post")
+        Article = apps.get_model("fds_blog", "Article")
+        Author = apps.get_model("fds_blog", "Author")
+        ArticleAuthorship = apps.get_model("fds_blog", "ArticleAuthorship")
 
-        PostTranslation = apps.get_model('djangocms_blog', 'PostTranslation')
+        PostTranslation = apps.get_model("djangocms_blog", "PostTranslation")
 
         for post in Post._default_manager.all():
             translation = PostTranslation.objects.get(
@@ -57,7 +59,7 @@ def migrate_blog(apps, schema_editor):
                 date_featured=post.date_featured,
                 teaser=translation.abstract,
                 image=post.main_image,
-                language=settings.LANGUAGE_CODE
+                language=settings.LANGUAGE_CODE,
             )
 
             # Horrible hack ahead
@@ -82,12 +84,8 @@ def migrate_blog(apps, schema_editor):
             # Don't migrate tags
 
             if post.author:
-                author, _ = Author.objects.get_or_create(
-                    user=post.author
-                )
-                ArticleAuthorship.objects.create(
-                    article=a, author=author
-                )
+                author, _ = Author.objects.get_or_create(user=post.author)
+                ArticleAuthorship.objects.create(article=a, author=author)
     except LookupError:  # djangocms_blog not found
         pass
 
@@ -95,9 +93,7 @@ def migrate_blog(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_blog', '0001_initial'),
+        ("fds_blog", "0001_initial"),
     ]
 
-    operations = [
-        migrations.RunPython(migrate_blog)
-    ]
+    operations = [migrations.RunPython(migrate_blog)]

@@ -5,15 +5,13 @@ from .utils import subscribe_to_default_newsletter, unsubscribe_queryset
 def activate_newsletter_subscription(sender, **kwargs):
     # Subscribe previously setup subscriber objects
     unconfirmed_user_subscribers = Subscriber.objects.filter(
-        user=sender,
-        subscribed__isnull=True
+        user=sender, subscribed__isnull=True
     )
     for subscriber in unconfirmed_user_subscribers:
         subscriber.subscribe()
 
     confirmed_email_subscribers = Subscriber.objects.filter(
-        email=sender.email.lower(),
-        subscribed__isnull=False
+        email=sender.email.lower(), subscribed__isnull=False
     )
     for subscriber in confirmed_email_subscribers:
         subscriber.subscribe()
@@ -21,14 +19,11 @@ def activate_newsletter_subscription(sender, **kwargs):
 
 def user_email_changed(sender, old_email=None, **kwargs):
     # All subs with the new email
-    subs = Subscriber.objects.filter(
-        email=sender.email, user__isnull=True
-    )
+    subs = Subscriber.objects.filter(email=sender.email, user__isnull=True)
     for sub in subs:
         # Find existing user subs on that newsletter
         exists = Subscriber.objects.filter(
-            user=sender,
-            newsletter=sub.newsletter
+            user=sender, newsletter=sub.newsletter
         ).exists()
         if exists:
             # Delete email sub in favor of existing user sub
@@ -36,19 +31,16 @@ def user_email_changed(sender, old_email=None, **kwargs):
         else:
             # Change email sub to user sub
             sub.email = None
-            sub.name = ''
+            sub.name = ""
             sub.user = sender
             sub.save()
 
 
 def merge_user(sender, old_user=None, new_user=None, **kwargs):
-    old_subscribers = Subscriber.objects.filter(
-        user=old_user
-    )
+    old_subscribers = Subscriber.objects.filter(user=old_user)
     for sub in old_subscribers:
         new_qs = Subscriber.objects.filter(
-            newsletter_id=sub.newsletter_id,
-            user=new_user
+            newsletter_id=sub.newsletter_id, user=new_user
         )
         if new_qs.exists():
             sub.delete()
@@ -61,26 +53,19 @@ def cancel_user(sender, user=None, **kwargs):
     if user is None:
         return
 
-    Subscriber.objects.filter(
-        user=user,
-        subscribed__isnull=True
-    ).delete()
+    Subscriber.objects.filter(user=user, subscribed__isnull=True).delete()
 
     # Keep NL subscriptions with email subscription
     if user.email:
-        subs = Subscriber.objects.filter(
-            subscribed__isnull=False,
-            user=user
-        )
+        subs = Subscriber.objects.filter(subscribed__isnull=False, user=user)
         for sub in subs:
             exists = Subscriber.objects.filter(
-                newsletter_id=sub.newsletter_id,
-                email=user.email
+                newsletter_id=sub.newsletter_id, email=user.email
             ).exists()
             if not exists:
                 sub.user = None
                 sub.email = user.email
-                sub.save(update_fields=['user', 'email'])
+                sub.save(update_fields=["user", "email"])
 
     # Delete all other user subscriber connections
     Subscriber.objects.filter(
@@ -93,7 +78,7 @@ def subscribe_follower(sender, **kwargs):
         return
     if not sender.context:
         return
-    if not sender.context.get('newsletter'):
+    if not sender.context.get("newsletter"):
         return
 
     email = sender.email
@@ -101,9 +86,11 @@ def subscribe_follower(sender, **kwargs):
         email = sender.user.email
 
     subscribe_to_default_newsletter(
-        email, user=sender.user, email_confirmed=True,
-        reference='follow_extra',
-        keyword='request:{}'.format(sender.request_id)
+        email,
+        user=sender.user,
+        email_confirmed=True,
+        reference="follow_extra",
+        keyword="request:{}".format(sender.request_id),
     )
 
 
@@ -116,26 +103,21 @@ def handle_unsubscribe(sender, email, reference, **kwargs):
     except ValueError:
         return
     try:
-        subscriber = Subscriber.objects.all().select_related('user').get(
-            id=sub_id
-        )
+        subscriber = Subscriber.objects.all().select_related("user").get(id=sub_id)
     except Subscriber.DoesNotExist:
         return
     email = email.lower()
-    if ((subscriber.email and subscriber.email.lower() == email) or
-            (subscriber.user and subscriber.user.email.lower() == email)):
-        subscriber.unsubscribe(method='unsubscribe-mail')
+    if (subscriber.email and subscriber.email.lower() == email) or (
+        subscriber.user and subscriber.user.email.lower() == email
+    ):
+        subscriber.unsubscribe(method="unsubscribe-mail")
 
 
 def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):
     if not should_deactivate:
         return
     if bounce.user:
-        subscribers = Subscriber.objects.filter(
-            user=bounce.user
-        )
+        subscribers = Subscriber.objects.filter(user=bounce.user)
     else:
-        subscribers = Subscriber.objects.filter(
-            email=bounce.email
-        )
-    unsubscribe_queryset(subscribers, method='bounced')
+        subscribers = Subscriber.objects.filter(email=bounce.email)
+    unsubscribe_queryset(subscribers, method="bounced")

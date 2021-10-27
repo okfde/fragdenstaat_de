@@ -11,7 +11,7 @@ from .templatetags.newsletter_tags import get_newsletter_context
 @plugin_pool.register_plugin
 class NewsletterPlugin(CMSPluginBase):
     module = _("Newsletter")
-    name = _('Newsletter Formular')
+    name = _("Newsletter Formular")
     model = NewsletterCMSPlugin
     cache = True
     text_enabled = True
@@ -19,14 +19,14 @@ class NewsletterPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        context['newsletter'] = instance.newsletter
+        context["newsletter"] = instance.newsletter
         return context
 
 
 @plugin_pool.register_plugin
 class SmartNewsletterPlugin(CMSPluginBase):
     module = _("Newsletter")
-    name = _('Smart Newsletter Formular')
+    name = _("Smart Newsletter Formular")
     model = NewsletterCMSPlugin
     cache = False
     text_enabled = True
@@ -51,20 +51,19 @@ class NewsletterLogicMixin:
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         context = self.add_to_context(context)
-        context['should_render'] = self.should_render(context)
+        context["should_render"] = self.should_render(context)
         return context
 
     def add_to_context(self, context):
-        if not context.get('user') and context.get('request'):
-            if context['request'].user.is_authenticated:
-                context['user'] = context['request'].user
-        if context.get('user') and context['user'].is_authenticated:
+        if not context.get("user") and context.get("request"):
+            if context["request"].user.is_authenticated:
+                context["user"] = context["request"].user
+        if context.get("user") and context["user"].is_authenticated:
             subscribers = Subscriber.objects.filter(
-                newsletter_slug=settings.DEFAULT_NEWSLETTER,
-                user=context['user']
+                newsletter_slug=settings.DEFAULT_NEWSLETTER, user=context["user"]
             )
             if subscribers:
-                context['subscriber'] = subscribers[0]
+                context["subscriber"] = subscribers[0]
         return context
 
     def should_render(self):
@@ -76,7 +75,7 @@ class IsNewsletterSubscriberPlugin(NewsletterLogicMixin, CMSPluginBase):
     name = _("Is newsletter subscriber")
 
     def should_render(self, context):
-        return context.get('subscriber')
+        return context.get("subscriber")
 
 
 @plugin_pool.register_plugin
@@ -84,4 +83,4 @@ class IsNotNewsletterSubscriberPlugin(NewsletterLogicMixin, CMSPluginBase):
     name = _("Is not newsletter subscriber")
 
     def should_render(self, context):
-        return not context.get('subscriber')
+        return not context.get("subscriber")

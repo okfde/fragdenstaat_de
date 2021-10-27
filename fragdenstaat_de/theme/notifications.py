@@ -13,9 +13,12 @@ def send_notification_slack(message):
 
     channel = settings.SLACK_DEFAULT_CHANNEL
 
-    requests.post(settings.SLACK_WEBHOOK_URL, json={
-        'channel': channel,
-        'username': 'fds-notification-bot',
-        'text': message,
-        'icon_emoji': ':money_with_wings:'
-    })
+    requests.post(
+        settings.SLACK_WEBHOOK_URL,
+        json={
+            "channel": channel,
+            "username": "fds-notification-bot",
+            "text": message,
+            "icon_emoji": ":money_with_wings:",
+        },
+    )

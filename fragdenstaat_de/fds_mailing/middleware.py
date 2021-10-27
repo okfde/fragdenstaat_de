@@ -4,8 +4,7 @@ from .models import EmailTemplate
 
 
 class EmailTemplateMiddleware:
-    def get_email_content(self, mail_intent, context,
-                          template_base, email_kwargs):
+    def get_email_content(self, mail_intent, context, template_base, email_kwargs):
 
         email_template = None
         intent = mail_intent
@@ -27,8 +26,8 @@ class EmailTemplateMiddleware:
         return email_template.get_email_content(context)
 
     def _enhance_context(self, context):
-        if context.get('user'):
-            user = context['user']
-            context['has_newsletter'] = has_newsletter(user)
+        if context.get("user"):
+            user = context["user"]
+            context["has_newsletter"] = has_newsletter(user)
 
         return context

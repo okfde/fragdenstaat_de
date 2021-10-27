@@ -8,10 +8,10 @@ class Command(BaseCommand):
     help = "Calculate stats"
 
     def add_arguments(self, parser):
-        parser.add_argument('output')
+        parser.add_argument("output")
 
     def handle(self, **options):
-        output = options['output']
+        output = options["output"]
         from froide.publicbody.models import PublicBody
         from froide.foirequest.models import FoiRequest
 
@@ -19,14 +19,14 @@ class Command(BaseCommand):
 
         def get_status(status):
             KNOWN_STATUS = (
-                'successful',
-                'partially_successful',
-                'refused',
+                "successful",
+                "partially_successful",
+                "refused",
             )
             MAP_STATUS = {}
             if status in KNOWN_STATUS:
                 return status
-            return MAP_STATUS.get(status, 'other')
+            return MAP_STATUS.get(status, "other")
 
         def convert_value(val):
             if not val:
@@ -43,9 +43,10 @@ class Command(BaseCommand):
                 status_counter[get_status(r.status)] += 1
             return status_counter
 
-        output = open(output, 'w')
-        writer = csv.DictWriter(output,
-            ('name', 'gb', 'year', 'total_count'), encoding='utf-8')
+        output = open(output, "w")
+        writer = csv.DictWriter(
+            output, ("name", "gb", "year", "total_count"), encoding="utf-8"
+        )
         writer.writeheader()
 
         short_names = [
@@ -72,7 +73,7 @@ class Command(BaseCommand):
             "BBank",
             "BfDI",
             "BRH",
-            'BVerfG'
+            "BVerfG",
         ]
 
         for year in range(2011, 2018):
@@ -80,26 +81,32 @@ class Command(BaseCommand):
                 print(short_name)
                 try:
                     root_pb = PublicBody.objects.get(
-                        jurisdiction_id=1,
-                        other_names__contains='%s,' % short_name
+                        jurisdiction_id=1, other_names__contains="%s," % short_name
                     )
                 except PublicBody.DoesNotExist:
-                    print('missing')
+                    print("missing")
                     continue
-                root_count = root_pb.foirequest_set.filter(first_message__year=year, is_foi=True).count()
+                root_count = root_pb.foirequest_set.filter(
+                    first_message__year=year, is_foi=True
+                ).count()
                 pbs = PublicBody.objects.filter(root=root_pb)
-                qs = FoiRequest.objects.filter(first_message__year=year,
-                      public_body__in=pbs, is_foi=True)
+                qs = FoiRequest.objects.filter(
+                    first_message__year=year, public_body__in=pbs, is_foi=True
+                )
                 total_count = len(list(qs))
-                writer.writerow({
-                    'name': short_name,
-                    'year': year,
-                    'gb': 'True',
-                    'total_count': total_count,
-                })
-                writer.writerow({
-                    'name': short_name,
-                    'year': year,
-                    'gb': 'False',
-                    'total_count': root_count,
-                })
+                writer.writerow(
+                    {
+                        "name": short_name,
+                        "year": year,
+                        "gb": "True",
+                        "total_count": total_count,
+                    }
+                )
+                writer.writerow(
+                    {
+                        "name": short_name,
+                        "year": year,
+                        "gb": "False",
+                        "total_count": root_count,
+                    }
+                )

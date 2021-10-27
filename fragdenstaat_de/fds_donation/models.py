@@ -22,31 +22,25 @@ from fragdenstaat_de.fds_newsletter.models import Subscriber
 
 
 INTERVAL_SETTINGS_CHOICES = [
-    ('once', _('Only once')),
-    ('recurring', _('Only recurring')),
-    ('once_recurring', _('Both')),
+    ("once", _("Only once")),
+    ("recurring", _("Only recurring")),
+    ("once_recurring", _("Both")),
 ]
 
 
 SALUTATION_CHOICES = (
-    ('', pgettext('salutation neutral', 'Hello')),
-    ('formal', pgettext('salutation formal', 'Good day')),
-    ('formal_f', pgettext(
-        'salutation female formal', 'Dear Ms.')),
-    ('formal_m', pgettext(
-        'salutation male formal', 'Dear Mr.')),
-    ('informal_f', pgettext(
-        'salutation female informal', 'Dear')),
-    ('informal_m', pgettext(
-        'salutation male informal', 'Dear')),
-    ('informal_n', pgettext(
-        'salutation neutral informal', 'Dear')),
+    ("", pgettext("salutation neutral", "Hello")),
+    ("formal", pgettext("salutation formal", "Good day")),
+    ("formal_f", pgettext("salutation female formal", "Dear Ms.")),
+    ("formal_m", pgettext("salutation male formal", "Dear Mr.")),
+    ("informal_f", pgettext("salutation female informal", "Dear")),
+    ("informal_m", pgettext("salutation male informal", "Dear")),
+    ("informal_n", pgettext("salutation neutral informal", "Dear")),
 )
 SALUTATION_DICT = dict(SALUTATION_CHOICES)
 
 
-DONATION_PROJECTS = getattr(settings, 'DONATION_PROJECTS',
-                            [('', _('Default'))])
+DONATION_PROJECTS = getattr(settings, "DONATION_PROJECTS", [("", _("Default"))])
 DEFAULT_DONATION_PROJECT = DONATION_PROJECTS[0][0]
 
 
@@ -57,23 +51,16 @@ class DonorTag(TagBase):
 
 
 class TaggedDonor(TaggedItemBase):
-    tag = models.ForeignKey(
-        DonorTag, related_name="donors",
-        on_delete=models.CASCADE)
-    content_object = models.ForeignKey(
-        'Donor',
-        on_delete=models.CASCADE)
+    tag = models.ForeignKey(DonorTag, related_name="donors", on_delete=models.CASCADE)
+    content_object = models.ForeignKey("Donor", on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = _('Tagged Donor')
-        verbose_name_plural = _('Tagged Donors')
+        verbose_name = _("Tagged Donor")
+        verbose_name_plural = _("Tagged Donors")
 
 
 class Donor(models.Model):
-    salutation = models.CharField(
-        max_length=25, blank=True,
-        choices=SALUTATION_CHOICES
-    )
+    salutation = models.CharField(max_length=25, blank=True, choices=SALUTATION_CHOICES)
     first_name = models.CharField(max_length=256, blank=True)
     last_name = models.CharField(max_length=256, blank=True)
     company_name = models.CharField(max_length=256, blank=True)
@@ -82,7 +69,7 @@ class Donor(models.Model):
     city = models.CharField(max_length=256, blank=True)
     country = CountryField(blank=True)
 
-    email = models.EmailField(blank=True, default='')
+    email = models.EmailField(blank=True, default="")
     identifier = models.CharField(blank=True, max_length=256)
     attributes = HStoreField(null=True, blank=True)
 
@@ -90,8 +77,7 @@ class Donor(models.Model):
     first_donation = models.DateTimeField(default=timezone.now)
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, null=True, blank=True,
-        on_delete=models.SET_NULL
+        settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL
     )
     subscriptions = models.ManyToManyField(Subscription, blank=True)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -102,13 +88,11 @@ class Donor(models.Model):
     receipt = models.BooleanField(default=False)
 
     subscriber = models.ForeignKey(
-        Subscriber, null=True, blank=True,
-        on_delete=models.SET_NULL
+        Subscriber, null=True, blank=True, on_delete=models.SET_NULL
     )
 
     recurring_amount = models.DecimalField(
-        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES,
-        default=0
+        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
     )
     invalid = models.BooleanField(default=False)
     duplicate = models.UUIDField(editable=False, null=True, blank=True)
@@ -117,18 +101,15 @@ class Donor(models.Model):
     tags = TaggableManager(through=TaggedDonor, blank=True)
 
     class Meta:
-        ordering = ('-id',)
-        verbose_name = _('donor')
-        verbose_name_plural = _('donors')
+        ordering = ("-id",)
+        verbose_name = _("donor")
+        verbose_name_plural = _("donors")
 
     def __str__(self):
-        return '{} ({})'.format(
-            self.get_full_name(),
-            self.email
-        )
+        return "{} ({})".format(self.get_full_name(), self.email)
 
     def get_full_name(self):
-        name = '{} {}'.format(self.first_name, self.last_name).strip()
+        name = "{} {}".format(self.first_name, self.last_name).strip()
         if self.company_name and not name:
             return self.company_name
         return name
@@ -140,19 +121,19 @@ class Donor(models.Model):
 
     def get_german_salutation(self):
         if self.company_name and (not self.first_name or not self.last_name):
-            return 'Sehr geehrte Damen und Herren'
+            return "Sehr geehrte Damen und Herren"
         return self.get_salutation()
 
     def get_complete_name(self):
-        name = '{} {}'.format(self.first_name, self.last_name).strip()
+        name = "{} {}".format(self.first_name, self.last_name).strip()
         if self.company_name:
             if not name:
                 return self.company_name
-            return '%s (%s)' % (name, self.company_name)
+            return "%s (%s)" % (name, self.company_name)
         return name
 
     def get_order_name(self):
-        name = '{} {}'.format(self.last_name, self.first_name).strip()
+        name = "{} {}".format(self.last_name, self.first_name).strip()
         if self.company_name and not name:
             return self.company_name
         return name
@@ -161,38 +142,33 @@ class Donor(models.Model):
         salutation = SALUTATION_DICT.get(self.salutation, None)
         if salutation is None:
             salutation = self.salutation
-        if 'informal_' in self.salutation:
+        if "informal_" in self.salutation:
             name = self.first_name
-        elif 'formal_' in self.salutation:
+        elif "formal_" in self.salutation:
             name = self.last_name
         else:
             name = self.get_full_name()
-        return '{} {}'.format(
-            salutation,
-            name
-        )
+        return "{} {}".format(salutation, name)
 
     def get_full_address(self):
-        return '\n'.join(x for x in [
-            self.address,
-            '{} {}'.format(self.postcode, self.city),
-            self.country.name
-        ] if x)
+        return "\n".join(
+            x
+            for x in [
+                self.address,
+                "{} {}".format(self.postcode, self.city),
+                self.country.name,
+            ]
+            if x
+        )
 
     def get_absolute_url(self):
-        return reverse('fds_donation:donor', kwargs={
-            'token': str(self.uuid)
-        })
+        return reverse("fds_donation:donor", kwargs={"token": str(self.uuid)})
 
     def get_absolute_change_url(self):
-        return reverse('fds_donation:donor-change', kwargs={
-            'token': str(self.uuid)
-        })
+        return reverse("fds_donation:donor-change", kwargs={"token": str(self.uuid)})
 
     def get_absolute_donate_url(self):
-        return reverse('fds_donation:donor-donate', kwargs={
-            'token': str(self.uuid)
-        })
+        return reverse("fds_donation:donor-donate", kwargs={"token": str(self.uuid)})
 
     def get_url(self):
         return settings.SITE_URL + self.get_absolute_url()
@@ -202,26 +178,25 @@ class Donor(models.Model):
         return ", ".join(o.name for o in self.tags.all())
 
     def has_active_subscription(self):
-        return self.subscriptions.filter(
-            canceled__isnull=False).exists()
+        return self.subscriptions.filter(canceled__isnull=False).exists()
 
     def get_form_data(self):
         return {
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-            'email': self.email,
-            'company_name': self.company_name,
-            'address': self.address,
-            'city': self.city,
-            'postcode': self.postcode,
-            'country': self.country,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "email": self.email,
+            "company_name": self.company_name,
+            "address": self.address,
+            "city": self.city,
+            "postcode": self.postcode,
+            "country": self.country,
         }
 
     @cached_property
     def last_donation(self):
         return self.donations.filter(received=True).aggregate(
-            last_donation=models.Max('timestamp')
-        )['last_donation']
+            last_donation=models.Max("timestamp")
+        )["last_donation"]
 
     @cached_property
     def recently_donated(self):
@@ -237,80 +212,73 @@ class Donor(models.Model):
 
     def get_email_context(self):
         context = {
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-            'name': self.get_full_name(),
-            'email': self.email,
-            'company_name': self.company_name,
-            'salutation': self.get_salutation(),
-            'address': self.get_full_address(),
-            'donor_url': self.get_url(),
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "name": self.get_full_name(),
+            "email": self.email,
+            "company_name": self.company_name,
+            "salutation": self.get_salutation(),
+            "address": self.get_full_address(),
+            "donor_url": self.get_url(),
         }
 
         if self.user:
-            context['donor_url'] = (
-                settings.SITE_URL + self.user.get_autologin_url(
-                    reverse('fds_donation:donor-user')
-                )
+            context["donor_url"] = settings.SITE_URL + self.user.get_autologin_url(
+                reverse("fds_donation:donor-user")
             )
         else:
-            context['donor_url'] = self.get_url()
+            context["donor_url"] = self.get_url()
 
         last_year = timezone.now().year - 1
-        donations = Donation.objects.filter(
-            donor=self, received=True
-        )
+        donations = Donation.objects.filter(donor=self, received=True)
         aggregate = donations.aggregate(
-            amount_total=models.Sum('amount'),
+            amount_total=models.Sum("amount"),
             amount_last_year=models.Sum(
-                'amount',
-                filter=models.Q(received_timestamp__year=last_year)
+                "amount", filter=models.Q(received_timestamp__year=last_year)
             ),
         )
 
-        context.update({
-            'amount_total': aggregate['amount_total'],
-            'amount_last_year': aggregate['amount_last_year'],
-            'last_year': last_year,
-            'donations': donations,
-        })
+        context.update(
+            {
+                "amount_total": aggregate["amount_total"],
+                "amount_last_year": aggregate["amount_last_year"],
+                "last_year": last_year,
+                "donations": donations,
+            }
+        )
 
         return context
 
 
 def update_donation_numbers(donor_id):
-    donations = Donation.objects.filter(
-        donor_id=donor_id, completed=True
-    ).annotate(
+    donations = Donation.objects.filter(donor_id=donor_id, completed=True).annotate(
         new_number=models.Window(
             expression=RowNumber(),
-            order_by=models.F('timestamp').asc(),
+            order_by=models.F("timestamp").asc(),
         )
     )
     # Can't call .update() directly due to Django
     # ORM limitations, loop and update:
     for d in donations:
         if d.number != d.new_number:
-            Donation.objects.filter(id=d.id).update(
-                number=d.new_number
-            )
+            Donation.objects.filter(id=d.id).update(number=d.new_number)
 
 
 class Donation(models.Model):
     donor = models.ForeignKey(
-        Donor, null=True, blank=True,
-        related_name='donations',
-        on_delete=models.SET_NULL
+        Donor,
+        null=True,
+        blank=True,
+        related_name="donations",
+        on_delete=models.SET_NULL,
     )
     timestamp = models.DateTimeField(default=timezone.now)
     completed = models.BooleanField(default=False)
     amount = models.DecimalField(
-        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES,
-        default=0
+        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
     )
     amount_received = models.DecimalField(
-        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES,
-        default=0
+        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
     )
     received = models.BooleanField(default=False)
     received_timestamp = models.DateTimeField(blank=True, null=True)
@@ -329,12 +297,10 @@ class Donation(models.Model):
     receipt_date = models.DateTimeField(null=True, blank=True)
 
     order = models.OneToOneField(
-        Order, null=True, blank=True,
-        on_delete=models.SET_NULL
+        Order, null=True, blank=True, on_delete=models.SET_NULL
     )
     payment = models.OneToOneField(
-        Payment, null=True, blank=True,
-        on_delete=models.SET_NULL
+        Payment, null=True, blank=True, on_delete=models.SET_NULL
     )
     first_recurring = models.BooleanField(default=False)
     recurring = models.BooleanField(default=False)
@@ -345,14 +311,12 @@ class Donation(models.Model):
     )
 
     class Meta:
-        ordering = ('-timestamp',)
-        verbose_name = _('donation')
-        verbose_name_plural = _('donations')
+        ordering = ("-timestamp",)
+        verbose_name = _("donation")
+        verbose_name_plural = _("donations")
 
     def __str__(self):
-        return '{} ({} - {})'.format(
-            self.amount, self.timestamp, self.donor
-        )
+        return "{} ({} - {})".format(self.amount, self.timestamp, self.donor)
 
     def save(self, *args, **kwargs):
         ret = super().save(*args, **kwargs)
@@ -363,26 +327,26 @@ class Donation(models.Model):
 
     def get_success_url(self):
         if self.donor and self.donor.user:
-            return self.donor.get_absolute_url() + '?complete'
+            return self.donor.get_absolute_url() + "?complete"
         if self.donor:
-            url = reverse('fds_donation:donate-complete')
+            url = reverse("fds_donation:donate-complete")
             query = {
-                'email': self.donor.email.encode('utf-8'),
+                "email": self.donor.email.encode("utf-8"),
             }
             if self.order:
-                query.update({
-                    'order': self.order.get_absolute_url().encode('utf-8'),
-                })
+                query.update(
+                    {
+                        "order": self.order.get_absolute_url().encode("utf-8"),
+                    }
+                )
                 if self.order.subscription:
                     sub_url = self.order.subscription.get_absolute_url()
-                    query.update({
-                        'subscription': sub_url.encode('utf-8')
-                    })
+                    query.update({"subscription": sub_url.encode("utf-8")})
             query = urlencode(query)
-            return '%s?%s' % (url, query)
+            return "%s?%s" % (url, query)
         if self.order:
             return self.order.get_absolute_url()
-        return '/'
+        return "/"
 
 
 class DefaultDonationManager(models.Manager):
@@ -395,8 +359,8 @@ class DefaultDonation(Donation):
 
     class Meta:
         proxy = True
-        verbose_name = 'FragDenStaat Spenden'
-        verbose_name_plural = 'FragDenStaat Spenden'
+        verbose_name = "FragDenStaat Spenden"
+        verbose_name_plural = "FragDenStaat Spenden"
 
 
 class DonationGift(models.Model):
@@ -405,9 +369,9 @@ class DonationGift(models.Model):
     category_slug = models.SlugField(max_length=255, blank=True)
 
     class Meta:
-        verbose_name = _('donation gift')
-        verbose_name_plural = _('donation gifts')
-        ordering = ('name',)
+        verbose_name = _("donation gift")
+        verbose_name_plural = _("donation gifts")
+        ordering = ("name",)
 
     def __str__(self):
         return self.name
@@ -423,9 +387,7 @@ class DonationGiftFormCMSPlugin(CMSPlugin):
 
 class DonationFormCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=255, blank=True)
-    interval = models.CharField(
-        max_length=20, choices=INTERVAL_SETTINGS_CHOICES
-    )
+    interval = models.CharField(max_length=20, choices=INTERVAL_SETTINGS_CHOICES)
     amount_presets = models.CharField(max_length=255, blank=True)
     initial_amount = models.IntegerField(null=True, blank=True)
     initial_interval = models.IntegerField(null=True, blank=True)
@@ -439,28 +401,27 @@ class DonationFormCMSPlugin(CMSPlugin):
     next_url = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return '{interval} {amount_presets}'.format(
-            interval=self.interval,
-            amount_presets=self.amount_presets
+        return "{interval} {amount_presets}".format(
+            interval=self.interval, amount_presets=self.amount_presets
         )
 
     def make_form(self, **kwargs):
         from .forms import DonationSettingsForm
 
-        reference = kwargs.pop('reference', '')
-        keyword = kwargs.pop('keyword', '')
+        reference = kwargs.pop("reference", "")
+        keyword = kwargs.pop("keyword", "")
 
         form = DonationSettingsForm(
             data={
-                'title': self.title,
-                'interval': self.interval,
-                'amount_presets': self.amount_presets,
-                'initial_amount': self.initial_amount,
-                'initial_interval': self.initial_interval,
-                'reference': self.reference or reference,
-                'keyword': self.keyword or keyword,
-                'purpose': self.purpose,
-                'collapsed': self.collapsed,
+                "title": self.title,
+                "interval": self.interval,
+                "amount_presets": self.amount_presets,
+                "initial_amount": self.initial_amount,
+                "initial_interval": self.initial_interval,
+                "reference": self.reference or reference,
+                "keyword": self.keyword or keyword,
+                "purpose": self.purpose,
+                "collapsed": self.collapsed,
             }
         )
         return form.make_donation_form(**kwargs)
@@ -468,9 +429,7 @@ class DonationFormCMSPlugin(CMSPlugin):
 
 class DonationProgressBarCMSPlugin(CMSPlugin):
     start_date = models.DateTimeField()
-    reached_goal = models.DecimalField(decimal_places=2,
-                                       max_digits=10,
-                                       blank=True,
-                                       null=True)
-    donation_goal = models.DecimalField(decimal_places=2,
-                                        max_digits=10)
+    reached_goal = models.DecimalField(
+        decimal_places=2, max_digits=10, blank=True, null=True
+    )
+    donation_goal = models.DecimalField(decimal_places=2, max_digits=10)

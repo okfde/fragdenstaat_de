@@ -7,22 +7,33 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0022_auto_20180620_1551'),
-        ('fds_cms', '0024_auto_20200421_1059'),
+        ("cms", "0022_auto_20180620_1551"),
+        ("fds_cms", "0024_auto_20200421_1059"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='CollapsibleCMSPlugin',
+            name="CollapsibleCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_cms_collapsiblecmsplugin', serialize=False, to='cms.CMSPlugin')),
-                ('title', models.CharField(blank=True, max_length=255)),
-                ('collapsed', models.BooleanField(default=True)),
-                ('extra_classes', models.CharField(blank=True, max_length=255)),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_cms_collapsiblecmsplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                ("title", models.CharField(blank=True, max_length=255)),
+                ("collapsed", models.BooleanField(default=True)),
+                ("extra_classes", models.CharField(blank=True, max_length=255)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

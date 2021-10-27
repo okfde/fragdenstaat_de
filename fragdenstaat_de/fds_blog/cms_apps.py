@@ -6,8 +6,8 @@ from cms.apphook_pool import apphook_pool
 
 @apphook_pool.register
 class FdsBlogApp(CMSApp):
-    name = _('FragDenStaat-Blog')
-    app_name = 'blog'
+    name = _("FragDenStaat-Blog")
+    app_name = "blog"
 
     def get_urls(self, page=None, language=None, **kwargs):
-        return ['fragdenstaat_de.fds_blog.urls']
+        return ["fragdenstaat_de.fds_blog.urls"]

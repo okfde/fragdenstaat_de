@@ -18,45 +18,57 @@ class CoreEntry(models.Model):
     the fields and methods required for publishing
     content over time.
     """
-    STATUS_CHOICES = ((DRAFT, _('draft')),
-                      (HIDDEN, _('hidden')),
-                      (PUBLISHED, _('published')))
 
-    title = models.CharField(
-        _('title'), max_length=255)
+    STATUS_CHOICES = (
+        (DRAFT, _("draft")),
+        (HIDDEN, _("hidden")),
+        (PUBLISHED, _("published")),
+    )
+
+    title = models.CharField(_("title"), max_length=255)
 
     slug = models.SlugField(
-        _('slug'), max_length=255,
-        unique_for_date='start_publication',
-        help_text=_("Used to build the entry's URL."))
+        _("slug"),
+        max_length=255,
+        unique_for_date="start_publication",
+        help_text=_("Used to build the entry's URL."),
+    )
 
     status = models.IntegerField(
-        _('status'), db_index=True,
-        choices=STATUS_CHOICES, default=DRAFT)
+        _("status"), db_index=True, choices=STATUS_CHOICES, default=DRAFT
+    )
 
     start_publication = models.DateTimeField(
-        _('start publication'),
-        db_index=True, blank=True, null=True,
-        help_text=_('Start date of publication.'))
+        _("start publication"),
+        db_index=True,
+        blank=True,
+        null=True,
+        help_text=_("Start date of publication."),
+    )
 
     end_publication = models.DateTimeField(
-        _('end publication'),
-        db_index=True, blank=True, null=True,
-        help_text=_('End date of publication.'))
+        _("end publication"),
+        db_index=True,
+        blank=True,
+        null=True,
+        help_text=_("End date of publication."),
+    )
 
     sites = models.ManyToManyField(
         Site,
-        related_name='articles',
-        verbose_name=_('sites'),
-        help_text=_('Sites where the article will be published.'))
+        related_name="articles",
+        verbose_name=_("sites"),
+        help_text=_("Sites where the article will be published."),
+    )
 
     creation_date = models.DateTimeField(
-        _('creation date'),
-        db_index=True, default=timezone.now,
-        help_text=_("Used to build the entry's URL."))
+        _("creation date"),
+        db_index=True,
+        default=timezone.now,
+        help_text=_("Used to build the entry's URL."),
+    )
 
-    last_update = models.DateTimeField(
-        _('last update'), default=timezone.now)
+    last_update = models.DateTimeField(_("last update"), default=timezone.now)
 
     class Meta:
         abstract = True
@@ -102,7 +114,8 @@ class ContentEntry(models.Model):
     Abstract content model class providing field
     and methods to write content inside an entry.
     """
-    content = models.TextField(_('content'), blank=True)
+
+    content = models.TextField(_("content"), blank=True)
 
     @property
     def html_content(self):
@@ -111,7 +124,7 @@ class ContentEntry(models.Model):
         """
         content = self.content
         if not content:
-            return ''
+            return ""
         return content
 
     @property
@@ -130,10 +143,10 @@ class RelatedEntry(models.Model):
     Abstract model class for making manual relations
     between the differents entries.
     """
+
     related = models.ManyToManyField(
-        'self',
-        blank=True,
-        verbose_name=_('related articles'))
+        "self", blank=True, verbose_name=_("related articles")
+    )
 
     class Meta:
         abstract = True
@@ -143,9 +156,8 @@ class LeadEntry(models.Model):
     """
     Abstract model class providing a lead content to the entries.
     """
-    lead = models.TextField(
-        _('lead'), blank=True,
-        help_text=_('Lead paragraph'))
+
+    lead = models.TextField(_("lead"), blank=True, help_text=_("Lead paragraph"))
 
     @property
     def html_lead(self):
@@ -154,7 +166,7 @@ class LeadEntry(models.Model):
         """
         if self.lead:
             return linebreaks(self.lead)
-        return ''
+        return ""
 
     class Meta:
         abstract = True
@@ -164,9 +176,10 @@ class ExcerptEntry(models.Model):
     """
     Abstract model class to add an excerpt to the entries.
     """
+
     excerpt = models.TextField(
-        _('excerpt'), blank=True,
-        help_text=_('Used for SEO purposes.'))
+        _("excerpt"), blank=True, help_text=_("Used for SEO purposes.")
+    )
 
     def save(self, *args, **kwargs):
         """
@@ -174,8 +187,7 @@ class ExcerptEntry(models.Model):
         from the content field if void.
         """
         if not self.excerpt and self.status == PUBLISHED:
-            self.excerpt = Truncator(strip_tags(
-                getattr(self, 'content', ''))).words(50)
+            self.excerpt = Truncator(strip_tags(getattr(self, "content", ""))).words(50)
         super(ExcerptEntry, self).save(*args, **kwargs)
 
     class Meta:
@@ -187,12 +199,15 @@ class ContentTemplateEntry(models.Model):
     Abstract model class to display entry's content
     with a custom template.
     """
+
     content_template = models.CharField(
-        _('content template'), max_length=250,
-        default='fds_blog/_article_detail.html',
-        choices=[('fds_blog/_article_detail.html', _('Default template'))] +
-        settings.ARTICLE_CONTENT_TEMPLATES,
-        help_text=_("Template used to display the article's content."))
+        _("content template"),
+        max_length=250,
+        default="fds_blog/_article_detail.html",
+        choices=[("fds_blog/_article_detail.html", _("Default template"))]
+        + settings.ARTICLE_CONTENT_TEMPLATES,
+        help_text=_("Template used to display the article's content."),
+    )
 
     class Meta:
         abstract = True
@@ -203,12 +218,15 @@ class DetailTemplateEntry(models.Model):
     Abstract model class to display entries with a
     custom template if needed on the detail page.
     """
+
     detail_template = models.CharField(
-        _('detail template'), max_length=250,
-        default='fds_blog/article_detail.html',
-        choices=[('fds_blog/article_detail.html', _('Default template'))] +
-        settings.ARTICLE_DETAIL_TEMPLATES,
-        help_text=_("Template used to display the article's detail page."))
+        _("detail template"),
+        max_length=250,
+        default="fds_blog/article_detail.html",
+        choices=[("fds_blog/article_detail.html", _("Default template"))]
+        + settings.ARTICLE_DETAIL_TEMPLATES,
+        help_text=_("Template used to display the article's detail page."),
+    )
 
     class Meta:
         abstract = True

@@ -13,71 +13,78 @@ from .utils import unsubscribe_queryset
 
 
 class NewsletterAdmin(SetupMailingMixin, admin.ModelAdmin):
-    list_display = (
-        'title', 'visible', 'subscriber_count', 'admin_subscribers'
-    )
-    prepopulated_fields = {'slug': ('title',)}
+    list_display = ("title", "visible", "subscriber_count", "admin_subscribers")
+    prepopulated_fields = {"slug": ("title",)}
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         qs = qs.annotate(
             subscriber_count=Count(
-                'subscribers', filter=Q(subscribers__subscribed__isnull=False)
+                "subscribers", filter=Q(subscribers__subscribed__isnull=False)
             )
         )
         return qs
 
     def subscriber_count(self, obj):
         return obj.subscriber_count
-    subscriber_count.admin_order_field = 'subscriber_count'
-    subscriber_count.short_description = _('active subscriber count')
+
+    subscriber_count.admin_order_field = "subscriber_count"
+    subscriber_count.short_description = _("active subscriber count")
 
     def admin_subscribers(self, obj):
         url = reverse(
-            'admin:fds_newsletter_subscriber_changelist',
-            current_app=self.admin_site.name
+            "admin:fds_newsletter_subscriber_changelist",
+            current_app=self.admin_site.name,
         )
 
         return format_html(
-            '<a href="{}?newsletter__id__exact={}">{}</a>', url, obj.id,
-            _('See all subscribers')
+            '<a href="{}?newsletter__id__exact={}">{}</a>',
+            url,
+            obj.id,
+            _("See all subscribers"),
         )
-    admin_subscribers.short_description = ''
+
+    admin_subscribers.short_description = ""
 
 
 class SubscriberAdmin(admin.ModelAdmin):
-    raw_id_fields = ('user',)
+    raw_id_fields = ("user",)
     list_display = (
-        'admin_email', 'newsletter', 'subscribed',
-        'unsubscribed', 'reference', 'keyword'
+        "admin_email",
+        "newsletter",
+        "subscribed",
+        "unsubscribed",
+        "reference",
+        "keyword",
     )
     list_filter = (
-        'newsletter', 'subscribed', 'unsubscribed',
-        'reference',
-        'unsubscribe_method', 'tags'
+        "newsletter",
+        "subscribed",
+        "unsubscribed",
+        "reference",
+        "unsubscribe_method",
+        "tags",
     )
-    search_fields = (
-        'email', 'user__email', 'keyword'
-    )
-    readonly_fields = (
-        'created', 'activation_code'
-    )
-    date_hierarchy = 'created'
-    actions = ['unsubscribe', 'export_subscribers_csv']
+    search_fields = ("email", "user__email", "keyword")
+    readonly_fields = ("created", "activation_code")
+    date_hierarchy = "created"
+    actions = ["unsubscribe", "export_subscribers_csv"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        qs = qs.select_related('newsletter')
-        qs = qs.prefetch_related('user')
+        qs = qs.select_related("newsletter")
+        qs = qs.prefetch_related("user")
         return qs
 
     def admin_email(self, obj):
         return obj.get_email()
-    admin_email.short_description = ''
+
+    admin_email.short_description = ""
 
     def unsubscribe(self, request, queryset):
         queryset = queryset.filter(subscribed__isnull=False)
-        unsubscribe_queryset(queryset, method='admin')
+        unsubscribe_queryset(queryset, method="admin")
+
     unsubscribe.short_description = _("Unsubscribe")
 
     def export_subscribers_csv(self, request, queryset):
@@ -91,6 +98,7 @@ class SubscriberAdmin(admin.ModelAdmin):
             "unsubscribed",
         )
         return export_csv_response(export_csv(queryset, fields))
+
     export_subscribers_csv.short_description = _("Export to CSV")
 
 

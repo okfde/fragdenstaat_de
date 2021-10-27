@@ -3,13 +3,16 @@ from urllib.parse import urlparse
 from django.conf import settings
 from django.core.exceptions import DisallowedHost
 from django.utils.http import is_same_domain
-from django.middleware.csrf import (CsrfViewMiddleware, _sanitize_token,
-                                    _compare_masked_tokens,
-                                    REASON_BAD_REFERER,
-                                    REASON_NO_CSRF_COOKIE,
-                                    REASON_BAD_TOKEN,
-                                    REASON_MALFORMED_REFERER,
-                                    REASON_INSECURE_REFERER)
+from django.middleware.csrf import (
+    CsrfViewMiddleware,
+    _sanitize_token,
+    _compare_masked_tokens,
+    REASON_BAD_REFERER,
+    REASON_NO_CSRF_COOKIE,
+    REASON_BAD_TOKEN,
+    REASON_MALFORMED_REFERER,
+    REASON_INSECURE_REFERER,
+)
 
 
 class CsrfViewIlfMiddleware(CsrfViewMiddleware):
@@ -19,17 +22,17 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
     """
 
     def process_view(self, request, callback, callback_args, callback_kwargs):
-        if getattr(request, 'csrf_processing_done', False):
+        if getattr(request, "csrf_processing_done", False):
             return None
 
         # Wait until request.META["CSRF_COOKIE"] has been manipulated before
         # bailing out, so that get_token still works
-        if getattr(callback, 'csrf_exempt', False):
+        if getattr(callback, "csrf_exempt", False):
             return None
 
         # Assume that anything not defined as 'safe' by RFC7231 needs protection
-        if request.method not in ('GET', 'HEAD', 'OPTIONS', 'TRACE'):
-            if getattr(request, '_dont_enforce_csrf_checks', False):
+        if request.method not in ("GET", "HEAD", "OPTIONS", "TRACE"):
+            if getattr(request, "_dont_enforce_csrf_checks", False):
                 # Mechanism to turn off CSRF checks for test suite.
                 # It comes after the creation of CSRF cookies, so that
                 # everything else continues to work exactly the same
@@ -53,7 +56,7 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                 # Barth et al. found that the Referer header is missing for
                 # same-domain requests in only about 0.2% of cases or less, so
                 # we can use strict Referer checking.
-                referer = request.META.get('HTTP_REFERER')
+                referer = request.META.get("HTTP_REFERER")
 
                 # -- Change from original here -- #
                 # Only checks referer if it is present.
@@ -64,11 +67,13 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                     referer = urlparse(referer)
 
                     # Make sure we have a valid URL for Referer.
-                    if '' in (referer.scheme, referer.netloc):
+                    if "" in (referer.scheme, referer.netloc):
                         return self._reject(request, REASON_MALFORMED_REFERER)
 
                     # Ensure that our Referer is also secure.
-                    if referer.scheme != 'https' and not referer.netloc.endswith('.onion'):
+                    if referer.scheme != "https" and not referer.netloc.endswith(
+                        ".onion"
+                    ):
                         return self._reject(request, REASON_INSECURE_REFERER)
 
                     # If there isn't a CSRF_COOKIE_DOMAIN, require an exact match
@@ -81,8 +86,8 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                     )
                     if good_referer is not None:
                         server_port = request.get_port()
-                        if server_port not in ('443', '80'):
-                            good_referer = '%s:%s' % (good_referer, server_port)
+                        if server_port not in ("443", "80"):
+                            good_referer = "%s:%s" % (good_referer, server_port)
                     else:
                         try:
                             # request.get_host() includes the port.
@@ -96,7 +101,9 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                     if good_referer is not None:
                         good_hosts.append(good_referer)
 
-                    if not any(is_same_domain(referer.netloc, host) for host in good_hosts):
+                    if not any(
+                        is_same_domain(referer.netloc, host) for host in good_hosts
+                    ):
                         reason = REASON_BAD_REFERER % referer.geturl()
                         return self._reject(request, reason)
 
@@ -111,7 +118,7 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
             request_csrf_token = ""
             if request.method == "POST":
                 try:
-                    request_csrf_token = request.POST.get('csrfmiddlewaretoken', '')
+                    request_csrf_token = request.POST.get("csrfmiddlewaretoken", "")
                 except OSError:
                     # Handle a broken connection before we've completed reading
                     # the POST data. process_view shouldn't raise any
@@ -123,7 +130,7 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
             if request_csrf_token == "":
                 # Fall back to X-CSRFToken, to make things easier for AJAX,
                 # and possible for PUT/DELETE.
-                request_csrf_token = request.META.get(settings.CSRF_HEADER_NAME, '')
+                request_csrf_token = request.META.get(settings.CSRF_HEADER_NAME, "")
 
             request_csrf_token = _sanitize_token(request_csrf_token)
             if not _compare_masked_tokens(request_csrf_token, csrf_token):

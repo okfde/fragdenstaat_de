@@ -6,13 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0032_slidercmsplugin_wrapper_classes'),
+        ("fds_cms", "0032_slidercmsplugin_wrapper_classes"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='primarylinkcmsplugin',
-            name='template',
-            field=models.CharField(blank=True, choices=[('', 'Default template'), ('featured.html', 'Featured template'), ('campaign.html', 'Campaign template')], default='', max_length=50, verbose_name='Template'),
+            model_name="primarylinkcmsplugin",
+            name="template",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("", "Default template"),
+                    ("featured.html", "Featured template"),
+                    ("campaign.html", "Campaign template"),
+                ],
+                default="",
+                max_length=50,
+                verbose_name="Template",
+            ),
         ),
     ]

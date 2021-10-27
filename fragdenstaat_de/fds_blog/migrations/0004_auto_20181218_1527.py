@@ -8,23 +8,37 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_blog', '0003_auto_20181217_1233'),
+        ("fds_blog", "0003_auto_20181217_1233"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='article',
-            name='language',
-            field=models.CharField(choices=[('de', 'German'), ('en', 'English')], max_length=5, null=True),
+            model_name="article",
+            name="language",
+            field=models.CharField(
+                choices=[("de", "German"), ("en", "English")], max_length=5, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='author',
-            name='user',
-            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='authorship', to=settings.AUTH_USER_MODEL),
+            model_name="author",
+            name="user",
+            field=models.OneToOneField(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="authorship",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='latestarticlesplugin',
-            name='article_language',
-            field=models.CharField(blank=True, choices=[('de', 'German'), ('en', 'English')], default='de', max_length=5, verbose_name='language'),
+            model_name="latestarticlesplugin",
+            name="article_language",
+            field=models.CharField(
+                blank=True,
+                choices=[("de", "German"), ("en", "English")],
+                default="de",
+                max_length=5,
+                verbose_name="language",
+            ),
         ),
     ]

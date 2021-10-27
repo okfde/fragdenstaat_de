@@ -8,13 +8,19 @@ import parler.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_blog', '0004_auto_20181218_1527'),
+        ("fds_blog", "0004_auto_20181218_1527"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='categorytranslation',
-            name='master',
-            field=parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='fds_blog.Category'),
+            model_name="categorytranslation",
+            name="master",
+            field=parler.fields.TranslationsForeignKey(
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="translations",
+                to="fds_blog.Category",
+            ),
         ),
     ]

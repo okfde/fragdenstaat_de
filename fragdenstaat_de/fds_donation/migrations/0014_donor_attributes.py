@@ -8,14 +8,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0013_auto_20191220_1329'),
+        ("fds_donation", "0013_auto_20191220_1329"),
     ]
 
     operations = [
         HStoreExtension(),
         migrations.AddField(
-            model_name='donor',
-            name='attributes',
-            field=django.contrib.postgres.fields.hstore.HStoreField(null=True, blank=True),
+            model_name="donor",
+            name="attributes",
+            field=django.contrib.postgres.fields.hstore.HStoreField(
+                null=True, blank=True
+            ),
         ),
     ]

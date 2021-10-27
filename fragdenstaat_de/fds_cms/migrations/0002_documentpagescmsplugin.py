@@ -9,22 +9,40 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0020_old_tree_cleanup'),
-        ('document', '0005_auto_20180521_2048'),
-        ('fds_cms', '0001_initial'),
+        ("cms", "0020_old_tree_cleanup"),
+        ("document", "0005_auto_20180521_2048"),
+        ("fds_cms", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DocumentPagesCMSPlugin',
+            name="DocumentPagesCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_cms_documentpagescmsplugin', serialize=False, to='cms.CMSPlugin')),
-                ('pages', models.CharField(blank=True, max_length=255)),
-                ('doc', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='document.Document')),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_cms_documentpagescmsplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                ("pages", models.CharField(blank=True, max_length=255)),
+                (
+                    "doc",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="document.Document",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

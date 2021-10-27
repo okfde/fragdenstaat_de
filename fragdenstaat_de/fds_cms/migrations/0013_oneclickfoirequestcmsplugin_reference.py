@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0012_oneclickfoirequestcmsplugin_redirect_url'),
+        ("fds_cms", "0012_oneclickfoirequestcmsplugin_redirect_url"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='oneclickfoirequestcmsplugin',
-            name='reference',
-            field=models.CharField(blank=True, default='', max_length=255),
+            model_name="oneclickfoirequestcmsplugin",
+            name="reference",
+            field=models.CharField(blank=True, default="", max_length=255),
         ),
     ]

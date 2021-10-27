@@ -9,17 +9,18 @@ class Command(BaseCommand):
     topic_cache = {}
 
     def add_arguments(self, parser):
-        parser.add_argument('jurisdiction')
+        parser.add_argument("jurisdiction")
 
     def handle(self, *args, **options):
 
-        from froide.publicbody.models import (PublicBodyTag, PublicBody,
-            Jurisdiction)
+        from froide.publicbody.models import PublicBodyTag, PublicBody, Jurisdiction
 
         translation.activate(settings.LANGUAGE_CODE)
 
-        jurisdiction_slug = options.get('jurisdiction')
-        self.topic_cache = dict([(tag.slug, tag) for tag in PublicBodyTag.objects.filter(is_topic=True)])
+        jurisdiction_slug = options.get("jurisdiction")
+        self.topic_cache = dict(
+            [(tag.slug, tag) for tag in PublicBodyTag.objects.filter(is_topic=True)]
+        )
         juris = Jurisdiction.objects.get(slug=jurisdiction_slug)
 
         for pb in PublicBody.objects.filter(jurisdiction=juris):
@@ -30,31 +31,24 @@ class Command(BaseCommand):
     def get_topic(self, pb):
         name = pb.name.lower()
         mapping = {
-            'polizei': 'inneres',
-            'kriminal': 'inneres',
-
-            'schul': 'bildung-und-forschung',
-            'univ': 'bildung-und-forschung',
-            'student': 'bildung-und-forschung',
-            'schul': 'bildung-und-forschung',
-
-            'rechnungs': 'finanzen',
-            'finanz': 'finanzen',
-
-            'arbeit': 'arbeit-und-soziales',
-            'job': 'arbeit-und-soziales',
-
-            'staatsanwaltschaft': 'justiz',
-            'justiz': 'justiz',
-            'gericht': 'justiz',
-            'vollzug': 'justiz',
-
-            'kammer': 'wirtschaft',
-
-            'bauamt': 'bau',
-
-            'umwelt': 'umwelt',
-            'wald': 'umwelt',
+            "polizei": "inneres",
+            "kriminal": "inneres",
+            "schul": "bildung-und-forschung",
+            "univ": "bildung-und-forschung",
+            "student": "bildung-und-forschung",
+            "schul": "bildung-und-forschung",
+            "rechnungs": "finanzen",
+            "finanz": "finanzen",
+            "arbeit": "arbeit-und-soziales",
+            "job": "arbeit-und-soziales",
+            "staatsanwaltschaft": "justiz",
+            "justiz": "justiz",
+            "gericht": "justiz",
+            "vollzug": "justiz",
+            "kammer": "wirtschaft",
+            "bauamt": "bau",
+            "umwelt": "umwelt",
+            "wald": "umwelt",
         }
         for k, v in mapping.items():
             if k in name:

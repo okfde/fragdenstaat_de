@@ -5,21 +5,19 @@ from cms.plugin_pool import plugin_pool
 
 
 COLUMNS = [
-    (2, _('Two')),
-    (3, _('Three')),
-    (4, _('Four')),
-    (5, _('Five')),
-    (6, _('Six')),
-    (7, _('Seven')),
-    (8, _('Eight')),
-    (9, _('Nine')),
-    (10, _('Ten')),
-    (12, _('Twelve')),
+    (2, _("Two")),
+    (3, _("Three")),
+    (4, _("Four")),
+    (5, _("Five")),
+    (6, _("Six")),
+    (7, _("Seven")),
+    (8, _("Eight")),
+    (9, _("Nine")),
+    (10, _("Ten")),
+    (12, _("Twelve")),
 ]
 
-COLUMN_PLUGINS = [
-    'Column%sPlugin' % col_count for col_count, _ in COLUMNS
-]
+COLUMN_PLUGINS = ["Column%sPlugin" % col_count for col_count, _ in COLUMNS]
 
 
 @plugin_pool.register_plugin
@@ -47,9 +45,10 @@ class ContainerGreyPlugin(CMSPluginBase):
 
 
 CONTAINER_PLUGINS = [
-    'ContainerPlugin', 'ContainerFluidPlugin',
-    'ContainerGreyPlugin',
-    'DesignContainerPlugin'  # TODO: remove this one
+    "ContainerPlugin",
+    "ContainerFluidPlugin",
+    "ContainerGreyPlugin",
+    "DesignContainerPlugin",  # TODO: remove this one
 ]
 
 ROW_PARENTS = COLUMN_PLUGINS + CONTAINER_PLUGINS
@@ -125,12 +124,12 @@ class ColumnPlugin(CMSPluginBase):
 for col_count, col_name in COLUMNS:
     plugin_pool.register_plugin(
         type(
-            'Column%sPlugin' % col_count,
+            "Column%sPlugin" % col_count,
             (ColumnPlugin,),
             {
-                'name': _("Column %s") % str(col_name),
-                'render_template': "cms/plugins/col_%d.html" % col_count,
-            }
+                "name": _("Column %s") % str(col_name),
+                "render_template": "cms/plugins/col_%d.html" % col_count,
+            },
         )
     )
 
@@ -139,8 +138,8 @@ for col_count, col_name in COLUMNS:
 class ColumnTeaserPlugin(CMSPluginBase):
     module = _("Structure")
     allow_children = True
-    name = _('Column Teaser Three')
-    render_template = 'cms/plugins/col_teaser.html'
+    name = _("Column Teaser Three")
+    render_template = "cms/plugins/col_teaser.html"
 
 
 @plugin_pool.register_plugin

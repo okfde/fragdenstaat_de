@@ -8,32 +8,83 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0022_auto_20180620_1551'),
-        migrations.swappable_dependency(settings.FILINGCABINET_DOCUMENTCOLLECTION_MODEL),
-        ('fds_cms', '0018_designcontainercmsplugin'),
+        ("cms", "0022_auto_20180620_1551"),
+        migrations.swappable_dependency(
+            settings.FILINGCABINET_DOCUMENTCOLLECTION_MODEL
+        ),
+        ("fds_cms", "0018_designcontainercmsplugin"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='designcontainercmsplugin',
-            name='background',
-            field=models.CharField(blank=True, choices=[('primary', 'Primary'), ('secondary', 'Secondary'), ('info', 'Info'), ('light', 'Light'), ('dark', 'Dark'), ('success', 'Success'), ('warning', 'Warning'), ('danger', 'Danger'), ('purple', 'Purple'), ('pink', 'Pink'), ('yellow', 'Yellow'), ('cyan', 'Cyan'), ('gray', 'Gray'), ('gray-dark', 'Gray Dark'), ('white', 'White')], default='', max_length=50, verbose_name='Background'),
+            model_name="designcontainercmsplugin",
+            name="background",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("primary", "Primary"),
+                    ("secondary", "Secondary"),
+                    ("info", "Info"),
+                    ("light", "Light"),
+                    ("dark", "Dark"),
+                    ("success", "Success"),
+                    ("warning", "Warning"),
+                    ("danger", "Danger"),
+                    ("purple", "Purple"),
+                    ("pink", "Pink"),
+                    ("yellow", "Yellow"),
+                    ("cyan", "Cyan"),
+                    ("gray", "Gray"),
+                    ("gray-dark", "Gray Dark"),
+                    ("white", "White"),
+                ],
+                default="",
+                max_length=50,
+                verbose_name="Background",
+            ),
         ),
         migrations.AlterField(
-            model_name='designcontainercmsplugin',
-            name='template',
-            field=models.CharField(blank=True, choices=[('', 'Default template'), ('cms/plugins/designs/speech_bubble.html', 'Speech bubble')], default='', max_length=50, verbose_name='Template'),
+            model_name="designcontainercmsplugin",
+            name="template",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("", "Default template"),
+                    ("cms/plugins/designs/speech_bubble.html", "Speech bubble"),
+                ],
+                default="",
+                max_length=50,
+                verbose_name="Template",
+            ),
         ),
         migrations.CreateModel(
-            name='DocumentCollectionEmbedCMSPlugin',
+            name="DocumentCollectionEmbedCMSPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_cms_documentcollectionembedcmsplugin', serialize=False, to='cms.CMSPlugin')),
-                ('settings', models.TextField(default='{}')),
-                ('collection', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to=settings.FILINGCABINET_DOCUMENTCOLLECTION_MODEL)),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_cms_documentcollectionembedcmsplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                ("settings", models.TextField(default="{}")),
+                (
+                    "collection",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to=settings.FILINGCABINET_DOCUMENTCOLLECTION_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
     ]

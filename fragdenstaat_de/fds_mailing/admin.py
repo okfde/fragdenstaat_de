@@ -14,7 +14,9 @@ from cms.models.static_placeholder import StaticPlaceholder
 
 from froide.account.admin import UserAdmin
 from froide.helper.admin_utils import (
-    ForeignKeyFilter, make_nullfilter, make_choose_object_action
+    ForeignKeyFilter,
+    make_nullfilter,
+    make_choose_object_action,
 )
 
 from .models import EmailTemplate, Mailing, MailingMessage
@@ -24,27 +26,39 @@ from .utils import add_fake_context
 
 class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
     list_display = (
-        'name', 'subject', 'category', 'mail_intent',
-        'created', 'updated', 'active'
+        "name",
+        "subject",
+        "category",
+        "mail_intent",
+        "created",
+        "updated",
+        "active",
     )
     list_filter = (
-         'active', 'category',
+        "active",
+        "category",
     )
-    search_fields = ('name', 'subject', 'mail_intent')
-    date_hierarchy = 'updated'
+    search_fields = ("name", "subject", "mail_intent")
+    date_hierarchy = "updated"
 
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            url(r'^(?P<pk>\d+)/edit-body/$',
+            url(
+                r"^(?P<pk>\d+)/edit-body/$",
                 self.admin_site.admin_view(self.edit_body),
-                name='fds_mailing-emailtemplate-edit_body'),
-            url(r'^(?P<pk>\d+)/preview/$',
+                name="fds_mailing-emailtemplate-edit_body",
+            ),
+            url(
+                r"^(?P<pk>\d+)/preview/$",
                 self.admin_site.admin_view(self.preview_html),
-                name='fds_mailing-emailtemplate-preview'),
-            url(r'^(?P<pk>\d+)/preview-eml/$',
+                name="fds_mailing-emailtemplate-preview",
+            ),
+            url(
+                r"^(?P<pk>\d+)/preview-eml/$",
                 self.admin_site.admin_view(self.preview_eml),
-                name='fds_mailing-emailtemplate-preview_eml'),
+                name="fds_mailing-emailtemplate-preview_eml",
+            ),
         ]
         return my_urls + urls
 
@@ -57,71 +71,80 @@ class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         static_placeholder_id = None
         if static_placholder:
             try:
-                static_placeholder_id = StaticPlaceholder.objects.get(code=static_placholder).pk
+                static_placeholder_id = StaticPlaceholder.objects.get(
+                    code=static_placholder
+                ).pk
             except StaticPlaceholder.DoesNotExist:
                 pass
 
-        return render(request, 'fds_mailing/emailtemplate_update_form.html', {
-            'object': email_template,
-            'static_placeholder_id': static_placeholder_id
-        })
+        return render(
+            request,
+            "fds_mailing/emailtemplate_update_form.html",
+            {"object": email_template, "static_placeholder_id": static_placeholder_id},
+        )
 
     def preview_html(self, request, pk):
         if not self.has_change_permission(request):
             raise PermissionDenied
 
         email_template = get_object_or_404(EmailTemplate, pk=pk)
-        context = {'request': request}
+        context = {"request": request}
         mail_intent = email_template.get_mail_intent()
         context = add_fake_context(context, mail_intent)
         html = email_template.get_body_html(context, preview=True)
-        return HttpResponse(content=html.encode('utf-8'))
+        return HttpResponse(content=html.encode("utf-8"))
 
     def preview_eml(self, request, pk):
         if not self.has_change_permission(request):
             raise PermissionDenied
 
         email_template = get_object_or_404(EmailTemplate, pk=pk)
-        context = {'request': request}
+        context = {"request": request}
         mail_intent = email_template.get_mail_intent()
         context = add_fake_context(context, mail_intent)
 
         content = email_template.get_email_bytes(context)
-        return HttpResponse(
-            content=content, content_type='message/rfc822'
-        )
+        return HttpResponse(content=content, content_type="message/rfc822")
 
 
 class MailingAdmin(admin.ModelAdmin):
-    raw_id_fields = ('email_template', 'newsletter')
+    raw_id_fields = ("email_template", "newsletter")
     list_display = (
-        'name', 'email_template', 'created', 'newsletter',
-        'ready', 'sending_date', 'sending', 'sent',
-        'sent_percentage', 'publish'
+        "name",
+        "email_template",
+        "created",
+        "newsletter",
+        "ready",
+        "sending_date",
+        "sending",
+        "sent",
+        "sent_percentage",
+        "publish",
     )
     list_filter = (
-        'ready', 'submitted',
-        make_nullfilter('newsletter', 'Newsletter'),
-        'publish', 'sending', 'sent',
+        "ready",
+        "submitted",
+        make_nullfilter("newsletter", "Newsletter"),
+        "publish",
+        "sending",
+        "sent",
     )
     readonly_fields = (
-        'created', 'creator_user', 'submitted',
-        'sender_user', 'sent_date',
-        'sent', 'sending',
+        "created",
+        "creator_user",
+        "submitted",
+        "sender_user",
+        "sent_date",
+        "sent",
+        "sending",
     )
-    search_fields = ('name',)
-    actions = ['trigger_continue_sending']
+    search_fields = ("name",)
+    actions = ["trigger_continue_sending"]
 
     def get_urls(self):
         urls = super().get_urls()
 
-        my_urls = [
-            url(
-                r'^(.+)/send/$',
-                self.send,
-                name='fds_mailing_mailing_send'
-            )
-        ]
+        my_urls = [url(r"^(.+)/send/$", self.send, name="fds_mailing_mailing_send")]
 
         return my_urls + urls
 
@@ -129,13 +152,13 @@ class MailingAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
 
         qs = qs.annotate(
-            total_recipients=models.Count('recipients'),
+            total_recipients=models.Count("recipients"),
             sent_recipients=models.Count(
-                'recipients', filter=models.Q(recipients__sent__isnull=False)
+                "recipients", filter=models.Q(recipients__sent__isnull=False)
             ),
         )
 
-        return qs.prefetch_related('email_template', 'newsletter')
+        return qs.prefetch_related("email_template", "newsletter")
 
     def save_model(self, request, obj, form, change):
         if not change:
@@ -144,32 +167,28 @@ class MailingAdmin(admin.ModelAdmin):
 
     def sent_percentage(self, obj):
         if obj.total_recipients == 0:
-            return '-'
-        return '{0:.2f}%'.format(
-            obj.sent_recipients / obj.total_recipients * 100
-        )
+            return "-"
+        return "{0:.2f}%".format(obj.sent_recipients / obj.total_recipients * 100)
 
     def trigger_continue_sending(self, request, queryset):
         for mailing in queryset:
             continue_sending.delay(mailing.id)
 
         self.message_user(
-            request, _('Continue sending selected mailings.'),
-            level=messages.INFO
+            request, _("Continue sending selected mailings."), level=messages.INFO
         )
+
     trigger_continue_sending.short_description = _("Continue sending mailing")
 
     def send(self, request, object_id):
-        if request.method != 'POST':
+        if request.method != "POST":
             raise PermissionDenied
         if not self.has_change_permission(request):
             raise PermissionDenied
 
         mailing = get_object_or_404(Mailing, id=object_id)
 
-        change_url = reverse(
-            'admin:fds_mailing_mailing_change', args=[object_id]
-        )
+        change_url = reverse("admin:fds_mailing_mailing_change", args=[object_id])
 
         now = timezone.now()
         if mailing.sent or mailing.submitted:
@@ -186,11 +205,13 @@ class MailingAdmin(admin.ModelAdmin):
         mailing.sender_user = request.user
         mailing.save()
 
-        transaction.on_commit(lambda: send_mailing.apply_async(
-            (mailing.id, mailing.sending_date),
-            eta=mailing.sending_date,
-            retry=False
-        ))
+        transaction.on_commit(
+            lambda: send_mailing.apply_async(
+                (mailing.id, mailing.sending_date),
+                eta=mailing.sending_date,
+                retry=False,
+            )
+        )
 
         messages.info(request, _("Your mailing is being sent."))
 
@@ -198,21 +219,22 @@ class MailingAdmin(admin.ModelAdmin):
 
 
 class MailingMessageAdmin(admin.ModelAdmin):
-    raw_id_fields = ('mailing', 'subscriber', 'donor', 'user')
-    list_display = ('mailing', 'email', 'name', 'donor', 'user', 'sent', 'bounced')
-    date_hierarchy = 'sent'
+    raw_id_fields = ("mailing", "subscriber", "donor", "user")
+    list_display = ("mailing", "email", "name", "donor", "user", "sent", "bounced")
+    date_hierarchy = "sent"
     list_filter = (
-        'sent', 'bounced',
-        ('mailing', ForeignKeyFilter),
-        ('donor', ForeignKeyFilter),
-        ('subscriber', ForeignKeyFilter),
-        ('user', ForeignKeyFilter),
+        "sent",
+        "bounced",
+        ("mailing", ForeignKeyFilter),
+        ("donor", ForeignKeyFilter),
+        ("subscriber", ForeignKeyFilter),
+        ("user", ForeignKeyFilter),
     )
-    search_fields = ('email', 'name')
+    search_fields = ("email", "name")
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        qs = qs.prefetch_related('donor', 'subscriber', 'user')
+        qs = qs.prefetch_related("donor", "subscriber", "user")
         return qs
 
 
@@ -227,30 +249,30 @@ def send_mail(self, request, queryset):
 
     """
 
-    if request.POST.get('subject'):
-        subject = request.POST.get('subject', '')
+    if request.POST.get("subject"):
+        subject = request.POST.get("subject", "")
         mailing = Mailing.objects.create(
-            creator_user=request.user,
-            name=subject, publish=False
+            creator_user=request.user, name=subject, publish=False
         )
-        MailingMessage.objects.bulk_create([
-            MailingMessage(
-                mailing=mailing,
-                name=user.get_full_name(),
-                email=user.email,
-                user=user
-            ) for user in queryset
-        ])
-        change_url = reverse(
-            'admin:fds_mailing_mailing_change', args=[mailing.id]
+        MailingMessage.objects.bulk_create(
+            [
+                MailingMessage(
+                    mailing=mailing,
+                    name=user.get_full_name(),
+                    email=user.email,
+                    user=user,
+                )
+                for user in queryset
+            ]
         )
+        change_url = reverse("admin:fds_mailing_mailing_change", args=[mailing.id])
         return redirect(change_url)
 
     return original_send_mail(self, request, queryset)
 
 
 send_mail.short_description = _("Setup mailing to users...")
-send_mail.allowed_permissions = ('change',)
+send_mail.allowed_permissions = ("change",)
 UserAdmin.send_mail = send_mail
 
 
@@ -258,24 +280,19 @@ def execute_send_mail_template(admin, request, queryset, action_obj):
     count = queryset.count()
     if count != 1:
         admin.message_user(
-            request, _('You can only send to one user at a time.'),
-            level=messages.ERROR
+            request, _("You can only send to one user at a time."), level=messages.ERROR
         )
         return
     for user in queryset:
         action_obj.send_to_user(user)
 
-    admin.message_user(
-        request, _('Email was sent.'),
-        level=messages.INFO
-    )
+    admin.message_user(request, _("Email was sent."), level=messages.INFO)
 
 
 UserAdmin.send_mail_template = make_choose_object_action(
-    EmailTemplate, execute_send_mail_template,
-    _('Send email via template...')
+    EmailTemplate, execute_send_mail_template, _("Send email via template...")
 )
-UserAdmin.actions += ['send_mail_template']
+UserAdmin.actions += ["send_mail_template"]
 
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
 admin.site.register(Mailing, MailingAdmin)

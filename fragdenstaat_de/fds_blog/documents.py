@@ -1,7 +1,7 @@
-'''
+"""
 Adapted from
 https://github.com/divio/aldryn-search/blob/master/aldryn_search/search_indexes.py
-'''
+"""
 
 from django.utils.html import strip_tags
 
@@ -9,17 +9,17 @@ from django_elasticsearch_dsl import Document, fields
 from django_elasticsearch_dsl.registries import registry
 
 from froide.helper.search import (
-    get_index, get_text_analyzer,
-    get_search_analyzer, get_search_quote_analyzer
+    get_index,
+    get_text_analyzer,
+    get_search_analyzer,
+    get_search_quote_analyzer,
 )
-from froide.helper.tasks import (
-    search_instance_save, search_instance_delete
-)
+from froide.helper.tasks import search_instance_save, search_instance_delete
 
 from .models import Article
 
 
-index = get_index('article')
+index = get_index("article")
 
 analyzer = get_text_analyzer()
 search_analyzer = get_search_analyzer()
@@ -30,15 +30,15 @@ search_quote_analyzer = get_search_quote_analyzer()
 @index.document
 class ArticleDocument(Document):
     title = fields.TextField(
-        fields={'raw': fields.KeywordField()},
+        fields={"raw": fields.KeywordField()},
         analyzer=analyzer,
     )
     url = fields.TextField(
-        fields={'raw': fields.KeywordField()},
+        fields={"raw": fields.KeywordField()},
         analyzer=analyzer,
     )
     description = fields.TextField(
-        fields={'raw': fields.KeywordField()},
+        fields={"raw": fields.KeywordField()},
         analyzer=analyzer,
     )
     start_publication = fields.DateField()
@@ -49,7 +49,7 @@ class ArticleDocument(Document):
         analyzer=analyzer,
         search_analyzer=search_analyzer,
         search_quote_analyzer=search_quote_analyzer,
-        index_options='offsets'
+        index_options="offsets",
     )
 
     special_signals = True
@@ -63,15 +63,10 @@ class ArticleDocument(Document):
 
     def prepare_content(self, obj):
         html = obj.get_html_content()
-        return ' '.join([
-            obj.title,
-            strip_tags(obj.description),
-            strip_tags(html)
-            ] + [
-                o.title for o in obj.categories.all()
-            ] + [
-                t.name for t in obj.tags.all()
-            ]
+        return " ".join(
+            [obj.title, strip_tags(obj.description), strip_tags(html)]
+            + [o.title for o in obj.categories.all()]
+            + [t.name for t in obj.tags.all()]
         )
 
     def prepare_description(self, obj):

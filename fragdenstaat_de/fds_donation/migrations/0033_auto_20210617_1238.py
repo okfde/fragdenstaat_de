@@ -5,25 +5,23 @@ from django.conf import settings
 
 
 def set_subscribers_on_donor(apps, schema_editor):
-    Donor = apps.get_model('fds_donation', 'Donor')
-    Subscriber = apps.get_model('fds_newsletter', 'Subscriber')
-    subs = Subscriber.objects.filter(
-        newsletter__slug=settings.DONOR_NEWSLETTER
-    )
+    Donor = apps.get_model("fds_donation", "Donor")
+    Subscriber = apps.get_model("fds_newsletter", "Subscriber")
+    subs = Subscriber.objects.filter(newsletter__slug=settings.DONOR_NEWSLETTER)
     for sub in subs:
         Donor.objects.filter(
-            models.Q(user=sub.user, user__isnull=False) |
-            (models.Q(email=sub.email, email_confirmed__isnull=False) &
-            ~models.Q(email=''))
+            models.Q(user=sub.user, user__isnull=False)
+            | (
+                models.Q(email=sub.email, email_confirmed__isnull=False)
+                & ~models.Q(email="")
+            )
         ).update(subscriber=sub)
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0032_auto_20210617_1215'),
+        ("fds_donation", "0032_auto_20210617_1215"),
     ]
 
-    operations = [
-        migrations.RunPython(set_subscribers_on_donor)
-    ]
+    operations = [migrations.RunPython(set_subscribers_on_donor)]

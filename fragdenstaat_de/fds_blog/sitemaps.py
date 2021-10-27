@@ -9,7 +9,7 @@ from .models import Article
 
 class BlogSitemap(Sitemap):
     priority = 1.0
-    changefreq = 'daily'
+    changefreq = "daily"
     protocol = settings.META_SITE_PROTOCOL
 
     def __init__(self, *args, **kwargs):

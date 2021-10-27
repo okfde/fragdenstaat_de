@@ -18,16 +18,21 @@ from .forms import TippspielForm
 @cache_anonymous_page(15 * 60)
 def index(request):
     successful_foi_requests = FoiRequest.published.successful()[:6]
-    featured = (FeaturedRequest.objects.all()
-                                       .order_by("-timestamp")
-                                       .select_related('request',
-                                                       'request__public_body'))
-    return render(request, 'index.html', {
-        'featured': featured[:3],
-        'successful_foi_requests': successful_foi_requests,
-        'foicount': FoiRequest.objects.get_send_foi_requests().count(),
-        'pbcount': PublicBody.objects.get_list().count()
-    })
+    featured = (
+        FeaturedRequest.objects.all()
+        .order_by("-timestamp")
+        .select_related("request", "request__public_body")
+    )
+    return render(
+        request,
+        "index.html",
+        {
+            "featured": featured[:3],
+            "successful_foi_requests": successful_foi_requests,
+            "foicount": FoiRequest.objects.get_send_foi_requests().count(),
+            "pbcount": PublicBody.objects.get_list().count(),
+        },
+    )
 
 
 @require_POST
@@ -35,42 +40,42 @@ def index(request):
 def glyphosat_download(request, foirequest, message_id):
     message = get_object_or_404(FoiMessage, request=foirequest, pk=message_id)
     is_message = (
-        message.request.campaign_id == 9 and
-        message.is_response and
-        'Kennwort lautet:' in message.plaintext
+        message.request.campaign_id == 9
+        and message.is_response
+        and "Kennwort lautet:" in message.plaintext
     )
     if not is_message:
-        messages.add_message(request, messages.ERROR, 'Leider ist etwas schief gelaufen.')
+        messages.add_message(
+            request, messages.ERROR, "Leider ist etwas schief gelaufen."
+        )
         return redirect(foirequest)
 
-    if not request.POST.get('confirm-notes') == '1':
-        messages.add_message(request, messages.ERROR, 'Sie müssen die Infos zur Kenntnis nehmen!')
+    if not request.POST.get("confirm-notes") == "1":
+        messages.add_message(
+            request, messages.ERROR, "Sie müssen die Infos zur Kenntnis nehmen!"
+        )
         return redirect(foirequest)
 
     result = get_glyphosat_document(message)
     if result:
         return redirect(result)
 
-    messages.add_message(request, messages.ERROR, 'Leider ist etwas schief gelaufen.')
+    messages.add_message(request, messages.ERROR, "Leider ist etwas schief gelaufen.")
     return redirect(foirequest)
 
 
 @login_required
 def meisterschaften_tippspiel(request):
     error = None
-    if request.method == 'POST':
+    if request.method == "POST":
         form = TippspielForm(request.POST)
         if form.is_valid():
             form.save(request.user)
         else:
-            error = ' '.join(' '.join(v) for k, v in form.errors.items())
+            error = " ".join(" ".join(v) for k, v in form.errors.items())
 
     prefs = UserPreference.objects.get_preferences(
-        request.user,
-        key_prefix='fds_meisterschaften_2020_'
+        request.user, key_prefix="fds_meisterschaften_2020_"
     )
 
-    return JsonResponse({
-        'user': prefs,
-        'error': error
-    })
+    return JsonResponse({"user": prefs, "error": error})

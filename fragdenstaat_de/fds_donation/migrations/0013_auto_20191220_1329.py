@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0012_donation_amount_received'),
+        ("fds_donation", "0012_donation_amount_received"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='donation',
-            name='first_recurring',
+            model_name="donation",
+            name="first_recurring",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='donation',
-            name='note',
+            model_name="donation",
+            name="note",
             field=models.TextField(blank=True),
         ),
     ]

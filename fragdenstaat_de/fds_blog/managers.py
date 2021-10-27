@@ -15,11 +15,11 @@ def articles_published(queryset):
     """
     now = timezone.now()
     return queryset.filter(
-        models.Q(start_publication__lte=now) |
-        models.Q(start_publication=None),
-        models.Q(end_publication__gt=now) |
-        models.Q(end_publication=None),
-        status=PUBLISHED, sites=Site.objects.get_current())
+        models.Q(start_publication__lte=now) | models.Q(start_publication=None),
+        models.Q(end_publication__gt=now) | models.Q(end_publication=None),
+        status=PUBLISHED,
+        sites=Site.objects.get_current(),
+    )
 
 
 def articles_visible(queryset):
@@ -28,12 +28,10 @@ def articles_visible(queryset):
     """
     now = timezone.now()
     return queryset.filter(
-        models.Q(start_publication__lte=now) |
-        models.Q(start_publication=None),
-        models.Q(end_publication__gt=now) |
-        models.Q(end_publication=None),
+        models.Q(start_publication__lte=now) | models.Q(start_publication=None),
+        models.Q(end_publication__gt=now) | models.Q(end_publication=None),
         models.Q(status=PUBLISHED) | models.Q(status=HIDDEN),
-        sites=Site.objects.get_current()
+        sites=Site.objects.get_current(),
     )
 
 
@@ -50,15 +48,17 @@ class ArticlePublishedManager(models.Manager):
         """
         Return published entries.
         """
-        return articles_published(
-            super(ArticlePublishedManager, self).get_queryset())
+        return articles_published(super(ArticlePublishedManager, self).get_queryset())
 
     def on_site(self):
         """
         Return entries published on current site.
         """
-        return super(ArticlePublishedManager, self).get_queryset().filter(
-            sites=Site.objects.get_current())
+        return (
+            super(ArticlePublishedManager, self)
+            .get_queryset()
+            .filter(sites=Site.objects.get_current())
+        )
 
     def search(self, pattern):
         """
@@ -67,8 +67,8 @@ class ArticlePublishedManager(models.Manager):
         lookup = None
         for pattern in pattern.split():
             query_part = models.Q()
-            for field in ('title', 'content'):
-                query_part |= models.Q(**{'%s__icontains' % field: pattern})
+            for field in ("title", "content"):
+                query_part |= models.Q(**{"%s__icontains" % field: pattern})
             if lookup is None:
                 lookup = query_part
             else:
@@ -87,12 +87,16 @@ class RelatedPublishedManager(models.Manager):
         Return a queryset containing published entries.
         """
         now = timezone.now()
-        return super(
-            RelatedPublishedManager, self).get_queryset().filter(
-            models.Q(articles__start_publication__lte=now) |
-            models.Q(articles__start_publication=None),
-            models.Q(articles__end_publication__gt=now) |
-            models.Q(articles__end_publication=None),
-            articles__status=PUBLISHED,
-            articles__sites=Site.objects.get_current()
-            ).distinct()
+        return (
+            super(RelatedPublishedManager, self)
+            .get_queryset()
+            .filter(
+                models.Q(articles__start_publication__lte=now)
+                | models.Q(articles__start_publication=None),
+                models.Q(articles__end_publication__gt=now)
+                | models.Q(articles__end_publication=None),
+                articles__status=PUBLISHED,
+                articles__sites=Site.objects.get_current(),
+            )
+            .distinct()
+        )

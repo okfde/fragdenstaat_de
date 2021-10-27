@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0017_auto_20200131_1050'),
+        ("fds_donation", "0017_auto_20200131_1050"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='donation',
-            name='keyword',
+            model_name="donation",
+            name="keyword",
             field=models.CharField(blank=True, max_length=255),
         ),
         migrations.AddField(
-            model_name='donationformcmsplugin',
-            name='keyword',
+            model_name="donationformcmsplugin",
+            name="keyword",
             field=models.CharField(blank=True, max_length=255),
         ),
     ]

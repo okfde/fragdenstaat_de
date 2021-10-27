@@ -18,187 +18,503 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('cms', '0020_old_tree_cleanup'),
+        ("cms", "0020_old_tree_cleanup"),
         migrations.swappable_dependency(settings.FILER_IMAGE_MODEL),
-        ('sites', '0002_alter_domain_unique'),
+        ("sites", "0002_alter_domain_unique"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Article',
+            name="Article",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, verbose_name='title')),
-                ('slug', models.SlugField(help_text="Used to build the entry's URL.", max_length=255, unique_for_date='start_publication', verbose_name='slug')),
-                ('status', models.IntegerField(choices=[(0, 'draft'), (1, 'hidden'), (2, 'published')], db_index=True, default=0, verbose_name='status')),
-                ('start_publication', models.DateTimeField(blank=True, db_index=True, help_text='Start date of publication.', null=True, verbose_name='start publication')),
-                ('end_publication', models.DateTimeField(blank=True, db_index=True, help_text='End date of publication.', null=True, verbose_name='end publication')),
-                ('creation_date', models.DateTimeField(db_index=True, default=django.utils.timezone.now, help_text="Used to build the entry's URL.", verbose_name='creation date')),
-                ('last_update', models.DateTimeField(default=django.utils.timezone.now, verbose_name='last update')),
-                ('content', models.TextField(blank=True, verbose_name='content')),
-                ('excerpt', models.TextField(blank=True, help_text='Used for SEO purposes.', verbose_name='excerpt')),
-                ('content_template', models.CharField(choices=[('fds_blog/_article_detail.html', 'Default template')], default='fds_blog/_article_detail.html', help_text="Template used to display the article's content.", max_length=250, verbose_name='content template')),
-                ('detail_template', models.CharField(choices=[('fds_blog/article_detail.html', 'Default template')], default='fds_blog/article_detail.html', help_text="Template used to display the article's detail page.", max_length=250, verbose_name='detail template')),
-                ('language', models.CharField(choices=[('de', 'German')], max_length=5, null=True)),
-                ('uuid', models.UUIDField(blank=True, db_index=True, null=True)),
-                ('date_featured', models.DateTimeField(blank=True, null=True, verbose_name='featured date')),
-                ('teaser', models.TextField(blank=True)),
-                ('credits', models.TextField(blank=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, verbose_name="title")),
+                (
+                    "slug",
+                    models.SlugField(
+                        help_text="Used to build the entry's URL.",
+                        max_length=255,
+                        unique_for_date="start_publication",
+                        verbose_name="slug",
+                    ),
+                ),
+                (
+                    "status",
+                    models.IntegerField(
+                        choices=[(0, "draft"), (1, "hidden"), (2, "published")],
+                        db_index=True,
+                        default=0,
+                        verbose_name="status",
+                    ),
+                ),
+                (
+                    "start_publication",
+                    models.DateTimeField(
+                        blank=True,
+                        db_index=True,
+                        help_text="Start date of publication.",
+                        null=True,
+                        verbose_name="start publication",
+                    ),
+                ),
+                (
+                    "end_publication",
+                    models.DateTimeField(
+                        blank=True,
+                        db_index=True,
+                        help_text="End date of publication.",
+                        null=True,
+                        verbose_name="end publication",
+                    ),
+                ),
+                (
+                    "creation_date",
+                    models.DateTimeField(
+                        db_index=True,
+                        default=django.utils.timezone.now,
+                        help_text="Used to build the entry's URL.",
+                        verbose_name="creation date",
+                    ),
+                ),
+                (
+                    "last_update",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="last update"
+                    ),
+                ),
+                ("content", models.TextField(blank=True, verbose_name="content")),
+                (
+                    "excerpt",
+                    models.TextField(
+                        blank=True,
+                        help_text="Used for SEO purposes.",
+                        verbose_name="excerpt",
+                    ),
+                ),
+                (
+                    "content_template",
+                    models.CharField(
+                        choices=[("fds_blog/_article_detail.html", "Default template")],
+                        default="fds_blog/_article_detail.html",
+                        help_text="Template used to display the article's content.",
+                        max_length=250,
+                        verbose_name="content template",
+                    ),
+                ),
+                (
+                    "detail_template",
+                    models.CharField(
+                        choices=[("fds_blog/article_detail.html", "Default template")],
+                        default="fds_blog/article_detail.html",
+                        help_text="Template used to display the article's detail page.",
+                        max_length=250,
+                        verbose_name="detail template",
+                    ),
+                ),
+                (
+                    "language",
+                    models.CharField(
+                        choices=[("de", "German")], max_length=5, null=True
+                    ),
+                ),
+                ("uuid", models.UUIDField(blank=True, db_index=True, null=True)),
+                (
+                    "date_featured",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="featured date"
+                    ),
+                ),
+                ("teaser", models.TextField(blank=True)),
+                ("credits", models.TextField(blank=True)),
             ],
             options={
-                'verbose_name': 'article',
-                'verbose_name_plural': 'articles',
-                'ordering': ['-start_publication'],
-                'get_latest_by': 'start_publication',
+                "verbose_name": "article",
+                "verbose_name_plural": "articles",
+                "ordering": ["-start_publication"],
+                "get_latest_by": "start_publication",
             },
         ),
         migrations.CreateModel(
-            name='ArticleAuthorship',
+            name="ArticleAuthorship",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('order', models.PositiveIntegerField(default=0)),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fds_blog.Article')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("order", models.PositiveIntegerField(default=0)),
+                (
+                    "article",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="fds_blog.Article",
+                    ),
+                ),
             ],
             options={
-                'ordering': ('order',),
+                "ordering": ("order",),
             },
         ),
         migrations.CreateModel(
-            name='ArticleTag',
+            name="ArticleTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, unique=True, verbose_name='Name')),
-                ('slug', models.SlugField(max_length=100, unique=True, verbose_name='Slug')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(max_length=100, unique=True, verbose_name="Name"),
+                ),
+                (
+                    "slug",
+                    models.SlugField(max_length=100, unique=True, verbose_name="Slug"),
+                ),
             ],
             options={
-                'verbose_name': 'Article Tag',
-                'verbose_name_plural': 'Article Tags',
+                "verbose_name": "Article Tag",
+                "verbose_name_plural": "Article Tags",
             },
         ),
         migrations.CreateModel(
-            name='Author',
+            name="Author",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(blank=True, max_length=255)),
-                ('last_name', models.CharField(blank=True, max_length=255)),
-                ('email_address', models.CharField(blank=True, max_length=255)),
-                ('user', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='authorship', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(blank=True, max_length=255)),
+                ("last_name", models.CharField(blank=True, max_length=255)),
+                ("email_address", models.CharField(blank=True, max_length=255)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="authorship",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ('user__first_name', 'user__last_name', 'first_name', 'last_name'),
+                "ordering": (
+                    "user__first_name",
+                    "user__last_name",
+                    "first_name",
+                    "last_name",
+                ),
             },
         ),
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('order', models.PositiveIntegerField(default=0)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("order", models.PositiveIntegerField(default=0)),
             ],
             options={
-                'verbose_name': 'category',
-                'verbose_name_plural': 'categories',
-                'ordering': ['order'],
+                "verbose_name": "category",
+                "verbose_name_plural": "categories",
+                "ordering": ["order"],
             },
             bases=(parler.models.TranslatableModelMixin, models.Model),
         ),
         migrations.CreateModel(
-            name='CategoryTranslation',
+            name="CategoryTranslation",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('language_code', models.CharField(db_index=True, max_length=15, verbose_name='Language')),
-                ('title', models.CharField(max_length=255, verbose_name='title')),
-                ('slug', models.SlugField(help_text="Used to build the category's URL.", max_length=255, verbose_name='slug')),
-                ('description', models.TextField(blank=True, verbose_name='description')),
-                ('master', models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='fds_blog.Category')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "language_code",
+                    models.CharField(
+                        db_index=True, max_length=15, verbose_name="Language"
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, verbose_name="title")),
+                (
+                    "slug",
+                    models.SlugField(
+                        help_text="Used to build the category's URL.",
+                        max_length=255,
+                        verbose_name="slug",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(blank=True, verbose_name="description"),
+                ),
+                (
+                    "master",
+                    models.ForeignKey(
+                        editable=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="translations",
+                        to="fds_blog.Category",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'category Translation',
-                'db_table': 'fds_blog_category_translation',
-                'db_tablespace': '',
-                'managed': True,
-                'default_permissions': (),
+                "verbose_name": "category Translation",
+                "db_table": "fds_blog_category_translation",
+                "db_tablespace": "",
+                "managed": True,
+                "default_permissions": (),
             },
         ),
         migrations.CreateModel(
-            name='LatestArticlesPlugin',
+            name="LatestArticlesPlugin",
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='fds_blog_latestarticlesplugin', serialize=False, to='cms.CMSPlugin')),
-                ('featured', models.BooleanField(choices=[(True, 'Show featured articles only'), (False, 'Hide featured articles')], null=True, verbose_name='featured')),
-                ('article_language', models.CharField(blank=True, choices=[('de', 'German')], default='de', max_length=5, verbose_name='language')),
-                ('number_of_articles', models.PositiveIntegerField(default=1, help_text='0 means all the articles', verbose_name='number of articles')),
-                ('offset', models.PositiveIntegerField(default=0, help_text='number of articles to skip from top of list', verbose_name='offset')),
-                ('template', models.CharField(blank=True, choices=[('fds_blog/plugins/latest_articles.html', 'Normal')], help_text='template used to display the plugin', max_length=250, verbose_name='template')),
-                ('authors', models.ManyToManyField(blank=True, to='fds_blog.Author', verbose_name='authors')),
-                ('categories', models.ManyToManyField(blank=True, to='fds_blog.Category', verbose_name='categories')),
-                ('tags', models.ManyToManyField(blank=True, to='fds_blog.ArticleTag', verbose_name='tags')),
+                (
+                    "cmsplugin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        related_name="fds_blog_latestarticlesplugin",
+                        serialize=False,
+                        to="cms.CMSPlugin",
+                    ),
+                ),
+                (
+                    "featured",
+                    models.BooleanField(
+                        choices=[
+                            (True, "Show featured articles only"),
+                            (False, "Hide featured articles"),
+                        ],
+                        null=True,
+                        verbose_name="featured",
+                    ),
+                ),
+                (
+                    "article_language",
+                    models.CharField(
+                        blank=True,
+                        choices=[("de", "German")],
+                        default="de",
+                        max_length=5,
+                        verbose_name="language",
+                    ),
+                ),
+                (
+                    "number_of_articles",
+                    models.PositiveIntegerField(
+                        default=1,
+                        help_text="0 means all the articles",
+                        verbose_name="number of articles",
+                    ),
+                ),
+                (
+                    "offset",
+                    models.PositiveIntegerField(
+                        default=0,
+                        help_text="number of articles to skip from top of list",
+                        verbose_name="offset",
+                    ),
+                ),
+                (
+                    "template",
+                    models.CharField(
+                        blank=True,
+                        choices=[("fds_blog/plugins/latest_articles.html", "Normal")],
+                        help_text="template used to display the plugin",
+                        max_length=250,
+                        verbose_name="template",
+                    ),
+                ),
+                (
+                    "authors",
+                    models.ManyToManyField(
+                        blank=True, to="fds_blog.Author", verbose_name="authors"
+                    ),
+                ),
+                (
+                    "categories",
+                    models.ManyToManyField(
+                        blank=True, to="fds_blog.Category", verbose_name="categories"
+                    ),
+                ),
+                (
+                    "tags",
+                    models.ManyToManyField(
+                        blank=True, to="fds_blog.ArticleTag", verbose_name="tags"
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('cms.cmsplugin',),
+            bases=("cms.cmsplugin",),
         ),
         migrations.CreateModel(
-            name='TaggedArticle',
+            name="TaggedArticle",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fds_blog.Article')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='articles', to='fds_blog.ArticleTag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="fds_blog.Article",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="articles",
+                        to="fds_blog.ArticleTag",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Tagged Article',
-                'verbose_name_plural': 'Tagged Articles',
+                "verbose_name": "Tagged Article",
+                "verbose_name_plural": "Tagged Articles",
             },
         ),
         migrations.AddField(
-            model_name='articleauthorship',
-            name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fds_blog.Author'),
+            model_name="articleauthorship",
+            name="author",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="fds_blog.Author"
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='authors',
-            field=models.ManyToManyField(blank=True, related_name='articles', through='fds_blog.ArticleAuthorship', to='fds_blog.Author', verbose_name='authors'),
+            model_name="article",
+            name="authors",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="articles",
+                through="fds_blog.ArticleAuthorship",
+                to="fds_blog.Author",
+                verbose_name="authors",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='categories',
-            field=models.ManyToManyField(blank=True, related_name='articles', to='fds_blog.Category', verbose_name='categories'),
+            model_name="article",
+            name="categories",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="articles",
+                to="fds_blog.Category",
+                verbose_name="categories",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='content_placeholder',
-            field=cms.models.fields.PlaceholderField(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, slotname='content', to='cms.Placeholder'),
+            model_name="article",
+            name="content_placeholder",
+            field=cms.models.fields.PlaceholderField(
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                slotname="content",
+                to="cms.Placeholder",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='image',
-            field=filer.fields.image.FilerImageField(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.FILER_IMAGE_MODEL, verbose_name='image'),
+            model_name="article",
+            name="image",
+            field=filer.fields.image.FilerImageField(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to=settings.FILER_IMAGE_MODEL,
+                verbose_name="image",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='related',
-            field=models.ManyToManyField(blank=True, related_name='_article_related_+', to='fds_blog.Article', verbose_name='related articles'),
+            model_name="article",
+            name="related",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="_article_related_+",
+                to="fds_blog.Article",
+                verbose_name="related articles",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='sites',
-            field=models.ManyToManyField(help_text='Sites where the article will be published.', related_name='articles', to='sites.Site', verbose_name='sites'),
+            model_name="article",
+            name="sites",
+            field=models.ManyToManyField(
+                help_text="Sites where the article will be published.",
+                related_name="articles",
+                to="sites.Site",
+                verbose_name="sites",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='tags',
-            field=taggit.managers.TaggableManager(blank=True, help_text='A comma-separated list of tags.', through='fds_blog.TaggedArticle', to='fds_blog.ArticleTag', verbose_name='Tags'),
+            model_name="article",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="fds_blog.TaggedArticle",
+                to="fds_blog.ArticleTag",
+                verbose_name="Tags",
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='categorytranslation',
-            unique_together=set([('language_code', 'master')]),
+            name="categorytranslation",
+            unique_together=set([("language_code", "master")]),
         ),
         migrations.AlterUniqueTogether(
-            name='article',
-            unique_together=set([('slug', 'start_publication')]),
+            name="article",
+            unique_together=set([("slug", "start_publication")]),
         ),
         migrations.AlterIndexTogether(
-            name='article',
-            index_together=set([('status', 'start_publication', 'end_publication'), ('slug', 'start_publication')]),
+            name="article",
+            index_together=set(
+                [
+                    ("status", "start_publication", "end_publication"),
+                    ("slug", "start_publication"),
+                ]
+            ),
         ),
     ]

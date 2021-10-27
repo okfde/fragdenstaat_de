@@ -8,13 +8,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0002_documentpagescmsplugin'),
+        ("fds_cms", "0002_documentpagescmsplugin"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='documentpagescmsplugin',
-            name='title',
+            model_name="documentpagescmsplugin",
+            name="title",
             field=models.CharField(blank=True, max_length=255),
         ),
     ]

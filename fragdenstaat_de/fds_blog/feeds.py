@@ -1,4 +1,3 @@
-
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
 from django.core.cache import cache
@@ -13,7 +12,7 @@ from .models import Article
 class BaseFeed(Feed):
     protocol = settings.META_SITE_PROTOCOL
     limit = 20
-    cache_namespace = 'feed'
+    cache_namespace = "feed"
 
     def __call__(self, request, *args, **kwargs):
         cache_key = self.get_cache_key(*args, **kwargs)
@@ -30,7 +29,7 @@ class BaseFeed(Feed):
         return "%s:%s-%s" % (
             self.cache_namespace,
             self.__class__.__module__,
-            '/'.join(['%s,%s' % (key, val) for key, val in kwargs.items()])
+            "/".join(["%s,%s" % (key, val) for key, val in kwargs.items()]),
         )
 
     def title(self, obj=None):
@@ -76,30 +75,30 @@ class LatestArticlesFeed(BaseFeed):
         Return the first author's email.
         Should not be called if self.item_author_name has returned None.
         """
-        return ''
+        return ""
 
     def items(self):
         """
         Items are published entries.
         """
         queryset = self.get_queryset()
-        return queryset[:self.limit]
+        return queryset[: self.limit]
 
     def item_link(self, item):
         return self.site_url + item.get_absolute_url()
 
     def feed_url(self):
-        return self.site_url + reverse('blog:article-latest-feed')
+        return self.site_url + reverse("blog:article-latest-feed")
 
     def link(self):
         """
         URL of latest entries.
         """
-        return self.site_url + reverse('blog:article-latest')
+        return self.site_url + reverse("blog:article-latest")
 
 
 class LatestArticlesTeaserFeed(LatestArticlesFeed):
-    cache_namespace = 'feed-teaser'
+    cache_namespace = "feed-teaser"
 
     @clean_feed_output
     def item_description(self, obj):

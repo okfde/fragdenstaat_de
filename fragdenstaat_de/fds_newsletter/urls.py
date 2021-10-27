@@ -1,44 +1,43 @@
 from django.urls import path
 
 from .views import (
-    newsletter_ajax_subscribe_request, newsletter_user_settings,
+    newsletter_ajax_subscribe_request,
+    newsletter_user_settings,
     newsletter_subscribe_request,
-    confirm_subscribe, confirm_unsubscribe
+    confirm_subscribe,
+    confirm_unsubscribe,
 )
 
 
 urlpatterns = [
-    path('user-settings/',
-        newsletter_user_settings,
-        name='newsletter_user_settings'
-    ),
-    path('subscribe-ajax/',
+    path("user-settings/", newsletter_user_settings, name="newsletter_user_settings"),
+    path(
+        "subscribe-ajax/",
         newsletter_ajax_subscribe_request,
-        name='newsletter_ajax_subscribe_request'
+        name="newsletter_ajax_subscribe_request",
     ),
-    path('<slug:newsletter_slug>/subscribe-ajax/',
+    path(
+        "<slug:newsletter_slug>/subscribe-ajax/",
         newsletter_ajax_subscribe_request,
-        name='newsletter_ajax_subscribe_request'
+        name="newsletter_ajax_subscribe_request",
     ),
     path(
-        'subscribe/',
+        "subscribe/", newsletter_subscribe_request, name="newsletter_subscribe_request"
+    ),
+    path(
+        "<slug:newsletter_slug>/subscribe/",
         newsletter_subscribe_request,
-        name='newsletter_subscribe_request'
+        name="newsletter_subscribe_request",
     ),
     path(
-        '<slug:newsletter_slug>/subscribe/',
-        newsletter_subscribe_request,
-        name='newsletter_subscribe_request'
-    ),
-    path(
-        '<slug:newsletter_slug>/subscription/<int:pk>/subscribe/<slug:activation_code>/',
+        "<slug:newsletter_slug>/subscription/<int:pk>/subscribe/<slug:activation_code>/",
         confirm_subscribe,
-        name='newsletter_confirm_subscribe'
+        name="newsletter_confirm_subscribe",
     ),
     path(
-        '<slug:newsletter_slug>/subscription/<int:pk>/unsubscribe/<slug:activation_code>/',
+        "<slug:newsletter_slug>/subscription/<int:pk>/unsubscribe/<slug:activation_code>/",
         confirm_unsubscribe,
-        name='newsletter_confirm_unsubscribe'
+        name="newsletter_confirm_unsubscribe",
     ),
     # re_path(
     #     r'^(?P<newsletter_slug>[\w-]+)/subscription/'

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0031_documentportalembedcmsplugin'),
+        ("fds_cms", "0031_documentportalembedcmsplugin"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='slidercmsplugin',
-            name='wrapper_classes',
+            model_name="slidercmsplugin",
+            name="wrapper_classes",
             field=models.CharField(blank=True, max_length=255),
         ),
     ]

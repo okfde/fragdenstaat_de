@@ -6,21 +6,37 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0024_auto_20200609_1848'),
+        ("fds_donation", "0024_auto_20200609_1848"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='donor',
-            options={'ordering': ('-id',), 'verbose_name': 'donor', 'verbose_name_plural': 'donors'},
+            name="donor",
+            options={
+                "ordering": ("-id",),
+                "verbose_name": "donor",
+                "verbose_name_plural": "donors",
+            },
         ),
         migrations.RemoveField(
-            model_name='donor',
-            name='last_donation',
+            model_name="donor",
+            name="last_donation",
         ),
         migrations.AlterField(
-            model_name='donor',
-            name='salutation',
-            field=models.CharField(blank=True, choices=[('', 'Hallo'), ('formal', 'Guten Tag'), ('formal_f', 'Sehr geehrte Frau'), ('formal_m', 'Sehr geehrter Herr'), ('informal_f', 'Liebe'), ('informal_m', 'Lieber'), ('informal_n', 'Liebes')], max_length=25),
+            model_name="donor",
+            name="salutation",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("", "Hallo"),
+                    ("formal", "Guten Tag"),
+                    ("formal_f", "Sehr geehrte Frau"),
+                    ("formal_m", "Sehr geehrter Herr"),
+                    ("informal_f", "Liebe"),
+                    ("informal_m", "Lieber"),
+                    ("informal_n", "Liebes"),
+                ],
+                max_length=25,
+            ),
         ),
     ]
