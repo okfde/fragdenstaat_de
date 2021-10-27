@@ -1,13 +1,16 @@
 -r requirements.in
+black
 Sphinx
 django-debug-toolbar>=3.2.1
 coverage
 factory-boy
 faker
 flake8
+flake8-bugbear
 mccabe
 mock
 pbr
+pre-commit
 pycodestyle
 pyflakes
 selenium
