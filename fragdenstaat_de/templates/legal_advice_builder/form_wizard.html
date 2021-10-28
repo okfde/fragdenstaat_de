@@ -17,11 +17,6 @@
   <div class="row justify-content-center mt-5">
     <div class="col-md-8">
       <h3>{{ law_case.title }}</h3>
-      {% if answer %}
-      <div class="alert alert-info mt-3" role="alert">
-        <i class="fa fa-info" aria-hidden="true"></i> Sie haben den Fragebogen zu dieser Anfrage bereits ausgefüllt. <a  class="alert-link" href="{% url 'klageautomat-edit-answer' foi_request.id %}">Hier</a> können Sie das fertige Dokument editieren.
-      </div>
-      {% endif %}
       <div>zu: <a href="{% url 'foirequest-shortlink' foi_request.id %}" target="_blank">{{ foi_request.title }}</a>,</br>an: {{ foi_request.public_body }}</div>
 
       {% if form %}

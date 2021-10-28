@@ -22,15 +22,41 @@
           </div>
           <div class="col-12">
             <button type="submit" class="btn btn-primary float-right">Go!</button>
+            {% if request.GET.allRequests or request.GET.Search %}
+            <a href="{% url 'klageautomat-index' %}" type="submit" class="btn btn-link float-right mr-1">Clear</a>
+            {% endif %}
           </div>
       </form>
 
       {% if foi_requests %}
       <ul class="list-group mt-5">
         {% for foirequest in foi_requests %}
-        <li class="list-group-item">
-          <a href="{% url 'klageautomat-form_wizard' foirequest.id %}">{{ foirequest }}</a></br>
-          <small>an: {{ foirequest.public_body.name }}</small>
+        <li class="list-group-item px-0 border-0">
+          <div class="card">
+            <div class="card-body">
+              {% if foirequest.answer_exists %}
+              <div class="alert alert-info rounded-0" role="alert">
+                <small>Zu dieser Anfrage wurde bereits eine Klage erstellt.</small>
+              </div>
+              {% endif %}
+              <h5 class="card-title">{{ foirequest }}</h5>
+              <div class="card-subtitle text-muted">
+                <small>an: {{ foirequest.public_body.name }}</small>
+              </div>
+            </div>
+            <div class="card-footer bg-white text-right">
+              <a href="{% url 'klageautomat-form_wizard' foirequest.id %}" class="btn btn-link btn-sm">
+                {% if foirequest.answer_exists %}
+                  Klage neu erstellen
+                {% else %}
+                  Klage erstellen
+                {% endif %}
+              </a>
+              {% if foirequest.answer_exists %}
+              <a href="{% url 'klageautomat-edit-answer' foirequest.id %}" class="btn btn-link btn-sm">Klage bearbeiten</a>
+              {% endif %}
+            </div>
+          </div>
         </li>
         {% endfor %}
       </ul>

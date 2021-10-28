@@ -3,14 +3,22 @@
 
 {% block body %}
 <div class="container mb-5 mt-5" style="min-height: 1000px;">
+
   <div class="row justify-content-center">
+    <div class="col-md-8">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'klageautomat-index' %}">Klageautomat testen</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ law_case.title }}: {{ foi_request.title|truncatechars:50 }}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-5">
     <div class="col-md-8">
       <h3>{{ law_case.title }}</h3>
       <div>zu: <a href="{% url 'foirequest-shortlink' foi_request.id %}" target="_blank">{{ foi_request.title }}</a>,</br>an: {{ foi_request.public_body }}</div>
-
-      <div class="alert alert-info mt-3" role="alert">
-        <i class="fa fa-info" aria-hidden="true"></i> Sie haben den Fragebogen zu dieser Anfrage bereits ausgefüllt. <a  class="alert-link" href="{% url 'klageautomat-form_wizard' foi_request.id %}">Hier</a> können Sie ihn erneut ausfüllen.
-      </div>
 
       <form method="post">
         {{ form.media }}
