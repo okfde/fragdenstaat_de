@@ -28,9 +28,9 @@
           </div>
       </form>
 
-      {% if foi_requests %}
+      {% if page_obj %}
       <ul class="list-group mt-5">
-        {% for foirequest in foi_requests %}
+        {% for foirequest in page_obj%}
         <li class="list-group-item px-0 border-0">
           <div class="card">
             <div class="card-body">
@@ -59,6 +59,37 @@
           </div>
         </li>
         {% endfor %}
+        <div class="row justify-content-center">
+          <nav aria-label="Page navigation">
+            <ul class="pagination">
+
+              {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?Search={{ request.GET.Search }}&allRequests={{ request.GET.allRequests }}&page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              {% endif %}
+
+              <li class="page-item">
+                <div class="page-link">
+                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </div>
+              </li>
+
+              {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?Search={{ request.GET.Search }}&allRequests={{ request.GET.allRequests }}&page={{ page_obj.next_page_number }}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+              {% endif %}
+
+            </ul>
+          </nav>
+        </div>
       </ul>
       {% else %}
         {% if request.GET.Search or request.GET.myRequests == "on" %}
