@@ -23,6 +23,7 @@ from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 from fragdenstaat_de.fds_mailing.models import MailingMessage
 from froide_crowdfunding import admin as crowdfunding_admin
 from froide_crowdfunding.models import Contribution
+from fragdenstaat_de.fds_donation.models import Donation
 
 
 class GeoRegionAdmin(georegion_admin.GeoRegionMixin, LeafletGeoAdmin):
@@ -90,6 +91,11 @@ class ContributionAdmin(SetupMailingMixin, crowdfunding_admin.ContributionAdmin)
             if email in already:
                 continue
             already.add(email)
+            donor = None
+            if contribution.order:
+                donation = Donation.objects.filter(order=contribution.order).first()
+                if donation:
+                    donor = donation.donor
             messages.append(
                 (
                     contribution.user,
@@ -99,6 +105,7 @@ class ContributionAdmin(SetupMailingMixin, crowdfunding_admin.ContributionAdmin)
                     contribution.order.get_full_name()
                     if contribution.order and not contribution.user
                     else "",
+                    donor,
                 )
             )
 
@@ -110,8 +117,9 @@ class ContributionAdmin(SetupMailingMixin, crowdfunding_admin.ContributionAdmin)
                     user=user,
                     name=name,
                     email=email,
+                    donor=donor,
                 )
-                for user, email, name in messages
+                for user, email, name, donor in messages
             ]
         )
 
