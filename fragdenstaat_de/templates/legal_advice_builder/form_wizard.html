@@ -21,9 +21,21 @@
 
       {% if form %}
         <form method="post" class="clearfix mt-5 border p-3">
-          {% if step_count > 1 %}
-            <div class="mb-3 font-weight-bold border-bottom pb-2">Schritt {{ current_step|add:1}} von {{ step_count }}: {{ question.questionaire }}</div>
-          {% endif %}
+
+          <div class="pb-2 mb-3">
+            {% if step_count > 1 %}
+            <div class="font-weight-bold mb-3 border-bottom">Schritt {{ current_step|add:1}} von {{ step_count }}: {{ question.questionaire }}</div>
+            {% endif %}
+            <div class="progress">
+              <div class="progress-bar" title="sdssd" role="progressbar" style="width: {{ progess }}%" aria-valuenow="{{ progess }}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="text-right">
+              <small class="text-muted">
+                Frage {{ answer_count }} von max. {{ question_count }}.
+              </small>
+            </div>
+          </div>
+
           {% csrf_token %}
           {% render_form form horizontal=False %}
           <input class="btn btn-primary btn-sm pull-right" type="submit" value="Weiter" />
