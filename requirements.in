@@ -11,7 +11,7 @@ django-configurations
 django-contractor
 django-contrib-comments
 django-crossdomainmedia
-django-filer>=2.1rc2
+django-filer
 django-filingcabinet
 django-filter
 django-floppyforms
@@ -57,9 +57,6 @@ requests
 sentry-sdk
 stripe
 sortabletable
-twilio
-# https://github.com/django/channels/issues/1639
-twisted<21
 Wand
 WeasyPrint
 websockets

@@ -70,8 +70,6 @@ billiard==3.6.4.0
     # via celery
 bleach==4.1.0
     # via django-legal-advice-builder
-braintree==4.10.0
-    # via django-payments
 cairocffi==1.2.0
     # via
     #   cairosvg
@@ -94,6 +92,7 @@ cffi==1.14.5
     # via
     #   cairocffi
     #   cryptography
+    #   pynacl
     #   weasyprint
 channels==3.0.3
     # via -r requirements.in
@@ -123,7 +122,6 @@ coreschema==0.0.4
 cryptography==3.4.7
     # via
     #   autobahn
-    #   django-payments
     #   jwcrypto
     #   pyopenssl
     #   service-identity
@@ -221,7 +219,7 @@ django-crossdomainmedia==0.0.3
     # via
     #   -r requirements.in
     #   froide
-django-elasticsearch-dsl==7.2.0
+django-elasticsearch-dsl==7.2.1
     # via froide
 django-filer==2.1rc3
     # via
@@ -264,7 +262,7 @@ django-oauth-toolkit==1.5.0
     # via -r requirements.in
 django-parler==2.2
     # via -r requirements.in
-django-payments==0.14.0
+django-payments==0.15.0
     # via froide-payment
 django-polymorphic==3.0.0
     # via django-filer
@@ -479,10 +477,8 @@ pyhamcrest==2.0.2
     # via twisted
 pyisemail==1.3.2
     # via -r requirements.in
-pyjwt==1.7.1
-    # via
-    #   django-payments
-    #   twilio
+pynacl==1.4.0
+    # via froide-fax
 pyopenssl==20.0.1
     # via twisted
 pyparsing==3.0.1
@@ -514,7 +510,7 @@ python-mimeparse==1.6.0
     #   froide
 python-slugify==5.0.2
     # via -r requirements.in
-python-stdnum==1.16
+python-stdnum==1.17
     # via django-localflavor
 pytz==2021.1
     # via
@@ -526,7 +522,6 @@ pytz==2021.1
     #   froide
     #   icalendar
     #   pandas
-    #   twilio
 ratelim==0.1.6
     # via geocoder
 reportlab==3.5.67
@@ -537,7 +532,6 @@ reportlab==3.5.67
 requests==2.25.1
     # via
     #   -r requirements.in
-    #   braintree
     #   coreapi
     #   django-contractor
     #   django-oauth-toolkit
@@ -548,7 +542,6 @@ requests==2.25.1
     #   geocoder
     #   geoip2
     #   stripe
-    #   twilio
 sentry-sdk==1.1.0
     # via -r requirements.in
 service-identity==21.1.0
@@ -567,10 +560,10 @@ six==1.16.0
     #   html5lib
     #   jsonschema
     #   jwcrypto
+    #   pynacl
     #   pyopenssl
     #   python-dateutil
     #   service-identity
-    #   twilio
 sortabletable==0.0.15
     # via -r requirements.in
 sqlparse==0.4.2
@@ -578,10 +571,7 @@ sqlparse==0.4.2
 stripe==2.58.0
     # via
     #   -r requirements.in
-    #   django-payments
     #   froide-payment
-suds-jurko==0.6
-    # via django-payments
 svglib==1.1.0
     # via easy-thumbnails
 text-unidecode==1.3
@@ -592,14 +582,8 @@ tinycss2==1.1.0
     #   cssselect2
     #   svglib
     #   weasyprint
-twilio==6.60.0
-    # via
-    #   -r requirements.in
-    #   froide-fax
 twisted[tls]==20.3.0
-    # via
-    #   -r requirements.in
-    #   daphne
+    # via daphne
 txaio==21.2.1
     # via autobahn
 typing-extensions==3.10.0.0
@@ -644,8 +628,6 @@ wrapt==1.12.1
     # via deprecated
 xlrd==2.0.1
     # via -r requirements.in
-xmltodict==0.12.0
-    # via django-payments
 yarl==1.6.3
     # via aiohttp
 zope.interface==5.4.0
