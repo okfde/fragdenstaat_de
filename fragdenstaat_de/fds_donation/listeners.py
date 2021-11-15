@@ -86,14 +86,11 @@ def subscription_was_canceled(sender, **kwargs):
     if sender is None:
         return
 
-    try:
-        donor = Donor.objects.get(subscriptions=sender)
-    except Donor.DoesNotExist:
-        return
-
     from .services import detect_recurring_on_donor
 
-    detect_recurring_on_donor(donor)
+    donors = Donor.objects.filter(subscriptions=sender)
+    for donor in donors:
+        detect_recurring_on_donor(donor)
 
 
 def user_email_changed(sender, old_email=None, **kwargs):
