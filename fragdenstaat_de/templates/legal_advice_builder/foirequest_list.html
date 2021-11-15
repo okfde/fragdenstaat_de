@@ -49,7 +49,7 @@
                 <small>Zu dieser Anfrage wurde bereits eine Klage erstellt.</small>
               </div>
               {% endif %}
-              {% if foirequest.lawsuite_candidate %}
+              {% if not foirequest.needs_waiting %}
               <div class="text-right">
                 <span class="badge rounded-pill bg-primary text-light">Klagekandidat</span>
               </div>
