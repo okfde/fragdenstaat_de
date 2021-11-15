@@ -2,7 +2,7 @@ version: "3"
 
 services:
   db:
-    image: mdillon/postgis:10-alpine
+    image: postgis/postgis
     volumes:
       - ./data/postgres_data:/var/lib/postgresql/
     ports:
