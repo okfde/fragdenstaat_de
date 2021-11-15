@@ -12,17 +12,27 @@
             <label for="inputSearch" class="form-label">Suche</label>
             <input type="text" {% if request.GET.Search %}value="{{ request.GET.Search }}"{% endif %} class="form-control" name="Search" placeholder="Titel der Anfrage">
           </div>
-          <div class="col-12">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck" name="allRequests" {% if request.GET.allRequests == "on" %}checked{% endif %}>
-              <label class="form-check-label" for="gridCheck">
-                In allen Anfragen suchen (nicht nur meine)
-              </label>
+          <div class="col-12 row">
+            <div class="col-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck" name="allRequests" {% if request.GET.allRequests == "on" %}checked{% endif %}>
+                <label class="form-check-label" for="gridCheck">
+                  In allen Anfragen suchen (nicht nur meine)
+                </label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck" name="onlyCandidates" {% if request.GET.onlyCandidates == "on" %}checked{% endif %}>
+                <label class="form-check-label" for="gridCheck">
+                  Nur Klagekandidaten anzeigen
+                </label>
+              </div>
             </div>
           </div>
           <div class="col-12">
             <button type="submit" class="btn btn-primary float-right">Go!</button>
-            {% if request.GET.allRequests or request.GET.Search %}
+            {% if request.GET.allRequests or request.GET.Search or request.GET.onlyCandidates  %}
             <a href="{% url 'klageautomat-index' %}" type="submit" class="btn btn-link float-right mr-1">Clear</a>
             {% endif %}
           </div>
@@ -37,6 +47,11 @@
               {% if foirequest.answer_exists %}
               <div class="alert alert-info rounded-0" role="alert">
                 <small>Zu dieser Anfrage wurde bereits eine Klage erstellt.</small>
+              </div>
+              {% endif %}
+              {% if foirequest.lawsuite_candidate %}
+              <div class="text-right">
+                <span class="badge rounded-pill bg-primary text-light">Klagekandidat</span>
               </div>
               {% endif %}
               <h5 class="card-title">{{ foirequest }}</h5>
@@ -65,7 +80,7 @@
 
               {% if page_obj.has_previous %}
               <li class="page-item">
-                <a class="page-link" href="?Search={{ request.GET.Search }}&allRequests={{ request.GET.allRequests }}&page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <a class="page-link" href="?Search={{ request.GET.Search }}&allRequests={{ request.GET.allRequests }}&onlyCandidates={{ request.GET.onlyCandidates }}&page={{ page_obj.previous_page_number }}" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Previous</span>
                 </a>
@@ -80,7 +95,7 @@
 
               {% if page_obj.has_next %}
               <li class="page-item">
-                <a class="page-link" href="?Search={{ request.GET.Search }}&allRequests={{ request.GET.allRequests }}&page={{ page_obj.next_page_number }}" aria-label="Next">
+                <a class="page-link" href="?Search={{ request.GET.Search }}&allRequests={{ request.GET.allRequests }}&onlyCandidates={{ request.GET.onlyCandidates }}&page={{ page_obj.next_page_number }}" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Next</span>
                 </a>
