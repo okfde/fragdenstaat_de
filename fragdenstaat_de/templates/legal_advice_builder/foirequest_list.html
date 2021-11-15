@@ -15,16 +15,16 @@
           <div class="col-12 row">
             <div class="col-6">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck" name="allRequests" {% if request.GET.allRequests == "on" %}checked{% endif %}>
-                <label class="form-check-label" for="gridCheck">
+                <input class="form-check-input" type="checkbox" id="allRequests" name="allRequests" {% if request.GET.allRequests == "on" %}checked{% endif %}>
+                <label class="form-check-label" for="allRequests">
                   In allen Anfragen suchen (nicht nur meine)
                 </label>
               </div>
             </div>
             <div class="col-6">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck" name="onlyCandidates" {% if request.GET.onlyCandidates == "on" %}checked{% endif %}>
-                <label class="form-check-label" for="gridCheck">
+                <input class="form-check-input" type="checkbox" id="onlyCandidates" name="onlyCandidates" {% if request.GET.onlyCandidates == "on" %}checked{% endif %}>
+                <label class="form-check-label" for="onlyCandidates">
                   Nur Klagekandidaten anzeigen
                 </label>
               </div>
