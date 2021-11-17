@@ -1,10 +1,25 @@
 {% extends "foirequest/alpha/body/body.html" %}
 
 {% load foirequest_tags %}
+{% load campaign_tags %}
 
 {% block request_top_pane %}
 
 {% if object|can_manage_foirequest:request %}
+
+{% if object|foirequest_has_questionaire %}
+  <div
+  role="tabpanel"
+  class="tab-pane fade"
+  id="campaignreport-panel"
+  aria-labelledby="campaignreport-tab"
+  >
+    <div class="container p-5">
+      {% render_campaign_questionaire object %}
+    </div>
+  </div>
+{% endif %}
+
 {% if object.costs %}
   <div
   role="tabpanel"

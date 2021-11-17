@@ -1,6 +1,44 @@
 {% extends "foirequest/alpha/header/tabs.html" %}
 
+{% load i18n %}
 {% load foirequest_tags %}
+{% load campaign_tags %}
+
+{% block request_top_menu %}
+
+{% if object|can_manage_foirequest:request %}
+  {% if object|foirequest_has_questionaire %}
+    <li class="alpha-tabs__tab">
+      <a
+        href="#campaignreport-panel"
+        id="campaignreport-tab"
+        data-toggle="tab"
+        class="alpha-tabs__tab-link"
+        data-toggle="tab"
+        aria-controls="campaignreport-panel"
+        role="tab"
+      >
+        <span>
+          {% trans "Questionaire" %}
+          {% if object|foirequest_campaign_report_count == 0 %}
+            {% if object.status_is_final %}
+              <span class="badge badge-pill badge-danger">
+                <span class="fa fa-exclamation-circle"></span>
+              </span>
+            {% endif %}
+          {% else %}
+            <span class="badge badge-pill badge-success">
+              <span class="fa fa-check"></span>
+            </span>
+          {% endif %}
+        </span>
+      </a>
+    </li>
+  {% endif %}
+{% endif %}
+
+{% endblock %}
+
 
 {% block request_top_menu_last %}
 
