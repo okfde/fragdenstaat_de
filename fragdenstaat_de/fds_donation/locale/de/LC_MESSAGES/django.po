@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-21 11:47+0200\n"
+"POT-Creation-Date: 2021-11-17 13:59+0100\n"
 "PO-Revision-Date: 2021-07-09 14:18+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -18,426 +18,413 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: fragdenstaat_de/fds_donation/admin.py:158
+#: fds_donation/admin.py:173
 msgid "Dauerspende"
 msgstr "Dauerspende"
 
-#: fragdenstaat_de/fds_donation/admin.py:159
+#: fds_donation/admin.py:174
 msgid "amount last year"
 msgstr "Betrag letztes Jahr"
 
-#: fragdenstaat_de/fds_donation/admin.py:160
+#: fds_donation/admin.py:175
 msgid "recurring monthly amount"
 msgstr "wiederkehrender monatlicher Betrag"
 
-#: fragdenstaat_de/fds_donation/admin.py:167
+#: fds_donation/admin.py:182
 msgid "has email"
 msgstr "hat E-Mail-Adresse"
 
-#: fragdenstaat_de/fds_donation/admin.py:168
+#: fds_donation/admin.py:183
 msgid "has duplicate"
 msgstr "hat Duplikat"
 
-#: fragdenstaat_de/fds_donation/admin.py:169
+#: fds_donation/admin.py:184
 msgid "has user"
 msgstr "hat Nutzerkonto"
 
-#: fragdenstaat_de/fds_donation/admin.py:250
-#: fragdenstaat_de/fds_donation/admin.py:251
-#: fragdenstaat_de/fds_donation/models.py:350
+#: fds_donation/admin.py:274 fds_donation/admin.py:277
+#: fds_donation/models.py:316
 msgid "donations"
 msgstr "Spenden"
 
-#: fragdenstaat_de/fds_donation/admin.py:255
+#: fds_donation/admin.py:281
 msgid "Duplicate flags cleared."
 msgstr "Duplikat-Flag entfernt."
 
-#: fragdenstaat_de/fds_donation/admin.py:256
+#: fds_donation/admin.py:283
 msgid "Clear duplicate flag on donors"
 msgstr "Duplikate-Flags entfernen"
 
-#: fragdenstaat_de/fds_donation/admin.py:287
+#: fds_donation/admin.py:314
 #, python-brace-format
 msgid "Detected {dup} duplicate sets with {donors} donors"
 msgstr "{dup} Duplikate gefunden bei {donors} Spender:innen"
 
-#: fragdenstaat_de/fds_donation/admin.py:291
+#: fds_donation/admin.py:319
 msgid "Detect duplicate donors"
 msgstr "Duplikate erkennen"
 
-#: fragdenstaat_de/fds_donation/admin.py:301
+#: fds_donation/admin.py:329
 msgid "Select across not allowed!"
 msgstr "Alle auswählen nicht unterstützt!"
 
-#: fragdenstaat_de/fds_donation/admin.py:307
+#: fds_donation/admin.py:335
 msgid "Need to select more than one!"
 msgstr "Mehr als einer muss ausgewählt werden!"
 
-#: fragdenstaat_de/fds_donation/admin.py:326
+#: fds_donation/admin.py:356
 #, python-brace-format
 msgid "Merged {count} donors into {donor}"
 msgstr "{count} Spenderinnen wurden vereinigt zu {donor}"
 
-#: fragdenstaat_de/fds_donation/admin.py:345
-#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html:62
+#: fds_donation/admin.py:378
+#: fds_donation/templates/admin/fds_donation/donor/merge_donors.html:62
 msgid "Merge donors"
 msgstr "Spender*innen zusammenführen"
 
-#: fragdenstaat_de/fds_donation/admin.py:377
+#: fds_donation/admin.py:405
 msgid "Generate ZWB PDFs"
 msgstr "Generiere ZWB-PDFs"
 
-#: fragdenstaat_de/fds_donation/admin.py:410
+#: fds_donation/admin.py:435
 msgid "Export ZWB mail merge data"
 msgstr "Exportiere ZWB-Mail-Merge-Daten"
 
-#: fragdenstaat_de/fds_donation/admin.py:425
+#: fds_donation/admin.py:449
 #, python-brace-format
 msgid "Prepared mailing of emailable donors with {count} recipients"
 msgstr "Mailing wurde an {count} Empfänger vorbereitet"
 
-#: fragdenstaat_de/fds_donation/admin.py:473
+#: fds_donation/admin.py:510
 msgid "amount"
 msgstr "Betrag"
 
-#: fragdenstaat_de/fds_donation/admin.py:477
+#: fds_donation/admin.py:514
 msgid "Receipt exported"
 msgstr "Spendenbestätigung exportiert"
 
-#: fragdenstaat_de/fds_donation/admin.py:478
+#: fds_donation/admin.py:515
 msgid "Receipt sent"
 msgstr "Spendenbestätigung versendet"
 
-#: fragdenstaat_de/fds_donation/admin.py:597
+#: fds_donation/admin.py:629
 msgid "Export to CSV"
 msgstr "Exportiere nach CSv"
 
-#: fragdenstaat_de/fds_donation/admin.py:620
+#: fds_donation/admin.py:653
 msgid "Need two banktransfer donations from same donor."
 msgstr "Brauche zwei Überweisungsspenden von gleicher Spender:in"
 
-#: fragdenstaat_de/fds_donation/admin.py:633
+#: fds_donation/admin.py:665
 msgid "Donations matched."
 msgstr "Spenden zusammengeführt."
 
-#: fragdenstaat_de/fds_donation/admin.py:636
+#: fds_donation/admin.py:667
 msgid "Match planned to received banktransfer"
 msgstr "Führe geplante zu empfangenen Überweisungen zusammen"
 
-#: fragdenstaat_de/fds_donation/admin.py:650
+#: fds_donation/admin.py:682
 #, python-brace-format
 msgid "Send {sent} donation mails ({resent} resent)."
 msgstr "{sent} Spenden-Mails gesendet ({resent} neu versendet)."
 
-#: fragdenstaat_de/fds_donation/admin.py:655
+#: fds_donation/admin.py:688
 msgid "Resend donation email"
 msgstr "Spenden-E-Mail neu verschicken"
 
-#: fragdenstaat_de/fds_donation/admin.py:665
+#: fds_donation/admin.py:699
 #, python-brace-format
 msgid "Send {sent} reminder mails."
 msgstr "Sende {sent} Erinnerungs-E-Mails."
 
-#: fragdenstaat_de/fds_donation/admin.py:670
+#: fds_donation/admin.py:703
 msgid "Send donation reminder"
 msgstr "Sende Spenden-Erinnerung"
 
-#: fragdenstaat_de/fds_donation/admin.py:682
-#: fragdenstaat_de/fds_donation/admin.py:709
+#: fds_donation/admin.py:714 fds_donation/admin.py:740
 msgid "No file provided."
 msgstr "Keine Datei ausgewählt."
 
-#: fragdenstaat_de/fds_donation/admin.py:692
-#: fragdenstaat_de/fds_donation/admin.py:718
+#: fds_donation/admin.py:724 fds_donation/admin.py:749
 #, python-brace-format
 msgid "Imported {rows} rows, {new} new rows."
 msgstr "{rows} Zeilen importiert, {new} neue Zeilen."
 
-#: fragdenstaat_de/fds_donation/apps.py:8
+#: fds_donation/apps.py:8
 msgid "FragDenStaat Donations"
 msgstr "FragDenStaat-Spenden"
 
-#: fragdenstaat_de/fds_donation/apps.py:37
+#: fds_donation/apps.py:44
 msgid "My donations"
 msgstr "Meine Spenden"
 
-#: fragdenstaat_de/fds_donation/cms_apps.py:9
+#: fds_donation/cms_apps.py:9
 msgid "FragDenStaat Donation Gift App"
 msgstr "FragDenStaat-Spenden-Geschenk-App"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:19
-#: fragdenstaat_de/fds_donation/cms_plugins.py:54
-#: fragdenstaat_de/fds_donation/cms_plugins.py:75
-#: fragdenstaat_de/fds_donation/cms_plugins.py:179
-#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/change_form.html:7
+#: fds_donation/cms_plugins.py:26 fds_donation/cms_plugins.py:59
+#: fds_donation/cms_plugins.py:80 fds_donation/cms_plugins.py:183
+#: fds_donation/templates/admin/fds_donation/donor/change_form.html:7
 msgid "Donations"
 msgstr "Spenden"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:20
+#: fds_donation/cms_plugins.py:27
 msgid "Donation Gift Form"
 msgstr "Spenden-Geschenk-Form"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:55
+#: fds_donation/cms_plugins.py:60
 msgid "Donation Form"
 msgstr "Spendenform"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:114
+#: fds_donation/cms_plugins.py:118
 msgid "Is donor"
 msgstr "Ist Spender:in"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:122
+#: fds_donation/cms_plugins.py:126
 #, fuzzy
 #| msgid "Is recent donor"
 msgid "Is not donor"
 msgstr "Hat vor kurzem gespendet"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:130
+#: fds_donation/cms_plugins.py:134
 msgid "Is recurring donor"
 msgstr "Ist Dauerspender:in"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:138
+#: fds_donation/cms_plugins.py:142
 msgid "Is not recurring donor"
 msgstr "Ist nicht Dauerspender:in"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:146
+#: fds_donation/cms_plugins.py:150
 msgid "Is recent donor"
 msgstr "Hat vor kurzem gespendet"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:154
+#: fds_donation/cms_plugins.py:158
 msgid "Is not recent donor"
 msgstr "Hat nicht vor kurzem gespendet"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:162
+#: fds_donation/cms_plugins.py:166
 msgid "Is contact allowed donor"
 msgstr "Spender:in darf kontaktiert werden"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:170
+#: fds_donation/cms_plugins.py:174
 msgid "Is contact not allowed donor"
 msgstr "Spender:in darf nicht kontaktiert werden"
 
-#: fragdenstaat_de/fds_donation/cms_plugins.py:180
+#: fds_donation/cms_plugins.py:184
 msgid "Donation Progress Bar"
 msgstr "Fortschrittsbalken für Spenden"
 
-#: fragdenstaat_de/fds_donation/filters.py:117
+#: fds_donation/filters.py:119
 msgid "From"
 msgstr "Von"
 
-#: fragdenstaat_de/fds_donation/filters.py:120
+#: fds_donation/filters.py:121
 msgid "From date"
 msgstr "Ab Datum"
 
-#: fragdenstaat_de/fds_donation/filters.py:128
+#: fds_donation/filters.py:130
 msgid "Until"
 msgstr "Bis"
 
-#: fragdenstaat_de/fds_donation/filters.py:131
+#: fds_donation/filters.py:132
 msgid "To date"
 msgstr "Bis Datum"
 
-#: fragdenstaat_de/fds_donation/filters.py:216
+#: fds_donation/filters.py:214
 msgid "From - To"
 msgstr "Von - Bis"
 
-#: fragdenstaat_de/fds_donation/forms.py:170
+#: fds_donation/forms.py:160
 msgid "Donation amount:"
 msgstr "Spendenbetrag:"
 
-#: fragdenstaat_de/fds_donation/forms.py:174
+#: fds_donation/forms.py:164
 msgid "Amount in Euro, comma as decimal separator"
 msgstr "Betrag in Euro, Komma als Dezimaltrenner"
 
-#: fragdenstaat_de/fds_donation/forms.py:185
+#: fds_donation/forms.py:175
 msgid "Frequency"
 msgstr "Spendenrhythmus"
 
-#: fragdenstaat_de/fds_donation/forms.py:192
+#: fds_donation/forms.py:180
 msgid "Donation purpose"
 msgstr "Verwendungszweck"
 
-#: fragdenstaat_de/fds_donation/forms.py:194
+#: fds_donation/forms.py:182
 msgid "General donation"
 msgstr "Allgemeine Spende"
 
-#: fragdenstaat_de/fds_donation/forms.py:212
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:117
+#: fds_donation/forms.py:191
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:118
 msgid "Payment method"
 msgstr "Zahlungsweise"
 
-#: fragdenstaat_de/fds_donation/forms.py:237
+#: fds_donation/forms.py:212
 msgid "once"
 msgstr "einmalig"
 
-#: fragdenstaat_de/fds_donation/forms.py:244
+#: fds_donation/forms.py:221
 msgid "monthly"
 msgstr "monatlich"
 
-#: fragdenstaat_de/fds_donation/forms.py:245
+#: fds_donation/forms.py:222
 msgid "quarterly"
 msgstr "vierteljährlich"
 
-#: fragdenstaat_de/fds_donation/forms.py:246
+#: fds_donation/forms.py:223
 msgid "yearly"
 msgstr "jährlich"
 
-#: fragdenstaat_de/fds_donation/forms.py:253
+#: fds_donation/forms.py:231
 msgid "One time donation amount"
 msgstr "Einmaliger Spendenbetrag"
 
-#: fragdenstaat_de/fds_donation/forms.py:279
-#: fragdenstaat_de/fds_donation/forms.py:285
-#: fragdenstaat_de/fds_donation/forms.py:290
+#: fds_donation/forms.py:255 fds_donation/forms.py:263
+#: fds_donation/forms.py:268
 #, python-format
 msgid "Donation for %s"
 msgstr "Spende für %s"
 
-#: fragdenstaat_de/fds_donation/forms.py:280
+#: fds_donation/forms.py:257
 #, python-brace-format
 msgid "{amount} EUR donation {str_interval} to {site_name}"
 msgstr "{amount} EUR Spende {str_interval} an {site_name}"
 
-#: fragdenstaat_de/fds_donation/forms.py:339
+#: fds_donation/forms.py:312
 msgid "Salutation"
 msgstr "Anrede"
 
-#: fragdenstaat_de/fds_donation/forms.py:348
-#: fragdenstaat_de/fds_donation/forms.py:350
+#: fds_donation/forms.py:319 fds_donation/forms.py:322
 msgid "First name"
 msgstr "Vorname"
 
-#: fragdenstaat_de/fds_donation/forms.py:356
-#: fragdenstaat_de/fds_donation/forms.py:358
+#: fds_donation/forms.py:327 fds_donation/forms.py:329
 msgid "Last name"
 msgstr "Nachname"
 
-#: fragdenstaat_de/fds_donation/forms.py:363
+#: fds_donation/forms.py:333
 msgid "Company"
 msgstr "Firma"
 
-#: fragdenstaat_de/fds_donation/forms.py:368
+#: fds_donation/forms.py:336
 msgid "Company name"
 msgstr "Firmenname"
 
-#: fragdenstaat_de/fds_donation/forms.py:379
-#: fragdenstaat_de/fds_donation/forms.py:465
-#: fragdenstaat_de/fds_donation/forms.py:509
+#: fds_donation/forms.py:349 fds_donation/forms.py:423
+#: fds_donation/forms.py:469
 msgid "No, thank you."
 msgstr "Nein, danke."
 
-#: fragdenstaat_de/fds_donation/forms.py:380
+#: fds_donation/forms.py:350
 msgid "Yes, once a year."
 msgstr "Ja, einmal im Jahr."
 
-#: fragdenstaat_de/fds_donation/forms.py:385
+#: fds_donation/forms.py:355
 msgid "Do you want a donation receipt?"
 msgstr "Möchten Sie eine Spendenbescheinigung?"
 
-#: fragdenstaat_de/fds_donation/forms.py:387
-#: fragdenstaat_de/fds_donation/forms.py:471
-#: fragdenstaat_de/fds_donation/forms.py:486
+#: fds_donation/forms.py:356 fds_donation/forms.py:428
+#: fds_donation/forms.py:440
 msgid "You have to decide."
 msgstr "Sie müssen sich entscheiden."
 
-#: fragdenstaat_de/fds_donation/forms.py:392
-#: fragdenstaat_de/fds_donation/forms.py:395
+#: fds_donation/forms.py:360 fds_donation/forms.py:363
 msgid "Street, house number"
 msgstr "Straße, Hausnummer"
 
-#: fragdenstaat_de/fds_donation/forms.py:401
-#: fragdenstaat_de/fds_donation/forms.py:404
+#: fds_donation/forms.py:368 fds_donation/forms.py:371
 msgid "Postcode"
 msgstr "Postleitzahl"
 
-#: fragdenstaat_de/fds_donation/forms.py:410
-#: fragdenstaat_de/fds_donation/forms.py:413
+#: fds_donation/forms.py:376 fds_donation/forms.py:379
 msgid "City"
 msgstr "Ort"
 
-#: fragdenstaat_de/fds_donation/forms.py:418
+#: fds_donation/forms.py:383
 msgid "Country"
 msgstr "Land"
 
-#: fragdenstaat_de/fds_donation/forms.py:422
+#: fds_donation/forms.py:387
 msgid "Germany"
 msgstr "Deutschland"
 
-#: fragdenstaat_de/fds_donation/forms.py:424
+#: fds_donation/forms.py:389
 msgid "Austria"
 msgstr "Österreich"
 
-#: fragdenstaat_de/fds_donation/forms.py:425
+#: fds_donation/forms.py:390
 msgid "Switzerland"
 msgstr "Schweiz"
 
-#: fragdenstaat_de/fds_donation/forms.py:426
+#: fds_donation/forms.py:391
 msgid "Belgium"
 msgstr "Belgien"
 
-#: fragdenstaat_de/fds_donation/forms.py:427
+#: fds_donation/forms.py:392
 msgid "Netherlands"
 msgstr "Niederlande"
 
-#: fragdenstaat_de/fds_donation/forms.py:428
+#: fds_donation/forms.py:393
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: fragdenstaat_de/fds_donation/forms.py:429
+#: fds_donation/forms.py:394
 msgid "France"
 msgstr "Frankreich"
 
-#: fragdenstaat_de/fds_donation/forms.py:430
+#: fds_donation/forms.py:395
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
-#: fragdenstaat_de/fds_donation/forms.py:431
+#: fds_donation/forms.py:396
 msgid "Denmark"
 msgstr "Dänemark"
 
-#: fragdenstaat_de/fds_donation/forms.py:432
+#: fds_donation/forms.py:397
 msgid "Poland"
 msgstr "Polen"
 
-#: fragdenstaat_de/fds_donation/forms.py:433
+#: fds_donation/forms.py:398
 msgid "Czech Republic"
 msgstr "Tschechien"
 
-#: fragdenstaat_de/fds_donation/forms.py:435
+#: fds_donation/forms.py:400
 msgid "Italy"
 msgstr "Italien"
 
-#: fragdenstaat_de/fds_donation/forms.py:436
+#: fds_donation/forms.py:401
 msgid "Spain"
 msgstr "Spanien"
 
-#: fragdenstaat_de/fds_donation/forms.py:437
+#: fds_donation/forms.py:402
 msgid "Portugal"
 msgstr "Portugal"
 
-#: fragdenstaat_de/fds_donation/forms.py:438
+#: fds_donation/forms.py:403
 msgid "Sweden"
 msgstr "Schweden"
 
-#: fragdenstaat_de/fds_donation/forms.py:439
+#: fds_donation/forms.py:404
 msgid "Finland"
 msgstr "Finnland"
 
-#: fragdenstaat_de/fds_donation/forms.py:446
+#: fds_donation/forms.py:409
 msgid "Email"
 msgstr "E-Mail"
 
-#: fragdenstaat_de/fds_donation/forms.py:451
+#: fds_donation/forms.py:412
 msgid "e.g. name@example.org"
 msgstr "z.B. name@beispiel.de"
 
-#: fragdenstaat_de/fds_donation/forms.py:464
+#: fds_donation/forms.py:422
 msgid "Yes, please!"
 msgstr "Ja, gerne!"
 
-#: fragdenstaat_de/fds_donation/forms.py:469
+#: fds_donation/forms.py:427
 msgid "News"
 msgstr "Neuigkeiten"
 
-#: fragdenstaat_de/fds_donation/forms.py:481
+#: fds_donation/forms.py:436
 msgid ""
 "With your donation you can also create a FragDenStaat account where you can "
 "manage your details, donations and requests."
@@ -445,143 +432,139 @@ msgstr ""
 "In Ihrem FragDenStaat-Konto können Sie Ihre Daten pflegen, Ihre Spenden "
 "einsehen sowie Ihre Anfragen verwalten."
 
-#: fragdenstaat_de/fds_donation/forms.py:516
+#: fds_donation/forms.py:476
 msgid "Your name"
 msgstr "Ihr Name"
 
-#: fragdenstaat_de/fds_donation/forms.py:523
+#: fds_donation/forms.py:481
 msgid "Your email address"
 msgstr "Deine E-Mail-Adresse"
 
-#: fragdenstaat_de/fds_donation/forms.py:529
+#: fds_donation/forms.py:485
 msgid "Shipping address"
 msgstr "Versandadresse"
 
-#: fragdenstaat_de/fds_donation/forms.py:536
+#: fds_donation/forms.py:489
 msgid "Please choose your donation gift"
 msgstr "Wählen Sie Ihr Dankeschön aus"
 
-#: fragdenstaat_de/fds_donation/models.py:25
+#: fds_donation/models.py:25
 msgid "Only once"
 msgstr "Nur einmalig"
 
-#: fragdenstaat_de/fds_donation/models.py:26
+#: fds_donation/models.py:26
 msgid "Only recurring"
 msgstr "Nur mehrfach"
 
-#: fragdenstaat_de/fds_donation/models.py:27
+#: fds_donation/models.py:27
 msgid "Both"
 msgstr "Beides"
 
-#: fragdenstaat_de/fds_donation/models.py:32
+#: fds_donation/models.py:32
 msgctxt "salutation neutral"
 msgid "Hello"
 msgstr "Hallo"
 
-#: fragdenstaat_de/fds_donation/models.py:33
+#: fds_donation/models.py:33
 msgctxt "salutation formal"
 msgid "Good day"
 msgstr "Guten Tag"
 
-#: fragdenstaat_de/fds_donation/models.py:35
+#: fds_donation/models.py:34
 msgctxt "salutation female formal"
 msgid "Dear Ms."
 msgstr "Sehr geehrte Frau"
 
-#: fragdenstaat_de/fds_donation/models.py:37
+#: fds_donation/models.py:35
 msgctxt "salutation male formal"
 msgid "Dear Mr."
 msgstr "Sehr geehrter Herr"
 
-#: fragdenstaat_de/fds_donation/models.py:39
+#: fds_donation/models.py:36
 msgctxt "salutation female informal"
 msgid "Dear"
 msgstr "Liebe"
 
-#: fragdenstaat_de/fds_donation/models.py:41
+#: fds_donation/models.py:37
 msgctxt "salutation male informal"
 msgid "Dear"
 msgstr "Lieber"
 
-#: fragdenstaat_de/fds_donation/models.py:43
+#: fds_donation/models.py:38
 msgctxt "salutation neutral informal"
 msgid "Dear"
 msgstr "Liebes"
 
-#: fragdenstaat_de/fds_donation/models.py:49
+#: fds_donation/models.py:43
 msgid "Default"
 msgstr "Standard"
 
-#: fragdenstaat_de/fds_donation/models.py:55
+#: fds_donation/models.py:49
 msgid "Donor Tag"
 msgstr "Spender*in-Tag"
 
-#: fragdenstaat_de/fds_donation/models.py:56
+#: fds_donation/models.py:50
 msgid "Donor Tags"
 msgstr "Spender*innen Tags"
 
-#: fragdenstaat_de/fds_donation/models.py:68
+#: fds_donation/models.py:58
 msgid "Tagged Donor"
 msgstr "Getaggte/r Spender*in"
 
-#: fragdenstaat_de/fds_donation/models.py:69
+#: fds_donation/models.py:59
 msgid "Tagged Donors"
 msgstr "Getaggte Spender*innen"
 
-#: fragdenstaat_de/fds_donation/models.py:121
+#: fds_donation/models.py:105
 msgid "donor"
 msgstr "SpenderIn"
 
-#: fragdenstaat_de/fds_donation/models.py:122
+#: fds_donation/models.py:106
 msgid "donors"
 msgstr "SpenderInnen"
 
-#: fragdenstaat_de/fds_donation/models.py:349
+#: fds_donation/models.py:315
 msgid "donation"
 msgstr "Spende"
 
-#: fragdenstaat_de/fds_donation/models.py:408
+#: fds_donation/models.py:372
 msgid "donation gift"
 msgstr "Spendengeschenk"
 
-#: fragdenstaat_de/fds_donation/models.py:409
+#: fds_donation/models.py:373
 msgid "donation gifts"
 msgstr "Spendengeschenke"
 
-#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donation/change_list.html:8
-msgid "Pivot Data"
-msgstr "Pivot Daten"
-
-#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donation/change_list.html:13
+#: fds_donation/templates/admin/fds_donation/donation/change_list.html:10
 msgid "Export CSV"
 msgstr "Exportiere CSV"
 
-#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html:6
-#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html:9
+#: fds_donation/templates/admin/fds_donation/donor/merge_donors.html:6
+#: fds_donation/templates/admin/fds_donation/donor/merge_donors.html:9
 msgid "Merge Donors"
 msgstr "Spender*innen zusammenführen"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donation_progress_bar.html:7
+#: fds_donation/templates/fds_donation/cms_plugins/donation_progress_bar.html:7
 msgid "Amount received"
 msgstr "Betrag erhalten"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html:7
+#: fds_donation/templates/fds_donation/donation_complete.html:7
 msgid "Thank you for your donation!"
 msgstr "Vielen Dank für Ihre Spende!"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html:10
+#: fds_donation/templates/fds_donation/donation_complete.html:10
 msgid "You got mail"
 msgstr "Sie haben Post"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html:16
+#: fds_donation/templates/fds_donation/donation_complete.html:16
 msgid "Please confirm your email address!"
 msgstr "Bitte bestätigen Sie Ihre E-Mail-Adresse!"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html:25
+#: fds_donation/templates/fds_donation/donation_complete.html:25
 msgid "Check your emails for your account"
 msgstr "Rufen Sie Ihre E-Mails ab"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html:29
+#: fds_donation/templates/fds_donation/donation_complete.html:29
 #, python-format
 msgid ""
 "\n"
@@ -594,7 +577,7 @@ msgstr ""
 "strong> in der E-Mail von %(SITE_NAME)s.\n"
 "            "
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html:36
+#: fds_donation/templates/fds_donation/donation_complete.html:36
 msgid ""
 "Please go to your email account and <strong>click the confirmation link.</"
 "strong>"
@@ -602,23 +585,23 @@ msgstr ""
 "Bitte gehen Sie zu Ihrem E-Mail-Konto und <strong>klicken Sie den "
 "Bestätigungs-Link.</strong>"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:14
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:15
 msgid "Your donation frees information"
 msgstr "Mit meiner Spende Informationen befreien"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:44
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:45
 msgid "Continue"
 msgstr "Weiter"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:57
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:58
 msgid "Your details"
 msgstr "Persönliche Daten"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:79
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:80
 msgid "&rarr; Do you want to donate as a company?"
 msgstr "&rarr; Möchten Sie als Firma spenden?"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:122
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:123
 msgid ""
 "Donations via credit card, SOFORT-Überweisung or Paypal do not work via our ."
 "onion-site"
@@ -626,72 +609,72 @@ msgstr ""
 "Spenden per Kreditkarte, Sofort-Überweisung oder Paypal funktionieren leider "
 "nicht über unsere .onion-Seite."
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:130
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:131
 msgid "Your payment details will be transmitted securely in the next step."
 msgstr ""
 "Die Eingabe Ihrer Zahlungsinformationen erfolgt sicher verschlüsselt im "
 "nächsten Schritt."
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:136
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:137
 msgid "Stay up to date"
 msgstr "Auf dem Laufenden bleiben"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:144
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:145
 msgid "Receive our newsletter about freedom of information in German."
 msgstr ""
 "Erhalten Sie Neuigkeiten zum Thema Informationsfreiheit direkt in Ihr "
 "Postfach und erfahren Sie mehr über die Wirkung Ihrer Spende."
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:154
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:155
 msgid "FragDenStaat Account"
 msgstr "FragDenStaat-Konto"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:157
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:158
 msgid "You can manage your donation in your FragDenStaat account."
 msgstr ""
 "Sie können Ihre Spenden in Ihrem FragDenStaat-Konto einsehen und verwalten."
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:161
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:162
 msgid "Get an account"
 msgstr "Account bekommen"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html:178
+#: fds_donation/templates/fds_donation/forms/_donation_form.html:182
 msgid "Donate now"
 msgstr "Jetzt spenden"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/donation.html:4
+#: fds_donation/templates/fds_donation/forms/donation.html:4
 msgid "Donation"
 msgstr "Spende"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/widgets/amount_input.html:12
+#: fds_donation/templates/fds_donation/forms/widgets/amount_input.html:12
 msgid "Other amount"
 msgstr "Anderer Betrag"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/widgets/range_filter.html:2
+#: fds_donation/templates/fds_donation/forms/widgets/range_filter.html:2
 #, python-format
 msgid "By %(filter_title)s"
 msgstr "Nach %(filter_title)s"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/widgets/range_filter.html:16
+#: fds_donation/templates/fds_donation/forms/widgets/range_filter.html:16
 msgid "Filter"
 msgstr "Filter"
 
-#: fragdenstaat_de/fds_donation/urls.py:15
+#: fds_donation/urls.py:21
 msgctxt "url pattern"
 msgid "donate/"
 msgstr "spenden/"
 
-#: fragdenstaat_de/fds_donation/urls.py:16
+#: fds_donation/urls.py:24
 msgctxt "url pattern"
 msgid "donate/complete/"
 msgstr "spenden/abgeschlossen/"
 
-#: fragdenstaat_de/fds_donation/urls.py:18
+#: fds_donation/urls.py:29
 msgctxt "url pattern"
 msgid "your-donation/"
 msgstr "ihre-spenden/"
 
-#: fragdenstaat_de/fds_donation/urls.py:20
+#: fds_donation/urls.py:36
 #, python-brace-format
 msgctxt "url pattern"
 msgid ""
@@ -701,12 +684,12 @@ msgstr ""
 "^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
 "[0-9a-z]{12})/$"
 
-#: fragdenstaat_de/fds_donation/urls.py:24
+#: fds_donation/urls.py:43
 msgctxt "url pattern"
 msgid "your-donation/change/"
 msgstr "ihre-spenden/change/"
 
-#: fragdenstaat_de/fds_donation/urls.py:27
+#: fds_donation/urls.py:50
 #, python-brace-format
 msgctxt "url pattern"
 msgid ""
@@ -716,12 +699,12 @@ msgstr ""
 "^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
 "[0-9a-z]{12})/change/$"
 
-#: fragdenstaat_de/fds_donation/urls.py:32
+#: fds_donation/urls.py:57
 msgctxt "url pattern"
 msgid "your-donation/donate/"
 msgstr "ihre-spenden/spenden/"
 
-#: fragdenstaat_de/fds_donation/urls.py:35
+#: fds_donation/urls.py:64
 #, python-brace-format
 msgctxt "url pattern"
 msgid ""
@@ -731,7 +714,7 @@ msgstr ""
 "^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
 "[0-9a-z]{12})/spenden/$"
 
-#: fragdenstaat_de/fds_donation/views.py:143
+#: fds_donation/views.py:149
 msgid ""
 "We have no associated donations with your account. If you have donated, let "
 "us know! Otherwise feel free to donate below."
@@ -740,9 +723,12 @@ msgstr ""
 "gespendet haben, lassen Sie es uns wissen! Ansonsten haben Sie weiter unten "
 "die Gelegenheit zu spenden."
 
-#: fragdenstaat_de/fds_donation/views.py:172
+#: fds_donation/views.py:176
 msgid "Your donor info has been updated!"
 msgstr "Ihre Spender-Informationen wurden aktualisiert!"
+
+#~ msgid "Pivot Data"
+#~ msgstr "Pivot Daten"
 
 #~ msgid "Donation reference"
 #~ msgstr "Verwendungszweck"
