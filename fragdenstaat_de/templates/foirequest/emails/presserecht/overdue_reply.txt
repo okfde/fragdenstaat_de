@@ -1,8 +1,8 @@
 Sehr geehrte Damen und Herren,
 
-Ich habe Ihnen vor kurzem eine Anfrage mit dem Betreff „{{ title }}“ ({{ date }}) geschickt. Ist diese bei Ihnen angekommen? Um sorgfältige Recherche zu garantieren, ist es wichtig für uns, die Datenlage umfassend zu erfassen. Mit Verweis auf das Informationsrecht der Presse bitte ich Sie daher mich darüber zu informieren, bis wann Sie die Anfrage beantworten können.
+Ich habe Ihnen vor kurzem eine Anfrage mit dem Betreff „{{ foirequest.title }}“ ({{ foirequest.first_message|date:"SHORT_DATE_FORMAT" }}) geschickt. Ist diese bei Ihnen angekommen? Um sorgfältige Recherche zu garantieren, ist es wichtig für uns, die Datenlage umfassend zu erfassen. Mit Verweis auf das Informationsrecht der Presse bitte ich Sie daher mich darüber zu informieren, bis wann Sie die Anfrage beantworten können.
 
 Besten Dank!
 
 Mit freundlichen Grüßen
-{{ name }}
+{{ foirequest.user.get_full_name }}
