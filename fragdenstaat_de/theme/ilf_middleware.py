@@ -1,3 +1,8 @@
+"""
+Contains patched CSRF view middleware for Django and Django Rest Framework
+that ignores the referrer check when using https.
+"""
+
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -13,6 +18,8 @@ from django.middleware.csrf import (
     REASON_MALFORMED_REFERER,
     REASON_INSECURE_REFERER,
 )
+
+from rest_framework import authentication
 
 
 class CsrfViewIlfMiddleware(CsrfViewMiddleware):
@@ -137,3 +144,14 @@ class CsrfViewIlfMiddleware(CsrfViewMiddleware):
                 return self._reject(request, REASON_BAD_TOKEN)
 
         return self._accept(request)
+
+
+class CsrfViewIlfDrfMiddleware(CsrfViewIlfMiddleware):
+    # Same as in rest_framework.authentication.CSRFCheck
+    def _reject(self, request, reason):
+        # Return the failure reason instead of an HttpResponse
+        return reason
+
+
+# Monkey patch DRF CSRF check to use our own middleware
+authentication.CSRFCheck = CsrfViewIlfDrfMiddleware
