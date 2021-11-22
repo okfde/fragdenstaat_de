@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: mdillon/postgis:10-alpine
+    image: postgis/postgis:14-3.1
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   elasticsearch:
