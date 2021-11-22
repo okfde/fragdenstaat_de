@@ -197,9 +197,11 @@ class DonationProgressBarPlugin(CMSPluginBase):
 
     def get_donated_amount(self, instance):
         date = instance.start_date
-        count = DefaultDonation.objects.filter(
-            timestamp__gte=date, completed=True
-        ).aggregate(Sum("amount"))
+        filters = {"timestamp__gte": date, "completed": True}
+        if instance.received_donations_only:
+            filters["received"] = True
+
+        count = DefaultDonation.objects.filter(**filters).aggregate(Sum("amount"))
         if count.get("amount__sum"):
             return count.get("amount__sum", Decimal(0.0))
         return 0.0
