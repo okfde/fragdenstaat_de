@@ -109,10 +109,10 @@ class ArticleDetailView(BaseBlogView, DetailView):
         related_articles = list(object.related.all())
 
         ctx["updated_articles"] = [
-            a for a in related_articles if a.publication_date < object.publication_date
+            a for a in related_articles if a.publication_date > object.publication_date
         ]
         ctx["previous_articles"] = [
-            a for a in related_articles if a.publication_date > object.publication_date
+            a for a in related_articles if a.publication_date < object.publication_date
         ]
         return ctx
 
