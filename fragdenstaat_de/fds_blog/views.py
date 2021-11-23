@@ -24,7 +24,7 @@ class BaseBlogView(object):
     model = Article
 
     def optimize(self, qs):
-        return qs.prefetch_related("categories", "authors")
+        return qs
 
     def get_view_url(self):
         if not self.view_url_name:
@@ -81,6 +81,9 @@ class ArticleDetailView(BaseBlogView, DetailView):
             return articles_visible(self.model._default_manager.all())
         return self.model._default_manager.all()
 
+    def optimize(self, qs):
+        return qs.prefetch_related("categories", "authors")
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.request.article = self.object
@@ -98,7 +101,20 @@ class ArticleDetailView(BaseBlogView, DetailView):
                 except Article.DoesNotExist:
                     raise Http404
                 return redirect(self.object, permanent=True)
-        return super().get(request, *args, **kwargs)
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
+    def get_context_data(self, object=None):
+        ctx = super().get_context_data(object=object)
+        related_articles = list(object.related.all())
+
+        ctx["updated_articles"] = [
+            a for a in related_articles if a.publication_date < object.publication_date
+        ]
+        ctx["previous_articles"] = [
+            a for a in related_articles if a.publication_date > object.publication_date
+        ]
+        return ctx
 
 
 class ArticleListView(BaseBlogListView, ListView):

@@ -61,9 +61,43 @@
 </div>
 {% endblock article_header %}
 
+{% block article_updates %}
+{% if updated_articles %}
+  <div class="blog-content">
+    <p>
+      {% blocktranslate count counter=updated_articles|length %}
+        Updated article:
+      {% plural %}
+        Updated articles:
+      {% endblocktranslate %}
+      {% for related_article in updated_articles %}
+        {{ related_article.publication_date|date:"SHORT_DATE_FORMAT" }} – <a href="{{ related_article.get_absolute_url }}">{{ related_article.title }}</a>{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    </p>
+  </div>
+{% endif %}
+{% endblock %}
+
 {% block article_content %}
   {% render_placeholder article.content_placeholder %}
 {% endblock article_content %}
+
+{% block article_previous %}
+{% if previous_articles %}
+  <div class="blog-content">
+    <p>
+      {% blocktranslate count counter=previous_articles|length %}
+        Previous article:
+      {% plural %}
+        Previous articles:
+      {% endblocktranslate %}
+      {% for related_article in previous_articles %}
+      {{ related_article.publication_date|date:"SHORT_DATE_FORMAT" }} – <a href="{{ related_article.get_absolute_url }}">{{ related_article.title }}</a>{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    </p>
+  </div>
+{% endif %}
+{% endblock %}
 
 {% block article_ads %}
 {% static_placeholder "banner_ad" %}
