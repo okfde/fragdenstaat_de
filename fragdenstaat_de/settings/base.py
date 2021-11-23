@@ -116,9 +116,9 @@ class FragDenStaatBase(German, Base):
     @property
     def LOCALE_PATHS(self):
         locales = list(super().LOCALE_PATHS)
-        return locales + [
+        return [
             os.path.join(THEME_ROOT, "locale"),
-        ]
+        ] + locales
 
     # Newsletter
     NEWSLETTER_RICHTEXT_WIDGET = "djangocms_text_ckeditor.widgets.TextEditorWidget"
