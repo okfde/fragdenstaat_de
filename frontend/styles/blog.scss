@@ -21,13 +21,20 @@
 h4.blog-list-heading {
   margin-top: 0 !important;
 
-  a, a:active, a:visited {
+  a,
+  a:active,
+  a:visited {
     border-color: $black;
-      text-decoration: none !important;
-      color: $gray-800;
+    text-decoration: none !important;
+    color: $gray-800;
   }
 
-  a:focus, a:hover, a:active:focus, a:active:hover, a:visited:focus, a:visited:hover {
+  a:focus,
+  a:hover,
+  a:active:focus,
+  a:active:hover,
+  a:visited:focus,
+  a:visited:hover {
     border-bottom: 1px solid rgba(30, 32, 35, 0.3);
     text-decoration: none;
   }
@@ -38,7 +45,7 @@ h4.blog-list-heading {
   font-weight: 400;
   margin-top: 1.25rem;
 
-  >p {
+  > p {
     margin-bottom: 0;
   }
 }
@@ -77,7 +84,6 @@ h4.blog-list-heading {
   }
 }
 
-
 .blog-visual {
   opacity: 1;
   transition: opacity 0.5s;
@@ -105,10 +111,10 @@ h4.blog-list-heading {
 }
 
 .teaser-arrow {
-    height: 15px;
-    margin-top: 10px;
-    font-size: 1.5rem;
-    position: relative;
+  height: 15px;
+  margin-top: 10px;
+  font-size: 1.5rem;
+  position: relative;
 }
 
 .teaser-arrow:after {
@@ -120,7 +126,7 @@ h4.blog-list-heading {
   -ms-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
-  }
+}
 
 /*================================
 =          Post-Detail          =
@@ -142,13 +148,14 @@ h4.blog-list-heading {
 
 .blog-header__date {
   color: $gray-600;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
-.blog-header__tags, .blog-header__categories {
+.blog-header__tags,
+.blog-header__categories {
   @extend .list-inline;
   display: inline;
-  font-size: .9rem;
+  font-size: 0.9rem;
 
   li {
     @extend .list-inline-item;
@@ -167,7 +174,6 @@ h4.blog-list-heading {
   }
 }
 
-
 .blog-header__title {
   margin: 1rem 0 1rem 0 !important;
 }
@@ -176,23 +182,26 @@ h4.blog-list-heading {
   text-align: center;
 }
 
-
 .blog-content {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-bottom: 2rem;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
-  >h2, >h3, >h4 {
+  > h2,
+  > h3,
+  > h4 {
     font-family: $font-family-serif;
     color: #26282b;
   }
 
-  >p, >ul, >ol,
-  >div.text-container, >blockquote {
+  > p,
+  > ul,
+  > ol,
+  > div.text-container,
+  > blockquote {
     font-family: $font-family-serif;
     color: #26282b;
     font-size: 1.225rem;
@@ -201,7 +210,13 @@ h4.blog-list-heading {
     text-align: left;
   }
 
-  >p, >h2, >h3, >h4, >ul, >ol, >div.text-container {
+  > p,
+  > h2,
+  > h3,
+  > h4,
+  > ul,
+  > ol,
+  > div.text-container {
     @include make-col(12);
     margin: 1rem auto 0.5rem;
     padding: 0 15px;
@@ -209,7 +224,13 @@ h4.blog-list-heading {
   }
 
   @include media-breakpoint-up(sm) {
-    >p, >h2, >h3, >h4, >ul, >ol, >div.text-container {
+    > p,
+    > h2,
+    > h3,
+    > h4,
+    > ul,
+    > ol,
+    > div.text-container {
       @include make-col(10);
       margin-left: 15%;
       margin-right: 15%;
@@ -217,7 +238,13 @@ h4.blog-list-heading {
   }
 
   @include media-breakpoint-up(md) {
-    >p, >h2, >h3, >h4, >ul, >ol, >div.text-container {
+    > p,
+    > h2,
+    > h3,
+    > h4,
+    > ul,
+    > ol,
+    > div.text-container {
       @include make-col(8);
       margin-left: 15%;
       margin-right: 15%;
@@ -225,44 +252,56 @@ h4.blog-list-heading {
   }
 
   @include media-breakpoint-up(xl) {
-    >p, >h2, >h3, >h4, >ul, >ol, >div.text-container {
+    > p,
+    > h2,
+    > h3,
+    > h4,
+    > ul,
+    > ol,
+    > div.text-container {
       @include make-col(6);
       margin-left: 25%;
       margin-right: 25%;
     }
   }
 
-
-  >h3:not(:first-child) {
+  > h3:not(:first-child) {
     margin-top: 4rem !important;
   }
 
-  >h3 {
+  > h3 {
     color: $black;
     font-family: $font-family-sans-serif;
   }
 
-  a, a:active, a:visited {
+  a,
+  a:active,
+  a:visited {
     border-bottom: 1px solid rgba(30, 32, 35, 0.3);
-    color: #4C545B;
+    color: #4c545b;
     text-decoration: none;
     transition: all ease 0.3s;
   }
 
-  a:focus, a:hover, a:active:focus, a:active:hover, a:visited:focus, a:visited:hover {
+  a:focus,
+  a:hover,
+  a:active:focus,
+  a:active:hover,
+  a:visited:focus,
+  a:visited:hover {
     border-bottom: 1px solid rgba(30, 32, 35, 0.9);
     text-decoration: none !important;
     color: $gray-800;
   }
 
-  >blockquote {
+  > blockquote {
     @include make-col(12);
     margin: 1rem auto 0.5rem;
     padding: 1rem 2rem;
     width: 100%;
     background-color: $gray-100;
 
-    >p {
+    > p {
       border-left: 4px solid $gray-400;
       padding: 0.5rem 0 0.5rem 1rem;
       font-size: 1.3rem;
@@ -270,14 +309,14 @@ h4.blog-list-heading {
     }
   }
   @include media-breakpoint-up(md) {
-    >blockquote {
+    > blockquote {
       @include make-col(10);
       margin-left: 15%;
       margin-right: 15%;
     }
   }
   @include media-breakpoint-up(lg) {
-    >blockquote {
+    > blockquote {
       @include make-col(8);
       margin-left: 25%;
       margin-right: 25%;
@@ -285,34 +324,41 @@ h4.blog-list-heading {
   }
 }
 
-.author-section{
+.author-section {
   background-color: $gray-100;
   margin: 4rem 0;
   padding: 1rem;
 }
 
-.author-title{
+.author-title {
   margin-top: 1.5rem;
 }
 
-.picture-description{
+.picture-description {
   font-size: 0.85rem;
   color: $gray-800;
 }
 
-.picture-credits{
-  font-style:italic;
+.picture-credits {
+  font-style: italic;
   font-size: 0.85rem;
   color: $gray-500;
 
-  a, a:active, a:visited {
+  a,
+  a:active,
+  a:visited {
     border-bottom: 1px solid rgba(30, 32, 35, 0.3);
     color: $gray-500;
     text-decoration: none;
     transition: all ease 0.3s;
   }
 
-  a:focus, a:hover, a:active:focus, a:active:hover, a:visited:focus, a:visited:hover {
+  a:focus,
+  a:hover,
+  a:active:focus,
+  a:active:hover,
+  a:visited:focus,
+  a:visited:hover {
     border-color: $black;
     text-decoration: none !important;
     color: $gray-800;
@@ -320,37 +366,41 @@ h4.blog-list-heading {
 }
 
 .img-circle {
-    border-radius: 50%;
-    width: 100%;
+  border-radius: 50%;
+  width: 100%;
 }
-
 
 /*================================
 =          NEXT READS           =
 ================================*/
 
 .next-reads {
-
   h3 {
-    a, a:active, a:visited {
+    a,
+    a:active,
+    a:visited {
       border-color: $black;
       text-decoration: none !important;
       color: $gray-800;
     }
 
-    a:focus, a:hover, a:active:focus, a:active:hover, a:visited:focus, a:visited:hover {
+    a:focus,
+    a:hover,
+    a:active:focus,
+    a:active:hover,
+    a:visited:focus,
+    a:visited:hover {
       border-bottom: 1px solid rgba(30, 32, 35, 0.3);
       text-decoration: none;
     }
   }
-
 }
 
-.next-reads__text{
+.next-reads__text {
   vertical-align: middle;
 }
 
-.cl-effect-10  {
+.cl-effect-10 {
   position: relative;
   z-index: 1;
 }
@@ -382,17 +432,17 @@ h4.blog-list-heading {
   padding: 0;
   font-family: $font-family-sans-serif;
 
-  p{
+  p {
     font-family: $font-family-sans-serif;
     margin-bottom: 4rem;
   }
 }
 
-.timeline>li>*:last-child {
+.timeline > li > *:last-child {
   margin-bottom: 1.25rem;
 }
 
-.timeline>li {
+.timeline > li {
   position: relative;
   margin: 0;
   padding: 0;
@@ -402,7 +452,6 @@ h4.blog-list-heading {
   margin-left: 15px;
   padding-bottom: 1rem;
 
-
   h5 {
     position: relative;
     top: -0.4rem;
@@ -411,12 +460,12 @@ h4.blog-list-heading {
   }
 }
 
-.timeline>li:last-child {
+.timeline > li:last-child {
   border-left: 4px solid transparent;
 }
 
-.timeline>li:before {
-  content: '';
+.timeline > li:before {
+  content: "";
   display: block;
   position: absolute;
   width: 1rem;
@@ -426,7 +475,6 @@ h4.blog-list-heading {
   border: 0.25rem solid $primary;
   background: #fff;
 }
-
 
 /* CKEditor hacks */
 .textarea.cke_source {
