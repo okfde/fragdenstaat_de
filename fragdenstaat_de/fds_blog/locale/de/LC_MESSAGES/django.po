@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fragdenstaat.defds_blog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 13:59+0100\n"
-"PO-Revision-Date: 2021-07-09 14:19+0200\n"
+"POT-Creation-Date: 2021-11-23 10:18+0100\n"
+"PO-Revision-Date: 2021-11-23 10:24+0100\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,26 +18,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: fds_blog/admin.py:48
+#: admin.py:48
 #, python-format
 msgid "%(item)s (%(count)i entry)"
 msgid_plural "%(item)s (%(count)i articles)"
 msgstr[0] "%(item)s (%(count)i Artikel)"
 msgstr[1] "%(item)s (%(count)i Artikel)"
 
-#: fds_blog/admin.py:91
+#: admin.py:91
 msgid "published categories"
 msgstr "Veröffentlichte Kategorien"
 
-#: fds_blog/admin.py:122 fds_blog/admin.py:346
+#: admin.py:122 admin.py:346
 msgid "Content"
 msgstr "Inhalt"
 
-#: fds_blog/admin.py:133
+#: admin.py:133
 msgid "URL"
 msgstr "URL"
 
-#: fds_blog/admin.py:137
+#: admin.py:137
 msgid ""
 "Make sure these are correct before publication. Do not change after "
 "publication!"
@@ -45,398 +45,429 @@ msgstr ""
 "Stellen Sie vor Veröffentlichung sicher, dass diese Angaben stimmen. Nicht "
 "nach Veröffentlichung ändern!"
 
-#: fds_blog/admin.py:142
+#: admin.py:142
 msgid "Additional Content"
 msgstr "Weiterer Inhalt"
 
-#: fds_blog/admin.py:152
+#: admin.py:152
 msgid "Templates"
 msgstr "Templates"
 
-#: fds_blog/admin.py:159
+#: admin.py:159
 msgid "Publication Dates"
 msgstr "Veröffentlichungsdatum"
 
-#: fds_blog/admin.py:166
+#: admin.py:166
 msgid "Metadata"
 msgstr "Metadaten"
 
-#: fds_blog/admin.py:176
+#: admin.py:176
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
-#: fds_blog/admin.py:304 fds_blog/model_bases.py:28 fds_blog/models.py:156
+#: admin.py:304 model_bases.py:28 models.py:156
 msgid "title"
 msgstr "Titel"
 
-#: fds_blog/admin.py:312
+#: admin.py:312
 msgid "author(s)"
 msgstr "Autor(en)"
 
-#: fds_blog/admin.py:321
+#: admin.py:321
 msgid "category(s)"
 msgstr "Kategorie(n)"
 
-#: fds_blog/admin.py:330
+#: admin.py:330
 msgid "is visible"
 msgstr "Veröffentlicht"
 
-#: fds_blog/admin.py:339
+#: admin.py:339
 msgid "unavailable for this site"
 msgstr "Nicht verfügbar für diese Seite"
 
-#: fds_blog/admin.py:343
+#: admin.py:343
 msgid "Edit Content"
 msgstr "Inhalt bearbeiten"
 
-#: fds_blog/admin.py:351
+#: admin.py:351
 msgid "Translated"
 msgstr "Übersetzt"
 
-#: fds_blog/admin.py:361
+#: admin.py:361
 msgid "The selected articles are now marked as translations of each other."
 msgstr ""
 "Die markierten Artikel sind jetzt als Übersetzung voneinander markiert."
 
-#: fds_blog/admin.py:364
+#: admin.py:364
 msgid "Set articles as translations of each other"
 msgstr "Markiere Artikel als Übersetzungen voneinander"
 
-#: fds_blog/cms_apps.py:9
+#: cms_apps.py:9
 msgid "FragDenStaat-Blog"
 msgstr "FragDenStaat-Blog"
 
-#: fds_blog/cms_plugins.py:28
+#: cms_plugins.py:28
 msgid "Latest Blog Articles"
 msgstr "Neueste Blog-Artikel"
 
-#: fds_blog/cms_plugins.py:46
+#: cms_plugins.py:46
 msgid "Latest Blog Articles - Cache"
 msgstr "Neueste Blog-Artikel - Cache"
 
-#: fds_blog/cms_toolbars.py:14
+#: cms_toolbars.py:14
 msgid "Blog"
 msgstr "Blog"
 
-#: fds_blog/cms_toolbars.py:17
+#: cms_toolbars.py:17
 msgid "Edit article"
 msgstr "Artikel bearbeiten"
 
-#: fds_blog/filters.py:16
+#: filters.py:16
 msgid "all categories"
 msgstr "alle Kategorien"
 
-#: fds_blog/filters.py:17 fds_blog/models.py:176
+#: filters.py:17 models.py:176
 msgid "category"
 msgstr "Kategorie"
 
-#: fds_blog/filters.py:23
+#: filters.py:23
 msgid "all authors"
 msgstr "alle Autoren"
 
-#: fds_blog/filters.py:24
+#: filters.py:24
 msgid "author"
 msgstr "Autor"
 
-#: fds_blog/model_bases.py:23
+#: model_bases.py:23
 msgid "draft"
 msgstr "Entwurf"
 
-#: fds_blog/model_bases.py:24
+#: model_bases.py:24
 msgid "hidden"
 msgstr "Versteckt"
 
-#: fds_blog/model_bases.py:25
+#: model_bases.py:25
 msgid "published"
 msgstr "Veröffentlicht"
 
-#: fds_blog/model_bases.py:31 fds_blog/models.py:158
+#: model_bases.py:31 models.py:158
 msgid "slug"
 msgstr "Slug"
 
-#: fds_blog/model_bases.py:34 fds_blog/model_bases.py:68
+#: model_bases.py:34 model_bases.py:68
 msgid "Used to build the entry's URL."
-msgstr "Wird genutzt, um die Artikel-URL zu bauen"
+msgstr "Wird genutzt, um die Artikel-URL zu bauen."
 
-#: fds_blog/model_bases.py:38
+#: model_bases.py:38
 msgid "status"
 msgstr "Status"
 
-#: fds_blog/model_bases.py:42
+#: model_bases.py:42
 msgid "start publication"
 msgstr "Start der Veröffentlichung"
 
-#: fds_blog/model_bases.py:46
+#: model_bases.py:46
 msgid "Start date of publication."
-msgstr "Startdatum der Veröffentlichung"
+msgstr "Startdatum der Veröffentlichung."
 
-#: fds_blog/model_bases.py:50
+#: model_bases.py:50
 msgid "end publication"
 msgstr "Ende der Veröffentlichung"
 
-#: fds_blog/model_bases.py:54
+#: model_bases.py:54
 msgid "End date of publication."
-msgstr "Enddatum der Veröffentlichung"
+msgstr "Enddatum der Veröffentlichung."
 
-#: fds_blog/model_bases.py:60
+#: model_bases.py:60
 msgid "sites"
 msgstr "Sites"
 
-#: fds_blog/model_bases.py:61
+#: model_bases.py:61
 msgid "Sites where the article will be published."
 msgstr "Sites, auf denen der Artikel veröffentlicht wird."
 
-#: fds_blog/model_bases.py:65
+#: model_bases.py:65
 msgid "creation date"
 msgstr "Erstelldatum"
 
-#: fds_blog/model_bases.py:71
+#: model_bases.py:71
 msgid "last update"
 msgstr "Letzte Änderung"
 
-#: fds_blog/model_bases.py:118
+#: model_bases.py:118
 msgid "content"
 msgstr "Inhalt"
 
-#: fds_blog/model_bases.py:148
+#: model_bases.py:148
 msgid "related articles"
 msgstr "verwandte Artikel"
 
-#: fds_blog/model_bases.py:160
+#: model_bases.py:160
 msgid "lead"
 msgstr "Einstieg"
 
-#: fds_blog/model_bases.py:160
+#: model_bases.py:160
 msgid "Lead paragraph"
 msgstr "Einstiegsabsatz"
 
-#: fds_blog/model_bases.py:181
+#: model_bases.py:181
 msgid "excerpt"
 msgstr "Auszug"
 
-#: fds_blog/model_bases.py:181
+#: model_bases.py:181
 msgid "Used for SEO purposes."
-msgstr "Genutzt für SEO"
+msgstr "Genutzt für SEO."
 
-#: fds_blog/model_bases.py:204
+#: model_bases.py:204
 msgid "content template"
 msgstr "Inhaltsvorlage"
 
-#: fds_blog/model_bases.py:207 fds_blog/model_bases.py:226
+#: model_bases.py:207 model_bases.py:226
 msgid "Default template"
 msgstr "Standard-Vorlage"
 
-#: fds_blog/model_bases.py:209
+#: model_bases.py:209
 msgid "Template used to display the article's content."
-msgstr "Vorlage wird genutzt um den Inhalt des Artikels anzuzeigen"
+msgstr "Vorlage wird genutzt, um den Inhalt des Artikels anzuzeigen."
 
-#: fds_blog/model_bases.py:223
+#: model_bases.py:223
 msgid "detail template"
 msgstr "Artikelvorlage"
 
-#: fds_blog/model_bases.py:228
+#: model_bases.py:228
 msgid "Template used to display the article's detail page."
-msgstr "Vorlage wird genutzt um die Artikel-Seite anzuzeigen"
+msgstr "Vorlage wird genutzt, um die Artikel-Seite anzuzeigen."
 
-#: fds_blog/models.py:143 fds_blog/models.py:450
+#: models.py:143 models.py:450
 msgid "authors"
 msgstr "Autoren"
 
-#: fds_blog/models.py:161
+#: models.py:161
 msgid "Used to build the category's URL."
 msgstr "Wird genutzt um die Kategorie-URL zu erstellen."
 
-#: fds_blog/models.py:163
+#: models.py:163
 msgid "description"
 msgstr "Beschreibung"
 
-#: fds_blog/models.py:177 fds_blog/models.py:195 fds_blog/models.py:448
-#: fds_blog/views.py:235
+#: models.py:177 models.py:195 models.py:448 views.py:251
 msgid "categories"
 msgstr "Kategorien"
 
-#: fds_blog/models.py:204
+#: models.py:204
 msgid "Article Tag"
 msgstr "Artikel-Schlagwort"
 
-#: fds_blog/models.py:205
+#: models.py:205
 msgid "Article Tags"
 msgstr "Artikel-Schlagworte"
 
-#: fds_blog/models.py:215
+#: models.py:215
 msgid "Tagged Article"
 msgstr "Verschlagworteter Artikel"
 
-#: fds_blog/models.py:216
+#: models.py:216
 msgid "Tagged Articles"
 msgstr "Verschlagwortete Artikel"
 
-#: fds_blog/models.py:258
+#: models.py:258
 msgid "image"
 msgstr "Bild"
 
-#: fds_blog/models.py:267
+#: models.py:267
 msgid "featured date"
 msgstr "prominent Datum"
 
-#: fds_blog/models.py:314
+#: models.py:314
 msgid "article"
 msgstr "Artikel"
 
-#: fds_blog/models.py:315
+#: models.py:315
 msgid "articles"
 msgstr "Artikel"
 
-#: fds_blog/models.py:325
+#: models.py:325
 #, python-format
 msgid "Article \"%s\""
 msgstr "Artikel \"%s\""
 
-#: fds_blog/models.py:419
+#: models.py:419
 msgid "Normal"
 msgstr "NOrmal"
 
-#: fds_blog/models.py:420
+#: models.py:420
 msgid "Featured"
 msgstr "Prominent"
 
-#: fds_blog/models.py:421
+#: models.py:421
 msgid "Simple"
 msgstr "Einfach"
 
-#: fds_blog/models.py:422
+#: models.py:422
 msgid "Featured Slider"
 msgstr "Prominent Karussel"
 
-#: fds_blog/models.py:432
+#: models.py:432
 msgid "featured"
 msgstr "prominent"
 
-#: fds_blog/models.py:436
+#: models.py:436
 msgid "Show featured articles only"
 msgstr "Zeige prominente Artikel"
 
-#: fds_blog/models.py:437
+#: models.py:437
 msgid "Hide featured articles"
 msgstr "Verstecke prominente Artikel"
 
-#: fds_blog/models.py:441
+#: models.py:441
 msgid "language"
 msgstr "Sprache"
 
-#: fds_blog/models.py:451
+#: models.py:451
 msgid "tags"
 msgstr "Schlagwörter"
 
-#: fds_blog/models.py:454
+#: models.py:454
 msgid "number of articles"
 msgstr "Anzahl Artikel"
 
-#: fds_blog/models.py:454
+#: models.py:454
 msgid "0 means all the articles"
 msgstr "0 bedeutet alle Artikel"
 
-#: fds_blog/models.py:457
+#: models.py:457
 msgid "offset"
 msgstr "Offset"
 
-#: fds_blog/models.py:459
+#: models.py:459
 msgid "number of articles to skip from top of list"
 msgstr "Anzahl der Artikel auslassen vom Listenanfang"
 
-#: fds_blog/models.py:462
+#: models.py:462
 msgid "template"
 msgstr "Template"
 
-#: fds_blog/models.py:466
+#: models.py:466
 msgid "template used to display the plugin"
 msgstr "Template zur Anzeige des Plugins"
 
-#: fds_blog/models.py:486
+#: models.py:486
 #, python-format
 msgid "%s entries"
 msgstr "%s Artikel"
 
-#: fds_blog/templates/fds_blog/_article_detail.html:79
+#: templates/fds_blog/_article_detail.html:68
+msgid ""
+"\n"
+"        Updated article:\n"
+"      "
+msgid_plural ""
+"\n"
+"        Updated articles:\n"
+"      "
+msgstr[0] ""
+"\n"
+"        Updated article:\n"
+"      "
+msgstr[1] ""
+"\n"
+"        Neuere Artikel:\n"
+"      "
+
+#: templates/fds_blog/_article_detail.html:89
+msgid ""
+"\n"
+"        Previous article:\n"
+"      "
+msgid_plural ""
+"\n"
+"        Previous articles:\n"
+"      "
+msgstr[0] ""
+"\n"
+"        Vorheriger Artikel:\n"
+"      "
+msgstr[1] ""
+"\n"
+"        Vorherige Artikel:\n"
+"      "
+
+#: templates/fds_blog/_article_detail.html:113
 msgid "This article is available in other languages."
 msgstr "Dieser Artikel ist in anderen Sprachen verfügbar."
 
-#: fds_blog/templates/fds_blog/article_list.html:17
+#: templates/fds_blog/article_list.html:17
 msgid "Articles by"
 msgstr "Artikel von"
 
-#: fds_blog/templates/fds_blog/article_list.html:18
+#: templates/fds_blog/article_list.html:18
 msgid "Archive"
 msgstr "Archiv"
 
-#: fds_blog/templates/fds_blog/article_list.html:19
+#: templates/fds_blog/article_list.html:19
 msgid "Tag"
 msgstr "Schlagwort"
 
-#: fds_blog/templates/fds_blog/article_list.html:20
+#: templates/fds_blog/article_list.html:20
 msgid "Category"
 msgstr "Kategorie"
 
-#: fds_blog/templates/fds_blog/article_list.html:58
+#: templates/fds_blog/article_list.html:58
 msgid "No article found."
 msgstr "Keine Artikel gefunden."
 
-#: fds_blog/templates/fds_blog/article_list.html:64
+#: templates/fds_blog/article_list.html:64
 msgid "Back"
 msgstr "Zurück"
 
-#: fds_blog/templates/fds_blog/base.html:14
+#: templates/fds_blog/base.html:14
 msgid "Freedom of Information investigations"
 msgstr "Recherchen zur Informationsfreiheit"
 
-#: fds_blog/templates/fds_blog/base.html:19
+#: templates/fds_blog/base.html:19
 msgid "RSS feed"
 msgstr "RSS-Feed"
 
-#: fds_blog/templates/fds_blog/base.html:27
+#: templates/fds_blog/base.html:27
 msgid "Categories"
 msgstr "Kategorien"
 
-#: fds_blog/templates/fds_blog/base.html:44
-#: fds_blog/templates/fds_blog/base.html:49
-#: fds_blog/templates/fds_blog/base.html:55
-#: fds_blog/templates/fds_blog/search.html:20
-#: fds_blog/templates/fds_blog/search.html:25
+#: templates/fds_blog/base.html:44 templates/fds_blog/base.html:49
+#: templates/fds_blog/base.html:55 templates/fds_blog/search.html:20
+#: templates/fds_blog/search.html:25
 msgid "Search"
 msgstr "Suche"
 
-#: fds_blog/templates/fds_blog/full_content.html:19
+#: templates/fds_blog/full_content.html:19
 msgid "image credit: "
-msgstr "Foto-Credit:"
+msgstr "Foto-Credit: "
 
-#: fds_blog/templates/fds_blog/full_content.html:44
+#: templates/fds_blog/full_content.html:44
 msgid "by"
 msgstr "von"
 
-#: fds_blog/templates/fds_blog/search.html:34
+#: templates/fds_blog/search.html:34
 #, python-format
 msgid "Results for “%(q)s”"
-msgstr ""
+msgstr "Ergebnis für „%(q)s“"
 
-#: fds_blog/templates/fds_blog/search.html:57
-#, fuzzy
-#| msgid "No article found."
+#: templates/fds_blog/search.html:57
 msgid "No results found."
 msgstr "Keine Artikel gefunden."
 
-#: fds_blog/templates/fds_blog/search.html:61
+#: templates/fds_blog/search.html:61
 msgid "Please enter a search term."
-msgstr ""
+msgstr "Bitte geben Sie einen Suchbegriff ein."
 
-#: fds_blog/urls.py:42
+#: urls.py:42
 msgid "^search/$"
 msgstr "^suche/$"
 
-#: fds_blog/urls.py:54
+#: urls.py:54
 msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
 msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
 
-#: fds_blog/urls.py:59
+#: urls.py:59
 msgid "^category/(?P<category>[\\w\\.@+-]+)/$"
 msgstr "^kategorie/(?P<category>[\\w\\.@+-]+)/$"
 
