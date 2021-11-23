@@ -82,7 +82,6 @@ urlpatterns = [
         meisterschaften_tippspiel,
         name="fragdenstaat-meisterschaften_tippspiel",
     ),
-    path("", include("fragdenstaat_de.fds_ogimage.urls")),
 ]
 
 urlpatterns += [
@@ -110,6 +109,7 @@ urlpatterns += i18n_patterns(
     *froide_urlpatterns,
     *jurisdiction_urls,
     *admin_urls,
+    path("", include("fragdenstaat_de.fds_ogimage.urls")),
     path(pgettext_lazy("url part", "campaign/"), include(campaign_urls)),
     path("", include("cms.urls")),
     prefix_default_language=False
