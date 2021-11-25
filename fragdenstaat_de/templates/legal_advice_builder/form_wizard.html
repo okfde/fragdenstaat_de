@@ -79,6 +79,11 @@
           {% endif %}
           <div>{{ message }}</div>
         </div>
+        <div class="text-right">
+          <a class="btn btn-primary btn-sm" href="{% url 'foirequest-shortlink' foi_request.id %}">
+            Zurück zu Anfrage
+          </a>
+        </div>
       {% endif %}
 
       {% if answer_form %}
