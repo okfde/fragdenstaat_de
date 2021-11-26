@@ -396,6 +396,7 @@ class DonationFormCMSPlugin(CMSPlugin):
     keyword = models.CharField(blank=True, max_length=255)
     purpose = models.CharField(blank=True, max_length=255)
     collapsed = models.BooleanField(default=False)
+    extra_classes = models.CharField(max_length=255, blank=True)
 
     form_action = models.CharField(max_length=255, blank=True)
     next_url = models.CharField(max_length=255, blank=True)

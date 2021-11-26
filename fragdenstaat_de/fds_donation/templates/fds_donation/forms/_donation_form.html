@@ -1,8 +1,7 @@
 {% load i18n %}
 {% load form_helper %}
 
-<div class="row justify-content-center"><div class="col-lg-8">
-<form action="{{ form.action }}" method="POST" class="donation-form bg-white text-body px-3 pt-3 pb-1">
+<form action="{{ form.action }}" method="POST" class="donation-form {% if object.extra_classes %}{{ object.extra_classes }}{% else %}bg-white text-body px-3 pt-3 pb-1{% endif %}">
   {% csrf_token %}
   {{ form.form_settings }}
   {{ form.reference }}
@@ -189,5 +188,3 @@
   {% endif %}
 
 </form>
-
-</div></div>
