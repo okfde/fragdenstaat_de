@@ -91,20 +91,25 @@ function amountChanged(amountInput: HTMLInputElement | null) {
   for (const key in fees) {
     if (fees.hasOwnProperty(key)) {
       const el = document.querySelector(`input[value="${key}"]`);
-      if (el && el.parentElement && el.parentElement.parentElement) {
-        const li = el.parentElement.parentElement;
-        let feeHint = li.querySelector(".fee-hint");
+      if (el && el.parentElement) {
+        const label = el.parentElement;
+        let feeHint = label.querySelector(".fee-hint");
         if (feeHint === null) {
           feeHint = document.createElement("small");
           feeHint.classList.add("fee-hint");
           feeHint.classList.add("text-muted");
-          li.appendChild(feeHint);
-          feeHint = li.querySelector(".fee-hint");
+          label.appendChild(feeHint);
+          feeHint = label.querySelector(".fee-hint");
         }
         if (feeHint !== null) {
-          const fee = fees[key](amount);
-          const displayAmount = (amount - fee).toFixed(2).replace(/\./, ",");
-          feeHint.textContent = `(abzüglich Gebühren erhalten wir ${displayAmount} Euro)`;
+          if (!amount) {
+            feeHint.classList.add("d-none")
+          } else {
+            feeHint.classList.remove("d-none")
+            const fee = fees[key](amount);
+            const displayAmount = (amount - fee).toFixed(2).replace(/\./, ",");
+            feeHint.textContent = ` (abzüglich Gebühren erhalten wir ${displayAmount} Euro)`;
+          }
         }
       }
     }
