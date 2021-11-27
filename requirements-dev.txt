@@ -315,7 +315,7 @@ django-taggit-autosuggest==0.3.8
     # via -r requirements.in
 django-timezone-field==4.1.2
     # via django-celery-beat
-django-tinymce==3.3.0
+django-tinymce==3.4.0
     # via django-legal-advice-builder
 django-treebeard==4.5.1
     # via
