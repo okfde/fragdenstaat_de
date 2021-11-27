@@ -41,6 +41,8 @@
     #   froide-crowdfunding
 aiohttp==3.8.1
     # via geoip2
+aiosignal==1.2.0
+    # via aiohttp
 amqp==5.0.6
     # via kombu
 asgiref==3.3.4
@@ -48,7 +50,7 @@ asgiref==3.3.4
     #   channels
     #   daphne
     #   django
-async-timeout==3.0.1
+async-timeout==4.0.1
     # via aiohttp
 attrs==21.2.0
     # via
@@ -97,9 +99,9 @@ cffi==1.14.5
 channels==3.0.3
     # via -r requirements.in
 chardet==4.0.0
-    # via
-    #   aiohttp
-    #   requests
+    # via requests
+charset-normalizer==2.0.8
+    # via aiohttp
 click==7.1.2
     # via
     #   celery
@@ -180,7 +182,9 @@ django==3.2.8
     #   froide
     #   sortabletable
 django-admin-sortable2==1.0
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   froide-campaign
 django-appconf==1.0.4
     # via django-celery-email
 django-cache-url==3.2.3
@@ -328,6 +332,7 @@ djangorestframework==3.12.4
     #   django-filingcabinet
     #   djangorestframework-csv
     #   froide
+    #   froide-campaign
 djangorestframework-csv==2.1.1
     # via
     #   -r requirements.in
@@ -358,6 +363,10 @@ et-xmlfile==1.1.0
     # via openpyxl
 fdfgen==0.16.1
     # via froide-food
+frozenlist==1.2.0
+    # via
+    #   aiohttp
+    #   aiosignal
 future==0.18.2
     # via
     #   django-json-widget
@@ -537,6 +546,7 @@ requests==2.25.1
     #   django-oauth-toolkit
     #   django-payments
     #   froide
+    #   froide-fax
     #   froide-food
     #   froide-payment
     #   geocoder
@@ -587,7 +597,7 @@ twisted[tls]==20.3.0
 txaio==21.2.1
     # via autobahn
 typing-extensions==3.10.0.0
-    # via aiohttp
+    # via async-timeout
 unicodecsv==0.14.1
     # via djangorestframework-csv
 unidecode==1.1.2
