@@ -37,7 +37,9 @@
           </div>
 
           {% csrf_token %}
-          {% render_form form horizontal=False %}
+          <div class="no-required-asterisk">
+            {% render_form form horizontal=False %}
+          </div>
           <input class="btn btn-primary btn-sm pull-right" type="submit" value="Weiter" />
         </form>
         {% if question.information %}
