@@ -239,10 +239,11 @@ class FoiRequestListPlugin(CMSPluginBase):
 
         foirequests = foirequests.filter(**filters)
 
-        if instance.offset:
-            foirequests = foirequests[instance.offset :]
+        offset = instance.offset
         if instance.number_of_entries:
-            foirequests = foirequests[: instance.offset + instance.number_of_entries]
+            foirequests = foirequests[offset : offset + instance.number_of_entries]
+        else:
+            foirequests = foirequests[offset:]
 
         context = super().render(context, instance, placeholder)
         context["object_list"] = foirequests
