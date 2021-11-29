@@ -233,6 +233,7 @@ class DonationProgressBarPlugin(CMSPluginBase):
         context["donation_goal_str"] = self.german_number_display(
             instance.donation_goal
         )
+        context["white_text"] = instance.white_text
         if instance.reached_goal and instance.reached_goal < donated_amount:
             context["reached_goal"] = instance.reached_goal
             context["reached_goal_str"] = self.german_number_display(
