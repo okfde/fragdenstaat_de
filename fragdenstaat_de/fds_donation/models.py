@@ -434,4 +434,5 @@ class DonationProgressBarCMSPlugin(CMSPlugin):
         decimal_places=2, max_digits=10, blank=True, null=True
     )
     received_donations_only = models.BooleanField(default=False)
+    white_text = models.BooleanField(default=False)
     donation_goal = models.DecimalField(decimal_places=2, max_digits=10)
