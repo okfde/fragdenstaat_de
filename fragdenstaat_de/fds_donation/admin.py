@@ -28,7 +28,7 @@ from froide.helper.admin_utils import (
     make_emptyfilter,
     TaggitListFilter,
     MultiFilterMixin,
-    DateRangeFilter,
+    make_daterangefilter,
     make_rangefilter,
 )
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
@@ -174,6 +174,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         make_nullfilter("subscriptions", _("Dauerspende")),
         make_rangefilter("amount_last_year", _("amount last year")),
         make_rangefilter("recurring_amount", _("recurring monthly amount")),
+        make_daterangefilter("last_donation", _("Last donation")),
         "subscriber__subscribed",
         "email_confirmed",
         "become_user",
@@ -502,14 +503,14 @@ class DonationAdmin(admin.ModelAdmin):
     list_filter = (
         "completed",
         "received",
-        ("received_timestamp", DateRangeFilter),
+        make_daterangefilter("received_timestamp", _("Received timestamp")),
         "method",
         "project",
         "purpose",
         "recurring",
         make_rangefilter("number", "Nr."),
         make_rangefilter("amount", _("amount")),
-        ("timestamp", DateRangeFilter),
+        make_daterangefilter("timestamp", _("Created timestamp")),
         "first_recurring",
         "reference",
         make_nullfilter("export_date", _("Receipt exported")),

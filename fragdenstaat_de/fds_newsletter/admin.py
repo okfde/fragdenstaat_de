@@ -13,7 +13,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
-from froide.helper.admin_utils import DateRangeFilter, make_rangefilter
+from froide.helper.admin_utils import make_daterangefilter, make_rangefilter
 from froide.helper.csv_utils import export_csv, export_csv_response
 
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
@@ -72,9 +72,9 @@ class SubscriberAdmin(admin.ModelAdmin):
     list_filter = (
         "newsletter",
         "subscribed",
-        ("subscribed", DateRangeFilter),
+        make_daterangefilter("subscribed", _("Subscribed date")),
         "unsubscribed",
-        ("unsubscribed", DateRangeFilter),
+        make_daterangefilter("unsubscribed", _("Unsubscribed date")),
         make_rangefilter("days_subscribed", _("Days subscribed")),
         "reference",
         "unsubscribe_method",
