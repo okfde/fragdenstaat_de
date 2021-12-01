@@ -452,6 +452,25 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         ).format(count=count)
 
 
+class PassiveDonationListFilter(admin.SimpleListFilter):
+    title = _("Passive donation")
+    parameter_name = "is_passive"
+
+    def lookups(self, request, model_admin):
+        return (
+            ("0", _("active")),
+            ("1", _("passive")),
+        )
+
+    def queryset(self, request, queryset):
+        active_condition = Q(recurring=False) | Q(first_recurring=True)
+        if self.value() == "0":
+            return queryset.filter(active_condition)
+        elif self.value() == "1":
+            return queryset.filter(~active_condition)
+        return queryset
+
+
 class DonationChangeList(ChangeList):
     def get_results(self, *args, **kwargs):
         ret = super().get_results(*args, **kwargs)
@@ -507,10 +526,11 @@ class DonationAdmin(admin.ModelAdmin):
         "method",
         "project",
         "purpose",
-        "recurring",
+        PassiveDonationListFilter,
         make_rangefilter("number", "Nr."),
         make_rangefilter("amount", _("amount")),
         make_daterangefilter("timestamp", _("Created timestamp")),
+        "recurring",
         "first_recurring",
         "reference",
         make_nullfilter("export_date", _("Receipt exported")),
