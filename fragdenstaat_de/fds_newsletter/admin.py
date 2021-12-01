@@ -1,9 +1,19 @@
 from django.contrib import admin
-from django.db.models import Q, Count
+from django.db.models import (
+    Q,
+    F,
+    Count,
+    Value,
+    IntegerField,
+    Case,
+    When,
+)
+from django.db.models.functions import Cast, ExtractDay, TruncDate, Now
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
+from froide.helper.admin_utils import DateRangeFilter, make_rangefilter
 from froide.helper.csv_utils import export_csv, export_csv_response
 
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
@@ -52,6 +62,8 @@ class SubscriberAdmin(admin.ModelAdmin):
     list_display = (
         "admin_email",
         "newsletter",
+        "created",
+        "days_subscribed",
         "subscribed",
         "unsubscribed",
         "reference",
@@ -60,7 +72,10 @@ class SubscriberAdmin(admin.ModelAdmin):
     list_filter = (
         "newsletter",
         "subscribed",
+        ("subscribed", DateRangeFilter),
         "unsubscribed",
+        ("unsubscribed", DateRangeFilter),
+        make_rangefilter("days_subscribed", _("Days subscribed")),
         "reference",
         "unsubscribe_method",
         "tags",
@@ -74,12 +89,37 @@ class SubscriberAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         qs = qs.select_related("newsletter")
         qs = qs.prefetch_related("user")
+        qs = qs.annotate(
+            days_subscribed=Case(
+                When(subscribed=None, unsubscribed=None, then=Value(0)),
+                When(
+                    subscribed=None,
+                    then=Cast(
+                        ExtractDay(
+                            TruncDate(F("unsubscribed")) - TruncDate(F("created"))
+                        ),
+                        IntegerField(),
+                    ),
+                ),
+                default=Cast(
+                    ExtractDay(TruncDate(Now()) - TruncDate(F("subscribed"))),
+                    IntegerField(),
+                ),
+                output_field=IntegerField(),
+            )
+        )
         return qs
 
     def admin_email(self, obj):
         return obj.get_email()
 
     admin_email.short_description = ""
+
+    def days_subscribed(self, obj):
+        return obj.days_subscribed
+
+    days_subscribed.admin_order_field = "days_subscribed"
+    days_subscribed.short_description = _("Days subscribed")
 
     def unsubscribe(self, request, queryset):
         queryset = queryset.filter(subscribed__isnull=False)
