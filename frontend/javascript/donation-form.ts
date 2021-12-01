@@ -24,6 +24,7 @@ const fees: IFeeMap = {
 };
 
 function setupDonationForm(form: HTMLFormElement) {
+  setupAdditionalCC()
   const amountGroup = form.querySelector(".amount-group");
   if (amountGroup !== null) {
     setupAmountGroup(amountGroup);
@@ -36,17 +37,7 @@ function setupDonationForm(form: HTMLFormElement) {
   if (intervalGroup !== null) {
     setupIntervalGroup(intervalGroup);
   }
-  const additionalCCProviders = [];
-  if (window.ApplePaySession && window.ApplePaySession.canMakePayments) {
-    additionalCCProviders.push("Apple Pay");
-  }
-  if (additionalCCProviders.length > 0) {
-    const ccInput = document.querySelector('input[value="creditcard"]');
-    if (ccInput && ccInput.parentElement) {
-      const parent = ccInput.parentElement;
-      parent.childNodes[1].textContent += " / " + additionalCCProviders.join(" / ");
-    }
-  }
+
   ["creditcard", "paypal", "sofort", "sepa"].forEach((p) => {
     const el = document.querySelector(`input[value="${p}"]`);
     if (el && el.parentElement && el.parentElement.parentElement) {
@@ -81,6 +72,24 @@ function setupDonationForm(form: HTMLFormElement) {
         // tslint:disable-next-line: no-unused-expression
         new Tooltip(infoLink);
       }
+    }
+  }
+}
+
+function setupAdditionalCC() {
+  const additionalCCProviders = [];
+  if (window.ApplePaySession && window.ApplePaySession.canMakePayments) {
+    additionalCCProviders.push("Apple Pay");
+  }
+
+  if (additionalCCProviders.length > 0) {
+    const ccInput = document.querySelector('input[value="creditcard"]');
+    if (ccInput && ccInput.parentElement) {
+      const label = ccInput.parentElement;
+      const ccProviders = document.createElement("span");
+      ccProviders.className = "additional-cc"
+      ccProviders.textContent = ` / ${additionalCCProviders.join(" / ")}`
+      label.appendChild(ccProviders)
     }
   }
 }
@@ -123,9 +132,13 @@ function setupIntervalGroup(intervalGroup: HTMLElement) {
   const oneTimeFields = (Array.from(
     document.querySelectorAll('[data-toggle="nonrecurring"]'),
   ) as HTMLInputElement[]);
+  const additionalCCLabel = document.querySelector(".additional-cc")
 
   function triggerIntervalChange(input: HTMLInputElement) {
     const isOneTime = input.value === "0";
+    if (additionalCCLabel) {
+      additionalCCLabel.classList.toggle("d-none", !isOneTime)
+    }
     toggleRadioInput(oneTimePaymentMethods, isOneTime);
     oneTimeFields.forEach((el) => {
       if (!isOneTime) {
