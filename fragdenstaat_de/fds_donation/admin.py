@@ -28,6 +28,8 @@ from froide.helper.admin_utils import (
     make_emptyfilter,
     TaggitListFilter,
     MultiFilterMixin,
+    DateRangeFilter,
+    make_rangefilter,
 )
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 from froide.helper.widgets import TagAutocompleteWidget
@@ -45,7 +47,6 @@ from .models import (
     DONATION_PROJECTS,
 )
 from .external import import_banktransfers, import_paypal
-from .filters import DateRangeFilter, make_rangefilter
 from .services import send_donation_email, send_donation_reminder_email
 from .forms import get_merge_donor_form
 from .utils import propose_donor_merge, merge_donors
