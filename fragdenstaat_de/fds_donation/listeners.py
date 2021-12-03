@@ -78,8 +78,9 @@ def process_new_donation(donation, received_now=False, domain_obj=None):
     confirmed = payment.status == PaymentStatus.CONFIRMED
     pending = payment.status == PaymentStatus.PENDING
     if (confirmed and received_now and not pending_ok) or (pending and pending_ok):
-        send_donation_email(donation, domain_obj=domain_obj)
-        transaction.on_commit(lambda: send_donation_notification.delay(donation.id))
+        if not donation.email_sent:
+            transaction.on_commit(lambda: send_donation_notification.delay(donation.id))
+            send_donation_email(donation, domain_obj=domain_obj)
 
 
 def subscription_was_canceled(sender, **kwargs):
