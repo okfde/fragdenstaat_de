@@ -291,39 +291,41 @@ class SVGImageCMSPlugin(CMSPlugin):
         return self.title
 
 
+BACKGROUND = (
+    [
+        ("", _("None")),
+        ("primary", _("Primary")),
+        ("secondary", _("Secondary")),
+        ("info", _("Info")),
+        ("light", _("Light")),
+        ("dark", _("Dark")),
+        ("success", _("Success")),
+        ("warning", _("Warning")),
+        ("danger", _("Danger")),
+        ("purple", _("Purple")),
+        ("pink", _("Pink")),
+        ("yellow", _("Yellow")),
+        ("cyan", _("Cyan")),
+        ("gray", _("Gray")),
+        ("gray-dark", _("Gray Dark")),
+        ("white", _("White")),
+    ]
+    + [("gray-{}".format(i), "Gray {}".format(i)) for i in range(100, 1000, 100)]
+    + [
+        ("blue-10", _("Blue 10")),
+        ("blue-20", _("Blue 20")),
+        ("blue-30", _("Blue 30")),
+    ]
+    + [("blue-{}".format(i), "Blue {}".format(i)) for i in range(100, 900, 100)]
+    + [("yellow-{}".format(i), "Yellow {}".format(i)) for i in range(100, 400, 100)]
+)
+
+
 class DesignContainerCMSPlugin(CMSPlugin):
     TEMPLATES = [
         ("", _("Default template")),
         ("cms/plugins/designs/speech_bubble.html", _("Speech bubble")),
     ]
-    BACKGROUND = (
-        [
-            ("", _("None")),
-            ("primary", _("Primary")),
-            ("secondary", _("Secondary")),
-            ("info", _("Info")),
-            ("light", _("Light")),
-            ("dark", _("Dark")),
-            ("success", _("Success")),
-            ("warning", _("Warning")),
-            ("danger", _("Danger")),
-            ("purple", _("Purple")),
-            ("pink", _("Pink")),
-            ("yellow", _("Yellow")),
-            ("cyan", _("Cyan")),
-            ("gray", _("Gray")),
-            ("gray-dark", _("Gray Dark")),
-            ("white", _("White")),
-        ]
-        + [("gray-{}".format(i), "Gray {}".format(i)) for i in range(100, 1000, 100)]
-        + [
-            ("blue-10", _("Blue 10")),
-            ("blue-20", _("Blue 20")),
-            ("blue-30", _("Blue 30")),
-        ]
-        + [("blue-{}".format(i), "Blue {}".format(i)) for i in range(100, 900, 100)]
-        + [("yellow-{}".format(i), "Yellow {}".format(i)) for i in range(100, 400, 100)]
-    )
     STYLES = [
         ("", _("Default")),
         ("heavy", _("Heavy")),
@@ -379,3 +381,66 @@ class ModalCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return self.identifier
+
+
+class CardCMSPlugin(CMSPlugin):
+    border = models.CharField(
+        _("Border"),
+        max_length=50,
+        default="gray",
+        choices=(
+            ("blue", _("Blue")),
+            ("gray", _("Gray")),
+            ("yellow", _("Yellow")),
+        ),
+    )
+    shadow = models.CharField(
+        _("Shadow"),
+        max_length=10,
+        default="auto",
+        choices=(("no", _("No")), ("auto", _("Auto")), ("always", _("Always"))),
+    )
+    spacing = models.CharField(
+        _("Spacing"),
+        max_length=3,
+        default="sm",
+        choices=(
+            ("sm", _("Small")),
+            ("lg", _("Large")),
+        ),
+    )
+    extra_classes = models.CharField(max_length=255, blank=True)
+
+
+class CardInnerCMSPlugin(CMSPlugin):
+    background = models.CharField(
+        _("Background"), choices=BACKGROUND, default="", max_length=50, blank=True
+    )
+    extra_classes = models.CharField(max_length=255, blank=True)
+
+
+class CardHeaderCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255, blank=True)
+    icon = models.CharField(_("Icon"), max_length=50, blank=True)
+    extra_classes = models.CharField(max_length=255, blank=True)
+
+
+class CardImageCMSPlugin(CMSPlugin):
+    image = FilerImageField(
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        verbose_name=_("image"),
+    )
+    overlap = models.CharField(
+        _("Overlap"),
+        choices=(
+            ("top", _("Top")),
+            ("left", _("Left")),
+            ("right", _("Right")),
+        ),
+        max_length=10,
+        default="top",
+    )
+    extra_classes = models.CharField(max_length=255, blank=True)

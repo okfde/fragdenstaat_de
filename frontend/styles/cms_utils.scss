@@ -1,10 +1,15 @@
+@use "sass:math";
 /* utilities/small components used in the cms */
 
 /*  
   Shadows
 */
 
-.shadow-sm {
+.shadow-blue {
+  box-shadow: $box-shadow;
+}
+
+.shadow-sm, .shadow-blue-sm {
   box-shadow: $box-shadow-sm;
 }
 
@@ -21,6 +26,12 @@
 .md\:shadow-yellow {
   @include media-breakpoint-up(md) {
     box-shadow: $box-shadow-yellow;
+  }
+}
+
+.md\:shadow-gray {
+  @include media-breakpoint-up(md) {
+    box-shadow: $box-shadow-gray;
   }
 }
 
@@ -69,6 +80,18 @@
 @each $value in (10, 20) {
   .z-index-#{$value} {
     z-index: $value !important;
+  }
+}
+
+.tight-margin {
+  h1, h2, h3, h4, h5, h6, p {
+    &:first-of-type {
+      margin-top: 0;
+    }
+    
+    &:last-of-type {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -157,5 +180,50 @@
         transform: translateX(0);
       }
     }
+  }
+}
+
+/* cms cards */
+
+.box-card-image {
+  &.overlap-left, &.overlap-right {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto; 
+
+    img {
+      margin: 0.5rem;
+      margin-top: -33%;
+      shape-outside: margin-box;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    &.overlap-left, &.overlap-right {
+      width: 25%;
+    }
+
+    &.overlap-right {
+      margin-right: 3rem;
+
+      img {
+        float: right;
+      }
+    }
+
+    &.overlap-left {
+      margin: 0;
+      
+      img {
+        margin-left: -33%;
+      }
+    }
+  }
+}
+
+.box-card-overlap-follower {
+  @include media-breakpoint-up(md) {
+    flex: 1;
+    margin-left: -8.333333333%;
   }
 }

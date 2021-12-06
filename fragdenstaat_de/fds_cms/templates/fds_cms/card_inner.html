@@ -1,0 +1,7 @@
+{% load cms_tags %}
+
+<div class="tight-margin {{ classes }}">
+  {% for plugin in instance.child_plugin_instances %}
+    {% render_plugin plugin %}
+  {% endfor %}  
+</div>

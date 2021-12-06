@@ -32,6 +32,10 @@ from .models import (
     CollapsibleCMSPlugin,
     SliderCMSPlugin,
     ModalCMSPlugin,
+    CardCMSPlugin,
+    CardInnerCMSPlugin,
+    CardHeaderCMSPlugin,
+    CardImageCMSPlugin,
 )
 from .contact import ContactForm
 
@@ -449,3 +453,113 @@ class ModalPlugin(CMSPluginBase):
         instance.dialog_attributes["class"] = dialog_classes
 
         return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class CardPlugin(CMSPluginBase):
+    model = CardCMSPlugin
+    module = _("Card")
+    name = _("Card")
+    render_template = "fds_cms/card.html"
+    allow_children = True
+    child_classes = ["CardHeaderPlugin", "CardInnerPlugin", "CardImagePlugin"]
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        classes = list()
+
+        if instance.border:
+            classes.append(f"border-{instance.border}")
+        if instance.shadow == "always":
+            classes.append(f"shadow-{instance.border}")
+        elif instance.shadow == "auto":
+            classes.append(f"md:shadow-{instance.border}")
+
+        classes += instance.extra_classes.split(" ")
+
+        context["children"] = []
+        context["image"] = None
+
+        for plugin in instance.child_plugin_instances:
+            if plugin.plugin_type == "CardImagePlugin":
+                context["image"] = plugin
+            else:
+                context["children"].append(plugin)
+
+        if context["image"] and context["image"].overlap == "left":
+            classes.append("row no-gutters")
+
+        context["classes"] = " ".join(classes)
+
+        return super().render(context, instance, placeholder)
+
+    def padding(self, instance):
+        if instance.spacing == "lg":
+            return "p-3 p-md-4 p-lg-5"
+        return "p-3"
+
+
+@plugin_pool.register_plugin
+class CardInnerPlugin(CMSPluginBase):
+    model = CardInnerCMSPlugin
+    module = _("Card")
+    name = _("Card Inner")
+    render_template = "fds_cms/card_inner.html"
+    allow_children = True
+    parent_classes = ["CardPlugin"]
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        classes = list()
+
+        parent_model, parent_instance = instance.parent.get_plugin_instance()
+        classes.append(parent_instance.padding(parent_model))
+
+        if instance.background:
+            classes.append(instance.background)
+
+        classes += instance.extra_classes.split(" ")
+        context["classes"] = " ".join(classes)
+
+        return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class CardHeaderPlugin(CMSPluginBase):
+    model = CardHeaderCMSPlugin
+    module = _("Card")
+    name = _("Card Header")
+    render_template = "fds_cms/card_header.html"
+    allow_children = False
+    parent_classes = ["CardPlugin"]
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        classes = list()
+
+        parent_model, parent_instance = instance.parent.get_plugin_instance()
+        classes.append(parent_instance.padding(parent_model))
+
+        classes += instance.extra_classes.split(" ")
+
+        if parent_model.border == "blue":
+            classes.append("bg-blue-20")
+        elif parent_model.border == "gray":
+            classes.append("bg-gray-300")
+        elif parent_model.border == "yellow":
+            classes.append("bg-yellow-200")
+
+        context["classes"] = " ".join(classes)
+
+        return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class CardImagePlugin(CMSPluginBase):
+    model = CardImageCMSPlugin
+    module = _("Card")
+    name = _("Card Image")
+    render_template = "fds_cms/card_image.html"
+    allow_children = False
+    parent_classes = ["CardPlugin"]
+    cache = True
