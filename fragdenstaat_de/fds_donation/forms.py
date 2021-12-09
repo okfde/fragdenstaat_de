@@ -233,8 +233,6 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         self.fields["amount"].widget.presets = self.settings["amount_presets"]
         self.fields["reference"].initial = self.settings["reference"]
         self.fields["keyword"].initial = self.settings["keyword"]
-
-        self.fields["purpose"].required = True
         if self.settings["purpose"]:
             purpose = self.settings["purpose"]
             purpose_split = purpose.split(",")
@@ -243,8 +241,6 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
                 self.fields["purpose"].initial = purpose
                 self.fields["purpose"].choices = purpose_choices
                 self.fields["purpose"].widget = forms.HiddenInput()
-                if not purpose:
-                    self.fields["purpose"].required = False
             else:
                 purpose_choices = [(purpose, purpose) for purpose in purpose_split]
                 self.fields["purpose"].choices = purpose_choices
@@ -252,8 +248,6 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
             choices = [(x.name, x.name) for x in Campaign.objects.get_filter_list()]
             self.fields["purpose"].widget.choices.extend(choices)
             self.fields["purpose"].choices.extend(choices)
-        else:
-            self.fields["purpose"].required = False
 
     def get_payment_metadata(self, data):
         if data["interval"] > 0:
