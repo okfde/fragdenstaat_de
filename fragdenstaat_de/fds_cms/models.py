@@ -389,6 +389,7 @@ class CardCMSPlugin(CMSPlugin):
         max_length=50,
         default="gray",
         choices=(
+            ("none", _("None")),
             ("blue", _("Blue")),
             ("gray", _("Gray")),
             ("yellow", _("Yellow")),
