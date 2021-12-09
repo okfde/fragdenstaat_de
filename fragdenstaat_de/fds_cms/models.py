@@ -404,9 +404,10 @@ class CardCMSPlugin(CMSPlugin):
     spacing = models.CharField(
         _("Spacing"),
         max_length=3,
-        default="sm",
+        default="lg",
         choices=(
             ("sm", _("Small")),
+            ("md", _("Medium")),
             ("lg", _("Large")),
         ),
     )
@@ -437,11 +438,24 @@ class CardImageCMSPlugin(CMSPlugin):
     overlap = models.CharField(
         _("Overlap"),
         choices=(
-            ("top", _("Top")),
             ("left", _("Left")),
             ("right", _("Right")),
         ),
         max_length=10,
-        default="top",
+        default="right",
+    )
+    extra_classes = models.CharField(max_length=255, blank=True)
+
+
+class CardIconCMSPlugin(CMSPlugin):
+    icon = models.CharField(max_length=255, blank=True)
+    overlap = models.CharField(
+        _("Overlap"),
+        choices=(
+            ("left", _("Left")),
+            ("right", _("Right")),
+        ),
+        max_length=10,
+        default="right",
     )
     extra_classes = models.CharField(max_length=255, blank=True)

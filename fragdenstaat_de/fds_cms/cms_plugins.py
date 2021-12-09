@@ -36,6 +36,7 @@ from .models import (
     CardInnerCMSPlugin,
     CardHeaderCMSPlugin,
     CardImageCMSPlugin,
+    CardIconCMSPlugin,
 )
 from .contact import ContactForm
 
@@ -462,11 +463,16 @@ class CardPlugin(CMSPluginBase):
     name = _("Card")
     render_template = "fds_cms/card.html"
     allow_children = True
-    child_classes = ["CardHeaderPlugin", "CardInnerPlugin", "CardImagePlugin"]
+    child_classes = [
+        "CardHeaderPlugin",
+        "CardInnerPlugin",
+        "CardImagePlugin",
+        "CardIconPlugin",
+    ]
     cache = True
 
     def render(self, context, instance, placeholder):
-        classes = list()
+        classes = []
 
         if instance.border != "none":
             classes.append(f"border-{instance.border}")
@@ -483,9 +489,13 @@ class CardPlugin(CMSPluginBase):
             # images, icons
             if plugin.plugin_type in ("CardImagePlugin", "CardIconPlugin"):
                 children.insert(0, plugin)
-                classes.append("box-card-has-image")
-                if plugin.overlap == "left":
-                    classes.append("d-md-flex")
+
+                if plugin.plugin_type == "CardImagePlugin":
+                    classes.append("box-card-has-image")
+                    if plugin.overlap == "left":
+                        classes.append("d-md-flex")
+                else:
+                    classes.append("box-card-has-icon")
             # text, etc.
             else:
                 children.append(plugin)
@@ -498,7 +508,17 @@ class CardPlugin(CMSPluginBase):
     def padding(self, instance):
         if instance.spacing == "lg":
             return "p-3 p-md-4 p-lg-5"
+        elif instance.spacing == "md":
+            return "p-3 p-md-4"
         return "p-3"
+
+    def color(self, instance):
+        if instance.border == "blue":
+            return "bg-blue-20"
+        elif instance.border == "gray":
+            return "bg-gray-300"
+        elif instance.border == "yellow":
+            return "bg-yellow-200"
 
 
 @plugin_pool.register_plugin
@@ -512,13 +532,13 @@ class CardInnerPlugin(CMSPluginBase):
     cache = True
 
     def render(self, context, instance, placeholder):
-        classes = list()
+        classes = []
 
         parent_model, parent_instance = instance.parent.get_plugin_instance()
         classes.append(parent_instance.padding(parent_model))
 
         if instance.background:
-            classes.append(instance.background)
+            classes.append(f"bg-{instance.background}")
 
         classes += instance.extra_classes.split(" ")
         context["classes"] = " ".join(classes)
@@ -537,19 +557,14 @@ class CardHeaderPlugin(CMSPluginBase):
     cache = True
 
     def render(self, context, instance, placeholder):
-        classes = list()
+        classes = []
 
         parent_model, parent_instance = instance.parent.get_plugin_instance()
         classes.append(parent_instance.padding(parent_model))
 
         classes += instance.extra_classes.split(" ")
 
-        if parent_model.border == "blue":
-            classes.append("bg-blue-20")
-        elif parent_model.border == "gray":
-            classes.append("bg-gray-300")
-        elif parent_model.border == "yellow":
-            classes.append("bg-yellow-200")
+        classes.append(parent_instance.color(parent_model))
 
         context["classes"] = " ".join(classes)
 
@@ -565,3 +580,29 @@ class CardImagePlugin(CMSPluginBase):
     allow_children = False
     parent_classes = ["CardPlugin"]
     cache = True
+
+
+@plugin_pool.register_plugin
+class CardIconPlugin(CMSPluginBase):
+    model = CardIconCMSPlugin
+    module = _("Card")
+    name = _("Card Icon")
+    render_template = "fds_cms/card_icon.html"
+    allow_children = False
+    parent_classes = ["CardPlugin"]
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        classes = []
+
+        parent_model, parent_instance = instance.parent.get_plugin_instance()
+        classes.append(parent_instance.color(parent_model))
+
+        if instance.overlap == "right":
+            classes.append("overlap-right")
+
+        classes += instance.extra_classes.split(" ")
+
+        context["classes"] = " ".join(classes)
+
+        return super().render(context, instance, placeholder)
