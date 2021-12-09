@@ -1,15 +1,9 @@
 {% load cms_tags %}
 
 <div>
-  <div class="{{ classes }}">
-    {% if image %}
-      {% render_plugin image %}
-    {% endif %}
-
-    {% if image.overlap == 'left' %}<div class="box-card-overlap-follower">{% endif %}
+  <div class="box-card {{ classes }}">
     {% for plugin in children %}
       {% render_plugin plugin %}
     {% endfor %}
-    {% if image.overlap == 'left' %}</div>{% endif %}
   </div>
 </div>

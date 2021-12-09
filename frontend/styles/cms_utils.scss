@@ -17,7 +17,7 @@
   box-shadow: $box-shadow-gray;
 }
 
-.md\:shadow {
+.md\:shadow, .md\:shadow-blue {
   @include media-breakpoint-up(md) {
     box-shadow: $box-shadow;
   }
@@ -185,6 +185,12 @@
 
 /* cms cards */
 
+.box-card {
+  &.box-card-has-image {
+    margin-top: 6rem;
+  }
+}
+
 .box-card-image {
   &.overlap-left, &.overlap-right {
     width: 75%;
@@ -192,16 +198,16 @@
     margin-right: auto; 
 
     img {
-      margin: 0.5rem;
-      margin-top: -33%;
+      margin: 1rem;
+      margin-top: -6rem;
       shape-outside: margin-box;
     }
   }
 
   @include media-breakpoint-up(md) {
-    &.overlap-left, &.overlap-right {
+    /* &.overlap-left, &.overlap-right {
       width: 25%;
-    }
+    } */
 
     &.overlap-right {
       margin-right: 3rem;
@@ -215,7 +221,7 @@
       margin: 0;
       
       img {
-        margin-left: -33%;
+        margin-left: -6rem;
       }
     }
   }

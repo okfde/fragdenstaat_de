@@ -468,8 +468,9 @@ class CardPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         classes = list()
 
-        if instance.border:
+        if instance.border != "none":
             classes.append(f"border-{instance.border}")
+
         if instance.shadow == "always":
             classes.append(f"shadow-{instance.border}")
         elif instance.shadow == "auto":
@@ -477,19 +478,20 @@ class CardPlugin(CMSPluginBase):
 
         classes += instance.extra_classes.split(" ")
 
-        context["children"] = []
-        context["image"] = None
-
+        children = []
         for plugin in instance.child_plugin_instances:
-            if plugin.plugin_type == "CardImagePlugin":
-                context["image"] = plugin
+            # images, icons
+            if plugin.plugin_type in ("CardImagePlugin", "CardIconPlugin"):
+                children.insert(0, plugin)
+                classes.append("box-card-has-image")
+                if plugin.overlap == "left":
+                    classes.append("d-md-flex")
+            # text, etc.
             else:
-                context["children"].append(plugin)
+                children.append(plugin)
 
-        if context["image"] and context["image"].overlap == "left":
-            classes.append("row no-gutters")
-
-        context["classes"] = " ".join(classes)
+        context["children"] = children
+        context["classes"] = " ".join(set(classes))
 
         return super().render(context, instance, placeholder)
 
