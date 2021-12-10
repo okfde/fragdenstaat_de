@@ -8,8 +8,8 @@
       <div class="col-md-8">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'klageautomat-index' %}">Klageautomat testen</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ law_case.title }}: {{ foi_request.title|truncatechars:50 }}</li>
+            <li class="breadcrumb-item"><a href="{% url 'foirequest-shortlink' foi_request.id %}">{{ foi_request.title|truncatechars:50 }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Klageautomat</li>
           </ol>
         </nav>
       </div>
@@ -144,7 +144,7 @@
             <ul class="info-box__list ">
               <li class="info-box__list-item">
                 <div class="info-box__list-label"></div>
-                <div class="info-box__list-value">{{ question.information|markdown }}</div>
+                <div class="info-box__list-value">{{ question.information|markdown|linebreaks }}</div>
               </li>
           </div>
         </div>
