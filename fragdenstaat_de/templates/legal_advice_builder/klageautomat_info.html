@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load form_helper %}
+
+{% block body %}
+<div class="breadcrumb-container">
+  <div class="container">
+    <div class="row justify-content-left">
+      <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'foirequest-shortlink' foi_request.id %}">{{ foi_request.title|truncatechars:50 }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Klageautomat</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="breadcrumb-container py-2">
+  <div class="container mb-5">
+    <div class="row justify-content-left">
+      <div class="col-md-8">
+        <h2>Was kann der Klageautomat? </h2>
+        <p>Der Klageautomat ist ein Entscheidungsbaum, der zeigen kann, ob eine <strong>Untätigkeitsklage</strong> voraussichtlich zulässig ist. Ziel ist es, mit den Daten aus dem Fragebogen und den bereits vorhandenen Daten aus der Anfrage einen Entwurf für eine Untätigkeitsklage zu erstellen.</p>
+        <p>Im besten Fall, kann dieser Entwurf mit wenigen Korrekturen dann so bei dem zuständigen Gericht eingereicht werden.</p>
+        <p>Die Schritte durch den Klageautomaten sind notwendig zu durchlaufen, um zu überprüfen, dass alle notwendigen Voraussetzungen vorliegen und alle Daten für einen Schriftsatz vollständig sind. </p>
+        <p>Der Klageautomat ist ein Legal Tech Tool. Er kann keine Rechtsberatung ersetzen, wenn es um komplexe juristische Fragen geht. An Stellen, bei denen der Automat nicht sicher das richtige auswählt, haben wir daher zusätzliche Infoboxen eingefügt. Der Automat orientiert sich am Regelfall und kann spezielle Einzelfälle nicht widerspiegeln.</p>
+        <p>Mit dem Automaten wird außerdem ausschließlich die Zulässigkeit der Untätigkeitsklage geprüft, nicht aber, ob dem Informationszugang Ausschlussgründe entgegenstehen können.</p>
+        <p><strong>Durch die nachfolgenden Fragen wird geprüft, ob sich Ihre Anfrage für eine Untätigkeitsklage eignet. Bitte antworten Sie wahrheitsgemäß.</strong></p>
+        <p><strong>Ist die Prüfung erfolgreich, wird der Klageschriftsatz anschließend (Schritt 2) direkt erstellt und kann von Ihnen heruntergeladen werden.</strong></p>
+
+        <div>
+          <form method="post">
+            {% csrf_token %}
+            <div class="bg-white border-gray shadow-gray p-3">
+            {% render_form form horizontal=False %}
+            </div>
+            <p class="text-center">
+              <button type="submit" class="btn btn-primary my-5">
+                Jetzt Untätigkeitsklage erstellen!
+              </button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

@@ -60,7 +60,7 @@
               </div>
             </div>
             <div class="card-footer bg-white text-right">
-              <a href="{% url 'klageautomat-form_wizard' foirequest.id %}" class="btn btn-link btn-sm">
+              <a href="{% url 'klageautomat-info' foirequest.id %}" class="btn btn-link btn-sm">
                 {% if foirequest.answer_exists %}
                   Klage neu erstellen
                 {% else %}
