@@ -461,7 +461,7 @@ class CardPlugin(CMSPluginBase):
     model = CardCMSPlugin
     module = _("Card")
     name = _("Card")
-    render_template = "fds_cms/card.html"
+    render_template = "fds_cms/card/card.html"
     allow_children = True
     child_classes = [
         "CardHeaderPlugin",
@@ -526,7 +526,7 @@ class CardInnerPlugin(CMSPluginBase):
     model = CardInnerCMSPlugin
     module = _("Card")
     name = _("Card Inner")
-    render_template = "fds_cms/card_inner.html"
+    render_template = "fds_cms/card/card_inner.html"
     allow_children = True
     parent_classes = ["CardPlugin"]
     cache = True
@@ -551,7 +551,7 @@ class CardHeaderPlugin(CMSPluginBase):
     model = CardHeaderCMSPlugin
     module = _("Card")
     name = _("Card Header")
-    render_template = "fds_cms/card_header.html"
+    render_template = "fds_cms/card/card_header.html"
     allow_children = False
     parent_classes = ["CardPlugin"]
     cache = True
@@ -576,7 +576,7 @@ class CardImagePlugin(CMSPluginBase):
     model = CardImageCMSPlugin
     module = _("Card")
     name = _("Card Image")
-    render_template = "fds_cms/card_image.html"
+    render_template = "fds_cms/card/card_image.html"
     allow_children = False
     parent_classes = ["CardPlugin"]
     cache = True
@@ -587,7 +587,7 @@ class CardIconPlugin(CMSPluginBase):
     model = CardIconCMSPlugin
     module = _("Card")
     name = _("Card Icon")
-    render_template = "fds_cms/card_icon.html"
+    render_template = "fds_cms/card/card_icon.html"
     allow_children = False
     parent_classes = ["CardPlugin"]
     cache = True
