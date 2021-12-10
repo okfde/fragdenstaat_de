@@ -448,7 +448,13 @@ class CardImageCMSPlugin(CMSPlugin):
 
 
 class CardIconCMSPlugin(CMSPlugin):
-    icon = models.CharField(max_length=255, blank=True)
+    icon = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text=_(
+            """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
+        ),
+    )
     overlap = models.CharField(
         _("Overlap"),
         choices=(
