@@ -2,9 +2,11 @@
 
 <div class="tight-margin d-flex align-items-center {{ classes }}">
   <h3 class="h5">{{ instance.title }}</h3>
-  <div class="ml-auto">
-    <div class="box-card-icon position-static bg-white">
-      <i class="fa fa-{{ instance.icon }}"></i>
+  {% if instance.icon %}
+    <div class="ml-auto">
+      <div class="box-card-icon position-static bg-white">
+        <i class="fa fa-{{ instance.icon }}"></i>
+      </div>
     </div>
-  </div>
+  {% endif %}
 </div>
