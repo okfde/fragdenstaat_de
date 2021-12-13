@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load form_helper i18n %}
+
+{% block body %}
+<div class="breadcrumb-container">
+  <div class="container">
+    <div class="row justify-content-left">
+      <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">{% translate 'start' %}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{% translate 'Decisionssearch' %}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="breadcrumb-container py-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <form method="get">
+          <form>
+            <div class="input-group my-2">
+              {{ filter.form.quick_search }}
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="breadcrumb-container py-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div id="infobox" class="info-box mb-3 info-box--regular mt-0">
+          <div class="info-box__header d-flex flex-nowrap justify-content-between align-items-center">
+            <div>
+              <h3 class="h5 info-box__title">{% translate 'Refine your query' %}</h3>
+              {% if selected_filters %}
+                <div class="info-box__subtitle">{% translate 'You have selected:' %}</div>
+                {% for name, url in selected_filters %}
+                <div><a href="?{{ url }}"><small>{{ name }} <i class="fa fa-times" aria-hidden="true"></i></small></a></div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+          <div class="info-box__body">
+            <form method="get">
+              <ul class="info-box__list">
+                {% for field in filter.form.visible_fields %}
+                  {% if not field.name == "quick_search" %}
+                  <li class="info-box__list-item">
+                    <div class="info-box__list-label"></div>
+                    <div class="info-box__list-value">
+                      <div class="filter__field my-3">
+                        {% render_field field horizontal=False %}
+                        </div>
+                    </div>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-9">
+        {% if result.paginator.count %}
+        {% include "froide_legalaction/includes/pagination.html" with page_obj=result %}
+        {% endif %}
+        <ul class="list-group list-group-flush">
+          {% for decision in result %}
+          <li class="list-group-item bg-white shadow-gray p-3 mb-4">
+            <ul class="list-unstyled d-flex text-blue-600 font-weight-semibold font-size-sm mb-1">
+              <li class="mr-2">{{ decision.law_name }}</li>
+            </ul>
+            <h3 class="h5 mt-0 mb-1">
+              {% if decision.date %}
+                {% blocktrans with type=decision.type court=decision.court_name date=decision.date %}
+                {{ type }} of {{ court }} on {{ date }}
+                {% endblocktrans %}
+              {% else %}
+                {% blocktrans with type=decision.type court=decision.court_name date=decision.date %}
+                {{ type }} of {{ court }}
+                {% endblocktrans %}
+              {% endif %}
+            </h3>
+            <p><small>{{ decision.reference }}</small></p>
+            <p class="text-muted">{{ decision.abstract }}</p>
+            <p class="text-right">
+              {% for tag in decision.tags.all %}
+                <span class="badge rounded-pill bg-dark text-white">{{ tag.name }}</span>
+              {% endfor %}
+            </p>
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% if result.paginator.count %}
+        {% include "froide_legalaction/includes/pagination.html" with page_obj=result %}
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
