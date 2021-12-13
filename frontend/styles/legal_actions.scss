@@ -1,0 +1,15 @@
+.filter__field {
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+
+        .selected {
+            font-weight: bold;
+        }
+    }
+
+    input, select {
+        width: 100%;
+    }
+}
