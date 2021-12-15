@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load form_helper %}
+{% load form_helper cms_tags %}
 
 {% block body %}
 <div class="breadcrumb-container">
@@ -21,14 +21,8 @@
   <div class="container mb-5">
     <div class="row justify-content-left">
       <div class="col-md-8">
-        <h2>Was kann der Klageautomat? </h2>
-        <p>Der Klageautomat ist ein Entscheidungsbaum, der zeigen kann, ob eine <strong>Untätigkeitsklage</strong> voraussichtlich zulässig ist. Ziel ist es, mit den Daten aus dem Fragebogen und den bereits vorhandenen Daten aus der Anfrage einen Entwurf für eine Untätigkeitsklage zu erstellen.</p>
-        <p>Im besten Fall, kann dieser Entwurf mit wenigen Korrekturen dann so bei dem zuständigen Gericht eingereicht werden.</p>
-        <p>Die Schritte durch den Klageautomaten sind notwendig zu durchlaufen, um zu überprüfen, dass alle notwendigen Voraussetzungen vorliegen und alle Daten für einen Schriftsatz vollständig sind. </p>
-        <p>Der Klageautomat ist ein Legal Tech Tool. Er kann keine Rechtsberatung ersetzen, wenn es um komplexe juristische Fragen geht. An Stellen, bei denen der Automat nicht sicher das richtige auswählt, haben wir daher zusätzliche Infoboxen eingefügt. Der Automat orientiert sich am Regelfall und kann spezielle Einzelfälle nicht widerspiegeln.</p>
-        <p>Mit dem Automaten wird außerdem ausschließlich die Zulässigkeit der Untätigkeitsklage geprüft, nicht aber, ob dem Informationszugang Ausschlussgründe entgegenstehen können.</p>
-        <p><strong>Durch die nachfolgenden Fragen wird geprüft, ob sich Ihre Anfrage für eine Untätigkeitsklage eignet. Bitte antworten Sie wahrheitsgemäß.</strong></p>
-        <p><strong>Ist die Prüfung erfolgreich, wird der Klageschriftsatz anschließend (Schritt 2) direkt erstellt und kann von Ihnen heruntergeladen werden.</strong></p>
+
+        {% static_placeholder "klageautomat_info" %}
 
         <div>
           <form method="post">
