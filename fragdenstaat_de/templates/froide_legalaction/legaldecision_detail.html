@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load form_helper i18n %}
+
+{% block body %}
+<div class="breadcrumb-container">
+  <div class="container">
+    <div class="row justify-content-left">
+      <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">{% translate 'start' %}</a></li>
+            <li class="breadcrumb-item active"><a href="{% url 'legal-decision-list' %}">{% translate 'Decisionssearch' %}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ object.title|truncatechars:50 }}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="breadcrumb-container py-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <form method="get" action="{% url 'legal-decision-list' %}">
+          <form>
+            <div class="input-group my-2">
+              <input type="text" name="quick_search" class="form-control form-control-lg text-center" placeholder="Schnellsuche" id="id_quick_search">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="breadcrumb-container pt-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div id="infobox" class="info-box mb-3 info-box--regular mt-0">
+          <div class="info-box__header d-flex flex-nowrap justify-content-between align-items-center">
+            <div>
+              <h3 class="h5 info-box__title">{% translate 'Information' %}</h3>
+            </div>
+          </div>
+          <div class="info-box__body">
+            <ul class="info-box__list">
+              {% if object.reference %}
+              <li class="info-box__list-item">
+                <div class="info-box__list-label">{% translate 'reference' %}</div>
+                <div class="info-box__list-value">{{ object.reference }}
+                </div>
+              </li>
+              {% endif %}
+
+              {% if object.date %}
+              <li class="info-box__list-item">
+                <div class="info-box__list-label">{% translate 'date' %}</div>
+                <div class="info-box__list-value">{{ object.date }}
+                </div>
+              </li>
+              {% endif %}
+
+              {% if object.court_name %}
+              <li class="info-box__list-item">
+                <div class="info-box__list-label">{% translate 'court' %}</div>
+                <div class="info-box__list-value">{{ object.court_name }}
+                </div>
+              </li>
+              {% endif %}
+
+              {% if object.law_name %}
+              <li class="info-box__list-item">
+                <div class="info-box__list-label">{% translate 'law' %}</div>
+                <div class="info-box__list-value">{{ object.law_name }}
+                </div>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item bg-white shadow-gray p-3 mb-4">
+            <ul class="list-unstyled d-flex font-weight-semibold font-size-sm mb-1">
+              <li class="mr-2">{{ object.law_name }}</li>
+            </ul>
+            <h3 class="h5 mt-0 mb-1">
+                {{ object.title }}
+            </h3>
+            <p><small>{{ object.reference }}</small></p>
+            <p class="text-muted">{{ object.abstract }}</p>
+            <p class="text-right">
+              {% for tag in object.tags.all %}
+                <span class="badge rounded-pill bg-dark text-white">{{ tag.name }}</span>
+              {% endfor %}
+            </p>
+          </li>
+
+          {% if object.fulltext %}
+          <li class="list-group-item bg-white shadow-gray p-3 mb-4">
+            <p>{{ object.fulltext|linebreaks }}</p>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
