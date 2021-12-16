@@ -165,7 +165,7 @@ class FragDenStaatBase(German, Base):
         # Customize this
         "default": {
             "public": True,
-            "hide_untranslated": False,
+            "hide_untranslated": True,
             "redirect_on_fallback": True,
             "fallbacks": ["en", "de"],
         },
@@ -180,9 +180,9 @@ class FragDenStaatBase(German, Base):
             {
                 "public": True,
                 "code": "en",
-                "hide_untranslated": False,
+                "hide_untranslated": True,
                 "name": _("English"),
-                "redirect_on_fallback": True,
+                "redirect_on_fallback": False,
             },
         ],
     }
