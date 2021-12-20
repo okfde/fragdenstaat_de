@@ -79,19 +79,13 @@
         <ul class="list-group list-group-flush">
           {% for decision in result %}
           <li class="list-group-item bg-white shadow-gray p-3 mb-4">
-            <ul class="list-unstyled d-flex text-blue-600 font-weight-semibold font-size-sm mb-1">
+            <ul class="list-unstyled d-flex font-weight-semibold font-size-sm mb-1">
               <li class="mr-2">{{ decision.law_name }}</li>
             </ul>
             <h3 class="h5 mt-0 mb-1">
-              {% if decision.date %}
-                {% blocktrans with type=decision.type court=decision.court_name date=decision.date %}
-                {{ type }} of {{ court }} on {{ date }}
-                {% endblocktrans %}
-              {% else %}
-                {% blocktrans with type=decision.type court=decision.court_name date=decision.date %}
-                {{ type }} of {{ court }}
-                {% endblocktrans %}
-              {% endif %}
+              <a href="{% url 'legal-decision-detail' decision.id %}">
+                {{ decision.title }}
+              </a>
             </h3>
             <p><small>{{ decision.reference }}</small></p>
             <p class="text-muted">{{ decision.abstract }}</p>
