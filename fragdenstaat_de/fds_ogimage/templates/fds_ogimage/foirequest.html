@@ -12,28 +12,24 @@
         <h2>
           {{ object.title|truncatechars:120 }}
         </h2>
+        {% if object.status_is_final and object.status_representation %}
+          <p class="lead">
+            {% if object.status_representation %}
+              <span class="mt-2 float-left request-link__icon icon status-{{ object.status_representation }} {% if object.has_fee %}--has-fee{% endif %}"></span>
+              <strong>{{ object.readable_status }}</strong>
+            {% endif %}
+          </p>
+        {% elif not object.law.meta %}
+          <p class="lead mt-5">
+            &rarr; {{ object.law.name }}
+          </p>
+        {% endif %}
       </div>
       {% if not object.user.private and object.user.profile_photo %}
         <div class="col-2">
           <img class="img-fluid rounded-circle" src="{{ object.user.profile_photo.url }}" alt="{{ object.user.get_full_name }}">
         </div>
       {% endif %}
-    </div>
-    <div class="row">
-      <div class="col-12">
-        {% if object.status_is_final and object.status_representation %}
-        <p class="lead mt-5">
-          {% if object.status_representation %}
-            <span class="float-left request-link__icon icon status-{{ object.status_representation }} {% if object.has_fee %}--has-fee{% endif %}"></span>
-            <strong>{{ object.readable_status }}</strong>
-          {% endif %}
-        </p>
-      {% elif not object.law.meta %}
-        <p class="lead mt-5">
-          &rarr; {{ object.law.name }}
-        </p>
-      {% endif %}
-      </div>
     </div>
   </div>
   <div class="d-flex flex-column flex-grow-1">
