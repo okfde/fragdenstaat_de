@@ -533,7 +533,8 @@ class FragDenStaatBase(German, Base):
                     rec(r"^\s*Name des Absenders\s+(.*)"),
                     rec(r"^\s*Hallo\s+(.*)"),
                     rec(r"^\s*Lieber?\s+(.*)"),
-                    rec(r"^\s*Sehr (?:Herr|Frau|Fr\.|Hr\.) (.*)"),
+                    rec(r"^\s*Grü(?:ß|ss)\s+Gott\s+((?:Herr|Frau|Fr\.|Hr\.)\s+.*)"),
+                    rec(r"^\s*Sehr ((?:Herr|Frau|Fr\.|Hr\.)\s+.*)"),
                     rec(r"^\s*Sehr (geehrte[sr]?\s+(?!Damen und Herren).+)"),
                     rec(r"^\s*(?:Von|An|Cc|To|From): (.*)"),
                 ],
@@ -546,7 +547,7 @@ class FragDenStaatBase(German, Base):
                 ],
                 closings=[
                     rec(
-                        r"\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? *Gr(ü|u|\?)(ß|ss|\?)(en?)?,?"
+                        r"\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? *Gr(ü|u|\?)(ß|ss|\?)(?!\s+Gott)(en?)?,?"
                     ),
                     rec(r"\bHochachtungsvoll,?"),
                     rec(r"\bi\. ?A\."),
