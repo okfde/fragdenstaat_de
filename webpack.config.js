@@ -40,6 +40,7 @@ const ENTRY = {
   campaign_questionaire: 'froide_campaign/frontend/javascript/questionaire.js',
   campaign_list: 'froide_campaign/frontend/javascript/list.js',
   lawsuits_table: 'froide_legalaction/frontend/javascript/table.js',
+  legal_decisions_listfilter: 'froide_legalaction/frontend/javascript/listFilter.js',
   vegacharts: './frontend/javascript/vegacharts.js'
 }
 
