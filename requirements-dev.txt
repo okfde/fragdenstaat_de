@@ -168,7 +168,7 @@ dj-database-url==0.5.0
     # via
     #   -r requirements.in
     #   froide
-django==3.2.8
+django==3.2.11
     # via
     #   -r requirements.in
     #   channels
@@ -478,7 +478,7 @@ jwcrypto==0.9.1
     # via django-oauth-toolkit
 kombu==5.1.0
     # via celery
-lxml==4.6.3
+lxml==4.7.1
     # via
     #   django-amenities
     #   django-contractor
