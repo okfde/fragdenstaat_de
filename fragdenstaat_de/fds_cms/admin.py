@@ -21,7 +21,11 @@ admin.site.register(FdsPageExtension, FdsPageExtensionAdmin)
 
 
 class CustomStaticPlaceholderAdmin(StaticPlaceholderAdmin):
-    list_display = ("code", "edit_link")
+    list_display = (
+        "code",
+        "edit_link",
+        "dirty",
+    )
     actions = ["publish"]
 
     def get_urls(self):
@@ -37,7 +41,7 @@ class CustomStaticPlaceholderAdmin(StaticPlaceholderAdmin):
 
     def edit_link(self, obj):
         return format_html(
-            '<a href="{}">{}</a>',
+            '<a href="{}" target="_blank">{}</a>',
             reverse(
                 "admin:fds_cms-staticplaceholder-edit_placeholder",
                 kwargs={"pk": obj.pk},

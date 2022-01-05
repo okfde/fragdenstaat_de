@@ -195,7 +195,6 @@ class FragDenStaatBase(German, Base):
         ("cms/page_reduced.html", "Page reduced"),
         ("cms/blog_base.html", "Blog base template"),
         ("cms/help_base.html", "Help base template"),
-        ("cms/static_placeholders.html", "Static Placeholder Overview"),
     ]
     DONATION_LOGIC_PLUGINS = [
         "IsDonorPlugin",
