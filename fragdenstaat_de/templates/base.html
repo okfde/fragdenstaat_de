@@ -9,6 +9,14 @@
   </div>
 {% endblock %}
 
+{% block footer_container %}
+  <footer class="footer" id="footer">
+    <div class="container">
+      {% fds_static_placeholder "footer" %}
+    </div>
+  </footer>
+{% endblock %}
+
 {% block scripts %}
   {{ block.super }}
 {% endblock %}

@@ -43,7 +43,11 @@
   {% endblock %}
 
   {% block footer_container %}
-    {% include "footer.html" %}
+    <footer class="footer" id="footer">
+      <div class="container">
+        {% static_placeholder "footer" %}
+      </div>
+    </footer>
   {% endblock %}
 
 {% endblock body_tag %}
