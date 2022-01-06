@@ -163,9 +163,11 @@
           <a class="dropdown-item top-menu__link" href="{% url 'foirequest-make_request' %}">
             {% blocktrans %}Make requests{% endblocktrans %}
           </a>
-          <a class="dropdown-item top-menu__link" href="/hilfe/einsteiger-guide/">
-            {% blocktrans %}Beginner's guide{% endblocktrans %}
-          </a>
+          {% if beginners_url %}
+            <a class="dropdown-item top-menu__link" href="{{ beginners_url }}">
+              {% blocktrans %}Beginner's guide{% endblocktrans %}
+            </a>
+          {% endif %}
         </div>
       </li>
       <li class="top-menu__listitem mr-md-3 mr-lg-4">
