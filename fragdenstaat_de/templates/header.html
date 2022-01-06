@@ -99,11 +99,14 @@
                 {% blocktrans %}Make request{% endblocktrans %}
               </a>
             </li>
-            <li>
-              <a class="drawer-menu__link drawer-menu__link--white" href="/hilfe/einsteiger-guide/">
-                {% blocktrans %}Beginner's guide{% endblocktrans %}
-              </a>
-            </li>
+            {% page_url "beginnersguide" as beginners_url %}
+            {% if beginners_url %}
+              <li>
+                <a class="drawer-menu__link drawer-menu__link--white" href="{{ beginners_url }}">
+                  {% blocktrans %}Beginner's guide{% endblocktrans %}
+                </a>
+              </li>
+            {% endif %}
           </ul>
         </li>
         <li>
