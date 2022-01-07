@@ -531,6 +531,9 @@ def get_merge_donor_form(admin_site):
                 "user": ForeignKeyRawIdWidget(
                     Donor._meta.get_field("user").remote_field, admin_site
                 ),
+                "subscriber": ForeignKeyRawIdWidget(
+                    Donor._meta.get_field("subscriber").remote_field, admin_site
+                ),
             }
 
     return MergeDonorForm
