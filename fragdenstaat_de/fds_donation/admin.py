@@ -679,6 +679,7 @@ class DonationAdmin(admin.ModelAdmin):
 
         pending.received = True
         pending.amount_received = received.amount_received
+        pending.amount = pending.amount_received
         pending.received_timestamp = received.received_timestamp
         pending.identifier = received.identifier
         received.delete()
