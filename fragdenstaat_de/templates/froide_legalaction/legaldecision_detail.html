@@ -83,7 +83,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-9 mb-3">
         <ul class="list-group list-group-flush">
           <li class="list-group-item bg-white shadow-gray p-3 mb-4">
             <ul class="list-unstyled d-flex font-weight-semibold font-size-sm mb-1">
@@ -101,7 +101,9 @@
             </p>
           </li>
 
-          {% if object.fulltext %}
+          {% if object.foi_document %}
+            <iframe src="{% url 'filingcabinet:document-detail_embed' pk=object.foi_document.id slug=object.foi_document.slug %}" frameborder="0" style="width: 100%; height: 90vh; border: 0;"></iframe>
+          {% elif object.fulltext %}
           <li class="list-group-item bg-white shadow-gray p-3 mb-4">
             <p>{{ object.fulltext|linebreaks }}</p>
           </li>
