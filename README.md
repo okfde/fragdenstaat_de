@@ -62,14 +62,14 @@ To initialise the database:
 source fds-env/bin/activate
 cd fragdenstaat_de
 # Create database structure
-python manage.py migrate
+python manage.py migrate --skip-checks
 ```
 
 To get started with some data:
 
 ```
-# Load initial data (e.g. CMS)
-python manage.py loaddata <fixture file>
+# Load initial data (e.g. some CMS test fixtures)
+python manage.py loaddata tests/fixtures/cms.json
 # Create a superuser
 python manage.py createsuperuser
 # Create and populate search index
