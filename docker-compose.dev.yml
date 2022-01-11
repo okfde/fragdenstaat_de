@@ -4,7 +4,7 @@ services:
   db:
     image: postgis/postgis:14-3.1
     volumes:
-      - ./data/postgres_data:/var/lib/postgresql/
+      - pg-data:/var/lib/postgresql/
     ports:
       - "127.0.0.1:5432:5432"
     environment:
@@ -15,8 +15,8 @@ services:
   elasticsearch:
     build: ./deps/elasticsearch/
     volumes:
-      - ./data/elasticsearch-data:/usr/share/elasticsearch/data
-      - ./data/elasticsearch-log:/var/log
+      - es-data:/usr/share/elasticsearch/data
+      - es-logs:/var/log
     environment:
       - "discovery.type=single-node"
       - "cluster.routing.allocation.disk.threshold_enabled=false"
@@ -25,3 +25,7 @@ services:
       - "cluster.routing.allocation.disk.watermark.flood_stage=1gb"
     ports:
       - "127.0.0.1:9200:9200"
+volumes:
+  es-data: {}
+  es-logs: {}
+  pg-data: {}
