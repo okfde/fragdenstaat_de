@@ -242,7 +242,7 @@ class FoiRequestListPlugin(CMSPluginBase):
         if instance.publicbody_id:
             filters["public_body_id"] = instance.publicbody_id
 
-        foirequests = foirequests.filter(**filters)
+        foirequests = foirequests.filter(**filters).distinct()
 
         offset = instance.offset
         if instance.number_of_entries:
