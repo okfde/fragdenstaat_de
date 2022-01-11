@@ -19,10 +19,10 @@ import "./magnifier.ts";
 import "./smooth-scroll.ts"
 import "./misc.ts";
 
-if (document.body.dataset.raven) {
+if (document.body.dataset.sentry) {
   import(/* webpackChunkName: "@sentry/browser" */ "@sentry/browser").then((Sentry) => {
     Sentry.init({
-      dsn: document.body.dataset.raven,
+      dsn: document.body.dataset.sentry,
     });
   });
 }
