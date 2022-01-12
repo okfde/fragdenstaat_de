@@ -62,11 +62,7 @@
             </a>
           </h5>
           <ul class="list-unstyled">
-            {% if help_url == request.path %}
-              {% show_menu_below_id "help" 0 0 0 2 %}
-            {% else %}
-              {% show_menu_below_id "help" 0 100 0 2 %}
-            {% endif %}
+            {% show_menu 1 100 0 1 %}
           </ul>
         </nav>
       </div>
