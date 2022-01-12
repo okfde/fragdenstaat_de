@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from django.urls import NoReverseMatch
 
 from cms.models.pluginmodel import CMSPlugin
 from cms.models.fields import PageField
@@ -162,7 +163,10 @@ class PrimaryLinkCMSPlugin(CMSPlugin):
         if self.url:
             link = self.url
         elif self.page_link_id:
-            link = self.page_link.get_absolute_url()
+            try:
+                link = self.page_link.get_absolute_url()
+            except NoReverseMatch:
+                link = ""
         else:
             link = ""
         if self.anchor:
