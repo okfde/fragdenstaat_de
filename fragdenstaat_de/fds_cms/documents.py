@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.conf import settings
 from django.utils.html import strip_tags
+from django.utils import translation
 
 from django_elasticsearch_dsl import Document, fields
 from django_elasticsearch_dsl.registries import registry
@@ -81,14 +82,16 @@ class CMSDocument(Document):
     def prepare_content(self, obj):
         current_language = obj.language
         request = get_request(obj.language)
-        content = self.get_search_data(obj, current_language, request)
+        with translation.override(obj.language):
+            content = self.get_search_data(obj, current_language, request)
         return content
 
     def prepare_description(self, obj):
         return obj.meta_description or ""
 
     def prepare_url(self, obj):
-        return obj.page.get_absolute_url()
+        with translation.override(obj.language):
+            return obj.page.get_absolute_url(language=obj.language)
 
     def prepare_title(self, obj):
         return obj.title
