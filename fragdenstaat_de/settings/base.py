@@ -183,6 +183,7 @@ class FragDenStaatBase(German, Base):
                 "hide_untranslated": True,
                 "name": _("English"),
                 "redirect_on_fallback": True,
+                "fallbacks": ["de"],
             },
         ],
     }
