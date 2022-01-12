@@ -53,6 +53,7 @@ class CMSDocument(Document):
         search_quote_analyzer=search_quote_analyzer,
         index_options="offsets",
     )
+    language = fields.KeywordField()
 
     special_signals = True
 
@@ -70,7 +71,6 @@ class CMSDocument(Document):
                 Q(page__publication_end_date__gte=now)
                 | Q(page__publication_end_date__isnull=True),
                 Q(redirect__exact="") | Q(redirect__isnull=True),
-                language=settings.LANGUAGE_CODE,
             )
             .select_related("page")
         )
@@ -79,8 +79,8 @@ class CMSDocument(Document):
         return queryset.distinct()
 
     def prepare_content(self, obj):
-        current_language = settings.LANGUAGE_CODE
-        request = get_request(current_language)
+        current_language = obj.language
+        request = get_request(obj.language)
         content = self.get_search_data(obj, current_language, request)
         return content
 
@@ -92,6 +92,9 @@ class CMSDocument(Document):
 
     def prepare_title(self, obj):
         return obj.title
+
+    def prepare_language(self, obj):
+        return obj.language
 
     def get_page_placeholders(self, page):
         """
