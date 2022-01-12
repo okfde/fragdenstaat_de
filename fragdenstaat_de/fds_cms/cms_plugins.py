@@ -354,7 +354,10 @@ class SVGImagePlugin(CMSPluginBase):
         context = super().render(context, instance, placeholder)
         context["object"] = instance
         if instance.svg:
-            context["svg"] = instance.svg.file.read().decode("utf-8")
+            try:
+                context["svg"] = instance.svg.file.read().decode("utf-8")
+            except OSError:
+                context["svg"] = ""
         return context
 
 
