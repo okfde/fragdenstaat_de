@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 from django.urls import reverse, NoReverseMatch
+from django.utils.translation import gettext_lazy as _
 
 
 class FdsCmsConfig(AppConfig):
@@ -24,7 +25,7 @@ def merge_user(sender, old_user=None, new_user=None, **kwargs):
 def add_search(request):
     try:
         return {
-            "title": "Hilfe-Seiten",
+            "title": _("Help pages"),
             "name": "cms",
             "url": reverse("fds_cms:fds_cms-search"),
         }
