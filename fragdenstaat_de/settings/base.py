@@ -167,13 +167,13 @@ class FragDenStaatBase(German, Base):
             "public": True,
             "hide_untranslated": True,
             "redirect_on_fallback": True,
-            "fallbacks": ["en", "de"],
+            "fallbacks": [],
         },
         1: [
             {
                 "public": True,
                 "code": "de",
-                "hide_untranslated": False,
+                "hide_untranslated": True,
                 "name": _("German"),
                 "redirect_on_fallback": True,
             },
@@ -182,7 +182,7 @@ class FragDenStaatBase(German, Base):
                 "code": "en",
                 "hide_untranslated": True,
                 "name": _("English"),
-                "redirect_on_fallback": False,
+                "redirect_on_fallback": True,
             },
         ],
     }
