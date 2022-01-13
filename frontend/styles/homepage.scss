@@ -4,14 +4,6 @@
 
 */
 
-.hero-illustration {
-  width: 12rem;
-  height: auto;
-  @include media-breakpoint-up(lg) {
-    width: 16rem;
-  }
-}
-
 .homepage-steps {
   position: relative;
   &__wrap {
