@@ -21,9 +21,9 @@ services:
       - db
       - elasticsearch
     environment:
-        - DJANGO_SETTINGS_MODULE=fragdenstaat_de.settings.development
-        - DJANGO_CONFIGURATION=Dev
-        - DATABASE_URL=postgis://postgres@db/postgres
+      - DJANGO_SETTINGS_MODULE=fragdenstaat_de.settings.development
+      - DJANGO_CONFIGURATION=Dev
+      - DATABASE_URL=postgis://postgres@db/postgres
     ports:
       - "8000:8000"
       - "8080:8080" # live reload
