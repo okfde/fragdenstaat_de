@@ -16,33 +16,61 @@
 {% if not instance.external_picture and not instance.use_no_cropping %}
 <picture>
   {% if not instance.width and not instance.height %}
-    <source
-      media="(min-width: 1200px)"
-      srcset="{% thumbnail instance.picture 1140x0 subject_location=instance.picture.subject_location %}">
-    <source
-      media="(min-width: 992px)"
-      srcset="{% thumbnail instance.picture 940x0 subject_location=instance.picture.subject_location %}">
+  {% thumbnail instance.picture 1140x0 subject_location=instance.picture.subject_location as thumb %}
+    {% if thumb.url %}
+      <source
+        media="(min-width: 1200px)"
+        srcset="{{ thumb.url }}"
+      />
+      <source
+        media="(min-width: 1200px)"
+        srcset="{{ thumb.url }}.avif"
+        type="image/avif"
+      />
+    {% endif %}
+    {% thumbnail instance.picture 940x0 subject_location=instance.picture.subject_location as thumb %}
+    {% if thumb.url %}
+      <source
+        media="(min-width: 992px)"
+        srcset="{{ thumb.url }}"
+      />
+      <source
+        media="(min-width: 992px)"
+        srcset="{{ thumb.url }}.avif"
+        type="image/avif"
+      />
+    {% endif %}
+    {% if instance.external_picture or instance.use_no_cropping%}
+    {% elif instance.width and instance.height %}
+      {% with width=instance.width|stringformat:'d' height=instance.height|stringformat:'d' %}
+        {% thumbnail instance.picture width|add:'x'|add:height crop=scale subject_location=instance.picture.subject_location as thumb %}
+      {% endwith %}
+    {% elif instance.height %}
+      {% with height=instance.height|stringformat:'d' %}
+        {% thumbnail instance.picture '0x'|add:height crop=scale subject_location=instance.picture.subject_location as thumb %}
+      {% endwith %}
+    {% elif instance.width %}
+      {% with width=instance.width|stringformat:'d' %}
+        {% thumbnail instance.picture width|add:'x0' crop=scale subject_location=instance.picture.subject_location as thumb %}
+      {% endwith %}
+    {% else %}
+      {% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location as thumb %}
+    {% endif %}
+    {% if thumb.url %}
+      <source
+        srcset="{{ thumb.url }}.avif"
+        type="image/avif"
+      />
+    {% endif %}
   {% endif %}
 {% endif %}
 <img class="{% if instance.width or instance.height %}{% else %}img-fluid{% endif %}{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}" src="{% spaceless %}
     {% if instance.external_picture %}
-        {{ instance.external_picture }}
+      {{ instance.external_picture }}
     {% elif instance.use_no_cropping %}
-        {{ instance.picture.url }}
-    {% elif instance.height %}
-      {% with height=instance.height|stringformat:'d' %}
-        {% thumbnail instance.picture '0x'|add:height crop=scale subject_location=instance.picture.subject_location %}
-      {% endwith %}
-    {% elif instance.width %}
-      {% with width=instance.width|stringformat:'d' %}
-        {% thumbnail instance.picture width|add:'x0' crop=scale subject_location=instance.picture.subject_location %}
-      {% endwith %}
-    {% elif instance.width and instance.height %}
-      {% with width=instance.width|stringformat:'d' height=instance.height|stringformat:'d' %}
-        {% thumbnail instance.picture width|add:'x'|add:height crop=scale subject_location=instance.picture.subject_location %}
-      {% endwith %}
-    {% elif instance.picture %}
-        {% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location %}
+      {{ instance.picture.url }}
+    {% else %}
+      {{ thumb.url }}
     {% endif %}{% endspaceless %}"
     {% if instance.picture.default_alt_text and not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text }}"{% endif %}
     {% if instance.width %} width="{{ instance.width }}"{% endif %}

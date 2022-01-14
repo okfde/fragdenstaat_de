@@ -4,15 +4,32 @@
 <div class="box-card-image overlap-{{ instance.overlap }}{% if instance.overlap == 'left' %} col-md-4 col-lg-3{% endif %} text-center">
   {% with picture=instance.image %}
     <picture>
+      {% thumbnail picture 640x0 crop=smart subject_location=picture.subject_location as thumb %}
       <source
         media="(min-width: 992px)"
-        srcset="{% thumbnail picture 640x0 crop=smart subject_location=picture.subject_location %}">
+        srcset="{{ thumb.url }}"
+      />
+      <source
+        media="(min-width: 992px)"
+        srcset="{{ thumb.url }}.avif"
+        type="image/avif"
+      />
+      {% thumbnail picture 480x0 crop=smart subject_location=picture.subject_location as thumb %}
       <source
         media="(min-width: 768px)"
-        srcset="{% thumbnail picture 480x0 crop=smart subject_location=picture.subject_location %}">
-      <img class="{{ instance.extra_classes|default:'hero-illustration z-index-10' }}" loading="lazy" width="320" height="185" src="{% spaceless %}
-          {% thumbnail picture 320x0 crop=smart subject_location=picture.subject_location %}
-          {% endspaceless %}"
+        srcset="{{ thumb.url }}"
+      />
+      <source
+        media="(min-width: 768px)"
+        srcset="{{ thumb.url }}.avif"
+        type="image/avif"
+      />
+      {% thumbnail picture 320x0 crop=smart subject_location=picture.subject_location as thumb %}
+      <source
+        srcset="{{ thumb.url }}.avif"
+        type="image/avif"
+      />
+      <img class="{{ instance.extra_classes|default:'hero-illustration z-index-10' }}" loading="lazy" width="320" height="185" src="{{ thumb.url }}"
           {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
           {{ attributes_str }}>
     </picture>

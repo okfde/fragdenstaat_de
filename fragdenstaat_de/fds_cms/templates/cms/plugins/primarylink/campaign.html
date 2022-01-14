@@ -9,7 +9,14 @@
   {% endif %}
   <div class="bg-blue-10 d-flex h-6rem justify-content-center align-items-center">
     {% if object.image %}
-        <img class="h-4rem" loading="lazy" src="{% thumbnail object.image 100x0 crop subject_location=object.image.subject_location %}" alt="{{ object.image.default_alt_text }}" />
+      <picture>
+        {% thumbnail object.image 100x0 crop subject_location=object.image.subject_location as thumb %}
+        <source
+          srcset="{{ thumb.url }}.avif"
+          type="image/avif"
+        />
+        <img class="h-4rem" loading="lazy" src="{{ thumb.url }}" alt="{{ object.image.default_alt_text }}" />
+      </picture>
     {% endif %}
   </div>
   <h3 class="h4 mt-3 mb-3">{{ object.title }}</h3>

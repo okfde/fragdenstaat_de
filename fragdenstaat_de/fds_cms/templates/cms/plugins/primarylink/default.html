@@ -1,27 +1,9 @@
-{% load thumbnail markup %}
+{% load markup %}
 
 
 <div class="bg-white border-gray shadow-sm pt-3 px-3 mb-3 h-100 {% if object.image %} z-index-20 position-relative mx-3 mt-n4 mb-4{% endif %}{% if object.extra_classes %} {{ object.extra_classes }}{% endif %}">
-  {% if object.image %}
-    {% if object.link %}<a href="{{ object.link }}">{% endif %}
-      {% with picture=object.image %}
-        {# TODO: duplicate of blog_feature_item  #}
-        <picture>
-          <source
-            media="(min-width: 992px)"
-            srcset="{% thumbnail picture 640x370 crop subject_location=picture.subject_location %}">
-          <source
-            media="(min-width: 768px)"
-            srcset="{% thumbnail picture 480x277 crop subject_location=picture.subject_location %}">
-          <img class="w-100 h-auto mb-4" loading="lazy" width="320" height="185" src="{% spaceless %}
-              {% thumbnail picture 320x185 crop subject_location=picture.subject_location %}
-              {% endspaceless %}"
-              {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
-              {{ attributes_str }}>
-        </picture>
-      {% endwith %}
-    {% if object.link %}</a>{% endif %}
-  {% endif %}
+
+  {% include "cms/plugins/primarylink/_picture.html" with extra_classes="mb-4" %}
 
   {% if object.link %}<a href="{{ object.link }}" class="text-black">{% endif %}
     <h4 class="h5 mt-0 {% if object.description %}mb-1{% else %}mb-3{% endif %}">

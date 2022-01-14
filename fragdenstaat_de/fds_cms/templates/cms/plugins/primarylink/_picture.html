@@ -1,0 +1,39 @@
+{% load thumbnail %}
+
+{% if object.image %}
+  {% if object.link %}<a href="{{ object.link }}">{% endif %}
+    {% with picture=object.image %}
+      {# TODO: duplicate of blog_feature_item  #}
+      <picture>
+        {% thumbnail picture 640x370 crop subject_location=picture.subject_location as thumb %}
+        <source
+          media="(min-width: 992px)"
+          srcset="{{ thumb.url }}"
+        />
+        <source
+          media="(min-width: 992px)"
+          srcset="{{ thumb.url }}.avif"
+          type="image/avif"
+        />
+        {% thumbnail picture 480x277 crop subject_location=picture.subject_location as thumb %}
+        <source
+          media="(min-width: 768px)"
+          srcset="{{ thumb.url }}"
+        />
+        <source
+          media="(min-width: 768px)"
+          srcset="{{ thumb.url }}.avif"
+          type="image/avif"
+        />
+        {% thumbnail picture 320x185 crop subject_location=picture.subject_location as thumb %}
+        <source
+          srcset="{{ thumb.url }}.avif"
+          type="image/avif"
+        />
+        <img class="w-100 h-auto {{ extra_classes }}" loading="lazy" width="320" height="185" src="{{ thumb.url }}"
+            {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
+            {{ attributes_str }}>
+      </picture>
+    {% endwith %}
+  {% if object.link %}</a>{% endif %}
+{% endif %}
