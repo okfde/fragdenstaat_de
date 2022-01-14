@@ -1,6 +1,17 @@
+import logging
+
 from django.apps import AppConfig
 from django.urls import reverse, NoReverseMatch
 from django.utils.translation import gettext_lazy as _
+from django.core.files.base import ContentFile
+
+logger = logging.getLogger(__name__)
+
+try:
+    import py_ravif
+except ImportError:
+    logger.warn("py_ravif not found, no avif image support!")
+    py_ravif = None
 
 
 class FdsCmsConfig(AppConfig):
@@ -14,6 +25,11 @@ class FdsCmsConfig(AppConfig):
 
         account_merged.connect(merge_user)
         search_registry.register(add_search)
+
+        if py_ravif is not None:
+            from easy_thumbnails.signals import thumbnail_created
+
+            thumbnail_created.connect(store_as_avif)
 
 
 def merge_user(sender, old_user=None, new_user=None, **kwargs):
@@ -31,3 +47,13 @@ def add_search(request):
         }
     except NoReverseMatch:
         return
+
+
+def store_as_avif(sender, **kwargs):
+    logger.info("Converting %s to avif", sender.name)
+    avif_name = ".".join([sender.name, "avif"])
+    img_file = sender.storage.open(sender.name, "rb")
+    img_bytes = img_file.read()
+    avif_bytes = py_ravif.convert_to_avif_from_bytes(img_bytes)
+    sender.storage.save(avif_name, ContentFile(avif_bytes))
+    logger.info("Done converting %s to avif", sender.name)

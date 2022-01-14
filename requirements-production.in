@@ -7,3 +7,4 @@ python-memcached
 channels_redis
 uvicorn
 sentry-sdk
+py_ravif
