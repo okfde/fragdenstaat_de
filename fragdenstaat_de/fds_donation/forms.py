@@ -1,5 +1,6 @@
 import base64
 import json
+import decimal
 
 from django import forms
 from django.core.mail import mail_managers
@@ -31,6 +32,7 @@ from .utils import MERGE_DONOR_FIELDS
 
 
 PAYMENT_METHOD_LIST = ("creditcard", "sepa", "paypal", "sofort", "banktransfer")
+PAYMENT_METHOD_MAX_AMOUNT = {"sepa": decimal.Decimal(5000)}
 
 PAYMENT_METHODS = [
     (method, CHECKOUT_PAYMENT_CHOICES_DICT[method]) for method in PAYMENT_METHOD_LIST
@@ -248,6 +250,18 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
             choices = [(x.name, x.name) for x in Campaign.objects.get_filter_list()]
             self.fields["purpose"].widget.choices.extend(choices)
             self.fields["purpose"].choices.extend(choices)
+
+    def clean(self):
+        amount = self.cleaned_data["amount"]
+        payment_method = self.cleaned_data["payment_method"]
+        max_amount = PAYMENT_METHOD_MAX_AMOUNT.get(payment_method)
+        if max_amount is not None and amount >= max_amount:
+            raise forms.ValidationError(
+                _(
+                    "Your amount is too large for the chosen payment method. "
+                    "Please choose a different method or contact us."
+                )
+            )
 
     def get_payment_metadata(self, data):
         if data["interval"] > 0:
