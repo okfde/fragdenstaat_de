@@ -448,10 +448,7 @@ class CardImageCMSPlugin(CMSPlugin):
     )
     overlap = models.CharField(
         _("Overlap"),
-        choices=(
-            ("left", _("Left")),
-            ("right", _("Right")),
-        ),
+        choices=(("left", _("Left")), ("right", _("Right")), ("center", _("Center"))),
         max_length=10,
         default="right",
     )

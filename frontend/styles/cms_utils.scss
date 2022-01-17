@@ -176,7 +176,7 @@
 }
 
 .box-card-image {
-  &.overlap-left, &.overlap-right {
+  &.overlap-center, &.overlap-left, &.overlap-right {
     width: 75%;
     margin-left: auto;
     margin-right: auto; 
@@ -189,10 +189,6 @@
   }
 
   @include media-breakpoint-up(md) {
-    /* &.overlap-left, &.overlap-right {
-      width: 25%;
-    } */
-
     &.overlap-right {
       margin-right: 3rem;
 
