@@ -415,7 +415,6 @@ class CardCMSPlugin(CMSPlugin):
             ("lg", _("Large")),
         ),
     )
-    extra_classes = models.CharField(max_length=255, blank=True)
     attributes = AttributesField()
 
 
@@ -423,7 +422,6 @@ class CardInnerCMSPlugin(CMSPlugin):
     background = models.CharField(
         _("Background"), choices=BACKGROUND, default="", max_length=50, blank=True
     )
-    extra_classes = models.CharField(max_length=255, blank=True)
     attributes = AttributesField()
 
 
@@ -437,7 +435,6 @@ class CardHeaderCMSPlugin(CMSPlugin):
             """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
         ),
     )
-    extra_classes = models.CharField(max_length=255, blank=True)
     attributes = AttributesField()
 
 
@@ -455,7 +452,6 @@ class CardImageCMSPlugin(CMSPlugin):
         max_length=10,
         default="right",
     )
-    extra_classes = models.CharField(max_length=255, blank=True)
     attributes = AttributesField()
 
 
@@ -476,5 +472,4 @@ class CardIconCMSPlugin(CMSPlugin):
         max_length=10,
         default="right",
     )
-    extra_classes = models.CharField(max_length=255, blank=True)
     attributes = AttributesField()
