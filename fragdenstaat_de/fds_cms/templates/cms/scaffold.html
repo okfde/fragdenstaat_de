@@ -25,7 +25,7 @@
   {% block extra_head %}
   {% endblock %}
 </head>
-<body {% if request.user.is_authenticated %}data-user="{{ request.user.id }}" data-useremail="{{ request.user.email }}"{% endif %}{% block body_extra_attributes %}{% endblock %}>
+<body {% if request.user.is_authenticated %}data-user="{{ request.user.id }}" data-useremail="{{ request.user.email }}"{% if request.user.is_staff %} data-sentry="{{ SENTRY_JS_URL}}"{% endif %}{% endif %}{% block body_extra_attributes %}{% endblock %}>
   {% cms_toolbar %}
   {% block body_tag %}{% endblock %}
   {% block extra_footer %}{% endblock %}
