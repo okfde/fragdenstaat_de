@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="box-card {{ classes }}">
+<div class="box-card {{ classes }}" {{ instance.attributes_str }}>
   {% for plugin in children %}
     {% render_plugin plugin %}
   {% endfor %}

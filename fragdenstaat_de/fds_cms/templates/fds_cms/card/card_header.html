@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="tight-margin d-flex align-items-center {{ classes }}">
+<div class="tight-margin d-flex align-items-center {{ classes }}" {{ instance.attributes_str }}>
   <h3 class="h5">{{ instance.title }}</h3>
   {% if instance.icon %}
     <div class="ml-auto">

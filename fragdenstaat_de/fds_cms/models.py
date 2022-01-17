@@ -416,6 +416,7 @@ class CardCMSPlugin(CMSPlugin):
         ),
     )
     extra_classes = models.CharField(max_length=255, blank=True)
+    attributes = AttributesField()
 
 
 class CardInnerCMSPlugin(CMSPlugin):
@@ -423,6 +424,7 @@ class CardInnerCMSPlugin(CMSPlugin):
         _("Background"), choices=BACKGROUND, default="", max_length=50, blank=True
     )
     extra_classes = models.CharField(max_length=255, blank=True)
+    attributes = AttributesField()
 
 
 class CardHeaderCMSPlugin(CMSPlugin):
@@ -436,6 +438,7 @@ class CardHeaderCMSPlugin(CMSPlugin):
         ),
     )
     extra_classes = models.CharField(max_length=255, blank=True)
+    attributes = AttributesField()
 
 
 class CardImageCMSPlugin(CMSPlugin):
@@ -453,6 +456,7 @@ class CardImageCMSPlugin(CMSPlugin):
         default="right",
     )
     extra_classes = models.CharField(max_length=255, blank=True)
+    attributes = AttributesField()
 
 
 class CardIconCMSPlugin(CMSPlugin):
@@ -473,3 +477,4 @@ class CardIconCMSPlugin(CMSPlugin):
         default="right",
     )
     extra_classes = models.CharField(max_length=255, blank=True)
+    attributes = AttributesField()

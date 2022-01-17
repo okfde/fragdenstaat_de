@@ -485,7 +485,8 @@ class CardPlugin(CMSPluginBase):
         elif instance.shadow == "auto":
             classes.append(f"md:shadow-{instance.border}")
 
-        classes += instance.extra_classes.split(" ")
+        if instance.attributes.get("class"):
+            classes += instance.attributes["class"].split(" ")
 
         children = []
         for plugin in instance.child_plugin_instances:
@@ -543,7 +544,8 @@ class CardInnerPlugin(CMSPluginBase):
         if instance.background:
             classes.append(f"bg-{instance.background}")
 
-        classes += instance.extra_classes.split(" ")
+        if instance.attributes.get("class"):
+            classes += instance.attributes["class"].split(" ")
         context["classes"] = " ".join(classes)
 
         return super().render(context, instance, placeholder)
@@ -565,7 +567,8 @@ class CardHeaderPlugin(CMSPluginBase):
         parent_model, parent_instance = instance.parent.get_plugin_instance()
         classes.append(parent_instance.padding(parent_model))
 
-        classes += instance.extra_classes.split(" ")
+        if instance.attributes.get("class"):
+            classes += instance.attributes["class"].split(" ")
 
         classes.append(parent_instance.color(parent_model))
 
@@ -604,7 +607,8 @@ class CardIconPlugin(CMSPluginBase):
         if instance.overlap == "right":
             classes.append("overlap-right")
 
-        classes += instance.extra_classes.split(" ")
+        if instance.attributes.get("class"):
+            classes += instance.attributes["class"].split(" ")
 
         context["classes"] = " ".join(classes)
 
