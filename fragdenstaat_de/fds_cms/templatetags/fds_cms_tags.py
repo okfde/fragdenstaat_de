@@ -22,3 +22,14 @@ def fds_static_placeholder(context, code):
         return ""
     placeholder = static_placeholder.public
     return render_placeholder(context, placeholder, use_cache=True)
+
+
+@register.filter
+def thumbnail_dims(instance, default_width=768):
+    if instance.width and instance.height:
+        return "%dx%d" % (instance.width, instance.height)
+    elif instance.height:
+        return "0x%d" % instance.height
+    elif instance.width:
+        return "%dx0" % instance.width
+    return "%dx0" % default_width

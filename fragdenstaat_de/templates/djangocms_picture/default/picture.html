@@ -1,4 +1,5 @@
 {% load thumbnail %}
+{% load fds_cms_tags %}
 {% load markup %}
 
 {# start render figure/figcaption #}
@@ -44,18 +45,8 @@
 
   {% if instance.external_picture or instance.use_no_cropping%}
     {# Empty #}
-  {% elif instance.width and instance.height %}
-    {% with width=instance.width|stringformat:'d' height=instance.height|stringformat:'d' %}
-      {% thumbnail instance.picture width|add:'x'|add:height crop=scale subject_location=instance.picture.subject_location as thumb %}
-    {% endwith %}
-  {% elif instance.height %}
-    {% with height=instance.height|stringformat:'d' %}
-      {% thumbnail instance.picture '0x'|add:height crop=scale subject_location=instance.picture.subject_location as thumb %}
-    {% endwith %}
-  {% elif instance.width %}
-    {% with width=instance.width|stringformat:'d' %}
-      {% thumbnail instance.picture width|add:'x0' crop=scale subject_location=instance.picture.subject_location as thumb %}
-    {% endwith %}
+  {% elif instance.width or instance.height %}
+    {% thumbnail instance.picture instance|thumbnail_dims crop=scale subject_location=instance.picture.subject_location as thumb %}
   {% else %}
     {% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location as thumb %}
   {% endif %}
