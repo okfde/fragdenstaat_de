@@ -49,7 +49,8 @@ def remind_unreceived_banktransfers():
                 completed=True,
                 received=True,
                 donor_id=donation.donor_id,
-                timestamp__gte=donation.timestamp,
+                timestamp__gte=first_of_last_month,
+                timestamp__lt=first_of_this_month,
             )
             .exclude(id=donation.id)
             .exists()
