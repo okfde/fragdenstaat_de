@@ -138,6 +138,7 @@
 /* images */
 .hero-illustration {
   width: 12rem;
+  max-width: 100%;
   height: auto;
   @include media-breakpoint-up(lg) {
     width: 16rem;
