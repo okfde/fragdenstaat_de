@@ -12,7 +12,6 @@ import "froide/frontend/javascript/snippets/search.ts";
 
 import "./drawer-menu.ts";
 import "./slider.js";
-import "./betterplace.ts";
 import "./donation-form.ts";
 import "./top-banner.ts";
 import "./magnifier.ts";
