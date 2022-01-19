@@ -9,6 +9,7 @@
   {{ block.super }}
 {% endblock %}
 
+{% block body_extra_attributes %} data-staticurl="{{ STATIC_URL }}"{% if request.user.is_staff %} data-sentry="{{ SENTRY_JS_URL}}"{% endif %}{% endblock %}
 
 {% block body_tag %}
   {% if request.user.is_authenticated and request.session.impostor %}
