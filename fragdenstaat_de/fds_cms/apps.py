@@ -50,6 +50,8 @@ def add_search(request):
 
 
 def store_as_avif(sender, **kwargs):
+    if not sender.name.endswith((".png", ".jpg", ".jpeg")):
+        return
     logger.info("Converting %s to avif", sender.name)
     avif_name = ".".join([sender.name, "avif"])
     img_file = sender.storage.open(sender.name, "rb")
