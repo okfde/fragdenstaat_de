@@ -1,3 +1,5 @@
+__webpack_public_path__ = (document.body.dataset.staticurl || "/static/") + "js/"
+
 import "../styles/main.scss";
 
 import "es6-promise/auto";
