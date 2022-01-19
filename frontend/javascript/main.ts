@@ -20,9 +20,9 @@ import "./smooth-scroll.ts"
 import "./misc.ts";
 
 if (document.body.dataset.sentry) {
-  import(/* webpackChunkName: "@sentry/browser" */ "@sentry/browser").then((Sentry) => {
-    Sentry.init({
-      dsn: document.body.dataset.sentry,
-    });
+  import(/* webpackChunkName: "sentry" */ "./sentry").then((mod) => {
+    if (document.body.dataset.sentry) {
+      mod.init(document.body.dataset.sentry)
+    }
   });
 }
