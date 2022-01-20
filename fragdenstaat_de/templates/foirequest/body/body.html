@@ -5,7 +5,7 @@
 
 {% block request_top_pane %}
 
-{% if object|can_manage_foirequest:request %}
+{% if object|can_write_foirequest:request %}
 
 {% if object|foirequest_has_questionaire %}
   <div
