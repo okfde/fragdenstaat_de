@@ -37,6 +37,7 @@ from .models import (
     CardHeaderCMSPlugin,
     CardImageCMSPlugin,
     CardIconCMSPlugin,
+    CardLinkCMSPlugin,
 )
 from .contact import ContactForm
 
@@ -471,6 +472,7 @@ class CardPlugin(CMSPluginBase):
         "CardInnerPlugin",
         "CardImagePlugin",
         "CardIconPlugin",
+        "CardLinkPlugin",
     ]
     cache = True
 
@@ -489,6 +491,7 @@ class CardPlugin(CMSPluginBase):
             classes += instance.attributes["class"].split(" ")
 
         children = []
+        links = []
         for plugin in instance.child_plugin_instances:
             # images, icons
             if plugin.plugin_type in ("CardImagePlugin", "CardIconPlugin"):
@@ -500,11 +503,15 @@ class CardPlugin(CMSPluginBase):
                         classes.append("d-md-flex")
                 else:
                     classes.append("box-card-has-icon")
+            elif plugin.plugin_type == "CardLinkPlugin":
+                links.append(plugin)
             # text, etc.
             else:
                 children.append(plugin)
 
         context["children"] = children
+        context["links"] = links
+        context["padding"] = self.padding(instance)
         context["classes"] = " ".join(set(classes))
 
         return super().render(context, instance, placeholder)
@@ -612,4 +619,18 @@ class CardIconPlugin(CMSPluginBase):
 
         context["classes"] = " ".join(classes)
 
+        return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class CardLinkPlugin(CMSPluginBase):
+    model = CardLinkCMSPlugin
+    module = _("Card")
+    name = _("Card Link")
+    render_template = "fds_cms/card/card_link.html"
+    allow_children = False
+    parent_classes = ["CardPlugin"]
+    cache = True
+
+    def render(self, context, instance, placeholder):
         return super().render(context, instance, placeholder)

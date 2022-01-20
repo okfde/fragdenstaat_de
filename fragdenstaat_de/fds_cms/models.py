@@ -437,6 +437,9 @@ class CardHeaderCMSPlugin(CMSPlugin):
     )
     attributes = AttributesField()
 
+    def __str__(self):
+        return self.title
+
 
 class CardImageCMSPlugin(CMSPlugin):
     image = FilerImageField(
@@ -473,3 +476,34 @@ class CardIconCMSPlugin(CMSPlugin):
         default="right",
     )
     attributes = AttributesField()
+
+    def __str__(self):
+        return self.icon
+
+
+class CardLinkCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255, blank=True)
+    url = models.CharField(_("link"), max_length=255, blank=True)
+    page_link = PageField(blank=True)
+    arrow = models.BooleanField(default=False)
+    icon = models.CharField(
+        _("Icon"),
+        max_length=50,
+        blank=True,
+        help_text=_(
+            """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
+        ),
+    )
+    attributes = AttributesField()
+
+    def link(self):
+        if self.url:
+            return self.url
+        elif self.page_link_id:
+            try:
+                return self.page_link.get_absolute_url()
+            except NoReverseMatch:
+                return
+
+    def __str__(self):
+        return self.title

@@ -77,6 +77,14 @@
 .font-size-lg { font-size: $font-size-lg; }
 .font-weight-semibold { font-weight: 600; }
 
+.action-link {
+  font-weight: 600;
+  
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 /*
   spacing utilities 
 */
@@ -255,4 +263,10 @@
     flex: 1;
     margin-left: -8.333333333%;
   }
+}
+
+.box-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 0 !important;
 }

@@ -4,4 +4,12 @@
   {% for plugin in children %}
     {% render_plugin plugin %}
   {% endfor %}
+
+  {% if links|length > 0 %}
+    <div class="box-card-links {{ padding }}">
+      {% for plugin in links %}
+        {% render_plugin plugin %}
+      {% endfor %}
+    </div>
+  {% endif %}
 </div>
