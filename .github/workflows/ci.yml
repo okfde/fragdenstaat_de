@@ -42,8 +42,8 @@ jobs:
             pip-sync requirements-dev.txt
             pip install -e .
             yarn install
-      - name: Build frontend
-        run: yarn run build
+      # - name: Build frontend
+      #   run: yarn run build
       - name: Run flake8 and tests
         run: make testci
         env:
