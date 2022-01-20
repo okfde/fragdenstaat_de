@@ -6,7 +6,7 @@
 
 {% block request_top_menu %}
 
-{% if object|can_manage_foirequest:request %}
+{% if object|can_write_foirequest:request %}
   {% if object|foirequest_has_questionaire %}
     <li class="alpha-tabs__tab">
       <a
@@ -42,7 +42,7 @@
 
 {% block request_top_menu_last %}
 
-{% if object|can_manage_foirequest:request %}
+{% if object|can_write_foirequest:request %}
   {% if object.costs %}
   <li class="alpha-tabs__tab">
     <a
