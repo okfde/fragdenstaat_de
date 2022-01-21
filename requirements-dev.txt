@@ -9,9 +9,7 @@
 -e git+https://github.com/stefanw/django-contractor.git@main#egg=django-contractor
     # via -r requirements.in
 -e git+https://github.com/okfde/django-filingcabinet.git@master#egg=django-filingcabinet
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 -e git+https://github.com/OpenLegalTech/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
     # via -r requirements.in
 -e git+https://github.com/okfde/froide.git@main#egg=froide
@@ -47,8 +45,6 @@ alabaster==0.7.12
     # via sphinx
 amqp==5.0.6
     # via kombu
-appnope==0.1.2
-    # via ipython
 asgiref==3.3.4
     # via
     #   channels
@@ -69,11 +65,7 @@ autobahn==21.3.1
 automat==20.2.0
     # via twisted
 babel==2.9.1
-    # via
-    #   django-prices
-    #   enmerkar
-    #   prices
-    #   sphinx
+    # via sphinx
 backcall==0.2.0
     # via ipython
 backports.entry-points-selectable==1.1.0
@@ -96,7 +88,6 @@ celery==5.1.1
     #   django-celery-beat
     #   django-celery-email
     #   django-contractor
-    #   froide
 certifi==2021.5.30
     # via
     #   elasticsearch
@@ -165,9 +156,7 @@ deprecated==1.2.12
 distlib==0.3.3
     # via virtualenv
 dj-database-url==0.5.0
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 django==3.2.11
     # via
     #   -r requirements.in
@@ -189,13 +178,10 @@ django==3.2.11
     #   django-formtools
     #   django-leaflet
     #   django-legal-advice-builder
-    #   django-localflavor
     #   django-logentry-admin
     #   django-mptt
     #   django-oauth-toolkit
-    #   django-payments
     #   django-polymorphic
-    #   django-prices
     #   django-sekizai
     #   django-storages
     #   django-taggit
@@ -203,8 +189,6 @@ django==3.2.11
     #   django-treebeard
     #   djangorestframework
     #   easy-thumbnails
-    #   enmerkar
-    #   froide
     #   sortabletable
 django-admin-sortable2==1.0
     # via
@@ -213,9 +197,7 @@ django-admin-sortable2==1.0
 django-appconf==1.0.4
     # via django-celery-email
 django-cache-url==3.2.3
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 django-celery-beat==2.2.0
     # via -r requirements.in
 django-celery-email==3.0.0
@@ -237,23 +219,15 @@ django-cms==3.9.0
     #   djangocms-video
     #   sortabletable
 django-configurations==2.2
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 django-contrib-comments==2.1.0
     # via -r requirements.in
-django-countries==7.2.1
-    # via froide-payment
 django-coverage-plugin==2.0.0
     # via -r requirements-dev.in
 django-crossdomainmedia==0.0.3
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 django-debug-toolbar==3.2.1
     # via -r requirements-dev.in
-django-elasticsearch-dsl==7.2.1
-    # via froide
 django-filer==2.1rc3
     # via
     #   -r requirements.in
@@ -265,7 +239,6 @@ django-filter==2.4.0
     # via
     #   -r requirements.in
     #   django-filingcabinet
-    #   froide
     #   froide-campaign
 django-floppyforms==1.9.0
     # via -r requirements.in
@@ -281,8 +254,6 @@ django-json-widget==1.1.1
     #   django-filingcabinet
 django-leaflet==0.28.1
     # via -r requirements.in
-django-localflavor==3.1
-    # via froide-payment
 django-logentry-admin==1.1.0
     # via -r requirements.in
 django-markdown-deux==1.0.5
@@ -295,26 +266,19 @@ django-oauth-toolkit==1.5.0
     # via -r requirements.in
 django-parler==2.2
     # via -r requirements.in
-django-payments==0.15.0
-    # via froide-payment
 django-polymorphic==3.0.0
     # via django-filer
-django-prices==2.2.0
-    # via froide-payment
 django-sekizai==2.0.0
     # via
     #   -r requirements.in
     #   django-cms
 django-storages==1.11.1
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 django-taggit==1.4.0
     # via
     #   -r requirements.in
     #   django-filingcabinet
     #   django-taggit-autosuggest
-    #   froide
 django-taggit-autosuggest==0.3.8
     # via -r requirements.in
 django-timezone-field==4.1.2
@@ -360,16 +324,11 @@ djangorestframework==3.12.4
     #   -r requirements.in
     #   django-filingcabinet
     #   djangorestframework-csv
-    #   froide
     #   froide-campaign
 djangorestframework-csv==2.1.1
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 djangorestframework-jsonp==1.0.2
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 dnspython==2.1.0
     # via pyisemail
 docopt==0.6.2
@@ -385,11 +344,7 @@ elasticsearch==7.13.2
     #   -r requirements.in
     #   elasticsearch-dsl
 elasticsearch-dsl==7.3.0
-    # via
-    #   -r requirements.in
-    #   django-elasticsearch-dsl
-enmerkar==0.7.1
-    # via django-prices
+    # via -r requirements.in
 et-xmlfile==1.1.0
     # via openpyxl
 factory-boy==3.2.0
@@ -423,9 +378,7 @@ geocoder==1.38.1
 geographiclib==1.50
     # via geopy
 geoip2==4.2.0
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 geopy==2.1.0
     # via
     #   django-amenities
@@ -441,9 +394,7 @@ hyperlink==21.0.0
     #   autobahn
     #   twisted
 icalendar==4.0.7
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 identify==2.3.1
     # via pre-commit
 idna==2.10
@@ -458,7 +409,7 @@ incremental==21.3.0
     # via twisted
 ipdb==0.13.9
     # via -r requirements-dev.in
-ipython==7.24.1
+ipython==7.31.1
     # via ipdb
 ipython-genutils==0.2.0
     # via traitlets
@@ -488,7 +439,6 @@ markdown==3.3.4
     # via
     #   -r requirements.in
     #   django-legal-advice-builder
-    #   froide
 markdown2==2.4.0
     # via django-markdown-deux
 markupsafe==2.0.1
@@ -536,7 +486,6 @@ pexpect==4.8.0
 phonenumbers==8.12.25
     # via
     #   -r requirements.in
-    #   froide
     #   froide-fax
 pickleshare==0.7.5
     # via ipython
@@ -557,10 +506,6 @@ platformdirs==2.4.0
     #   virtualenv
 pre-commit==2.15.0
     # via -r requirements-dev.in
-prices==1.1.0
-    # via
-    #   django-prices
-    #   froide-payment
 prompt-toolkit==3.0.19
     # via
     #   click-repl
@@ -613,22 +558,15 @@ python-dateutil==2.8.1
     # via
     #   elasticsearch-dsl
     #   faker
-    #   froide-payment
     #   icalendar
     #   pandas
     #   python-crontab
 python-magic==0.4.24
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 python-mimeparse==1.6.0
-    # via
-    #   -r requirements.in
-    #   froide
+    # via -r requirements.in
 python-slugify==5.0.2
     # via -r requirements.in
-python-stdnum==1.17
-    # via django-localflavor
 pytz==2021.1
     # via
     #   -r requirements.in
@@ -636,7 +574,6 @@ pytz==2021.1
     #   celery
     #   django
     #   django-timezone-field
-    #   froide
     #   icalendar
     #   pandas
 pywatchman==1.4.1
@@ -658,11 +595,8 @@ requests==2.25.1
     #   coreapi
     #   django-contractor
     #   django-oauth-toolkit
-    #   django-payments
-    #   froide
     #   froide-fax
     #   froide-food
-    #   froide-payment
     #   geocoder
     #   geoip2
     #   sphinx
@@ -680,7 +614,6 @@ six==1.16.0
     #   click-repl
     #   django-configurations
     #   django-coverage-plugin
-    #   django-elasticsearch-dsl
     #   django-oauth-toolkit
     #   djangorestframework-csv
     #   elasticsearch-dsl
@@ -716,9 +649,7 @@ sqlparse==0.4.2
     #   django
     #   django-debug-toolbar
 stripe==2.58.0
-    # via
-    #   -r requirements.in
-    #   froide-payment
+    # via -r requirements.in
 svglib==1.1.0
     # via easy-thumbnails
 tblib==1.7.0
