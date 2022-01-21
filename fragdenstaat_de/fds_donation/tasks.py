@@ -6,6 +6,8 @@ from froide.celery import app as celery_app
 
 from fragdenstaat_de.theme.notifications import send_notification
 
+TIME_ZERO = dict(hour=0, minute=0, second=0, microsecond=0)
+
 
 @celery_app.task(name="fragdenstaat_de.fds_donation.new_donation")
 def send_donation_notification(donation_id):
@@ -29,11 +31,10 @@ def remind_unreceived_banktransfers():
     from .services import send_donation_reminder_email
 
     today = timezone.localtime(timezone.now())
-    zero = dict(hour=0, minute=0, second=0, microsecond=0)
 
     last_month = today - relativedelta(months=1)
-    first_of_this_month = today.replace(day=1, **zero)
-    first_of_last_month = last_month.replace(day=1, **zero)
+    first_of_this_month = today.replace(day=1, **TIME_ZERO)
+    first_of_last_month = last_month.replace(day=1, **TIME_ZERO)
 
     donations = Donation.objects.filter(
         completed=True,
@@ -57,3 +58,24 @@ def remind_unreceived_banktransfers():
         )
         if not donation_from_donor_exists:
             send_donation_reminder_email(donation)
+
+
+@celery_app.task(name="fragdenstaat_de.fds_donation.remove_old_donations")
+def remove_old_donations():
+    from .models import Donor, Donation
+
+    today = timezone.localtime(timezone.now())
+    today = today.replace(**TIME_ZERO)
+
+    # Remove donations that are incomplete and older than three months
+    INCOMPLETE_AGE = relativedelta(months=3)
+    incomplete_last = today - INCOMPLETE_AGE
+    Donation.objects.filter(completed=False, timestamp__lt=incomplete_last).delete()
+
+    # Remove donations that are unreceived and older than 12 months
+    UNRECEIVED_AGE = relativedelta(months=12)
+    unreceived_last = today - UNRECEIVED_AGE
+    Donation.objects.filter(received=False, timestamp__lt=unreceived_last).delete()
+
+    # Remove donors without donations
+    Donor.objects.filter(donations=None).delete()
