@@ -48,6 +48,10 @@ const EXCLUDE_CHUNKS = [
   'main', 'tagautocomplete', 'request-alpha'
 ].join('|')
 
+const EXCLUDE_MODULES_FROM_COMMON = [
+  'leaflet', 'exif', 'uppy', 'tus-js', 'bootstrap-native'
+]
+
 const ENTRY_LIST = []
 let CHUNK_LIST = []
 for (let key in ENTRY) {
@@ -220,9 +224,9 @@ const config = {
       cleanOnceBeforeBuildPatterns: ['**/*', '../css/*'],
       dangerouslyAllowCleanPatternsOutsideProject: true
     }),
-    // new BundleAnalyzerPlugin({
-    //   analyzerPort: 8905
-    // }),
+    new BundleAnalyzerPlugin({
+      analyzerPort: 8905
+    }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -255,7 +259,17 @@ const config = {
           chunks: 'all'
         },
         common: {
-          test: /[\\/]node_modules[\\/]/,
+          test(mod/* , chunk */) {
+            // Only node_modules are needed
+            if (mod.context && !mod.context.includes('node_modules')) {
+              return false;
+            }
+            // But not node modules that contain these key words in the path
+            if (mod.context && EXCLUDE_MODULES_FROM_COMMON.some(str => mod.context.includes(str))) {
+              return false;
+            }
+            return true;
+          },
           chunks(chunk) {
             return CHUNK_LIST.indexOf(chunk.name) !== -1
           },
