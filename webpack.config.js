@@ -224,9 +224,9 @@ const config = {
       cleanOnceBeforeBuildPatterns: ['**/*', '../css/*'],
       dangerouslyAllowCleanPatternsOutsideProject: true
     }),
-    new BundleAnalyzerPlugin({
-      analyzerPort: 8905
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerPort: 8905
+    // }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
