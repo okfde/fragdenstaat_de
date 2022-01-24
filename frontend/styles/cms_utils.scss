@@ -165,12 +165,10 @@
 /* cms cards */
 
 .box-card {
+  display: flex;
+  flex-direction: column;
   position: relative;
   
-  &.max-height {
-    height: calc(100% - 6rem);
-  }
-
   &.box-card-has-image {
     margin-top: 6rem;
   }
@@ -269,4 +267,5 @@
   display: flex;
   flex-wrap: wrap;
   padding-top: 0 !important;
+  margin-top: auto;
 }
