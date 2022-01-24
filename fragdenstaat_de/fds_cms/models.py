@@ -484,7 +484,7 @@ class CardIconCMSPlugin(CMSPlugin):
 class CardLinkCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=255, blank=True)
     url = models.CharField(_("link"), max_length=255, blank=True)
-    page_link = PageField(blank=True)
+    page_link = PageField(blank=True, null=True)
     arrow = models.BooleanField(default=False)
     icon = models.CharField(
         _("Icon"),
