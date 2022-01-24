@@ -33,17 +33,19 @@
   </div>
 {% endif %}
 
-{% if object.can_be_escalated and not "food:" in object.reference %}
+{% if object.can_be_escalated or object.response_deadline_has_past and request.user.is_staff %}
+  {% if not "food:" in object.reference %}
   <div
   role="tabpanel"
   class="tab-pane fade"
   id="legalaction-panel"
   aria-labelledby="legalaction-tab"
   >
-    <div class="container p-5">
+    <div class="container py-5">
       {% include "froide_legalaction/includes/request_pane.html" with object=object %}
     </div>
   </div>
+  {% endif %}
 {% endif %}
 
 {% endif %}
