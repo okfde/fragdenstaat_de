@@ -169,10 +169,6 @@
   width: 100%;
   flex-direction: column;
   position: relative;
-  
-  &.box-card-has-image {
-    margin-top: 6rem;
-  }
 
   &.box-card-has-icon {
     margin-top: 1.5rem;
@@ -180,6 +176,10 @@
     @include media-breakpoint-up(md) {
       margin-top: 2rem;
     }
+  }
+
+  &.box-card-has-image {
+    margin-top: 6rem;
   }
 }
 
