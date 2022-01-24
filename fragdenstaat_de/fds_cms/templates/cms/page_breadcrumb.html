@@ -1,0 +1,18 @@
+{% extends "cms/page.html" %}
+
+{% load cms_tags %}
+{% load menu_tags %}
+
+{% block body %}
+  <nav class="breadcrumb-container" aria-label="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb">
+        {% show_breadcrumb 1 "cms/breadcrumbs.html" %}
+      </ol>
+    </div>
+  </nav>
+
+  {% block app_body %}
+    {% placeholder "content" %}
+  {% endblock %}
+{% endblock %}
