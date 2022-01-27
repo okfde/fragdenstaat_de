@@ -13,7 +13,7 @@ from froide.foirequest.pdf_generator import PDFGenerator
 from froide.helper.email_sending import mail_registry
 
 
-MAX_DONATIONS = 24
+MAX_DONATIONS = 26
 
 
 jzwb_mail = mail_registry.register(
