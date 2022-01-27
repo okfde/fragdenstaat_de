@@ -79,3 +79,18 @@ def remove_old_donations():
 
     # Remove donors without donations
     Donor.objects.filter(donations=None).delete()
+
+
+@celery_app.task(name="fragdenstaat_de.fds_donation.send_jzwb")
+def send_jzwb_mailing_task(donor_id, year):
+    from .export import send_jzwb_mailing
+    from .models import Donor
+
+    try:
+        donor = Donor.objects.get(
+            id=donor_id,
+        )
+    except Donor.DoesNotExist:
+        return
+
+    send_jzwb_mailing(donor, year)

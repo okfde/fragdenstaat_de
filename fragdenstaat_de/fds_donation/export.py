@@ -1,15 +1,24 @@
 import base64
+from io import BytesIO
 
 from datetime import datetime
 from num2words import num2words
 
 from django.utils import formats, timezone
+from django.conf import settings
 
 from filer.models.foldermodels import Folder
+
 from froide.foirequest.pdf_generator import PDFGenerator
+from froide.helper.email_sending import mail_registry
 
 
 MAX_DONATIONS = 24
+
+
+jzwb_mail = mail_registry.register(
+    "fds_donation/email/jzwb", ("name", "salutation", "donor", "year")
+)
 
 
 def format_number(num):
@@ -135,6 +144,12 @@ def amount_to_words(amount):
 class ZWBPDFGenerator(PDFGenerator):
     template_name = "fds_donation/pdf/zwb.html"
 
+    def __init__(self, obj, year=None):
+        self.obj = obj
+        if year is None:
+            year = datetime.now().year - 1
+        self.year = year
+
     def get_signature_string(self):
         try:
             folder = Folder.objects.get(name="Signature")
@@ -147,12 +162,60 @@ class ZWBPDFGenerator(PDFGenerator):
 
     def get_context_data(self, obj):
         ctx = super().get_context_data(obj)
-        year = datetime.now().year - 1
-        donations = get_donations(obj, year)
+        donations = get_donations(obj, self.year)
 
         data = get_zwb_data(obj, donations)
         data["donations"] = donations
-        data["year"] = year
+        data["year"] = self.year
         data["signature_string"] = self.get_signature_string()
         ctx.update(data)
         return ctx
+
+
+class PostcodeEncryptedZWBPDFGenerator(ZWBPDFGenerator):
+    def get_pdf_bytes(self):
+        assert self.obj.postcode
+
+        pdf_bytes = super().get_pdf_bytes()
+
+        from PyPDF2 import PdfFileReader, PdfFileWriter
+
+        input_pdf = PdfFileReader(BytesIO(pdf_bytes))
+
+        output_pdf = PdfFileWriter()
+        output_pdf.appendPagesFromReader(input_pdf)
+        output_pdf.encrypt(self.obj.postcode)
+
+        out_bytes = BytesIO()
+        output_pdf.write(out_bytes)
+        out_bytes.seek(0)
+        return out_bytes.read()
+
+
+def send_jzwb_mailing(donor, year, priority=False):
+    if not donor.email:
+        return
+
+    context = {
+        "year": year,
+        "donor": donor,
+        "name": donor.get_full_name(),
+        "salutation": donor.get_salutation(),
+    }
+
+    pdf_generator = PostcodeEncryptedZWBPDFGenerator(donor, year=year)
+
+    attachment = (
+        "jzwb-fds-%d.pdf" % year,
+        pdf_generator.get_pdf_bytes(),
+        "application/pdf",
+    )
+
+    jzwb_mail.send(
+        email=donor.email,
+        context=context,
+        ignore_active=True,
+        priority=priority,
+        bcc=[settings.DEFAULT_FROM_EMAIL],
+        attachments=[attachment],
+    )

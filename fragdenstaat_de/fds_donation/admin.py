@@ -50,7 +50,7 @@ from .external import import_banktransfers, import_paypal
 from .services import send_donation_email, send_donation_reminder_email
 from .forms import get_merge_donor_form
 from .utils import propose_donor_merge, merge_donors
-from .export import get_zwbs, ZWBPDFGenerator
+from .export import get_zwbs, ZWBPDFGenerator, PostcodeEncryptedZWBPDFGenerator
 
 
 def median(field):
@@ -203,8 +203,10 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "clear_duplicates",
         "export_zwbs",
         "get_zwb_pdf",
+        "get_encrypted_zwb_pdf",
         "tag_all",
         "send_mailing",
+        "send_jzwb_mailing",
         "update_newsletter_tag",
     ] + SetupMailingMixin.actions
 
@@ -379,10 +381,10 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
     merge_donors.short_description = _("Merge donors")
 
-    def get_zwb_pdf(self, request, queryset):
+    def get_zwb_pdf(self, request, queryset, pdf_class=ZWBPDFGenerator):
         if queryset.count() == 1:
             donor = queryset[0]
-            pdf_generator = ZWBPDFGenerator(donor)
+            pdf_generator = pdf_class(donor)
             response = HttpResponse(
                 pdf_generator.get_pdf_bytes(), content_type="application/pdf"
             )
@@ -393,7 +395,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         zfile_obj = BytesIO()
         zfile = zipfile.ZipFile(zfile_obj, "w")
         for donor in queryset:
-            pdf_generator = ZWBPDFGenerator(donor)
+            pdf_generator = pdf_class(donor)
             filename = "%s_%s.pdf" % (slugify(donor.get_order_name()), donor.id)
             zfile.writestr(filename, pdf_generator.get_pdf_bytes())
         zfile.close()
@@ -405,6 +407,25 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         return response
 
     get_zwb_pdf.short_description = _("Generate ZWB PDFs")
+
+    def get_encrypted_zwb_pdf(self, request, queryset):
+        queryset = queryset.exclude(postcode="")
+        return self.get_zwb_pdf(
+            request, queryset, pdf_class=PostcodeEncryptedZWBPDFGenerator
+        )
+
+    get_encrypted_zwb_pdf.short_description = _("Generate encrypted ZWB PDFs")
+
+    def send_jzwb_mailing(self, request, queryset):
+        from .tasks import send_jzwb_mailing_task
+
+        last_year = timezone.now().year - 1
+        queryset = queryset.exclude(postcode="")
+
+        for donor in queryset:
+            send_jzwb_mailing_task.delay(donor.id, last_year)
+
+    send_jzwb_mailing.short_description = _("Send JZWB for last year to selected now")
 
     def export_zwbs(self, request, queryset):
         # Filter by ZWB criteria
