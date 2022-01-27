@@ -29,27 +29,36 @@
   <div class="row justify-content-center mt-2">
     <div class="col-md-8">
       {% if form %}
-        <form method="post" class="clearfix mt-3 bg-white border-gray shadow-sm p-3">
-          <div class="pb-2 mb-3">
-            {% if step_count > 1 %}
-            <div class="font-weight-bold mb-3">{{ question.questionaire }}</div>
-            {% endif %}
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: {{ progess }}%" aria-valuenow="{{ progess }}" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="clearfix mt-3 bg-white border-gray shadow-sm p-3">
+          <form method="post" >
+            <div class="pb-2 mb-3">
+              {% if step_count > 1 %}
+              <div class="font-weight-bold mb-3">{{ question.questionaire }}</div>
+              {% endif %}
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: {{ progess }}%" aria-valuenow="{{ progess }}" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="text-right">
+                <small class="text-muted">
+                  Frage {{ answer_count }} von max. {{ question_count }}.
+                </small>
+              </div>
             </div>
-            <div class="text-right">
-              <small class="text-muted">
-                Frage {{ answer_count }} von max. {{ question_count }}.
-              </small>
-            </div>
-          </div>
 
-          {% csrf_token %}
-          <div class="no-required-asterisk">
-            {% render_form form horizontal=False %}
-          </div>
-          <input class="btn btn-primary btn-sm pull-right" type="submit" value="Weiter" />
-        </form>
+            {% csrf_token %}
+            <div class="no-required-asterisk">
+              {% render_form form horizontal=False %}
+            </div>
+            <input class="btn btn-primary btn-sm pull-right" type="submit" value="Weiter" />
+          </form>
+
+          {% if has_previous_question%}
+            <form method="post">
+              {% csrf_token %}
+              <input class="btn btn-link btn-sm pull-right" name="previous-question" type="submit" value="Zurück" />
+            </form>
+          {% endif %}
+        </div>
       {% endif %}
 
       {% if success %}
@@ -113,6 +122,12 @@
         <a class="btn btn-primary btn-sm pull-right" href="{% url 'foirequest-shortlink' foi_request.id %}">
           Zurück zu Anfrage
         </a>
+        {% if has_previous_question%}
+        <form method="post">
+          {% csrf_token %}
+          <input class="btn btn-link btn-sm pull-right" name="previous-question" type="submit" value="Zurück zur letzten Frage" />
+        </form>
+        {% endif %}
       </div>
       {% endif %}
 
