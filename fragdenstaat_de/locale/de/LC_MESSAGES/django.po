@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-13 19:32+0100\n"
+"POT-Creation-Date: 2022-01-28 17:52+0100\n"
 "PO-Revision-Date: 2021-11-17 13:59+0100\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -61,7 +61,7 @@ msgstr ""
 #: fds_mailing/cms_plugins.py:44 fds_mailing/cms_plugins.py:69
 #: fds_mailing/cms_plugins.py:117 fds_mailing/cms_plugins.py:142
 #: fds_mailing/cms_plugins.py:167 fds_newsletter/forms.py:20
-#: settings/base.py:306
+#: settings/base.py:307
 msgid "Email"
 msgstr ""
 
@@ -444,11 +444,11 @@ msgstr "Englisch"
 msgid "No image in article"
 msgstr ""
 
-#: settings/base.py:223
+#: settings/base.py:224
 msgid "E-Mail Body"
 msgstr ""
 
-#: settings/base.py:306
+#: settings/base.py:307
 msgid "Hero"
 msgstr ""
 
@@ -476,17 +476,45 @@ msgstr "Ihr Browser unterstützt diese Video-Format nicht."
 msgid "Questionaire"
 msgstr "Fragebogen"
 
-#: templates/footer.html:73 templates/header.html:28 templates/header.html:187
-msgid "Donate"
-msgstr "Spenden"
-
+#: templates/froide_legalaction/legaldecision_detail.html:11
 #: templates/froide_legalaction/legaldecision_list.html:11
 msgid "start"
 msgstr "Start"
 
+#: templates/froide_legalaction/legaldecision_detail.html:12
 #: templates/froide_legalaction/legaldecision_list.html:12
 msgid "Decisionssearch"
 msgstr "Entscheidungsdatenbank"
+
+#: templates/froide_legalaction/legaldecision_detail.html:46
+msgid "Information"
+msgstr "Informationen"
+
+#: templates/froide_legalaction/legaldecision_detail.html:53
+msgid "reference"
+msgstr "Aktenzeichen"
+
+#: templates/froide_legalaction/legaldecision_detail.html:61
+msgid "date"
+msgstr "Datum"
+
+#: templates/froide_legalaction/legaldecision_detail.html:69
+msgid "court"
+msgstr "Gericht"
+
+#: templates/froide_legalaction/legaldecision_detail.html:77
+msgid "law"
+msgstr "Gesetz"
+
+#: templates/froide_legalaction/legaldecision_detail.html:93
+msgid ""
+"\n"
+"              %(type)s of %(court)s on %(date)s\n"
+"              "
+msgstr ""
+"\n"
+"                %(type)s - %(court)s vom %(date)s\n"
+"                "
 
 #: templates/froide_legalaction/legaldecision_list.html:45
 msgid "Refine your query"
@@ -496,7 +524,7 @@ msgstr "Suche eingrenzen"
 msgid "You have selected:"
 msgstr "Ihre Auswahl:"
 
-#: templates/froide_legalaction/legaldecision_list.html:87
+#: templates/froide_legalaction/legaldecision_list.html:88
 #, python-format
 msgid ""
 "\n"
@@ -504,29 +532,26 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"                %(type)s - %(court)s am %(date)s\n"
+"                %(type)s - %(court)s vom %(date)s\n"
 "                "
 
-#: templates/froide_legalaction/legaldecision_list.html:91
-#, python-format
-msgid ""
-"\n"
-"                %(type)s of %(court)s\n"
-"                "
+#: templates/header.html:28 templates/header.html:192
+msgid "Donate"
+msgstr "Spenden"
+
+#: templates/header.html:33
+msgid "Menu"
 msgstr ""
-"\n"
-"                %(type)s - %(court)s\n"
-"                "
 
-#: templates/header.html:75 templates/header.html:211
+#: templates/header.html:75 templates/header.html:216
 msgid "Log out"
 msgstr "Abmelden"
 
-#: templates/header.html:87 templates/header.html:154
+#: templates/header.html:87 templates/header.html:157
 msgid "Requests"
 msgstr "Anfragen"
 
-#: templates/header.html:94 templates/header.html:158
+#: templates/header.html:94 templates/header.html:161
 msgid "See requests"
 msgstr "Anfragen entdecken"
 
@@ -534,31 +559,31 @@ msgstr "Anfragen entdecken"
 msgid "Make request"
 msgstr "Anfrage stellen"
 
-#: templates/header.html:104 templates/header.html:164
+#: templates/header.html:106 templates/header.html:168
 msgid "Beginner's guide"
 msgstr "Einsteiger-Guide"
 
-#: templates/header.html:112 templates/header.html:170
+#: templates/header.html:115 templates/header.html:175
 msgid "Campaigns"
 msgstr "Kampagnen"
 
-#: templates/header.html:118 templates/header.html:175
+#: templates/header.html:121 templates/header.html:180
 msgid "Investigations"
 msgstr "Recherchen"
 
-#: templates/header.html:125 templates/header.html:219
+#: templates/header.html:128 templates/header.html:224
 msgid "Sign in"
 msgstr "Anmelden"
 
-#: templates/header.html:133
+#: templates/header.html:136
 msgid "You like our work? Support us with a donation!"
 msgstr "Ihnen gefällt unsere Arbeit? Unterstützen Sie uns mit einer Spende!"
 
-#: templates/header.html:136
+#: templates/header.html:139
 msgid "Donate now"
 msgstr "Jetzt spenden"
 
-#: templates/header.html:161
+#: templates/header.html:164
 msgid "Make requests"
 msgstr "Anfrage stellen"
 
@@ -578,6 +603,15 @@ msgid ""
 msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
+
+#~ msgid ""
+#~ "\n"
+#~ "                %(type)s of %(court)s\n"
+#~ "                "
+#~ msgstr ""
+#~ "\n"
+#~ "                %(type)s - %(court)s\n"
+#~ "                "
 
 #~ msgid "No messages yet"
 #~ msgstr "Noch keine Nachrichten"
@@ -615,9 +649,6 @@ msgstr ""
 
 #~ msgid "Search support topics"
 #~ msgstr "Hilfethemen durchsuchen"
-
-#~ msgid "Donations"
-#~ msgstr "Spenden"
 
 #~ msgid "Log off"
 #~ msgstr "Abmelden"

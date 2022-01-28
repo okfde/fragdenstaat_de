@@ -90,7 +90,9 @@
               <li class="mr-2">{{ object.law_name }}</li>
             </ul>
             <h3 class="h5 mt-0 mb-1">
-                {{ object.title }}
+              {% blocktranslate with type=object.type court=object.court_name date=object.date %}
+              {{ type }} of {{ court }} on {{ date }}
+              {% endblocktranslate %}
             </h3>
             <p><small>{{ object.reference }}</small></p>
             <p class="text-muted">{{ object.abstract }}</p>

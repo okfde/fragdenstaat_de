@@ -85,7 +85,9 @@
             </ul>
             <h3 class="h5 mt-0 mb-1">
               <a href="{% url 'legal-decision-detail' decision.id %}">
-                {{ decision.title }}
+                {% blocktranslate with type=decision.type court=decision.court_name date=decision.date %}
+                {{ type }} of {{ court }} on {{ date }}
+                {% endblocktranslate %}
               </a>
             </h3>
             <p><small>{{ decision.reference }}</small></p>
