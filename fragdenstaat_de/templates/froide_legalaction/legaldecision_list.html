@@ -94,7 +94,7 @@
             <p class="text-muted">{{ decision.abstract }}</p>
             <p class="text-right">
               {% for tag in decision.tags.all %}
-                <span class="badge rounded-pill bg-dark text-white">{{ tag.name }}</span>
+                <span class="badge rounded-pill bg-dark"><a class="text-white" href="{% url 'legal-decision-list' %}?tags={{ tag.id }}">{{ tag.name }}</a></span>
               {% endfor %}
             </p>
           </li>
