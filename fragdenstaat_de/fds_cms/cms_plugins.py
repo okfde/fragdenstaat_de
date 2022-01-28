@@ -7,11 +7,6 @@ from cms.plugin_pool import plugin_pool
 
 from djangocms_bootstrap4.helpers import concat_classes
 
-from filingcabinet.views import (
-    get_document_viewer_context,
-    get_document_collection_context,
-)
-
 from froide.helper.utils import get_redirect_url
 
 from froide.foirequest.models import FoiRequest
@@ -87,6 +82,8 @@ class DocumentEmbedPlugin(CMSPluginBase):
     raw_id_fields = ("doc",)
 
     def render(self, context, instance, placeholder):
+        from filingcabinet.views import get_document_viewer_context
+
         context = super().render(context, instance, placeholder)
         try:
             saved_defaults = json.loads(instance.settings)
@@ -115,6 +112,8 @@ class DocumentCollectionEmbedPlugin(CMSPluginBase):
     raw_id_fields = ("collection",)
 
     def render(self, context, instance, placeholder):
+        from filingcabinet.views import get_document_collection_context
+
         context = super().render(context, instance, placeholder)
 
         ctx = get_document_collection_context(
@@ -135,6 +134,8 @@ class DocumentPortalEmbedPlugin(CMSPluginBase):
     render_template = "document/cms_plugins/document_collection_embed.html"
 
     def render(self, context, instance, placeholder):
+        from filingcabinet.views import get_document_collection_context
+
         context = super().render(context, instance, placeholder)
 
         ctx = get_document_collection_context(

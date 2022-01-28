@@ -17,7 +17,6 @@ from .models import (
     DonationFormCMSPlugin,
     DonationProgressBarCMSPlugin,
 )
-from .forms import DonationGiftForm
 
 
 @plugin_pool.register_plugin
@@ -30,6 +29,8 @@ class DonationGiftFormPlugin(CMSPluginBase):
     render_template = "fds_donation/cms_plugins/donationgiftform.html"
 
     def render(self, context, instance, placeholder):
+        from .forms import DonationGiftForm
+
         context = super().render(context, instance, placeholder)
 
         context["category"] = instance.category

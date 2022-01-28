@@ -46,11 +46,6 @@ from .models import (
     DefaultDonation,
     DONATION_PROJECTS,
 )
-from .external import import_banktransfers, import_paypal
-from .services import send_donation_email, send_donation_reminder_email
-from .forms import get_merge_donor_form
-from .utils import propose_donor_merge, merge_donors
-from .export import get_zwbs, ZWBPDFGenerator, PostcodeEncryptedZWBPDFGenerator
 
 
 def median(field):
@@ -327,6 +322,8 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         Send mail to users
 
         """
+        from .forms import get_merge_donor_form
+        from .utils import propose_donor_merge, merge_donors
 
         select_across = request.POST.get("select_across", "0") == "1"
         if select_across:
@@ -381,7 +378,12 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
     merge_donors.short_description = _("Merge donors")
 
-    def get_zwb_pdf(self, request, queryset, pdf_class=ZWBPDFGenerator):
+    def get_zwb_pdf(self, request, queryset, pdf_class=None):
+        from .export import ZWBPDFGenerator
+
+        if pdf_class is None:
+            pdf_class = ZWBPDFGenerator
+
         if queryset.count() == 1:
             donor = queryset[0]
             pdf_generator = pdf_class(donor)
@@ -409,6 +411,8 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     get_zwb_pdf.short_description = _("Generate ZWB PDFs")
 
     def get_encrypted_zwb_pdf(self, request, queryset):
+        from .export import PostcodeEncryptedZWBPDFGenerator
+
         queryset = queryset.exclude(postcode="")
         return self.get_zwb_pdf(
             request, queryset, pdf_class=PostcodeEncryptedZWBPDFGenerator
@@ -428,6 +432,8 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     send_jzwb_mailing.short_description = _("Send JZWB for last year to selected now")
 
     def export_zwbs(self, request, queryset):
+        from .export import get_zwbs
+
         # Filter by ZWB criteria
         # Only valid records
         queryset = queryset.filter(invalid=False)
@@ -711,6 +717,8 @@ class DonationAdmin(admin.ModelAdmin):
     match_banktransfer.short_description = _("Match planned to received banktransfer")
 
     def resend_donation_mail(self, request, queryset):
+        from .services import send_donation_email
+
         resent = 0
         sent = 0
         for donation in queryset:
@@ -732,6 +740,8 @@ class DonationAdmin(admin.ModelAdmin):
     resend_donation_mail.short_description = _("Resend donation email")
 
     def send_donation_reminder(self, request, queryset):
+        from .services import send_donation_reminder_email
+
         sent = 0
         for donation in queryset:
             result = send_donation_reminder_email(donation)
@@ -747,6 +757,8 @@ class DonationAdmin(admin.ModelAdmin):
     send_donation_reminder.short_description = _("Send donation reminder")
 
     def import_banktransfers(self, request):
+        from .external import import_banktransfers
+
         if not request.method == "POST":
             raise PermissionDenied
         if not self.has_change_permission(request):
@@ -774,6 +786,8 @@ class DonationAdmin(admin.ModelAdmin):
         return redirect("admin:fds_donation_donation_changelist")
 
     def import_paypal(self, request):
+        from .external import import_paypal
+
         if not request.method == "POST":
             raise PermissionDenied
         if not self.has_change_permission(request):
