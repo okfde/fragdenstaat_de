@@ -8,9 +8,6 @@ from django.core.mail import mail_managers
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import trans_real
-from django.forms import Media
-
-from parler import admin as parler_admin
 
 from froide.foirequest.hooks import registry
 
@@ -33,14 +30,6 @@ def wrapping_get_language_from_path(*args, **kwargs):
 
 
 trans_real.get_language_from_path = wrapping_get_language_from_path
-
-# Monkey patch reference to no longer existing .min.js files
-parler_admin._language_prepopulated_media = parler_admin._language_media + Media(
-    js=(
-        "admin/js/urlify.js",
-        "admin/js/prepopulate.js",
-    )
-)
 
 
 def detect_troll_pre_request_creation(request, **kwargs):
