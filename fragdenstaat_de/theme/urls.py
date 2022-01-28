@@ -6,6 +6,7 @@ from django.contrib.sitemaps import views as sitemaps_views
 
 # Import early to register with api_router
 from froide_campaign import urls as campaign_urls
+import froide_food.urls  # noqa
 import fragdenstaat_de.fds_blog.urls  # noqa
 
 from froide.foirequest.views import dashboard
@@ -22,7 +23,6 @@ from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
 from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 
 from .views import glyphosat_download, meisterschaften_tippspiel
-
 
 sitemaps["cmspages"] = FdsCMSSitemap
 sitemaps["blog"] = BlogSitemap

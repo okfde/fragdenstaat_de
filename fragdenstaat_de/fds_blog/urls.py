@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.utils.translation import gettext_lazy as _
 
-from froide.helper import api_router
+from froide.api import api_router
 
 from .feeds import LatestArticlesFeed, LatestArticlesTeaserFeed
 from .views import (
