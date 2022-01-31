@@ -425,9 +425,15 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
         last_year = timezone.now().year - 1
         queryset = queryset.exclude(postcode="")
+        count = queryset.count()
 
         for donor in queryset:
             send_jzwb_mailing_task.delay(donor.id, last_year)
+        self.message_user(
+            request,
+            _("Sending JZWB email to {} donors.").format(count),
+            level=messages.INFO,
+        )
 
     send_jzwb_mailing.short_description = _("Send JZWB for last year to selected now")
 
