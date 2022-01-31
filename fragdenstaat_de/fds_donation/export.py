@@ -200,6 +200,10 @@ class PostcodeEncryptedZWBPDFGenerator(ZWBPDFGenerator):
 def send_jzwb_mailing(donor, year, priority=False):
     if not donor.email:
         return
+    if not donor.email_confirmed:
+        return
+    if not donor.postcode:
+        return
 
     pdf_generator = PostcodeEncryptedZWBPDFGenerator(donor, year=year)
 

@@ -424,7 +424,11 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         from .tasks import send_jzwb_mailing_task
 
         last_year = timezone.now().year - 1
-        queryset = queryset.exclude(postcode="")
+        queryset = (
+            queryset.exclude(postcode="")
+            .exclude(email="")
+            .exclude(email_confirmed__isnull=True)
+        )
         count = queryset.count()
 
         for donor in queryset:
