@@ -210,7 +210,7 @@ def send_jzwb_mailing(donor, year, priority=False):
     )
 
     donations = get_donations(donor, year)
-    total_amount = sum(donation["amount"] for donation in donations)
+    total_amount = sum(donation.amount for donation in donations)
 
     context = {
         "year": year,
