@@ -174,7 +174,7 @@
     margin-top: 1.5rem;
 
     @include media-breakpoint-up(md) {
-      margin-top: 2rem;
+      margin-top: 2.25rem;
     }
   }
 
@@ -245,14 +245,18 @@
   }
 
   @include media-breakpoint-up(md) {
-    left: -2rem;
-    top: -2rem;
-    width: 4rem;
-    height: 4rem;
+    left: -2.25rem;
+    top: -2.25rem;
+    width: 4.5rem;
+    height: 4.5rem;
 
     &.overlap-right {
       left: unset;
-      right: -2rem;
+      right: -2.25rem;
+    }
+
+    .fa {
+      font-size: 2.5rem;
     }
   }
 }
