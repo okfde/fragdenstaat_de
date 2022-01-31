@@ -18,4 +18,5 @@ django-coverage-plugin
 tblib
 honcho
 ipdb
+ipython>=7.31.1
 pywatchman
