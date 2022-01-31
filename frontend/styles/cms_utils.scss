@@ -67,6 +67,7 @@
 
 .backdrop-blue { @include backdrop($blue-10); }
 .backdrop-gray { @include backdrop($gray-200); }
+.backdrop-gray-100 { @include backdrop($gray-100); }
 .backdrop-yellow { @include backdrop($yellow-100); }
 
 /*
