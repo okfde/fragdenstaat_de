@@ -217,7 +217,7 @@ def send_jzwb_mailing(donor, year, priority=False):
         "donor": donor,
         "name": donor.get_full_name(),
         "salutation": donor.get_salutation(),
-        "total_amount": format_number(total_amount),
+        "total_amount": format_number_no_currency(total_amount),
     }
 
     jzwb_mail.send(
