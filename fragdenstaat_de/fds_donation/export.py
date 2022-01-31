@@ -17,16 +17,16 @@ MAX_DONATIONS = 26
 
 
 jzwb_mail = mail_registry.register(
-    "fds_donation/email/jzwb", ("name", "salutation", "donor", "year")
+    "fds_donation/email/jzwb", ("name", "salutation", "donor", "year", "total_amount")
 )
 
 
 def format_number(num):
-    return (u"%.2f €" % num).replace(".", ",")
+    return ("%.2f €" % num).replace(".", ",")
 
 
 def format_number_no_currency(num):
-    return (u"%.2f" % num).replace(".", ",")
+    return ("%.2f" % num).replace(".", ",")
 
 
 def get_zwbs(donors, year):
@@ -201,13 +201,6 @@ def send_jzwb_mailing(donor, year, priority=False):
     if not donor.email:
         return
 
-    context = {
-        "year": year,
-        "donor": donor,
-        "name": donor.get_full_name(),
-        "salutation": donor.get_salutation(),
-    }
-
     pdf_generator = PostcodeEncryptedZWBPDFGenerator(donor, year=year)
 
     attachment = (
@@ -215,6 +208,17 @@ def send_jzwb_mailing(donor, year, priority=False):
         pdf_generator.get_pdf_bytes(),
         "application/pdf",
     )
+
+    donations = get_donations(donor, year)
+    total_amount = sum(donation["amount"] for donation in donations)
+
+    context = {
+        "year": year,
+        "donor": donor,
+        "name": donor.get_full_name(),
+        "salutation": donor.get_salutation(),
+        "total_amount": format_number(total_amount),
+    }
 
     jzwb_mail.send(
         email=donor.email,
@@ -226,5 +230,4 @@ def send_jzwb_mailing(donor, year, priority=False):
     )
 
     # Update receipt date
-    donations = get_donations(donor, year)
     donations.update(receipt_date=timezone.now())
