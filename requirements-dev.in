@@ -1,5 +1,5 @@
 -r requirements.in
-black
+black>=22.1.0
 Sphinx
 django-debug-toolbar>=3.2.1
 coverage
