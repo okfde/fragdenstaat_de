@@ -8,7 +8,6 @@
       <div class="col-md-8">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">{% translate 'start' %}</a></li>
             <li class="breadcrumb-item active"><a href="{% url 'legal-decision-list' %}">{% translate 'Decisionssearch' %}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ object.title|truncatechars:50 }}</li>
           </ol>
