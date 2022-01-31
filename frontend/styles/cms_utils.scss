@@ -153,7 +153,15 @@
   }
 }
 
-.partner-logos img {
+@include media-breakpoint-down(sm) {
+  .hero-illustration-vertical {
+    width: auto;
+    max-width: 100%;
+    height: 12rem;
+  }
+}
+
+.partner-logos img, .partner-logo {
   display: block;
   width: 12rem;
   max-width: 100%;
