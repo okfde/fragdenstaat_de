@@ -40,11 +40,17 @@ def get_zwb(donor, year):
     donations = get_donations(donor, year)
     if not donations:
         return
-    return get_zwb_data(donor, donations)
+
+    if len(donations) > MAX_DONATIONS:
+        raise ValueError("Too many donations for %s" % donor.id)
+
+    donation_data = get_donation_data(donations)
+
+    return get_zwb_data(donor, donation_data)
 
 
-def get_zwb_data(donor, donations):
-    total_amount = sum(donation["amount"] for donation in donations)
+def get_zwb_data(donor, donation_data):
+    total_amount = sum(donation["amount"] for donation in donation_data)
 
     if donor.company_name:
         address_name = donor.company_name
@@ -75,12 +81,12 @@ def get_zwb_data(donor, donations):
         "Jahressumme": format_number_no_currency(total_amount),
         "JahressummeInWorten": amount_to_words(total_amount),
         "NutzerKonto": donor_account,
-        "receipt_already": any(d["receipt_date"] for d in donations),
+        "receipt_already": any(d["receipt_date"] for d in donation_data),
         "current_date": format_date(timezone.now()),
     }
 
     for i in range(1, MAX_DONATIONS + 1):
-        if i > len(donations):
+        if i > len(donation_data):
             data.update(
                 {
                     "Datum%s" % i: "",
@@ -90,7 +96,7 @@ def get_zwb_data(donor, donations):
                 }
             )
             continue
-        donation = donations[i - 1]
+        donation = donation_data[i - 1]
         data.update(
             {
                 "Datum%s" % i: donation["date"],
@@ -108,18 +114,15 @@ def format_date(date):
 
 
 def get_donations(donor, year):
-    donations = donor.donations.all().filter(
-        received=True, received_timestamp__year=year
+    return (
+        donor.donations.all()
+        .filter(received=True, received_timestamp__year=year)
+        .order_by("received_timestamp")
     )
 
+
+def get_donation_data(donations):
     donations.update(export_date=timezone.now())
-
-    donations = donations.order_by("received_timestamp")
-
-    if len(donations) > MAX_DONATIONS:
-        raise ValueError("Too many donations for %s" % donor.id)
-    if not donations:
-        return
 
     return [
         {
@@ -162,10 +165,12 @@ class ZWBPDFGenerator(PDFGenerator):
 
     def get_context_data(self, obj):
         ctx = super().get_context_data(obj)
-        donations = get_donations(obj, self.year)
 
-        data = get_zwb_data(obj, donations)
-        data["donations"] = donations
+        donations = get_donations(obj, self.year)
+        donation_data = get_donation_data(donations)
+
+        data = get_zwb_data(obj, donation_data)
+        data["donations"] = donation_data
         data["year"] = self.year
         data["signature_string"] = self.get_signature_string()
         ctx.update(data)
@@ -219,3 +224,7 @@ def send_jzwb_mailing(donor, year, priority=False):
         bcc=[settings.DEFAULT_FROM_EMAIL],
         attachments=[attachment],
     )
+
+    # Update receipt date
+    donations = get_donations(donor, year)
+    donations.update(receipt_date=timezone.now())
