@@ -48,7 +48,7 @@ donor_thanks_email = mail_registry.register(
     ),
 )
 
-donor_optin_email = mail_registry.register(
+donor_thanks_optin_email = mail_registry.register(
     "fds_donation/email/donor_thanks_optin",
     (
         "name",
@@ -59,6 +59,17 @@ donor_optin_email = mail_registry.register(
         "order",
         "donor",
         "donation",
+    ),
+)
+
+donor_optin_email = mail_registry.register(
+    "fds_donation/email/donor_optin",
+    (
+        "name",
+        "first_name",
+        "last_name",
+        "salutation",
+        "donor",
     ),
 )
 
@@ -163,7 +174,7 @@ def send_donation_email(donation, domain_obj=None):
             mail_intent = new_donor_thanks_email
     else:
         needs_optin = True
-        mail_intent = donor_optin_email
+        mail_intent = donor_thanks_optin_email
         extra_context = {"action_url": donor.get_url()}
 
     if domain_obj is not None and not needs_optin:
@@ -194,6 +205,32 @@ def send_donation_email(donation, domain_obj=None):
     donation.email_sent = timezone.now()
     donation.save()
     donor.email_confirmation_sent = donation.email_sent
+    donor.save()
+    return True
+
+
+def send_donor_optin_email(donor):
+    if not donor.email:
+        return
+
+    context = {
+        "name": donor.get_full_name(),
+        "first_name": donor.first_name,
+        "last_name": donor.last_name,
+        "salutation": donor.get_salutation(),
+        "donor": donor,
+        "user": donor.user,
+        "action_url": donor.get_url(),
+    }
+
+    donor_optin_email.send(
+        user=donor.user,
+        email=donor.email,
+        context=context,
+        ignore_active=True,
+        priority=True,
+    )
+    donor.email_confirmation_sent = timezone.now()
     donor.save()
     return True
 

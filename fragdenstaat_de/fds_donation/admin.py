@@ -192,6 +192,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     )
     raw_id_fields = ("user", "subscriptions", "subscriber")
     actions = [
+        "send_donor_optin_email",
         "merge_donors",
         "detect_duplicates",
         "clear_duplicates",
@@ -273,6 +274,22 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         )
 
     admin_link_donations.short_description = _("donations")
+
+    def send_donor_optin_email(self, request, queryset):
+        from .services import send_donor_optin_email
+
+        count = 0
+        for donor in queryset:
+            if send_donor_optin_email(donor):
+                count += 1
+
+        self.message_user(
+            request,
+            _("Send {count} optin mails.").format(count=count),
+            level=messages.INFO,
+        )
+
+    send_donor_optin_email.short_description = _("Send opt-in mail")
 
     def clear_duplicates(self, request, queryset):
         queryset.update(duplicate=None)
