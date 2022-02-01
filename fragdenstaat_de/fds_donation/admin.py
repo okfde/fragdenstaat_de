@@ -1,11 +1,10 @@
 from collections import defaultdict
 from io import BytesIO
 import uuid
-import zipfile
 
 from django.db.models import Q, Max, Sum, Avg, Count, Value, Aggregate, F
 from django.db.models.functions import Concat
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, StreamingHttpResponse
 from django import forms
 from django.contrib import admin, messages
 from django.contrib.admin.filters import SimpleListFilter
@@ -379,14 +378,16 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     merge_donors.short_description = _("Merge donors")
 
     def get_zwb_pdf(self, request, queryset, pdf_class=None):
-        from .export import ZWBPDFGenerator
+        from .export import ZWBPDFGenerator, generate_pdf_zip_package
 
         if pdf_class is None:
             pdf_class = ZWBPDFGenerator
 
+        last_year = timezone.now().year - 1
+
         if queryset.count() == 1:
             donor = queryset[0]
-            pdf_generator = pdf_class(donor)
+            pdf_generator = pdf_class(donor, year=last_year)
             response = HttpResponse(
                 pdf_generator.get_pdf_bytes(), content_type="application/pdf"
             )
@@ -394,17 +395,12 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             response["Content-Disposition"] = 'attachment; filename="%s"' % filename
             return response
 
-        zfile_obj = BytesIO()
-        zfile = zipfile.ZipFile(zfile_obj, "w")
-        for donor in queryset:
-            pdf_generator = pdf_class(donor)
-            filename = "%s_%s.pdf" % (slugify(donor.get_order_name()), donor.id)
-            zfile.writestr(filename, pdf_generator.get_pdf_bytes())
-        zfile.close()
-
-        response = HttpResponse(zfile_obj.getvalue(), content_type="application/zip")
-        response["Content-Disposition"] = 'attachment; filename="zwbs_%s.zip"' % (
-            timezone.now().isoformat()
+        generator = generate_pdf_zip_package(
+            queryset.iterator(), year=last_year, pdf_class=pdf_class
+        )
+        response = StreamingHttpResponse(generator, content_type="application/zip")
+        response["Content-Disposition"] = (
+            'attachment; filename="jzwbs_%d.zip"' % last_year
         )
         return response
 

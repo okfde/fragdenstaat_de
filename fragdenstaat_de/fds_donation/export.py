@@ -1,7 +1,8 @@
 import base64
-from io import BytesIO
-
 from datetime import datetime
+from io import BytesIO
+import zipfile
+
 from num2words import num2words
 
 from django.utils import formats, timezone
@@ -237,3 +238,45 @@ def send_jzwb_mailing(donor, year, priority=False):
 
     # Update receipt date
     donations.update(receipt_date=timezone.now())
+
+
+class FakeFile:
+    def __init__(self):
+        self.inner_file = None
+
+    def flush(self):
+        pass
+
+    def write(self, chunk):
+        if self.inner_file is None:
+            self.inner_file = BytesIO()
+        self.inner_file.write(chunk)
+        return len(chunk)
+
+    def get_chunk(self):
+        if self.inner_file is None:
+            return None
+        val = self.inner_file.getvalue()
+        self.inner_file = None
+        return val
+
+
+def generate_pdf_zip_package(donors, year, pdf_class=PostcodeEncryptedZWBPDFGenerator):
+    fake_file = FakeFile()
+    with zipfile.ZipFile(fake_file, "w") as zip_file:
+        for donor in donors:
+            pdf_generator = pdf_class(donor, year=year)
+            attachment_name = "jzwb-fds-%d-%d.pdf" % (year, donor.id)
+            zip_file.writestr(attachment_name, pdf_generator.get_pdf_bytes())
+            chunk = fake_file.get_chunk()
+            if chunk:
+                yield chunk
+
+    chunk = fake_file.get_chunk()
+    if chunk:
+        yield chunk
+
+
+def get_pdf_zip_package(fp, donors, year, pdf_class=PostcodeEncryptedZWBPDFGenerator):
+    for chunk in generate_pdf_zip_package(donors, year, pdf_class=pdf_class):
+        fp.write(chunk)
