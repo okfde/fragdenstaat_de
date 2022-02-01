@@ -470,6 +470,7 @@ class FragDenStaatBase(German, Base):
         ("JH", "Jugend hackt"),
         ("GM", "Gemeinkosten"),
     ]
+    DONATION_ARCHIVE_INBOX = "spendenbescheinigungen@okfn.de"
 
     EMAIL_BACKEND = "fragdenstaat_de.theme.email_backend.CustomCeleryEmailBackend"
     CELERY_EMAIL_BACKEND = "froide.foirequest.smtp.EmailBackend"

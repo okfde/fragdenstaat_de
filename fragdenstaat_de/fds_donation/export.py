@@ -224,12 +224,14 @@ def send_jzwb_mailing(donor, year, priority=False):
         "total_amount": format_number_no_currency(total_amount),
     }
 
+    bcc_email = getattr(settings, "DONATION_ARCHIVE_INBOX", settings.DEFAULT_FROM_EMAIL)
+
     jzwb_mail.send(
         email=donor.email,
         context=context,
         ignore_active=True,
         priority=priority,
-        bcc=[settings.DEFAULT_FROM_EMAIL],
+        bcc=[bcc_email],
         attachments=[attachment],
     )
 
