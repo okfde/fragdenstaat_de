@@ -602,6 +602,7 @@ class DonationAdmin(admin.ModelAdmin):
         "send_donation_reminder",
         "tag_donors",
         "match_banktransfer",
+        "clear_receipt_date",
     ]
 
     tag_donors = make_batch_tag_action(
@@ -761,6 +762,11 @@ class DonationAdmin(admin.ModelAdmin):
         )
 
     resend_donation_mail.short_description = _("Resend donation email")
+
+    def clear_receipt_date(self, request, queryset):
+        queryset.update(receipt_date=None)
+
+    clear_receipt_date.short_description = _("Clear receipt date")
 
     def send_donation_reminder(self, request, queryset):
         from .services import send_donation_reminder_email
