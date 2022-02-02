@@ -252,16 +252,17 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
             self.fields["purpose"].choices.extend(choices)
 
     def clean(self):
-        amount = self.cleaned_data["amount"]
-        payment_method = self.cleaned_data["payment_method"]
-        max_amount = PAYMENT_METHOD_MAX_AMOUNT.get(payment_method)
-        if max_amount is not None and amount >= max_amount:
-            raise forms.ValidationError(
-                _(
-                    "Your amount is too large for the chosen payment method. "
-                    "Please choose a different method or contact us."
+        amount = self.cleaned_data.get("amount")
+        payment_method = self.cleaned_data.get("payment_method")
+        if amount is not None and payment_method is not None:
+            max_amount = PAYMENT_METHOD_MAX_AMOUNT.get(payment_method)
+            if max_amount is not None and amount >= max_amount:
+                raise forms.ValidationError(
+                    _(
+                        "Your amount is too large for the chosen payment method. "
+                        "Please choose a different method or contact us."
+                    )
                 )
-            )
 
     def get_payment_metadata(self, data):
         if data["interval"] > 0:
