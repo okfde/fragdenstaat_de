@@ -347,7 +347,7 @@ dnspython==2.1.0
     # via pyisemail
 docopt==0.6.2
     # via num2words
-easy-thumbnails==2.8rc0
+easy-thumbnails==2.8.1
     # via
     #   django-filer
     #   djangocms-picture
