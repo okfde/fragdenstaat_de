@@ -249,7 +249,7 @@ django-crossdomainmedia==0.0.3
     #   froide
 django-elasticsearch-dsl==7.2.0
     # via froide
-django-filer==2.1rc3
+django-filer==2.1.2
     # via
     #   -r requirements.in
     #   djangocms-bootstrap4
