@@ -738,7 +738,7 @@ stripe==2.58.0
     # via
     #   -r requirements.in
     #   froide-payment
-svglib==1.1.0
+svglib==1.2.1
     # via easy-thumbnails
 tblib==1.7.0
     # via -r requirements-dev.in

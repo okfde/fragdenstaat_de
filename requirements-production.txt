@@ -652,7 +652,7 @@ stripe==2.58.0
     #   froide-payment
 suds-jurko==0.6
     # via django-payments
-svglib==1.1.0
+svglib==1.2.1
     # via easy-thumbnails
 tabulate==0.8.9
     # via camelot-py
