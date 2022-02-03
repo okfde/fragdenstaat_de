@@ -64,6 +64,7 @@ class DonationCompleteView(TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx["order"] = self.request.GET.get("order", "")
+        ctx["receipt"] = self.request.GET.get("receipt", "")
         ctx["subscription"] = self.request.GET.get("subscription", "")
         ctx["email"] = self.request.GET.get("email", "")
         return ctx

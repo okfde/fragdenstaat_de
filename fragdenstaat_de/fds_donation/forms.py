@@ -362,7 +362,7 @@ class DonorForm(forms.Form):
         ),
         choices=(
             (0, _("No, thank you.")),
-            (1, _("Yes, once a year.")),
+            (1, _("Yes, once a year via email.")),
         ),
         coerce=lambda x: bool(int(x)),
         required=True,

@@ -333,6 +333,8 @@ class Donation(models.Model):
             query = {
                 "email": self.donor.email.encode("utf-8"),
             }
+            if self.donor.receipt:
+                query.update({"receipt": "1"})
             if self.order:
                 query.update(
                     {
