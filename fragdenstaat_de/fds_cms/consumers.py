@@ -46,6 +46,10 @@ class CMSPluginEditConsumer(AsyncJsonWebsocketConsumer):
         if content["type"] == "heartbeat":
             await self.pm.touch(self.scope["user"])
             return
+        if content["type"] == "left":
+            await self.pm.remove(self.scope["user"])
+            await self.update_userlist(action="left")
+            return
 
     async def userlist(self, event):
         try:

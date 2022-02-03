@@ -20,6 +20,9 @@ const renderList = (userList) => {
 }
 
 const setupRoom = () => {
+  if (!modalOpen) {
+    return
+  }
   let iframe = document.querySelector('.cms-modal-frame iframe')
   if (iframe === null) {
     if (modalOpen) {
@@ -49,6 +52,7 @@ CMS.$(window).on('cms-modal-close', function () {
   modalOpen = false
   renderList([])
   if (room) {
+    room.send({ "type": "left" })
     room.close()
     room = null
   }
