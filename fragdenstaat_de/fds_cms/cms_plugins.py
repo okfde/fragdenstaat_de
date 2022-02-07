@@ -585,7 +585,7 @@ class CardHeaderPlugin(CMSPluginBase):
         return super().render(context, instance, placeholder)
 
 
-THUMBNAIL_SIZES = {"sm": ("150x0", "100x0"), "lg": ("280x0", "200x0")}
+THUMBNAIL_SIZES = {"sm": ("100x0", "100x0"), "lg": ("280x0", "200x0")}
 
 
 @plugin_pool.register_plugin
