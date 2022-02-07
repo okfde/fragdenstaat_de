@@ -415,13 +415,13 @@ class CardCMSPlugin(CMSPlugin):
             ("lg", _("Large")),
         ),
     )
+    background = models.CharField(
+        _("Background"), choices=BACKGROUND, default="", max_length=50, blank=True
+    )
     attributes = AttributesField()
 
 
 class CardInnerCMSPlugin(CMSPlugin):
-    background = models.CharField(
-        _("Background"), choices=BACKGROUND, default="", max_length=50, blank=True
-    )
     attributes = AttributesField()
 
 

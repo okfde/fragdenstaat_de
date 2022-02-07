@@ -488,6 +488,9 @@ class CardPlugin(CMSPluginBase):
         elif instance.shadow == "auto":
             classes.append(f"md:shadow-{instance.border}")
 
+        if instance.background:
+            classes.append(f"bg-{instance.background}")
+
         if instance.attributes.get("class"):
             classes += instance.attributes["class"].split(" ")
 
@@ -548,9 +551,6 @@ class CardInnerPlugin(CMSPluginBase):
 
         parent_model, parent_instance = instance.parent.get_plugin_instance()
         classes.append(parent_instance.padding(parent_model))
-
-        if instance.background:
-            classes.append(f"bg-{instance.background}")
 
         if instance.attributes.get("class"):
             classes += instance.attributes["class"].split(" ")
