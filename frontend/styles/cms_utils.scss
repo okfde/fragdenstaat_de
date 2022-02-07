@@ -151,6 +151,7 @@
   height: auto;
   max-height: 12rem;
   object-fit: contain;
+  
   @include media-breakpoint-up(lg) {
     width: 16rem;
     max-height: 16rem;
@@ -158,13 +159,8 @@
 }
 
 .img-sm {
-  width: 6rem;
-  max-height: 6rem;
-
-  @include media-breakpoint-up(lg) {
-    width: 8rem;
-    max-height: 8rem;
-  }
+  width: 5rem;
+  max-height: 5rem;
 }
 
 @include media-breakpoint-down(sm) {
@@ -201,7 +197,7 @@
   }
 
   &.box-card-has-image-sm {
-    margin-top: 3rem;
+    margin-top: 2.5rem;
   }
 
   &.box-card-has-image-lg {
@@ -225,7 +221,7 @@
 
       &.img-sm {
         margin: 0.5rem;
-        margin-top: -3rem;
+        margin-top: -2.5rem;
       }
     }
   }
