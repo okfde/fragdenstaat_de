@@ -1,7 +1,7 @@
 {% load cms_tags %}
 
 {% with dark_backgrounds="primary,secondary,success,info,danger,blue-600,blue-700,blue-800,black,blue,indigo,purple,pink,red,green,teal,cyan,gray,gray-dark,gray-500,gray-600,gray-700,gray-800,gray-900,dark," %}
-<div class="container-design{% if object.background %} bg-{{ object.background }} {% if object.background in dark_backgrounds %}text-white{% endif %}{% endif %}{% block extraclass %}{{ object.extra_classes }}{% if object.padding %} p-3{% endif %}{% endblock %}">
+<div class="{% if object.background %}bg-{{ object.background }}{% if object.background in dark_backgrounds %} text-white{% endif %}{% endif %}{% block extraclass %} {{ object.extra_classes }}{% if object.padding %} p-3{% endif %}{% endblock %}">
     {% if object.container %}<div class="container">{% endif %}
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
