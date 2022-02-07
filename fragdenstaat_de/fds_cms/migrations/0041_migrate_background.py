@@ -2,11 +2,13 @@ from django.db import migrations
 
 
 def migrate_background(apps, schema_editor):
-    CardCMSInnerPlugin = apps.get_model("fds_cms", "CardInnerCMSPlugin")
+    CardInnerCMSPlugin = apps.get_model("fds_cms", "CardInnerCMSPlugin")
+    CardCMSPlugin = apps.get_model("fds_cms", "CardCMSPlugin")
 
-    for inner in CardCMSInnerPlugin.objects.all():
+    for inner in CardInnerCMSPlugin.objects.all():
         if inner.background:
-            card = inner.parent
+            parent = inner.parent
+            card = CardCMSPlugin.objects.get(cmsplugin_ptr=parent)
             card.background = inner.background
             card.save()
 
