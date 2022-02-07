@@ -184,6 +184,7 @@
   &__bubble {
     position: relative;
     height: auto;
+    flex: 1;
     background-color: white;
     border: 2px solid $blue-20;
     margin-bottom: $spacer * 2;
