@@ -330,19 +330,12 @@ class DesignContainerCMSPlugin(CMSPlugin):
         ("", _("Default template")),
         ("cms/plugins/designs/speech_bubble.html", _("Speech bubble")),
     ]
-    STYLES = [
-        ("", _("Default")),
-        ("heavy", _("Heavy")),
-    ]
 
     template = models.CharField(
         _("Template"), choices=TEMPLATES, default="", max_length=50, blank=True
     )
     background = models.CharField(
         _("Background"), choices=BACKGROUND, default="", max_length=50, blank=True
-    )
-    style = models.CharField(
-        _("Style"), choices=STYLES, default="", max_length=50, blank=True
     )
     extra_classes = models.CharField(max_length=255, blank=True)
     container = models.BooleanField(default=True)
