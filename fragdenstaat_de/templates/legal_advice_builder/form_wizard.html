@@ -80,7 +80,7 @@
               <div class="mb-3 font-weight-bold pb-2">{{ question.questionaire }} <i class="fa fa-check" aria-hidden="true"></i></div>
             {% endif %}
             <div>
-              {{ message }}
+              {{ message|markdown|linebreaks }}
             </div>
           </div>
           {% if next %}
@@ -116,7 +116,7 @@
             {% if step_count > 1 %}
               <div class="mb-3 font-weight-bold pb-2">{{ question.questionaire }} <i class="fa fa-times" aria-hidden="true"></i></div>
             {% endif %}
-            <div>{{ message }}</div>
+            <div>{{ message|markdown|linebreaks }}</div>
           </div>
         </div>
         <a class="btn btn-primary btn-sm pull-right" href="{% url 'foirequest-shortlink' foi_request.id %}">
@@ -179,7 +179,7 @@
             <li class="info-box__list-item">
               <div class="info-box__list-label"></div>
               <div class="info-box__list-value">
-                {{ help_message }}
+                {{ help_message|markdown|linebreaks }}
               </div>
             </li>
         </div>
