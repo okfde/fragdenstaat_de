@@ -2,6 +2,7 @@
 
 {% load foirequest_tags %}
 {% load campaign_tags %}
+{% load legalaction%}
 
 {% block request_top_pane %}
 
@@ -33,7 +34,8 @@
   </div>
 {% endif %}
 
-{% if object.can_be_escalated or object.response_deadline_has_past and request.user.is_staff %}
+{% can_use_klageautomat object as has_right_permissions %}
+{% if object.can_be_escalated or has_right_permissions %}
   {% if not "food:" in object.reference %}
   <div
   role="tabpanel"
