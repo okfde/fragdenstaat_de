@@ -502,7 +502,7 @@ class CardPlugin(CMSPluginBase):
                 children.insert(0, plugin)
 
                 if plugin.plugin_type == "CardImagePlugin":
-                    classes.append("box-card-has-image")
+                    classes.append(f"box-card-has-image-{plugin.size}")
                     if plugin.overlap == "left":
                         classes.append("d-md-flex")
                 else:
@@ -585,6 +585,9 @@ class CardHeaderPlugin(CMSPluginBase):
         return super().render(context, instance, placeholder)
 
 
+THUMBNAIL_SIZES = {"sm": ("150x0", "100x0"), "lg": ("280x0", "200x0")}
+
+
 @plugin_pool.register_plugin
 class CardImagePlugin(CMSPluginBase):
     model = CardImageCMSPlugin
@@ -594,6 +597,11 @@ class CardImagePlugin(CMSPluginBase):
     allow_children = False
     parent_classes = ["CardPlugin"]
     cache = True
+
+    def render(self, context, instance, placeholder):
+        context["size"] = THUMBNAIL_SIZES[instance.size]
+
+        return super().render(context, instance, placeholder)
 
 
 @plugin_pool.register_plugin

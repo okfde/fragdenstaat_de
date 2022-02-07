@@ -448,6 +448,15 @@ class CardImageCMSPlugin(CMSPlugin):
         max_length=10,
         default="right",
     )
+    size = models.CharField(
+        _("Size"),
+        choices=(
+            ("sm", _("Small")),
+            ("lg", _("Large")),
+        ),
+        max_length=10,
+        default="lg",
+    )
     attributes = AttributesField()
 
 
