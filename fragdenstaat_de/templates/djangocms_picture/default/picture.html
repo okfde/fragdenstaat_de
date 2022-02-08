@@ -67,8 +67,8 @@
       {{ thumb.url }}
     {% endif %}{% endspaceless %}"
     {% if instance.picture.default_alt_text and not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text }}"{% endif %}
-    width="{% if instance.width %}{{ instance.width }}{% elif instance.picture.width %}{{ instance.picture.width|floatformat:0 }}{% endif %}"
-    height="{% if instance.height %}{{ instance.height }}{% elif instance.picture.height %}{{ instance.picture.height|floatformat:0 }}{% endif %}"
+    {% if instance.width %} width="{{ instance.width }}"{% endif %}
+    {% if instance.height %} height="{{ instance.height }}"{% endif %}
     loading="lazy"
     {{ instance.attributes_str }}
 />
