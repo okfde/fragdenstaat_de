@@ -18,6 +18,7 @@ django-floppyforms
 django-json-widget
 django-leaflet
 django-logentry-admin
+django-mfa3
 django-oauth-toolkit
 django-parler
 django-storages

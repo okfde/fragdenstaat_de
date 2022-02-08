@@ -148,6 +148,7 @@ coverage==5.5
 cryptography==3.4.7
     # via
     #   autobahn
+    #   fido2
     #   jwcrypto
     #   pyopenssl
     #   service-identity
@@ -196,6 +197,7 @@ django==3.2.12
     #   django-legal-advice-builder
     #   django-localflavor
     #   django-logentry-admin
+    #   django-mfa3
     #   django-mptt
     #   django-oauth-toolkit
     #   django-parler
@@ -293,6 +295,8 @@ django-logentry-admin==1.1.0
     # via -r requirements.in
 django-markdown-deux==1.0.5
     # via froide-campaign
+django-mfa3==0.4.0
+    # via -r requirements.in
 django-mptt==0.12.0
     # via
     #   django-filer
@@ -408,6 +412,8 @@ faker==8.8.1
     #   factory-boy
 fdfgen==0.16.1
     # via froide-food
+fido2==0.9.3
+    # via django-mfa3
 filelock==3.3.1
     # via virtualenv
 flake8==3.9.2
@@ -615,6 +621,8 @@ pynacl==1.4.0
     # via froide-fax
 pyopenssl==20.0.1
     # via twisted
+pyotp==2.6.0
+    # via django-mfa3
 pyparsing==2.4.7
     # via packaging
 pypdf2==1.26.0
@@ -661,6 +669,8 @@ pywatchman==1.4.1
     # via -r requirements-dev.in
 pyyaml==6.0
     # via pre-commit
+qrcode==7.3.1
+    # via django-mfa3
 ratelim==0.1.6
     # via geocoder
 reportlab==3.5.67
@@ -701,6 +711,7 @@ six==1.16.0
     #   django-oauth-toolkit
     #   djangorestframework-csv
     #   elasticsearch-dsl
+    #   fido2
     #   geocoder
     #   html5lib
     #   jsonschema
