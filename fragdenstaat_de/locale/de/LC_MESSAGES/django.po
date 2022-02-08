@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-28 17:52+0100\n"
-"PO-Revision-Date: 2021-11-17 13:59+0100\n"
+"PO-Revision-Date: 2022-02-08 21:48+0000\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -213,7 +213,7 @@ msgstr ""
 
 #: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:18
 msgid "Subject:"
-msgstr ""
+msgstr "Betreff:"
 
 #: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:19
 msgid "zurück"
@@ -234,11 +234,11 @@ msgstr ""
 #: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:47
 #, python-format
 msgid "'%(extra_placeholder)s' static placeholder"
-msgstr ""
+msgstr "„%(extra_placeholder)s” statischer Platzhalter"
 
 #: fds_mailing/templates/fds_mailing/emailtemplate_update_form.html:58
 msgid "Apply"
-msgstr ""
+msgstr "Übernehmen"
 
 #: fds_mailing/utils.py:101
 msgid "Prepare mailing to selected recipients..."
@@ -374,11 +374,11 @@ msgstr ""
 
 #: fds_newsletter/models.py:202
 msgid "User with that email already present."
-msgstr ""
+msgstr "Konto mit der E-Mail-Adresse schon vorhanden."
 
 #: fds_newsletter/models.py:204
 msgid "Email for this user already present."
-msgstr ""
+msgstr "E-Mail-Adresse für diesen Nutzer schon vorhanden."
 
 #: fds_newsletter/templates/fds_newsletter/email/subscriber_already.txt:1
 #, python-format
@@ -390,11 +390,17 @@ msgid ""
 "Cheers,\n"
 "%(site_name)s\n"
 msgstr ""
+"Hallo,\n"
+"\n"
+"du hast weiterhin ein Abo des %(title)s.\n"
+"\n"
+"Beste Grüße\n"
+"%(site_name)s\n"
 
 #: fds_newsletter/templates/fds_newsletter/email/subscriber_already_subject.txt:1
 #, python-format
 msgid "Confirmation of subscription to %(title)s"
-msgstr ""
+msgstr "Bestätigung des Abos von %(title)s"
 
 #: fds_newsletter/templates/fds_newsletter/email/subscriber_confirm.txt:1
 #, python-format
@@ -408,15 +414,23 @@ msgid ""
 "Cheers,\n"
 "%(site_name)s\n"
 msgstr ""
+"Hallo,\n"
+"\n"
+"bitte klick den folgenden Link an, um den %(title)s zu abonnieren:\n"
+"\n"
+"%(action_url)s\n"
+"\n"
+"Beste Grüße\n"
+"%(site_name)s\n"
 
 #: fds_newsletter/templates/fds_newsletter/email/subscriber_confirm_subject.txt:1
 #, python-format
 msgid "Please confirm subscription to %(title)s"
-msgstr ""
+msgstr "Bitte bestätige dein Abo von %(title)s"
 
 #: fds_newsletter/templates/fds_newsletter/user_settings.html:17
 msgid "Update subscriptions"
-msgstr ""
+msgstr "Abos anpassen"
 
 #: fds_ogimage/apps.py:7
 msgid "FragDenStaat OG Image"
@@ -541,7 +555,7 @@ msgstr "Spenden"
 
 #: templates/header.html:33
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: templates/header.html:75 templates/header.html:216
 msgid "Log out"
