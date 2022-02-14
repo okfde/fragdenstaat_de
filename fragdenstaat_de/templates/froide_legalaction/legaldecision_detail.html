@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load form_helper i18n %}
 
+{% block title %}{% translate 'Legal Decisions' %}: {{ object.title }}{% endblock %}
+
 {% block body %}
 <div class="breadcrumb-container">
   <div class="container">
@@ -8,28 +10,10 @@
       <div class="col-md-8">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="{% url 'legal-decision-list' %}">{% translate 'Decisionssearch' %}</a></li>
+            <li class="breadcrumb-item active"><a href="{% url 'legal-decision-list' %}">{% translate 'Legal Decisions' %}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ object.title|truncatechars:50 }}</li>
           </ol>
         </nav>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="breadcrumb-container py-2">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <form method="get" action="{% url 'legal-decision-list' %}">
-          <form>
-            <div class="input-group my-2">
-              <input type="text" name="quick_search" class="form-control form-control-lg text-center" placeholder="Schnellsuche" id="id_quick_search">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-              </div>
-            </div>
-        </form>
       </div>
     </div>
   </div>
