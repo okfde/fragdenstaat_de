@@ -1,23 +1,15 @@
 {% extends "base.html" %}
 {% load form_helper i18n %}
 
-{% block body %}
-<div class="breadcrumb-container">
-  <div class="container">
-    <div class="row justify-content-left">
-      <div class="col-md-8">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">{% translate 'Decisionssearch' %}</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-  </div>
-</div>
+{% block title %}{% translate 'Legal Decisions' %}{% endblock %}
 
-<div class="breadcrumb-container py-2">
+{% block body %}
+<div class="breadcrumb-container pt-5 pb-2">
   <div class="container">
+    <div class="pb-4">
+      <h1>{% translate 'Legal Decisions' %}</h1>
+      <p>{% translate 'Decisions and judgements in the field of freedom of information' %}</p>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <form method="get">
