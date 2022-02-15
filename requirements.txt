@@ -33,6 +33,8 @@
     # via -r requirements.in
 -e git+https://github.com/okfde/froide-food.git@master#egg=froide-food
     # via -r requirements.in
+-e git+https://github.com/okfde/froide-govplan.git@main#egg=froide-govplan
+    # via -r requirements.in
 -e git+https://github.com/okfde/froide-legalaction.git@master#egg=froide-legalaction
     # via -r requirements.in
 -e git+https://github.com/okfde/froide-payment.git@master#egg=froide-payment

@@ -89,6 +89,7 @@ class FragDenStaatBase(German, Base):
                 "django_amenities.apps.AmenitiesConfig",
                 "froide_fax.apps.FroideFaxConfig",
                 "froide_exam",
+                "froide_govplan.apps.FroideGovPlanConfig",
                 "legal_advice_builder.apps.LegalAdviceBuilderConfig",
                 "tinymce",
             ]
