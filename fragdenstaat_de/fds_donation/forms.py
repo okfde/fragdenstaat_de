@@ -162,9 +162,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         label=_("Donation amount:"),
         widget=AmountInput(
             attrs={
-                "autocomplete": "off",
                 "title": _("Amount in Euro, comma as decimal separator"),
-                "pattern": r"^[1-9]{1}\d{0,4}(?:,\d\d)?$",
             },
             presets=[],
         ),

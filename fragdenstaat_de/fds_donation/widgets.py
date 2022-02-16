@@ -13,7 +13,9 @@ class AmountInput(forms.TextInput):
         ctx = super().get_context(name, value, attrs)
         ctx["widget"].setdefault("attrs", {})
         ctx["widget"]["attrs"].setdefault("class", "form-control col-3")
+        ctx["widget"]["attrs"].setdefault("inputmode", "decimal")
         ctx["widget"]["attrs"]["pattern"] = "[\\d\\.,]*"
+        ctx["widget"]["attrs"]["autocomplete"] = "off"
         ctx["currency"] = settings.FROIDE_CONFIG["currency"]
         ctx["presets"] = self.presets
         return ctx
