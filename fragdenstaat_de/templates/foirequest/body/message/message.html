@@ -4,6 +4,10 @@
 {% load foirequest_tags %}
 {% load fax_tags %}
 {% load fds_tags %}
+{% load campaign_tags %}
+
+{# add bump to sticky message toolbar when showing questionaire hint! #}
+{% block message_extra_classes %}{{ block.super }}{% if object|can_write_foirequest:request and object.status_is_final and object|foirequest_has_questionaire and object|foirequest_campaign_report_count == 0 %} alpha-message__toolbar--stickybump{% endif %}{% endblock message_extra_classes %}
 
 
 {% block message_toolbar_item %}

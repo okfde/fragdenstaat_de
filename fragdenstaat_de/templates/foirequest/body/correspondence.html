@@ -20,7 +20,7 @@
 
 {% block after_foirequest_messages %}
   {% if object|can_write_foirequest:request and object.status_is_final and object|foirequest_has_questionaire and object|foirequest_campaign_report_count == 0 %}
-    <div class="position-sticky d-print-none" style="bottom: 0; max-height: 30vh; overflow-y: auto">
+    <div class="position-sticky d-print-none" style="bottom: 0">
       <div class="bg-yellow-100 text-center p-2">
         <a data-tabgo="tab" data-scrollto="questionaire" data-name="questionaire" href="#questionaire">
           {% translate "Please fill out the questionnaire!" %}
