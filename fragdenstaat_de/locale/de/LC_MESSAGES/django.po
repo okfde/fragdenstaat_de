@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-14 15:06+0100\n"
-"PO-Revision-Date: 2022-02-08 21:48+0000\n"
+"POT-Creation-Date: 2022-02-21 14:09+0100\n"
+"PO-Revision-Date: 2022-02-21 14:08+0100\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_mailing/admin.py:274
 msgid "Setup mailing to users..."
-msgstr ""
+msgstr "Lege Mailing für diese User an..."
 
 #: fragdenstaat_de/fds_mailing/admin.py:283
 msgid "You can only send to one user at a time."
@@ -64,7 +64,7 @@ msgstr ""
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:142
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:167
 #: fragdenstaat_de/fds_newsletter/forms.py:20
-#: fragdenstaat_de/settings/base.py:307
+#: fragdenstaat_de/settings/base.py:308
 msgid "Email"
 msgstr ""
 
@@ -454,23 +454,23 @@ msgctxt "url part"
 msgid "request/<str:slug>/_og/"
 msgstr "anfrage/<str:slug>/_og/"
 
-#: fragdenstaat_de/settings/base.py:25 fragdenstaat_de/settings/base.py:177
+#: fragdenstaat_de/settings/base.py:25 fragdenstaat_de/settings/base.py:178
 msgid "German"
 msgstr "Deutsch"
 
-#: fragdenstaat_de/settings/base.py:26 fragdenstaat_de/settings/base.py:184
+#: fragdenstaat_de/settings/base.py:26 fragdenstaat_de/settings/base.py:185
 msgid "English"
 msgstr "Englisch"
 
-#: fragdenstaat_de/settings/base.py:143
+#: fragdenstaat_de/settings/base.py:144
 msgid "No image in article"
 msgstr ""
 
-#: fragdenstaat_de/settings/base.py:224
+#: fragdenstaat_de/settings/base.py:225
 msgid "E-Mail Body"
 msgstr ""
 
-#: fragdenstaat_de/settings/base.py:307
+#: fragdenstaat_de/settings/base.py:308
 msgid "Hero"
 msgstr ""
 
@@ -494,36 +494,42 @@ msgstr[1] ""
 msgid "Your browser doesn't support this video format."
 msgstr "Ihr Browser unterstützt diese Video-Format nicht."
 
-#: fragdenstaat_de/templates/foirequest/header/tabs.html:22
-msgid "Questionaire"
+#: fragdenstaat_de/templates/foirequest/body/body.html:50
+msgid "Questionnaire"
 msgstr "Fragebogen"
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:11
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:8
+#: fragdenstaat_de/templates/foirequest/body/correspondence.html:26
+msgid "Please fill out the questionnaire!"
+msgstr "Bitte füllen Sie den Fragebogen aus!"
+
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:4
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:13
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:4
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:10
 msgid "Legal Decisions"
 msgstr "Gerichtsentscheidungen"
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:27
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:29
 msgid "Information"
 msgstr "Informationen"
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:34
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:36
 msgid "reference"
 msgstr "Aktenzeichen"
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:42
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:44
 msgid "date"
 msgstr "Datum"
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:50
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:52
 msgid "court"
 msgstr "Gericht"
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:58
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:60
 msgid "law"
 msgstr "Gesetz"
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:74
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:76
 #, python-format
 msgid ""
 "\n"
@@ -534,19 +540,19 @@ msgstr ""
 "                %(type)s - %(court)s vom %(date)s\n"
 "                "
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:9
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:11
 msgid "Decisions and judgements in the field of freedom of information"
 msgstr "Beschlüsse und Urteile aus dem Bereich der Informationsfreiheit"
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:34
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:36
 msgid "Refine your query"
 msgstr "Suche eingrenzen"
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:36
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:38
 msgid "You have selected:"
 msgstr "Ihre Auswahl:"
 
-#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:77
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:79
 #, python-format
 msgid ""
 "\n"
