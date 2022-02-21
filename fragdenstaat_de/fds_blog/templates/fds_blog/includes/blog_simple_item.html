@@ -1,5 +1,5 @@
-<article class="mx-auto">
-  <div class="bg-white border-gray p-3">
+<article class="d-flex">
+  <div class="bg-white border-gray p-3 d-flex flex-column">
   {% with tags=article.all_tags %}
     {% if tags %}
       <ul class="list-unstyled d-flex text-blue-600 font-weight-semibold font-size-sm mb-1">
@@ -18,7 +18,7 @@
       {{ article.title }}
     </a>
   </h3>
-  <div class="text-gray-500 font-weight-bold font-size-sm">
+  <div class="text-gray-500 font-weight-bold font-size-sm mt-auto">
     {{ article.start_publication|date:"DATE_FORMAT" }}
   </div>
   </div>
