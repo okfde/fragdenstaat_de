@@ -22,6 +22,7 @@
     #   froide-exam
     #   froide-fax
     #   froide-food
+    #   froide-govplan
     #   froide-legalaction
 -e git+https://github.com/okfde/froide-campaign.git@master#egg=froide-campaign
     # via -r requirements.in
@@ -80,8 +81,6 @@ billiard==3.6.4.0
     # via celery
 bleach==4.1.0
     # via django-legal-advice-builder
-braintree==4.10.0
-    # via django-payments
 cairocffi==1.2.0
     # via
     #   cairosvg
@@ -147,7 +146,6 @@ coreschema==0.0.4
 cryptography==3.4.7
     # via
     #   autobahn
-    #   django-payments
     #   fido2
     #   jwcrypto
     #   pdfminer.six
@@ -251,7 +249,7 @@ django-crossdomainmedia==0.0.3
     # via
     #   -r requirements.in
     #   froide
-django-elasticsearch-dsl==7.2.0
+django-elasticsearch-dsl==7.2.2
     # via froide
 django-filer==2.1.2
     # via
@@ -296,7 +294,7 @@ django-oauth-toolkit==1.5.0
     # via -r requirements.in
 django-parler==2.3
     # via -r requirements.in
-django-payments==0.14.0
+django-payments==0.15.0
     # via froide-payment
 django-polymorphic==3.0.0
     # via django-filer
@@ -506,7 +504,7 @@ pandas==1.2.4
     #   camelot-py
 pdflib==0.3.0
     # via -r requirements-production.in
-pdfminer.six==20201018
+pdfminer.six==20211012
     # via camelot-py
 pdftopng==0.2.3
     # via camelot-py
@@ -550,8 +548,6 @@ pyhamcrest==2.0.2
     # via twisted
 pyisemail==1.3.2
     # via -r requirements.in
-pyjwt==1.7.1
-    # via django-payments
 pynacl==1.4.0
     # via froide-fax
 pyopenssl==20.0.1
@@ -590,7 +586,7 @@ python-mimeparse==1.6.0
     #   froide
 python-slugify==5.0.2
     # via -r requirements.in
-python-stdnum==1.16
+python-stdnum==1.17
     # via django-localflavor
 pytz==2021.3
     # via
@@ -609,12 +605,12 @@ ratelim==0.1.6
 reportlab==3.5.67
     # via
     #   -r requirements.in
+    #   django-filingcabinet
     #   easy-thumbnails
     #   svglib
 requests==2.25.1
     # via
     #   -r requirements.in
-    #   braintree
     #   coreapi
     #   django-contractor
     #   django-oauth-toolkit
@@ -654,17 +650,12 @@ six==1.16.0
     #   service-identity
 sortabletable==0.0.15
     # via -r requirements.in
-sortedcontainers==2.4.0
-    # via pdfminer.six
 sqlparse==0.4.2
     # via django
 stripe==2.58.0
     # via
     #   -r requirements.in
-    #   django-payments
     #   froide-payment
-suds-jurko==0.6
-    # via django-payments
 svglib==1.2.1
     # via easy-thumbnails
 tabulate==0.8.9
@@ -731,8 +722,6 @@ wrapt==1.12.1
     # via deprecated
 xlrd==2.0.1
     # via -r requirements.in
-xmltodict==0.12.0
-    # via django-payments
 yarl==1.6.3
     # via aiohttp
 zope.interface==5.4.0

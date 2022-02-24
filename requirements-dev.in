@@ -19,4 +19,5 @@ tblib
 honcho
 ipdb
 ipython>=7.31.1
+isort
 pywatchman

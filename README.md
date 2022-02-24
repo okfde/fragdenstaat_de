@@ -106,6 +106,8 @@ yarn run serve
 
 ### Upgrade dependencies
 
+Currently `pip-compile` only works for `pip-tools==6.3.0` and `pip==21.2.4`.
+
 ```
 pip-compile -U requirements.in
 pip-compile -U requirements-dev.in

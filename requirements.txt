@@ -22,6 +22,7 @@
     #   froide-exam
     #   froide-fax
     #   froide-food
+    #   froide-govplan
     #   froide-legalaction
 -e git+https://github.com/okfde/froide-campaign.git@master#egg=froide-campaign
     # via -r requirements.in
@@ -274,7 +275,7 @@ django-oauth-toolkit==1.5.0
     # via -r requirements.in
 django-parler==2.3
     # via -r requirements.in
-django-payments==0.15.0
+django-payments[stripe]==0.15.0
     # via froide-payment
 django-polymorphic==3.0.0
     # via django-filer
@@ -556,6 +557,7 @@ ratelim==0.1.6
 reportlab==3.5.67
     # via
     #   -r requirements.in
+    #   django-filingcabinet
     #   easy-thumbnails
     #   svglib
 requests==2.25.1
@@ -602,6 +604,7 @@ sqlparse==0.4.2
 stripe==2.58.0
     # via
     #   -r requirements.in
+    #   django-payments
     #   froide-payment
 svglib==1.2.1
     # via easy-thumbnails
