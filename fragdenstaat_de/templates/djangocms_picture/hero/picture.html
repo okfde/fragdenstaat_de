@@ -3,7 +3,7 @@
 
 <style>
 #hero-image-{{ instance.pk }} {
-    background-image: url('{% thumbnail instance.picture 576x0 subject_location=instance.picture.subject_location %}');
+    background-image: url('{% thumbnail instance.picture 450x450 crop subject_location=instance.picture.subject_location %}');
 }
 @media(min-width:576px){
     #hero-image-{{ instance.pk }} {
