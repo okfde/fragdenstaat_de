@@ -666,7 +666,7 @@ class FragDenStaatBase(German, Base):
         ),
     }
 
-    FDS_OGIMAGE_URL = "https://ogimage-next.frag-den-staat.de/api/{hash}?path={path}"
+    FDS_OGIMAGE_URL = "https://ogimage.frag-den-staat.de/api/{hash}?path={path}"
 
     TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "")
     TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN", "")
