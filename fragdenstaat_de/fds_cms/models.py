@@ -395,13 +395,13 @@ class CardCMSPlugin(CMSPlugin):
     shadow = models.CharField(
         _("Shadow"),
         max_length=10,
-        default="auto",
+        default="no",
         choices=(("no", _("No")), ("auto", _("Auto")), ("always", _("Always"))),
     )
     spacing = models.CharField(
         _("Spacing"),
         max_length=3,
-        default="lg",
+        default="md",
         choices=(
             ("sm", _("Small")),
             ("md", _("Medium")),
@@ -411,7 +411,31 @@ class CardCMSPlugin(CMSPlugin):
     background = models.CharField(
         _("Background"), choices=BACKGROUND, default="", max_length=50, blank=True
     )
+
+    url = models.CharField(
+        _("link"),
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text=_("if present card will be clickable"),
+    )
+    page_link = PageField(
+        null=True,
+        blank=True,
+        help_text=_("if present card will be clickable"),
+        verbose_name=_("page link"),
+    )
+
     attributes = AttributesField()
+
+    def link(self):
+        if self.url:
+            return self.url
+        elif self.page_link_id:
+            try:
+                return self.page_link.get_absolute_url()
+            except NoReverseMatch:
+                return
 
 
 class CardInnerCMSPlugin(CMSPlugin):
@@ -427,6 +451,13 @@ class CardHeaderCMSPlugin(CMSPlugin):
         help_text=_(
             """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
         ),
+    )
+    background_image = FilerImageField(
+        null=True,
+        blank=True,
+        default=None,
+        verbose_name=_("Background image"),
+        on_delete=models.SET_NULL,
     )
     attributes = AttributesField()
 
