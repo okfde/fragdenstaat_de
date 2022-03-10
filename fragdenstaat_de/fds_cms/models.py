@@ -540,3 +540,25 @@ class CardLinkCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+class RevealMoreCMSPlugin(CMSPlugin):
+    cutoff = models.PositiveIntegerField(_("Cutoff after"), default=1)
+    unit = models.CharField(
+        _("Unit"),
+        max_length=10,
+        choices=(
+            ("rows", _("grid rows")),
+            ("rem", _("Line heights")),
+            ("%", _("percent")),
+        ),
+    )
+    color = models.CharField(_("Overlay color"), max_length=50, choices=BACKGROUND)
+    reveal_text = models.CharField(_("Reveal text"), max_length=50, blank=True)
+    attributes = AttributesField()
+
+    def text(self):
+        return self.reveal_text or _("Show more...")
+
+    def __str__(self):
+        return self.text()

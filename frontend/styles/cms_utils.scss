@@ -192,7 +192,7 @@
 }
 
 a > .box-card {
-  box-shadow: 0px 0px 0 var(--shadow-color, var(--shadow-gray));
+  box-shadow: 0 0 0 var(--shadow-color, var(--shadow-gray));
   transform: translate(0, 0);
   transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
 
@@ -322,4 +322,53 @@ a > .box-card {
   flex-wrap: wrap;
   padding-top: 0 !important;
   margin-top: auto;
+}
+
+.reveal-cutoff {
+  .reveal-inner {
+    position: relative;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 12rem;
+      max-height: 50%;
+      content: '';
+      background: linear-gradient(to bottom, transparent, var(--reveal-color) 95%);
+      z-index: 1;
+      transition: opacity 0.5s ease-out;
+    }
+  }
+  
+  > .reveal-show {
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+    transition: opacity 0.5s ease-out;
+  }
+
+  &.transitioning {
+    .reveal-inner {
+      max-height: 125vh !important;
+    }
+
+    > .reveal-show, .reveal-inner::after {
+      opacity: 0;
+    }
+  }
+
+  &.revealed {
+    .reveal-inner {
+      overflow: unset;
+      max-height: none !important;
+    }
+
+    .reveal-show, .reveal-inner::after {
+      display: none;
+    }
+  }
 }

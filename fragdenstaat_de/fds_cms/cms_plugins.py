@@ -33,6 +33,7 @@ from .models import (
     CardImageCMSPlugin,
     CardIconCMSPlugin,
     CardLinkCMSPlugin,
+    RevealMoreCMSPlugin,
 )
 from .contact import ContactForm
 
@@ -643,3 +644,13 @@ class CardLinkPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class RevealMorePlugin(CMSPluginBase):
+    model = RevealMoreCMSPlugin
+    module = _("Elements")
+    name = _("Reveal more")
+    render_template = "fds_cms/reveal.html"
+    allow_children = True
+    cache = True
