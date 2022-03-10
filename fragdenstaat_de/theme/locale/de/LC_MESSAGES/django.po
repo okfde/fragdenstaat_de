@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: froide-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-23 19:33+0100\n"
+"POT-Creation-Date: 2022-03-10 19:31+0100\n"
 "PO-Revision-Date: 2021-07-21 11:46+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: OKF-DE <info@fragdenstaat.de>\n"
@@ -140,11 +140,11 @@ msgstr "Unter-Menü"
 msgid "Page Sub Menu"
 msgstr "Seiten-Untermenü"
 
-#: fragdenstaat_de/theme/models.py:72
+#: fragdenstaat_de/theme/models.py:61
 msgid "User auto blocked"
 msgstr "User automatisch blockiert"
 
-#: fragdenstaat_de/theme/urls.py:112
+#: fragdenstaat_de/theme/urls.py:113
 msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"

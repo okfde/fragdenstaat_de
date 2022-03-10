@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-21 14:09+0100\n"
+"POT-Creation-Date: 2022-03-10 19:31+0100\n"
 "PO-Revision-Date: 2022-02-21 14:08+0100\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -64,7 +64,7 @@ msgstr ""
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:142
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:167
 #: fragdenstaat_de/fds_newsletter/forms.py:20
-#: fragdenstaat_de/settings/base.py:308
+#: fragdenstaat_de/settings/base.py:309
 msgid "Email"
 msgstr ""
 
@@ -466,11 +466,11 @@ msgstr "Englisch"
 msgid "No image in article"
 msgstr ""
 
-#: fragdenstaat_de/settings/base.py:225
+#: fragdenstaat_de/settings/base.py:226
 msgid "E-Mail Body"
 msgstr ""
 
-#: fragdenstaat_de/settings/base.py:308
+#: fragdenstaat_de/settings/base.py:309
 msgid "Hero"
 msgstr ""
 
