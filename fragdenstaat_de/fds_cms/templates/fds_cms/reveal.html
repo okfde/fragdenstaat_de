@@ -1,13 +1,13 @@
 {% load cms_tags %}
 
 <div class="reveal-cutoff" data-cutoff="{{ instance.cutoff }}{{ instance.unit }}" style="--reveal-color: var(--{{ instance.color }})" {{ instance.attributes_str }}>
-  <div class="reveal-inner">
+  <div class="reveal-inner" id="reveal-{{ instance.pk }}">
     {% for plugin in instance.child_plugin_instances %}
       {% render_plugin plugin %}
     {% endfor %}
   </div>
 
   <div class="reveal-show">
-    <a href="#!" class="action-link">{{ instance.text }}</a>
+    <a href="#!" class="action-link" role="button" aria-controls="reveal-{{ instance.pk }}" aria-expanded="false">{{ instance.text }}</a>
   </div>
 </div>

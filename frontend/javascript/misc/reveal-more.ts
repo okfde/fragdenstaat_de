@@ -20,8 +20,12 @@ revealElemets.forEach((element) => {
   if (!inner) return
   inner.style.maxHeight = `${pixels}px`
 
-  element.querySelector('.reveal-show a')?.addEventListener('click', () => {
+  const button = element.querySelector<HTMLElement>('.reveal-show a');
+
+  button?.addEventListener('click', () => {
     inner.addEventListener('transitionend', () => {
+      button.ariaExpanded = 'true';
+
       element.classList.add('revealed')
       element.classList.remove('transitioning')
     }, { once: true })
