@@ -90,7 +90,7 @@ def subscribe_follower(sender, **kwargs):
         user=sender.user,
         email_confirmed=True,
         reference="follow_extra",
-        keyword="request:{}".format(sender.request_id),
+        keyword="{}:{}".format(sender._meta.label_lower, sender.content_object_id),
     )
 
 
