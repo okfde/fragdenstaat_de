@@ -558,7 +558,7 @@ class RevealMoreCMSPlugin(CMSPlugin):
     attributes = AttributesField()
 
     def text(self):
-        return self.reveal_text or _("Show more...")
+        return self.reveal_text or str(_("Show more..."))
 
     def __str__(self):
         return self.text()
