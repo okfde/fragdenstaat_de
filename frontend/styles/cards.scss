@@ -37,16 +37,18 @@ a > .box-card {
 .box-card-header {
   position: relative;
   
-  &::after {
+  &.has-background::after {
     content: "";
     position: absolute;
     width: 100%;
     height: 100%;
     left: 0;
     top: 0;
+    background-color: inherit;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-blend-mode: luminosity;
     opacity: 0.15;
     z-index: 1;
   }

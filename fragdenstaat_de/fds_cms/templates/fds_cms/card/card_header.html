@@ -1,7 +1,7 @@
 {% load cms_tags %}
 {% load thumbnail %}
 
-{% if instance.background_image%}
+{% if instance.background_image %}
 <style>
 #card-header-{{ instance.pk }}::after {
   background-image: url('{% thumbnail instance.background_image 350x150 crop subject_location=instance.picture.subject_location %}');
@@ -9,7 +9,7 @@
 </style>
 {% endif %}
 
-<div class="box-card-header tight-margin d-flex align-items-center {{ classes }}" {{ instance.attributes_str }} id="card-header-{{ instance.pk }}">
+<div class="box-card-header tight-margin d-flex align-items-center{% if instance.background_image %} has-background{% endif %} {{ classes }}" {{ instance.attributes_str }} id="card-header-{{ instance.pk }}">
   <h3 class="h5 m-0">{{ instance.title }}</h3>
   
   {% if instance.icon %}
