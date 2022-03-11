@@ -539,7 +539,7 @@ class FragDenStaatBase(German, Base):
                     rec(r"^\s*Lieber?\s+(.*)"),
                     rec(r"^\s*Grü(?:ß|ss)\s+Gott\s+((?:Herr|Frau|Fr\.|Hr\.)\s+.*)"),
                     rec(r"^\s*Sehr ((?:Herr|Frau|Fr\.|Hr\.)\s+.*)"),
-                    rec(r"^\s*Sehr (geehrte[sr]?\s+(?!Damen und Herren).+)"),
+                    rec(r"^\s*Sehr (geehrte[\*:_]?[sr]?\s+(?!Damen und Herren).+)"),
                     rec(r"^\s*(?:Von|An|Cc|To|From): (.*)"),
                 ],
                 custom_replacements=[
