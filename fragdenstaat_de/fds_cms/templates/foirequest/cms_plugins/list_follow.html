@@ -1,6 +1,6 @@
 {% extends "foirequest/cms_plugins/list.html" %}
 
-{% load follower_tags %}
+{% load follow_tags %}
 
 {% block pre_item %}
 <div class="row w-100">
@@ -13,7 +13,7 @@
   {% if object.user != request.user %}
     <div class="col-md-4">
       <div class="ajax-parent mb-5">
-        {% follow_request_form object request %}
+        {% follow_form "request" object %}
       </div>
     </div>
   {% endif %}
