@@ -51,10 +51,10 @@
   }
 }
 
-.backdrop-blue { --backdrop-color: $blue-10; }
-.backdrop-gray { --backdrop-color: $gray-200; }
-.backdrop-gray-100 { --backdrop-color: $gray-100; }
-.backdrop-yellow { --backdrop-color: $yellow-100; }
+.backdrop-blue { --backdrop-color: var(--blue-10); }
+.backdrop-gray { --backdrop-color: var(--gray-200); }
+.backdrop-gray-100 { --backdrop-color: var(--gray-100); }
+.backdrop-yellow { --backdrop-color: var(--yellow-100); }
 
 /*
   Font utilities
