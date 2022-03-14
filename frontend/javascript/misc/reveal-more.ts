@@ -24,7 +24,7 @@ revealElemets.forEach((element) => {
 
   button?.addEventListener('click', () => {
     inner.addEventListener('transitionend', () => {
-      button.ariaExpanded = 'true';
+      button.setAttribute('aria-expanded', 'true');
 
       element.classList.add('revealed')
       element.classList.remove('transitioning')
