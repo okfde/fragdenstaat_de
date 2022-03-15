@@ -308,6 +308,22 @@ class FragDenStaatBase(German, Base):
 
     DJANGOCMS_PICTURE_TEMPLATES = [("hero", _("Hero")), ("email", _("Email"))]
 
+    TINYMCE_DEFAULT_CONFIG = {
+        "theme": "silver",
+        "height": 500,
+        "menubar": False,
+        "plugins": (
+            "autolink,lists,link,charmap,print,preview,anchor,"
+            "searchreplace,visualblocks,code,fullscreen,paste,"
+            "code,wordcount"
+        ),
+        "toolbar": (
+            "undo redo | h3 h4 h5 | "
+            "bold italic | link | bullist numlist blockquote | "
+            "removeformat visualblocks code"
+        ),
+    }
+
     FILER_ENABLE_PERMISSIONS = True
 
     @property
