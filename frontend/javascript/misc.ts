@@ -1,4 +1,5 @@
 import "./misc/onion-darkmode"
+import "./misc/highlight-anchor"
 import "./misc/iframe-height"
 import "./misc/matomo"
 import "./misc/reference-forms"
