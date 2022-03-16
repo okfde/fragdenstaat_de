@@ -8,6 +8,7 @@ from django.contrib.sitemaps import views as sitemaps_views
 from froide_campaign import urls as campaign_urls
 import froide_food.urls  # noqa
 import fragdenstaat_de.fds_blog.urls  # noqa
+from froide_govplan.admin import govplan_admin_site
 
 from froide.foirequest.views import dashboard
 from froide.urls import (
@@ -77,6 +78,7 @@ urlpatterns = [
         glyphosat_download,
         name="fragdenstaat-glyphosat_download",
     ),
+    path("koalitionstracker/admin/", govplan_admin_site.urls),
     path(
         "tippspiel/",
         meisterschaften_tippspiel,
