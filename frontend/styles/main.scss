@@ -1,42 +1,42 @@
 // importing FROIDE variables
-@import 'variables';
-@import '~froide/frontend/styles/variables';
+@import "variables";
+@import "~froide/frontend/styles/variables";
 
 // Bootstrap imports
-@import 'bootstrap/scss/mixins';
-@import 'bootstrap/scss/print';
-@import 'bootstrap/scss/reboot';
-@import 'bootstrap/scss/type';
-@import 'bootstrap/scss/images';
-@import 'bootstrap/scss/code';
-@import 'bootstrap/scss/grid';
-@import 'bootstrap/scss/tables';
-@import 'bootstrap/scss/forms';
-@import 'bootstrap/scss/buttons';
-@import 'bootstrap/scss/transitions';
-@import 'dropdown';
-@import 'bootstrap/scss/button-group';
-@import 'bootstrap/scss/input-group';
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/print";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/code";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/input-group";
 // @import 'bootstrap/scss/custom-forms';
-@import 'bootstrap/scss/nav';
-@import 'bootstrap/scss/navbar';
-@import 'bootstrap/scss/card';
-@import 'bootstrap/scss/breadcrumb';
-@import 'bootstrap/scss/pagination';
-@import 'bootstrap/scss/badge';
-@import 'bootstrap/scss/jumbotron';
-@import 'bootstrap/scss/alert';
-@import 'bootstrap/scss/progress';
-@import 'bootstrap/scss/media';
-@import 'bootstrap/scss/list-group';
-@import 'bootstrap/scss/close';
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/jumbotron";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/media";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
 // @import 'bootstrap/scss/toasts';
-@import 'bootstrap/scss/modal';
-@import 'bootstrap/scss/tooltip';
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
 // @import 'bootstrap/scss/popover';
 // @import 'bootstrap/scss/carousel';
-@import 'bootstrap/scss/spinners';
-@import 'bootstrap/scss/utilities';
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/utilities";
 
 // Import FontAwesome 4 explicitly to:
 // - add font-display: swap
@@ -44,15 +44,15 @@
 @import "~font-awesome/scss/variables";
 @import "~font-awesome/scss/mixins";
 
-$fa-font-path: '~font-awesome/fonts';
+$fa-font-path: "~font-awesome/fonts";
 @font-face {
-  font-family: 'FontAwesome';
-  src: url('#{$fa-font-path}/fontawesome-webfont.eot?v=#{$fa-version}');
-  src: url('#{$fa-font-path}/fontawesome-webfont.eot?#iefix&v=#{$fa-version}') format('embedded-opentype'),
-    url('#{$fa-font-path}/fontawesome-webfont.woff2?v=#{$fa-version}') format('woff2'),
-    url('#{$fa-font-path}/fontawesome-webfont.woff?v=#{$fa-version}') format('woff'),
-    url('#{$fa-font-path}/fontawesome-webfont.ttf?v=#{$fa-version}') format('truetype');
-//  src: url('#{$fa-font-path}/FontAwesome.otf') format('opentype'); // used when developing fonts
+  font-family: "FontAwesome";
+  src: url("#{$fa-font-path}/fontawesome-webfont.eot?v=#{$fa-version}");
+  src: url("#{$fa-font-path}/fontawesome-webfont.eot?#iefix&v=#{$fa-version}") format("embedded-opentype"),
+    url("#{$fa-font-path}/fontawesome-webfont.woff2?v=#{$fa-version}") format("woff2"),
+    url("#{$fa-font-path}/fontawesome-webfont.woff?v=#{$fa-version}") format("woff"),
+    url("#{$fa-font-path}/fontawesome-webfont.ttf?v=#{$fa-version}") format("truetype");
+  //  src: url('#{$fa-font-path}/FontAwesome.otf') format('opentype'); // used when developing fonts
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -68,53 +68,51 @@ $fa-font-path: '~font-awesome/fonts';
 @import "~font-awesome/scss/icons";
 @import "~font-awesome/scss/screen-reader";
 
-
 // letter-spacing: .03rem;
 
 // Own components
 // FIXME: these are not really components
-@import '~froide/frontend/styles/components/alerts';
-@import '~froide/frontend/styles/components/attachments';
-@import '~froide/frontend/styles/components/base';
-@import '~froide/frontend/styles/components/breadcrumb';
-@import '~froide/frontend/styles/components/buttons';
-@import '~froide/frontend/styles/components/comments';
-@import '~froide/frontend/styles/components/follow';
-@import '~froide/frontend/styles/components/footer';
-@import '~froide/frontend/styles/components/forms';
-@import '~froide/frontend/styles/components/hero';
-@import '~froide/frontend/styles/components/js-switches';
-@import '~froide/frontend/styles/components/make-request';
-@import '~froide/frontend/styles/components/messages';
-@import '~froide/frontend/styles/components/misc';
-@import 'header';
-@import 'legacy';
-@import '~froide/frontend/styles/components/redacted';
-@import '~froide/frontend/styles/components/request-status';
-@import '~froide/frontend/styles/components/request-item';
-@import '~froide/frontend/styles/components/request';
-@import '~froide/frontend/styles/components/search';
-@import '~froide/frontend/styles/components/sharing';
-@import '~froide/frontend/styles/components/state-page';
-@import '~froide/frontend/styles/components/tags';
-@import '~froide/frontend/styles/components/type';
-@import '~froide/frontend/styles/components/print';
+@import "~froide/frontend/styles/components/alerts";
+@import "~froide/frontend/styles/components/attachments";
+@import "~froide/frontend/styles/components/base";
+@import "~froide/frontend/styles/components/breadcrumb";
+@import "~froide/frontend/styles/components/buttons";
+@import "~froide/frontend/styles/components/comments";
+@import "~froide/frontend/styles/components/follow";
+@import "~froide/frontend/styles/components/footer";
+@import "~froide/frontend/styles/components/forms";
+@import "~froide/frontend/styles/components/hero";
+@import "~froide/frontend/styles/components/js-switches";
+@import "~froide/frontend/styles/components/make-request";
+@import "~froide/frontend/styles/components/messages";
+@import "~froide/frontend/styles/components/misc";
+@import "header";
+@import "legacy";
+@import "~froide/frontend/styles/components/redacted";
+@import "~froide/frontend/styles/components/request-status";
+@import "~froide/frontend/styles/components/request-item";
+@import "~froide/frontend/styles/components/request";
+@import "~froide/frontend/styles/components/search";
+@import "~froide/frontend/styles/components/sharing";
+@import "~froide/frontend/styles/components/tags";
+@import "~froide/frontend/styles/components/type";
+@import "~froide/frontend/styles/components/print";
 
 // request alpha
-@import '~froide/frontend/styles/components/alpha/index';
+@import "~froide/frontend/styles/components/alpha/index";
 
-@import 'type';
-@import 'homepage';
-@import 'misc';
-@import 'blog';
-@import 'help';
-@import 'cms_documents';
-@import 'cms_elements';
-@import 'cms_utils';
-@import 'cards';
-@import 'campaigns';
-@import 'donations';
-@import 'darkmode';
-@import 'collapsible';
-@import 'glider';
-@import 'legal_actions';
+@import "type";
+@import "homepage";
+@import "misc";
+@import "blog";
+@import "help";
+@import "cms_documents";
+@import "cms_elements";
+@import "cms_utils";
+@import "cards";
+@import "campaigns";
+@import "donations";
+@import "darkmode";
+@import "collapsible";
+@import "glider";
+@import "legal_actions";
