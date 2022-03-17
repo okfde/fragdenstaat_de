@@ -37,17 +37,17 @@ function showTopBanner() {
   if (document.location && document.location.pathname) {
     const path = document.location.pathname;
     if (path.indexOf("/spenden/") !== -1 ||
-        path.indexOf("/gesendet/") !== -1 ||
-        path.indexOf("/payment/") !== -1 ||
-        path.indexOf("/abgeschlossen/") !== -1 ||
-        path.indexOf("/anfrage-stellen/") !== -1 ||
-        path.indexOf("/account/") !== -1) {
+      path.indexOf("/gesendet/") !== -1 ||
+      path.indexOf("/payment/") !== -1 ||
+      path.indexOf("/abgeschlossen/") !== -1 ||
+      path.indexOf("/anfrage-stellen/") !== -1 ||
+      path.indexOf("/account/") !== -1) {
       return removeBanner();
     }
 
     const linksInBanner = Array.from(topBanner.querySelectorAll('a'))
     for (let link of linksInBanner) {
-      if (link.pathname === path) {
+      if (link.pathname.startsWith(path)) {
         return removeBanner();
       }
     }
@@ -103,7 +103,7 @@ function showTopBanner() {
   topBanner.style.display = 'none'
   topBanner.style.zIndex = '900'
   dropdownBanner.style.display = 'block'
-  
+
   window.setTimeout(() => {
     window._paq.push(["trackEvent", "ads", "topBanner", "shown"]);
     if (window.innerWidth > 768) {
