@@ -47,7 +47,7 @@ function showTopBanner() {
 
     const linksInBanner = Array.from(topBanner.querySelectorAll('a'))
     for (let link of linksInBanner) {
-      if (link.pathname.startsWith(path)) {
+      if (path.startsWith(link.pathname)) {
         return removeBanner();
       }
     }
