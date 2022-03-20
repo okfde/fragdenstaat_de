@@ -28,17 +28,37 @@
 
     <div class="row justify-content-left mt-2">
       <div class="col-md-8">
-        <form method="post" class="clearfix mt-3 border-gray shadow-sm p-3">
+        <!-- <form method="post" class="clearfix mt-3 border-gray shadow-sm p-3">
           {{ form.media }}
           {% csrf_token %}
           {{ form }}
-          <div class="mt-3 mb-3 float-right">
-            <a href="{% url 'klageautomat-download-answer' foi_request.id %}" class="btn btn-primary btn-sm">Als PDF herunterladen</a>
-            <input class="btn btn-primary btn-sm" type="submit" value="Änderungen speichern" />
+          <div class="row">
+            <div class="col">
+              <small>Klage herunteralden als:</small>
+            </div>
+            <div></div>
           </div>
-        </form>
+          <div class="row">
+            <div class="col">
+              <a href="{% url 'klageautomat-pdf-download-answer' foi_request.id %}" class="btn btn-primary btn-sm"><i class="fa fa-download" aria-hidden="true"></i> PDF</a>
+              <a href="{% url 'klageautomat-word-download-answer' foi_request.id %}" class="btn btn-primary btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Word</a>
+            </div>
+            <div class="col">
+              <input class="btn btn-primary btn-sm float-right" type="submit" value="Speichern" />
+            </div>
+          </div>
+        </form> -->
+        <div class="clearfix mt-3 border-gray bg-white shadow-sm p-3 overflow-auto" style="height: 500px;">
+          {{ answer.rendered_document | safe }}
+        </div>
+        <div class="row mt-3">
+          <div class="col float-right">
+            <small>Klage herunteralden als:</small>
+            <a href="{% url 'klageautomat-pdf-download-answer' foi_request.id %}" class="btn btn-primary btn-sm"><i class="fa fa-download" aria-hidden="true"></i> PDF</a>
+            <a href="{% url 'klageautomat-word-download-answer' foi_request.id %}" class="btn btn-primary btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Word</a>
+          </div>
+        </div>
       </div>
-
 
       {% if help_message %}
       <div class="col-md-4 mt-3">

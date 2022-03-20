@@ -137,9 +137,11 @@
           {% csrf_token %}
           {{ answer_form }}
           <div class="mt-3 mb-3 float-right">
-            <input class="btn btn-primary btn-sm" type="submit" name="download" value="download" />
             <input class="btn btn-primary btn-sm" type="submit" value="Änderungen speichern" />
           </div>
+
+          <button class="btn btn-primary btn-sm" type="submit" name="download" value="pdf">Als PDF herunterladen</button>
+          <button class="btn btn-primary btn-sm" type="submit" name="download" value="word">Als Word herunterladen</button>
         </form>
       {% endif %}
 
