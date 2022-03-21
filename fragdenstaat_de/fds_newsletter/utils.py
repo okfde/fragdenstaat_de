@@ -1,4 +1,6 @@
 from datetime import timedelta
+from typing import Tuple
+from enum import Enum
 import hashlib
 
 from django.conf import settings
@@ -8,10 +10,13 @@ from django.db.models import Q
 from .models import Newsletter, Subscriber
 
 
-class SubscriptionResult:
+class SubscriptionResult(Enum):
     ALREADY_SUBSCRIBED = 0
     SUBSCRIBED = 1
     CONFIRM = 2
+
+
+SubscriptionReturn = Tuple[SubscriptionResult, Subscriber]
 
 
 def unsubscribe_queryset(subscribers, method=""):
@@ -20,13 +25,13 @@ def unsubscribe_queryset(subscribers, method=""):
     )
 
 
-def subscribe_to_default_newsletter(email, user=None, **kwargs):
+def subscribe_to_default_newsletter(email, user=None, **kwargs) -> SubscriptionReturn:
     return subscribe_to_newsletter(
         settings.DEFAULT_NEWSLETTER, email, user=user, **kwargs
     )
 
 
-def subscribe_to_newsletter(slug, email, user=None, **kwargs):
+def subscribe_to_newsletter(slug, email, user=None, **kwargs) -> SubscriptionReturn:
     try:
         newsletter = Newsletter.objects.get(slug=slug)
     except Newsletter.DoesNotExist:
@@ -42,7 +47,7 @@ def subscribe(
     email_confirmed=False,
     reference="",
     keyword="",
-):
+) -> SubscriptionReturn:
     if user and not user.is_authenticated:
         user = None
     if user and not user.is_active:
@@ -66,7 +71,7 @@ def subscribe(
 
 def subscribe_email(
     newsletter, email, email_confirmed=False, name="", reference="", keyword=""
-):
+) -> SubscriptionReturn:
     try:
         subscriber = Subscriber.objects.get(
             Q(email=email.lower()) | Q(user__email=email)
@@ -89,7 +94,7 @@ def subscribe_email(
     return (SubscriptionResult.SUBSCRIBED, subscriber)
 
 
-def subscribe_user(newsletter, user, reference="", keyword="") -> bool:
+def subscribe_user(newsletter, user, reference="", keyword="") -> SubscriptionReturn:
     try:
         subscriber = Subscriber.objects.get(Q(email=user.email.lower()) | Q(user=user))
     except Subscriber.DoesNotExist:
@@ -105,7 +110,7 @@ def subscribe_user(newsletter, user, reference="", keyword="") -> bool:
     return (SubscriptionResult.SUBSCRIBED, subscriber)
 
 
-def has_newsletter(user, newsletter_slug=None):
+def has_newsletter(user, newsletter_slug=None) -> bool:
     if not user.is_authenticated:
         return None
     try:
