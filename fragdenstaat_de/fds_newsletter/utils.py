@@ -3,6 +3,7 @@ import hashlib
 
 from django.conf import settings
 from django.utils import timezone
+from django.db.models import Q
 
 from .models import Newsletter, Subscriber
 
@@ -66,11 +67,16 @@ def subscribe(
 def subscribe_email(
     newsletter, email, email_confirmed=False, name="", reference="", keyword=""
 ):
-    subscriber, created = Subscriber.objects.get_or_create(
-        email=email.lower(),
-        newsletter=newsletter,
-        defaults={"name": name, "reference": reference, "keyword": keyword},
-    )
+    try:
+        subscriber = Subscriber.objects.get(
+            Q(email=email.lower()) | Q(user__email=email)
+        )
+    except Subscriber.DoesNotExist:
+        subscriber, _created = Subscriber.objects.get_or_create(
+            email=email.lower(),
+            newsletter=newsletter,
+            defaults={"name": name, "reference": reference, "keyword": keyword},
+        )
 
     if subscriber.subscribed:
         subscriber.send_already_email()
@@ -84,11 +90,14 @@ def subscribe_email(
 
 
 def subscribe_user(newsletter, user, reference="", keyword="") -> bool:
-    subscriber, created = Subscriber.objects.get_or_create(
-        newsletter=newsletter,
-        user=user,
-        defaults={"reference": reference, "keyword": keyword},
-    )
+    try:
+        subscriber = Subscriber.objects.get(Q(email=user.email.lower()) | Q(user=user))
+    except Subscriber.DoesNotExist:
+        subscriber, _created = Subscriber.objects.get_or_create(
+            newsletter=newsletter,
+            user=user,
+            defaults={"reference": reference, "keyword": keyword},
+        )
     if subscriber.subscribed:
         return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
 
