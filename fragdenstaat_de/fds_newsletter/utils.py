@@ -73,9 +73,9 @@ def subscribe_email(
     newsletter, email, email_confirmed=False, name="", reference="", keyword=""
 ) -> SubscriptionReturn:
     try:
-        subscriber = Subscriber.objects.get(
+        subscriber = Subscriber.objects.filter(
             Q(email=email.lower()) | Q(user__email=email)
-        )
+        ).get(newsletter=newsletter)
     except Subscriber.DoesNotExist:
         subscriber, _created = Subscriber.objects.get_or_create(
             email=email.lower(),
@@ -96,7 +96,9 @@ def subscribe_email(
 
 def subscribe_user(newsletter, user, reference="", keyword="") -> SubscriptionReturn:
     try:
-        subscriber = Subscriber.objects.get(Q(email=user.email.lower()) | Q(user=user))
+        subscriber = Subscriber.objects.filter(
+            Q(email=user.email.lower()) | Q(user=user)
+        ).get(newsletter=newsletter)
     except Subscriber.DoesNotExist:
         subscriber, _created = Subscriber.objects.get_or_create(
             newsletter=newsletter,
