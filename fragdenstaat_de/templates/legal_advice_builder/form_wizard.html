@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load form_helper markup %}
+{% load form_helper markup i18n %}
 
 {% block body %}
 <div class="breadcrumb-container">
@@ -8,6 +8,7 @@
       <div class="col-md-8">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'account-show' %}">{% trans "My requests" %}</a></li>
             <li class="breadcrumb-item"><a href="{% url 'foirequest-shortlink' foi_request.id %}">{{ foi_request.title|truncatechars:50 }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">Klageautomat</li>
           </ol>

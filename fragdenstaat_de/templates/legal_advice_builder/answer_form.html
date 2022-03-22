@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load form_helper %}
+{% load form_helper i18n %}
 
 {% block body %}
 <div class="breadcrumb-container">
@@ -8,6 +8,7 @@
       <div class="col-md-8">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'account-show' %}">{% trans "My requests" %}</a></li>
             <li class="breadcrumb-item"><a href="{% url 'foirequest-shortlink' foi_request.id %}">{{ foi_request.title|truncatechars:50 }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">Klageautomat</li>
           </ol>
@@ -17,7 +18,12 @@
   </div>
 </div>
 
-<div class="breadcrumb-container py-2">
+<div class="breadcrumb-container breadcrumb-container-header">
+  <!-- <div class="container pt-2">
+    <div class="alert alert-success d-print-none">
+      {{ help_message }}
+    </div>
+  </div> -->
   <div class="container mb-5">
     <div class="row justify-content-left">
       <div class="col-md-8">
@@ -28,35 +34,51 @@
 
     <div class="row justify-content-left mt-2">
       <div class="col-md-8">
-        <!-- <form method="post" class="clearfix mt-3 border-gray shadow-sm p-3">
+        <form method="post" class="clearfix mt-3 border-gray shadow-sm p-3">
           {{ form.media }}
           {% csrf_token %}
           {{ form }}
-          <div class="row">
+          <div class="row mt-2">
             <div class="col">
-              <small>Klage herunteralden als:</small>
-            </div>
-            <div></div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <a href="{% url 'klageautomat-pdf-download-answer' foi_request.id %}" class="btn btn-primary btn-sm"><i class="fa fa-download" aria-hidden="true"></i> PDF</a>
-              <a href="{% url 'klageautomat-word-download-answer' foi_request.id %}" class="btn btn-primary btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Word</a>
+              <div class="dropdown">
+                <button id="downloadActions" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Klage herunterladen als
+                </button>
+                <div class="dropdown-menu alpha-dropdown-menu" aria-labelledby="downloadActions">
+                  <a class="dropdown-item" href="{% url 'klageautomat-word-download-answer' foi_request.id %}">
+                    Word
+                  </a>
+                  <a class="dropdown-item" href="{% url 'klageautomat-pdf-download-answer' foi_request.id %}">
+                    PDF
+                  </a>
+                </div>
+              </div>
             </div>
             <div class="col">
               <input class="btn btn-primary btn-sm float-right" type="submit" value="Speichern" />
             </div>
           </div>
-        </form> -->
-        <div class="clearfix mt-3 border-gray bg-white shadow-sm p-3 overflow-auto" style="height: 500px;">
+        </form>
+
+        <!-- <div class="clearfix mt-3 border-gray bg-white shadow-sm p-3 overflow-auto" style="height: 500px;">
           {{ answer.rendered_document | safe }}
-        </div>
-        <div class="row mt-3">
-          <div class="col float-right">
-            <small>Klage herunteralden als:</small>
-            <a href="{% url 'klageautomat-pdf-download-answer' foi_request.id %}" class="btn btn-primary btn-sm"><i class="fa fa-download" aria-hidden="true"></i> PDF</a>
-            <a href="{% url 'klageautomat-word-download-answer' foi_request.id %}" class="btn btn-primary btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Word</a>
-          </div>
+        </div> -->
+        <div class="row mt-3 float-right">
+          <!-- <div class="col">
+            <div class="dropdown">
+              <button id="downloadActions" type="button" class="btn btn-primary mt-n2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Klage herunterladen als
+              </button>
+              <div class="dropdown-menu alpha-dropdown-menu" aria-labelledby="downloadActions">
+                <a class="dropdown-item" href="{% url 'klageautomat-word-download-answer' foi_request.id %}">
+                  Word
+                </a>
+                <a class="dropdown-item" href="{% url 'klageautomat-pdf-download-answer' foi_request.id %}">
+                  PDF
+                </a>
+              </div>
+            </div>
+          </div> -->
         </div>
       </div>
 
