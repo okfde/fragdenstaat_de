@@ -214,3 +214,10 @@
     }
   }
 }
+
+@include media-breakpoint-up(md) {
+  .text-columns-md-2 {
+    column-count: 2;
+    column-gap: 2rem;
+  }
+}
