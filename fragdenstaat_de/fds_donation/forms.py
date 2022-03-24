@@ -31,7 +31,13 @@ from .widgets import AmountInput, InlineRadioSelect
 from .utils import MERGE_DONOR_FIELDS
 
 
-PAYMENT_METHOD_LIST = ("creditcard", "sepa", "paypal", "sofort", "banktransfer")
+PAYMENT_METHOD_LIST = (
+    "creditcard",
+    "sepa",
+    # "paypal",
+    "sofort",
+    "banktransfer",
+)
 PAYMENT_METHOD_MAX_AMOUNT = {"sepa": decimal.Decimal(5000)}
 
 PAYMENT_METHODS = [
