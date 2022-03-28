@@ -9,8 +9,7 @@ window._paq.push(["enableLinkTracking"]);
 window._paq.push(["setDomains", ["*.fragdenstaat.de"]]);
 window._paq.push(["setTrackerUrl", `${MATOMO_DOMAIN}/matomo.php`]);
 window._paq.push(['disableCookies']);
-// Not yet available on our Matomo
-// window._paq.push(["disableBrowserFeatureDetection"]);
+window._paq.push(["disableBrowserFeatureDetection"]);
 window._paq.push(["setSiteId", "25"]);
 
 if (document.location.hostname.indexOf(".onion") === -1) {
