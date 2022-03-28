@@ -94,36 +94,6 @@
   }
 }
 
-/* sizing utilities */
-
-@each $value in (4, 6, 8, 16, 20, 24, 32, 36, 48) {
-  .w-#{$value}rem {
-    width: $value * 1rem !important;
-  }
-
-  .w-md-#{$value}rem {
-    @include media-breakpoint-up(md) {
-      width: $value * 1rem !important;
-    }
-  }
-
-  .h-#{$value}rem {
-    height: $value * 1rem !important;
-  }
-
-  .h-md-#{$value}rem {
-    @include media-breakpoint-up(md) {
-      height: $value * 1rem !important;
-    }
-  }
-}
-
-.min-vw-md-100 {
-  @include media-breakpoint-up(md) {
-    min-width: 100vw;
-  }
-}
-
 .min-vh-md-100 {
   @include media-breakpoint-up(md) {
     min-height: 100vh;
@@ -147,6 +117,11 @@
 .img-sm {
   width: 5rem;
   max-height: 5rem;
+}
+
+.img-sm-vertical {
+  height: 5rem;
+  max-width: 100%;
 }
 
 @include media-breakpoint-down(sm) {

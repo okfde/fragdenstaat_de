@@ -7,7 +7,7 @@
   {% if "campaign-card__done" in object.extra_classes %}
     <img src="{% static 'img/campaign-check.svg' %}" alt="Kampagne abgeschlossen" class="slider-card__check-icon">
   {% endif %}
-  <div class="bg-blue-10 d-flex h-6rem justify-content-center align-items-center">
+  <div class="bg-blue-10 py-2 text-center">
     {% if object.image %}
       <picture>
         {% thumbnail object.image 100x0 crop subject_location=object.image.subject_location as thumb %}
@@ -15,7 +15,7 @@
           srcset="{{ thumb.url }}.avif"
           type="image/avif"
         />
-        <img class="h-4rem" loading="lazy" src="{{ thumb.url }}" alt="{{ object.image.default_alt_text }}" />
+        <img class="img-sm-vertical" loading="lazy" src="{{ thumb.url }}" alt="{{ object.image.default_alt_text }}" />
       </picture>
     {% endif %}
   </div>
