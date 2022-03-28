@@ -31,7 +31,7 @@
           type="image/avif"
         />
         <img class="w-100 h-auto {{ extra_classes }}" loading="lazy" width="320" height="185" src="{{ thumb.url }}"
-            {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
+            {% if not attributes.alt %} alt="{{ picture.default_alt_text|default:"" }}"{% endif %}
             {{ attributes_str }}>
       </picture>
     {% endwith %}

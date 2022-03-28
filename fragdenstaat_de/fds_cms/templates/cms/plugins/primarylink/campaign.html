@@ -15,7 +15,7 @@
           srcset="{{ thumb.url }}.avif"
           type="image/avif"
         />
-        <img class="img-sm-vertical" loading="lazy" src="{{ thumb.url }}" alt="{{ object.image.default_alt_text }}" />
+        <img class="img-sm-vertical" loading="lazy" src="{{ thumb.url }}" alt="{{ object.image.default_alt_text|default:"" }}" />
       </picture>
     {% endif %}
   </div>

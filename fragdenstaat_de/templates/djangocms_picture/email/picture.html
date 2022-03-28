@@ -15,7 +15,7 @@
 {% endif %}
 
 <img class="emailImage {% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}" src="{% spaceless %}
-{% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location %}{% endspaceless %}"{% if instance.picture.default_alt_text and not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text }}"{% endif %} width="100%" height="" {{ instance.attributes_str }}/>
+{% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location %}{% endspaceless %}"{% if not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %} width="100%" height="" {{ instance.attributes_str }}/>
 
 {% if picture_link %}
     </a>

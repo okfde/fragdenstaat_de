@@ -66,7 +66,7 @@
     {% else %}
       {{ thumb.url }}
     {% endif %}{% endspaceless %}"
-    {% if instance.picture.default_alt_text and not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text }}"{% endif %}
+    {% if not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %}
     {% if instance.width %} width="{{ instance.width }}"{% endif %}
     {% if instance.height %} height="{{ instance.height }}"{% endif %}
     loading="lazy"

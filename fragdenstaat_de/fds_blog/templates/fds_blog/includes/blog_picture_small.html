@@ -9,7 +9,7 @@
       type="image/avif"
     />
     <img class="img-fluid" loading="lazy" src="{{ thumb.url }}"
-      {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
+      {% if not attributes.alt %} alt="{{ picture.default_alt_text|default:"" }}"{% endif %}
       {{ attributes_str }}>
   </picture>
 </figure>

@@ -22,7 +22,7 @@
         />
       {% endif %}
       <img class="img-{{ instance.size }} z-index-10 {{ instance.attributes.class }}" loading="lazy" width="{{ thumb.width }}" height="{{ thumb.height }}" src="{{ thumb.url }}"
-          {% if picture.default_alt_text and not attributes.alt %} alt="{{ picture.default_alt_text }}"{% endif %}
+          {% if not attributes.alt %} alt="{{ picture.default_alt_text|default:"" }}"{% endif %}
           {{ instance.attributes_str }}>
     </picture>
   {% endwith %}
