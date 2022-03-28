@@ -1,40 +1,39 @@
 import base64
-import json
 import decimal
+import json
 
 from django import forms
-from django.core.mail import mail_managers
-from django.utils.translation import gettext_lazy as _
-from django.utils.html import format_html
 from django.conf import settings
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
+from django.core.mail import mail_managers
+from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
 
 from froide.account.utils import parse_address
+from froide.campaign.models import Campaign
 from froide.helper.content_urls import get_content_url
 from froide.helper.spam import SpamProtectionMixin
-from froide.campaign.models import Campaign
 
-from froide_payment.models import CHECKOUT_PAYMENT_CHOICES_DICT
 from froide_payment.forms import StartPaymentMixin
+from froide_payment.models import CHECKOUT_PAYMENT_CHOICES_DICT
 from froide_payment.utils import interval_description
 
 from .models import (
-    Donor,
-    Donation,
-    DonationGift,
     INTERVAL_SETTINGS_CHOICES,
     SALUTATION_CHOICES,
+    Donation,
+    DonationGift,
+    Donor,
 )
 from .services import get_or_create_donor
+from .utils import MERGE_DONOR_FIELDS
 from .validators import validate_not_too_many_uppercase
 from .widgets import AmountInput, InlineRadioSelect
-from .utils import MERGE_DONOR_FIELDS
-
 
 PAYMENT_METHOD_LIST = (
     "creditcard",
     "sepa",
-    # "paypal",
+    "paypal",
     "sofort",
     "banktransfer",
 )
