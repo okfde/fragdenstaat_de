@@ -1,25 +1,24 @@
+import uuid
 from datetime import timedelta
 from urllib.parse import urlencode
-import uuid
 
+from django.conf import settings
+from django.contrib.postgres.fields import HStoreField
 from django.db import models
 from django.db.models.functions import RowNumber
-from django.contrib.postgres.fields import HStoreField
-from django.conf import settings
-from django.utils import timezone
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.translation import pgettext, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext
 
 from cms.models.pluginmodel import CMSPlugin
-
 from django_countries.fields import CountryField
+from fragdenstaat_de.fds_newsletter.models import Subscriber
 from taggit.managers import TaggableManager
-from taggit.models import TaggedItemBase, TagBase
+from taggit.models import TagBase, TaggedItemBase
 
 from froide_payment.models import Order, Payment, Subscription
-from fragdenstaat_de.fds_newsletter.models import Subscriber
-
 
 INTERVAL_SETTINGS_CHOICES = [
     ("once", _("Only once")),
@@ -349,6 +348,9 @@ class Donation(models.Model):
         if self.order:
             return self.order.get_absolute_url()
         return "/"
+
+    def get_failure_url(self):
+        return reverse("fds_donation:donate-failed")
 
 
 class DefaultDonationManager(models.Manager):

@@ -1,21 +1,21 @@
-from django.views.decorators.http import require_POST
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.utils.translation import gettext_lazy as _
-from django.contrib import messages
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, TemplateView, UpdateView
 from django.views.generic.edit import FormView
 
 from froide.helper.utils import get_redirect
 
-from .models import Donor
 from .forms import (
-    DonationGiftForm,
     DonationFormFactory,
+    DonationGiftForm,
     DonorDetailsForm,
     SimpleDonationForm,
 )
+from .models import Donor
 from .services import confirm_donor_email, merge_donor_list
 
 
@@ -68,6 +68,10 @@ class DonationCompleteView(TemplateView):
         ctx["subscription"] = self.request.GET.get("subscription", "")
         ctx["email"] = self.request.GET.get("email", "")
         return ctx
+
+
+class DonationFailedView(TemplateView):
+    template_name = "fds_donation/donation_failed.html"
 
 
 class DonorMixin:
