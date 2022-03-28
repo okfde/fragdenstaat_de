@@ -10,7 +10,7 @@
   <div class="bg-blue-10 py-2 text-center">
     {% if object.image %}
       <picture>
-        {% thumbnail object.image 100x0 crop subject_location=object.image.subject_location as thumb %}
+        {% thumbnail object.image 250x0 crop subject_location=object.image.subject_location as thumb %}
         <source
           srcset="{{ thumb.url }}.avif"
           type="image/avif"
