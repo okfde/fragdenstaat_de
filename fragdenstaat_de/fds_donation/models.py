@@ -101,6 +101,7 @@ class Donor(models.Model):
 
     class Meta:
         ordering = ("-id",)
+        get_latest_by = "first_donation"
         verbose_name = _("donor")
         verbose_name_plural = _("donors")
 
@@ -311,6 +312,7 @@ class Donation(models.Model):
 
     class Meta:
         ordering = ("-timestamp",)
+        get_latest_by = "timestamp"
         verbose_name = _("donation")
         verbose_name_plural = _("donations")
 
