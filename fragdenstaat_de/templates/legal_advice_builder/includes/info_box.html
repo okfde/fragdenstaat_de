@@ -1,0 +1,66 @@
+<div class="info-box mb-3 info-box--regular mt-0">
+  <div class="info-box__header d-flex flex-nowrap justify-content-between align-items-center">
+    <div>
+      <h3 class="h5 info-box__title">Wie geht es weiter?</h3>
+      <div class="info-box__subtitle"></div>
+    </div>
+  </div>
+
+  <div class="info-box__body">
+    <ul class="info-box__list ">
+
+      <li class="info-box__list-item">
+        <div class="info-box__list-label">Option 1: Klage eigenständig einreichen</div>
+        <div class="info-box__list-value">
+          Laden Sie den Entwurf herunter und nutzen Sie ggf. die Word-Version, um Anpassungen vorzunehmen. Ausgedruckt
+          und unterschrieben können Sie die Klage direkt an das Gericht schicken und damit offiziell einreichen.
+        </div>
+      </li>
+
+      <li class="info-box__list-item">
+        <div class="info-box__list-label">Option 2: Anwaltliche Beratung einbeziehen</div>
+        <div class="info-box__list-value">
+          Besprechen Sie den Entwurf mit Ihrer Anwältin oder Ihrem Anwalt.
+        </div>
+      </li>
+
+      <li class="info-box__list-item info-box__list-item--has-divider">
+        <div class="info-box__list-label">Option 3: Klage FragDenStaat vorschlagen</div>
+        <div class="info-box__list-value">
+          Sie haben selbst keine Kapazitäten die Klage alleine zu einzureichen, die erfragten Informationen sind aber
+          von breitem öffentlichen Interesse? Dann schicken Sie uns gern den Klageentwurf zu.
+        </div>
+      </li>
+
+      <li class="info-box__list-item">
+        <div class="info-box__list-label">Anlagen</div>
+        <div class="info-box__list-value">Bitte denken Sie daran, folgende Dokumente als Anlagen hinzuzufügen:</div>
+        <ul>
+          {% for attachment in attachments %}
+          <li>{{ attachment.text }} {{ attachment.date }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+
+      <li class="info-box__list-item">
+        <div class="info-box__list-value">Hier können Sie die gesamte Kommunikation zu Ihrer Anfrage herunterladen und für Ihre Anlagen nutzen:</div>
+        <div class="d-flex justify-content-center">
+          <div class="dropdown">
+            <button id="downloadActions" type="button" class="btn btn btn-outline-dark btn-sm mt-2 dropdown-toggle"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Daten herunterladen
+            </button>
+            <div class="dropdown-menu alpha-dropdown-menu" aria-labelledby="downloadActions">
+              <a class="dropdown-item" href="{% url 'foirequest-download' foi_request.slug %}">
+                Download als ZIP
+              </a>
+              <a class="dropdown-item" href="{% url 'foirequest-pdf' foi_request.slug %}">
+                Download als PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+  </div>
+</div>
