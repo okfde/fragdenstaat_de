@@ -19,13 +19,13 @@
 </div>
 
 <div class="breadcrumb-container breadcrumb-container-header">
-    <div class="container mb-5">
-    <div class="row justify-content-left">
-      <div class="col-md-8">
-        <h2>{{ law_case.title }}</h2>
-        <div>zu: <a href="{% url 'foirequest-shortlink' foi_request.id %}" target="_blank">{{ foi_request.title }}</a>,</br>an: {{ foi_request.public_body }}</div>
+    <div class="container pb-5">
+      <div class="row justify-content-left">
+        <div class="col-md-8">
+          <h2>{{ law_case.title }}</h2>
+          <div>zu: <a href="{% url 'foirequest-shortlink' foi_request.id %}" target="_blank">{{ foi_request.title }}</a>,</br>an: {{ foi_request.public_body }}</div>
+        </div>
       </div>
-    </div>
 
   <div class="row justify-content-center mt-2">
     <div class="col-md-8">
