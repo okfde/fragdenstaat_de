@@ -1,30 +1,27 @@
 import logging
 import re
 
-from django.db import models
-from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
-from django.template.loader import render_to_string
-from django.template import Template, Context
-from django.core.mail import EmailMultiAlternatives, mail_managers
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.mail import EmailMultiAlternatives, mail_managers
+from django.db import models
+from django.template import Context, Template
+from django.template.loader import render_to_string
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from cms.models.fields import PlaceholderField
-from cms.models.static_placeholder import StaticPlaceholder
 from cms.models.pluginmodel import CMSPlugin
-
+from cms.models.static_placeholder import StaticPlaceholder
 from filer.fields.image import FilerImageField
-
-from froide.helper.email_sending import EmailContent, mail_registry, send_mail
-from froide.helper.email_utils import make_address
-
 from fragdenstaat_de.fds_cms.utils import get_request
 from fragdenstaat_de.fds_donation.models import Donor
 from fragdenstaat_de.fds_newsletter.models import Newsletter, Subscriber
 
-from .utils import render_text
+from froide.helper.email_sending import EmailContent, mail_registry, send_mail
+from froide.helper.email_utils import make_address
 
+from .utils import render_text
 
 User = get_user_model()
 logger = logging.getLogger()
@@ -397,6 +394,7 @@ class Mailing(models.Model):
             self.sent_date = timezone.now()
 
         except Exception:
+            logger.exception("Mailing %s sending failed", self.name)
             mail_managers("Sending out {} partly failed".format(self.name), "")
 
         finally:
