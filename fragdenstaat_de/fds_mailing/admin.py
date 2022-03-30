@@ -1,13 +1,12 @@
-from django.db import transaction, models
-from django.contrib import admin, messages
-from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.utils.translation import gettext as _
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, get_object_or_404
 from django.conf.urls import url
+from django.contrib import admin, messages
+from django.core.exceptions import PermissionDenied
+from django.db import models, transaction
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from cms.models.static_placeholder import StaticPlaceholder
@@ -15,12 +14,12 @@ from cms.models.static_placeholder import StaticPlaceholder
 from froide.account.admin import UserAdmin
 from froide.helper.admin_utils import (
     ForeignKeyFilter,
-    make_nullfilter,
     make_choose_object_action,
+    make_nullfilter,
 )
 
 from .models import EmailTemplate, Mailing, MailingMessage
-from .tasks import send_mailing, continue_sending
+from .tasks import continue_sending, send_mailing
 from .utils import add_fake_context
 
 
@@ -115,6 +114,7 @@ class MailingAdmin(admin.ModelAdmin):
         "created",
         "newsletter",
         "ready",
+        "recipients",
         "sending_date",
         "sending",
         "sent",
@@ -169,6 +169,12 @@ class MailingAdmin(admin.ModelAdmin):
         if obj.total_recipients == 0:
             return "-"
         return "{0:.2f}%".format(obj.sent_recipients / obj.total_recipients * 100)
+
+    def recipients(self, obj):
+        return obj.total_recipients
+
+    recipients.admin_order_field = "total_recipients"
+    recipients.short_description = _("Recipients")
 
     def trigger_continue_sending(self, request, queryset):
         for mailing in queryset:
