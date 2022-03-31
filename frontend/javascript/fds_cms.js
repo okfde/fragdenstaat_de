@@ -1,4 +1,6 @@
-import Room from "froide/frontend/javascript/lib/websocket.ts"
+/* globals CMS */
+
+import Room from 'froide/frontend/javascript/lib/websocket.ts'
 
 let room
 let modalOpen = false
@@ -9,7 +11,7 @@ const PLUGIN_ID_PATTERN = /edit-plugin\/(\d+)\//
 
 const renderList = (userList) => {
   if (!userlistContainer) {
-    let foot = document.querySelector('.cms-modal-foot')
+    const foot = document.querySelector('.cms-modal-foot')
     userlistContainer = document.createElement('div')
     userlistContainer.classList.add('fds-cms-users')
     userlistContainer.style.color = 'red'
@@ -23,18 +25,18 @@ const setupRoom = () => {
   if (!modalOpen) {
     return
   }
-  let iframe = document.querySelector('.cms-modal-frame iframe')
+  const iframe = document.querySelector('.cms-modal-frame iframe')
   if (iframe === null) {
     if (modalOpen) {
       window.setTimeout(setupRoom, 1000)
     }
     return
   }
-  let match = PLUGIN_ID_PATTERN.exec(iframe.src)
+  const match = PLUGIN_ID_PATTERN.exec(iframe.src)
   if (match === null) {
     return
   }
-  let pluginId = match[1]
+  const pluginId = match[1]
 
   room = new Room(`${WS_URL}${pluginId}/`)
 
@@ -46,14 +48,14 @@ const setupRoom = () => {
 CMS.$(window).on('cms-modal-load', function () {
   modalOpen = true
   window.setTimeout(setupRoom, 1000)
-});
+})
 
 CMS.$(window).on('cms-modal-close', function () {
   modalOpen = false
   renderList([])
   if (room) {
-    room.send({ "type": "left" })
+    room.send({ type: 'left' })
     room.close()
     room = null
   }
-});
+})

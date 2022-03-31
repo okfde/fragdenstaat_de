@@ -2,7 +2,7 @@ const revealElemets: NodeListOf<HTMLElement> = document.querySelectorAll('.revea
 
 revealElemets.forEach((element) => {
   const { cutoff } = element.dataset
-  if (!cutoff) return
+  if (cutoff === undefined) return
 
   let pixels
 
@@ -14,17 +14,17 @@ revealElemets.forEach((element) => {
     pixels = parseFloat(cutoff) * (element.querySelector<HTMLElement>('.col')?.offsetHeight ?? 0)
   }
 
-  if (!pixels) return
+  if (pixels === undefined) return
 
   const inner = element.querySelector<HTMLElement>('.reveal-inner')
-  if (!inner) return
+  if (inner == null) return
   inner.style.maxHeight = `${pixels}px`
 
-  const button = element.querySelector<HTMLElement>('.reveal-show a');
+  const button = element.querySelector<HTMLElement>('.reveal-show a')
 
   button?.addEventListener('click', () => {
     inner.addEventListener('transitionend', () => {
-      button.setAttribute('aria-expanded', 'true');
+      button.setAttribute('aria-expanded', 'true')
 
       element.classList.add('revealed')
       element.classList.remove('transitioning')

@@ -1,19 +1,16 @@
 const path = require('path')
-const fs = require('fs')
-const childProcess = require('child_process')
 
-const TerserPlugin = require("terser-webpack-plugin");
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const webpack = require('webpack')
 
 const devMode = process.env.NODE_ENV !== 'production'
-const ASSET_PATH = process.env.ASSET_PATH || '/static/js/';
+const ASSET_PATH = process.env.ASSET_PATH || '/static/js/'
 
 const ENTRY = {
   main: ['./frontend/javascript/main.ts'],
@@ -54,29 +51,29 @@ const EXCLUDE_MODULES_FROM_COMMON = [
 
 const ENTRY_LIST = []
 let CHUNK_LIST = []
-for (let key in ENTRY) {
+for (const key in ENTRY) {
   ENTRY_LIST.push('(' + key + '\\.(css|js))')
   if (EXCLUDE_CHUNKS.indexOf(key) !== -1) { continue }
   CHUNK_LIST.push(key)
 }
 CHUNK_LIST = CHUNK_LIST.join('|')
 
-const BUILD_FILE_REGEX = new RegExp('.*/(' + ENTRY_LIST.join('|') + ')$')
-
 const config = {
   entry: ENTRY,
   output: {
     path: path.resolve(__dirname, 'fragdenstaat_de/theme/static/js'),
-    publicPath: process.env.NODE_ENV === 'production' ? ASSET_PATH : (
-      process.env.WEBPACK_DEV_SERVER ? 'http://localhost:8080/static/js/' : '/static/js/'
-    ),
+    publicPath: process.env.NODE_ENV === 'production'
+      ? ASSET_PATH
+      : (
+          process.env.WEBPACK_DEV_SERVER ? 'http://localhost:8080/static/js/' : '/static/js/'
+        ),
     filename: '[name].js',
     chunkFilename: '[name].js',
     library: {
       name: ['Froide', 'components', '[name]'],
-      type: "umd"
+      type: 'umd'
     },
-    devtoolModuleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]',
+    devtoolModuleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]'
   },
   devtool: devMode ? 'inline-source-map' : 'source-map', // any "source-map"-like devtool is possible
   node: false,
@@ -84,7 +81,7 @@ const config = {
     // contentBase: path.resolve(__dirname, 'fragdenstaat_de/theme'),
     headers: { 'Access-Control-Allow-Origin': '*' },
     port: 8080,
-    hot: true,
+    hot: true
   },
   resolve: {
     modules: [
@@ -94,9 +91,9 @@ const config = {
     ],
     extensions: ['.js', '.ts', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      vue$: 'vue/dist/vue.esm.js'
     },
-    fallback: { "zlib": false }
+    fallback: { zlib: false }
   },
   module: {
     rules: [
@@ -128,7 +125,7 @@ const config = {
           //   }
           // },
           {
-            loader: 'ts-loader',
+            loader: 'ts-loader'
           }
         ]
       },
@@ -138,14 +135,14 @@ const config = {
         use: {
           loader: 'babel-loader',
           options: {
-            "presets": [
-              ["@babel/preset-env", {
-                "targets": {
-                  "browsers": ["> 0.25%", "last 2 versions", "ie >= 11", "not dead"]
+            presets: [
+              ['@babel/preset-env', {
+                targets: {
+                  browsers: ['> 0.25%', 'last 2 versions', 'ie >= 11', 'not dead']
                 }
               }]
             ],
-            "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+            plugins: ['@babel/plugin-proposal-object-rest-spread']
           }
         }
       },
@@ -170,7 +167,7 @@ const config = {
             options: {
               postcssOptions: {
                 plugins: [
-                  ["autoprefixer"]
+                  ['autoprefixer']
                 ]
               }
             }
@@ -247,38 +244,42 @@ const config = {
     })
   ],
   optimization: {
-    minimizer: !devMode ? [
-      new TerserPlugin(),
-      new CssMinimizerPlugin()
-    ] : [],
-    splitChunks: !devMode ? {
-      cacheGroups: {
-        pdfjs: {
-          test: /[\\/]node_modules[\\/](pdfjs-dist\/build\/pdf\.js)/,
-          name: 'pdfjs',
-          chunks: 'all'
-        },
-        common: {
-          test(mod/* , chunk */) {
-            // Only node_modules are needed
-            if (mod.context && !mod.context.includes('node_modules')) {
-              return false;
+    minimizer: !devMode
+      ? [
+          new TerserPlugin(),
+          new CssMinimizerPlugin()
+        ]
+      : [],
+    splitChunks: !devMode
+      ? {
+          cacheGroups: {
+            pdfjs: {
+              test: /[\\/]node_modules[\\/](pdfjs-dist\/build\/pdf\.js)/,
+              name: 'pdfjs',
+              chunks: 'all'
+            },
+            common: {
+              test (mod/* , chunk */) {
+                // Only node_modules are needed
+                if (mod.context && !mod.context.includes('node_modules')) {
+                  return false
+                }
+                // But not node modules that contain these key words in the path
+                if (mod.context && EXCLUDE_MODULES_FROM_COMMON.some(str => mod.context.includes(str))) {
+                  return false
+                }
+                return true
+              },
+              chunks (chunk) {
+                return CHUNK_LIST.indexOf(chunk.name) !== -1
+              },
+              name: 'common',
+              minChunks: 2,
+              minSize: 0
             }
-            // But not node modules that contain these key words in the path
-            if (mod.context && EXCLUDE_MODULES_FROM_COMMON.some(str => mod.context.includes(str))) {
-              return false;
-            }
-            return true;
-          },
-          chunks(chunk) {
-            return CHUNK_LIST.indexOf(chunk.name) !== -1
-          },
-          name: 'common',
-          minChunks: 2,
-          minSize: 0
+          }
         }
-      }
-    } : undefined
+      : undefined
   }
 }
 

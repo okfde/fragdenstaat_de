@@ -1,6 +1,6 @@
-const pauseModalVideo = function (this: HTMLVideoElement) {
+const pauseModalVideo = function (this: HTMLVideoElement): void {
   const video = this.querySelector('video')
-  if (video) {
+  if (video != null) {
     video.pause()
   }
 }
