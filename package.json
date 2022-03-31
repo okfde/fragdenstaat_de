@@ -65,6 +65,7 @@
     "@sentry/browser": "^6.10.0",
     "@sentry/tracing": "^6.16.1",
     "@turf/bbox": "^6.5.0",
+    "@types/glidejs__glide": "^3.4.1",
     "@types/stripe-v3": "^3.1.25",
     "@uppy/core": "^1.19.2",
     "@uppy/dashboard": "^1.20.2",
