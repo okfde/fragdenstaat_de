@@ -18,7 +18,8 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitAny":  true
+    "noImplicitAny":  true,
+    "downlevelIteration": true
   },
   "include": [
     "./frontend/javascript/**/*"
