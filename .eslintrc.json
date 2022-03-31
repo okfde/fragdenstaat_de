@@ -1,10 +1,13 @@
 {
-    "parser": "babel-eslint",
-    "parserOptions": {
-      "sourceType": "module"
-    },
-    "extends": "standard",
-    "plugins": [
-      "html"
-    ]
+  "parserOptions": {
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
+  },
+  "extends": "standard-with-typescript",
+  "plugins": [
+    "vue",
+    "html"
+  ],
+  "ignorePatterns": ["node_modules/**", "**/static/**"],
+  "root": true
 }
