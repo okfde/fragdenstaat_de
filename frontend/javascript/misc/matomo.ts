@@ -1,6 +1,5 @@
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Window { _paq: undefined | Array<Array<string | string[]>> }
-declare let window: Window
 
 const MATOMO_DOMAIN = 'https://traffic.okfn.de'
 

@@ -7,7 +7,7 @@
     el.value = value
   }
   
-  Array.from(document.querySelectorAll('[data-donor]')).forEach(p => {
+  document.querySelectorAll('[data-donor]').forEach(p => {
     p.style.cursor = 'copy'
     p.addEventListener('click', () => applyValue(p))
   })

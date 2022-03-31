@@ -24,7 +24,7 @@ const LOCALE = {
   }
 }
 
-Array.from(document.querySelectorAll('[data-vegachart]')).forEach((el) => {
+document.querySelectorAll('[data-vegachart]').forEach((el) => {
   let spec
   if (el.dataset.vegachartdata) {
     spec = JSON.parse(el.dataset.vegachartdata)
