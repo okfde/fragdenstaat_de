@@ -1,23 +1,26 @@
 .header {
   &__branding {
     position: relative;
-    top: -.45rem;
+    top: -0.45rem;
   }
+  &__logo {
+    height: 2.5rem;
+  }
+  @include media-breakpoint-up(md) {
+    &__branding {
+      top: -0.5rem;
+    }
     &__logo {
-      height: 2.5rem;
+      height: 2.75rem;
     }
-    @include media-breakpoint-up(md) {
-      &__branding { top: -0.5rem }
-      &__logo { height: 2.75rem; }
-    }
+  }
 }
-
 
 /*
   Mobile menu
 */
 .drawer-menu {
-  $transition: .2s ease;
+  $transition: 0.2s ease;
   align-items: stretch;
   user-select: none;
   &__toggle {
@@ -39,7 +42,9 @@
     transition: transform $transition;
     will-change: transform;
     overflow-y: auto;
-    &--inital { width: 0; }
+    &--inital {
+      width: 0;
+    }
   }
   &__backdrop {
     z-index: $zindex-modal-backdrop;
@@ -71,7 +76,10 @@
     &:hover {
       text-decoration: none;
     }
-    &:active, &:focus { outline: 0; }
+    &:active,
+    &:focus {
+      outline: 0;
+    }
     &--blue {
       color: $white;
       background-color: $blue-800;
@@ -79,7 +87,8 @@
       &:hover {
         color: $white;
       }
-      &:active, &:focus {
+      &:active,
+      &:focus {
         color: $blue-100;
         background-color: $blue-700;
       }
@@ -87,7 +96,8 @@
     &--white {
       color: $body-color;
       background-color: $white;
-      &:active, &:focus {
+      &:active,
+      &:focus {
         &:not(.drawer-menu__dropdown-trigger) {
           color: $blue-600;
           background-color: $blue-200;
@@ -98,7 +108,8 @@
       }
     }
   }
-  &__dropdown-trigger {}
+  &__dropdown-trigger {
+  }
   &__dropdown-content &__link {
     padding-left: $spacer * 2;
     background-color: $gray-200;
@@ -112,19 +123,17 @@
     opacity: 0;
     visibility: hidden;
     // transform: translateY(-15px);
-    transition: all .1s ease;
+    transition: all 0.1s ease;
     will-change: transform;
     &--visible {
       // transform: translateY(0px);
       height: auto;
       opacity: 1;
       visibility: visible;
-      transition: opacity .2s ease-in;
+      transition: opacity 0.2s ease-in;
     }
   }
 }
-
-
 
 /*
   Desktop/Tablet menu
@@ -173,10 +182,16 @@
     right: auto;
   }
   &--drop-right,
-  &--drop-left { margin-top: $spacer * .25; }
+  &--drop-left {
+    margin-top: $spacer * 0.25;
+  }
   @include media-breakpoint-up(lg) {
-    &--drop-right { right: -#{$spacer}; }
-    &--drop-left { left: -#{$spacer}; }
+    &--drop-right {
+      right: -#{$spacer};
+    }
+    &--drop-left {
+      left: -#{$spacer};
+    }
   }
 }
 

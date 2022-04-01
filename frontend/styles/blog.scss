@@ -104,7 +104,7 @@ h4.blog-list-heading {
 
 .has-arrow::after {
   margin-left: 5px;
-  content: "\2192";
+  content: '\2192';
   display: inline-block;
   font-family: $font-family-sans-serif;
   line-height: 1;
@@ -170,7 +170,7 @@ h4.blog-list-heading {
   float: right;
 
   a::before {
-    content: "#";
+    content: '#';
   }
 }
 
@@ -465,7 +465,7 @@ h4.blog-list-heading {
 }
 
 .timeline > li:before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 1rem;

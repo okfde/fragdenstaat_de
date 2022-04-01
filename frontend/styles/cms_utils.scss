@@ -1,43 +1,58 @@
-@use "sass:math";
+@use 'sass:math';
 /* utilities/small components used in the cms */
 
 /*  
   Shadows
 */
 
-[class*=" shadow"], [class^="shadow"] {
+[class*=' shadow'],
+[class^='shadow'] {
   --shadow-color: var(--shadow-blue);
   box-shadow: 7px 7px 0 var(--shadow-color);
 }
 
 @include media-breakpoint-up(md) {
-  [class*=" md\:shadow"], [class^="md\:shadow"] {
+  [class*=' md\:shadow'],
+  [class^='md\:shadow'] {
     --shadow-color: var(--shadow-blue);
     box-shadow: 7px 7px 0 var(--shadow-color);
   }
 }
 
-.shadow-gray, .md\:shadow-gray { --shadow-color: var(--shadow-gray); }
-.shadow-yellow, .md\:shadow-yellow { --shadow-color: var(--shadow-yellow); }
+.shadow-gray,
+.md\:shadow-gray {
+  --shadow-color: var(--shadow-gray);
+}
+.shadow-yellow,
+.md\:shadow-yellow {
+  --shadow-color: var(--shadow-yellow);
+}
 
 @mixin border($color) {
   border: 2px solid $color;
 }
 
-.border-blue { @include border($blue-20) }
-.border-gray { @include border($gray-300); }
-.border-yellow { @include border($yellow-200); }
+.border-blue {
+  @include border($blue-20);
+}
+.border-gray {
+  @include border($gray-300);
+}
+.border-yellow {
+  @include border($yellow-200);
+}
 
 /*
   Backdrop with 50% height
 */
 
-[class*=" backdrop"], [class^="backdrop"] {
+[class*=' backdrop'],
+[class^='backdrop'] {
   position: relative;
-  
+
   &::before {
     background: var(--backdrop-color);
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     bottom: 50%;
@@ -51,22 +66,36 @@
   }
 }
 
-.backdrop-blue { --backdrop-color: var(--blue-10); }
-.backdrop-gray { --backdrop-color: var(--gray-200); }
-.backdrop-gray-100 { --backdrop-color: var(--gray-100); }
-.backdrop-yellow { --backdrop-color: var(--yellow-100); }
+.backdrop-blue {
+  --backdrop-color: var(--blue-10);
+}
+.backdrop-gray {
+  --backdrop-color: var(--gray-200);
+}
+.backdrop-gray-100 {
+  --backdrop-color: var(--gray-100);
+}
+.backdrop-yellow {
+  --backdrop-color: var(--yellow-100);
+}
 
 /*
   Font utilities
 */
 
-.font-size-sm { font-size: $font-size-sm; }
-.font-size-lg { font-size: $font-size-lg; }
-.font-weight-semibold { font-weight: 600; }
+.font-size-sm {
+  font-size: $font-size-sm;
+}
+.font-size-lg {
+  font-size: $font-size-lg;
+}
+.font-weight-semibold {
+  font-weight: 600;
+}
 
 .action-link {
   font-weight: 600;
-  
+
   &:hover {
     text-decoration: none;
   }
@@ -83,11 +112,18 @@
 }
 
 .tight-margin {
-  h1, h2, h3, h4, h5, h6, p, ul {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul {
     &:first-child {
       margin-top: 0;
     }
-    
+
     &:last-child {
       margin-bottom: 0;
     }
@@ -101,13 +137,15 @@
 }
 
 /* images */
-.hero-illustration, .img-lg, .img-sm {
+.hero-illustration,
+.img-lg,
+.img-sm {
   width: 12rem;
   max-width: 100%;
   height: auto;
   max-height: 12rem;
   object-fit: contain;
-  
+
   @include media-breakpoint-up(lg) {
     width: 16rem;
     max-height: 16rem;
@@ -132,7 +170,8 @@
   }
 }
 
-.partner-logos img, .partner-logo {
+.partner-logos img,
+.partner-logo {
   display: block;
   width: 12rem;
   max-width: 100%;
@@ -155,12 +194,16 @@
       height: 12rem;
       max-height: 50%;
       content: '';
-      background: linear-gradient(to bottom, transparent, var(--reveal-color) 95%);
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--reveal-color) 95%
+      );
       z-index: 1;
       transition: opacity 0.5s ease-out;
     }
   }
-  
+
   > .reveal-show {
     display: flex;
     justify-content: center;
@@ -173,7 +216,8 @@
       max-height: 125vh !important;
     }
 
-    > .reveal-show, .reveal-inner::after {
+    > .reveal-show,
+    .reveal-inner::after {
       opacity: 0;
     }
   }
@@ -184,7 +228,8 @@
       max-height: none !important;
     }
 
-    .reveal-show, .reveal-inner::after {
+    .reveal-show,
+    .reveal-inner::after {
       display: none;
     }
   }

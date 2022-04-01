@@ -36,9 +36,9 @@ a > .box-card {
 
 .box-card-header {
   position: relative;
-  
+
   &.has-background::after {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;
@@ -59,14 +59,16 @@ a > .box-card {
 }
 
 .box-card-image {
-  &.overlap-center, &.overlap-left, &.overlap-right {
+  &.overlap-center,
+  &.overlap-left,
+  &.overlap-right {
     width: 75%;
     margin-left: auto;
-    margin-right: auto; 
+    margin-right: auto;
 
     img {
       shape-outside: margin-box;
-      
+
       &.img-lg {
         margin: 1rem;
         margin-top: -6rem;
@@ -97,7 +99,7 @@ a > .box-card {
 
     &.overlap-left {
       margin: 0;
-      
+
       img {
         margin-left: -6rem;
       }
@@ -122,7 +124,7 @@ a > .box-card {
     left: unset;
     right: -1rem;
   }
-  
+
   .fa {
     font-size: 2rem;
   }
