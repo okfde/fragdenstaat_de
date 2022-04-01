@@ -5,11 +5,14 @@ Licensed under The MIT License (MIT)
 Ported to TypeScript and simplified + zoom
 */
 
-function insertAfter (node: HTMLElement, ref: HTMLElement): HTMLElement | undefined {
+function insertAfter(
+  node: HTMLElement,
+  ref: HTMLElement
+): HTMLElement | undefined {
   return ref.parentNode?.insertBefore(node, ref.nextSibling)
 }
 
-function globalOffset (el: HTMLElement): { left: number, top: number } {
+function globalOffset(el: HTMLElement): { left: number; top: number } {
   const { top, left } = el.getBoundingClientRect()
   const { pageYOffset, pageXOffset } = window
 
@@ -19,13 +22,17 @@ function globalOffset (el: HTMLElement): { left: number, top: number } {
   }
 }
 
-function isPointerInside (el: HTMLElement, event: Touch | MouseEvent): boolean {
+function isPointerInside(el: HTMLElement, event: Touch | MouseEvent): boolean {
   const { pageX, pageY } = event
   const { left, top } = globalOffset(el)
   const { offsetWidth, offsetHeight } = el
 
-  return pageX >= left && pageX <= left + offsetWidth &&
-    pageY >= top && pageY <= top + offsetHeight
+  return (
+    pageX >= left &&
+    pageX <= left + offsetWidth &&
+    pageY >= top &&
+    pageY <= top + offsetHeight
+  )
 }
 
 export default class Magnifier {
@@ -42,7 +49,7 @@ export default class Magnifier {
   public maxZoom = 3
   public zoomStep = 0.5
 
-  constructor (el: HTMLImageElement) {
+  constructor(el: HTMLImageElement) {
     this.el = el
     this.el.style.cursor = 'zoom-in'
     const { offsetWidth } = this.el
@@ -62,7 +69,7 @@ export default class Magnifier {
     this.bind()
   }
 
-  public calcImageSize (): void {
+  public calcImageSize(): void {
     const orig = document.createElement('img')
     orig.style.position = 'absolute'
     orig.style.width = 'auto'
@@ -75,7 +82,7 @@ export default class Magnifier {
     }
   }
 
-  public bind (): this {
+  public bind(): this {
     this.el.addEventListener('click', this.handleZoom, false)
     this.el.addEventListener('mousemove', this.handleTouchMove, false)
     this.el.addEventListener('mouseleave', this.handleTouchEnd, false)
@@ -89,7 +96,7 @@ export default class Magnifier {
     return this
   }
 
-  public unbind (): this {
+  public unbind(): this {
     this.el.removeEventListener('click', this.handleZoom, false)
     this.el.removeEventListener('mousemove', this.handleTouchMove, false)
     this.el.removeEventListener('mouseleave', this.handleTouchEnd, false)
@@ -103,33 +110,41 @@ export default class Magnifier {
     return this
   }
 
-  public handleLoad (): void {
+  public handleLoad(): void {
     this.hide()
     this.lens.style.visibility = 'visible'
     this.lens.style.backgroundImage = `url(${this.originalSrc})`
     this.setZoom(null)
   }
 
-  public handleTouchMove (event: TouchEvent | MouseEvent): void {
+  public handleTouchMove(event: TouchEvent | MouseEvent): void {
     event.preventDefault()
     if (event instanceof window.MouseEvent) {
       this.handleMove(event)
-    } else if (window.TouchEvent !== undefined && event instanceof window.TouchEvent) {
+    } else if (
+      window.TouchEvent !== undefined &&
+      event instanceof window.TouchEvent
+    ) {
       this.handleMove(event.changedTouches[0])
     }
   }
 
-  public handleMove (touch: Touch | MouseEvent): void {
+  public handleMove(touch: Touch | MouseEvent): void {
     if (isPointerInside(this.el, touch)) {
       this.show()
       const { pageX, pageY } = touch
       const { left, top } = globalOffset(this.el)
       const { offsetLeft, offsetTop } = this.el
       const borderWidth = 2
-      const imageX = ((left - pageX) * this.zoom) + ((this.width / 2) - borderWidth)
-      const imageY = ((top - pageY) * this.zoom) + ((this.height / 2) - borderWidth)
-      let x = pageX - (this.width / 2) - (left !== offsetLeft ? left - offsetLeft : 0)
-      const y = pageY - (this.height / 2) - (top !== offsetTop ? top - offsetTop : 0) - this.verticalOffset
+      const imageX = (left - pageX) * this.zoom + (this.width / 2 - borderWidth)
+      const imageY = (top - pageY) * this.zoom + (this.height / 2 - borderWidth)
+      let x =
+        pageX - this.width / 2 - (left !== offsetLeft ? left - offsetLeft : 0)
+      const y =
+        pageY -
+        this.height / 2 -
+        (top !== offsetTop ? top - offsetTop : 0) -
+        this.verticalOffset
       x = Math.min(document.body.clientWidth - this.width, Math.max(x, 0))
       this.lens.style.left = `${x}px`
       this.lens.style.top = `${y}px`
@@ -139,11 +154,11 @@ export default class Magnifier {
     }
   }
 
-  public handleTouchEnd (): void {
+  public handleTouchEnd(): void {
     this.hide()
   }
 
-  public handleZoom (e: MouseEvent): void {
+  public handleZoom(e: MouseEvent): void {
     let zoom = this.zoom
     zoom += this.zoomStep
     if (zoom > this.maxZoom) {
@@ -160,7 +175,7 @@ export default class Magnifier {
     this.handleMove(e)
   }
 
-  public setZoom (zoom: number | null): void {
+  public setZoom(zoom: number | null): void {
     const { offsetWidth, offsetHeight } = this.el
     if (zoom === null) {
       const ratio = offsetWidth / this.imageWidth
@@ -181,17 +196,17 @@ export default class Magnifier {
     this.lens.style.backgroundSize = `${w}px ${h}px`
   }
 
-  public show (): this {
+  public show(): this {
     this.lens.style.display = 'block'
     return this
   }
 
-  public hide (): this {
+  public hide(): this {
     this.lens.style.display = 'none'
     return this
   }
 
-  public destroy (): void {
+  public destroy(): void {
     this.unbind()
     this.lens.remove()
   }
@@ -208,13 +223,15 @@ const makeMagnifier = (zoomImage: HTMLImageElement): Magnifier | undefined => {
   return new Magnifier(zoomImage)
 }
 
-document.querySelectorAll<HTMLImageElement>('img[data-zoom]').forEach((zoomImage) => {
-  if (zoomImage.offsetWidth === 0) {
-    /* Wait for image load */
-    zoomImage.addEventListener('load', () => {
-      makeMagnifier(zoomImage)
-    })
-  } else {
-    return new Magnifier(zoomImage)
-  }
-})
+document
+  .querySelectorAll<HTMLImageElement>('img[data-zoom]')
+  .forEach((zoomImage) => {
+    if (zoomImage.offsetWidth === 0) {
+      /* Wait for image load */
+      zoomImage.addEventListener('load', () => {
+        makeMagnifier(zoomImage)
+      })
+    } else {
+      return new Magnifier(zoomImage)
+    }
+  })

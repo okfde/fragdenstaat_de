@@ -1,17 +1,22 @@
 import { toggleSlide } from 'froide/frontend/javascript/lib/misc'
 
-interface IDonationBannerStore { timestamp: number }
+interface IDonationBannerStore {
+  timestamp: number
+}
 
-function showTopBanner (): void {
+function showTopBanner(): void {
   window._paq = window._paq ?? []
 
-  function hideBanner (el: HTMLElement, code: string, time: number) {
+  function hideBanner(el: HTMLElement, code: string, time: number) {
     return (e: Event) => {
       e.preventDefault()
       window._paq?.push(['trackEvent', 'ads', 'topBanner', code])
-      window.localStorage.setItem(itemName, JSON.stringify({
-        timestamp: time
-      }))
+      window.localStorage.setItem(
+        itemName,
+        JSON.stringify({
+          timestamp: time
+        })
+      )
       if (hasAnimation) {
         toggleSlide(el)
         window.setTimeout(() => {
@@ -22,7 +27,7 @@ function showTopBanner (): void {
       }
     }
   }
-  function removeBanner (): void {
+  function removeBanner(): void {
     if (topBanner.parentNode != null) {
       topBanner.parentNode.removeChild(topBanner)
     }
@@ -35,12 +40,16 @@ function showTopBanner (): void {
   const topBanner = els[0] as HTMLElement
 
   const path = document.location.pathname
-  if (['/spenden/',
-    '/gesendet/',
-    '/payment/',
-    '/abgeschlossen/',
-    '/anfrage-stellen/',
-    '/account/'].some(p => path.includes(p))) {
+  if (
+    [
+      '/spenden/',
+      '/gesendet/',
+      '/payment/',
+      '/abgeschlossen/',
+      '/anfrage-stellen/',
+      '/account/'
+    ].some((p) => path.includes(p))
+  ) {
     return removeBanner()
   }
 
@@ -66,11 +75,11 @@ function showTopBanner (): void {
   }
 
   const itemName = 'top-banner'
-  const now = (new Date()).getTime()
+  const now = new Date().getTime()
   const data = window.localStorage.getItem(itemName)
   if (data !== null) {
     const last = JSON.parse(data) as IDonationBannerStore
-    if ((last.timestamp !== 0) && (now - last.timestamp) < (60 * 60 * 24 * 1000)) {
+    if (last.timestamp !== 0 && now - last.timestamp < 60 * 60 * 24 * 1000) {
       return removeBanner()
     }
   }
@@ -78,7 +87,7 @@ function showTopBanner (): void {
 
   const closeButtons = topBanner.querySelectorAll('.banner-close')
 
-  Array.from(closeButtons).forEach(closeButton => {
+  Array.from(closeButtons).forEach((closeButton) => {
     closeButton.addEventListener('click', hideBanner(topBanner, 'close', now))
   })
 
@@ -89,10 +98,15 @@ function showTopBanner (): void {
     cancel.addEventListener('click', hideBanner(topBanner, 'notnow', now))
   }
   if (already != null) {
-    already.addEventListener('click', hideBanner(topBanner, 'donated', now + (1000 * 60 * 60 * 24 * 30)))
+    already.addEventListener(
+      'click',
+      hideBanner(topBanner, 'donated', now + 1000 * 60 * 60 * 24 * 30)
+    )
   }
 
-  const dropdownBanner = topBanner.querySelector('.dropdown-banner') as HTMLElement
+  const dropdownBanner = topBanner.querySelector(
+    '.dropdown-banner'
+  ) as HTMLElement
   const hasAnimation = dropdownBanner !== null
   if (dropdownBanner === null) {
     return

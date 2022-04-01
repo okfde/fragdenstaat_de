@@ -942,6 +942,15 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@okfde/filingcabinet@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@okfde/filingcabinet/-/filingcabinet-0.0.1.tgz#82d222839fa098bf67772569d7ae3ba4a7ff2175"
+  integrity sha512-AW888iYoHM43U9UyYVA4maiZs5oXdnstnzl7bGSTWEa4P+GWQSalwa0TKVBjb3IooC23lYAu9YTdaJt8ZTHN2A==
+  dependencies:
+    intersection-observer "^0.7.0"
+    vue "^2.5.16"
+    vue-virtual-scroller "^1.0.0-rc.2"
+
 "@polka/url@^1.0.0-next.15":
   version "1.0.0-next.15"
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.15.tgz#6a9d143f7f4f49db2d782f9e1c8839a29b43ae23"
@@ -1239,10 +1248,44 @@
     namespace-emitter "^2.0.1"
     preact "8.2.9"
 
+"@uppy/core@^1.5.1":
+  version "1.20.1"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.20.1.tgz#23ca28d4388c29987fdc4e65a968474dcdc303c6"
+  integrity sha512-Z0yGixSNOSMgT/2aLylXQaEBB6X32RqGLQUgDJDK08jI0ZcMha5glNhD2RU1Gs9noQOAR/f7QwBssSnYJUNRfg==
+  dependencies:
+    "@transloadit/prettier-bytes" "0.0.7"
+    "@uppy/store-default" "^1.2.7"
+    "@uppy/utils" "^3.6.2"
+    cuid "^2.1.1"
+    lodash.throttle "^4.1.1"
+    mime-match "^1.0.2"
+    namespace-emitter "^2.0.1"
+    preact "8.2.9"
+
 "@uppy/dashboard@^1.20.2":
   version "1.20.2"
   resolved "https://registry.yarnpkg.com/@uppy/dashboard/-/dashboard-1.20.2.tgz#16d521466fbba2eb330793af8c3b4caf484810e6"
   integrity sha512-iYLqQXP0voDZyTrweMUva4w4wHQPfs1vpLPdPlaJT0qplvZEamOO+o9NxQ1Q09Wd44qdYUo4WT1/rHq8AQUFFA==
+  dependencies:
+    "@transloadit/prettier-bytes" "0.0.7"
+    "@uppy/informer" "^1.6.6"
+    "@uppy/provider-views" "^1.12.3"
+    "@uppy/status-bar" "^1.9.6"
+    "@uppy/thumbnail-generator" "^1.7.11"
+    "@uppy/utils" "^3.6.2"
+    classnames "^2.2.6"
+    cuid "^2.1.1"
+    is-shallow-equal "^1.0.1"
+    lodash.debounce "^4.0.8"
+    lodash.throttle "^4.1.1"
+    memoize-one "^5.0.4"
+    preact "8.2.9"
+    resize-observer-polyfill "^1.5.0"
+
+"@uppy/dashboard@^1.4.1":
+  version "1.21.1"
+  resolved "https://registry.yarnpkg.com/@uppy/dashboard/-/dashboard-1.21.1.tgz#c920d3af69b61413ef109608dde9b12d3c8a434b"
+  integrity sha512-psMwBVxxhAZxYkRds4e//+Sx3zkFYRnYpt4jaF4hmwpL9SehlyhQKwaB/scZz/O4yshmgTN8Sri0mYK5FSh5SQ==
   dependencies:
     "@transloadit/prettier-bytes" "0.0.7"
     "@uppy/informer" "^1.6.6"
@@ -1301,7 +1344,7 @@
     exifr "^6.0.0"
     math-log2 "^1.0.1"
 
-"@uppy/tus@^1.9.2":
+"@uppy/tus@^1.4.2", "@uppy/tus@^1.9.2":
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/@uppy/tus/-/tus-1.9.2.tgz#d6e4fa715bc386daa8e7be6e80eb93e4f2abb46e"
   integrity sha512-ejaczrrh6w514XGd3kiDD1PJ8tIgmnV50fuyRwsybDj8HQheKAEu6GsJjxcnctP8NcSx4HNDhazVLPj6+A4p9Q==
@@ -2850,6 +2893,11 @@ domutils@^2.8.0:
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
 
+driver.js@^0.9.8:
+  version "0.9.8"
+  resolved "https://registry.yarnpkg.com/driver.js/-/driver.js-0.9.8.tgz#4b327f4537b1c9b9fb19419de86174be821ae32a"
+  integrity sha512-bczjyKdX6XmFyCDkwtRmlaORDwfBk1xXmRO0CAe5VwNQTM98aWaG2LAIiIdTe53iV/B7W5lXlIy2xYtf0JRb7Q==
+
 duplexer@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.2.tgz#3abe43aef3835f8ae077d136ddce0f276b0400e6"
@@ -3135,6 +3183,13 @@ eslint-plugin-node@^11.1.0:
     resolve "^1.10.1"
     semver "^6.1.0"
 
+eslint-plugin-prettier@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-4.0.0.tgz#8b99d1e4b8b24a762472b4567992023619cb98e0"
+  integrity sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==
+  dependencies:
+    prettier-linter-helpers "^1.0.0"
+
 eslint-plugin-promise@^5.0.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-5.2.0.tgz#a596acc32981627eb36d9d75f9666ac1a4564971"
@@ -3368,6 +3423,11 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3, fast-deep-equal@~3.1.3:
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
 
+fast-diff@^1.1.2:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
+  integrity sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==
+
 fast-glob@^3.1.1, fast-glob@^3.2.5:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.7.tgz#fd6cb7a2d7e9aa7a7846111e85a196d6b2f766a1"
@@ -3516,6 +3576,35 @@ fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
+
+froide@okfde/froide:
+  version "1.0.0"
+  resolved "https://codeload.github.com/okfde/froide/tar.gz/f94499b8121f4a2c5bc693a19f4fee1fda409e3a"
+  dependencies:
+    "@okfde/filingcabinet" "^0.0.1"
+    "@uppy/core" "^1.5.1"
+    "@uppy/dashboard" "^1.4.1"
+    "@uppy/tus" "^1.4.2"
+    bootstrap "^4.3.1"
+    bootstrap.native "^2.0.27"
+    choices.js "^9.0.1"
+    driver.js "^0.9.8"
+    es6-promise "^4.2.8"
+    exif-js "^2.3.0"
+    font-awesome "^4.7.0"
+    js-base64 "3.6.1"
+    leaflet "^1.5.1"
+    leaflet.icon.glyph "^0.3.0"
+    lodash.debounce "^4.0.8"
+    lodash.range "^3.2.0"
+    lodash.sortby "^4.7.0"
+    pdfjs-dist "==2.9.359"
+    string.prototype.repeat "^1.0.0"
+    vue "^2.6.10"
+    vue-lazyload "^1.3.3"
+    vue-slide-up-down "^2.0.1"
+    vuedraggable "^2.23.2"
+    vuex "^3.1.1"
 
 fs-monkey@1.0.3:
   version "1.0.3"
@@ -3960,6 +4049,11 @@ interpret@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-2.2.0.tgz#1a78a0b5965c40a5416d007ad6f50ad27c417df9"
   integrity sha512-Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==
+
+intersection-observer@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.7.0.tgz#ee16bee978db53516ead2f0a8154b09b400bbdc9"
+  integrity sha512-Id0Fij0HsB/vKWGeBe9PxeY45ttRiBmhFyyt/geBdDHBYNctMRTE3dC1U3ujzz3lap+hVXlEcVaB56kZP/eEUg==
 
 ip-regex@^4.0.0:
   version "4.3.0"
@@ -5559,10 +5653,27 @@ prepend-http@^1.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
   integrity sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=
 
+prettier-config-standard@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/prettier-config-standard/-/prettier-config-standard-5.0.0.tgz#c99dbef099412eda0876f75fdc1732ffef2ab0e0"
+  integrity sha512-QK252QwCxlsak8Zx+rPKZU31UdbRcu9iUk9X1ONYtLSO221OgvV9TlKoTf6iPDZtvF3vE2mkgzFIEgSUcGELSQ==
+
+prettier-linter-helpers@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/prettier-linter-helpers/-/prettier-linter-helpers-1.0.0.tgz#d23d41fe1375646de2d0104d3454a3008802cf7b"
+  integrity sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
+  dependencies:
+    fast-diff "^1.1.2"
+
 prettier@^1.18.2:
   version "1.19.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
+
+prettier@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.6.1.tgz#d472797e0d7461605c1609808e27b80c0f9cfe17"
+  integrity sha512-8UVbTBYGwN37Bs9LERmxCPjdvPxlEowx2urIL6urHzdb3SDq4B/Z6xLFCblrSnE4iKWcS6ziJ3aOYrc1kz/E2A==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -5997,6 +6108,11 @@ schema-utils@^2.6.5:
     "@types/json-schema" "^7.0.5"
     ajv "^6.12.4"
     ajv-keywords "^3.5.2"
+
+scrollparent@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/scrollparent/-/scrollparent-2.0.1.tgz#715d5b9cc57760fb22bdccc3befb5bfe06b1a317"
+  integrity sha1-cV1bnMV3YPsivczDvvtb/gaxoxc=
 
 select-hose@^2.0.0:
   version "2.0.0"
@@ -7144,6 +7260,16 @@ vue-loader@^15.1.0:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-observe-visibility@^0.4.4:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/vue-observe-visibility/-/vue-observe-visibility-0.4.6.tgz#878cb8ebcf3078e40807af29774e97105ebd519e"
+  integrity sha512-xo0CEVdkjSjhJoDdLSvoZoQrw/H2BlzB5jrCBKGZNXN2zdZgMuZ9BKrxXDjNP2AxlcCoKc8OahI3F3r3JGLv2Q==
+
+vue-resize@^0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/vue-resize/-/vue-resize-0.4.5.tgz#4777a23042e3c05620d9cbda01c0b3cc5e32dcea"
+  integrity sha512-bhP7MlgJQ8TIkZJXAfDf78uJO+mEI3CaLABLjv0WNzr4CcGRGPIAItyWYnP6LsPA4Oq0WE+suidNs6dgpO4RHg==
+
 vue-slide-up-down@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/vue-slide-up-down/-/vue-slide-up-down-2.0.1.tgz#4f5ab8610e435c1fa907ca87d5857930bbded157"
@@ -7170,12 +7296,21 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
+vue-virtual-scroller@^1.0.0-rc.2:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/vue-virtual-scroller/-/vue-virtual-scroller-1.0.10.tgz#fdf243240001f05bd79aa77f2e2e60403760e2fb"
+  integrity sha512-Hn4qSBDhRY4XdngPioYy/ykDjrLX/NMm1fQXm/4UQQ/Xv1x8JbHGFZNftQowTcfICgN7yc31AKnUk1UGLJ2ndA==
+  dependencies:
+    scrollparent "^2.0.1"
+    vue-observe-visibility "^0.4.4"
+    vue-resize "^0.4.5"
+
 vue2-leaflet@^2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/vue2-leaflet/-/vue2-leaflet-2.7.1.tgz#2f95c287621bf778f10804c88223877f5c049257"
   integrity sha512-K7HOlzRhjt3Z7+IvTqEavIBRbmCwSZSCVUlz9u4Rc+3xGCLsHKz4TAL4diAmfHElCQdPPVdZdJk8wPUt2fu6WQ==
 
-vue@^2.6.14:
+vue@^2.5.16, vue@^2.6.10, vue@^2.6.14:
   version "2.6.14"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==

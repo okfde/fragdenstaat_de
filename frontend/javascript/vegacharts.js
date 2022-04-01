@@ -16,10 +16,44 @@ const LOCALE = {
       date: '%d.%m.%Y',
       time: '%H:%M:%S',
       periods: ['AM', 'PM'],
-      days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+      days: [
+        'Sonntag',
+        'Montag',
+        'Dienstag',
+        'Mittwoch',
+        'Donnerstag',
+        'Freitag',
+        'Samstag'
+      ],
       shortDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-      months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-      shortMonths: ['Jan', 'Feb', 'Mrz', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+      months: [
+        'Januar',
+        'Februar',
+        'März',
+        'April',
+        'Mai',
+        'Juni',
+        'Juli',
+        'August',
+        'September',
+        'Oktober',
+        'November',
+        'Dezember'
+      ],
+      shortMonths: [
+        'Jan',
+        'Feb',
+        'Mrz',
+        'Apr',
+        'Mai',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Okt',
+        'Nov',
+        'Dez'
+      ]
     }
   }
 }
@@ -32,7 +66,9 @@ document.querySelectorAll('[data-vegachart]').forEach((el) => {
     spec = JSON.parse(document.getElementById(el.dataset.vegachart).textContent)
   }
   if (!spec.data.url && !spec.data.values) {
-    const data = JSON.parse(document.getElementById(el.dataset.vegachart + '_data').textContent)
+    const data = JSON.parse(
+      document.getElementById(el.dataset.vegachart + '_data').textContent
+    )
     spec.data = spec.data || {}
     spec.data.values = data
   }
