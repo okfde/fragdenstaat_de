@@ -2,11 +2,11 @@ html.darkmode {
   background-color: #000;
 }
 
-
 body.darkmode {
   filter: invert(1);
 
-  #header, .main {
+  #header,
+  .main {
     background-color: #fff;
   }
   .footer {
@@ -22,8 +22,11 @@ body.darkmode {
       color: #333;
     }
   }
-  .navbar-brand, .nav-item.special-nav-secondary-item,
-  #cms-top, img.img-fluid, .teaser-image {
+  .navbar-brand,
+  .nav-item.special-nav-secondary-item,
+  #cms-top,
+  img.img-fluid,
+  .teaser-image {
     filter: invert(1);
   }
   .dropdown-banner img.img-fluid {

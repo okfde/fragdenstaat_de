@@ -11,128 +11,252 @@
 }
 
 @keyframes zensur {
-  0%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 0.000000%,rgba(255,255,255,1) 0.000000%);
+  0% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(255, 255, 255, 1) 0%
+    );
   }
 
-  1%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 3.333333%,rgba(255,255,255,1) 3.333333%);
+  1% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 3.333333%,
+      rgba(255, 255, 255, 1) 3.333333%
+    );
   }
 
-  2%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 6.666667%,rgba(255,255,255,1) 6.666667%);
+  2% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 6.666667%,
+      rgba(255, 255, 255, 1) 6.666667%
+    );
   }
 
-  3%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 10.000000%,rgba(255,255,255,1) 10.000000%);
+  3% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 10%,
+      rgba(255, 255, 255, 1) 10%
+    );
   }
 
-  4%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 13.333333%,rgba(255,255,255,1) 13.333333%);
+  4% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 13.333333%,
+      rgba(255, 255, 255, 1) 13.333333%
+    );
   }
 
-  5%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 16.666667%,rgba(255,255,255,1) 16.666667%);
+  5% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 16.666667%,
+      rgba(255, 255, 255, 1) 16.666667%
+    );
   }
 
-  6%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 20.000000%,rgba(255,255,255,1) 20.000000%);
+  6% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 20%,
+      rgba(255, 255, 255, 1) 20%
+    );
   }
 
-  7%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 23.333333%,rgba(255,255,255,1) 23.333333%);
+  7% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 23.333333%,
+      rgba(255, 255, 255, 1) 23.333333%
+    );
   }
 
-  8%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 26.666667%,rgba(255,255,255,1) 26.666667%);
+  8% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 26.666667%,
+      rgba(255, 255, 255, 1) 26.666667%
+    );
   }
 
-  9%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 30.000000%,rgba(255,255,255,1) 30.000000%);
+  9% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 30%,
+      rgba(255, 255, 255, 1) 30%
+    );
   }
 
-  10%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 33.333333%,rgba(255,255,255,1) 33.333333%);
+  10% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 33.333333%,
+      rgba(255, 255, 255, 1) 33.333333%
+    );
   }
 
-  11%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 36.666667%,rgba(255,255,255,1) 36.666667%);
+  11% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 36.666667%,
+      rgba(255, 255, 255, 1) 36.666667%
+    );
   }
 
-  12%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 40.000000%,rgba(255,255,255,1) 40.000000%);
+  12% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 40%,
+      rgba(255, 255, 255, 1) 40%
+    );
   }
 
-  13%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 43.333333%,rgba(255,255,255,1) 43.333333%);
+  13% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 43.333333%,
+      rgba(255, 255, 255, 1) 43.333333%
+    );
   }
 
-  14%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 46.666667%,rgba(255,255,255,1) 46.666667%);
+  14% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 46.666667%,
+      rgba(255, 255, 255, 1) 46.666667%
+    );
   }
 
-  15%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 50.000000%,rgba(255,255,255,1) 50.000000%);
+  15% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 50%,
+      rgba(255, 255, 255, 1) 50%
+    );
   }
 
-  16%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 53.333333%,rgba(255,255,255,1) 53.333333%);
+  16% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 53.333333%,
+      rgba(255, 255, 255, 1) 53.333333%
+    );
   }
 
-  17%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 56.666667%,rgba(255,255,255,1) 56.666667%);
+  17% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 56.666667%,
+      rgba(255, 255, 255, 1) 56.666667%
+    );
   }
 
-  18%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 60.000000%,rgba(255,255,255,1) 60.000000%);
+  18% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 60%,
+      rgba(255, 255, 255, 1) 60%
+    );
   }
 
-  19%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 63.333333%,rgba(255,255,255,1) 63.333333%);
+  19% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 63.333333%,
+      rgba(255, 255, 255, 1) 63.333333%
+    );
   }
 
-  20%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 66.666667%,rgba(255,255,255,1) 66.666667%);
+  20% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 66.666667%,
+      rgba(255, 255, 255, 1) 66.666667%
+    );
   }
 
-  21%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 70.000000%,rgba(255,255,255,1) 70.000000%);
+  21% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 70%,
+      rgba(255, 255, 255, 1) 70%
+    );
   }
 
-  22%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 73.333333%,rgba(255,255,255,1) 73.333333%);
+  22% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 73.333333%,
+      rgba(255, 255, 255, 1) 73.333333%
+    );
   }
 
-  23%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 76.666667%,rgba(255,255,255,1) 76.666667%);
+  23% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 76.666667%,
+      rgba(255, 255, 255, 1) 76.666667%
+    );
   }
 
-  24%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 80.000000%,rgba(255,255,255,1) 80.000000%);
+  24% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 80%,
+      rgba(255, 255, 255, 1) 80%
+    );
   }
 
-  25%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 83.333333%,rgba(255,255,255,1) 83.333333%);
+  25% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 83.333333%,
+      rgba(255, 255, 255, 1) 83.333333%
+    );
   }
 
-  26%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 86.666667%,rgba(255,255,255,1) 86.666667%);
+  26% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 86.666667%,
+      rgba(255, 255, 255, 1) 86.666667%
+    );
   }
 
-  27%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 90.000000%,rgba(255,255,255,1) 90.000000%);
+  27% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 90%,
+      rgba(255, 255, 255, 1) 90%
+    );
   }
 
-  28%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 93.333333%,rgba(255,255,255,1) 93.333333%);
+  28% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 93.333333%,
+      rgba(255, 255, 255, 1) 93.333333%
+    );
   }
 
-  29%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 96.666667%,rgba(255,255,255,1) 96.666667%);
+  29% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 96.666667%,
+      rgba(255, 255, 255, 1) 96.666667%
+    );
   }
 
-  30%   {
-    background: linear-gradient(to right, rgba(0,0,0,1) 100%,rgba(255,255,255,1) 100%);
+  30% {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 100%,
+      rgba(255, 255, 255, 1) 100%
+    );
     color: #000;
   }
   50% {
@@ -148,11 +272,14 @@
   }
 }
 
-
 .andi-audi {
-  animation: car-drive 1s infinite  alternate ease-in;
+  animation: car-drive 1s infinite alternate ease-in;
 }
 @keyframes car-drive {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(20px); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(20px);
+  }
 }

@@ -5,12 +5,16 @@
     display: flex;
     align-items: center;
     margin-top: 1rem;
-    margin-bottom: .25rem;
+    margin-bottom: 0.25rem;
     list-style: none;
     font-weight: 700;
     line-height: 1.4;
-    &:focus { outline: none; }
-    &::-webkit-details-marker { display: none; }
+    &:focus {
+      outline: none;
+    }
+    &::-webkit-details-marker {
+      display: none;
+    }
     &::before {
       flex: 0 0 auto;
       width: $spacing-left-normal;
@@ -19,13 +23,13 @@
       font-family: FontAwesome;
       font-size: 0.8rem;
       text-align: center;
-      content: "\f054";
+      content: '\f054';
     }
   }
 
   &[open] &__title::before {
     text-align: left;
-    content: "\f078";
+    content: '\f078';
   }
 
   &--large &__title {

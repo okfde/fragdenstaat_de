@@ -1,43 +1,43 @@
 .cms-document-pages {
-    margin: 1rem auto 0.5rem;
-    padding: 1rem 2rem;
-    background-color: #D4FEFF;
+  margin: 1rem auto 0.5rem;
+  padding: 1rem 2rem;
+  background-color: #d4feff;
 
-    .cms-document-pages-container {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+  .cms-document-pages-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 
-        .card {
-            flex: 0 0 auto;
-        }
-        .card:not(:last-child) {
-            margin-right: 15px;
-        }
+    .card {
+      flex: 0 0 auto;
     }
+    .card:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
 }
 
 .cms-page-annotation {
-    margin: 1rem auto 0.5rem;
-    padding: 1rem 2rem;
-    background-color: #D4FEFF;
+  margin: 1rem auto 0.5rem;
+  padding: 1rem 2rem;
+  background-color: #d4feff;
 
-    width: 100%;
+  width: 100%;
 
-    @include media-breakpoint-up(md) {
-        width: 80%;
-        max-width: 1200px;
-    }
+  @include media-breakpoint-up(md) {
+    width: 80%;
+    max-width: 1200px;
+  }
 
-    figcaption {
-        margin: 1rem 0 0.25rem;
-        text-align: right;
-        font-size: 0.9rem;
-        color: $gray-600;
-    }
+  figcaption {
+    margin: 1rem 0 0.25rem;
+    text-align: right;
+    font-size: 0.9rem;
+    color: $gray-600;
+  }
 
-    img {
-        box-shadow: rgba(0,0,0,0.3) 1px 3px 8px 1px;
-    }
+  img {
+    box-shadow: rgba(0, 0, 0, 0.3) 1px 3px 8px 1px;
+  }
 }

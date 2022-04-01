@@ -1,5 +1,4 @@
 .filter__field {
-
   ul {
     list-style-type: none;
     padding-left: 0;
@@ -10,11 +9,12 @@
     }
 
     .selected {
-        font-weight: bold;
+      font-weight: bold;
     }
   }
 
-  input, select {
+  input,
+  select {
     width: 100%;
   }
 
