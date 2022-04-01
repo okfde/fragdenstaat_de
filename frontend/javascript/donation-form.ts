@@ -17,28 +17,28 @@ interface IFeeMap {
 }
 
 const fees: IFeeMap = {
-  creditcard: (a: number) => Math.round(((a * 0.014) + 0.25) * 100) / 100,
-  paypal: (a: number) => Math.round(((a * 0.0249) + 0.35) * 100) / 100,
+  creditcard: (a: number) => Math.round((a * 0.014 + 0.25) * 100) / 100,
+  paypal: (a: number) => Math.round((a * 0.0249 + 0.35) * 100) / 100,
   sepa: () => 0.35,
-  sofort: (a: number) => Math.round(((a * 0.014) + 0.25) * 100) / 100
+  sofort: (a: number) => Math.round((a * 0.014 + 0.25) * 100) / 100
 }
 
-function setupDonationForm (form: HTMLFormElement): void {
+function setupDonationForm(form: HTMLFormElement): void {
   setupAdditionalCC()
   const amountGroup = form.querySelector('.amount-group')
   if (amountGroup !== null) {
     setupAmountGroup(amountGroup)
     amountChanged(amountGroup.querySelector('input'))
   }
-  const radioCollapse = form.querySelectorAll('[data-toggle="radiocollapse"]');
-  (Array.from(radioCollapse) as HTMLInputElement[]).forEach(setupRadioCollapse)
+  const radioCollapse = form.querySelectorAll('[data-toggle="radiocollapse"]')
+  ;(Array.from(radioCollapse) as HTMLInputElement[]).forEach(setupRadioCollapse)
 
   const intervalGroup = document.getElementById('id_interval')
   if (intervalGroup !== null) {
     setupIntervalGroup(intervalGroup)
   }
 
-  ['creditcard', 'paypal', 'sofort', 'sepa'].forEach((p) => {
+  ;['creditcard', 'paypal', 'sofort', 'sepa'].forEach((p) => {
     const el = document.querySelector(`input[value="${p}"]`)
     if (el?.parentElement?.parentElement != null) {
       el.parentElement.parentElement.classList.add('onion-hide')
@@ -76,9 +76,9 @@ function setupDonationForm (form: HTMLFormElement): void {
   }
 }
 
-function setupAdditionalCC (): void {
+function setupAdditionalCC(): void {
   const additionalCCProviders = []
-  if ((window.ApplePaySession?.canMakePayments) != null) {
+  if (window.ApplePaySession?.canMakePayments != null) {
     additionalCCProviders.push('Apple Pay')
   }
 
@@ -94,7 +94,7 @@ function setupAdditionalCC (): void {
   }
 }
 
-function amountChanged (amountInput: HTMLInputElement | null): void {
+function amountChanged(amountInput: HTMLInputElement | null): void {
   if (amountInput == null) return
   const amount = parseFloat(amountInput.value)
   for (const key of Object.keys(fees)) {
@@ -123,12 +123,16 @@ function amountChanged (amountInput: HTMLInputElement | null): void {
   }
 }
 
-function setupIntervalGroup (intervalGroup: HTMLElement): void {
-  const oneTimePaymentMethods = document.querySelectorAll<HTMLInputElement>('#id_payment_method input[value="sofort"]')
-  const oneTimeFields = document.querySelectorAll<HTMLInputElement>('[data-toggle="nonrecurring"]')
+function setupIntervalGroup(intervalGroup: HTMLElement): void {
+  const oneTimePaymentMethods = document.querySelectorAll<HTMLInputElement>(
+    '#id_payment_method input[value="sofort"]'
+  )
+  const oneTimeFields = document.querySelectorAll<HTMLInputElement>(
+    '[data-toggle="nonrecurring"]'
+  )
   const additionalCCLabel = document.querySelector('.additional-cc')
 
-  function triggerIntervalChange (input: HTMLInputElement): void {
+  function triggerIntervalChange(input: HTMLInputElement): void {
     const isOneTime = input.value === '0'
     if (additionalCCLabel != null) {
       additionalCCLabel.classList.toggle('d-none', !isOneTime)
@@ -144,26 +148,30 @@ function setupIntervalGroup (intervalGroup: HTMLElement): void {
     })
   }
 
-  const inputs = (Array.from(intervalGroup.querySelectorAll('input')))
+  const inputs = Array.from(intervalGroup.querySelectorAll('input'))
   inputs.forEach((input) => {
     input.addEventListener('change', () => {
       triggerIntervalChange(input)
     })
   })
 
-  const preChosenIntervalInput = intervalGroup.querySelector<HTMLInputElement>('input[checked]')
+  const preChosenIntervalInput =
+    intervalGroup.querySelector<HTMLInputElement>('input[checked]')
   if (preChosenIntervalInput != null) {
     triggerIntervalChange(preChosenIntervalInput)
   }
 
   const oneTime = document.querySelector<HTMLInputElement>('#id_interval_0')
-  if ((oneTime == null) || !oneTime.checked) {
+  if (oneTime == null || !oneTime.checked) {
     toggleRadioInput(oneTimePaymentMethods, false)
     oneTimeFields.forEach((el) => el.classList.toggle('collapse', false))
   }
 }
 
-function toggleRadioInput (inputs: NodeListOf<HTMLInputElement>, checked: boolean): void {
+function toggleRadioInput(
+  inputs: NodeListOf<HTMLInputElement>,
+  checked: boolean
+): void {
   inputs.forEach((input) => {
     if (!checked && input.checked) {
       input.checked = checked
@@ -176,7 +184,7 @@ function toggleRadioInput (inputs: NodeListOf<HTMLInputElement>, checked: boolea
   })
 }
 
-function setupRadioCollapse (radioCollapse: HTMLInputElement): void {
+function setupRadioCollapse(radioCollapse: HTMLInputElement): void {
   const targetId = radioCollapse.dataset.target
   if (targetId == null) return
   const target = document.getElementById(targetId)
@@ -190,32 +198,39 @@ function setupRadioCollapse (radioCollapse: HTMLInputElement): void {
   }
 }
 
-function toggleRadioCollapse (input: HTMLInputElement, target: HTMLElement): void {
+function toggleRadioCollapse(
+  input: HTMLInputElement,
+  target: HTMLElement
+): void {
   if (input.value === '1') {
     if (!target.classList.contains('show')) {
       target.classList.add('show')
       toggleSlide(target, 0.5)
     }
-    target.querySelectorAll<(HTMLInputElement|HTMLSelectElement)>('input,select').forEach((el) => {
-      el.required = true
-    })
+    target
+      .querySelectorAll<HTMLInputElement | HTMLSelectElement>('input,select')
+      .forEach((el) => {
+        el.required = true
+      })
   } else {
     if (target.classList.contains('show')) {
       target.classList.remove('show')
       toggleSlide(target, 0.5)
     }
-    target.querySelectorAll<(HTMLInputElement|HTMLSelectElement)>('input,select').forEach((el) => {
-      el.required = false
-    })
+    target
+      .querySelectorAll<HTMLInputElement | HTMLSelectElement>('input,select')
+      .forEach((el) => {
+        el.required = false
+      })
   }
 }
 
-function setupAmountGroup (amountGroup: Element): void {
+function setupAmountGroup(amountGroup: Element): void {
   const input = amountGroup.querySelector('input')
   const buttons = Array.from(amountGroup.querySelectorAll('button'))
 
   if (input != null) {
-    const focusClicks = (Array.from(amountGroup.querySelectorAll('[data-focus]')))
+    const focusClicks = Array.from(amountGroup.querySelectorAll('[data-focus]'))
     focusClicks.forEach((focusClick) => {
       focusClick.addEventListener('click', () => {
         input.focus()
@@ -223,7 +238,7 @@ function setupAmountGroup (amountGroup: Element): void {
     })
   }
 
-  function highlightButtonWithValue (value: string): boolean {
+  function highlightButtonWithValue(value: string): boolean {
     let hasAny = false
     buttons.forEach((button) => {
       if (button.dataset.value === value) {
@@ -238,7 +253,7 @@ function setupAmountGroup (amountGroup: Element): void {
     return hasAny
   }
 
-  function buttonClick (button: HTMLButtonElement): void {
+  function buttonClick(button: HTMLButtonElement): void {
     const value = button.dataset.value ?? ''
     if (input !== null) {
       input.value = value
@@ -246,7 +261,7 @@ function setupAmountGroup (amountGroup: Element): void {
     }
     highlightButtonWithValue(value)
   }
-  function inputChanged (amountInput: HTMLInputElement): void {
+  function inputChanged(amountInput: HTMLInputElement): void {
     const anyButton = highlightButtonWithValue(amountInput.value)
     if (!anyButton) {
       amountInput.classList.add('border', 'border-primary')

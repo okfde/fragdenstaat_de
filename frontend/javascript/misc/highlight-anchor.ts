@@ -1,5 +1,7 @@
 if (window.location.hash === '') {
-  const el = document.querySelector<HTMLElement>(`.highlight-anchor ${window.location.hash}`)
+  const el = document.querySelector<HTMLElement>(
+    `.highlight-anchor ${window.location.hash}`
+  )
 
   if (el != null) {
     el.classList.add('highlight')
@@ -8,9 +10,13 @@ if (window.location.hash === '') {
       el.style.transition = 'background-color 2s'
       el.classList.remove('highlight')
 
-      el.addEventListener('transitionend', () => {
-        el.style.transition = transition
-      }, { once: true })
+      el.addEventListener(
+        'transitionend',
+        () => {
+          el.style.transition = transition
+        },
+        { once: true }
+      )
     }, 2000)
   }
 }
