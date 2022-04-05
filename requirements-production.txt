@@ -110,7 +110,7 @@ cffi==1.14.5
     #   pynacl
     #   weasyprint
     #   webp
-channels==3.0.3
+channels==3.0.4
     # via
     #   -r requirements.in
     #   channels-redis
