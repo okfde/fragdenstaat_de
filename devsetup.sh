@@ -43,6 +43,15 @@ ask() {
     done
 }
 
+install_precommit() {
+  local repo_dir="$1"
+  if [ -e "$repo_dir/.pre-commit-config.yaml" ]; then
+    pushd "$repo_dir"
+    pre-commit install
+    popd
+  fi
+}
+
 echo "You need python3 >= 3.8 and yarn installed."
 
 python3 --version
@@ -74,6 +83,7 @@ fi
 pip install -U pip-tools
 pip-sync $MAIN/requirements-dev.txt
 pip install -e $MAIN
+install_precommit "$MAIN"
 
 echo "Cloning / installing all editable dependencies..."
 
@@ -87,6 +97,7 @@ for name in "${REPOS[@]}"; do
   fi
   pip uninstall -y $name
   pip install -e $name
+  install_precommit "$name"
 done
 
 echo "Installing all frontend dependencies..."
