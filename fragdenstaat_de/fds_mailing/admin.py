@@ -10,6 +10,7 @@ from django.utils.translation import gettext as _
 
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from cms.models.static_placeholder import StaticPlaceholder
+from fragdenstaat_de.theme.admin import PublicBodyAdmin
 
 from froide.account.admin import UserAdmin
 from froide.helper.admin_utils import (
@@ -299,6 +300,30 @@ UserAdmin.send_mail_template = make_choose_object_action(
     EmailTemplate, execute_send_mail_template, _("Send email via template...")
 )
 UserAdmin.actions += ["send_mail_template"]
+
+# Monkey-Patch PublicBodyAdmin to create mailing for PublicBodies
+
+
+def setup_mailing_publicbodies(admin, request, queryset, action_obj):
+    mailing = Mailing.objects.create(
+        name=_("Public Body Mailing"),
+        creator_user=request.user,
+        publish=False,
+        email_template=action_obj,
+    )
+    MailingMessage.objects.bulk_create(
+        [
+            MailingMessage(mailing=mailing, name=pb.name, email=pb.email)
+            for pb in queryset
+        ]
+    )
+    admin.message_user(request, _("Mailing was set up."), level=messages.INFO)
+
+
+PublicBodyAdmin.setup_mailing = make_choose_object_action(
+    EmailTemplate, setup_mailing_publicbodies, _("Setup mailing for public bodies...")
+)
+PublicBodyAdmin.actions += ["setup_mailing"]
 
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
 admin.site.register(Mailing, MailingAdmin)
