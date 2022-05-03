@@ -25,7 +25,6 @@
 
 {% can_use_klageautomat object as has_right_permissions %}
 {% if object.can_be_escalated or has_right_permissions %}
-  {% if not "food:" in object.reference %}
   <div
     role="tabpanel"
     class="tab-pane fade"
@@ -36,7 +35,6 @@
       {% include "froide_legalaction/includes/request_pane.html" with object=object %}
     </div>
   </div>
-  {% endif %}
 {% endif %}
 
 {% endif %}
