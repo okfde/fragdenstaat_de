@@ -78,6 +78,13 @@ a > .box-card {
         margin: 0.5rem;
         margin-top: -2.5rem;
       }
+
+      &.img-lg-wide {
+        max-width: 100%;
+        width: auto;
+        height: 5rem;
+        margin-top: -2.5rem;
+      }
     }
   }
 

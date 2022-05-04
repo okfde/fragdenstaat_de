@@ -484,6 +484,7 @@ class CardImageCMSPlugin(CMSPlugin):
         choices=(
             ("sm", _("Small")),
             ("lg", _("Large")),
+            ("lg-wide", _("Large (wide)")),
         ),
         max_length=10,
         default="lg",
