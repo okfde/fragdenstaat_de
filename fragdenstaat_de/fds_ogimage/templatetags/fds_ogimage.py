@@ -1,10 +1,10 @@
 import hashlib
 from urllib.parse import quote_plus
 
-from django.conf import settings
 from django import template
-from django.urls import resolve, Resolver404
+from django.conf import settings
 from django.template.loader import render_to_string
+from django.urls import Resolver404, resolve
 
 register = template.Library()
 

@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 import json
 
-from django.core.management.base import BaseCommand
-from django.utils import translation
 from django.conf import settings
+from django.core.management.base import BaseCommand
 from django.template.defaultfilters import slugify
+from django.utils import translation
 
 
 class Command(BaseCommand):
@@ -16,10 +16,10 @@ class Command(BaseCommand):
         from django.contrib.sites.models import Site
 
         from froide.publicbody.models import (
-            PublicBodyTopic,
-            PublicBody,
-            Jurisdiction,
             FoiLaw,
+            Jurisdiction,
+            PublicBody,
+            PublicBodyTopic,
         )
 
         translation.activate(settings.LANGUAGE_CODE)
@@ -53,7 +53,7 @@ class Command(BaseCommand):
                         "Staatl",
                     )
                 ):
-                    classification = u" ".join(classifications[:2])
+                    classification = " ".join(classifications[:2])
                 elif classifications[0].endswith("-"):
                     classification = " ".join(classifications[:3])
                 else:
@@ -63,8 +63,8 @@ class Command(BaseCommand):
                     continue
                 except PublicBody.DoesNotExist:
                     pass
-                self.stdout.write((u"Trying: %s\n" % pb["name"]).encode("utf-8"))
-                contact = u"%s\n%s" % (pb.get("Telefon", ""), pb.get("Telefax", ""))
+                self.stdout.write(("Trying: %s\n" % pb["name"]).encode("utf-8"))
+                contact = "%s\n%s" % (pb.get("Telefon", ""), pb.get("Telefax", ""))
                 if "Internet" in pb:
                     contact += "\n%s" % pb["Internet"]
                 if "url" in pb:
@@ -78,7 +78,7 @@ class Command(BaseCommand):
                     classification=classification,
                     classification_slug=slugify(classification),
                     email=pb.get("E-Mail", None),
-                    contact=u"%s\n%s" % (pb.get("Telefon", ""), pb.get("Telefax", "")),
+                    contact="%s\n%s" % (pb.get("Telefon", ""), pb.get("Telefax", "")),
                     address=pb.get("address"),
                     website_dump="",
                     request_note="",
@@ -90,7 +90,7 @@ class Command(BaseCommand):
                 )
                 pb_cache[pb["url"]] = public_body
                 public_body.laws.add(*laws)
-                self.stdout.write((u"%s\n" % public_body).encode("utf-8"))
+                self.stdout.write(("%s\n" % public_body).encode("utf-8"))
             for pb in pbs:
                 if "parent" in pb and pb["parent"] and pb["parent"] in pb_cache:
                     public_body = pb_cache[pb["url"]]
@@ -114,10 +114,10 @@ class Command(BaseCommand):
             "jugendarrestanstalt": "justiz",
             "justiz": "justiz",
             "umwelt": "umwelt",
-            u"straßenbau": "verkehr-und-bau",
+            "straßenbau": "verkehr-und-bau",
             "wald": "umwelt",
             "kriminal": "inneres",
-            u"prüfungsamt": "bildung-und-forschung",
+            "prüfungsamt": "bildung-und-forschung",
         }
         for k, v in mapping.items():
             if k in name:

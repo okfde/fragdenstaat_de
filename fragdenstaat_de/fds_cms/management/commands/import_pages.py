@@ -2,10 +2,9 @@ import csv
 
 from django.core.management.base import BaseCommand
 
-from slugify import slugify
-
+from cms.api import add_plugin, create_page
 from cms.models import Title
-from cms.api import create_page, add_plugin
+from slugify import slugify
 
 
 class Command(BaseCommand):

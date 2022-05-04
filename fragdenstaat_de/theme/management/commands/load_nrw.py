@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
-import os
 import json
+import os
 
-from django.core.management.base import BaseCommand
-from django.utils import translation
 from django.conf import settings
+from django.core.management.base import BaseCommand
 from django.template.defaultfilters import slugify
+from django.utils import translation
 
 
 class Command(BaseCommand):
@@ -17,9 +17,9 @@ class Command(BaseCommand):
         from django.contrib.sites.models import Site
 
         from froide.publicbody.models import (
-            PublicBody,
-            Jurisdiction,
             FoiLaw,
+            Jurisdiction,
+            PublicBody,
             PublicBodyTopic,
         )
 
@@ -41,7 +41,7 @@ class Command(BaseCommand):
                 if classifications[0] == "Der":
                     classification = classifications[1]
                 elif classifications[0].startswith("Staatl"):
-                    classification = u"Staatliches %s" % classifications[1]
+                    classification = "Staatliches %s" % classifications[1]
                 elif classifications[0].endswith("-"):
                     classification = " ".join(classifications[:3])
                 else:
@@ -51,7 +51,7 @@ class Command(BaseCommand):
                     continue
                 except PublicBody.DoesNotExist:
                     pass
-                self.stdout.write((u"Trying: %s\n" % pb["name"]).encode("utf-8"))
+                self.stdout.write(("Trying: %s\n" % pb["name"]).encode("utf-8"))
                 public_body = PublicBody.objects.create(
                     name=pb["name"],
                     slug=slugify(pb["name"]),
@@ -61,7 +61,7 @@ class Command(BaseCommand):
                     classification=classification,
                     classification_slug=slugify(classification),
                     email=pb.get("email", None),
-                    contact=u"%s\n%s" % (pb.get("kontakt", ""), pb.get("url", "")),
+                    contact="%s\n%s" % (pb.get("kontakt", ""), pb.get("url", "")),
                     address=pb.get("address"),
                     website_dump="",
                     request_note="",
@@ -72,7 +72,7 @@ class Command(BaseCommand):
                     jurisdiction=juris,
                 )
                 public_body.laws.add(*laws)
-                self.stdout.write((u"%s\n" % public_body).encode("utf-8"))
+                self.stdout.write(("%s\n" % public_body).encode("utf-8"))
 
         # importing kommunalverwaltung nrw
         with open(os.path.join(directory, "kommunalverwaltung_nrw.json")) as f:
@@ -88,7 +88,7 @@ class Command(BaseCommand):
                 url = None
                 if "url" in pb:
                     url = "http://%s" % pb["url"]
-                self.stdout.write((u"Trying: %s\n" % pb["name"]).encode("utf-8"))
+                self.stdout.write(("Trying: %s\n" % pb["name"]).encode("utf-8"))
                 public_body = PublicBody.objects.create(
                     name=name,
                     slug=slugify(name),
@@ -99,9 +99,9 @@ class Command(BaseCommand):
                     classification=classification,
                     classification_slug=slugify(classification),
                     email=pb.get("email", None),
-                    contact=u"Telefon: %s\nFax: %s"
+                    contact="Telefon: %s\nFax: %s"
                     % (pb.get("phone", ""), pb.get("fax", "")),
-                    address=u"%s\n%s %s"
+                    address="%s\n%s %s"
                     % (pb.get("address", ""), pb.get("plz", ""), pb.get("name")),
                     website_dump="",
                     request_note="",
@@ -112,7 +112,7 @@ class Command(BaseCommand):
                     jurisdiction=juris,
                 )
                 public_body.laws.add(*laws)
-                self.stdout.write((u"%s\n" % public_body).encode("utf-8"))
+                self.stdout.write(("%s\n" % public_body).encode("utf-8"))
 
     def get_topic(self, pb):
         name = pb["name"].lower()
@@ -130,10 +130,10 @@ class Command(BaseCommand):
             "jugendarrestanstalt": "justiz",
             "justiz": "justiz",
             "umwelt": "umwelt",
-            u"straßenbau": "verkehr-und-bau",
+            "straßenbau": "verkehr-und-bau",
             "wald": "umwelt",
             "kriminal": "inneres",
-            u"prüfungsamt": "bildung-und-forschung",
+            "prüfungsamt": "bildung-und-forschung",
         }
         for k, v in mapping.items():
             if k in name:

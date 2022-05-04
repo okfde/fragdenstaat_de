@@ -5,7 +5,7 @@ import django_filters
 
 from froide.helper.search.filters import BaseSearchFilterSet
 
-from .models import Category, Author
+from .models import Author, Category
 
 
 class ArticleFilterset(BaseSearchFilterSet):

@@ -1,7 +1,7 @@
-from django.contrib.syndication.views import Feed
-from django.urls import reverse
-from django.core.cache import cache
 from django.conf import settings
+from django.contrib.syndication.views import Feed
+from django.core.cache import cache
+from django.urls import reverse
 
 from froide.helper.feed_utils import clean_feed_output
 from froide.helper.text_utils import convert_html_to_text

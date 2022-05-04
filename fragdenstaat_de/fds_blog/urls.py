@@ -3,18 +3,17 @@ from django.utils.translation import gettext_lazy as _
 
 from froide.api import api_router
 
+from .api_views import ArticleTagViewSet
 from .feeds import LatestArticlesFeed, LatestArticlesTeaserFeed
 from .views import (
-    AuthorArticleView,
-    CategoryArticleView,
     ArticleArchiveView,
     ArticleDetailView,
     ArticleListView,
-    TaggedListView,
     ArticleSearchView,
+    AuthorArticleView,
+    CategoryArticleView,
+    TaggedListView,
 )
-from .api_views import ArticleTagViewSet
-
 
 PERMALINKS_URLS = {
     "full_date": r"^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>\w[-\w]*)/$",

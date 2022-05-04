@@ -1,13 +1,12 @@
 """Modified Base entry models from Django Blog Zinnia"""
 
+from django.conf import settings
+from django.contrib.sites.models import Site
 from django.db import models
 from django.utils import timezone
+from django.utils.html import linebreaks, strip_tags
 from django.utils.text import Truncator
-from django.utils.html import strip_tags
-from django.utils.html import linebreaks
-from django.contrib.sites.models import Site
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
 
 from .managers import DRAFT, HIDDEN, PUBLISHED
 

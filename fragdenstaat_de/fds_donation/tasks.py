@@ -1,10 +1,9 @@
 from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta
+from fragdenstaat_de.theme.notifications import send_notification
 
 from froide.celery import app as celery_app
-
-from fragdenstaat_de.theme.notifications import send_notification
 
 TIME_ZERO = dict(hour=0, minute=0, second=0, microsecond=0)
 
@@ -62,7 +61,7 @@ def remind_unreceived_banktransfers():
 
 @celery_app.task(name="fragdenstaat_de.fds_donation.remove_old_donations")
 def remove_old_donations():
-    from .models import Donor, Donation
+    from .models import Donation, Donor
 
     today = timezone.localtime(timezone.now())
     today = today.replace(**TIME_ZERO)

@@ -2,7 +2,6 @@ from django.conf.urls import url
 
 from .views import CMSPageSearch
 
-
 app_name = "fds_cms"
 
 urlpatterns = [

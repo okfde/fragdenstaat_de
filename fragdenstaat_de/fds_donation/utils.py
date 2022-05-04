@@ -3,8 +3,7 @@ from django.db.models import Min
 
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_newsletter
 
-from .models import Donor, Donation, update_donation_numbers
-
+from .models import Donation, Donor, update_donation_numbers
 
 MERGE_DONOR_FIELDS = [
     "salutation",

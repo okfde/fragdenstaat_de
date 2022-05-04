@@ -1,21 +1,19 @@
 from decimal import Decimal
 
 from django.db.models import Sum
-
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
 
 from .models import (
-    Donor,
-    DonationGiftFormCMSPlugin,
     DefaultDonation,
     DonationFormCMSPlugin,
+    DonationGiftFormCMSPlugin,
     DonationProgressBarCMSPlugin,
+    Donor,
 )
 
 

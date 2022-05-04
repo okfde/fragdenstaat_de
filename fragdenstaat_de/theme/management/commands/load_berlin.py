@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from django.core.management.base import BaseCommand
-from django.utils import translation
 from django.conf import settings
+from django.core.management.base import BaseCommand
 from django.template.defaultfilters import slugify
+from django.utils import translation
 
 
 class Command(BaseCommand):
@@ -14,10 +14,10 @@ class Command(BaseCommand):
         from django.contrib.sites.models import Site
 
         from froide.publicbody.models import (
-            PublicBodyTopic,
-            PublicBody,
-            Jurisdiction,
             FoiLaw,
+            Jurisdiction,
+            PublicBody,
+            PublicBodyTopic,
         )
 
         translation.activate(settings.LANGUAGE_CODE)
@@ -52,7 +52,7 @@ class Command(BaseCommand):
                     continue
                 except PublicBody.DoesNotExist:
                     pass
-                self.stdout.write((u"Trying: %s\n" % name).encode("utf-8"))
+                self.stdout.write(("Trying: %s\n" % name).encode("utf-8"))
                 public_body = PublicBody.objects.create(
                     name=name,
                     slug=slugify(name),
@@ -62,8 +62,8 @@ class Command(BaseCommand):
                     classification=classification,
                     classification_slug=slugify(classification),
                     email=email,
-                    contact=u"",
-                    address=u"",
+                    contact="",
+                    address="",
                     website_dump="",
                     request_note="",
                     _created_by=sw,
@@ -73,31 +73,31 @@ class Command(BaseCommand):
                     jurisdiction=juris,
                 )
                 public_body.laws.add(*laws)
-                self.stdout.write((u"%s\n" % public_body).encode("utf-8"))
+                self.stdout.write(("%s\n" % public_body).encode("utf-8"))
 
     def get_classification(self, name):
-        mapping = [u"Gericht", u"Stiftung", u"Kammer", u"Hochschule", u"Universität"]
+        mapping = ["Gericht", "Stiftung", "Kammer", "Hochschule", "Universität"]
         for m in mapping:
             if m.lower() in name.lower():
                 return m
         classifications = name.split()
         if classifications[0].startswith(
             (
-                u"Berliner",
-                u"Der",
-                u"Die",
-                u"Das",
-                u"Deutsche",
+                "Berliner",
+                "Der",
+                "Die",
+                "Das",
+                "Deutsche",
             )
         ):
             classification = classifications[1]
         elif classifications[0].startswith(
             (
-                u"Zentrale",
-                u"Staatl",
+                "Zentrale",
+                "Staatl",
             )
         ):
-            classification = u" ".join(classifications[:2])
+            classification = " ".join(classifications[:2])
         elif classifications[0].endswith("-"):
             classification = " ".join(classifications[:3])
         else:
@@ -107,23 +107,23 @@ class Command(BaseCommand):
     def get_topic(self, name):
         name = name.lower()
         mapping = {
-            u"gericht": u"justiz",
-            u"polizei": u"inneres",
-            u"schul": u"bildung-und-forschung",
-            u"rechnungs": u"finanzen",
-            u"staatsanwaltschaft": u"justiz",
-            u"liegenschaftsbetrieb": u"verkehr-und-bau",
-            u"hrungshilfe": u"justiz",
-            u"finanzamt": u"finanzen",
-            u"hrungsaufsichtsstelle": u"justiz",
-            u"landwirtschaftskammer": u"landwirtschaft-und-verbraucherschutz",
-            u"jugendarrestanstalt": u"justiz",
-            u"justiz": u"justiz",
-            u"umwelt": u"umwelt",
-            u"straßenbau": u"verkehr-und-bau",
-            u"wald": u"umwelt",
-            u"kriminal": u"inneres",
-            u"prüfungsamt": u"bildung-und-forschung",
+            "gericht": "justiz",
+            "polizei": "inneres",
+            "schul": "bildung-und-forschung",
+            "rechnungs": "finanzen",
+            "staatsanwaltschaft": "justiz",
+            "liegenschaftsbetrieb": "verkehr-und-bau",
+            "hrungshilfe": "justiz",
+            "finanzamt": "finanzen",
+            "hrungsaufsichtsstelle": "justiz",
+            "landwirtschaftskammer": "landwirtschaft-und-verbraucherschutz",
+            "jugendarrestanstalt": "justiz",
+            "justiz": "justiz",
+            "umwelt": "umwelt",
+            "straßenbau": "verkehr-und-bau",
+            "wald": "umwelt",
+            "kriminal": "inneres",
+            "prüfungsamt": "bildung-und-forschung",
         }
         for k, v in mapping.items():
             if k in name:

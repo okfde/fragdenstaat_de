@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 import csv
 
-from django.core.management.base import BaseCommand
-from django.utils import translation
 from django.conf import settings
+from django.core.management.base import BaseCommand
 from django.template.defaultfilters import slugify
+from django.utils import translation
 
 
 def csv_reader(f, dialect=csv.excel, **kwargs):
@@ -24,10 +24,10 @@ class Command(BaseCommand):
         from django.contrib.sites.models import Site
 
         from froide.publicbody.models import (
-            PublicBodyTopic,
-            PublicBody,
-            Jurisdiction,
             FoiLaw,
+            Jurisdiction,
+            PublicBody,
+            PublicBodyTopic,
         )
 
         translation.activate(settings.LANGUAGE_CODE)
@@ -68,11 +68,11 @@ class Command(BaseCommand):
                 classification = items["classification"]
                 try:
                     PublicBody.objects.get(slug=items["slug"])
-                    self.stdout.write((u"Exists %s\n" % items["name"]).encode("utf-8"))
+                    self.stdout.write(("Exists %s\n" % items["name"]).encode("utf-8"))
                     continue
                 except PublicBody.DoesNotExist:
                     pass
-                self.stdout.write((u"Trying: %s\n" % items["name"]).encode("utf-8"))
+                self.stdout.write(("Trying: %s\n" % items["name"]).encode("utf-8"))
                 public_body = PublicBody.objects.create(
                     name=items["name"],
                     slug=items["slug"],
@@ -93,7 +93,7 @@ class Command(BaseCommand):
                     jurisdiction=juris,
                 )
                 public_body.laws.add(*laws)
-                self.stdout.write((u"%s\n" % public_body).encode("utf-8"))
+                self.stdout.write(("%s\n" % public_body).encode("utf-8"))
 
     def get_topic(self, slug):
         return self.topic_cache.get(slug, self.topic_cache["andere"])

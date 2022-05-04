@@ -11,6 +11,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fragdenstaat_de.settings.produc
 os.environ.setdefault("DJANGO_CONFIGURATION", "FragDenStaat")
 
 from django.conf import settings  # noqa
+
 from configurations.wsgi import get_wsgi_application  # noqa
 
 application = get_wsgi_application()

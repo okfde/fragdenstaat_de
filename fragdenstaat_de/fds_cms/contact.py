@@ -1,7 +1,7 @@
 from django import forms
 from django.conf.urls import url
-from django.core.mail import mail_managers
 from django.contrib import messages
+from django.core.mail import mail_managers
 
 try:
     import pgpy
@@ -9,7 +9,6 @@ except ImportError:
     pgpy = None
 
 from froide.helper.utils import get_redirect
-
 
 PUBLIC_KEY = """
 -----BEGIN PGP PUBLIC KEY BLOCK-----

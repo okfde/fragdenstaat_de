@@ -1,24 +1,24 @@
 import re
 from urllib.parse import urlparse
 
-from django.test import TestCase
 from django.conf import settings
-from django.urls import reverse
-from django.core import mail
-from django.test.utils import override_settings
-from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django.core import mail
+from django.test import TestCase
+from django.test.utils import override_settings
+from django.urls import reverse
+from django.utils import timezone
 
 from froide.foirequest.tests.factories import UserFactory
 
 from .listeners import (
     activate_newsletter_subscription,
-    user_email_changed,
-    merge_user,
     cancel_user,
     handle_bounce,
     handle_unsubscribe,
+    merge_user,
     subscribe_follower,
+    user_email_changed,
 )
 from .models import Newsletter, Subscriber
 

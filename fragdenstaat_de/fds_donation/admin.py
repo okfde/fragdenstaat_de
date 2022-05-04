@@ -1,49 +1,49 @@
+import uuid
 from collections import defaultdict
 from io import BytesIO
-import uuid
 
-from django.db.models import Q, Max, Sum, Avg, Count, Value, Aggregate, F
+from django import forms
+from django.conf.urls import url
+from django.contrib import admin, messages
+from django.contrib.admin import helpers
+from django.contrib.admin.filters import SimpleListFilter
+from django.contrib.admin.views.main import ChangeList
+from django.core.exceptions import PermissionDenied
+from django.db.models import Aggregate, Avg, Count, F, Max, Q, Sum, Value
 from django.db.models.functions import Concat
 from django.http import HttpResponse, JsonResponse, StreamingHttpResponse
-from django import forms
-from django.contrib import admin, messages
-from django.contrib.admin.filters import SimpleListFilter
-from django.conf.urls import url
-from django.urls import reverse, reverse_lazy
-from django.contrib.admin.views.main import ChangeList
-from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
-from django.utils import timezone
-from django.utils.text import slugify
-from django.utils.html import format_html
-from django.contrib.admin import helpers
 from django.template.response import TemplateResponse
+from django.urls import reverse, reverse_lazy
+from django.utils import timezone
+from django.utils.html import format_html
+from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
+
+from fragdenstaat_de.fds_mailing.models import MailingMessage
+from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
 from froide.helper.admin_utils import (
     ForeignKeyFilter,
-    make_nullfilter,
-    make_batch_tag_action,
-    make_emptyfilter,
-    TaggitListFilter,
     MultiFilterMixin,
+    TaggitListFilter,
+    make_batch_tag_action,
     make_daterangefilter,
+    make_emptyfilter,
+    make_nullfilter,
     make_rangefilter,
 )
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 from froide.helper.widgets import TagAutocompleteWidget
 
-from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
-from fragdenstaat_de.fds_mailing.models import MailingMessage
-
 from .models import (
+    DONATION_PROJECTS,
+    DefaultDonation,
+    Donation,
     DonationGift,
     Donor,
-    Donation,
     DonorTag,
     TaggedDonor,
-    DefaultDonation,
-    DONATION_PROJECTS,
 )
 
 
@@ -339,7 +339,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
         """
         from .forms import get_merge_donor_form
-        from .utils import propose_donor_merge, merge_donors
+        from .utils import merge_donors, propose_donor_merge
 
         select_across = request.POST.get("select_across", "0") == "1"
         if select_across:

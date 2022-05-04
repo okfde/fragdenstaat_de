@@ -1,9 +1,9 @@
 import logging
 
 from django.apps import AppConfig
-from django.urls import reverse, NoReverseMatch
-from django.utils.translation import gettext_lazy as _
 from django.core.files.base import ContentFile
+from django.urls import NoReverseMatch, reverse
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +21,7 @@ class FdsCmsConfig(AppConfig):
     def ready(self):
         from froide.account import account_merged
         from froide.helper.search import search_registry
+
         from . import listeners  # noqa
 
         account_merged.connect(merge_user)

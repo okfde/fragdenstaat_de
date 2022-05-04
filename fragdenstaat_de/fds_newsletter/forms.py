@@ -4,8 +4,8 @@ from django.utils.translation import gettext_lazy as _
 
 from froide.helper.spam import SpamProtectionMixin
 
-from .utils import subscribe
 from .models import Newsletter, Subscriber
+from .utils import subscribe
 
 
 class NewsletterForm(SpamProtectionMixin, forms.Form):

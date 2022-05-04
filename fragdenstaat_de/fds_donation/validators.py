@@ -2,7 +2,6 @@ import re
 
 from django import forms
 
-
 UPPERCASE_LETTERS = re.compile(r"[A-Z]")
 
 

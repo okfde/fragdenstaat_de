@@ -1,12 +1,11 @@
 from django import template
-from django.db.models import Q, Max, Count, Sum
+from django.db.models import Count, Max, Q, Sum
 from django.db.models.functions import TruncMonth
 from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta
 
 from ..models import Donor
-
 
 register = template.Library()
 

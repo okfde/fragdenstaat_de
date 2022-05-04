@@ -2,7 +2,7 @@ import os
 
 from configurations import values
 
-from .base import FragDenStaatBase, THEME_ROOT
+from .base import THEME_ROOT, FragDenStaatBase
 
 
 class Test(FragDenStaatBase):

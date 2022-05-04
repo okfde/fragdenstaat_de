@@ -1,4 +1,4 @@
-from .models import Subscriber, REFERENCE_PREFIX
+from .models import REFERENCE_PREFIX, Subscriber
 from .utils import subscribe_to_default_newsletter, unsubscribe_queryset
 
 

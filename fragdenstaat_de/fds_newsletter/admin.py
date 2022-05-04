@@ -1,22 +1,14 @@
 from django.contrib import admin
-from django.db.models import (
-    Q,
-    F,
-    Count,
-    Value,
-    IntegerField,
-    Case,
-    When,
-)
-from django.db.models.functions import Cast, ExtractDay, TruncDate, Now
+from django.db.models import Case, Count, F, IntegerField, Q, Value, When
+from django.db.models.functions import Cast, ExtractDay, Now, TruncDate
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
+from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
+
 from froide.helper.admin_utils import make_daterangefilter, make_rangefilter
 from froide.helper.csv_utils import export_csv, export_csv_response
-
-from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
 from .models import Newsletter, Subscriber
 from .utils import unsubscribe_queryset

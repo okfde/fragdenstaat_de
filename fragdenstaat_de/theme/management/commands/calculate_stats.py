@@ -12,8 +12,8 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         output = options["output"]
-        from froide.publicbody.models import PublicBody
         from froide.foirequest.models import FoiRequest
+        from froide.publicbody.models import PublicBody
 
         year = 2015
 

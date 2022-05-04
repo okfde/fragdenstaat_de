@@ -1,25 +1,21 @@
 import uuid
 
+from django.conf import settings
+from django.contrib.sites.shortcuts import get_current_site
 from django.db import models
 from django.template.loader import render_to_string
-from django.conf import settings
-from django.utils.translation import gettext_lazy as _
-from django.utils import translation
 from django.urls import reverse
-from django.utils import html
-from django.contrib.sites.shortcuts import get_current_site
+from django.utils import html, translation
+from django.utils.translation import gettext_lazy as _
 
+from cms.models.fields import PlaceholderField
 from cms.models.pluginmodel import CMSPlugin
 from cms.utils.plugins import get_plugins
-from cms.models.fields import PlaceholderField
-
-from parler.models import TranslatableModel, TranslatedFields
 from filer.fields.image import FilerImageField
-
-from taggit.managers import TaggableManager
-from taggit.models import TaggedItemBase, TagBase
-
 from fragdenstaat_de.fds_cms.utils import get_request
+from parler.models import TranslatableModel, TranslatedFields
+from taggit.managers import TaggableManager
+from taggit.models import TagBase, TaggedItemBase
 
 from . import model_bases as entry
 from .managers import (
@@ -93,7 +89,7 @@ class Author(models.Model):
 
         if len(user.first_name) > 0 and len(user.last_name) > 0:
             return html.format_html(
-                u"{}.&nbsp;{}",
+                "{}.&nbsp;{}",
                 user.first_name[0],
                 user.last_name,
             )
@@ -126,7 +122,7 @@ class ArticleAuthorship(models.Model):
         ordering = ("order",)
 
     def __str__(self):
-        return u"%s" % self.author
+        return "%s" % self.author
 
 
 class OrderedAuthorsEntry(models.Model):

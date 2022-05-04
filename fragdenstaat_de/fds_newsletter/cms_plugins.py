@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import Subscriber, NewsletterCMSPlugin
+from .models import NewsletterCMSPlugin, Subscriber
 from .templatetags.newsletter_tags import get_newsletter_context
 
 

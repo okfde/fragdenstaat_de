@@ -1,10 +1,9 @@
-from django.urls import path
 from django.core.asgi import get_asgi_application
+from django.urls import path
 
-from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
+from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.security.websocket import AllowedHostsOriginValidator
-
 from fragdenstaat_de.fds_cms.consumers import CMSPluginEditConsumer
 from froide_campaign.consumers import CampaignLiveConsumer
 

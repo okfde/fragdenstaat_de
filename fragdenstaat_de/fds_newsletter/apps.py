@@ -10,25 +10,25 @@ class NewsletterConfig(AppConfig):
 
     def ready(self):
         from froide.account import (
-            account_canceled,
             account_activated,
-            account_merged,
+            account_canceled,
             account_email_changed,
+            account_merged,
         )
         from froide.account.export import registry
         from froide.account.forms import user_extra_registry
         from froide.bounce.signals import email_bounced, email_unsubscribed
         from froide.foirequestfollower.models import FoiRequestFollower
 
-        from .forms import NewsletterUserExtra, NewsletterFollowExtra
+        from .forms import NewsletterFollowExtra, NewsletterUserExtra
         from .listeners import (
             activate_newsletter_subscription,
-            user_email_changed,
-            merge_user,
             cancel_user,
-            subscribe_follower,
             handle_bounce,
             handle_unsubscribe,
+            merge_user,
+            subscribe_follower,
+            user_email_changed,
         )
 
         account_canceled.connect(cancel_user)

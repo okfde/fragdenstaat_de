@@ -4,38 +4,36 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-
 from djangocms_bootstrap4.helpers import concat_classes
 
+from froide.foirequest.models import FoiRequest
 from froide.helper.utils import get_redirect_url
 
-from froide.foirequest.models import FoiRequest
-
+from .contact import ContactForm
 from .models import (
-    PageAnnotationCMSPlugin,
-    DocumentPagesCMSPlugin,
-    DocumentEmbedCMSPlugin,
-    DocumentPortalEmbedCMSPlugin,
-    PrimaryLinkCMSPlugin,
-    FoiRequestListCMSPlugin,
-    OneClickFoiRequestCMSPlugin,
-    VegaChartCMSPlugin,
-    SVGImageCMSPlugin,
+    CardCMSPlugin,
+    CardHeaderCMSPlugin,
+    CardIconCMSPlugin,
+    CardImageCMSPlugin,
+    CardInnerCMSPlugin,
+    CardLinkCMSPlugin,
+    CollapsibleCMSPlugin,
     DesignContainerCMSPlugin,
     DocumentCollectionEmbedCMSPlugin,
-    ShareLinksCMSPlugin,
-    CollapsibleCMSPlugin,
-    SliderCMSPlugin,
+    DocumentEmbedCMSPlugin,
+    DocumentPagesCMSPlugin,
+    DocumentPortalEmbedCMSPlugin,
+    FoiRequestListCMSPlugin,
     ModalCMSPlugin,
-    CardCMSPlugin,
-    CardInnerCMSPlugin,
-    CardHeaderCMSPlugin,
-    CardImageCMSPlugin,
-    CardIconCMSPlugin,
-    CardLinkCMSPlugin,
+    OneClickFoiRequestCMSPlugin,
+    PageAnnotationCMSPlugin,
+    PrimaryLinkCMSPlugin,
     RevealMoreCMSPlugin,
+    ShareLinksCMSPlugin,
+    SliderCMSPlugin,
+    SVGImageCMSPlugin,
+    VegaChartCMSPlugin,
 )
-from .contact import ContactForm
 
 
 @plugin_pool.register_plugin

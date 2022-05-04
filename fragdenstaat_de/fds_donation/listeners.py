@@ -1,18 +1,18 @@
+import json
 from datetime import timedelta
 from decimal import Decimal
-import json
 
 from django.db import transaction
 from django.utils import timezone
 
 from froide_payment.models import PaymentStatus
 
+from .models import Donation, Donor
 from .services import (
-    send_donation_email,
     create_donation_from_payment,
+    send_donation_email,
     send_sepa_notification,
 )
-from .models import Donor, Donation
 from .tasks import send_donation_notification
 
 

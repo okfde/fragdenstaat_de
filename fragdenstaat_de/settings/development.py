@@ -1,12 +1,11 @@
-from contextlib import closing
-from datetime import datetime, timedelta
 import re
 import socket
+from contextlib import closing
+from datetime import datetime, timedelta
 
 from django.contrib.staticfiles.storage import StaticFilesStorage
 
 from .base import FragDenStaatBase, env
-
 
 CHECK_WEBPACK = {"timestamp": None, "result": False}
 CHECK_WEBPACK_SECONDS = timedelta(seconds=5)

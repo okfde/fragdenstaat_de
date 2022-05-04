@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.utils import translation
-from django.conf import settings
 
 
 class Command(BaseCommand):
@@ -13,7 +13,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        from froide.publicbody.models import PublicBodyTag, PublicBody, Jurisdiction
+        from froide.publicbody.models import Jurisdiction, PublicBody, PublicBodyTag
 
         translation.activate(settings.LANGUAGE_CODE)
 

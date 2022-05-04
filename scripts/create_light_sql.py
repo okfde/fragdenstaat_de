@@ -1,7 +1,6 @@
 import re
 import sys
 
-
 ACCOUNT_CONSTRAINTS = re.compile(
     r'ALTER TABLE ONLY (?P<table>public\.\w+)\s+ADD CONSTRAINT (?P<constraint>["\w]+) FOREIGN KEY \((?P<fk>\w+)\) REFERENCES (?P<fk_table>public\.\w+)\((?P<field>\w+)\)(?P<tail>[^;]*);'
 )

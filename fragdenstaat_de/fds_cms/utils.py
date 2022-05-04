@@ -5,12 +5,12 @@ https://github.com/divio/aldryn-search/blob/master/aldryn_search/helpers.py
 
 """
 
+from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.test import RequestFactory
-from django.conf import settings
 
-from cms.toolbar.toolbar import CMSToolbar
 from cms.plugin_rendering import ContentRenderer
+from cms.toolbar.toolbar import CMSToolbar
 
 
 def get_plugin_children(instance):

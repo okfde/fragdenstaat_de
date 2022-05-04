@@ -1,15 +1,15 @@
-from datetime import datetime
 import os
+from datetime import datetime
 
-from django.core.management.base import BaseCommand
 from django.conf import settings
-from django.utils.dateparse import parse_date
+from django.contrib.gis.db.models.functions import Area
 from django.contrib.gis.gdal import DataSource
 from django.contrib.gis.utils import LayerMapping
-from django.contrib.gis.db.models.functions import Area
+from django.core.management.base import BaseCommand
+from django.utils.dateparse import parse_date
 
-from slugify import slugify
 import pytz
+from slugify import slugify
 
 from froide.georegion.models import GeoRegion
 from froide.helper.tree_utils import get_new_child_params
@@ -75,7 +75,7 @@ class Command(BaseCommand):
             self.update_stats(path)
 
     def update_stats(self, path):
-        for name, filename, kind, level in self.layers:
+        for name, filename, kind, _level in self.layers:
             self.stdout.write("\n%s\n" % name)
             ds = self.get_ds(path, filename)
             layer = ds[0]

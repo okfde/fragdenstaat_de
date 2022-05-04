@@ -2,20 +2,20 @@ import os.path
 
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
-from django.urls import reverse
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import get_language
-from django.views.generic import DetailView, ListView
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import DetailView, ListView
 
 from froide.helper.search.views import BaseSearchView
 
 from .documents import ArticleDocument
-from .models import Category, Article, ArticleTag
 from .filters import ArticleFilterset
 from .managers import articles_visible
+from .models import Article, ArticleTag, Category
 
 User = get_user_model()
 

@@ -1,8 +1,7 @@
-from websockets.exceptions import ConnectionClosedOK
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from websockets.exceptions import ConnectionClosedOK
 
 from froide.helper.presence import get_presence_manager
-
 
 PRESENCE_ROOM = "fds_cms.editplugin.{}"
 

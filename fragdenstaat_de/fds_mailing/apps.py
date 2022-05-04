@@ -7,8 +7,8 @@ class FdsMailingConfig(AppConfig):
     verbose_name = _("FragDenStaat Mailings")
 
     def ready(self):
-        from froide.helper.email_sending import mail_middleware_registry
         from froide.bounce.signals import email_bounced
+        from froide.helper.email_sending import mail_middleware_registry
 
         from .middleware import EmailTemplateMiddleware
         from .utils import handle_bounce

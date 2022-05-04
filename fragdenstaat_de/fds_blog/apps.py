@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from django.urls import reverse, NoReverseMatch
+from django.urls import NoReverseMatch, reverse
 from django.utils.translation import gettext_lazy as _
 
 
@@ -43,7 +43,7 @@ class BlogConfig(AppConfig):
 
 
 def merge_user(sender, old_user=None, new_user=None, **kwargs):
-    from .models import Author, ArticleAuthorship
+    from .models import ArticleAuthorship, Author
 
     old_exists = Author.objects.filter(user=old_user).exists()
     new_exists = Author.objects.filter(user=new_user).exists()

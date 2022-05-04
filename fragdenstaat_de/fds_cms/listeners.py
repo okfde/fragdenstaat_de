@@ -2,7 +2,7 @@ from django.dispatch.dispatcher import receiver
 
 from cms.signals import post_publish, post_unpublish
 
-from froide.helper.tasks import search_instance_save, search_instance_delete
+from froide.helper.tasks import search_instance_delete, search_instance_save
 
 
 @receiver(post_publish, dispatch_uid="publish_cms_page")

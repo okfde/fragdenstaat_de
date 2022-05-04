@@ -3,27 +3,24 @@ Adapted from
 https://github.com/divio/aldryn-search/blob/master/aldryn_search/search_indexes.py
 """
 
-from django.db.models import Q
-from django.utils import timezone
 from django.conf import settings
+from django.db.models import Q
+from django.utils import timezone, translation
 from django.utils.html import strip_tags
-from django.utils import translation
-
-from django_elasticsearch_dsl import Document, fields
-from django_elasticsearch_dsl.registries import registry
 
 from cms.models import Title
+from django_elasticsearch_dsl import Document, fields
+from django_elasticsearch_dsl.registries import registry
 from sekizai.context import SekizaiContext
 
 from froide.helper.search import (
     get_index,
-    get_text_analyzer,
     get_search_analyzer,
     get_search_quote_analyzer,
+    get_text_analyzer,
 )
 
-from .utils import render_placeholder, clean_join, get_request
-
+from .utils import clean_join, get_request, render_placeholder
 
 index = get_index("cmspage")
 

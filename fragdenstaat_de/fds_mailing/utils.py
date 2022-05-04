@@ -1,16 +1,16 @@
 from datetime import timedelta
 
-from django.core.exceptions import PermissionDenied
 from django.conf import settings
 from django.contrib.admin import helpers
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
-from froide.helper.text_utils import convert_html_to_text
 from froide.helper.email_sending import send_mail
 from froide.helper.forms import get_fake_fk_form_class
+from froide.helper.text_utils import convert_html_to_text
 
 
 def add_style(instance, placeholder, context):
@@ -56,7 +56,7 @@ class SetupMailingMixin:
         raise NotImplementedError
 
     def setup_mailing(self, request, queryset):
-        from .models import Mailing, EmailTemplate
+        from .models import EmailTemplate, Mailing
 
         opts = self.model._meta
         # Check that the user has change permission for the actual model
@@ -114,7 +114,8 @@ def add_fake_context(context, intent):
     if intent is None:
         return context
 
-    from fragdenstaat_de.fds_donation.models import Donor, Donation
+    from fragdenstaat_de.fds_donation.models import Donation, Donor
+
     from froide.foirequest.models import FoiRequest
 
     USER_FAKERS = {

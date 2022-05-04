@@ -1,7 +1,7 @@
 from datetime import timedelta
 
-from django.contrib.sitemaps import Sitemap
 from django.conf import settings
+from django.contrib.sitemaps import Sitemap
 from django.utils import timezone
 
 from .models import Article

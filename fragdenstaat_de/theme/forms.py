@@ -1,7 +1,7 @@
-from collections import Counter
 import datetime
 import logging
 import re
+from collections import Counter
 
 from django import forms
 from django.utils import timezone

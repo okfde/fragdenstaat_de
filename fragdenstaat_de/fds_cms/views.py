@@ -1,7 +1,7 @@
 from cms.models import Title
 
-from froide.helper.search.views import BaseSearchView
 from froide.helper.search.filters import BaseSearchFilterSet
+from froide.helper.search.views import BaseSearchView
 
 from .documents import CMSDocument
 

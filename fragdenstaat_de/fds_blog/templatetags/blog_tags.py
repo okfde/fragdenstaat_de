@@ -1,7 +1,7 @@
 from django import template
 
-from ..models import Article
 from ..managers import articles_published
+from ..models import Article
 
 register = template.Library()
 

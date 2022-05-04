@@ -1,9 +1,8 @@
 from django import template
 from django.conf import settings
 
+from ..forms import NewsletterForm, NewslettersUserForm
 from ..models import Newsletter, Subscriber
-from ..forms import NewslettersUserForm, NewsletterForm
-
 
 register = template.Library()
 

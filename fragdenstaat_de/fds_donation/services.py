@@ -1,21 +1,21 @@
+import logging
 from collections import Counter
 from datetime import timedelta
 from decimal import Decimal
-import logging
 from typing import Optional, Tuple
 
+from django.contrib import auth
 from django.db import models
 from django.utils import timezone
-from django.contrib import auth
+
+from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
 from froide.account.models import User
 from froide.account.services import AccountService
 from froide.helper.email_sending import mail_registry
 
-from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
-
-from .models import Donor, Donation
-from .utils import subscribe_donor_newsletter, propose_donor_merge, merge_donors
+from .models import Donation, Donor
+from .utils import merge_donors, propose_donor_merge, subscribe_donor_newsletter
 
 logger = logging.getLogger(__name__)
 
@@ -362,7 +362,7 @@ def confirm_donor_email(donor, request=None):
 
 
 def connect_payments_to_user(donor):
-    from froide_payment.models import Subscription, Order, Customer
+    from froide_payment.models import Customer, Order, Subscription
 
     if not donor.user:
         return

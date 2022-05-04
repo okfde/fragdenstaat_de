@@ -2,28 +2,23 @@ from django.contrib import admin
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
-from leaflet.admin import LeafletGeoAdmin
-
-from froide.georegion.models import GeoRegion
-from froide.georegion import admin as georegion_admin
-
-from froide.publicbody.models import PublicBody, ProposedPublicBody
-from froide.publicbody import admin as pb_admin
-
-from froide_campaign.models import InformationObject
-from froide_campaign.admin import InformationObjectAdmin as OldInformationObjectAdmin
-
-from django_amenities.models import Amenity
 from django_amenities.admin import AmenityAdmin as OldAmenityAdmin
-
+from django_amenities.models import Amenity
 from filer.admin.permissionadmin import PermissionAdmin as BasePermissionAdmin
 from filer.models import FolderPermission
-
-from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
+from fragdenstaat_de.fds_donation.models import Donation
 from fragdenstaat_de.fds_mailing.models import MailingMessage
+from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
+from froide_campaign.admin import InformationObjectAdmin as OldInformationObjectAdmin
+from froide_campaign.models import InformationObject
 from froide_crowdfunding import admin as crowdfunding_admin
 from froide_crowdfunding.models import Contribution
-from fragdenstaat_de.fds_donation.models import Donation
+from leaflet.admin import LeafletGeoAdmin
+
+from froide.georegion import admin as georegion_admin
+from froide.georegion.models import GeoRegion
+from froide.publicbody import admin as pb_admin
+from froide.publicbody.models import ProposedPublicBody, PublicBody
 
 
 class GeoRegionAdmin(georegion_admin.GeoRegionMixin, LeafletGeoAdmin):

@@ -1,6 +1,7 @@
-from cms.toolbar_pool import toolbar_pool
-from cms.extensions.toolbar import ExtensionToolbar
 from django.utils.translation import gettext_lazy as _
+
+from cms.extensions.toolbar import ExtensionToolbar
+from cms.toolbar_pool import toolbar_pool
 
 from .models import FdsPageExtension
 

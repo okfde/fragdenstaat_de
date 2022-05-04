@@ -1,28 +1,21 @@
-from django.db import models
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _
+from django.db import models
 from django.urls import NoReverseMatch
+from django.utils.translation import gettext_lazy as _
 
-from cms.models.pluginmodel import CMSPlugin
-from cms.models.fields import PageField
 from cms.extensions import PageExtension
 from cms.extensions.extension_pool import extension_pool
-
-from filer.fields.image import FilerImageField
+from cms.models.fields import PageField
+from cms.models.pluginmodel import CMSPlugin
+from djangocms_bootstrap4.fields import AttributesField, TagTypeField
 from filer.fields.file import FilerFileField
-
+from filer.fields.image import FilerImageField
+from filingcabinet.models import DocumentPortal, PageAnnotation
 from taggit.models import Tag
 
-from djangocms_bootstrap4.fields import (
-    AttributesField,
-    TagTypeField,
-)
-
-from filingcabinet.models import DocumentPortal, PageAnnotation
-
-from froide.foirequest.models import FoiRequest, FoiProject
-from froide.publicbody.models import Jurisdiction, Category, Classification, PublicBody
 from froide.document.models import Document, DocumentCollection
+from froide.foirequest.models import FoiProject, FoiRequest
+from froide.publicbody.models import Category, Classification, Jurisdiction, PublicBody
 
 
 @extension_pool.register

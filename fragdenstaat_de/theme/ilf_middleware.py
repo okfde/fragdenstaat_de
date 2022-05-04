@@ -7,17 +7,17 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.core.exceptions import DisallowedHost
-from django.utils.http import is_same_domain
 from django.middleware.csrf import (
-    CsrfViewMiddleware,
-    _sanitize_token,
-    _compare_masked_tokens,
     REASON_BAD_REFERER,
-    REASON_NO_CSRF_COOKIE,
     REASON_BAD_TOKEN,
-    REASON_MALFORMED_REFERER,
     REASON_INSECURE_REFERER,
+    REASON_MALFORMED_REFERER,
+    REASON_NO_CSRF_COOKIE,
+    CsrfViewMiddleware,
+    _compare_masked_tokens,
+    _sanitize_token,
 )
+from django.utils.http import is_same_domain
 
 from rest_framework import authentication
 

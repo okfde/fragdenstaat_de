@@ -9,21 +9,24 @@ class FdsDonationConfig(AppConfig):
 
     def ready(self):
         from payments.signals import status_changed
+
         from froide.account import (
             account_canceled,
-            account_merged,
             account_email_changed,
+            account_merged,
         )
         from froide.account.export import registry
-        from froide_payment.signals import subscription_canceled, sepa_notification
+
+        from froide_payment.signals import sepa_notification, subscription_canceled
+
         from .listeners import (
-            payment_status_changed,
-            subscription_was_canceled,
             cancel_user,
-            merge_user,
             export_user_data,
-            user_email_changed,
+            merge_user,
+            payment_status_changed,
             sepa_payment_processing,
+            subscription_was_canceled,
+            user_email_changed,
         )
 
         status_changed.connect(payment_status_changed)
@@ -34,7 +37,7 @@ class FdsDonationConfig(AppConfig):
         account_merged.connect(merge_user)
         registry.register(export_user_data)
 
-        from froide.account.menu import menu_registry, MenuItem
+        from froide.account.menu import MenuItem, menu_registry
 
         def get_donation_menu_item(request):
             return MenuItem(

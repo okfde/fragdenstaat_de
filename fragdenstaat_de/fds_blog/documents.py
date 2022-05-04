@@ -10,14 +10,13 @@ from django_elasticsearch_dsl.registries import registry
 
 from froide.helper.search import (
     get_index,
-    get_text_analyzer,
     get_search_analyzer,
     get_search_quote_analyzer,
+    get_text_analyzer,
 )
-from froide.helper.tasks import search_instance_save, search_instance_delete
+from froide.helper.tasks import search_instance_delete, search_instance_save
 
 from .models import Article
-
 
 index = get_index("article")
 

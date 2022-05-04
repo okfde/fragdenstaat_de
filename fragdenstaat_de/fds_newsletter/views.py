@@ -1,18 +1,18 @@
 from urllib.parse import urlencode
 
-from django.http import HttpResponse
-from django.urls import reverse
 from django.conf import settings
 from django.contrib import messages
-from django.shortcuts import redirect, get_object_or_404, Http404, render
-from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import Http404, get_object_or_404, redirect, render
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from froide.helper.utils import get_redirect
 
-from .models import Newsletter, Subscriber
 from .forms import NewsletterForm, NewslettersUserForm
+from .models import Newsletter, Subscriber
 from .utils import SubscriptionResult
 
 

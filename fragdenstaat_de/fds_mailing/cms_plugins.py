@@ -1,18 +1,17 @@
 from django.conf import settings
+from django.template.loader import TemplateDoesNotExist, get_template
 from django.utils.translation import gettext_lazy as _
-from django.template.loader import get_template, TemplateDoesNotExist
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
 from fragdenstaat_de.fds_newsletter.models import Newsletter
 
 from .models import (
     EmailActionCMSPlugin,
+    EmailHeaderCMSPlugin,
     EmailSectionCMSPlugin,
     EmailStoryCMSPlugin,
-    EmailHeaderCMSPlugin,
     Mailing,
 )
 from .utils import render_plugin_text

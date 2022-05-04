@@ -1,13 +1,12 @@
 from django.urls import path
 
 from .views import (
-    newsletter_ajax_subscribe_request,
-    newsletter_user_settings,
-    newsletter_subscribe_request,
     confirm_subscribe,
     confirm_unsubscribe,
+    newsletter_ajax_subscribe_request,
+    newsletter_subscribe_request,
+    newsletter_user_settings,
 )
-
 
 urlpatterns = [
     path("user-settings/", newsletter_user_settings, name="newsletter_user_settings"),

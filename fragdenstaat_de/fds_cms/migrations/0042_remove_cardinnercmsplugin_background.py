@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0041_migrate_background'),
+        ("fds_cms", "0041_migrate_background"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='cardinnercmsplugin',
-            name='background',
+            model_name="cardinnercmsplugin",
+            name="background",
         ),
     ]

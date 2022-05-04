@@ -1,27 +1,27 @@
 from django.conf import settings
-from django.urls import include, path
 from django.conf.urls.i18n import i18n_patterns
-from django.utils.translation import pgettext_lazy
 from django.contrib.sitemaps import views as sitemaps_views
+from django.urls import include, path
+from django.utils.translation import pgettext_lazy
+
+import fragdenstaat_de.fds_blog.urls  # noqa
+import froide_food.urls  # noqa
+from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
+from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
+from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 
 # Import early to register with api_router
 from froide_campaign import urls as campaign_urls
-import froide_food.urls  # noqa
-import fragdenstaat_de.fds_blog.urls  # noqa
 from froide_govplan.admin import govplan_admin_site
 
 from froide.foirequest.views import dashboard
 from froide.urls import (
-    froide_urlpatterns,
-    api_urlpatterns,
     admin_urls,
+    api_urlpatterns,
+    froide_urlpatterns,
     jurisdiction_urls,
     sitemaps,
 )
-
-from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
-from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
-from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 
 from .views import glyphosat_download, meisterschaften_tippspiel
 

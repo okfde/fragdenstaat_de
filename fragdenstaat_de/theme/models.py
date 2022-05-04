@@ -1,16 +1,15 @@
 from datetime import timedelta
 from urllib.parse import urlencode
 
-from django.shortcuts import redirect
-from django.core.cache import cache
-from django.utils import timezone
-from django.core.mail import mail_managers
 from django.conf import settings
+from django.core.cache import cache
+from django.core.mail import mail_managers
+from django.shortcuts import redirect
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import trans_real
 
 from froide.foirequest.hooks import registry
-
 
 orig_get_language_from_path = trans_real.get_language_from_path
 

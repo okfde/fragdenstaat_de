@@ -1,18 +1,16 @@
 import base64
+import zipfile
 from datetime import datetime
 from io import BytesIO
-import zipfile
 
-from num2words import num2words
-
-from django.utils import formats, timezone
 from django.conf import settings
+from django.utils import formats, timezone
 
 from filer.models.foldermodels import Folder
+from num2words import num2words
 
 from froide.foirequest.pdf_generator import PDFGenerator
 from froide.helper.email_sending import mail_registry
-
 
 MAX_DONATIONS = 26
 

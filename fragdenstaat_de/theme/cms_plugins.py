@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-
 COLUMNS = [
     (2, _("Two")),
     (3, _("Three")),

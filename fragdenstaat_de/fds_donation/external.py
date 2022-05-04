@@ -1,6 +1,6 @@
+import re
 from datetime import timedelta
 from decimal import Decimal
-import re
 
 from django.db.models import Q
 from django.utils import timezone
@@ -11,8 +11,8 @@ import pytz
 from froide_payment.models import Payment, PaymentStatus
 from froide_payment.provider.banktransfer import find_transfer_code
 
+from .models import Donation, Donor
 from .services import create_donation_from_payment, detect_recurring_on_donor
-from .models import Donor, Donation
 
 
 def find_donation(transfer_ident, row):

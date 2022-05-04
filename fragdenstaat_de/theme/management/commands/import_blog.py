@@ -1,39 +1,36 @@
+import glob
+import itertools
+import logging
 import os
 import re
-import glob
-import logging
-import itertools
-
-import pytz
-import requests
-from lxml import etree
-import html5lib
-import markdown
-import yaml
 
 from django.conf import settings
+from django.contrib.redirects.models import Redirect
+from django.contrib.sites.models import Site
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from django.contrib.sites.models import Site
-from django.contrib.redirects.models import Redirect
+from django.template.defaultfilters import slugify
 from django.utils import translation
 from django.utils.dateparse import parse_datetime
-from django.utils.text import Truncator
 from django.utils.html import strip_tags
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.template.defaultfilters import slugify
+from django.utils.text import Truncator
 
-from cms.models.pluginmodel import CMSPlugin
+import html5lib
+import markdown
+import pytz
+import requests
+import yaml
 from cms.api import add_plugin
-
-from filer.models import Image
-from djangocms_text_ckeditor.utils import plugin_to_tag
+from cms.models.pluginmodel import CMSPlugin
 from djangocms_blog.models import Post
+from djangocms_text_ckeditor.utils import plugin_to_tag
+from filer.models import Image
+from lxml import etree
 
 from froide.account.models import User
-
 
 logger = logging.getLogger(__name__)
 
@@ -154,7 +151,7 @@ class Command(BaseCommand):
         for item in self.get_posts(filenames):
             if do_slug and do_slug != item["slug"]:
                 continue
-            logging.info(u"Processing: %s\n", item["title"])
+            logging.info("Processing: %s\n", item["title"])
             link = item.pop("link")
             author = item.pop("author")
             meta = item["meta"]
@@ -187,7 +184,7 @@ class Command(BaseCommand):
                 post.sites.add(self.SITE)
 
                 if created:
-                    logging.info(u"Creating: %s\n", item["title"])
+                    logging.info("Creating: %s\n", item["title"])
                     add_plugin(
                         post.content,
                         "TextPlugin",

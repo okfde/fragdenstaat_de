@@ -1,8 +1,7 @@
 from django.urls import path
 from django.utils.translation import pgettext_lazy
 
-from .views import ProfileOGView, FoiRequestOGView
-
+from .views import FoiRequestOGView, ProfileOGView
 
 urlpatterns = [
     path(

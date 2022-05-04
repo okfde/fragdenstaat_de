@@ -1,18 +1,18 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
 
 from froide.account.models import UserPreference
-from froide.foirequest.models import FoiRequest, FoiMessage
+from froide.foirequest.models import FoiMessage, FoiRequest
 from froide.foirequest.views.request_actions import allow_write_foirequest
-from froide.publicbody.models import PublicBody
 from froide.frontpage.models import FeaturedRequest
 from froide.helper.cache import cache_anonymous_page
+from froide.publicbody.models import PublicBody
 
-from .glyphosat import get_glyphosat_document
 from .forms import TippspielForm
+from .glyphosat import get_glyphosat_document
 
 
 @cache_anonymous_page(15 * 60)

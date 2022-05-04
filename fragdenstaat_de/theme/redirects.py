@@ -1,7 +1,7 @@
 from django.conf import settings
+from django.contrib.redirects.middleware import RedirectFallbackMiddleware
 from django.contrib.redirects.models import Redirect
 from django.contrib.sites.shortcuts import get_current_site
-from django.contrib.redirects.middleware import RedirectFallbackMiddleware
 
 from froide.helper.utils import update_query_params
 

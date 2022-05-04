@@ -1,14 +1,13 @@
+from django.conf.urls import url
 from django.contrib import admin
 from django.shortcuts import redirect, render
-from django.conf.urls import url
+from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
 
-from cms.extensions import PageExtensionAdmin
 from cms.admin.static_placeholder import StaticPlaceholderAdmin
+from cms.extensions import PageExtensionAdmin
 from cms.models.static_placeholder import StaticPlaceholder
-
 
 from .models import FdsPageExtension
 
