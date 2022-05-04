@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load foirequest_tags %}
+{% load legalaction %}
 {% load campaign_tags %}
 
 
@@ -24,7 +25,8 @@
   </li>
   {% endif %}
 
-  {% if object.can_be_escalated and not "food:" in object.reference %}
+  {% can_use_klageautomat object as has_right_permissions %}
+  {% if object.can_be_escalated or has_right_permissions %}
     <li class="alpha-tabs__tab">
       <a
         href="#legalaction-panel"
