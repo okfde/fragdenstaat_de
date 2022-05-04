@@ -26,7 +26,7 @@
   {% endif %}
 
   {% can_use_klageautomat object as has_right_permissions %}
-  {% if object.can_be_escalated or has_right_permissions %}
+  {% if object.is_actionable or has_right_permissions %}
     <li class="alpha-tabs__tab">
       <a
         href="#legalaction-panel"

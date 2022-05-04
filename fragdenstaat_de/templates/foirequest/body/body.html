@@ -24,7 +24,7 @@
 {% endif %}
 
 {% can_use_klageautomat object as has_right_permissions %}
-{% if object.can_be_escalated or has_right_permissions %}
+{% if object.is_actionable or has_right_permissions %}
   <div
     role="tabpanel"
     class="tab-pane fade"
