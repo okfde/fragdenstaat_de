@@ -66,17 +66,19 @@
   }
 }
 
-.backdrop-blue {
-  --backdrop-color: var(--blue-10);
-}
-.backdrop-gray {
-  --backdrop-color: var(--gray-200);
-}
-.backdrop-gray-100 {
-  --backdrop-color: var(--gray-100);
-}
-.backdrop-yellow {
-  --backdrop-color: var(--yellow-100);
+$backdrops: (
+  "blue": "blue-10",
+  "blue-500": "blue-500",
+  "gray": "gray-200",
+  "gray-100": "gray-100",
+  "yellow": "yellow-100",
+  "yellow-200": "yellow-200"
+);
+
+@each $name, $value in $backdrops {
+  .backdrop-#{$name} {
+    --backdrop-color: var(--#{$value});
+  }
 }
 
 /*
