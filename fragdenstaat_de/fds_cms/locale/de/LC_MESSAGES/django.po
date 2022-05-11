@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-10 19:31+0100\n"
-"PO-Revision-Date: 2021-08-30 10:10+0200\n"
+"PO-Revision-Date: 2022-05-11 09:45+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: fragdenstaat_de/fds_cms/admin.py:49
 msgid "Edit"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_cms/apps.py:44
 msgid "Help pages"
-msgstr ""
+msgstr "Hilfebereich"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py:44
 #: fragdenstaat_de/fds_cms/cms_plugins.py:61
@@ -92,7 +92,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py:293
 msgid "Account"
-msgstr ""
+msgstr "Konto"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py:294
 msgid "Set Password Form"
@@ -169,8 +169,6 @@ msgid "Card Link"
 msgstr ""
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py:653
-#, fuzzy
-#| msgid "Read more"
 msgid "Reveal more"
 msgstr "Weiterlesen"
 
@@ -511,6 +509,7 @@ msgstr "Weiterlesen"
 msgid ""
 "%(site)s helps you to make freedom of information requests to public bodies"
 msgstr ""
+"%(site)s hilft Ihnen Informationsfreiheitsanfragen an Behörden zu stellen"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html:15
 msgid "Search support topics"
