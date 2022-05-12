@@ -24,13 +24,18 @@ revealElemets.forEach((element) => {
     button?.parentElement?.remove()
   }
 
-  if (window.location.hash !== '') {
+  const anchored = (): boolean => {
     try {
-      element.querySelector(window.location.hash) != null && destroy()
+      return element.querySelector(window.location.hash) != null
     } catch {
-      destroy()
+      return false
     }
   }
+
+  anchored() && destroy()
+  window.addEventListener('hashchange', () => {
+    anchored() && destroy()
+  })
 
   button?.addEventListener('click', () => {
     button.setAttribute('aria-expanded', 'true')
