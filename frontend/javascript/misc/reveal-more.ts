@@ -17,18 +17,26 @@ revealElemets.forEach((element) => {
   inner.style.maxHeight = cutoff
 
   const button = element.querySelector<HTMLElement>('.reveal-show a')
+  const destroy = (): void => {
+    inner.style.maxHeight = 'none'
+    element.classList.remove('reveal-cutoff', 'transitioning')
+    inner.classList.remove('reveal-inner')
+    button?.parentElement?.remove()
+  }
+
+  if (
+    window.location.hash !== '' &&
+    element.querySelector(window.location.hash) != null
+  ) {
+    destroy()
+  }
 
   button?.addEventListener('click', () => {
+    button.setAttribute('aria-expanded', 'true')
     inner.addEventListener(
       'transitionend',
       () => {
-        button.setAttribute('aria-expanded', 'true')
-
-        // remove reveal styles
-        inner.style.maxHeight = 'none'
-        element.classList.remove('reveal-cutoff', 'transitioning')
-        inner.classList.remove('reveal-inner')
-        button.parentElement?.remove()
+        destroy()
       },
       { once: true }
     )
