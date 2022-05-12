@@ -2,28 +2,19 @@ const revealElemets: NodeListOf<HTMLElement> =
   document.querySelectorAll('.reveal-cutoff')
 
 revealElemets.forEach((element) => {
-  const { cutoff } = element.dataset
+  let { cutoff } = element.dataset
   if (cutoff === undefined) return
 
-  let pixels
-
-  if (cutoff.endsWith('px')) {
-    pixels = parseFloat(cutoff)
-  } else if (cutoff.endsWith('rem')) {
-    pixels =
-      parseFloat(cutoff) *
-      parseFloat(getComputedStyle(document.documentElement).fontSize)
-  } else if (cutoff.endsWith('rows')) {
-    pixels =
+  if (cutoff.endsWith('rows')) {
+    const pixels =
       parseFloat(cutoff) *
       (element.querySelector<HTMLElement>('.col')?.offsetHeight ?? 0)
+    cutoff = `${pixels}px`
   }
-
-  if (pixels === undefined) return
 
   const inner = element.querySelector<HTMLElement>('.reveal-inner')
   if (inner == null) return
-  inner.style.maxHeight = `${pixels}px`
+  inner.style.maxHeight = cutoff
 
   const button = element.querySelector<HTMLElement>('.reveal-show a')
 
@@ -33,8 +24,11 @@ revealElemets.forEach((element) => {
       () => {
         button.setAttribute('aria-expanded', 'true')
 
-        element.classList.add('revealed')
-        element.classList.remove('transitioning')
+        // remove reveal styles
+        inner.style.maxHeight = 'none'
+        element.classList.remove('reveal-cutoff', 'transitioning')
+        inner.classList.remove('reveal-inner')
+        button.parentElement?.remove()
       },
       { once: true }
     )

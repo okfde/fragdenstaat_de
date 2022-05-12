@@ -186,7 +186,10 @@ $backdrops: (
   .reveal-inner {
     position: relative;
     transition: max-height 0.5s ease-out;
-    overflow: hidden;
+    overflow-y: hidden;
+    /* workaround to keep overflowing elements on x-axis visible */
+    margin: 0 -4rem;
+    padding: 0 4rem;
 
     &::after {
       position: absolute;
@@ -226,7 +229,7 @@ $backdrops: (
 
   &.revealed {
     .reveal-inner {
-      overflow: unset;
+      overflow-y: unset;
       max-height: none !important;
     }
 
