@@ -517,3 +517,32 @@ class LatestArticlesPlugin(CMSPlugin):
             "tags",
         )
         return articles[self.offset : self.offset + self.number_of_articles]
+
+
+class ArticlePreviewPlugin(CMSPlugin):
+    """
+    CMS plugin to display one article preview
+    """
+
+    article = models.ForeignKey("Article", on_delete=models.CASCADE)
+    template = models.CharField(
+        _("template"),
+        blank=True,
+        max_length=250,
+        choices=TEMPLATES,
+        help_text=_("template used to display the plugin"),
+    )
+
+    @property
+    def render_template(self):
+        """
+        Override render_template to use
+        the template_to_render attribute
+        """
+        return self.template_to_render
+
+    def __str__(self):
+        if self.article:
+            return self.article.title
+
+        return ""

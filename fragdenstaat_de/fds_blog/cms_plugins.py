@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import TEMPLATES, LatestArticlesPlugin
+from .models import TEMPLATES, ArticlePreviewPlugin, LatestArticlesPlugin
 
 
 @plugin_pool.register_plugin
@@ -20,6 +20,7 @@ class BlogPlugin(CMSPluginBase):
         return instance.template or TEMPLATES[0][0]
 
 
+@plugin_pool.register_plugin
 class BlogLatestArticlesPlugin(BlogPlugin):
     """
     Non cached plugin which returns the latest posts taking into account the
@@ -39,6 +40,7 @@ class BlogLatestArticlesPlugin(BlogPlugin):
         return context
 
 
+@plugin_pool.register_plugin
 class BlogLatestArticlesPluginCached(BlogPlugin):
     """
     Cached plugin which returns the latest published posts
@@ -54,5 +56,21 @@ class BlogLatestArticlesPluginCached(BlogPlugin):
         return context
 
 
-plugin_pool.register_plugin(BlogLatestArticlesPlugin)
-plugin_pool.register_plugin(BlogLatestArticlesPluginCached)
+@plugin_pool.register_plugin
+class BlogArticlePreviewPlugin(CMSPluginBase):
+    """
+    Cached plugin which returns the latest published posts
+    """
+
+    name = _("Article preview")
+    module = "Blog"
+    model = ArticlePreviewPlugin
+    cache = True
+
+    def get_render_template(self, context, instance, placeholder):
+        return instance.template or TEMPLATES[0][0]
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context["article_list"] = [instance.article] if instance.article else []
+        return context
