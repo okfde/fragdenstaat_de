@@ -24,11 +24,12 @@ revealElemets.forEach((element) => {
     button?.parentElement?.remove()
   }
 
-  if (
-    window.location.hash !== '' &&
-    element.querySelector(window.location.hash) != null
-  ) {
-    destroy()
+  if (window.location.hash !== '') {
+    try {
+      element.querySelector(window.location.hash) != null && destroy()
+    } catch {
+      destroy()
+    }
   }
 
   button?.addEventListener('click', () => {
