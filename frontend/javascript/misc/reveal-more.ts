@@ -5,11 +5,16 @@ revealElemets.forEach((element) => {
   let { cutoff } = element.dataset
   if (cutoff === undefined) return
 
+  const originalHeight = element.offsetHeight
+  let pixels = parseFloat(cutoff)
+
   if (cutoff.endsWith('rows')) {
-    const pixels =
+    pixels =
       parseFloat(cutoff) *
       (element.querySelector<HTMLElement>('.col')?.offsetHeight ?? 0)
     cutoff = `${pixels}px`
+  } else if (cutoff.endsWith('rem')) {
+    pixels *= parseFloat(getComputedStyle(document.documentElement).fontSize)
   }
 
   const inner = element.querySelector<HTMLElement>('.reveal-inner')
@@ -36,6 +41,11 @@ revealElemets.forEach((element) => {
   window.addEventListener('hashchange', () => {
     anchored() && destroy()
   })
+
+  // if we only save around half the height, it's not worth it
+  if (originalHeight / pixels < 1.9) {
+    destroy()
+  }
 
   button?.addEventListener('click', () => {
     button.setAttribute('aria-expanded', 'true')
