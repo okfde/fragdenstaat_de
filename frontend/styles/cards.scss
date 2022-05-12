@@ -14,12 +14,17 @@
     }
   }
 
+  /* important required to override icon margin, if both image and icon present */
   &.box-card-has-image-sm {
-    margin-top: 2.5rem;
+    margin-top: 2.5rem !important;
   }
 
   &.box-card-has-image-lg {
-    margin-top: 6rem;
+    margin-top: 6rem !important;
+  }
+
+  &.box-card-has-image-lg-wide {
+    margin-top: 2.5rem !important;
   }
 }
 
