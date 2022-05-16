@@ -8,3 +8,8 @@ test:
 
 testci:
 	python manage.py test tests --keepdb
+
+requirements: requirements.in requirements-dev.in requirements-production.in
+	pip-compile requirements.in
+	pip-compile requirements-dev.in
+	pip-compile requirements-production.in
