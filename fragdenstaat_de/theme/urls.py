@@ -6,6 +6,8 @@ from django.utils.translation import pgettext_lazy
 
 import fragdenstaat_de.fds_blog.urls  # noqa
 import froide_food.urls  # noqa
+from fcdocs_annotate.annotation.api import FeatureViewSet
+from fcdocs_annotate.annotation.views import AnnotateDocumentView
 from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
 from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
@@ -83,6 +85,15 @@ urlpatterns = [
         "tippspiel/",
         meisterschaften_tippspiel,
         name="fragdenstaat-meisterschaften_tippspiel",
+    ),
+    path("fcdocs_annotate/", AnnotateDocumentView.as_view(), name="annotate-view"),
+    path(
+        "api/v1/feature/", FeatureViewSet.as_view({"get": "list"}), name="api-features"
+    ),
+    path(
+        "api/v1/feature/<int:pk>/",
+        FeatureViewSet.as_view({"get": "retrieve"}),
+        name="api-features-detail",
     ),
 ]
 

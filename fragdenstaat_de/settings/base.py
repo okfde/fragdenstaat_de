@@ -91,6 +91,7 @@ class FragDenStaatBase(German, Base):
                 "froide_exam",
                 "froide_govplan.apps.FroideGovPlanConfig",
                 "legal_advice_builder.apps.LegalAdviceBuilderConfig",
+                "fcdocs_annotate.annotation.apps.AnnotationConfig",
                 "tinymce",
             ]
         )
