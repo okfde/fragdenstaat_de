@@ -582,7 +582,7 @@ class FragDenStaatBase(German, Base):
                     )
                 ],
                 recipient_blocklist_regex=rec(
-                    r".*\.de-mail\.de$|^z@bundesnachrichtendienst.de|^pad.donotreply@frontex.europa.eu|^noreply@.*|^empfangsbestaetigung@bahn.de$|.*\.local$"
+                    r".*\.de-mail\.de$|^z@bundesnachrichtendienst.de|^pad.donotreply@frontex.europa.eu|^noreply@.*|^empfangsbestaetigung@bahn.de$|.*\.local$|^postmaster@.*"
                 ),
                 content_urls={
                     "terms": "/nutzungsbedingungen/",
