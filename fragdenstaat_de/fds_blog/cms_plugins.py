@@ -66,6 +66,7 @@ class BlogArticlePreviewPlugin(CMSPluginBase):
     module = "Blog"
     model = ArticlePreviewPlugin
     cache = True
+    raw_id_fields = ("article",)
 
     def get_render_template(self, context, instance, placeholder):
         return instance.template or TEMPLATES[0][0]
