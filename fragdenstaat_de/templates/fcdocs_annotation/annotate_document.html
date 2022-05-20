@@ -2,47 +2,59 @@
 {% load static i18n %}
 
 {% block body %}
-    {% if object %}
-        {% block document_top %}
-        <div class="container-fluid mt-3 mb-5">
-            <h2>{{ object.title }}</h2>
-            {% if not object.public %}
-            <span class="badge badge-secondary">{% trans "private" %}</span>
-            {% endif %}
-            {% if object.description %}
-            <p>
-                {{ object.description }}
-            </p>
-            {% endif %}
-        </div>
-        {% endblock document_top %}
+{% if object %}
+{% block document_top %}
+<div class="container-fluid mt-3 mb-5">
+  <h2>{{ object.title }}</h2>
+  {% if not object.public %}
+  <span class="badge badge-secondary">{% trans "private" %}</span>
+  {% endif %}
+  {% if object.description %}
+  <p>
+    {{ object.description }}
+  </p>
+  {% endif %}
+</div>
+{% endblock document_top %}
 
-        {% block document_main %}
-        <div class="container-fluid mt-3 mb-5">
-            <div class="row">
-                <div class="col">
-                    {% include "filingcabinet/_document_viewer.html" with object=object %}
-                </div>
-                <div class="col">
-                    <form method="POST" class="sticky-top">
-                        {% csrf_token %}
-                        {{ feature_form_set.management_form }}
-                        {% for form in feature_form_set %}
-                            {{ form }}
-                        {% endfor %}
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        {% endblock document_main %}
-    {% else %}
-    <div class="container">
-        <div class="alert alert-success mt-3" role="alert">
-            {% translate 'All done! Thanks a lot for your support.' %}
-        </div>
+{% block document_main %}
+<div class="container-fluid mt-3 mb-5">
+  <div class="row">
+    <div class="col">
+      {% include "filingcabinet/_document_viewer.html" with object=object %}
     </div>
-    {% endif %}
+    <div class="col">
+      <div class="sticky-top">
+        <form method="POST">
+          {% csrf_token %}
+          {{ skipform }}
+          <div class="row">
+            <div class="col">
+              <button type="submit" name="skip" class="btn btn-outline-primary pull-right">Skip &#62;
+                &#62;</button>
+              </div>
+            </div>
+        </form>
+        <form method="POST" class="my-3 border p-3">
+          {% csrf_token %}
+          {{ feature_form_set.management_form }}
+          {% for form in feature_form_set %}
+          {{ form }}
+          {% endfor %}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock document_main %}
+{% else %}
+<div class="container">
+  <div class="alert alert-success mt-3" role="alert">
+    {% translate 'All done! Thanks a lot for your support.' %}
+  </div>
+</div>
+{% endif %}
 
 
 {% endblock %}
