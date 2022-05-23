@@ -7,7 +7,6 @@ from django.utils.translation import pgettext_lazy
 import fragdenstaat_de.fds_blog.urls  # noqa
 import froide_food.urls  # noqa
 from fcdocs_annotate.annotation.api import FeatureViewSet
-from fcdocs_annotate.annotation.views import AnnotateDocumentView
 from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
 from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
@@ -25,7 +24,7 @@ from froide.urls import (
     sitemaps,
 )
 
-from .views import glyphosat_download, meisterschaften_tippspiel
+from .views import FDSAnnotationView, glyphosat_download, meisterschaften_tippspiel
 
 sitemaps["cmspages"] = FdsCMSSitemap
 sitemaps["blog"] = BlogSitemap
@@ -86,7 +85,7 @@ urlpatterns = [
         meisterschaften_tippspiel,
         name="fragdenstaat-meisterschaften_tippspiel",
     ),
-    path("fcdocs_annotate/", AnnotateDocumentView.as_view(), name="annotate-view"),
+    path("fcdocs_annotate/", FDSAnnotationView.as_view(), name="annotate-view"),
     path(
         "api/v1/feature/", FeatureViewSet.as_view({"get": "list"}), name="api-features"
     ),

@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from fcdocs_annotate.annotation.views import AnnotateDocumentView
+
 from froide.account.models import UserPreference
 from froide.foirequest.models import FoiMessage, FoiRequest
 from froide.foirequest.views.request_actions import allow_write_foirequest
@@ -79,3 +81,9 @@ def meisterschaften_tippspiel(request):
     )
 
     return JsonResponse({"user": prefs, "error": error})
+
+
+class FDSAnnotationView(AnnotateDocumentView):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(portal__isnull=True)
