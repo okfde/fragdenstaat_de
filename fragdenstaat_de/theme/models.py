@@ -33,8 +33,9 @@ trans_real.get_language_from_path = wrapping_get_language_from_path
 
 def detect_troll_pre_request_creation(request, **kwargs):
     user = kwargs["user"]
+    data = kwargs["data"]
     if user.trusted():
-        return kwargs
+        return data
 
     ip_address = request.META["REMOTE_ADDR"]
     cache_key = "froide:foirequest:request_per_ip:%s" % ip_address
@@ -49,8 +50,8 @@ def detect_troll_pre_request_creation(request, **kwargs):
     count += 1
 
     if user.is_blocked:
-        kwargs["blocked"] = True
-        return kwargs
+        data["blocked"] = True
+        return data
 
     now = timezone.now()
     diff = now - user.date_joined
@@ -58,9 +59,9 @@ def detect_troll_pre_request_creation(request, **kwargs):
         user.is_blocked = True
         user.save()
         mail_managers(_("User auto blocked"), str(user.pk))
-        kwargs["blocked"] = True
+        data["blocked"] = True
 
-    return kwargs
+    return data
 
 
 registry.register("pre_request_creation", detect_troll_pre_request_creation)
