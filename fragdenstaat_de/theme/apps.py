@@ -16,7 +16,7 @@ class ThemeConfig(AppConfig):
         account_future_canceled.connect(start_legal_backup)
 
 
-def start_legal_backup(sender):
+def start_legal_backup(sender, **kwargs):
     from .tasks import make_legal_backup
 
     make_legal_backup.delay(sender.id)
