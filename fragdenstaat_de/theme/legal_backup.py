@@ -1,3 +1,4 @@
+import base64
 import json
 import os
 
@@ -10,7 +11,9 @@ def get_drive_service():
     from google.oauth2.service_account import Credentials
     from googleapiclient.discovery import build
 
-    service_account_info = json.loads(os.environ["FDS_LEGAL_BACKUP_CREDENTIALS"])
+    service_account_info = json.loads(
+        base64.b64decode(os.environ["FDS_LEGAL_BACKUP_CREDENTIALS"]).decode("utf-8")
+    )
     creds = Credentials.from_service_account_info(service_account_info, scopes=SCOPES)
     return build("drive", "v3", credentials=creds)
 
