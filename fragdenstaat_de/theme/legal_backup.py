@@ -1,4 +1,5 @@
 import base64
+import io
 import json
 import os
 
@@ -47,7 +48,9 @@ def make_legal_backup_for_user(user):
             "parents": [folder_id],
         }
         media = MediaFileUpload(
-            pdf_generator.get_pdf_bytes(), mimetype="application/pdf", resumable=True
+            io.BytesIO(pdf_generator.get_pdf_bytes()),
+            mimetype="application/pdf",
+            resumable=True,
         )
         drive_service.files().create(
             body=file_metadata, media_body=media, fields="id"
