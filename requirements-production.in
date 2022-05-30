@@ -8,3 +8,5 @@ channels_redis
 uvicorn
 sentry-sdk
 py_ravif
+google-api-python-client
+google-auth-httplib2
