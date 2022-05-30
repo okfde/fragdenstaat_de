@@ -36,12 +36,21 @@
             </div>
         </form>
         <form method="POST" class="my-3 border p-3">
+          <h1 class="h6">{% trans "Please indicate which of the following statements are true. If nothing applies simply click 'submit'." %}</h1>
           {% csrf_token %}
           {{ feature_form_set.management_form }}
           {% for form in feature_form_set %}
-          {{ form }}
+              {% for hidden in form.hidden_fields %}
+                  {{ hidden }}
+              {% endfor %}
+              <div class="form-check">
+                  <input class="form-check-input" name="{{ form.value.html_name }}" type="checkbox" id="{{ form.value.id_for_label }}">
+                  <label class="form-check-label" for="{{ form.value.id_for_label }}">
+                      {{ form.value.label }}
+                  </label>
+                </div>
           {% endfor %}
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
       </div>
     </div>
