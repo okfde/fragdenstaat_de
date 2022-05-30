@@ -10,6 +10,9 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import trans_real
 
 from froide.foirequest.hooks import registry
+from froide.helper.email_sending import mail_registry
+
+mail_registry.register("moderation/warn_user", ("user", "foirequest", "action_url"))
 
 orig_get_language_from_path = trans_real.get_language_from_path
 

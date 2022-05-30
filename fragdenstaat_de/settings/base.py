@@ -564,6 +564,33 @@ class FragDenStaatBase(German, Base):
                     rec(r"(https://wetransfer.com/downloads/.*)"),
                     rec(r"(https://send.firefox.com/download/.*)"),
                 ],
+                moderation_triggers=[
+                    {
+                        "name": "nonfoi",
+                        "label": _("Non-FOI"),
+                        "icon": "fa-ban",
+                        "actions": [
+                            ("froide.foirequest.moderation.MarkNonFOI",),
+                            (
+                                "froide.foirequest.moderation.SendUserEmail",
+                                "foirequest/emails/non_foi",
+                            ),
+                        ],
+                    },
+                    {
+                        "name": "warn_user",
+                        "label": _("Give warning"),
+                        "icon": "fa-minus-circle",
+                        "actions": [
+                            ("froide.foirequest.moderation.Depublish",),
+                            ("froide.foirequest.moderation.ApplyUserTag", "watchlist"),
+                            (
+                                "froide.foirequest.moderation.SendUserEmail",
+                                "moderation/warn_user",
+                            ),
+                        ],
+                    },
+                ],
                 closings=[
                     rec(
                         r"\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? *Gr(ü|u|\?)(ß|ss|\?)(?!\s+Gott)(en?)?,?"
