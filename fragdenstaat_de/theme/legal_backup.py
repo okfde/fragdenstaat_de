@@ -20,7 +20,7 @@ def get_drive_service():
 
 
 def make_legal_backup_for_user(user):
-    from apiclient.http import MediaFileUpload
+    from googleapiclient.http import MediaIoBaseUpload
 
     folder_name = "{year}-{month}-{day}:{pk}:{email}:{name}".format(
         year=user.date_left.year,
@@ -47,7 +47,7 @@ def make_legal_backup_for_user(user):
             "name": "{}-{}.pdf".format(foirequest.pk, foirequest.slug),
             "parents": [folder_id],
         }
-        media = MediaFileUpload(
+        media = MediaIoBaseUpload(
             io.BytesIO(pdf_generator.get_pdf_bytes()),
             mimetype="application/pdf",
             resumable=True,
