@@ -588,6 +588,10 @@ class FragDenStaatBase(German, Base):
                                 "froide.foirequest.moderation.SendUserEmail",
                                 "moderation/warn_user",
                             ),
+                            (
+                                "froide.foirequest.moderation.AddUserNote",
+                                "{timestamp}: {moderator} send warning ({foirequst})",
+                            ),
                         ],
                     },
                 ],
