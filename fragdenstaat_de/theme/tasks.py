@@ -14,3 +14,10 @@ def make_legal_backup(user_id):
     except User.DoesNotExist:
         return
     make_legal_backup_for_user(user)
+
+
+@celery_app.task(name="fragdenstaat_de.theme.cleanup_legal_backups_task")
+def cleanup_legal_backups_task():
+    from .legal_backup import cleanup_legal_backups
+
+    cleanup_legal_backups()

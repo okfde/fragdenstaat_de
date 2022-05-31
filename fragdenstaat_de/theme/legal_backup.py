@@ -1,11 +1,17 @@
 import base64
 import io
 import json
+import logging
 import os
+from datetime import date, timedelta
 
 from froide.foirequest.pdf_generator import FoiRequestPDFGenerator
 
+logger = logging.getLogger(__name__)
+
 SCOPES = ["https://www.googleapis.com/auth/drive"]
+
+RETENTION_PERIOD = timedelta(days=365 * 3)  # 3 years
 
 
 def get_drive_service():
@@ -22,10 +28,10 @@ def get_drive_service():
 def make_legal_backup_for_user(user):
     from googleapiclient.http import MediaIoBaseUpload
 
-    folder_name = "{year}-{month}-{day}:{pk}:{email}:{name}".format(
-        year=user.date_left.year,
-        month=user.date_left.month,
-        day=user.date_left.day,
+    logger.info("Creating legal backup of user %s", user.id)
+
+    folder_name = "{date}:{pk}:{email}:{name}".format(
+        date=user.date_left.date().isoformat(),
         pk=user.pk,
         email=user.email,
         name=user.get_full_name(),
@@ -55,3 +61,43 @@ def make_legal_backup_for_user(user):
         drive_service.files().create(
             body=file_metadata, media_body=media, fields="id"
         ).execute()
+    logger.info("Created legal backup of user %s with drive id %s", user.id, folder_id)
+
+
+def cleanup_legal_backups():
+    parent = os.environ["FDS_LEGAL_BACKUP_FOLDER_ID"]
+    drive_service = get_drive_service()
+    page_token = None
+    deleted_any = False
+
+    while True:
+        response = (
+            drive_service.files()
+            .list(
+                q="mimeType='application/vnd.google-apps.folder' and '{parent}' in parents".format(
+                    parent=parent
+                ),
+                fields="nextPageToken, files(id, name)",
+                pageToken=page_token,
+            )
+            .execute()
+        )
+        today = date.today()
+        for folder in response.get("files", []):
+            name = folder["name"]
+            cancel_date = date.fromisoformat(name.split(":")[0])
+            if cancel_date + RETENTION_PERIOD < today:
+                logger.info(
+                    "Deleting expired legal backup %s with drive id %s",
+                    name,
+                    folder["id"],
+                )
+                drive_service.files().delete(fileId=folder["id"]).execute()
+                deleted_any = True
+
+        page_token = response.get("nextPageToken", None)
+        if page_token is None:
+            break
+
+    if deleted_any:
+        drive_service.files().emptyTrash().execute()
