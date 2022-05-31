@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: froide-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-10 19:31+0100\n"
+"POT-Creation-Date: 2022-05-31 11:10+0200\n"
 "PO-Revision-Date: 2021-07-21 11:46+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: OKF-DE <info@fragdenstaat.de>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: fragdenstaat_de/theme/admin.py:127
+#: fragdenstaat_de/theme/admin.py:122
 #, python-brace-format
 msgid "Prepared mailing to crowdfunding contributors with {count} recipients"
 msgstr ""
@@ -28,123 +28,123 @@ msgstr ""
 msgid "FragDenStaat"
 msgstr "FragDenStaat"
 
-#: fragdenstaat_de/theme/cms_plugins.py:8
+#: fragdenstaat_de/theme/cms_plugins.py:7
 msgid "Two"
 msgstr "Zwei"
 
-#: fragdenstaat_de/theme/cms_plugins.py:9
+#: fragdenstaat_de/theme/cms_plugins.py:8
 msgid "Three"
 msgstr "Drei"
 
-#: fragdenstaat_de/theme/cms_plugins.py:10
+#: fragdenstaat_de/theme/cms_plugins.py:9
 msgid "Four"
 msgstr "Vier"
 
-#: fragdenstaat_de/theme/cms_plugins.py:11
+#: fragdenstaat_de/theme/cms_plugins.py:10
 msgid "Five"
 msgstr "Fünf"
 
-#: fragdenstaat_de/theme/cms_plugins.py:12
+#: fragdenstaat_de/theme/cms_plugins.py:11
 msgid "Six"
 msgstr "Sechs"
 
-#: fragdenstaat_de/theme/cms_plugins.py:13
+#: fragdenstaat_de/theme/cms_plugins.py:12
 msgid "Seven"
 msgstr "Sieben"
 
-#: fragdenstaat_de/theme/cms_plugins.py:14
+#: fragdenstaat_de/theme/cms_plugins.py:13
 msgid "Eight"
 msgstr "Acht"
 
-#: fragdenstaat_de/theme/cms_plugins.py:15
+#: fragdenstaat_de/theme/cms_plugins.py:14
 msgid "Nine"
 msgstr "Neun"
 
-#: fragdenstaat_de/theme/cms_plugins.py:16
+#: fragdenstaat_de/theme/cms_plugins.py:15
 msgid "Ten"
 msgstr "Zehn"
 
-#: fragdenstaat_de/theme/cms_plugins.py:17
+#: fragdenstaat_de/theme/cms_plugins.py:16
 msgid "Twelve"
 msgstr "Zwölf"
 
-#: fragdenstaat_de/theme/cms_plugins.py:25
-#: fragdenstaat_de/theme/cms_plugins.py:33
-#: fragdenstaat_de/theme/cms_plugins.py:41
-#: fragdenstaat_de/theme/cms_plugins.py:59
-#: fragdenstaat_de/theme/cms_plugins.py:69
-#: fragdenstaat_de/theme/cms_plugins.py:79
-#: fragdenstaat_de/theme/cms_plugins.py:89
-#: fragdenstaat_de/theme/cms_plugins.py:99
-#: fragdenstaat_de/theme/cms_plugins.py:109
-#: fragdenstaat_de/theme/cms_plugins.py:118
-#: fragdenstaat_de/theme/cms_plugins.py:139
+#: fragdenstaat_de/theme/cms_plugins.py:24
+#: fragdenstaat_de/theme/cms_plugins.py:32
+#: fragdenstaat_de/theme/cms_plugins.py:40
+#: fragdenstaat_de/theme/cms_plugins.py:58
+#: fragdenstaat_de/theme/cms_plugins.py:68
+#: fragdenstaat_de/theme/cms_plugins.py:78
+#: fragdenstaat_de/theme/cms_plugins.py:88
+#: fragdenstaat_de/theme/cms_plugins.py:98
+#: fragdenstaat_de/theme/cms_plugins.py:108
+#: fragdenstaat_de/theme/cms_plugins.py:117
+#: fragdenstaat_de/theme/cms_plugins.py:138
 msgid "Structure"
 msgstr "Struktur"
 
-#: fragdenstaat_de/theme/cms_plugins.py:26
+#: fragdenstaat_de/theme/cms_plugins.py:25
 msgid "Container"
 msgstr "Container"
 
-#: fragdenstaat_de/theme/cms_plugins.py:34
+#: fragdenstaat_de/theme/cms_plugins.py:33
 msgid "Container Fluid"
 msgstr "Container Flüssig"
 
-#: fragdenstaat_de/theme/cms_plugins.py:42
+#: fragdenstaat_de/theme/cms_plugins.py:41
 msgid "Container Grey"
 msgstr "Container Grau"
 
-#: fragdenstaat_de/theme/cms_plugins.py:60
+#: fragdenstaat_de/theme/cms_plugins.py:59
 msgid "Row"
 msgstr "Zeile"
 
-#: fragdenstaat_de/theme/cms_plugins.py:70
+#: fragdenstaat_de/theme/cms_plugins.py:69
 msgid "Row Left Aligned"
 msgstr "Zeile Links ausgerichtet"
 
-#: fragdenstaat_de/theme/cms_plugins.py:80
+#: fragdenstaat_de/theme/cms_plugins.py:79
 msgid "Row Right Aligned"
 msgstr "Zeile Rechts ausgerichtet"
 
-#: fragdenstaat_de/theme/cms_plugins.py:90
+#: fragdenstaat_de/theme/cms_plugins.py:89
 msgid "Row Spaced Around"
 msgstr "Zeile mit Raum herum"
 
-#: fragdenstaat_de/theme/cms_plugins.py:100
+#: fragdenstaat_de/theme/cms_plugins.py:99
 msgid "Row Spaced Between"
 msgstr "Zeile mit Raum dazwischen"
 
-#: fragdenstaat_de/theme/cms_plugins.py:110
+#: fragdenstaat_de/theme/cms_plugins.py:109
 msgid "Row Narrow"
 msgstr "Zeile Eng"
 
-#: fragdenstaat_de/theme/cms_plugins.py:130
+#: fragdenstaat_de/theme/cms_plugins.py:129
 #, python-format
 msgid "Column %s"
 msgstr "Spalte %s"
 
-#: fragdenstaat_de/theme/cms_plugins.py:141
+#: fragdenstaat_de/theme/cms_plugins.py:140
 msgid "Column Teaser Three"
 msgstr "Spalte Teaser Drei"
 
-#: fragdenstaat_de/theme/cms_plugins.py:147
-#: fragdenstaat_de/theme/cms_plugins.py:154
+#: fragdenstaat_de/theme/cms_plugins.py:146
+#: fragdenstaat_de/theme/cms_plugins.py:153
 msgid "Menu"
 msgstr "Menü"
 
-#: fragdenstaat_de/theme/cms_plugins.py:148
+#: fragdenstaat_de/theme/cms_plugins.py:147
 msgid "Sub Menu"
 msgstr "Unter-Menü"
 
-#: fragdenstaat_de/theme/cms_plugins.py:155
+#: fragdenstaat_de/theme/cms_plugins.py:154
 msgid "Page Sub Menu"
 msgstr "Seiten-Untermenü"
 
-#: fragdenstaat_de/theme/models.py:61
+#: fragdenstaat_de/theme/models.py:64
 msgid "User auto blocked"
 msgstr "User automatisch blockiert"
 
-#: fragdenstaat_de/theme/urls.py:113
+#: fragdenstaat_de/theme/urls.py:125
 msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-10 19:31+0100\n"
-"PO-Revision-Date: 2022-02-21 14:08+0100\n"
+"POT-Creation-Date: 2022-05-31 11:10+0200\n"
+"PO-Revision-Date: 2022-05-31 11:14+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,163 +16,179 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: fragdenstaat_de/fds_mailing/admin.py:178
+msgid "Recipients"
+msgstr ""
+
+#: fragdenstaat_de/fds_mailing/admin.py:185
 msgid "Continue sending selected mailings."
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/admin.py:181
+#: fragdenstaat_de/fds_mailing/admin.py:188
 msgid "Continue sending mailing"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/admin.py:195
+#: fragdenstaat_de/fds_mailing/admin.py:202
 msgid "Mailing already sent."
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/admin.py:199
+#: fragdenstaat_de/fds_mailing/admin.py:206
 msgid "Mailing sending date in the past."
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/admin.py:216
+#: fragdenstaat_de/fds_mailing/admin.py:223
 msgid "Your mailing is being sent."
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/admin.py:274
+#: fragdenstaat_de/fds_mailing/admin.py:281
 msgid "Setup mailing to users..."
 msgstr "Lege Mailing für diese User an..."
 
-#: fragdenstaat_de/fds_mailing/admin.py:283
+#: fragdenstaat_de/fds_mailing/admin.py:290
 msgid "You can only send to one user at a time."
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/admin.py:289
+#: fragdenstaat_de/fds_mailing/admin.py:296
 msgid "Email was sent."
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/admin.py:293
+#: fragdenstaat_de/fds_mailing/admin.py:300
 msgid "Send email via template..."
 msgstr ""
+
+#: fragdenstaat_de/fds_mailing/admin.py:309
+msgid "Public Body Mailing"
+msgstr ""
+
+#: fragdenstaat_de/fds_mailing/admin.py:320
+msgid "Mailing was set up."
+msgstr ""
+
+#: fragdenstaat_de/fds_mailing/admin.py:324
+msgid "Setup mailing for public bodies..."
+msgstr "Lege Mailing für diese Behörden an..."
 
 #: fragdenstaat_de/fds_mailing/apps.py:7
 msgid "FragDenStaat Mailings"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:44
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:69
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:117
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:142
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:167
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:43
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:68
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:116
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:141
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:166
 #: fragdenstaat_de/fds_newsletter/forms.py:20
-#: fragdenstaat_de/settings/base.py:309
+#: fragdenstaat_de/settings/base.py:308
 msgid "Email"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:45
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:44
 msgid "Email Body"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:70
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:69
 msgid "Email Action"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:118
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:117
 msgid "Email Section"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:143
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:142
 msgid "Email Story"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:168
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:167
 msgid "Email Header"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:178
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:177
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py:13
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py:28
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py:46
 msgid "Newsletter"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/cms_plugins.py:179
+#: fragdenstaat_de/fds_mailing/cms_plugins.py:178
 msgid "Newsletter Archive"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:34
+#: fragdenstaat_de/fds_mailing/models.py:31
 msgid "Default template"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:35
+#: fragdenstaat_de/fds_mailing/models.py:32
 msgid "Newsletter template"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:36
+#: fragdenstaat_de/fds_mailing/models.py:33
 msgid "Formal email template"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:60
+#: fragdenstaat_de/fds_mailing/models.py:57
 msgid "email template"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:61
+#: fragdenstaat_de/fds_mailing/models.py:58
 msgid "email templates"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:270
+#: fragdenstaat_de/fds_mailing/models.py:267
 msgid "image"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:310
+#: fragdenstaat_de/fds_mailing/models.py:307
 msgid "publish"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:311
+#: fragdenstaat_de/fds_mailing/models.py:308
 msgid "Publish in archive."
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:317
+#: fragdenstaat_de/fds_mailing/models.py:314
 msgid "ready"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:320
+#: fragdenstaat_de/fds_mailing/models.py:317
 msgid "submitted"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:323
+#: fragdenstaat_de/fds_mailing/models.py:320
 msgid "sending date"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:326
+#: fragdenstaat_de/fds_mailing/models.py:323
 msgid "sent date"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:328
+#: fragdenstaat_de/fds_mailing/models.py:325
 msgid "sent"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:330
+#: fragdenstaat_de/fds_mailing/models.py:327
 msgid "sending"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:335
+#: fragdenstaat_de/fds_mailing/models.py:332
 msgid "mailing"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:336
+#: fragdenstaat_de/fds_mailing/models.py:333
 msgid "mailings"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:384
+#: fragdenstaat_de/fds_mailing/models.py:381
 #, python-format
 msgid "Sending %(mailing)s to %(count)d people"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:428
+#: fragdenstaat_de/fds_mailing/models.py:426
 msgid "mailing message"
 msgstr ""
 
-#: fragdenstaat_de/fds_mailing/models.py:429
+#: fragdenstaat_de/fds_mailing/models.py:427
 msgid "mailing messages"
 msgstr ""
 
@@ -249,32 +265,32 @@ msgstr "Übernehmen"
 msgid "Prepare mailing to selected recipients..."
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/admin.py:42
+#: fragdenstaat_de/fds_newsletter/admin.py:34
 msgid "active subscriber count"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/admin.py:54
+#: fragdenstaat_de/fds_newsletter/admin.py:46
 msgid "See all subscribers"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/admin.py:75
+#: fragdenstaat_de/fds_newsletter/admin.py:67
 msgid "Subscribed date"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/admin.py:77
+#: fragdenstaat_de/fds_newsletter/admin.py:69
 msgid "Unsubscribed date"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/admin.py:78
-#: fragdenstaat_de/fds_newsletter/admin.py:122
+#: fragdenstaat_de/fds_newsletter/admin.py:70
+#: fragdenstaat_de/fds_newsletter/admin.py:114
 msgid "Days subscribed"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/admin.py:128
+#: fragdenstaat_de/fds_newsletter/admin.py:120
 msgid "Unsubscribe"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/admin.py:142
+#: fragdenstaat_de/fds_newsletter/admin.py:134
 msgid "Export to CSV"
 msgstr ""
 
@@ -302,89 +318,89 @@ msgstr ""
 msgid "Newsletters"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:77
+#: fragdenstaat_de/fds_newsletter/models.py:76
 msgid "newsletter title"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:84
-#: fragdenstaat_de/fds_newsletter/models.py:142
+#: fragdenstaat_de/fds_newsletter/models.py:83
+#: fragdenstaat_de/fds_newsletter/models.py:141
 msgid "e-mail"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:84
+#: fragdenstaat_de/fds_newsletter/models.py:83
 msgid "Sender e-mail"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:87
+#: fragdenstaat_de/fds_newsletter/models.py:86
 msgid "sender"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:87
+#: fragdenstaat_de/fds_newsletter/models.py:86
 msgid "Sender name"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:90
+#: fragdenstaat_de/fds_newsletter/models.py:89
 msgid "visible"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:95
-#: fragdenstaat_de/fds_newsletter/models.py:126
+#: fragdenstaat_de/fds_newsletter/models.py:94
+#: fragdenstaat_de/fds_newsletter/models.py:125
 msgid "newsletter"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:96
+#: fragdenstaat_de/fds_newsletter/models.py:95
 msgid "newsletters"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:104
+#: fragdenstaat_de/fds_newsletter/models.py:103
 msgid "Subscriber Tag"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:105
+#: fragdenstaat_de/fds_newsletter/models.py:104
 msgid "Subscriber Tags"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:115
+#: fragdenstaat_de/fds_newsletter/models.py:114
 msgid "Tagged Subscriber"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:116
+#: fragdenstaat_de/fds_newsletter/models.py:115
 msgid "Tagged Subscribers"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:135
+#: fragdenstaat_de/fds_newsletter/models.py:134
 msgid "user"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:140
+#: fragdenstaat_de/fds_newsletter/models.py:139
 msgid "name"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:151
+#: fragdenstaat_de/fds_newsletter/models.py:150
 msgid "activation code"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:154
+#: fragdenstaat_de/fds_newsletter/models.py:153
 msgid "subscribe date"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:157
+#: fragdenstaat_de/fds_newsletter/models.py:156
 msgid "unsubscribe date"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:168
+#: fragdenstaat_de/fds_newsletter/models.py:167
 msgid "newsletter subscriber"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:169
+#: fragdenstaat_de/fds_newsletter/models.py:168
 msgid "newsletter subscribers"
 msgstr ""
 
-#: fragdenstaat_de/fds_newsletter/models.py:202
+#: fragdenstaat_de/fds_newsletter/models.py:201
 msgid "User with that email already present."
 msgstr "Konto mit der E-Mail-Adresse schon vorhanden."
 
-#: fragdenstaat_de/fds_newsletter/models.py:204
+#: fragdenstaat_de/fds_newsletter/models.py:203
 msgid "Email for this user already present."
 msgstr "E-Mail-Adresse für diesen Nutzer schon vorhanden."
 
@@ -444,44 +460,52 @@ msgstr "Abos anpassen"
 msgid "FragDenStaat OG Image"
 msgstr ""
 
-#: fragdenstaat_de/fds_ogimage/urls.py:9
+#: fragdenstaat_de/fds_ogimage/urls.py:8
 msgctxt "url part"
 msgid "profile/<str:slug>/_og/"
 msgstr "profil/<str:slug>/_og/"
 
-#: fragdenstaat_de/fds_ogimage/urls.py:14
+#: fragdenstaat_de/fds_ogimage/urls.py:13
 msgctxt "url part"
 msgid "request/<str:slug>/_og/"
 msgstr "anfrage/<str:slug>/_og/"
 
-#: fragdenstaat_de/settings/base.py:25 fragdenstaat_de/settings/base.py:178
+#: fragdenstaat_de/settings/base.py:25 fragdenstaat_de/settings/base.py:177
 msgid "German"
 msgstr "Deutsch"
 
-#: fragdenstaat_de/settings/base.py:26 fragdenstaat_de/settings/base.py:185
+#: fragdenstaat_de/settings/base.py:26 fragdenstaat_de/settings/base.py:184
 msgid "English"
 msgstr "Englisch"
 
-#: fragdenstaat_de/settings/base.py:144
+#: fragdenstaat_de/settings/base.py:145
 msgid "No image in article"
 msgstr ""
 
-#: fragdenstaat_de/settings/base.py:226
+#: fragdenstaat_de/settings/base.py:225
 msgid "E-Mail Body"
 msgstr ""
 
-#: fragdenstaat_de/settings/base.py:309
+#: fragdenstaat_de/settings/base.py:308
 msgid "Hero"
 msgstr ""
+
+#: fragdenstaat_de/settings/base.py:570
+msgid "Non-FOI"
+msgstr ""
+
+#: fragdenstaat_de/settings/base.py:582
+msgid "Give warning"
+msgstr "Verwarnen"
 
 #: fragdenstaat_de/templates/account/admin_send_mail.html:5
 #: fragdenstaat_de/templates/account/admin_send_mail.html:8
 msgid "Prepare mailing to users"
-msgstr ""
+msgstr "Bereite Mailing für Nutzer:innen vor"
 
 #: fragdenstaat_de/templates/account/admin_send_mail.html:15
 msgid "Mailing name"
-msgstr ""
+msgstr "Name des Mailings"
 
 #: fragdenstaat_de/templates/account/admin_send_mail.html:18
 #, python-format
@@ -494,7 +518,21 @@ msgstr[1] ""
 msgid "Your browser doesn't support this video format."
 msgstr "Ihr Browser unterstützt diese Video-Format nicht."
 
-#: fragdenstaat_de/templates/foirequest/body/body.html:50
+#: fragdenstaat_de/templates/fcdocs_annotation/annotate_document.html:10
+msgid "private"
+msgstr ""
+
+#: fragdenstaat_de/templates/fcdocs_annotation/annotate_document.html:39
+msgid ""
+"Please indicate which of the following statements are true. If nothing "
+"applies simply click 'submit'."
+msgstr ""
+
+#: fragdenstaat_de/templates/fcdocs_annotation/annotate_document.html:63
+msgid "All done! Thanks a lot for your support."
+msgstr "Fertig! Vielen Dank für die Unterstützung!"
+
+#: fragdenstaat_de/templates/foirequest/body/body.html:48
 msgid "Questionnaire"
 msgstr "Fragebogen"
 
@@ -630,6 +668,16 @@ msgstr "Erfolgreiche Anfragen"
 #: fragdenstaat_de/templates/index.html:53
 msgid "Visit this request"
 msgstr "Anfrage besuchen"
+
+#: fragdenstaat_de/templates/legal_advice_builder/answer_form.html:11
+#: fragdenstaat_de/templates/legal_advice_builder/form_wizard.html:11
+#: fragdenstaat_de/templates/legal_advice_builder/klageautomat_info.html:11
+msgid "My requests"
+msgstr "Meine Anfragen"
+
+#: fragdenstaat_de/templates/moderation/warn_user_subject.txt:1
+msgid "Warning: violation of terms"
+msgstr "Warnung: Verstoß gegen Nutzungsbedingungen"
 
 #. Translators: meta keywords
 #: fragdenstaat_de/templates/snippets/meta.html:5
