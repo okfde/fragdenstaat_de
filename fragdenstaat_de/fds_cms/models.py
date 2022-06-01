@@ -578,3 +578,41 @@ class RevealMoreCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return self.text()
+
+
+class BorderedSectionCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255, blank=True)
+    border = models.CharField(
+        _("Border"),
+        max_length=50,
+        default="gray",
+        choices=(
+            ("blue", _("Blue")),
+            ("gray", _("Gray")),
+            ("yellow", _("Yellow")),
+        ),
+    )
+    spacing = models.CharField(
+        _("Spacing"),
+        max_length=3,
+        default="md",
+        choices=(
+            ("sm", _("Small")),
+            ("md", _("Medium")),
+            ("lg", _("Large")),
+        ),
+    )
+    heading = models.CharField(
+        _("Heading level"),
+        max_length=5,
+        default="h3",
+        choices=(
+            ("h1", _("Headline 1")),
+            ("h2", _("Headline 2")),
+            ("h3", _("Headline 3")),
+            ("h4", _("Headline 4")),
+            ("h5", _("Headline 5")),
+            ("h6", _("Headline 6")),
+        ),
+    )
+    attributes = AttributesField()

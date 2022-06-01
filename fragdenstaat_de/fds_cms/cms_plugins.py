@@ -11,6 +11,7 @@ from froide.helper.utils import get_redirect_url
 
 from .contact import ContactForm
 from .models import (
+    BorderedSectionCMSPlugin,
     CardCMSPlugin,
     CardHeaderCMSPlugin,
     CardIconCMSPlugin,
@@ -656,3 +657,30 @@ class RevealMorePlugin(CMSPluginBase):
     render_template = "fds_cms/reveal.html"
     allow_children = True
     cache = True
+
+
+@plugin_pool.register_plugin
+class BorderedSectionPlugin(CMSPluginBase):
+    model = BorderedSectionCMSPlugin
+    module = _("Elements")
+    name = _("Bordered section")
+    render_template = "fds_cms/bordered_section.html"
+    allow_children = True
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        context["color"] = self.color(instance)
+        context["padding"] = self.padding(instance)
+        return super().render(context, instance, placeholder)
+
+    def color(self, instance):
+        colormap = {"yellow": "yellow-300", "blue": "blue-700", "gray": "gray-900"}
+
+        return colormap[instance.border]
+
+    def padding(self, instance):
+        if instance.spacing == "lg":
+            return "p-3 p-md-4 p-lg-5"
+        elif instance.spacing == "md":
+            return "p-3 p-md-4"
+        return "p-3"

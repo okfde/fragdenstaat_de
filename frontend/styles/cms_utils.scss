@@ -247,3 +247,15 @@ $backdrops: (
     column-gap: 2rem;
   }
 }
+
+.bordered-section {
+  margin-top: 0.65em;
+  
+  .bordered-section-headline {
+    margin-top: -0.65em;
+    margin-bottom: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    text-align: center;
+  }
+}
