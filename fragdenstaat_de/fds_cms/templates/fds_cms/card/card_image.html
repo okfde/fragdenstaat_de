@@ -1,7 +1,7 @@
 {% load thumbnail %}
 {% load markup %}
 
-<div class="box-card-image overlap-{{ instance.overlap }}{% if instance.overlap == 'left' %} col-md-4 col-lg-3{% endif %} text-center">
+{% if instance.link %}<a href="{{ instance.link }}"{% else %}<div{% endif %} class="d-block box-card-image overlap-{{ instance.overlap }}{% if instance.overlap == 'left' %} col-md-4 col-lg-3{% endif %} text-center">
   {% with picture=instance.image %}
     <picture>
       {% if ".svg" not in picture.url %}
@@ -26,4 +26,4 @@
           {{ instance.attributes_str }}>
     </picture>
   {% endwith %}
-</div>
+{% if instance.link %}</a>{% else %}</div>{% endif %}

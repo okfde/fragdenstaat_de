@@ -466,6 +466,19 @@ class CardImageCMSPlugin(CMSPlugin):
         on_delete=models.SET_NULL,
         verbose_name=_("image"),
     )
+    url = models.CharField(
+        _("link"),
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text=_("if present image will be clickable"),
+    )
+    page_link = PageField(
+        null=True,
+        blank=True,
+        help_text=_("if present image will be clickable"),
+        verbose_name=_("page link"),
+    )
     overlap = models.CharField(
         _("Overlap"),
         choices=(("left", _("Left")), ("right", _("Right")), ("center", _("Center"))),
@@ -483,6 +496,15 @@ class CardImageCMSPlugin(CMSPlugin):
         default="lg",
     )
     attributes = AttributesField()
+
+    def link(self):
+        if self.url:
+            return self.url
+        elif self.page_link_id:
+            try:
+                return self.page_link.get_absolute_url()
+            except NoReverseMatch:
+                return
 
 
 class CardIconCMSPlugin(CMSPlugin):
