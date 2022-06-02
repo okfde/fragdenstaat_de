@@ -583,6 +583,10 @@ pyasn1-modules==0.2.8
     #   service-identity
 pycparser==2.20
     # via cffi
+pygtail==0.12.0
+    # via
+    #   -r requirements.in
+    #   froide
 pyhamcrest==2.0.2
     # via twisted
 pyisemail==1.3.2

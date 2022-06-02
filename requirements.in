@@ -50,6 +50,7 @@ pandas
 phonenumbers
 Pillow>=9.0.0
 psycopg2-binary
+pygtail
 pyisemail
 pypdf2
 python-magic
