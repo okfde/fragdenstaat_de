@@ -60,7 +60,7 @@ class NewsletterLogicMixin:
                 context["user"] = context["request"].user
         if context.get("user") and context["user"].is_authenticated:
             subscribers = Subscriber.objects.filter(
-                newsletter_slug=settings.DEFAULT_NEWSLETTER, user=context["user"]
+                newsletter__slug=settings.DEFAULT_NEWSLETTER, user=context["user"]
             )
             if subscribers:
                 context["subscriber"] = subscribers[0]
