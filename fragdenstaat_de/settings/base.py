@@ -590,7 +590,7 @@ class FragDenStaatBase(German, Base):
                             ),
                             (
                                 "froide.foirequest.moderation.AddUserNote",
-                                "{timestamp}: {moderator} send warning ({foirequst})",
+                                "{timestamp}: {moderator} send warning ({foirequest})",
                             ),
                         ],
                     },
