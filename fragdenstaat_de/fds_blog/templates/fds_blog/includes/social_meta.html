@@ -1,14 +1,14 @@
 {% load cms_tags %}
 {% load thumbnail %}
 
-<!-- Schema.org markup for Google+ -->
+{# Schema.org markup for Google+ #}
 <meta itemprop="name" content="{{ article.title }}">
 {% if article.abstract %}
     <meta itemprop="description" content="{{ article.abstract|striptags }}">
 {% endif %}
 
 
-<!-- Twitter Card data -->
+{# Twitter Card data #}
 
 <meta name="twitter:site" content="@fragdenstaat">
 <meta name="twitter:title" content="{{ article.title }}">
@@ -26,7 +26,7 @@
 
 
 
-<!-- Open Graph data -->
+{# Open Graph data #}
 <meta property="og:title" content="{{ article.title }}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="{{ SITE_URL }}{{ article.get_absolute_url }}" />

@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex"/>
 {% endif %}
 
-<!-- Schema.org markup -->
+{# Schema.org markup #}
 {% if not description %}
   {% page_attribute 'meta_description' as description %}
 {% endif %}
@@ -20,7 +20,7 @@
 {% endif %}
 <meta name="description" content="{% if description %}{{ description }}{% else %}{% blocktrans with site=SITE_NAME %}{{ site }} helps you to make freedom of information requests to public bodies{% endblocktrans %}{% endif %}"/>
 
-<!-- Twitter Card data -->
+{# Twitter Card data #}
 
 <meta name="twitter:site" content="@fragdenstaat">
 <meta name="twitter:title" content="{{ title }}">
@@ -41,7 +41,7 @@
 
 
 
-<!-- Open Graph data -->
+{# Open Graph data #}
 <meta property="og:title" content="{{ title }}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="{{ SITE_URL }}{{ object.get_absolute_url }}" />

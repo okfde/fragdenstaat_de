@@ -11,7 +11,7 @@
     <meta itemprop="description" content="{{ object.description }}">
   {% endif %}
 
-  <!-- Twitter Card data -->
+  {# Twitter Card data #}
 
   <meta name="twitter:site" content="@fragdenstaat">
   <meta name="twitter:title" content="{{ object.title }}">
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image:src" content="{% thumbnail object.get_cover_image_file 1120x600 crop %}">
 
-  <!-- Open Graph data -->
+  {# Open Graph data #}
   <meta property="og:title" content="{{ object.title }}" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ SITE_URL }}{{ object.get_absolute_url }}" />

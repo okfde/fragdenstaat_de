@@ -21,23 +21,23 @@
   </div>
   {% endblock %}
 
-  <!-- Mobile menu -->
+  {# Mobile menu #}
   <div class="drawer-menu d-flex d-md-none">
 
-    <!-- Spenden button -->
+    {# Spenden button #}
     <a title="{% blocktrans %}Donate{% endblocktrans %}" class="d-flex d-md-none align-items-center text-danger text-decoration-none mr-1" href="/spenden/?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
       <i class="fa fa-heart d-md-none d-lg-inline-block mr-1" aria-hidden="true"></i>
     </a>
 
-    <!-- Toggle button -->
+    {# Toggle button #}
     <button type="button" class="drawer-menu__toggle" aria-label="{% translate 'Menu' %}">
       <i class="fa fa-bars" aria-hidden="true"></i>
     </button>
 
-    <!-- Menu wrapper -->
+    {# Menu wrapper #}
     <nav class="drawer-menu__wrapper drawer-menu__wrapper--inital">
 
-      <!-- User menu -->
+      {# User menu #}
       {% if request.user.is_authenticated %}
       <ul class="list-unstyled mb-0">
         <li class="py-3 px-3 bg-blue-800 text-white">
@@ -79,9 +79,9 @@
       </ul>
       {% endif %}
 
-      <!-- Page Menu -->
+      {# Page Menu #}
       <ul class="list-unstyled mb-0 {% if not request.user.is_authenticated %}mt-3{% endif %}">
-        <!-- Anfragen drawer-menu__dropdown -->
+        {# Anfragen drawer-menu__dropdown #}
         <li>
           <a class="drawer-menu__link drawer-menu__link--white drawer-menu__dropdown-trigger" href="{% url 'foirequest-list' %}">
             <span>{% blocktrans %}Requests{% endblocktrans %}</span>
@@ -131,7 +131,7 @@
         {% endif %}
       </ul>
 
-      <!-- Spenden CTA -->
+      {# Spenden CTA #}
       <p class="py-3 px-3">
         {% trans "You like our work? Support us with a donation!" %}<br>
         {% page_url "donate" as donate_url %}
@@ -143,16 +143,16 @@
     </nav>
     <div class="drawer-menu__backdrop"></div>
   </div>
-  <!-- Mobile menu END -->
+  {# Mobile menu END #}
 
-  <!-- Desktop/Tablet top-menu -->
+  {# Desktop/Tablet top-menu #}
   <nav class="top-menu d-none d-sm-none d-md-flex justify-content-between flex-lg-fill ml-md-4 ml-lg-6">
-    <!-- left top-menu -->
+    {# left top-menu #}
 
     {% block nav %}
     <ul class="top-menu__list">
       <li class="top-menu__listitem dropdown mr-md-3 mr-lg-4">
-        <!-- Anfragen top-menu__dropdown -->
+        {# Anfragen top-menu__dropdown #}
         <button type="button" class="top-menu__link dropdown-toggle" id="anfragenDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {% blocktrans %}Requests{% endblocktrans %}
         </button>
@@ -183,7 +183,7 @@
     </ul>
     {% endblock %}
 
-    <!-- right top-menu -->
+    {# right top-menu #}
     <ul class="top-menu__list ml-auto">
       {% block nav_donate %}
       <li class="top-menu__listitem">
@@ -228,6 +228,6 @@
       {% endblock %}
     </ul>
   </nav>
-  <!-- Desktop/Tablet top-menu END -->
+  {# Desktop/Tablet top-menu END #}
 
 </header>
