@@ -16,6 +16,8 @@ from taggit.models import TagBase, TaggedItemBase
 
 from froide.helper.email_sending import mail_registry
 
+from . import subscribed, unsubscribed
+
 logger = logging.getLogger(__name__)
 
 REFERENCE_PREFIX = "newsletter-"
@@ -312,6 +314,7 @@ class Subscriber(models.Model):
             Subscriber.objects.filter(
                 newsletter=self.newsletter, email=self.user.email.lower()
             ).delete()
+        subscribed.send(sender=self)
         return self
 
     def unsubscribe(self, method=""):
@@ -321,6 +324,7 @@ class Subscriber(models.Model):
         self.unsubscribed = timezone.now()
         self.unsubscribe_method = method
         self.save()
+        unsubscribed.send(sender=self)
 
 
 class NewsletterCMSPlugin(CMSPlugin):
