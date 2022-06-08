@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-01 12:45+0200\n"
+"POT-Creation-Date: 2022-06-08 10:51+0200\n"
 "PO-Revision-Date: 2022-06-01 12:49+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -560,6 +560,14 @@ msgstr "Keine Ergebnisse gefunden."
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html:59
 msgid "Please enter a search term."
 msgstr "Bitte geben Sie einen Suchbegriff ein."
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/slider.html:25
+msgid "Previous"
+msgstr "Zurück"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/slider.html:31
+msgid "Next"
+msgstr "Weiter"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/social_meta.html:21
 #, python-format
