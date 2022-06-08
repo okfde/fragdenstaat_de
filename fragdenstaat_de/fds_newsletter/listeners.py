@@ -131,9 +131,12 @@ def send_welcome_mail(sender, **kwargs):
     welcome = getattr(settings, "NEWSLETTER_WELCOME_MAILINTENT", None)
     if not welcome:
         return
-    intent = mail_registry.get_intent(welcome)
-    if not intent:
-        return
     if not sender.subscribed:
         return
-    sender.send_mail_intent(intent)
+    for nl_slug, intent_id in welcome.items():
+        if sender.newsletter.slug != nl_slug:
+            continue
+        intent = mail_registry.get_intent(intent_id)
+        if not intent:
+            return
+        sender.send_mail_intent(intent)

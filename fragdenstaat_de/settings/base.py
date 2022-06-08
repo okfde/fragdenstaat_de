@@ -142,7 +142,7 @@ class FragDenStaatBase(German, Base):
         # Otherwise send three days ago subscribers
         return (date - timedelta(days=3), date - timedelta(days=2))
 
-    NEWSLETTER_WELCOME_MAILINTENT = "fds_newsletter/email/welcome"
+    NEWSLETTER_WELCOME_MAILINTENT = {DEFAULT_NEWSLETTER: "fds_newsletter/email/welcome"}
     NEWSLETTER_ONBOARDING_SCHEDULE = [
         {
             "newsletter": DEFAULT_NEWSLETTER,

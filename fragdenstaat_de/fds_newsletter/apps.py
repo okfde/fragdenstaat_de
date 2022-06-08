@@ -57,7 +57,8 @@ def setup_newsletter_mails():
 
     welcome = getattr(settings, "NEWSLETTER_WELCOME_MAILINTENT", None)
     if welcome:
-        mail_registry.register(welcome, NL_CONTEXT_VARS)
+        for _nl_slug, intent_id in welcome.items():
+            mail_registry.register(intent_id, NL_CONTEXT_VARS)
     schedule = getattr(settings, "NEWSLETTER_ONBOARDING_SCHEDULE", [])
     for item in schedule:
         if item["mail_intent"]:
