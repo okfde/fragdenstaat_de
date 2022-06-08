@@ -1,5 +1,6 @@
 import os
 import re
+from datetime import timedelta
 
 from django.utils.translation import gettext_lazy as _
 
@@ -126,6 +127,29 @@ class FragDenStaatBase(German, Base):
     NEWSLETTER_RICHTEXT_WIDGET = "djangocms_text_ckeditor.widgets.TextEditorWidget"
     DEFAULT_NEWSLETTER = "fragdenstaat"
     DONOR_NEWSLETTER = "spenden"
+
+    def three_days_ago_but_not_sundays(date):
+        """
+        return tuple of gte and lt dates
+        """
+        weekday = date.weekday()
+        if weekday == 6:
+            # empty filter on Sunday
+            return (date, date)
+        elif weekday == 5:
+            # on Saturday, send Wednesday and Thursday subscribers
+            return (date - timedelta(days=3), date - timedelta(days=1))
+        # Otherwise send three days ago subscribers
+        return (date - timedelta(days=3), date - timedelta(days=2))
+
+    NEWSLETTER_WELCOME_MAILINTENT = "fds_newsletter/email/welcome"
+    NEWSLETTER_ONBOARDING_SCHEDULE = [
+        {
+            "newsletter": DEFAULT_NEWSLETTER,
+            "mail_intent": "fds_newsletter/email/intro",
+            "date": three_days_ago_but_not_sundays,
+        }
+    ]
 
     # Campaign
 

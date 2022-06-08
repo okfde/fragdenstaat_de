@@ -1,3 +1,4 @@
+import datetime
 import hashlib
 from datetime import timedelta
 from enum import Enum
@@ -6,6 +7,8 @@ from typing import Tuple
 from django.conf import settings
 from django.db.models import Q
 from django.utils import timezone
+
+from froide.helper.email_sending import mail_registry
 
 from .models import Newsletter, Subscriber
 
@@ -151,3 +154,28 @@ def cleanup_subscribers():
         sub.user = None
         sub.name = ""
         sub.save()
+
+
+def send_onboarding_schedule(date: datetime.date):
+    schedule = getattr(settings, "NEWSLETTER_ONBOARDING_SCHEDULE", [])
+    for item in schedule:
+        send_onboarding_schedule_item(date, item)
+
+
+def send_onboarding_schedule_item(date: datetime.date, schedule_item):
+    intent = mail_registry.get_intent(schedule_item["mail_intent"])
+    if not intent:
+        return
+
+    subscribers = get_onboarding_subscribers(date, schedule_item)
+    for subscriber in subscribers:
+        subscriber.send_mail_intent(intent)
+
+
+def get_onboarding_subscribers(date: datetime.date, schedule_item):
+    date_gte, date_lt = schedule_item["date"](date)
+    return Subscriber.objects.filter(
+        newsletter__slug=schedule_item["newsletter"],
+        subscribed__date__gte=date_gte,
+        subscribed__date__lt=date_lt,
+    )
