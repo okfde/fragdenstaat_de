@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-08 10:51+0200\n"
+"POT-Creation-Date: 2022-06-08 11:46+0200\n"
 "PO-Revision-Date: 2022-05-31 11:14+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -451,6 +451,16 @@ msgstr ""
 #, python-format
 msgid "Please confirm subscription to %(title)s"
 msgstr "Bitte bestätige dein Abo von %(title)s"
+
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/plugins/newsletter_form.html:12
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/plugins/newsletter_form.html:14
+msgid "E-mail address"
+msgstr "E-Mail"
+
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/plugins/newsletter_form.html:16
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/plugins/newsletter_form.html:18
+msgid "Subscribe"
+msgstr "Abonnieren"
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/user_settings.html:17
 msgid "Update subscriptions"

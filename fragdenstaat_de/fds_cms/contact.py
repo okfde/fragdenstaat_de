@@ -2,6 +2,7 @@ from django import forms
 from django.conf.urls import url
 from django.contrib import messages
 from django.core.mail import mail_managers
+from django.utils.translation import gettext_lazy as _
 
 try:
     import pgpy
@@ -165,22 +166,22 @@ class ContactForm(forms.Form):
     name = forms.CharField(
         max_length=255,
         required=False,
-        label="Name",
+        label=_("Name"),
         widget=forms.TextInput(attrs={"class": "form-control"}),
     )
 
     message = forms.CharField(
         max_length=255,
         required=False,
-        label="Nachricht",
+        label=_("Message"),
         widget=forms.Textarea(attrs={"class": "form-control"}),
     )
 
     contact = forms.CharField(
         max_length=255,
         required=False,
-        label="Optionale Kontaktmöglichkeit",
-        help_text="Zum Beispiel eine private E-Mail-Adresse",
+        label=_("Optional contact"),
+        help_text=_("For example a private email address"),
         widget=forms.TextInput(attrs={"class": "form-control"}),
     )
     # Honey pot field

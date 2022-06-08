@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-08 10:51+0200\n"
+"POT-Creation-Date: 2022-06-08 11:46+0200\n"
 "PO-Revision-Date: 2022-06-01 12:49+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -180,6 +180,22 @@ msgstr "Sektion mit Rahmen"
 #: fragdenstaat_de/fds_cms/cms_toolbars.py:25
 msgid "FdS Page Settings"
 msgstr ""
+
+#: fragdenstaat_de/fds_cms/contact.py:169
+msgid "Name"
+msgstr "Name"
+
+#: fragdenstaat_de/fds_cms/contact.py:176
+msgid "Message"
+msgstr "Nachricht"
+
+#: fragdenstaat_de/fds_cms/contact.py:183
+msgid "Optional contact"
+msgstr "Optionale Kontaktmöglichkeit"
+
+#: fragdenstaat_de/fds_cms/contact.py:184
+msgid "For example a private email address"
+msgstr "Zum Beispiel eine private E-Mail-Adresse"
 
 #: fragdenstaat_de/fds_cms/models.py:29 fragdenstaat_de/fds_cms/models.py:125
 #: fragdenstaat_de/fds_cms/models.py:284 fragdenstaat_de/fds_cms/models.py:467

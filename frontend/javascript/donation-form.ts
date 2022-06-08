@@ -116,7 +116,10 @@ function amountChanged(amountInput: HTMLInputElement | null): void {
           feeHint.classList.remove('d-none')
           const fee = fees[key](amount)
           const displayAmount = (amount - fee).toFixed(2).replace(/\./, ',')
-          feeHint.textContent = ` (abzüglich Gebühren erhalten wir ${displayAmount} Euro)`
+          feeHint.textContent =
+            document.documentElement.lang === 'de'
+              ? ` (abzüglich Gebühren erhalten wir ${displayAmount} Euro)`
+              : `(minus fees we receive ${displayAmount} Euro)`
         }
       }
     }

@@ -1,17 +1,21 @@
+{% load i18n %}
+
 <form class="ajaxified ajax-parent form-inline" method="post" action="{% if newsletter %}{% url 'newsletter_ajax_subscribe_request' newsletter_slug=newsletter.slug %}{% else %}{% url 'newsletter_ajax_subscribe_request' %}{% endif %}" data-reference data-userfill>
+  {# honeypot: spam bots that fill out the field are rejected #}
   <div class="form-group row d-none honigtopf">
     <label class="col-lg-3 col-form-label" for="newsletter_id_phone_{{ instance.pk }}">Bitte geben Sie hier nichts ein</label>
     <div class="col-lg-9">
       <input type="text" name="phone" required id="newsletter_id_phone_{{ instance.pk }}">
     </div>
   </div>
-  <label for="newsletter_id_email_field_{{ instance.pk }}" class="sr-only">E-Mail</label>
+
+  <label for="newsletter_id_email_field_{{ instance.pk }}" class="sr-only">{% trans "E-mail address" %}</label>
   <div class="input-group w-100">
-    <input placeholder="E-Mail" class="form-control" type="email" name="email" required id="newsletter_id_email_field_{{ instance.pk }}">
+    <input placeholder="{% trans "E-mail address" %}" class="form-control" type="email" name="email" required id="newsletter_id_email_field_{{ instance.pk }}">
     <div class="input-group-append">
-      <button class="btn btn-primary" name="submit" value="Subscribe" type="submit">
+      <button class="btn btn-primary" name="submit" value="{% trans "Subscribe" %}" type="submit">
         <span class="fa fa-envelope d-none d-md-inline d-lg-none"></span>
-        <span class="d-md-none d-lg-inline">Abonnieren</span>
+        <span class="d-md-none d-lg-inline">{% trans "Subscribe" %}</span>
       </button>
     </div>
   </div>
