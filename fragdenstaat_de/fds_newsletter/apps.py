@@ -1,6 +1,7 @@
 import json
 
 from django.apps import AppConfig
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 
@@ -20,6 +21,7 @@ class NewsletterConfig(AppConfig):
         from froide.bounce.signals import email_bounced, email_unsubscribed
         from froide.foirequestfollower.models import FoiRequestFollower
 
+        from . import subscribed
         from .forms import NewsletterFollowExtra, NewsletterUserExtra
         from .listeners import (
             activate_newsletter_subscription,
@@ -27,6 +29,7 @@ class NewsletterConfig(AppConfig):
             handle_bounce,
             handle_unsubscribe,
             merge_user,
+            send_welcome_mail,
             subscribe_follower,
             user_email_changed,
         )
@@ -37,11 +40,28 @@ class NewsletterConfig(AppConfig):
         account_activated.connect(activate_newsletter_subscription)
         email_bounced.connect(handle_bounce)
         email_unsubscribed.connect(handle_unsubscribe)
+        subscribed.connect(send_welcome_mail)
         user_extra_registry.register("registration", NewsletterUserExtra())
         user_extra_registry.register("follow", NewsletterFollowExtra())
         FoiRequestFollower.followed.connect(subscribe_follower)
 
         registry.register(export_user_data)
+
+        setup_newsletter_mails()
+
+
+def setup_newsletter_mails():
+    from froide.helper.email_sending import mail_registry
+
+    NL_CONTEXT_VARS = ("subscriber", "newsletter")
+
+    welcome = getattr(settings, "NEWSLETTER_WELCOME_MAILINTENT", None)
+    if welcome:
+        mail_registry.register(welcome, NL_CONTEXT_VARS)
+    schedule = getattr(settings, "NEWSLETTER_ONBOARDING_SCHEDULE", [])
+    for item in schedule:
+        if item["mail_intent"]:
+            mail_registry.register(item["mail_intent"], NL_CONTEXT_VARS)
 
 
 def export_user_data(user):

@@ -215,8 +215,17 @@ class Subscriber(models.Model):
             return self.user.email
         return self.email
 
+    def is_reference(self):
+        return {self.reference: True}
+
     def get_email_context(self):
         return get_email_context(self)
+
+    def send_mail_intent(self, intent):
+        context = self.get_email_context()
+        return intent.send(
+            email=self.email, user=self.user, context=context, priority=False
+        )
 
     def send_activation_email(self):
         context = self.get_email_context()
