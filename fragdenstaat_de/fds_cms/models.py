@@ -616,3 +616,6 @@ class BorderedSectionCMSPlugin(CMSPlugin):
         ),
     )
     attributes = AttributesField()
+
+    def __str__(self):
+        return self.title
