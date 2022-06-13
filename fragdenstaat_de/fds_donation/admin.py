@@ -595,6 +595,7 @@ class DonationAdmin(admin.ModelAdmin):
         "donor__first_name",
         "donor__company_name",
         "keyword",
+        "reference",
     )
 
     actions = [
