@@ -121,7 +121,7 @@ def import_banktransfer(transfer_ident, row, project):
     return is_new
 
 
-BLOCK_LIST = set(["Stripe Payments UK Ltd", "Stripe Technology Europe Ltd"])
+BLOCK_LIST = set(["Stripe Payments UK Ltd", "Stripe Technology Europe Ltd", "Stripe"])
 LOCAL_TZ = pytz.timezone("Europe/Berlin")
 DEBIT_PATTERN = re.compile(r" \(P(\d+)\)")
 
