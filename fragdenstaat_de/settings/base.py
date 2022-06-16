@@ -644,6 +644,7 @@ class FragDenStaatBase(German, Base):
                 content_urls={
                     "terms": "/nutzungsbedingungen/",
                     "privacy": "/datenschutzerklaerung/",
+                    "pseudonym": "/hilfe/datenschutz-und-privatsphare/pseudonyme-nutzung/",
                     "about": "/hilfe/ueber/",
                     "help": "/hilfe/",
                 },
