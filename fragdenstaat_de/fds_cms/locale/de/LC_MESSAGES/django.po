@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-08 11:46+0200\n"
+"POT-Creation-Date: 2022-06-16 17:26+0200\n"
 "PO-Revision-Date: 2022-06-01 12:49+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -559,6 +559,10 @@ msgstr "Schließen"
 #: fragdenstaat_de/fds_cms/templates/cms/plugins/primarylink/campaign.html:29
 msgid "Read more"
 msgstr "Weiterlesen"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/feedback.html:9
+msgid "Submit"
+msgstr "Abschicken"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html:15
 msgid "Search support topics"

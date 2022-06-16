@@ -1,11 +1,12 @@
 {% load form_helper %}
+{% load i18n %}
 
 <form action="{% url 'fds_cms_contact:contact' %}" method="post">
   {% csrf_token %}
   {% render_form form %}
   <p class="text-right">
     <button type="submit" class="btn btn-primary">
-      Abschicken
+      {% trans "Submit" %}
     </button>
   </p>
 </form>
