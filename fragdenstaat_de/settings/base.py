@@ -657,6 +657,14 @@ class FragDenStaatBase(German, Base):
                     "^(Auto-?Reply|Out of office|Out of the office|Abwesenheitsnotiz|Automatische Antwort|automatische Empfangsbestätigung)"
                 ),
                 auto_reply_email_regex=rec("^auto(reply|responder|antwort)@"),
+                non_meaningful_subject_regex=[
+                    r"^(ifg[- ])?anfrage$",
+                    r"^dokumente?$",
+                    r"^infos?$",
+                    r"^information(en)?$",
+                    r"^e-?mails?$",
+                    r"^kommunikation$",
+                ],
             )
         )
         return config
