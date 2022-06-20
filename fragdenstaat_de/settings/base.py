@@ -593,6 +593,7 @@ class FragDenStaatBase(German, Base):
                         "name": "nonfoi",
                         "label": _("Non-FOI"),
                         "icon": "fa-ban",
+                        "applied_if_actions_applied": [0],
                         "actions": [
                             ("froide.foirequest.moderation.MarkNonFOI",),
                             (
@@ -605,6 +606,7 @@ class FragDenStaatBase(German, Base):
                         "name": "warn_user",
                         "label": _("Give warning"),
                         "icon": "fa-minus-circle",
+                        "applied_if_actions_applied": [0, 1],
                         "actions": [
                             ("froide.foirequest.moderation.Depublish",),
                             ("froide.foirequest.moderation.ApplyUserTag", "watchlist"),
