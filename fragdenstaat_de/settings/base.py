@@ -751,10 +751,6 @@ class FragDenStaatBase(German, Base):
 
     FDS_OGIMAGE_URL = "https://ogimage.frag-den-staat.de/api/{hash}?path={path}"
 
-    TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "")
-    TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN", "")
-    TWILIO_FROM_NUMBER = os.environ.get("TWILIO_FROM_NUMBER", "")
-
     TELNYX_APP_ID = os.environ.get("TELNYX_APP_ID", "")
     TELNYX_API_KEY = os.environ.get("TELNYX_API_KEY", "")
     TELNYX_PUBLIC_KEY = os.environ.get("TELNYX_PUBLIC_KEY", "")
