@@ -82,9 +82,12 @@ document.querySelectorAll('[data-vegachart]').forEach((el) => {
       extras.timeFormatLocale = LOCALE[docLang].time
     }
   }
+
   // Slightly smaller than container
-  spec.width = 'container'
-  spec.autosize = 'fit'
+  if (spec.width === undefined) {
+    spec.width = 'container'
+    spec.autosize = 'fit'
+  }
   const showActions = document.location.href.indexOf('admin') !== -1
 
   embed(el, spec, {
