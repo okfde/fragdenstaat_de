@@ -31,11 +31,11 @@ from .validators import validate_not_too_many_uppercase
 from .widgets import AmountInput, InlineRadioSelect
 
 PAYMENT_METHOD_LIST = (
-    "creditcard",
     "sepa",
     "paypal",
-    "sofort",
     "banktransfer",
+    "creditcard",
+    # "sofort",
 )
 PAYMENT_METHOD_MAX_AMOUNT = {"sepa": decimal.Decimal(5000)}
 
