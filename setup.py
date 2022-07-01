@@ -87,7 +87,6 @@ setup(
         "djangorestframework-jsonp",
         "geoip2",
         "pandas",
-        "twilio",
         "djangorestframework-csv",
         "pyisemail",
         "icalendar",
