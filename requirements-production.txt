@@ -178,7 +178,7 @@ dj-database-url==0.5.0
     # via
     #   -r requirements.in
     #   froide
-django==3.2.12
+django==3.2.14
     # via
     #   -r requirements.in
     #   channels
@@ -401,6 +401,8 @@ et-xmlfile==1.1.0
     # via openpyxl
 fdfgen==0.16.1
     # via froide-food
+feedgen==0.9.0
+    # via django-filingcabinet
 fido2==0.9.3
     # via django-mfa3
 frozenlist==1.2.0
@@ -491,6 +493,7 @@ lxml==4.7.1
     #   -r requirements.in
     #   django-amenities
     #   django-contractor
+    #   feedgen
     #   pikepdf
     #   python-docx
     #   svglib
@@ -615,6 +618,7 @@ python-crontab==2.5.1
 python-dateutil==2.8.1
     # via
     #   elasticsearch-dsl
+    #   feedgen
     #   froide-payment
     #   icalendar
     #   pandas
