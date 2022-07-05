@@ -306,7 +306,7 @@ django-logentry-admin==1.1.0
     # via -r requirements.in
 django-markdown-deux==1.0.5
     # via froide-campaign
-django-mfa3==0.4.0
+django-mfa3==0.7.0
     # via -r requirements.in
 django-mptt==0.12.0
     # via
@@ -425,7 +425,7 @@ fdfgen==0.16.1
     # via froide-food
 feedgen==0.9.0
     # via django-filingcabinet
-fido2==0.9.3
+fido2==1.0.0
     # via django-mfa3
 filelock==3.3.1
     # via virtualenv
@@ -581,7 +581,7 @@ pickleshare==0.7.5
     # via ipython
 pikepdf==2.13.0
     # via django-filingcabinet
-pillow==9.0.0
+pillow==9.2.0
     # via
     #   -r requirements.in
     #   cairosvg
@@ -636,8 +636,6 @@ pygtail==0.12.0
     # via
     #   -r requirements.in
     #   froide
-pyhamcrest==2.0.2
-    # via twisted
 pyisemail==1.3.2
     # via -r requirements.in
 pynacl==1.4.0
@@ -648,7 +646,7 @@ pyotp==2.6.0
     # via django-mfa3
 pyparsing==2.4.7
     # via packaging
-pypdf2==1.26.0
+pypdf2==2.4.2
     # via
     #   -r requirements.in
     #   django-filingcabinet
@@ -738,7 +736,6 @@ six==1.16.0
     #   django-oauth-toolkit
     #   djangorestframework-csv
     #   elasticsearch-dsl
-    #   fido2
     #   geocoder
     #   html5lib
     #   jsonschema
@@ -801,7 +798,7 @@ traitlets==5.0.5
     # via
     #   ipython
     #   matplotlib-inline
-twisted[tls]==20.3.0
+twisted[tls]==22.4.0
     # via daphne
 txaio==21.2.1
     # via autobahn
@@ -809,6 +806,8 @@ typing-extensions==3.10.0.0
     # via
     #   async-timeout
     #   black
+    #   pypdf2
+    #   twisted
 unicodecsv==0.14.1
     # via djangorestframework-csv
 unidecode==1.1.2
