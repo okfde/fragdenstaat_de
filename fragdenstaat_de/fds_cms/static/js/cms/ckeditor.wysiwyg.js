@@ -89,3 +89,22 @@ CKEDITOR.stylesSet.add('default', [
  * DOCS: http://docs.ckeditor.com/#!/api/CKEDITOR.dtd
  */
 CKEDITOR.dtd.$removeEmpty.span = 0;
+
+function addSlugId(el) {
+    const innerText = el.children.filter(x => x.type == CKEDITOR.NODE_TEXT).map(x => x.value).join(" ")
+    const slug = innerText.toLowerCase().replace(/[^-_0-9a-zA-Z]/g, '-');
+    if ((!el.attributes.id) || (el.attributes.id == el.attributes['data-auto-id'])) {
+        el.attributes.id = slug;
+        el.attributes['data-auto-id'] = slug;
+    }
+}
+
+CKEDITOR.on('instanceReady', function (evt) {
+    evt.editor.dataProcessor.htmlFilter.addRules({
+        elements: {
+            h1: addSlugId,
+            h2: addSlugId,
+            h3: addSlugId,
+        }
+    });
+});
