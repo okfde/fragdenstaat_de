@@ -62,6 +62,12 @@ class Dev(FragDenStaatBase):
         "fragdenstaat_de.settings.development.WebpackDevStaticFilesStorage"
     )
 
+    @property
+    def TEMPLATES(self):
+        TEMP = super(Dev, self).TEMPLATES
+        TEMP[0]["OPTIONS"]["debug"] = True
+        return TEMP
+
 
 try:
     from .local_settings import Dev  # noqa

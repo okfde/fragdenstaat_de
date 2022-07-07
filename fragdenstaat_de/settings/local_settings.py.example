@@ -50,3 +50,9 @@ class Dev(FragDenStaatBase):
             'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
         }
     }
+
+    @property
+    def TEMPLATES(self):
+        TEMP = super(Dev, self).TEMPLATES
+        TEMP[0]["OPTIONS"]["debug"] = True
+        return TEMP
