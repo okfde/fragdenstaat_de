@@ -1,0 +1,9 @@
+{% extends "admin/change_form.html" %}
+
+{% load static %}
+
+{% block after_field_sets %}
+    {{ block.super }}
+    {{ adminform.model_admin.charcount_fields|json_script:"charcount-fields" }}
+    <script src="{% static 'js/fds_blog/charcount.js' %}"></script>
+{% endblock %}

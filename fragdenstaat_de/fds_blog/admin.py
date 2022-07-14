@@ -222,6 +222,7 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         "content_template": admin.VERTICAL,
         "detail_template": admin.VERTICAL,
     }
+    charcount_fields = ("title", "teaser")
     prepopulated_fields = {"slug": ("title",)}
     search_fields = ("title", "excerpt", "content", "tags__name")
 
