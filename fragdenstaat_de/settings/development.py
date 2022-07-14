@@ -64,7 +64,7 @@ class Dev(FragDenStaatBase):
 
     @property
     def TEMPLATES(self):
-        TEMP = super(Dev, self).TEMPLATES
+        TEMP = super().TEMPLATES
         TEMP[0]["OPTIONS"]["debug"] = True
         return TEMP
 
