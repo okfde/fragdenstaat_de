@@ -1,5 +1,6 @@
 import json
 
+from django.db.models import Model
 from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
@@ -548,9 +549,13 @@ class CardInnerPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         classes = []
+        try:
+            parent_model, parent_instance = instance.parent.get_plugin_instance()
+        except Model.DoesNotExist:
+            return super().render(context, instance, placeholder)
 
-        parent_model, parent_instance = instance.parent.get_plugin_instance()
-        classes.append(parent_instance.padding(parent_model))
+        if parent_model is not None:
+            classes.append(parent_instance.padding(parent_model))
 
         if instance.attributes.get("class"):
             classes += instance.attributes["class"].split(" ")
