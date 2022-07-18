@@ -43,3 +43,24 @@
     background-color: $highlight-yellow;
   }
 }
+
+.spinning-newspaper {
+  opacity: 1;
+  transform: scale(1) rotate(10deg);
+
+  animation-duration: 1s;
+  animation-name: newspaper-spin;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+}
+
+@keyframes newspaper-spin {
+  0%{
+      opacity: 0.2;
+      transform: scale(0.1) rotate(0deg);
+  }
+  100%{
+      opacity: 1;
+      transform: scale(1) rotate(1090deg);
+  }
+}
