@@ -15,7 +15,7 @@
         {% if object.status_is_final and object.status_representation %}
           <p class="lead">
             {% if object.status_representation %}
-              <span class="mt-2 float-left request-link__icon icon status-{{ object.status_representation }} {% if object.has_fee %}--has-fee{% endif %}"></span>
+              <span class="mt-2 float-start request-link__icon icon status-{{ object.status_representation }} {% if object.has_fee %}--has-fee{% endif %}"></span>
               <strong>{{ object.readable_status }}</strong>
             {% endif %}
           </p>
@@ -45,9 +45,9 @@
     <div class="pb-5 px-5 mt-auto">
       <div class="row justify-content-between">
         <div class="col-4">
-          <div class="media">
-            <span class="fa fa-send mr-3"></span>
-            <div class="media-body">
+          <div class="d-flex">
+            <span class="flex-shrink-0 fa fa-send me-3"></span>
+            <div class="flex-grow-1 ms-3">
               <h2 class="mt-0">
                 {{ object.first_message | date }}
               </h2>
@@ -56,9 +56,9 @@
         </div>
         <div class="col-4">
           {% if not object.status_is_final %}
-            <div class="media {% if object.is_overdue %}text-danger{% endif %}">
-              <span class="fa fa-calendar mr-3"></span>
-              <div class="media-body">
+            <div class="d-flex {% if object.is_overdue %}text-danger{% endif %}">
+              <span class="flex-shrink-0 fa fa-calendar me-3"></span>
+              <div class="flex-grow-1 ms-3">
                 <h2 class="mt-0">
                   {{ object.due_date | date }}
                 </h2>
@@ -66,7 +66,7 @@
             </div>
           {% endif %}
         </div>
-        <div class="col-auto ml-auto">
+        <div class="col-auto ms-auto">
           <div class="mt-n4">
             <img height="80" src="https://static.frag-den-staat.de/static/img/header_logo.580ed694906e.svg" alt="FragDenStaat.de"/>
           </div>

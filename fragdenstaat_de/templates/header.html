@@ -16,7 +16,7 @@
     {% page_url "home" as home_url %}
     <a href="{{ home_url|default:'/' }}">
       {% block nav_brand_image %}<img src="{% static 'img/header_logo.svg' %}" class="header__logo" alt="">{% endblock %}
-      <span class="sr-only sr-only-focusable">{% block nav_brand_name %}{{ SITE_NAME }}{% endblock %}</span>
+      <span class="visually-hidden visually-hidden-focusable">{% block nav_brand_name %}{{ SITE_NAME }}{% endblock %}</span>
     </a>
   </div>
   {% endblock %}
@@ -25,8 +25,8 @@
   <div class="drawer-menu d-flex d-md-none">
 
     {# Spenden button #}
-    <a title="{% blocktrans %}Donate{% endblocktrans %}" class="d-flex d-md-none align-items-center text-danger text-decoration-none mr-1" href="/spenden/?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
-      <i class="fa fa-heart d-md-none d-lg-inline-block mr-1" aria-hidden="true"></i>
+    <a title="{% blocktrans %}Donate{% endblocktrans %}" class="d-flex d-md-none align-items-center text-danger text-decoration-none me-1" href="/spenden/?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+      <i class="fa fa-heart d-md-none d-lg-inline-block me-1" aria-hidden="true"></i>
     </a>
 
     {# Toggle button #}
@@ -68,7 +68,7 @@
           </li>
         {% endfor %}
         <li>
-          <form action="{% url 'account-logout' %}" method="post" class="form-inline">
+          <form action="{% url 'account-logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" class="drawer-menu__link drawer-menu__link--blue border-0">
               <i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -139,21 +139,20 @@
           {% blocktrans %}Donate now{% endblocktrans %}
         </a>
       </p>
-      
     </nav>
     <div class="drawer-menu__backdrop"></div>
   </div>
   {# Mobile menu END #}
 
   {# Desktop/Tablet top-menu #}
-  <nav class="top-menu d-none d-sm-none d-md-flex justify-content-between flex-lg-fill ml-md-4 ml-lg-6">
+  <nav class="top-menu navbar d-none d-sm-none d-md-flex justify-content-between flex-lg-fill ms-md-4 ml-lg-6">
     {# left top-menu #}
 
     {% block nav %}
     <ul class="top-menu__list">
-      <li class="top-menu__listitem dropdown mr-md-3 mr-lg-4">
+      <li class="top-menu__listitem dropdown me-md-3 me-lg-4">
         {# Anfragen top-menu__dropdown #}
-        <button type="button" class="top-menu__link dropdown-toggle" id="anfragenDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="top-menu__link dropdown-toggle" id="anfragenDropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {% blocktrans %}Requests{% endblocktrans %}
         </button>
         <div class="dropdown-menu top-menu--drop-left" aria-labelledby="anfragenDropdownMenu">
@@ -170,12 +169,12 @@
           {% endif %}
         </div>
       </li>
-      <li class="top-menu__listitem mr-md-3 mr-lg-4">
+      <li class="top-menu__listitem me-md-3 me-lg-4">
         <a class="top-menu__link" href="{{ campaigns_url|default:'/kampagnen/' }}">
           {% blocktrans %}Campaigns{% endblocktrans %}
         </a>
       </li>
-      <li class="top-menu__listitem mr-md-3 mr-lg-0">
+      <li class="top-menu__listitem me-md-3 me-lg-0">
         <a class="top-menu__link" href="{{ blog_url|default:'/blog/' }}">
           {% blocktrans %}Investigations{% endblocktrans %}
         </a>
@@ -184,7 +183,7 @@
     {% endblock %}
 
     {# right top-menu #}
-    <ul class="top-menu__list ml-auto">
+    <ul class="top-menu__list ms-auto">
       {% block nav_donate %}
       <li class="top-menu__listitem">
         <a class="top-menu__link text-danger" href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
@@ -194,9 +193,9 @@
       </li>
       {% endblock %}
       {% block nav_account_login %}
-      <li class="top-menu__listitem dropdown ml-md-3 ml-lg-4">
+      <li class="top-menu__listitem dropdown ms-md-3 ms-lg-4">
         {% if request.user.is_authenticated %}
-          <button type="button" class="top-menu__link dropdown-toggle" id="userDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button type="button" class="top-menu__link dropdown-toggle" id="userDropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user" aria-hidden="true"></i>
             <span>{{ request.user.first_name }}</span>
           </button>
@@ -210,7 +209,7 @@
 
             <div class="dropdown-divider my-1"></div>
             <div class="dropdown-item top-menu__link">
-              <form action="{% url 'account-logout' %}" method="post" class="form-inline">
+              <form action="{% url 'account-logout' %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="top-menu__link w-100">
                   {% blocktrans %}Log out{% endblocktrans %}

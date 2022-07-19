@@ -9,9 +9,7 @@
 $dropdown-border-color: $gray-300;
 $dropdown-border-radius: $border-radius-lg;
 // $dropdown-border-width: $border-width;
-$dropdown-inner-border-radius: calc(
-  #{$dropdown-border-radius} - #{$dropdown-border-width}
-);
+$dropdown-inner-border-radius: calc(#{$dropdown-border-radius} - #{$dropdown-border-width});
 $dropdown-divider-bg: $gray-200;
 // $dropdown-divider-margin-y: $nav-divider-margin-y;
 $dropdown-box-shadow: 0.25rem 0.25rem 0 rgba($gray-300, 0.67);
@@ -137,10 +135,10 @@ $dropdown-item-padding-x: $spacer;
 // When enabled Popper.js, reset basic dropdown position
 // stylelint-disable-next-line no-duplicate-selectors
 .dropdown-menu {
-  &[x-placement^='top'],
-  &[x-placement^='right'],
-  &[x-placement^='bottom'],
-  &[x-placement^='left'] {
+  &[x-placement^="top"],
+  &[x-placement^="right"],
+  &[x-placement^="bottom"],
+  &[x-placement^="left"] {
     right: auto;
     bottom: auto;
   }
@@ -181,7 +179,8 @@ $dropdown-item-padding-x: $spacer;
     @include border-bottom-radius($dropdown-inner-border-radius);
   }
 
-  @include hover-focus {
+  &:hover,
+  &:focus {
     color: $dropdown-link-hover-color;
     text-decoration: none;
     @include gradient-bg($dropdown-link-hover-bg);

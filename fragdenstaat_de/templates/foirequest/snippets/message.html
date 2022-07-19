@@ -12,7 +12,7 @@
   {% endif %}
 
   {% if message|needs_glyphosat_attachment %}
-    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#glyphosat-download">
+    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-target="#glyphosat-download">
       Gutachten herunterladen und speichern
     </button>
   {% endif %}
@@ -36,13 +36,13 @@
                 Wir laden für Sie mit Ihren persönlichen Zugangsdaten das Dokument herunter,
                 bereiten es auf und stellen es nur Ihnen persönlich dauerhaft auf FragDenStaat.de zur Verfügung.
               </p>
-              <div class="form-group form-check">
+              <div class="mb-3 form-check">
                 <input type="checkbox" id="confirm-notes" name="confirm-notes" value="1" class="form-check-input" required>
                 <label for="confirm-notes" class="form-check-label">
                   Ich habe <a href="https://dokumente.bfr.bund.de/glypo/" rel="noopener" target="_blank">die Hinweise des BfR</a>, die <a href="https://fragdenstaat.de/blog/2019/05/06/glyphosat-gutachten-antwort-allgemeinverfugung/" rel="noopener" target="_blank">Allgemeinverfügung des BfR</a> sowie die <a href="https://dokumente.bfr.bund.de/glypo/p/privacy" rel="noopener" target="_blank">Datenschutzhinweise</a> zur Kenntnis genommen.
                 </label>
               </div>
-              <p class="text-right">
+              <p class="text-end">
                 <button class="btn btn-primary" type="submit" id="glyphosat-download-button">
                   &rarr; Jetzt Gutachten herunterladen und speichern
                 </button>

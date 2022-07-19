@@ -31,7 +31,7 @@
             type="image/avif"
           />
           <img class="w-100 h-auto z-index-10" loading="lazy" width="320" height="185" src="{{ thumb.url }}"
-              {% if not attributes.alt %} alt="{{ picture.default_alt_text|default:"" }}"{% endif %}
+              {% if not attributes.alt %} alt="{{ picture.default_alt_text|default:'' }}"{% endif %}
               {{ attributes_str }}>
         </picture>
         {% endwith %}
@@ -49,7 +49,7 @@
         {{ article.title }}
       </a>
     </h3>
-    <div class="text-gray-500 font-weight-normal font-size-sm">
+    <div class="text-gray-500 fw-bold font-size-sm">
       {{ article.start_publication|date:"DATE_FORMAT" }}
     </div>
   </div>

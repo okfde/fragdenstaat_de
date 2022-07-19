@@ -13,6 +13,11 @@ from froide.account.utils import parse_address
 from froide.campaign.models import Campaign
 from froide.helper.content_urls import get_content_url
 from froide.helper.spam import SpamProtectionMixin
+from froide.helper.widgets import (
+    BootstrapRadioSelect,
+    BootstrapSelect,
+    InlineBootstrapRadioSelect,
+)
 
 from froide_payment.forms import StartPaymentMixin
 from froide_payment.models import CHECKOUT_PAYMENT_CHOICES_DICT
@@ -28,7 +33,7 @@ from .models import (
 from .services import get_or_create_donor
 from .utils import MERGE_DONOR_FIELDS
 from .validators import validate_not_too_many_uppercase
-from .widgets import AmountInput, InlineRadioSelect
+from .widgets import AmountInput
 
 PAYMENT_METHOD_LIST = (
     "sepa",
@@ -178,7 +183,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         empty_value=None,
         required=True,
         label=_("Frequency"),
-        widget=InlineRadioSelect(attrs={"class": "form-check-input"}),
+        widget=InlineBootstrapRadioSelect,
     )
     purpose = forms.ChoiceField(
         required=False,
@@ -195,7 +200,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
     payment_method = forms.ChoiceField(
         label=_("Payment method"),
         choices=PAYMENT_METHODS,
-        widget=forms.RadioSelect(attrs={"class": "list-unstyled"}),
+        widget=BootstrapRadioSelect,
         initial=PAYMENT_METHODS[0][0],
     )
 
@@ -330,7 +335,7 @@ class DonorForm(forms.Form):
         label=_("Salutation"),
         required=False,
         choices=SALUTATION_CHOICES,
-        widget=forms.Select(attrs={"class": "form-control"}),
+        widget=BootstrapSelect,
     )
     first_name = forms.CharField(
         max_length=255,
@@ -356,9 +361,8 @@ class DonorForm(forms.Form):
     )
 
     receipt = forms.TypedChoiceField(
-        widget=InlineRadioSelect(
+        widget=InlineBootstrapRadioSelect(
             attrs={
-                "class": "form-check-input",
                 "data-toggle": "radiocollapse",
                 "data-target": "address-fields",
             }
@@ -435,7 +439,7 @@ class DonorForm(forms.Form):
 class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
     form_settings = forms.CharField(widget=forms.HiddenInput)
     contact = forms.TypedChoiceField(
-        widget=forms.RadioSelect(attrs={"class": "list-unstyled"}),
+        widget=BootstrapRadioSelect,
         choices=(
             (1, _("Yes, please!")),
             (0, _("No, thank you.")),
@@ -446,7 +450,7 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
         error_messages={"required": _("You have to decide.")},
     )
     account = forms.TypedChoiceField(
-        widget=forms.RadioSelect(attrs={"class": "list-unstyled"}),
+        widget=BootstrapRadioSelect,
         choices=(),
         coerce=lambda x: bool(int(x)),
         required=True,

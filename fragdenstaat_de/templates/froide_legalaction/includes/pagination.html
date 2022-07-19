@@ -8,7 +8,7 @@
           <li class="page-item">
             <a class="page-link bg-transparent" href="?page={{ page_obj.previous_page_number }}&{{ query_url }}" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
+              <span class="visually-hidden">Previous</span>
             </a>
           </li>
           {% endif %}
@@ -25,7 +25,7 @@
           <li class="page-item">
             <a class="page-link bg-transparent" href="?page={{ page_obj.next_page_number }}&{{ query_url }}" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
+              <span class="visually-hidden">Next</span>
             </a>
           </li>
           {% endif %}

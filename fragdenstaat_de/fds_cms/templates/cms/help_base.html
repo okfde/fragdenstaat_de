@@ -15,23 +15,21 @@
           <span class="d-sm-none">{% translate "Support area" %}</span>
         </a>
         <div class="d-flex">
-          <form class="form-inline ml-2 d-block d-md-inline" role="search" method="get" action="{% page_url 'help-search' %}">
+          <form class="ms-2 d-block d-md-inline" role="search" method="get" action="{% page_url 'help-search' %}">
             <div class="input-group d-none d-md-flex">
               {% if form %}
                 {{ form.q }}
               {% else %}
                 <input class="form-control" type="text" name="q" placeholder="{% translate 'Search' %}" aria-label="{% translate 'Search' %}">
               {% endif %}
-              <div class="input-group-append">
-                <button class="btn btn-outline-light" type="submit">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                  <span class="sr-only">{% translate "Search" %}</span>
-                </button>
-              </div>
+              <button class="btn btn-outline-light" type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <span class="visually-hidden">{% translate "Search" %}</span>
+            </button>
             </div>
             <button class="btn btn-outline-light d-block d-md-none" type="submit">
               <i class="fa fa-search" aria-hidden="true"></i>
-              <span class="sr-only">{% translate "Search" %}</span>
+              <span class="visually-hidden">{% translate "Search" %}</span>
             </button>
           </form>
         </div>

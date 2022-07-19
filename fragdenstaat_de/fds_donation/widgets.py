@@ -19,7 +19,3 @@ class AmountInput(forms.TextInput):
         ctx["currency"] = settings.FROIDE_CONFIG["currency"]
         ctx["presets"] = self.presets
         return ctx
-
-
-class InlineRadioSelect(forms.RadioSelect):
-    template_name = "fds_donation/forms/widgets/inline_radio.html"

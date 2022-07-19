@@ -2,7 +2,7 @@
 
 {% for child in children %}
 <li>
-  <a class="{% if child.selected or child.ancestor %} text-body font-weight-bold active{% endif %}"
+  <a class="{% if child.selected or child.ancestor %} text-body fw-bold active{% endif %}"
     href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
     {{ child.get_menu_title }}
   </a>

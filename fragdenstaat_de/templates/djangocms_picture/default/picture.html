@@ -83,7 +83,7 @@
 
 {# start render figure/figcaption #}
 {% if instance.caption_text or instance.picture.author or instance.picture.description %}
-  <figcaption class="text-right">
+  <figcaption class="text-end">
     {% if instance.caption_text or instance.picture.description %}
     <div class="picture-description">
       {% if instance.caption_text %}{{ instance.caption_text }}{% elif instance.picture.description %}{{ instance.picture.description }}{% endif %}

@@ -34,12 +34,12 @@
           <form method="post" >
             <div class="pb-2 mb-3">
               {% if step_count > 1 %}
-              <div class="font-weight-bold mb-3">{{ question.questionaire }}</div>
+              <div class="fw-bold mb-3">{{ question.questionaire }}</div>
               {% endif %}
               <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: {{ progess }}%" aria-valuenow="{{ progess }}" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
-              <div class="text-right">
+              <div class="text-end">
                 <small class="text-muted">
                   Frage {{ answer_count }} von max. {{ question_count }}.
                 </small>
@@ -50,13 +50,13 @@
             <div class="no-required-asterisk">
               {% render_form form horizontal=False %}
             </div>
-            <input class="btn btn-primary btn-sm pull-right" type="submit" value="Weiter" />
+            <input class="btn btn-primary btn-sm float-end" type="submit" value="Weiter" />
           </form>
 
           {% if has_previous_question%}
             <form method="post">
               {% csrf_token %}
-              <input class="btn btn-link btn-sm pull-right" name="previous-question" type="submit" value="Zurück" />
+              <input class="btn btn-link btn-sm float-end" name="previous-question" type="submit" value="Zurück" />
             </form>
           {% endif %}
         </div>
@@ -66,19 +66,19 @@
       <div class="clearfix mt-3 bg-white border-gray shadow-sm p-3">
         <div class="pb-2 mb-3">
           {% if step_count > 1 %}
-          <div class="font-weight-bold mb-3">{{ question.questionaire }}</div>
+          <div class="fw-bold mb-3">{{ question.questionaire }}</div>
           {% endif %}
           <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <div class="text-right">
+          <div class="text-end">
             <small class="text-muted">
               Alle Fragen beantwortet.
             </small>
           </div>
           <div class="alert alert-success mt-5" role="alert">
             {% if step_count > 1 %}
-              <div class="mb-3 font-weight-bold pb-2">{{ question.questionaire }} <i class="fa fa-check" aria-hidden="true"></i></div>
+              <div class="mb-3 fw-bold pb-2">{{ question.questionaire }} <i class="fa fa-check" aria-hidden="true"></i></div>
             {% endif %}
             <div>
               {{ message|markdown|linebreaks }}
@@ -87,7 +87,7 @@
           {% if next %}
           <form method="post">
             {% csrf_token %}
-            <div class="mt-3 mb-3 float-right">
+            <div class="mt-3 mb-3 float-end">
               <button class="btn btn-primary btn-sm">
                 <input type="hidden" name="next" value="{{ next.id }}" />
                 Jetzt Klage erstellen
@@ -103,30 +103,30 @@
         <div class="clearfix mt-3 bg-white border-gray shadow-sm p-3">
           <div class="pb-2 mb-3">
             {% if step_count > 1 %}
-            <div class="font-weight-bold mb-3">{{ question.questionaire }}</div>
+            <div class="fw-bold mb-3">{{ question.questionaire }}</div>
             {% endif %}
             <div class="progress">
               <div class="progress-bar" role="progressbar" style="width: {{ progess }}%" aria-valuenow="{{ progess }}" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div class="text-right">
+            <div class="text-end">
               <small class="text-muted">
                 Frage {{ answer_count }} von max. {{ question_count }}.
               </small>
             </div>
             <div class="alert alert-danger mt-1 mb-0" role="alert">
             {% if step_count > 1 %}
-              <div class="mb-3 font-weight-bold pb-2">{{ question.questionaire }} <i class="fa fa-times" aria-hidden="true"></i></div>
+              <div class="mb-3 fw-bold pb-2">{{ question.questionaire }} <i class="fa fa-times" aria-hidden="true"></i></div>
             {% endif %}
             <div>{{ message|markdown|linebreaks }}</div>
           </div>
         </div>
-        <a class="btn btn-primary btn-sm pull-right" href="{% url 'foirequest-shortlink' foi_request.id %}">
+        <a class="btn btn-primary btn-sm float-end" href="{% url 'foirequest-shortlink' foi_request.id %}">
           Zurück zu Anfrage
         </a>
         {% if has_previous_question%}
         <form method="post">
           {% csrf_token %}
-          <input class="btn btn-link btn-sm pull-right" name="previous-question" type="submit" value="Zurück zur letzten Frage" />
+          <input class="btn btn-link btn-sm float-end" name="previous-question" type="submit" value="Zurück zur letzten Frage" />
         </form>
         {% endif %}
       </div>
@@ -146,7 +146,7 @@
 
             <div class="col">
               <div class="dropdown mt-2">
-                <button id="downloadActions" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="downloadActions" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Klageentwurf herunterladen
                 </button>
                 <div class="dropdown-menu alpha-dropdown-menu" aria-labelledby="downloadActions">
@@ -159,7 +159,7 @@
 
             <div class="col">
               <div class="mt-2 mb-3">
-                <input class="btn btn-primary btn-sm float-right" type="submit" value="Änderungen speichern" />
+                <input class="btn btn-primary btn-sm float-end" type="submit" value="Änderungen speichern" />
               </div>
             </div>
 

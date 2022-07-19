@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from froide.helper.spam import SpamProtectionMixin
+from froide.helper.widgets import BootstrapCheckboxSelectMultiple
 
 from .models import Newsletter, Subscriber
 from .utils import subscribe
@@ -59,7 +60,7 @@ class NewslettersUserForm(forms.Form):
         label=_("Newsletters"),
         queryset=None,
         required=False,
-        widget=forms.CheckboxSelectMultiple,
+        widget=BootstrapCheckboxSelectMultiple,
     )
 
     def __init__(self, user, *args, **kwargs):

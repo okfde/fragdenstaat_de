@@ -27,7 +27,7 @@
     {% if object.description or object.highlight %}
         <figcaption>
             {{ object.description }}
-            {% if object.highlight %}{% if object.description %}<br/>{% endif %}<small class="text-muted text-right">Hervorhebung von uns</small>{% endif %}
+            {% if object.highlight %}{% if object.description %}<br/>{% endif %}<small class="text-muted text-end">Hervorhebung von uns</small>{% endif %}
         </figcaption>
     </figure>
     {% endif %}

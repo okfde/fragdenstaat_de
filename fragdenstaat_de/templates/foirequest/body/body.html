@@ -43,17 +43,17 @@
 {% block request_action_menu_footer %}
 {% if object|can_write_foirequest:request and object|foirequest_has_questionaire %}
   <li class="nav-item">
-    <a id="questionaire-tab" class="nav-link" data-toggle="tab" href="#questionaire" role="tab" aria-controls="questionaire" aria-selected="false">
+    <a id="questionaire-tab" class="nav-link" data-bs-toggle="tab" href="#questionaire" role="tab" aria-controls="questionaire" aria-selected="false">
       <span>
         {% translate "Questionnaire" %}
         {% if object|foirequest_campaign_report_count == 0 %}
           {% if object.status_is_final %}
-            <span class="badge badge-pill badge-danger">
+            <span class="badge rounded-pill bg-danger">
               <span class="fa fa-exclamation-circle"></span>
             </span>
           {% endif %}
         {% else %}
-          <span class="badge badge-pill badge-success">
+          <span class="badge rounded-pill bg-success">
             <span class="fa fa-check"></span>
           </span>
         {% endif %}
