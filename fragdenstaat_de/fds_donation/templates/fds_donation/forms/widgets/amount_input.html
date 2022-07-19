@@ -4,19 +4,17 @@
   {% if presets %}
     <div class="btn-toolbar">
     {% for preset in presets %}
-      <div class="btn-group mr-2 mt-2">
+      <div class="btn-group me-2 mt-2">
         <button type="button" class="btn {% if preset|stringformat:'d' == widget.value %}btn-primary{% else %}btn-outline-primary{% endif %}" data-value="{{ preset }}" data-target="{{ widget.attrs.id }}">{{ preset }} {{ currency }}</button>
       </div>
     {% endfor %}
-      <div class="btn-group mr-2 mt-2">
+      <div class="btn-group me-2 mt-2">
         <button type="button" class="btn btn-outline-secondary" data-focus="{{ widget.attrs.id }}">{% trans "Other amount" %}</button>
       </div>
     </div>
   {% endif %}
-  <div class="input-group mt-2">
+  <div class="input-group mt-2" style="max-width: 200px">
     {% include "django/forms/widgets/text.html" %}
-    <div class="input-group-append">
-      <span class="input-group-text">{{ currency }}</span>
-    </div>
+    <span class="input-group-text">{{ currency }}</span>
   </div>
 </div>

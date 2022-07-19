@@ -7,7 +7,7 @@
   {{ form.reference }}
   {{ form.keyword }}
   <fieldset>
-    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">
+    <legend class="bg-primary text-white px-2 py-0 fw-bold">
       {% if form.settings.title %}
         {{ form.settings.title }}
       {% else %}
@@ -16,7 +16,7 @@
     </legend>
     <div class="row">
       <div class="col-12">
-        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.amount %}
+        {% render_field form.amount stacked=True %}
       </div>
     </div>
     {% if form.interval.is_hidden %}
@@ -24,7 +24,7 @@
     {% else %}
       <div class="row">
         <div class="col-12">
-          {% include "helper/forms/bootstrap_field_stacked.html" with field=form.interval %}
+          {% render_field form.interval inline=True %}
         </div>
       </div>
     {% endif %}
@@ -33,13 +33,13 @@
     {% else %}
     <div class="row">
       <div class="col-12">
-        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.purpose %}
+        {% render_field form.purpose stacked=True %}
       </div>
     </div>
     {% endif %}
 
     {% if form.settings.collapsed %}
-      <button type="button" class="btn btn-primary btn-lg mb-3" data-toggle="collapse" data-target="#donation-form-detail" aria-expanded="false" aria-controls="donation-form-detail">
+      <button type="button" class="btn btn-primary btn-lg mb-3" data-bs-toggle="collapse" data-target="#donation-form-detail" aria-expanded="false" aria-controls="donation-form-detail">
         <span class="hideparent">
           {% trans "Continue" %}
         </span>
@@ -53,29 +53,29 @@
   {% endif%}
 
   <fieldset>
-    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">
+    <legend class="bg-primary text-white px-2 py-0 fw-bold">
       {% trans "Your details" %}
     </legend>
     <div class="row">
       <div class="col-12 col-md-3">
-        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.salutation %}
+        {% render_field form.salutation stacked=True %}
       </div>
       <div class="col-12 col-md-9">
         <div class="row">
           <div class="col-sm-6">
-            {% include "helper/forms/bootstrap_field_stacked.html" with field=form.first_name %}
+            {% render_field form.first_name stacked=True %}
           </div>
           <div class="col-sm-6">
-            {% include "helper/forms/bootstrap_field_stacked.html" with field=form.last_name %}
+            {% render_field form.last_name stacked=True %}
           </div>
         </div>
       </div>
     </div>
     <div class="row mt-3">
       <div class="col-12">
-        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.email %}
+        {% render_field form.email stacked=True %}
         <small class="mt-5">
-          <a href="#company-field" data-toggle="collapse">
+          <a href="#company-field" data-bs-toggle="collapse">
             {% trans "&rarr; Do you want to donate as a company?" %}
           </a>
         </small>
@@ -83,37 +83,37 @@
     </div>
     <div class="row mt-3 collapse" id="company-field">
       <div class="col-12">
-        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.company_name %}
+        {% render_field form.company_name stacked=True %}
       </div>
     </div>
     <div class="row mt-3">
       <div class="col-12">
-        {% include "helper/forms/bootstrap_field_stacked.html" with field=form.receipt %}
+        {% render_field form.receipt inline=True %}
       </div>
     </div>
     <div class="collapse" id="address-fields">
       <div class="row">
         <div class="col-12">
-          {% include "helper/forms/bootstrap_field_stacked.html" with field=form.address %}
+          {% render_field form.address stacked=True %}
         </div>
       </div>
       <div class="row">
         <div class="col-4">
-          {% include "helper/forms/bootstrap_field_stacked.html" with field=form.postcode %}
+          {% render_field form.postcode stacked=True %}
         </div>
         <div class="col-8">
-          {% include "helper/forms/bootstrap_field_stacked.html" with field=form.city %}
+          {% render_field form.city stacked=True %}
         </div>
       </div>
       <div class="row">
         <div class="col-12">
-          {% include "helper/forms/bootstrap_field_stacked.html" with field=form.country %}
+          {% render_field form.country stacked=True %}
         </div>
       </div>
     </div>
   </fieldset>
   <fieldset>
-    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">
+    <legend class="bg-primary text-white px-2 py-0 fw-bold">
       {% trans "Payment method" %}
     </legend>
     <div class="row">
@@ -121,10 +121,9 @@
         <div class="d-none onion-show alert alert-danger">
           {% trans "Donations via credit card, SOFORT-Überweisung or Paypal do not work via our .onion-site" %}
         </div>
-        <div class="form-group">
-          {{ form.payment_method }}
+        <div class="mb-3">
+          {% render_field form.payment_method stacked=True %}
         </div>
-
         <p class="text-muted">
           <i class="fa fa-lock"></i>
           {% trans "Your payment details will be transmitted securely in the next step." %}</p>
@@ -132,7 +131,7 @@
     </div>
   </fieldset>
   <fieldset>
-    <legend class="bg-primary text-white px-2 py-0 font-weight-bold">
+    <legend class="bg-primary text-white px-2 py-0 fw-bold">
       {% trans "Stay up to date" %}
     </legend>
     <div class="row">
@@ -143,7 +142,7 @@
             <p>
               {% trans "Receive our newsletter about freedom of information in German." %}
             </p>
-            {{ form.contact }}
+            {% render_field form.contact stacked=True show_label=False %}
           </div>
         </div>
       </div>
@@ -161,9 +160,9 @@
               <h4>{% trans "Get an account" %}</h4>
             </div>
             <div class="card-body">
-              <div class="form-group">
+              <div class="mb-3">
                 <label>{{ form.account.label }}</label>
-                {{ form.account }}
+                {% render_field form.account stacked=True show_label=False %}
               </div>
             </div>
           {% endif %}
@@ -173,11 +172,11 @@
   </fieldset>
 
   <div class="row mt-3">
-    <div class="col-12 col-md-6 text-right ml-auto">
+    <div class="col-12 col-md-6 text-end ms-auto d-grid gap-2">
       {% if form.test %}
         {% render_field form.test %}
       {% endif %}
-      <button id="donate-now" type="submit" class="btn btn-lg btn-block btn-primary btn-threed mb-3">
+      <button id="donate-now" type="submit" class="btn btn-lg btn-primary btn-threed mb-3">
         {% trans "Donate now" %}
       </button>
     </div>

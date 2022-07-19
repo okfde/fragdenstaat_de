@@ -1,4 +1,4 @@
-import { Tooltip } from 'bootstrap.native/dist/bootstrap-native-v4'
+import { Tooltip } from 'bootstrap'
 import { toggleSlide } from 'froide/frontend/javascript/lib/misc'
 
 interface IApplePaySession {
@@ -56,8 +56,8 @@ function setupDonationForm(form: HTMLFormElement): void {
       container.classList.add('ml-2')
       container.innerHTML = `Ihre Spende wird ggf. erst ${nextYear} eingezogen.
       <a href="#" class="text-dark"
-        data-container="body" data-toggle="tooltip"
-        data-placement="top"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
         title="Wenn Sie diesen Zahlungsweg wählen, kann es sein, dass Ihre Spende durch Banklaufzeiten
         erst ${nextYear} abgebucht wird. Damit wird sie ggf. auf Ihrer Spendenbescheinigung
         ${d.getFullYear()} nicht erscheinen.">

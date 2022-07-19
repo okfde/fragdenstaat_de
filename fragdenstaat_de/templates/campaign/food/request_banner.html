@@ -13,12 +13,12 @@
           {% if campaign.description %}
             {{ campaign.description|markdown }}
           {% endif %}
-          <p class="text-right">
+          <p class="text-end">
             Diese Anfrage wurde im Rahmen unserer Kampagne <a href="{{ campaign.url }}?pk_campaign=request">„{{ campaign.name }}“</a> gestellt.
           </p>
           {% if campaign.active %}
             {% if not request.user.is_authenticated or campaign.ident not in request.user.tags %}
-              <p class="text-right">
+              <p class="text-end">
                 <a href="{{ campaign.url }}?pk_campaign=request" class="btn btn-primary">&rarr; Selbst eine Anfrage stellen</a>
               </p>
             {% endif %}

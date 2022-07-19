@@ -28,9 +28,9 @@
   <div class="p-5">
     <div class="row justify-content-between">
       <div class="col-4">
-        <div class="media">
-          <span class="fa fa-send mr-3"></span>
-          <div class="media-body">
+        <div class="d-flex">
+          <span class="flex-shrink-0 fa fa-send me-3"></span>
+          <div class="flex-grow-1 ms-3">
             <h2 class="mt-0">
               {{ aggregates.count|intcomma }} Anfragen
             </h2>
@@ -38,9 +38,9 @@
         </div>
       </div>
       <div class="col-4">
-        <div class="media">
-          <span class="fa fa-check-circle mr-3 mr-2"></span>
-          <div class="media-body">
+        <div class="d-flex">
+          <span class="flex-shrink-0 fa fa-check-circle me-3 me-2"></span>
+          <div class="flex-grow-1 ms-3">
             <h2 class="mt-0">
               {{ aggregates.successful|intcomma }} erfolgreich
             </h2>
@@ -48,9 +48,9 @@
         </div>
       </div>
       <div class="col-4">
-        <div class="media">
-          <span class="fa fa-ban mr-3"></span>
-          <div class="media-body">
+        <div class="d-flex">
+          <span class="flex-shrink-0 fa fa-ban me-3"></span>
+          <div class="flex-grow-1 ms-3">
             <h2 class="mt-0">
               {{ aggregates.refused|intcomma }} abgelehnt
             </h2>
@@ -65,7 +65,7 @@
         {% if top_publicbodies %}
           {% with pb=top_publicbodies.0 %}
             <h2>
-              <span class="badge badge-light">Top-Behörde</span><br/>
+              <span class="badge bg-light">Top-Behörde</span><br/>
               {{ pb.name }}
             </h2>
           {% endwith %}

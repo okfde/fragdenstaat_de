@@ -4,7 +4,7 @@
 <form action="{% url 'fds_cms_contact:contact' %}" method="post">
   {% csrf_token %}
   {% render_form form %}
-  <p class="text-right">
+  <p class="text-end">
     <button type="submit" class="btn btn-primary">
       {% trans "Submit" %}
     </button>

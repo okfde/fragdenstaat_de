@@ -16,7 +16,7 @@
 <div class="card mt-5">
   <div class="card-header">
     {% trans "Subject:" %} {{ object.subject }}
-    <a class="float-right" href="{% url 'admin:fds_mailing_emailtemplate_change' object_id=object.pk %}">{% trans "zurück" %}</a>
+    <a class="float-end" href="{% url 'admin:fds_mailing_emailtemplate_change' object_id=object.pk %}">{% trans "zurück" %}</a>
   </div>
   <div class="card-body">
     {% render_placeholder object.email_body %}

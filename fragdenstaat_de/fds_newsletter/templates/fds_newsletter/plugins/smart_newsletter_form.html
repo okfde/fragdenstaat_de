@@ -12,21 +12,21 @@
     {% if form.test %}
       {% render_field form.test %}
     {% endif %}
-    <label for="newsletter_id_email_field-{{ newsletter.id }}_{{ instance.pk }}" class="sr-only">E-Mail</label>
+    <label for="newsletter_id_email_field-{{ newsletter.id }}_{{ instance.pk }}" class="visually-hidden">E-Mail</label>
     <div class="input-group w-100">
       <input placeholder="E-Mail" class="form-control" type="email" {% if request.user.is_authenticated %}value="{{ request.user.email }}"{% endif %} name="email" required id="newsletter_id_email_field-{{ newsletter.id }}_{{ instance.pk }}">
-      <div class="input-group-append">
-        <button class="btn btn-primary" name="submit" value="Subscribe" type="submit">
-          <span class="fa fa-envelope d-none d-md-inline d-lg-none"></span>
-          <span class="d-md-none d-lg-inline">Abonnieren</span>
-        </button>
-      </div>
+      <button class="btn btn-primary" name="submit" value="Subscribe" type="submit">
+        <span class="fa fa-envelope d-none d-md-inline d-lg-none"></span>
+        <span class="d-md-none d-lg-inline">Abonnieren</span>
+      </button>
     </div>
   </form>
   {% elif has_newsletter and fallback %}
     <h4>Unterstützen Sie FragDenStaat!</h4>
-    <a class="btn btn-block btn-danger text-white" href="/spenden/?pk_campaign=newsletter-subscribed&amp;pk_keyword={{ request.path | urlencode }}">
-      Jetzt spenden
-    </a>
+    <div class="d-grid">
+      <a class="btn btn-danger text-white" href="/spenden/?pk_campaign=newsletter-subscribed&amp;pk_keyword={{ request.path | urlencode }}">
+        Jetzt spenden
+      </a>
+    </div>
   {% endif %}
 </div>

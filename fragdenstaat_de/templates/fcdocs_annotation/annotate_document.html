@@ -7,7 +7,7 @@
 <div class="container-fluid mt-3 mb-5">
   <h2>{{ object.title }}</h2>
   {% if not object.public %}
-  <span class="badge badge-secondary">{% trans "private" %}</span>
+  <span class="badge bg-secondary">{% trans "private" %}</span>
   {% endif %}
   {% if object.description %}
   <p>
@@ -30,7 +30,7 @@
           {{ skipform }}
           <div class="row">
             <div class="col">
-              <button type="submit" name="skip" class="btn btn-outline-primary pull-right">Skip &#62;
+              <button type="submit" name="skip" class="btn btn-outline-primary float-end">Skip &#62;
                 &#62;</button>
               </div>
             </div>
