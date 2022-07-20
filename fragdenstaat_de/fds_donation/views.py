@@ -23,6 +23,7 @@ from .services import confirm_donor_email, merge_donor_list
 def make_order(request, category):
     form = DonationGiftForm(data=request.POST, category=category, request=request)
     if form.is_valid():
+        messages.add_message(request, messages.SUCCESS, "Danke für Deine Bestellung!")
         form.save(request)
         return get_redirect(request)
 
