@@ -203,6 +203,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "send_mailing",
         "send_jzwb_mailing",
         "update_newsletter_tag",
+        "export_donor_csv",
     ] + SetupMailingMixin.actions
 
     tag_all = make_batch_tag_action(autocomplete_url=DONOR_TAG_AUTOCOMPLETE)
@@ -500,6 +501,24 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         return _(
             "Prepared mailing of emailable donors " "with {count} recipients"
         ).format(count=count)
+
+    def export_donor_csv(self, request, queryset):
+        def get_donor_row(queryset):
+            for donor in queryset:
+                yield {
+                    "id": donor.id,
+                    "email": donor.email,
+                    "first_name": donor.first_name,
+                    "last_name": donor.last_name,
+                    "address": donor.address,
+                    "postcode": donor.postcode,
+                    "location": donor.city,
+                    "country": donor.country.name,
+                    "salutation": donor.get_salutation_display(),
+                }
+
+        donor_data = list(get_donor_row(queryset))
+        return export_csv_response(dict_to_csv_stream(donor_data))
 
 
 class PassiveDonationListFilter(admin.SimpleListFilter):
