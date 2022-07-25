@@ -1,3 +1,6 @@
+import csv
+import io
+
 from django.conf.urls import url
 from django.contrib import admin, messages
 from django.core.exceptions import PermissionDenied
@@ -145,7 +148,14 @@ class MailingAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
 
-        my_urls = [url(r"^(.+)/send/$", self.send, name="fds_mailing_mailing_send")]
+        my_urls = [
+            url(r"^(.+)/send/$", self.send, name="fds_mailing_mailing_send"),
+            url(
+                r"^import-csv/$",
+                self.admin_site.admin_view(self.import_csv),
+                name="fds_mailing-mailing-import_csv",
+            ),
+        ]
 
         return my_urls + urls
 
@@ -186,6 +196,38 @@ class MailingAdmin(admin.ModelAdmin):
         )
 
     trigger_continue_sending.short_description = _("Continue sending mailing")
+
+    def import_csv(self, request):
+        if not request.method == "POST":
+            raise PermissionDenied
+        if not self.has_change_permission(request):
+            raise PermissionDenied
+
+        csv_file = request.FILES.get("file")
+        name = csv_file.name
+        csv_file = io.StringIO(csv_file.read().decode("utf-8"))
+
+        mailing = Mailing.objects.create(
+            name=name, creator_user=request.user, publish=False
+        )
+        try:
+            reader = csv.DictReader(csv_file)
+            MailingMessage.objects.bulk_create(
+                [
+                    MailingMessage(
+                        mailing=mailing,
+                        name=row.get("name", ""),
+                        email=row["email"],
+                        user=None,
+                    )
+                    for row in reader
+                ]
+            )
+        except Exception as e:
+            self.message_user(request, str(e))
+        else:
+            self.message_user(request, _("CSV imported as mailing."))
+        return redirect("admin:fds_mailing_mailing_changelist")
 
     def send(self, request, object_id):
         if request.method != "POST":
