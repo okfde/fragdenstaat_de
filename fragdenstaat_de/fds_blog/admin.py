@@ -123,6 +123,7 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
             {
                 "fields": (
                     "title",
+                    "kicker",
                     "status",
                     "teaser",
                     "image",

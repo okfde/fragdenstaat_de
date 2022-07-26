@@ -267,6 +267,7 @@ class FeaturedEntry(models.Model):
 
 
 class DetailsEntry(models.Model):
+    kicker = models.CharField(max_length=100, blank=True)
     teaser = models.TextField(blank=True)
     credits = models.TextField(blank=True)
 
