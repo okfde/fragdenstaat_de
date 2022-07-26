@@ -9,9 +9,6 @@
       <header class="blog-header">
         <div class="row justify-content-center">
           <div class="col-md-12 col-lg-10">
-            <time class="blog-header__date" datetime="{{ article.start_publication|date:'c' }}">
-              {{ article.start_publication|date:"DATE_FORMAT" }}
-            </time>
 
             {% with cats=article.categories.all %}
               {% if cats %}
@@ -26,26 +23,40 @@
               {% endif %}
             {% endwith %}
 
-            {% with tags=article.all_tags %}
-              {% if tags %}
-                <ul class="blog-header__tags">
-                  {% for tag in tags %}
-                    <li>
-                      <a href="{% url 'blog:article-tagged' tag=tag.slug %}">{{ tag.name }}</a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            {% endwith %}
-
             <h1 class="blog-header__title">
-              {% render_model article "title" %}
+              <span class="d-block font-weight-normal blog-header__kicker">
+                {{ article.kicker }}
+              </span>
+              <span>{% render_model article "title" %}</span>
             </h1>
+
             {% if article.teaser %}
-              <div class="blog-lead mb-3">
+              <div class="blog-lead">
                 {% render_model article "teaser" "" "" "safe" %}
               </div>
             {% endif %}
+
+            <div class="mt-3 mb-5">
+              <time class="blog-header__date" datetime="{{ article.start_publication|date:'c' }}">
+                {{ article.start_publication|date:"DATE_FORMAT" }}
+              </time>
+              {% if article.get_authors %}
+              <span>
+                {% with tags=article.all_tags %}
+                  {% if tags %}
+                    <ul class="blog-header__tags">
+                      {% for tag in tags %}
+                        <li>
+                          <a href="{% url 'blog:article-tagged' tag=tag.slug %}">{{ tag.name }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+
+              </span>
+              {% endif %}
+            </div>
 
             {% block article_header_image %}
               {% if article.image %}
