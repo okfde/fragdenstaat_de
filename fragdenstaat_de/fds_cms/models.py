@@ -262,7 +262,7 @@ class OneClickFoiRequestCMSPlugin(CMSPlugin):
 
 
 class VegaChartCMSPlugin(CMSPlugin):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
 
     vega_json = models.TextField(
@@ -270,7 +270,7 @@ class VegaChartCMSPlugin(CMSPlugin):
     )
 
     def __str__(self):
-        return self.title
+        return self.title or ""
 
 
 class SVGImageCMSPlugin(CMSPlugin):
