@@ -2,7 +2,7 @@
 {% load sekizai_tags %}
 
 <div class="vega-chart">
-  <h5>{{ instance.title }}</h5>
+  {% if instance.title %}<h5>{{ instance.title }}</h5>{% endif %}
   {% if instance.description %}<p>{{ instance.description|linebreaksbr }}</p>{% endif %}
   <div data-vegachart data-vegachartdata="{{ instance.vega_json }}"></div>
 </div>
