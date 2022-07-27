@@ -10,19 +10,6 @@
         <div class="row justify-content-center">
           <div class="col-md-12 col-lg-10">
 
-            {% with cats=article.categories.all %}
-              {% if cats %}
-                –
-                <ul class="blog-header__categories">
-                  {% for cat in cats %}
-                    <li>
-                      <a href="{% url 'blog:article-category' category=cat.slug %}">{{ cat.title }}</a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            {% endwith %}
-
             <h1 class="blog-header__title">
               <span class="d-block font-weight-normal blog-header__kicker">
                 {{ article.kicker }}
