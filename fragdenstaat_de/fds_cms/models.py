@@ -270,7 +270,7 @@ class VegaChartCMSPlugin(CMSPlugin):
     )
 
     def __str__(self):
-        return self.title or ""
+        return self.title
 
 
 class SVGImageCMSPlugin(CMSPlugin):
