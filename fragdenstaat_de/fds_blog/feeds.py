@@ -56,6 +56,8 @@ class BaseFeed(Feed):
 
     @clean_feed_output
     def item_title(self, item):
+        if hasattr(item, "kicker") and item.kicker:
+            return "{}: {}".format(item.kicker, item.title)
         return item.title
 
     @clean_feed_output
