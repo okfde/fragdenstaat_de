@@ -411,6 +411,9 @@ class Article(
             ).order_by("articleauthorship__order")
         return self._cached_authors
 
+    def get_authors_string(self):
+        return ", ".join(str(author) for author in self.get_authors())
+
 
 TEMPLATES = [
     ("fds_blog/plugins/latest_articles.html", _("Normal")),
