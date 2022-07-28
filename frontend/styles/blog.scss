@@ -146,9 +146,15 @@ h4.blog-list-heading {
   }
 }
 
-.blog-header__date {
+.blog-header__meta {
   color: $gray-600;
   font-size: 0.9rem;
+}
+
+.blog-header__kicker {
+  color: $gray-600;
+  font-size: 0.9rem;
+  height: 1.5em;
 }
 
 .blog-header__tags,
@@ -167,8 +173,6 @@ h4.blog-list-heading {
 }
 
 .blog-header__tags {
-  float: right;
-
   a::before {
     content: '#';
   }

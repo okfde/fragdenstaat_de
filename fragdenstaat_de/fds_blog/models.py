@@ -267,6 +267,7 @@ class FeaturedEntry(models.Model):
 
 
 class DetailsEntry(models.Model):
+    kicker = models.CharField(max_length=100, blank=True)
     teaser = models.TextField(blank=True)
     credits = models.TextField(blank=True)
 
@@ -409,6 +410,9 @@ class Article(
                 articleauthorship__article=self
             ).order_by("articleauthorship__order")
         return self._cached_authors
+
+    def get_authors_string(self):
+        return ", ".join(str(author) for author in self.get_authors())
 
 
 TEMPLATES = [

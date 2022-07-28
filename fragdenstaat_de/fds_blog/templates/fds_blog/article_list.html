@@ -36,7 +36,14 @@
               {% endif %}
               <div class="blog-teaser-text">
                 <h3>
-                  <a href="{{ featured.get_absolute_url }}">{{ featured.title }}</a>
+                  <a href="{{ featured.get_absolute_url }}">
+                    {% if featured.kicker %}
+                    <span class="d-block font-weight-normal blog-header__kicker">
+                      {{ featured.kicker }}
+                    </span>
+                    {% endif %}
+                    {{ featured.title }}
+                  </a>
                 </h3>
                 <div class="blog-lead">
                   {% render_model featured "teaser" "" "" "safe" %}

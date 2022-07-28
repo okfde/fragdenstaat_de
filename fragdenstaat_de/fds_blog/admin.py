@@ -123,6 +123,7 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
             {
                 "fields": (
                     "title",
+                    "kicker",
                     "status",
                     "teaser",
                     "image",
@@ -308,7 +309,7 @@ class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         """
         Return the authors in HTML.
         """
-        return ", ".join(str(author) for author in article.authors.all())
+        return article.get_authors_string()
 
     get_authors.short_description = _("author(s)")
 
