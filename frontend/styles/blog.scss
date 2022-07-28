@@ -154,7 +154,8 @@ h4.blog-list-heading {
 .blog-header__kicker {
   color: $gray-600;
   font-size: 0.9rem;
-  height: 1.5em;
+  min-height: 1.5em;
+  line-height: 1.5;
 }
 
 .blog-header__tags,
