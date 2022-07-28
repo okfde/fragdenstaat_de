@@ -40,6 +40,13 @@ h4.blog-list-heading {
   }
 }
 
+.blog-list-heading__kicker {
+  color: $gray-600;
+  font-size: 0.9rem;
+  min-height: 1.5em;
+  line-height: 1.5;
+}
+
 .blog-lead {
   color: $gray-600;
   font-weight: 400;
@@ -148,14 +155,7 @@ h4.blog-list-heading {
 
 .blog-header__meta {
   color: $gray-600;
-  font-size: 0.9rem;
-}
-
-.blog-header__kicker {
-  color: $gray-600;
-  font-size: 0.9rem;
-  min-height: 1.5em;
-  line-height: 1.5;
+  font-size: 1rem;
 }
 
 .blog-header__tags,
