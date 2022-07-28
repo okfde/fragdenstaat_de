@@ -325,6 +325,12 @@ class Article(
     def description(self):
         return self.teaser or self.excerpt
 
+    @property
+    def meta_title(self):
+        if self.kicker:
+            return "{}: {}".format(self.kicker, self.title)
+        return self.title
+
     def get_html_content(self, request=None, template="fds_blog/content.html"):
         if request is None:
             request = get_request(language=self.language)
