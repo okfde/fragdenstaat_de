@@ -2,7 +2,7 @@
 {% load thumbnail %}
 
 {# Schema.org markup for Google+ #}
-<meta itemprop="name" content="{{ article.title }}">
+<meta itemprop="name" content="{{ article.meta_title }}">
 {% if article.abstract %}
     <meta itemprop="description" content="{{ article.abstract|striptags }}">
 {% endif %}
@@ -11,7 +11,7 @@
 {# Twitter Card data #}
 
 <meta name="twitter:site" content="@fragdenstaat">
-<meta name="twitter:title" content="{{ article.title }}">
+<meta name="twitter:title" content="{{ article.meta_title }}">
 {% if article.teaser %}
     <meta name="twitter:description" content="{{ article.teaser|striptags }}">
 {% endif %}
@@ -27,7 +27,7 @@
 
 
 {# Open Graph data #}
-<meta property="og:title" content="{{ article.title }}" />
+<meta property="og:title" content="{{ article.meta_title }}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="{{ SITE_URL }}{{ article.get_absolute_url }}" />
 

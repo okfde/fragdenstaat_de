@@ -5,7 +5,7 @@
 {% load blog_tags %}
 
 {% block canonical_url %}<link rel="canonical" href="{{ meta.url }}"/>{% endblock canonical_url %}
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}{{ article.meta_title }}{% endblock %}
 
 {% block meta %}
   {% include "snippets/meta.html" with description=article.teaser|striptags keywords=article.tag_list %}
