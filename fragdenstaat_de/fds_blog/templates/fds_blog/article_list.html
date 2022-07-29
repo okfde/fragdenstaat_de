@@ -1,5 +1,5 @@
 {% extends "fds_blog/base.html" %}
-{% load i18n easy_thumbnails_tags cms_tags %}{% spaceless %}
+{% load i18n easy_thumbnails_tags cms_tags markup %}{% spaceless %}
 
 {% block canonical_url %}<link rel="canonical" href="{{ view.get_view_url }}"/>{% endblock canonical_url %}
 
@@ -14,13 +14,34 @@
     {% if author or archive_date or article_tag or category %}
       <header class="blog-head">
         <h2>
-          {% if author %}{% trans "Articles by" %} {{ author.get_full_name }}
-          {% elif archive_date %}{% trans "Archive" %} {% if month %}{{ archive_date|date:'F' }} {% endif %}{{ year }}
+          {% if archive_date %}{% trans "Archive" %} {% if month %}{{ archive_date|date:'F' }} {% endif %}{{ year }}
           {% elif article_tag %}{% trans "Tag" %} {{ article_tag.name }}
           {% elif category %}{% trans "Category" %} {{ category }}{% endif %}
         </h2>
         {% if category and category.description %}<p>{{ category.description }}</p>{% endif %}
       </header>
+
+      {% if author %}
+        <h4>{% trans "Articles by" %}:</h4>
+        <div class="author-section mt-0">
+          <div class="row justify-content-center align-items-center pb-4 pt-4">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-block">
+              {% if author.profile_photo %}
+                <img class="img-circle" src="{{ author.profile_photo.url }}" alt="Bild des Autors" loading="lazy">
+              {% endif %}
+            </div>
+            <div class="col-12 col-sm-8 col-md-6 col-lg-5">
+              <h2 class="author-title">
+                  {{ author.get_full_name }}
+              </h2>
+              <div class="author-description">
+                {{ author.profile_text | markdown }}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
     {% endif %}
     {% endblock %}
 
