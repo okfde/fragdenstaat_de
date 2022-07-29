@@ -28,7 +28,14 @@
                 {{ article.start_publication|date:"DATE_FORMAT" }}
               </time>
               {% if article.get_authors %}
-              <span> - {{ article.get_authors_string }}</span>
+              <span> -
+                {% for author in article.get_authors %}
+                <a href="{% url 'blog:article-author' username=author.username %}">
+                  {{ author.get_full_name }}
+                </a>
+                {% if not forloop.last %},{% endif%}
+                {% endfor %}
+              </span>
               {% endif %}
             </div>
 
@@ -114,33 +121,4 @@
 </div>
 {% endblock article_languages %}
 
-{% block article_authors %}
-<div class="container">
-  <div class="author-section">
-    {% for author in article.get_authors %}
-      <div class="row justify-content-center align-items-center pb-5 pt-5">
-        <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-block">
-          {% if author.user.profile_photo %}
-            <img class="img-circle" src="{{ author.user.profile_photo.url }}" alt="Bild des Autors" loading="lazy">
-          {% endif %}
-        </div>
-        <div class="col-12 col-sm-8 col-md-6 col-lg-5">
-          <h4 class="author-title">
-            <a href="{% url 'blog:article-author' username=author.username %}">
-              {{ author.get_full_name }}
-            </a>
-          </h4>
-          <div class="author-description">
-            {{ author.user.profile_text | markdown }}
-          </div>
-          {% if account.user.get_absolute_url %}
-            <a href="{{ account.user.get_absolute_url }}">
-              Anfragen des Autors
-            </a>
-          {% endif %}
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
-{% endblock article_authors %}
+{% block article_authors %}{% endblock article_authors %}
