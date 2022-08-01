@@ -47,6 +47,8 @@
     #   froide-crowdfunding
 -e git+https://github.com/stefanw/djangocms-sortabletable.git@master#egg=sortabletable
     # via -r requirements.in
+aia==0.2.0
+    # via -r requirements.in
 aiohttp==3.8.1
     # via geoip2
 aiosignal==1.2.0
@@ -406,6 +408,8 @@ geopy==2.1.0
     # via
     #   django-amenities
     #   froide-food
+html-text==0.5.2
+    # via -r requirements.in
 html5lib==1.1
     # via
     #   djangocms-text-ckeditor
@@ -446,6 +450,7 @@ lxml==4.9.1
     #   django-amenities
     #   django-contractor
     #   feedgen
+    #   html-text
     #   pikepdf
     #   python-docx
     #   svglib
@@ -470,6 +475,7 @@ numpy==1.22.1
     # via
     #   -r requirements.in
     #   pandas
+    #   torchvision
     #   webp
 oauthlib==3.1.1
     # via django-oauth-toolkit
@@ -495,6 +501,7 @@ pillow==9.2.0
     #   easy-thumbnails
     #   pikepdf
     #   reportlab
+    #   torchvision
     #   weasyprint
     #   webp
 prices==1.1.0
@@ -593,6 +600,7 @@ requests==2.25.1
     #   geocoder
     #   geoip2
     #   stripe
+    #   torchvision
 sentry-sdk==1.1.0
     # via -r requirements.in
 service-identity==21.1.0
@@ -634,6 +642,12 @@ tinycss2==1.1.0
     #   cssselect2
     #   svglib
     #   weasyprint
+torch==1.12.0
+    # via
+    #   -r requirements.in
+    #   torchvision
+torchvision==0.13.0
+    # via -r requirements.in
 twisted[tls]==22.4.0
     # via daphne
 txaio==21.2.1
@@ -642,6 +656,8 @@ typing-extensions==3.10.0.0
     # via
     #   async-timeout
     #   pypdf2
+    #   torch
+    #   torchvision
     #   twisted
 unicodecsv==0.14.1
     # via djangorestframework-csv

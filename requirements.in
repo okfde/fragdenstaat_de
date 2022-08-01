@@ -1,11 +1,12 @@
+aia
 celery>=5.2.2
 channels
 coreapi
 dj-database-url
 django-admin-sortable2==1.0
 django-cache-url
-django-celery-email
 django-celery-beat
+django-celery-email
 django-cms<=3.10.0
 django-configurations
 django-contractor
@@ -21,8 +22,8 @@ django-logentry-admin
 django-mfa3
 django-oauth-toolkit
 django-parler
-django-storages
 django-sekizai>=2.0
+django-storages
 django-taggit
 django-taggit-autosuggest
 django-treebeard==4.5.1
@@ -36,9 +37,10 @@ djangocms-video
 djangorestframework
 djangorestframework-csv
 djangorestframework-jsonp
-elasticsearch<8.0.0,>=7.0.0
 elasticsearch-dsl>=7.0.0<8.0.0
+elasticsearch<8.0.0,>=7.0.0
 geoip2
+html-text
 icalendar
 jsonschema
 lxml>=4.6.5
@@ -61,6 +63,8 @@ reportlab
 requests
 sentry-sdk
 stripe
+torch
+torchvision
 Wand
 WeasyPrint
 webp

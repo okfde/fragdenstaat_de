@@ -52,6 +52,7 @@ class FragDenStaatBase(German, Base):
                 "fragdenstaat_de.fds_donation.apps.FdsDonationConfig",
                 "fragdenstaat_de.fds_mailing.apps.FdsMailingConfig",
                 "fragdenstaat_de.fds_ogimage.apps.FdsOgImageConfig",
+                "fragdenstaat_de.fds_fximport.apps.FdsFxImportConfig",
                 # Additional CMS plugins
                 "djangocms_text_ckeditor",
                 "djangocms_picture",
@@ -762,3 +763,5 @@ class FragDenStaatBase(German, Base):
     SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL", "")
 
     SENTRY_JS_URL = ""
+
+    FRONTEX_CAPTCHA_MODEL_PATH = os.environ.get("FRONTEX_CAPTCHA_MODEL_PATH", None)
