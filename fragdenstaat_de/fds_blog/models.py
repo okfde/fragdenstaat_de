@@ -425,7 +425,7 @@ class Article(
         for author in self.get_authors():
             url = reverse("blog:article-author", kwargs={"username": author.username})
             link_text = author.get_full_name()
-            links.append("<a href='{}'>{}</a>".format(url, link_text))
+            links.append(html.format_html("<a href='{}'>{}</a>", url, link_text))
         return ", ".join(links)
 
 
