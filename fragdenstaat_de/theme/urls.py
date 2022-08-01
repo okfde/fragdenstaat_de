@@ -79,6 +79,7 @@ urlpatterns = [
         glyphosat_download,
         name="fragdenstaat-glyphosat_download",
     ),
+    path("fronteximport/", include("fragdenstaat_de.fds_fximport.urls")),
     path("koalitionstracker/admin/", govplan_admin_site.urls),
     path(
         "tippspiel/",
