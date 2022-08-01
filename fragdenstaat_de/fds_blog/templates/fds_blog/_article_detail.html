@@ -29,12 +29,7 @@
               </time>
               {% if article.get_authors %}
               <span> -
-                {% for author in article.get_authors %}
-                <a href="{% url 'blog:article-author' username=author.username %}">
-                  {{ author.get_full_name }}
-                </a>
-                {% if not forloop.last %},{% endif%}
-                {% endfor %}
+                {{ article.get_authors_link_list | safe }}
               </span>
               {% endif %}
             </div>

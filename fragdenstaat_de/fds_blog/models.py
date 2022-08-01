@@ -420,6 +420,14 @@ class Article(
     def get_authors_string(self):
         return ", ".join(str(author) for author in self.get_authors())
 
+    def get_authors_link_list(self):
+        links = []
+        for author in self.get_authors():
+            url = reverse("blog:article-author", kwargs={"username": author.username})
+            link_text = author.get_full_name()
+            links.append("<a href='{}'>{}</a>".format(url, link_text))
+        return ", ".join(links)
+
 
 TEMPLATES = [
     ("fds_blog/plugins/latest_articles.html", _("Normal")),
