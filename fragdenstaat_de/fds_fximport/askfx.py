@@ -7,6 +7,7 @@ import re
 import tempfile
 import uuid
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Dict, List, Optional
 from urllib.parse import urljoin
 
@@ -14,7 +15,6 @@ import bs4
 import html_text
 import PIL
 import requests
-from aia import AIASession
 from bs4 import BeautifulSoup
 
 from . import captcha
@@ -206,8 +206,7 @@ class FrontexPadClient:
 
         # Frontexes Server is configured weirdly and relies on Authority Information Access (AIA) chasing,
         # which python does not support https://bugs.python.org/issue18617
-        aia_session = AIASession()
-        self._cadata = aia_session.cadata_from_url(self.login_url)
+        self._ca_path = Path(__file__).parent / "pad_cadata.pem"
         self.captcha_net = captcha_net
 
     def _load_captcha(self) -> CaptchaResponse:
@@ -230,24 +229,14 @@ class FrontexPadClient:
         return form_data
 
     def _get(self, *args, **kwargs) -> requests.Request:
-        with tempfile.NamedTemporaryFile("w") as pem_file:
-            pem_file.write(self._cadata)
-            pem_file.flush()
-            req = self.session.get(
-                *args, **kwargs, verify=pem_file.name, headers=HEADERS
-            )
-            req.raise_for_status()
-            return req
+        req = self.session.get(*args, **kwargs, verify=self._ca_path, headers=HEADERS)
+        req.raise_for_status()
+        return req
 
     def _post(self, *args, **kwargs) -> requests.Request:
-        with tempfile.NamedTemporaryFile("w") as pem_file:
-            pem_file.write(self._cadata)
-            pem_file.flush()
-            req = self.session.post(
-                *args, **kwargs, verify=pem_file.name, headers=HEADERS
-            )
-            req.raise_for_status()
-            return req
+        req = self.session.post(*args, **kwargs, verify=self._ca_path, headers=HEADERS)
+        req.raise_for_status()
+        return req
 
     def _login(self, retries: int = 100) -> str:
         """Load the login form and return a path to the captcha iamge
