@@ -122,7 +122,7 @@ def import_attachments_from_case(
     account_service = AccountService(foirequest.user)
 
     last_imported_message = FoiMessage.objects.filter(
-        request=foirequest, kind=MessageKind.IMPORT, is_response=False
+        request=foirequest, kind=MessageKind.IMPORT, is_response=True
     ).latest()
 
     for document in case.metadata.documents:
