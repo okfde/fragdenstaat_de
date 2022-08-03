@@ -58,7 +58,7 @@ class FrontexCredentials:
 
 
 def parse_frontex_mail_date(datestr: str) -> datetime.date:
-    locale.setlocale(locale.LC_ALL, "en_US")
+    locale.setlocale(locale.LC_ALL, "en_US.utf8")
     date = datetime.datetime.strptime(datestr, "%A, %d %B %Y").date()
     locale.setlocale(locale.LC_ALL, None)
     return date
