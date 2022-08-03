@@ -95,7 +95,7 @@ def import_messages_from_case(foirequest: FoiRequest, case: PadCase):
                 ),
             )
 
-            if pad_message.direction == Direction.OUT:
+            if pad_message.direction == Direction.IN:
                 message.is_response = False
                 message.sender_user = message.request.user
                 message.recipient_public_body = foirequest.public_body
