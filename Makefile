@@ -13,3 +13,6 @@ requirements: requirements.in requirements-dev.in requirements-production.in
 	pip-compile requirements.in
 	pip-compile requirements-dev.in
 	pip-compile requirements-production.in
+
+messagesde:
+	django-admin makemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --add-location file
