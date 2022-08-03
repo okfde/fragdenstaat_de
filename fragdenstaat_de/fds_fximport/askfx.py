@@ -169,7 +169,7 @@ def parse_message(item: bs4.element.Tag) -> PadMessage:
     if "askFX_OUT" in item.get("class"):
         direction = Direction.OUT
     elif "askFX_IN" in item.get("class"):
-        direction = Direction.OUT
+        direction = Direction.IN
     else:
         raise Exception("Unknown direction")
     date = get_item_date(item)
