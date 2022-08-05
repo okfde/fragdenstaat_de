@@ -58,7 +58,7 @@ class FrontexCredentials:
 
 
 def parse_frontex_mail_date(datestr: str) -> datetime.date:
-    locale.setlocale(locale.LC_ALL, "en_US.utf8")
+    locale.setlocale(locale.LC_ALL, "en_US.utf-8")
     date = datetime.datetime.strptime(datestr, "%A, %d %B %Y").date()
     locale.setlocale(locale.LC_ALL, None)
     return date
@@ -151,7 +151,7 @@ def parse_header(item: bs4.element.Tag) -> PadMetadata:
     raw_data = parse_table(item.find(class_="askFX_Table"))
     return PadMetadata(
         created_on=parse_date(raw_data["Created on"]),
-        documents=raw_data["Documents"],
+        documents=raw_data.get("Documents", []),
         subject=raw_data["Subject"],
         created_by=raw_data["Created by"],
         case_id=raw_data["PAD Case ID"],
