@@ -78,6 +78,8 @@ class PadCase:
         for item in soup.find_all(class_="askFX_Item"):
             if "askFX_Header" in item.get("class"):
                 metadata = parse_header(item)
+            elif item.find("textarea", id="NewEntry"):
+                pass
             else:
                 messages.append(parse_message(item))
 
@@ -257,8 +259,8 @@ class FrontexPadClient:
             form_data["captchaId"] = captcha_data.id
 
             req = self._post(self.login_url, data=form_data)
+            success = "Invalid captcha code provided" not in req.text
 
-            success = "Captcha Code" not in req.text
             if success:
                 return req.text
             retries -= 1
