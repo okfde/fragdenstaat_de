@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 
+from sentry_sdk import capture_exception
+
 from froide.foirequest.models import FoiMessage
 from froide.foirequest.views.request_actions import allow_write_foirequest
 
@@ -21,10 +23,19 @@ def frontex_pad_import(request, foirequest, message_id):
         )
         return redirect(foirequest)
 
-    import_case.delay(message.id)
-    messages.add_message(
-        request,
-        messages.SUCCESS,
-        _("Import started. The messages should show up in a few moments."),
-    )
+    try:
+        import_case(message.id)
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            _("Import successful."),
+        )
+    except Exception as e:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            _("Something went wrong. Please try again later."),
+        )
+        capture_exception(e)
+
     return redirect(foirequest)

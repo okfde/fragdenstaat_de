@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 
 <div class="btn-group btn-group-sm mb-1 ml-sm-auto">
 
@@ -18,18 +19,22 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="frontex-import-form" action="{% url 'fragdenstaat-frontex_pad_import' slug=request.slug message_id=message.id %}" method="post" class="horizontal-form disable-submit">
+        <form id="frontex-import-form" action="{% url 'fragdenstaat-frontex_pad_import' slug=request.slug message_id=message.id %}"
+          method="post" class="horizontal-form disable-submit">
           {% csrf_token %}
           <p>
             {% blocktrans %}
               We automatically import the message from frontex for you and permanently store it on FragDenStaat.
             {% endblocktrans %}
           </p>
-          
+
           <p class="text-right">
             <button class="btn btn-primary" type="submit" id="frontex-import-button">
               &rarr; {% translate "Import message" %}
             </button>
+          </p>
+          <p class="text-center show-while-submitting">
+            <img id="workingGif" alt="{% trans "Gif of a cat furiously typing on a keyboard" %}" src="{% static 'fds_fximport/keyboard-cat.gif' %}" />
           </p>
         </form>
       </div>
