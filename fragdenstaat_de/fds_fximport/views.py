@@ -8,8 +8,7 @@ from sentry_sdk import capture_exception
 from froide.foirequest.models import FoiMessage
 from froide.foirequest.views.request_actions import allow_write_foirequest
 
-from .helper import is_frontex_msg
-from .tasks import import_case
+from .helper import import_frontex_case, is_frontex_msg
 
 
 @require_POST
@@ -24,7 +23,7 @@ def frontex_pad_import(request, foirequest, message_id):
         return redirect(foirequest)
 
     try:
-        import_case(message.id)
+        import_frontex_case(message)
         messages.add_message(
             request,
             messages.SUCCESS,
