@@ -1,23 +1,15 @@
 <article class="d-flex flex-column w-100 p-3 bg-white border-gray">
-  {% with tags=article.all_tags %}
-    {% if tags %}
-      <ul class="list-unstyled d-flex text-blue-600 font-weight-semibold font-size-sm mb-1">
-      {% for tag in tags %}
-        <li class="mr-2">
-          <a href="/blog/tag/{{ tag.slug }}">
-            #{{ tag.name }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-  {% endwith %}
   <h3 class="h5 mt-0 mb-1">
+    {% if article.kicker %}
+    <span class="d-block text-gray-500 font-weight-bold font-size-sm">
+      {{ article.kicker }}
+    </span>
+    {% endif %}
     <a class="text-black" href="{{ article.get_absolute_url }}">
       {{ article.title }}
     </a>
   </h3>
-  <div class="text-gray-500 font-weight-bold font-size-sm mt-auto">
+  <div class="text-gray-500 font-weight-normal font-size-sm mt-auto">
     {{ article.start_publication|date:"DATE_FORMAT" }}
   </div>
 </article>
