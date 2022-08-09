@@ -3,11 +3,7 @@
 {% load cms_tags %}
 {% load static %}
 {% load sekizai_tags %}
-
-{% block css %}
-  {% addtoblock "css" %}<link href="{% static 'css/main.css' %}" rel="stylesheet">{% endaddtoblock %}
-  {{ block.super }}
-{% endblock %}
+{% load frontend %}
 
 {% block body_extra_attributes %} data-staticurl="{{ STATIC_URL }}"{% if request.user.is_staff %} data-sentry="{{ SENTRY_JS_URL}}"{% endif %}{% endblock %}
 
@@ -54,10 +50,11 @@
 {% endblock body_tag %}
 
 {% block scripts %}
-  {% addtoblock "js" %}<script async src="{% static 'js/main.js' %}"></script>{% endaddtoblock %}
+  {% renderfrontendhmr %}
+  {% include "_frontend.html" with entry_point="main.js" %}
 
   {% if cms_toolbar.edit_mode_active %}
-    {% addtoblock "js" %}<script async src="{% static 'js/fds_cms.js' %}"></script>{% endaddtoblock %}
+    {% include "_frontend.html" with entry_point="fds_cms.js" %}
   {% endif %}
 
   {{ block.super }}
