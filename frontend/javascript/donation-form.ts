@@ -30,7 +30,9 @@ function setupDonationForm(form: HTMLFormElement): void {
     setupAmountGroup(amountGroup)
     amountChanged(amountGroup.querySelector('input'))
   }
-  const radioCollapse = form.querySelectorAll('[data-toggle="radiocollapse"]')
+  const radioCollapse = form.querySelectorAll(
+    '[data-bs-toggle="radiocollapse"]'
+  )
   ;(Array.from(radioCollapse) as HTMLInputElement[]).forEach(setupRadioCollapse)
 
   const intervalGroup = document.getElementById('id_interval')
@@ -131,7 +133,7 @@ function setupIntervalGroup(intervalGroup: HTMLElement): void {
     '#id_payment_method input[value="sofort"]'
   )
   const oneTimeFields = document.querySelectorAll<HTMLInputElement>(
-    '[data-toggle="nonrecurring"]'
+    '[data-bs-toggle="nonrecurring"]'
   )
   const additionalCCLabel = document.querySelector('.additional-cc')
 

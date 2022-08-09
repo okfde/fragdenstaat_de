@@ -1,8 +1,11 @@
 import os
 import re
 from datetime import timedelta
+from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
+
+from configurations import values
 
 from froide.settings import Base, German
 
@@ -15,7 +18,7 @@ def env(key, default=None):
     return os.environ.get(key, default)
 
 
-THEME_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+THEME_ROOT = Path(__file__).resolve().parent.parent
 
 
 class FragDenStaatBase(German, Base):
@@ -105,7 +108,7 @@ class FragDenStaatBase(German, Base):
         if "DIRS" not in TEMP[0]:
             TEMP[0]["DIRS"] = []
         TEMP[0]["DIRS"] = [
-            os.path.join(THEME_ROOT, "templates"),
+            THEME_ROOT / "templates",
         ] + list(TEMP[0]["DIRS"])
         cps = TEMP[0]["OPTIONS"]["context_processors"]
         cps.extend(
@@ -121,8 +124,11 @@ class FragDenStaatBase(German, Base):
     def LOCALE_PATHS(self):
         locales = list(super().LOCALE_PATHS)
         return [
-            os.path.join(THEME_ROOT, "locale"),
+            THEME_ROOT / "locale",
         ] + locales
+
+    STATIC_ROOT = values.Value(THEME_ROOT.parent / "public")
+    FRONTEND_BUILD_DIR = THEME_ROOT.parent / "build"
 
     # Newsletter
     NEWSLETTER_RICHTEXT_WIDGET = "djangocms_text_ckeditor.widgets.TextEditorWidget"
@@ -177,7 +183,8 @@ class FragDenStaatBase(German, Base):
             {"code": "en"},
         ),
         "default": {
-            "hide_untranslated": False,  # the default; let .active_translations() return fallbacks too.
+            # the default; let .active_translations() return fallbacks too.
+            "hide_untranslated": False,
         },
     }
 
@@ -485,7 +492,10 @@ class FragDenStaatBase(German, Base):
     # ######### Debug ###########
 
     SITE_NAME = "FragDenStaat"
-    SITE_LOGO = "https://media.frag-den-staat.de/files/media/main/f9/21/f9211ce7-9924-47da-913f-3070dbd4d298/og-default-sm.png"
+    SITE_LOGO = (
+        "https://media.frag-den-staat.de/files/media/main/f9/21/"
+        "f9211ce7-9924-47da-913f-3070dbd4d298/og-default-sm.png"
+    )
     SITE_EMAIL = "info@fragdenstaat.de"
     SITE_URL = "http://localhost:8000"
 
@@ -562,7 +572,11 @@ class FragDenStaatBase(German, Base):
                 dryrun_domain="test.fragdenstaat.de",
                 allow_pseudonym=True,
                 api_activated=True,
-                search_engine_query="http://www.google.de/search?as_q=%(query)s&as_epq=&as_oq=&as_eq=&hl=en&lr=&cr=&as_ft=i&as_filetype=&as_qdr=all&as_occt=any&as_dt=i&as_sitesearch=%(domain)s&as_rights=&safe=images",
+                search_engine_query=(
+                    "http://www.google.de/search?as_q=%(query)s&as_epq=&as_oq=&as_eq=&"
+                    "hl=en&lr=&cr=&as_ft=i&as_filetype=&as_qdr=all&as_occt=any&"
+                    "as_dt=i&as_sitesearch=%(domain)s&as_rights=&safe=images"
+                ),
                 show_public_body_employee_name=False,
                 request_throttle=[
                     (5, 5 * 60),  # X requests in X seconds
@@ -628,7 +642,8 @@ class FragDenStaatBase(German, Base):
                 ],
                 closings=[
                     rec(
-                        r"\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? *Gr(ü|u|\?)(ß|ss|\?)(?!\s+Gott)(en?)?,?"
+                        r"\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? "
+                        r"*Gr(ü|u|\?)(ß|ss|\?)(?!\s+Gott)(en?)?,?"
                     ),
                     rec(r"\bHochachtungsvoll,?"),
                     rec(r"\bi\. ?A\."),
@@ -644,7 +659,8 @@ class FragDenStaatBase(German, Base):
                     )
                 ],
                 recipient_blocklist_regex=rec(
-                    r".*\.de-mail\.de$|^z@bundesnachrichtendienst.de|^pad.donotreply@frontex.europa.eu|"
+                    r".*\.de-mail\.de$|^z@bundesnachrichtendienst.de|"
+                    r"^pad.donotreply@frontex.europa.eu|"
                     r"^noreply@.*|^empfangsbestaetigung@bahn.de$|.*\.local$|^postmaster@.*|"
                     r"^askema.noreply@ema.europa.eu$"
                 ),
@@ -661,7 +677,8 @@ class FragDenStaatBase(German, Base):
                 unsubscribe_enabled=True,
                 unsubscribe_format="unsub+{token}@fragdenstaat.de",
                 auto_reply_subject_regex=rec(
-                    "^(Auto-?Reply|Out of office|Out of the office|Abwesenheitsnotiz|Automatische Antwort|automatische Empfangsbestätigung)"
+                    r"^(Auto-?Reply|Out of office|Out of the office|Abwesenheitsnotiz|"
+                    r"Automatische Antwort|automatische Empfangsbestätigung)"
                 ),
                 auto_reply_email_regex=rec("^auto(reply|responder|antwort)@"),
                 non_meaningful_subject_regex=[

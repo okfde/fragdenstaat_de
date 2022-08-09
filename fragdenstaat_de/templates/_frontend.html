@@ -1,0 +1,4 @@
+{% load frontend sekizai_tags %}
+
+{% getfrontendbuild entry_point as assets %}
+{% for block, output_list in assets %}{% for output in output_list %}{% addtoblock block %}{{ output|safe }}{% endaddtoblock %}{% endfor %}{% endfor %}

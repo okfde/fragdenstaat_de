@@ -1,74 +1,76 @@
-@import "~bootstrap/scss/functions";
+@import "bootstrap/scss/functions";
 
 /* Override variables here */
 @import "variables";
 // importing FROIDE variables
 
-@import "~froide/frontend/styles/variables";
+@import "froide/frontend/styles/variables";
 
-@import "~bootstrap/scss/variables";
+@import "bootstrap/scss/variables";
+
+@import "froide/frontend/styles/color-contrast";
 
 /* Override maps here */
-@import "~froide/frontend/styles/maps";
+@import "froide/frontend/styles/maps";
 
-@import "~bootstrap/scss/maps";
+@import "bootstrap/scss/maps";
 
 // Bootstrap imports
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/utilities";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
 
 // Layout & components
-@import "~bootstrap/scss/root";
-@import "~bootstrap/scss/reboot";
-@import "~bootstrap/scss/type";
-@import "~bootstrap/scss/images";
-@import "~bootstrap/scss/containers";
-@import "~bootstrap/scss/grid";
-@import "~bootstrap/scss/tables";
-@import "~bootstrap/scss/forms";
-@import "~bootstrap/scss/buttons";
-@import "~bootstrap/scss/transitions";
-// @import "~bootstrap/scss/dropdown";
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+// @import "bootstrap/scss/dropdown";
 @import "dropdown";
-@import "~bootstrap/scss/button-group";
-@import "~bootstrap/scss/nav";
-@import "~bootstrap/scss/navbar";
-@import "~bootstrap/scss/card";
-@import "~bootstrap/scss/accordion";
-@import "~bootstrap/scss/breadcrumb";
-@import "~bootstrap/scss/pagination";
-@import "~bootstrap/scss/badge";
-@import "~bootstrap/scss/alert";
-@import "~bootstrap/scss/progress";
-@import "~bootstrap/scss/list-group";
-@import "~bootstrap/scss/close";
-// @import "~bootstrap/scss/toasts";
-@import "~bootstrap/scss/modal";
-@import "~bootstrap/scss/tooltip";
-// @import "~bootstrap/scss/popover";
-// @import "~bootstrap/scss/carousel";
-@import "~bootstrap/scss/spinners";
-@import "~bootstrap/scss/offcanvas";
-@import "~bootstrap/scss/placeholders";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+// @import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+// @import "bootstrap/scss/popover";
+// @import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/placeholders";
 
 // Helpers
-@import "~bootstrap/scss/helpers";
+@import "bootstrap/scss/helpers";
 
 // Utilities
-@import "~bootstrap/scss/utilities/api";
+@import "bootstrap/scss/utilities/api";
 // scss-docs-end import-stack
 
 // Icon font
-$fa-font-path: "~font-awesome/fonts";
-@import "~font-awesome/scss/font-awesome";
+$fa-font-path: "font-awesome/fonts";
+@import "font-awesome/scss/font-awesome";
 
 // Import FontAwesome 4 explicitly to:
 // - add font-display: swap
 // - remove svg font
-@import "~font-awesome/scss/variables";
-@import "~font-awesome/scss/mixins";
+@import "font-awesome/scss/variables";
+@import "font-awesome/scss/mixins";
 
-$fa-font-path: "~font-awesome/fonts";
+$fa-font-path: "font-awesome/fonts";
 @font-face {
   font-family: "FontAwesome";
   src: url("#{$fa-font-path}/fontawesome-webfont.eot?v=#{$fa-version}");
@@ -81,48 +83,47 @@ $fa-font-path: "~font-awesome/fonts";
   font-style: normal;
   font-display: swap;
 }
-@import "~font-awesome/scss/core";
-@import "~font-awesome/scss/larger";
-@import "~font-awesome/scss/fixed-width";
-@import "~font-awesome/scss/list";
-@import "~font-awesome/scss/bordered-pulled";
-@import "~font-awesome/scss/animated";
-@import "~font-awesome/scss/rotated-flipped";
-@import "~font-awesome/scss/stacked";
-@import "~font-awesome/scss/icons";
-@import "~font-awesome/scss/screen-reader";
+@import "font-awesome/scss/core";
+@import "font-awesome/scss/larger";
+@import "font-awesome/scss/fixed-width";
+@import "font-awesome/scss/list";
+@import "font-awesome/scss/bordered-pulled";
+@import "font-awesome/scss/animated";
+@import "font-awesome/scss/rotated-flipped";
+@import "font-awesome/scss/stacked";
+@import "font-awesome/scss/icons";
+@import "font-awesome/scss/screen-reader";
 
 // letter-spacing: .03rem;
 
 // Own components
 // FIXME: these are not really components
-@import "~froide/frontend/styles/components/alerts";
-@import "~froide/frontend/styles/components/attachments";
-@import "~froide/frontend/styles/components/base";
-@import "~froide/frontend/styles/components/breadcrumb";
-@import "~froide/frontend/styles/components/buttons";
-@import "~froide/frontend/styles/components/comments";
-@import "~froide/frontend/styles/components/follow";
-@import "~froide/frontend/styles/components/footer";
-@import "~froide/frontend/styles/components/forms";
-@import "~froide/frontend/styles/components/hero";
-@import "~froide/frontend/styles/components/js-switches";
-@import "~froide/frontend/styles/components/make-request";
-@import "~froide/frontend/styles/components/messages";
-@import "~froide/frontend/styles/components/misc";
+@import "froide/frontend/styles/components/alerts";
+@import "froide/frontend/styles/components/attachments";
+@import "froide/frontend/styles/components/base";
+@import "froide/frontend/styles/components/breadcrumb";
+@import "froide/frontend/styles/components/buttons";
+@import "froide/frontend/styles/components/comments";
+@import "froide/frontend/styles/components/follow";
+@import "froide/frontend/styles/components/footer";
+@import "froide/frontend/styles/components/forms";
+@import "froide/frontend/styles/components/js-switches";
+@import "froide/frontend/styles/components/make-request";
+@import "froide/frontend/styles/components/messages";
+@import "froide/frontend/styles/components/misc";
 @import "header";
 @import "legacy";
-@import "~froide/frontend/styles/components/redacted";
-@import "~froide/frontend/styles/components/request-status";
-@import "~froide/frontend/styles/components/request";
-@import "~froide/frontend/styles/components/search";
-@import "~froide/frontend/styles/components/sharing";
-@import "~froide/frontend/styles/components/tags";
-@import "~froide/frontend/styles/components/type";
-@import "~froide/frontend/styles/components/print";
+@import "froide/frontend/styles/components/redacted";
+@import "froide/frontend/styles/components/request-status";
+@import "froide/frontend/styles/components/request";
+@import "froide/frontend/styles/components/search";
+@import "froide/frontend/styles/components/sharing";
+@import "froide/frontend/styles/components/tags";
+@import "froide/frontend/styles/components/type";
+@import "froide/frontend/styles/components/print";
 
 // request alpha
-@import "~froide/frontend/styles/components/alpha/index";
+@import "froide/frontend/styles/components/alpha/index";
 
 @import "type";
 @import "homepage";
