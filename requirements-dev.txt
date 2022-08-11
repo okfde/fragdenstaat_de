@@ -269,7 +269,7 @@ django-crossdomainmedia==0.0.3
     # via
     #   -r requirements.in
     #   froide
-django-debug-toolbar==3.2.1
+django-debug-toolbar==3.5.0
     # via -r requirements-dev.in
 django-elasticsearch-dsl==7.2.1
     # via froide
