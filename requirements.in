@@ -71,17 +71,16 @@ websockets
 xlrd
 
 -e git+https://github.com/okfde/django-amenities.git@main#egg=django-amenities
--e git+https://github.com/okfde/froide.git@main#egg=froide
--e git+https://github.com/okfde/froide-campaign.git@main#egg=froide-campaign
--e git+https://github.com/okfde/froide-food.git@main#egg=froide-food
--e git+https://github.com/okfde/froide-fax.git@main#egg=froide-fax
--e git+https://github.com/okfde/froide-legalaction.git@main#egg=froide-legalaction
--e git+https://github.com/okfde/froide-exam.git@main#egg=froide-exam
--e git+https://github.com/okfde/django-filingcabinet.git@main#egg=django-filingcabinet
--e git+https://github.com/okfde/django-amenities.git@main#egg=django-amenities
--e git+https://github.com/okfde/froide-payment.git@main#egg=froide-payment
--e git+https://github.com/okfde/froide-crowdfunding.git@main#egg=froide-crowdfunding
--e git+https://github.com/okfde/froide-govplan.git@main#egg=froide-govplan
+-e git+https://github.com/okfde/froide.git@bootstrap-5#egg=froide
+-e git+https://github.com/okfde/froide-campaign.git@bootstrap-5#egg=froide-campaign
+-e git+https://github.com/okfde/froide-food.git@bootstrap-5#egg=froide-food
+-e git+https://github.com/okfde/froide-fax.git@bootstrap-5#egg=froide-fax
+-e git+https://github.com/okfde/froide-legalaction.git@bootstrap-5#egg=froide-legalaction
+-e git+https://github.com/okfde/froide-exam.git@bootstrap-5#egg=froide-exam
+-e git+https://github.com/okfde/django-filingcabinet.git@bootstrap-5#egg=django-filingcabinet
+-e git+https://github.com/okfde/froide-payment.git@bootstrap-5#egg=froide-payment
+-e git+https://github.com/okfde/froide-crowdfunding.git@bootstrap-5#egg=froide-crowdfunding
+-e git+https://github.com/okfde/froide-govplan.git@bootstrap-5#egg=froide-govplan
 -e git+https://github.com/stefanw/django-contractor.git@main#egg=django-contractor
 -e git+https://github.com/stefanw/djangocms-sortabletable.git@main#egg=sortabletable
 -e git+https://github.com/OpenLegalTech/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
