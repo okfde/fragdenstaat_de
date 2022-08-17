@@ -35,8 +35,11 @@
       </p>
       <ol class="list-unstyled">
         {% for object in object_list %}
-          <li>
+          <li class="mb-5">
             <h5 class="mt-0 mb-1">
+              {% if object.kicker %}
+              <span class="d-block text-gray-500 font-weight-bold font-size-sm">{{ object.kicker }}</span>
+              {% endif%}
               <a href="{{ object.get_absolute_url }}">
                 {{ object.title }}
               </a>
