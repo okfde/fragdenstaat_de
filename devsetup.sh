@@ -52,72 +52,101 @@ install_precommit() {
   fi
 }
 
-echo "You need python3 >= 3.8 and yarn installed."
+setup() {
 
-python3 --version
-yarn --version
+  echo "You need python3 >= 3.8 and yarn installed."
 
-if [ ! -d fds-env ]; then
-  if ask "Do you want to create a virtual environment using $(python3 --version)?" Y; then
-    echo "Creating virtual environment with Python: $(python3 --version)"
-    python3 -m venv fds-env
+  python3 --version
+  yarn --version
+
+  if [ ! -d fds-env ]; then
+    if ask "Do you want to create a virtual environment using $(python3 --version)?" Y; then
+      echo "Creating virtual environment with Python: $(python3 --version)"
+      python3 -m venv fds-env
+    fi
   fi
-fi
 
-if [ ! -d fds-env ]; then
-  echo "Could not find virtual environment fds-env"
-fi
+  if [ ! -d fds-env ]; then
+    echo "Could not find virtual environment fds-env"
+  fi
 
-echo "Activating virtual environment..."
-source fds-env/bin/activate
+  echo "Activating virtual environment..."
+  source fds-env/bin/activate
 
-echo "Cloning / installing $MAIN"
+  echo "Cloning / installing $MAIN"
 
-if [ ! -d $MAIN ]; then
-  git clone git@github.com:okfde/$MAIN.git
-else
-  pushd $MAIN
-    git pull origin master
-  popd
-fi
-pip install -U pip-tools
-pip-sync $MAIN/requirements-dev.txt
-pip install -e $MAIN
-install_precommit "$MAIN"
-
-echo "Cloning / installing all editable dependencies..."
-
-for name in "${REPOS[@]}"; do
-  if [ ! -d $name ]; then
-    git clone git@github.com:okfde/$name.git
+  if [ ! -d $MAIN ]; then
+    git clone git@github.com:okfde/$MAIN.git
   else
-    pushd $name
+    pushd $MAIN
       git pull origin "$(git branch --show-current)"
     popd
   fi
-  pip uninstall -y $name
-  pip install -e $name
-  install_precommit "$name"
-done
+  pip install -U pip-tools
+  pip-sync $MAIN/requirements-dev.txt
+  pip install -e $MAIN
+  install_precommit "$MAIN"
 
-echo "Installing all frontend dependencies..."
+  echo "Cloning / installing all editable dependencies..."
 
-for name in "${FRONTEND_DIR[@]}"; do
-  pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
+  for name in "${REPOS[@]}"; do
+    if [ ! -d $name ]; then
+      git clone git@github.com:okfde/$name.git
+    else
+      pushd $name
+        git pull origin "$(git branch --show-current)"
+      popd
+    fi
+    pip uninstall -y $name
+    pip install -e $name
+    install_precommit "$name"
+  done
+
+  echo "Installing all frontend dependencies..."
+
+  for name in "${FRONTEND_DIR[@]}"; do
+    pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
+    yarn install
+    yarn link
+    popd
+  done
+
+  echo "Linking frontend dependencies..."
+
+  pushd $MAIN
+  for name in "${FRONTEND[@]}"; do
+    yarn link $name
+  done
   yarn install
-  yarn link
   popd
-done
 
-echo "Linking frontend dependencies..."
+  fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de
 
-pushd $MAIN
-for name in "${FRONTEND[@]}"; do
-  yarn link $name
-done
-yarn install
-popd
+  echo "Done."
+}
 
-fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de
+forall() {
+  echo "Executing '$@' in all repos"
+  pushd $MAIN
+    "$@"
+  popd
 
-echo "Done."
+  for name in "${REPOS[@]}"; do
+    pushd $name
+      "$@"
+    popd
+  done
+}
+
+help() {
+  echo "Available commands:"
+  echo "setup: setup / update all repos"
+  echo "forall: run command in all repos"
+}
+
+
+if [[ $1 =~ ^(forall)$ ]]; then
+  "$@"
+else
+  setup
+fi

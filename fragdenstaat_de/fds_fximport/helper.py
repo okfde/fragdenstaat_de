@@ -19,6 +19,7 @@ from . import captcha
 from .askfx import Direction, FrontexCredentials, FrontexPadClient, PadCase, PadMessage
 
 MARKER = "https://pad.frontex.europa.eu"
+IMPORTED_TAG = "frontex_imported"
 
 
 def get_content_type(data: bytes) -> str:
@@ -95,7 +96,7 @@ def import_messages_from_case(foirequest: FoiRequest, case: PadCase):
                 ),
             )
 
-            if pad_message.direction == Direction.OUT:
+            if pad_message.direction == Direction.IN:
                 message.is_response = False
                 message.sender_user = message.request.user
                 message.recipient_public_body = foirequest.public_body
@@ -122,7 +123,7 @@ def import_attachments_from_case(
     account_service = AccountService(foirequest.user)
 
     last_imported_message = FoiMessage.objects.filter(
-        request=foirequest, kind=MessageKind.IMPORT, is_response=False
+        request=foirequest, kind=MessageKind.IMPORT, is_response=True
     ).latest()
 
     for document in case.metadata.documents:
@@ -173,3 +174,5 @@ def import_frontex_case(source_message: FoiMessage):
 
     import_messages_from_case(foirequest, case)
     import_attachments_from_case(foirequest, case, client)
+
+    source_message.tags.add(IMPORTED_TAG)

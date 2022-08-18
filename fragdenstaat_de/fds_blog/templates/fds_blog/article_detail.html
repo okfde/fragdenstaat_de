@@ -38,8 +38,15 @@
           {% endif %}
         </div>
         <div class="col-md-5 next-reads__text">
-          <h3 class="pt-3">
-            <a href="{{ next_read.get_absolute_url }}">{{ next_read.title }}</a>
+          <h3>
+            <a href="{{ next_read.get_absolute_url }}">
+              {% if next_read.kicker %}
+                <span class="d-block font-weight-normal blog-header__meta">
+                  {{ next_read.kicker }}
+                </span>
+              {% endif %}
+              {{ next_read.title }}
+            </a>
           </h3>
           <p>
             {% render_model next_read "teaser" "" "" "safe" %}
