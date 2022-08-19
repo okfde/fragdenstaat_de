@@ -4,11 +4,11 @@
 #
 #    pip-compile requirements.in
 #
--e git+https://github.com/okfde/django-amenities.git@master#egg=django-amenities
+-e git+https://github.com/okfde/django-amenities.git@main#egg=django-amenities
     # via -r requirements.in
 -e git+https://github.com/stefanw/django-contractor.git@main#egg=django-contractor
     # via -r requirements.in
--e git+https://github.com/okfde/django-filingcabinet.git@master#egg=django-filingcabinet
+-e git+https://github.com/okfde/django-filingcabinet.git@main#egg=django-filingcabinet
     # via
     #   -r requirements.in
     #   fcdocs-annotate
@@ -27,25 +27,25 @@
     #   froide-food
     #   froide-govplan
     #   froide-legalaction
--e git+https://github.com/okfde/froide-campaign.git@master#egg=froide-campaign
+-e git+https://github.com/okfde/froide-campaign.git@main#egg=froide-campaign
     # via -r requirements.in
--e git+https://github.com/okfde/froide-crowdfunding.git@master#egg=froide-crowdfunding
+-e git+https://github.com/okfde/froide-crowdfunding.git@main#egg=froide-crowdfunding
     # via -r requirements.in
--e git+https://github.com/okfde/froide-exam.git@master#egg=froide-exam
+-e git+https://github.com/okfde/froide-exam.git@main#egg=froide-exam
     # via -r requirements.in
--e git+https://github.com/okfde/froide-fax.git@master#egg=froide-fax
+-e git+https://github.com/okfde/froide-fax.git@main#egg=froide-fax
     # via -r requirements.in
--e git+https://github.com/okfde/froide-food.git@master#egg=froide-food
+-e git+https://github.com/okfde/froide-food.git@main#egg=froide-food
     # via -r requirements.in
 -e git+https://github.com/okfde/froide-govplan.git@main#egg=froide-govplan
     # via -r requirements.in
--e git+https://github.com/okfde/froide-legalaction.git@master#egg=froide-legalaction
+-e git+https://github.com/okfde/froide-legalaction.git@main#egg=froide-legalaction
     # via -r requirements.in
--e git+https://github.com/okfde/froide-payment.git@master#egg=froide-payment
+-e git+https://github.com/okfde/froide-payment.git@main#egg=froide-payment
     # via
     #   -r requirements.in
     #   froide-crowdfunding
--e git+https://github.com/stefanw/djangocms-sortabletable.git@master#egg=sortabletable
+-e git+https://github.com/stefanw/djangocms-sortabletable.git@main#egg=sortabletable
     # via -r requirements.in
 aiohttp==3.8.1
     # via geoip2
