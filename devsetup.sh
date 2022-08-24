@@ -5,6 +5,7 @@ MAIN=fragdenstaat_de
 REPOS=("froide" "froide-campaign" "froide-legalaction" "froide-food" "froide-payment" "froide-crowdfunding" "froide-govplan" "froide-fax" "froide-exam" "django-filingcabinet")
 FRONTEND_DIR=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "froide_legalaction" "filingcabinet")
 FRONTEND=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "froide_legalaction" "@okfde/filingcabinet")
+FRONTEND_DEPS=("froide")
 
 ask() {
     # https://djm.me/ask
@@ -112,6 +113,16 @@ setup() {
   done
 
   echo "Linking frontend dependencies..."
+
+  for name in "${FRONTEND_DIR[@]}"; do
+    for dep in "${FRONTEND_DEPS[@]}"; do
+      if [ "$name" != "$dep" ]; then
+        pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
+        yarn link $dep
+        popd
+      fi
+    done
+  done
 
   pushd $MAIN
   for name in "${FRONTEND[@]}"; do
