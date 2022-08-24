@@ -537,7 +537,7 @@ openpyxl==3.0.7
     #   camelot-py
 packaging==21.0
     # via bleach
-pandas==1.2.4
+pandas==1.4.3
     # via
     #   -r requirements.in
     #   camelot-py
@@ -552,7 +552,7 @@ phonenumbers==8.12.25
     #   -r requirements.in
     #   froide
     #   froide-fax
-pikepdf==2.13.0
+pikepdf==5.4.0
     # via django-filingcabinet
 pillow==9.2.0
     # via
@@ -576,7 +576,7 @@ protobuf==3.20.1
     # via
     #   google-api-core
     #   googleapis-common-protos
-psycopg2-binary==2.9.1
+psycopg2==2.9.1
     # via -r requirements.in
 py-ravif==0.0.1
     # via -r requirements-production.in

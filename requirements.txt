@@ -481,14 +481,14 @@ openpyxl==3.0.7
     # via -r requirements.in
 packaging==21.0
     # via bleach
-pandas==1.2.4
+pandas==1.4.3
     # via -r requirements.in
 phonenumbers==8.12.25
     # via
     #   -r requirements.in
     #   froide
     #   froide-fax
-pikepdf==2.13.0
+pikepdf==5.4.0
     # via django-filingcabinet
 pillow==9.2.0
     # via
@@ -508,7 +508,7 @@ prices==1.1.0
     #   froide-payment
 prompt-toolkit==3.0.19
     # via click-repl
-psycopg2-binary==2.9.1
+psycopg2==2.9.1
     # via -r requirements.in
 pyasn1==0.4.8
     # via

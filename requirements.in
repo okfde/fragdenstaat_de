@@ -50,7 +50,7 @@ openpyxl
 pandas
 phonenumbers
 Pillow>=9.0.0
-psycopg2-binary
+psycopg2
 pygtail
 pyisemail
 pypdf2

@@ -65,7 +65,7 @@ setup(
         "dj-database-url",
         "django-cache-url",
         "django-contrib-comments",
-        "psycopg2-binary",
+        "psycopg2",
         "sentry-sdk",
         "pypdf2",
         "reportlab",
