@@ -130,6 +130,10 @@ class FragDenStaatBase(German, Base):
     STATIC_ROOT = values.Value(THEME_ROOT.parent / "public")
     FRONTEND_BUILD_DIR = THEME_ROOT.parent / "build"
 
+    @property
+    def STATICFILES_DIRS(self):
+        return super().STATICFILES_DIRS + [THEME_ROOT / "static"]
+
     # Newsletter
     NEWSLETTER_RICHTEXT_WIDGET = "djangocms_text_ckeditor.widgets.TextEditorWidget"
     DEFAULT_NEWSLETTER = "fragdenstaat"
