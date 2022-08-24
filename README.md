@@ -21,6 +21,11 @@ You need to have installed:
 - yarn
 - GDAL for Django's GeoDjango
 - freetype and imagemagick
+- postgresql bindings
+- poppler
+- qpdf
+- pango
+- libgeoip
 - libmagic
 
 All of these dependencies should be installable via package managers (e.g. `brew` on macOS).
