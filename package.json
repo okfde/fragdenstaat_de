@@ -35,6 +35,7 @@
     "sass": "^1.54.4",
     "typescript": "^4.7.4",
     "vite": "^3.0.2",
+    "vite-plugin-dev-manifest": "^1.0.9",
     "vue-template-compiler": "^2.7.8"
   },
   "dependencies": {
