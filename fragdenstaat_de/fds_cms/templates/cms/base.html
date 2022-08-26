@@ -3,7 +3,7 @@
 {% load cms_tags %}
 {% load static %}
 {% load sekizai_tags %}
-{% load frontend %}
+{% load frontendbuild %}
 
 {% block body_extra_attributes %} data-staticurl="{{ STATIC_URL }}"{% if request.user.is_staff %} data-sentry="{{ SENTRY_JS_URL}}"{% endif %}{% endblock %}
 
