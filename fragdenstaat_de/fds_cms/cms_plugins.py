@@ -463,18 +463,18 @@ class ModalPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class CardPlugin(CMSPluginBase):
+class FdsCardPlugin(CMSPluginBase):
     model = CardCMSPlugin
-    module = _("Card")
-    name = _("Card")
+    module = _("FDS Card")
+    name = _("FDS Card")
     render_template = "fds_cms/card/card.html"
     allow_children = True
     child_classes = [
-        "CardHeaderPlugin",
-        "CardInnerPlugin",
-        "CardImagePlugin",
-        "CardIconPlugin",
-        "CardLinkPlugin",
+        "FdsCardHeaderPlugin",
+        "FdsCardInnerPlugin",
+        "FdsCardImagePlugin",
+        "FdsCardIconPlugin",
+        "FdsCardLinkPlugin",
     ]
     cache = True
 
@@ -499,16 +499,16 @@ class CardPlugin(CMSPluginBase):
         links = []
         for plugin in instance.child_plugin_instances:
             # images, icons
-            if plugin.plugin_type in ("CardImagePlugin", "CardIconPlugin"):
+            if plugin.plugin_type in ("FdsCardImagePlugin", "FdsCardIconPlugin"):
                 children.insert(0, plugin)
 
-                if plugin.plugin_type == "CardImagePlugin":
+                if plugin.plugin_type == "FdsCardImagePlugin":
                     classes.append(f"box-card-has-image-{plugin.size}")
                     if plugin.overlap == "left":
                         classes.append("d-md-flex")
                 else:
                     classes.append("box-card-has-icon")
-            elif plugin.plugin_type == "CardLinkPlugin":
+            elif plugin.plugin_type == "FdsCardLinkPlugin":
                 links.append(plugin)
             # text, etc.
             else:
@@ -538,13 +538,13 @@ class CardPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class CardInnerPlugin(CMSPluginBase):
+class FdsCardInnerPlugin(CMSPluginBase):
     model = CardInnerCMSPlugin
-    module = _("Card")
-    name = _("Card Inner")
+    module = _("FDS Card")
+    name = _("FDS Card Inner")
     render_template = "fds_cms/card/card_inner.html"
     allow_children = True
-    parent_classes = ["CardPlugin"]
+    parent_classes = ["FdsCardPlugin"]
     cache = True
 
     def render(self, context, instance, placeholder):
@@ -565,13 +565,13 @@ class CardInnerPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class CardHeaderPlugin(CMSPluginBase):
+class FdsCardHeaderPlugin(CMSPluginBase):
     model = CardHeaderCMSPlugin
-    module = _("Card")
-    name = _("Card Header")
+    module = _("FDS Card")
+    name = _("FDS Card Header")
     render_template = "fds_cms/card/card_header.html"
     allow_children = False
-    parent_classes = ["CardPlugin"]
+    parent_classes = ["FdsCardPlugin"]
     cache = True
 
     def render(self, context, instance, placeholder):
@@ -598,13 +598,13 @@ THUMBNAIL_SIZES = {
 
 
 @plugin_pool.register_plugin
-class CardImagePlugin(CMSPluginBase):
+class FdsCardImagePlugin(CMSPluginBase):
     model = CardImageCMSPlugin
-    module = _("Card")
-    name = _("Card Image")
+    module = _("FDS Card")
+    name = _("FDS Card Image")
     render_template = "fds_cms/card/card_image.html"
     allow_children = False
-    parent_classes = ["CardPlugin"]
+    parent_classes = ["FdsCardPlugin"]
     cache = True
 
     def render(self, context, instance, placeholder):
@@ -614,13 +614,13 @@ class CardImagePlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class CardIconPlugin(CMSPluginBase):
+class FdsCardIconPlugin(CMSPluginBase):
     model = CardIconCMSPlugin
-    module = _("Card")
-    name = _("Card Icon")
+    module = _("FDS Card")
+    name = _("FDS Card Icon")
     render_template = "fds_cms/card/card_icon.html"
     allow_children = False
-    parent_classes = ["CardPlugin"]
+    parent_classes = ["FdsCardPlugin"]
     cache = True
 
     def render(self, context, instance, placeholder):
@@ -641,13 +641,13 @@ class CardIconPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class CardLinkPlugin(CMSPluginBase):
+class FdsCardLinkPlugin(CMSPluginBase):
     model = CardLinkCMSPlugin
-    module = _("Card")
-    name = _("Card Link")
+    module = _("FDS Card")
+    name = _("FDS Card Link")
     render_template = "fds_cms/card/card_link.html"
     allow_children = False
-    parent_classes = ["CardPlugin"]
+    parent_classes = ["FdsCardPlugin"]
     cache = True
 
     def render(self, context, instance, placeholder):
