@@ -34,7 +34,7 @@ To make the setup easier the following script (`devsetup.sh`) creates a virtual 
 
 ```
 cd project-dir
-curl https://raw.githubusercontent.com/okfde/fragdenstaat_de/master/devsetup.sh | bash
+curl https://raw.githubusercontent.com/okfde/fragdenstaat_de/main/devsetup.sh | bash
 ```
 
 To update your setup later:
