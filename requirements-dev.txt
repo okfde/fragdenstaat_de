@@ -86,7 +86,7 @@ babel==2.9.1
     #   sphinx
 backcall==0.2.0
     # via ipython
-backports.entry-points-selectable==1.1.0
+backports-entry-points-selectable==1.1.0
     # via virtualenv
 beautifulsoup4==4.10.0
     # via htmldocx
@@ -179,6 +179,8 @@ defusedxml==0.7.1
     # via cairosvg
 deprecated==1.2.12
     # via jwcrypto
+deprecation==2.1.0
+    # via pikepdf
 distlib==0.3.3
     # via virtualenv
 dj-database-url==0.5.0
@@ -200,6 +202,7 @@ django==3.2.14
     #   django-contrib-comments
     #   django-crossdomainmedia
     #   django-debug-toolbar
+    #   django-entangled
     #   django-filer
     #   django-filingcabinet
     #   django-filter
@@ -216,10 +219,12 @@ django==3.2.14
     #   django-polymorphic
     #   django-prices
     #   django-sekizai
+    #   django-select2
     #   django-storages
     #   django-taggit
     #   django-timezone-field
     #   django-treebeard
+    #   djangocms-frontend
     #   djangorestframework
     #   easy-thumbnails
     #   enmerkar
@@ -230,7 +235,9 @@ django-admin-sortable2==1.0
     #   -r requirements.in
     #   froide-campaign
 django-appconf==1.0.4
-    # via django-celery-email
+    # via
+    #   django-celery-email
+    #   django-select2
 django-cache-url==3.2.3
     # via
     #   -r requirements.in
@@ -248,6 +255,7 @@ django-cms==3.9.0
     #   -r requirements.in
     #   djangocms-attributes-field
     #   djangocms-bootstrap4
+    #   djangocms-frontend
     #   djangocms-icon
     #   djangocms-link
     #   djangocms-picture
@@ -273,10 +281,13 @@ django-debug-toolbar==3.5.0
     # via -r requirements-dev.in
 django-elasticsearch-dsl==7.2.1
     # via froide
+django-entangled==0.4
+    # via djangocms-frontend
 django-filer==2.1.2
     # via
     #   -r requirements.in
     #   djangocms-bootstrap4
+    #   djangocms-frontend
     #   djangocms-link
     #   djangocms-picture
     #   djangocms-video
@@ -326,6 +337,8 @@ django-sekizai==2.0.0
     # via
     #   -r requirements.in
     #   django-cms
+django-select2==7.10.0
+    # via djangocms-frontend
 django-storages==1.11.1
     # via
     #   -r requirements.in
@@ -352,11 +365,14 @@ djangocms-admin-style==2.0.2
 djangocms-attributes-field==2.0.0
     # via
     #   djangocms-bootstrap4
+    #   djangocms-frontend
     #   djangocms-icon
     #   djangocms-link
     #   djangocms-picture
     #   djangocms-video
 djangocms-bootstrap4==2.0.0
+    # via -r requirements.in
+djangocms-frontend==0.9.4
     # via -r requirements.in
 djangocms-icon==2.0.0
     # via
@@ -372,6 +388,7 @@ djangocms-text-ckeditor==4.0.0
     # via
     #   -r requirements.in
     #   djangocms-bootstrap4
+    #   djangocms-frontend
 djangocms-transfer==1.0.0
     # via -r requirements.in
 djangocms-video==3.0.0
@@ -565,6 +582,8 @@ openpyxl==3.0.7
 packaging==20.9
     # via
     #   bleach
+    #   deprecation
+    #   pikepdf
     #   sphinx
 pandas==1.4.3
     # via -r requirements.in
@@ -869,7 +888,7 @@ xlrd==2.0.1
     # via -r requirements.in
 yarl==1.6.3
     # via aiohttp
-zope.interface==5.4.0
+zope-interface==5.4.0
     # via twisted
 
 # The following packages are considered to be unsafe in a requirements file:

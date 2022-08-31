@@ -7,6 +7,7 @@ django-cache-url
 django-celery-beat
 django-celery-email
 django-cms<=3.10.0
+djangocms-frontend
 django-configurations
 django-contractor
 django-contrib-comments
