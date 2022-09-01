@@ -21,9 +21,6 @@ def needs_glyphosat_attachment(message):
 
 @register.filter
 def needs_frontex_import(message, user):
-    if not user.is_staff and not user.is_superuser:
-        return False
-
     if IMPORTED_TAG in message.tag_set:
         return False
     return is_frontex_msg(message)
