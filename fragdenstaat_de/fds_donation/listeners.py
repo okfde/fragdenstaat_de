@@ -43,7 +43,7 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         PaymentStatus.REJECTED,
     ):
         obj.received = False
-    elif instance.status in (PaymentStatus.PENDING,):
+    elif instance.status in (PaymentStatus.PENDING, PaymentStatus.DEFERRED):
         obj.completed = True
         obj.received = False
     elif instance.status in (PaymentStatus.INPUT, PaymentStatus.WAITING):
@@ -76,7 +76,7 @@ def process_new_donation(donation, received_now=False, domain_obj=None):
 
     pending_ok = payment.variant in ("lastschrift", "banktransfer", "sepa")
     confirmed = payment.status == PaymentStatus.CONFIRMED
-    pending = payment.status == PaymentStatus.PENDING
+    pending = payment.status in (PaymentStatus.PENDING, PaymentStatus.DEFERRED)
     if (confirmed and received_now and not pending_ok) or (pending and pending_ok):
         if not donation.email_sent:
             transaction.on_commit(lambda: send_donation_notification.delay(donation.id))

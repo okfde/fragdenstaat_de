@@ -506,6 +506,7 @@ class FragDenStaatBase(German, Base):
         "banktransfer": ("froide_payment.provider.BanktransferProvider", {}),
         "default": ("payments.dummy.DummyProvider", {}),
     }
+    PAYMENT_CHECK_THRESHOLD = int(env("PAYMENT_CHECK_THRESHOLD", "1000"))
     DONATION_PROJECTS = [
         ("FDS", "FragDenStaat"),  # First project becomes default project
         ("CFG", "Code for Germany"),

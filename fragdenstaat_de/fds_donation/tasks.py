@@ -18,7 +18,12 @@ def send_donation_notification(donation_id):
         )
     except Donation.DoesNotExist:
         return
-    send_notification("Neue Spende: {amount} EUR".format(amount=donation.amount))
+    if donation.payment.is_deferred():
+        send_notification(
+            "🚨Zurückgehaltene Spende: {amount} EUR".format(amount=donation.amount)
+        )
+    else:
+        send_notification("Neue Spende: {amount} EUR".format(amount=donation.amount))
 
 
 @celery_app.task(name="fragdenstaat_de.fds_donation.remind_unreceived_banktransfers")
