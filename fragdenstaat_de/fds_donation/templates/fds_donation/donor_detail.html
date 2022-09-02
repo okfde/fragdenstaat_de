@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block title %}Ihre Spende{% endblock %}
 
 {% block extra_head %}
@@ -55,8 +57,12 @@
       <td>{{ donation.purpose }}</td>
       <td>
         {% if donation.payment %}
-          {{ donation.payment.get_status_display }}
-          <a href="{{ donation.order.get_absolute_url }}">Details</a>
+          {% if donation.payment.is_deferred %}
+            {% translate "Confirmation pending" %}
+          {% else %}
+            {{ donation.payment.get_status_display }}
+            <a href="{{ donation.order.get_absolute_url }}">Details</a>
+          {% endif %}
         {% else %}
           {% if donation.received %}
             Bestätigt
