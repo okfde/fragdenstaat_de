@@ -1,7 +1,6 @@
-from django.conf.urls import url
 from django.contrib import admin
 from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.urls import path, reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
@@ -30,8 +29,8 @@ class CustomStaticPlaceholderAdmin(StaticPlaceholderAdmin):
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            url(
-                r"^(?P<pk>\d+)/edit-placeholder/$",
+            path(
+                "<int:pk>/edit-placeholder/",
                 self.admin_site.admin_view(self.edit_placeholder),
                 name="fds_cms-staticplaceholder-edit_placeholder",
             ),

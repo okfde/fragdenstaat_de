@@ -1,13 +1,12 @@
 import csv
 import io
 
-from django.conf.urls import url
 from django.contrib import admin, messages
 from django.core.exceptions import PermissionDenied
 from django.db import models, transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.urls import path, re_path, reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -47,18 +46,18 @@ class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            url(
-                r"^(?P<pk>\d+)/edit-body/$",
+            path(
+                "<int:pk>/edit-body/",
                 self.admin_site.admin_view(self.edit_body),
                 name="fds_mailing-emailtemplate-edit_body",
             ),
-            url(
-                r"^(?P<pk>\d+)/preview/$",
+            path(
+                "<int:pk>/preview/",
                 self.admin_site.admin_view(self.preview_html),
                 name="fds_mailing-emailtemplate-preview",
             ),
-            url(
-                r"^(?P<pk>\d+)/preview-eml/$",
+            path(
+                "<int:pk>/preview-eml/",
                 self.admin_site.admin_view(self.preview_eml),
                 name="fds_mailing-emailtemplate-preview_eml",
             ),
@@ -149,9 +148,9 @@ class MailingAdmin(admin.ModelAdmin):
         urls = super().get_urls()
 
         my_urls = [
-            url(r"^(.+)/send/$", self.send, name="fds_mailing_mailing_send"),
-            url(
-                r"^import-csv/$",
+            re_path(r"^(.+)/send/$", self.send, name="fds_mailing_mailing_send"),
+            path(
+                "import-csv/",
                 self.admin_site.admin_view(self.import_csv),
                 name="fds_mailing-mailing-import_csv",
             ),

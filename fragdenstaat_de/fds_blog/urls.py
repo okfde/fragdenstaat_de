@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path, re_path
 from django.utils.translation import gettext_lazy as _
 
 from froide.api import api_router
@@ -28,7 +28,7 @@ def get_urls():
     details = []
     for urlconf in urls.values():
         details.append(
-            url(urlconf, ArticleDetailView.as_view(), name="article-detail"),
+            re_path(urlconf, ArticleDetailView.as_view(), name="article-detail"),
         )
     return details
 
@@ -37,29 +37,31 @@ app_name = "blog"
 detail_urls = get_urls()
 
 urlpatterns = [
-    url(r"^$", ArticleListView.as_view(), name="article-latest"),
-    url(_(r"^search/$"), ArticleSearchView.as_view(), name="article-search"),
-    url(r"^feed/$", LatestArticlesFeed(), name="article-latest-feed"),
-    url(
+    path("", ArticleListView.as_view(), name="article-latest"),
+    re_path(_(r"^search/$"), ArticleSearchView.as_view(), name="article-search"),
+    re_path(r"^feed/$", LatestArticlesFeed(), name="article-latest-feed"),
+    re_path(
         r"^feed/teaser/$", LatestArticlesTeaserFeed(), name="article-latest-feed-teaser"
     ),
-    url(r"^(?P<year>\d{4})/$", ArticleArchiveView.as_view(), name="article-archive"),
-    url(
+    re_path(
+        r"^(?P<year>\d{4})/$", ArticleArchiveView.as_view(), name="article-archive"
+    ),
+    re_path(
         r"^(?P<year>\d{4})/(?P<month>\d{1,2})/$",
         ArticleArchiveView.as_view(),
         name="article-archive",
     ),
-    url(
+    re_path(
         _(r"^author/(?P<username>[\w\.@+-]+)/$"),
         AuthorArticleView.as_view(),
         name="article-author",
     ),
-    url(
+    re_path(
         _(r"^category/(?P<category>[\w\.@+-]+)/$"),
         CategoryArticleView.as_view(),
         name="article-category",
     ),
-    url(r"^tag/(?P<tag>[-\w]+)/$", TaggedListView.as_view(), name="article-tagged"),
+    re_path(r"^tag/(?P<tag>[-\w]+)/$", TaggedListView.as_view(), name="article-tagged"),
 ] + detail_urls
 
 api_router.register(r"articletag", ArticleTagViewSet, basename="articletag")

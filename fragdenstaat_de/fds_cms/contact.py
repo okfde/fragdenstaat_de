@@ -1,7 +1,7 @@
 from django import forms
-from django.conf.urls import url
 from django.contrib import messages
 from django.core.mail import mail_managers
+from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
 try:
@@ -233,5 +233,5 @@ def contact(request):
 app_name = "fds_cms_contact"
 
 urlpatterns = [
-    url(r"^$", contact, name="contact"),
+    path("", contact, name="contact"),
 ]

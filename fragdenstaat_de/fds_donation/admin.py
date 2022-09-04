@@ -3,7 +3,6 @@ from collections import defaultdict
 from io import BytesIO
 
 from django import forms
-from django.conf.urls import url
 from django.contrib import admin, messages
 from django.contrib.admin import helpers
 from django.contrib.admin.filters import SimpleListFilter
@@ -14,7 +13,7 @@ from django.db.models.functions import Concat
 from django.http import HttpResponse, JsonResponse, StreamingHttpResponse
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
-from django.urls import reverse, reverse_lazy
+from django.urls import path, reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.text import slugify
@@ -62,8 +61,8 @@ class DonorTagAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            url(
-                r"^autocomplete/$",
+            path(
+                "autocomplete/",
                 self.admin_site.admin_view(self.autocomplete),
                 name="fds_donation-donortag-autocomplete",
             ),
@@ -635,18 +634,18 @@ class DonationAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            url(
-                r"^export-csv/$",
+            path(
+                "export-csv/",
                 self.admin_site.admin_view(self.export_csv),
                 name="fds_donation-donation-export_csv",
             ),
-            url(
-                r"^import-banktransfers/$",
+            path(
+                "import-banktransfers/",
                 self.admin_site.admin_view(self.import_banktransfers),
                 name="fds_donation-donation-import_banktransfers",
             ),
-            url(
-                r"^import-paypal/$",
+            path(
+                "import-paypal/",
                 self.admin_site.admin_view(self.import_paypal),
                 name="fds_donation-donation-import_paypal",
             ),
