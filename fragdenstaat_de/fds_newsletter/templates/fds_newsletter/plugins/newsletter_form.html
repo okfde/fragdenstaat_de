@@ -12,8 +12,8 @@
   <label for="newsletter_id_email_field_{{ instance.pk }}" class="visually-hidden">{% trans "E-mail address" %}</label>
   <div class="input-group w-100">
     <input placeholder="{% trans "E-mail address" %}" class="form-control" type="email" name="email" required id="newsletter_id_email_field_{{ instance.pk }}">
-    <button class="btn btn-primary" name="submit" value="{% trans "Subscribe" %}" type="submit">
-      <span class="fa fa-envelope d-none d-md-inline d-lg-none"></span>
+    <button class="btn btn-primary" name="submit" value="{% trans 'Subscribe' %}" type="submit" aria-label="{% trans 'Subscribe' %}">
+      <span class="fa fa-envelope d-none d-md-inline d-lg-none" aria-hidden="true"></span>
       <span class="d-md-none d-lg-inline">{% trans "Subscribe" %}</span>
     </button>
   </div>
