@@ -35,7 +35,7 @@ export default defineConfig({
         fileuploader: 'node_modules/froide/frontend/javascript/fileuploader.js',
         filingcabinet:
           'node_modules/@okfde/filingcabinet/frontend/javascript/filingcabinet.js',
-        food: 'node_modules/froide_food/frontend/javascript/main.js',
+        food: 'node_modules/froide_food/frontend/javascript/food.js',
         foodreport: 'node_modules/froide_food/frontend/javascript/report.js',
         geomatch: 'node_modules/froide/frontend/javascript/geomatch.js',
         lawsuits_table:
