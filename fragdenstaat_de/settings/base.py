@@ -444,6 +444,9 @@ class FragDenStaatBase(German, Base):
     def GEOIP_PATH(self):
         return os.path.join(super(FragDenStaatBase, self).PROJECT_ROOT, "..", "data")
 
+    GDAL_LIBRARY_PATH = os.environ.get("GDAL_LIBRARY_PATH")
+    GEOS_LIBRARY_PATH = os.environ.get("GEOS_LIBRARY_PATH")
+
     FROIDE_CSRF_MIDDLEWARE = (
         "fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware"
     )
