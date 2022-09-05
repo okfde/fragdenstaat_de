@@ -37,7 +37,7 @@
     {% else %}
       <div class="row">
         <div class="col-12">
-          {% include "helper/forms/bootstrap_field_stacked.html" with field=field %}
+          {% render_field field stacked=True %}
         </div>
       </div>
     {% endif %}
