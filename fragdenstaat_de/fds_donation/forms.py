@@ -191,8 +191,8 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         choices=[
             (_("General donation"), _("General donation")),
         ],
-        widget=forms.Select(
-            attrs={"data-toggle": "nonrecurring", "class": "form-control"},
+        widget=BootstrapSelect(
+            attrs={"data-toggle": "nonrecurring"},
         ),
     )
     reference = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -425,7 +425,7 @@ class DonorForm(forms.Form):
             ("SE", _("Sweden")),
             ("FI", _("Finland")),
         ),
-        widget=forms.Select(attrs={"class": "form-control"}),
+        widget=BootstrapSelect,
     )
     email = forms.EmailField(
         label=_("Email"),
