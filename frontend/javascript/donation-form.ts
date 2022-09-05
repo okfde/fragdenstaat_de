@@ -112,7 +112,7 @@ function amountChanged(amountInput: HTMLInputElement | null): void {
         feeHint = label.querySelector('.fee-hint')
       }
       if (feeHint !== null) {
-        if (amount === 0) {
+        if (amount === 0 || isNaN(amount)) {
           feeHint.classList.add('d-none')
         } else {
           feeHint.classList.remove('d-none')
