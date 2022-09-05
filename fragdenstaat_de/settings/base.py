@@ -149,7 +149,7 @@ class FragDenStaatBase(German, Base):
 
     @property
     def STATICFILES_DIRS(self):
-        return super().STATICFILES_DIRS + [THEME_ROOT / "static"]
+        return [THEME_ROOT / "static"] + super().STATICFILES_DIRS
 
     # Newsletter
     NEWSLETTER_RICHTEXT_WIDGET = "djangocms_text_ckeditor.widgets.TextEditorWidget"
