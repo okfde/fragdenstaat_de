@@ -17,7 +17,7 @@
     # via -r requirements.in
 -e git+https://github.com/okfde/fcdocs-annotate.git@main#egg=fcdocs_annotate
     # via -r requirements.in
--e git+https://github.com/okfde/froide.git@bootstrap-5#egg=froide
+-e git+https://github.com/okfde/froide.git@main#egg=froide
     # via
     #   -r requirements.in
     #   froide-campaign
@@ -27,21 +27,21 @@
     #   froide-food
     #   froide-govplan
     #   froide-legalaction
--e git+https://github.com/okfde/froide-campaign.git@bootstrap-5#egg=froide-campaign
+-e git+https://github.com/okfde/froide-campaign.git@main#egg=froide-campaign
     # via -r requirements.in
--e git+https://github.com/okfde/froide-crowdfunding.git@bootstrap-5#egg=froide-crowdfunding
+-e git+https://github.com/okfde/froide-crowdfunding.git@main#egg=froide-crowdfunding
     # via -r requirements.in
--e git+https://github.com/okfde/froide-exam.git@bootstrap-5#egg=froide-exam
+-e git+https://github.com/okfde/froide-exam.git@main#egg=froide-exam
     # via -r requirements.in
--e git+https://github.com/okfde/froide-fax.git@bootstrap-5#egg=froide-fax
+-e git+https://github.com/okfde/froide-fax.git@main#egg=froide-fax
     # via -r requirements.in
--e git+https://github.com/okfde/froide-food.git@bootstrap-5#egg=froide-food
+-e git+https://github.com/okfde/froide-food.git@main#egg=froide-food
     # via -r requirements.in
--e git+https://github.com/okfde/froide-govplan.git@bootstrap-5#egg=froide-govplan
+-e git+https://github.com/okfde/froide-govplan.git@main#egg=froide-govplan
     # via -r requirements.in
--e git+https://github.com/okfde/froide-legalaction.git@bootstrap-5#egg=froide-legalaction
+-e git+https://github.com/okfde/froide-legalaction.git@main#egg=froide-legalaction
     # via -r requirements.in
--e git+https://github.com/okfde/froide-payment.git@bootstrap-5#egg=froide-payment
+-e git+https://github.com/okfde/froide-payment.git@main#egg=froide-payment
     # via
     #   -r requirements.in
     #   froide-crowdfunding
