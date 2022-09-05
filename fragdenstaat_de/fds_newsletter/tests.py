@@ -46,27 +46,24 @@ class NewsletterSubscriberTest(TestCase):
     - unsubscribe callback
     """
 
-    def setUp(self):
-        self.nl = Newsletter.objects.get(slug=settings.DEFAULT_NEWSLETTER)
-        # create(
-        #     title='Newsletter', slug=settings.DEFAULT_NEWSLETTER,
-        #     visible=True, sender_email='info@fragdenstaat.de',
-        #     sender_name='FragDenStaat'
-        # )
-        self.email_1 = "one@example.com"
-        self.email_2 = "two@example.com"
+    @classmethod
+    def setUpTestData(cls):
+        cls.nl = Newsletter.objects.create(slug=settings.DEFAULT_NEWSLETTER)
+        cls.email_1 = "one@example.com"
+        cls.user = UserFactory.create(email=cls.email_1)
+        cls.email_2 = "two@example.com"
 
     def test_default_newsletter_subscription(self):
         mail.outbox = []
         response = self.client.post(
             reverse("newsletter_subscribe_request"),
-            data={"email": self.email_1, "reference": "test"},
+            data={"email": self.email_2, "reference": "test"},
         )
         self.assertEqual(response.status_code, 302)
         self.assertTrue(
             Subscriber.objects.filter(
                 newsletter=self.nl,
-                email=self.email_1,
+                email=self.email_2,
                 subscribed=None,
                 unsubscribed=None,
             ).exists()
@@ -77,12 +74,11 @@ class NewsletterSubscriberTest(TestCase):
         response = self.client.get(match.group(1))
         self.assertEqual(response.status_code, 302)
         subscriber = Subscriber.objects.get(
-            newsletter=self.nl, email=self.email_1, subscribed__isnull=False
+            newsletter=self.nl, email=self.email_2, subscribed__isnull=False
         )
         self.assertEqual(subscriber.reference, "test")
 
     def test_newsletter_subscription_existing_user_with_email(self):
-        user = UserFactory.create(email=self.email_1)
         response = self.client.post(
             reverse("newsletter_subscribe_request"),
             data={"email": self.email_1, "reference": "test"},
@@ -97,31 +93,32 @@ class NewsletterSubscriberTest(TestCase):
         subscriber.subscribe()
         subscriber.refresh_from_db()
         self.assertIsNotNone(subscriber.subscribed)
-        self.assertEqual(subscriber.user, user)
+        self.assertEqual(subscriber.user, self.user)
         self.assertIsNone(subscriber.email)
 
     def test_newsletter_subscription_existing_user_subscriber_with_email(self):
-        user = UserFactory.create(email=self.email_1)
-        user_subscriber = Subscriber.objects.create(newsletter=self.nl, user=user)
+        self.client.logout()
+        mail.outbox = []
+        Subscriber.objects.create(
+            newsletter=self.nl, user=self.user, subscribed=timezone.now()
+        )
         response = self.client.post(
             reverse("newsletter_subscribe_request"),
             data={"email": self.email_1, "reference": "test"},
         )
         self.assertEqual(response.status_code, 302)
-        subscriber = Subscriber.objects.get(
-            newsletter=self.nl, email=self.email_1, subscribed=None, unsubscribed=None
-        )
+        # Reminder already subscribed email
         self.assertEqual(len(mail.outbox), 1)
-        subscriber.subscribe()
-        new_subscriber = Subscriber.objects.get(
-            newsletter=self.nl, user=user, subscribed__isnull=False
+        # Email subscriber not present, because of user
+        self.assertFalse(
+            Subscriber.objects.filter(
+                newsletter=self.nl,
+                email=self.email_1,
+            ).exists()
         )
-        self.assertIsNone(subscriber.id)
-        self.assertEqual(new_subscriber, user_subscriber)
 
     def test_newsletter_subscription_logged_in_same_email(self):
-        user = UserFactory.create(email=self.email_1)
-        self.client.force_login(user)
+        self.client.force_login(self.user)
         response = self.client.post(
             reverse("newsletter_subscribe_request"),
             data={"email": self.email_1, "reference": "test"},
@@ -130,14 +127,14 @@ class NewsletterSubscriberTest(TestCase):
 
         subscriber = Subscriber.objects.get(
             newsletter=self.nl,
-            user=user,
+            user=self.user,
         )
         self.assertIsNotNone(subscriber.subscribed)
-        self.assertEqual(len(mail.outbox), 0)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Welcome to our newsletter")
 
     def test_newsletter_subscription_logged_in_different_email(self):
-        user = UserFactory.create(email=self.email_1)
-        self.client.force_login(user)
+        self.client.force_login(self.user)
         self.client.post(
             reverse("newsletter_subscribe_request"),
             data={"email": self.email_2, "reference": "test"},
@@ -145,7 +142,7 @@ class NewsletterSubscriberTest(TestCase):
         self.assertFalse(
             Subscriber.objects.filter(
                 newsletter=self.nl,
-                user=user,
+                user=self.user,
             ).exists()
         )
         self.assertEqual(len(mail.outbox), 1)
@@ -159,7 +156,8 @@ class NewsletterSubscriberTest(TestCase):
         self.assertIsNone(subscriber.user)
 
     def test_newsletter_email_subscription_activate_account(self):
-        user = UserFactory.create(email=self.email_1, is_active=False)
+        self.user.is_active = False
+        self.user.save()
         response = self.client.post(
             reverse("newsletter_subscribe_request"),
             data={"email": self.email_1, "reference": "test"},
@@ -168,7 +166,7 @@ class NewsletterSubscriberTest(TestCase):
         self.assertFalse(
             Subscriber.objects.filter(
                 newsletter=self.nl,
-                user=user,
+                user=self.user,
             ).exists()
         )
         self.assertEqual(len(mail.outbox), 1)
@@ -177,14 +175,14 @@ class NewsletterSubscriberTest(TestCase):
             email=self.email_1,
         )
         # Activate user before confirming subscription
-        user.is_active = True
-        user.save()
-        activate_newsletter_subscription(user)
+        self.user.is_active = True
+        self.user.save()
+        activate_newsletter_subscription(self.user)
 
         self.assertFalse(
             Subscriber.objects.filter(
                 newsletter=self.nl,
-                user=user,
+                user=self.user,
             ).exists()
         )
         subscriber.refresh_from_db()
@@ -196,7 +194,8 @@ class NewsletterSubscriberTest(TestCase):
         self.assertIsNotNone(subscriber.subscribed)
 
     def test_newsletter_email_subscription_activate_account_later(self):
-        user = UserFactory.create(email=self.email_1, is_active=False)
+        self.user.is_active = False
+        self.user.save()
         response = self.client.post(
             reverse("newsletter_subscribe_request"),
             data={"email": self.email_1, "reference": "test"},
@@ -205,7 +204,7 @@ class NewsletterSubscriberTest(TestCase):
         self.assertFalse(
             Subscriber.objects.filter(
                 newsletter=self.nl,
-                user=user,
+                user=self.user,
             ).exists()
         )
         self.assertEqual(len(mail.outbox), 1)
@@ -216,7 +215,7 @@ class NewsletterSubscriberTest(TestCase):
         self.assertFalse(
             Subscriber.objects.filter(
                 newsletter=self.nl,
-                user=user,
+                user=self.user,
             ).exists()
         )
         self.assertIsNone(subscriber.user)
@@ -228,9 +227,9 @@ class NewsletterSubscriberTest(TestCase):
         self.assertIsNotNone(subscriber.subscribed)
 
         # Activate user
-        user.is_active = True
-        user.save()
-        activate_newsletter_subscription(user)
+        self.user.is_active = True
+        self.user.save()
+        activate_newsletter_subscription(self.user)
         subscriber.refresh_from_db()
 
         self.assertIsNotNone(subscriber.user)
@@ -242,16 +241,15 @@ class NewsletterSubscriberTest(TestCase):
             - if user sub exists: delete email sub
             - else: make user sub
         """
-        user = UserFactory.create(email=self.email_1)
         Subscriber.objects.create(
-            newsletter=self.nl, user=user, subscribed=timezone.now()
+            newsletter=self.nl, user=self.user, subscribed=timezone.now()
         )
         Subscriber.objects.create(
             newsletter=self.nl, email=self.email_2, subscribed=timezone.now()
         )
-        user.email = self.email_2
-        user.save()
-        user_email_changed(user)
+        self.user.email = self.email_2
+        self.user.save()
+        user_email_changed(self.user)
 
         self.assertFalse(
             Subscriber.objects.filter(
@@ -262,7 +260,7 @@ class NewsletterSubscriberTest(TestCase):
         self.assertTrue(
             Subscriber.objects.filter(
                 newsletter=self.nl,
-                user=user,
+                user=self.user,
             ).exists()
         )
 
@@ -272,13 +270,12 @@ class NewsletterSubscriberTest(TestCase):
             - if user sub exists: delete email sub
             - else: make user sub
         """
-        user = UserFactory.create(email=self.email_1)
         Subscriber.objects.create(
             newsletter=self.nl, email=self.email_2, subscribed=timezone.now()
         )
-        user.email = self.email_2
-        user.save()
-        user_email_changed(user)
+        self.user.email = self.email_2
+        self.user.save()
+        user_email_changed(self.user)
 
         self.assertFalse(
             Subscriber.objects.filter(
@@ -289,7 +286,7 @@ class NewsletterSubscriberTest(TestCase):
         self.assertTrue(
             Subscriber.objects.filter(
                 newsletter=self.nl,
-                user=user,
+                user=self.user,
             ).exists()
         )
 
@@ -299,7 +296,7 @@ class NewsletterSubscriberTest(TestCase):
             - if user sub exists: delete old user sub
             - else: change old user sub to new user
         """
-        user_1 = UserFactory.create(email=self.email_1)
+        user_1 = self.user
         user_2 = UserFactory.create(email=self.email_2)
         Subscriber.objects.create(
             newsletter=self.nl, user=user_1, subscribed=timezone.now()
@@ -328,7 +325,7 @@ class NewsletterSubscriberTest(TestCase):
             - if user sub exists: delete old user sub
             - else: change old user sub to new user
         """
-        user_1 = UserFactory.create(email=self.email_1)
+        user_1 = self.user
         user_2 = UserFactory.create(email=self.email_2)
         Subscriber.objects.create(
             newsletter=self.nl, user=user_1, subscribed=timezone.now()
@@ -349,7 +346,7 @@ class NewsletterSubscriberTest(TestCase):
         )
 
     def test_newsletter_cancel_user(self):
-        user = UserFactory.create(email=self.email_1)
+        user = self.user
         Subscriber.objects.create(
             newsletter=self.nl, user=user, subscribed=timezone.now()
         )
@@ -428,20 +425,23 @@ class NewsletterSubscriberTest(TestCase):
 
     def test_subscribe_from_follow(self):
         class FakeFollower:
-            email = self.email_1
+            email = self.email_2
             confirmed = True
             user = None
-            request_id = 42
+            content_object_id = 42
             context = {"newsletter": True}
+
+            class _meta:
+                label_lower = "foirequest"
 
         subscribe_follower(FakeFollower)
 
         self.assertTrue(
             Subscriber.objects.filter(
                 newsletter=self.nl,
-                email=self.email_1,
+                email=self.email_2,
                 subscribed__isnull=False,
                 reference="follow_extra",
-                keyword="request:42",
+                keyword="foirequest:42",
             ).exists()
         )
