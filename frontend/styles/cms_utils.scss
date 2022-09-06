@@ -67,12 +67,12 @@
 }
 
 $backdrops: (
-  "blue": "blue-10",
-  "blue-600": "blue-600",
-  "gray": "gray-200",
-  "gray-100": "gray-100",
-  "yellow": "yellow-100",
-  "yellow-200": "yellow-200"
+  'blue': 'blue-10',
+  'blue-600': 'blue-600',
+  'gray': 'gray-200',
+  'gray-100': 'gray-100',
+  'yellow': 'yellow-100',
+  'yellow-200': 'yellow-200'
 );
 
 @each $name, $value in $backdrops {
@@ -187,9 +187,6 @@ $backdrops: (
     position: relative;
     transition: max-height 0.5s ease-out;
     overflow-y: hidden;
-    /* workaround to keep overflowing elements on x-axis visible */
-    margin: 0 -4rem;
-    padding: 0 4rem;
 
     &::after {
       position: absolute;
@@ -239,6 +236,10 @@ $backdrops: (
       display: none;
     }
   }
+
+  > div > .container-fluid {
+    margin: 0 calc(var(--bs-gutter-x) * -0.5);
+  }
 }
 
 @include media-breakpoint-up(md) {
@@ -251,7 +252,7 @@ $backdrops: (
 .bordered-section {
   margin-top: 0.65em;
   border-width: 4px;
-  
+
   .bordered-section-headline {
     margin-top: -0.65em;
     margin-bottom: 0;
