@@ -5,7 +5,7 @@ MAIN=fragdenstaat_de
 REPOS=("froide" "froide-campaign" "froide-legalaction" "froide-food" "froide-payment" "froide-crowdfunding" "froide-govplan" "froide-fax" "froide-exam" "django-filingcabinet")
 FRONTEND_DIR=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "froide_legalaction" "filingcabinet")
 FRONTEND=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "froide_legalaction" "@okfde/filingcabinet")
-FRONTEND_DEPS=("froide")
+FRONTEND_DEPS=("froide" "@okfde/filingcabinet")
 
 ask() {
     # https://djm.me/ask
@@ -105,6 +105,14 @@ setup() {
 
   echo "Installing all frontend dependencies..."
 
+  frontend
+
+  fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de
+
+  echo "Done."
+}
+
+frontend() {
   for name in "${FRONTEND_DIR[@]}"; do
     pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
     yarn install
@@ -130,10 +138,6 @@ setup() {
   done
   yarn install
   popd
-
-  fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de
-
-  echo "Done."
 }
 
 forall() {
@@ -158,6 +162,8 @@ help() {
 
 if [[ $1 =~ ^(forall)$ ]]; then
   "$@"
+elif [[ $1 =~ ^(frontend)$ ]]; then
+  frontend
 else
   setup
 fi

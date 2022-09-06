@@ -1568,14 +1568,15 @@ froide@okfde/froide#bootstrap-5:
   version "1.0.0"
   resolved "https://codeload.github.com/okfde/froide/tar.gz/b027a793d450ce2931f85f1f248818e528a55ed9"
   dependencies:
-    "@okfde/filingcabinet" okfde/django-filingcabinet#bootstrap-5
-    "@popperjs/core" "^2.11.5"
-    "@uppy/core" "^2.3.2"
-    "@uppy/dashboard" "^2.4.1"
-    "@uppy/tus" "^2.4.2"
-    bootstrap "5.2.0"
-    choices.js "^10.1.0"
+    "@okfde/filingcabinet" "^0.0.1"
+    "@uppy/core" "^1.5.1"
+    "@uppy/dashboard" "^1.4.1"
+    "@uppy/tus" "^1.4.2"
+    bootstrap "^4.3.1"
+    bootstrap.native "^2.0.27"
+    choices.js "^9.0.1"
     driver.js "^0.9.8"
+    es6-promise "^4.2.8"
     exif-js "^2.3.0"
     font-awesome "^4.7.0"
     js-base64 "3.6.1"
@@ -1843,6 +1844,11 @@ ignore@^5.1.1, ignore@^5.2.0:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.2.0.tgz#6d3bac8fa7fe0d45d9f9be7bac2fc279577e345a"
   integrity sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==
 
+immediate@~3.0.5:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
+  integrity sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==
+
 immutable@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.1.0.tgz#f795787f0db780183307b9eb2091fcac1f6fafef"
@@ -2090,6 +2096,20 @@ levn@^0.4.1:
   dependencies:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
+
+lie@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/lie/-/lie-3.1.1.tgz#9a436b2cc7746ca59de7a41fa469b3efb76bd87e"
+  integrity sha512-RiNhHysUjhrDQntfYSfY4MU24coXXdEOgw9WGcKHNeEwffDYbF//u87M1EWaMGzuFoSbqW0C9C6lEEhDOAswfw==
+  dependencies:
+    immediate "~3.0.5"
+
+localforage@^1.8.1:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.10.0.tgz#5c465dc5f62b2807c3a84c0c6a1b1b3212781dd4"
+  integrity sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==
+  dependencies:
+    lie "3.1.1"
 
 locate-path@^6.0.0:
   version "6.0.0"

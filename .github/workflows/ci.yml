@@ -48,7 +48,7 @@ jobs:
           python -m pip install --upgrade pip pip-tools
           pip-sync requirements-dev.txt
           pip install -e .
-          yarn install
+          bash devsetup.sh frontend
       - name: Build frontend
         run: yarn run build
       - name: Run flake8 and tests
