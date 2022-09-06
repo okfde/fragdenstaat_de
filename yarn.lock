@@ -1600,10 +1600,11 @@ froide@okfde/froide:
 
 froide_campaign@okfde/froide-campaign:
   version "1.0.0"
-  resolved "https://codeload.github.com/okfde/froide-campaign/tar.gz/c63ded542a095a5aaa3b27f0815c5ceb3e39ad20"
+  resolved "https://codeload.github.com/okfde/froide-campaign/tar.gz/fdc6539f8057e9bf04d986f635d37314cb354244"
   dependencies:
     "@turf/bbox" "^6.0.1"
     deepmerge "^4.2.2"
+    froide okfde/froide
     leaflet "^1.5.1"
     leaflet.icon.glyph "^0.2.0"
     lodash.debounce "^4.0.8"
