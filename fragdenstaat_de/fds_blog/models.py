@@ -564,3 +564,12 @@ class ArticlePreviewPlugin(CMSPlugin):
             return self.article.title
 
         return ""
+
+
+class DetailsBoxCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=100, blank=True)
+    content = models.TextField(blank=True)
+
+
+class InfotextboxCMSPlugin(CMSPlugin):
+    content = models.TextField(blank=True)
