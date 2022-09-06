@@ -115,7 +115,6 @@ setup() {
 frontend() {
   for name in "${FRONTEND_DIR[@]}"; do
     pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
-    yarn install
     yarn link
     popd
   done
