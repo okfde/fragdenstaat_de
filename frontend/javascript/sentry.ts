@@ -4,7 +4,7 @@ import { CaptureConsole as CaptureConsoleIntegration } from '@sentry/integration
 
 export function init(dsn: string): void {
   Sentry.init({
-    dsn: dsn,
+    dsn,
     integrations: [
       new TracingIntegrations.BrowserTracing(),
       new CaptureConsoleIntegration({
