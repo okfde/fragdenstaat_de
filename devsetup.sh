@@ -129,6 +129,7 @@ frontend() {
         popd
       fi
     done
+    yarn install
   done
 
   pushd $MAIN
