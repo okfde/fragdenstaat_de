@@ -12,7 +12,8 @@ export default defineConfig({
   publicDir: false,
   resolve: {
     alias: {
-      '~froide': resolve(__dirname, 'node_modules/froide')
+      '~froide': resolve(__dirname, 'node_modules/froide'),
+      vue: '@vue/compat'
     },
     dedupe: ['bootstrap', 'vue', 'pdfjs-dist'],
     extensions: ['.mjs', '.js', '.ts', '.vue', '.json']
