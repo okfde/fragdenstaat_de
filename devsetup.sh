@@ -113,23 +113,24 @@ setup() {
 }
 
 frontend() {
+  echo "Linking frontend dependencies..."
+
   for name in "${FRONTEND_DIR[@]}"; do
     pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
     yarn link
     popd
   done
 
-  echo "Linking frontend dependencies..."
-
+  echo "Installing frontend dependencies..."
   for name in "${FRONTEND_DIR[@]}"; do
+    pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
     for dep in "${FRONTEND_DEPS[@]}"; do
       if [ "$name" != "$dep" ]; then
-        pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
         yarn link $dep
-        popd
       fi
     done
     yarn install
+    popd
   done
 
   pushd $MAIN
