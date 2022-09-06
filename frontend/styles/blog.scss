@@ -86,6 +86,7 @@ h4.blog-list-heading {
   .blog-teaser-text {
     width: 60%;
   }
+
   .blog-lead {
     display: inherit;
   }
@@ -210,7 +211,8 @@ h4.blog-list-heading {
   > ul,
   > ol,
   > div.text-container,
-  > blockquote {
+  > blockquote,
+  > details {
     font-family: $font-family-serif;
     color: #26282b;
     font-size: 1.225rem;
@@ -232,6 +234,20 @@ h4.blog-list-heading {
     width: 100%;
   }
 
+  > details,
+  > div.infotextbox {
+    background-color: var(--blue-100);
+
+    @include make-col(12);
+    margin: 1rem auto 0rem;
+    padding: 1rem 1rem 0;
+    width: 100%;
+
+    > summary {
+      padding-bottom: 1rem;
+    }
+  }
+
   @include media-breakpoint-up(sm) {
     > p,
     > h2,
@@ -239,7 +255,8 @@ h4.blog-list-heading {
     > h4,
     > ul,
     > ol,
-    > div.text-container {
+    > div.text-container,
+    > details {
       @include make-col(10);
       margin-left: 15%;
       margin-right: 15%;
@@ -253,7 +270,8 @@ h4.blog-list-heading {
     > h4,
     > ul,
     > ol,
-    > div.text-container {
+    > div.text-container,
+    > details {
       @include make-col(8);
       margin-left: 15%;
       margin-right: 15%;
@@ -267,7 +285,8 @@ h4.blog-list-heading {
     > h4,
     > ul,
     > ol,
-    > div.text-container {
+    > div.text-container,
+    > details {
       @include make-col(6);
       margin-left: 25%;
       margin-right: 25%;
@@ -317,6 +336,7 @@ h4.blog-list-heading {
       margin: 0;
     }
   }
+
   @include media-breakpoint-up(md) {
     > blockquote {
       @include make-col(10);
@@ -324,6 +344,7 @@ h4.blog-list-heading {
       margin-right: 15%;
     }
   }
+
   @include media-breakpoint-up(lg) {
     > blockquote {
       @include make-col(8);

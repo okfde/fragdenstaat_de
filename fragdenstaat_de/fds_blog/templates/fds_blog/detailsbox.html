@@ -1,0 +1,10 @@
+{% load i18n cms_tags %}
+{% load markup %}
+{% load static %}
+{% load blog_tags %}
+
+<details>
+    <summary><b>{{instance.title}}</b></summary>
+    {{instance.content|safe}}
+
+</details>
