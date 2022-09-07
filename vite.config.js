@@ -7,7 +7,7 @@ const outputDir = resolve(__dirname, 'build')
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/static/',
+  base: process.env.ASSET_PATH || '/static/',
   resolve: {
     alias: {
       '~froide': resolve(__dirname, 'node_modules/froide')
