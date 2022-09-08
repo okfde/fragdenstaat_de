@@ -15,6 +15,12 @@
     #   froide
 -e git+https://github.com/OpenLegalTech/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
     # via -r requirements.in
+-e git+https://github.com/django-cms/djangocms-frontend.git@master#egg=djangocms-frontend
+    # via -r requirements.in
+-e git+https://github.com/django-cms/djangocms-link.git@master#egg=djangocms-link
+    # via
+    #   -r requirements.in
+    #   djangocms-bootstrap4
 -e git+https://github.com/okfde/fcdocs-annotate.git@main#egg=fcdocs_annotate
     # via -r requirements.in
 -e git+https://github.com/okfde/froide.git@main#egg=froide
@@ -53,7 +59,7 @@ aiosignal==1.2.0
     # via aiohttp
 amqp==5.0.9
     # via kombu
-asgiref==3.3.4
+asgiref==3.5.2
     # via
     #   channels
     #   daphne
@@ -76,6 +82,11 @@ babel==2.9.1
     #   django-prices
     #   enmerkar
     #   prices
+backports-zoneinfo==0.2.1
+    # via
+    #   django
+    #   django-celery-beat
+    #   django-timezone-field
 beautifulsoup4==4.10.0
     # via htmldocx
 billiard==3.6.4.0
@@ -159,7 +170,7 @@ dj-database-url==0.5.0
     # via
     #   -r requirements.in
     #   froide
-django==3.2.14
+django==4.0.7
     # via
     #   -r requirements.in
     #   channels
@@ -193,7 +204,6 @@ django==3.2.14
     #   django-select2
     #   django-storages
     #   django-taggit
-    #   django-timezone-field
     #   django-treebeard
     #   djangocms-frontend
     #   djangorestframework
@@ -201,7 +211,7 @@ django==3.2.14
     #   enmerkar
     #   froide
     #   sortabletable
-django-admin-sortable2==1.0
+django-admin-sortable2==2.1.3
     # via
     #   -r requirements.in
     #   froide-campaign
@@ -213,7 +223,7 @@ django-cache-url==3.2.3
     # via
     #   -r requirements.in
     #   froide
-django-celery-beat==2.2.0
+django-celery-beat==2.3.0
     # via -r requirements.in
 django-celery-email==3.0.0
     # via -r requirements.in
@@ -221,7 +231,7 @@ django-classy-tags==2.0.0
     # via
     #   django-cms
     #   django-sekizai
-django-cms==3.9.0
+django-cms==3.11.0
     # via
     #   -r requirements.in
     #   djangocms-attributes-field
@@ -246,11 +256,11 @@ django-crossdomainmedia==0.0.3
     # via
     #   -r requirements.in
     #   froide
-django-elasticsearch-dsl==7.2.1
+django-elasticsearch-dsl==7.2.2
     # via froide
 django-entangled==0.4
     # via djangocms-frontend
-django-filer==2.1.2
+django-filer==2.2.3
     # via
     #   -r requirements.in
     #   djangocms-bootstrap4
@@ -296,7 +306,7 @@ django-payments[stripe]==0.15.0
     # via froide-payment
 django-polymorphic==3.0.0
     # via django-filer
-django-prices==2.2.0
+django-prices==2.3.0
     # via froide-payment
 django-sekizai==2.0.0
     # via
@@ -313,15 +323,16 @@ django-taggit==1.4.0
     #   -r requirements.in
     #   django-filingcabinet
     #   froide
-django-timezone-field==4.1.2
+django-timezone-field==5.0
     # via django-celery-beat
 django-tinymce==3.4.0
     # via django-legal-advice-builder
-django-treebeard==4.5.1
+django-treebeard==4.4
     # via
     #   -r requirements.in
     #   django-cms
     #   django-legal-advice-builder
+    #   djangocms-link
 djangocms-admin-style==2.0.2
     # via django-cms
 djangocms-attributes-field==2.0.0
@@ -332,16 +343,12 @@ djangocms-attributes-field==2.0.0
     #   djangocms-link
     #   djangocms-picture
     #   djangocms-video
-djangocms-bootstrap4==2.0.0
-    # via -r requirements.in
-djangocms-frontend==0.9.4
+djangocms-bootstrap4==3.0.0
     # via -r requirements.in
 djangocms-icon==2.0.0
     # via
     #   -r requirements.in
     #   djangocms-bootstrap4
-djangocms-link==3.0.0
-    # via djangocms-bootstrap4
 djangocms-picture==3.0.0
     # via
     #   -r requirements.in
@@ -374,7 +381,7 @@ dnspython==2.1.0
     # via pyisemail
 docopt==0.6.2
     # via num2words
-easy-thumbnails==2.8.1
+easy-thumbnails[svg]==2.8.1
     # via
     #   django-filer
     #   djangocms-picture
@@ -579,10 +586,8 @@ python-stdnum==1.17
     # via django-localflavor
 pytz==2021.3
     # via
-    #   -r requirements.in
     #   babel
     #   celery
-    #   django
     #   django-timezone-field
     #   froide
     #   icalendar
@@ -670,6 +675,8 @@ typing-extensions==3.10.0.0
     #   torch
     #   torchvision
     #   twisted
+tzdata==2022.2
+    # via django-celery-beat
 unicodecsv==0.14.1
     # via djangorestframework-csv
 unidecode==1.1.2
