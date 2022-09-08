@@ -3,7 +3,7 @@ from .base import FragDenStaatBase
 
 class Dev(FragDenStaatBase):
     DEBUG = True
-    ALLOWED_HOSTS = '*'
+    ALLOWED_HOSTS = ('*',)
     # CELERY_TASK_ALWAYS_EAGER = False
 
     INTERNAL_IPS = ('127.0.0.1',)
