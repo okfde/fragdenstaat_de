@@ -25,7 +25,6 @@ django-parler
 django-sekizai>=2.0
 django-storages
 django-taggit
-django-taggit-autosuggest
 django-treebeard==4.5.1
 Django>=3.2,<3.3
 djangocms-bootstrap4
