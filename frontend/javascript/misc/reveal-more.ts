@@ -24,7 +24,7 @@ revealElemets.forEach((element) => {
   const button = element.querySelector<HTMLElement>('.reveal-show a')
   const destroy = (): void => {
     inner.style.maxHeight = 'none'
-    element.classList.remove('transitioning')
+    element.classList.remove('reveal-cutoff', 'transitioning')
     inner.classList.remove('reveal-inner')
     button?.parentElement?.remove()
   }
