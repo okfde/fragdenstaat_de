@@ -15,7 +15,6 @@ from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 from froide_campaign import urls as campaign_urls
 from froide_govplan.admin import govplan_admin_site
 
-from froide.foirequest.views import dashboard
 from froide.urls import (
     admin_urls,
     api_urlpatterns,
@@ -63,7 +62,6 @@ urlpatterns = [
     path("klagen/", include("froide_legalaction.urls")),
     path("payments/", include("froide_payment.payments_urls")),
     path("payment/", include("froide_payment.urls")),
-    path("dashboard/", dashboard, name="dashboard"),
     path("taggit_autosuggest/", include("taggit_autosuggest.urls")),
     path("contractor/", include("contractor.urls")),
     path("fax/", include("froide_fax.urls")),
