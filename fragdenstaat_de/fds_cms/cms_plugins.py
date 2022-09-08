@@ -506,8 +506,6 @@ class FdsCardPlugin(CMSPluginBase):
                     classes.append(f"box-card-has-image-{plugin.size}")
                     if plugin.overlap == "left":
                         classes.append("d-md-flex")
-                else:
-                    classes.append("box-card-has-icon")
             elif plugin.plugin_type == "FdsCardLinkPlugin":
                 links.append(plugin)
             # text, etc.
@@ -628,9 +626,6 @@ class FdsCardIconPlugin(CMSPluginBase):
 
         parent_model, parent_instance = instance.parent.get_plugin_instance()
         classes.append(parent_instance.color(parent_model))
-
-        if instance.overlap == "right":
-            classes.append("overlap-right")
 
         if instance.attributes.get("class"):
             classes += instance.attributes["class"].split(" ")

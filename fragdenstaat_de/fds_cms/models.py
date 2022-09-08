@@ -515,15 +515,6 @@ class CardIconCMSPlugin(CMSPlugin):
             """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
         ),
     )
-    overlap = models.CharField(
-        _("Overlap"),
-        choices=(
-            ("left", _("Left")),
-            ("right", _("Right")),
-        ),
-        max_length=10,
-        default="right",
-    )
     attributes = AttributesField()
 
     def __str__(self):
