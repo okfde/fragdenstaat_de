@@ -2,12 +2,11 @@ celery>=5.2.2
 channels
 coreapi
 dj-database-url
-django-admin-sortable2==1.0
+django-admin-sortable2
 django-cache-url
 django-celery-beat
 django-celery-email
-django-cms<=3.10.0
-djangocms-frontend
+django-cms>=3.11
 django-configurations
 django-contractor
 django-contrib-comments
@@ -25,8 +24,13 @@ django-parler
 django-sekizai>=2.0
 django-storages
 django-taggit
-django-treebeard==4.5.1
-Django>=3.2,<3.3
+django-treebeard
+Django>=4.0,<4.1
+# remove when release > 0.9.4
+-e git+https://github.com/django-cms/djangocms-frontend.git@master#egg=djangocms-frontend
+# remove when release >= 3.1.0
+-e git+https://github.com/django-cms/djangocms-link.git@master#egg=djangocms-link
+# Remove when no longer imported
 djangocms-bootstrap4
 djangocms-icon
 djangocms-picture
@@ -57,7 +61,6 @@ pypdf2
 python-magic
 python-mimeparse
 python-slugify
-pytz
 reportlab
 requests
 sentry-sdk
