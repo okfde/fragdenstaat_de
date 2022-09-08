@@ -6,14 +6,6 @@
   flex-direction: column;
   position: relative;
 
-  &.box-card-has-icon {
-    margin-top: 1.5rem;
-
-    @include media-breakpoint-up(md) {
-      margin-top: 2.25rem;
-    }
-  }
-
   /* important required to override icon margin, if both image and icon present */
   &.box-card-has-image-sm {
     margin-top: 2.5rem !important;
@@ -121,40 +113,32 @@ a > .box-card {
 }
 
 .box-card-icon {
-  position: absolute;
-  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: $blue-700;
 
-  left: -1rem;
-  top: -1rem;
-  width: 3rem;
-  height: 3rem;
-
   &.overlap-right {
-    left: unset;
-    right: -1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0;
+    border-bottom-left-radius: 2px;
   }
 
   .fa {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   @include media-breakpoint-up(md) {
-    left: -2.25rem;
-    top: -2.25rem;
-    width: 4.5rem;
-    height: 4.5rem;
-
-    &.overlap-right {
-      left: unset;
-      right: -2.25rem;
-    }
+    width: 4rem;
+    height: 4rem;
 
     .fa {
-      font-size: 2.5rem;
+      font-size: 2.25rem;
     }
   }
 }
