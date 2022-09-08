@@ -101,7 +101,6 @@ class FragDenStaatBase(German, Base):
                 "contractor",
                 "djcelery_email",
                 "django.contrib.redirects",
-                "markdown_deux",
                 "django_prices",
                 "froide_campaign.apps.FroideCampaignConfig",
                 "froide_legalaction.apps.FroideLegalActionConfig",
