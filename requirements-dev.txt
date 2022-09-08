@@ -270,7 +270,6 @@ django-cms==3.11.0
     #   djangocms-link
     #   djangocms-picture
     #   djangocms-text-ckeditor
-    #   djangocms-transfer
     #   djangocms-video
     #   sortabletable
 django-configurations==2.2
@@ -392,8 +391,6 @@ djangocms-text-ckeditor==5.1.1
     #   -r requirements.in
     #   djangocms-bootstrap4
     #   djangocms-frontend
-djangocms-transfer==1.0.0
-    # via -r requirements.in
 djangocms-video==3.0.0
     # via -r requirements.in
 djangorestframework==3.12.4
