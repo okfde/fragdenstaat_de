@@ -62,7 +62,6 @@ urlpatterns = [
     path("klagen/", include("froide_legalaction.urls")),
     path("payments/", include("froide_payment.payments_urls")),
     path("payment/", include("froide_payment.urls")),
-    path("taggit_autosuggest/", include("taggit_autosuggest.urls")),
     path("contractor/", include("contractor.urls")),
     path("fax/", include("froide_fax.urls")),
     path("newsletter/update/", include("fragdenstaat_de.fds_newsletter.urls")),
