@@ -186,7 +186,7 @@ $backdrops: (
   .reveal-inner {
     position: relative;
     transition: max-height 0.5s ease-out;
-    overflow-y: hidden;
+    overflow: hidden;
 
     &::after {
       position: absolute;
@@ -235,10 +235,6 @@ $backdrops: (
     .reveal-inner::after {
       display: none;
     }
-  }
-
-  > div > .container-fluid {
-    margin: 0 calc(var(--bs-gutter-x) * -0.5);
   }
 }
 
