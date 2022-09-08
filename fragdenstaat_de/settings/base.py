@@ -475,9 +475,7 @@ class FragDenStaatBase(German, Base):
     GDAL_LIBRARY_PATH = os.environ.get("GDAL_LIBRARY_PATH")
     GEOS_LIBRARY_PATH = os.environ.get("GEOS_LIBRARY_PATH")
 
-    FROIDE_CSRF_MIDDLEWARE = (
-        "fragdenstaat_de.theme.ilf_middleware.CsrfViewIlfMiddleware"
-    )
+    FROIDE_CSRF_MIDDLEWARE = "django.middleware.csrf.CsrfViewMiddleware"
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
         "froide.helper.middleware.XForwardedForMiddleware",
