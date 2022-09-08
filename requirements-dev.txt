@@ -94,7 +94,7 @@ backcall==0.2.0
     # via ipython
 backports-entry-points-selectable==1.1.0
     # via virtualenv
-backports-zoneinfo==0.2.1
+backports-zoneinfo==0.2.1; python_version < "3.9"
     # via
     #   django
     #   django-celery-beat
