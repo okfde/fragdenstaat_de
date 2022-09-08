@@ -5,12 +5,11 @@ from django.db import transaction
 from django.db.models import Count
 from django.urls import NoReverseMatch, reverse_lazy
 from django.utils import timezone
-from django.utils.encoding import smart_text
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext_lazy
 
-from adminsortable2.admin import SortableInlineAdminMixin
+from adminsortable2.admin import SortableAdminBase, SortableInlineAdminMixin
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from cms.api import add_plugin
 from djangocms_text_ckeditor.widgets import TextEditorWidget
@@ -50,7 +49,7 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
                     active_object.count_articles_published,
                 )
                 % {
-                    "item": smart_text(active_object),
+                    "item": str(active_object),
                     "count": active_object.count_articles_published,
                 },
             )
@@ -113,7 +112,7 @@ class ArticleAdminForm(forms.ModelForm):
         }
 
 
-class ArticleAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
+class ArticleAdmin(SortableAdminBase, PlaceholderAdminMixin, admin.ModelAdmin):
     form = ArticleAdminForm
     date_hierarchy = "start_publication"
 
