@@ -13,14 +13,13 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.template.defaultfilters import slugify
-from django.utils import translation
+from django.utils import timezone, translation
 from django.utils.dateparse import parse_datetime
 from django.utils.html import strip_tags
 from django.utils.text import Truncator
 
 import html5lib
 import markdown
-import pytz
 import requests
 import yaml
 from cms.api import add_plugin
@@ -66,7 +65,7 @@ def get_date(date_str):
     else:
         naive = parse_datetime(date_str + "T00:00:00")
     if naive.tzinfo is None:
-        return pytz.timezone("Europe/Berlin").localize(naive, is_dst=None)
+        return naive.replace(tzinfo=timezone.get_current_timezone())
     return naive
 
 

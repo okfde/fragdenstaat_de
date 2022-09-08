@@ -1,22 +1,17 @@
 import os
 from datetime import datetime
 
-from django.conf import settings
 from django.contrib.gis.db.models.functions import Area
 from django.contrib.gis.gdal import DataSource
 from django.contrib.gis.utils import LayerMapping
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 from django.utils.dateparse import parse_date
 
-import pytz
 from slugify import slugify
 
 from froide.georegion.models import GeoRegion
 from froide.helper.tree_utils import get_new_child_params
-
-
-def localize_date(dt):
-    return pytz.timezone(settings.TIME_ZONE).localize(dt, is_dst=None)
 
 
 def get_higher_ars(ars):
@@ -121,7 +116,9 @@ class Command(BaseCommand):
                         geo_region.save(update_fields=["population"])
 
     def load(self, path):
-        self.valid_date = localize_date(datetime(2021, 1, 1, 0, 0, 0))
+        self.valid_date = datetime(
+            2021, 1, 1, 0, 0, 0, tzinfo=timezone.get_current_timezone()
+        )
 
         self.georegions = GeoRegion.objects.filter(kind__in=[x[2] for x in self.layers])
 
@@ -191,8 +188,8 @@ class Command(BaseCommand):
             if "/" in wsk:
                 wsk = wsk.replace("/", "-")
             valid_on_date = parse_date(wsk)
-            valid_on = localize_date(
-                datetime.combine(valid_on_date, datetime.min.time())
+            valid_on = datetime.combine(
+                valid_on_date, datetime.min.time(), timezone.get_current_timezone()
             )
         except Exception as e:
             print(wsk)
