@@ -79,7 +79,6 @@ class FragDenStaatBase(German, Base):
                 "djangocms_frontend.contrib.utilities",
                 # Additional CMS plugins
                 "sortabletable",
-                "djangocms_transfer",
                 "contractor",
                 "djcelery_email",
                 "django.contrib.redirects",

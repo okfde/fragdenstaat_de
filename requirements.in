@@ -35,7 +35,6 @@ djangocms-bootstrap4
 djangocms-icon
 djangocms-picture
 djangocms-text-ckeditor
-djangocms-transfer
 djangocms-video
 djangorestframework
 djangorestframework-csv
