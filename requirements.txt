@@ -282,8 +282,6 @@ django-localflavor==3.1
     # via froide-payment
 django-logentry-admin==1.1.0
     # via -r requirements.in
-django-markdown-deux==1.0.5
-    # via froide-campaign
 django-mfa3==0.7.0
     # via -r requirements.in
 django-mptt==0.12.0
@@ -474,8 +472,6 @@ markdown==3.3.4
     #   -r requirements.in
     #   django-legal-advice-builder
     #   froide
-markdown2==2.4.0
-    # via django-markdown-deux
 markupsafe==2.0.1
     # via jinja2
 maxminddb==2.0.3
