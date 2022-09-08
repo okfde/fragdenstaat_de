@@ -53,7 +53,6 @@ setup(
         "celery",
         "django-celery-email",
         "django-taggit",
-        "pytz",
         "requests",
         "django-floppyforms",
         "python-magic",

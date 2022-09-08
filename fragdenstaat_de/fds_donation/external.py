@@ -1,12 +1,11 @@
 import re
-from datetime import timedelta
+from datetime import date, timedelta
 from decimal import Decimal
 
 from django.db.models import Q
 from django.utils import timezone
 
 import pandas as pd
-import pytz
 
 from froide_payment.models import Payment, PaymentStatus
 from froide_payment.provider.banktransfer import find_transfer_code
@@ -122,14 +121,11 @@ def import_banktransfer(transfer_ident, row, project):
 
 
 BLOCK_LIST = set(["Stripe Payments UK Ltd", "Stripe Technology Europe Ltd", "Stripe"])
-LOCAL_TZ = pytz.timezone("Europe/Berlin")
 DEBIT_PATTERN = re.compile(r" \(P(\d+)\)")
 
 
-def localize_date(d):
-    if timezone.is_naive(d):
-        d = LOCAL_TZ.localize(d)
-    return pytz.utc.normalize(d.astimezone(pytz.utc))
+def localize_date(d: date):
+    return d.replace(tzinfo=timezone.get_current_timezone())
 
 
 def update_direct_debit(row):
@@ -175,9 +171,7 @@ def import_banktransfers(xls_file, project):
         if DEBIT_PATTERN.search(row["reference"]):
             update_direct_debit(row)
             continue
-        local_date = LOCAL_TZ.normalize(
-            row["date_received"].astimezone(LOCAL_TZ)
-        ).date()
+        local_date = row["date_received"].date()
         transfer_ident = "{date}-{ref}-{iban}-{i}".format(
             date=local_date.isoformat(), ref=row["reference"], iban=row["iban"], i=i
         )
@@ -190,10 +184,10 @@ def import_banktransfers(xls_file, project):
 
 def import_paypal(csv_file):
     df = pd.read_csv(csv_file)
-    local_tz = pytz.timezone("Europe/Berlin")
-    df["date"] = df["date"] = pd.to_datetime(
+    local_tz = timezone.get_current_timezone()
+    df["date"] = pd.to_datetime(
         df["Datum"] + " " + df["Uhrzeit"], format="%d.%m.%Y %H:%M:%S"
-    ).apply(local_tz.localize)
+    ).apply(lambda x: x.replace(tzinfo=local_tz))
     df["amount"] = pd.to_numeric(
         df["Brutto"].str.replace(".", "").str.replace(",", ".")
     )
