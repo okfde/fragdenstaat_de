@@ -376,7 +376,7 @@ djangocms-attributes-field==2.1.0
     #   djangocms-link
     #   djangocms-picture
     #   djangocms-video
-djangocms-bootstrap4==2.0.0
+djangocms-bootstrap4==3.0.0
     # via -r requirements.in
 djangocms-icon==2.0.0
     # via

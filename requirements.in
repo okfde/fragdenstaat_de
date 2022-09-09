@@ -31,10 +31,10 @@ Django>=4.0,<4.1
 # remove when release >= 3.1.0
 -e git+https://github.com/django-cms/djangocms-link.git@master#egg=djangocms-link
 # Remove when no longer imported
-djangocms-bootstrap4
+djangocms-bootstrap4>=3
 djangocms-icon
 djangocms-picture
-djangocms-text-ckeditor
+djangocms-text-ckeditor>=5.1
 djangocms-video
 djangorestframework
 djangorestframework-csv

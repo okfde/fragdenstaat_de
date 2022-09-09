@@ -334,7 +334,7 @@ django-treebeard==4.4
     #   djangocms-link
 djangocms-admin-style==2.0.2
     # via django-cms
-djangocms-attributes-field==2.0.0
+djangocms-attributes-field==2.1.0
     # via
     #   djangocms-bootstrap4
     #   djangocms-frontend
@@ -352,7 +352,7 @@ djangocms-picture==3.0.0
     # via
     #   -r requirements.in
     #   djangocms-bootstrap4
-djangocms-text-ckeditor==4.0.0
+djangocms-text-ckeditor==5.1.1
     # via
     #   -r requirements.in
     #   djangocms-bootstrap4
