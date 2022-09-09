@@ -33,8 +33,10 @@ function setupDonationForm(form: HTMLFormElement): void {
   const radioCollapse = form.querySelectorAll('[data-toggle="radiocollapse"]')
   ;(Array.from(radioCollapse) as HTMLInputElement[]).forEach(setupRadioCollapse)
 
-  const intervalGroup = document.getElementById('id_interval')
-  if (intervalGroup !== null) {
+  const intervalGroup = document.querySelector(
+    '[data-group="interval"]'
+  ) as HTMLElement
+  if (intervalGroup != null) {
     setupIntervalGroup(intervalGroup)
   }
 
