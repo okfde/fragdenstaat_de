@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
-from froide.helper.utils import get_redirect
+from froide.helper.utils import get_redirect, is_ajax
 
 from .forms import NewsletterForm, NewslettersUserForm
 from .models import Newsletter, Subscriber
@@ -19,7 +19,7 @@ from .utils import SubscriptionResult
 @require_POST
 @csrf_exempt
 def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
-    if not request.is_ajax():
+    if not is_ajax(request):
         raise Http404
     return newsletter_subscribe_request(request, newsletter_slug=newsletter_slug)
 
@@ -37,7 +37,7 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
         if form.is_valid():
             result, subscriber = form.save(newsletter, request.user)
 
-            if request.is_ajax():
+            if is_ajax(request):
                 # No-CSRF ajax request
                 # are allowed to access current user
                 if request.user.is_authenticated and subscriber.user == request.user:
@@ -83,7 +83,7 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
             request=request, initial={"email": request.GET.get("email", "")}
         )
 
-    if request.is_ajax():
+    if is_ajax(request):
         url = "{}?{}".format(
             reverse(
                 "newsletter_subscribe_request",
