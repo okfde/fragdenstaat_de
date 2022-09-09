@@ -352,10 +352,11 @@ django-treebeard==4.4
     #   -r requirements.in
     #   django-cms
     #   django-legal-advice-builder
+    #   djangocms-attributes-field
     #   djangocms-link
 djangocms-admin-style==2.0.2
     # via django-cms
-djangocms-attributes-field==2.0.0
+djangocms-attributes-field==2.1.0
     # via
     #   djangocms-bootstrap4
     #   djangocms-frontend
