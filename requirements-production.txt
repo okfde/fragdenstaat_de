@@ -157,8 +157,9 @@ coreapi==2.3.3
     # via -r requirements.in
 coreschema==0.0.4
     # via coreapi
-cryptography==3.4.7
+cryptography==38.0.1
     # via
+    #   -r requirements.in
     #   autobahn
     #   fido2
     #   jwcrypto
