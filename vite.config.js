@@ -8,6 +8,7 @@ const outputDir = resolve(__dirname, 'build')
 // https://vitejs.dev/config/
 export default defineConfig({
   base: process.env.ASSET_PATH || '/static/',
+  publicDir: false,
   resolve: {
     alias: {
       '~froide': resolve(__dirname, 'node_modules/froide')
@@ -60,7 +61,7 @@ export default defineConfig({
       output: {
         sourcemap: true,
         entryFileNames: '[name].js',
-        chunkFileNames: 'js/[name].js',
+        chunkFileNames: 'js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
           if (assetInfo.name.endsWith('.css')) {
             return 'css/[name][extname]'
