@@ -544,7 +544,7 @@ numpy==1.22.1
     #   webp
 oauthlib==3.1.1
     # via django-oauth-toolkit
-opencv-python==4.5.1.48
+opencv-python==4.6.0.66
     # via camelot-py
 openpyxl==3.0.7
     # via
