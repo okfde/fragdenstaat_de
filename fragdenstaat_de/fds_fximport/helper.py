@@ -87,7 +87,9 @@ def import_messages_from_case(foirequest: FoiRequest, case: PadCase):
             message = FoiMessage(
                 request=foirequest,
                 kind=MessageKind.IMPORT,
-                timestamp=timezone.get_current_timezone().localize(pad_message.date),
+                timestamp=pad_message.date.replace(
+                    tzinfo=timezone.get_current_timezone()
+                ),
                 plaintext=pad_message.message,
                 email_message_id=message_id,
                 subject=case.metadata.subject,
