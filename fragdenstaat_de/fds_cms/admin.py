@@ -56,7 +56,7 @@ class CustomStaticPlaceholderAdmin(StaticPlaceholderAdmin):
         return render(
             request,
             "fds_cms/admin/static_placeholder.html",
-            {"placeholder": static_placeholder},
+            {"placeholder": static_placeholder, "force_cms_render": True},
         )
 
     def publish(self, request, queryset):
