@@ -1,6 +1,4 @@
 -r requirements.in
-camelot-py[cv]
-opencv-python>=4.6.0.66
 tornado>=4.2.0,<6.0.0
 gunicorn
 python-memcached
