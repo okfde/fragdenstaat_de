@@ -60,20 +60,20 @@ export default defineConfig({
       output: {
         sourcemap: true,
         entryFileNames: '[name].js',
-        chunkFileNames: 'js/[name]-[hash].js',
+        chunkFileNames: 'js/[name].js',
         assetFileNames: (assetInfo) => {
           if (assetInfo.name.endsWith('.css')) {
-            return 'css/[name]-[hash][extname]'
+            return 'css/[name][extname]'
           } else if (
             assetInfo.name.match(/(\.(woff2?|eot|ttf|otf)|font\.svg)(\?.*)?$/)
           ) {
-            return 'fonts/[name]-[hash][extname]'
+            return 'fonts/[name][extname]'
           } else if (assetInfo.name.match(/\.(jpg|png|svg)$/)) {
-            return 'img/[name]-[hash][extname]'
+            return 'img/[name][extname]'
           }
 
           console.log('assetInfo', assetInfo)
-          return 'js/[name]-[hash][extname]'
+          return 'js/[name][extname]'
         }
       }
     }
