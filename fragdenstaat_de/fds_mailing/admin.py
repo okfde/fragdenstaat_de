@@ -82,7 +82,11 @@ class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         return render(
             request,
             "fds_mailing/emailtemplate_update_form.html",
-            {"object": email_template, "static_placeholder_id": static_placeholder_id},
+            {
+                "object": email_template,
+                "static_placeholder_id": static_placeholder_id,
+                "force_cms_render": True,
+            },
         )
 
     def preview_html(self, request, pk):
