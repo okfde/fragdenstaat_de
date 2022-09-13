@@ -176,7 +176,7 @@ class FragDenStaat(FragDenStaatBase):
     LOGGING = {
         "loggers": {
             "": {"handlers": ["console"], "level": "WARNING"},
-            "froide": {"level": "INFO", "propagate": True, "handlers": ["normal"]},
+            "froide": {"level": "INFO", "propagate": True, "handlers": ["console"]},
             "fragdenstaat_de": {
                 "level": "INFO",
                 "propagate": True,
