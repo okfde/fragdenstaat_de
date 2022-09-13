@@ -1,17 +1,19 @@
 import logging
+from io import BytesIO
 
 from django.apps import AppConfig
 from django.core.files.base import ContentFile
 from django.urls import NoReverseMatch, reverse
 from django.utils.translation import gettext_lazy as _
 
-logger = logging.getLogger(__name__)
+from PIL import Image
 
 try:
-    import py_ravif
+    import pillow_avif  # noqa
 except ImportError:
-    logger.warn("py_ravif not found, no avif image support!")
-    py_ravif = None
+    pillow_avif = None
+
+logger = logging.getLogger(__name__)
 
 
 class FdsCmsConfig(AppConfig):
@@ -27,7 +29,7 @@ class FdsCmsConfig(AppConfig):
         account_merged.connect(merge_user)
         search_registry.register(add_search)
 
-        if py_ravif is not None:
+        if pillow_avif is not None:
             from easy_thumbnails.signals import thumbnail_created
 
             thumbnail_created.connect(store_as_avif)
@@ -56,7 +58,9 @@ def store_as_avif(sender, **kwargs):
     logger.info("Converting %s to avif", sender.name)
     avif_name = ".".join([sender.name, "avif"])
     img_file = sender.storage.open(sender.name, "rb")
-    img_bytes = img_file.read()
-    avif_bytes = py_ravif.convert_to_avif_from_bytes(img_bytes)
-    sender.storage.save(avif_name, ContentFile(avif_bytes))
+    im = Image.open(img_file)
+    out_file = BytesIO()
+    im.save(out_file, format="avif", quality=80)
+    out_file.seek(0)
+    sender.storage.save(avif_name, ContentFile(out_file.read()))
     logger.info("Done converting %s to avif", sender.name)

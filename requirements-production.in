@@ -5,6 +5,6 @@ python-memcached
 channels_redis
 uvicorn
 sentry-sdk
-py_ravif
+pillow-avif-plugin
 google-api-python-client
 google-auth-httplib2
