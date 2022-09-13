@@ -202,7 +202,7 @@ class FragDenStaat(FragDenStaatBase):
         "handlers": {
             "console": {
                 "class": "logging.StreamHandler",
-                "formatter": "console",
+                "formatter": "verbose",
             },
         },
         "formatters": {
