@@ -1,9 +1,9 @@
 import re
-from datetime import date, timedelta
+from datetime import timedelta
 from decimal import Decimal
 
+from django.conf import settings
 from django.db.models import Q
-from django.utils import timezone
 
 import pandas as pd
 
@@ -124,10 +124,6 @@ BLOCK_LIST = set(["Stripe Payments UK Ltd", "Stripe Technology Europe Ltd", "Str
 DEBIT_PATTERN = re.compile(r" \(P(\d+)\)")
 
 
-def localize_date(d: date):
-    return d.replace(tzinfo=timezone.get_current_timezone())
-
-
 def update_direct_debit(row):
     match = DEBIT_PATTERN.search(row["reference"])
     try:
@@ -158,9 +154,9 @@ def import_banktransfers(xls_file, project):
         }
     )
     df = df.dropna(subset=["date_received"])
-    df["date_received"] = df["date_received"].apply(localize_date)
+    df["date_received"] = df["date_received"].dt.tz_localize(settings.TIME_ZONE)
     if "date" in df.columns:
-        df["date"] = df["date"].apply(localize_date)
+        df["date"] = df["date"].dt.tz_localize(settings.TIME_ZONE)
     else:
         df["date"] = None
     count = 0
@@ -184,10 +180,9 @@ def import_banktransfers(xls_file, project):
 
 def import_paypal(csv_file):
     df = pd.read_csv(csv_file)
-    local_tz = timezone.get_current_timezone()
     df["date"] = pd.to_datetime(
         df["Datum"] + " " + df["Uhrzeit"], format="%d.%m.%Y %H:%M:%S"
-    ).apply(lambda x: x.replace(tzinfo=local_tz))
+    ).dt.tz_localize(settings.TIME_ZONE)
     df["amount"] = pd.to_numeric(
         df["Brutto"].str.replace(".", "").str.replace(",", ".")
     )
