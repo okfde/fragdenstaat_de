@@ -167,7 +167,7 @@ coverage==5.5
     # via
     #   -r requirements-dev.in
     #   django-coverage-plugin
-cryptography==38.0.1
+cryptography==37.0.4
     # via
     #   -r requirements.in
     #   autobahn
