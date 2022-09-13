@@ -175,35 +175,34 @@ class FragDenStaat(FragDenStaatBase):
 
     LOGGING = {
         "loggers": {
-            "": {"handlers": ["normal"], "level": "WARNING"},
+            "": {"handlers": ["console"], "level": "WARNING"},
             "froide": {"level": "INFO", "propagate": True, "handlers": ["normal"]},
             "fragdenstaat_de": {
                 "level": "INFO",
                 "propagate": True,
-                "handlers": ["normal"],
+                "handlers": ["console"],
             },
             "froide_payment": {
                 "level": "INFO",
                 "propagate": True,
-                "handlers": ["normal"],
+                "handlers": ["console"],
             },
             "sentry.errors": {
-                "handlers": ["normal"],
+                "handlers": ["console"],
                 "propagate": False,
                 "level": "DEBUG",
             },
             "django.request": {
                 "level": "ERROR",
                 "propagate": True,
-                "handlers": ["normal"],
+                "handlers": ["console"],
             },
         },
         "disable_existing_loggers": True,
         "handlers": {
-            "normal": {
-                "filename": os.path.join(env("DJANGO_LOG_DIR"), "froide.log"),
-                "class": "logging.FileHandler",
-                "level": "INFO",
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "console",
             },
         },
         "formatters": {
@@ -216,7 +215,7 @@ class FragDenStaat(FragDenStaatBase):
             "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
             "ignore_501": {"()": "fragdenstaat_de.theme.utils.Ignore501Errors"},
         },
-        "root": {"handlers": ["normal"], "level": "WARNING"},
+        "root": {"handlers": ["console"], "level": "WARNING"},
     }
     MANAGERS = (("FragDenStaat.de", "mail@fragdenstaat.de"),)
     MEDIA_ROOT = env("DJANGO_MEDIA_ROOT")
@@ -257,12 +256,7 @@ class FragDenStaat(FragDenStaatBase):
 class FragDenStaatDebug(FragDenStaat):
     LOGGING = dict(FragDenStaat.LOGGING)
     LOGGING["disable_existing_loggers"] = False
-    LOGGING["loggers"][""] = {"handlers": ["normal"], "level": "DEBUG"}
-    LOGGING["handlers"]["normal"] = {
-        "filename": os.path.join(env("DJANGO_LOG_DIR"), "froide_debug.log"),
-        "class": "logging.FileHandler",
-        "level": "INFO",
-    }
+    LOGGING["loggers"][""] = {"handlers": ["console"], "level": "DEBUG"}
 
 
 sentry_logging = LoggingIntegration(
