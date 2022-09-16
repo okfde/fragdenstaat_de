@@ -82,7 +82,7 @@ babel==2.9.1
     #   django-prices
     #   enmerkar
     #   prices
-backports-zoneinfo==0.2.1; python_version < "3.9"
+backports-zoneinfo==0.2.1
     # via
     #   django
     #   django-celery-beat
@@ -491,7 +491,7 @@ numpy==1.22.1
     #   pandas
     #   torchvision
     #   webp
-oauthlib==3.1.1
+oauthlib==3.2.1
     # via django-oauth-toolkit
 openpyxl==3.0.7
     # via -r requirements.in
@@ -670,6 +670,7 @@ txaio==21.2.1
 typing-extensions==3.10.0.0
     # via
     #   async-timeout
+    #   pypdf2
     #   torch
     #   torchvision
     #   twisted

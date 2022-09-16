@@ -61,8 +61,6 @@ alabaster==0.7.12
     # via sphinx
 amqp==5.0.9
     # via kombu
-appnope==0.1.2
-    # via ipython
 asgiref==3.5.2
     # via
     #   channels
@@ -94,7 +92,7 @@ backcall==0.2.0
     # via ipython
 backports-entry-points-selectable==1.1.0
     # via virtualenv
-backports-zoneinfo==0.2.1; python_version < "3.9"
+backports-zoneinfo==0.2.1
     # via
     #   django
     #   django-celery-beat
@@ -574,7 +572,7 @@ numpy==1.22.1
     #   pandas
     #   torchvision
     #   webp
-oauthlib==3.1.1
+oauthlib==3.2.1
     # via django-oauth-toolkit
 openpyxl==3.0.7
     # via -r requirements.in
@@ -833,6 +831,8 @@ txaio==21.2.1
 typing-extensions==3.10.0.0
     # via
     #   async-timeout
+    #   black
+    #   pypdf2
     #   torch
     #   torchvision
     #   twisted
