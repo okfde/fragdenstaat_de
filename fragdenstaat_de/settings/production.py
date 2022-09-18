@@ -51,6 +51,7 @@ class FragDenStaat(FragDenStaatBase):
         "testserver",
     ]
     ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS + ["sanktionsfrei.de"]
+    CSRF_TRUSTED_ORIGINS = [x for x in env("CSRF_TRUSTED_ORIGINS", "").split(",") if x]
 
     PAYMENT_HOST = "fragdenstaat.de"
     PAYMENT_USES_SSL = True
