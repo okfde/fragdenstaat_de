@@ -42,8 +42,8 @@ function setupDonationForm(form: HTMLFormElement): void {
 
   ;['creditcard', 'paypal', 'sofort', 'sepa'].forEach((p) => {
     const el = document.querySelector(`input[value="${p}"]`)
-    if (el?.parentElement?.parentElement != null) {
-      el.parentElement.parentElement.classList.add('onion-hide')
+    if (el?.parentElement != null) {
+      el.parentElement.classList.add('onion-hide')
     }
   })
   // End of year lastschrift warning
