@@ -65,8 +65,9 @@ class TippspielForm(forms.Form):
     bet = forms.ChoiceField(choices=BET_CHOICES)
 
     def clean(self):
-        deadline = datetime.datetime(2020, 8, 28, 12, 0, 0)
-        deadline = timezone.get_current_timezone().localize(deadline)
+        deadline = datetime.datetime(
+            2020, 8, 28, 12, 0, 0, tzinfo=timezone.get_current_timezone()
+        )
         if timezone.now() >= deadline:
             raise forms.ValidationError("Tipp-Spiel-Runde abgelaufen!")
 
