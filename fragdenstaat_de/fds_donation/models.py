@@ -397,6 +397,7 @@ class DonationFormCMSPlugin(CMSPlugin):
     amount_presets = models.CharField(max_length=255, blank=True)
     initial_amount = models.IntegerField(null=True, blank=True)
     initial_interval = models.IntegerField(null=True, blank=True)
+    min_amount = models.IntegerField(null=True, blank=True)
 
     reference = models.CharField(blank=True, max_length=255)
     keyword = models.CharField(blank=True, max_length=255)
@@ -425,6 +426,7 @@ class DonationFormCMSPlugin(CMSPlugin):
                 "amount_presets": self.amount_presets,
                 "initial_amount": self.initial_amount,
                 "initial_interval": self.initial_interval,
+                "min_amount": self.min_amount,
                 "reference": self.reference or reference,
                 "keyword": self.keyword or keyword,
                 "purpose": self.purpose,

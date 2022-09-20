@@ -6,6 +6,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.core.mail import mail_managers
+from django.core.validators import MinValueValidator
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
@@ -42,6 +43,7 @@ PAYMENT_METHOD_LIST = (
     "creditcard",
     # "sofort",
 )
+MIN_AMOUNT = 5
 PAYMENT_METHOD_MAX_AMOUNT = {"sepa": decimal.Decimal(5000)}
 
 PAYMENT_METHODS = [
@@ -62,6 +64,9 @@ class DonationSettingsForm(forms.Form):
     keyword = forms.CharField(required=False)
     purpose = forms.CharField(required=False)
     initial_amount = forms.IntegerField(
+        required=False,
+    )
+    min_amount = forms.IntegerField(
         required=False,
     )
     initial_interval = forms.IntegerField(
@@ -103,6 +108,7 @@ class DonationFormFactory:
         "purpose": "",
         "amount_presets": [5, 20, 50],
         "initial_amount": None,
+        "min_amount": MIN_AMOUNT,
         "initial_interval": 0,
         "initial_receipt": "0",
         "collapsed": False,
@@ -166,7 +172,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         localize=True,
         required=True,
         initial=None,
-        min_value=5,
+        min_value=MIN_AMOUNT,
         max_digits=19,
         decimal_places=2,
         label=_("Donation amount:"),
@@ -214,6 +220,12 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         self.settings = kwargs.pop("form_settings", DonationFormFactory.default)
 
         super().__init__(*args, **kwargs)
+
+        if self.settings["min_amount"] and self.settings["min_amount"] >= MIN_AMOUNT:
+            self.fields["amount"].min_value = self.settings["min_amount"]
+            self.fields["amount"].validators.append(
+                MinValueValidator(self.settings["min_amount"])
+            )
 
         interval_choices = []
         has_purpose = True
