@@ -405,6 +405,8 @@ class DonationFormCMSPlugin(CMSPlugin):
     collapsed = models.BooleanField(default=False)
     extra_classes = models.CharField(max_length=255, blank=True)
 
+    gift_options = models.ManyToManyField(DonationGift, blank=True)
+
     form_action = models.CharField(max_length=255, blank=True)
     next_url = models.CharField(max_length=255, blank=True)
 
@@ -431,6 +433,7 @@ class DonationFormCMSPlugin(CMSPlugin):
                 "keyword": self.keyword or keyword,
                 "purpose": self.purpose,
                 "collapsed": self.collapsed,
+                "gift_options": [gift.id for gift in self.gift_options.all()],
             }
         )
         return form.make_donation_form(**kwargs)
