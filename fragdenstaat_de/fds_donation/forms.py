@@ -60,6 +60,10 @@ class DonationSettingsForm(forms.Form):
         regex=r"(\d+(?:,\d+)*|\-)",
         required=False,
     )
+    gift_options = forms.RegexField(
+        regex=r"(\d+(?:,\d+)*|\-)",
+        required=False,
+    )
     reference = forms.CharField(required=False)
     keyword = forms.CharField(required=False)
     purpose = forms.CharField(required=False)
@@ -88,6 +92,17 @@ class DonationSettingsForm(forms.Form):
         except ValueError:
             return []
 
+    def clean_gift_options(self):
+        gift_options = self.cleaned_data["gift_options"]
+        if not gift_options or gift_options == "-":
+            return []
+        if "[" in gift_options:
+            gift_options = gift_options.replace("[", "").replace("]", "")
+        try:
+            return [int(x.strip()) for x in gift_options.split(",") if x.strip()]
+        except ValueError:
+            return []
+
     def clean_initial_receipt(self):
         receipt = self.cleaned_data["initial_receipt"]
         return int(receipt)
@@ -109,6 +124,7 @@ class DonationFormFactory:
         "amount_presets": [5, 20, 50],
         "initial_amount": None,
         "min_amount": MIN_AMOUNT,
+        "gift_options": [],
         "initial_interval": 0,
         "initial_receipt": "0",
         "collapsed": False,
@@ -342,27 +358,101 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         return order, related_obj
 
 
-class DonorForm(forms.Form):
+COUNTRY_CHOICES = (
+    ("", "---"),
+    ("DE", _("Germany")),
+    # Germany, its neighbours and German speaking countries
+    ("AT", _("Austria")),
+    ("CH", _("Switzerland")),
+    ("BE", _("Belgium")),
+    ("NL", _("Netherlands")),
+    ("LU", _("Luxembourg")),
+    ("FR", _("France")),
+    ("LI", _("Liechtenstein")),
+    ("DK", _("Denmark")),
+    ("PL", _("Poland")),
+    ("CZ", _("Czech Republic")),
+    # And some more EU countries
+    ("IT", _("Italy")),
+    ("ES", _("Spain")),
+    ("PT", _("Portugal")),
+    ("SE", _("Sweden")),
+    ("FI", _("Finland")),
+)
+
+
+def get_basic_info_fields(
+    prefix=None, name_required=True, country_choices=COUNTRY_CHOICES
+):
+    fields = dict(
+        first_name=forms.CharField(
+            max_length=255,
+            label=_("First name"),
+            required=name_required,
+            validators=[validate_not_too_many_uppercase],
+            widget=forms.TextInput(
+                attrs={"placeholder": _("First name"), "class": "form-control"}
+            ),
+        ),
+        last_name=forms.CharField(
+            max_length=255,
+            label=_("Last name"),
+            required=name_required,
+            widget=forms.TextInput(
+                attrs={"placeholder": _("Last name"), "class": "form-control"}
+            ),
+        ),
+        address=forms.CharField(
+            max_length=255,
+            label=_("Street, house number"),
+            required=False,
+            widget=forms.TextInput(
+                attrs={
+                    "placeholder": _("Street, house number"),
+                    "class": "form-control",
+                }
+            ),
+        ),
+        postcode=forms.CharField(
+            max_length=20,
+            label=_("Postcode"),
+            required=False,
+            widget=forms.TextInput(
+                attrs={"placeholder": _("Postcode"), "class": "form-control"}
+            ),
+        ),
+        city=forms.CharField(
+            max_length=255,
+            label=_("City"),
+            required=False,
+            widget=forms.TextInput(
+                attrs={"placeholder": _("City"), "class": "form-control"}
+            ),
+        ),
+        country=forms.ChoiceField(
+            label=_("Country"),
+            required=False,
+            choices=country_choices,
+            widget=BootstrapSelect,
+        ),
+    )
+    if prefix:
+        fields = {"{}_{}".format(prefix, k): v for k, v in fields.items()}
+
+    return fields
+
+
+def get_basic_info_form(**kwargs):
+    fields = get_basic_info_fields(**kwargs)
+    return type("BasicInfoForm", (forms.Form,), fields)
+
+
+class DonorForm(get_basic_info_form(), forms.Form):
     salutation = forms.ChoiceField(
         label=_("Salutation"),
         required=False,
         choices=SALUTATION_CHOICES,
         widget=BootstrapSelect,
-    )
-    first_name = forms.CharField(
-        max_length=255,
-        label=_("First name"),
-        validators=[validate_not_too_many_uppercase],
-        widget=forms.TextInput(
-            attrs={"placeholder": _("First name"), "class": "form-control"}
-        ),
-    )
-    last_name = forms.CharField(
-        max_length=255,
-        label=_("Last name"),
-        widget=forms.TextInput(
-            attrs={"placeholder": _("Last name"), "class": "form-control"}
-        ),
     )
     company_name = forms.CharField(
         label=_("Company"),
@@ -389,56 +479,7 @@ class DonorForm(forms.Form):
         label=_("Do you want a donation receipt?"),
         error_messages={"required": _("You have to decide.")},
     )
-    address = forms.CharField(
-        max_length=255,
-        label=_("Street, house number"),
-        required=False,
-        widget=forms.TextInput(
-            attrs={"placeholder": _("Street, house number"), "class": "form-control"}
-        ),
-    )
-    postcode = forms.CharField(
-        max_length=20,
-        label=_("Postcode"),
-        required=False,
-        widget=forms.TextInput(
-            attrs={"placeholder": _("Postcode"), "class": "form-control"}
-        ),
-    )
-    city = forms.CharField(
-        max_length=255,
-        label=_("City"),
-        required=False,
-        widget=forms.TextInput(
-            attrs={"placeholder": _("City"), "class": "form-control"}
-        ),
-    )
-    country = forms.ChoiceField(
-        label=_("Country"),
-        required=False,
-        choices=(
-            ("", "---"),
-            ("DE", _("Germany")),
-            # Germany, its neighbours and German speaking countries
-            ("AT", _("Austria")),
-            ("CH", _("Switzerland")),
-            ("BE", _("Belgium")),
-            ("NL", _("Netherlands")),
-            ("LU", _("Luxembourg")),
-            ("FR", _("France")),
-            ("LI", _("Liechtenstein")),
-            ("DK", _("Denmark")),
-            ("PL", _("Poland")),
-            ("CZ", _("Czech Republic")),
-            # And some more EU countries
-            ("IT", _("Italy")),
-            ("ES", _("Spain")),
-            ("PT", _("Portugal")),
-            ("SE", _("Sweden")),
-            ("FI", _("Finland")),
-        ),
-        widget=BootstrapSelect,
-    )
+
     email = forms.EmailField(
         label=_("Email"),
         required=True,
@@ -501,6 +542,16 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
                     ),
                 ),
                 (0, _("No, thank you.")),
+            )
+        if self.settings["gift_options"]:
+            self.fields["chosen_gift"] = forms.ModelChoiceField(
+                widget=BootstrapSelect,
+                queryset=DonationGift.objects.filter(
+                    id__in=self.settings["gift_options"]
+                ),
+            )
+            self.fields.update(
+                get_basic_info_fields(prefix="shipping", name_required=False)
             )
 
 
