@@ -1,4 +1,4 @@
-if (window.location.hash === '') {
+if (window.location.hash !== '') {
   const el = document.querySelector<HTMLElement>(
     `.highlight-anchor ${window.location.hash}`
   )
