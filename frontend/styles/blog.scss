@@ -322,7 +322,8 @@ h4.blog-list-heading {
     color: $gray-800;
   }
 
-  > blockquote {
+  > blockquote,
+  > figure:has(blockquote) {
     @include make-col(12);
     margin: 1rem auto 0.5rem;
     padding: 1rem 2rem;
@@ -338,7 +339,8 @@ h4.blog-list-heading {
   }
 
   @include media-breakpoint-up(md) {
-    > blockquote {
+    > blockquote,
+    > figure:has(blockquote) {
       @include make-col(10);
       margin-left: 15%;
       margin-right: 15%;
@@ -346,7 +348,8 @@ h4.blog-list-heading {
   }
 
   @include media-breakpoint-up(lg) {
-    > blockquote {
+    > blockquote,
+    > figure:has(blockquote) {
       @include make-col(8);
       margin-left: 25%;
       margin-right: 25%;
