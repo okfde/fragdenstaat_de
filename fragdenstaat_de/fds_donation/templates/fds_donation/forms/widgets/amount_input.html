@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="amount-group">
+<div class="amount-group {% if 'is-invalid' in widget.attrs.class %}is-invalid{% endif %}">
   {% if presets %}
     <div class="btn-toolbar">
     {% for preset in presets %}

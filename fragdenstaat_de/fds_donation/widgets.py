@@ -12,7 +12,9 @@ class AmountInput(forms.TextInput):
     def get_context(self, name, value, attrs):
         ctx = super().get_context(name, value, attrs)
         ctx["widget"].setdefault("attrs", {})
-        ctx["widget"]["attrs"].setdefault("class", "form-control col-3")
+        ctx["widget"]["attrs"]["class"] = (
+            ctx["widget"]["attrs"].get("class", "") + " form-control col-3"
+        )
         ctx["widget"]["attrs"].setdefault("inputmode", "decimal")
         ctx["widget"]["attrs"]["pattern"] = "[\\d\\.,]*"
         ctx["widget"]["attrs"]["autocomplete"] = "off"
