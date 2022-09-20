@@ -1,0 +1,9 @@
+{% extends "organization/organization_detail.html" %}
+
+{% block member_list %}
+  <div class="mt-5 justify-content-center row shuffle-items">
+    {% for member in members %}
+      {% include "organization/includes/user_card.html" with user=member.user %}
+    {% endfor %}
+  </div>
+{% endblock %}

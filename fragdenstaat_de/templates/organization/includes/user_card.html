@@ -1,0 +1,29 @@
+{% load markup %}
+
+<div class="col-lg-4 my-3 d-flex col-md-6 col-12 my-md-5 col">
+    <div class="box-card box-card-has-image-lg border-gray">
+        <div>
+            {% if user.profile_photo %}
+                <div class="d-block box-card-image overlap-center text-center">
+                    <picture>
+                        <img class="img-lg z-index-10"
+                             src="{{ user.profile_photo.url }}"
+                             alt="{{ user.get_full_name }}"/>
+                    </picture>
+                </div>
+            {% endif %}
+            <div class="flex-grow-1 tight-margin p-3">
+                <h5>
+                    <a href="{{ user.get_absolute_url }}">{{ user.get_full_name }}</a>
+                </h5>
+                {% if user.profile_text %}
+                    {% if user.is_staff %}
+                        {{ user.profile_text|markdown }}
+                    {% else %}
+                        <p>{{ user.profile_text|linebreaksbr }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

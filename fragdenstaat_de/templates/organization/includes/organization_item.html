@@ -1,0 +1,25 @@
+{% load i18n easy_thumbnails_tags cms_tags %}
+
+<article id="organization-{{ object.slug }}"
+         class="organization-item md:shadow-gray border-gray p-4 mx-auto h-100">
+  <h4 class="blog-list-heading mb-4">
+    <a href="{{ object.get_absolute_url }}">
+      {% if object.logo %}
+        {% if object.logo.url.lower|slice:"-4:" == ".svg" %}
+          <img src="{{ object.logo.url }}" class="h-1em" alt="{{ object.name }}" />
+        {% else %}
+          <img src="{% thumbnail object.logo 300x0 %}"
+               class="h-1em"
+               alt="{{ object.name }}"/>
+        {% endif %}
+ 
+      {% else %}
+        {{ object.name }}
+      {% endif %}
+    </a>
+  </h4>
+
+  {% if object.description %}
+    <div class="organization-description">{{ object.description | truncatewords_html:TRUNCWORDS_COUNT | safe }}</div>
+  {% endif %}
+</article>
