@@ -456,7 +456,7 @@ jsonschema==3.2.0
     # via
     #   -r requirements.in
     #   django-filingcabinet
-jwcrypto==0.9.1
+jwcrypto==1.4
     # via django-oauth-toolkit
 kombu==5.2.3
     # via celery
@@ -491,7 +491,7 @@ numpy==1.22.1
     #   pandas
     #   torchvision
     #   webp
-oauthlib==3.1.1
+oauthlib==3.2.1
     # via django-oauth-toolkit
 openpyxl==3.0.7
     # via -r requirements.in

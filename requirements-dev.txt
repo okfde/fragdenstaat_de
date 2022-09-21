@@ -61,8 +61,6 @@ alabaster==0.7.12
     # via sphinx
 amqp==5.0.9
     # via kombu
-appnope==0.1.2
-    # via ipython
 asgiref==3.5.2
     # via
     #   channels
@@ -527,7 +525,7 @@ jsonschema==3.2.0
     # via
     #   -r requirements.in
     #   django-filingcabinet
-jwcrypto==0.9.1
+jwcrypto==1.4
     # via django-oauth-toolkit
 kombu==5.2.3
     # via celery
