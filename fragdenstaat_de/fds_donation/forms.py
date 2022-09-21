@@ -29,6 +29,7 @@ from .models import (
     SALUTATION_CHOICES,
     Donation,
     DonationGift,
+    DonationGiftOrder,
     Donor,
 )
 from .services import get_or_create_donor
@@ -553,6 +554,41 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
             self.fields.update(
                 get_basic_info_fields(prefix="shipping", name_required=False)
             )
+
+    def clean(self):
+        if not self.settings["gift_options"]:
+            return
+
+        # Check if any address is given
+        address_fields = ("address", "postcode", "city", "country")
+        for address_field in address_fields:
+            shipping_field = "shipping_{}".format(address_field)
+            if (
+                not self.cleaned_data[address_field]
+                and not self.cleaned_data[shipping_field]
+            ):
+                self.add_error(
+                    shipping_field, _("Please complete your shipping address.")
+                )
+
+    def save(self, **kwargs):
+        order, donation = super().save(**kwargs)
+
+        if self.cleaned_data.get("chosen_gift"):
+            donor = donation.donor
+            DonationGiftOrder.objects.create(
+                donation=donation,
+                donation_gift=self.cleaned_data["chosen_gift"],
+                first_name=self.cleaned_data["shipping_first_name"] or donor.first_name,
+                last_name=self.cleaned_data["shipping_last_name"] or donor.last_name,
+                address=self.cleaned_data["shipping_address"] or donor.address,
+                postcode=self.cleaned_data["shipping_postcode"] or donor.postcode,
+                city=self.cleaned_data["shipping_city"] or donor.city,
+                country=self.cleaned_data["shipping_country"] or donor.country,
+                email=donor.email,
+            )
+
+        return order, donation
 
 
 class DonationGiftForm(SpamProtectionMixin, forms.Form):

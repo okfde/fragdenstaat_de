@@ -40,6 +40,7 @@ from .models import (
     DefaultDonation,
     Donation,
     DonationGift,
+    DonationGiftOrder,
     Donor,
     DonorTag,
     TaggedDonor,
@@ -867,6 +868,47 @@ class DonationGiftAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
+class DonationGiftOrderAdmin(admin.ModelAdmin):
+    date_hierarchy = "timestamp"
+    raw_id_fields = ("donation",)
+    list_display = (
+        "donation_gift",
+        "email",
+        "timestamp",
+        "donation_received",
+        "donation_amount",
+        "donation_amount_received",
+        "shipped",
+    )
+    list_filter = (
+        make_nullfilter("donation__received_timestamp", _("donation received")),
+        make_nullfilter("shipped", _("has shipped")),
+    )
+    search_fields = ("email", "donation__email")
+    actions = ["set_shipped_now"]
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("donation", "donation_gift")
+
+    def donation_amount(self, obj):
+        return obj.donation.amount
+
+    donation_amount.short_description = _("donation amount")
+
+    def donation_amount_received(self, obj):
+        return obj.donation.amount_received
+
+    donation_amount_received.short_description = _("donation amount received")
+
+    def donation_received(self, obj):
+        return obj.donation.received_timestamp
+
+    donation_received.short_description = _("donation received date")
+
+    def set_shipped_now(self, request, queryset):
+        queryset.update(shipped=timezone.now())
+
+
 class DefaultDonationAdmin(DonationAdmin):
     list_display = [x for x in DonationAdmin.list_display if x != "project"]
     list_filter = [x for x in DonationAdmin.list_filter if x != "project"]
@@ -875,5 +917,6 @@ class DefaultDonationAdmin(DonationAdmin):
 admin.site.register(Donor, DonorAdmin)
 admin.site.register(Donation, DonationAdmin)
 admin.site.register(DonationGift, DonationGiftAdmin)
+admin.site.register(DonationGiftOrder, DonationGiftOrderAdmin)
 admin.site.register(DonorTag, DonorTagAdmin)
 admin.site.register(DefaultDonation, DefaultDonationAdmin)

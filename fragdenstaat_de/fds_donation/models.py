@@ -383,6 +383,40 @@ class DonationGift(models.Model):
         return self.name
 
 
+class DonationGiftOrder(models.Model):
+    donation = models.OneToOneField(
+        Donation, null=True, blank=True, on_delete=models.SET_NULL
+    )
+    donation_gift = models.ForeignKey(DonationGift, on_delete=models.CASCADE)
+
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    first_name = models.CharField(max_length=256, blank=True)
+    last_name = models.CharField(max_length=256, blank=True)
+    company_name = models.CharField(max_length=256, blank=True)
+    address = models.CharField(max_length=256, blank=True)
+    postcode = models.CharField(max_length=20, blank=True)
+    city = models.CharField(max_length=256, blank=True)
+    country = CountryField(blank=True)
+
+    email = models.EmailField(blank=True, default="")
+
+    note = models.TextField(blank=True)
+
+    shipped = models.DateTimeField(null=True, blank=True)
+    tracking = models.CharField(max_length=255, blank=True)
+
+    class Meta:
+        verbose_name = _("donation gift order")
+        verbose_name_plural = _("donation gift orders")
+        ordering = ("timestamp",)
+
+    def __str__(self):
+        return "{} {} - {} ({})".format(
+            self.first_name, self.last_name, self.donation_gift, self.timestamp
+        )
+
+
 class DonationGiftFormCMSPlugin(CMSPlugin):
     category = models.SlugField()
     next_url = models.CharField(max_length=255, blank=True)
@@ -414,6 +448,12 @@ class DonationFormCMSPlugin(CMSPlugin):
         return "{interval} {amount_presets}".format(
             interval=self.interval, amount_presets=self.amount_presets
         )
+
+    def copy_relations(self, old_instance):
+        """
+        Duplicate ManyToMany relations on plugin copy
+        """
+        self.gift_options.set(old_instance.gift_options.all())
 
     def make_form(self, **kwargs):
         from .forms import DonationSettingsForm
