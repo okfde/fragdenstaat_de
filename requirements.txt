@@ -82,7 +82,7 @@ babel==2.9.1
     #   django-prices
     #   enmerkar
     #   prices
-backports-zoneinfo==0.2.1; python_version < "3.9"
+backports-zoneinfo==0.2.1
     # via
     #   django
     #   django-celery-beat
@@ -456,7 +456,7 @@ jsonschema==3.2.0
     # via
     #   -r requirements.in
     #   django-filingcabinet
-jwcrypto==0.9.1
+jwcrypto==1.4
     # via django-oauth-toolkit
 kombu==5.2.3
     # via celery
@@ -634,7 +634,6 @@ six==1.16.0
     #   geocoder
     #   html5lib
     #   jsonschema
-    #   jwcrypto
     #   pynacl
     #   python-dateutil
     #   service-identity
@@ -670,6 +669,7 @@ txaio==21.2.1
 typing-extensions==3.10.0.0
     # via
     #   async-timeout
+    #   pypdf2
     #   torch
     #   torchvision
     #   twisted
