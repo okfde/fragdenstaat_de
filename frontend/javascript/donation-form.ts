@@ -33,11 +33,11 @@ function setupDonationForm(form: HTMLFormElement): void {
   const radioCollapse = form.querySelectorAll('[data-toggle="radiocollapse"]')
   ;(Array.from(radioCollapse) as HTMLInputElement[]).forEach(setupRadioCollapse)
 
-  const intervalGroup = document.querySelector(
-    '[data-group="interval"]'
-  ) as HTMLElement
-  if (intervalGroup != null) {
-    setupIntervalGroup(intervalGroup)
+  const intervalInputs: HTMLFormElement[] = Array.from(
+    form.querySelectorAll('input[name="interval"]')
+  )
+  if (intervalInputs.length >= 0) {
+    setupIntervalGroup(intervalInputs)
   }
 
   ;['creditcard', 'paypal', 'sofort', 'sepa'].forEach((p) => {
@@ -128,7 +128,7 @@ function amountChanged(amountInput: HTMLInputElement | null): void {
   }
 }
 
-function setupIntervalGroup(intervalGroup: HTMLElement): void {
+function setupIntervalGroup(intervalInputs: HTMLFormElement[]): void {
   const oneTimePaymentMethods = document.querySelectorAll<HTMLInputElement>(
     '#id_payment_method input[value="sofort"]'
   )
@@ -137,7 +137,7 @@ function setupIntervalGroup(intervalGroup: HTMLElement): void {
   )
   const additionalCCLabel = document.querySelector('.additional-cc')
 
-  function triggerIntervalChange(input: HTMLInputElement): void {
+  function triggerIntervalChange(input: HTMLFormElement): void {
     const isOneTime = input.value === '0'
     if (additionalCCLabel != null) {
       additionalCCLabel.classList.toggle('d-none', !isOneTime)
@@ -153,17 +153,15 @@ function setupIntervalGroup(intervalGroup: HTMLElement): void {
     })
   }
 
-  const inputs = Array.from(intervalGroup.querySelectorAll('input'))
-  inputs.forEach((input) => {
+  intervalInputs.forEach((input) => {
     input.addEventListener('change', () => {
       triggerIntervalChange(input)
     })
   })
 
-  const preChosenIntervalInput =
-    intervalGroup.querySelector<HTMLInputElement>('input[checked]')
-  if (preChosenIntervalInput != null) {
-    triggerIntervalChange(preChosenIntervalInput)
+  const preChosenIntervalInput = intervalInputs.filter((i) => i.checked)
+  if (preChosenIntervalInput.length > 0) {
+    triggerIntervalChange(preChosenIntervalInput[0])
   }
 
   const oneTime = document.querySelector<HTMLInputElement>('#id_interval_0')
