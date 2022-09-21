@@ -16,6 +16,10 @@ interface IFeeMap {
   [name: string]: (amount: number) => number
 }
 
+interface IAddressFields {
+  [name: string]: HTMLFormElement | null
+}
+
 const fees: IFeeMap = {
   creditcard: (a: number) => Math.round((a * 0.014 + 0.25) * 100) / 100,
   paypal: (a: number) => Math.round((a * 0.0249 + 0.35) * 100) / 100,
@@ -38,6 +42,53 @@ function setupDonationForm(form: HTMLFormElement): void {
   )
   if (intervalInputs.length >= 0) {
     setupIntervalGroup(intervalInputs)
+  }
+
+  const hasShipping: boolean = form.querySelector('#id_chosen_gift') !== null
+  if (hasShipping) {
+    const fillShippingFields = form.querySelector(
+      '[data-fillfields="shipping"]'
+    )
+    const shippingFields: HTMLFormElement[] = Array.from(
+      form.querySelectorAll("input[name*='shipping'], select[name*='shipping']")
+    )
+    const addressFields: IAddressFields = {}
+    shippingFields.forEach((e) => {
+      const key = e.name.replace('shipping_', '')
+      addressFields[key] = form.querySelector(`[name="${key}"]`)
+    })
+
+    const setShippingFields = (): void => {
+      shippingFields.forEach((el) => {
+        const key = el.name.replace('shipping_', '')
+        el.value = addressFields[key]?.value ?? ''
+      })
+    }
+
+    setShippingFields()
+
+    if (fillShippingFields != null) {
+      fillShippingFields.addEventListener('click', setShippingFields)
+    }
+
+    const receiptRadios: HTMLFormElement[] = Array.from(
+      form.querySelectorAll('input[name="receipt"]')
+    )
+    const setFillShippingButton = (): void => {
+      const state =
+        form
+          .querySelector('input[name="receipt"]:checked')
+          ?.getAttribute('value') ?? '0'
+      if (state === '1') {
+        fillShippingFields?.removeAttribute('disabled')
+      } else {
+        fillShippingFields?.setAttribute('disabled', '')
+      }
+    }
+    setFillShippingButton()
+    receiptRadios.forEach((el) => {
+      el.addEventListener('change', setFillShippingButton)
+    })
   }
 
   ;['creditcard', 'paypal', 'sofort', 'sepa'].forEach((p) => {

@@ -127,42 +127,40 @@
       </legend>
       <div class="row">
         <div class="col-12">
-          <a href="#shipping-details" class="btn btn-light mb-2"  data-bs-toggle="collapse">
-            {% trans "Use different shipping address" %}
-          </a>
+          <button type="button" class="btn btn-light mb-2 ms-auto" data-fillfields="shipping">
+            {% trans "Use receipt address" %}
+          </button>
         </div>
       </div>
-      <div id="shipping-details" class="collapse">
-        <div class="row">
-          <div class="col-12 col-md-9">
-            <div class="row">
-              <div class="col-sm-6">
-                {% render_field form.shipping_first_name stacked=True %}
-              </div>
-              <div class="col-sm-6">
-                {% render_field form.shipping_last_name stacked=True %}
-              </div>
+      <div class="row">
+        <div class="col-12 col-md-9">
+          <div class="row">
+            <div class="col-sm-6">
+              {% render_field form.shipping_first_name stacked=True %}
+            </div>
+            <div class="col-sm-6">
+              {% render_field form.shipping_last_name stacked=True %}
             </div>
           </div>
         </div>
-        <div>
-          <div class="row">
-            <div class="col-12">
-              {% render_field form.shipping_address stacked=True %}
-            </div>
+      </div>
+      <div>
+        <div class="row">
+          <div class="col-12">
+            {% render_field form.shipping_address stacked=True %}
           </div>
-          <div class="row">
-            <div class="col-4">
-              {% render_field form.shipping_postcode stacked=True %}
-            </div>
-            <div class="col-8">
-              {% render_field form.shipping_city stacked=True %}
-            </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            {% render_field form.shipping_postcode stacked=True %}
           </div>
-          <div class="row">
-            <div class="col-12">
-              {% render_field form.shipping_country stacked=True %}
-            </div>
+          <div class="col-8">
+            {% render_field form.shipping_city stacked=True %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            {% render_field form.shipping_country stacked=True %}
           </div>
         </div>
       </div>
