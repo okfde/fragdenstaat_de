@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-03 11:42-0500\n"
-"PO-Revision-Date: 2022-08-03 18:44+0200\n"
+"POT-Creation-Date: 2022-09-22 02:27-0500\n"
+"PO-Revision-Date: 2022-09-22 12:42+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -55,18 +55,25 @@ msgstr ""
 msgid "Import message"
 msgstr "Nachricht importieren"
 
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
+msgid "Gif of a cat furiously typing on a keyboard"
+msgstr "GIF einer Katze die wild auf eine Tastatur hackt"
+
 #: fragdenstaat_de/fds_fximport/views.py
 msgid "This is not a message from frontex."
 msgstr "Dies ist keine Nachricht von Frontex"
 
 #: fragdenstaat_de/fds_fximport/views.py
-msgid "Import started. The messages should show up in a few moments."
-msgstr ""
-"Import gestartet. Die Nachrichten sollten in wenigen Momenten zu sehen sein."
+msgid "Import successful."
+msgstr "Import erfolgreich."
+
+#: fragdenstaat_de/fds_fximport/views.py
+msgid "Something went wrong. Please try again later."
+msgstr "Etwas lief schief, bitte versuchen Sie es später noch einmal."
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Recipients"
-msgstr ""
+msgstr "Empfänger"
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Continue sending selected mailings."
@@ -497,6 +504,10 @@ msgstr ""
 msgid "Please confirm subscription to %(title)s"
 msgstr "Bitte bestätige dein Abo von %(title)s"
 
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/email/welcome_subject.txt
+msgid "Welcome to our newsletter"
+msgstr ""
+
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/plugins/newsletter_form.html
 msgid "E-mail address"
 msgstr "E-Mail"
@@ -550,10 +561,6 @@ msgstr ""
 #: fragdenstaat_de/settings/base.py
 msgid "Give warning"
 msgstr "Verwarnen"
-
-#: fragdenstaat_de/templates/404.html
-msgid "404 - Not Beep boop"
-msgstr ""
 
 #: fragdenstaat_de/templates/account/admin_send_mail.html
 msgid "Prepare mailing to users"
@@ -725,6 +732,14 @@ msgstr "Meine Anfragen"
 msgid "Warning: violation of terms"
 msgstr "Warnung: Verstoß gegen Nutzungsbedingungen"
 
+#: fragdenstaat_de/templates/organization/organization_list.html
+msgid "Organizations"
+msgstr "Organisationen"
+
+#: fragdenstaat_de/templates/organization/organization_list.html
+msgid "No organizations found."
+msgstr "Keine Organisationen gefunden."
+
 #. Translators: meta keywords
 #: fragdenstaat_de/templates/snippets/meta.html
 msgid ""
@@ -733,6 +748,11 @@ msgid ""
 msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
+
+#~ msgid "Import started. The messages should show up in a few moments."
+#~ msgstr ""
+#~ "Import gestartet. Die Nachrichten sollten in wenigen Momenten zu sehen "
+#~ "sein."
 
 #~ msgid "Decisionssearch"
 #~ msgstr "Entscheidungsdatenbank"
