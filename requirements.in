@@ -69,6 +69,7 @@ sentry-sdk
 stripe
 torch
 torchvision
+unidecode
 Wand
 WeasyPrint
 webp
