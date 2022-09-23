@@ -233,6 +233,7 @@ class FragDenStaat(FragDenStaatBase):
         "gif": "/usr/bin/optipng {filename}",
         "jpeg": "/usr/bin/jpegoptim {filename}",
     }
+    FILINGCABINET_ENABLE_WEBP = True
 
     _base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     SENTRY_JS_URL = env("DJANGO_SENTRY_PUBLIC_DSN")
