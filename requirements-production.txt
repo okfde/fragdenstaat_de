@@ -308,9 +308,7 @@ django-logentry-admin==1.1.0
 django-mfa3==0.7.0
     # via -r requirements.in
 django-mptt==0.12.0
-    # via
-    #   django-filer
-    #   django-filingcabinet
+    # via django-filer
 django-oauth-toolkit==1.5.0
     # via -r requirements.in
 django-parler==2.3
@@ -331,7 +329,7 @@ django-storages==1.11.1
     # via
     #   -r requirements.in
     #   froide
-django-taggit==1.4.0
+django-taggit==3.0.0
     # via
     #   -r requirements.in
     #   django-filingcabinet
@@ -344,6 +342,7 @@ django-treebeard==4.4
     # via
     #   -r requirements.in
     #   django-cms
+    #   django-filingcabinet
     #   django-legal-advice-builder
     #   djangocms-attributes-field
     #   djangocms-link
@@ -694,7 +693,6 @@ six==1.16.0
     #   google-auth-httplib2
     #   html5lib
     #   jsonschema
-    #   jwcrypto
     #   pynacl
     #   python-dateutil
     #   python-memcached
