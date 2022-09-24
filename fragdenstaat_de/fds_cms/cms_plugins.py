@@ -1,6 +1,6 @@
 import json
 
-from django.db.models import Model
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
@@ -549,7 +549,7 @@ class FdsCardInnerPlugin(CMSPluginBase):
         classes = []
         try:
             parent_model, parent_instance = instance.parent.get_plugin_instance()
-        except Model.DoesNotExist:
+        except ObjectDoesNotExist:
             return super().render(context, instance, placeholder)
 
         if parent_model is not None:
