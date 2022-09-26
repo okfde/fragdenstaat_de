@@ -315,7 +315,7 @@ class FragDenStaatBase(German, Base):
                 "Outdent",
                 "Indent",
                 "-",
-                "Blockquote",
+                "figureblockquote",
                 "-",
                 "Link",
                 "Unlink",
@@ -326,7 +326,7 @@ class FragDenStaatBase(German, Base):
             ["ShowBlocks", "Source"],
         ],
         "toolbarCanCollapse": False,
-        "extraPlugins": "autocorrect",
+        "extraPlugins": "autocorrect,figureblockquote",
         "autocorrect_replacementTable": {
             "...": "…",
         },
