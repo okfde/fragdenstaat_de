@@ -212,6 +212,7 @@ h4.blog-list-heading {
   > ol,
   > div.text-container,
   > blockquote,
+  > .blockquote-figure,
   > details {
     font-family: $font-family-serif;
     color: #26282b;
@@ -322,14 +323,16 @@ h4.blog-list-heading {
     color: $gray-800;
   }
 
-  > blockquote {
+  > blockquote,
+  > .blockquote-figure {
     @include make-col(12);
     margin: 1rem auto 0.5rem;
     padding: 1rem 2rem;
     width: 100%;
     background-color: $gray-100;
 
-    > p {
+    > p,
+    > blockquote > p {
       border-left: 4px solid $gray-400;
       padding: 0.5rem 0 0.5rem 1rem;
       font-size: 1.3rem;
@@ -337,8 +340,13 @@ h4.blog-list-heading {
     }
   }
 
+  > .blockquote-figure {
+    padding: 1rem 2rem 0;
+  }
+
   @include media-breakpoint-up(md) {
-    > blockquote {
+    > blockquote,
+    > .blockquote-figure {
       @include make-col(10);
       margin-left: 15%;
       margin-right: 15%;
@@ -346,7 +354,8 @@ h4.blog-list-heading {
   }
 
   @include media-breakpoint-up(lg) {
-    > blockquote {
+    > blockquote,
+    > .blockquote-figure {
       @include make-col(8);
       margin-left: 25%;
       margin-right: 25%;
