@@ -374,10 +374,15 @@ class DonationGift(models.Model):
     description = models.TextField(blank=True)
     category_slug = models.SlugField(max_length=255, blank=True)
 
+    order = models.PositiveIntegerField(default=0)
+
     class Meta:
         verbose_name = _("donation gift")
         verbose_name_plural = _("donation gifts")
-        ordering = ("name",)
+        ordering = (
+            "order",
+            "name",
+        )
 
     def __str__(self):
         return self.name
@@ -440,6 +445,7 @@ class DonationFormCMSPlugin(CMSPlugin):
     extra_classes = models.CharField(max_length=255, blank=True)
 
     gift_options = models.ManyToManyField(DonationGift, blank=True)
+    # default_gift = models.ForeignKey(DonationGift, null=True, blank=True)
 
     form_action = models.CharField(max_length=255, blank=True)
     next_url = models.CharField(max_length=255, blank=True)
@@ -474,6 +480,7 @@ class DonationFormCMSPlugin(CMSPlugin):
                 "purpose": self.purpose,
                 "collapsed": self.collapsed,
                 "gift_options": [gift.id for gift in self.gift_options.all()],
+                # "default_gift": self.default_gift_id,
             }
         )
         return form.make_donation_form(**kwargs)

@@ -19,6 +19,7 @@ from django.utils.html import format_html
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
+from adminsortable2.admin import SortableAdminMixin
 from fragdenstaat_de.fds_mailing.models import MailingMessage
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
@@ -867,7 +868,7 @@ class DonationAdmin(admin.ModelAdmin):
         return redirect("admin:fds_donation_donation_changelist")
 
 
-class DonationGiftAdmin(admin.ModelAdmin):
+class DonationGiftAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ("name", "category_slug")
     list_filter = ("category_slug",)
     search_fields = ("name",)
