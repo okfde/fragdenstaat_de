@@ -560,7 +560,7 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
                     get_basic_info_fields(prefix="shipping", name_required=False)
                 )
             if len(gift_options) == 1:
-                self.fields["chosen_gift"].widget = forms.HiddenInput
+                self.fields["chosen_gift"].widget = forms.HiddenInput()
                 self.fields["chosen_gift"].initial = gift_options[0].id
             elif self.settings["default_gift"]:
                 self.fields["chosen_gift"].initial = self.settings["default_gift"]
