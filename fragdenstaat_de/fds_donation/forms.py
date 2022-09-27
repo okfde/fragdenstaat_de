@@ -548,20 +548,18 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
             gift_options = DonationGift.objects.filter(
                 id__in=self.settings["gift_options"]
             )
-            if len(gift_options) == 1:
-                self.fields["chosen_gift"] = forms.ModelChoiceField(
-                    widget=forms.HiddenInput,
-                    queryset=gift_options,
-                )
-                self.fields["chosen_gift"].initial = gift_options[0].id
-            elif len(gift_options) > 1:
+            if gift_options:
                 self.fields["chosen_gift"] = forms.ModelChoiceField(
                     widget=BootstrapSelect,
                     queryset=gift_options,
+                    label=_("Donation gift"),
                 )
-            self.fields.update(
-                get_basic_info_fields(prefix="shipping", name_required=False)
-            )
+                self.fields.update(
+                    get_basic_info_fields(prefix="shipping", name_required=False)
+                )
+            if len(gift_options) == 1:
+                self.fields["chosen_gift"].widget = forms.HiddenInput
+                self.fields["chosen_gift"].initial = gift_options[0].id
 
     def clean(self):
         if not self.settings["gift_options"]:
