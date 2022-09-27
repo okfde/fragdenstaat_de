@@ -395,17 +395,17 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
     merge_donors.short_description = _("Merge donors")
 
-    def get_zwb_pdf(self, request, queryset, pdf_class=None):
+    def get_zwb_pdf(self, request, queryset, pdf_class=None, year=None):
         from .export import ZWBPDFGenerator, generate_pdf_zip_package
 
         if pdf_class is None:
             pdf_class = ZWBPDFGenerator
-
-        last_year = timezone.now().year - 1
+        if year is None:
+            year = timezone.now().year - 1
 
         if queryset.count() == 1:
             donor = queryset[0]
-            pdf_generator = pdf_class(donor, year=last_year)
+            pdf_generator = pdf_class(donor, year=year)
             response = HttpResponse(
                 pdf_generator.get_pdf_bytes(), content_type="application/pdf"
             )
@@ -414,15 +414,19 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             return response
 
         generator = generate_pdf_zip_package(
-            queryset.iterator(), year=last_year, pdf_class=pdf_class
+            queryset.iterator(), year=year, pdf_class=pdf_class
         )
         response = StreamingHttpResponse(generator, content_type="application/zip")
-        response["Content-Disposition"] = (
-            'attachment; filename="jzwbs_%d.zip"' % last_year
-        )
+        response["Content-Disposition"] = 'attachment; filename="jzwbs_%d.zip"' % year
         return response
 
     get_zwb_pdf.short_description = _("Generate ZWB PDFs")
+
+    def get_zwb_pdf_current_year(self, request, queryset, pdf_class=None):
+        year = timezone.now().year
+        return self.get_zwb_pdf(request, queryset, year=year)
+
+    get_zwb_pdf_current_year.short_description = _("Generate ZWB PDFs for current year")
 
     def get_encrypted_zwb_pdf(self, request, queryset):
         from .export import PostcodeEncryptedZWBPDFGenerator
