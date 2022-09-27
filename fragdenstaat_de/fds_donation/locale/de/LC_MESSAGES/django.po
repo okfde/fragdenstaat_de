@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-27 05:01-0500\n"
-"PO-Revision-Date: 2022-09-27 12:04+0200\n"
+"POT-Creation-Date: 2022-09-27 05:35-0500\n"
+"PO-Revision-Date: 2022-09-27 12:38+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -481,6 +481,10 @@ msgid ""
 msgstr ""
 "In Ihrem FragDenStaat-Konto können Sie Ihre Daten pflegen, Ihre Spenden "
 "einsehen sowie Ihre Anfragen verwalten."
+
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "Donation gift"
+msgstr "Ihr Dankeschön"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Please complete your shipping address."
