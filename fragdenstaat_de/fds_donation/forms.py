@@ -65,6 +65,7 @@ class DonationSettingsForm(forms.Form):
         regex=r"(\d+(?:,\d+)*|\-)",
         required=False,
     )
+    default_gift = forms.IntegerField(required=False)
     reference = forms.CharField(required=False)
     keyword = forms.CharField(required=False)
     purpose = forms.CharField(required=False)
@@ -126,6 +127,7 @@ class DonationFormFactory:
         "initial_amount": None,
         "min_amount": MIN_AMOUNT,
         "gift_options": [],
+        "default_gift": None,
         "initial_interval": 0,
         "initial_receipt": "0",
         "collapsed": False,
@@ -560,6 +562,8 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
             if len(gift_options) == 1:
                 self.fields["chosen_gift"].widget = forms.HiddenInput
                 self.fields["chosen_gift"].initial = gift_options[0].id
+            elif self.settings["default_gift"]:
+                self.fields["chosen_gift"].initial = self.settings["default_gift"]
 
     def clean(self):
         if not self.settings["gift_options"]:

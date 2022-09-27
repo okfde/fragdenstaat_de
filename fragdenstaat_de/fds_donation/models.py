@@ -445,7 +445,13 @@ class DonationFormCMSPlugin(CMSPlugin):
     extra_classes = models.CharField(max_length=255, blank=True)
 
     gift_options = models.ManyToManyField(DonationGift, blank=True)
-    # default_gift = models.ForeignKey(DonationGift, null=True, blank=True)
+    default_gift = models.ForeignKey(
+        DonationGift,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="donation_plugin_with_default",
+    )
 
     form_action = models.CharField(max_length=255, blank=True)
     next_url = models.CharField(max_length=255, blank=True)
@@ -480,7 +486,7 @@ class DonationFormCMSPlugin(CMSPlugin):
                 "purpose": self.purpose,
                 "collapsed": self.collapsed,
                 "gift_options": [gift.id for gift in self.gift_options.all()],
-                # "default_gift": self.default_gift_id,
+                "default_gift": self.default_gift_id,
             }
         )
         return form.make_donation_form(**kwargs)
