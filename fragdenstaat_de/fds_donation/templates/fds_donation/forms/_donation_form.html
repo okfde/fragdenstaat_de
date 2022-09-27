@@ -15,11 +15,15 @@
       {% endif %}
     </legend>
     {% if form.chosen_gift %}
-    <div class="row">
-      <div class="col-12">
-        {% render_field form.chosen_gift %}
-      </div>
-    </div>
+      {% if form.chosen_gift.is_hidden %}
+        {{ form.chosen_gift }}
+      {% else %}
+        <div class="row">
+          <div class="col-12">
+            {% render_field form.chosen_gift %}
+          </div>
+        </div>
+      {% endif %}
     {% endif %}
     <div class="row">
       <div class="col-12">
