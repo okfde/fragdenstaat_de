@@ -198,6 +198,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "clear_duplicates",
         "export_zwbs",
         "get_zwb_pdf",
+        "get_zwb_pdf_current_year",
         "get_encrypted_zwb_pdf",
         "tag_all",
         "send_mailing",
