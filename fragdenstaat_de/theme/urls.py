@@ -92,6 +92,7 @@ urlpatterns = [
         FeatureViewSet.as_view({"get": "retrieve"}),
         name="api-features-detail",
     ),
+    path("testing/", include("fragdenstaat_de.fds_abtesting.urls")),
 ]
 
 urlpatterns += [
