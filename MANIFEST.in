@@ -1,5 +1,4 @@
 include README.md LICENSE.txt
 recursive-include fragdenstaat_de/templates *
 recursive-include fragdenstaat_de/static *
-recursive-exclude fragdenstaat_de/static/img/jurisdictions */*
 recursive-include fragdenstaat_de/locale *.po
