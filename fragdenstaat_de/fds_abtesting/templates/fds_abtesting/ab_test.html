@@ -1,3 +1,12 @@
 {% load cms_tags %}
 
-{% render_plugin random_plugin %}
+{% if variant %}
+{% render_plugin variant %}
+<form method="post" action="{% url 'fds_abtesting:ab_test' %}" >
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" class="{{ variant.action_class }}" value="{{ variant.action_text }}">
+</form>
+{% endif %}
+
+
