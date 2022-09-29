@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-27 05:35-0500\n"
-"PO-Revision-Date: 2022-09-27 12:38+0200\n"
+"PO-Revision-Date: 2022-09-29 13:54+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -595,7 +595,7 @@ msgstr "Spendengeschenke"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "donation gift order"
-msgstr "Spendengeschenk-Bestllung"
+msgstr "Spendengeschenk-Bestellung"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "donation gift orders"
