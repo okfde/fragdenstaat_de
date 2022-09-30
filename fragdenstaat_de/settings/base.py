@@ -589,6 +589,7 @@ class FragDenStaatBase(German, Base):
                     (8, 24 * 60 * 60),
                 ],
                 target_countries=("DE", "CH", "AT"),
+                suspicious_asn_provider_list=env("SUSPICIOUS_ASN", "").split("|"),
                 greetings=[
                     # Important: always needs to capture name to be removed
                     rec(r"^\s*Name des Absenders\s+(.*)"),
