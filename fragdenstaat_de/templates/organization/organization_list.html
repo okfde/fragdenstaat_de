@@ -7,6 +7,15 @@
 {% endblock title %}
 
 {% block body %}
+  <div class="bg-gray-100">
+    <nav class="container" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'organization-list' %}">{% trans "Organizations" %}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
   <div class="container">
     <h1 class="py-4">{% trans "Organizations" %}</h1>
     <div class="row shuffle-items">
