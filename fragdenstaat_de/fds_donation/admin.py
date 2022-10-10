@@ -46,6 +46,7 @@ from .models import (
     DonorTag,
     TaggedDonor,
 )
+from .services import send_donation_gift_order_shipped
 
 
 def median(field):
@@ -891,7 +892,7 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         make_nullfilter("shipped", _("has shipped")),
     )
     search_fields = ("email", "donation__email")
-    actions = ["set_shipped_now"]
+    actions = ["notify_shipped"]
 
     def get_queryset(self, request):
         return super().get_queryset(request).select_related("donation", "donation_gift")
@@ -911,8 +912,13 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
 
     donation_received.short_description = _("donation received date")
 
-    def set_shipped_now(self, request, queryset):
-        queryset.update(shipped=timezone.now())
+    def notify_shipped(self, request, queryset):
+        now = timezone.now()
+        queryset.update(shipped=now)
+        for gift_order in queryset:
+            send_donation_gift_order_shipped(gift_order)
+
+    notify_shipped.short_description = _("notify shipped and set date")
 
 
 class DefaultDonationAdmin(DonationAdmin):

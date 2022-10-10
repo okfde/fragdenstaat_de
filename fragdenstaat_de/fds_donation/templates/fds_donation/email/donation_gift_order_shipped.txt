@@ -1,0 +1,7 @@
+{% autoescape off %}Hallo {{ order.get_full_name }},
+
+das Dankeschön für Ihre Spende ist auf dem Weg!
+
+Viele Grüße
+{{ site_name }}
+{% endautoescape off %}

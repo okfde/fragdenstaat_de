@@ -421,6 +421,21 @@ class DonationGiftOrder(models.Model):
             self.first_name, self.last_name, self.donation_gift, self.timestamp
         )
 
+    def get_full_name(self):
+        return "{} {}".format(self.first_name, self.last_name)
+
+    def formatted_address(self):
+        if self.company_name:
+            company = "\n{}".format(self.company_name)
+        return "{full_name}{company}\n{address}\n{postcode} {city}\n{country}".format(
+            full_name=self.get_full_name(),
+            company=company,
+            address=self.address,
+            postcode=self.postcode,
+            city=self.city,
+            country=self.country,
+        )
+
 
 class DonationGiftFormCMSPlugin(CMSPlugin):
     category = models.SlugField()
