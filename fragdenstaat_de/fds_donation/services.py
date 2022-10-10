@@ -102,6 +102,16 @@ sepa_notification_email = mail_registry.register(
     ),
 )
 
+donation_gift_order_shipped_email = mail_registry.register(
+    "fds_donation/email/donation_gift_order_shipped",
+    (
+        "gift_order",
+        "name",
+        "first_name",
+        "last_name",
+    ),
+)
+
 
 def get_or_create_donor(data, user=None, subscription=None):
     if user is not None:
@@ -517,3 +527,21 @@ def send_sepa_notification(payment, data):
         priority=True,
     )
     return True
+
+
+def send_donation_gift_order_shipped(gift_order):
+    if not gift_order.email:
+        return
+    context = {
+        "name": gift_order.get_full_name(),
+        "first_name": gift_order.first_name,
+        "last_name": gift_order.last_name,
+        "gift_order": gift_order,
+    }
+
+    return donation_gift_order_shipped_email.send(
+        email=gift_order.email,
+        context=context,
+        ignore_active=True,
+        priority=True,
+    )
