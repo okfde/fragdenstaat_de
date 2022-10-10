@@ -7,7 +7,7 @@
 <div class="container-fluid mt-3 mb-5">
   <h2>{{ object.title }}</h2>
   {% if not object.public %}
-  <span class="badge bg-secondary">{% trans "private" %}</span>
+  <span class="badge text-bg-secondary">{% trans "private" %}</span>
   {% endif %}
   {% if object.description %}
   <p>
