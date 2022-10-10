@@ -22,7 +22,7 @@ interface IAddressFields {
 
 const fees: IFeeMap = {
   creditcard: (a: number) => Math.round((a * 0.014 + 0.25) * 100) / 100,
-  paypal: (a: number) => Math.round((a * 0.0249 + 0.35) * 100) / 100,
+  paypal: (a: number) => Math.round((a * 0.015 + 0.35) * 100) / 100,
   sepa: () => 0.35,
   sofort: (a: number) => Math.round((a * 0.014 + 0.25) * 100) / 100
 }
