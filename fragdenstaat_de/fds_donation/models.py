@@ -425,6 +425,7 @@ class DonationGiftOrder(models.Model):
         return "{} {}".format(self.first_name, self.last_name)
 
     def formatted_address(self):
+        company = ""
         if self.company_name:
             company = "\n{}".format(self.company_name)
         return "{full_name}{company}\n{address}\n{postcode} {city}\n{country}".format(
