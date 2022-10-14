@@ -890,8 +890,9 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
     list_filter = (
         make_nullfilter("donation__received_timestamp", _("donation received")),
         make_nullfilter("shipped", _("has shipped")),
+        "donation_gift",
     )
-    search_fields = ("email", "donation__email")
+    search_fields = ("email", "donation__donor__email", "donation_gift__name")
     actions = ["notify_shipped"]
 
     def get_queryset(self, request):
