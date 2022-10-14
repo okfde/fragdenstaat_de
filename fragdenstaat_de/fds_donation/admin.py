@@ -920,10 +920,16 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
 
     def notify_shipped(self, request, queryset):
         queryset = queryset.filter(shipped=None)
+        count = len(queryset)
         now = timezone.now()
         queryset.update(shipped=now)
         for gift_order in queryset:
             send_donation_gift_order_shipped(gift_order)
+        self.message_user(
+            request,
+            _("Send {count} shipped mails.").format(count=count),
+            level=messages.INFO,
+        )
 
     notify_shipped.short_description = _("notify shipped and set date")
 
