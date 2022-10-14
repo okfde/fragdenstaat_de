@@ -1,4 +1,4 @@
-{% autoescape off %}Hallo {{ order.get_full_name }},
+{% autoescape off %}Hallo {{ gift_order.get_full_name }},
 
 das Dankeschön für Ihre Spende ist auf dem Weg!
 

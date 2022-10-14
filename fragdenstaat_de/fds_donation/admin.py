@@ -922,9 +922,9 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         queryset = queryset.filter(shipped=None)
         count = len(queryset)
         now = timezone.now()
-        queryset.update(shipped=now)
         for gift_order in queryset:
             send_donation_gift_order_shipped(gift_order)
+        queryset.update(shipped=now)
         self.message_user(
             request,
             _("Send {count} shipped mails.").format(count=count),
