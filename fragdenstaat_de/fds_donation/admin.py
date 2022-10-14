@@ -898,17 +898,23 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         return super().get_queryset(request).select_related("donation", "donation_gift")
 
     def donation_amount(self, obj):
-        return obj.donation.amount
+        if obj.donation:
+            return obj.donation.amount
+        return None
 
     donation_amount.short_description = _("donation amount")
 
     def donation_amount_received(self, obj):
-        return obj.donation.amount_received
+        if obj.donation:
+            return obj.donation.amount_received
+        return None
 
     donation_amount_received.short_description = _("donation amount received")
 
     def donation_received(self, obj):
-        return obj.donation.received_timestamp
+        if obj.donation:
+            return obj.donation.received_timestamp
+        return None
 
     donation_received.short_description = _("donation received date")
 
