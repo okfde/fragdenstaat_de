@@ -919,6 +919,7 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
     donation_received.short_description = _("donation received date")
 
     def notify_shipped(self, request, queryset):
+        queryset = queryset.filter(shipped=None)
         now = timezone.now()
         queryset.update(shipped=now)
         for gift_order in queryset:
