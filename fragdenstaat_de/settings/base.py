@@ -41,7 +41,7 @@ class FragDenStaatBase(German, Base):
                 "cms",
                 "menus",
                 "sekizai",
-                "easy_thumbnails",
+                # easy thumbnails comes from froide
                 "easy_thumbnails.optimize",
                 "filer",
                 "mptt",
