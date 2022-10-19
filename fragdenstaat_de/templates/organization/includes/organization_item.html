@@ -7,7 +7,7 @@
       {% if object.logo %}
  
         <img src="{% if object.logo.url.lower|slice:"-4:" == ".svg" %}{{ object.logo.url }}{% else %}{% thumbnail object.logo 300x0 %}{% endif %}"
-             class="h-1.5em mw-100"
+             class="h-1-5em mw-100"
              alt="{{ object.name }}"/>
  
       {% else %}
