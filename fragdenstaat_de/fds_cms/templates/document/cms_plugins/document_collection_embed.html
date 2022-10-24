@@ -3,13 +3,4 @@
 
 {% include "filingcabinet/_documentcollection_viewer.html" with object=object config=config documentcollection_data=documentcollection_data %}
 
-{% addtoblock "css" %}
-  <link href="{% static 'css/filingcabinet.css' %}" rel="stylesheet">
-{% endaddtoblock %}
-
-{% addtoblock "js" %}
-  <script src="{% static 'js/common.js' %}" defer></script>
-{% endaddtoblock %}
-{% addtoblock "js" %}
-  <script src="{% static 'js/filingcabinet.js' %}" defer></script>
-{% endaddtoblock %}
+{% include "_frontend.html" with entry_point="filingcabinet.js" %}
