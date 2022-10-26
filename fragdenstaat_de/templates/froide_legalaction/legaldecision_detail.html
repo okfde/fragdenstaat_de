@@ -30,26 +30,26 @@
             </div>
           </div>
           <div class="info-box__body">
-            <ul class="info-box__list">
+            <ul class="info-box__list list-unstyled">
               {% if object.reference %}
-              <li class="info-box__list-item">
-                <div class="info-box__list-label">{% translate 'reference' %}</div>
+              <li class="info-box__list-item pb-3">
+                <div class="info-box__list-label fw-bold">{% translate 'reference' %}</div>
                 <div class="info-box__list-value">{{ object.reference }}
                 </div>
               </li>
               {% endif %}
 
               {% if object.date %}
-              <li class="info-box__list-item">
-                <div class="info-box__list-label">{% translate 'date' %}</div>
+              <li class="info-box__list-item pb-3">
+                <div class="info-box__list-label fw-bold">{% translate 'date' %}</div>
                 <div class="info-box__list-value">{{ object.date }}
                 </div>
               </li>
               {% endif %}
 
               {% if object.court_name %}
-              <li class="info-box__list-item">
-                <div class="info-box__list-label">{% translate 'court' %}</div>
+              <li class="info-box__list-item pb-3">
+                <div class="info-box__list-label fw-bold">{% translate 'court' %}</div>
                 <div class="info-box__list-value">{{ object.court_name }}
                 </div>
               </li>
@@ -57,7 +57,7 @@
 
               {% if object.law_name %}
               <li class="info-box__list-item">
-                <div class="info-box__list-label">{% translate 'law' %}</div>
+                <div class="info-box__list-label fw-bold">{% translate 'law' %}</div>
                 <div class="info-box__list-value">{{ object.law_name }}
                 </div>
               </li>
@@ -73,9 +73,13 @@
               <li class="me-2">{{ object.law_name }}</li>
             </ul>
             <h3 class="h5 mt-0 mb-1">
-              {% blocktranslate with type=object.type court=object.court_name date=object.date %}
-              {{ type }} of {{ court }} on {{ date }}
-              {% endblocktranslate %}
+              {% if object.court_name and object.date %}
+                  {% blocktranslate with type=object.type court=object.court_name date=object.date %}
+                  {{ type }} of {{ court }} on {{ date }}
+                  {% endblocktranslate %}
+              {% else %}
+                {{ object.court_name }}
+              {% endif%}
             </h3>
             <p><small>{{ object.reference }}</small></p>
             <p class="text-muted">{{ object.abstract }}</p>
