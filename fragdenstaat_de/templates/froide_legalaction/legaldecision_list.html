@@ -41,7 +41,7 @@
           </div>
           <div class="info-box__body">
             <form method="get">
-              <ul class="info-box__list">
+              <ul class="info-box__list list-unstyled">
                 {% for field in filter.form.visible_fields %}
                   {% if not field.name == "quick_search" %}
                   <li class="info-box__list-item">
@@ -73,9 +73,13 @@
             </ul>
             <h3 class="h5 mt-0 mb-1">
               <a href="{% url 'legal-decision-detail' decision.id %}">
-                {% blocktranslate with type=decision.type court=decision.court_name date=decision.date %}
-                {{ type }} of {{ court }} on {{ date }}
-                {% endblocktranslate %}
+                {% if decision.court_name and decision.date %}
+                  {% blocktranslate with type=decision.type court=decision.court_name date=decision.date %}
+                  {{ type }} of {{ court }} on {{ date }}
+                  {% endblocktranslate %}
+                {% else %}
+                {{ decision.court_name }}
+                {% endif%}
               </a>
             </h3>
             <p><small>{{ decision.reference }}</small></p>
