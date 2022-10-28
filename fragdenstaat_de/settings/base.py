@@ -786,3 +786,7 @@ class FragDenStaatBase(German, Base):
     SENTRY_JS_URL = ""
 
     FRONTEX_CAPTCHA_MODEL_PATH = os.environ.get("FRONTEX_CAPTCHA_MODEL_PATH", None)
+
+    DJANGOCMS_ICON_SETS = [
+        ("fontawesome4", "fa", "Font Awesome 4", "4.7.0"),
+    ]
