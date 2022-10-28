@@ -2,10 +2,10 @@
 
 {% load i18n %}
 
-<div class="dropdown-banner" style="display: none">
-  <button type="button" class="close banner-close" aria-label="{% trans 'Close' %}">
-    <span aria-hidden="true">&times;</span>
+<div class="dropdown-banner position-relative" style="display: none">
+  <button type="button" class="close banner-close btn-close position-absolute top-0 end-0 mr-3 mt-3" aria-label="{% trans 'Close' %}">
   </button>
+  
   {% for plugin in instance.child_plugin_instances %}
       {% render_plugin plugin %}
   {% endfor %}
