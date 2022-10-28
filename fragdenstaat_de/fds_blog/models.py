@@ -412,21 +412,15 @@ class Article(
 
     def get_authors(self):
         if not hasattr(self, "_cached_authors"):
-            self._cached_authors = Author.objects.filter(
-                articleauthorship__article=self
-            ).order_by("articleauthorship__order")
+            self._cached_authors = (
+                Author.objects.filter(articleauthorship__article=self)
+                .select_related("user")
+                .order_by("articleauthorship__order")
+            )
         return self._cached_authors
 
     def get_authors_string(self):
         return ", ".join(str(author) for author in self.get_authors())
-
-    def get_authors_link_list(self):
-        links = []
-        for author in self.get_authors():
-            url = reverse("blog:article-author", kwargs={"username": author.username})
-            link_text = author.get_full_name()
-            links.append(html.format_html("<a href='{}'>{}</a>", url, link_text))
-        return ", ".join(links)
 
 
 TEMPLATES = [

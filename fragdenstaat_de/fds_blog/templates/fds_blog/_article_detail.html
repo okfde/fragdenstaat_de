@@ -27,11 +27,18 @@
               <time datetime="{{ article.start_publication|date:'c' }}">
                 {{ article.start_publication|date:"DATE_FORMAT" }}
               </time>
-              {% if article.get_authors %}
-              <span> -
-                {{ article.get_authors_link_list | safe }}
-              </span>
-              {% endif %}
+              {% with authors=article.get_authors %}
+                {% if authors %}
+                <span> -
+                  {% for author in authors %}
+                    {% if author.get_absolute_url %}
+                      <a href="{{ author.get_absolute_url }}" rel="author">
+                    {% endif %}
+                    {{ author.get_full_name }}{% if author.get_absolute_url %}</a>{% endif %}{% if not forloop.last %},{% endif %}
+                  {% endfor %}
+                </span>
+                {% endif %}
+              {% endwith %}
             </div>
 
             {% block article_header_image %}
