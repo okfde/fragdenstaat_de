@@ -1,0 +1,8 @@
+{% load cms_tags %}
+    <{{ instance.tag_type }}{{ instance.get_attributes }}>
+    {% for plugin in instance.child_plugin_instances %}
+        {% if plugin.plugin_type == "CardPlugin" %}<div class="col mb-3">{% endif %}
+        {% with forloop as parentloop %}{% render_plugin plugin %}{% endwith %}
+        {% if plugin.plugin_type == "CardPlugin" %}</div>{% endif %}
+    {% endfor %}
+    </{{ instance.tag_type }}>
