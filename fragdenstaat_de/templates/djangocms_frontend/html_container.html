@@ -1,0 +1,7 @@
+{% load cms_tags %}
+
+<{{ instance.tag_type }}{{ instance.get_attributes }}>
+{% for plugin in instance.child_plugin_instances %}
+    {% with parentloop=forloop parent=instance %}{% render_plugin plugin %}{% endwith %}
+{% empty %}{{ instance.simple_content }}{% endfor %}
+</{{ instance.tag_type }}>
