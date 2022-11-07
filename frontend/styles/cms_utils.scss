@@ -77,7 +77,7 @@ $backdrops: (
 
 @each $name, $value in $backdrops {
   .backdrop-#{$name} {
-    --backdrop-color: var(--#{$value});
+    --backdrop-color: var(--bs-#{$value});
   }
 }
 

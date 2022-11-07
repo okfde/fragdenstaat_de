@@ -237,7 +237,7 @@ h4.blog-list-heading {
 
   > details,
   > div.infotextbox {
-    background-color: var(--blue-100);
+    background-color: var(--bs-blue-100);
 
     @include make-col(12);
     margin: 1rem auto 0rem;
