@@ -659,10 +659,10 @@ class FragDenStaatBase(German, Base):
                     )
                 ],
                 recipient_blocklist_regex=rec(
-                    r".*\.de-mail\.de$|^z@bundesnachrichtendienst.de|"
-                    r"^pad.donotreply@frontex.europa.eu|"
-                    r"^noreply@.*|^empfangsbestaetigung@bahn.de$|.*\.local$|^postmaster@.*|"
-                    r"^askema.noreply@ema.europa.eu$"
+                    r".*\.de-mail\.de$|^z@bundesnachrichtendienst\.de|"
+                    r"^pad\.donotreply@frontex\.europa\.eu|"
+                    r"^noreply@.*|^empfangsbestaetigung@bahn\.de$|.*\.local$|^postmaster@.*|"
+                    r"^askema\.noreply@ema\.europa\.eu$|^.*@nomail\.ec\.europa\.eu$"
                 ),
                 content_urls={
                     "terms": "/nutzungsbedingungen/",
