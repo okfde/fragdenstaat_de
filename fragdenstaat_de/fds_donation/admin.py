@@ -78,12 +78,15 @@ class DonorTagAdmin(admin.ModelAdmin):
         if not self.has_change_permission(request):
             raise PermissionDenied
 
-        query = request.GET.get("query", "")
+        query = request.GET.get("q", "")
         tags = []
         if query:
-            tags = DonorTag.objects.filter(name__istartswith=query)
-            tags = [t for t in tags.values_list("name", flat=True)]
-        return JsonResponse(tags, safe=False)
+            tags = DonorTag.objects.filter(name__istartswith=query).values_list(
+                "name", flat=True
+            )
+        return JsonResponse(
+            {"objects": [{"value": t, "label": t} for t in tags]}, safe=False
+        )
 
 
 class DonorProjectFilter(MultiFilterMixin, SimpleListFilter):

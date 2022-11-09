@@ -1,6 +1,5 @@
 from rest_framework import serializers, viewsets
 from rest_framework.decorators import action
-from rest_framework.response import Response
 
 from .models import ArticleTag
 
@@ -23,9 +22,12 @@ class ArticleTagViewSet(viewsets.ReadOnlyModelViewSet):
         detail=False, methods=["get"], url_path="autocomplete", url_name="autocomplete"
     )
     def autocomplete(self, request):
-        query = request.GET.get("query", "")
-        tags = []
+        query = request.GET.get("q", "")
+        tags = ArticleTag.objects.none()
         if query:
-            tags = ArticleTag.objects.filter(name__istartswith=query)
-            tags = [t for t in tags.values_list("name", flat=True)]
-        return Response(tags)
+            tags = ArticleTag.objects.filter(name__istartswith=query).values_list(
+                "name", flat=True
+            )
+
+        page = self.paginate_queryset(tags)
+        return self.get_paginated_response([{"value": t, "label": t} for t in page])
