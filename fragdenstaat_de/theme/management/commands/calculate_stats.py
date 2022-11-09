@@ -87,11 +87,11 @@ class Command(BaseCommand):
                     print("missing")
                     continue
                 root_count = root_pb.foirequest_set.filter(
-                    first_message__year=year, is_foi=True
+                    created_at__year=year, is_foi=True
                 ).count()
                 pbs = PublicBody.objects.filter(root=root_pb)
                 qs = FoiRequest.objects.filter(
-                    first_message__year=year, public_body__in=pbs, is_foi=True
+                    created_at__year=year, public_body__in=pbs, is_foi=True
                 )
                 total_count = len(list(qs))
                 writer.writerow(
