@@ -7,6 +7,8 @@
 <div class="bg-gray-100 pt-5 pb-2">
   <div class="container">
     <div class="pb-4">
+      <a class="btn btn-primary float-end ms-2" href="{% url 'legal-decision-list-incomplete' %}">{% translate 'update incomplete decisions' %}</a>
+      <a class="btn btn-primary float-end" href="{% url 'legal-decision-create' %}">{% translate 'Add decisions' %}</a>
       <h1>{% translate 'Legal Decisions' %}</h1>
       <p>{% translate 'Decisions and judgements in the field of freedom of information' %}</p>
     </div>
