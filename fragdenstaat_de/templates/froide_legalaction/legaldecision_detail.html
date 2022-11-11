@@ -65,6 +65,16 @@
               </li>
               {% endif %}
             </ul>
+
+            {% if form %}
+            <form method="post">
+              {% csrf_token %}
+              {% for field in form %}
+                {% render_field field horizontal=False %}
+              {% endfor %}
+              <input type="submit" value="{% translate 'submit' %}">
+            </form>
+            {% endif %}
           </div>
         </div>
       </div>
