@@ -536,7 +536,7 @@ pyasn1-modules==0.2.8
     # via service-identity
 pycparser==2.20
     # via cffi
-pygtail==0.12.0
+pygtail==0.14.0
     # via
     #   -r requirements.in
     #   froide
