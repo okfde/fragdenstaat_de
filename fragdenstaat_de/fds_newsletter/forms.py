@@ -1,3 +1,6 @@
+import csv
+from io import StringIO
+
 from django import forms
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
@@ -6,7 +9,7 @@ from froide.helper.spam import SpamProtectionMixin
 from froide.helper.widgets import BootstrapCheckboxSelectMultiple
 
 from .models import Newsletter, Subscriber
-from .utils import subscribe
+from .utils import subscribe, subscribe_email
 
 
 class NewsletterForm(SpamProtectionMixin, forms.Form):
@@ -142,3 +145,27 @@ class NewsletterFollowExtra(NewsletterUserExtra):
         will create confirmed subscription
         """
         pass
+
+
+class SubscriberImportForm(forms.Form):
+    csv_file = forms.FileField(label=_("CSV file"))
+    reference = forms.CharField(label=_("Import reference label"), required=True)
+    email_confirmed = forms.BooleanField(
+        label=_("Email addresses are confirmed"), required=False
+    )
+
+    def save(self, newsletter):
+        csv_file = self.cleaned_data["csv_file"]
+        csv_file = StringIO(csv_file.read().decode("utf-8"))
+        reader = csv.DictReader(csv_file)
+        for row in reader:
+            email = row["email"]
+            name = row.get("name", "")
+            subscribe_email(
+                newsletter,
+                email,
+                name=name,
+                email_confirmed=self.cleaned_data["email_confirmed"],
+                reference=self.cleaned_data["reference"],
+                batch=True,
+            )

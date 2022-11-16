@@ -1,0 +1,20 @@
+{% extends "helper/admin_base_action.html" %}
+
+{% load i18n %}
+
+{% block action_title %}{% translate 'Import CSV' %}{% endblock %}
+
+{% block breadcrumbs_action_label %}
+  {% translate 'Import CSV' %}
+{% endblock %}
+
+
+{% block action_content %}
+  <form method="post" action="{% url 'admin:fds_newsletter-import_csv' pk=object.pk %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>
+      <input type="submit" value="{% translate 'Import CSV' %}" class="default">
+    </p>
+  </form>
+{% endblock %}

@@ -289,7 +289,7 @@ class Subscriber(models.Model):
         except Subscriber.DoesNotExist:
             pass
 
-    def subscribe(self, reference="", keyword=""):
+    def subscribe(self, reference="", keyword="", batch=False):
         if self.email:
             # Check for existing user / subscriber
             user = self.find_user()
@@ -324,7 +324,7 @@ class Subscriber(models.Model):
             Subscriber.objects.filter(
                 newsletter=self.newsletter, email=self.user.email.lower()
             ).delete()
-        subscribed.send(sender=self)
+        subscribed.send(sender=self, batch=batch)
         return self
 
     def unsubscribe(self, method=""):

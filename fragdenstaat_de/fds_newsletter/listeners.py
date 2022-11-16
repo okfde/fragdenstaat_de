@@ -127,9 +127,11 @@ def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):
     unsubscribe_queryset(subscribers, method="bounced")
 
 
-def send_welcome_mail(sender, **kwargs):
+def send_welcome_mail(sender, batch=False, **kwargs):
     welcome = getattr(settings, "NEWSLETTER_WELCOME_MAILINTENT", None)
     if not welcome:
+        return
+    if batch:
         return
     if not sender.subscribed:
         return

@@ -73,7 +73,13 @@ def subscribe(
 
 
 def subscribe_email(
-    newsletter, email, email_confirmed=False, name="", reference="", keyword=""
+    newsletter,
+    email,
+    email_confirmed=False,
+    name="",
+    reference="",
+    keyword="",
+    batch=False,
 ) -> SubscriptionReturn:
     try:
         subscriber = Subscriber.objects.filter(
@@ -87,13 +93,14 @@ def subscribe_email(
         )
 
     if subscriber.subscribed:
-        subscriber.send_already_email()
+        if not batch:
+            subscriber.send_already_email()
         return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
     if not email_confirmed:
         subscriber.send_activation_email()
         return (SubscriptionResult.CONFIRM, subscriber)
 
-    subscriber = subscriber.subscribe(reference=reference, keyword=keyword)
+    subscriber = subscriber.subscribe(reference=reference, keyword=keyword, batch=batch)
     return (SubscriptionResult.SUBSCRIBED, subscriber)
 
 
