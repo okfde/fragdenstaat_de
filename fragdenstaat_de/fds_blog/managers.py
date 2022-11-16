@@ -65,10 +65,10 @@ class ArticlePublishedManager(models.Manager):
         Basic search on entries.
         """
         lookup = None
-        for pat in pattern.split():
+        for part in pattern.split():
             query_part = models.Q()
             for field in ("title", "content"):
-                query_part |= models.Q(**{"%s__icontains" % field: pat})
+                query_part |= models.Q(**{"%s__icontains" % field: part})
             if lookup is None:
                 lookup = query_part
             else:
