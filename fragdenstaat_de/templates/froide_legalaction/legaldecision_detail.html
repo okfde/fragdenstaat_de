@@ -24,7 +24,7 @@
 <div class="bg-gray-100 pt-3">
   <div class="container">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 mb-3">
         <div id="infobox" class="info-box mb-3 info-box--regular mt-0">
           <div class="info-box__header d-flex flex-nowrap justify-content-between align-items-center">
             <div>
@@ -72,7 +72,10 @@
               {% for field in form %}
                 {% render_field field horizontal=False %}
               {% endfor %}
-              <input type="submit" value="{% translate 'submit' %}">
+              <button class="btn btn-primary btn-sm float-end" type="submit">{% translate 'submit' %}</button>
+              {% if has_next %}
+              <button class="btn btn-primary btn-sm float-end me-2" type="submit" name="next">{% translate 'submit and next' %}</button>
+              {% endif %}
             </form>
             {% endif %}
           </div>

@@ -81,7 +81,7 @@
               <li class="me-2">{{ decision.law_name }}</li>
             </ul>
             <h3 class="h5 mt-0 mb-1">
-              <a href="{% if show_incomplete_fields %}{% url 'legal-decision-incomplete-update' decision.id %}{% else %}{% url 'legal-decision-detail' decision.id %}{% endif %}">
+              <a href="{% if show_incomplete_fields %}{% url 'legal-decision-incomplete-update' decision.id %}?ids={{ request.GET.ids }}{% else %}{% url 'legal-decision-detail' decision.id %}{% endif %}">
                 {% if decision.court_name and decision.date %}
                   {% blocktranslate with type=decision.type court=decision.court_name date=decision.date %}
                   {{ type }} of {{ court }} on {{ date }}
