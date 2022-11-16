@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.db.models import Case, Count, F, IntegerField, Q, Value, When
 from django.db.models.functions import Cast, ExtractDay, Now, TruncDate
-from django.urls import reverse
+from django.shortcuts import render
+from django.urls import path, reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
@@ -10,6 +11,7 @@ from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 from froide.helper.admin_utils import make_daterangefilter, make_rangefilter
 from froide.helper.csv_utils import export_csv, export_csv_response
 
+from .forms import SubscriberImportForm
 from .models import Newsletter, Subscriber
 from .utils import unsubscribe_queryset
 
@@ -17,6 +19,17 @@ from .utils import unsubscribe_queryset
 class NewsletterAdmin(SetupMailingMixin, admin.ModelAdmin):
     list_display = ("title", "visible", "subscriber_count", "admin_subscribers")
     prepopulated_fields = {"slug": ("title",)}
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path(
+                "<int:pk>/import-csv/",
+                self.admin_site.admin_view(self.import_csv),
+                name="fds_newsletter-import_csv",
+            ),
+        ]
+        return my_urls + urls
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -47,6 +60,25 @@ class NewsletterAdmin(SetupMailingMixin, admin.ModelAdmin):
         )
 
     admin_subscribers.short_description = ""
+
+    def import_csv(self, request, pk):
+        newsletter = Newsletter.objects.get(pk=pk)
+        if request.method == "POST":
+            form = SubscriberImportForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save(newsletter)
+                self.message_user(request, _("Subscribers imported."))
+                return self.response_post_save_add(request, newsletter)
+        else:
+            form = SubscriberImportForm()
+        opts = self.model._meta
+        ctx = {
+            "app_label": opts.app_label,
+            "opts": opts,
+            "form": form,
+            "object": newsletter,
+        }
+        return render(request, "fds_newsletter/admin/import_csv.html", ctx)
 
 
 class SubscriberAdmin(admin.ModelAdmin):
