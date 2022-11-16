@@ -6,6 +6,7 @@ from django.urls import path, reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
+from fragdenstaat_de.fds_mailing.models import MailingMessage
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
 from froide.helper.admin_utils import make_daterangefilter, make_rangefilter
@@ -16,7 +17,7 @@ from .models import Newsletter, Subscriber
 from .utils import unsubscribe_queryset
 
 
-class NewsletterAdmin(SetupMailingMixin, admin.ModelAdmin):
+class NewsletterAdmin(admin.ModelAdmin):
     list_display = ("title", "visible", "subscriber_count", "admin_subscribers")
     prepopulated_fields = {"slug": ("title",)}
 
@@ -81,7 +82,7 @@ class NewsletterAdmin(SetupMailingMixin, admin.ModelAdmin):
         return render(request, "fds_newsletter/admin/import_csv.html", ctx)
 
 
-class SubscriberAdmin(admin.ModelAdmin):
+class SubscriberAdmin(SetupMailingMixin, admin.ModelAdmin):
     raw_id_fields = ("user",)
     list_display = (
         "admin_email",
@@ -107,7 +108,7 @@ class SubscriberAdmin(admin.ModelAdmin):
     search_fields = ("email", "user__email", "keyword")
     readonly_fields = ("created", "activation_code")
     date_hierarchy = "created"
-    actions = ["unsubscribe", "export_subscribers_csv"]
+    actions = ["unsubscribe", "export_subscribers_csv"] + SetupMailingMixin.actions
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -164,6 +165,21 @@ class SubscriberAdmin(admin.ModelAdmin):
         return export_csv_response(export_csv(queryset, fields))
 
     export_subscribers_csv.short_description = _("Export to CSV")
+
+    def setup_mailing_messages(self, mailing, queryset):
+        queryset = queryset.exclude(subscribed__isnull=True)
+
+        count = queryset.count()
+        MailingMessage.objects.bulk_create(
+            [
+                MailingMessage(mailing_id=mailing.id, subscriber_id=subscriber_id)
+                for subscriber_id in queryset.values_list("id", flat=True)
+            ]
+        )
+
+        return _("Prepared mailing to subscribers with {count} recipients").format(
+            count=count
+        )
 
 
 admin.site.register(Subscriber, SubscriberAdmin)

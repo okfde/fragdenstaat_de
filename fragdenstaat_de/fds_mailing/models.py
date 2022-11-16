@@ -463,6 +463,9 @@ class MailingMessage(models.Model):
         elif self.user:
             self.name = self.user.get_full_name()
             self.email = self.user.email
+        if not self.email and self.subscriber:
+            self.email = self.subscriber.get_email()
+            self.name = self.subscriber.get_name()
 
     def send_message(self, mailing_context=None, email_template=None):
         assert self.sent is None
