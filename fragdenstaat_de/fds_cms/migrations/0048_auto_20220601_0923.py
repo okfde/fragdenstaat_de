@@ -8,19 +8,32 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0022_auto_20180620_1551'),
-        ('fds_cms', '0047_alter_cardimagecmsplugin_size'),
+        ("cms", "0022_auto_20180620_1551"),
+        ("fds_cms", "0047_alter_cardimagecmsplugin_size"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='cardimagecmsplugin',
-            name='page_link',
-            field=cms.models.fields.PageField(blank=True, help_text='if present image will be clickable', null=True, on_delete=django.db.models.deletion.CASCADE, to='cms.page', verbose_name='page link'),
+            model_name="cardimagecmsplugin",
+            name="page_link",
+            field=cms.models.fields.PageField(
+                blank=True,
+                help_text="if present image will be clickable",
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="cms.page",
+                verbose_name="page link",
+            ),
         ),
         migrations.AddField(
-            model_name='cardimagecmsplugin',
-            name='url',
-            field=models.CharField(blank=True, help_text='if present image will be clickable', max_length=255, null=True, verbose_name='link'),
+            model_name="cardimagecmsplugin",
+            name="url",
+            field=models.CharField(
+                blank=True,
+                help_text="if present image will be clickable",
+                max_length=255,
+                null=True,
+                verbose_name="link",
+            ),
         ),
     ]
