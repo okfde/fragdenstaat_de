@@ -28,6 +28,12 @@ subscriber_confirm_email = mail_registry.register(
     ("name", "newsletter", "action_url", "unsubscribe_url"),
 )
 
+subscriber_batch_confirm_email = mail_registry.register(
+    "fds_newsletter/email/subscriber_batch_confirm",
+    ("name", "newsletter", "action_url", "unsubscribe_url"),
+)
+
+
 subscriber_already_email = mail_registry.register(
     "fds_newsletter/email/subscriber_already", ("name", "newsletter", "unsubscribe_url")
 )
@@ -227,10 +233,15 @@ class Subscriber(models.Model):
             email=self.email, user=self.user, context=context, priority=False
         )
 
-    def send_activation_email(self):
+    def send_activation_email(self, batch=False):
         context = self.get_email_context()
         context["action_url"] = self.get_subscribe_url()
-        subscriber_confirm_email.send(
+        if batch:
+            email_intent = subscriber_batch_confirm_email
+        else:
+            email_intent = subscriber_confirm_email
+
+        email_intent.send(
             email=self.email,
             user=self.user,
             context=context,

@@ -98,7 +98,7 @@ def subscribe_email(
             subscriber.send_already_email()
         return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
     if not email_confirmed:
-        subscriber.send_activation_email()
+        subscriber.send_activation_email(batch=batch)
         return (SubscriptionResult.CONFIRM, subscriber)
 
     subscriber = subscriber.subscribe(reference=reference, keyword=keyword, batch=batch)
