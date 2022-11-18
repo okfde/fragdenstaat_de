@@ -1,5 +1,5 @@
 import uuid
-from datetime import timedelta
+from datetime import date, timedelta
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -264,6 +264,40 @@ def update_donation_numbers(donor_id):
             Donation.objects.filter(id=d.id).update(number=d.new_number)
 
 
+class DonationManager(models.Manager):
+    def estimate_received_donations(self, start_date: date):
+        today = timezone.now().date()
+        SEPA_TIME = timedelta(days=7)
+        BANKTRANSFER_TIME = timedelta(days=35)
+        return (
+            self.get_queryset()
+            .filter(
+                completed=True,
+                timestamp__gte=start_date,
+            )
+            .filter(
+                models.Q(received=True, method__in=["paypal", "creditcard"])
+                | models.Q(
+                    method__in=["sepa", "sofort"], timestamp__gte=today - SEPA_TIME
+                )
+                | models.Q(
+                    method__in=["sepa", "sofort"],
+                    timestamp__lt=today - SEPA_TIME,
+                    received=True,
+                )
+                | models.Q(
+                    method__in=["banktransfer"],
+                    timestamp__gte=today - BANKTRANSFER_TIME,
+                )
+                | models.Q(
+                    method__in=["banktransfer"],
+                    timestamp__lt=today - BANKTRANSFER_TIME,
+                    received=True,
+                )
+            )
+        )
+
+
 class Donation(models.Model):
     donor = models.ForeignKey(
         Donor,
@@ -310,6 +344,8 @@ class Donation(models.Model):
         choices=DONATION_PROJECTS,
     )
 
+    objects = DonationManager()
+
     class Meta:
         ordering = ("-timestamp",)
         get_latest_by = "timestamp"
@@ -355,7 +391,7 @@ class Donation(models.Model):
         return reverse("fds_donation:donate-failed")
 
 
-class DefaultDonationManager(models.Manager):
+class DefaultDonationManager(DonationManager):
     def get_queryset(self):
         return super().get_queryset().filter(project=DEFAULT_DONATION_PROJECT)
 

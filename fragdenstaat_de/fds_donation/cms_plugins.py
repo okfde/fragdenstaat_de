@@ -195,15 +195,18 @@ class DonationProgressBarPlugin(CMSPluginBase):
         return 0
 
     def get_donated_amount(self, instance):
-        date = instance.start_date
-        filters = {"timestamp__gte": date, "completed": True}
         if instance.received_donations_only:
-            filters["received"] = True
+            qs = DefaultDonation.objects.estimate_received_donations(
+                instance.start_date
+            )
+        else:
+            qs = DefaultDonation.objects.filter(
+                completed=True, timestamp__gte=instance.start_date
+            )
 
-        count = DefaultDonation.objects.filter(**filters).aggregate(Sum("amount"))
-        if count.get("amount__sum"):
-            return count.get("amount__sum", Decimal(0.0))
-        return 0.0
+        total_sum = qs.aggregate(amount=Sum("amount"))["amount"]
+
+        return total_sum or Decimal(0.0)
 
     def get_donation_goal_perc(self, instance, donated_amount):
         donation_goal = instance.donation_goal
