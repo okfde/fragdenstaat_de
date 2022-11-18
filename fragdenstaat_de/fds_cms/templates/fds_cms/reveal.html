@@ -1,6 +1,6 @@
 {% load cms_tags %}
 
-<div class="reveal-cutoff" data-cutoff="{{ instance.cutoff }}{{ instance.unit }}" style="--reveal-color: var(--{{ instance.color }})">
+<div class="reveal-cutoff" data-cutoff="{{ instance.cutoff }}{{ instance.unit }}" style="--reveal-color: var(--bs-{{ instance.color }})">
   <div class="reveal-inner {{ instance.attributes.class }}" id="reveal-{{ instance.pk }}" {{ instance.attributes_str }}>
     {% for plugin in instance.child_plugin_instances %}
       {% render_plugin plugin %}
