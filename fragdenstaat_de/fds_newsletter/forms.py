@@ -1,4 +1,3 @@
-import csv
 from io import StringIO
 
 from django import forms
@@ -9,7 +8,7 @@ from froide.helper.spam import SpamProtectionMixin
 from froide.helper.widgets import BootstrapCheckboxSelectMultiple
 
 from .models import Newsletter, Subscriber
-from .utils import subscribe, subscribe_email
+from .utils import import_csv, subscribe
 
 
 class NewsletterForm(SpamProtectionMixin, forms.Form):
@@ -157,15 +156,9 @@ class SubscriberImportForm(forms.Form):
     def save(self, newsletter):
         csv_file = self.cleaned_data["csv_file"]
         csv_file = StringIO(csv_file.read().decode("utf-8"))
-        reader = csv.DictReader(csv_file)
-        for row in reader:
-            email = row["email"]
-            name = row.get("name", "")
-            subscribe_email(
-                newsletter,
-                email,
-                name=name,
-                email_confirmed=self.cleaned_data["email_confirmed"],
-                reference=self.cleaned_data["reference"],
-                batch=True,
-            )
+        import_csv(
+            csv_file,
+            newsletter,
+            reference=self.cleaned_data["reference"],
+            email_confirmed=self.cleaned_data["email_confirmed"],
+        )

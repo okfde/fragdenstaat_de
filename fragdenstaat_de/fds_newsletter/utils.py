@@ -1,3 +1,4 @@
+import csv
 import datetime
 import hashlib
 from datetime import timedelta
@@ -186,3 +187,23 @@ def get_onboarding_subscribers(date: datetime.date, schedule_item):
         subscribed__date__gte=date_gte,
         subscribed__date__lt=date_lt,
     )
+
+
+def import_csv(csv_file, newsletter, reference="", email_confirmed=False):
+    reader = csv.DictReader(csv_file)
+    for row in reader:
+        email = row["email"]
+        if "name" in row:
+            name = row.get("name", "")
+        elif "first_name" in row and "last_name" in row:
+            name = "{} {}".format(row["first_name"], row["last_name"])
+        else:
+            name = ""
+        subscribe_email(
+            newsletter,
+            email,
+            name=name,
+            email_confirmed=email_confirmed,
+            reference=reference,
+            batch=True,
+        )
