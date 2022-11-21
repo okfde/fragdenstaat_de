@@ -88,13 +88,7 @@
               <li class="me-2">{{ object.law_name }}</li>
             </ul>
             <h3 class="h5 mt-0 mb-1">
-              {% if object.court_name and object.date %}
-                  {% blocktranslate with type=object.type court=object.court_name date=object.date %}
-                  {{ type }} of {{ court }} on {{ date }}
-                  {% endblocktranslate %}
-              {% else %}
-                {{ object.court_name }}
-              {% endif%}
+              {{ object.title }}
             </h3>
             <p><small>{{ object.reference }}</small></p>
             <p class="text-muted">{{ object.abstract }}</p>
