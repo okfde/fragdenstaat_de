@@ -888,6 +888,7 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         "donation_received",
         "donation_amount",
         "donation_amount_received",
+        "recurring_amount",
         "shipped",
     )
     list_filter = (
@@ -899,7 +900,11 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
     actions = ["notify_shipped"]
 
     def get_queryset(self, request):
-        return super().get_queryset(request).select_related("donation", "donation_gift")
+        return (
+            super()
+            .get_queryset(request)
+            .select_related("donation", "donation__donor", "donation_gift")
+        )
 
     def donation_amount(self, obj):
         if obj.donation:
@@ -921,6 +926,13 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         return None
 
     donation_received.short_description = _("donation received date")
+
+    def recurring_amount(self, obj):
+        if obj.donation:
+            return obj.donation.donor.recurring_amount
+        return None
+
+    recurring_amount.short_description = _("recurring amount")
 
     def notify_shipped(self, request, queryset):
         queryset = queryset.filter(shipped=None)
