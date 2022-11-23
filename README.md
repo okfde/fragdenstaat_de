@@ -120,6 +120,21 @@ pip-compile -U requirements-production.in
 ```
 
 
+### Main app dependencies
+
+The `fragdenstaat_de` project depends on `froide`, multiple `froide`-related apps.
+
+```mermaid
+flowchart LR
+    fragdenstaat_de[[fragdenstaat_de]]-->froide
+    fragdenstaat_de-->froideapp[froide-*]
+    froideapp-->froide
+    froide-->filingcabinet[[django-filingcabinet]]
+    fragdenstaat_de-->cms([django-cms])
+
+```
+
+
 ## License
 
 Froide and fragdenstaat_de are licensed under the AGPL License.
