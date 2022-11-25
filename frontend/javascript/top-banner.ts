@@ -1,55 +1,61 @@
-import { toggleSlide } from 'froide/frontend/javascript/lib/misc'
+import { slideUp } from 'froide/frontend/javascript/lib/misc'
 
 interface IDonationBannerStore {
   timestamp: number
 }
 
 function showTopBanner(): void {
-  window._paq = window._paq ?? []
+  const topBanner = document.querySelector<HTMLElement>('.top-banner')
+  if (topBanner === null) return
 
-  function hideBanner(el: HTMLElement, code: string, time: number) {
-    return (e: Event) => {
-      e.preventDefault()
-      window._paq?.push(['trackEvent', 'ads', 'topBanner', code])
-      window.localStorage.setItem(
-        itemName,
-        JSON.stringify({
-          timestamp: time
-        })
-      )
-      if (hasAnimation) {
-        toggleSlide(el)
-        window.setTimeout(() => {
-          removeBanner()
-        }, 5 * 1000)
-      } else {
-        removeBanner()
-      }
+  const hasAnimation =
+    topBanner.firstElementChild?.hasAttribute('data-slide') === true
+
+  const removeBanner = (): void => topBanner.remove()
+
+  const itemName = 'top-banner'
+  const now = new Date().getTime()
+  const data = localStorage.getItem(itemName)
+
+  if (data !== null) {
+    const last = JSON.parse(data) as IDonationBannerStore
+    if (last.timestamp !== 0 && now - last.timestamp < 60 * 60 * 24 * 1000) {
+      return removeBanner()
     }
   }
-  function removeBanner(): void {
-    if (topBanner.parentNode != null) {
-      topBanner.parentNode.removeChild(topBanner)
+  localStorage.removeItem(itemName)
+
+  const hideBanner = (el: HTMLElement, e: Event): void => {
+    e.preventDefault()
+
+    const data = JSON.stringify({ timestamp: now })
+    localStorage.setItem(itemName, data)
+
+    if (hasAnimation) {
+      slideUp(el)
+      el.addEventListener('transitionend', removeBanner)
+      setTimeout(removeBanner, 1000)
+    } else {
+      removeBanner()
     }
+
+    window._paq?.push(['trackEvent', 'ads', 'topBanner', 'close'])
   }
 
-  const els = document.querySelectorAll('.top-banner')
-  if (els.length !== 1) {
-    return
-  }
-  const topBanner = els[0] as HTMLElement
-
+  // various checks, if banner should not be shown on current page
   const path = document.location.pathname
-  if (
-    [
-      '/spenden/',
-      '/gesendet/',
-      '/payment/',
-      '/abgeschlossen/',
-      '/anfrage-stellen/',
-      '/account/'
-    ].some((p) => path.includes(p))
-  ) {
+  const blockedPaths = [
+    '/spenden/',
+    '/donate/',
+    '/gesendet/',
+    '/sent/',
+    '/payment/',
+    '/abgeschlossen/',
+    '/anfrage-stellen/',
+    '/make-request/',
+    '/account/'
+  ]
+  if (blockedPaths.some((p) => path.includes(p))) {
     return removeBanner()
   }
 
@@ -74,60 +80,19 @@ function showTopBanner(): void {
     return removeBanner()
   }
 
-  const itemName = 'top-banner'
-  const now = new Date().getTime()
-  const data = window.localStorage.getItem(itemName)
-  if (data !== null) {
-    const last = JSON.parse(data) as IDonationBannerStore
-    if (last.timestamp !== 0 && now - last.timestamp < 60 * 60 * 24 * 1000) {
-      return removeBanner()
-    }
-  }
-  window.localStorage.removeItem(itemName)
-
+  // close buttons
   const closeButtons = topBanner.querySelectorAll('.banner-close')
-
-  Array.from(closeButtons).forEach((closeButton) => {
-    closeButton.addEventListener('click', hideBanner(topBanner, 'close', now))
+  closeButtons.forEach((closeButton) => {
+    closeButton.addEventListener('click', (e) => hideBanner(topBanner, e))
   })
 
-  const cancel = topBanner.querySelector('.cancel-donation')
-  const already = topBanner.querySelector('.already-donation')
+  // show banner
+  topBanner.style.display = 'block'
 
-  if (cancel != null) {
-    cancel.addEventListener('click', hideBanner(topBanner, 'notnow', now))
-  }
-  if (already != null) {
-    already.addEventListener(
-      'click',
-      hideBanner(topBanner, 'donated', now + 1000 * 60 * 60 * 24 * 30)
-    )
-  }
-
-  const dropdownBanner = topBanner.querySelector(
-    '.dropdown-banner'
-  ) as HTMLElement
-  const hasAnimation = dropdownBanner !== null
-  if (dropdownBanner === null) {
-    return
-  }
-
-  topBanner.style.display = 'none'
-  topBanner.style.zIndex = '900'
-  dropdownBanner.style.display = 'block'
-
-  window.setTimeout(() => {
+  // tracking
+  setTimeout(() => {
     window._paq?.push(['trackEvent', 'ads', 'topBanner', 'shown'])
-    if (window.innerWidth > 768) {
-      topBanner.style.position = 'sticky'
-      topBanner.style.top = '0'
-    }
-    toggleSlide(topBanner)
   }, 3000)
 }
 
-if (document.readyState === 'loading') {
-  window.document.addEventListener('DOMContentLoaded', showTopBanner)
-} else {
-  showTopBanner()
-}
+document.addEventListener('DOMContentLoaded', showTopBanner)

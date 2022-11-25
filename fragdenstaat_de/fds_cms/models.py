@@ -610,3 +610,10 @@ class BorderedSectionCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+class DropdownBannerCMSPlugin(CMSPlugin):
+    animation = models.BooleanField(_("Slide banner with animation"), default=True)
+    dark = models.BooleanField(
+        _("Banner is dark-themed, button should therefore be light"), default=False
+    )
