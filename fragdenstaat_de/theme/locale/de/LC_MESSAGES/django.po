@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: froide-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-27 05:35-0500\n"
+"POT-Creation-Date: 2022-11-25 13:32+0100\n"
 "PO-Revision-Date: 2021-07-21 11:46+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: OKF-DE <info@fragdenstaat.de>\n"
@@ -19,121 +19,132 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: fragdenstaat_de/theme/admin.py
+#: fragdenstaat_de/theme/admin.py:122
 #, python-brace-format
 msgid "Prepared mailing to crowdfunding contributors with {count} recipients"
 msgstr ""
 
-#: fragdenstaat_de/theme/apps.py
+#: fragdenstaat_de/theme/apps.py:7
 msgid "FragDenStaat"
 msgstr "FragDenStaat"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:7
 msgid "Two"
 msgstr "Zwei"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:8
 msgid "Three"
 msgstr "Drei"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:9
 msgid "Four"
 msgstr "Vier"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:10
 msgid "Five"
 msgstr "Fünf"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:11
 msgid "Six"
 msgstr "Sechs"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:12
 msgid "Seven"
 msgstr "Sieben"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:13
 msgid "Eight"
 msgstr "Acht"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:14
 msgid "Nine"
 msgstr "Neun"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:15
 msgid "Ten"
 msgstr "Zehn"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:16
 msgid "Twelve"
 msgstr "Zwölf"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:24
+#: fragdenstaat_de/theme/cms_plugins.py:32
+#: fragdenstaat_de/theme/cms_plugins.py:40
+#: fragdenstaat_de/theme/cms_plugins.py:58
+#: fragdenstaat_de/theme/cms_plugins.py:68
+#: fragdenstaat_de/theme/cms_plugins.py:78
+#: fragdenstaat_de/theme/cms_plugins.py:88
+#: fragdenstaat_de/theme/cms_plugins.py:98
+#: fragdenstaat_de/theme/cms_plugins.py:108
+#: fragdenstaat_de/theme/cms_plugins.py:117
+#: fragdenstaat_de/theme/cms_plugins.py:138
 msgid "Structure"
 msgstr "Struktur"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:25
 msgid "Container"
 msgstr "Container"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:33
 msgid "Container Fluid"
 msgstr "Container Flüssig"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:41
 msgid "Container Grey"
 msgstr "Container Grau"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:59
 msgid "Row"
 msgstr "Zeile"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:69
 msgid "Row Left Aligned"
 msgstr "Zeile Links ausgerichtet"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:79
 msgid "Row Right Aligned"
 msgstr "Zeile Rechts ausgerichtet"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:89
 msgid "Row Spaced Around"
 msgstr "Zeile mit Raum herum"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:99
 msgid "Row Spaced Between"
 msgstr "Zeile mit Raum dazwischen"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:109
 msgid "Row Narrow"
 msgstr "Zeile Eng"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:129
 #, python-format
 msgid "Column %s"
 msgstr "Spalte %s"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:140
 msgid "Column Teaser Three"
 msgstr "Spalte Teaser Drei"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:146
+#: fragdenstaat_de/theme/cms_plugins.py:153
 msgid "Menu"
 msgstr "Menü"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:147
 msgid "Sub Menu"
 msgstr "Unter-Menü"
 
-#: fragdenstaat_de/theme/cms_plugins.py
+#: fragdenstaat_de/theme/cms_plugins.py:154
 msgid "Page Sub Menu"
 msgstr "Seiten-Untermenü"
 
-#: fragdenstaat_de/theme/models.py
+#: fragdenstaat_de/theme/models.py:64
 msgid "User auto blocked"
 msgstr "User automatisch blockiert"
 
-#: fragdenstaat_de/theme/urls.py
+#: fragdenstaat_de/theme/urls.py:123
 msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
@@ -265,8 +276,8 @@ msgstr "kampagne/"
 #~ msgstr "Stellen Sie jetzt eine Anfrage!"
 
 #~ msgid ""
-#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn.org"
-#~ "\">the Open Knowledge Foundation</a>. If you want to support Froide, "
+#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn."
+#~ "org\">the Open Knowledge Foundation</a>. If you want to support Froide, "
 #~ "please visit the <a href=\"%(url)s\">repository on GitHub</a>."
 #~ msgstr ""
 #~ "Über FragDenStaat.de können Sie Behörden in Deutschland nach "
@@ -396,19 +407,20 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "You agree to our <a href=\"%(url_terms)s\" class=\"target-new\">Terms and "
-#~ "Conditions</a> and <a href=\"%(url_privacy)s\" class=\"target-new"
-#~ "\">Privacy Statement</a>"
+#~ "Conditions</a> and <a href=\"%(url_privacy)s\" class=\"target-"
+#~ "new\">Privacy Statement</a>"
 #~ msgstr ""
-#~ "Sie stimmen unseren <a href=\"%(url_terms)s\" class=\"target-new"
-#~ "\">Nutzungsbedingungen</a> und <a href=\"%(url_privacy)s\" class=\"target-"
-#~ "new\">Datenschutzbedingungen</a> zu."
+#~ "Sie stimmen unseren <a href=\"%(url_terms)s\" class=\"target-"
+#~ "new\">Nutzungsbedingungen</a> und <a href=\"%(url_privacy)s\" "
+#~ "class=\"target-new\">Datenschutzbedingungen</a> zu."
 
 #~ msgid ""
-#~ "This email address already has an account. <a href=\"%s?simple\" class="
-#~ "\"target-small\">Please login using that email address.</a>"
+#~ "This email address already has an account. <a href=\"%s?simple\" "
+#~ "class=\"target-small\">Please login using that email address.</a>"
 #~ msgstr ""
-#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" class="
-#~ "\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein.</a>"
+#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" "
+#~ "class=\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein."
+#~ "</a>"
 
 #~ msgid ""
 #~ "This email address is already registered, but not yet confirmed! Please "
@@ -2391,17 +2403,17 @@ msgstr "kampagne/"
 #~ "status."
 #~ msgstr ""
 #~ "Diese Anfrage hat eine Antwort erhalten und ist in einem unbekannten "
-#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a href="
-#~ "\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
+#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a "
+#~ "href=\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
 #~ "Status."
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, please read the latest response and <a href=\"#set-"
 #~ "status\" data-tabgo=\"tab\">set a new status for this request</a>!"
 #~ msgstr ""
-#~ "<b>Hallo %(name)s</b>, bitte lesen Sie die letzte Antwort und <a href="
-#~ "\"#set-status\" data-tabgo=\"tab\">geben Sie einen neuen Status für diese "
-#~ "Anfrage an!</a>"
+#~ "<b>Hallo %(name)s</b>, bitte lesen Sie die letzte Antwort und <a "
+#~ "href=\"#set-status\" data-tabgo=\"tab\">geben Sie einen neuen Status für "
+#~ "diese Anfrage an!</a>"
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, your request is <b>overdue</b>!<br/>\n"
@@ -2412,19 +2424,19 @@ msgstr "kampagne/"
 #~ " Bitte handeln Sie jetzt:"
 
 #~ msgid ""
-#~ "Have you received a reply by <b>postal mail</b>? &rarr; <a data-tabgo="
-#~ "\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
+#~ "Have you received a reply by <b>postal mail</b>? &rarr; <a data-"
+#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
 #~ msgstr ""
-#~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-tabgo="
-#~ "\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort unbedingt "
-#~ "hinzu!</a>"
+#~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-"
+#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort "
+#~ "unbedingt hinzu!</a>"
 
 #~ msgid ""
 #~ "Have you not gotten any reply? &rarr; <a data-tabgo=\"tab\" href=\"#write-"
 #~ "message\">Write a reminder to the public body!</a>"
 #~ msgstr ""
-#~ "Haben Sie keine Antwort erhalten? &rarr; <a data-tabgo=\"tab\" href="
-#~ "\"#write-message\">Fragen Sie bei der Behörde nach!</a>"
+#~ "Haben Sie keine Antwort erhalten? &rarr; <a data-tabgo=\"tab\" "
+#~ "href=\"#write-message\">Fragen Sie bei der Behörde nach!</a>"
 
 #~ msgid "You request has been refused."
 #~ msgstr "Ihre Anfrage wurde abgelehnt."
@@ -2837,13 +2849,13 @@ msgstr "kampagne/"
 #~ msgstr "Sie können auf diese Anfrage nicht zugreifen!"
 
 #~ msgid ""
-#~ "This email address already has an account. <a href=\"%s?simple\" class="
-#~ "\"target-small\">Please login using that email address in order to follow "
-#~ "this account.</a>"
+#~ "This email address already has an account. <a href=\"%s?simple\" "
+#~ "class=\"target-small\">Please login using that email address in order to "
+#~ "follow this account.</a>"
 #~ msgstr ""
-#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" class="
-#~ "\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein um "
-#~ "Benachrichtigungen zu erhalten.</a>"
+#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" "
+#~ "class=\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein "
+#~ "um Benachrichtigungen zu erhalten.</a>"
 
 #~ msgid "You cannot follow your own requests."
 #~ msgstr "Sie erhalten schon Benachrichtigungen für Ihre Anfragen."
@@ -3597,9 +3609,10 @@ msgstr "kampagne/"
 #~ "Freedom of Information requests</a> to get a feeling for what Freedom of "
 #~ "Information is all about."
 #~ msgstr ""
-#~ "Sie können sich zum Beispiel die <a href=\"%(foirequests_url)s"
-#~ "\">existierende Informations&shy;freiheits&shy;anfragen</a> ansehen, um "
-#~ "zu verstehen wie Informations&shy;freiheit funktioniert."
+#~ "Sie können sich zum Beispiel die <a "
+#~ "href=\"%(foirequests_url)s\">existierende Informations&shy;freiheits&shy;"
+#~ "anfragen</a> ansehen, um zu verstehen wie Informations&shy;freiheit "
+#~ "funktioniert."
 
 #~ msgid "Write to them here"
 #~ msgstr "Schreiben Sie hier an sie"
@@ -3627,8 +3640,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Wenn Sie sich einloggen, können Sie mit einem Klick eine identische "
 #~ "Anfrage in Ihrem Namen stellen, um Zugang zu diesen Dokumenten zu "
-#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?next="
-#~ "%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
+#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?"
+#~ "next=%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
 
 #~ msgid "No Public Bodies found in this jurisdiction for this query."
 #~ msgstr "Es wurden keine Behörden mit diesem Zuständigkeitsbereich gefunden."
@@ -3882,8 +3895,8 @@ msgstr "kampagne/"
 #~ "You agree to our <a href=\"%(url)s\" class=\"target-new\">Privacy "
 #~ "Statement</a>"
 #~ msgstr ""
-#~ "Sie stimmen unserer <a href=\"%(url)s\" class=\"target-new"
-#~ "\">Datenschutzerklärung</a> zu"
+#~ "Sie stimmen unserer <a href=\"%(url)s\" class=\"target-"
+#~ "new\">Datenschutzerklärung</a> zu"
 
 #~ msgid ""
 #~ "This request will be public\n"
