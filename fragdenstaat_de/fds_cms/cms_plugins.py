@@ -25,6 +25,7 @@ from .models import (
     DocumentEmbedCMSPlugin,
     DocumentPagesCMSPlugin,
     DocumentPortalEmbedCMSPlugin,
+    DropdownBannerCMSPlugin,
     FoiRequestListCMSPlugin,
     ModalCMSPlugin,
     OneClickFoiRequestCMSPlugin,
@@ -186,6 +187,7 @@ class ContinueLinkPlugin(CMSPluginBase):
 @plugin_pool.register_plugin
 class DropdownBannerPlugin(CMSPluginBase):
     module = _("Ads")
+    model = DropdownBannerCMSPlugin
     name = _("Dropdown Banner")
     allow_children = True
     cache = True
