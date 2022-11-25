@@ -178,7 +178,7 @@ class ContinueLinkPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         request = context["request"]
-        context["title"] = request.GET.get("next_title", "Zurück zu Ihrer Anfrage")
+        context["title"] = request.GET.get("next_title", _("Back to your request"))
         next_url = get_redirect_url(request)
         context["next_url"] = next_url
         return context
