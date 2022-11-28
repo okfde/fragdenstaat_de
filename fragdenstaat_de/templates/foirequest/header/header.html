@@ -8,6 +8,20 @@
 {% load fax_tags %}
 {% load crowdfunding %}
 {% load fds_cms_tags %}
+{% load legalaction %}
+
+{% block aditional_actions %}
+  {% can_use_klageautomat object as has_legal_action_option %}
+  {% if has_legal_action_option %}
+    <li>
+      Auf Ihre Anfrage wurde mehr als drei Monate nicht geantwortet.
+      &rarr;
+      <a href="{% url 'klageautomat-info' pk=object.pk %}">
+        Zum Klageautomat
+      </a>
+    </li>
+  {% endif %}
+{% endblock %}
 
 
 {% block foirequest_header %}
