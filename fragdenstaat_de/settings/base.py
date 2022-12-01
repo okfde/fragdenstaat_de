@@ -465,7 +465,7 @@ class FragDenStaatBase(German, Base):
         FROIDE_CSRF_MIDDLEWARE,
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
-        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        "fragdenstaat_de.theme.middleware.XFrameOptionsCSPMiddleware",
         "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
         "fragdenstaat_de.theme.redirects.PathRedirectFallbackMiddleware",
         "froide.account.middleware.AcceptNewTermsMiddleware",
