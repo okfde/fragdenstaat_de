@@ -340,7 +340,6 @@ msgstr ""
 
 #: fragdenstaat_de/fds_newsletter/admin.py:71
 #, fuzzy
-#| msgid "Subscribe"
 msgid "Subscribers imported."
 msgstr "Abonnieren"
 
@@ -367,7 +366,6 @@ msgstr ""
 
 #: fragdenstaat_de/fds_newsletter/admin.py:180
 #, fuzzy, python-brace-format
-#| msgid "Prepare mailing to users"
 msgid "Prepared mailing to subscribers with {count} recipients"
 msgstr "Bereite Mailing für Nutzer:innen vor"
 
@@ -405,7 +403,6 @@ msgstr ""
 
 #: fragdenstaat_de/fds_newsletter/forms.py:153
 #, fuzzy
-#| msgid "E-mail address"
 msgid "Email addresses are confirmed"
 msgstr "E-Mail"
 
@@ -602,11 +599,11 @@ msgstr ""
 msgid "Hero"
 msgstr ""
 
-#: fragdenstaat_de/settings/base.py:616
+#: fragdenstaat_de/settings/base.py:616 fragdenstaat_de/settings/base.py:613
 msgid "Non-FOI"
 msgstr ""
 
-#: fragdenstaat_de/settings/base.py:629
+#: fragdenstaat_de/settings/base.py:629 fragdenstaat_de/settings/base.py:626
 msgid "Give warning"
 msgstr "Verwarnen"
 
@@ -661,6 +658,9 @@ msgstr "Entscheidungen erstellen"
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:15
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:4
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:18
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:4
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:13
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:10
 msgid "Legal Decisions"
 msgstr "Gerichtsentscheidungen"
 
@@ -674,22 +674,27 @@ msgid "Submit"
 msgstr "Abschicken"
 
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:31
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:29
 msgid "Information"
 msgstr "Informationen"
 
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:39
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:36
 msgid "reference"
 msgstr "Aktenzeichen"
 
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:47
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:44
 msgid "date"
 msgstr "Datum"
 
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:55
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:52
 msgid "court"
 msgstr "Gericht"
 
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:63
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:60
 msgid "law"
 msgstr "Gesetz"
 
@@ -710,14 +715,17 @@ msgid "Add decisions"
 msgstr "Entscheidungen hinzufügen"
 
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:19
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:11
 msgid "Decisions and judgements in the field of freedom of information"
 msgstr "Beschlüsse und Urteile aus dem Bereich der Informationsfreiheit"
 
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:41
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:33
 msgid "Refine your query"
 msgstr "Suche eingrenzen"
 
 #: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:43
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:35
 msgid "You have selected:"
 msgstr "Ihre Auswahl:"
 
@@ -805,13 +813,11 @@ msgstr "Warnung: Verstoß gegen Nutzungsbedingungen"
 
 #: fragdenstaat_de/templates/organization/includes/organization_item.html:22
 #, fuzzy
-#| msgid "Organizations"
 msgid "View organization"
 msgstr "Organisationen"
 
 #: fragdenstaat_de/templates/organization/organization_detail.html:5
 #, fuzzy
-#| msgid "Organizations"
 msgid "Organization Members"
 msgstr "Organisationen"
 
@@ -822,6 +828,7 @@ msgid "Organizations"
 msgstr "Organisationen"
 
 #: fragdenstaat_de/templates/organization/organization_list.html:27
+#: fragdenstaat_de/templates/organization/organization_list.html:28
 msgid "No organizations found."
 msgstr "Keine Organisationen gefunden."
 
@@ -834,19 +841,17 @@ msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
 
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_detail.html:77
+#: fragdenstaat_de/templates/froide_legalaction/legaldecision_list.html:77
 #, fuzzy, python-format
-#~| msgid ""
-#~| "\n"
-#~| "                %(type)s of %(court)s on %(date)s\n"
-#~| "                "
-#~ msgid ""
-#~ "\n"
-#~ "                  %(type)s of %(court)s on %(date)s\n"
-#~ "                  "
-#~ msgstr ""
-#~ "\n"
-#~ "                %(type)s - %(court)s vom %(date)s\n"
-#~ "                "
+msgid ""
+"\n"
+"                  %(type)s of %(court)s on %(date)s\n"
+"                  "
+msgstr ""
+"\n"
+"                %(type)s - %(court)s vom %(date)s\n"
+"                "
 
 #, python-format
 #~ msgid ""
