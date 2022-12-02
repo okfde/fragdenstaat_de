@@ -4,11 +4,13 @@
         {% if reached_goal %}
             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ reached_goal_perc }}%;" aria-valuenow="{{ reached_goal_perc }}" aria-valuemin="0" aria-valuemax="100">{{ reached_goal_str }}</div>
         {% endif %}
-        <div class="progress-bar" role="progressbar" title="{% translate 'Amount received' %}" style="width: {{ percentage }}%;" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100">{% if amount > donation_goal and not reached_goal %}{{ donation_goal_str }}{% endif %}</div>
+        <div class="progress-bar" role="progressbar" title="{% translate 'Donation progress' %}" style="width: {{ percentage }}%;" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100">{% if amount > donation_goal and not reached_goal %}{{ donation_goal_str }}{% endif %}</div>
     </div>
     <div class="text-end">
         <small {% if not white_text %}class="text-muted"{% else %}class="text-white"{% endif %}>
-          {{ amount_str }}&nbsp;€ von {{ donation_goal_str }}&nbsp;€
+          {% blocktrans %}
+          {{ amount_str }}&nbsp;€ of {{ donation_goal_str }}&nbsp;€
+          {% endblocktrans %}
         </small>
     </div>
 </div>
