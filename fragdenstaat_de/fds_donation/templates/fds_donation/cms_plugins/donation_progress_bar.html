@@ -1,4 +1,7 @@
 {% load i18n %}
+{% load humanize %}
+
+{% with amount_str=amount|intcomma donation_goal_str=donation_goal|intcomma reached_goal_str=reached_goal|intcomma %}
 <div>
     <div class="progress" style="height: 25px; {% if amount > donation_goal %}background-color: #ffa5a5 {% endif %}">
         {% if reached_goal %}
@@ -14,3 +17,4 @@
         </small>
     </div>
 </div>
+{% endwith %}
