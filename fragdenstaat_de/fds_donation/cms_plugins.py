@@ -185,10 +185,6 @@ class DonationProgressBarPlugin(CMSPluginBase):
     cache = False
     render_template = "fds_donation/cms_plugins/donation_progress_bar.html"
 
-    def german_number_display(self, number):
-        number = "{0:,}".format(number)
-        return number.replace(",", "X").replace(".", ",").replace("X", ".")
-
     def get_percentage(self, amount, max):
         if amount > 0 and max > 0:
             return min(int(amount / max * 100), 100)
@@ -228,19 +224,14 @@ class DonationProgressBarPlugin(CMSPluginBase):
         context = super().render(context, instance, placeholder)
         donated_amount = self.get_donated_amount(instance)
         donated_amount_perc = self.get_donation_goal_perc(instance, donated_amount)
+
         context["amount"] = donated_amount
-        context["amount_str"] = self.german_number_display(donated_amount)
         context["percentage"] = donated_amount_perc
         context["donation_goal"] = instance.donation_goal
-        context["donation_goal_str"] = self.german_number_display(
-            instance.donation_goal
-        )
         context["white_text"] = instance.white_text
+
         if instance.reached_goal and instance.reached_goal < donated_amount:
             context["reached_goal"] = instance.reached_goal
-            context["reached_goal_str"] = self.german_number_display(
-                instance.reached_goal
-            )
             context["reached_goal_perc"] = self.get_percentage(
                 instance.reached_goal, instance.donation_goal
             )
