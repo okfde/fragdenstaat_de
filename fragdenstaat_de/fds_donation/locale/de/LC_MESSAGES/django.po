@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-25 13:32+0100\n"
+"POT-Creation-Date: 2022-12-02 09:21+0100\n"
 "PO-Revision-Date: 2022-09-29 13:54+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -651,8 +651,20 @@ msgid "Merge Donors"
 msgstr "Spender*innen zusammenführen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donation_progress_bar.html:7
-msgid "Amount received"
-msgstr "Betrag erhalten"
+#| msgid "Donation Progress Bar"
+msgid "Donation progress"
+msgstr "Spendenfortschritt"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donation_progress_bar.html:11
+#, python-format
+msgid ""
+"\n"
+"          %(amount_str)s&nbsp;€ of %(donation_goal_str)s&nbsp;€\n"
+"          "
+msgstr ""
+"\n"
+"          %(amount_str)s&nbsp;€ von %(donation_goal_str)s&nbsp;€\n"
+"          "
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html:7
 msgid "Thank you for your donation!"
@@ -879,6 +891,9 @@ msgstr ""
 #: fragdenstaat_de/fds_donation/views.py:182
 msgid "Your donor info has been updated!"
 msgstr "Ihre Spender-Informationen wurden aktualisiert!"
+
+#~ msgid "Amount received"
+#~ msgstr "Erhaltener Betrag"
 
 #~ msgid "From"
 #~ msgstr "Von"
