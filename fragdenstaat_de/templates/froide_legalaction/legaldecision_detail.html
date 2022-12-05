@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load form_helper i18n %}
+{% load static %}
+{% load filingcabinet %}
 
 {% block title %}{% translate 'Legal Decisions' %}: {{ object.title }}{% endblock %}
 
@@ -91,11 +93,13 @@
           </li>
 
           {% if object.foi_document %}
-            <iframe src="{% url 'filingcabinet:document-detail_embed' pk=object.foi_document.id slug=object.foi_document.slug %}" frameborder="0" style="width: 100%; height: 90vh; border: 0;"></iframe>
+            {% get_pdf_viewer object.foi_document %}
+
+            {% include "_frontend.html" with entry_point="filingcabinet.js" %}
           {% elif object.fulltext %}
-          <li class="list-group-item bg-white shadow-gray p-3 mb-4">
-            <p>{{ object.fulltext|linebreaks }}</p>
-          </li>
+            <li class="list-group-item bg-white shadow-gray p-3 mb-4">
+              <p>{{ object.fulltext|linebreaks }}</p>
+            </li>
           {% endif %}
         </ul>
       </div>
