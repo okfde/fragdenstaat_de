@@ -689,6 +689,7 @@ class FragDenStaatBase(German, Base):
                     r"^e-?mails?$",
                     r"^kommunikation$",
                 ],
+                address_regex=r"\d{4,5}",
             )
         )
         return config
