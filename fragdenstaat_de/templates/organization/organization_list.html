@@ -18,15 +18,13 @@
   </div>
   <div class="container">
     <h1 class="py-4">{% trans "Organizations" %}</h1>
-    <div class="row shuffle-items">
+    <div class="row shuffle-items gx-3 gy-3">
       {% for object in object_list %}
-        <div class="col-md-6 col-lg-4 mb-5">
+        <div class="col-md-6 col-lg-4">
           {% include "organization/includes/organization_item.html" with object=object TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
         </div>
       {% empty %}
-        <div class="col-md-4">
-          <p>{% trans "No organizations found." %}</p>
-        </div>
+        <p>{% trans "No organizations found." %}</p>
       {% endfor %}
     </div>
   </div>
