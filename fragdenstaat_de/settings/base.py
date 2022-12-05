@@ -443,7 +443,10 @@ class FragDenStaatBase(German, Base):
         "filer.thumbnail_processors.scale_and_crop_with_subject_location",
         "easy_thumbnails.processors.filters",
     )
-    THUMBNAIL_PRESERVE_EXTENSIONS = ("png",)
+    THUMBNAIL_PRESERVE_EXTENSIONS = (
+        "png",
+        "svg",
+    )
 
     META_SITE_PROTOCOL = "http"
     META_USE_SITES = True
