@@ -41,6 +41,7 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         PaymentStatus.ERROR,
         PaymentStatus.REFUNDED,
         PaymentStatus.REJECTED,
+        PaymentStatus.CANCELED,
     ):
         obj.received = False
     elif instance.status in (PaymentStatus.PENDING, PaymentStatus.DEFERRED):
