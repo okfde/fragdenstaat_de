@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load form_helper i18n %}
+
+{% block title %}{% translate 'Legal Decision Create' %}{% endblock %}
+
+{% block body %}
+<div class="bg-gray-100">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><a href="{% url 'legal-decision-list' %}">{% translate 'Legal Decisions' %}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{% translate 'Add Legal Decisions' %}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row py-3">
+      <div class="col-8">
+        <h2 class="h5">{% translate 'Add Legal Decisions' %}</h2>
+        <form method="post" class="py-5">
+          {% csrf_token %}
+          {% for field in form %}
+          {% render_field field %}
+          {% endfor %}
+          <input class="btn btn-primary btn-sm float-end" type="submit" value="{% translate 'Submit' %}">
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

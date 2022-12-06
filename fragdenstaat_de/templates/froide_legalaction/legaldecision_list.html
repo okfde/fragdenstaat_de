@@ -7,6 +7,14 @@
 <div class="bg-gray-100 pt-5 pb-2">
   <div class="container">
     <div class="pb-4">
+      {% if perms.froide_legalaction.change_legaldecision %}
+      <a class="btn btn-primary float-end ms-2" href="{% url 'legal-decision-list-incomplete' %}">{% translate 'update incomplete decisions' %}</a>
+      {% endif %}
+
+      {% if perms.froide_legalaction.add_legaldecision %}
+      <a class="btn btn-primary float-end" href="{% url 'legal-decision-create' %}">{% translate 'Add decisions' %}</a>
+      {% endif %}
+
       <h1>{% translate 'Legal Decisions' %}</h1>
       <p>{% translate 'Decisions and judgements in the field of freedom of information' %}</p>
     </div>
@@ -68,18 +76,17 @@
         <ul class="list-group list-group-flush">
           {% for decision in result %}
           <li class="list-group-item bg-white shadow-gray p-3 mb-4">
+            {% if show_incomplete_fields %}
+              <div class="alert alert-danger" role="alert">
+                {% translate "Missing Information: " %}{{ decision.fields_incomplete }}
+              </div>
+            {% endif %}
             <ul class="list-unstyled d-flex fw-semibold font-size-sm mb-1">
               <li class="me-2">{{ decision.law_name }}</li>
             </ul>
             <h3 class="h5 mt-0 mb-1">
-              <a href="{% url 'legal-decision-detail' decision.id %}">
-                {% if decision.court_name and decision.date %}
-                  {% blocktranslate with type=decision.type court=decision.court_name date=decision.date %}
-                  {{ type }} of {{ court }} on {{ date }}
-                  {% endblocktranslate %}
-                {% else %}
-                {{ decision.court_name }}
-                {% endif%}
+              <a href="{% if show_incomplete_fields %}{% url 'legal-decision-incomplete-update' decision.id %}?ids={{ request.GET.ids }}{% else %}{% url 'legal-decision-detail' decision.id %}{% endif %}">
+                {{ decision.title }}
               </a>
             </h3>
             <p><small>{{ decision.reference }}</small></p>
