@@ -20,7 +20,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_fximport/helper.py:133
 msgid "NAME"
-msgstr ""
+msgstr "NAME"
 
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html:7
 msgid ""
@@ -77,27 +77,27 @@ msgstr "Empfänger"
 
 #: fragdenstaat_de/fds_mailing/admin.py:198
 msgid "Continue sending selected mailings."
-msgstr ""
+msgstr "Ausgewählte Mailings weiter versenden."
 
 #: fragdenstaat_de/fds_mailing/admin.py:201
 msgid "Continue sending mailing"
-msgstr ""
+msgstr "Mailing weiter versenden"
 
 #: fragdenstaat_de/fds_mailing/admin.py:232
 msgid "CSV imported as mailing."
-msgstr ""
+msgstr "CSV als Mailing importiert."
 
 #: fragdenstaat_de/fds_mailing/admin.py:247
 msgid "Mailing already sent."
-msgstr ""
+msgstr "Mailing schon versendet."
 
 #: fragdenstaat_de/fds_mailing/admin.py:251
 msgid "Mailing sending date in the past."
-msgstr ""
+msgstr "Sendedatum des Mailings ist in der Vergangenheit."
 
 #: fragdenstaat_de/fds_mailing/admin.py:268
 msgid "Your mailing is being sent."
-msgstr ""
+msgstr "Ihr Mailing wird versendet."
 
 #: fragdenstaat_de/fds_mailing/admin.py:326
 msgid "Setup mailing to users..."
@@ -105,23 +105,23 @@ msgstr "Lege Mailing für diese User an..."
 
 #: fragdenstaat_de/fds_mailing/admin.py:335
 msgid "You can only send to one user at a time."
-msgstr ""
+msgstr "Sie können mit dieser Aktion nur ein:e Nutzer:in adressieren."
 
 #: fragdenstaat_de/fds_mailing/admin.py:341
 msgid "Email was sent."
-msgstr ""
+msgstr "E-Mail wurde versendet."
 
 #: fragdenstaat_de/fds_mailing/admin.py:345
 msgid "Send email via template..."
-msgstr ""
+msgstr "Sende E-Mail mit Mailing-Template..."
 
 #: fragdenstaat_de/fds_mailing/admin.py:354
 msgid "Public Body Mailing"
-msgstr ""
+msgstr "Behörden-Mailing"
 
 #: fragdenstaat_de/fds_mailing/admin.py:365
 msgid "Mailing was set up."
-msgstr ""
+msgstr "Mailing wurde vorbereitet."
 
 #: fragdenstaat_de/fds_mailing/admin.py:369
 msgid "Setup mailing for public bodies..."
@@ -129,7 +129,7 @@ msgstr "Lege Mailing für diese Behörden an..."
 
 #: fragdenstaat_de/fds_mailing/apps.py:7
 msgid "FragDenStaat Mailings"
-msgstr ""
+msgstr "FragDenStaat-Mailings"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:43
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:68
@@ -139,82 +139,82 @@ msgstr ""
 #: fragdenstaat_de/fds_newsletter/forms.py:23
 #: fragdenstaat_de/settings/base.py:341
 msgid "Email"
-msgstr ""
+msgstr "E-Mail"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:44
 msgid "Email Body"
-msgstr ""
+msgstr "E-Mail-Text"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:69
 msgid "Email Action"
-msgstr ""
+msgstr "E-Mail-Aktion"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:117
 msgid "Email Section"
-msgstr ""
+msgstr "E-Mail-Abschnitt"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:142
 msgid "Email Story"
-msgstr ""
+msgstr "E-Mail-Story"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:167
 msgid "Email Header"
-msgstr ""
+msgstr "E-Mail-Einleitung"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:177
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py:13
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py:28
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py:46
 msgid "Newsletter"
-msgstr ""
+msgstr "Newsletter"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py:178
 msgid "Newsletter Archive"
-msgstr ""
+msgstr "Newsletter-Archiv"
 
 #: fragdenstaat_de/fds_mailing/models.py:31
 msgid "Default template"
-msgstr ""
+msgstr "Standard-Vorlage"
 
 #: fragdenstaat_de/fds_mailing/models.py:32
 msgid "Newsletter template"
-msgstr ""
+msgstr "Newsletter-Vorlage"
 
 #: fragdenstaat_de/fds_mailing/models.py:33
 msgid "Formal email template"
-msgstr ""
+msgstr "Formelle E-Mail-Vorlage"
 
 #: fragdenstaat_de/fds_mailing/models.py:57
 msgid "email template"
-msgstr ""
+msgstr "E-Mail-Vorlage"
 
 #: fragdenstaat_de/fds_mailing/models.py:58
 msgid "email templates"
-msgstr ""
+msgstr "E-Mail-Vorlagen"
 
 #: fragdenstaat_de/fds_mailing/models.py:267
 msgid "image"
-msgstr ""
+msgstr "Bild"
 
 #: fragdenstaat_de/fds_mailing/models.py:307
 msgid "publish"
-msgstr ""
+msgstr "veröffentlichen"
 
 #: fragdenstaat_de/fds_mailing/models.py:308
 msgid "Publish in archive."
-msgstr ""
+msgstr "In Archiv veröffentlichen."
 
 #: fragdenstaat_de/fds_mailing/models.py:314
 msgid "ready"
-msgstr ""
+msgstr "bereit"
 
 #: fragdenstaat_de/fds_mailing/models.py:317
 msgid "submitted"
-msgstr ""
+msgstr "eingereicht"
 
 #: fragdenstaat_de/fds_mailing/models.py:320
 msgid "sending date"
-msgstr ""
+msgstr "Versende-Datum"
 
 #: fragdenstaat_de/fds_mailing/models.py:323
 msgid "sent date"
