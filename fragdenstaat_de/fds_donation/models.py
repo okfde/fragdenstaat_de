@@ -121,7 +121,7 @@ class Donor(models.Model):
 
     def get_german_salutation(self):
         if self.company_name and (not self.first_name or not self.last_name):
-            return "Sehr geehrte Damen und Herren"
+            return "Guten Tag"
         return self.get_salutation()
 
     def get_complete_name(self):
