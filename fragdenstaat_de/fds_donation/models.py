@@ -18,7 +18,7 @@ from fragdenstaat_de.fds_newsletter.models import Subscriber
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
 
-from froide_payment.models import Order, Payment, Subscription
+from froide_payment.models import Order, Payment, PaymentStatus, Subscription
 
 INTERVAL_SETTINGS_CHOICES = [
     ("once", _("Only once")),
@@ -274,6 +274,18 @@ class DonationManager(models.Manager):
             .filter(
                 completed=True,
                 timestamp__gte=start_date,
+            )
+            .filter(
+                models.Q(payment__isnull=True)
+                | ~models.Q(
+                    payment__status__in=[
+                        PaymentStatus.REFUNDED,
+                        PaymentStatus.REJECTED,
+                        PaymentStatus.ERROR,
+                        PaymentStatus.CANCELED,
+                        PaymentStatus.DEFERRED,
+                    ]
+                )
             )
             .filter(
                 models.Q(received=True, method__in=["paypal", "creditcard"])
