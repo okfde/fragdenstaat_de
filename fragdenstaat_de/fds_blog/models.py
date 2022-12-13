@@ -492,7 +492,7 @@ class LatestArticlesPlugin(CMSPlugin):
 
     def __str__(self):
         if self.number_of_articles == 0:
-            return _("All articles")
+            return str(_("All articles"))
         return _("%s entries") % self.number_of_articles
 
     def get_articles(self, request, published_only=True):
