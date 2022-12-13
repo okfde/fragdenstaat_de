@@ -491,6 +491,8 @@ class LatestArticlesPlugin(CMSPlugin):
         self.categories.set(old_instance.categories.all())
 
     def __str__(self):
+        if self.number_of_articles == 0:
+            return _("All articles")
         return _("%s entries") % self.number_of_articles
 
     def get_articles(self, request, published_only=True):
@@ -528,6 +530,8 @@ class LatestArticlesPlugin(CMSPlugin):
             "authors",
             "tags",
         )
+        if self.number_of_articles == 0:
+            return articles[self.offset :]
         return articles[self.offset : self.offset + self.number_of_articles]
 
 
