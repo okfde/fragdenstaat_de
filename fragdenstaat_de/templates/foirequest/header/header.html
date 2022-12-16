@@ -12,14 +12,17 @@
 
 {% block aditional_actions %}
   {% can_use_klageautomat object as has_legal_action_option %}
+  {% url 'klageautomat-info' pk=object.pk as klageautomat_url %}
   {% if has_legal_action_option %}
-    <li>
-      Auf Ihre Anfrage wurde mehr als drei Monate nicht geantwortet.
-      &rarr;
-      <a href="{% url 'klageautomat-info' pk=object.pk %}">
-        Zum Klageautomat
-      </a>
-    </li>
+    {% blocktrans %}
+      <li>
+        Your request has not been answered within three months.
+        &rarr;
+        <a href="{{ klageautomat_url }}">
+          To the Klageautomat
+        </a>
+      </li>
+    {% endblocktrans %}
   {% endif %}
 {% endblock %}
 
