@@ -585,6 +585,8 @@ pyasn1-modules==0.2.8
     #   service-identity
 pycparser==2.20
     # via cffi
+pycryptodome==3.16.0
+    # via django-filingcabinet
 pygtail==0.14.0
     # via
     #   -r requirements.in
@@ -603,7 +605,7 @@ pyparsing==3.0.9
     # via
     #   httplib2
     #   packaging
-pypdf2==2.4.2
+pypdf2==2.12.1
     # via
     #   -r requirements.in
     #   django-filingcabinet
