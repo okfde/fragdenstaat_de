@@ -22,11 +22,8 @@ class LifespanApp:
     this uses ASGI 2.0 format, not the newer 3.0 single callable
     """
 
-    def __init__(self, scope):
-        self.scope = scope
-
-    async def __call__(self, receive, send):
-        if self.scope["type"] == "lifespan":
+    async def __call__(self, scope, receive, send):
+        if scope["type"] == "lifespan":
             while True:
                 message = await receive()
                 if message["type"] == "lifespan.startup":
