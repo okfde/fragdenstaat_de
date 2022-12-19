@@ -1,6 +1,6 @@
 -r requirements.in
 gunicorn
-python-memcached
+pymemcache
 channels_redis
 uvicorn
 sentry-sdk
