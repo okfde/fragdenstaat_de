@@ -68,7 +68,9 @@ admin.site.register(FolderPermission, PermissionAdmin)
 # Monkey patch Crowdfunding contribution admin to support sending mailings
 # to contributors
 class ContributionAdmin(SetupMailingMixin, crowdfunding_admin.ContributionAdmin):
-    actions = crowdfunding_admin.ContributionAdmin.actions + SetupMailingMixin.actions
+    actions = list(crowdfunding_admin.ContributionAdmin.actions) + list(
+        SetupMailingMixin.actions
+    )
 
     def setup_mailing_messages(self, mailing, queryset):
         queryset = queryset.filter(
