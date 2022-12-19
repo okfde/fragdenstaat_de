@@ -36,7 +36,7 @@ class LifespanApp:
 application = ProtocolTypeRouter(
     {
         "http": get_asgi_application(),
-        "lifespan": LifespanApp,
+        "lifespan": LifespanApp(),
         "websocket": AllowedHostsOriginValidator(
             AuthMiddlewareStack(URLRouter([path("ws/", URLRouter(websocket_urls))]))
         ),
