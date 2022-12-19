@@ -1,13 +1,12 @@
 celery>=5.2.2
-# Remove when pgpy is updated: https://github.com/SecurityInnovation/PGPy/issues/402
-cryptography>=37.0,<38
+cryptography
 pyopenssl>=22.0.0
 channels
 coreapi
 dj-database-url
 django-admin-sortable2
 django-cache-url
-django-celery-beat
+django-celery-beat>=2.4.0
 django-celery-email
 django-cms>=3.11
 django-configurations
@@ -22,17 +21,15 @@ django-json-widget
 django-leaflet
 django-logentry-admin
 django-mfa3
-django-oauth-toolkit
+django-oauth-toolkit<2.0.0
 django-parler
 django-sekizai>=2.0
 django-storages
 django-taggit
 django-treebeard
-Django>=4.0,<4.1
-# remove when release > 0.9.4
--e git+https://github.com/django-cms/djangocms-frontend.git@master#egg=djangocms-frontend
-# remove when release >= 3.1.0
--e git+https://github.com/django-cms/djangocms-link.git@master#egg=djangocms-link
+Django>=4.1,<4.2
+djangocms-frontend>=1.0.1
+djangocms-link>=3.1.0
 # Remove when no longer imported
 djangocms-bootstrap4>=3
 djangocms-icon
@@ -54,9 +51,10 @@ num2words
 numpy>=1.21
 openpyxl
 pandas
+pgpy>=0.6.0
 phonenumbers
 Pillow>=9.0.0
-psycopg2
+psycopg2-binary
 pygtail>=0.14.0
 pyisemail
 pypdf2
