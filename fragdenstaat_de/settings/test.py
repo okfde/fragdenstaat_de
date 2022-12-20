@@ -17,7 +17,12 @@ class Test(FragDenStaatBase):
     ]
 
     MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
-    CACHES = values.CacheURLValue("locmem://")
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "LOCATION": "unique-snowflake",
+        }
+    }
 
     TEST_SELENIUM_DRIVER = values.Value("chrome")
     ROOT_URLCONF = "tests.urls"
