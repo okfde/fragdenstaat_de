@@ -102,8 +102,11 @@ class FragDenStaat(FragDenStaatBase):
             "KEY_PREFIX": "fragdenstaat",
             "TIMEOUT": "3600",
             "OPTIONS": {
-                "tcp_nodelay": True,
+                "no_delay": True,
+                "ignore_exc": True,
                 "default_noreply": True,
+                "max_pool_size": 4,
+                "use_pooling": True,
             },
         }
     }
