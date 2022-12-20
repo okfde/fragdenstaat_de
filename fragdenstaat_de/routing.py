@@ -19,7 +19,6 @@ class LifespanApp:
     """
     temporary shim for https://github.com/django/channels/issues/1216
     needed so that hypercorn doesn't display an error.
-    this uses ASGI 2.0 format, not the newer 3.0 single callable
     """
 
     async def __call__(self, scope, receive, send):
