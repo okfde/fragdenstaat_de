@@ -54,7 +54,8 @@ pgpy>=0.6.0
 phonenumbers
 Pillow>=9.0.0
 psycopg2-binary
-pygtail>=0.14.0
+# pygtail>=0.14.0
+-e git+https://github.com/okfde/pygtail.git@3be17b00f55781caba62d589bcf8aceb0805a58c#egg=pygtail
 pyisemail
 pypdf2
 python-magic

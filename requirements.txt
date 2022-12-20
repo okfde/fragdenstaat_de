@@ -527,7 +527,7 @@ pycryptodome==3.16.0
     # via django-filingcabinet
 pydyf==0.5.0
     # via weasyprint
-pygtail==0.14.0
+-e git+https://github.com/okfde/pygtail.git@3be17b00f55781caba62d589bcf8aceb0805a58c#egg=pygtail
     # via
     #   -r requirements.in
     #   froide
