@@ -1,7 +1,6 @@
 import logging
 import os
 
-import django_cache_url
 import sentry_sdk
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -96,7 +95,18 @@ class FragDenStaat(FragDenStaatBase):
         "banktransfer": ("froide_payment.provider.BanktransferProvider", {}),
     }
 
-    CACHES = {"default": django_cache_url.config()}
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+            "LOCATION": env("MEMCACHED_LOCATION", "127.0.0.1:11211"),
+            "KEY_PREFIX": "fragdenstaat",
+            "TIMEOUT": "3600",
+            "OPTIONS": {
+                "tcp_nodelay": True,
+                "default_noreply": True,
+            },
+        }
+    }
 
     DATABASES = {
         "default": {

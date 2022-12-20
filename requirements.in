@@ -5,7 +5,6 @@ channels
 coreapi
 dj-database-url
 django-admin-sortable2
-django-cache-url
 django-celery-beat>=2.4.0
 django-celery-email
 django-cms>=3.11

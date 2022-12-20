@@ -62,7 +62,6 @@ setup(
         "django-crossdomainmedia",
         "django-storages",
         "dj-database-url",
-        "django-cache-url",
         "django-contrib-comments",
         "psycopg2",
         "sentry-sdk",
