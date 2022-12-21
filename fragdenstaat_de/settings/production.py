@@ -99,7 +99,7 @@ class FragDenStaat(FragDenStaatBase):
         "default": {
             "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
             "LOCATION": env("MEMCACHED_LOCATION", "127.0.0.1:11211"),
-            "KEY_PREFIX": "fragdenstaat",
+            "KEY_PREFIX": env("CACHE_KEY_PREFIX", "fragdenstaat"),
             "TIMEOUT": "3600",
             "OPTIONS": {
                 "no_delay": True,
