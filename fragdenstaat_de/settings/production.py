@@ -95,21 +95,32 @@ class FragDenStaat(FragDenStaatBase):
         "banktransfer": ("froide_payment.provider.BanktransferProvider", {}),
     }
 
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
-            "LOCATION": env("MEMCACHED_LOCATION", "127.0.0.1:11211"),
-            "KEY_PREFIX": env("CACHE_KEY_PREFIX", "fragdenstaat"),
-            "TIMEOUT": "3600",
-            "OPTIONS": {
-                "no_delay": True,
-                "ignore_exc": True,
-                "default_noreply": True,
-                "max_pool_size": 4,
-                "use_pooling": True,
-            },
+    CACHE_KEY_PREFIX = env("CACHE_KEY_PREFIX", "fragdenstaat")
+    CACHE_LOCAL_MEMORY = int(env("CACHE_LOCAL_MEMORY", "0"))
+    if CACHE_LOCAL_MEMORY:
+        CACHES = {
+            "default": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+                "KEY_PREFIX": CACHE_KEY_PREFIX,
+                "TIMEOUT": "3600",
+            }
         }
-    }
+    else:
+        CACHES = {
+            "default": {
+                "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+                "LOCATION": env("MEMCACHED_LOCATION", "127.0.0.1:11211"),
+                "KEY_PREFIX": CACHE_KEY_PREFIX,
+                "TIMEOUT": "3600",
+                "OPTIONS": {
+                    "no_delay": True,
+                    "ignore_exc": True,
+                    "default_noreply": True,
+                    "max_pool_size": 4,
+                    "use_pooling": True,
+                },
+            }
+        }
 
     DATABASES = {
         "default": {
