@@ -21,3 +21,10 @@ def cleanup_legal_backups_task():
     from .legal_backup import cleanup_legal_backups
 
     cleanup_legal_backups()
+
+
+@celery_app.task(name="fragdenstaat_de.theme.update_amenities")
+def update_amenities_task():
+    from .amenity_updater import update_osm_amenities
+
+    update_osm_amenities()
