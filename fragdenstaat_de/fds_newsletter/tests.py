@@ -131,7 +131,7 @@ class NewsletterSubscriberTest(TestCase):
         )
         self.assertIsNotNone(subscriber.subscribed)
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, "Welcome to our newsletter")
+        self.assertEqual(mail.outbox[0].subject, "Willkommen zu unserem Newsletter")
 
     def test_newsletter_subscription_logged_in_different_email(self):
         self.client.force_login(self.user)
