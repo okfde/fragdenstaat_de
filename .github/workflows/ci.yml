@@ -57,6 +57,8 @@ jobs:
           bash devsetup.sh frontend
       - name: Build frontend
         run: yarn run build
+      - name: Compile translations
+        run: python manage.py compilemessages
       - name: Run flake8 and tests
         run: make testci
         env:
