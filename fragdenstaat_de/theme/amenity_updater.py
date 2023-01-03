@@ -95,7 +95,7 @@ def update_osm_amenities():
 
         # Update amenities in database
         updater = AmenityUpdater(
-            output_filename,
+            os.path.join(tmpdirname, output_filename),
             timestamp=timestamp,
             topics=settings.AMENITY_TOPICS,
             delete_obsolete=False,
