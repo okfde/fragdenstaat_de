@@ -685,6 +685,7 @@ python-dateutil==2.8.2
     #   icalendar
     #   pandas
     #   python-crontab
+    #   time-machine
 python-docx==0.8.11
     # via htmldocx
 python-magic==0.4.27
@@ -788,6 +789,8 @@ tblib==1.7.0
     # via -r requirements-dev.in
 text-unidecode==1.3
     # via python-slugify
+time-machine==2.9.0
+    # via -r requirements-dev.in
 tinycss2==1.2.1
     # via
     #   cssselect2
