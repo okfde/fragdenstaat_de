@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_cms', '0052_auto_20220826_1418'),
+        ("fds_cms", "0052_auto_20220826_1418"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='cardiconcmsplugin',
-            name='overlap',
+            model_name="cardiconcmsplugin",
+            name="overlap",
         ),
     ]

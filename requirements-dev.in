@@ -13,9 +13,12 @@ pbr
 pre-commit
 pycodestyle
 pyflakes
-selenium
+pytest-django
+pytest-factoryboy
+pytest-playwright
 django-coverage-plugin
 tblib
+time-machine
 honcho
 ipdb
 ipython>=7.31.1

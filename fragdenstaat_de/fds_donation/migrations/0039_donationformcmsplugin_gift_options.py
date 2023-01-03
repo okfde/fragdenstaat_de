@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_donation', '0038_alter_donation_options_alter_donor_options_and_more'),
+        ("fds_donation", "0038_alter_donation_options_alter_donor_options_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='donationformcmsplugin',
-            name='gift_options',
-            field=models.ManyToManyField(blank=True, to='fds_donation.donationgift'),
+            model_name="donationformcmsplugin",
+            name="gift_options",
+            field=models.ManyToManyField(blank=True, to="fds_donation.donationgift"),
         ),
     ]

@@ -4,10 +4,11 @@ export PYTHONWARNINGS=ignore,default:::fragdenstaat_de
 
 test:
 	flake8 fragdenstaat_de
-	python manage.py test tests --keepdb
+	pytest --reuse-db
 
 testci:
-	python manage.py test tests --keepdb
+	coverage run --branch -m pytest --reuse-db
+	coverage report
 
 requirements: requirements.in requirements-dev.in requirements-production.in
 	pip-compile requirements.in

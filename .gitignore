@@ -16,3 +16,5 @@ data/
 *.map
 *hot-update.json
 *hot-update.js
+htmlcov/
+.coverage
