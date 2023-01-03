@@ -38,12 +38,13 @@ class MiscTests(CMSTestCase):
         )
 
         page.publish("en")
-
-        page_url = page.get_absolute_url()
+        page_url = "/en" + page.get_absolute_url()
         staff_user = self.get_staff_user_with_no_permissions()
 
         with self.login_user_context(staff_user):
             response = self.client.get(page_url)
+
+        self.assertEqual(response.status_code, 200)
 
         content = response.content.decode()
         model_content_start = content.index(MARKER_BEFORE) + len(MARKER_BEFORE)
