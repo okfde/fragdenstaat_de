@@ -209,6 +209,7 @@ django==4.1.4
     #   django-treebeard
     #   djangocms-frontend
     #   djangorestframework
+    #   drf-spectacular
     #   easy-thumbnails
     #   enmerkar
     #   froide
@@ -374,6 +375,7 @@ djangorestframework==3.14.0
     #   -r requirements.in
     #   django-filingcabinet
     #   djangorestframework-csv
+    #   drf-spectacular
     #   froide
     #   froide-campaign
     #   froide-exam
@@ -391,6 +393,8 @@ docopt==0.6.2
     # via num2words
 docutils==0.19
     # via sphinx
+drf-spectacular==0.25.1
+    # via froide
 easy-thumbnails[svg]==2.8.4
     # via
     #   django-filer
@@ -484,7 +488,9 @@ idna==3.4
 imagesize==1.4.1
     # via sphinx
 inflection==0.5.1
-    # via pytest-factoryboy
+    # via
+    #   drf-spectacular
+    #   pytest-factoryboy
 iniconfig==1.1.1
     # via pytest
 ipdb==0.13.11
@@ -507,6 +513,7 @@ jsonschema==4.17.3
     # via
     #   -r requirements.in
     #   django-filingcabinet
+    #   drf-spectacular
 jwcrypto==1.4.2
     # via django-oauth-toolkit
 kombu==5.2.4
@@ -713,7 +720,9 @@ pytz==2022.7
 pywatchman==1.4.1
     # via -r requirements-dev.in
 pyyaml==6.0
-    # via pre-commit
+    # via
+    #   drf-spectacular
+    #   pre-commit
 qrcode==7.3.1
     # via django-mfa3
 ratelim==0.1.6
@@ -783,7 +792,7 @@ stripe==5.0.0
     #   -r requirements.in
     #   django-payments
     #   froide-payment
-svglib==1.4.1
+svglib==1.5.0
     # via easy-thumbnails
 tblib==1.7.0
     # via -r requirements-dev.in
@@ -829,7 +838,9 @@ unidecode==1.1.2
     #   -r requirements.in
     #   django-filer
 uritemplate==4.1.1
-    # via coreapi
+    # via
+    #   coreapi
+    #   drf-spectacular
 urllib3==1.26.13
     # via
     #   elasticsearch
