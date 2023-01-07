@@ -792,7 +792,7 @@ stripe==5.0.0
     #   -r requirements.in
     #   django-payments
     #   froide-payment
-svglib==1.5.0
+svglib==1.5.1
     # via easy-thumbnails
 tblib==1.7.0
     # via -r requirements-dev.in
