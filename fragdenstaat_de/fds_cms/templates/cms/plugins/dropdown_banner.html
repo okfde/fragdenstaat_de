@@ -3,7 +3,7 @@
 {% load i18n %}
 
 <div class="position-relative"{% if instance.animation %} data-slide{% endif %}>
-  <button type="button" class="close banner-close btn-close position-absolute top-0 end-0 me-3 mt-3{% if instance.dark %} btn-close-white{% endif %}" aria-label="{% trans 'Close' %}">
+  <button type="button" {% if instance.dark %}data-bs-theme="dark" {% endif %}class="close banner-close btn-close position-absolute top-0 end-0 me-3 mt-3" aria-label="{% trans 'Close' %}">
   </button>
   
   {% for plugin in instance.child_plugin_instances %}
