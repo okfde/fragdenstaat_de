@@ -49,7 +49,13 @@ revealElemets.forEach((element) => {
 
   button?.addEventListener('click', () => {
     button.setAttribute('aria-expanded', 'true')
-    inner.addEventListener('transitionend', () => destroy(), { once: true })
+    inner.addEventListener(
+      'transitionend',
+      () => {
+        destroy()
+      },
+      { once: true }
+    )
     element.classList.add('transitioning')
   })
 })

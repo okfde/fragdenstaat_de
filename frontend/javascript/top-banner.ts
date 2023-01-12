@@ -4,14 +4,17 @@ interface IDonationBannerStore {
   timestamp: number
 }
 
-function showTopBanner(): void {
+function showTopBanner(): boolean {
   const topBanner = document.querySelector<HTMLElement>('.top-banner')
-  if (topBanner === null) return
+  if (topBanner === null) return false
 
   const hasAnimation =
     topBanner.firstElementChild?.hasAttribute('data-slide') === true
 
-  const removeBanner = (): void => topBanner.remove()
+  const removeBanner = (): boolean => {
+    topBanner.remove()
+    return false
+  }
 
   const itemName = 'top-banner'
   const now = new Date().getTime()
@@ -83,7 +86,9 @@ function showTopBanner(): void {
   // close buttons
   const closeButtons = topBanner.querySelectorAll('.banner-close')
   closeButtons.forEach((closeButton) => {
-    closeButton.addEventListener('click', (e) => hideBanner(topBanner, e))
+    closeButton.addEventListener('click', (e) => {
+      hideBanner(topBanner, e)
+    })
   })
 
   // show banner
@@ -93,6 +98,7 @@ function showTopBanner(): void {
   setTimeout(() => {
     window._paq?.push(['trackEvent', 'ads', 'topBanner', 'shown'])
   }, 3000)
+  return true
 }
 
 document.addEventListener('DOMContentLoaded', showTopBanner)
