@@ -6,6 +6,7 @@ import 'froide/frontend/javascript/snippets/form-ajax.ts'
 import 'froide/frontend/javascript/snippets/misc.ts'
 import 'froide/frontend/javascript/snippets/search.ts'
 import 'froide/frontend/javascript/snippets/inline-edit-forms.ts'
+import 'froide/frontend/javascript/snippets/color-mode.ts'
 
 import './donation-form.ts'
 import './drawer-menu.ts'
