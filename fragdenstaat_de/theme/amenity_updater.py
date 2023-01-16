@@ -29,7 +29,7 @@ def get_osmosis_arguments(input_filename, output_filename):
             input_filename,
             "--log-progress",
             "--node-key-value",
-            f'keyValueList="{joined_tags}"',
+            f'keyValueList="{joined_tags!r}"',
             "--sort",
         ]
 
