@@ -530,6 +530,9 @@ class FragDenStaatBase(German, Base):
     ]
     DONATION_ARCHIVE_INBOX = "spendenbescheinigungen@okfn.de"
 
+    FDS_LEGAL_BACKUP_URL = env("FDS_LEGAL_BACKUP_URL")
+    FDS_LEGAL_BACKUP_CREDENTIALS = env("FDS_LEGAL_BACKUP_CREDENTIALS")
+
     EMAIL_BACKEND = "fragdenstaat_de.theme.email_backend.CustomCeleryEmailBackend"
     CELERY_EMAIL_BACKEND = "froide.foirequest.smtp.EmailBackend"
     CELERY_EMAIL_TASK_CONFIG = {

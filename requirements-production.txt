@@ -83,8 +83,6 @@ bleach==5.0.1
     # via django-legal-advice-builder
 brotli==1.0.9
     # via fonttools
-cachetools==5.2.0
-    # via google-auth
 celery==5.2.7
     # via
     #   -r requirements.in
@@ -421,21 +419,6 @@ geopy==2.3.0
     # via
     #   django-amenities
     #   froide-food
-google-api-core==2.11.0
-    # via google-api-python-client
-google-api-python-client==2.70.0
-    # via -r requirements-production.in
-google-auth==2.15.0
-    # via
-    #   google-api-core
-    #   google-api-python-client
-    #   google-auth-httplib2
-google-auth-httplib2==0.1.0
-    # via
-    #   -r requirements-production.in
-    #   google-api-python-client
-googleapis-common-protos==1.57.0
-    # via google-api-core
 gunicorn==20.1.0
     # via -r requirements-production.in
 h11==0.14.0
@@ -448,10 +431,6 @@ html5lib==1.1
     #   weasyprint
 htmldocx==0.0.6
     # via django-legal-advice-builder
-httplib2==0.21.0
-    # via
-    #   google-api-python-client
-    #   google-auth-httplib2
 icalendar==5.0.3
     # via
     #   -r requirements.in
@@ -548,19 +527,10 @@ prices==1.1.1
     #   froide-payment
 prompt-toolkit==3.0.36
     # via click-repl
-protobuf==4.21.12
-    # via
-    #   google-api-core
-    #   googleapis-common-protos
 psycopg2-binary==2.9.5
     # via -r requirements.in
 pyasn1==0.4.8
-    # via
-    #   pgpy
-    #   pyasn1-modules
-    #   rsa
-pyasn1-modules==0.2.8
-    # via google-auth
+    # via pgpy
 pycparser==2.21
     # via cffi
 pycryptodome==3.16.0
@@ -577,8 +547,6 @@ pyopenssl==22.1.0
     # via -r requirements.in
 pyotp==2.8.0
     # via django-mfa3
-pyparsing==3.0.9
-    # via httplib2
 pypdf2==2.12.1
     # via
     #   -r requirements.in
@@ -646,11 +614,8 @@ requests==2.28.1
     #   froide-payment
     #   geocoder
     #   geoip2
-    #   google-api-core
     #   stripe
     #   torchvision
-rsa==4.9
-    # via google-auth
 sentry-sdk==1.12.1
     # via
     #   -r requirements-production.in
@@ -663,8 +628,6 @@ six==1.16.0
     #   djangorestframework-csv
     #   elasticsearch-dsl
     #   geocoder
-    #   google-auth
-    #   google-auth-httplib2
     #   html5lib
     #   python-dateutil
 soupsieve==2.3.2.post1
@@ -708,7 +671,6 @@ uritemplate==4.1.1
     # via
     #   coreapi
     #   drf-spectacular
-    #   google-api-python-client
 urllib3==1.26.13
     # via
     #   elasticsearch
@@ -749,6 +711,8 @@ xlrd==2.0.1
     # via -r requirements.in
 yarl==1.8.2
     # via aiohttp
+zipstream==1.1.4
+    # via django-filingcabinet
 zopfli==0.2.2
     # via fonttools
 
