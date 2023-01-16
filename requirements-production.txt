@@ -88,8 +88,6 @@ bleach==6.0.0
     #   froide-govplan
 brotli==1.0.9
     # via fonttools
-cachetools==5.3.0
-    # via google-auth
 celery==5.2.7
     # via
     #   -r requirements.in
@@ -449,21 +447,7 @@ geopy==2.3.0
     # via
     #   django-amenities
     #   froide-food
-google-api-core==2.11.0
-    # via google-api-python-client
-google-api-python-client==2.86.0
-    # via -r requirements-production.in
-google-auth==2.18.1
-    # via
-    #   google-api-core
-    #   google-api-python-client
-    #   google-auth-httplib2
-google-auth-httplib2==0.1.0
-    # via
-    #   -r requirements-production.in
-    #   google-api-python-client
-googleapis-common-protos==1.59.0
-    # via google-api-core
+
 gunicorn==20.1.0
     # via -r requirements-production.in
 h11==0.14.0
@@ -476,10 +460,6 @@ html5lib==1.1
     #   weasyprint
 htmldocx==0.0.6
     # via django-legal-advice-builder
-httplib2==0.22.0
-    # via
-    #   google-api-python-client
-    #   google-auth-httplib2
 icalendar==5.0.5
     # via
     #   -r requirements.in
@@ -586,10 +566,6 @@ prices==1.1.1
     #   froide-payment
 prompt-toolkit==3.0.38
     # via click-repl
-protobuf==4.23.1
-    # via
-    #   google-api-core
-    #   googleapis-common-protos
 psycopg[binary]==3.1.9
     # via
     #   -r requirements.in
@@ -621,8 +597,6 @@ pyopenssl==23.2.0
     # via -r requirements.in
 pyotp==2.8.0
     # via django-mfa3
-pyparsing==3.0.9
-    # via httplib2
 pypdf==3.14.0
     # via
     #   -r requirements.in
@@ -693,13 +667,10 @@ requests==2.31.0
     #   froide-payment
     #   geocoder
     #   geoip2
-    #   google-api-core
     #   stripe
     #   torchvision
 rlpycairo==0.2.0
     # via reportlab
-rsa==4.9
-    # via google-auth
 sentry-sdk==1.24.0
     # via
     #   -r requirements-production.in
@@ -711,8 +682,6 @@ six==1.16.0
     #   django-elasticsearch-dsl
     #   djangorestframework-csv
     #   geocoder
-    #   google-auth
-    #   google-auth-httplib2
     #   html5lib
     #   python-dateutil
 soupsieve==2.4.1
@@ -762,8 +731,7 @@ uritemplate==4.1.1
     # via
     #   coreapi
     #   drf-spectacular
-    #   google-api-python-client
-urllib3==1.26.16
+urllib3==1.26.13
     # via
     #   elastic-transport
     #   google-auth
