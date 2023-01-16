@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
-import autoprefixer from 'autoprefixer'
 import devManifest from 'vite-plugin-dev-manifest'
+import autoprefixer from 'autoprefixer'
 import vue from '@vitejs/plugin-vue2'
 
 const outputDir = resolve(__dirname, 'build')
