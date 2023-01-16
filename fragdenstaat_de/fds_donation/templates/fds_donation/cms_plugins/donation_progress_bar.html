@@ -3,11 +3,11 @@
 
 {% with amount_str=amount|intcomma donation_goal_str=donation_goal|intcomma reached_goal_str=reached_goal|intcomma %}
 <div>
-    <div class="progress" style="height: 25px; {% if amount > donation_goal %}background-color: #ffa5a5 {% endif %}" role="progressbar" aria-valuenow="{{ reached_goal_perc }}" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress" style="height: 25px; {% if amount > donation_goal %}background-color: #ffa5a5 {% endif %}">
         {% if reached_goal %}
-            <div class="progress-bar progress-bar-striped" style="width: {{ reached_goal_perc }}%;">{{ reached_goal_str }}</div>
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ reached_goal_perc }}%;" aria-valuenow="{{ reached_goal_perc }}" aria-valuemin="0" aria-valuemax="100">{{ reached_goal_str }}</div>
         {% endif %}
-        <div class="progress-bar" title="{% translate 'Donation progress' %}" style="width: {{ percentage }}%;" role="progressbar" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100">{% if amount > donation_goal and not reached_goal %}{{ donation_goal_str }}{% endif %}</div>
+        <div class="progress-bar" role="progressbar" title="{% translate 'Donation progress' %}" style="width: {{ percentage }}%;" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100">{% if amount > donation_goal and not reached_goal %}{{ donation_goal_str }}{% endif %}</div>
     </div>
     <div class="text-end">
         <small {% if not white_text %}class="text-muted"{% else %}class="text-white"{% endif %}>
