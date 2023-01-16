@@ -91,7 +91,7 @@ def remove_old_donations():
 
 
 @celery_app.task(name="fragdenstaat_de.fds_donation.send_jzwb")
-def send_jzwb_mailing_task(donor_id, year):
+def send_jzwb_mailing_task(donor_id, year, set_receipt_date=True, store_backup=True):
     from .export import send_jzwb_mailing
     from .models import Donor
 
@@ -102,4 +102,21 @@ def send_jzwb_mailing_task(donor_id, year):
     except Donor.DoesNotExist:
         return
 
-    send_jzwb_mailing(donor, year)
+    send_jzwb_mailing(
+        donor, year, set_receipt_date=set_receipt_date, store_backup=store_backup
+    )
+
+
+@celery_app.task(name="fragdenstaat_de.fds_donation.backup_jzwb_pdf")
+def backup_jzwb_pdf_task(donor_id, year, ignore_receipt_date=None):
+    from .export import backup_jzwb
+    from .models import Donor
+
+    try:
+        donor = Donor.objects.get(
+            id=donor_id,
+        )
+    except Donor.DoesNotExist:
+        return
+
+    backup_jzwb(donor, year, ignore_receipt_date=ignore_receipt_date)

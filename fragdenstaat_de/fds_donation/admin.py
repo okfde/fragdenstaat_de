@@ -10,13 +10,12 @@ from django.contrib.admin.views.main import ChangeList
 from django.core.exceptions import PermissionDenied
 from django.db.models import Aggregate, Avg, Count, F, Max, Q, Sum, Value
 from django.db.models.functions import Concat
-from django.http import HttpResponse, JsonResponse, StreamingHttpResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.urls import path, reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.html import format_html
-from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from adminsortable2.admin import SortableAdminMixin
@@ -36,6 +35,7 @@ from froide.helper.admin_utils import (
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 from froide.helper.widgets import TagAutocompleteWidget
 
+from .export import JZWBExportForm
 from .models import (
     DONATION_PROJECTS,
     DefaultDonation,
@@ -201,13 +201,9 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "merge_donors",
         "detect_duplicates",
         "clear_duplicates",
-        "export_zwbs",
-        "get_zwb_pdf",
-        "get_zwb_pdf_current_year",
-        "get_encrypted_zwb_pdf",
+        "export_jzwb",
         "tag_all",
         "send_mailing",
-        "send_jzwb_mailing",
         "update_newsletter_tag",
         "export_donor_csv",
     ] + SetupMailingMixin.actions
@@ -401,101 +397,47 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
     merge_donors.short_description = _("Merge donors")
 
-    def get_zwb_pdf(self, request, queryset, pdf_class=None, year=None):
-        from .export import ZWBPDFGenerator, generate_pdf_zip_package
+    @admin.action(
+        description=_("Export JZWB..."),
+    )
+    def export_jzwb(self, request, queryset):
+        # Check that the user has change permission for the actual model
+        if not self.has_change_permission(request):
+            raise PermissionDenied
 
-        if pdf_class is None:
-            pdf_class = ZWBPDFGenerator
-        if year is None:
-            year = timezone.now().year - 1
+        form = JZWBExportForm(request.POST or None)
+        if request.POST.get("year"):
+            form = JZWBExportForm(request.POST)
+            if form.is_valid():
+                response = form.make_response(queryset)
+                if response is None:
+                    count = queryset.count()
+                    self.message_user(
+                        request,
+                        _("Sending JZWB email to {} donors.").format(count),
+                        level=messages.INFO,
+                    )
+                    return
+                return response
+        else:
+            form = JZWBExportForm()
 
-        if queryset.count() == 1:
-            donor = queryset[0]
-            pdf_generator = pdf_class(donor, year=year)
-            response = HttpResponse(
-                pdf_generator.get_pdf_bytes(), content_type="application/pdf"
-            )
-            filename = "%s_%s.pdf" % (slugify(donor.get_order_name()), donor.id)
-            response["Content-Disposition"] = 'attachment; filename="%s"' % filename
-            return response
+        opts = self.model._meta
+        select_across = request.POST.get("select_across", "0") == "1"
+        context = {
+            "opts": opts,
+            "queryset": queryset,
+            "media": self.media,
+            "action_checkbox_name": admin.helpers.ACTION_CHECKBOX_NAME,
+            "form": form,
+            "select_across": select_across,
+            "actionname": request.POST.get("action"),
+            "applabel": opts.app_label,
+        }
 
-        generator = generate_pdf_zip_package(
-            queryset.iterator(), year=year, pdf_class=pdf_class
+        return TemplateResponse(
+            request, "admin/fds_donation/donor/export_jzwb.html", context
         )
-        response = StreamingHttpResponse(generator, content_type="application/zip")
-        response["Content-Disposition"] = 'attachment; filename="jzwbs_%d.zip"' % year
-        return response
-
-    get_zwb_pdf.short_description = _("Generate ZWB PDFs")
-
-    def get_zwb_pdf_current_year(self, request, queryset, pdf_class=None):
-        year = timezone.now().year
-        return self.get_zwb_pdf(request, queryset, year=year)
-
-    get_zwb_pdf_current_year.short_description = _("Generate ZWB PDFs for current year")
-
-    def get_encrypted_zwb_pdf(self, request, queryset):
-        from .export import PostcodeEncryptedZWBPDFGenerator
-
-        queryset = queryset.exclude(postcode="")
-        return self.get_zwb_pdf(
-            request, queryset, pdf_class=PostcodeEncryptedZWBPDFGenerator
-        )
-
-    get_encrypted_zwb_pdf.short_description = _("Generate encrypted ZWB PDFs")
-
-    def send_jzwb_mailing(self, request, queryset):
-        from .tasks import send_jzwb_mailing_task
-
-        last_year = timezone.now().year - 1
-        queryset = (
-            queryset.exclude(postcode="")
-            .exclude(email="")
-            .exclude(email_confirmed__isnull=True)
-        )
-        count = queryset.count()
-
-        for donor in queryset:
-            send_jzwb_mailing_task.delay(donor.id, last_year)
-        self.message_user(
-            request,
-            _("Sending JZWB email to {} donors.").format(count),
-            level=messages.INFO,
-        )
-
-    send_jzwb_mailing.short_description = _("Send JZWB for last year to selected now")
-
-    def export_zwbs(self, request, queryset):
-        from .export import get_zwbs
-
-        # Filter by ZWB criteria
-        # Only valid records
-        queryset = queryset.filter(invalid=False)
-
-        # Last year received donations that have not yet been ZWBed
-        last_year = timezone.now().year - 1
-        donations_filter = Q(
-            donations__received=True,
-            donations__receipt_date__isnull=True,
-            donations__received_timestamp__year=last_year,
-        )
-
-        queryset = queryset.annotate(
-            amount_last_year=Sum("donations__amount", filter=donations_filter)
-        )
-
-        # Only (with receipt AND > 25) OR (> 50)
-        queryset = queryset.filter(
-            Q(receipt=True, amount_last_year__gte=25) | Q(amount_last_year__gte=50)
-        )
-
-        queryset = queryset.order_by("last_name", "first_name")
-
-        return export_csv_response(
-            dict_to_csv_stream(get_zwbs(queryset, year=last_year))
-        )
-
-    export_zwbs.short_description = _("Export ZWB mail merge data")
 
     def setup_mailing_messages(self, mailing, queryset):
         queryset = queryset.exclude(email="")
