@@ -216,7 +216,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request).select_related("subscriber")
-        donations_filter = Q(donations__received=True)
+        donations_filter = Q(donations__received_timestamp__isnull=False)
 
         donation_projects = request.GET.get(DonorProjectFilter.parameter_name)
         any_donation = {}
@@ -542,7 +542,7 @@ class DonationAdmin(admin.ModelAdmin):
         "timestamp",
         "amount",
         "completed",
-        "received",
+        "received_timestamp",
         "get_number",
         "recurring",
         "project",
@@ -553,7 +553,7 @@ class DonationAdmin(admin.ModelAdmin):
     )
     list_filter = (
         "completed",
-        "received",
+        make_nullfilter("received_timestamp", _("Received")),
         make_daterangefilter("received_timestamp", _("Received timestamp")),
         "method",
         "project",
@@ -650,7 +650,6 @@ class DonationAdmin(admin.ModelAdmin):
                     "timestamp": to_local(donation.timestamp),
                     "amount": donation.amount,
                     "amount_received": donation.amount_received,
-                    "received": donation.received,
                     "received_timestamp": to_local(donation.received_timestamp),
                     "method": donation.method,
                     "purpose": donation.purpose,
@@ -689,8 +688,10 @@ class DonationAdmin(admin.ModelAdmin):
         fail = False
         if count != 2:
             fail = True
-        pending, received = queryset.order_by("received")
-        if pending.received or not received.received:
+        pending, received = queryset
+        if received.received_timestamp is None:
+            pending, received = received, pending
+        if pending.received_timestamp or not received.received_timestamp:
             fail = True
         if pending.donor != received.donor:
             fail = True
@@ -711,7 +712,6 @@ class DonationAdmin(admin.ModelAdmin):
             )
             return
 
-        pending.received = True
         pending.amount_received = received.amount_received
         pending.amount = pending.amount_received
         pending.received_timestamp = received.received_timestamp

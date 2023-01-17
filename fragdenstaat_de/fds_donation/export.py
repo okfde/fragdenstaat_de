@@ -129,7 +129,6 @@ class JZWBExportForm(forms.Form):
         # Received donations in given year that have not yet been ZWBed
         # year = self.cleaned_data["year"]
         # donations_filter = Q(
-        #     donations__received=True,
         #     donations__amount_received__gt=0,
         #     donations__receipt_date__isnull=True,
         #     donations__received_timestamp__year=year,
@@ -272,7 +271,7 @@ def format_date(date):
 def get_donations(donor, year):
     return (
         donor.donations.all()
-        .filter(received=True, received_timestamp__year=year)
+        .filter(received_timestamp__year=year)
         .order_by("received_timestamp")
     )
 

@@ -428,7 +428,7 @@ def detect_recurring_monthly_amount(donor):
     subs = donor.subscriptions.filter(canceled=None)
     if subs:
         return sum([s.plan.amount_year for s in subs]) / 12
-    donations = donor.donations.filter(received=True)
+    donations = donor.donations.filter(received_timestamp__isnull=False)
     donation_count = donations.count()
     if donation_count < 2:
         return Decimal(0)
@@ -464,7 +464,7 @@ def detect_recurring_monthly_amount(donor):
 
 
 def send_donation_reminder_email(donation):
-    if donation.received:
+    if donation.received_timestamp:
         return
     if donation.method != "banktransfer":
         return

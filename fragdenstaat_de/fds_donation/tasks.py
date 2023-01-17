@@ -47,7 +47,7 @@ def remind_unreceived_banktransfers():
 
     donations = Donation.objects.filter(
         completed=True,
-        received=False,
+        received_timestamp__isnull=True,
         method="banktransfer",
         timestamp__gte=start_date,
         timestamp__lt=end_date,
@@ -58,7 +58,7 @@ def remind_unreceived_banktransfers():
         donation_from_donor_exists = (
             Donation.objects.filter(
                 completed=True,
-                received=True,
+                received_timestamp__isnull=False,
                 donor_id=donation.donor_id,
                 timestamp__gte=start_date,
             )
@@ -84,7 +84,9 @@ def remove_old_donations():
     # Remove donations that are unreceived and older than 12 months
     UNRECEIVED_AGE = relativedelta(months=12)
     unreceived_last = today - UNRECEIVED_AGE
-    Donation.objects.filter(received=False, timestamp__lt=unreceived_last).delete()
+    Donation.objects.filter(
+        received_timestamp__isnull=True, timestamp__lt=unreceived_last
+    ).delete()
 
     # Remove donors without donations
     Donor.objects.filter(donations=None).delete()

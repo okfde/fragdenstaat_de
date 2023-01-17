@@ -32,26 +32,27 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
 
     if instance.status == PaymentStatus.CONFIRMED:
         obj.completed = True
-        obj.received = True
         if instance.received_amount:
             obj.amount_reveived = instance.received_amount
         if instance.received_timestamp:
             obj.received_timestamp = instance.received_timestamp
+        else:
+            obj.received_timestamp = timezone.now()
     elif instance.status in (
         PaymentStatus.ERROR,
         PaymentStatus.REFUNDED,
         PaymentStatus.REJECTED,
         PaymentStatus.CANCELED,
     ):
-        obj.received = False
+        obj.received_timestamp = None
     elif instance.status in (PaymentStatus.PENDING, PaymentStatus.DEFERRED):
         obj.completed = True
-        obj.received = False
+        obj.received_timestamp = None
     elif instance.status in (PaymentStatus.INPUT, PaymentStatus.WAITING):
         obj.completed = False
-        obj.received = False
+        obj.received_timestamp = None
 
-    if obj.donor and obj.received and not obj.donor.active:
+    if obj.donor and obj.received_timestamp and not obj.donor.active:
         obj.donor.active = True
         obj.donor.save()
     obj.save()
