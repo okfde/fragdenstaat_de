@@ -203,6 +203,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "clear_duplicates",
         "export_jzwb",
         "tag_all",
+        "mark_invalid_addresses",
         "send_mailing",
         "update_newsletter_tag",
         "export_donor_csv",
@@ -335,6 +336,16 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         )
 
     detect_duplicates.short_description = _("Detect duplicate donors")
+
+    @admin.action(description=_("Mark invalid addresses"))
+    def mark_invalid_addresses(self, request, queryset):
+        queryset.filter(
+            Q(postcode="")
+            | Q(address="")
+            | Q(city="")
+            | Q(last_name="")
+            | ~(Q(postcode__regex=r"^\d{5}$") | ~Q(country="DE"))
+        ).update(invalid=True)
 
     def merge_donors(self, request, queryset):
         """
