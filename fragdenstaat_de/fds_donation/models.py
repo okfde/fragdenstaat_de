@@ -194,7 +194,7 @@ class Donor(models.Model):
 
     @cached_property
     def last_donation(self):
-        return self.donations.filter(received=True).aggregate(
+        return self.donations.filter(received_timestamp__isnull=False).aggregate(
             last_donation=models.Max("timestamp")
         )["last_donation"]
 
@@ -230,7 +230,9 @@ class Donor(models.Model):
             context["donor_url"] = self.get_url()
 
         last_year = timezone.now().year - 1
-        donations = Donation.objects.filter(donor=self, received=True)
+        donations = Donation.objects.filter(
+            donor=self, received_timestamp__isnull=False
+        )
         aggregate = donations.aggregate(
             amount_total=models.Sum("amount"),
             amount_last_year=models.Sum(
@@ -288,14 +290,17 @@ class DonationManager(models.Manager):
                 )
             )
             .filter(
-                models.Q(received=True, method__in=["paypal", "creditcard"])
+                models.Q(
+                    received_timestamp__isnull=False,
+                    method__in=["paypal", "creditcard"],
+                )
                 | models.Q(
                     method__in=["sepa", "sofort"], timestamp__gte=today - SEPA_TIME
                 )
                 | models.Q(
                     method__in=["sepa", "sofort"],
                     timestamp__lt=today - SEPA_TIME,
-                    received=True,
+                    received_timestamp__isnull=False,
                 )
                 | models.Q(
                     method__in=["banktransfer"],
@@ -304,7 +309,7 @@ class DonationManager(models.Manager):
                 | models.Q(
                     method__in=["banktransfer"],
                     timestamp__lt=today - BANKTRANSFER_TIME,
-                    received=True,
+                    received_timestamp__isnull=False,
                 )
             )
         )
@@ -326,7 +331,6 @@ class Donation(models.Model):
     amount_received = models.DecimalField(
         max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
     )
-    received = models.BooleanField(default=False)
     received_timestamp = models.DateTimeField(blank=True, null=True)
     email_sent = models.DateTimeField(null=True, blank=True)
     number = models.IntegerField(default=0)

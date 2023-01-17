@@ -36,7 +36,7 @@ def test_donation_page(page, live_server, django_db_setup):
     )[0]
     assert donation.amount == 20
     assert donation.completed is True
-    assert donation.received is False
+    assert donation.received_timestamp is None
 
     assert len(mail.outbox) == 1
     mail_message = mail.outbox[0]

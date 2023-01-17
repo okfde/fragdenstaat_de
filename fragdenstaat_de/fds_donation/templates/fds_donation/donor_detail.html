@@ -64,7 +64,7 @@
             <a href="{{ donation.order.get_absolute_url }}">Details</a>
           {% endif %}
         {% else %}
-          {% if donation.received %}
+          {% if donation.received_timestamp %}
             Bestätigt
           {% endif %}
         {% endif %}

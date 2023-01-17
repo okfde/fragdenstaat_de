@@ -24,7 +24,10 @@ def donor_type_counts(context):
     inactive_filter = Q(last_donation__lt=now - SLEEPING_TIME)
 
     aggs = Donor.objects.annotate(
-        last_donation=Max("donations__timestamp", filter=Q(donations__received=True))
+        last_donation=Max(
+            "donations__timestamp",
+            filter=Q(donations__received_timestamp__isnull=False),
+        )
     ).aggregate(
         active_count=Count("id", filter=active_filter),
         sleeping_count=Count("id", filter=sleeping_filter),

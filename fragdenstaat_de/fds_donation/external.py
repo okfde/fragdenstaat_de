@@ -86,7 +86,6 @@ def import_banktransfer(transfer_ident, row, project):
         donation = Donation(
             donor=donor,
             completed=True,
-            received=True,
         )
         is_new = True
     else:
@@ -103,7 +102,6 @@ def import_banktransfer(transfer_ident, row, project):
         else:
             donation.timestamp = row["date_received"]
     donation.method = "banktransfer"
-    donation.received = True
     donation.completed = True
     donation.save()
 
@@ -296,7 +294,6 @@ def import_paypal_row(row):
         donor=donor,
         identifier=row["sale_id"],
         completed=True,
-        received=True,
         received_timestamp=row["date"],
         timestamp=row["date"],
         method="paypal",
