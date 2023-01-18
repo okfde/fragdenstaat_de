@@ -568,6 +568,8 @@ class DonationAdmin(admin.ModelAdmin):
         make_nullfilter("export_date", _("Receipt exported")),
         make_nullfilter("receipt_date", _("Receipt sent")),
         ("donor", ForeignKeyFilter),
+        make_nullfilter("payment", _("Has payment record")),
+        "payment__status",
     )
     date_hierarchy = "timestamp"
     raw_id_fields = ("donor", "order", "payment")
