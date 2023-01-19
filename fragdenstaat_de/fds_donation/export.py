@@ -1,6 +1,9 @@
 import base64
 import zipfile
+from datetime import datetime
+from decimal import Decimal
 from io import BytesIO
+from typing import Optional
 
 from django import forms
 from django.http import HttpResponse, StreamingHttpResponse
@@ -19,6 +22,8 @@ from num2words import num2words
 from froide.foirequest.pdf_generator import PDFGenerator
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 from froide.helper.email_sending import mail_registry
+
+from .models import Donor
 
 MAX_DONATIONS_PER_PAGE = 26
 
@@ -141,7 +146,7 @@ class JZWBExportForm(forms.Form):
         queryset = queryset.order_by("last_name", "first_name")
         return queryset
 
-    def get_pdf(self, queryset, year, pdf_class=None):
+    def get_pdf(self, queryset, year: int, pdf_class=None):
         if pdf_class is None:
             pdf_class = ZWBPDFGenerator
 
@@ -154,7 +159,13 @@ class JZWBExportForm(forms.Form):
             queryset.iterator(), year=year, pdf_class=pdf_class
         )
 
-    def send_mailing(self, queryset, year, set_receipt_date=True, store_backup=True):
+    def send_mailing(
+        self,
+        queryset,
+        year: int,
+        set_receipt_date: bool = True,
+        store_backup: bool = True,
+    ):
 
         queryset = (
             queryset.exclude(postcode="")
@@ -176,22 +187,22 @@ jzwb_mail = mail_registry.register(
 )
 
 
-def format_number(num):
+def format_number(num: Decimal) -> str:
     return ("%.2f €" % num).replace(".", ",")
 
 
-def format_number_no_currency(num):
+def format_number_no_currency(num: Decimal) -> str:
     return ("%.2f" % num).replace(".", ",")
 
 
-def get_zwbs(donors, year):
+def get_zwbs(donors, year: int):
     for donor in donors:
         data = get_zwb(donor, year)
         if data:
             yield data
 
 
-def get_zwb(donor, year):
+def get_zwb(donor: Donor, year: int):
     donations = get_donations(donor, year)
     if not donations:
         return
@@ -204,7 +215,7 @@ def get_zwb(donor, year):
     return get_zwb_data(donor, donation_data)
 
 
-def get_zwb_data(donor, donation_data):
+def get_zwb_data(donor: Donor, donation_data):
     total_amount = sum(donation["amount"] for donation in donation_data)
 
     if donor.company_name:
@@ -268,7 +279,7 @@ def format_date(date):
     return formats.date_format(timezone.localtime(date), "SHORT_DATE_FORMAT")
 
 
-def get_donations(donor, year):
+def get_donations(donor: Donor, year: int):
     return (
         donor.donations.all()
         .filter(received_timestamp__year=year)
@@ -276,7 +287,7 @@ def get_donations(donor, year):
     )
 
 
-def get_donation_data(donations, ignore_receipt_date=None):
+def get_donation_data(donations, ignore_receipt_date: Optional[datetime] = None):
     donations.update(export_date=timezone.now())
 
     return [
@@ -292,7 +303,7 @@ def get_donation_data(donations, ignore_receipt_date=None):
     ]
 
 
-def amount_to_words(amount):
+def amount_to_words(amount: Decimal) -> str:
     euro, cents = [int(x) for x in str(amount).split(".")]
     euro_word = num2words(euro, lang="de")
     if cents:
@@ -356,7 +367,11 @@ class PostcodeEncryptedZWBPDFGenerator(ZWBPDFGenerator):
 
 
 def send_jzwb_mailing(
-    donor, year, priority=False, store_backup=True, set_receipt_date=True
+    donor: Donor,
+    year: int,
+    priority: bool = False,
+    store_backup: bool = True,
+    set_receipt_date: bool = True,
 ):
     if not donor.email:
         return
@@ -403,7 +418,12 @@ def send_jzwb_mailing(
         backup_jzwb(donor, year, pdf_bytes=pdf_bytes, ignore_receipt_date=receipt_date)
 
 
-def backup_jzwb(donor, year, pdf_bytes=None, ignore_receipt_date=None):
+def backup_jzwb(
+    donor: Donor,
+    year: int,
+    pdf_bytes: Optional[bytes] = None,
+    ignore_receipt_date: Optional[datetime] = None,
+):
     pdf_generator = PostcodeEncryptedZWBPDFGenerator(
         donor, year=year, ignore_receipt_date=ignore_receipt_date
     )
@@ -435,7 +455,9 @@ class FakeFile:
         return val
 
 
-def generate_pdf_zip_package(donors, year, pdf_class=PostcodeEncryptedZWBPDFGenerator):
+def generate_pdf_zip_package(
+    donors, year: int, pdf_class=PostcodeEncryptedZWBPDFGenerator
+):
     fake_file = FakeFile()
     with zipfile.ZipFile(fake_file, "w") as zip_file:
         for donor in donors:
@@ -451,6 +473,8 @@ def generate_pdf_zip_package(donors, year, pdf_class=PostcodeEncryptedZWBPDFGene
         yield chunk
 
 
-def get_pdf_zip_package(fp, donors, year, pdf_class=PostcodeEncryptedZWBPDFGenerator):
+def get_pdf_zip_package(
+    fp, donors, year: int, pdf_class=PostcodeEncryptedZWBPDFGenerator
+):
     for chunk in generate_pdf_zip_package(donors, year, pdf_class=pdf_class):
         fp.write(chunk)
