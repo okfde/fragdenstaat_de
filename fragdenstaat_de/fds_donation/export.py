@@ -400,9 +400,7 @@ def send_jzwb_mailing(
         # Update receipt date after export
         donations.filter(receipt_date__isnull=True).update(receipt_date=receipt_date)
     if store_backup:
-        backup_jzwb(
-            donor.pk, year, pdf_bytes=pdf_bytes, ignore_receipt_date=receipt_date
-        )
+        backup_jzwb(donor, year, pdf_bytes=pdf_bytes, ignore_receipt_date=receipt_date)
 
 
 def backup_jzwb(donor, year, pdf_bytes=None, ignore_receipt_date=None):
