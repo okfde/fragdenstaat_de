@@ -37,10 +37,17 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
         if form.is_valid():
             result, subscriber = form.save(newsletter, request.user)
 
+            user_subscriber = (
+                request.user.is_authenticated and subscriber.user == request.user
+            )
+
+            if not user_subscriber and result == SubscriptionResult.ALREADY_SUBSCRIBED:
+                subscriber.send_already_email()
+
             if is_ajax(request):
                 # No-CSRF ajax request
                 # are allowed to access current user
-                if request.user.is_authenticated and subscriber.user == request.user:
+                if user_subscriber:
                     if result == SubscriptionResult.ALREADY_SUBSCRIBED:
                         return HttpResponse(
                             content="""<div class="alert alert-info" role="alert">
