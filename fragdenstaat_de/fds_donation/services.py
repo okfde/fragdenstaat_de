@@ -4,12 +4,12 @@ from datetime import timedelta
 from decimal import Decimal
 from typing import Optional, Tuple
 
-from django.contrib import auth
 from django.db import models
 from django.utils import timezone
 
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
+from froide.account.auth import try_login_user_without_mfa
 from froide.account.models import User
 from froide.account.services import AccountService
 from froide.helper.email_sending import mail_registry
@@ -308,8 +308,8 @@ def merge_donor_list(donors):
 
 
 def confirm_donor_email(donor, request=None):
-    if request and request.user.is_staff:
-        # Don't trigger things as staff
+    if request and request.user.is_staff and request.user != donor.user:
+        # Don't trigger things as staff for different user
         return
     is_auth = request and request.user.is_authenticated
 
@@ -321,16 +321,14 @@ def confirm_donor_email(donor, request=None):
     new_user = False
     user = None
     if not donor.user:
-        users = User.objects.filter(email__iexact=donor.email, is_active=True)
-        if len(users) > 1:
-            user = users[0]
-            new_user = True
-        else:
-            user = None
+        # Find an active user with email
+        user = User.objects.filter(email__iexact=donor.email, is_active=True).first()
+        new_user = bool(user)
         if user is not None:
             donor = assign_and_merge_donors(donor, user)
-            if request and is_auth:
-                auth.login(request, user)
+            if request and not is_auth:
+                # Login so user can access donation page
+                try_login_user_without_mfa(request, user)
 
         elif donor.become_user and not is_auth:
             # Create user
@@ -348,7 +346,7 @@ def confirm_donor_email(donor, request=None):
             logger.info("Donor user created %s for donor %s", user.id, donor.id)
             # Login new user
             if request:
-                auth.login(request, user)
+                try_login_user_without_mfa(request, user)
     else:
         user = donor.user
 
