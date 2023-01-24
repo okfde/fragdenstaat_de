@@ -289,6 +289,25 @@ class MailingMessageAdmin(admin.ModelAdmin):
         qs = qs.prefetch_related("donor", "subscriber", "user")
         return qs
 
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path(
+                "<int:pk>/preview/",
+                self.admin_site.admin_view(self.preview_html),
+                name="fds_mailing-mailingmessage-preview",
+            ),
+        ]
+        return my_urls + urls
+
+    def preview_html(self, request, pk):
+        message = get_object_or_404(MailingMessage, id=pk)
+        mailing = message.mailing
+        email_template = mailing.email_template
+        context = message.get_email_context()
+        html = email_template.get_body_html(context, preview=True)
+        return HttpResponse(content=html.encode("utf-8"))
+
 
 # Monkey-Patch UserAdmin.send_mail to create mailing instead
 
