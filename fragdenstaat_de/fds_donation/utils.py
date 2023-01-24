@@ -1,3 +1,5 @@
+import re
+
 from django.conf import settings
 from django.db.models import Min
 
@@ -152,3 +154,43 @@ def get_donation_pivot_data_and_config(queryset):
     final_data = [keys]
     final_data.extend(data)
     return final_data, config
+
+
+def selective_title_case(val):
+    parts = val.split(" ")
+    # Silly heuristic to avoid title casing von, van, etc.
+    parts = [p.title() if len(p) > 3 else p for p in parts]
+    return " ".join(parts)
+
+
+def make_donor_fields_title_case(donor):
+    fields = ("first_name", "last_name", "address", "city")
+    updated_fields = set()
+    for field in fields:
+        val = getattr(donor, field)
+        new_val = selective_title_case(val)
+        if val != new_val:
+            updated_fields.add(field)
+            setattr(donor, field, new_val)
+    return updated_fields
+
+
+NO_DOT_ADRESS_REGEX = re.compile(r"([sS]tr) ")
+
+
+def fix_adress(donor):
+    new_address = NO_DOT_ADRESS_REGEX.sub(r"\1. ", donor.address)
+    if new_address != donor.address:
+        donor.address = new_address
+        return {"address"}
+    return set()
+
+
+def apply_donor_fixes(donor):
+    updated_fields = set()
+    updated_fields |= make_donor_fields_title_case(donor)
+    updated_fields |= fix_adress(donor)
+
+    if updated_fields:
+        donor.save(update_fields=updated_fields)
+        donor.tags.add("info-auto-fixed")
