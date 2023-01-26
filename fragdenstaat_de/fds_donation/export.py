@@ -182,9 +182,13 @@ class JZWBExportForm(forms.Form):
             )
 
 
-jzwb_mail = mail_registry.register(
-    "fds_donation/email/jzwb", ("name", "salutation", "donor", "year", "total_amount")
-)
+jzwb_mails = {
+    year: mail_registry.register(
+        "fds_donation/email/jzwb_{}".format(year),
+        ("name", "salutation", "donor", "year", "total_amount"),
+    )
+    for year in range(2021, timezone.now().year + 1)
+}
 
 
 def format_number(num: Decimal) -> str:
@@ -401,6 +405,7 @@ def send_jzwb_mailing(
         "total_amount": format_number_no_currency(total_amount),
     }
 
+    jzwb_mail = jzwb_mails[year]
     jzwb_mail.send(
         email=donor.email,
         context=context,
