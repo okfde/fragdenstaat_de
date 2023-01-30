@@ -676,6 +676,7 @@ class FragDenStaatBase(German, Base):
                     "pseudonym": "/hilfe/datenschutz-und-privatsphare/pseudonyme-nutzung/",
                     "about": "/hilfe/ueber/",
                     "help": "/hilfe/",
+                    "throttled": "/hilfe/erste-anfrage/wie-viele-anfragen-kann-ich-stellen/",
                 },
                 bounce_enabled=True,
                 bounce_max_age=60 * 60 * 24 * 14,  # 14 days
