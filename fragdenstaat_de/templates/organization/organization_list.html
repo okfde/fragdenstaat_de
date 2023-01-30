@@ -16,9 +16,9 @@
       </ol>
     </nav>
   </div>
-  <div class="container">
-    <h1 class="py-4">{% trans "Organizations" %}</h1>
-    <div class="row shuffle-items gx-3 gy-3">
+  <div class="container py-4">
+    <h1 class="pb-3">{% trans "Organizations" %}</h1>
+    <div class="row shuffle-items gx-3 gy-3 pb-4">
       {% for object in object_list %}
         <div class="col-md-6 col-lg-4">
           {% include "organization/includes/organization_item.html" with object=object TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
