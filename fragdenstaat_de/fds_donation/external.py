@@ -319,7 +319,10 @@ def find_paypal_payment(row):
             variant="paypal",
             status=PaymentStatus.CONFIRMED,
         )
-        .filter(created__gte=row["date"] - buffer, created__lte=row["date"] + buffer)
+        .filter(
+            received_timestamp__gte=row["date"] - buffer,
+            received_timestamp__lte=row["date"] + buffer,
+        )
         .filter(cond)
     )
 
