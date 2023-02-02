@@ -90,15 +90,26 @@ class JZWBExportForm(forms.Form):
 
         queryset = self.get_donors(queryset)
 
+        possible_receipt_date = timezone.now()
+
         result = None
         if export_format == "csv":
             zwbs_data = get_zwbs(queryset, year=year)
             result = dict_to_csv_stream(zwbs_data)
         elif export_format == "pdf":
-            result = self.get_pdf(queryset, year)
+            # Set ignore receipt date on PDF generation as it may generate multiple PDFs
+            # in generator after donation has been receipted
+            result = self.get_pdf(
+                queryset,
+                year,
+                ignore_receipt_date=possible_receipt_date,
+            )
         elif export_format == "pdf_encrypted":
             result = self.get_pdf(
-                queryset, year, pdf_class=PostcodeEncryptedZWBPDFGenerator
+                queryset,
+                year,
+                pdf_class=PostcodeEncryptedZWBPDFGenerator,
+                ignore_receipt_date=possible_receipt_date,
             )
         elif export_format == "send_mailing":
             self.send_mailing(
@@ -111,7 +122,7 @@ class JZWBExportForm(forms.Form):
         if export_format != "send_mailing":
             receipt_date = None
             if set_receipt_date:
-                receipt_date = timezone.now()
+                receipt_date = possible_receipt_date
             for donor in queryset:
                 if set_receipt_date:
                     donations = get_donations(donor, year)
@@ -131,32 +142,25 @@ class JZWBExportForm(forms.Form):
         # Only valid records
         queryset = queryset.filter(invalid=False)
 
-        # Received donations in given year that have not yet been ZWBed
-        # year = self.cleaned_data["year"]
-        # donations_filter = Q(
-        #     donations__amount_received__gt=0,
-        #     donations__receipt_date__isnull=True,
-        #     donations__received_timestamp__year=year,
-        # )
-
-        # queryset = queryset.annotate(
-        #     amount_total=Sum("donations__amount", filter=donations_filter)
-        # )
-
         queryset = queryset.order_by("last_name", "first_name")
         return queryset
 
-    def get_pdf(self, queryset, year: int, pdf_class=None):
+    def get_pdf(self, queryset, year: int, pdf_class=None, ignore_receipt_date=None):
         if pdf_class is None:
             pdf_class = ZWBPDFGenerator
 
         if queryset.count() == 1:
             donor = queryset[0]
-            pdf_generator = pdf_class(donor, year=year)
+            pdf_generator = pdf_class(
+                donor, year=year, ignore_receipt_date=ignore_receipt_date
+            )
             return pdf_generator.get_pdf_bytes()
 
         return generate_pdf_zip_package(
-            queryset.iterator(), year=year, pdf_class=pdf_class
+            queryset.iterator(),
+            year=year,
+            pdf_class=pdf_class,
+            ignore_receipt_date=ignore_receipt_date,
         )
 
     def send_mailing(
@@ -298,7 +302,7 @@ def get_donation_data(donations, ignore_receipt_date: Optional[datetime] = None)
         {
             "date": format_date(donation.received_timestamp),
             "formatted_amount": format_number(donation.amount),
-            "receipt_date": donation.receipt_date > ignore_receipt_date
+            "receipt_date": donation.receipt_date < ignore_receipt_date
             if ignore_receipt_date is not None
             else bool(donation.receipt_date),
             "amount": donation.amount,
@@ -461,12 +465,17 @@ class FakeFile:
 
 
 def generate_pdf_zip_package(
-    donors, year: int, pdf_class=PostcodeEncryptedZWBPDFGenerator
+    donors,
+    year: int,
+    pdf_class=PostcodeEncryptedZWBPDFGenerator,
+    ignore_receipt_date=None,
 ):
     fake_file = FakeFile()
     with zipfile.ZipFile(fake_file, "w") as zip_file:
         for donor in donors:
-            pdf_generator = pdf_class(donor, year=year)
+            pdf_generator = pdf_class(
+                donor, year=year, ignore_receipt_date=ignore_receipt_date
+            )
             attachment_name = "jzwb-fds-%d-%d.pdf" % (year, donor.id)
             zip_file.writestr(attachment_name, pdf_generator.get_pdf_bytes())
             chunk = fake_file.get_chunk()
@@ -479,7 +488,13 @@ def generate_pdf_zip_package(
 
 
 def get_pdf_zip_package(
-    fp, donors, year: int, pdf_class=PostcodeEncryptedZWBPDFGenerator
+    fp,
+    donors,
+    year: int,
+    pdf_class=PostcodeEncryptedZWBPDFGenerator,
+    ignore_receipt_date=None,
 ):
-    for chunk in generate_pdf_zip_package(donors, year, pdf_class=pdf_class):
+    for chunk in generate_pdf_zip_package(
+        donors, year, pdf_class=pdf_class, ignore_receipt_date=ignore_receipt_date
+    ):
         fp.write(chunk)
