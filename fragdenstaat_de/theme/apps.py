@@ -8,7 +8,7 @@ class ThemeConfig(AppConfig):
 
     def ready(self):
         from froide.account import account_future_canceled
-        from froide.account.forms import user_extra_registry
+        from froide.account.registries import user_extra_registry
 
         from .forms import SignupUserCheckExtra
 

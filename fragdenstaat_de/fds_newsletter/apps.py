@@ -17,7 +17,7 @@ class NewsletterConfig(AppConfig):
             account_merged,
         )
         from froide.account.export import registry
-        from froide.account.forms import user_extra_registry
+        from froide.account.registries import user_extra_registry
         from froide.bounce.signals import email_bounced, email_unsubscribed
         from froide.foirequestfollower.models import FoiRequestFollower
 
