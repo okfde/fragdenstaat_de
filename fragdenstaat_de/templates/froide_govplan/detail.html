@@ -1,0 +1,12 @@
+{% extends "froide_govplan/detail.html" %}
+
+{% load fds_ogimage %}
+
+{% block meta %}
+  {{ block.super }}
+
+  {% url 'govplan_og:plan_og' gov=object.government.slug plan=object.slug as plan_og_path %}
+  {% ogimage_url path=plan_og_path template="fds_ogimage/govplan_plan.html" as og_image_url %}
+  {% include "fds_cms/social_meta.html" with object=object title=object.title description=object.description image_url=og_image_url %}
+
+  {% endblock %}
