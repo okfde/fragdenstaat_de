@@ -21,24 +21,24 @@
     {% if thumb.url %}
       <source
         media="(min-width: 1200px)"
-        srcset="{{ thumb.url }}"
+        srcset="{{ thumb.url }}.avif"
+        type="image/avif"
       />
       <source
         media="(min-width: 1200px)"
-        srcset="{{ thumb.url }}.avif"
-        type="image/avif"
+        srcset="{{ thumb.url }}"
       />
     {% endif %}
     {% thumbnail instance.picture 940x0 subject_location=instance.picture.subject_location as thumb %}
     {% if thumb.url %}
       <source
         media="(min-width: 992px)"
-        srcset="{{ thumb.url }}"
+        srcset="{{ thumb.url }}.avif"
+        type="image/avif"
       />
       <source
         media="(min-width: 992px)"
-        srcset="{{ thumb.url }}.avif"
-        type="image/avif"
+        srcset="{{ thumb.url }}"
       />
     {% endif %}
   {% endif %}
