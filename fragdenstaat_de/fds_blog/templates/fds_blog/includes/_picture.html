@@ -4,22 +4,22 @@
   {% thumbnail picture 1140x0 subject_location=picture.subject_location as thumb %}
   <source
     media="(min-width: 1200px)"
-    srcset="{{ thumb.url }}"
+    srcset="{{ thumb.url }}.avif"
+    type="image/avif"
   />
   <source
     media="(min-width: 1200px)"
-    srcset="{{ thumb.url }}.avif"
-    type="image/avif"
+    srcset="{{ thumb.url }}"
   />
   {% thumbnail picture 940x0 subject_location=picture.subject_location as thumb %}
   <source
     media="(min-width: 992px)"
-    srcset="{{ thumb.url }}"
+    srcset="{{ thumb.url }}.avif"
+    type="image/avif"
   />
   <source
     media="(min-width: 992px)"
-    srcset="{{ thumb.url }}.avif"
-    type="image/avif"
+    srcset="{{ thumb.url }}"
   />
   {% thumbnail picture 768x0 crop=scale subject_location=picture.subject_location as thumb %}
   <source

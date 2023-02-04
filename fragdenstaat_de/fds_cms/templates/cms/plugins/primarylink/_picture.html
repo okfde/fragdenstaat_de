@@ -8,22 +8,22 @@
         {% thumbnail picture 640x370 crop subject_location=picture.subject_location as thumb %}
         <source
           media="(min-width: 992px)"
-          srcset="{{ thumb.url }}"
+          srcset="{{ thumb.url }}.avif"
+          type="image/avif"
         />
         <source
           media="(min-width: 992px)"
-          srcset="{{ thumb.url }}.avif"
-          type="image/avif"
+          srcset="{{ thumb.url }}"
         />
         {% thumbnail picture 480x277 crop subject_location=picture.subject_location as thumb %}
         <source
           media="(min-width: 768px)"
-          srcset="{{ thumb.url }}"
+          srcset="{{ thumb.url }}.avif"
+          type="image/avif"
         />
         <source
           media="(min-width: 768px)"
-          srcset="{{ thumb.url }}.avif"
-          type="image/avif"
+          srcset="{{ thumb.url }}"
         />
         {% thumbnail picture 320x185 crop subject_location=picture.subject_location as thumb %}
         <source
