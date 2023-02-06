@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load cms_tags %}
 
 {% block title %}
   {% trans "Organizations" %}
@@ -18,6 +19,7 @@
   </div>
   <div class="container py-4">
     <h1 class="pb-3">{% trans "Organizations" %}</h1>
+    {% static_placeholder "organization_list_below_heading" %}
     <div class="row shuffle-items gx-3 gy-3 pb-4">
       {% for object in object_list %}
         <div class="col-md-6 col-lg-4">
