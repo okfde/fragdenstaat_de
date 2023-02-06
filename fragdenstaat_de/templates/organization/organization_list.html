@@ -9,17 +9,11 @@
 
 {% block body %}
   <div class="bg-gray-100">
-    <nav class="container" aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="{% url 'organization-list' %}">{% trans "Organizations" %}</a>
-        </li>
-      </ol>
-    </nav>
+    <div class="container py-4">
+      {% static_placeholder "organization_list_below_heading" %}
+    </div>
   </div>
   <div class="container py-4">
-    <h1 class="pb-3">{% trans "Organizations" %}</h1>
-    {% static_placeholder "organization_list_below_heading" %}
     <div class="row shuffle-items gx-3 gy-3 pb-4">
       {% for object in object_list %}
         <div class="col-md-6 col-lg-4">
