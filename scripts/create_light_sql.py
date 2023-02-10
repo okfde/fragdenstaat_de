@@ -39,14 +39,11 @@ def get_fk_graph(schema_sql):
             break
         except graphlib.CycleError as e:
             cycle = e.args[1]
-            print(cycle)
             for table in cycle:
                 if table in self_references:
-                    print("self reference", table)
                     continue
                 for fk_table in graph[table]:
                     if fk_table in cycle:
-                        print("Removing", table, fk_table)
                         graph[table].remove(fk_table)
                         break
 
@@ -95,8 +92,6 @@ def get_copy_selects(schema, filters, safe_tables):
         if table not in controlled_tables:
             continue
         joins = get_join_list(table, schema, graph, filters, fk_sets)
-        print("@" + table)
-        print(joins)
         filter_set = set()
         if joins:
             join_tables = set()
