@@ -1,10 +1,13 @@
+import argparse
+import graphlib
 import re
 import sys
+from collections import defaultdict
 
 ACCOUNT_CONSTRAINTS = re.compile(
     r'ALTER TABLE ONLY (?P<table>public\.\w+)\s+ADD CONSTRAINT (?P<constraint>["\w]+) FOREIGN KEY \((?P<fk>\w+)\) REFERENCES (?P<fk_table>public\.\w+)\((?P<field>\w+)\)(?P<tail>[^;]*);'
 )
-TABLE_RE = re.compile(r"CREATE TABLE public\.(\w+) ")
+TABLE_RE = re.compile(r"CREATE TABLE (public\.\w+) ")
 
 SQL_TEMPLATE = """
 ALTER TABLE ONLY {table}
@@ -15,91 +18,254 @@ ALTER TABLE ONLY {table}
 """
 
 
-def get_constraints(schema_sql, on_delete):
+def get_fk_graph(schema_sql):
+    self_references = set()
+    graph = defaultdict(set)
+    fk_sets = defaultdict(set)
     matches = ACCOUNT_CONSTRAINTS.findall(schema_sql)
-
     for match in matches:
         table, constraint, fk, fk_table, field, tail = match
-        yield SQL_TEMPLATE.format(
-            table=table,
-            constraint=constraint,
-            fk=fk,
-            fk_table=fk_table,
-            field=field,
-            on_delete=on_delete,
-            tail=tail,
+        if table == fk_table:
+            self_references.add(table)
+        else:
+            fk_sets[(table, fk_table)].add(fk)
+            graph[table].add(fk_table)
+
+    ordered = None
+    while True:
+        try:
+            ts = graphlib.TopologicalSorter(graph)
+            ordered = list(ts.static_order())
+            break
+        except graphlib.CycleError as e:
+            cycle = e.args[1]
+            print(cycle)
+            for table in cycle:
+                if table in self_references:
+                    print("self reference", table)
+                    continue
+                for fk_table in graph[table]:
+                    if fk_table in cycle:
+                        print("Removing", table, fk_table)
+                        graph[table].remove(fk_table)
+                        break
+
+    return ordered, graph, self_references, fk_sets
+
+
+def is_fk_nullable(schema, table, field):
+    match = re.search(
+        r"CREATE TABLE %s \(\s+[^;]*?%s integer," % (table, field),
+        schema,
+        re.MULTILINE,
+    )
+    return match is not None
+
+
+def get_join_list(table, schema, graph, filters, fk_sets):
+    join_list = []
+    for join_table in graph[table]:
+
+        if not (table in filters and join_table in filters):
+            fk_set_key = (table, join_table)
+            fk_set = fk_sets[fk_set_key]
+            non_nullable_fks = [
+                fk for fk in fk_set if not is_fk_nullable(schema, table, fk)
+            ]
+            if not non_nullable_fks:
+                continue
+
+        if join_table in filters:
+            join_list.append((table, join_table))
+
+        further_joins = get_join_list(join_table, schema, graph, filters, fk_sets)
+        if further_joins:
+            join_list.extend(further_joins)
+            join_list.append((table, join_table))
+    return join_list
+
+
+def get_copy_selects(schema, filters, safe_tables):
+    restricted_tables = set(filters.keys())
+    controlled_tables = restricted_tables | safe_tables
+
+    ordered, graph, self_references, fk_sets = get_fk_graph(schema)
+
+    for table in ordered:
+        if table not in controlled_tables:
+            continue
+        joins = get_join_list(table, schema, graph, filters, fk_sets)
+        print("@" + table)
+        print(joins)
+        filter_set = set()
+        if joins:
+            join_tables = set()
+            for a, b in joins:
+                join_tables.add(a)
+                join_tables.add(b)
+                filter_set |= {f"{b}.{f}" for f in filters.get(b, ())}
+                filter_set |= {f"{a}.{f}" for f in filters.get(a, ())}
+                for fk in fk_sets[(a, b)]:
+                    filter_set.add(f"{a}.{fk} = {b}.id")
+
+            tables = list(join_tables | {table})
+        else:
+            if table in filters:
+                filter_set |= {f"{table}.{f}" for f in filters[table]}
+            tables = [table]
+
+        where_clause = ""
+        if filter_set:
+            where_clause = " AND ".join(filter_set)
+            where_clause = f" WHERE {where_clause}"
+        sql = "SELECT DISTINCT {table}.* FROM {tables} {where}".format(
+            table=table, tables=", ".join(tables), where=where_clause
         )
 
-
-def generate_sql(schema, all_tables, safe_tables):
-    for constraint in get_constraints(schema, "ON DELETE CASCADE "):
-        print(constraint)
-
-    PARTIAL_TABLES = [
-        (
-            "account_user",
-            "email NOT LIKE '%@okfn.de' OR private = TRUE OR email IS NULL; UPDATE account_user SET password='';",
-        ),
-        ("document_document", "user_id IS NULL;"),
-        (
-            "document_document",
-            "id NOT IN (SELECT id FROM document_document ORDER BY id DESC LIMIT 500);",
-        ),
-        ("document_documentcollection", "user_id IS NULL;"),
-        ("fds_donation_donor", "user_id IS NULL;"),
-        ("fds_donation_donation", "donor_id IS NULL;"),
-        ("foirequest_foirequest", "public = FALSE;"),
-        ("foirequest_foiproject", "public = FALSE;"),
-        ("fds_blog_article", "start_publication IS NULL;"),
-    ]
-    PARTIAL_SAFE = set([x[0] for x in PARTIAL_TABLES])
-
-    all_safe_tables = safe_tables | PARTIAL_SAFE
-
-    for table, sql in PARTIAL_TABLES:
-        # yes, allow sql injection here for update clause on account_user
-        print("DELETE FROM %s WHERE %s" % (table, sql))
-
-    for table in all_tables:
-        if table not in all_safe_tables:
-            print("DELETE FROM %s;" % table)
-
-    for constraint in get_constraints(schema, ""):
-        print(constraint)
-
-    print("VACUUM FULL ANALYZE;")
+        yield table, sql
 
 
-def show_unsafe(all_tables, safe_tables):
-    all_tables = set(all_tables)
-    for table in sorted(all_tables - safe_tables):
-        print('"{}",'.format(table))
+def generate_copy_script(
+    outfile,
+    source_db="fragdenstaat_de",
+    target_db="fragdenstaat_de_light",
+    source_connection="",
+    source_password="",
+    target_connection="",
+    target_owner="fragdenstaat_de",
+    safe_tables="safe_tables.txt",
+    schema_file="schema.sql",
+):
 
+    FILTERS = dict(
+        [
+            (
+                "public.account_user",
+                (
+                    "email LIKE '%@okfn.de'",
+                    "private = FALSE",
+                ),
+            ),
+            ("public.document_document", ("user_id IS NOT NULL",)),
+            (
+                "document_document",
+                (
+                    "id IN (SELECT id FROM document_document WHERE portal_id IS NULL ORDER BY id DESC LIMIT 500)",
+                ),
+            ),
+            ("public.document_documentcollection", ("user_id IS NOT NULL",)),
+            ("public.fds_donation_donor", ("user_id IS NOT NULL",)),
+            ("public.fds_donation_donation", ("donor_id IS NOT NULL",)),
+            ("public.foirequest_foirequest", ("public = TRUE",)),
+            ("public.foirequest_foiproject", ("public = TRUE",)),
+            ("public.fds_blog_article", ("start_publication IS NOT NULL",)),
+            ("public.django_amenities_amenity", ("city = 'Berlin'",)),
+        ]
+    )
 
-def main(action="generate"):
+    with open(safe_tables) as f:
+        safe_tables = set(
+            ["public.{}".format(x.strip()) for x in f.readlines() if x.strip()]
+        )
 
-    # 1. pg_dump fragdenstaat_de --schema-only > schema.sql
-    # 2. DROP old fragdenstaat_de_light:
-    # psql -U postgres -c "DROP DATABASE IF EXISTS fragdenstaat_de_light;"
-    # 3. Copy database:
-    # psql -U postgres -c "CREATE DATABASE fragdenstaat_de_light WITH TEMPLATE fragdenstaat_de OWNER fragdenstaat_de;"
-    # 4. python create_light_sql.py > make_light.sql
-    # 5. psql fragdenstaat_de_light < make_light.sql
-    # 6. pg_dump fragdenstaat_de_light | gzip -c > fragdenstaat_light.sql.gz
-
-    with open("safe_tables.txt") as f:
-        safe_tables = set([x.strip() for x in f.readlines() if x.strip()])
-
-    with open("schema.sql") as f:
+    with open(schema_file) as f:
         schema = f.read()
 
-    all_tables = TABLE_RE.findall(schema)
+    table_setup = []
+    constraints = []
+    for line in schema.splitlines():
+        if constraints or "SET DEFAULT nextval(" in line:
+            constraints.append(line)
+        else:
+            table_setup.append(line)
 
-    if action == "compare":
-        show_unsafe(all_tables, safe_tables)
-    else:
-        generate_sql(schema, all_tables, safe_tables)
+    with open("table_setup.sql", "w") as f:
+        for line in table_setup:
+            f.write(line + "\n")
+
+    with open("constraints.sql", "w") as f:
+        for line in constraints:
+            f.write(line + "\n")
+
+    outfile.write("#!/bin/bash\nset -ex\n")
+
+    outfile.write(
+        f'psql -c "DROP DATABASE IF EXISTS {target_db};" {target_connection}\n'
+    )
+    outfile.write(
+        f'psql -c "CREATE DATABASE {target_db} OWNER {target_owner};" {target_connection}\n'
+    )
+    outfile.write(f"psql {target_connection} {target_db} < table_setup.sql\n")
+
+    outfile.write(f"export PGPASSWORD='{source_password}'\n")
+    for table, select in get_copy_selects(schema, FILTERS, safe_tables):
+        outfile.write(f'echo "Copying {table}"\n')
+        cmd = f"""psql -c "COPY ({select}) TO STDOUT;" {source_connection} {source_db} | psql -c "COPY {table} FROM STDIN;" {target_connection} {target_db}\n"""
+        outfile.write(cmd)
+    outfile.write("unset PGPASSWORD\n")
+
+    outfile.write(f"psql {target_connection} {target_db} < constraints.sql\n")
+
+
+def show_unsafe(safe_tables="safe_tables.txt", schema_file="schema.sql"):
+    with open(schema_file) as f:
+        schema = f.read()
+
+    all_tables = set(TABLE_RE.findall(schema))
+    with open(safe_tables) as f:
+        safe_tables = set(
+            ["public.{}".format(x.strip()) for x in f.readlines() if x.strip()]
+        )
+
+    for table in sorted(all_tables - safe_tables):
+        print("{}".format(table))
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        prog="fragdenstaat_light creator",
+        description="Creates a light version of the fragdenstaat_de database",
+    )
+    parser.add_argument("action", choices=["generate", "compare"])
+    parser.add_argument("--schema_file", help="schema file", default="schema.sql")
+    parser.add_argument(
+        "--safe_tables", help="safe tables file", default="safe_tables.txt"
+    )
+    parser.add_argument(
+        "--source_db",
+        help="Postgres target connection details",
+        default="fragdenstaat_de",
+    )
+    parser.add_argument(
+        "--source_connection", help="Postgres source connection details", default=""
+    )
+    parser.add_argument(
+        "--source_password", help="Postgres source password", default=""
+    )
+    parser.add_argument(
+        "--target_connection", help="Postgres target connection details", default=""
+    )
+    parser.add_argument(
+        "--target_db",
+        help="Postgres target connection details",
+        default="fragdenstaat_de_light",
+    )
+
+    args = parser.parse_args()
+    if args.action == "generate":
+        generate_copy_script(
+            sys.stdout,
+            safe_tables=args.safe_tables,
+            schema_file=args.schema_file,
+            source_connection=args.source_connection,
+            target_connection=args.target_connection,
+            source_password=args.source_password,
+            target_db=args.target_db,
+            source_db=args.source_db,
+        )
+    elif args.action == "compare":
+        show_unsafe(safe_tables=args.safe_tables, schema_file=args.schema_file)
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    main()
