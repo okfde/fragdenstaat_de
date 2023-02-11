@@ -59,8 +59,6 @@ alabaster==0.7.12
     # via sphinx
 amqp==5.1.1
     # via kombu
-appnope==0.1.3
-    # via ipython
 asgiref==3.5.2
     # via
     #   channels
@@ -83,6 +81,12 @@ babel==2.11.0
     #   sphinx
 backcall==0.2.0
     # via ipython
+backports-zoneinfo==0.2.1
+    # via
+    #   django
+    #   django-celery-beat
+    #   django-timezone-field
+    #   icalendar
 beautifulsoup4==4.11.1
     # via htmldocx
 billiard==3.6.4.0
@@ -90,7 +94,9 @@ billiard==3.6.4.0
 black==22.12.0
     # via -r requirements-dev.in
 bleach==5.0.1
-    # via django-legal-advice-builder
+    # via
+    #   django-legal-advice-builder
+    #   froide-govplan
 brotli==1.0.9
     # via fonttools
 celery==5.2.7
@@ -210,6 +216,7 @@ django==4.1.4
     #   djangocms-frontend
     #   djangorestframework
     #   drf-spectacular
+    #   drf-spectacular-sidecar
     #   easy-thumbnails
     #   enmerkar
     #   froide
@@ -218,6 +225,7 @@ django-admin-sortable2==2.1.4
     # via
     #   -r requirements.in
     #   froide-campaign
+    #   froide-govplan
 django-appconf==1.0.5
     # via
     #   django-celery-email
@@ -241,6 +249,7 @@ django-cms==3.11.1
     #   djangocms-picture
     #   djangocms-text-ckeditor
     #   djangocms-video
+    #   froide-govplan
     #   sortabletable
 django-configurations==2.4
     # via
@@ -270,6 +279,7 @@ django-filer==2.2.3
     #   djangocms-link
     #   djangocms-picture
     #   djangocms-video
+    #   froide-govplan
 django-filter==22.1
     # via
     #   -r requirements.in
@@ -295,13 +305,19 @@ django-localflavor==3.1
 django-logentry-admin==1.1.0
     # via -r requirements.in
 django-mfa3==0.8.0
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   froide-govplan
 django-mptt==0.14.0
     # via django-filer
 django-oauth-toolkit==1.7.1
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   froide-govplan
 django-parler==2.3
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   froide
 django-payments[stripe]==1.0.0
     # via froide-payment
 django-phonenumber-field[phonenumberslite]==7.0.1
@@ -328,7 +344,9 @@ django-taggit==3.1.0
 django-timezone-field==5.0
     # via django-celery-beat
 django-tinymce==3.5.0
-    # via django-legal-advice-builder
+    # via
+    #   django-legal-advice-builder
+    #   froide-govplan
 django-treebeard==4.4
     # via
     #   -r requirements.in
@@ -393,8 +411,10 @@ docopt==0.6.2
     # via num2words
 docutils==0.19
     # via sphinx
-drf-spectacular==0.25.1
+drf-spectacular[sidecar]==0.25.1
     # via froide
+drf-spectacular-sidecar==2022.12.1
+    # via drf-spectacular
 easy-thumbnails[svg]==2.8.4
     # via
     #   django-filer
@@ -487,6 +507,12 @@ idna==3.4
     #   yarl
 imagesize==1.4.1
     # via sphinx
+importlib-metadata==6.0.0
+    # via
+    #   markdown
+    #   sphinx
+importlib-resources==5.10.2
+    # via jsonschema
 inflection==0.5.1
     # via
     #   drf-spectacular
@@ -495,7 +521,7 @@ iniconfig==1.1.1
     # via pytest
 ipdb==0.13.11
     # via -r requirements-dev.in
-ipython==8.7.0
+ipython==8.10.0
     # via
     #   -r requirements-dev.in
     #   ipdb
@@ -561,6 +587,16 @@ numpy==1.24.0
     #   pandas
     #   torchvision
     #   webp
+nvidia-cublas-cu11==11.10.3.66
+    # via
+    #   nvidia-cudnn-cu11
+    #   torch
+nvidia-cuda-nvrtc-cu11==11.7.99
+    # via torch
+nvidia-cuda-runtime-cu11==11.7.99
+    # via torch
+nvidia-cudnn-cu11==8.5.0.96
+    # via torch
 oauthlib==3.2.2
     # via django-oauth-toolkit
 openpyxl==3.0.10
@@ -605,6 +641,8 @@ pillow==9.3.0
     #   torchvision
     #   weasyprint
     #   webp
+pkgutil-resolve-name==1.3.10
+    # via jsonschema
 platformdirs==2.6.0
     # via
     #   black
@@ -623,6 +661,8 @@ prompt-toolkit==3.0.36
     # via
     #   click-repl
     #   ipython
+psycopg2==2.9.5
+    # via froide-govplan
 psycopg2-binary==2.9.5
     # via -r requirements.in
 ptyprocess==0.7.0
@@ -703,9 +743,12 @@ python-mimeparse==1.6.0
     # via
     #   -r requirements.in
     #   froide
+python-poppler==0.3.0
+    # via django-filingcabinet
 python-slugify==7.0.0
     # via
     #   -r requirements.in
+    #   froide
     #   pytest-playwright
 python-stdnum==1.18
     # via django-localflavor
@@ -824,8 +867,11 @@ traitlets==5.8.0
     #   matplotlib-inline
 typing-extensions==4.4.0
     # via
+    #   black
     #   django-countries
+    #   playwright
     #   pyee
+    #   pypdf2
     #   pytest-factoryboy
     #   torch
     #   torchvision
@@ -875,12 +921,22 @@ webp==0.1.4
     # via -r requirements.in
 websockets==10.4
     # via -r requirements.in
+wheel==0.38.4
+    # via
+    #   nvidia-cublas-cu11
+    #   nvidia-cuda-runtime-cu11
 wrapt==1.14.1
     # via deprecated
 xlrd==2.0.1
     # via -r requirements.in
 yarl==1.8.2
     # via aiohttp
+zipp==3.13.0
+    # via
+    #   importlib-metadata
+    #   importlib-resources
+zipstream==1.1.4
+    # via django-filingcabinet
 zopfli==0.2.2
     # via fonttools
 
