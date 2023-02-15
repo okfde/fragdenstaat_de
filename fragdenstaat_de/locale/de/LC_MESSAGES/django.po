@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-03 06:53-0600\n"
-"PO-Revision-Date: 2023-02-03 13:56+0100\n"
-"Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
+"PO-Revision-Date: 2023-02-16 11:49+0000\n"
+"Last-Translator: Karl Engelhardt <karl.engelhardt@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: fragdenstaat_de/fds_fximport/helper.py
 msgid "NAME"
@@ -728,7 +728,7 @@ msgstr "Organisationen"
 
 #: fragdenstaat_de/templates/organization/organization_list.html
 msgid "No organizations found."
-msgstr "Keine Organisationen gefunden."
+msgstr "Keine Organisation gefunden."
 
 #. Translators: meta keywords
 #: fragdenstaat_de/templates/snippets/meta.html
