@@ -603,7 +603,10 @@ class FragDenStaatBase(German, Base):
                     rec(r"^\s*Sehr ((?:Herr|Frau|Fr\.|Hr\.)\s+.*)"),
                     rec(r"^\s*Sehr (geehrte[\*:_]?[sr]?\s+(?!Damen und Herren).+)"),
                     rec(r"^\s*(?:Von|An|Cc|To|From): (.*)"),
-                    rec(r"^\s*Guten\s+Tag\s+(.+)"),
+                    rec(r"^\s*Guten\s+Tag,?\s+(.+)"),
+                    rec(r"^\s*Guten\s+Abend,?\s+(.+)"),
+                    rec(r"^\s*Guten\s+Morgen,?\s+(.+)"),
+                    rec(r"^\s*Guten\s+Mittag,?\s+(.+)"),
                 ],
                 custom_replacements=[
                     rec(r"[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([a-zA-Z0-9\s/]+)"),
