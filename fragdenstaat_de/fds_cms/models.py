@@ -317,6 +317,36 @@ BACKGROUND = (
     + [("yellow-{}".format(i), "Yellow {}".format(i)) for i in range(100, 400, 100)]
 )
 
+DARK_BACKGROUNDS = (
+    "primary",
+    "secondary",
+    "success",
+    "info",
+    "danger",
+    "blue-600",
+    "blue-700",
+    "blue-800",
+    "black",
+    "blue",
+    "indigo",
+    "purple",
+    "pink",
+    "red",
+    "green",
+    "teal",
+    "cyan",
+    "gray",
+    "gray-dark",
+    "gray-500",
+    "gray-600",
+    "gray-700",
+    "gray-800",
+    "gray-900",
+    "dark",
+)
+
+BACKDROP = (("", _("None")), ("50", "50 %"), ("75", "75 %"))
+
 
 class DesignContainerCMSPlugin(CMSPlugin):
     TEMPLATES = [
@@ -330,9 +360,23 @@ class DesignContainerCMSPlugin(CMSPlugin):
     background = models.CharField(
         _("Background"), choices=BACKGROUND, default="", max_length=50, blank=True
     )
+    backdrop = models.CharField(
+        _("Backdrop"), choices=BACKDROP, max_length=5, default=""
+    )
     extra_classes = models.CharField(max_length=255, blank=True)
     container = models.BooleanField(default=True)
     padding = models.BooleanField(default=True)
+
+    def has_backdrop(self):
+        return self.backdrop != ""
+
+    def background_aware_class(self):
+        c = f"bg-{self.background}"
+
+        if self.background in DARK_BACKGROUNDS:
+            c += " text-white"
+
+        return c
 
 
 class ShareLinksCMSPlugin(CMSPlugin):
