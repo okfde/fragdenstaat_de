@@ -361,7 +361,7 @@ class DesignContainerCMSPlugin(CMSPlugin):
         _("Background"), choices=BACKGROUND, default="", max_length=50, blank=True
     )
     backdrop = models.CharField(
-        _("Backdrop"), choices=BACKDROP, max_length=5, default=""
+        _("Backdrop"), choices=BACKDROP, max_length=5, default="", blank=True
     )
     extra_classes = models.CharField(max_length=255, blank=True)
     container = models.BooleanField(default=True)
