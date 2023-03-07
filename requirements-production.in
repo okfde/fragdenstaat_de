@@ -5,5 +5,3 @@ channels_redis
 uvicorn
 sentry-sdk
 pillow-avif-plugin
-google-api-python-client
-google-auth-httplib2
