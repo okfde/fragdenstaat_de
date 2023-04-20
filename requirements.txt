@@ -688,7 +688,7 @@ webencodings==0.5.1
     #   cssselect2
     #   html5lib
     #   tinycss2
-webp==0.1.4
+webp==0.1.6
     # via -r requirements.in
 websockets==10.4
     # via -r requirements.in
