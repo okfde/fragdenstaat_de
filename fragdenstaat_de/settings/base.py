@@ -60,6 +60,7 @@ class FragDenStaatBase(German, Base):
                 "djangocms_text_ckeditor",
                 "djangocms_picture",
                 "djangocms_video",
+                "djangocms_audio",
                 "djangocms_icon",
                 "djangocms_frontend",
                 "djangocms_frontend.contrib.accordion",

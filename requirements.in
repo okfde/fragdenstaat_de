@@ -27,6 +27,7 @@ django-storages
 django-taggit
 django-treebeard
 Django>=4.1,<4.2
+djangocms-audio
 djangocms-frontend>=1.0.1
 djangocms-link>=3.1.0
 # Remove when no longer imported
