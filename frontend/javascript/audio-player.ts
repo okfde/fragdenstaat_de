@@ -54,7 +54,6 @@ document.querySelectorAll<HTMLDivElement>('.audio-player').forEach((root) => {
 
     progress.addEventListener('input', () => {
       audio.fastSeek(parseInt(progress.value))
-      console.log(parseInt(progress.value), audio.currentTime)
     })
     progress.addEventListener('pointerdown', () => {
       hovering = true
@@ -89,5 +88,50 @@ document.querySelectorAll<HTMLDivElement>('.audio-player').forEach((root) => {
       '.audio-player__speed-display'
     )
     if (text !== null) text.innerText = `${speed}x`
+  })
+
+  const track = audio.querySelector<HTMLTrackElement>('track')
+  const chapters = root.querySelector<HTMLDivElement>('.audio-player__chapters')
+  const chapterLinks: HTMLAnchorElement[] = []
+
+  const createChapters = (): void => {
+    if (
+      audio.textTracks.length > 0 &&
+      audio.textTracks[0].kind === 'chapters'
+    ) {
+      const track = audio.textTracks[0]
+
+      for (const cue of track.cues ?? []) {
+        const span = document.createElement('span')
+        span.textContent = `${toTimeString(cue.startTime)} – `
+        span.classList.add('text-muted')
+
+        const a = document.createElement('a')
+        a.href = '#audio-' + cue.id
+        a.innerText = (cue as VTTCue).text
+
+        a.addEventListener('click', (event) => {
+          event.preventDefault()
+          audio.currentTime = cue.startTime
+        })
+        a.dataset.cue = cue.id
+
+        const li = document.createElement('li')
+        li.appendChild(span)
+        li.appendChild(a)
+
+        chapters?.appendChild(li)
+        chapterLinks.push(a)
+      }
+    }
+  }
+
+  track?.addEventListener('load', createChapters)
+  track?.addEventListener('cuechange', (event) => {
+    chapterLinks.forEach((el) => el.classList.remove('fw-bold'))
+
+    chapterLinks
+      .find((el) => el.dataset.cue === audio.textTracks[0]?.activeCues?.[0]?.id)
+      ?.classList.add('fw-bold')
   })
 })
