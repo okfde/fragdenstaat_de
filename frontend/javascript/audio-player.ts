@@ -123,6 +123,8 @@ document.querySelectorAll<HTMLDivElement>('.audio-player').forEach((root) => {
         chapters?.appendChild(li)
         chapterLinks.push(a)
       }
+
+      chapters?.classList.remove('d-none')
     }
   }
 
