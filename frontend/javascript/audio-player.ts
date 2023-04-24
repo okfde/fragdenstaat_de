@@ -53,7 +53,7 @@ document.querySelectorAll<HTMLDivElement>('.audio-player').forEach((root) => {
     audio.addEventListener('loadedmetadata', updateProgress)
 
     progress.addEventListener('input', () => {
-      audio.fastSeek(parseInt(progress.value))
+      audio.currentTime = parseInt(progress.value)
     })
     progress.addEventListener('pointerdown', () => {
       hovering = true
@@ -129,7 +129,7 @@ document.querySelectorAll<HTMLDivElement>('.audio-player').forEach((root) => {
   }
 
   track?.addEventListener('load', createChapters)
-  track?.addEventListener('cuechange', (event) => {
+  track?.addEventListener('cuechange', () => {
     chapterLinks.forEach((el) => el.classList.remove('fw-bold'))
 
     chapterLinks
