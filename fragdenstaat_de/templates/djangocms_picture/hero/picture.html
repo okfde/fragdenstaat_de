@@ -1,33 +1,10 @@
 {% load cms_tags %}
-{% load thumbnail %}
 
-<style>
-#hero-image-{{ instance.pk }} {
-    background-image: url('{% thumbnail instance.picture 450x450 crop subject_location=instance.picture.subject_location %}');
-}
-@media(min-width:576px){
-    #hero-image-{{ instance.pk }} {
-        background-image: url('{% thumbnail instance.picture 768x400 crop subject_location=instance.picture.subject_location %}');
-    }
-}
-@media(min-width:768px){
-    #hero-image-{{ instance.pk }} {
-        background-image: url('{% thumbnail instance.picture 992x400 crop subject_location=instance.picture.subject_location %}');
-    }
-}
-@media(min-width:992px){
-    #hero-image-{{ instance.pk }} {
-        background-image: url('{% thumbnail instance.picture 1200x400 crop subject_location=instance.picture.subject_location %}');
-    }
-}
-@media(min-width:1200px){
-    #hero-image-{{ instance.pk }} {
-        background-image: url('{% thumbnail instance.picture 1920x400 crop subject_location=instance.picture.subject_location %}');
-    }
-}
-</style>
-<div class="hero-image{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}" id="hero-image-{{ instance.pk }}" {{ instance.attributes_str }}>
-    {% for plugin in instance.child_plugin_instances %}
-        {% render_plugin plugin %}
-    {% endfor %}
+<div class="hero-image{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}" {{ instance.attributes_str }}>
+    {% include "djangocms_picture/default/picture.html" %}
+    <div class="hero-image-content">
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+    </div>
 </div>
