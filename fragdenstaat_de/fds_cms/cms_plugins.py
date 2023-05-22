@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from djangocms_bootstrap4.helpers import concat_classes
 
 from froide.foirequest.models import FoiRequest
 from froide.helper.utils import get_redirect_url
@@ -37,6 +36,7 @@ from .models import (
     SVGImageCMSPlugin,
     VegaChartCMSPlugin,
 )
+from .utils import concat_classes
 
 
 @plugin_pool.register_plugin

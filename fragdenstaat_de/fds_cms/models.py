@@ -7,7 +7,7 @@ from cms.extensions import PageExtension
 from cms.extensions.extension_pool import extension_pool
 from cms.models.fields import PageField
 from cms.models.pluginmodel import CMSPlugin
-from djangocms_bootstrap4.fields import AttributesField, TagTypeField
+from djangocms_frontend.fields import AttributesField, TagTypeField
 from filer.fields.file import FilerFileField
 from filer.fields.image import FilerImageField
 from filingcabinet.models import DocumentPortal, PageAnnotation
