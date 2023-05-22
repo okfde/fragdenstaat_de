@@ -223,7 +223,6 @@ django-cms==3.11.1
     #   -r requirements.in
     #   djangocms-attributes-field
     #   djangocms-audio
-    #   djangocms-bootstrap4
     #   djangocms-frontend
     #   djangocms-icon
     #   djangocms-link
@@ -252,7 +251,6 @@ django-filer==2.2.3
     # via
     #   -r requirements.in
     #   djangocms-audio
-    #   djangocms-bootstrap4
     #   djangocms-frontend
     #   djangocms-link
     #   djangocms-picture
@@ -338,7 +336,6 @@ djangocms-admin-style==3.2.1
 djangocms-attributes-field==2.1.0
     # via
     #   djangocms-audio
-    #   djangocms-bootstrap4
     #   djangocms-frontend
     #   djangocms-icon
     #   djangocms-link
@@ -346,26 +343,20 @@ djangocms-attributes-field==2.1.0
     #   djangocms-video
 djangocms-audio==2.0.0
     # via -r requirements.in
-djangocms-bootstrap4==3.0.0
-    # via -r requirements.in
 djangocms-frontend==1.0.1
     # via -r requirements.in
 djangocms-icon==2.0.0
     # via
     #   -r requirements.in
-    #   djangocms-bootstrap4
 djangocms-link==3.1.0
     # via
     #   -r requirements.in
-    #   djangocms-bootstrap4
 djangocms-picture==4.0.0
     # via
     #   -r requirements.in
-    #   djangocms-bootstrap4
 djangocms-text-ckeditor==5.1.1
     # via
     #   -r requirements.in
-    #   djangocms-bootstrap4
     #   djangocms-frontend
 djangocms-video==3.0.0
     # via -r requirements.in

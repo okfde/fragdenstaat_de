@@ -30,8 +30,6 @@ Django>=4.1,<4.2
 djangocms-audio
 djangocms-frontend>=1.0.1
 djangocms-link>=3.1.0
-# Remove when no longer imported
-djangocms-bootstrap4>=3
 djangocms-icon
 djangocms-picture
 djangocms-text-ckeditor>=5.1
