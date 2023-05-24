@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_donation", "0042_donationformcmsplugin_default_gift"),
     ]

@@ -7,7 +7,6 @@ import djangocms_frontend.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cms", "0022_auto_20180620_1551"),
         ("fds_cms", "0048_auto_20220601_0923"),

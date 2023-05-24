@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0042_remove_cardinnercmsplugin_background"),
     ]

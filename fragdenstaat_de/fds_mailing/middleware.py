@@ -5,7 +5,6 @@ from .models import EmailTemplate
 
 class EmailTemplateMiddleware:
     def get_email_content(self, mail_intent, context, template_base, email_kwargs):
-
         email_template = None
         intent = mail_intent
         if template_base is not None:

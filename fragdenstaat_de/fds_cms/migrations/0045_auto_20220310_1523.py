@@ -9,7 +9,6 @@ import filer.fields.image
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cms", "0022_auto_20180620_1551"),
         migrations.swappable_dependency(settings.FILER_IMAGE_MODEL),

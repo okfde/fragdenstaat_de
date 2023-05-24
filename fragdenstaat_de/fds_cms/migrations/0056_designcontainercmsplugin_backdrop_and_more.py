@@ -39,7 +39,6 @@ def extract_backdrop(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cms", "0022_auto_20180620_1551"),
         ("fds_cms", "0055_auto_20221125_1134"),

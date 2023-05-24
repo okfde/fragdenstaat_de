@@ -15,7 +15,6 @@ def create_plugin_instances(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0054_dropdownbannercmsplugin"),
     ]

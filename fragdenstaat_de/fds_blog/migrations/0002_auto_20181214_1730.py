@@ -91,7 +91,6 @@ def migrate_blog(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_blog", "0001_initial"),
     ]

@@ -11,7 +11,6 @@ import filer.fields.image
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.FILER_IMAGE_MODEL),
         ("cms", "0020_old_tree_cleanup"),

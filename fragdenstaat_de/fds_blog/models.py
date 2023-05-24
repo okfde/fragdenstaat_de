@@ -303,7 +303,6 @@ class Article(
     entry.DetailTemplateEntry,
     LanguageEntry,
 ):
-
     objects = ArticleManager()
     published = ArticlePublishedManager()
 

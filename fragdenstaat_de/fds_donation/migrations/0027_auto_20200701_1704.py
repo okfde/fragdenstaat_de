@@ -21,7 +21,6 @@ def add_donation_number(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_donation", "0026_donation_number"),
     ]

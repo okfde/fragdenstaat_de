@@ -7,7 +7,6 @@ import filer.fields.file
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cms", "0022_auto_20180620_1551"),
         ("filer", "0011_auto_20190418_0137"),
