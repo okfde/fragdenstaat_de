@@ -7,7 +7,6 @@ import taggit.managers
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_donation", "0009_auto_20191204_1342"),
     ]

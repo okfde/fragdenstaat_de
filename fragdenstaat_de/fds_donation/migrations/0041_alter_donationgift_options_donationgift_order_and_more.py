@@ -11,7 +11,6 @@ def reorder(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_donation", "0040_donationgiftorder"),
     ]

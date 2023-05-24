@@ -37,7 +37,6 @@ def replace_cmsplugin_filer_image(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0008_auto_20181217_1220"),
     ]

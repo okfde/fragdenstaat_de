@@ -14,7 +14,6 @@ def remove_djangocms_plugins(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_blog", "0002_auto_20181214_1730"),
     ]

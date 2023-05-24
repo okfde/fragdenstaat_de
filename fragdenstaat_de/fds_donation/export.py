@@ -170,7 +170,6 @@ class JZWBExportForm(forms.Form):
         set_receipt_date: bool = True,
         store_backup: bool = True,
     ):
-
         queryset = (
             queryset.exclude(postcode="")
             .exclude(email="")

@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("fds_blog", "0009_infotextboxcmsplugin"),
         ("fds_blog", "0010_auto_20220901_1900"),

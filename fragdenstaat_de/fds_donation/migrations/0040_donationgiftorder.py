@@ -8,7 +8,6 @@ import django_countries.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_donation", "0039_donationformcmsplugin_gift_options"),
     ]

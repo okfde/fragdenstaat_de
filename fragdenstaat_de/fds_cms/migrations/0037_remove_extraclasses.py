@@ -14,7 +14,6 @@ def migrate_extraclasses(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0036_extraclasses_to_attributes"),
     ]

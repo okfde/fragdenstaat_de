@@ -23,7 +23,6 @@ def migrate_extraclasses(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0035_alter_cardimagecmsplugin_overlap"),
     ]
