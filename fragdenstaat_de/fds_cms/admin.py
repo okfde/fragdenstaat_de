@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from cms.admin.static_placeholder import StaticPlaceholderAdmin
 from cms.extensions import PageExtensionAdmin
 from cms.models.static_placeholder import StaticPlaceholder
+from filer.admin import FolderAdmin
+from filer.models import Folder
 
 from .models import FdsPageExtension
 
@@ -69,3 +71,11 @@ class CustomStaticPlaceholderAdmin(StaticPlaceholderAdmin):
 
 admin.site.unregister(StaticPlaceholder)
 admin.site.register(StaticPlaceholder, CustomStaticPlaceholderAdmin)
+
+
+class FdsFolderAdmin(FolderAdmin):
+    owner_search_fields = ["first_name", "last_name"]
+
+
+admin.site.unregister(Folder)
+admin.site.register(Folder, FdsFolderAdmin)
