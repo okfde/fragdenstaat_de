@@ -104,7 +104,7 @@ document.querySelectorAll<HTMLDivElement>('.audio-player').forEach((root) => {
       for (const cue of track.cues ?? []) {
         const span = document.createElement('span')
         span.textContent = `${toTimeString(cue.startTime)} – `
-        span.classList.add('text-muted')
+        span.classList.add('text-body-secondary')
 
         const a = document.createElement('a')
         a.href = '#audio-' + cue.id

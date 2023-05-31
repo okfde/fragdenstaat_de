@@ -3,7 +3,7 @@
     <a class="list-group-item list-group-item-action" href="{% url 'newsletter_archive_detail' newsletter_slug=newsletter.slug year=mailing.sending_date.year month=mailing.sending_date.month day=mailing.sending_date.day pk=mailing.pk %}">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{ mailing.email_template.subject }}</h5>
-        <small class="text-muted">
+        <small class="text-body-secondary">
           {{ mailing.sending_date|date:"DATE_FORMAT" }}
         </small>
       </div>

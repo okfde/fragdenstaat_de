@@ -154,7 +154,7 @@ function amountChanged(amountInput: HTMLInputElement | null): void {
       if (feeHint === null) {
         feeHint = document.createElement('small')
         feeHint.classList.add('fee-hint')
-        feeHint.classList.add('text-muted')
+        feeHint.classList.add('text-body-secondary')
         label.appendChild(feeHint)
         feeHint = label.querySelector('.fee-hint')
       }
