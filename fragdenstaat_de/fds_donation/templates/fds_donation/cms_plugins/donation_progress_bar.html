@@ -10,7 +10,7 @@
         <div class="progress-bar" role="progressbar" title="{% translate 'Donation progress' %}" style="width: {{ percentage }}%;" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100">{% if amount > donation_goal and not reached_goal %}{{ donation_goal_str }}{% endif %}</div>
     </div>
     <div class="text-end">
-        <small {% if not white_text %}class="text-muted"{% else %}class="text-white"{% endif %}>
+        <small {% if not white_text %}class="text-body-secondary"{% else %}class="text-white"{% endif %}>
           {% blocktrans %}
           {{ amount_str }}&nbsp;€ of {{ donation_goal_str }}&nbsp;€
           {% endblocktrans %}

@@ -23,7 +23,7 @@
   </div>
   {% with context_vars=object.get_context_vars %}
     {% if context_vars %}
-      <div class="card-footer text-muted">
+      <div class="card-footer text-body-secondary">
         {% trans "Context vars:" %}
         {% for var in context_vars %}{% templatetag openvariable %} {{ var }} {% templatetag closevariable %}{% if not forloop.last %}, {% endif %}{% endfor %}
         
