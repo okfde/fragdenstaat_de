@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load icons %}
 {% load content_helper %}
 
 {% load cms_tags %}
@@ -14,8 +15,8 @@
   {% block nav_brand %}
   <div class="header__branding">
     {% page_url "home" as home_url %}
-    <a href="{{ home_url|default:'/' }}">
-      {% block nav_brand_image %}<img src="{% static 'img/header_logo.svg' %}" class="header__logo" alt="">{% endblock %}
+    <a href="{{ home_url|default:'/' }}" class="text-body-emphasis">
+      {% block nav_brand_image %}{% render_svg "img/header_logo.svg" %}{% endblock %}
       <span class="visually-hidden visually-hidden-focusable">{% block nav_brand_name %}{{ SITE_NAME }}{% endblock %}</span>
     </a>
   </div>
