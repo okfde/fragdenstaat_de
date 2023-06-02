@@ -156,7 +156,7 @@
     user-select: none;
     font-weight: 700;
     text-decoration: none;
-    color: $body-color;
+    color: var(--#{$prefix}body-color);
     text-align: left;
     &:not(.dropdown-item) {
       background-color: transparent;
@@ -166,7 +166,7 @@
     }
     &:hover {
       text-decoration: none;
-      color: $blue-600;
+      color: var(--#{$prefix}emphasis-color);
     }
     &:active,
     &:focus {
@@ -198,7 +198,7 @@
 .dropdown-item.top-menu__link {
   &:active,
   &:focus {
-    color: $blue-600;
-    background-color: $blue-200;
+    color: var(--#{$prefix}emphasis-color);
+    background-color: var(--#{$prefix}secondary-bg);
   }
 }
