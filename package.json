@@ -56,7 +56,7 @@
     "froide_legalaction": "okfde/froide-legalaction",
     "froide_payment": "okfde/froide-payment",
     "inter-ui": "^3.19.2",
-    "vega": "^5.20.2",
+    "vega": "^5.23.0",
     "vega-embed": "6.19.1",
     "vega-interpreter": "^1.0.4",
     "vega-lite": "^5.1.0"
