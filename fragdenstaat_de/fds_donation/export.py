@@ -92,6 +92,22 @@ class JZWBExportForm(forms.Form):
 
         possible_receipt_date = timezone.now()
 
+        if export_format != "send_mailing":
+            receipt_date = None
+            if set_receipt_date:
+                receipt_date = possible_receipt_date
+            for donor in queryset:
+                if set_receipt_date:
+                    donations = get_donations(donor, year)
+                    # Update receipt date after export
+                    donations.filter(receipt_date__isnull=True).update(
+                        receipt_date=receipt_date
+                    )
+                if store_backup:
+                    backup_jzwb_pdf_task.delay(
+                        donor.pk, year, ignore_receipt_date=receipt_date
+                    )
+
         result = None
         if export_format == "csv":
             zwbs_data = get_zwbs(queryset, year=year)
@@ -118,22 +134,6 @@ class JZWBExportForm(forms.Form):
                 set_receipt_date=set_receipt_date,
                 store_backup=store_backup,
             )
-
-        if export_format != "send_mailing":
-            receipt_date = None
-            if set_receipt_date:
-                receipt_date = possible_receipt_date
-            for donor in queryset:
-                if set_receipt_date:
-                    donations = get_donations(donor, year)
-                    # Update receipt date after export
-                    donations.filter(receipt_date__isnull=True).update(
-                        receipt_date=receipt_date
-                    )
-                if store_backup:
-                    backup_jzwb_pdf_task.delay(
-                        donor.pk, year, ignore_receipt_date=receipt_date
-                    )
 
         return result
 
