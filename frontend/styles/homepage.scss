@@ -45,7 +45,7 @@
 
   &:last-child {
     margin-bottom: 0;
-    background-color: white; // hide dashed line
+    background-color: var(--#{$prefix}body-bg); // hide dashed line
   }
 
   &__text {
@@ -66,7 +66,7 @@
     border-radius: 50%;
     font-size: $font-size-base * 1.125;
     margin-right: $spacer;
-    background-color: white;
+    background-color: var(--#{$prefix}body-bg);
     box-shadow: $box-shadow-gray-sm;
   }
 
@@ -114,9 +114,9 @@
 }
 
 @mixin number-highlight() {
-  background-color: $blue-600;
-  border-color: $blue-600;
-  color: $white;
+  background-color: var(--#{$prefix}primary-bg-subtle);
+  border-color: var(--#{$prefix}primary-bg-subtle);
+  color: var(--#{$prefix}body-color);
   box-shadow: $box-shadow-gray-sm;
 }
 
@@ -191,7 +191,7 @@
     position: relative;
     height: auto;
     flex: 1;
-    background-color: white;
+    background-color: var(--#{$prefix}body-bg);
     border: 2px solid $blue-20;
     margin-bottom: $spacer * 2;
     @include media-breakpoint-up(md) {

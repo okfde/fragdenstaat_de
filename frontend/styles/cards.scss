@@ -119,7 +119,7 @@ a > .box-card {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $blue-700;
+  color: var(--froide-highlight-color);
 
   &.overlap-right {
     position: absolute;

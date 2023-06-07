@@ -97,6 +97,9 @@ $fa-font-path: "font-awesome/fonts";
 
 // letter-spacing: .03rem;
 
+@import "froide/frontend/styles/root";
+@import "froide/frontend/styles/utilities";
+
 // Own components
 // FIXME: these are not really components
 @import "froide/frontend/styles/components/base";

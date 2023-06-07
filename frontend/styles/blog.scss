@@ -70,7 +70,7 @@ h4.blog-list-heading {
 
 @include media-breakpoint-up(md) {
   .blog-teaser-text {
-    background-color: #fff;
+    background-color: var(--#{$prefix}body-bg);
     bottom: 2.5em;
     left: 2.5em;
     padding: 1.5em;
@@ -78,7 +78,7 @@ h4.blog-list-heading {
     width: 80%;
     max-height: 400px;
     overflow: hidden;
-    box-shadow: 0px 2px 5px 0px #ccc;
+    box-shadow: 0px 2px 5px 0px var(--#{$prefix}body-secondary-bg);
   }
 }
 
@@ -145,7 +145,7 @@ h4.blog-list-heading {
 
   .blog-lead {
     p {
-      color: $black;
+      color: var(--#{$prefix}body-color);
       font-size: 1.3rem;
       font-weight: 400;
       line-height: 1.5;
@@ -155,11 +155,11 @@ h4.blog-list-heading {
 }
 
 .blog-header__meta {
-  color: $gray-600;
+  color: var(--#{$prefix}secondary);
   font-size: 1rem;
 
   & a {
-    color: $gray-600;
+    color: var(--#{$prefix}secondary);
   }
 }
 
@@ -204,7 +204,7 @@ h4.blog-list-heading {
   > h3,
   > h4 {
     font-family: $font-family-serif;
-    color: #26282b;
+    color: var(--#{$prefix}body-color);
   }
 
   > p,
@@ -215,7 +215,7 @@ h4.blog-list-heading {
   > .blockquote-figure,
   > details {
     font-family: $font-family-serif;
-    color: #26282b;
+    color: var(--#{$prefix}body-color);
     font-size: 1.225rem;
     font-weight: 400;
     line-height: 1.65;
@@ -237,7 +237,8 @@ h4.blog-list-heading {
 
   > details,
   > div.infotextbox {
-    background-color: var(--bs-blue-100);
+    color: var(--#{$prefix}primary-text-emphasis);
+    background-color: var(--#{$prefix}primary-bg-subtle);
 
     @include make-col(12);
     margin: 1rem auto 0rem;
@@ -299,7 +300,7 @@ h4.blog-list-heading {
   }
 
   > h3 {
-    color: $black;
+    color: var(--#{$prefix}emphasis-color);
     font-family: $font-family-sans-serif;
   }
 
@@ -307,7 +308,7 @@ h4.blog-list-heading {
   a:active,
   a:visited {
     border-bottom: 1px solid rgba(30, 32, 35, 0.3);
-    color: #4c545b;
+    color: var(--#{$prefix}link-color);
     text-decoration: none;
     transition: all ease 0.3s;
   }
