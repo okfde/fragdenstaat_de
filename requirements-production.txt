@@ -580,11 +580,11 @@ protobuf==4.23.1
     #   google-api-core
     #   googleapis-common-protos
 psycopg[binary]==3.1.9
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   froide-govplan
 psycopg-binary==3.1.9
     # via psycopg
-psycopg2-binary==2.9.6
-    # via froide-govplan
 pyasn1==0.5.0
     # via
     #   pgpy

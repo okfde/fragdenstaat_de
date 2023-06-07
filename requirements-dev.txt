@@ -646,11 +646,11 @@ prompt-toolkit==3.0.38
     #   click-repl
     #   ipython
 psycopg[binary]==3.1.9
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   froide-govplan
 psycopg-binary==3.1.9
     # via psycopg
-psycopg2-binary==2.9.6
-    # via froide-govplan
 ptyprocess==0.7.0
     # via pexpect
 pyasn1==0.5.0

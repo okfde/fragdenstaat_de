@@ -53,7 +53,7 @@ pgpy>=0.6.0
 phonenumbers
 Pillow>=9.0.0
 pikepdf==7.0.0
-psycopg[binary]>=3.1.8
+psycopg[binary]>=3.1.9
 # pygtail>=0.14.0
 -e git+https://github.com/okfde/pygtail.git@3be17b00f55781caba62d589bcf8aceb0805a58c#egg=pygtail
 pyisemail
