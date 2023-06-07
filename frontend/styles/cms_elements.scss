@@ -19,7 +19,7 @@
 
 .submenu {
   list-style: none;
-  background-color: white;
+  background-color: var(--#{$prefix}body-bg);
   box-shadow: 0 0 10px 0 rgba(197, 197, 197, 0.5);
   text-align: center;
 
@@ -51,14 +51,6 @@
     }
   }
 
-  li > a.active {
-    background-color: $primary;
-    color: #fff;
-    &:hover {
-      color: #fff;
-    }
-  }
-
   li > a:before {
     content: '';
     position: absolute;
@@ -68,15 +60,12 @@
     left: 0;
     background-color: $primary;
     visibility: hidden;
-    -webkit-transform: scaleX(0);
     transform: scaleX(0);
-    -webkit-transition: all 0.3s ease-in-out 0s;
     transition: all 0.3s ease-in-out 0s;
   }
 
   li > a:hover:before {
     visibility: visible;
-    -webkit-transform: scaleX(1);
     transform: scaleX(1);
   }
 }
