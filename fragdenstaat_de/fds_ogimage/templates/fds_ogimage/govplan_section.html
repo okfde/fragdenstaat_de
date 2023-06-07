@@ -7,7 +7,7 @@
 {% block bottom_row %}
   {% get_plan_progress plans as progress %}
   <div class="col-7">
-    <div class="progress bg-white" style="height: 60px;">
+    <div class="progress text-bg-body" style="height: 60px;">
       {% for section in progress.sections %}
         <div class="progress-bar {% if section.name == 'not_started' %}progress-bar-striped bg-secondary{% else %}bg-dark{% endif %}" role="progressbar" style="width: {{ section.css_percentage }}%;" aria-valuenow="{{ section.css_percentage }}" aria-valuemin="0" aria-valuemax="100">
         </div>

@@ -3,11 +3,11 @@
 {% load static %}
 {% load markup %}
 
-<div class="slider-card bg-white md:shadow-yellow border-yellow text-blue-700 d-flex flex-column p-4 mx-auto">
+<div class="slider-card text-bg-body md:shadow-yellow border-yellow d-flex flex-column p-4 mx-auto">
   {% if "campaign-card__done" in object.extra_classes %}
     <img src="{% static 'img/campaign-check.svg' %}" alt="Kampagne abgeschlossen" class="slider-card__check-icon">
   {% endif %}
-  <div class="bg-blue-10 py-2 text-center">
+  <div class="bg-callout py-2 text-center">
     {% if object.image %}
       <picture>
         {% thumbnail object.image 250x0 crop subject_location=object.image.subject_location as thumb %}

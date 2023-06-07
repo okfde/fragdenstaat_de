@@ -2,7 +2,7 @@
 {% load form_helper markup i18n %}
 
 {% block body %}
-<div class="bg-gray-100">
+<div class="bg-body-tertiary">
   <div class="container">
     <div class="row justify-content-left">
       <div class="col-md-8">
@@ -18,7 +18,7 @@
   </div>
 </div>
 
-<div class="bg-gray-100 bg-gray-100-header">
+<div class="bg-body-tertiary bg-body-tertiary-header">
     <div class="container pb-5">
       <div class="row justify-content-left">
         <div class="col-md-8">
@@ -30,7 +30,7 @@
   <div class="row justify-content-center mt-2">
     <div class="col-md-8">
       {% if form %}
-        <div class="clearfix mt-3 bg-white border-gray shadow-sm p-3">
+        <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
           <form method="post" >
             <div class="pb-2 mb-3">
               {% if step_count > 1 %}
@@ -63,7 +63,7 @@
       {% endif %}
 
       {% if success %}
-      <div class="clearfix mt-3 bg-white border-gray shadow-sm p-3">
+      <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
         <div class="pb-2 mb-3">
           {% if step_count > 1 %}
           <div class="fw-bold mb-3">{{ question.questionaire }}</div>
@@ -100,7 +100,7 @@
         {% endif %}
 
       {% if failure %}
-        <div class="clearfix mt-3 bg-white border-gray shadow-sm p-3">
+        <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
           <div class="pb-2 mb-3">
             {% if step_count > 1 %}
             <div class="fw-bold mb-3">{{ question.questionaire }}</div>

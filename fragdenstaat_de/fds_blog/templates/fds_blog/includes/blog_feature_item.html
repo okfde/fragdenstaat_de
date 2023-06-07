@@ -38,14 +38,14 @@
       </a>
     {% endif %}
   </div>
-  <div class="bg-white border-gray shadow-gray z-index-20 position-relative mx-3 mt-n5 mt-lg-n6 p-3">
+  <div class="text-bg-body border-gray shadow-gray z-index-20 position-relative mx-3 mt-n5 mt-lg-n6 p-3">
     <h3 class="h4 mt-0 mb-1">
       {% if article.kicker %}
       <span class="d-block text-gray-500 fw-normal font-size-sm">
         {{ article.kicker }}
       </span>
       {% endif %}
-      <a class="text-black" href="{{ article.get_absolute_url }}">
+      <a class="text-body" href="{{ article.get_absolute_url }}">
         {{ article.title }}
       </a>
     </h3>

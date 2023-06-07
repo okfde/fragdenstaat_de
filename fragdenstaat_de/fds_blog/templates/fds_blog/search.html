@@ -35,12 +35,17 @@
         {% for object in object_list %}
           <li class="mb-5">
             <h5 class="mt-0 mb-1">
-              {% if object.kicker %}
-              <span class="d-block text-gray-500 font-weight-bold font-size-sm">{{ object.kicker }}</span>
-              {% endif%}
+              <span class="d-block text-body-secondary font-weight-bold font-size-sm">
+                <time datetime="{{ object.start_publication|date:'c' }}">
+                  {{ object.start_publication|date:"SHORT_DATE_FORMAT" }}
+                </time>
+                {% if object.kicker %} &ndash; {% endif %}
+                {{ object.kicker }}
+              </span>
               <a href="{{ object.get_absolute_url }}">
                 {{ object.title }}
               </a>
+              
             </h5>
             {% if object.image %}
               <a href="{{ object.get_absolute_url }}">{% include "fds_blog/includes/blog_picture_small.html" with picture=object.image %}</a>

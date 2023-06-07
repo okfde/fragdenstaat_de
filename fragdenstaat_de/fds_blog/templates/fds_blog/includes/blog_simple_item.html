@@ -1,11 +1,11 @@
-<article class="d-flex flex-column w-100 p-3 bg-white border-gray">
+<article class="d-flex flex-column w-100 p-3 text-bg-body border-gray">
   <h3 class="h5 mt-0 mb-1">
     {% if article.kicker %}
     <span class="d-block text-gray-500 fw-normal font-size-sm">
       {{ article.kicker }}
     </span>
     {% endif %}
-    <a class="text-black" href="{{ article.get_absolute_url }}">
+    <a class="text-body" href="{{ article.get_absolute_url }}">
       {{ article.title }}
     </a>
   </h3>
