@@ -530,11 +530,11 @@ class FdsCardPlugin(CMSPluginBase):
 
     def color(self, instance):
         if instance.border == "blue":
-            return "bg-blue-20"
+            return "text-bg-callout"
         elif instance.border == "gray":
-            return "bg-gray-300"
+            return "text-bg-body-secondary"
         elif instance.border == "yellow":
-            return "bg-yellow-200"
+            return "text-bg-highlight"
 
 
 @plugin_pool.register_plugin
