@@ -307,7 +307,7 @@ h4.blog-list-heading {
   a,
   a:active,
   a:visited {
-    border-bottom: 1px solid rgba(30, 32, 35, 0.3);
+    border-bottom: 1px solid var(--#{$prefix}link-color);;
     color: var(--#{$prefix}link-color);
     text-decoration: none;
     transition: all ease 0.3s;
@@ -319,9 +319,9 @@ h4.blog-list-heading {
   a:active:hover,
   a:visited:focus,
   a:visited:hover {
-    border-bottom: 1px solid rgba(30, 32, 35, 0.9);
+    border-bottom: 1px solid var(--#{$prefix}link-hover-color);
     text-decoration: none !important;
-    color: $gray-800;
+    color: var(--#{$prefix}link-hover-color);
   }
 
   > blockquote,
@@ -330,11 +330,11 @@ h4.blog-list-heading {
     margin: 1rem auto 0.5rem;
     padding: 1rem 2rem;
     width: 100%;
-    background-color: $gray-100;
+    background-color: var(--#{$prefix}tertiary-bg);
 
     > p,
     > blockquote > p {
-      border-left: 4px solid $gray-400;
+      border-left: 4px solid var(--#{$prefix}dark-bg-subtle);
       padding: 0.5rem 0 0.5rem 1rem;
       font-size: 1.3rem;
       margin: 0;
