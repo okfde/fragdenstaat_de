@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import Case, Count, F, IntegerField, Q, Value, When
 from django.db.models.functions import Cast, Collate, ExtractDay, Now, TruncDate
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import path, reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
@@ -69,7 +69,7 @@ class NewsletterAdmin(admin.ModelAdmin):
             if form.is_valid():
                 form.save(newsletter)
                 self.message_user(request, _("Subscribers imported."))
-                return self.response_post_save_add(request, newsletter)
+                return redirect("admin:fds_newsletter_newsletter_change", pk)
         else:
             form = SubscriberImportForm()
         opts = self.model._meta
