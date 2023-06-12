@@ -84,10 +84,12 @@ def subscribe_email(
     batch=False,
 ) -> SubscriptionReturn:
     try:
-        Subscriber.objects.annotate(
-            user_email_deterministic=Collate("user__email", "und-x-icu"),
-        ).filter(Q(email=email.lower()) | Q(user_email_deterministic=email)).get(
-            newsletter=newsletter
+        subscriber = (
+            Subscriber.objects.annotate(
+                user_email_deterministic=Collate("user__email", "und-x-icu"),
+            )
+            .filter(Q(email=email.lower()) | Q(user_email_deterministic=email))
+            .get(newsletter=newsletter)
         )
     except Subscriber.DoesNotExist:
         subscriber, _created = Subscriber.objects.get_or_create(
