@@ -149,14 +149,13 @@ def cleanup_subscribers():
         created__lt=month_ago, subscribed=None, unsubscribed=None
     ).delete()
 
-    # Unsubscribed more than 30 days ago
-    Subscriber.objects.filter(unsubscribed__lt=month_ago).delete()
-
     # Recently unsubscribed: anonymize data
-    # but keep to prove recent existence
+    # but keep hash to prove existence
     subs = Subscriber.objects.filter(unsubscribed__lt=three_days_ago, email_hash="")
     for sub in subs:
         m = hashlib.sha256()
+        # Kind of a salt
+        m.update(str(sub.pk).encode("utf-8"))
         m.update(sub.get_email().lower().encode("utf-8"))
         sub.email_hash = m.hexdigest()
         sub.email = None
