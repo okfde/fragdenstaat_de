@@ -7,6 +7,7 @@ from typing import Tuple
 
 from django.conf import settings
 from django.db.models import Q
+from django.db.models.functions import Collate
 from django.utils import timezone
 
 from froide.helper.email_sending import mail_registry
@@ -83,9 +84,11 @@ def subscribe_email(
     batch=False,
 ) -> SubscriptionReturn:
     try:
-        subscriber = Subscriber.objects.filter(
-            Q(email=email.lower()) | Q(user__email=email)
-        ).get(newsletter=newsletter)
+        Subscriber.objects.annotate(
+            user_email_deterministic=Collate("user__email", "und-x-icu"),
+        ).filter(Q(email=email.lower()) | Q(user_email_deterministic=email)).get(
+            newsletter=newsletter
+        )
     except Subscriber.DoesNotExist:
         subscriber, _created = Subscriber.objects.get_or_create(
             email=email.lower(),

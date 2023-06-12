@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db.models import Case, Count, F, IntegerField, Q, Value, When
-from django.db.models.functions import Cast, ExtractDay, Now, TruncDate
+from django.db.models.functions import Cast, Collate, ExtractDay, Now, TruncDate
 from django.shortcuts import render
 from django.urls import path, reverse
 from django.utils.html import format_html
@@ -105,7 +105,7 @@ class SubscriberAdmin(SetupMailingMixin, admin.ModelAdmin):
         "unsubscribe_method",
         "tags",
     )
-    search_fields = ("email", "user__email", "keyword")
+    search_fields = ("email", "user_email_deterministic", "keyword")
     readonly_fields = ("created", "activation_code")
     date_hierarchy = "created"
     actions = ["unsubscribe", "export_subscribers_csv"] + SetupMailingMixin.actions
@@ -113,7 +113,10 @@ class SubscriberAdmin(SetupMailingMixin, admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         qs = qs.select_related("newsletter")
-        qs = qs.prefetch_related("user")
+        qs = qs.select_related("user")
+        qs = qs.annotate(
+            user_email_deterministic=Collate("user__email", "und-x-icu"),
+        )
         qs = qs.annotate(
             days_subscribed=Case(
                 When(subscribed=None, unsubscribed=None, then=Value(0)),
