@@ -231,6 +231,7 @@ class FragDenStaatBase(German, Base):
         ("cms/page_breadcrumb.html", "Page with breadcrumbs"),
         ("cms/blog_base.html", "Blog base template"),
         ("cms/help_base.html", "Help base template"),
+        ("cms/pub_base.html", "Book Publication template"),
         ("froide_govplan/base.html", "Govplan base template"),
     ]
     DONATION_LOGIC_PLUGINS = [
