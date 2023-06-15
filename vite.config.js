@@ -25,6 +25,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         audio_player: './frontend/javascript/audio-player.ts',
+        bookpub: './frontend/javascript/bookpub.js',
         campaign_list:
           'node_modules/froide_campaign/frontend/javascript/list.js',
         campaign_map: 'node_modules/froide_campaign/frontend/javascript/map.js',

@@ -33,3 +33,10 @@ def thumbnail_dims(instance, default_width=768):
     elif instance.width:
         return "%dx0" % instance.width
     return "%dx0" % default_width
+
+
+@register.filter
+def get_soft_root(page):
+    if page.soft_root:
+        return page
+    return page.get_ancestor_pages().filter(soft_root=True).first()
