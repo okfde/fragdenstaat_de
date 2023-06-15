@@ -39,4 +39,7 @@ def thumbnail_dims(instance, default_width=768):
 def get_soft_root(page):
     if page.soft_root:
         return page
-    return page.get_ancestor_pages().filter(soft_root=True).first()
+    soft_root = page.get_ancestor_pages().filter(soft_root=True).reverse().first()
+    if soft_root:
+        return soft_root
+    return page.get_root()
