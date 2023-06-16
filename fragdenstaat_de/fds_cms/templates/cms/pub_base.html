@@ -25,12 +25,12 @@
           <form role="search" method="get" action="{{ base_url }}suche/">
             <div class="input-group d-none d-sm-flex">
               <input class="form-control form-control-sm" type="text" size="20" name="q" placeholder="{% translate 'Search' %}" aria-label="{% translate 'Search' %}" {% if form %}value="{{ form.cleaned_data.q }}"{% endif %}>
-              <button class="btn btn-sm btn-outline-secondary" type="submit">
+              <button class="btn btn-sm btn-outline-dark" type="submit">
                 <i class="fa fa-search" aria-hidden="true"></i>
                 <span class="visually-hidden">{% translate "Search" %}</span>
               </button>
             </div>
-            <button class="btn btn-sm btn-outline-secondary d-block d-sm-none" type="submit">
+            <button class="btn btn-sm btn-outline-dark d-block d-sm-none" type="submit">
               <i class="fa fa-search" aria-hidden="true"></i>
               <span class="visually-hidden">{% translate "Search" %}</span>
             </button>
@@ -49,11 +49,11 @@
       <div class="row justify-content-center">
         {% if not request.current_page.soft_root and request.current_page.in_navigation %}
           <div class="col">
-            <div id="toc" class="sticky-top z-2 toc bg-body-secondary m-3 p-3 small" style="top: 5rem"></div>
+            <div id="toc" class="sticky-top z-2 toc bg-body-secondary my-3 mx-0 mx-md-3 p-3 small" style="top: 5rem"></div>
           </div>
         {% endif %}
         <div class="bg-body col-md-10 col-lg-8 order-md-last mt-3 mb-3 ">
-          <div id="content" class="p-5">
+          <div id="content" class="py-3 px-1 py-md-5 px-md-5">
             {% block app_body %}
               {% placeholder "content" %}
             {% endblock %}
