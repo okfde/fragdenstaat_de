@@ -271,6 +271,8 @@ class FragDenStaatBase(German, Base):
     # Set to False until this is fixed
     # https://github.com/divio/django-cms/issues/5725
     CMS_PAGE_CACHE = False
+    CMS_COLOR_SCHEME_TOGGLE = True
+    CMS_COLOR_SCHEME = "auto"
 
     TEXT_ADDITIONAL_TAGS = (
         "iframe",
