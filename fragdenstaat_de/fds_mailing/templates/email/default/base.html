@@ -220,8 +220,8 @@
                   {% block content %}
                   <tr>
                     {% block header_image %}
-                    <td height="60" valign="top" class="header-cell" style="padding-top:10px">
-                      <img width="281" height="60" src="https://media.frag-den-staat.de/files/media/main/38/60/38604ee7-4d0c-4f4a-8347-ec30a0e03e39/frag_den_staat_logo_wide.png" alt="FragDenStaat.de">
+                    <td height="60" valign="top" class="header-cell" style="padding: 30px 20px">
+                      <img width="260" height="60" src="https://media.frag-den-staat.de/files/media/main/3d/ed/3ded41d1-31d9-4bf5-a04b-4ded2ae5d4e2/logo.png" alt="FragDenStaat.de">
                     </td>
                     {% endblock %}
                   </tr>
@@ -236,11 +236,17 @@
                   <tr>
                     <td valign="top" class="footer-cell">
                       {% block footer %}
-                        {% block social_media %}
-                        Unsere Social-Media-Kanäle:<br>
-                        <a href="https://twitter.com/fragdenstaat">Twitter</a> | <a href="https://www.facebook.com/fragdenstaat.de">Facebook</a> | <a href="https://instagram.com/fragdenstaat">Instagram</a> | <a href="https://chaos.social/@fragdenstaat">Mastodon</a>
-                        <br>
-                        {% endblock %}
+                      {% if newsletter %}
+                      Wurde die Mail an dich weitergeleitet? Erhalte den nächsten Newsletter persönlich und <a href="https://fragdenstaat.de/newsletter/">abonniere den FragDenStaat-Newsletter direkt hier</a>. Falls dir der Newsletter gefällt, dann  würden wir uns über das Teilen in deinem Netzwerk freuen.
+                      <br><br>
+                      {% endif %}
+
+                      {% block social_media %}
+                      Unsere Social-Media-Kanäle:<br>
+                      <a href="https://twitter.com/fragdenstaat">Twitter</a> | <a href="https://instagram.com/fragdenstaat">Instagram</a> | <a href="https://chaos.social/@fragdenstaat">Mastodon</a> | <a href="https://www.facebook.com/fragdenstaat.de">Facebook</a>
+                      <br><br>
+                      {% endblock %}
+                      
                       Impressum:
                       <br>
                       FragDenStaat ist ein Projekt der Open Knowledge Foundation Deutschland e.V.
@@ -249,9 +255,13 @@
                       <br>
                       <a href="mailto:info@fragdenstaat.de">info@fragdenstaat.de</a> | <a href="{{ site_url }}">fragdenstaat.de</a>
                       <br>
-                      {% if unsubscribe_url %}<br><a href="{{ unsubscribe_url }}">E-Mail abbestellen</a><br>{% endif %}
+                      {% if unsubscribe_url %}
+                      <br>
+                      Du hast diese Mitteilung erhalten, weil du dich in die Mailingliste eingetragen hast. Du kannst dich <a href="{{ unsubscribe_url }}">hier von dieser Liste abmelden</a>. Weitere Informationen findest du in unserer <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzrichtlinie</a>.
+                      {% else %}
                       <br>
                       <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzerklärung</a>
+                      {% endif %}
                       <br>
                       {% endblock %}
                     </td>
