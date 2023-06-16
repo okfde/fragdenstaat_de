@@ -1,7 +1,7 @@
 {% load thumbnail %}
 
 <tr>
-  <td height="60" valign="top" class="header-cell" style="padding-top:10px;{% if color %}background-color: {{ color }};{% endif %}">
+  <td height="60" valign="top" class="header-cell" style="padding: 20px; text-align: center; {% if color %}background-color: {{ color }};{% endif %}">
     <img width="280" height="60" src="{% thumbnail image 280x60 crop=smart subject_location=image.subject_location %}" alt="{{ label }}">
   </td>
 </tr>
