@@ -17,7 +17,7 @@ from froide.document.models import Document, DocumentCollection
 from froide.foirequest.models import FoiProject, FoiRequest
 from froide.publicbody.models import Category, Classification, Jurisdiction, PublicBody
 
-from .colors import BACKDROP, BACKGROUND
+from .colors import BACKDROP, BACKGROUND, get_css_color_variable
 
 
 @extension_pool.register
@@ -536,6 +536,9 @@ class RevealMoreCMSPlugin(CMSPlugin):
 
     def text(self):
         return self.reveal_text or str(_("Show more..."))
+
+    def css_color_variable(self):
+        return get_css_color_variable(self.color)
 
     def __str__(self):
         return self.text()

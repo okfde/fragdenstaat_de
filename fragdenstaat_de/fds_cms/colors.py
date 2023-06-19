@@ -43,4 +43,18 @@ BACKGROUND = (
     + [("yellow-{}".format(i), "Yellow {}".format(i)) for i in range(100, 400, 100)]
 )
 
+
+# css variable names vary slightly from the class names...
+def get_css_color_variable(color: str):
+    if color == "body":
+        color = "body-bg"
+    elif color in ("body-secondary", "body-tertiary"):
+        color = color.replace("body-", "")
+        color += "-bg"
+    elif color.endswith("-subtle"):
+        color = color.replace("-subtle", "-bg-subtle")
+
+    return "--bs-" + color
+
+
 BACKDROP = (("", _("None")), ("50", "50 %"), ("75", "75 %"))
