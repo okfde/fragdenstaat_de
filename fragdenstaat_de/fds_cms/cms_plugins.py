@@ -372,6 +372,7 @@ class DesignContainerPlugin(CMSPluginBase):
     module = _("Structure")
     name = _("Design Container")
     allow_children = True
+    render_template = "cms/plugins/container_design.html"
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
