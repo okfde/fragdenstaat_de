@@ -363,14 +363,6 @@ BACKDROP = (("", _("None")), ("50", "50 %"), ("75", "75 %"))
 
 
 class DesignContainerCMSPlugin(CMSPlugin):
-    TEMPLATES = [
-        ("", _("Default template")),
-        ("cms/plugins/designs/speech_bubble.html", _("Speech bubble")),
-    ]
-
-    template = models.CharField(
-        _("Template"), choices=TEMPLATES, default="", max_length=50, blank=True
-    )
     background = models.CharField(
         _("Background"), choices=BACKGROUND, default="", max_length=50, blank=True
     )
