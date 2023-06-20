@@ -67,8 +67,8 @@
       {{ thumb.url }}
     {% endif %}{% endspaceless %}"
     {% if not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %}
-    {% if instance.width %} width="{{ instance.width }}"{% endif %}
-    {% if instance.height %} height="{{ instance.height }}"{% endif %}
+    {% if instance.width %} width="{{ instance.width|floatformat:"0u" }}"{% elif instance.picture.width %} width="{{ instance.picture.width|floatformat:"0u" }}"{% endif %}
+    {% if instance.height %} height="{{ instance.height|floatformat:"0u" }}"{% elif instance.picture.height %} height="{{ instance.picture.height|floatformat:"0u" }}"{% endif %}
     {% if instance.attributes.loading %}loading="{{ instance.attributes.loading }}"{% else %}loading="lazy"{% endif %}
     {{ instance.attributes_str }}
 />
