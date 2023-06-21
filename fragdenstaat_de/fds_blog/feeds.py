@@ -195,6 +195,7 @@ class PodcastFeed(CDataRss201rev2Feed):
 
 class LatestAudioFeed(LatestArticlesFeed):
     feed_type = PodcastFeed
+    cache_namespace = "feed-audio"
 
     def feed_url(self):
         return self.site_url + reverse("blog:article-latest-feed-audio")
