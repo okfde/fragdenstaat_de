@@ -6,6 +6,7 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import html, translation
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from cms.models.fields import PlaceholderField
@@ -363,7 +364,7 @@ class Article(
         blog_content_plugins = [p for p in plugins if p.plugin_type == "BlogContent"]
 
         context = {"plugins": blog_content_plugins, "object": self}
-        return render_to_string(template, context=context, request=request)
+        return mark_safe(render_to_string(template, context=context, request=request))
 
     def get_full_html_content(self, request=None):
         return self.get_html_content(
