@@ -26,6 +26,25 @@ from .managers import (
 )
 
 
+class Publication(models.Model):
+    title = models.CharField(max_length=255)
+    app_name = models.CharField(max_length=255, blank=True, unique=True)
+    author = models.CharField(max_length=255, blank=True)
+
+    description = models.TextField(blank=True)
+
+    image = FilerImageField(
+        null=True,
+        blank=True,
+        default=None,
+        verbose_name=_("image"),
+        on_delete=models.SET_NULL,
+    )
+
+    def __str__(self):
+        return self.title
+
+
 class AuthorManager(models.Manager):
     def get_by_user(self, user):
         try:
