@@ -173,6 +173,16 @@ class ArticleAdmin(SortableAdminBase, PlaceholderAdminMixin, admin.ModelAdmin):
             },
         ),
         (
+            _("Audio"),
+            {
+                "fields": (
+                    "audio",
+                    "audio_duration",
+                ),
+                "classes": ("collapse", "collapse-closed"),
+            },
+        ),
+        (
             _("Advanced"),
             {
                 "fields": ("language", "uuid", "sites"),

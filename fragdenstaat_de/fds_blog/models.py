@@ -321,6 +321,7 @@ class Article(
     entry.ContentTemplateEntry,
     entry.DetailTemplateEntry,
     LanguageEntry,
+    entry.AudioEntry,
 ):
     objects = ArticleManager()
     published = ArticlePublishedManager()

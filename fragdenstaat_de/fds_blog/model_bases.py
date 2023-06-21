@@ -8,6 +8,8 @@ from django.utils.html import linebreaks, strip_tags
 from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
+from filer.fields.file import FilerFileField
+
 from .managers import DRAFT, HIDDEN, PUBLISHED
 
 
@@ -225,6 +227,27 @@ class DetailTemplateEntry(models.Model):
         choices=[("fds_blog/article_detail.html", _("Default template"))]
         + settings.ARTICLE_DETAIL_TEMPLATES,
         help_text=_("Template used to display the article's detail page."),
+    )
+
+    class Meta:
+        abstract = True
+
+
+class AudioEntry(models.Model):
+    """
+    Abstract model class to display entries with a
+    custom template if needed on the detail page.
+    """
+
+    audio = FilerFileField(
+        null=True,
+        default=None,
+        verbose_name=_("audio file"),
+        on_delete=models.SET_NULL,
+        related_name="audio_articles",
+    )
+    audio_duration = models.IntegerField(
+        null=True, blank=True, verbose_name=_("duration in seconds")
     )
 
     class Meta:
