@@ -241,6 +241,7 @@ class AudioEntry(models.Model):
 
     audio = FilerFileField(
         null=True,
+        blank=True,
         default=None,
         verbose_name=_("audio file"),
         on_delete=models.SET_NULL,
