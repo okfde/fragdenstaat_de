@@ -5,8 +5,10 @@ from django.contrib.syndication.views import Feed
 from django.core.cache import cache
 from django.urls import reverse
 from django.utils.feedgenerator import Enclosure, Rss201rev2Feed
-from django.utils.safestring import SafeString
+from django.utils.safestring import SafeString, mark_safe
 from django.utils.xmlutils import SimplerXMLGenerator
+
+import bleach
 
 from froide.helper.feed_utils import clean_feed_output
 from froide.helper.text_utils import convert_html_to_text
@@ -154,8 +156,8 @@ class PodcastFeed(CDataRss201rev2Feed):
             self.meta[field] = kwargs.pop(field, "")
         super().__init__(*args, **kwargs)
 
-    def root_attributes(self):
-        attrs = super().root_attributes()
+    def rss_attributes(self):
+        attrs = super().rss_attributes()
         attrs["xmlns:itunes"] = "http://www.itunes.com/dtds/podcast-1.0.dtd"
         attrs["xmlns:content"] = "http://purl.org/rss/1.0/modules/content/"
         return attrs
@@ -189,8 +191,6 @@ class PodcastFeed(CDataRss201rev2Feed):
         handler.addQuickElement("itunes:explicit", "false")
         handler.addQuickElement("itunes:author", item["author_name"])
         handler.addQuickElement("itunes:duration", item["audio_duration"])
-        handler.addQuickElement("itunes:image", item["itunes_image"])
-        handler.addQuickElement("itunes:keywords", item["keywords"])
 
 
 class LatestAudioFeed(LatestArticlesFeed):
@@ -207,8 +207,14 @@ class LatestAudioFeed(LatestArticlesFeed):
         queryset = self.get_queryset().filter(audio__isnull=False)
         return queryset[: self.limit]
 
-    def item_enclosures(self, obj):
-        return [Enclosure(obj.audio.url, obj.audio.size, obj.audio.mime_type)]
+    @clean_feed_output
+    def item_description(self, item):
+        content = item.get_full_html_content()
+        content = bleach.clean(content, strip=True, tags=["p", "ol", "ul", "li", "a"])
+        return mark_safe(content)
+
+    def item_enclosures(self, item):
+        return [Enclosure(item.audio.url, str(item.audio.size), item.audio.mime_type)]
 
     def feed_extra_kwargs(self, obj):
         if obj:
