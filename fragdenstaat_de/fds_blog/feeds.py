@@ -224,5 +224,5 @@ class LatestAudioFeed(LatestArticlesFeed):
     def item_extra_kwargs(self, item):
         return {
             # "image": item.image.url if item.image else None,
-            "audio_duration": item.audio_duration,
+            "audio_duration": str(item.audio_duration),
         }
