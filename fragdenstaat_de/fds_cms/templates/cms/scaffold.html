@@ -28,13 +28,6 @@
   {% cms_toolbar %}
   {% block body_tag %}{% endblock %}
 
-
-  {% if request.user.is_staff %}
-    <button id="darkmode-toggle">
-      <i class="fa fa-moon-o" aria-hidden="true"></i>
-    </button>
-  {% endif %}
-
   {% block extra_footer %}{% endblock %}
 
   {% block scripts %}{% endblock %}
