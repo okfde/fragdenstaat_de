@@ -79,9 +79,12 @@ a > .box-card {
       &.img-lg-wide {
         max-width: 100%;
         width: auto;
-        max-height: 5rem;
-        height: auto;
+        height: 5rem;
         margin-top: -2.5rem;
+        object-fit: contain;
+        object-position: center;
+        padding: 0 1rem;
+        background-color: var(--bs-body-bg);
       }
     }
   }
