@@ -3,8 +3,6 @@ from io import BytesIO
 
 from django.apps import AppConfig
 from django.core.files.base import ContentFile
-from django.urls import NoReverseMatch, reverse
-from django.utils.translation import gettext_lazy as _
 
 from PIL import Image
 
@@ -22,12 +20,10 @@ class FdsCmsConfig(AppConfig):
 
     def ready(self):
         from froide.account import account_merged
-        from froide.helper.search import search_registry
 
         from . import listeners  # noqa
 
         account_merged.connect(merge_user)
-        search_registry.register(add_search)
 
         if pillow_avif is not None:
             from easy_thumbnails.signals import thumbnail_created
@@ -39,17 +35,6 @@ def merge_user(sender, old_user=None, new_user=None, **kwargs):
     from .models import FoiRequestListCMSPlugin
 
     FoiRequestListCMSPlugin.objects.filter(user=old_user).update(user=new_user)
-
-
-def add_search(request):
-    try:
-        return {
-            "title": _("Help pages"),
-            "name": "cms",
-            "url": reverse("fds_cms:fds_cms-search"),
-        }
-    except NoReverseMatch:
-        return
 
 
 def store_as_avif(sender, **kwargs):
