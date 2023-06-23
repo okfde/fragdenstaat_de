@@ -62,6 +62,7 @@ def add_search(request):
             "title": _("Investigations"),
             "name": "blog",
             "url": reverse("blog:article-search"),
+            "order": 6,
         }
     except NoReverseMatch:
         return
