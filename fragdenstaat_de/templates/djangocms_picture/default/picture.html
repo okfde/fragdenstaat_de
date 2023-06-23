@@ -16,7 +16,7 @@
 
 {% if not instance.external_picture and not instance.use_no_cropping %}
 <picture>
-  {% if not instance.width and not instance.height %}
+  {% if not instance.width and not instance.height and instance.picture.mime_type != "image/svg+xml" %}
     {% thumbnail instance.picture 1140x0 subject_location=instance.picture.subject_location as thumb %}
     {% if thumb.url %}
       <source
@@ -43,14 +43,14 @@
     {% endif %}
   {% endif %}
 
-  {% if instance.external_picture or instance.use_no_cropping%}
+  {% if instance.external_picture or instance.use_no_cropping %}
     {# Empty #}
   {% elif instance.width or instance.height %}
     {% thumbnail instance.picture instance|thumbnail_dims crop=scale subject_location=instance.picture.subject_location as thumb %}
   {% else %}
     {% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location as thumb %}
   {% endif %}
-  {% if thumb.url %}
+  {% if thumb.url and instance.picture.mime_type != "image/svg+xml" %}
     <source
       srcset="{{ thumb.url }}.avif"
       type="image/avif"
