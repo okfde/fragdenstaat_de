@@ -489,6 +489,10 @@ class FdsCardPlugin(CMSPluginBase):
         if instance.background:
             classes.append(f"bg-{instance.background}")
 
+            # ensure full opacity text on body-secondary/tertiary
+            if "body" in instance.background:
+                classes.append("text-body")
+
         if instance.attributes.get("class"):
             classes += instance.attributes["class"].split(" ")
 
