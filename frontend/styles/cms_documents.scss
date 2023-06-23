@@ -34,7 +34,7 @@
     margin: 1rem 0 0.25rem;
     text-align: right;
     font-size: 0.9rem;
-    color: $gray-600;
+    color: var(--#{$prefix}secondary-color);
   }
 
   img {

@@ -26,7 +26,7 @@ h4.blog-list-heading {
   a:visited {
     border-color: $black;
     text-decoration: none !important;
-    color: $gray-800;
+    color: var(--#{$prefix}secondary-color);
   }
 
   a:focus,
@@ -41,14 +41,14 @@ h4.blog-list-heading {
 }
 
 .blog-list-heading__kicker {
-  color: $gray-600;
+  color: var(--#{$prefix}secondary-color);
   font-size: 0.9rem;
   min-height: 1.5em;
   line-height: 1.5;
 }
 
 .blog-lead {
-  color: $gray-600;
+  color: var(--#{$prefix}secondary-color);
   font-weight: 400;
   margin-top: 1.25rem;
 
@@ -364,31 +364,21 @@ h4.blog-list-heading {
   }
 }
 
-.author-section {
-  background-color: $gray-100;
-  margin: 3rem 0;
-  padding: 1rem;
-}
-
-.author-title {
-  margin-top: 1.5rem;
-}
-
 .picture-description {
   font-size: 0.85rem;
-  color: $gray-800;
+  color: var(--#{$prefix}secondary-color);
 }
 
 .picture-credits {
   font-style: italic;
   font-size: 0.85rem;
-  color: $gray-500;
+  color: var(--#{$prefix}tertiary-color);
 
   a,
   a:active,
   a:visited {
     border-bottom: 1px solid rgba(30, 32, 35, 0.3);
-    color: $gray-500;
+    color: var(--#{$prefix}tertiary-color);
     text-decoration: none;
     transition: all ease 0.3s;
   }
@@ -401,7 +391,7 @@ h4.blog-list-heading {
   a:visited:hover {
     border-color: $black;
     text-decoration: none !important;
-    color: $gray-800;
+    color: var(--#{$prefix}secondary-color);
   }
 }
 
@@ -421,7 +411,7 @@ h4.blog-list-heading {
     a:visited {
       border-color: $black;
       text-decoration: none !important;
-      color: $gray-800;
+      color: var(--#{$prefix}secondary-color);
     }
 
     a:focus,
