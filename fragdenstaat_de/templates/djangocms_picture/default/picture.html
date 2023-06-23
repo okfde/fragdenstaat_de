@@ -27,6 +27,7 @@
       <source
         media="(min-width: 1200px)"
         srcset="{{ thumb.url }}"
+        type="{{ instance.picture.mime_type }}"
       />
     {% endif %}
     {% thumbnail instance.picture 940x0 subject_location=instance.picture.subject_location as thumb %}
@@ -39,6 +40,7 @@
       <source
         media="(min-width: 992px)"
         srcset="{{ thumb.url }}"
+        type="{{ instance.picture.mime_type }}"
       />
     {% endif %}
   {% endif %}
