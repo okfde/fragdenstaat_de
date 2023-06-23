@@ -1,9 +1,9 @@
-from django import forms
 from django.utils.translation import gettext_lazy as _
 
 import django_filters
 
 from froide.helper.search.filters import BaseSearchFilterSet
+from froide.helper.widgets import BootstrapSelect
 
 from .models import Author, Category
 
@@ -14,14 +14,14 @@ class ArticleFilterset(BaseSearchFilterSet):
     category = django_filters.ModelChoiceFilter(
         queryset=Category.objects.all(),
         empty_label=_("all categories"),
-        widget=forms.Select(attrs={"label": _("category"), "class": "form-control"}),
+        widget=BootstrapSelect(attrs={"label": _("category")}),
         method="filter_category",
     )
 
     author = django_filters.ModelChoiceFilter(
         queryset=Author.objects.all(),
         empty_label=_("all authors"),
-        widget=forms.Select(attrs={"label": _("author"), "class": "form-control"}),
+        widget=BootstrapSelect(attrs={"label": _("author")}),
         method="filter_author",
     )
 
