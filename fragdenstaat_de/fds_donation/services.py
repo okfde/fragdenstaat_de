@@ -303,6 +303,8 @@ def assign_and_merge_donors(donor, user):
 def merge_donor_list(donors):
     merged_donor = propose_donor_merge(donors)
     merged_donor.id = donors[0].id
+    # Set uuid of first donor on merged donor to keep it
+    merged_donor.uuid = donors[0].uuid
     candidates = [merged_donor, *donors[1:]]
     return merge_donors(candidates, merged_donor.id)
 
