@@ -322,7 +322,9 @@ def confirm_donor_email(donor, request=None):
     user = None
     if not donor.user:
         # Find an active user with email
-        user = User.objects.filter(email__iexact=donor.email, is_active=True).first()
+        user = User.objects.filter(
+            email_deterministic=donor.email, is_active=True
+        ).first()
         new_user = bool(user)
         if user is not None:
             donor = assign_and_merge_donors(donor, user)
