@@ -59,17 +59,17 @@
                 </ul>
               </li>
 
-              {% page_url "blog" as blog_url %}
-              <li class="nav-item">
-                <a class="nav-link" href="{{ blog_url|default:'/blog/' }}">
-                  {% blocktrans %}Investigations{% endblocktrans %}
-                </a>
-              </li>
-
               {% page_url "campaigns" as campaigns_url %}                
               <li class="nav-item">
                 <a class="nav-link" href="{{ campaigns_url|default:'/kampagnen/' }}">
                   {% blocktrans %}Campaigns{% endblocktrans %}
+                </a>
+              </li>
+
+              {% page_url "blog" as blog_url %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ blog_url|default:'/blog/' }}">
+                  {% blocktrans %}Investigations{% endblocktrans %}
                 </a>
               </li>
 
