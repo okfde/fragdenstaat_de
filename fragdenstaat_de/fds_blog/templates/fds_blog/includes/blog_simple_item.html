@@ -1,7 +1,7 @@
 <article class="d-flex flex-column w-100 p-3 text-bg-body border-gray">
   <h3 class="h5 mt-0 mb-1">
     {% if article.kicker %}
-    <span class="d-block text-gray-500 fw-normal font-size-sm">
+    <span class="d-block text-body-secondary fw-normal font-size-sm">
       {{ article.kicker }}
     </span>
     {% endif %}
@@ -9,7 +9,7 @@
       {{ article.title }}
     </a>
   </h3>
-  <div class="text-gray-500 fw-bold font-size-sm mt-auto">
+  <div class="text-body-secondary fw-bold font-size-sm mt-auto">
     {{ article.start_publication|date:"DATE_FORMAT" }}
   </div>
 </article>

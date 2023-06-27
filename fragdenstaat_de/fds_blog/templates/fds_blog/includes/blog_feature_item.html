@@ -41,7 +41,7 @@
   <div class="text-bg-body border-gray shadow-gray z-index-20 position-relative mx-3 mt-n5 mt-lg-n6 p-3">
     <h3 class="h4 mt-0 mb-1">
       {% if article.kicker %}
-      <span class="d-block text-gray-500 fw-normal font-size-sm">
+      <span class="d-block text-body-secondary fw-normal font-size-sm">
         {{ article.kicker }}
       </span>
       {% endif %}
@@ -49,7 +49,7 @@
         {{ article.title }}
       </a>
     </h3>
-    <div class="text-gray-500 fw-bold font-size-sm">
+    <div class="text-body-secondary fw-bold font-size-sm">
       {{ article.start_publication|date:"DATE_FORMAT" }}
     </div>
   </div>
