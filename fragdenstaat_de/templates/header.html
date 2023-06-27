@@ -16,12 +16,7 @@
     <nav class="navbar navbar-fds bg-body">
       {% page_url "home" as home_url %}
       <a href="{{ home_url|default:'/' }}" class="navbar-brand navbar-brand-fds">
-        <div class="d-sm-none">
-          {% render_svg "img/header_logo-sm.svg" %}
-        </div>
-        <div class="d-none d-sm-block">
           {% render_svg "img/header_logo.svg" %}
-        </div>
         <span class="visually-hidden visually-hidden-focusable">{% block nav_brand_name %}{{ SITE_NAME }}{% endblock %}</span>
       </a>
       <div class="navbar-expand-md">
