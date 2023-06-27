@@ -12,6 +12,22 @@
   @include media-breakpoint-up(md) {
     top: -0.5rem;
   }
+
+  svg {
+    width: 55px;
+    
+    .brand-name {
+      display: block;
+    }
+
+    @include media-breakpoint-up(md) {
+      width: auto;
+
+      .brand-name {
+        display: block;
+      }
+    }
+  }
 }
 
 .navbar-nav-primary {
