@@ -16,7 +16,7 @@
     <nav class="navbar navbar-fds bg-body">
       {% page_url "home" as home_url %}
       <a href="{{ home_url|default:'/' }}" class="navbar-brand navbar-brand-fds">
-          {% render_svg "img/header_logo.svg" %}
+        {% render_svg "img/header_logo.svg" %}
         <span class="visually-hidden visually-hidden-focusable">{% block nav_brand_name %}{{ SITE_NAME }}{% endblock %}</span>
       </a>
       <div class="navbar-expand-md">
@@ -32,10 +32,31 @@
           </div>
           <div class="offcanvas-body d-flex flex-column">
             <ul class="navbar-nav navbar-nav-primary">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'foirequest-list' %}">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                   {% blocktrans %}Requests{% endblocktrans %}
                 </a>
+              
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'foirequest-list' %}">
+                      {% blocktrans %}See requests{% endblocktrans %}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'foirequest-make_request' %}">
+                      {% blocktrans %}Make request{% endblocktrans %}
+                    </a>
+                  </li>
+                  {% page_url "beginnersguide" as beginners_url %}
+                  {% if beginners_url %}
+                    <li>
+                      <a class="dropdown-item" href="{{ beginners_url }}">
+                        {% blocktrans %}Beginner's guide{% endblocktrans %}
+                      </a>
+                    </li>
+                  {% endif %}
+                </ul>
               </li>
 
               {% page_url "blog" as blog_url %}
@@ -51,17 +72,39 @@
                   {% blocktrans %}Campaigns{% endblocktrans %}
                 </a>
               </li>
+
+              {% page_url "lawsuits" as lawsuits_url %}
+              {% if lawsuits_url %}
+                {% page_attribute "menu_title" "lawsuits" as lawsuits_title %}
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ lawsuits_url|default:'/klagen/' }}">
+                  {{ lawsuits_title }}
+                </a>
+              </li>
+
             </ul>
             <ul class="navbar-nav navbar-nav-secondary me-auto">
-              {% page_url "about" as about_url %}                
+
+              {% page_url "about" as about_url %}
+              {% if about_url %}
+                {% page_attribute "menu_title" "about" as about_title %}
+              {% endif %}
               <li class="nav-item">
-                <a class="nav-link" href="{{ about_url|default:"/ueber-uns/" }}">{% translate "About us" %}</a>
+                <a class="nav-link" href="{{ about_url|default:"/ueber-uns/" }}">
+                  {{ about_title }}
+                </a>
               </li>
-              {% page_url "newsletter" as newsletter_url %}                
-              <li class="nav-item">
-                <a class="nav-link" href="{{ newsletter_url }}">{% translate "Newsletter" %}</a>
-              </li>
+
+              {% page_url "newsletter" as newsletter_url %}
+              {% if newsletter_url %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ newsletter_url }}">{% translate "Newsletter" %}</a>
+                </li>
+              {% endif %}
+
               {# Show either donate or signin as last item #}
+              {% page_url "donate" as donate_url %}
               {% if request.user.is_authenticated %}
                 <li class="nav-item logged-in">
                   <a class="nav-link fw-bold text-danger" href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">

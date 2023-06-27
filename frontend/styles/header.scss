@@ -51,3 +51,11 @@
     }
   }
 }
+
+.navbar-fds .dropdown-menu {
+  @include media-breakpoint-down(md) {
+    border: none;
+    @include border-radius(0);
+    @include box-shadow(none);
+  }
+}
