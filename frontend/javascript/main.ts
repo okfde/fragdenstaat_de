@@ -1,20 +1,19 @@
 import '../styles/main.scss'
 
-import 'froide/frontend/javascript/snippets/bootstrap.ts'
-import 'froide/frontend/javascript/snippets/copy-input.ts'
-import 'froide/frontend/javascript/snippets/form-ajax.ts'
-import 'froide/frontend/javascript/snippets/misc.ts'
-import 'froide/frontend/javascript/snippets/search.ts'
-import 'froide/frontend/javascript/snippets/inline-edit-forms.ts'
-import 'froide/frontend/javascript/snippets/color-mode.ts'
+import 'froide/frontend/javascript/snippets/bootstrap'
+import 'froide/frontend/javascript/snippets/copy-input'
+import 'froide/frontend/javascript/snippets/form-ajax'
+import 'froide/frontend/javascript/snippets/misc'
+import 'froide/frontend/javascript/snippets/search'
+import 'froide/frontend/javascript/snippets/inline-edit-forms'
+import 'froide/frontend/javascript/snippets/color-mode'
 
-import './donation-form.ts'
-import './drawer-menu.ts'
-import './magnifier.ts'
-import './misc.ts'
+import './donation-form'
+import './magnifier'
+import './misc'
 import './slider.js'
-import './smooth-scroll.ts'
-import './top-banner.ts'
+import './smooth-scroll'
+import './top-banner'
 
 if (document.body.dataset.sentry !== undefined) {
   void import(/* webpackChunkName: "sentry" */ './sentry').then((mod) => {
