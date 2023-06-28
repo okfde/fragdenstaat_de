@@ -145,18 +145,18 @@
 
         {% block nav_search %}
         <li class="nav-item {% block nav_search_class %}d-none {% if request.user.is_authenticated %}d-sm-block{% else %}d-md-block{% endif %}{% endblock nav_search_class %}">
-          <button class="nav-link fw-bold me-2" data-bs-toggle="modal" data-bs-target="#search-modal">
+          <button class="nav-link fw-bold me-2" data-bs-toggle="modal" data-bs-target="#search-modal" aria-label="{% translate "Search" %}" title="{% translate "Search" %}">
             <i class="fa fa-search" aria-hidden="true"></i>
-            <span class="d-none d-lg-inline-block">{% blocktrans %}Search{% endblocktrans %}</span>
+            <span class="d-none d-lg-inline-block">{% translate "Search" %}</span>
           </button>
         </li>
         {% endblock nav_search %}
 
         {% block nav_donate %}
         <li class="nav-item {% block nav_donate_class %}{% if request.user.is_authenticated %}d-md-none{% endif %}{% endblock nav_donate_class %}">
-          <a class="nav-link fw-bold text-danger" href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+          <a class="nav-link fw-bold text-danger" href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}" aria-label="{% translate "Donate" %}" title="{% translate "Donate" %}">
             <i class="fa fa-heart" aria-hidden="true"></i>
-            <span class="d-none d-sm-inline">{% blocktrans %}Donate{% endblocktrans %}</span>
+            <span class="d-none d-sm-inline">{% translate "Donate" %}</span>
           </a>
         </li>
         {% endblock nav_donate %}
