@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-03 06:53-0600\n"
-"PO-Revision-Date: 2023-02-16 11:49+0000\n"
+"POT-Creation-Date: 2023-06-28 02:32-0500\n"
+"PO-Revision-Date: 2023-06-28 09:34+0200\n"
 "Last-Translator: Karl Engelhardt <karl.engelhardt@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: fragdenstaat_de/fds_fximport/helper.py
 msgid "NAME"
@@ -38,6 +38,7 @@ msgid "Message from Frontex"
 msgstr "Nachricht von Frontex"
 
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
+#: fragdenstaat_de/templates/header.html
 msgid "Close"
 msgstr "Schließen"
 
@@ -160,6 +161,7 @@ msgstr "E-Mail-Einleitung"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py
+#: fragdenstaat_de/templates/header.html
 msgid "Newsletter"
 msgstr "Newsletter"
 
@@ -616,6 +618,30 @@ msgid_plural "Setup mailing to %(count)s users"
 msgstr[0] "Mailing für an ein:e Nutzer:in anlegen"
 msgstr[1] "Mailing an %(count)s Nutzer:innen anlegen"
 
+#: fragdenstaat_de/templates/djangocms_audio/default/audio_player.html
+msgid "No audio file available."
+msgstr "Keine Audiodatei verfügbar."
+
+#: fragdenstaat_de/templates/djangocms_audio/default/file.html
+msgid "Play/pause"
+msgstr "Abspielen/Pausieren"
+
+#: fragdenstaat_de/templates/djangocms_audio/default/file.html
+msgid "Backwards"
+msgstr "Rückwärts"
+
+#: fragdenstaat_de/templates/djangocms_audio/default/file.html
+msgid "Forwards"
+msgstr "Vorwärts"
+
+#: fragdenstaat_de/templates/djangocms_audio/default/file.html
+msgid "Playback speed"
+msgstr "Wiedergabegeschwindigkeit"
+
+#: fragdenstaat_de/templates/djangocms_audio/default/file.html
+msgid "Download"
+msgstr "Herunterladen"
+
 #: fragdenstaat_de/templates/djangocms_video/default/video_player.html
 msgid "Your browser doesn't support this video format."
 msgstr "Ihr Browser unterstützt diese Video-Format nicht."
@@ -645,16 +671,16 @@ msgid "Please fill out the questionnaire!"
 msgstr "Bitte füllen Sie den Fragebogen aus!"
 
 #: fragdenstaat_de/templates/header.html
-msgid "Donate"
-msgstr "Spenden"
+msgid "Toggle main menu"
+msgstr "Hauptmenü anzeigen"
 
 #: fragdenstaat_de/templates/header.html
 msgid "Menu"
 msgstr "Menü"
 
 #: fragdenstaat_de/templates/header.html
-msgid "Log out"
-msgstr "Abmelden"
+msgid "Main Menu"
+msgstr "Hauptmenü"
 
 #: fragdenstaat_de/templates/header.html
 msgid "Requests"
@@ -681,20 +707,32 @@ msgid "Investigations"
 msgstr "Recherchen"
 
 #: fragdenstaat_de/templates/header.html
+msgid "Donate"
+msgstr "Spenden"
+
+#: fragdenstaat_de/templates/header.html
 msgid "Sign in"
 msgstr "Anmelden"
 
 #: fragdenstaat_de/templates/header.html
-msgid "You like our work? Support us with a donation!"
-msgstr "Ihnen gefällt unsere Arbeit? Unterstützen Sie uns mit einer Spende!"
+msgid "Search requests, authorities, investigations etc."
+msgstr "Suchen Sie in Anfragen, Behörden, Recherchen etc."
 
 #: fragdenstaat_de/templates/header.html
-msgid "Donate now"
-msgstr "Jetzt spenden"
+msgid "Search"
+msgstr "Suche"
 
 #: fragdenstaat_de/templates/header.html
-msgid "Make requests"
-msgstr "Anfrage stellen"
+msgid "Toggle account menu"
+msgstr "Kontomenü anzeigen"
+
+#: fragdenstaat_de/templates/header.html
+msgid "Account Menu"
+msgstr "Kontomenü"
+
+#: fragdenstaat_de/templates/header.html
+msgid "Log out"
+msgstr "Abmelden"
 
 #: fragdenstaat_de/templates/index.html
 msgid "Successful Requests"
@@ -738,6 +776,16 @@ msgid ""
 msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
+
+#~ msgid "You like our work? Support us with a donation!"
+#~ msgstr ""
+#~ "Ihnen gefällt unsere Arbeit? Unterstützen Sie uns mit einer Spende!"
+
+#~ msgid "Donate now"
+#~ msgstr "Jetzt spenden"
+
+#~ msgid "Make requests"
+#~ msgstr "Anfrage stellen"
 
 #~ msgid "Legal Decision Create"
 #~ msgstr "Entscheidungen erstellen"
@@ -838,9 +886,6 @@ msgstr ""
 
 #~ msgid "Support area"
 #~ msgstr "Hilfebereich"
-
-#~ msgid "Search"
-#~ msgstr "Suche"
 
 #~ msgid "Support"
 #~ msgstr "Hilfe"
