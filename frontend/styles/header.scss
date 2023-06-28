@@ -4,6 +4,10 @@
   @include media-breakpoint-up(md) {
     padding-top: 2.25rem;
   }
+
+  .nav-link:active {
+    color: var(--#{$prefix}navbar-active-color);
+  }
 }
 .navbar-brand-fds {
   position: relative;
