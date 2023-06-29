@@ -453,6 +453,8 @@ class FragDenStaatBase(German, Base):
         "svg",
     )
 
+    FDS_THUMBNAIL_ENABLE_AVIF = False
+
     META_SITE_PROTOCOL = "http"
     META_USE_SITES = True
 
