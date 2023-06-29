@@ -263,6 +263,7 @@ class FragDenStaat(FragDenStaatBase):
         "gif": "/usr/bin/optipng {filename}",
         "jpeg": "/usr/bin/jpegoptim {filename}",
     }
+    FDS_THUMBNAIL_ENABLE_AVIF = True
     FILINGCABINET_ENABLE_WEBP = True
 
     _base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))

@@ -2,6 +2,7 @@ import logging
 from io import BytesIO
 
 from django.apps import AppConfig
+from django.conf import settings
 from django.core.files.base import ContentFile
 
 from PIL import Image
@@ -25,7 +26,7 @@ class FdsCmsConfig(AppConfig):
 
         account_merged.connect(merge_user)
 
-        if pillow_avif is not None:
+        if pillow_avif is not None and settings.FDS_THUMBNAIL_ENABLE_AVIF:
             from easy_thumbnails.signals import thumbnail_created
 
             thumbnail_created.connect(store_as_avif)
