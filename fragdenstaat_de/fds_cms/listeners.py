@@ -1,8 +1,11 @@
-from django.dispatch.dispatcher import receiver
+from django.dispatch import receiver
 
 from cms.signals import post_publish, post_unpublish
+from easy_thumbnails.signals import saved_file
 
 from froide.helper.tasks import search_instance_delete, search_instance_save
+
+from .tasks import generate_thumbnails
 
 
 @receiver(post_publish, dispatch_uid="publish_cms_page")
@@ -23,3 +26,10 @@ def publish_cms_page(sender, instance, language, **kwargs):
 def unpublish_cms_page(sender, instance, language, **kwargs):
     instance = instance.publisher_public.get_title_obj(language)
     search_instance_delete.delay(instance._meta.label_lower, instance.pk)
+
+
+@receiver(saved_file)
+def generate_thumbnails_async(sender, fieldfile, **kwargs):
+    generate_thumbnails.delay(
+        model=sender, pk=fieldfile.instance.pk, field=fieldfile.field.name
+    )
