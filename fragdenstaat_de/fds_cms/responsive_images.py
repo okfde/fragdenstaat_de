@@ -31,8 +31,6 @@ class ResponsiveImage:
     srcset: str
     sizes: str
     sources: List[ResponsiveImageSource]
-    width: int
-    height: int
 
 
 def get_extra_source_types() -> List[ResponsiveImageSourceTypes]:
