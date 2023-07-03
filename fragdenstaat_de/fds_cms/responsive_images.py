@@ -182,8 +182,16 @@ def get_responsive_image(
         )
         for source_type in extra_source_types
     ]
+    src = by_alias.get(settings.THUMBNAIL_DEFAULT_ALIAS)
+    if src is None:
+        src = by_alias.get("original")
+    if src:
+        src = src.url
+    else:
+        src = ""
+
     return ResponsiveImage(
-        src=by_alias.get(settings.THUMBNAIL_DEFAULT_ALIAS, by_alias["original"]).url,
+        src=src,
         srcset=srcset[original_mime_type],
         sizes=img_sizes,
         sources=sources,
