@@ -31,6 +31,8 @@ class ResponsiveImage:
     srcset: str
     sizes: str
     sources: List[ResponsiveImageSource]
+    width: int
+    height: int
 
 
 def get_extra_source_types() -> List[ResponsiveImageSourceTypes]:
@@ -213,13 +215,9 @@ def get_filer_thumbnails(
         extra_opts = {}
 
     if include_original:
-        thumbnails.append(
-            ResponsiveImageThumbnail(
-                alias="original",
-                url=filer_image.url,
-                size=(int(filer_image.width), int(filer_image.height)),
-            )
-        )
+        # generate thumbnail for original size
+        # to trigger extra source types and optimiztions
+        sizes.append(("original", (int(filer_image.width), int(filer_image.height))))
 
     thumbnailer = get_thumbnailer(filer_image)
 
