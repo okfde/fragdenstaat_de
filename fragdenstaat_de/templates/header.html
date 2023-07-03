@@ -153,7 +153,7 @@
         {% endblock nav_search %}
 
         {% block nav_donate %}
-        <li class="nav-item {% block nav_donate_class %}{% if request.user.is_authenticated %}d-md-none{% endif %}{% endblock nav_donate_class %}">
+        <li class="nav-item ms-2 {% block nav_donate_class %}{% if request.user.is_authenticated %}d-md-none{% endif %}{% endblock nav_donate_class %}">
           <a class="nav-link fw-bold text-danger" href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}" aria-label="{% translate "Donate" %}" title="{% translate "Donate" %}">
             <i class="fa fa-heart" aria-hidden="true"></i>
             <span class="d-none d-sm-inline">{% translate "Donate" %}</span>
@@ -163,7 +163,7 @@
 
         {% block nav_account_login %}
           {% if request.user.is_authenticated %}
-            <li class="nav-item ms-lg-2 align-self-center">
+            <li class="nav-item ms-2 align-self-center">
               <button class="btn py-0 pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#user-menu" aria-controls="user-menu" aria-label="{% translate "Toggle account menu" %}">
                 {% if request.user.profile_photo %}
                   <img width="32" height="32" src="{% thumbnail request.user.profile_photo 64x64 %}" alt="{{ request.user.get_full_name }}" class="img-fluid rounded-circle">
