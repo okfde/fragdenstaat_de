@@ -1,32 +1,20 @@
-{% load thumbnail %}
+{% load fds_cms_tags %}
 
 <picture>
-  {% thumbnail picture 1140x0 subject_location=picture.subject_location as thumb %}
-  <source
-    media="(min-width: 1200px)"
-    srcset="{{ thumb.url }}.avif"
-    type="image/avif"
-  />
-  <source
-    media="(min-width: 1200px)"
-    srcset="{{ thumb.url }}"
-  />
-  {% thumbnail picture 940x0 subject_location=picture.subject_location as thumb %}
-  <source
-    media="(min-width: 992px)"
-    srcset="{{ thumb.url }}.avif"
-    type="image/avif"
-  />
-  <source
-    media="(min-width: 992px)"
-    srcset="{{ thumb.url }}"
-  />
-  {% thumbnail picture 768x0 crop=scale subject_location=picture.subject_location as thumb %}
-  <source
-    srcset="{{ thumb.url }}.avif"
-    type="image/avif"
-  />
-  <img class="img-fluid" loading="lazy" src="{{ thumb.url }}"
-    {% if not attributes.alt %} alt="{{ picture.default_alt_text|default:"" }}"{% endif %}
-    {{ attributes_str }}>
+  {% get_responsive_filer_image picture columns as respimg %}
+
+  {% for source in respimg.sources %}
+    <source
+      srcset="{{ source.srcset }}"
+      sizes="{{ respimg.sizes }}"
+      type="{{ source.mime_type }}"
+    />
+  {% endfor %}
+
+  <img class="img-fluid" loading="{{ loading|default:"lazy" }}"
+    src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}"
+    alt="{{ picture.default_alt_text|default:"" }}"
+    width="{{ picture.width|floatformat:"0u" }}"
+    height="{{ picture.height|floatformat:"0u" }}"
+  >
 </picture>

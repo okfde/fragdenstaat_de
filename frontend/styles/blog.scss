@@ -404,32 +404,6 @@ h4.blog-list-heading {
 =          NEXT READS           =
 ================================*/
 
-.next-reads {
-  h3 {
-    a,
-    a:active,
-    a:visited {
-      border-color: $black;
-      text-decoration: none !important;
-      color: var(--#{$prefix}secondary-color);
-    }
-
-    a:focus,
-    a:hover,
-    a:active:focus,
-    a:active:hover,
-    a:visited:focus,
-    a:visited:hover {
-      border-bottom: 1px solid rgba(30, 32, 35, 0.3);
-      text-decoration: none;
-    }
-  }
-}
-
-.next-reads__text {
-  vertical-align: middle;
-}
-
 .cl-effect-10 {
   position: relative;
   z-index: 1;

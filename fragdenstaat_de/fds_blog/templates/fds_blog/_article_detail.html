@@ -4,54 +4,50 @@
 
 {% block article_header %}
 <div class="blog-header-container">
-  <div class="row justify-content-center">
-    <div class="post-item post-detail col-12">
-      <header class="blog-header">
-        <div class="row justify-content-center">
-          <div class="col-md-12 col-lg-10">
+  <header class="blog-header">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-10">
 
-            <h1 class="blog-header__title">
-              <span class="d-block fw-normal blog-header__meta mb-2">
-                {{ article.kicker }}
-              </span>
-              <span>{% render_model article "title" %}</span>
-            </h1>
+        <h1 class="blog-header__title">
+          <span class="d-block fw-normal blog-header__meta mb-2">
+            {{ article.kicker }}
+          </span>
+          <span>{% render_model article "title" %}</span>
+        </h1>
 
-            {% if article.teaser %}
-              <div class="blog-lead">
-                {% render_model article "teaser" "" "" "safe" %}
-              </div>
-            {% endif %}
-
-            <div class="mt-3 mb-5 blog-header__meta">
-              <time datetime="{{ article.start_publication|date:'c' }}">
-                {{ article.start_publication|date:"DATE_FORMAT" }}
-              </time>
-              {% with authors=article.get_authors %}
-                {% if authors %}
-                <span> -
-                  {% for author in authors %}
-                    {% if author.get_absolute_url %}
-                      <a href="{{ author.get_absolute_url }}" rel="author">
-                    {% endif %}
-                    {{ author.get_full_name }}{% if author.get_absolute_url %}</a>{% endif %}{% if not forloop.last %},{% endif %}
-                  {% endfor %}
-                </span>
-                {% endif %}
-              {% endwith %}
-            </div>
-
-            {% block article_header_image %}
-              {% if article.image %}
-                {% include "fds_blog/includes/blog_picture_detail.html" with picture=article.image %}
-              {% endif %}
-            {% endblock article_header_image %}
-
+        {% if article.teaser %}
+          <div class="blog-lead">
+            {% render_model article "teaser" "" "" "safe" %}
           </div>
+        {% endif %}
+
+        <div class="mt-3 mb-5 blog-header__meta">
+          <time datetime="{{ article.start_publication|date:'c' }}">
+            {{ article.start_publication|date:"DATE_FORMAT" }}
+          </time>
+          {% with authors=article.get_authors %}
+            {% if authors %}
+            <span> -
+              {% for author in authors %}
+                {% if author.get_absolute_url %}
+                  <a href="{{ author.get_absolute_url }}" rel="author">
+                {% endif %}
+                {{ author.get_full_name }}{% if author.get_absolute_url %}</a>{% endif %}{% if not forloop.last %},{% endif %}
+              {% endfor %}
+            </span>
+            {% endif %}
+          {% endwith %}
         </div>
-      </header>
+
+        {% block article_header_image %}
+          {% if article.image %}
+            {% include "fds_blog/includes/blog_picture_detail.html" with picture=article.image columns="col-12 col-lg-10" loading="eager" %}
+          {% endif %}
+        {% endblock article_header_image %}
+
+      </div>
     </div>
-  </div>
+  </header>
 </div>
 {% endblock article_header %}
 
