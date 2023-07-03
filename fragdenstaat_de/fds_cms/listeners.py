@@ -2,6 +2,7 @@ from django.dispatch import receiver
 
 from cms.signals import post_publish, post_unpublish
 from easy_thumbnails.signals import saved_file
+from filer.models import Image
 
 from froide.helper.tasks import search_instance_delete, search_instance_save
 
@@ -30,6 +31,7 @@ def unpublish_cms_page(sender, instance, language, **kwargs):
 
 @receiver(saved_file)
 def generate_thumbnails_async(sender, fieldfile, **kwargs):
-    generate_thumbnails.delay(
-        model=sender, pk=fieldfile.instance.pk, field=fieldfile.field.name
-    )
+    if sender == Image:
+        generate_thumbnails.delay(
+            model=sender, pk=fieldfile.instance.pk, field=fieldfile.field.name
+        )
