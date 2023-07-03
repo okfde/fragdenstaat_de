@@ -8,7 +8,7 @@
 
 <div class="container mt-3">
   <div class="row justify-content-center">
-    <div class="col-md-9">
+    <div class="col-md-12">
       <h2>
         {% translate "Search articles" %}
       </h2>
@@ -28,36 +28,40 @@
       </form>
 
       {% if object_list and form.q.value %}
-      <p>
-        {% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}
-      </p>
-      <ol class="list-unstyled">
+        <p>
+          {% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}
+        </p>
         {% for object in object_list %}
-          <li class="mb-5">
-            <h5 class="mt-0 mb-1">
-              <span class="d-block text-body-secondary font-weight-bold font-size-sm">
-                <time datetime="{{ object.start_publication|date:'c' }}">
-                  {{ object.start_publication|date:"SHORT_DATE_FORMAT" }}
-                </time>
-                {% if object.kicker %} &ndash; {% endif %}
-                {{ object.kicker }}
-              </span>
-              <a href="{{ object.get_absolute_url }}">
-                {{ object.title }}
-              </a>
-              
-            </h5>
-            {% if object.image %}
-              <a href="{{ object.get_absolute_url }}">{% include "fds_blog/includes/blog_picture_small.html" with picture=object.image %}</a>
+          <div class="row">
+            {% if object.image %}      
+              <div class="col-sm-4">
+                <a href="{{ object.get_absolute_url }}">
+                  {% include "fds_blog/includes/blog_picture_small.html" with picture=object.image columns="col-sm-4" %}
+                </a>
+              </div>
             {% endif %}
-            {% if object.query_highlight %}
-              <p class="search-highlight">
-                {{ object.query_highlight }}
-              </p>
-            {% endif %}
-          </li>
+            <div class="col-sm-8">
+              <h5 class="mt-0 mb-1">
+                <span class="d-block text-body-secondary font-weight-bold font-size-sm">
+                  <time datetime="{{ object.start_publication|date:'c' }}">
+                    {{ object.start_publication|date:"SHORT_DATE_FORMAT" }}
+                  </time>
+                  {% if object.kicker %} &ndash; {% endif %}
+                  {{ object.kicker }}
+                </span>
+                <a href="{{ object.get_absolute_url }}">
+                  {{ object.title }}
+                </a>
+                
+              </h5>
+              {% if object.query_highlight %}
+                <p class="search-highlight">
+                  {{ object.query_highlight }}
+                </p>
+              {% endif %}
+            </div>
+          </div>
         {% endfor %}
-      </ol>
       {% elif form.q.value %}
       <p>
         {% translate "No results found." %}
