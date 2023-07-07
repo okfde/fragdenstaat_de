@@ -52,6 +52,7 @@ export default defineConfig({
           'node_modules/froide/frontend/javascript/messageredaction.js',
         moderation: 'node_modules/froide/frontend/javascript/moderation.js',
         payment: 'node_modules/froide_payment/frontend/javascript/payment.ts',
+        proofupload: 'node_modules/froide/frontend/javascript/proofupload.js',
         publicbody: 'node_modules/froide/frontend/javascript/publicbody.js',
         publicbodyupload:
           'node_modules/froide/frontend/javascript/publicbodyupload.js',
