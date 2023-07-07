@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, List, Tuple
 
 from django.conf import settings
@@ -27,10 +27,10 @@ class ResponsiveImageSource:
 
 @dataclass
 class ResponsiveImage:
-    src: str
-    srcset: str
-    sizes: str
-    sources: List[ResponsiveImageSource]
+    src: str = ""
+    srcset: str = ""
+    sizes: str = ""
+    sources: List[ResponsiveImageSource] = field(default_factory=list)
 
 
 def get_extra_source_types() -> List[ResponsiveImageSourceTypes]:
@@ -165,7 +165,7 @@ def get_imgsizes(colsizes):
 
 def get_responsive_image(
     thumbnails: List[ResponsiveImageThumbnail], column_sizes: ColumnSizes
-):
+) -> ResponsiveImage:
     by_alias = {thumbnail.alias: thumbnail for thumbnail in thumbnails}
     extra_source_types = get_extra_source_types()
     original_mime_type = ""

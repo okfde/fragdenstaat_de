@@ -4,6 +4,7 @@ from django.conf import settings
 from cms.models import StaticPlaceholder
 
 from ..responsive_images import (
+    ResponsiveImage,
     get_filer_thumbnails,
     get_picture_plugin_column_sizes,
     get_responsive_image,
@@ -43,6 +44,8 @@ def thumbnail_dims(picture_plugin, default_width=768):
 
 @register.simple_tag
 def get_responsive_plugin_image(picture_plugin):
+    if not picture_plugin.picture:
+        return ResponsiveImage()
     if picture_plugin.width or picture_plugin.height:
         thumbnails = get_filer_thumbnails(
             picture_plugin.picture,
@@ -59,6 +62,8 @@ def get_responsive_plugin_image(picture_plugin):
 
 @register.simple_tag
 def get_responsive_filer_image(filer_image, column_classes):
+    if not filer_image:
+        return ResponsiveImage()
     thumbnails = get_filer_thumbnails(filer_image)
     column_sizes = parse_colsizes(column_classes)
     return get_responsive_image(thumbnails, column_sizes)
