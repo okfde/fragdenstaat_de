@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from django.conf import settings
 
@@ -63,6 +63,7 @@ def get_srcsets(
 
 
 BS_BREAKPOINTS = (
+    # name, breakpoint, max-width container
     ("xs", 576, None),
     ("sm", 576, 540),
     ("md", 768, 780),  # changed from original Bootstrap 720px!
@@ -92,19 +93,30 @@ def parse_colsizes(colsizes) -> ColumnSizes:
     return result
 
 
-def find_parent_column(instance, levels=2):
+def find_parent_plugin_size(instance, levels=2) -> Optional[ColumnSizes]:
     num_levels = 0
     current_instance = instance
+    has_container = False
     while num_levels < levels:
         parent = current_instance.parent
         if not parent:
-            return
-        if parent.plugin_type == "GridColumnPlugin":
+            break
+        if "container" in parent.plugin_type.lower():
+            has_container = True
+        elif parent.plugin_type == "GridColumnPlugin":
             parent_model, _parent_instance = parent.get_plugin_instance()
-            return parent_model
+
+            return {
+                name: parent_model.config.get("{}_col".format(name))
+                for name, _, _ in BS_BREAKPOINTS
+                if parent_model.config.get("{}_col".format(name))
+            }
 
         num_levels += 1
         current_instance = parent
+    if has_container:
+        return {name: COL_BASE for name, _, _ in BS_BREAKPOINTS}
+    return None
 
 
 def get_picture_plugin_column_sizes(instance) -> ColumnSizes:
@@ -112,13 +124,9 @@ def get_picture_plugin_column_sizes(instance) -> ColumnSizes:
     colsizes = attrs.get("data-colsizes")
     if colsizes:
         return parse_colsizes(colsizes)
-    column = find_parent_column(instance)
-    if column:
-        return {
-            name: column.config.get("{}_col".format(name))
-            for name, _, _ in BS_BREAKPOINTS
-            if column.config.get("{}_col".format(name))
-        }
+    parent_size = find_parent_plugin_size(instance)
+    if parent_size:
+        return parent_size
     return {}
 
 
@@ -138,18 +146,19 @@ def get_imgsizes(colsizes):
     colsizes = fill_colsizes_upward(colsizes)
     sizes = []
     for name, screen_width, container_width in BS_BREAKPOINTS:
-        if name == "xs":
-            condition = "max-width"
-            fallback = COL_BASE  # full width 100%
-            col_ratio = colsizes.get(name, fallback) / COL_BASE
-            value = "calc((100vw * {}) - {})".format(col_ratio, PADDING)
-        else:
+        col_size = colsizes.get(name)
+        if col_size is None:
+            # guess full width
             condition = "min-width"
-            fallback = 8
-            col_ratio = colsizes.get(name, fallback) / COL_BASE
-            value = "calc(min({}px, 100vw) * {} - {})".format(
-                container_width, col_ratio, PADDING
-            )
+            value = "100vw"
+        else:
+            col_ratio = col_size / COL_BASE
+            if container_width is None:
+                condition = "max-width"
+                value = "calc(100vw * {})".format(col_ratio)
+            else:
+                condition = "min-width"
+                value = "calc(min({}px, 100vw) * {})".format(container_width, col_ratio)
 
         sizes.append(
             "({condition}: {screen_width}px) {value}".format(
