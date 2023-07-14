@@ -164,7 +164,7 @@ class FragDenStaatBase(German, Base):
     # Campaign
 
     CAMPAIGN_PROVIDERS = [
-        ("", "froide_campaign.providers.base.BaseProvider"),
+        ("", "froide_campaign.providers.informationobject.InformationObjectProvider"),
         ("amenity", "froide_campaign.providers.amenity.AmenityProvider"),
         ("publicbody", "froide_campaign.providers.publicbody.PublicBodyProvider"),
         (
