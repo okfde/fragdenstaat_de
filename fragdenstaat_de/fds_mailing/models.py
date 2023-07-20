@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import EmailMultiAlternatives, mail_managers
 from django.db import models
+from django.db.models.query import QuerySet
 from django.template import Context, Template
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -273,6 +274,20 @@ class EmailHeaderCMSPlugin(VariableTemplateMixin, CMSPlugin):
         return self.label
 
 
+class PublishedMailingManager(models.Manager):
+    def get_queryset(self) -> QuerySet:
+        return (
+            super()
+            .get_queryset()
+            .filter(
+                publish=True,
+                ready=True,
+                submitted=True,
+                sent=True,
+            )
+        )
+
+
 class Mailing(models.Model):
     name = models.CharField(max_length=255)
     email_template = models.ForeignKey(
@@ -326,6 +341,8 @@ class Mailing(models.Model):
     sending = models.BooleanField(
         default=False, verbose_name=_("sending"), editable=False
     )
+
+    published = PublishedMailingManager()
 
     class Meta:
         ordering = ("-created",)
