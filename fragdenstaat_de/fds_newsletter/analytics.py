@@ -50,7 +50,7 @@ def get_analytics(start_date, end_date, newsletter=None):
 def get_donation_data(start_date, end_date, reference_name):
     from fragdenstaat_de.fds_donation.models import Donation
 
-    return Donation.objects.filter(
+    data = Donation.objects.filter(
         timestamp__date__gte=start_date,
         timestamp__date__lt=end_date,
         completed=True,
@@ -59,6 +59,10 @@ def get_donation_data(start_date, end_date, reference_name):
         donations_total=Sum("amount"),
         donations_count=Count("id"),
     )
+    return {
+        "donations_reference_newsletter_amount": float(data["donations_total"]),
+        "donations_reference_newsletter_count": data["donations_count"],
+    }
 
 
 def get_matomo_data(start_date, end_date, referrer_name):
