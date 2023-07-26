@@ -822,6 +822,8 @@ class FragDenStaatBase(German, Base):
         "SLACK_DEFAULT_CHANNEL", "fragdenstaat-alerts"
     )
     SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL", "")
+    MATOMO_API_URL = os.environ.get("MATOMO_API_URL", "")
+    MATOMO_GOAL_ID = os.environ.get("MATOMO_GOAL_ID", "7")
 
     SENTRY_JS_URL = ""
 
