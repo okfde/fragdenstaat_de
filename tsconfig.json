@@ -14,7 +14,9 @@
     "downlevelIteration": true
   },
   "include": [
-    "./frontend/javascript/**/*"
+    "./frontend/javascript/**/*",
+    ".eslintrc.js",
+    "vite.config.js"
   ],
   "exclude": [
     "node_modules"

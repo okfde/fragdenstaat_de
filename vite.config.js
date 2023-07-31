@@ -2,18 +2,20 @@ import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import devManifest from 'vite-plugin-dev-manifest'
 import autoprefixer from 'autoprefixer'
-import vue from '@vitejs/plugin-vue2'
+import vue from '@vitejs/plugin-vue'
 
+// eslint-disable-next-line no-undef
 const outputDir = resolve(__dirname, 'build')
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // eslint-disable-next-line no-undef
   base: process.env.ASSET_PATH || '/static/',
   publicDir: false,
   resolve: {
     alias: {
-      '~froide': resolve(__dirname, 'node_modules/froide'),
-      vue: '@vue/compat'
+      // eslint-disable-next-line no-undef
+      '~froide': resolve(__dirname, 'node_modules/froide')
     },
     dedupe: ['bootstrap', 'vue', 'pdfjs-dist'],
     extensions: ['.mjs', '.js', '.ts', '.vue', '.json']
