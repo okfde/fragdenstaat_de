@@ -4,8 +4,7 @@ import '../styles/bookpub.scss'
 function createFootnotePopover(content) {
   const footnotes = content.querySelectorAll('.footnote-ref')
   footnotes.forEach((footnote) => {
-    // eslint-disable-next-line no-unused-vars
-    const popover = new Tooltip(footnote, {
+    new Tooltip(footnote, {
       //   container: footnote.parentElement.parentElement,
       html: true,
       placement: 'top',
@@ -60,8 +59,7 @@ function generateSubToc(level, headings, start = 1) {
 }
 
 function setupScrollSpy(content, toc) {
-  // eslint-disable-next-line no-unused-vars
-  const scrollSpy = new ScrollSpy(content, {
+  new ScrollSpy(content, {
     target: toc,
     smoothScroll: true
   })
