@@ -1842,7 +1842,7 @@ fraction.js@^4.2.0:
 
 froide@okfde/froide:
   version "1.0.0"
-  resolved "https://codeload.github.com/okfde/froide/tar.gz/01d29726c5333a61bc7a3ae1bfd6e28c8996064a"
+  resolved "https://codeload.github.com/okfde/froide/tar.gz/9363acad46958d3d859fc08b6efb10cc0c8ce39b"
   dependencies:
     "@okfde/filingcabinet" "^0.0.4"
     "@popperjs/core" "^2.11.5"
