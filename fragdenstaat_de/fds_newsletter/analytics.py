@@ -60,7 +60,9 @@ def get_donation_data(start_date, end_date, reference_name):
         donations_count=Count("id"),
     )
     return {
-        "donations_reference_newsletter_amount": float(data["donations_total"]),
+        "donations_reference_newsletter_amount": float(data["donations_total"])
+        if data["donations_total"]
+        else 0.0,
         "donations_reference_newsletter_count": data["donations_count"],
     }
 
