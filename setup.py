@@ -60,7 +60,7 @@ setup(
         "django-contrib-comments",
         "psycopg2",
         "sentry-sdk",
-        "pypdf2",
+        "pypdf",
         "reportlab",
         "wand",
         "djangorestframework",
