@@ -359,7 +359,7 @@ class PostcodeEncryptedZWBPDFGenerator(ZWBPDFGenerator):
 
         pdf_bytes = super().get_pdf_bytes()
 
-        from PyPDF2 import PdfReader, PdfWriter
+        from pypdf import PdfReader, PdfWriter
 
         input_pdf = PdfReader(BytesIO(pdf_bytes))
 

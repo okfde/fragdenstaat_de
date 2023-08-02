@@ -612,7 +612,7 @@ pyotp==2.8.0
     # via django-mfa3
 pyparsing==3.0.9
     # via httplib2
-pypdf2==3.0.1
+pypdf==3.14.0
     # via
     #   -r requirements.in
     #   django-filingcabinet
