@@ -342,6 +342,7 @@ class Mailing(models.Model):
         default=False, verbose_name=_("sending"), editable=False
     )
 
+    objects = models.Manager()
     published = PublishedMailingManager()
 
     class Meta:
