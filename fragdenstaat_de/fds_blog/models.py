@@ -6,11 +6,13 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import html, translation
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-from cms.models.fields import PlaceholderField
+from cms.models.fields import PlaceholderRelationField
 from cms.models.pluginmodel import CMSPlugin
+from cms.utils.placeholder import get_placeholder_from_slot
 from cms.utils.plugins import get_plugins
 from filer.fields.image import FilerImageField
 from fragdenstaat_de.fds_cms.utils import get_request
@@ -263,10 +265,17 @@ class LanguageEntry(models.Model):
 
 
 class CMSContentEntry(models.Model):
-    content_placeholder = PlaceholderField("content")
+    placeholders = PlaceholderRelationField()
 
     class Meta:
         abstract = True
+
+    @cached_property
+    def content_placeholder(self):
+        return get_placeholder_from_slot(self.placeholders, "content")
+
+    def get_template(self):
+        return "fds_blog/placeholders.html"
 
 
 class ArticleImageEntry(models.Model):
