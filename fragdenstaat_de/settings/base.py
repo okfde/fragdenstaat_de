@@ -34,11 +34,17 @@ class FragDenStaatBase(German, Base):
     def INSTALLED_APPS(self):
         installed = super(FragDenStaatBase, self).INSTALLED_APPS
         installed.default = (
-            ["fragdenstaat_de.theme"]
+            [
+                "fragdenstaat_de.theme",
+            ]
             + installed.default
             + [
                 "django.contrib.postgres",
+                "fragdenstaat_de.fds_cms.apps.FdsCmsConfig",
+                "djangocms_4_migration",
+                "djangocms_versioning",
                 "cms",
+                "djangocms_alias",
                 "menus",
                 "sekizai",
                 # easy thumbnails comes from froide
@@ -50,7 +56,6 @@ class FragDenStaatBase(German, Base):
                 "adminsortable2",
                 # Customisations
                 "fragdenstaat_de.fds_newsletter",
-                "fragdenstaat_de.fds_cms.apps.FdsCmsConfig",
                 "fragdenstaat_de.fds_donation.apps.FdsDonationConfig",
                 "fragdenstaat_de.fds_mailing.apps.FdsMailingConfig",
                 "fragdenstaat_de.fds_ogimage.apps.FdsOgImageConfig",
@@ -194,6 +199,8 @@ class FragDenStaatBase(German, Base):
 
     CMS_PERMISSION = True
     CMS_RAW_ID_USERS = True
+    CMS_CONFIRM_VERSION4 = True
+    CMS_MIGRATION_USER_ID = 1
 
     CMS_LANGUAGES = {
         # Customize this

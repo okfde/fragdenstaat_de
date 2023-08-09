@@ -12,6 +12,11 @@ class FdsPageExtensionToolbar(ExtensionToolbar):
     model = FdsPageExtension
 
     def populate(self):
+        self.page = self.request.current_page
+
+        if not self.page:
+            # Nothing to do
+            return
         # setup the extension toolbar with permissions and sanity checks
         current_page_menu = self._setup_extension_toolbar()
 
@@ -25,5 +30,5 @@ class FdsPageExtensionToolbar(ExtensionToolbar):
                     _("FdS Page Settings"),
                     url=url,
                     disabled=not self.toolbar.edit_mode_active,
-                    position=-1,
+                    position=None,
                 )

@@ -1,4 +1,4 @@
-from cms.models import Title
+from cms.models import PageContent
 
 from froide.helper.search.filters import BaseSearchFilterSet
 from froide.helper.search.views import BaseSearchView
@@ -14,7 +14,7 @@ class CMSPageSearch(BaseSearchView):
     search_name = "cms"
     template_name = "fds_cms/search.html"
     object_template = "fds_cms/result_item.html"
-    model = Title
+    model = PageContent
     document = CMSDocument
     filterset = CMSFilterset
     search_url_name = "fds_cms:fds_cms-search"
