@@ -15,6 +15,8 @@
     #   froide
 -e git+https://github.com/fragdenstaat/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
     # via -r requirements.in
+-e git+https://github.com/stefanw/djangocms-4-migration.git@fds-migration#egg=djangocms-4-migration
+    # via -r requirements.in
 -e git+https://github.com/okfde/fcdocs-annotate.git@main#egg=fcdocs_annotate
     # via -r requirements.in
 -e git+https://github.com/okfde/froide.git@main#egg=froide
@@ -186,7 +188,9 @@ django==4.2.4
     #   django-storages
     #   django-taggit
     #   django-treebeard
+    #   djangocms-alias
     #   djangocms-frontend
+    #   djangocms-versioning
     #   djangorestframework
     #   drf-spectacular
     #   drf-spectacular-sidecar
@@ -211,9 +215,10 @@ django-classy-tags==4.0.0
     # via
     #   django-cms
     #   django-sekizai
-django-cms==3.11.3
+django-cms==4.1.0rc3
     # via
     #   -r requirements.in
+    #   djangocms-alias
     #   djangocms-attributes-field
     #   djangocms-audio
     #   djangocms-frontend
@@ -221,6 +226,7 @@ django-cms==3.11.3
     #   djangocms-link
     #   djangocms-picture
     #   djangocms-text-ckeditor
+    #   djangocms-versioning
     #   djangocms-video
     #   froide-govplan
     #   sortabletable
@@ -262,7 +268,9 @@ django-floppyforms==1.9.0
 django-formtools==2.4.1
     # via django-cms
 django-fsm==2.8.1
-    # via froide-legalaction
+    # via
+    #   djangocms-versioning
+    #   froide-legalaction
 django-js-asset==2.0.0
     # via django-mptt
 django-json-widget==1.1.1
@@ -288,6 +296,7 @@ django-oauth-toolkit==1.7.1
 django-parler==2.3
     # via
     #   -r requirements.in
+    #   djangocms-alias
     #   froide
 django-payments[stripe]==2.0.0
     # via froide-payment
@@ -327,6 +336,8 @@ django-treebeard==4.4
     #   djangocms-attributes-field
 djangocms-admin-style==3.2.4
     # via django-cms
+djangocms-alias==2.0.0rc1
+    # via -r requirements.in
 djangocms-attributes-field==2.1.0
     # via
     #   djangocms-audio
@@ -349,6 +360,8 @@ djangocms-text-ckeditor==5.1.2
     # via
     #   -r requirements.in
     #   djangocms-frontend
+djangocms-versioning==2.0.0rc1
+    # via -r requirements.in
 djangocms-video==3.0.0
     # via -r requirements.in
 djangorestframework==3.14.0
