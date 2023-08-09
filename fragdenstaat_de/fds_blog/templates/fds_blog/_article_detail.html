@@ -1,4 +1,5 @@
 {% load i18n cms_tags %}
+{% load djangocms_alias_tags %}
 {% load markup %}
 {% load static %}
 {% block article_header %}
@@ -80,7 +81,7 @@
     {% endif %}
 {% endblock %}
 {% block article_ads %}
-    {% static_placeholder "banner_ad" %}
+    {% static_alias "banner_ad" %}
 {% endblock article_ads %}
 {% block article_languages %}
     <div class="container">
