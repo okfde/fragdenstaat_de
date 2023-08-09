@@ -3,7 +3,7 @@ import csv
 from django.core.management.base import BaseCommand
 
 from cms.api import add_plugin, create_page
-from cms.models import Title
+from cms.models import PageContent
 from slugify import slugify
 
 
@@ -17,7 +17,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         reader = csv.DictReader(open(options["file"]))
 
-        self.base_title = Title.objects.filter(
+        self.base_title = PageContent.objects.filter(
             path=options["base_path"], publisher_is_draft=True
         ).get()
         self.base_page = self.base_title.page
@@ -33,7 +33,7 @@ class Command(BaseCommand):
         menu_title_str = row["Menütitel (optional)"]
         description = row["Beschreibung"]
 
-        top_title = Title.objects.filter(
+        top_title = PageContent.objects.filter(
             title=top_title_str, publisher_is_draft=True
         ).get()
         top_page = top_title.page
@@ -41,13 +41,15 @@ class Command(BaseCommand):
             raise Exception("Top page parent does not match base page")
 
         try:
-            titles = Title.objects.filter(title=title_str, publisher_is_draft=True)
+            titles = PageContent.objects.filter(
+                title=title_str, publisher_is_draft=True
+            )
             right_titles = [t for t in titles if t.page.get_parent_page() == top_page]
             if right_titles:
                 # title exists with correct parent, we are done
                 return
             # Wrong parent, create title
-        except Title.DoesNotExist:
+        except PageContent.DoesNotExist:
             pass
 
         kwargs = {}

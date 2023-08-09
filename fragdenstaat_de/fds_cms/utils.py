@@ -5,21 +5,24 @@ https://github.com/divio/aldryn-search/blob/master/aldryn_search/helpers.py
 
 """
 
+from typing import Optional
+
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.test import RequestFactory
 
+from cms.models import CMSPlugin, Placeholder
 from cms.plugin_rendering import ContentRenderer
-from cms.toolbar.toolbar import CMSToolbar
+from djangocms_alias.models import Alias
 
 
 def get_plugin_children(instance):
-    return (
-        instance.get_descendants().filter(depth=instance.depth + 1).order_by("position")
-    )
+    return CMSPlugin.objects.filter(parent=instance).order_by("position")
 
 
 def get_request(language=None, path="/"):
+    from cms.toolbar.toolbar import CMSToolbar
+
     request_factory = RequestFactory()
     request = request_factory.get(path)
     request.session = {}
@@ -28,7 +31,8 @@ def get_request(language=None, path="/"):
     # Needed for plugin rendering.
     request.current_page = None
     request.user = AnonymousUser()
-    request.toolbar = CMSToolbar(request)
+    toolbar = CMSToolbar(request)
+    request.toolbar = toolbar
     return request
 
 
@@ -55,3 +59,14 @@ def concat_classes(classes):
     merges a list of classes and return concatinated string
     """
     return " ".join(_class for _class in classes if _class)
+
+
+def get_alias_placeholder(
+    alias_name: str, language: Optional[str] = None
+) -> Optional[Placeholder]:
+    alias = Alias.objects.filter(static_code=alias_name).first()
+    if not alias:
+        return ""
+    if language is None:
+        language = settings.LANGUAGE_CODE
+    return alias.get_placeholder(language=language, show_draft_content=False)

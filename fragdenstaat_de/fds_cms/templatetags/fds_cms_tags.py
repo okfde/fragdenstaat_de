@@ -1,7 +1,7 @@
 from django import template
 from django.conf import settings
 
-from cms.models import Page, StaticPlaceholder
+from cms.models import Page
 
 from ..responsive_images import (
     ResponsiveImage,
@@ -10,7 +10,7 @@ from ..responsive_images import (
     get_responsive_image,
     parse_colsizes,
 )
-from ..utils import render_placeholder
+from ..utils import get_alias_placeholder, render_placeholder
 
 register = template.Library()
 
@@ -18,18 +18,6 @@ register = template.Library()
 @register.filter
 def is_campaign(obj, campaign):
     return obj.reference.startswith(campaign)
-
-
-@register.simple_tag(takes_context=True)
-def fds_static_placeholder(context, code):
-    try:
-        static_placeholder = StaticPlaceholder.objects.get(
-            code=code, site_id__isnull=True
-        )
-    except StaticPlaceholder.DoesNotExist:
-        return ""
-    placeholder = static_placeholder.public
-    return render_placeholder(context, placeholder, use_cache=True)
 
 
 def thumbnail_dims(picture_plugin, default_width=768):
@@ -73,7 +61,12 @@ def get_responsive_filer_image(filer_image, column_classes):
 def get_soft_root(page):
     if page.soft_root:
         return page
-    soft_root = page.get_ancestor_pages().filter(soft_root=True).reverse().first()
+    soft_root = (
+        page.get_ancestor_pages()
+        .filter(pagecontent_set__soft_root=True)
+        .reverse()
+        .first()
+    )
     if soft_root:
         return soft_root
     return page.get_root()
@@ -106,3 +99,17 @@ def get_breadcrumb_ancestor(context, navigation_node):
     url = ancestor.get_absolute_url(language=request.LANGUAGE_CODE)
 
     return {"title": title, "url": url}
+
+
+@register.simple_tag(takes_context=True)
+def fds_static_alias(context, alias_name):
+    """
+    Used because `static_alias` does not resolve variables in the alias name.
+    TODO: remove when https://github.com/django-cms/djangocms-alias/pull/191
+    is merged and released.
+    """
+    request = context["request"]
+    placeholder = get_alias_placeholder(alias_name, request.LANGUAGE_CODE)
+    if placeholder:
+        return render_placeholder(context, placeholder)
+    return ""

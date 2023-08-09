@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from cms.api import add_plugin, create_page
-from cms.models import Title
+from cms.models import PageContent
 
 
 class Command(BaseCommand):
@@ -18,7 +18,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         html_files = glob.glob(options["html_dir"] + "/*.html")
 
-        self.base_title = Title.objects.filter(
+        self.base_title = PageContent.objects.filter(
             path=options["base_path"], publisher_is_draft=True
         ).get()
         self.base_page = self.base_title.page
@@ -48,7 +48,7 @@ class Command(BaseCommand):
         title_path = self.base_title.path + "/" + slug
 
         try:
-            title = Title.objects.get(
+            title = PageContent.objects.get(
                 path=title_path,
                 publisher_is_draft=True,
                 language=settings.LANGUAGE_CODE,
@@ -59,7 +59,7 @@ class Command(BaseCommand):
             title.title = title_str
             title.meta_description = description
             title.save()
-        except Title.DoesNotExist:
+        except PageContent.DoesNotExist:
             page = create_page(
                 title_str,
                 "cms/pub_base.html",
