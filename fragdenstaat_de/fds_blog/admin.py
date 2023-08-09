@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.sites.models import Site
 from django.db import transaction
 from django.db.models import Count
-from django.urls import NoReverseMatch, reverse_lazy
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -14,8 +14,8 @@ from adminsortable2.admin import (
     SortableAdminMixin,
     SortableInlineAdminMixin,
 )
-from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from cms.api import add_plugin
+from cms.toolbar.utils import get_object_edit_url
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 from parler.admin import TranslatableAdmin
 
@@ -116,7 +116,7 @@ class ArticleAdminForm(forms.ModelForm):
         }
 
 
-class ArticleAdmin(SortableAdminBase, PlaceholderAdminMixin, admin.ModelAdmin):
+class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
     form = ArticleAdminForm
     date_hierarchy = "start_publication"
 
@@ -348,13 +348,10 @@ class ArticleAdmin(SortableAdminBase, PlaceholderAdminMixin, admin.ModelAdmin):
         """
         Return the authors in HTML.
         """
-        try:
-            edit_link = article.get_absolute_edit_url()
-        except NoReverseMatch:
-            return _("unavailable for this site")
+        edit_url = get_object_edit_url(article)
         return format_html(
-            '<a href="{url}" target="_blank">{title}</a>',
-            url=edit_link + "?edit",
+            '<a href="{url}">{title}</a>',
+            url=edit_url,
             title=_("Edit Content"),
         )
 
