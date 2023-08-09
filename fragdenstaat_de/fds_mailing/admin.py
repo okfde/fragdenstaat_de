@@ -5,13 +5,13 @@ from django.contrib import admin, messages
 from django.core.exceptions import PermissionDenied
 from django.db import models, transaction
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse
 from django.utils import timezone
+from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
-from cms.admin.placeholderadmin import PlaceholderAdminMixin
-from cms.models.static_placeholder import StaticPlaceholder
+from cms.toolbar.utils import get_object_edit_url
 from fragdenstaat_de.theme.admin import PublicBodyAdmin
 
 from froide.account.admin import UserAdmin
@@ -26,10 +26,11 @@ from .tasks import continue_sending, send_mailing
 from .utils import add_fake_context
 
 
-class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
+class EmailTemplateAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "subject",
+        "edit_link",
         "category",
         "mail_intent",
         "created",
@@ -42,6 +43,15 @@ class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
     )
     search_fields = ("name", "subject", "mail_intent")
     date_hierarchy = "updated"
+
+    @admin.display(description=_("Edit"))
+    def edit_link(self, obj):
+        edit_url = get_object_edit_url(obj)
+        return format_html(
+            '<a href="{}">{}</span>',
+            edit_url,
+            _("Edit"),
+        )
 
     def get_urls(self):
         urls = super().get_urls()
@@ -65,29 +75,9 @@ class EmailTemplateAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
         return my_urls + urls
 
     def edit_body(self, request, pk):
-        if not self.has_change_permission(request):
-            raise PermissionDenied
-
         email_template = get_object_or_404(EmailTemplate, pk=pk)
-        static_placholder = email_template.get_extra_placeholder_name()
-        static_placeholder_id = None
-        if static_placholder:
-            try:
-                static_placeholder_id = StaticPlaceholder.objects.get(
-                    code=static_placholder
-                ).pk
-            except StaticPlaceholder.DoesNotExist:
-                pass
-
-        return render(
-            request,
-            "fds_mailing/emailtemplate_update_form.html",
-            {
-                "object": email_template,
-                "static_placeholder_id": static_placeholder_id,
-                "force_cms_render": True,
-            },
-        )
+        edit_url = get_object_edit_url(email_template)
+        return redirect(edit_url)
 
     def preview_html(self, request, pk):
         if not self.has_change_permission(request):
