@@ -1,5 +1,6 @@
 {% extends "fds_mailing/base.html" %}
 {% load cms_tags %}
+{% load fds_cms_tags %}
 {% load i18n %}
 {% block title %}{{ object.name }}{% endblock %}
 {% block top_block %}{% endblock %}
@@ -40,7 +41,7 @@
             <h4>
                 {% blocktrans with extra_placeholder=extra_placeholder %}'{{ extra_placeholder }}' static placeholder{% endblocktrans %}
             </h4>
-            <div class="border border-dark p-2 mb-2">{% static_placeholder extra_placeholder %}</div>
+            <div class="border border-dark p-2 mb-2">{% static_alias extra_placeholder %}</div>
             <form method="post"
                   action="{% url 'admin:cms_staticplaceholder_changelist' %}"
                   class="mb-5">

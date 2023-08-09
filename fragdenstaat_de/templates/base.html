@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 {% load fds_cms_tags %}
 {% block metadescription %}
-    Das Portal für Informationsfreiheit für Bürger, Initiativen und Vereine. Stellen Sie eine IFG-Anfrage nach Behördendokumenten, die für Sie und Ihr Engagement wichtig sind! Informieren Sie sich über Informationsfreiheitsanfragen, IFG-Anfragen, IFG, Transparenz, Informationsfreiheitsgesetz, Behördeninformationen, Anfrage Stellen, Behörden, Open Data, Transparenzgesetz, Auskunftsrecht und vieles mehr!
+  Das Portal für Informationsfreiheit für Bürger, Initiativen und Vereine. Stellen Sie eine IFG-Anfrage nach Behördendokumenten, die für Sie und Ihr Engagement wichtig sind! Informieren Sie sich über Informationsfreiheitsanfragen, IFG-Anfragen, IFG, Transparenz, Informationsfreiheitsgesetz, Behördeninformationen, Anfrage Stellen, Behörden, Open Data, Transparenzgesetz, Auskunftsrecht und vieles mehr!
 {% endblock metadescription %}
 {% block body_extra_attributes %}
-    data-staticurl="{{ STATIC_URL }}"
-    {% if request.user.is_staff %}data-sentry="{{ SENTRY_JS_URL }}"{% endif %}
+  data-staticurl="{{ STATIC_URL }}"
+  {% if request.user.is_staff %}data-sentry="{{ SENTRY_JS_URL }}"{% endif %}
 {% endblock %}
 {% block top_block %}
-    <div class="dropdown-wrapper">{% fds_static_placeholder "dropdown_banner" %}</div>
+  <div class="dropdown-wrapper">{% static_alias "dropdown_banner" %}</div>
 {% endblock %}
 {% block footer_container %}
-    <footer class="footer" id="footer">
-        <div class="container">{% fds_static_placeholder "footer" %}</div>
-    </footer>
+  <footer class="footer" id="footer">
+    <div class="container">{% static_alias "footer" %}</div>
+  </footer>
 {% endblock %}
 {% block scripts %}{{ block.super }}{% endblock %}
 {% block below_scripts %}
-    {% block tracking_code %}
-        {% include "snippets/tracking.html" %}
-    {% endblock %}
+  {% block tracking_code %}
+    {% include "snippets/tracking.html" %}
+  {% endblock %}
 {% endblock %}

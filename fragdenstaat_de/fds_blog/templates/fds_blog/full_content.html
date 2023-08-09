@@ -1,5 +1,6 @@
 {% extends "fds_blog/content.html" %}
 {% load cms_tags %}
+{% load djangocms_alias_tags %}
 {% load thumbnail markup i18n %}
 {% block before_main %}
     <header>
@@ -47,5 +48,5 @@
             {% endif %}
         {% endwith %}
     </footer>
-    {% static_placeholder "blog_feed_footer" %}
+    {% static_alias "blog_feed_footer" %}
 {% endblock %}

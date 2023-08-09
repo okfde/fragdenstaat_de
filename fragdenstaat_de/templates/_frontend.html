@@ -1,12 +1,9 @@
 {% load frontendbuild sekizai_tags %}
-{% if request.current_page or force_cms_render %}
-    {% getfrontendbuild entry_point as assets %}
-    {% for block, output_list in assets %}
-        {% for output in output_list %}
-            {% addtoblock block %}
-            {{ output|safe }}{% endaddtoblock %}
-        {% endfor %}
+
+{% getfrontendbuild entry_point as assets %}
+{% for block, output_list in assets %}
+    {% for output in output_list %}
+        {% addtoblock block %}
+        {{ output|safe }}{% endaddtoblock %}
     {% endfor %}
-{% else %}
-    {% addfrontendbuild entry_point %}
-{% endif %}
+{% endfor %}
