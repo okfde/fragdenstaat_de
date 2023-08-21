@@ -4,6 +4,7 @@ import enum
 import io
 import locale
 import re
+import ssl
 import tempfile
 import uuid
 from dataclasses import dataclass
@@ -15,6 +16,7 @@ import bs4
 import html_text
 import PIL
 import requests
+import urllib3
 from bs4 import BeautifulSoup
 
 from . import captcha
@@ -198,9 +200,29 @@ class LoginFailedException(Exception):
     pass
 
 
+class FrontexHttpAdapter(requests.adapters.HTTPAdapter):
+    """Frontex really needs to fix their servers. With newer python versions,
+    the connections sometime only works by setting SSL_OP_LEGACY_SERVER_CONNECT
+    (0x4) which we do with this custom http adapter"""
+
+    def __init__(self, **kwargs):
+        self.ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+        self.ssl_context.options |= 0x4
+        super().__init__(**kwargs)
+
+    def init_poolmanager(self, connections, maxsize, block=False):
+        self.poolmanager = urllib3.poolmanager.PoolManager(
+            num_pools=connections,
+            maxsize=maxsize,
+            block=block,
+            ssl_context=self.ssl_context,
+        )
+
+
 class FrontexPadClient:
     def __init__(self, credentials: FrontexCredentials, captcha_net: captcha.Net):
         self.session = requests.Session()
+        self.session.mount("https://", FrontexHttpAdapter())
         self.login_url = LOGIN_URL
         self._tmpdir = tempfile.mkdtemp()
 
