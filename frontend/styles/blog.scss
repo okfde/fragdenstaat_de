@@ -26,7 +26,7 @@ h4.blog-list-heading {
   a:visited {
     border-color: $black;
     text-decoration: none !important;
-    color: $gray-800;
+    color: var(--#{$prefix}secondary-color);
   }
 
   a:focus,
@@ -41,14 +41,14 @@ h4.blog-list-heading {
 }
 
 .blog-list-heading__kicker {
-  color: $gray-600;
+  color: var(--#{$prefix}secondary-color);
   font-size: 0.9rem;
   min-height: 1.5em;
   line-height: 1.5;
 }
 
 .blog-lead {
-  color: $gray-600;
+  color: var(--#{$prefix}secondary-color);
   font-weight: 400;
   margin-top: 1.25rem;
 
@@ -70,7 +70,7 @@ h4.blog-list-heading {
 
 @include media-breakpoint-up(md) {
   .blog-teaser-text {
-    background-color: #fff;
+    background-color: var(--#{$prefix}body-bg);
     bottom: 2.5em;
     left: 2.5em;
     padding: 1.5em;
@@ -78,7 +78,7 @@ h4.blog-list-heading {
     width: 80%;
     max-height: 400px;
     overflow: hidden;
-    box-shadow: 0px 2px 5px 0px #ccc;
+    box-shadow: 0px 2px 5px 0px var(--#{$prefix}body-secondary-bg);
   }
 }
 
@@ -145,7 +145,7 @@ h4.blog-list-heading {
 
   .blog-lead {
     p {
-      color: $black;
+      color: var(--#{$prefix}body-color);
       font-size: 1.3rem;
       font-weight: 400;
       line-height: 1.5;
@@ -155,11 +155,11 @@ h4.blog-list-heading {
 }
 
 .blog-header__meta {
-  color: $gray-600;
+  color: var(--#{$prefix}secondary);
   font-size: 1rem;
 
   & a {
-    color: $gray-600;
+    color: var(--#{$prefix}secondary);
   }
 }
 
@@ -173,7 +173,7 @@ h4.blog-list-heading {
     @extend .list-inline-item;
 
     a {
-      @extend .text-muted;
+      @extend .text-body-secondary;
     }
   }
 }
@@ -204,7 +204,7 @@ h4.blog-list-heading {
   > h3,
   > h4 {
     font-family: $font-family-serif;
-    color: #26282b;
+    color: var(--#{$prefix}body-color);
   }
 
   > p,
@@ -215,7 +215,7 @@ h4.blog-list-heading {
   > .blockquote-figure,
   > details {
     font-family: $font-family-serif;
-    color: #26282b;
+    color: var(--#{$prefix}body-color);
     font-size: 1.225rem;
     font-weight: 400;
     line-height: 1.65;
@@ -237,7 +237,8 @@ h4.blog-list-heading {
 
   > details,
   > div.infotextbox {
-    background-color: var(--bs-blue-100);
+    color: var(--#{$prefix}primary-text-emphasis);
+    background-color: var(--#{$prefix}primary-bg-subtle);
 
     @include make-col(12);
     margin: 1rem auto 0rem;
@@ -299,15 +300,15 @@ h4.blog-list-heading {
   }
 
   > h3 {
-    color: $black;
+    color: var(--#{$prefix}emphasis-color);
     font-family: $font-family-sans-serif;
   }
 
   a,
   a:active,
   a:visited {
-    border-bottom: 1px solid rgba(30, 32, 35, 0.3);
-    color: #4c545b;
+    border-bottom: 1px solid var(--#{$prefix}link-color);;
+    color: var(--#{$prefix}link-color);
     text-decoration: none;
     transition: all ease 0.3s;
   }
@@ -318,9 +319,9 @@ h4.blog-list-heading {
   a:active:hover,
   a:visited:focus,
   a:visited:hover {
-    border-bottom: 1px solid rgba(30, 32, 35, 0.9);
+    border-bottom: 1px solid var(--#{$prefix}link-hover-color);
     text-decoration: none !important;
-    color: $gray-800;
+    color: var(--#{$prefix}link-hover-color);
   }
 
   > blockquote,
@@ -329,11 +330,11 @@ h4.blog-list-heading {
     margin: 1rem auto 0.5rem;
     padding: 1rem 2rem;
     width: 100%;
-    background-color: $gray-100;
+    background-color: var(--#{$prefix}tertiary-bg);
 
     > p,
     > blockquote > p {
-      border-left: 4px solid $gray-400;
+      border-left: 4px solid var(--#{$prefix}dark-bg-subtle);
       padding: 0.5rem 0 0.5rem 1rem;
       font-size: 1.3rem;
       margin: 0;
@@ -363,31 +364,21 @@ h4.blog-list-heading {
   }
 }
 
-.author-section {
-  background-color: $gray-100;
-  margin: 3rem 0;
-  padding: 1rem;
-}
-
-.author-title {
-  margin-top: 1.5rem;
-}
-
 .picture-description {
   font-size: 0.85rem;
-  color: $gray-800;
+  color: var(--#{$prefix}secondary-color);
 }
 
 .picture-credits {
   font-style: italic;
   font-size: 0.85rem;
-  color: $gray-500;
+  color: var(--#{$prefix}tertiary-color);
 
   a,
   a:active,
   a:visited {
     border-bottom: 1px solid rgba(30, 32, 35, 0.3);
-    color: $gray-500;
+    color: var(--#{$prefix}tertiary-color);
     text-decoration: none;
     transition: all ease 0.3s;
   }
@@ -400,7 +391,7 @@ h4.blog-list-heading {
   a:visited:hover {
     border-color: $black;
     text-decoration: none !important;
-    color: $gray-800;
+    color: var(--#{$prefix}secondary-color);
   }
 }
 
@@ -420,7 +411,7 @@ h4.blog-list-heading {
     a:visited {
       border-color: $black;
       text-decoration: none !important;
-      color: $gray-800;
+      color: var(--#{$prefix}secondary-color);
     }
 
     a:focus,

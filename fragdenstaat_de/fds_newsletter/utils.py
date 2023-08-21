@@ -7,6 +7,7 @@ from typing import Tuple
 
 from django.conf import settings
 from django.db.models import Q
+from django.db.models.functions import Collate
 from django.utils import timezone
 
 from froide.helper.email_sending import mail_registry
@@ -83,9 +84,13 @@ def subscribe_email(
     batch=False,
 ) -> SubscriptionReturn:
     try:
-        subscriber = Subscriber.objects.filter(
-            Q(email=email.lower()) | Q(user__email=email)
-        ).get(newsletter=newsletter)
+        subscriber = (
+            Subscriber.objects.annotate(
+                user_email_deterministic=Collate("user__email", "und-x-icu"),
+            )
+            .filter(Q(email=email.lower()) | Q(user_email_deterministic=email))
+            .get(newsletter=newsletter)
+        )
     except Subscriber.DoesNotExist:
         subscriber, _created = Subscriber.objects.get_or_create(
             email=email.lower(),
@@ -146,14 +151,13 @@ def cleanup_subscribers():
         created__lt=month_ago, subscribed=None, unsubscribed=None
     ).delete()
 
-    # Unsubscribed more than 30 days ago
-    Subscriber.objects.filter(unsubscribed__lt=month_ago).delete()
-
     # Recently unsubscribed: anonymize data
-    # but keep to prove recent existence
+    # but keep hash to prove existence
     subs = Subscriber.objects.filter(unsubscribed__lt=three_days_ago, email_hash="")
     for sub in subs:
         m = hashlib.sha256()
+        # Kind of a salt
+        m.update(str(sub.pk).encode("utf-8"))
         m.update(sub.get_email().lower().encode("utf-8"))
         sub.email_hash = m.hexdigest()
         sub.email = None

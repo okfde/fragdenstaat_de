@@ -12,7 +12,6 @@ class Command(BaseCommand):
         parser.add_argument("jurisdiction")
 
     def handle(self, *args, **options):
-
         from froide.publicbody.models import Jurisdiction, PublicBody, PublicBodyTag
 
         translation.activate(settings.LANGUAGE_CODE)

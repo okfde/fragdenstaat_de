@@ -1,22 +1,35 @@
-if (window.location.hash !== '') {
-  const el = document.querySelector<HTMLElement>(
-    `.highlight-anchor ${window.location.hash}`
-  )
+function showTargetAnchor(): void {
+  let el: HTMLElement | null = null
+  try {
+    el = document.querySelector<HTMLElement>(
+      `.highlight-anchor ${window.location.hash}`
+    )
+  } catch (e) {
+    return
+  }
 
   if (el != null) {
     el.classList.add('highlight')
     setTimeout(() => {
-      const { transition } = el.style
-      el.style.transition = 'background-color 2s'
-      el.classList.remove('highlight')
+      if (el != null) {
+        const { transition } = el.style
+        el.style.transition = 'background-color 2s'
+        el.classList.remove('highlight')
 
-      el.addEventListener(
-        'transitionend',
-        () => {
-          el.style.transition = transition
-        },
-        { once: true }
-      )
+        el.addEventListener(
+          'transitionend',
+          () => {
+            if (el != null) {
+              el.style.transition = transition
+            }
+          },
+          { once: true }
+        )
+      }
     }, 2000)
   }
+}
+
+if (window.location.hash !== '') {
+  showTargetAnchor()
 }

@@ -1,13 +1,5 @@
 {% extends "header.html" %}
 
-{% block nav_search %}
-  <div class="d-block d-md-none">
-    {{ block.super }}
-  </div>
-{% endblock %}
+{% block nav_search_class %}d-block d-md-none{% endblock %}
 
 {% block nav_search_url %}{% url 'blog:article-search' %}{% endblock %}
-
-{% block nav %}{% endblock nav %}
-
-{% block nav_brand_extra %}<a href="/blog/"><span class="navbar-brand-name d-none d-sm-inline-block text-muted"> – Blog</span></a>{% endblock %}

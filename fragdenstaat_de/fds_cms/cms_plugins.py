@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from djangocms_bootstrap4.helpers import concat_classes
 
 from froide.foirequest.models import FoiRequest
 from froide.helper.utils import get_redirect_url
@@ -37,6 +36,7 @@ from .models import (
     SVGImageCMSPlugin,
     VegaChartCMSPlugin,
 )
+from .utils import concat_classes
 
 
 @plugin_pool.register_plugin
@@ -371,13 +371,8 @@ class DesignContainerPlugin(CMSPluginBase):
     model = DesignContainerCMSPlugin
     module = _("Structure")
     name = _("Design Container")
-    default_template = "cms/plugins/container_design.html"
     allow_children = True
-
-    def get_render_template(self, context, instance, placeholder):
-        if instance.template:
-            return instance.template
-        return self.default_template
+    render_template = "cms/plugins/container_design.html"
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
@@ -494,6 +489,10 @@ class FdsCardPlugin(CMSPluginBase):
         if instance.background:
             classes.append(f"bg-{instance.background}")
 
+            # ensure full opacity text on body-secondary/tertiary
+            if "body" in instance.background:
+                classes.append("text-body")
+
         if instance.attributes.get("class"):
             classes += instance.attributes["class"].split(" ")
 
@@ -530,11 +529,11 @@ class FdsCardPlugin(CMSPluginBase):
 
     def color(self, instance):
         if instance.border == "blue":
-            return "bg-blue-20"
+            return "text-bg-blue-20"
         elif instance.border == "gray":
-            return "bg-gray-300"
+            return "text-bg-gray-300"
         elif instance.border == "yellow":
-            return "bg-yellow-200"
+            return "text-bg-yellow-200"
 
 
 @plugin_pool.register_plugin
@@ -590,11 +589,7 @@ class FdsCardHeaderPlugin(CMSPluginBase):
         return super().render(context, instance, placeholder)
 
 
-THUMBNAIL_SIZES = {
-    "sm": ("100x0", "100x0"),
-    "lg": ("280x0", "200x0"),
-    "lg-wide": ("400x0", "400x0"),
-}
+THUMBNAIL_SIZES = {"sm": "100x0", "lg": "280x0", "lg-wide": "0x100"}
 
 
 @plugin_pool.register_plugin

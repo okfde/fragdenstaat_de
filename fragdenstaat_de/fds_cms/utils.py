@@ -48,3 +48,10 @@ def render_placeholder(context, placeholder, use_cache=False):
         placeholder, context=context, nodelist=None, editable=False, use_cache=use_cache
     )
     return content
+
+
+def concat_classes(classes):
+    """
+    merges a list of classes and return concatinated string
+    """
+    return " ".join(_class for _class in classes if _class)

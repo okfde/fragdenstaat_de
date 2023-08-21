@@ -23,8 +23,8 @@ class NewsletterEditionMixin:
         return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        return Mailing.objects.filter(
-            publish=True, ready=True, submitted=True, newsletter=self.newsletter
+        return Mailing.published.filter(
+            newsletter=self.newsletter,
         )
 
     def get_context_data(self, **kwargs):

@@ -303,6 +303,8 @@ def assign_and_merge_donors(donor, user):
 def merge_donor_list(donors):
     merged_donor = propose_donor_merge(donors)
     merged_donor.id = donors[0].id
+    # Set uuid of first donor on merged donor to keep it
+    merged_donor.uuid = donors[0].uuid
     candidates = [merged_donor, *donors[1:]]
     return merge_donors(candidates, merged_donor.id)
 
@@ -322,7 +324,9 @@ def confirm_donor_email(donor, request=None):
     user = None
     if not donor.user:
         # Find an active user with email
-        user = User.objects.filter(email__iexact=donor.email, is_active=True).first()
+        user = User.objects.filter(
+            email_deterministic=donor.email, is_active=True
+        ).first()
         new_user = bool(user)
         if user is not None:
             donor = assign_and_merge_donors(donor, user)

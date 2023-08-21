@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cms", "0020_old_tree_cleanup"),
         ("document", "0006_auto_20180522_0114"),

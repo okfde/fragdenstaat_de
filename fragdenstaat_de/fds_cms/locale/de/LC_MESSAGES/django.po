@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-03 06:53-0600\n"
-"PO-Revision-Date: 2022-06-01 12:49+0200\n"
+"POT-Creation-Date: 2023-06-28 02:30-0500\n"
+"PO-Revision-Date: 2023-06-28 11:06+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,51 +16,47 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: fragdenstaat_de/fds_cms/admin.py
 msgid "Edit"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/apps.py
-msgid "Help pages"
-msgstr "Hilfebereich"
+msgstr "Bearbeiten"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Document"
-msgstr ""
+msgstr "Dokument"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Page Annotation"
-msgstr ""
+msgstr "Seitenannotation"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Document pages"
-msgstr ""
+msgstr "Dokumentenseiten"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Document embed"
-msgstr ""
+msgstr "Dokument-Embed"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Document collection embed"
-msgstr ""
+msgstr "Dokumentensammlungs-Embed"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Document portal embed"
-msgstr ""
+msgstr "Dokumentenportal-Embed"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Elements"
-msgstr ""
+msgstr "Elemente"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Primary Link"
-msgstr ""
+msgstr "Primär-Link"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Continue Link"
-msgstr ""
+msgstr "Weiter-Link"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Back to your request"
@@ -68,7 +64,7 @@ msgstr "Zurück zu Ihrer Anfrage"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Ads"
-msgstr ""
+msgstr "Werbung"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Dropdown Banner"
@@ -76,11 +72,11 @@ msgstr ""
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Latest FOI requests"
-msgstr ""
+msgstr "Neueste IFG-Anfragen"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "One click FoiRequest form"
-msgstr ""
+msgstr "Ein-Klick-Anfrage-Formular"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Account"
@@ -88,35 +84,35 @@ msgstr "Konto"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Set Password Form"
-msgstr ""
+msgstr "Passwort-Setzen-Fomular"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Contact Form"
-msgstr ""
+msgstr "Kontaktformular"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Vega Chart"
-msgstr ""
+msgstr "Vega-Graphik"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "SVG Image"
-msgstr ""
+msgstr "SVG-Bild"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Structure"
-msgstr ""
+msgstr "Struktur"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Design Container"
-msgstr ""
+msgstr "Design-Container"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Share Links"
-msgstr ""
+msgstr "Teilen-Links"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Collapsible"
@@ -164,6 +160,138 @@ msgstr "Sektion mit Rahmen"
 
 #: fragdenstaat_de/fds_cms/cms_toolbars.py
 msgid "FdS Page Settings"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py fragdenstaat_de/fds_cms/models.py
+msgid "None"
+msgstr "Nichts"
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Callout"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Highlight"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Default Body"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Body Secondary"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Body Tertiary"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Dark Subtle"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Light Subtle"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Primary"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Primary Subtle"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Secondary"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Secondary Subtle"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Info"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Info Subtle"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Success"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Success Subtle"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Warning"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Warning Subtle"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Danger"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Danger Subtle"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Purple"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Pink"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py fragdenstaat_de/fds_cms/models.py
+msgid "Yellow"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Cyan"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py fragdenstaat_de/fds_cms/models.py
+msgid "Gray"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Gray Dark"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "White"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Light"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Dark"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Transparent"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Blue 10"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Blue 20"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/colors.py
+msgid "Blue 30"
 msgstr ""
 
 #: fragdenstaat_de/fds_cms/contact.py
@@ -269,94 +397,18 @@ msgstr ""
 #: fragdenstaat_de/fds_cms/models.py
 #, python-format
 msgid "%s FOI requests"
-msgstr ""
+msgstr "%s Anfragen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "One click form for {}"
 msgstr ""
 
 #: fragdenstaat_de/fds_cms/models.py
-msgid "None"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Primary"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Secondary"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Info"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Light"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Dark"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Success"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Warning"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Danger"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Purple"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Pink"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Yellow"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Cyan"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Gray"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Gray Dark"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "White"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Blue 10"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Blue 20"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Blue 30"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Speech bubble"
-msgstr ""
-
-#: fragdenstaat_de/fds_cms/models.py
 msgid "Background"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Backdrop"
 msgstr ""
 
 #: fragdenstaat_de/fds_cms/models.py
@@ -519,6 +571,7 @@ msgstr "Hilfebereich"
 
 #. Translators: Search as noun
 #: fragdenstaat_de/fds_cms/templates/cms/help_base.html
+#: fragdenstaat_de/fds_cms/templates/cms/pub_base.html
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
 msgid "Search"
 msgstr "Suchen"
@@ -539,13 +592,22 @@ msgstr "Schließen"
 msgid "Read more"
 msgstr "Weiterlesen"
 
+#: fragdenstaat_de/fds_cms/templates/cms/pub_base.html
+msgid "Toggle chapter navigation"
+msgstr "Kapitel-Navigation umschalten"
+
+#: fragdenstaat_de/fds_cms/templates/cms/pub_base.html
+msgid "Chapters"
+msgstr "Kapitel"
+
 #: fragdenstaat_de/fds_cms/templates/fds_cms/feedback.html
 msgid "Submit"
 msgstr "Abschicken"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
-msgid "Search support topics"
-msgstr "Hilfethemen durchsuchen"
+#, python-format
+msgid "Search in %(title)s"
+msgstr "Suche in %(title)s"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
 #, python-format
@@ -574,6 +636,12 @@ msgid ""
 "%(site)s helps you to make freedom of information requests to public bodies"
 msgstr ""
 "%(site)s hilft Ihnen Informationsfreiheitsanfragen an Behörden zu stellen"
+
+#~ msgid "Help pages"
+#~ msgstr "Hilfebereich"
+
+#~ msgid "Search support topics"
+#~ msgstr "Hilfethemen durchsuchen"
 
 #~ msgid "Support topics"
 #~ msgstr "Hilfethemen"

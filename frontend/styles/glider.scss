@@ -91,7 +91,7 @@ $glide-modifier-separator: '--' !default;
     color: white;
     text-transform: uppercase;
     padding: 0.6rem;
-    background-color: white;
+    background-color: var(--#{$prefix}-body-bg);
     // border: 1px solid transparent;
     border: none;
     border-radius: 50%;

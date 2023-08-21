@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0043_remove_designcontainercmsplugin_style"),
     ]

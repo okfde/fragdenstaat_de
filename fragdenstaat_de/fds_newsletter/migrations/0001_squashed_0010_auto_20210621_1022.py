@@ -10,7 +10,6 @@ import taggit.managers
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("fds_newsletter", "0001_initial"),
         ("fds_newsletter", "0002_submission"),

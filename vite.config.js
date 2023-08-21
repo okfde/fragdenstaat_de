@@ -2,16 +2,19 @@ import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import devManifest from 'vite-plugin-dev-manifest'
 import autoprefixer from 'autoprefixer'
-import vue from '@vitejs/plugin-vue2'
+import vue from '@vitejs/plugin-vue'
 
+// eslint-disable-next-line no-undef
 const outputDir = resolve(__dirname, 'build')
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // eslint-disable-next-line no-undef
   base: process.env.ASSET_PATH || '/static/',
   publicDir: false,
   resolve: {
     alias: {
+      // eslint-disable-next-line no-undef
       '~froide': resolve(__dirname, 'node_modules/froide')
     },
     dedupe: ['bootstrap', 'vue', 'pdfjs-dist'],
@@ -24,6 +27,8 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       input: {
+        audio_player: './frontend/javascript/audio-player.ts',
+        bookpub: './frontend/javascript/bookpub.js',
         campaign_list:
           'node_modules/froide_campaign/frontend/javascript/list.js',
         campaign_map: 'node_modules/froide_campaign/frontend/javascript/map.js',
@@ -50,6 +55,7 @@ export default defineConfig({
           'node_modules/froide/frontend/javascript/messageredaction.js',
         moderation: 'node_modules/froide/frontend/javascript/moderation.js',
         payment: 'node_modules/froide_payment/frontend/javascript/payment.ts',
+        proofupload: 'node_modules/froide/frontend/javascript/proofupload.js',
         publicbody: 'node_modules/froide/frontend/javascript/publicbody.js',
         publicbodyupload:
           'node_modules/froide/frontend/javascript/publicbodyupload.js',

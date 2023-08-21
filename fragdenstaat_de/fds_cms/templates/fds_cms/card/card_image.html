@@ -4,24 +4,20 @@
 {% if instance.link %}<a href="{{ instance.link }}"{% else %}<div{% endif %} class="d-block box-card-image overlap-{{ instance.overlap }}{% if instance.overlap == 'left' %} col-md-4 col-lg-3{% endif %} text-center">
   {% with picture=instance.image %}
     <picture>
-      {% if ".svg" not in picture.url %}
-        {% thumbnail picture size.0 crop=smart subject_location=picture.subject_location as thumb %}
+        {% thumbnail picture size crop=smart subject_location=picture.subject_location as thumb %}
+        
+        {% if picture.mime_type != "image/svg+xml" %}
         <source
-          media="(min-width: 992px)"
           srcset="{{ thumb.url }}.avif"
           type="image/avif"
         />
         <source
-          media="(min-width: 992px)"
           srcset="{{ thumb.url }}"
+          type="{{ picture.mime_type }}"
         />
-        {% thumbnail picture size.1 crop=smart subject_location=picture.subject_location as thumb %}
-        <source
-          srcset="{{ thumb.url }}.avif"
-          type="image/avif"
-        />
-      {% endif %}
-      <img class="img-{{ instance.size }} z-index-10 {{ instance.attributes.class }}" loading="lazy" width="{{ thumb.width }}" height="{{ thumb.height }}" src="{{ thumb.url }}"
+        {% endif %}
+
+      <img class="img-{{ instance.size }} z-index-10 {{ instance.attributes.class }}" loading="lazy" width="{{ thumb.width|floatformat:"0u" }}" height="{{ thumb.height|floatformat:"0u" }}" src="{{ thumb.url }}"
           {% if not attributes.alt %} alt="{{ picture.default_alt_text|default:"" }}"{% endif %}
           {{ instance.attributes_str }}>
     </picture>

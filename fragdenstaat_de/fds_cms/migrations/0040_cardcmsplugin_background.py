@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0039_alter_cardlinkcmsplugin_page_link"),
     ]

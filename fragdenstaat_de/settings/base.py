@@ -60,6 +60,7 @@ class FragDenStaatBase(German, Base):
                 "djangocms_text_ckeditor",
                 "djangocms_picture",
                 "djangocms_video",
+                "djangocms_audio",
                 "djangocms_icon",
                 "djangocms_frontend",
                 "djangocms_frontend.contrib.accordion",
@@ -70,7 +71,8 @@ class FragDenStaatBase(German, Base):
                 "djangocms_frontend.contrib.collapse",
                 "djangocms_frontend.contrib.content",
                 "djangocms_frontend.contrib.grid",
-                "djangocms_frontend.contrib.image",
+                # We use djangocms_picture instead
+                # "djangocms_frontend.contrib.image",
                 "djangocms_frontend.contrib.jumbotron",
                 "djangocms_frontend.contrib.link",
                 "djangocms_frontend.contrib.listgroup",
@@ -162,7 +164,7 @@ class FragDenStaatBase(German, Base):
     # Campaign
 
     CAMPAIGN_PROVIDERS = [
-        ("", "froide_campaign.providers.base.BaseProvider"),
+        ("", "froide_campaign.providers.informationobject.InformationObjectProvider"),
         ("amenity", "froide_campaign.providers.amenity.AmenityProvider"),
         ("publicbody", "froide_campaign.providers.publicbody.PublicBodyProvider"),
         (
@@ -230,6 +232,7 @@ class FragDenStaatBase(German, Base):
         ("cms/page_breadcrumb.html", "Page with breadcrumbs"),
         ("cms/blog_base.html", "Blog base template"),
         ("cms/help_base.html", "Help base template"),
+        ("cms/pub_base.html", "Book Publication template"),
         ("froide_govplan/base.html", "Govplan base template"),
     ]
     DONATION_LOGIC_PLUGINS = [
@@ -269,6 +272,8 @@ class FragDenStaatBase(German, Base):
     # Set to False until this is fixed
     # https://github.com/divio/django-cms/issues/5725
     CMS_PAGE_CACHE = False
+    CMS_COLOR_SCHEME_TOGGLE = True
+    CMS_COLOR_SCHEME = "auto"
 
     TEXT_ADDITIONAL_TAGS = (
         "iframe",
@@ -448,6 +453,30 @@ class FragDenStaatBase(German, Base):
         "svg",
     )
 
+    THUMBNAIL_DEFAULT_ALIAS = "default"
+    THUMBNAIL_ALIASES = {
+        "filer.Image": {
+            "colmd4": {"size": (260, 0)},
+            "colmd6": {"size": (380, 0)},
+            "smcontainer": {
+                "size": (520, 0)
+            },  # 516px = sm container - padding ; 2x small
+            THUMBNAIL_DEFAULT_ALIAS: {"size": (768, 0)},
+            "lgcontainer": {
+                "size": (940, 0)
+            },  # 936px = lg container - padding, but 940 exists already
+            "xlcontainer": {
+                "size": (1140, 0)
+            },  # 1116px = xl container - padding, but 1140 exists already
+            "xxlcontainer": {"size": (1296, 0)},
+            "lgcontainer@2x": {"size": (1872, 0)},
+            "xlcontainer@2x": {"size": (2232, 0)},
+            "xxlcontainer@2x": {"size": (2592, 0)},
+            "xxxl": {"size": (3840, 0)},
+        },
+    }
+    FDS_THUMBNAIL_ENABLE_AVIF = False
+
     META_SITE_PROTOCOL = "http"
     META_USE_SITES = True
 
@@ -603,10 +632,9 @@ class FragDenStaatBase(German, Base):
                     rec(r"^\s*Sehr ((?:Herr|Frau|Fr\.|Hr\.)\s+.*)"),
                     rec(r"^\s*Sehr (geehrte[\*:_]?[sr]?\s+(?!Damen und Herren).+)"),
                     rec(r"^\s*(?:Von|An|Cc|To|From): (.*)"),
-                    rec(r"^\s*Guten\s+Tag,?[ \t\r\f\v]+([^\n]+)"),
-                    rec(r"^\s*Guten\s+Morgen,?[ \t\r\f\v]+([^\n]+)"),
-                    rec(r"^\s*Guten\s+Mittag,?[ \t\r\f\v]+([^\n]+)"),
-                    rec(r"^\s*Guten\s+Abend,?[ \t\r\f\v]+([^\n]+)"),
+                    rec(
+                        r"^\s*Guten\s+(?:Tag|Morgen|Mittag|Abend),?[ \t\f\v]+([^\r\n]+)"
+                    ),
                 ],
                 custom_replacements=[
                     rec(r"[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([a-zA-Z0-9\s/]+)"),
@@ -794,6 +822,8 @@ class FragDenStaatBase(German, Base):
         "SLACK_DEFAULT_CHANNEL", "fragdenstaat-alerts"
     )
     SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL", "")
+    MATOMO_API_URL = os.environ.get("MATOMO_API_URL", "")
+    MATOMO_GOAL_ID = os.environ.get("MATOMO_GOAL_ID", "7")
 
     SENTRY_JS_URL = ""
 

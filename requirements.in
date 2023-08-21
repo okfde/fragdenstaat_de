@@ -4,15 +4,15 @@ pyopenssl>=22.0.0
 channels
 coreapi
 dj-database-url
-django-admin-sortable2
-django-celery-beat>=2.4.0
+django-admin-sortable2>=2.1.6
+django-celery-beat>=2.5.0
 django-celery-email
-django-cms>=3.11
+django-cms>=3.11.3
 django-configurations
 django-contractor
 django-contrib-comments
 django-crossdomainmedia
-django-filer
+django-filer>=2.2.4
 django-filingcabinet
 django-filter
 django-floppyforms
@@ -22,20 +22,19 @@ django-logentry-admin
 django-mfa3
 django-oauth-toolkit<2.0.0
 django-parler
-django-sekizai>=2.0
+django-sekizai>=4.1.0
 django-storages
 django-taggit
 django-treebeard
-Django>=4.1,<4.2
-djangocms-frontend>=1.0.1
+Django>=4.2
+djangocms-audio
+djangocms-frontend>=1.1.1
 djangocms-link>=3.1.0
-# Remove when no longer imported
-djangocms-bootstrap4>=3
 djangocms-icon
 djangocms-picture
 djangocms-text-ckeditor>=5.1
 djangocms-video
-djangorestframework
+djangorestframework>=3.14.0
 djangorestframework-csv
 djangorestframework-jsonp
 elasticsearch-dsl>=7.0.0<8.0.0
@@ -53,11 +52,12 @@ pandas
 pgpy>=0.6.0
 phonenumbers
 Pillow>=9.0.0
-psycopg2-binary
+pikepdf==7.0.0
+psycopg[binary]>=3.1.9
 # pygtail>=0.14.0
 -e git+https://github.com/okfde/pygtail.git@3be17b00f55781caba62d589bcf8aceb0805a58c#egg=pygtail
 pyisemail
-pypdf2
+pypdf
 python-magic
 python-mimeparse
 python-slugify

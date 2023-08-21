@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("filingcabinet", "0021_auto_20210511_1546"),
         ("cms", "0022_auto_20180620_1551"),

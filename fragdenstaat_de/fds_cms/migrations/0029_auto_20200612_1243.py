@@ -3,11 +3,10 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import djangocms_bootstrap4.fields
+import djangocms_frontend.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cms", "0022_auto_20180620_1551"),
         ("fds_cms", "0028_primarylinkcmsplugin_link_label"),
@@ -32,7 +31,7 @@ class Migration(migrations.Migration):
                 ("identifier", models.CharField(max_length=255)),
                 (
                     "tag_type",
-                    djangocms_bootstrap4.fields.TagTypeField(
+                    djangocms_frontend.fields.TagTypeField(
                         choices=[
                             ("div", "div"),
                             ("section", "section"),
@@ -49,13 +48,13 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "attributes",
-                    djangocms_bootstrap4.fields.AttributesField(
+                    djangocms_frontend.fields.AttributesField(
                         blank=True, default=dict, verbose_name="Attributes"
                     ),
                 ),
                 (
                     "dialog_attributes",
-                    djangocms_bootstrap4.fields.AttributesField(
+                    djangocms_frontend.fields.AttributesField(
                         blank=True, default=dict, verbose_name="Attributes"
                     ),
                 ),

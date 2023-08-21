@@ -12,15 +12,11 @@ declare global {
   }
 }
 
-interface IFeeMap {
-  [name: string]: (amount: number) => number
-}
+type FeeMap = Record<string, (amount: number) => number>
 
-interface IAddressFields {
-  [name: string]: HTMLFormElement | null
-}
+type AddressFields = Record<string, HTMLFormElement | null>
 
-const fees: IFeeMap = {
+const fees: FeeMap = {
   creditcard: (a: number) => Math.round((a * 0.014 + 0.25) * 100) / 100,
   paypal: (a: number) => Math.round((a * 0.015 + 0.35) * 100) / 100,
   sepa: () => 0.35,
@@ -52,7 +48,7 @@ function setupDonationForm(form: HTMLFormElement): void {
     const shippingFields: HTMLFormElement[] = Array.from(
       form.querySelectorAll("input[name*='shipping'], select[name*='shipping']")
     )
-    const addressFields: IAddressFields = {}
+    const addressFields: AddressFields = {}
     shippingFields.forEach((e) => {
       const key = e.name.replace('shipping_', '')
       addressFields[key] = form.querySelector(`[name="${key}"]`)
@@ -158,7 +154,7 @@ function amountChanged(amountInput: HTMLInputElement | null): void {
       if (feeHint === null) {
         feeHint = document.createElement('small')
         feeHint.classList.add('fee-hint')
-        feeHint.classList.add('text-muted')
+        feeHint.classList.add('text-body-secondary')
         label.appendChild(feeHint)
         feeHint = label.querySelector('.fee-hint')
       }
@@ -326,12 +322,20 @@ function setupAmountGroup(amountGroup: Element): void {
   }
 
   buttons.forEach((button) => {
-    button.addEventListener('click', () => buttonClick(button))
+    button.addEventListener('click', () => {
+      buttonClick(button)
+    })
   })
   if (input != null) {
-    input.addEventListener('focus', () => inputChanged(input))
-    input.addEventListener('keyup', () => inputChanged(input))
-    input.addEventListener('change', () => inputChanged(input))
+    input.addEventListener('focus', () => {
+      inputChanged(input)
+    })
+    input.addEventListener('keyup', () => {
+      inputChanged(input)
+    })
+    input.addEventListener('change', () => {
+      inputChanged(input)
+    })
   }
 }
 

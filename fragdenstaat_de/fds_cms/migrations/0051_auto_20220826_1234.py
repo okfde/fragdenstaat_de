@@ -20,7 +20,6 @@ def combine_names(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0050_alter_vegachartcmsplugin_title"),
     ]

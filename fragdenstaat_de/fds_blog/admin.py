@@ -19,7 +19,7 @@ from froide.helper.admin_utils import make_nullfilter
 from froide.helper.widgets import TagAutocompleteWidget
 
 from .documents import index_article
-from .models import Article, ArticleTag, Author, Category, TaggedArticle
+from .models import Article, ArticleTag, Author, Category, Publication, TaggedArticle
 
 
 class RelatedPublishedFilter(admin.SimpleListFilter):
@@ -168,6 +168,16 @@ class ArticleAdmin(SortableAdminBase, PlaceholderAdminMixin, admin.ModelAdmin):
                 "fields": (
                     "excerpt",
                     "related",
+                ),
+                "classes": ("collapse", "collapse-closed"),
+            },
+        ),
+        (
+            _("Audio"),
+            {
+                "fields": (
+                    "audio",
+                    "audio_duration",
                 ),
                 "classes": ("collapse", "collapse-closed"),
             },
@@ -380,3 +390,4 @@ admin.site.register(Author, AuthorAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(ArticleTag, ArticleTagAdmin)
 admin.site.register(TaggedArticle, TaggedArticleAdmin)
+admin.site.register(Publication)

@@ -92,6 +92,22 @@ class JZWBExportForm(forms.Form):
 
         possible_receipt_date = timezone.now()
 
+        if export_format != "send_mailing":
+            receipt_date = None
+            if set_receipt_date:
+                receipt_date = possible_receipt_date
+            for donor in queryset:
+                if set_receipt_date:
+                    donations = get_donations(donor, year)
+                    # Update receipt date after export
+                    donations.filter(receipt_date__isnull=True).update(
+                        receipt_date=receipt_date
+                    )
+                if store_backup:
+                    backup_jzwb_pdf_task.delay(
+                        donor.pk, year, ignore_receipt_date=receipt_date
+                    )
+
         result = None
         if export_format == "csv":
             zwbs_data = get_zwbs(queryset, year=year)
@@ -118,22 +134,6 @@ class JZWBExportForm(forms.Form):
                 set_receipt_date=set_receipt_date,
                 store_backup=store_backup,
             )
-
-        if export_format != "send_mailing":
-            receipt_date = None
-            if set_receipt_date:
-                receipt_date = possible_receipt_date
-            for donor in queryset:
-                if set_receipt_date:
-                    donations = get_donations(donor, year)
-                    # Update receipt date after export
-                    donations.filter(receipt_date__isnull=True).update(
-                        receipt_date=receipt_date
-                    )
-                if store_backup:
-                    backup_jzwb_pdf_task.delay(
-                        donor.pk, year, ignore_receipt_date=receipt_date
-                    )
 
         return result
 
@@ -170,7 +170,6 @@ class JZWBExportForm(forms.Form):
         set_receipt_date: bool = True,
         store_backup: bool = True,
     ):
-
         queryset = (
             queryset.exclude(postcode="")
             .exclude(email="")
@@ -360,12 +359,12 @@ class PostcodeEncryptedZWBPDFGenerator(ZWBPDFGenerator):
 
         pdf_bytes = super().get_pdf_bytes()
 
-        from PyPDF2 import PdfFileReader, PdfFileWriter
+        from pypdf import PdfReader, PdfWriter
 
-        input_pdf = PdfFileReader(BytesIO(pdf_bytes))
+        input_pdf = PdfReader(BytesIO(pdf_bytes))
 
-        output_pdf = PdfFileWriter()
-        output_pdf.appendPagesFromReader(input_pdf)
+        output_pdf = PdfWriter()
+        output_pdf.append_pages_from_reader(input_pdf)
         output_pdf.encrypt(self.obj.postcode)
 
         out_bytes = BytesIO()

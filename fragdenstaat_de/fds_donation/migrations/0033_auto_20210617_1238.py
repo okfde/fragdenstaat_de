@@ -19,7 +19,6 @@ def set_subscribers_on_donor(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_donation", "0032_auto_20210617_1215"),
     ]

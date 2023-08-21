@@ -2,7 +2,7 @@
 
 from django.db import migrations
 
-import djangocms_bootstrap4.fields
+import djangocms_frontend.fields
 
 models = (
     "cardcmsplugin",
@@ -23,7 +23,6 @@ def migrate_extraclasses(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0035_alter_cardimagecmsplugin_overlap"),
     ]
@@ -32,35 +31,35 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="cardcmsplugin",
             name="attributes",
-            field=djangocms_bootstrap4.fields.AttributesField(
+            field=djangocms_frontend.fields.AttributesField(
                 blank=True, default=dict, verbose_name="Attributes"
             ),
         ),
         migrations.AddField(
             model_name="cardheadercmsplugin",
             name="attributes",
-            field=djangocms_bootstrap4.fields.AttributesField(
+            field=djangocms_frontend.fields.AttributesField(
                 blank=True, default=dict, verbose_name="Attributes"
             ),
         ),
         migrations.AddField(
             model_name="cardiconcmsplugin",
             name="attributes",
-            field=djangocms_bootstrap4.fields.AttributesField(
+            field=djangocms_frontend.fields.AttributesField(
                 blank=True, default=dict, verbose_name="Attributes"
             ),
         ),
         migrations.AddField(
             model_name="cardimagecmsplugin",
             name="attributes",
-            field=djangocms_bootstrap4.fields.AttributesField(
+            field=djangocms_frontend.fields.AttributesField(
                 blank=True, default=dict, verbose_name="Attributes"
             ),
         ),
         migrations.AddField(
             model_name="cardinnercmsplugin",
             name="attributes",
-            field=djangocms_bootstrap4.fields.AttributesField(
+            field=djangocms_frontend.fields.AttributesField(
                 blank=True, default=dict, verbose_name="Attributes"
             ),
         ),

@@ -14,7 +14,6 @@ def migrate_background(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0040_cardcmsplugin_background"),
     ]

@@ -189,7 +189,7 @@ class NewsletterArchivePlugin(CMSPluginBase):
             )
         except Newsletter.DoesNotExist:
             return context
-        context["latest"] = Mailing.objects.filter(
-            publish=True, ready=True, submitted=True, newsletter=context["newsletter"]
+        context["latest"] = Mailing.published.filter(
+            newsletter=context["newsletter"]
         ).order_by("-sending_date")
         return context

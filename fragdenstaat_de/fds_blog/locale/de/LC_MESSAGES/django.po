@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fragdenstaat.defds_blog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-03 06:53-0600\n"
-"PO-Revision-Date: 2021-11-23 12:03+0100\n"
+"POT-Creation-Date: 2023-06-28 02:30-0500\n"
+"PO-Revision-Date: 2023-06-28 10:59+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: fragdenstaat_de/fds_blog/admin.py
 #, python-format
@@ -60,6 +60,10 @@ msgstr "Veröffentlichungsdatum"
 #: fragdenstaat_de/fds_blog/admin.py
 msgid "Metadata"
 msgstr "Metadaten"
+
+#: fragdenstaat_de/fds_blog/admin.py
+msgid "Audio"
+msgstr "Audio"
 
 #: fragdenstaat_de/fds_blog/admin.py
 msgid "Advanced"
@@ -125,11 +129,11 @@ msgstr "Artikel-Vorschau"
 
 #: fragdenstaat_de/fds_blog/cms_plugins.py
 msgid "Details Box"
-msgstr ""
+msgstr "Details-Box"
 
 #: fragdenstaat_de/fds_blog/cms_plugins.py
 msgid "Infotextbox Box"
-msgstr ""
+msgstr "Infotextbox-Box"
 
 #: fragdenstaat_de/fds_blog/cms_toolbars.py
 msgid "Blog"
@@ -255,6 +259,18 @@ msgstr "Artikelvorlage"
 msgid "Template used to display the article's detail page."
 msgstr "Vorlage wird genutzt, um die Artikel-Seite anzuzeigen."
 
+#: fragdenstaat_de/fds_blog/model_bases.py
+msgid "audio file"
+msgstr "Audiodatei"
+
+#: fragdenstaat_de/fds_blog/model_bases.py
+msgid "duration in seconds"
+msgstr "Dauer in Sekunden"
+
+#: fragdenstaat_de/fds_blog/models.py
+msgid "image"
+msgstr "Bild"
+
 #: fragdenstaat_de/fds_blog/models.py
 msgid "authors"
 msgstr "Autoren"
@@ -286,10 +302,6 @@ msgstr "Verschlagworteter Artikel"
 #: fragdenstaat_de/fds_blog/models.py
 msgid "Tagged Articles"
 msgstr "Verschlagwortete Artikel"
-
-#: fragdenstaat_de/fds_blog/models.py
-msgid "image"
-msgstr "Bild"
 
 #: fragdenstaat_de/fds_blog/models.py
 msgid "featured date"
@@ -369,10 +381,8 @@ msgid "template used to display the plugin"
 msgstr "Template zur Anzeige des Plugins"
 
 #: fragdenstaat_de/fds_blog/models.py
-#, fuzzy
-#| msgid "articles"
 msgid "All articles"
-msgstr "Artikel"
+msgstr "Alle Artikel"
 
 #: fragdenstaat_de/fds_blog/models.py
 #, python-format
@@ -467,6 +477,10 @@ msgstr "Foto-Credit: "
 #: fragdenstaat_de/fds_blog/templates/fds_blog/full_content.html
 msgid "by"
 msgstr "von"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
+msgid "Search articles"
+msgstr "Artikel suchen"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
 #, python-format

@@ -38,8 +38,8 @@ function isPointerInside(el: HTMLElement, event: Touch | MouseEvent): boolean {
 export default class Magnifier {
   public el: HTMLImageElement
   public lens: HTMLDivElement
-  public imageWidth: number = 0
-  public imageHeight: number = 0
+  public imageWidth = 0
+  public imageHeight = 0
   public originalSrc: string
   public verticalOffset = 60
   public width = 200

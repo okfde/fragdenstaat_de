@@ -1,7 +1,15 @@
 from django import template
+from django.conf import settings
 
 from cms.models import StaticPlaceholder
 
+from ..responsive_images import (
+    ResponsiveImage,
+    get_filer_thumbnails,
+    get_picture_plugin_column_sizes,
+    get_responsive_image,
+    parse_colsizes,
+)
 from ..utils import render_placeholder
 
 register = template.Library()
@@ -24,12 +32,48 @@ def fds_static_placeholder(context, code):
     return render_placeholder(context, placeholder, use_cache=True)
 
 
+def thumbnail_dims(picture_plugin, default_width=768):
+    if picture_plugin.width and picture_plugin.height:
+        return (picture_plugin.width, picture_plugin.height)
+    elif picture_plugin.height:
+        return (0, picture_plugin.height)
+    elif picture_plugin.width:
+        return (picture_plugin.width, 0)
+    return (default_width, 0)
+
+
+@register.simple_tag
+def get_responsive_plugin_image(picture_plugin):
+    if not picture_plugin.picture:
+        return ResponsiveImage()
+    if picture_plugin.width or picture_plugin.height:
+        thumbnails = get_filer_thumbnails(
+            picture_plugin.picture,
+            sizes=[(settings.THUMBNAIL_DEFAULT_ALIAS, thumbnail_dims(picture_plugin))],
+            include_original=False,
+            extra_opts={"crop": "scale"},
+        )
+    else:
+        thumbnails = get_filer_thumbnails(picture_plugin.picture)
+
+    column_sizes = get_picture_plugin_column_sizes(picture_plugin)
+    return get_responsive_image(thumbnails, column_sizes)
+
+
+@register.simple_tag
+def get_responsive_filer_image(filer_image, column_classes):
+    if not filer_image:
+        return ResponsiveImage()
+    thumbnails = get_filer_thumbnails(filer_image)
+    column_sizes = parse_colsizes(column_classes)
+    return get_responsive_image(thumbnails, column_sizes)
+
+
 @register.filter
-def thumbnail_dims(instance, default_width=768):
-    if instance.width and instance.height:
-        return "%dx%d" % (instance.width, instance.height)
-    elif instance.height:
-        return "0x%d" % instance.height
-    elif instance.width:
-        return "%dx0" % instance.width
-    return "%dx0" % default_width
+def get_soft_root(page):
+    if page.soft_root:
+        return page
+    soft_root = page.get_ancestor_pages().filter(soft_root=True).reverse().first()
+    if soft_root:
+        return soft_root
+    return page.get_root()

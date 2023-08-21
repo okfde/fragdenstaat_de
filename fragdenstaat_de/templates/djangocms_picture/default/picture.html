@@ -1,4 +1,3 @@
-{% load thumbnail %}
 {% load fds_cms_tags %}
 {% load markup %}
 
@@ -16,61 +15,35 @@
 
 {% if not instance.external_picture and not instance.use_no_cropping %}
 <picture>
-  {% if not instance.width and not instance.height %}
-    {% thumbnail instance.picture 1140x0 subject_location=instance.picture.subject_location as thumb %}
-    {% if thumb.url %}
-      <source
-        media="(min-width: 1200px)"
-        srcset="{{ thumb.url }}.avif"
-        type="image/avif"
-      />
-      <source
-        media="(min-width: 1200px)"
-        srcset="{{ thumb.url }}"
-      />
-    {% endif %}
-    {% thumbnail instance.picture 940x0 subject_location=instance.picture.subject_location as thumb %}
-    {% if thumb.url %}
-      <source
-        media="(min-width: 992px)"
-        srcset="{{ thumb.url }}.avif"
-        type="image/avif"
-      />
-      <source
-        media="(min-width: 992px)"
-        srcset="{{ thumb.url }}"
-      />
-    {% endif %}
-  {% endif %}
-
-  {% if instance.external_picture or instance.use_no_cropping%}
-    {# Empty #}
-  {% elif instance.width or instance.height %}
-    {% thumbnail instance.picture instance|thumbnail_dims crop=scale subject_location=instance.picture.subject_location as thumb %}
-  {% else %}
-    {% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location as thumb %}
-  {% endif %}
-  {% if thumb.url %}
-    <source
-      srcset="{{ thumb.url }}.avif"
-      type="image/avif"
-    />
+  {% if instance.picture.mime_type != "image/svg+xml" %}
+    {% get_responsive_plugin_image instance as respimg %}
+      {% for source in respimg.sources %}
+        <source
+          srcset="{{ source.srcset }}"
+          sizes="{{ respimg.sizes }}"
+          type="{{ source.mime_type }}"
+        />
+      {% endfor %}
   {% endif %}
 {% endif %}
 
-<img class="{% if instance.width or instance.height %}{% else %}img-fluid{% endif %}{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}" src="{% spaceless %}
-    {% if instance.external_picture %}
-      {{ instance.external_picture }}
-    {% elif instance.use_no_cropping %}
-      {{ instance.picture.url }}
-    {% else %}
-      {{ thumb.url }}
-    {% endif %}{% endspaceless %}"
-    {% if not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %}
-    {% if instance.width %} width="{{ instance.width }}"{% endif %}
-    {% if instance.height %} height="{{ instance.height }}"{% endif %}
-    loading="lazy"
-    {{ instance.attributes_str }}
+<img class="{% if instance.width or instance.height %}{% else %}img-fluid{% endif %}{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}"
+  {% if instance.external_picture %}src="{{ instance.external_picture }}"
+  {% elif instance.use_no_cropping or instance.picture.mime_type == "image/svg+xml" %}src="{{ instance.picture.url }}"
+  {% else %}src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}"{% endif %}
+
+  {% if not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %}
+  {% if instance.width or instance.height %}
+    {# We are cropping #}
+    {% if instance.width %} width="{{ instance.width|floatformat:"0u" }}" {% endif %}
+    {% if instance.height %} height="{{ instance.height|floatformat:"0u" }}" {% endif %}
+  {% else %}
+    {% if instance.picture.width %} width="{{ instance.picture.width|floatformat:"0u" }}"{% endif %}
+    {% if instance.picture.height %} height="{{ instance.picture.height|floatformat:"0u" }}"{% endif %}
+  {% endif %}
+
+  {% if instance.attributes.loading %}loading="{{ instance.attributes.loading }}"{% else %}loading="lazy"{% endif %}
+  {{ instance.attributes_str }}
 />
 
 {% if not instance.external_picture and not instance.use_no_cropping %}

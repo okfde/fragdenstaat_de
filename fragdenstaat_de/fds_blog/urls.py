@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from froide.api import api_router
 
 from .api_views import ArticleTagViewSet
-from .feeds import LatestArticlesFeed, LatestArticlesTeaserFeed
+from .feeds import LatestArticlesFeed, LatestArticlesTeaserFeed, LatestAudioFeed
 from .views import (
     ArticleArchiveView,
     ArticleDetailView,
@@ -40,6 +40,7 @@ urlpatterns = [
     path("", ArticleListView.as_view(), name="article-latest"),
     re_path(_(r"^search/$"), ArticleSearchView.as_view(), name="article-search"),
     re_path(r"^feed/$", LatestArticlesFeed(), name="article-latest-feed"),
+    re_path(r"^feed/audio/$", LatestAudioFeed(), name="article-latest-feed-audio"),
     re_path(
         r"^feed/teaser/$", LatestArticlesTeaserFeed(), name="article-latest-feed-teaser"
     ),

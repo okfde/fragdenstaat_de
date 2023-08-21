@@ -7,7 +7,6 @@ import parler.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_blog", "0004_auto_20181218_1527"),
     ]

@@ -9,7 +9,6 @@ import django_countries.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("froide_payment", "0009_auto_20191017_1446"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),

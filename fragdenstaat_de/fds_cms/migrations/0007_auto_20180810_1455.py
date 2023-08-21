@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_cms", "0006_documentembedcmsplugin"),
         ("document", "0008_auto_20180807_1452"),

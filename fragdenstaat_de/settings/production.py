@@ -33,9 +33,15 @@ class FragDenStaat(FragDenStaatBase):
 
     DATA_UPLOAD_MAX_MEMORY_SIZE = 15728640  # 15 MB
     DATA_UPLOAD_MAX_NUMBER_FIELDS = 5000
-    STATICFILES_STORAGE = (
-        "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
-    )
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+        },
+    }
     STATIC_URL = env("STATIC_URL", "https://static.frag-den-staat.de/static/")
     CONTRACTOR_URL = STATIC_URL.replace("/static/", "/assets/")
 
@@ -257,6 +263,7 @@ class FragDenStaat(FragDenStaatBase):
         "gif": "/usr/bin/optipng {filename}",
         "jpeg": "/usr/bin/jpegoptim {filename}",
     }
+    FDS_THUMBNAIL_ENABLE_AVIF = True
     FILINGCABINET_ENABLE_WEBP = True
 
     _base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))

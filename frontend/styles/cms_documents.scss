@@ -1,7 +1,7 @@
 .cms-document-pages {
   margin: 1rem auto 0.5rem;
   padding: 1rem 2rem;
-  background-color: #d4feff;
+  background-color: var(--froide-callout-bg);
 
   .cms-document-pages-container {
     display: flex;
@@ -21,7 +21,7 @@
 .cms-page-annotation {
   margin: 1rem auto 0.5rem;
   padding: 1rem 2rem;
-  background-color: #d4feff;
+  background-color: var(--froide-callout-bg);;
 
   width: 100%;
 
@@ -34,7 +34,7 @@
     margin: 1rem 0 0.25rem;
     text-align: right;
     font-size: 0.9rem;
-    color: $gray-600;
+    color: var(--#{$prefix}secondary-color);
   }
 
   img {

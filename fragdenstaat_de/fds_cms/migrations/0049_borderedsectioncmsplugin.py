@@ -3,11 +3,10 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import djangocms_bootstrap4.fields
+import djangocms_frontend.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cms", "0022_auto_20180620_1551"),
         ("fds_cms", "0048_auto_20220601_0923"),
@@ -70,7 +69,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "attributes",
-                    djangocms_bootstrap4.fields.AttributesField(
+                    djangocms_frontend.fields.AttributesField(
                         blank=True, default=dict, verbose_name="Attributes"
                     ),
                 ),

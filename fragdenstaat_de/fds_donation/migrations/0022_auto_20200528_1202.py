@@ -10,7 +10,6 @@ def move_to_many_subscriptions(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("fds_donation", "0021_auto_20200528_1201"),
     ]
