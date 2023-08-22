@@ -1,65 +1,117 @@
-.navbar-fds {
-  padding-top: 0.5rem;
+@use 'sass:map';
 
-  @include media-breakpoint-up(md) {
-    padding-top: 2.25rem;
+$c: map.get($container-max-widths, 'xxl');
+
+nav.navbar {
+  padding: $spacer 0;
+  margin-bottom: $spacer;
+
+  ul.nav-ul,
+  ul.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
-  .nav-link:active {
-    color: var(--#{$prefix}navbar-active-color);
-  }
-}
-.navbar-brand-fds {
-  position: relative;
-  top: -0.25rem;
-  
-  @include media-breakpoint-up(md) {
-    top: -0.5rem;
+  ul.nav-ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
   }
 
-  svg {
-    width: 55px;
-    
-    .brand-name {
-      display: block;
+  li a {
+    font-weight: 600;
+    color: var(--bs-emphasis-color);
+
+    &:hover {
+      text-decoration: none;
+      color: var(--bs-link-color);
+    }
+  }
+
+  .user-profile {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    border-bottom: 1px var(--bs-border-color-translucent) solid;
+
+    ul.nav-ul {
+      justify-content: space-between;
     }
 
-    @include media-breakpoint-up(md) {
-      width: auto;
+    ul.nav-menu {
+      display: flex;
+      opacity: 0;
+      flex-direction: column;
+      gap: $spacer * 0.5 0;
+      position: absolute;
+      top: calc(100% + $spacer + 1px); // to show the navbar border
+      left: calc(var(--bs-gutter-x) * -0.5);
+      padding: var(--bs-gutter-x);
+      background-color: var(--bs-body-bg);
+      width: calc(100% + var(--bs-gutter-x));
+      pointer-events: none;
+      transition: opacity 0.2s linear;
 
-      .brand-name {
-        display: block;
+      &.show {
+        opacity: 1;
+        pointer-events: unset;
+      }
+    }
+
+    li.nav-sm {
+      order: 99;
+    }
+
+    li.nav-search {
+      padding-top: $spacer;
+      padding-bottom: $spacer * 2;
+      margin-bottom: $spacer;
+      border-bottom: 1px var(--bs-border-color-translucent) solid;
+    }
+
+    .dropdown-menu {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border: none;
+      box-shadow: none;
+    }
+
+    .dropdown-item {
+      padding: $spacer * 0.25 $spacer;
+      color: var(--bs-link-color);
+
+      &:active {
+        background-color: transparent;
       }
     }
   }
-}
 
-.navbar-nav-primary {
-  .navbar-link {
-    font-weight: bold;
-  }
-}
-
-.navbar-nav-secondary {
   @include media-breakpoint-up(md) {
-    position: absolute;
-    top: 0;
-    right: 0;
+    overflow-x: hidden;
 
-    .nav-link {
-      font-size: 0.85rem !important;
-      font-weight: normal;
+    ul.nav-ul {
+      flex-direction: row;
+      gap: 0 1rem;
     }
-    .nav-item:last-child .nav-link {
-      padding-right: 0;
-    }
-  }
-}
 
-.navbar-fds .dropdown-menu {
-  @include media-breakpoint-down(md) {
-    border: none;
-    @include border-radius(0);
-    @include box-shadow(none);
+    ul.nav-menu {
+      display: contents;
+    }
+
+    .nav-break {
+      width: 100%;
+      margin-top: $spacer * 1.5;
+      margin-bottom: $spacer;
+      background-color: var(--bs-border-color-translucent);
+      height: 1px;
+      transform: scaleX(250%);
+    }
   }
 }
