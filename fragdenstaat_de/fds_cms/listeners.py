@@ -15,7 +15,10 @@ from .tasks import generate_thumbnails
 def handle(sender, operation, obj, **kwargs):
     instance = obj.content
     if operation == OPERATION_PUBLISH:
-        page = instance.page
+        try:
+            page = instance.page
+        except AttributeError:
+            return
         try:
             search_index = page.fdspageextension.search_index
         except FdsPageExtension.DoesNotExist:
