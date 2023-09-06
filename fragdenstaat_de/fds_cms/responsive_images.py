@@ -145,11 +145,11 @@ def fill_colsizes_upward(colsizes: ColumnSizes) -> ColumnSizes:
 def get_imgsizes(colsizes):
     colsizes = fill_colsizes_upward(colsizes)
     sizes = []
-    for name, screen_width, container_width in BS_BREAKPOINTS:
+    for name, screen_width, container_width in reversed(BS_BREAKPOINTS):
         col_size = colsizes.get(name)
         if col_size is None:
             # guess full width
-            condition = "min-width"
+            condition = "max-width" if container_width is None else "min-width"
             value = "100vw"
         else:
             col_ratio = col_size / COL_BASE
