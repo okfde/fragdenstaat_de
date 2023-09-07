@@ -274,6 +274,9 @@ class FragDenStaatBase(German, Base):
     CMS_PAGE_CACHE = False
     CMS_COLOR_SCHEME_TOGGLE = True
     CMS_COLOR_SCHEME = "auto"
+    # Automatically redirect to the lowercase version of a slug if a cms page is
+    # not found https://github.com/django-cms/django-cms/pull/7509/files
+    CMS_REDIRECT_TO_LOWERCASE_SLUG = True
 
     TEXT_ADDITIONAL_TAGS = (
         "iframe",
