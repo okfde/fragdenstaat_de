@@ -25,14 +25,14 @@ pkgs.mkShell {
   name = "fds";
   shellHook = ''
     echo "Launching fds shell"
-    export LD_LIBRARY_PATH=${builtins.concatStringsSep ":" (map (x: x + "/lib") ld_packages)}:$LD_LIBRARY_PATH
-    export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DYLD_LIBRARY_PATH
+    export FRAGDENSTAAT_DYLD_LIBRARY_PATH=${builtins.concatStringsSep ":" (map (x: x + "/lib") ld_packages)}
+    export LD_LIBRARY_PATH=$FRAGDENSTAAT_DYLD_LIBRARY_PATH:$LD_LIBRARY_PATH
+    export DYLD_LIBRARY_PATH=$FRAGDENSTAAT_DYLD_LIBRARY_PATH:$DYLD_LIBRARY_PATH
+
     source fds-env/bin/activate
-    source dslr-complete.bash
-    echo ${libcxx.dev}
+
     export CPATH="$CPATH:${mupdf.dev}/include/mupdf"
     export PYTHONBREAKPOINT=ipdb.set_trace
-    # export DATABASE_URL=postgis://fragdenstaat_de:fragdenstaat_de@localhost:5432/fragdenstaat_de
     export GDAL_LIBRARY_PATH=${gdal}/lib/libgdal.dylib
     export GEOS_LIBRARY_PATH=${geos}/lib/libgeos_c.dylib
     
@@ -40,6 +40,8 @@ pkgs.mkShell {
     
     export CFLAGS="-stdlib=libc++ -DUSE_STD_NAMESPACE -I${libcxx.dev}/include/c++/v1"
     export MACOSX_DEPLOYMENT_TARGET=10.9
+
+    export MAGICK_HOME="${imagemagick}"
   '';
   buildInputs = [
     pythonPackages.python
@@ -50,15 +52,14 @@ pkgs.mkShell {
     pythonPackages.magic
     pythonPackages.ocrmypdf
     pythonPackages.weasyprint
-    #pythonPackages.tensorflow
-    
+
     pkgconfig
     geos
     cairo
     pango
     gettext
     harfbuzz_self
-    imagemagick  
+    imagemagick
     poppler_utils
     libspatialite
     file
@@ -69,13 +70,9 @@ pkgs.mkShell {
     postgresql14Packages.postgis
     gdal
     mupdf
-    
+
     glib
     libcxx
     cmake
-
-    # magic-wormhole
-    # ansible
-    # boost.dev
-  ];
+  ] ++ (lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.CoreText);
 }
