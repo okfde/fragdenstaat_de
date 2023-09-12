@@ -22,8 +22,8 @@
       {% url 'foirequest-list' as requests_url %}
       {% block nav %}
       <div class="navbar-expand-md">
-        <button class="navbar-toggler ms-auto position-relative z-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menu" aria-label="{% translate "Toggle main menu" %}">
-          <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler ms-auto position-relative z-3 d-flex d-md-none align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menu" aria-label="{% translate "Toggle main menu" %}">
+          <span class="navbar-toggler-icon me-2"></span>
           {% translate "Menu" %}
         </button>
         <div class="offcanvas offcanvas-start" tabindex="-1" id="menu" aria-labelledby="menu-label">
