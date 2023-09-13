@@ -38,7 +38,6 @@ repos:
       name: Update translation files
       entry: make messagesde
       language: system
-      types: [python]
       pass_filenames: false
 
 exclude: .eslintrc.js
