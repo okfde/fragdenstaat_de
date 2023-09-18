@@ -15,6 +15,9 @@
     {% if message|can_fax_message:request %}
       {% include "froide_fax/_send_message_form.html" %}
     {% endif %}
+    {% if message|can_resend_fax %}
+      {% include "froide_fax/_resend_message_form.html" %}
+    {% endif %}
     {% if message|can_get_fax_report %}
       {% include "froide_fax/_show_report_link.html" %}
     {% endif %}
