@@ -68,6 +68,10 @@ django_flatpage_sites
 django_migrations
 django_redirect
 django_site
+djangocms_audio_audiofile
+djangocms_audio_audiofolder
+djangocms_audio_audioplayer
+djangocms_audio_audiotrack
 djangocms_blog_authorentriesplugin
 djangocms_blog_authorentriesplugin_authors
 djangocms_blog_blogcategory
