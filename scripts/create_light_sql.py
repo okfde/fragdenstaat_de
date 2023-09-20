@@ -1,10 +1,11 @@
 import argparse
 import graphlib
+import itertools
 import re
 import sys
 from collections import defaultdict
 
-ACCOUNT_CONSTRAINTS = re.compile(
+CONSTRAINTS_RE = re.compile(
     r'ALTER TABLE ONLY (?P<table>public\.\w+)\s+ADD CONSTRAINT (?P<constraint>["\w]+) FOREIGN KEY \((?P<fk>\w+)\) REFERENCES (?P<fk_table>public\.\w+)\((?P<field>\w+)\)(?P<tail>[^;]*);'
 )
 TABLE_RE = re.compile(r"CREATE TABLE (public\.\w+) ")
@@ -18,11 +19,15 @@ ALTER TABLE ONLY {table}
 """
 
 
+def escape_quote(s):
+    return s.replace('"', '\\"')
+
+
 def get_fk_graph(schema_sql):
     self_references = set()
     graph = defaultdict(set)
     fk_sets = defaultdict(set)
-    matches = ACCOUNT_CONSTRAINTS.findall(schema_sql)
+    matches = CONSTRAINTS_RE.findall(schema_sql)
     for match in matches:
         table, constraint, fk, fk_table, field, tail = match
         if table == fk_table:
@@ -62,7 +67,6 @@ def is_fk_nullable(schema, table, field):
 def get_join_list(table, schema, graph, filters, fk_sets):
     join_list = []
     for join_table in graph[table]:
-
         if not (table in filters and join_table in filters):
             fk_set_key = (table, join_table)
             fk_set = fk_sets[fk_set_key]
@@ -87,8 +91,9 @@ def get_copy_selects(schema, filters, safe_tables):
     controlled_tables = restricted_tables | safe_tables
 
     ordered, graph, self_references, fk_sets = get_fk_graph(schema)
+    no_constraints = controlled_tables - set(ordered)
 
-    for table in ordered:
+    for table in itertools.chain(no_constraints, ordered):
         if table not in controlled_tables:
             continue
         joins = get_join_list(table, schema, graph, filters, fk_sets)
@@ -114,7 +119,7 @@ def get_copy_selects(schema, filters, safe_tables):
             where_clause = " AND ".join(filter_set)
             where_clause = f" WHERE {where_clause}"
         sql = "SELECT DISTINCT {table}.* FROM {tables} {where}".format(
-            table=table, tables=", ".join(tables), where=where_clause
+            table=table, tables=", ".join(tables), where=escape_quote(where_clause)
         )
 
         yield table, sql
@@ -131,13 +136,13 @@ def generate_copy_script(
     safe_tables="safe_tables.txt",
     schema_file="schema.sql",
 ):
-
     FILTERS = dict(
         [
             (
                 "public.account_user",
                 (
-                    "email LIKE '%@okfn.de'",
+                    "email COLLATE \"und-x-icu\" LIKE '%@okfn.de'",
+                    "is_staff = TRUE",
                     "private = FALSE",
                 ),
             ),
@@ -165,6 +170,8 @@ def generate_copy_script(
 
     with open(schema_file) as f:
         schema = f.read()
+    all_tables = set(TABLE_RE.findall(schema))
+    safe_tables &= all_tables
 
     table_setup = []
     constraints = []
@@ -185,10 +192,10 @@ def generate_copy_script(
     outfile.write("#!/bin/bash\nset -ex\n")
 
     outfile.write(
-        f'psql -c "DROP DATABASE IF EXISTS {target_db};" {target_connection}\n'
+        f'psql -c "DROP DATABASE IF EXISTS {target_db};" {target_connection} postgres\n'
     )
     outfile.write(
-        f'psql -c "CREATE DATABASE {target_db} OWNER {target_owner};" {target_connection}\n'
+        f'psql -c "CREATE DATABASE {target_db} OWNER {target_owner};" {target_connection} postgres\n'
     )
     outfile.write(f"psql {target_connection} {target_db} < table_setup.sql\n")
 
