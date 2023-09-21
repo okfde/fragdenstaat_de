@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
+from djangocms_picture.cms_plugins import PicturePlugin as BasePicturePlugin
 
 from froide.foirequest.models import FoiRequest
 from froide.helper.utils import get_redirect_url
@@ -681,3 +682,29 @@ class BorderedSectionPlugin(CMSPluginBase):
         elif instance.spacing == "md":
             return "p-3 p-md-4"
         return "p-3"
+
+
+class PicturePlugin(BasePicturePlugin):
+    def render(self, context, instance, placeholder):
+        # Overwrite render method to remove original's
+        # thumbnail generation in img_srcset_data property
+
+        if instance.alignment:
+            classes = "align-{} ".format(instance.alignment)
+            classes += instance.attributes.get("class", "")
+            # Set the class attribute to include the alignment html class
+            # This is done to leverage the attributes_str property
+            instance.attributes["class"] = classes
+        # assign link to a context variable to be performant
+        context["picture_link"] = instance.get_link()
+        context["picture_size"] = instance.get_size(
+            width=context.get("width") or 0,
+            height=context.get("height") or 0,
+        )
+
+        # Note: Skipping base plugin render method
+        return super(BasePicturePlugin, self).render(context, instance, placeholder)
+
+
+plugin_pool.unregister_plugin(BasePicturePlugin)
+plugin_pool.register_plugin(PicturePlugin)
