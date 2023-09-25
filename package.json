@@ -59,6 +59,6 @@
     "vega": "^5.20.2",
     "vega-embed": "6.19.1",
     "vega-interpreter": "^1.0.4",
-    "vega-lite": "^5.1.0"
+    "vega-lite": "<5.15"
   }
 }
