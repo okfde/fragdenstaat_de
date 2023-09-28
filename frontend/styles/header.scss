@@ -2,15 +2,18 @@
 
 $c: map.get($container-max-widths, 'xxl');
 
-nav.navbar {
+#header nav {
   padding: $spacer 0;
-  margin-bottom: $spacer;
+  --#{$prefix}navbar-toggler-icon-bg: #{escape-svg(
+      $navbar-light-toggler-icon-bg
+    )};
 
   ul.nav-ul,
   ul.nav-menu {
     list-style: none;
     padding: 0;
     margin: 0;
+    z-index: 99;
   }
 
   ul.nav-ul {
@@ -20,7 +23,9 @@ nav.navbar {
     position: relative;
   }
 
-  li a {
+  li a:not(.dropdown-item),
+  li button.btn-link {
+    display: block;
     font-weight: 600;
     color: var(--bs-emphasis-color);
 
@@ -30,41 +35,90 @@ nav.navbar {
     }
   }
 
-  .user-profile {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.25rem;
+  button.user-profile {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-right: 0.5rem;
+    }
   }
 
   @include media-breakpoint-down(md) {
     border-bottom: 1px var(--bs-border-color-translucent) solid;
 
-    ul.nav-ul {
-      justify-content: space-between;
-    }
-
     ul.nav-menu {
       display: flex;
-      opacity: 0;
       flex-direction: column;
       gap: $spacer * 0.5 0;
       position: absolute;
       top: calc(100% + $spacer + 1px); // to show the navbar border
       left: calc(var(--bs-gutter-x) * -0.5);
+      right: calc(var(--bs-gutter-x) * -0.5);
       padding: var(--bs-gutter-x);
       background-color: var(--bs-body-bg);
       width: calc(100% + var(--bs-gutter-x));
-      pointer-events: none;
-      transition: opacity 0.2s linear;
+      opacity: 0;
+      visibility: hidden; // removed after first click, to avoid fade-out on load
+      transition: opacity 0.3s linear, transform 0.2s ease;
+      transform: scaleY(0);
+      transform-origin: top;
+      border-bottom: 3px var(--bs-blue-500) solid;
+      z-index: 99;
+
+      &::before {
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        right: 0;
+        top: calc(100% + 3px);
+        height: 100vh;
+        background-color: var(--bs-body-color);
+        opacity: 0;
+        content: '';
+        pointer-events: none;
+      }
 
       &.show {
+        transform: scaleY(1);
         opacity: 1;
-        pointer-events: unset;
+
+        &::before {
+          opacity: 0.3;
+        }
       }
     }
 
-    li.nav-sm {
-      order: 99;
+    .dropdown-menu,
+    &.dropdown-menu {
+      display: flex;
+      flex-direction: column;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+    }
+
+    .dropdown-menu {
+      position: static;
+    }
+
+    .dropdown-item {
+      padding: $spacer * 0.25 0;
+
+      &:active {
+        background-color: transparent;
+      }
+    }
+
+    .nav-dropdown .dropdown-item {
+      padding: $spacer * 0.25 $spacer;
+      color: var(--bs-link-color);
+    }
+
+    ul.nav-ul {
+      justify-content: space-between;
     }
 
     li.nav-search {
@@ -73,45 +127,48 @@ nav.navbar {
       margin-bottom: $spacer;
       border-bottom: 1px var(--bs-border-color-translucent) solid;
     }
+  }
 
-    .dropdown-menu {
-      position: static;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      border: none;
-      box-shadow: none;
+  @include media-breakpoint-up(md) {
+    ul.nav-ul {
+      flex-direction: row;
+      gap: 0 $spacer * 2;
     }
 
-    .dropdown-item {
-      padding: $spacer * 0.25 $spacer;
-      color: var(--bs-link-color);
+    ul.nav-menu-expanded {
+      display: contents;
+    }
 
-      &:active {
-        background-color: transparent;
+    li.nav-sm {
+      transform: translateY(0.25rem); // balance to logo
+    }
+
+    li.nav-sm a,
+    li.nav-sm button {
+      font-weight: 500;
+    }
+
+    .nav-break {
+      position: relative;
+      margin-top: $spacer * 1.5;
+      margin-bottom: $spacer;
+      width: 100vw;
+      height: 1px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: calc(calc(100vw - 100%) / -2);
+        right: 0;
+        width: 100vw;
+        background-color: var(--bs-border-color-translucent);
+        height: 1px;
       }
     }
   }
 
-  @include media-breakpoint-up(md) {
-    overflow-x: hidden;
-
-    ul.nav-ul {
-      flex-direction: row;
-      gap: 0 1rem;
-    }
-
-    ul.nav-menu {
-      display: contents;
-    }
-
-    .nav-break {
-      width: 100%;
-      margin-top: $spacer * 1.5;
-      margin-bottom: $spacer;
-      background-color: var(--bs-border-color-translucent);
-      height: 1px;
-      transform: scaleX(250%);
-    }
+  #menu-user.dropdown-menu {
+    right: 0;
   }
 }
