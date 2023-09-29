@@ -64,7 +64,10 @@ function showTopBanner(): boolean {
 
   const linksInBanner = topBanner.querySelectorAll('a')
   for (const link of linksInBanner) {
-    if (path.startsWith(link.pathname)) {
+    if (
+      path.startsWith(link.pathname) &&
+      link.hostname === window.location.hostname
+    ) {
       return removeBanner()
     }
   }
