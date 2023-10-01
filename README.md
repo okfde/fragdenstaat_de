@@ -48,10 +48,10 @@ bash fragdenstaat_de/devsetup.sh
 
 You can run your own Postgres+PostGIS database and Elasticsearch service or run them with Docker.
 
-You need [docker](https://www.docker.com/community-edition) and [docker-compose](https://docs.docker.com/compose/). Make sure Docker is running and use the following command:
+You need [Docker Desktop](https://docs.docker.com/desktop). Make sure Docker is running and use the following command:
 
 ```
-docker-compose -f docker-compose.dev.yml up
+docker compose -f docker-compose.dev.yml up
 ```
 
 This will start Postgres and Elasticsearch and listen on port 5432 and 9200 respectively. You can adjust the port mapping in the `docker-compose.dev.yml`.
@@ -87,9 +87,9 @@ python manage.py search_index --populate
 Example of loading SQL dumps into Docker postgres:
 
 ```
-docker-compose -f docker-compose.dev.yml exec db dropdb -U fragdenstaat_de fragdenstaat_de
-docker-compose -f docker-compose.dev.yml exec db createdb -U fragdenstaat_de -O fragdenstaat_de fragdenstaat_de
-gunzip -k -c dump.sql.gz | docker-compose -f docker-compose.dev.yml exec -T db psql -U fragdenstaat_de
+docker compose -f docker-compose.dev.yml exec db dropdb -U fragdenstaat_de fragdenstaat_de
+docker compose -f docker-compose.dev.yml exec db createdb -U fragdenstaat_de -O fragdenstaat_de fragdenstaat_de
+gunzip -k -c dump.sql.gz | docker compose -f docker-compose.dev.yml exec -T db psql -U fragdenstaat_de
 ```
 
 ### Quick start after setup
@@ -98,7 +98,7 @@ gunzip -k -c dump.sql.gz | docker-compose -f docker-compose.dev.yml exec -T db p
 source fds-env/bin/activate
 cd fragdenstaat_de
 # Start service in background with -d
-docker-compose -f docker-compose.dev.yml up -d
+docker compose -f docker-compose.dev.yml up -d
 python manage.py runserver
 ```
 
