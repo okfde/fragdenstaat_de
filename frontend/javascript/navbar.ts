@@ -19,9 +19,10 @@ header.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
     const otherTriggers = header.querySelectorAll('a[data-target]')
     otherTriggers.forEach((el) => el.setAttribute('aria-expanded', 'false'))
 
+    counter++
+
     const dropdown = updateDropdown()
     if (dropdown) {
-      dropdown.show()
       return
     }
 
@@ -34,7 +35,6 @@ header.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
       target.classList.contains('show') ? 'true' : 'false'
     )
 
-    counter++
     let id = counter
 
     const hide = () => {
@@ -47,8 +47,7 @@ header.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
 
     window.requestAnimationFrame(() => {
       window.addEventListener('click', (e) => {
-        console.log(e)
-        if (!target.contains(e.target as Element)) hide()
+        if (!target.contains(e.target as Element) && id === counter) hide()
       })
     })
 
