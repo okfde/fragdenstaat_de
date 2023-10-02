@@ -13,7 +13,7 @@ $c: map.get($container-max-widths, 'xxl');
     list-style: none;
     padding: 0;
     margin: 0;
-    z-index: 99;
+    z-index: 1047;
   }
 
   ul.nav-ul {
@@ -66,7 +66,7 @@ $c: map.get($container-max-widths, 'xxl');
       transform: scaleY(0);
       transform-origin: top;
       border-bottom: 3px var(--bs-blue-500) solid;
-      z-index: 99;
+      z-index: 1046;
 
       &::before {
         position: absolute;
