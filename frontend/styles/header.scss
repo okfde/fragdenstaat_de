@@ -148,6 +148,13 @@ $c: map.get($container-max-widths, 'xxl');
       font-weight: 500;
     }
 
+    li.nav-search {
+      select,
+      input {
+        max-width: 7rem;
+      }
+    }
+
     .nav-break {
       position: relative;
       margin-top: $spacer * 1.5;
@@ -170,5 +177,17 @@ $c: map.get($container-max-widths, 'xxl');
 
   #menu-user.dropdown-menu {
     right: 0;
+  }
+
+  @include media-breakpoint-up(xl) {
+    li.nav-search {
+      select {
+        max-width: 12rem;
+      }
+
+      input {
+        max-width: none;
+      }
+    }
   }
 }
