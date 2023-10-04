@@ -36,7 +36,7 @@
           {% if request.user.is_authenticated %}
             <div class="">
               {% if request.user.profile_photo %}
-                <button class="btn btn-link user-profile nav-toggle-menu"
+                <button class="btn btn-link user-profile nav-toggle-menu nav-dropdown-trigger"
                         data-target="user" aria-controls="menu-user">
                   <img width="32"
                        height="32"
@@ -47,7 +47,7 @@
                   <span class="d-none d-md-inline">{{ request.user.first_name }}</span>
                 </button>
               {% else %}
-                <button class="btn btn-link user-profile nav-toggle-menu"
+                <button class="btn btn-link user-profile nav-toggle-menu nav-dropdown-trigger"
                         data-target="user" aria-controls="menu-user">
                   <i class="fa fa-user" aria-hidden="true"></i>
                   <span class="d-none d-md-block">{{ request.user.first_name }}</span>
@@ -80,11 +80,10 @@
 
           {% url 'foirequest-list' as requests_url %}
           <li class="nav-dropdown">
-            <a class="dropdown-toggle {% if request.path == requests_url %}active{% endif %}"
-               href="#"
-               data-bs-toggle="dropdown"
-               aria-expanded="false">{% blocktrans %}Requests{% endblocktrans %}</a>
-            <ul class="dropdown-menu">
+            <button class="btn btn-link p-0 nav-dropdown-trigger" aria-expanded="false">
+              {% blocktrans %}Requests{% endblocktrans %}
+            </button>
+            <ul class="list-unstyled dropdown-menu">
               <li>
                 <a class="dropdown-item" href="{{ requests_url }}">{% blocktrans %}See requests{% endblocktrans %}</a>
               </li>

@@ -21,10 +21,8 @@ header.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
 
     counter++
 
-    const dropdown = updateDropdown()
-    if (dropdown) {
-      return
-    }
+    updateDropdowns()
+    if (window.innerWidth >= 768) return
 
     target.classList.toggle('show')
     target.classList.remove('d-none')
@@ -57,26 +55,36 @@ header.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
   })
 )
 
-function updateDropdown() {
-  const target = document.querySelector('#menu-user')!
-  const el = target.parentElement!
-  const trigger = el.querySelector('button')!
+function updateDropdowns(): void {
+  document.querySelectorAll('.nav-dropdown-trigger').forEach((trigger) => {
+    const target = trigger.nextElementSibling!
+    const el = target.parentElement!
 
-  if (window.innerWidth < 768) {
-    el.classList.remove('dropdown')
-    target?.classList.remove('dropdown-menu')
-    trigger.removeAttribute('data-bs-toggle')
-    trigger.classList.remove('dropdown-toggle')
-    const dropdown = window.bootstrap.Dropdown.getInstance(trigger)
-    dropdown?.dispose()
-  } else {
-    el.classList.add('dropdown')
-    trigger.setAttribute('data-bs-toggle', 'dropdown')
-    trigger.classList.add('dropdown-toggle')
-    target?.classList.add('dropdown-menu')
-    return window.bootstrap.Dropdown.getOrCreateInstance(trigger)
-  }
+    if (window.innerWidth < 768) {
+      el.classList.remove('dropdown')
+      target?.classList.remove('dropdown-menu')
+      trigger.removeAttribute('data-bs-toggle')
+      trigger.classList.remove('dropdown-toggle')
+
+      if (trigger.closest('ul.nav-menu')) {
+        trigger.setAttribute('aria-hidden', 'true')
+        trigger.setAttribute('tabindex', '-1')
+      }
+
+      const dropdown = window.bootstrap.Dropdown.getInstance(trigger)
+      dropdown?.dispose()
+    } else {
+      el.classList.add('dropdown')
+      trigger.setAttribute('data-bs-toggle', 'dropdown')
+      trigger.removeAttribute('aria-hidden')
+      trigger.removeAttribute('tabindex')
+      trigger.classList.add('dropdown-toggle')
+      target?.classList.add('dropdown-menu')
+
+      window.bootstrap.Dropdown.getOrCreateInstance(trigger)
+    }
+  })
 }
 
-window.addEventListener('resize', updateDropdown)
-updateDropdown()
+window.addEventListener('resize', updateDropdowns)
+updateDropdowns()
