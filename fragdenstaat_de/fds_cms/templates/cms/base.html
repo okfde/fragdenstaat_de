@@ -3,10 +3,9 @@
 {% load static %}
 {% load sekizai_tags %}
 {% load frontendbuild %}
-{% block body_extra_attributes %}
-    data-staticurl="{{ STATIC_URL }}"
-    {% if request.user.is_staff %}data-sentry="{{ SENTRY_JS_URL }}"{% endif %}
-{% endblock %}
+
+{% block body_extra_attributes %} data-staticurl="{{ STATIC_URL }}"{% if request.user.is_staff %} data-sentry="{{ SENTRY_JS_URL}}"{% endif %}{% endblock body_extra_attributes %}
+
 {% block body_tag %}
   {% if request.user.is_authenticated and request.session.impostor %}
     {% include "account/includes/impostor.html" %}
@@ -16,15 +15,14 @@
     <div class="top-banner" style="display: none;">
       {% static_placeholder "top_banner" %}
     </div>
-  {% endblock %}
+  {% endblock top_block %}
 
   {% block navbar %}
     {% include "header.html" %}
-  {% endblock %}
+  {% endblock navbar %}
 
   {% block body_wrapper %}
   <main class="main" id="main">
-
     {% block messages %}
       {% include "snippets/messages.html" %}
     {% endblock messages %}
@@ -35,18 +33,31 @@
           {% placeholder "content" %}
         {% endblock %}
       </div>
-    {% endblock %}
+    {% endblock body %}
+  </main>
+  {% endblock body_wrapper %}
+
+  {% block footer_container %}
+    <footer class="footer" id="footer">
+      <div class="container">
+        {% static_placeholder "footer" %}
+      </div>
+    </footer>
+  {% endblock footer_container %}
+
 {% endblock body_tag %}
 {% block scripts %}
-    {% renderfrontendhmr %}
-    {% include "_frontend.html" with entry_point="main.js" %}
-    {% if cms_toolbar.edit_mode_active %}
-        {% include "_frontend.html" with entry_point="fds_cms.js" %}
-    {% endif %}
-    {{ block.super }}
-{% endblock %}
+  {% renderfrontendhmr %}
+  {% include "_frontend.html" with entry_point="main.js" %}
+
+  {% if cms_toolbar.edit_mode_active %}
+    {% include "_frontend.html" with entry_point="fds_cms.js" %}
+  {% endif %}
+
+  {{ block.super }}
+{% endblock scripts %}
+
 {% block below_scripts %}
-    {% block tracking_code %}
-        {% include "snippets/tracking.html" %}
-    {% endblock %}
-{% endblock %}
+  {% block tracking_code %}{% include "snippets/tracking.html" %}{% endblock %}
+{% endblock below_scripts %}
+

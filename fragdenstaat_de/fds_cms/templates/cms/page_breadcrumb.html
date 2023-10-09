@@ -1,15 +1,13 @@
 {% extends "cms/page.html" %}
 {% load cms_tags %}
 {% load menu_tags %}
-{% block body %}
-    <nav class="bg-body-tertiary" aria-label="breadcrumb">
-        <div class="container">
-            <ol class="breadcrumb">
-                {% show_breadcrumb 1 "cms/breadcrumbs.html" %}
-            </ol>
-        </div>
-    </nav>
-    {% block app_body %}
-        {% placeholder "content" %}
-    {% endblock %}
-{% endblock %}
+
+{% block navbar %}
+  {{ block.super }}
+
+  <nav class="container-md" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      {% show_breadcrumb 1 "cms/breadcrumbs.html" %}
+    </ol>
+  </nav>
+{% endblock navbar %}

@@ -38,7 +38,6 @@ msgid "Message from Frontex"
 msgstr "Nachricht von Frontex"
 
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
-#: fragdenstaat_de/templates/header.html
 msgid "Close"
 msgstr "Schließen"
 
@@ -675,16 +674,21 @@ msgid "Please fill out the questionnaire!"
 msgstr "Bitte füllen Sie den Fragebogen aus!"
 
 #: fragdenstaat_de/templates/header.html
-msgid "Toggle main menu"
-msgstr "Hauptmenü anzeigen"
+#: fragdenstaat_de/templates/header_minimal.html
+msgid "Skip to main content"
+msgstr ""
 
 #: fragdenstaat_de/templates/header.html
 msgid "Menu"
 msgstr "Menü"
 
 #: fragdenstaat_de/templates/header.html
-msgid "Main Menu"
-msgstr "Hauptmenü"
+msgid "Sign in"
+msgstr "Anmelden"
+
+#: fragdenstaat_de/templates/header.html
+msgid "Donate"
+msgstr "Spenden"
 
 #: fragdenstaat_de/templates/header.html
 msgid "Requests"
@@ -710,34 +714,6 @@ msgstr "Kampagnen"
 msgid "Investigations"
 msgstr "Recherchen"
 
-#: fragdenstaat_de/templates/header.html
-msgid "Donate"
-msgstr "Spenden"
-
-#: fragdenstaat_de/templates/header.html
-msgid "Sign in"
-msgstr "Anmelden"
-
-#: fragdenstaat_de/templates/header.html
-msgid "Search requests, authorities, investigations etc."
-msgstr "Suchen Sie in Anfragen, Behörden, Recherchen etc."
-
-#: fragdenstaat_de/templates/header.html
-msgid "Search"
-msgstr "Suche"
-
-#: fragdenstaat_de/templates/header.html
-msgid "Toggle account menu"
-msgstr "Kontomenü anzeigen"
-
-#: fragdenstaat_de/templates/header.html
-msgid "Account Menu"
-msgstr "Kontomenü"
-
-#: fragdenstaat_de/templates/header.html
-msgid "Log out"
-msgstr "Abmelden"
-
 #: fragdenstaat_de/templates/index.html
 msgid "Successful Requests"
 msgstr "Erfolgreiche Anfragen"
@@ -751,6 +727,10 @@ msgstr "Anfrage besuchen"
 #: fragdenstaat_de/templates/legal_advice_builder/klageautomat_info.html
 msgid "My requests"
 msgstr "Meine Anfragen"
+
+#: fragdenstaat_de/templates/menu/user_menu.html
+msgid "Log out"
+msgstr "Abmelden"
 
 #: fragdenstaat_de/templates/moderation/warn_user_subject.txt
 msgid "Warning: violation of terms"
@@ -779,6 +759,24 @@ msgid ""
 msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
+
+#~ msgid "Toggle main menu"
+#~ msgstr "Hauptmenü anzeigen"
+
+#~ msgid "Main Menu"
+#~ msgstr "Hauptmenü"
+
+#~ msgid "Search requests, authorities, investigations etc."
+#~ msgstr "Suchen Sie in Anfragen, Behörden, Recherchen etc."
+
+#~ msgid "Search"
+#~ msgstr "Suche"
+
+#~ msgid "Toggle account menu"
+#~ msgstr "Kontomenü anzeigen"
+
+#~ msgid "Account Menu"
+#~ msgstr "Kontomenü"
 
 #~ msgid "You like our work? Support us with a donation!"
 #~ msgstr "Ihnen gefällt unsere Arbeit? Unterstützen Sie uns mit einer Spende!"

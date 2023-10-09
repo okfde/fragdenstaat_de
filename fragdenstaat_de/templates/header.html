@@ -19,134 +19,152 @@
   <nav class="bg-body">
     <div class="container-md">
       <ul class="nav-ul w-100">
-        <li class="d-md-none order-first">
-          <button class="btn btn-link nav-toggle-menu" data-target="main" aria-controls="menu-main">
-            <span class="navbar-toggler-icon"></span>
-            <span class="visually-hidden">{% trans "Menu" %}</span>
-          </button>
-        </li>
+        {% if reduced != True %}
+          <li class="d-md-none order-first">
+            <button class="btn btn-link nav-toggle-menu" data-target="main" aria-controls="menu-main">
+              <span class="navbar-toggler-icon"></span>
+              <span class="visually-hidden">{% trans "Menu" %}</span>
+            </button>
+          </li>
+        {% endif %}
 
         {% page_url "home" as home_url %}
-        <li class="nav-logo order-first">
-          <a href="{{ home_url|default:'/' }}"
-             class="navbar-brand navbar-brand-fds">
+        <li class="order-first">
+          <a href="{{ home_url|default:'/' }}">
             {% render_svg "img/header_logo.svg" %}
-            <span class="visually-hidden visually-hidden-focusable">
-              {% block nav_brand_name %}{{ SITE_NAME }}{% endblock %}
+            <span class="visually-hidden">
+              {{ SITE_NAME }}
             </span>
           </a>
         </li>
 
-        <li class="nav-sm z-3">
-          {% if request.user.is_authenticated %}
-            <div class="">
-              {% if request.user.profile_photo %}
-                <button class="btn btn-link user-profile nav-toggle-menu nav-dropdown-trigger"
-                        data-target="user" aria-controls="menu-user">
-                  <img width="32"
-                       height="32"
-                       src="{% thumbnail request.user.profile_photo 64x64 %}"
-                       alt=""
-                       class="rounded-circle"/>
-              
-                  <span class="d-none d-md-inline">{{ request.user.first_name }}</span>
-                </button>
-              {% else %}
-                <button class="btn btn-link user-profile nav-toggle-menu nav-dropdown-trigger"
-                        data-target="user" aria-controls="menu-user">
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  <span class="d-none d-md-block">{{ request.user.first_name }}</span>
-                </button>
-              {% endif %}
+        {% if request.user.is_authenticated or reduced != True %}
+          <li class="nav-sm">
+            {% if request.user.is_authenticated %}
+              <div class="">
+                {% if request.user.profile_photo %}
+                  <button class="btn btn-link user-profile nav-toggle-menu nav-dropdown-trigger"
+                          data-target="user" aria-controls="menu-user">
+                    <img width="32"
+                        height="32"
+                        src="{% thumbnail request.user.profile_photo 64x64 %}"
+                        alt=""
+                        class="rounded-circle"/>
+                
+                    <span class="d-none d-md-inline">{{ request.user.first_name }}</span>
+                  </button>
+                {% else %}
+                  <button class="btn btn-link user-profile nav-toggle-menu nav-dropdown-trigger"
+                          data-target="user" aria-controls="menu-user">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span class="d-none d-md-block">{{ request.user.first_name }}</span>
+                  </button>
+                {% endif %}
 
-              <ul class="nav-menu dropdown-menu" id="menu-user">
-                {% include "menu/user_menu.html" %}
+                <ul class="nav-menu dropdown-menu" id="menu-user">
+                  {% include "menu/user_menu.html" %}
+                </ul>
+              </div>
+
+            {% else %}
+              {% url 'account-login' as login_url %}
+              <a href="{% url 'account-login' %}?next={{ request.path|urlencode }}" class="d-none d-md-block">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                {% blocktrans %}Sign in{% endblocktrans %}
+              </a>
+            
+
+              {% page_url "donate" as donate_url %}
+              <a class="btn text-danger d-md-none"
+                href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+                <span class="visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
+              </a>
+            {% endif %}
+          </li>
+        {% endif %}
+        
+        {% if reduced != True %}
+          <ul class="nav-menu nav-menu-expanded" id="menu-main">
+            <li class="nav-break" aria-hidden="true"></li>
+
+            {% url 'foirequest-list' as requests_url %}
+            <li class="nav-dropdown">
+              <button class="btn btn-link p-0 nav-dropdown-trigger" aria-expanded="false">
+                {% blocktrans %}Requests{% endblocktrans %}
+              </button>
+              <ul class="list-unstyled dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="{{ requests_url }}">{% blocktrans %}See requests{% endblocktrans %}</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'foirequest-make_request' %}">{% blocktrans %}Make request{% endblocktrans %}</a>
+                </li>
+                {% page_url "beginnersguide" as beginners_url %}
+                {% if beginners_url %}
+                  <li>
+                    <a class="dropdown-item" href="{{ beginners_url }}">{% blocktrans %}Beginner's guide{% endblocktrans %}</a>
+                  </li>
+                {% endif %}
               </ul>
-            </div>
+            </li>
+            {% page_url "campaigns" as campaigns_url %}
+            <li class="">
+              <a class="" href="{{ campaigns_url|default:'/kampagnen/' }}">{% blocktrans %}Campaigns{% endblocktrans %}</a>
+            </li>
+            {% page_url "blog" as blog_url %}
+            <li class="">
+              <a class="" href="{{ blog_url|default:'/blog/' }}">{% blocktrans %}Investigations{% endblocktrans %}</a>
+            </li>
+            {% page_url "lawsuits" as lawsuits_url %}
+            {% if lawsuits_url %}
+              {% page_attribute "menu_title" "lawsuits" as lawsuits_title %}
+            {% endif %}
+            <li>
+              <a class="" href="{{ lawsuits_url|default:'/klagen/' }}">{{ lawsuits_title }}</a>
+            </li>
 
-          {% else %}
-            {% url 'account-login' as login_url %}
-            <a href="{% url 'account-login' %}?next={{ request.path|urlencode }}" class="d-none d-md-block">
-              <i class="fa fa-sign-in" aria-hidden="true"></i>
-              {% blocktrans %}Sign in{% endblocktrans %}
-            </a>
+            <li class="ms-md-auto nav-search">
+              {% multi_search small=True %}
+            </li>
+
+            {% page_url "about" as about_url %}
+            {% if about_url %}
+              {% page_attribute "menu_title" "about" as about_title %}
+              <li class="nav-sm order-md-first ms-md-auto">
+                <a href="{{ about_url|default:"/ueber-uns/" }}">{{ about_title }}</a>
+              </li>
+            {% endif %}
+            
+            {% page_url "newsletter" as newsletter_url %}
+            {% if newsletter_url %}
+              <li class="nav-sm order-md-first">
+                <a class="" href="{{ newsletter_url }}">{% translate "Newsletter" %}</a>
+              </li>
+            {% endif %}
 
             {% page_url "donate" as donate_url %}
-            <a class="btn text-danger d-md-none"
-               href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
-              <i class="fa fa-heart" aria-hidden="true"></i>
-              <span class="visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
-            </a>
-          {% endif %}
-        </li>
-
-        <ul class="nav-menu nav-menu-expanded" id="menu-main">
-          <li class="nav-break" aria-hidden="true"></li>
-
-          {% url 'foirequest-list' as requests_url %}
-          <li class="nav-dropdown">
-            <button class="btn btn-link p-0 nav-dropdown-trigger" aria-expanded="false">
-              {% blocktrans %}Requests{% endblocktrans %}
-            </button>
-            <ul class="list-unstyled dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="{{ requests_url }}">{% blocktrans %}See requests{% endblocktrans %}</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{% url 'foirequest-make_request' %}">{% blocktrans %}Make request{% endblocktrans %}</a>
-              </li>
-              {% page_url "beginnersguide" as beginners_url %}
-              {% if beginners_url %}
-                <li>
-                  <a class="dropdown-item" href="{{ beginners_url }}">{% blocktrans %}Beginner's guide{% endblocktrans %}</a>
-                </li>
-              {% endif %}
-            </ul>
-          </li>
-          {% page_url "campaigns" as campaigns_url %}
-          <li class="">
-            <a class="" href="{{ campaigns_url|default:'/kampagnen/' }}">{% blocktrans %}Campaigns{% endblocktrans %}</a>
-          </li>
-          {% page_url "blog" as blog_url %}
-          <li class="">
-            <a class="" href="{{ blog_url|default:'/blog/' }}">{% blocktrans %}Investigations{% endblocktrans %}</a>
-          </li>
-          {% page_url "lawsuits" as lawsuits_url %}
-          {% if lawsuits_url %}
-            {% page_attribute "menu_title" "lawsuits" as lawsuits_title %}
-          {% endif %}
-          <li>
-            <a class="" href="{{ lawsuits_url|default:'/klagen/' }}">{{ lawsuits_title }}</a>
-          </li>
-
-          <li class="ms-md-auto nav-search">
-            {% multi_search small=True %}
-          </li>
-
-          {% page_url "about" as about_url %}
-          {% if about_url %}
-            {% page_attribute "menu_title" "about" as about_title %}
-            <li class="nav-sm order-md-first ms-md-auto">
-              <a href="{{ about_url|default:"/ueber-uns/" }}">{{ about_title }}</a>
-            </li>
-          {% endif %}
-          
-          {% page_url "newsletter" as newsletter_url %}
-          {% if newsletter_url %}
             <li class="nav-sm order-md-first">
-              <a class="" href="{{ newsletter_url }}">{% translate "Newsletter" %}</a>
+              <a class="text-danger"
+                href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+                {% blocktrans %}Donate{% endblocktrans %}
+              </a>
             </li>
-          {% endif %}
+          </ul>
+        {% endif %}
 
-          {% page_url "donate" as donate_url %}
-          <li class="nav-sm order-md-first">
-            <a class="text-danger"
-               href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
-              <i class="fa fa-heart" aria-hidden="true"></i>
-              {% blocktrans %}Donate{% endblocktrans %}
-            </a>
-          </li>
-        </ul>
+        {% if reduced == True %}
+        {% page_url "donate" as donate_url %}
+        <li class="nav-sm order-first ms-auto">
+          <a class="text-danger"
+            href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+            <i class="fa fa-heart" aria-hidden="true"></i>
+            <span class="visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
+            <span class="d-none d-md-inline" aria-hidden="true">{% blocktrans %}Donate{% endblocktrans %}</span>
+          </a>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </nav>

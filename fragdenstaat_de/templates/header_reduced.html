@@ -1,4 +1,3 @@
-{% extends "header.html" %}
-{% block nav_search %}{% endblock %}
-{% block nav %}{% endblock %}
-{% block nav_donate_class %}{% endblock %}
+{% with reduced=True %}
+  {% include "header.html" %}
+{% endwith %}
