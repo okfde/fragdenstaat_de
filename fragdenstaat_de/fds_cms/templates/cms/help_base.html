@@ -13,6 +13,37 @@
         <div class="col-md-8 order-md-last mt-3 mb-3">
           {% block app_body %}
             {% placeholder "content" %}
+            
+            {% get_previous_next_pages request.current_page as pagination %}
+            
+            {% if pagination.next or pagination.previous and request.page.level %}
+              <nav class="d-flex gap-3">
+                {% if pagination.previous %}
+                  <div href="{{ pagination.previous.get_absolute_url }}" class="card position-relative w-100">
+                    <div class="card-body">
+                      <div class="small text-muted mb-1">{% trans "Previous" %}:</div>
+                      <a href="{{ pagination.previous.get_absolute_url }}" class="stretched-link">
+                        {{ pagination.previous.get_menu_title }}
+                      </a>
+                    </div>
+                  </div>
+                {% endif %}
+
+                {% if pagination.next %}
+                  <div href="{{ pagination.next.get_absolute_url }}" class="card position-relative w-100">
+                    <div class="card-body text-end">
+                      <div class="small text-muted mb-1">{% trans "Next" %}:</div>
+                      <a href="{{ pagination.next.get_absolute_url }}" class="stretched-link">
+                        {{ pagination.next.get_menu_title }}
+                      </a>
+                    </div>
+                  </div>
+                {% endif %}
+              </nav>
+            
+            {% endif %}
+
+            
           {% endblock %}
         </div>
         <nav class="col-md-4 order-md-first mb-3 mt-3">
@@ -55,4 +86,7 @@
         </div>
         {% static_placeholder "help_footer" %}
     </div>
+
+    {% static_placeholder "help_footer" %}
+  </div>
 {% endblock %}
