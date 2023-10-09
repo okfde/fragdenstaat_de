@@ -42,7 +42,10 @@ $c: map.get($container-max-widths, 'xxl');
     img {
       width: 2.5rem;
       height: 2.5rem;
-      margin-right: 0.5rem;
+    }
+
+    span {
+      margin-left: 0.5rem;
     }
   }
 
