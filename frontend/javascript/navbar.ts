@@ -33,6 +33,10 @@ header.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
       target.classList.contains('show') ? 'true' : 'false'
     )
 
+    if (target.classList.contains('show')) {
+      target.querySelector('a')?.focus()
+    }
+
     let id = counter
 
     const hide = () => {
