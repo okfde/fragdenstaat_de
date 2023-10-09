@@ -23,8 +23,8 @@ $c: map.get($container-max-widths, 'xxl');
     position: relative;
   }
 
-  li a:not(.dropdown-item),
-  li button.btn-link {
+  a:not(.dropdown-item),
+  button.btn-link {
     display: block;
     font-weight: 600;
     color: var(--bs-emphasis-color);

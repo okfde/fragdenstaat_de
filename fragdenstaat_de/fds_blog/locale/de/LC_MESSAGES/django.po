@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fragdenstaat.defds_blog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-13 10:10-0500\n"
+"POT-Creation-Date: 2023-10-09 09:17-0500\n"
 "PO-Revision-Date: 2023-06-28 10:59+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -457,23 +457,6 @@ msgstr "Keine Artikel gefunden."
 msgid "Back"
 msgstr "Zurück"
 
-#: fragdenstaat_de/fds_blog/templates/fds_blog/base.html
-msgid "Freedom of Information investigations"
-msgstr "Recherchen zur Informationsfreiheit"
-
-#: fragdenstaat_de/fds_blog/templates/fds_blog/base.html
-msgid "RSS feed"
-msgstr "RSS-Feed"
-
-#: fragdenstaat_de/fds_blog/templates/fds_blog/base.html
-msgid "Categories"
-msgstr "Kategorien"
-
-#: fragdenstaat_de/fds_blog/templates/fds_blog/base.html
-#: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
-msgid "Search"
-msgstr "Suche"
-
 #: fragdenstaat_de/fds_blog/templates/fds_blog/full_content.html
 msgid "image credit: "
 msgstr "Foto-Credit: "
@@ -485,6 +468,10 @@ msgstr "von"
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
 msgid "Search articles"
 msgstr "Artikel suchen"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
+msgid "Search"
+msgstr "Suche"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
 #, python-format
@@ -510,6 +497,15 @@ msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
 #: fragdenstaat_de/fds_blog/urls.py
 msgid "^category/(?P<category>[\\w\\.@+-]+)/$"
 msgstr "^kategorie/(?P<category>[\\w\\.@+-]+)/$"
+
+#~ msgid "Freedom of Information investigations"
+#~ msgstr "Recherchen zur Informationsfreiheit"
+
+#~ msgid "RSS feed"
+#~ msgstr "RSS-Feed"
+
+#~ msgid "Categories"
+#~ msgstr "Kategorien"
 
 #~ msgid "Podcast"
 #~ msgstr "Podcast"

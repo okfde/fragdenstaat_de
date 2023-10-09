@@ -1,27 +1,21 @@
-{% extends "header.html" %}
 {% load i18n %}
-{% load thumbnail %}
-{% block nav_search %}{% endblock %}
-{% block nav %}
-{% endblock nav %}
-{% block nav_donate %}{% endblock %}
-{% block nav_account_login %}
-    {% if request.user.is_authenticated %}
-        <li class="nav-item ms-lg-2 align-self-center">
-            {% if request.user.profile_photo %}
-                <img width="32"
-                     height="32"
-                     src="{% thumbnail request.user.profile_photo 64x64 %}"
-                     alt="{{ request.user.get_full_name }}"
-                     class="img-fluid rounded-circle">
-            {% else %}
-                <div class="rounded-circle text-bg-callout d-flex justify-content-center align-items-center"
-                     style="aspect-ratio: 1/1;
-                            height: 32px">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <span class="visually-hidden">{{ request.user.first_name }}</span>
-                </div>
-            {% endif %}
-        </li>
-    {% endif %}
-{% endblock nav_account_login %}
+{% load icons %}
+
+<header id="header">
+  <div class="container-md">
+    <a href="#main" class="visually-hidden-focusable skippy text-bg-blue-500 p-3 position-fixed top-0">
+      {% trans "Skip to main content" %}
+    </a>
+  </div>
+
+  <nav class="bg-body">
+    <div class="container-md">
+      <a href="{{ home_url|default:'/' }}">
+        {% render_svg "img/header_logo.svg" %}
+        <span class="visually-hidden">
+          {{ SITE_NAME }}
+        </span>
+      </a>
+    </div>
+  </nav>
+</header>
