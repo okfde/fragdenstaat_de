@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-28 02:32-0500\n"
-"PO-Revision-Date: 2023-06-28 09:34+0200\n"
+"POT-Creation-Date: 2023-10-12 09:08-0500\n"
+"PO-Revision-Date: 2023-10-12 16:09+0200\n"
 "Last-Translator: Karl Engelhardt <karl.engelhardt@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -645,6 +645,10 @@ msgstr "Herunterladen"
 #: fragdenstaat_de/templates/djangocms_video/default/video_player.html
 msgid "Your browser doesn't support this video format."
 msgstr "Ihr Browser unterstützt diese Video-Format nicht."
+
+#: fragdenstaat_de/templates/error_base.html
+msgid "Or, read some of our recent articles:"
+msgstr "Oder lesen Sie einen unserer aktuellen Artikel:"
 
 #: fragdenstaat_de/templates/fcdocs_annotation/annotate_document.html
 msgid "private"
