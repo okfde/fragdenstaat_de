@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load thumbnail %}
+{% load fds_cms_tags %}
 {% load static %}
 {% load markup %}
 
@@ -9,13 +9,23 @@
   {% endif %}
   <div class="bg-callout py-2 text-center">
     {% if object.image %}
+      {# the column values are guesses, the glider js config determines actual size. #}
+      {% get_responsive_filer_image object.image "col-6 col-md-4" as respimg %}
       <picture>
-        {% thumbnail object.image 250x0 crop subject_location=object.image.subject_location as thumb %}
-        <source
-          srcset="{{ thumb.url }}.avif"
-          type="image/avif"
-        />
-        <img class="img-sm-vertical" loading="lazy" src="{{ thumb.url }}" alt="{{ object.image.default_alt_text|default:"" }}" />
+        {% for source in respimg.sources %}
+          <source
+            srcset="{{ source.srcset }}"
+            sizes="{{ respimg.sizes }}"
+            type="{{ source.mime_type }}"
+          />
+        {% endfor %}
+              
+        <img class="img-sm-vertical" loading="lazy"
+          src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}"
+          alt="{{ object.image.default_alt_text|default:"" }}"
+          width="{{ object.image.width|floatformat:"0u" }}"
+          height="{{ object.image.height|floatformat:"0u" }}"
+        >
       </picture>
     {% endif %}
   </div>
