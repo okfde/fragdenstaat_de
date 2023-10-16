@@ -194,7 +194,7 @@ class FragDenStaatBase(German, Base):
     # CMS
 
     CMS_PERMISSION = True
-    CMS_RAW_ID_USERS = 50
+    CMS_RAW_ID_USERS = True
 
     CMS_LANGUAGES = {
         # Customize this
