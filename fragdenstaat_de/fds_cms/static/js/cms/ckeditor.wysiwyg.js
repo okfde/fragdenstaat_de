@@ -92,7 +92,7 @@ CKEDITOR.dtd.$removeEmpty.span = 0;
 
 function addSlugId(el) {
     const innerText = el.children.filter(x => x.type == CKEDITOR.NODE_TEXT).map(x => x.value).join(" ")
-    const slug = innerText.toLowerCase().replace(/[^-_0-9a-zA-Z]/g, '-');
+    const slug = innerText.toLowerCase().replace(/[^-_0-9a-zA-Z]/g, '-').replace(/^(\d+)/, "-$1");
     if ((!el.attributes.id) || (el.attributes.id == el.attributes['data-auto-id'])) {
         el.attributes.id = slug;
         el.attributes['data-auto-id'] = slug;
