@@ -7,10 +7,4 @@
   <div data-vegachart data-vegachartdata="{{ instance.vega_json }}"></div>
 </div>
 
-{% addtoblock "js" %}
-<script src="{% static 'js/vegacharts.js' %}" defer async></script>
-{% endaddtoblock %}
-
-{% addtoblock "css" %}
-<link rel="stylesheet" href="{% static 'css/vegacharts.css' %}">
-{% endaddtoblock %}
+{% include "_frontend.html" with entry_point="vegacharts.js" %}
