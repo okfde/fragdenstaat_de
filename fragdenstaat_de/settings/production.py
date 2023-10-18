@@ -176,8 +176,8 @@ class FragDenStaat(FragDenStaatBase):
     EMAIL_PORT = 25
     # FOI_EMAIL_ACCOUNT_NAME
     # FOI_EMAIL_ACCOUNT_PASSWORD
-    FOI_EMAIL_DOMAIN = ["fragdenstaat.de", "echtemail.de"]
-    FOI_MAIL_SERVER_HOST = "mail.fragdenstaat.de"
+    FOI_MAIL_DOMAIN = env("FOI_MAIL_DOMAIN", ["fragdenstaat.de", "echtemail.de"])
+    FOI_MAIL_SERVER_HOST = env("FOI_MAIL_SERVER_HOST", "mail.fragdenstaat.de")
     FOI_EMAIL_FIXED_FROM_ADDRESS = False
     FOI_EMAIL_FUNC = None
     # Values from env
