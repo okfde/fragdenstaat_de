@@ -9,6 +9,9 @@ CONSTRAINTS_RE = re.compile(
     r'ALTER TABLE ONLY (?P<table>public\.\w+)\s+ADD CONSTRAINT (?P<constraint>["\w]+) FOREIGN KEY \((?P<fk>\w+)\) REFERENCES (?P<fk_table>public\.\w+)\((?P<field>\w+)\)(?P<tail>[^;]*);'
 )
 TABLE_RE = re.compile(r"CREATE TABLE (public\.\w+) ")
+SEQUENCE_RE = re.compile(
+    r"ALTER TABLE ONLY (?P<table>public\.\w+) ALTER COLUMN (?P<column>\w+) SET DEFAULT nextval\('(?P<sequence>public\.\w+)'::regclass\);"
+)
 
 SQL_TEMPLATE = """
 ALTER TABLE ONLY {table}
@@ -206,7 +209,25 @@ def generate_copy_script(
         outfile.write(cmd)
     outfile.write("unset PGPASSWORD\n")
 
+    EXTRA_SQL = [
+        "UPDATE account_user SET password = ''",
+        "UPDATE public.publicbody_publicbody SET _created_by_id = NULL",
+        "UPDATE public.publicbody_publicbody SET _updated_by_id = NULL",
+    ]
+    for sql in EXTRA_SQL:
+        outfile.write(
+            f"""psql -c "{escape_quote(sql)}" {target_connection} {target_db}\n"""
+        )
+
     outfile.write(f"psql {target_connection} {target_db} < constraints.sql\n")
+
+    matches = SEQUENCE_RE.findall(schema)
+    for match in matches:
+        table, column, sequence = match
+        sql = f"""SELECT SETVAL('{sequence}', COALESCE(MAX({column}), 1) ) FROM {table};"""
+        outfile.write(
+            f"""psql -c "{escape_quote(sql)}" {target_connection} {target_db}\n"""
+        )
 
 
 def show_unsafe(safe_tables="safe_tables.txt", schema_file="schema.sql"):
