@@ -40,7 +40,7 @@
 
 .highlight-target {
   *:target {
-    background-color: $highlight;
+    background-color: var(--froide-highlight-bg);
   }
 }
 

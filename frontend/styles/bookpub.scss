@@ -1,3 +1,7 @@
 .toc a.active {
     font-weight: bold;
 }
+
+.footnotes li:target {
+    background-color: var(--froide-highlight-bg);
+}
