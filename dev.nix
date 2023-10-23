@@ -19,6 +19,7 @@ let
     ghostscript
     postgresql.lib
     mupdf
+    gettext
   ];
 in
 pkgs.mkShell {
