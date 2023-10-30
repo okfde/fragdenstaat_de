@@ -1,3 +1,6 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
 .vega-chart {
   overflow: hidden;
   width: 100%;
@@ -8,4 +11,14 @@
 }
 .vega-embed {
   width: 100%;
+}
+
+#vg-tooltip-element {
+  background-color: var(--#{$prefix}body-bg);
+  border: 1px solid var(--#{$prefix}tertiary-bg);
+  color: var(--#{$prefix}body-color);
+
+  td.key {
+    color: var(--#{$prefix}secondary-color);
+  }
 }
