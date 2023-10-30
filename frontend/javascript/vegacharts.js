@@ -1,7 +1,47 @@
 import '../styles/vega.scss'
 
 import { expressionInterpreter } from 'vega-interpreter'
+import { mergeConfig } from 'vega'
 import embed from 'vega-embed'
+
+const backgroundColor = 'var(--bs-body-bg)'
+const textColor = 'var(--bs-body-color)'
+const mediumColor = 'var(--bs-secondary-bg)'
+
+const colorTheme = {
+  background: backgroundColor,
+
+  view: {
+    stroke: mediumColor
+  },
+
+  title: {
+    color: textColor,
+    subtitleColor: textColor
+  },
+
+  style: {
+    'guide-label': {
+      fill: textColor
+    },
+    'guide-title': {
+      fill: textColor
+    },
+    cell: { stroke: null },
+    'group-title': { font: 'Inter', fontSize: 14, fontWeight: 'bold' }
+  },
+
+  axis: {
+    domainColor: mediumColor,
+    gridColor: mediumColor,
+    tickColor: mediumColor,
+    labelColor: textColor,
+    labelFont: 'Inter',
+    labelFontSize: 12,
+    titleFont: 'Inter',
+    titleFontWeight: 'normal'
+  }
+}
 
 const LOCALE = {
   de: {
@@ -95,6 +135,7 @@ document.querySelectorAll('[data-vegachart]').forEach((el) => {
     expr: expressionInterpreter,
     renderer: 'svg',
     actions: showActions,
+    config: mergeConfig(colorTheme, spec.config),
     ...extras
   })
 })
