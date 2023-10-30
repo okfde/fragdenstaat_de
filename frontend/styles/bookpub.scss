@@ -2,6 +2,13 @@
     font-weight: bold;
 }
 
+@include media-breakpoint-up(lg) {
+    .toc {
+        max-height: 90vh;
+        overflow-y: scroll;
+    }
+}
+
 .footnotes li:target {
     background-color: var(--froide-highlight-bg);
 }
