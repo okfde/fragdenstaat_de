@@ -1,32 +1,21 @@
 {% load cms_tags %}
-{% load thumbnail %}
+{% load fds_cms_tags %}
 
-<style>
-#hero-image-{{ instance.pk }} {
-    background-image: url('{% thumbnail instance.picture 450x450 crop subject_location=instance.picture.subject_location %}');
-}
-@media(min-width:576px){
-    #hero-image-{{ instance.pk }} {
-        background-image: url('{% thumbnail instance.picture 768x400 crop subject_location=instance.picture.subject_location %}');
-    }
-}
-@media(min-width:768px){
-    #hero-image-{{ instance.pk }} {
-        background-image: url('{% thumbnail instance.picture 992x400 crop subject_location=instance.picture.subject_location %}');
-    }
-}
-@media(min-width:992px){
-    #hero-image-{{ instance.pk }} {
-        background-image: url('{% thumbnail instance.picture 1200x400 crop subject_location=instance.picture.subject_location %}');
-    }
-}
-@media(min-width:1200px){
-    #hero-image-{{ instance.pk }} {
-        background-image: url('{% thumbnail instance.picture 1920x400 crop subject_location=instance.picture.subject_location %}');
-    }
-}
-</style>
-<div class="hero-image{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}" id="hero-image-{{ instance.pk }}" {{ instance.attributes_str }}>
+<div class="hero-image{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}" {{ instance.attributes_str }}>
+    {% with picture=instance.picture %}
+        {% get_responsive_filer_image picture "col-12" as respimg %}
+        <picture>
+            {% for source in respimg.sources %}
+            <source
+                srcset="{{ source.srcset }}"
+                sizes="{{ respimg.sizes }}"
+                type="{{ source.mime_type }}"
+            />
+            {% endfor %}
+
+            <img class="hero-image-img" loading="lazy" width="{{ picture.width|floatformat:"0u" }}" height="{{ picture.height|floatformat:"0u" }}" src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}" alt="">
+        </picture>
+    {% endwith %}
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% endfor %}

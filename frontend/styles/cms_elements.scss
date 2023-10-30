@@ -8,11 +8,19 @@
 }
 
 .hero-image {
-  margin: 0;
-  background-position: center 0;
-  background-repeat: no-repeat;
-  background-size: cover;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
   min-height: 24rem;
+}
+.hero-image-img {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;
 }
 
 /* Submenu */
