@@ -8,8 +8,14 @@
 
 @include media-breakpoint-up(lg) {
     .toc {
-        max-height: 90vh;
+        max-height: calc(100vh - 60px);
         overflow-y: scroll;
+    }
+}
+
+.book-pub-content {
+    [id] {
+        scroll-margin-top: 60px;
     }
 }
 

@@ -60,8 +60,7 @@ function generateSubToc(level, headings, start = 1) {
 
 function setupScrollSpy(content, toc) {
   new ScrollSpy(content, {
-    target: toc,
-    smoothScroll: true
+    target: toc
   })
 }
 
