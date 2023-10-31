@@ -13,6 +13,7 @@
     }
 }
 
-.footnotes li:target {
+.footnotes li:target p {
+    color:  var(--froide-highlight-color);
     background-color: var(--froide-highlight-bg);
 }
