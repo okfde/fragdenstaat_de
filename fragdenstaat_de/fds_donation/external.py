@@ -152,6 +152,7 @@ def import_banktransfers(xls_file, project):
         }
     )
     df = df.dropna(subset=["date_received"])
+    df["reference"] = df["reference"].fillna("")
     df["date_received"] = df["date_received"].dt.tz_localize(settings.TIME_ZONE)
     if "date" in df.columns:
         df["date"] = df["date"].dt.tz_localize(settings.TIME_ZONE)
