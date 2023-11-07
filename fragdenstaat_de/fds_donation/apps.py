@@ -2,6 +2,8 @@ from django.apps import AppConfig
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
+from fragdenstaat_de.fds_newsletter import unsubscribed
+
 
 class FdsDonationConfig(AppConfig):
     name = "fragdenstaat_de.fds_donation"
@@ -24,6 +26,7 @@ class FdsDonationConfig(AppConfig):
             export_user_data,
             merge_user,
             payment_status_changed,
+            remove_newsletter_subscriber,
             sepa_payment_processing,
             subscription_was_canceled,
             user_email_changed,
@@ -35,6 +38,7 @@ class FdsDonationConfig(AppConfig):
         account_canceled.connect(cancel_user)
         account_email_changed.connect(user_email_changed)
         account_merged.connect(merge_user)
+        unsubscribed.connect(remove_newsletter_subscriber)
         registry.register(export_user_data)
 
         from froide.account.menu import MenuItem, menu_registry

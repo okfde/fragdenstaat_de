@@ -5,6 +5,8 @@ from decimal import Decimal
 from django.db import transaction
 from django.utils import timezone
 
+from fragdenstaat_de.fds_newsletter.models import Subscriber
+
 from froide_payment.models import PaymentStatus
 
 from .models import Donation, Donor
@@ -171,3 +173,7 @@ def export_user_data(user):
             ]
         ),
     )
+
+
+def remove_newsletter_subscriber(sender: Subscriber, **kwargs):
+    Donor.objects.filter(subscriber=sender).update(subscriber=None)
