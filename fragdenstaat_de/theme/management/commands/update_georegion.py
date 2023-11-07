@@ -243,6 +243,12 @@ class Command(BaseCommand):
                 tree_params = get_new_child_params(None)
             break
 
+        dlm_id = (
+            feature["DEBKG_ID"].as_string()
+            if "DEBKG_ID" in feature
+            else feature["DLM_ID"].as_string()
+        )
+
         data = {
             "slug": slug,
             "name": name,
@@ -259,7 +265,7 @@ class Command(BaseCommand):
             "data": {
                 "label": full_name,
                 "nuts": nuts,
-                "DEBKG_ID": feature["DEBKG_ID"].as_string(),
+                "DEBKG_ID": dlm_id,
                 **extra_data,
             },
         }
@@ -278,7 +284,7 @@ class Command(BaseCommand):
         count = float(len(layer))
         for i, feature in enumerate(layer):
             self.stdout.write("%.2f%%\r" % (i / count * 100), ending="")
-            region_identifier = feature["RS"].as_string()
+            region_identifier = feature["ARS"].as_string()
             try:
                 gr = GeoRegion.objects.get(region_identifier=region_identifier)
                 gr.gov_seat = mapping.feature_kwargs(feature)["geom"]
