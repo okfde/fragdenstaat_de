@@ -484,3 +484,14 @@ h4.blog-list-heading {
 .textarea.cke_source {
   resize: auto !important;
 }
+
+/*================================
+=           Arrow List           =
+================================*/
+.list-arrow {
+  list-style: none
+}
+
+.list-arrow > li::before {
+  content: "→ "
+}

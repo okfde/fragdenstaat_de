@@ -40,6 +40,7 @@ CKEDITOR.stylesSet.add('default', [
     { 'name': 'List Unstyled', 'element': ['ul', 'ol'], 'attributes': { 'class': 'list-unstyled' }},
     { 'name': 'List Timeline', 'element': ['ul', 'ol'], 'attributes': { 'class': 'timeline' }},
     { 'name': 'List Inline', 'element': ['ul', 'ol'], 'attributes': { 'class': 'list-inline' }},
+    { 'name': 'List Arrow', 'element': ['ul'], 'attributes': { 'class': 'list-arrow' }},
     { 'name': 'Horizontal Description', 'element': 'dl', 'attributes': { 'class': 'dl-horizontal' }},
 
     { 'name': 'Table', 'element': 'table', 'attributes': { 'class': 'table' }},
