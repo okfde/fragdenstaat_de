@@ -1,201 +1,206 @@
 {% extends "base.html" %}
 {% load form_helper markup i18n %}
-
 {% block body %}
-<div class="bg-body-tertiary">
-  <div class="container">
-    <div class="row justify-content-left">
-      <div class="col-md-8">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'account-show' %}">{% trans "My requests" %}</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'foirequest-shortlink' foi_request.id %}">{{ foi_request.title|truncatechars:50 }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Klageautomat</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="bg-body-tertiary bg-body-tertiary-header">
-    <div class="container pb-5">
-      <div class="row justify-content-left">
-        <div class="col-md-8">
-          <h2>{{ law_case.title }}</h2>
-          <div>zu: <a href="{% url 'foirequest-shortlink' foi_request.id %}" target="_blank">{{ foi_request.title }}</a>,</br>an: {{ foi_request.public_body }}</div>
-        </div>
-      </div>
-
-  <div class="row justify-content-center mt-2">
-    <div class="col-md-8">
-      {% if form %}
-        <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
-          <form method="post" >
-            <div class="pb-2 mb-3">
-              {% if step_count > 1 %}
-              <div class="fw-bold mb-3">{{ question.questionaire }}</div>
-              {% endif %}
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: {{ progess }}%" aria-valuenow="{{ progess }}" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-              <div class="text-end">
-                <small class="text-body-secondary">
-                  Frage {{ answer_count }} von max. {{ question_count }}.
-                </small>
-              </div>
-            </div>
-
-            {% csrf_token %}
-            <div class="no-required-asterisk">
-              {% render_form form horizontal=False %}
-            </div>
-            <input class="btn btn-primary btn-sm float-end" type="submit" value="Weiter" />
-          </form>
-
-          {% if has_previous_question%}
-            <form method="post">
-              {% csrf_token %}
-              <input class="btn btn-link btn-sm float-end" name="previous-question" type="submit" value="Zurück" />
-            </form>
-          {% endif %}
-        </div>
-      {% endif %}
-
-      {% if success %}
-      <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
-        <div class="pb-2 mb-3">
-          {% if step_count > 1 %}
-          <div class="fw-bold mb-3">{{ question.questionaire }}</div>
-          {% endif %}
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="text-end">
-            <small class="text-body-secondary">
-              Alle Fragen beantwortet.
-            </small>
-          </div>
-          <div class="alert alert-success mt-5" role="alert">
-            {% if step_count > 1 %}
-              <div class="mb-3 fw-bold pb-2">{{ question.questionaire }} <i class="fa fa-check" aria-hidden="true"></i></div>
-            {% endif %}
-            <div>
-              {{ message|markdown|linebreaks }}
-            </div>
-          </div>
-          {% if next %}
-          <form method="post">
-            {% csrf_token %}
-            <div class="mt-3 mb-3 float-end">
-              <button class="btn btn-primary btn-sm">
-                <input type="hidden" name="next" value="{{ next.id }}" />
-                Jetzt Klage erstellen
-              </button>
-            </div>
-          </form>
-          {% endif %}
-        </div>
-        </div>
-        {% endif %}
-
-      {% if failure %}
-        <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
-          <div class="pb-2 mb-3">
-            {% if step_count > 1 %}
-            <div class="fw-bold mb-3">{{ question.questionaire }}</div>
-            {% endif %}
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: {{ progess }}%" aria-valuenow="{{ progess }}" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <div class="text-end">
-              <small class="text-body-secondary">
-                Frage {{ answer_count }} von max. {{ question_count }}.
-              </small>
-            </div>
-            <div class="alert alert-danger mt-1 mb-0" role="alert">
-            {% if step_count > 1 %}
-              <div class="mb-3 fw-bold pb-2">{{ question.questionaire }} <i class="fa fa-times" aria-hidden="true"></i></div>
-            {% endif %}
-            <div>{{ message|markdown|linebreaks }}</div>
-          </div>
-        </div>
-        <a class="btn btn-primary btn-sm float-end" href="{% url 'foirequest-shortlink' foi_request.id %}">
-          Zurück zu Anfrage
-        </a>
-        {% if has_previous_question%}
-        <form method="post">
-          {% csrf_token %}
-          <input class="btn btn-link btn-sm float-end" name="previous-question" type="submit" value="Zurück zur letzten Frage" />
-        </form>
-        {% endif %}
-      </div>
-      {% endif %}
-
-      {% if answer_form %}
-        <div class="alert alert-success mt-3" role="alert">
-          <p>Die Prüfung ist abgeschlossen – es kommt eine Untätigkeitsklage in Betracht!</p>
-          <p>Ein Klageentwurf wurde für Sie erstellt.</p>
-        </div>
-        {{ answer_form.media }}
-        <form method="post" class="clearfix mt-3 border-gray shadow-sm p-3">
-          {% csrf_token %}
-          {{ answer_form }}
-
-          <div class="row mt-2">
-
-            <div class="col">
-              <div class="dropdown mt-2">
-                <button id="downloadActions" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Klageentwurf herunterladen
-                </button>
-                <div class="dropdown-menu alpha-dropdown-menu" aria-labelledby="downloadActions">
-                  <button class="dropdown-item" type="submit" name="download" value="pdf">als PDF-Dokument</button>
-                  <button class="dropdown-item" type="submit" name="download" value="word">als Word-Dokument</button>
-                  <button class="dropdown-item" type="submit" name="download" value="html">als HTML-Dokument</button>
+    <div class="bg-body-tertiary">
+        <div class="container">
+            <div class="row justify-content-left">
+                <div class="col-md-8">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'account-show' %}">{% trans "My requests" %}</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'foirequest-shortlink' foi_request.id %}">{{ foi_request.title|truncatechars:50 }}</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Klageautomat</li>
+                        </ol>
+                    </nav>
                 </div>
-              </div>
             </div>
-
-            <div class="col">
-              <div class="mt-2 mb-3">
-                <input class="btn btn-primary btn-sm float-end" type="submit" value="Änderungen speichern" />
-              </div>
-            </div>
-
-          </div>
-
-        </form>
-      {% endif %}
-
-
-    </div>
-    <div class="col-md-4 mt-3">
-      {% if question.information and not success %}
-        <div id="infobox" class="info-box mb-3 info-box--regular mt-0">
-          <div class="info-box__header d-flex flex-nowrap justify-content-between align-items-center">
-            <div>
-              <h3 class="h5 info-box__title">Hilfe</h3>
-              <div class="info-box__subtitle"></div>
-            </div>
-          </div>
-
-          <div class="info-box__body">
-            <ul class="info-box__list ">
-              <li class="info-box__list-item">
-                <div class="info-box__list-label"></div>
-                <div class="info-box__list-value">{{ question.information|markdown|linebreaks }}</div>
-              </li>
-          </div>
         </div>
-      {% endif %}
-
-      {% if answer_form %}
-      {% include 'legal_advice_builder/includes/info_box.html' %}
-      {% endif %}
     </div>
-  </div>
-</div>
-</div>
-
+    <div class="bg-body-tertiary bg-body-tertiary-header">
+        <div class="container pb-5">
+            <div class="row justify-content-left">
+                <div class="col-md-8">
+                    <h2>{{ law_case.title }}</h2>
+                    <div>
+                        zu: <a href="{% url 'foirequest-shortlink' foi_request.id %}"
+    target="_blank">{{ foi_request.title }}</a>,
+                    </br>
+                    an: {{ foi_request.public_body }}
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-2">
+            <div class="col-md-8">
+                {% if form %}
+                    <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
+                        <form method="post">
+                            <div class="pb-2 mb-3">
+                                {% if step_count > 1 %}<div class="fw-bold mb-3">{{ question.questionaire }}</div>{% endif %}
+                                <div class="progress">
+                                    <div class="progress-bar"
+                                         role="progressbar"
+                                         style="width: {{ progess }}%"
+                                         aria-valuenow="{{ progess }}"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"></div>
+                                </div>
+                                <div class="text-end">
+                                    <small class="text-body-secondary">Frage {{ answer_count }} von max. {{ question_count }}.</small>
+                                </div>
+                            </div>
+                            {% csrf_token %}
+                            <div class="no-required-asterisk">{% render_form form horizontal=False %}</div>
+                            <input class="btn btn-primary btn-sm float-end" type="submit" value="Weiter" />
+                        </form>
+                        {% if has_previous_question %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input class="btn btn-link btn-sm float-end"
+                                       name="previous-question"
+                                       type="submit"
+                                       value="Zurück" />
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if success %}
+                    <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
+                        <div class="pb-2 mb-3">
+                            {% if step_count > 1 %}<div class="fw-bold mb-3">{{ question.questionaire }}</div>{% endif %}
+                            <div class="progress">
+                                <div class="progress-bar"
+                                     role="progressbar"
+                                     style="width: 100%"
+                                     aria-valuenow="100"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-body-secondary">Alle Fragen beantwortet.</small>
+                            </div>
+                            <div class="alert alert-success mt-5" role="alert">
+                                {% if step_count > 1 %}
+                                    <div class="mb-3 fw-bold pb-2">
+                                        {{ question.questionaire }} <i class="fa fa-check" aria-hidden="true"></i>
+                                    </div>
+                                {% endif %}
+                                <div>{{ message|markdown|linebreaks }}</div>
+                            </div>
+                            {% if next %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="mt-3 mb-3 float-end">
+                                        <button class="btn btn-primary btn-sm">
+                                            <input type="hidden" name="next" value="{{ next.id }}" />
+                                            Jetzt Klage erstellen
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if failure %}
+                    <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
+                        <div class="pb-2 mb-3">
+                            {% if step_count > 1 %}<div class="fw-bold mb-3">{{ question.questionaire }}</div>{% endif %}
+                            <div class="progress">
+                                <div class="progress-bar"
+                                     role="progressbar"
+                                     style="width: {{ progess }}%"
+                                     aria-valuenow="{{ progess }}"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-body-secondary">Frage {{ answer_count }} von max. {{ question_count }}.</small>
+                            </div>
+                            <div class="alert alert-danger mt-1 mb-0" role="alert">
+                                {% if step_count > 1 %}
+                                    <div class="mb-3 fw-bold pb-2">
+                                        {{ question.questionaire }} <i class="fa fa-times" aria-hidden="true"></i>
+                                    </div>
+                                {% endif %}
+                                <div>{{ message|markdown|linebreaks }}</div>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary btn-sm float-end"
+                           href="{% url 'foirequest-shortlink' foi_request.id %}">Zurück zu Anfrage</a>
+                        {% if has_previous_question %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input class="btn btn-link btn-sm float-end"
+                                       name="previous-question"
+                                       type="submit"
+                                       value="Zurück zur letzten Frage" />
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if answer_form %}
+                    <div class="alert alert-success mt-3" role="alert">
+                        <p>Die Prüfung ist abgeschlossen – es kommt eine Untätigkeitsklage in Betracht!</p>
+                        <p>Ein Klageentwurf wurde für Sie erstellt.</p>
+                    </div>
+                    {{ answer_form.media }}
+                    <form method="post" class="clearfix mt-3 border-gray shadow-sm p-3">
+                        {% csrf_token %}
+                        {{ answer_form }}
+                        <div class="row mt-2">
+                            <div class="col">
+                                <div class="dropdown mt-2">
+                                    <button id="downloadActions"
+                                            type="button"
+                                            class="btn btn-primary btn-sm dropdown-toggle"
+                                            data-bs-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">Klageentwurf herunterladen</button>
+                                    <div class="dropdown-menu alpha-dropdown-menu"
+                                         aria-labelledby="downloadActions">
+                                        <button class="dropdown-item" type="submit" name="download" value="pdf">als PDF-Dokument</button>
+                                        <button class="dropdown-item" type="submit" name="download" value="word">als Word-Dokument</button>
+                                        <button class="dropdown-item" type="submit" name="download" value="html">als HTML-Dokument</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mt-2 mb-3">
+                                    <input class="btn btn-primary btn-sm float-end"
+                                           type="submit"
+                                           value="Änderungen speichern" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+            <div class="col-md-4 mt-3">
+                {% if question.information and not success %}
+                    <div id="infobox" class="info-box mb-3 info-box--regular mt-0">
+                        <div class="info-box__header d-flex flex-nowrap justify-content-between align-items-center">
+                            <div>
+                                <h3 class="h5 info-box__title">Hilfe</h3>
+                                <div class="info-box__subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="info-box__body">
+                            <ul class="info-box__list ">
+                                <li class="info-box__list-item">
+                                    <div class="info-box__list-label"></div>
+                                    <div class="info-box__list-value">{{ question.information|markdown|linebreaks }}</div>
+                                </li>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if answer_form %}
+                        {% include 'legal_advice_builder/includes/info_box.html' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

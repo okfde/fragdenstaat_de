@@ -1,12 +1,13 @@
 {% extends "cms/page_reduced.html" %}
-
 {% block extra_head %}
-  {{ block.super }}
-  <link rel="alternate" type="application/rss+xml" title="{{ SITE_NAME }} Blog" href="{% url 'blog:article-latest-feed' %}" />
+    {{ block.super }}
+    <link rel="alternate"
+          type="application/rss+xml"
+          title="{{ SITE_NAME }} Blog"
+          href="{% url 'blog:article-latest-feed' %}" />
 {% endblock %}
-
 {% block body %}
-  {% block app_body %}
-    {% block content %}{% endblock %}
-  {% endblock %}
+    {% block app_body %}
+        {% block content %}{% endblock %}
+    {% endblock %}
 {% endblock %}

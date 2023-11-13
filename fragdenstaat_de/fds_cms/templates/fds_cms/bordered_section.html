@@ -1,15 +1,11 @@
 {% load cms_tags %}
-
 <section class="bordered-section border-{{ instance.border }} {{ instance.attributes.class }}" {{ instance.attributes_str }}>
-  <{{ instance.heading }} class="bordered-section-headline text-{{ color }}">
-    <div class="d-inline-block px-4 text-bg-body">
-      {{ instance.title }}
+    <{{ instance.heading }} class="bordered-section-headline text-{{ color }}">
+    <div class="d-inline-block px-4 text-bg-body">{{ instance.title }}</div>
+    </{{ instance.heading }}>
+    <div class="{{ padding }}">
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
     </div>
-  </{{ instance.heading }}>
-
-  <div class="{{ padding }}">
-    {% for plugin in instance.child_plugin_instances %}
-      {% render_plugin plugin %}
-    {% endfor %}
-  </div>
 </section>

@@ -1,13 +1,16 @@
-{% load static %}<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex"/>
-  <title>{% block title %}{% endblock %}</title>
-  <link href="{% static 'css/main.css' %}" rel="stylesheet">
-  <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex" />
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+        <link href="{% static 'css/main.css' %}" rel="stylesheet">
+        <style>
     .og-container {
       height: 100vh;
       width: 100vw;
@@ -24,10 +27,10 @@
     .og-container .fa {
       font-size: 2.5rem !important;
     }
-  </style>
-  {% block extra_style %}{% endblock %}
-</head>
-<body>
-  {% block body %}{% endblock %}
-</body>
+        </style>
+        {% block extra_style %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
 </html>

@@ -1,11 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ subject }}</title>
-  <style type="text/css" media="screen">
-
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{{ subject }}</title>
+        <style type="text/css" media="screen">
     /* Force Hotmail to display emails at full width */
     .ExternalClass {
       display: block !important;
@@ -173,8 +172,8 @@
       }
     }
 
-  </style>
-  <style type="text/css" media="only screen and (max-width: 600px)">
+        </style>
+        <style type="text/css" media="only screen and (max-width: 600px)">
     @media only screen and (max-width: 600px) {
       body[class*="background"],
       table[class*="background"],
@@ -205,75 +204,93 @@
         padding-bottom: 0 !important;
       }
     }
-  </style>
-</head>
-
-<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" bgcolor="" class="background">
-  <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" class="background">
-    <tr>
-      <td align="center" valign="top" width="100%" class="background">
-        <center>
-          <table cellpadding="0" cellspacing="0" width="600" class="wrap">
+        </style>
+    </head>
+    <body leftmargin="0"
+          marginwidth="0"
+          topmargin="0"
+          marginheight="0"
+          offset="0"
+          bgcolor=""
+          class="background">
+        <table align="center"
+               border="0"
+               cellpadding="0"
+               cellspacing="0"
+               height="100%"
+               width="100%"
+               class="background">
             <tr>
-              <td valign="top" class="wrap-cell" style="padding-top:30px; padding-bottom:30px;">
-                <table cellpadding="0" cellspacing="0" class="force-full-width">
-                  {% block content %}
-                  <tr>
-                    {% block header_image %}
-                    <td height="60" valign="top" class="header-cell" style="padding: 30px 20px">
-                      <img width="260" height="60" src="https://media.frag-den-staat.de/files/media/main/3d/ed/3ded41d1-31d9-4bf5-a04b-4ded2ae5d4e2/logo.png" alt="FragDenStaat.de">
-                    </td>
-                    {% endblock %}
-                  </tr>
-                  <tr>
-                    <td valign="top" class="body-cell">
-
-                      {% block body %}{% endblock %}
-
-                    </td>
-                  </tr>
-                  {% endblock content %}
-                  <tr>
-                    <td valign="top" class="footer-cell">
-                      {% block footer %}
-                      {% if newsletter %}
-                      Wurde die Mail an dich weitergeleitet? Erhalte den nächsten Newsletter persönlich und <a href="https://fragdenstaat.de/newsletter/">abonniere den FragDenStaat-Newsletter direkt hier</a>. Falls dir der Newsletter gefällt, dann  würden wir uns über das Teilen in deinem Netzwerk freuen.
-                      <br><br>
-                      {% endif %}
-
-                      {% block social_media %}
-                      Unsere Social-Media-Kanäle:<br>
-                      <a href="https://twitter.com/fragdenstaat">Twitter</a> | <a href="https://instagram.com/fragdenstaat">Instagram</a> | <a href="https://chaos.social/@fragdenstaat">Mastodon</a> | <a href="https://www.facebook.com/fragdenstaat.de">Facebook</a>
-                      <br><br>
-                      {% endblock %}
-                      
-                      Impressum:
-                      <br>
-                      FragDenStaat ist ein Projekt der Open Knowledge Foundation Deutschland e.V.
-                      <br>
-                      Singerstr. 109 | 10179 Berlin
-                      <br>
-                      <a href="mailto:info@fragdenstaat.de">info@fragdenstaat.de</a> | <a href="{{ site_url }}">fragdenstaat.de</a>
-                      <br>
-                      {% if unsubscribe_url %}
-                      <br>
-                      Du hast diese Mitteilung erhalten, weil du dich in die Mailingliste eingetragen hast. Du kannst dich <a href="{{ unsubscribe_url }}">hier von dieser Liste abmelden</a>. Weitere Informationen findest du in unserer <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzrichtlinie</a>.
-                      {% else %}
-                      <br>
-                      <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzerklärung</a>
-                      {% endif %}
-                      <br>
-                      {% endblock %}
-                    </td>
-                  </tr>
-                </table>
-              </td>
+                <td align="center" valign="top" width="100%" class="background">
+                    <center>
+                        <table cellpadding="0" cellspacing="0" width="600" class="wrap">
+                            <tr>
+                                <td valign="top"
+                                    class="wrap-cell"
+                                    style="padding-top:30px;
+                                           padding-bottom:30px">
+                                    <table cellpadding="0" cellspacing="0" class="force-full-width">
+                                        {% block content %}
+                                            <tr>
+                                                {% block header_image %}
+                                                    <td height="60"
+                                                        valign="top"
+                                                        class="header-cell"
+                                                        style="padding: 30px 20px">
+                                                        <img width="260"
+                                                             height="60"
+                                                             src="https://media.frag-den-staat.de/files/media/main/3d/ed/3ded41d1-31d9-4bf5-a04b-4ded2ae5d4e2/logo.png"
+                                                             alt="FragDenStaat.de">
+                                                    </td>
+                                                {% endblock %}
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" class="body-cell">
+                                                    {% block body %}{% endblock %}
+                                                </td>
+                                            </tr>
+                                        {% endblock content %}
+                                        <tr>
+                                            <td valign="top" class="footer-cell">
+                                                {% block footer %}
+                                                    {% if newsletter %}
+                                                        Wurde die Mail an dich weitergeleitet? Erhalte den nächsten Newsletter persönlich und <a href="https://fragdenstaat.de/newsletter/">abonniere den FragDenStaat-Newsletter direkt hier</a>. Falls dir der Newsletter gefällt, dann  würden wir uns über das Teilen in deinem Netzwerk freuen.
+                                                        <br>
+                                                        <br>
+                                                    {% endif %}
+                                                    {% block social_media %}
+                                                        Unsere Social-Media-Kanäle:
+                                                        <br>
+                                                        <a href="https://twitter.com/fragdenstaat">Twitter</a> | <a href="https://instagram.com/fragdenstaat">Instagram</a> | <a href="https://chaos.social/@fragdenstaat">Mastodon</a> | <a href="https://www.facebook.com/fragdenstaat.de">Facebook</a>
+                                                        <br>
+                                                        <br>
+                                                    {% endblock %}
+                                                    Impressum:
+                                                    <br>
+                                                    FragDenStaat ist ein Projekt der Open Knowledge Foundation Deutschland e.V.
+                                                    <br>
+                                                    Singerstr. 109 | 10179 Berlin
+                                                    <br>
+                                                    <a href="mailto:info@fragdenstaat.de">info@fragdenstaat.de</a> | <a href="{{ site_url }}">fragdenstaat.de</a>
+                                                    <br>
+                                                    {% if unsubscribe_url %}
+                                                        <br>
+                                                        Du hast diese Mitteilung erhalten, weil du dich in die Mailingliste eingetragen hast. Du kannst dich <a href="{{ unsubscribe_url }}">hier von dieser Liste abmelden</a>. Weitere Informationen findest du in unserer <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzrichtlinie</a>.
+                                                    {% else %}
+                                                        <br>
+                                                        <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzerklärung</a>
+                                                    {% endif %}
+                                                    <br>
+                                                {% endblock %}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                </td>
             </tr>
-          </table>
-        </center>
-      </td>
-    </tr>
-  </table>
-
-</body>
+        </table>
+    </body>
 </html>

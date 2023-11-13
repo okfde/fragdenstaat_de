@@ -1,66 +1,52 @@
 {% extends "cms/scaffold.html" %}
-
 {% load cms_tags %}
 {% load static %}
 {% load sekizai_tags %}
 {% load frontendbuild %}
-
-{% block body_extra_attributes %} data-staticurl="{{ STATIC_URL }}"{% if request.user.is_staff %} data-sentry="{{ SENTRY_JS_URL}}"{% endif %}{% endblock %}
-
+{% block body_extra_attributes %}
+    data-staticurl="{{ STATIC_URL }}"
+    {% if request.user.is_staff %}data-sentry="{{ SENTRY_JS_URL }}"{% endif %}
+{% endblock %}
 {% block body_tag %}
-  {% if request.user.is_authenticated and request.session.impostor %}
-    {% include "account/includes/impostor.html" %}
-  {% endif %}
-
-  {% block top_block %}
-    <div class="top-banner" style="display: none;">
-      {% static_placeholder "top_banner" %}
-    </div>
-  {% endblock %}
-
-  {% block navbar %}
-    {% include "header.html" %}
-  {% endblock %}
-
-  {% block body_wrapper %}
-  <main class="main">
-
-    {% block messages %}
-      {% include "snippets/messages.html" %}
-    {% endblock messages %}
-
-    {% block body %}
-      <div class="container">
-        {% block app_body %}
-          {% placeholder "content" %}
-        {% endblock %}
-      </div>
+    {% if request.user.is_authenticated and request.session.impostor %}
+        {% include "account/includes/impostor.html" %}
+    {% endif %}
+    {% block top_block %}
+        <div class="top-banner" style="display: none;">{% static_placeholder "top_banner" %}</div>
     {% endblock %}
-  </main>
-  {% endblock %}
-
-  {% block footer_container %}
-    <footer class="footer" id="footer">
-      <div class="container">
-        {% static_placeholder "footer" %}
-      </div>
-    </footer>
-  {% endblock %}
-
+    {% block navbar %}
+        {% include "header.html" %}
+    {% endblock %}
+    {% block body_wrapper %}
+        <main class="main">
+            {% block messages %}
+                {% include "snippets/messages.html" %}
+            {% endblock messages %}
+            {% block body %}
+                <div class="container">
+                    {% block app_body %}
+                        {% placeholder "content" %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </main>
+    {% endblock %}
+    {% block footer_container %}
+        <footer class="footer" id="footer">
+            <div class="container">{% static_placeholder "footer" %}</div>
+        </footer>
+    {% endblock %}
 {% endblock body_tag %}
-
 {% block scripts %}
-  {% renderfrontendhmr %}
-  {% include "_frontend.html" with entry_point="main.js" %}
-
-  {% if cms_toolbar.edit_mode_active %}
-    {% include "_frontend.html" with entry_point="fds_cms.js" %}
-  {% endif %}
-
-  {{ block.super }}
+    {% renderfrontendhmr %}
+    {% include "_frontend.html" with entry_point="main.js" %}
+    {% if cms_toolbar.edit_mode_active %}
+        {% include "_frontend.html" with entry_point="fds_cms.js" %}
+    {% endif %}
+    {{ block.super }}
 {% endblock %}
-
 {% block below_scripts %}
-  {% block tracking_code %}{% include "snippets/tracking.html" %}{% endblock %}
+    {% block tracking_code %}
+        {% include "snippets/tracking.html" %}
+    {% endblock %}
 {% endblock %}
-

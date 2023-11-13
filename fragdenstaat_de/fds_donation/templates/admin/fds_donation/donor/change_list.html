@@ -1,15 +1,18 @@
 {% extends "admin/change_list.html" %}
-
 {% load i18n %}
-
 {% block result_list %}
-<p>
-  Summe: {{ cl.amount_total_sum }}&nbsp;EUR
-  <br/>Durchschnitt: {{ cl.amount_total_avg }}&nbsp;EUR
-  <br/>Median: {{ cl.amount_total_median }}&nbsp;EUR
-  <br/>Summe letztes Jahr: {{ cl.amount_last_year_sum }}&nbsp;EUR
-  <br/>Durchschnitt letztes Jahr: {{ cl.amount_last_year_avg }}&nbsp;EUR
-  <br/>Wiederkehrend Monatssumme: {{ cl.total_amount_recurring }}&nbsp;EUR
-</p>
-{{ block.super }}
+    <p>
+        Summe: {{ cl.amount_total_sum }}&nbsp;EUR
+        <br />
+        Durchschnitt: {{ cl.amount_total_avg }}&nbsp;EUR
+        <br />
+        Median: {{ cl.amount_total_median }}&nbsp;EUR
+        <br />
+        Summe letztes Jahr: {{ cl.amount_last_year_sum }}&nbsp;EUR
+        <br />
+        Durchschnitt letztes Jahr: {{ cl.amount_last_year_avg }}&nbsp;EUR
+        <br />
+        Wiederkehrend Monatssumme: {{ cl.total_amount_recurring }}&nbsp;EUR
+    </p>
+    {{ block.super }}
 {% endblock %}

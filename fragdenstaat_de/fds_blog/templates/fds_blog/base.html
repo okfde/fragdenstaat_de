@@ -1,63 +1,71 @@
 {% extends CMS_TEMPLATE %}
-
 {% load i18n %}
 {% load cms_tags %}
-
 {% block navbar %}
-  {% include "fds_blog/header_blog.html" %}
+    {% include "fds_blog/header_blog.html" %}
 {% endblock %}
-
 {% block content %}
-  <div class="app app-blog">
-    <nav class="navbar navbar-expand-sm navbar-dark navbar-blog">
-      <div class="container">
-        <a class="navbar-brand" href="{% page_url 'blog' %}">{% trans "Freedom of Information investigations" %}</a>
-        <ul class="navbar-nav me-auto d-none d-sm-flex">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'blog:article-latest-feed' %}" target="_blank" rel="noopener">
-              <span class="fa fa-rss" aria-hidden="true"></span>
-              <span class="visually-hidden">{% trans "RSS feed" %}</span>
-            </a>
-          </li>
-        </ul>
-        <div class="d-flex">
-          <ul class="navbar-nav ms-auto d-none d-sm-block">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="cat-navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {% trans "Categories" %}
-              </a>
-              <div class="dropdown-menu" aria-labelledby="cat-navbarDropdown">
-                {% for cat in categories %}
-                  <a class="dropdown-item {% if cat == category %} active{% endif %}" href="{% url 'blog:article-category' category=cat.slug %}">
-                    {{ cat.title }}
-                  </a>
-                {% endfor %}
-              </div>
-            </li>
-          </ul>
-
-          <form class="ms-2 d-none d-md-inline" role="search" method="get" action="{% url 'blog:article-search' %}">
-            <div class="input-group d-flex d-md-none d-lg-flex">
-              {% if form %}
-                {{ form.q }}
-              {% else %}
-                <input class="form-control" type="text" name="q" placeholder="{% trans 'Search' %}" aria-label="{% trans 'Search' %}">
-              {% endif %}
-              <button class="btn btn-outline-light" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-                <span class="visually-hidden">{% trans "Search" %}</span>
-              </button>
+    <div class="app app-blog">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-blog">
+            <div class="container">
+                <a class="navbar-brand" href="{% page_url 'blog' %}">{% trans "Freedom of Information investigations" %}</a>
+                <ul class="navbar-nav me-auto d-none d-sm-flex">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{% url 'blog:article-latest-feed' %}"
+                           target="_blank"
+                           rel="noopener">
+                            <span class="fa fa-rss" aria-hidden="true"></span>
+                            <span class="visually-hidden">{% trans "RSS feed" %}</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <ul class="navbar-nav ms-auto d-none d-sm-block">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               id="cat-navbarDropdown"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">{% trans "Categories" %}</a>
+                            <div class="dropdown-menu" aria-labelledby="cat-navbarDropdown">
+                                {% for cat in categories %}
+                                    <a class="dropdown-item {% if cat == category %}active{% endif %}"
+                                       href="{% url 'blog:article-category' category=cat.slug %}">{{ cat.title }}</a>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="ms-2 d-none d-md-inline"
+                          role="search"
+                          method="get"
+                          action="{% url 'blog:article-search' %}">
+                        <div class="input-group d-flex d-md-none d-lg-flex">
+                            {% if form %}
+                                {{ form.q }}
+                            {% else %}
+                                <input class="form-control"
+                                       type="text"
+                                       name="q"
+                                       placeholder="{% trans 'Search' %}"
+                                       aria-label="{% trans 'Search' %}">
+                            {% endif %}
+                            <button class="btn btn-outline-light" type="submit">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                                <span class="visually-hidden">{% trans "Search" %}</span>
+                            </button>
+                        </div>
+                        <button class="btn btn-outline-light d-none d-md-block d-lg-none"
+                                type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <span class="visually-hidden">{% trans "Search" %}</span>
+                        </button>
+                    </form>
+                </div>
             </div>
-            <button class="btn btn-outline-light d-none d-md-block d-lg-none" type="submit">
-              <i class="fa fa-search" aria-hidden="true"></i>
-              <span class="visually-hidden">{% trans "Search" %}</span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
-    
-    {% block content_blog %}{% endblock %}
-
-  </div>
+        </nav>
+        {% block content_blog %}{% endblock %}
+    </div>
 {% endblock %}

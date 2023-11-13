@@ -2,42 +2,44 @@
 {% load fds_cms_tags %}
 {% load static %}
 {% load markup %}
-
 <div class="slider-card text-bg-body md:shadow-yellow border-yellow d-flex flex-column p-4 mx-auto">
-  {% if "campaign-card__done" in object.extra_classes %}
-    <img src="{% static 'img/campaign-check.svg' %}" alt="Kampagne abgeschlossen" class="slider-card__check-icon">
-  {% endif %}
-  <div class="bg-callout py-2 text-center">
-    {% if object.image %}
-      {# the column values are guesses, the glider js config determines actual size. #}
-      {% get_responsive_filer_image object.image "col-6 col-md-4" as respimg %}
-      <picture>
-        {% for source in respimg.sources %}
-          <source
-            srcset="{{ source.srcset }}"
-            sizes="{{ respimg.sizes }}"
-            type="{{ source.mime_type }}"
-          />
-        {% endfor %}
-              
-        <img class="img-sm-vertical" loading="lazy"
-          src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}"
-          alt="{{ object.image.default_alt_text|default:"" }}"
-          width="{{ object.image.width|floatformat:"0u" }}"
-          height="{{ object.image.height|floatformat:"0u" }}"
-        >
-      </picture>
+    {% if "campaign-card__done" in object.extra_classes %}
+        <img src="{% static 'img/campaign-check.svg' %}"
+             alt="Kampagne abgeschlossen"
+             class="slider-card__check-icon">
     {% endif %}
-  </div>
-  <h3 class="h4 mt-3 mb-3">{{ object.title }}</h3>
-  <div class="flex-grow-1">
-    {{ object.description | markdown }}
-  </div>
-  {% if object.link %}
-  <div>
-    <a href="{{ object.link }}" class="btn btn-outline-primary w-100">
-      {% if object.link_label %}{{ object.link_label }}{% else %}{% trans "Read more" %}{% endif %}
-    </a>
-  </div>
-  {% endif %}    
+    <div class="bg-callout py-2 text-center">
+        {% if object.image %}
+            {# the column values are guesses, the glider js config determines actual size. #}
+            {% get_responsive_filer_image object.image "col-6 col-md-4" as respimg %}
+            <picture>
+                {% for source in respimg.sources %}
+                    <source srcset="{{ source.srcset }}"
+                            sizes="{{ respimg.sizes }}"
+                            type="{{ source.mime_type }}" />
+                {% endfor %}
+                <img class="img-sm-vertical"
+                     loading="lazy"
+                     src="{{ respimg.src }}"
+                     srcset="{{ respimg.srcset }}"
+                     sizes="{{ respimg.sizes }}"
+                     alt="{{ object.image.default_alt_text|default:"" }}"
+                     width="{{ object.image.width|floatformat:"0u" }}"
+                     height="{{ object.image.height|floatformat:"0u" }}">
+            </picture>
+        {% endif %}
+    </div>
+    <h3 class="h4 mt-3 mb-3">{{ object.title }}</h3>
+    <div class="flex-grow-1">{{ object.description | markdown }}</div>
+    {% if object.link %}
+        <div>
+            <a href="{{ object.link }}" class="btn btn-outline-primary w-100">
+                {% if object.link_label %}
+                    {{ object.link_label }}
+                {% else %}
+                    {% trans "Read more" %}
+                {% endif %}
+            </a>
+        </div>
+    {% endif %}
 </div>

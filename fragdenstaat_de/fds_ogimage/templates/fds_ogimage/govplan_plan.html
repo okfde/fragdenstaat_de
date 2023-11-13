@@ -1,11 +1,8 @@
 {% extends "fds_ogimage/base.html" %}
-
 {% load humanize %}
-
 {% block title %}{{ object.title }}{% endblock %}
-
 {% block extra_style %}
-<style>
+    <style>
 body {
   background-image: url('https://media.frag-den-staat.de/files/media/main/d5/0b/d50be174-0cd1-4a35-97e4-2d7747db8404/temp-lineart.jpg');
   background-size: cover;
@@ -15,53 +12,50 @@ body {
 .bg-translucent {
   background: rgba(255,255,255,0.9);
 }
-</style>
+    </style>
 {% endblock %}
-
 {% block body %}
-<div class="og-container d-flex flex-column min-h-screen">
-  <div class="p-5">
-    <img class="img-fluid col-5 px-0" src="https://media.frag-den-staat.de/files/media/main/98/91/98919aa3-9200-4f99-a7c7-de25cda8675a/logo-koalitionstracker-w.svg" alt="Koalitionstracker">
-  </div>
-  <div class="d-flex flex-column flex-grow-1 bg-translucent">
-    <div class="p-5 d-flex align-items-center flex-1 h-100">
-      <h3>
-        {% block tagline %}
-        {{ object.title|truncatechars:100 }}
-        {% endblock %}
-      </h3>
-    </div>
-    <div class="pb-5 px-5 mt-auto">
-      <div class="row justify-content-between align-items-center">
-        {% block bottom_row %}
-        <div class="col-4">
-          <div class="badge text-bg-{{ object.get_status_css }} p-3 d-inline-flex">
-            <i class="fa fa-circle me-3"></i>
-            <span class="h2 m-0">
-              {{ object.get_status_display }}
-            </span>
-          </div>
+    <div class="og-container d-flex flex-column min-h-screen">
+        <div class="p-5">
+            <img class="img-fluid col-5 px-0"
+                 src="https://media.frag-den-staat.de/files/media/main/98/91/98919aa3-9200-4f99-a7c7-de25cda8675a/logo-koalitionstracker-w.svg"
+                 alt="Koalitionstracker">
         </div>
-        <div class="col-4">
-          {% if object.due_date %}
-            <div class="d-flex {% if object.is_overdue %}text-danger{% endif %}">
-              <div class="flex-shrink-0">
-                <span class="fa fa-calendar"></span>
-              </div>
-              <div class="flex-grow-1 ms-3">
-                <h2 class="m-0">
-                  {{ object.due_date | date }}
-                </h2>
-              </div>
+        <div class="d-flex flex-column flex-grow-1 bg-translucent">
+            <div class="p-5 d-flex align-items-center flex-1 h-100">
+                <h3>
+                    {% block tagline %}{{ object.title|truncatechars:100 }}{% endblock %}
+                </h3>
             </div>
-          {% endif %}
+            <div class="pb-5 px-5 mt-auto">
+                <div class="row justify-content-between align-items-center">
+                    {% block bottom_row %}
+                        <div class="col-4">
+                            <div class="badge text-bg-{{ object.get_status_css }} p-3 d-inline-flex">
+                                <i class="fa fa-circle me-3"></i>
+                                <span class="h2 m-0">{{ object.get_status_display }}</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            {% if object.due_date %}
+                                <div class="d-flex {% if object.is_overdue %}text-danger{% endif %}">
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-calendar"></span>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h2 class="m-0">{{ object.due_date | date }}</h2>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endblock bottom_row %}
+                    <div class="col-auto ms-auto">
+                        <img height="80"
+                             src="https://static.frag-den-staat.de/static/img/header_logo.580ed694906e.svg"
+                             alt="FragDenStaat.de" />
+                    </div>
+                </div>
+            </div>
         </div>
-        {% endblock bottom_row %}
-        <div class="col-auto ms-auto">
-          <img height="80" src="https://static.frag-den-staat.de/static/img/header_logo.580ed694906e.svg" alt="FragDenStaat.de"/>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
 {% endblock %}

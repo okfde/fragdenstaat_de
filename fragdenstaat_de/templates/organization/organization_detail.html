@@ -1,11 +1,10 @@
 {% extends "organization/organization_detail.html" %}
-
 {% load i18n %}
 {% block member_list %}
-  <h2 class="pt-3">{% trans "Organization Members" %}</h2>
-  <div class="mt-5 justify-content-center row shuffle-items">
-    {% for member in members %}
-      {% include "organization/includes/user_card.html" with user=member.user %}
-    {% endfor %}
-  </div>
+    <h2 class="pt-3">{% trans "Organization Members" %}</h2>
+    <div class="mt-5 justify-content-center row shuffle-items">
+        {% for member in members %}
+            {% include "organization/includes/user_card.html" with user=member.user %}
+        {% endfor %}
+    </div>
 {% endblock %}

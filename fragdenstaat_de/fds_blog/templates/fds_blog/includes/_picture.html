@@ -1,20 +1,17 @@
 {% load fds_cms_tags %}
-
 <picture>
-  {% get_responsive_filer_image picture columns as respimg %}
-
-  {% for source in respimg.sources %}
-    <source
-      srcset="{{ source.srcset }}"
-      sizes="{{ respimg.sizes }}"
-      type="{{ source.mime_type }}"
-    />
-  {% endfor %}
-
-  <img class="img-fluid" loading="{{ loading|default:"lazy" }}"
-    src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}"
-    alt="{{ picture.default_alt_text|default:"" }}"
-    width="{{ picture.width|floatformat:"0u" }}"
-    height="{{ picture.height|floatformat:"0u" }}"
-  >
+    {% get_responsive_filer_image picture columns as respimg %}
+    {% for source in respimg.sources %}
+        <source srcset="{{ source.srcset }}"
+                sizes="{{ respimg.sizes }}"
+                type="{{ source.mime_type }}" />
+    {% endfor %}
+    <img class="img-fluid"
+         loading="{{ loading|default:"lazy" }}"
+         src="{{ respimg.src }}"
+         srcset="{{ respimg.srcset }}"
+         sizes="{{ respimg.sizes }}"
+         alt="{{ picture.default_alt_text|default:"" }}"
+         width="{{ picture.width|floatformat:"0u" }}"
+         height="{{ picture.height|floatformat:"0u" }}">
 </picture>

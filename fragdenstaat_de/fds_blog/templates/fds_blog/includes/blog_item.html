@@ -1,31 +1,26 @@
 {% load i18n easy_thumbnails_tags cms_tags %}
-
 <article id="post-{{ article.slug }}" class="post-item">
-  {% if article.image_id %}
-     <a href="{{ article.get_absolute_url }}">{% include "fds_blog/includes/blog_picture_small.html" with picture=article.image %}</a>
-  {% endif %}
-
-  <h4 class="blog-list-heading">
-    <a href="{{ article.get_absolute_url }}">
-      <span class="d-block fw-normal blog-list-heading__kicker">
-        {{ article.kicker }}
-      </span>
-      {{ article.title }}
-    </a>
-  </h4>
-
-  {% if article.teaser %}
-    <div class="blog-lead">
-      {% if not TRUNCWORDS_COUNT %}
-        {% render_model article "teaser" "" "" "safe" %}
-      {% else %}
-        {% render_model article "teaser" "" "" "truncatewords_html:TRUNCWORDS_COUNT|safe"  %}
-      {% endif %}
-      <div class="cl-effect-10">
-        <a href="{{ article.get_absolute_url }}" data-hover="&rarr;">
-          zum Artikel
+    {% if article.image_id %}
+        <a href="{{ article.get_absolute_url }}">
+            {% include "fds_blog/includes/blog_picture_small.html" with picture=article.image %}
         </a>
-      </div>
-    </div>
-  {% endif %}
+    {% endif %}
+    <h4 class="blog-list-heading">
+        <a href="{{ article.get_absolute_url }}">
+            <span class="d-block fw-normal blog-list-heading__kicker">{{ article.kicker }}</span>
+            {{ article.title }}
+        </a>
+    </h4>
+    {% if article.teaser %}
+        <div class="blog-lead">
+            {% if not TRUNCWORDS_COUNT %}
+                {% render_model article "teaser" "" "" "safe" %}
+            {% else %}
+                {% render_model article "teaser" "" "" "truncatewords_html:TRUNCWORDS_COUNT|safe" %}
+            {% endif %}
+            <div class="cl-effect-10">
+                <a href="{{ article.get_absolute_url }}" data-hover="&rarr;">zum Artikel</a>
+            </div>
+        </div>
+    {% endif %}
 </article>

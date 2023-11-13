@@ -1,22 +1,15 @@
 {% extends "foirequest/cms_plugins/list.html" %}
-
 {% load follow_tags %}
-
 {% block pre_item %}
-<div class="row w-100">
-<div class="col-md-8">
-{% endblock %}
-
-{% block post_item %}
-  </div>
-  
-  {% if object.user != request.user %}
-    <div class="col-md-4">
-      <div class="ajax-parent mb-5">
-        {% follow_form "request" object %}
-      </div>
+    <div class="row w-100">
+        <div class="col-md-8">
+        {% endblock %}
+        {% block post_item %}
+        </div>
+        {% if object.user != request.user %}
+            <div class="col-md-4">
+                <div class="ajax-parent mb-5">{% follow_form "request" object %}</div>
+            </div>
+        {% endif %}
     </div>
-  {% endif %}
-
-  </div>
 {% endblock %}

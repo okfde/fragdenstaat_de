@@ -1,56 +1,33 @@
 {% load thumbnail %}
-
 <article class="w-100 mx-auto">
-  <div>
-    {% if article.image %}
-      <a href="{{ article.get_absolute_url }}">
-        {% with picture=article.image %}
-        <picture>
-          {% thumbnail picture 640x370 crop subject_location=picture.subject_location as thumb %}
-          <source
-            srcset="{{ thumb.url }}.avif"
-            type="image/avif"
-          />
-          <source
-            media="(min-width: 992px)"
-            srcset="{{ thumb.url }}"
-          />
-          {% thumbnail picture 480x277 crop subject_location=picture.subject_location as thumb %}
-          <source
-            media="(min-width: 768px)"
-            srcset="{{ thumb.url }}.avif"
-            type="image/avif"
-          />
-          <source
-            media="(min-width: 768px)"
-            srcset="{{ thumb.url }}"
-          />
-          {% thumbnail picture 320x185 crop subject_location=picture.subject_location as thumb %}
-          <source
-            srcset="{{ thumb.url }}.avif"
-            type="image/avif"
-          />
-          <img class="w-100 h-auto z-index-10" loading="lazy" width="320" height="185" src="{{ thumb.url }}"
-              {% if not attributes.alt %} alt="{{ picture.default_alt_text|default:'' }}"{% endif %}
-              {{ attributes_str }}>
-        </picture>
-        {% endwith %}
-      </a>
-    {% endif %}
-  </div>
-  <div class="text-bg-body border-gray shadow-gray z-index-20 position-relative mx-3 mt-n5 mt-lg-n6 p-3">
-    <h3 class="h4 mt-0 mb-1">
-      {% if article.kicker %}
-      <span class="d-block text-body-secondary fw-normal font-size-sm">
-        {{ article.kicker }}
-      </span>
-      {% endif %}
-      <a class="text-body" href="{{ article.get_absolute_url }}">
-        {{ article.title }}
-      </a>
-    </h3>
-    <div class="text-body-secondary fw-bold font-size-sm">
-      {{ article.start_publication|date:"DATE_FORMAT" }}
-    </div>
-  </div>
-</article>
+    <div>
+        {% if article.image %}
+            <a href="{{ article.get_absolute_url }}">
+                {% with picture=article.image %}
+                    <picture>
+                        {% thumbnail picture 640x370 crop subject_location=picture.subject_location as thumb %}
+                            <source srcset="{{ thumb.url }}.avif" type="image/avif" />
+                            <source media="(min-width: 992px)" srcset="{{ thumb.url }}" />
+                            {% thumbnail picture 480x277 crop subject_location=picture.subject_location as thumb %}
+                                <source media="(min-width: 768px)"
+                                        srcset="{{ thumb.url }}.avif"
+                                        type="image/avif" />
+                                <source media="(min-width: 768px)" srcset="{{ thumb.url }}" />
+                                {% thumbnail picture 320x185 crop subject_location=picture.subject_location as thumb %}
+                                    <source srcset="{{ thumb.url }}.avif" type="image/avif" />
+                                    <img class="w-100 h-auto z-index-10" loading="lazy" width="320" height="185" src="{{ thumb.url }}" {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:'' }}"{% endif %} {{ attributes_str }}>
+                                </picture>
+                            {% endwith %}
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="text-bg-body border-gray shadow-gray z-index-20 position-relative mx-3 mt-n5 mt-lg-n6 p-3">
+                    <h3 class="h4 mt-0 mb-1">
+                        {% if article.kicker %}
+                            <span class="d-block text-body-secondary fw-normal font-size-sm">{{ article.kicker }}</span>
+                        {% endif %}
+                        <a class="text-body" href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                    </h3>
+                    <div class="text-body-secondary fw-bold font-size-sm">{{ article.start_publication|date:"DATE_FORMAT" }}</div>
+                </div>
+            </article>

@@ -1,33 +1,24 @@
 {% extends "account/settings.html" %}
-
 {% load fax_tags %}
 {% load newsletter_tags %}
-
 {% block settings_name %}
-<a href="/hilfe/funktionen-der-plattform/namen-aendern/" title="Siehe Hilfe-Seite zum Ändern Ihres Namens">
-  <i class="fa fa-question-circle"></i>
-</a>
+    <a href="/hilfe/funktionen-der-plattform/namen-aendern/"
+       title="Siehe Hilfe-Seite zum Ändern Ihres Namens">
+        <i class="fa fa-question-circle"></i>
+    </a>
 {% endblock %}
-
 {% block settings_privacy %}
-<a href="/hilfe/ihr-konto-verwalten/privatsphare-einstellungen/" title="Siehe Hilfe-Bereich zu Ihren Privatsphäre-Einstellungen">
-  <i class="fa fa-question-circle"></i>
-</a>
+    <a href="/hilfe/ihr-konto-verwalten/privatsphare-einstellungen/"
+       title="Siehe Hilfe-Bereich zu Ihren Privatsphäre-Einstellungen">
+        <i class="fa fa-question-circle"></i>
+    </a>
 {% endblock %}
-
 {% block post_password_menu %}
-<a href="#newsletter" class="list-group-item list-group-item-action">
-  Newsletter
-</a>
-<a href="#signature-setting" class="list-group-item list-group-item-action">
-  Unterschrift
-</a>
+    <a href="#newsletter" class="list-group-item list-group-item-action">Newsletter</a>
+    <a href="#signature-setting"
+       class="list-group-item list-group-item-action">Unterschrift</a>
 {% endblock %}
-
 {% block post_password %}
-
-  {% newsletter_settings %}
-
-  {% include "froide_fax/_signature_form.html" with form=request.user|get_signature_form next=request.get_full_path %}
-
+    {% newsletter_settings %}
+    {% include "froide_fax/_signature_form.html" with form=request.user|get_signature_form next=request.get_full_path %}
 {% endblock %}

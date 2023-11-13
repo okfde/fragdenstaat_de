@@ -1,77 +1,63 @@
 {% extends "fds_blog/base.html" %}
-
 {% load i18n %}
-
-{% block title %}{% translate "Search articles" %}{% endblock %}
-
+{% block title %}
+    {% translate "Search articles" %}
+{% endblock %}
 {% block content_blog %}
-
-<div class="container mt-3">
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <h2>
-        {% translate "Search articles" %}
-      </h2>
-      <form class="mb-3" role="search" method="get" action=".">
-        <div class="input-group mb-3">
-          {% if form %}
-            {{ form.q }}
-          {% else %}
-            <input class="form-control" type="text" name="q" placeholder="{% translate 'Search' %}" aria-label="{% translate 'Search' %}">
-          {% endif %}
-          <button class="btn btn-outline-primary" type="submit">
-            <i class="fa fa-search" aria-hidden="true"></i>
-            {% translate "Search" %}
-          </button>
-        </div>
-        {{ form.category }}
-      </form>
-
-      {% if object_list and form.q.value %}
-        <p>
-          {% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}
-        </p>
-        {% for object in object_list %}
-          <div class="row">
-            {% if object.image %}      
-              <div class="col-sm-4">
-                <a href="{{ object.get_absolute_url }}">
-                  {% include "fds_blog/includes/blog_picture_small.html" with picture=object.image columns="col-sm-4" %}
-                </a>
-              </div>
-            {% endif %}
-            <div class="col-sm-8">
-              <h5 class="mt-0 mb-1">
-                <span class="d-block text-body-secondary font-weight-bold font-size-sm">
-                  <time datetime="{{ object.start_publication|date:'c' }}">
-                    {{ object.start_publication|date:"SHORT_DATE_FORMAT" }}
-                  </time>
-                  {% if object.kicker %} &ndash; {% endif %}
-                  {{ object.kicker }}
-                </span>
-                <a href="{{ object.get_absolute_url }}">
-                  {{ object.title }}
-                </a>
-                
-              </h5>
-              {% if object.query_highlight %}
-                <p class="search-highlight">
-                  {{ object.query_highlight }}
-                </p>
-              {% endif %}
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <h2>{% translate "Search articles" %}</h2>
+                <form class="mb-3" role="search" method="get" action=".">
+                    <div class="input-group mb-3">
+                        {% if form %}
+                            {{ form.q }}
+                        {% else %}
+                            <input class="form-control"
+                                   type="text"
+                                   name="q"
+                                   placeholder="{% translate 'Search' %}"
+                                   aria-label="{% translate 'Search' %}">
+                        {% endif %}
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            {% translate "Search" %}
+                        </button>
+                    </div>
+                    {{ form.category }}
+                </form>
+                {% if object_list and form.q.value %}
+                    <p>{% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}</p>
+                    {% for object in object_list %}
+                        <div class="row">
+                            {% if object.image %}
+                                <div class="col-sm-4">
+                                    <a href="{{ object.get_absolute_url }}">
+                                        {% include "fds_blog/includes/blog_picture_small.html" with picture=object.image columns="col-sm-4" %}
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <div class="col-sm-8">
+                                <h5 class="mt-0 mb-1">
+                                    <span class="d-block text-body-secondary font-weight-bold font-size-sm">
+                                        <time datetime="{{ object.start_publication|date:'c' }}">
+                                            {{ object.start_publication|date:"SHORT_DATE_FORMAT" }}
+                                        </time>
+                                        {% if object.kicker %}&ndash;{% endif %}
+                                        {{ object.kicker }}
+                                    </span>
+                                    <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+                                </h5>
+                                {% if object.query_highlight %}<p class="search-highlight">{{ object.query_highlight }}</p>{% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% elif form.q.value %}
+                    <p>{% translate "No results found." %}</p>
+                {% else %}
+                    <p>{% translate "Please enter a search term." %}</p>
+                {% endif %}
             </div>
-          </div>
-        {% endfor %}
-      {% elif form.q.value %}
-      <p>
-        {% translate "No results found." %}
-      </p>
-      {% else %}
-      <p>
-        {% translate "Please enter a search term." %}
-      </p>
-      {% endif %}
+        </div>
     </div>
-  </div>
-</div>
 {% endblock %}

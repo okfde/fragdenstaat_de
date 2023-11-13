@@ -1,19 +1,16 @@
 {% extends "error_base.html" %}
 {% load i18n %}
 {% load blog_tags %}
-
 {% block error_right %}
-<div class="col order-first order-md-2 col-12 col-md-4 text-end">
-  <img src="https://media.frag-den-staat.de/files/media/main/2c/30/2c300e57-bcd3-4265-bbda-103c02078eff/errorcat.png" alt="" class="img-lg">
-</div>
+    <div class="col order-first order-md-2 col-12 col-md-4 text-end">
+        <img src="https://media.frag-den-staat.de/files/media/main/2c/30/2c300e57-bcd3-4265-bbda-103c02078eff/errorcat.png"
+             alt=""
+             class="img-lg">
+    </div>
 {% endblock error_right %}
-
 {% block error_footer %}
-<div class="container mt-5 tight-margin">
-  <p class="lead">
-    {% blocktrans %}Or, read some of our recent articles:{% endblocktrans %}
-  </p>
-
-  {% get_blog_preview %}
-</div>
+    <div class="container mt-5 tight-margin">
+        <p class="lead">{% blocktrans %}Or, read some of our recent articles:{% endblocktrans %}</p>
+        {% get_blog_preview %}
+    </div>
 {% endblock error_footer %}

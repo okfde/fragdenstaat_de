@@ -1,21 +1,15 @@
 {% load i18n %}
-
 {% load form_helper %}
-
 <div id="newsletter" class="card mb-3">
-  <h5 class="card-header">
-    Ihre Newsletter-Einstellungen
-  </h5>
-  <div class="card-body">
-    <p>
-      Bitte wählen Sie, welche Newsletter Sie erhalten wollen.
-    </p>
-    <form method="POST" action="{% url 'newsletter_user_settings' %}">
-      {% csrf_token %}
-      {% render_form form %}
-      <p>
-        <button class="btn btn-secondary" type="submit">{% trans "Update subscriptions" %}</button>
-      </p>
-    </form>
-  </div>
+    <h5 class="card-header">Ihre Newsletter-Einstellungen</h5>
+    <div class="card-body">
+        <p>Bitte wählen Sie, welche Newsletter Sie erhalten wollen.</p>
+        <form method="POST" action="{% url 'newsletter_user_settings' %}">
+            {% csrf_token %}
+            {% render_form form %}
+            <p>
+                <button class="btn btn-secondary" type="submit">{% trans "Update subscriptions" %}</button>
+            </p>
+        </form>
+    </div>
 </div>

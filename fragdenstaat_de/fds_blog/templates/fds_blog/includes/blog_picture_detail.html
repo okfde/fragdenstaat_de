@@ -1,22 +1,15 @@
 {% load markup %}
-
 <figure class="blog-header__figure">
-
-  {% include "fds_blog/includes/_picture.html" with picture=picture columns="" loading=loading %}
-  
-  {% if picture.author or picture.description %}
-  <figcaption class="g-0 text-end">
-    {% if picture.description %}
-      <div class="picture-description">
-        {{ picture.description }}
-        {% if picture.author %} – {% endif %}
-      </div>
+    {% include "fds_blog/includes/_picture.html" with picture=picture columns="" loading=loading %}
+    {% if picture.author or picture.description %}
+        <figcaption class="g-0 text-end">
+            {% if picture.description %}
+                <div class="picture-description">
+                    {{ picture.description }}
+                    {% if picture.author %}–{% endif %}
+                </div>
+            {% endif %}
+            {% if picture.author %}<div class="picture-credits">{{ picture.author|markdown }}</div>{% endif %}
+        </figcaption>
     {% endif %}
-    {% if picture.author %}
-      <div class="picture-credits">
-        {{ picture.author|markdown }}
-      </div>
-    {% endif %}
-  </figcaption>
-{% endif %}
 </figure>

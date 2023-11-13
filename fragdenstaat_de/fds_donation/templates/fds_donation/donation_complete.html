@@ -1,49 +1,46 @@
 {% extends "fds_donation/base.html" %}
-
 {% load i18n %}
 {% load static %}
-
 {% block app_body %}
-  <h2 class="text-center">{% translate "Thank you for your donation!" %}</h2>
-  <div class="row mt-5 justify-content-center">
-    <div class="col-6 col-md-2">
-        <img src="{% static 'img/onboarding/confirm-email.svg' %}" alt="{% translate 'You got mail' %}">
+    <h2 class="text-center">{% translate "Thank you for your donation!" %}</h2>
+    <div class="row mt-5 justify-content-center">
+        <div class="col-6 col-md-2">
+            <img src="{% static 'img/onboarding/confirm-email.svg' %}"
+                 alt="{% translate 'You got mail' %}">
+        </div>
     </div>
-  </div>
-  <div class="row mt-5 justify-content-center">
-    <div class="col-md-8 text-center">
-      <h3>
-        {% translate "Please confirm your email address!" %}
-      </h3>
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-8 text-center">
+            <h3>{% translate "Please confirm your email address!" %}</h3>
+        </div>
     </div>
-  </div>
-  <div class="row mb-5 justify-content-center">
-    <div class="col-md-8">
-      {% if email %}
-        <ol class="lead">
-          <li>
-            {% blocktranslate %}Check your emails for your account{% endblocktranslate %}<br/>
-            <strong class="highlight">{{ email }}</strong>
-          </li>
-          <li>
-            {% blocktranslate %}
+    <div class="row mb-5 justify-content-center">
+        <div class="col-md-8">
+            {% if email %}
+                <ol class="lead">
+                    <li>
+                        {% blocktranslate %}Check your emails for your account{% endblocktranslate %}
+                        <br />
+                        <strong class="highlight">{{ email }}</strong>
+                    </li>
+                    <li>
+                        {% blocktranslate %}
               Click the <strong class="highlight">confirmation link</strong> in the email from {{ SITE_NAME }}.
             {% endblocktranslate %}
-          </li>
-        </ol>
-      {% else %}
-        <p class="lead">
-          {% translate "Please go to your email account and <strong>click the confirmation link.</strong>" %}
-        </p>
-      {% endif %}
-      {% if receipt %}
-        <p class="lead">
-          {% blocktranslate %}
+                    </li>
+                </ol>
+            {% else %}
+                <p class="lead">
+                    {% translate "Please go to your email account and <strong>click the confirmation link.</strong>" %}
+                </p>
+            {% endif %}
+            {% if receipt %}
+                <p class="lead">
+                    {% blocktranslate %}
           The <strong>donation receipts</strong> that we send at the beginning of next year can only be sent to <strong>confirmed email addresses!</strong>
           {% endblocktranslate %}
-        </p>
-      {% endif %}
-
+                </p>
+            {% endif %}
+        </div>
     </div>
-  </div>
 {% endblock %}

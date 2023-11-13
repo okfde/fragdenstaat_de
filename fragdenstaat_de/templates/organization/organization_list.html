@@ -1,27 +1,22 @@
 {% extends "base.html" %}
-
 {% load i18n %}
 {% load cms_tags %}
-
 {% block title %}
-  {% trans "Organizations" %}
+    {% trans "Organizations" %}
 {% endblock title %}
-
 {% block body %}
-  <div class="bg-body-tertiary">
+    <div class="bg-body-tertiary">
+        <div class="container py-4">{% static_placeholder "organization_list_below_heading" %}</div>
+    </div>
     <div class="container py-4">
-      {% static_placeholder "organization_list_below_heading" %}
-    </div>
-  </div>
-  <div class="container py-4">
-    <div class="row shuffle-items gx-3 gy-3 pb-4">
-      {% for object in object_list %}
-        <div class="col-md-6 col-lg-4">
-          {% include "organization/includes/organization_item.html" with object=object TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
+        <div class="row shuffle-items gx-3 gy-3 pb-4">
+            {% for object in object_list %}
+                <div class="col-md-6 col-lg-4">
+                    {% include "organization/includes/organization_item.html" with object=object TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
+                </div>
+            {% empty %}
+                <p>{% trans "No organizations found." %}</p>
+            {% endfor %}
         </div>
-      {% empty %}
-        <p>{% trans "No organizations found." %}</p>
-      {% endfor %}
     </div>
-  </div>
 {% endblock body %}

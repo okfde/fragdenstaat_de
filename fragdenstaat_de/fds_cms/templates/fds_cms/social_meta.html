@@ -1,61 +1,48 @@
 {% load cms_tags %}
 {% load i18n %}
 {% load thumbnail %}
-
 {% if object.fdspageextension and not object.fdspageextension.search_index %}
-  <meta name="robots" content="noindex"/>
+    <meta name="robots" content="noindex" />
 {% endif %}
-
 {# Schema.org markup #}
 {% if not description %}
-  {% page_attribute 'meta_description' as description %}
+    {% page_attribute 'meta_description' as description %}
 {% endif %}
 {% if not title %}
-  {% page_attribute 'page_title' as title %}
+    {% page_attribute 'page_title' as title %}
 {% endif %}
-
 <meta itemprop="name" content="{{ title }}">
-{% if description and description != "None" %}
-  <meta itemprop="description" content="{{ description }}">
-{% endif %}
-<meta name="description" content="{% if description %}{{ description }}{% else %}{% blocktrans with site=SITE_NAME %}{{ site }} helps you to make freedom of information requests to public bodies{% endblocktrans %}{% endif %}"/>
-
+{% if description and description != "None" %}<meta itemprop="description" content="{{ description }}">{% endif %}
+<meta name="description"
+      content="{% if description %}{{ description }}{% else %}{% blocktrans with site=SITE_NAME %}{{ site }} helps you to make freedom of information requests to public bodies{% endblocktrans %}{% endif %}" />
 {# Twitter Card data #}
-
 <meta name="twitter:site" content="@fragdenstaat">
 <meta name="twitter:title" content="{{ title }}">
-{% if description and description != "None" %}
-  <meta name="twitter:description" content="{{ description }}">
-{% endif %}
+{% if description and description != "None" %}<meta name="twitter:description" content="{{ description }}">{% endif %}
 <meta name="twitter:creator" content="@fragdenstaat">
-
 {% if image_url %}
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image:src" content="{{ image_url }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="{{ image_url }}">
 {% elif object.fdspageextension.image %}
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image:src" content="{% thumbnail object.fdspageextension.image 1120x600 crop subject_location=object.fdspageextension.image.subject_location %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src"
+          content="{% thumbnail object.fdspageextension.image 1120x600 crop subject_location=object.fdspageextension.image.subject_location %}">
 {% else %}
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:image:src" content="{{ SITE_LOGO }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image:src" content="{{ SITE_LOGO }}">
 {% endif %}
-
-
-
 {# Open Graph data #}
 <meta property="og:title" content="{{ title }}" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="{{ SITE_URL }}{{ object.get_absolute_url }}" />
-
+<meta property="og:url"
+      content="{{ SITE_URL }}{{ object.get_absolute_url }}" />
 {% if image_url %}
-  <meta property="og:image" content="{{ image_url }}" />
+    <meta property="og:image" content="{{ image_url }}" />
 {% elif object.fdspageextension.image %}
-  <meta property="og:image" content="{% thumbnail object.fdspageextension.image 1200x630 crop subject_location=object.fdspageextension.image.subject_location %}" />
+    <meta property="og:image"
+          content="{% thumbnail object.fdspageextension.image 1200x630 crop subject_location=object.fdspageextension.image.subject_location %}" />
 {% else %}
-  <meta property="og:image" content="{{ SITE_LOGO }}">
+    <meta property="og:image" content="{{ SITE_LOGO }}">
 {% endif %}
-{% if description and description != "None" %}
-  <meta property="og:description" content="{{ description }}" />
-{% endif %}
-
+{% if description and description != "None" %}<meta property="og:description" content="{{ description }}" />{% endif %}
 <meta property="og:site_name" content="{{ SITE_NAME }}" />

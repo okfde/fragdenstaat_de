@@ -1,65 +1,60 @@
 {% extends "fds_mailing/base.html" %}
-
 {% load cms_tags %}
 {% load i18n %}
-
 {% block title %}{{ object.name }}{% endblock %}
-
 {% block top_block %}{% endblock %}
-
 {% block navbar %}{% endblock %}
-
 {% block content %}
-<h3 class="mt-3">
-  {{ object.name }} ({{ object.category }})
-</h3>
-<div class="card mt-5">
-  <div class="card-header">
-    {% trans "Subject:" %} {{ object.subject }}
-    <a class="float-end" href="{% url 'admin:fds_mailing_emailtemplate_change' object_id=object.pk %}">{% trans "zurück" %}</a>
-  </div>
-  <div class="card-body">
-    {% render_placeholder object.email_body %}
-  </div>
-  {% with context_vars=object.get_context_vars %}
-    {% if context_vars %}
-      <div class="card-footer text-body-secondary">
-        {% trans "Context vars:" %}
-        {% for var in context_vars %}{% templatetag openvariable %} {{ var }} {% templatetag closevariable %}{% if not forloop.last %}, {% endif %}{% endfor %}
-        
-      </div>
-    {% endif %}
-  {% endwith %}
-</div>
-
-<h4 class="mt-5">{% trans "HTML Preview" %}</h4>
-<iframe class="w-100" height="680" frameborder="0" srcdoc="{{ object.render_email_html|escape }}"></iframe>
-
-<h4 class="mt-5 ">{% trans "Text Preview" %}</h4>
-<div class="border border-dark p-2 mb-5">
-<pre>{{ object.render_email_text }}</pre>
-</div>
-
-
-{% with extra_placeholder=object.get_extra_placeholder_name %}
-  {% if extra_placeholder %}
-    <hr/>
-    <h4>{% blocktrans with extra_placeholder=extra_placeholder %}'{{ extra_placeholder }}' static placeholder{% endblocktrans %}</h4>
-    <div class="border border-dark p-2 mb-2">
-      {% static_placeholder extra_placeholder %}
+    <h3 class="mt-3">{{ object.name }} ({{ object.category }})</h3>
+    <div class="card mt-5">
+        <div class="card-header">
+            {% trans "Subject:" %} {{ object.subject }}
+            <a class="float-end"
+               href="{% url 'admin:fds_mailing_emailtemplate_change' object_id=object.pk %}">{% trans "zurück" %}</a>
+        </div>
+        <div class="card-body">{% render_placeholder object.email_body %}</div>
+        {% with context_vars=object.get_context_vars %}
+            {% if context_vars %}
+                <div class="card-footer text-body-secondary">
+                    {% trans "Context vars:" %}
+                    {% for var in context_vars %}
+                        {% templatetag openvariable %} {{ var }} {% templatetag closevariable %}
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
     </div>
-    <form method="post" action="{% url 'admin:cms_staticplaceholder_changelist' %}" class="mb-5">
-      {% csrf_token %}
-      <input type="hidden" name="action" value="publish"/>
-      <input type="hidden" name="select_across" value="0"/>
-      <input type="hidden" name="index" value="0"/>
-      <input type="hidden" name="next" value="{{ request.get_full_path }}"/>
-      <input type="hidden" name="_selected_action" value="{{ static_placeholder_id }}"/>
-      <button type="submit" class="btn btn-primary">{% trans "Apply" %}</button>
-    </form>
-  {% endif %}
-{% endwith %}
-
+    <h4 class="mt-5">{% trans "HTML Preview" %}</h4>
+    <iframe class="w-100"
+            height="680"
+            frameborder="0"
+            srcdoc="{{ object.render_email_html|escape }}"></iframe>
+    <h4 class="mt-5 ">{% trans "Text Preview" %}</h4>
+    <div class="border border-dark p-2 mb-5">
+        <pre>{{ object.render_email_text }}</pre>
+    </div>
+    {% with extra_placeholder=object.get_extra_placeholder_name %}
+        {% if extra_placeholder %}
+            <hr />
+            <h4>
+                {% blocktrans with extra_placeholder=extra_placeholder %}'{{ extra_placeholder }}' static placeholder{% endblocktrans %}
+            </h4>
+            <div class="border border-dark p-2 mb-2">{% static_placeholder extra_placeholder %}</div>
+            <form method="post"
+                  action="{% url 'admin:cms_staticplaceholder_changelist' %}"
+                  class="mb-5">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="publish" />
+                <input type="hidden" name="select_across" value="0" />
+                <input type="hidden" name="index" value="0" />
+                <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                <input type="hidden"
+                       name="_selected_action"
+                       value="{{ static_placeholder_id }}" />
+                <button type="submit" class="btn btn-primary">{% trans "Apply" %}</button>
+            </form>
+        {% endif %}
+    {% endwith %}
 {% endblock %}
-
 {% block footer_container %}{% endblock %}

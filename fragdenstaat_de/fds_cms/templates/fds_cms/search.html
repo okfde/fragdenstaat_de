@@ -1,64 +1,41 @@
 {% extends CMS_TEMPLATE %}
-
 {% load i18n %}
 {% load cms_tags %}
 {% load fds_cms_tags %}
-
 {% block extra_breadcrumbs %}
-<li class="breadcrumb-item">
-  {% comment %}Translators: Search as noun{% endcomment %}
-  <a href="">{% translate "Search" %}</a>
-</li>
-{% endblock %}
-
-{% block app_body %}
-
-{% page_attribute "page_title" request.current_page|get_soft_root as base_title %}
-
-<h2>
-  {% blocktranslate with title=base_title %}Search in {{ title }}{% endblocktranslate %}
-</h2>
-
-<form class="mb-3" role="search" method="get" action=".">
-  <div class="input-group">
-    {{ form.q }}
-    <button class="btn btn-outline-primary" type="submit">
-      <i class="fa fa-search" aria-hidden="true"></i>
-      {% translate "Search" %}
-    </button>
-  </div>
-</form>
-
-{% if object_list and form.cleaned_data.q %}
-<p>
-  {% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}
-</p>
-<ol class="list-unstyled">
-  {% for object in object_list %}
-    <li>
-      <h5 class="mt-0 mb-1">
-        <a href="{{ object.page.get_absolute_url }}">
-          {{ object.title }}
-        </a>
-      </h5>
-      {% if object.meta_description %}
-        <small>{{ object.meta_description }}</small>
-      {% endif %}
-      {% if object.query_highlight %}
-      <p class="search-highlight">
-        {{ object.query_highlight }}
-      </p>
-      {% endif %}
+    <li class="breadcrumb-item">
+        {% comment %}Translators: Search as noun{% endcomment %}
+        <a href="">{% translate "Search" %}</a>
     </li>
-  {% endfor %}
-</ol>
-{% elif form.q.value %}
-<p>
-  {% translate "No results found." %}
-</p>
-{% else %}
-<p>
-  {% translate "Please enter a search term." %}
-</p>
-{% endif %}
+{% endblock %}
+{% block app_body %}
+    {% page_attribute "page_title" request.current_page|get_soft_root as base_title %}
+    <h2>{% blocktranslate with title=base_title %}Search in {{ title }}{% endblocktranslate %}</h2>
+    <form class="mb-3" role="search" method="get" action=".">
+        <div class="input-group">
+            {{ form.q }}
+            <button class="btn btn-outline-primary" type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                {% translate "Search" %}
+            </button>
+        </div>
+    </form>
+    {% if object_list and form.cleaned_data.q %}
+        <p>{% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}</p>
+        <ol class="list-unstyled">
+            {% for object in object_list %}
+                <li>
+                    <h5 class="mt-0 mb-1">
+                        <a href="{{ object.page.get_absolute_url }}">{{ object.title }}</a>
+                    </h5>
+                    {% if object.meta_description %}<small>{{ object.meta_description }}</small>{% endif %}
+                    {% if object.query_highlight %}<p class="search-highlight">{{ object.query_highlight }}</p>{% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    {% elif form.q.value %}
+        <p>{% translate "No results found." %}</p>
+    {% else %}
+        <p>{% translate "Please enter a search term." %}</p>
+    {% endif %}
 {% endblock %}

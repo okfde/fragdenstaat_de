@@ -1,70 +1,64 @@
 {% extends "helper/admin_base_action.html" %}
-
 {% load i18n l10n static %}
 {% load form_helper %}
-
-{% block action_title %}{% trans 'Merge Donors' %}{% endblock %}
-
-{% block breadcrumbs_action_label %}
-  {% trans 'Merge Donors' %}
+{% block action_title %}
+    {% trans 'Merge Donors' %}
 {% endblock %}
-
+{% block breadcrumbs_action_label %}
+    {% trans 'Merge Donors' %}
+{% endblock %}
 {% block action_content %}
-<form action="" method="post">{% csrf_token %}
-  <div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Field</th>
-          <th>Value</th>
-          {% for donor in queryset %}
-            <th>Donor {{ donor.id }}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Primary</td>
-          <td>-</td>
-          {% for donor in queryset %}
-            <td>
-              <label>
-                <input type="radio" name="primary" value="{{ donor.id }}">
-                Donor {{ donor.id }}
-              </label>
-            </td>
-          {% endfor %}
-        </tr>
-        {% for field in form %}
-          <tr>
-            <td>{{ field.label }}</td>
-            <td data-value="{{ field.value }}" data-field="{{ field.name }}">
-              {{ field }}
-            </td>
-            {% for donor in queryset %}
-              {% with val=donor|get_field_by_key:field.name %}
-                <td>
-                  <span data-donor="{{ donor.id }}" data-value="{% if val is None %}{% else %}{{ val }}{% endif %}" data-field="{{ field.name }}">
-                    {{ val }}
-                  </span>
-                </td>
-              {% endwith %}
-            {% endfor %}
-          </tr>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                        {% for donor in queryset %}<th>Donor {{ donor.id }}</th>{% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Primary</td>
+                        <td>-</td>
+                        {% for donor in queryset %}
+                            <td>
+                                <label>
+                                    <input type="radio" name="primary" value="{{ donor.id }}">
+                                    Donor {{ donor.id }}
+                                </label>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    {% for field in form %}
+                        <tr>
+                            <td>{{ field.label }}</td>
+                            <td data-value="{{ field.value }}" data-field="{{ field.name }}">{{ field }}</td>
+                            {% for donor in queryset %}
+                                {% with val=donor|get_field_by_key:field.name %}
+                                    <td>
+                                        <span data-donor="{{ donor.id }}"
+                                              data-value="{% if val is None %}{% else %}{{ val }}{% endif %}"
+                                              data-field="{{ field.name }}">{{ val }}</span>
+                                    </td>
+                                {% endwith %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="hidden" name="action" value="merge_donors" />
+            <p>
+                <input type="submit" value="{% blocktrans %}Merge donors{% endblocktrans %}" />
+            </p>
+        </div>
+        {% for obj in queryset %}
+            <input type="hidden"
+                   name="{{ action_checkbox_name }}"
+                   value="{{ obj.pk|unlocalize }}" />
         {% endfor %}
-      </tbody>
-
-    </table>
-
-    <input type="hidden" name="action" value="merge_donors" />
-    <p>
-      <input type="submit" value="{% blocktrans %}Merge donors{% endblocktrans %}" />
-    </p>
-  </div>
-  {% for obj in queryset %}
-    <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk|unlocalize }}" />
-  {% endfor %}
-</form>
-<script src="{% static 'js/merge_donors.js' %}"></script>
+    </form>
+    <script src="{% static 'js/merge_donors.js' %}"></script>
 {% endblock %}
