@@ -1,7 +1,8 @@
-{% load i18n %}{% spaceless %}
-<div>
-    {% for article in article_list %}
-      {% include "fds_blog/includes/blog_short_item.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
-    {% endfor %}
-</div>
+{% load i18n %}
+{% spaceless %}
+    <div>
+        {% for article in article_list %}
+            {% include "fds_blog/includes/blog_short_item.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
+        {% endfor %}
+    </div>
 {% endspaceless %}

@@ -1,15 +1,16 @@
 {% extends "admin/change_list.html" %}
-
 {% load i18n %}
-
 {% block content %}
-  {{ block.super }}
-  <div>
-    <h4>{% translate "Create Mailing from CSV" %}</h4>
-    <p>{% translate "Fields 'name' and 'email' required." %}</p>
-    <form enctype="multipart/form-data" method="post" action="{% url 'admin:fds_mailing-mailing-import_csv' %}">{% csrf_token %}
-      <input type="file" name="file" required/>
-      <input type="submit"/>
-    </form>
-  </div>
+    {{ block.super }}
+    <div>
+        <h4>{% translate "Create Mailing from CSV" %}</h4>
+        <p>{% translate "Fields 'name' and 'email' required." %}</p>
+        <form enctype="multipart/form-data"
+              method="post"
+              action="{% url 'admin:fds_mailing-mailing-import_csv' %}">
+            {% csrf_token %}
+            <input type="file" name="file" required />
+            <input type="submit" />
+        </form>
+    </div>
 {% endblock %}

@@ -1,43 +1,56 @@
 {% load i18n %}
 {% load static %}
-
 <div class="btn-group btn-group-sm mb-1 ms-sm-auto">
-
-<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#frontex-pad-import-modal-{{message.id}}">
-  {% blocktrans %}
+    <button class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#frontex-pad-import-modal-{{ message.id }}">
+        {% blocktrans %}
   Import Message from Frontex
   {% endblocktrans %}
-</button>
+    </button>
 </div>
-<div data-teleport="body" class="modal fade modal-lg" id="frontex-pad-import-modal-{{message.id}}" tabindex="-1" role="dialog" aria-labelledby="frontex-pad-import-modal-{{message.id}}-title" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="frontex-pad-import-modal-{{message.id}}-title">{% translate "Message from Frontex" %}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="{% translate "Close" %}">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="frontex-import-form" action="{% url 'fragdenstaat-frontex_pad_import' slug=request.slug message_id=message.id %}"
-          method="post" class="horizontal-form disable-submit">
-          {% csrf_token %}
-          <p>
-            {% blocktrans %}
+<div data-teleport="body"
+     class="modal fade modal-lg"
+     id="frontex-pad-import-modal-{{ message.id }}"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="frontex-pad-import-modal-{{ message.id }}-title"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="frontex-pad-import-modal-{{ message.id }}-title">{% translate "Message from Frontex" %}</h5>
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="{% translate "Close" %}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="frontex-import-form"
+                      action="{% url 'fragdenstaat-frontex_pad_import' slug=request.slug message_id=message.id %}"
+                      method="post"
+                      class="horizontal-form disable-submit">
+                    {% csrf_token %}
+                    <p>
+                        {% blocktrans %}
               We automatically import the message from frontex for you and permanently store it on FragDenStaat.
             {% endblocktrans %}
-          </p>
-
-          <p class="text-right">
-            <button class="btn btn-primary" type="submit" id="frontex-import-button">
-              &rarr; {% translate "Import message" %}
-            </button>
-          </p>
-          <p class="text-center show-while-submitting">
-            <img id="workingGif" alt="{% trans "Gif of a cat furiously typing on a keyboard" %}" src="{% static 'fds_fximport/keyboard-cat.gif' %}" />
-          </p>
-        </form>
-      </div>
+                    </p>
+                    <p class="text-right">
+                        <button class="btn btn-primary" type="submit" id="frontex-import-button">
+                            &rarr; {% translate "Import message" %}
+                        </button>
+                    </p>
+                    <p class="text-center show-while-submitting">
+                        <img id="workingGif"
+                             alt="{% trans "Gif of a cat furiously typing on a keyboard" %}"
+                             src="{% static 'fds_fximport/keyboard-cat.gif' %}" />
+                    </p>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

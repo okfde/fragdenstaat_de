@@ -1,44 +1,49 @@
 {% load cms_tags %}
 {% load i18n %}
-
 <div class="row{% if object.extra_classes %} {{ object.extra_classes }}{% endif %}">
-  <div class="glide d-flex flex-column justify-content-center col px-0" data-options="{{ object.options }}">
-
-    <div class="glide__track" data-glide-el="track">
-      <ul class="glide__slides m-0 d-flex">
-        {% for plugin in instance.child_plugin_instances %}
-          <li class="glide__slide py-sm-3">
-            {% if instance.wrapper_classes %}
-              <div class="{{ instance.wrapper_classes }}">
-                {% render_plugin plugin %}
-              </div>
-            {% else %}
-              {% render_plugin plugin %}
-            {% endif %}
-          </li>
-        {% endfor %}
-      </ul>
+    <div class="glide d-flex flex-column justify-content-center col px-0"
+         data-options="{{ object.options }}">
+        <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides m-0 d-flex">
+                {% for plugin in instance.child_plugin_instances %}
+                    <li class="glide__slide py-sm-3">
+                        {% if instance.wrapper_classes %}
+                            <div class="{{ instance.wrapper_classes }}">{% render_plugin plugin %}</div>
+                        {% else %}
+                            {% render_plugin plugin %}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="glide__arrows d-none d-md-block" data-glide-el="controls">
+            <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+                <span class="visually-hidden">{% trans "Previous" %}</span>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="18"
+                     height="18"
+                     viewBox="0 0 24 24">
+                    <path d="M0 12l10.975 11 2.848-2.828-6.176-6.176H24v-3.992H7.646l6.176-6.176L10.975 1 0 12z"></path>
+                </svg>
+            </button>
+            <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+                <span class="visually-hidden">{% trans "Next" %}</span>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="18"
+                     height="18"
+                     viewBox="0 0 24 24">
+                    <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="glide__bullets"
+             data-glide-el="controls[nav]"
+             aria-hidden="true">
+            {% for plugin in instance.child_plugin_instances %}
+                <button class="glide__bullet"
+                        data-glide-dir="={{ forloop.counter0 }}"
+                        tabindex="-1"></button>
+            {% endfor %}
+        </div>
     </div>
-    
-    <div class="glide__arrows d-none d-md-block" data-glide-el="controls">
-      <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-        <span class="visually-hidden">{% trans "Previous" %}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-          <path d="M0 12l10.975 11 2.848-2.828-6.176-6.176H24v-3.992H7.646l6.176-6.176L10.975 1 0 12z"></path>
-        </svg>
-      </button>
-      <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-        <span class="visually-hidden">{% trans "Next" %}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-          <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"></path>
-        </svg>
-      </button>
-    </div>
-
-    <div class="glide__bullets" data-glide-el="controls[nav]" aria-hidden="true">
-      {% for plugin in instance.child_plugin_instances %}
-        <button class="glide__bullet" data-glide-dir="={{ forloop.counter0 }}" tabindex="-1"></button>
-      {% endfor %}
-    </div>
-  </div>
 </div>

@@ -1,57 +1,51 @@
 {% extends "fds_blog/content.html" %}
-
 {% load cms_tags %}
 {% load thumbnail markup i18n %}
-
 {% block before_main %}
-<header>
-  {% if object.teaser %}{{ object.teaser|safe }}{% endif %}
-
-  {% if object.image %}
-    <figure>
-      {# Use full domain URL because of use in feeds #}
-      <img src="{{ MEDIA_DOMAIN }}{% thumbnail object.image 768x500 crop subject_location=object.image.subject_location %}" alt="{{ object.image.alt }}" />
-      <figcaption>
-        {% if object.image.description %}
-          <p>{{ object.image.description }}</p>
+    <header>
+        {% if object.teaser %}{{ object.teaser|safe }}{% endif %}
+        {% if object.image %}
+            <figure>
+                {# Use full domain URL because of use in feeds #}
+                <img src="{{ MEDIA_DOMAIN }}{% thumbnail object.image 768x500 crop subject_location=object.image.subject_location %}"
+                     alt="{{ object.image.alt }}" />
+                <figcaption>
+                    {% if object.image.description %}<p>{{ object.image.description }}</p>{% endif %}
+                    {% if object.image.author %}
+                        {% trans "image credit: " as article_image_label %}
+                        {% if '](' in object.image.author %}
+                            {# likely contains markdown #}
+                            {{ article_image_label|add:object.image.author|markdown }}
+                        {% else %}
+                            <p>
+                                {{ article_image_label }}
+                                {{ object.image.author|safe }}
+                            </p>
+                        {% endif %}
+                    {% endif %}
+                </figcaption>
+            </figure>
         {% endif %}
-        {% if object.image.author %}
-          {% trans "image credit: " as article_image_label %}
-          {% if '](' in object.image.author %}
-            {# likely contains markdown #}
-            {{ article_image_label|add:object.image.author|markdown }}
-          {% else %}
-            <p>
-              {{ article_image_label }}
-              {{ object.image.author|safe }}
-            </p>
-          {% endif %}
-        {% endif %}
-      </figcaption>
-    </figure>
-  {% endif %}
-
-  {% if object.leadin %}{{ object.leadin|markdown }}{% endif %}
-
-</header>
+        {% if object.leadin %}{{ object.leadin|markdown }}{% endif %}
+    </header>
 {% endblock %}
-
 {% block after_main %}
-<footer>
-  {% with authors=object.get_authors %}
-    {% if authors %}
-      <i>
-        {% trans "by" %}
-        {% for author in authors %}
-          <span class="vcard">
-            {% if author.get_absolute_url %}
-            <a href="{{ author.get_absolute_url }}" rel="author">
+    <footer>
+        {% with authors=object.get_authors %}
+            {% if authors %}
+                <i>
+                    {% trans "by" %}
+                    {% for author in authors %}
+                        <span class="vcard">
+                            {% if author.get_absolute_url %}<a href="{{ author.get_absolute_url }}" rel="author">{% endif %}
+                                {{ author }}
+                                {% if author.get_absolute_url %}</a>{% endif %}
+                        </span>
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </i>
             {% endif %}
-            {{ author }}{% if author.get_absolute_url %}</a>{% endif %}</span>{% if not forloop.last %},{% endif %}
-        {% endfor %}
-      </i>
-    {% endif %}
-  {% endwith %}
-</footer>
-{% static_placeholder "blog_feed_footer" %}
+        {% endwith %}
+    </footer>
+    {% static_placeholder "blog_feed_footer" %}
 {% endblock %}

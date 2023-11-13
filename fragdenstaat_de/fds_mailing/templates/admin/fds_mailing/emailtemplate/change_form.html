@@ -1,22 +1,18 @@
 {% extends "admin/change_form.html" %}
 {% load i18n %}
 {% block object-tools-items %}
-  {% if original.pk %}
-    <li>
-      <a href="{% url 'admin:fds_mailing-emailtemplate-preview' pk=original.pk %}" target="_blank">
-        {% trans "Preview" %}
-      </a>
-    </li>
-    <li>
-      <a href="{% url 'admin:fds_mailing-emailtemplate-preview_eml' pk=original.pk %}" target="_blank">
-        {% trans "Download E-Mail" %}
-      </a>
-    </li>
-    <li>
-      <a href="{% url 'admin:fds_mailing-emailtemplate-edit_body' pk=original.pk %}?edit">
-        {% trans "Edit HTML email" %}
-      </a>
-    </li>
-  {% endif %}
-  {{ block.super }}
+    {% if original.pk %}
+        <li>
+            <a href="{% url 'admin:fds_mailing-emailtemplate-preview' pk=original.pk %}"
+               target="_blank">{% trans "Preview" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'admin:fds_mailing-emailtemplate-preview_eml' pk=original.pk %}"
+               target="_blank">{% trans "Download E-Mail" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'admin:fds_mailing-emailtemplate-edit_body' pk=original.pk %}?edit">{% trans "Edit HTML email" %}</a>
+        </li>
+    {% endif %}
+    {{ block.super }}
 {% endblock %}

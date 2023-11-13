@@ -1,69 +1,77 @@
 {% extends "cms/page.html" %}
-
 {% load i18n %}
 {% load cms_tags %}
 {% load menu_tags %}
 {% load fds_cms_tags %}
-
 {% block body %}
-
-{% page_url request.current_page|get_soft_root as base_url %}
-{% page_attribute "page_title" request.current_page|get_soft_root as base_title %}
-  
-<div class="app bg-body-tertiary">
-    <div class="sticky-top z-3">
-      <nav class="navbar text-bg-highlight">
-        <div class="container d-flex">
-          <a href="{{ base_url }}" title="{{ base_title }}" class="navbar-brand mb-0 d-md-none w-100 text-truncate">{{ base_title }}</a>
-          <a href="{{ base_url }}" class="navbar-brand mb-0 d-none d-md-block">{{ base_title }}</a>
-
-          <button class="navbar-toggler me-lg-2 ms-xs-0 ms-lg-auto" type="button" data-bs-toggle="collapse" data-bs-target="#chapters" aria-controls="chapters" aria-expanded="false" aria-label="{% translate 'Toggle chapter navigation' %}">
-            <i class="fa fa-list" aria-hidden="true"></i>
-            <span class="d-none d-sm-inline">{% translate "Chapters" %}</span>
-          </button>
-
-          <form role="search" method="get" action="{{ base_url }}suche/">
-            <div class="input-group d-none d-sm-flex">
-              <input class="form-control form-control-sm" type="text" size="20" name="q" placeholder="{% translate 'Search' %}" aria-label="{% translate 'Search' %}" {% if form %}value="{{ form.cleaned_data.q }}"{% endif %}>
-              <button class="btn btn-sm btn-outline-dark" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-                <span class="visually-hidden">{% translate "Search" %}</span>
-              </button>
+    {% page_url request.current_page|get_soft_root as base_url %}
+    {% page_attribute "page_title" request.current_page|get_soft_root as base_title %}
+    <div class="app bg-body-tertiary">
+        <div class="sticky-top z-3">
+            <nav class="navbar text-bg-highlight">
+                <div class="container d-flex">
+                    <a href="{{ base_url }}"
+                       title="{{ base_title }}"
+                       class="navbar-brand mb-0 d-md-none w-100 text-truncate">{{ base_title }}</a>
+                    <a href="{{ base_url }}" class="navbar-brand mb-0 d-none d-md-block">{{ base_title }}</a>
+                    <button class="navbar-toggler me-lg-2 ms-xs-0 ms-lg-auto"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#chapters"
+                            aria-controls="chapters"
+                            aria-expanded="false"
+                            aria-label="{% translate 'Toggle chapter navigation' %}">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <span class="d-none d-sm-inline">{% translate "Chapters" %}</span>
+                    </button>
+                    <form role="search" method="get" action="{{ base_url }}suche/">
+                        <div class="input-group d-none d-sm-flex">
+                            <input class="form-control form-control-sm"
+                                   type="text"
+                                   size="20"
+                                   name="q"
+                                   placeholder="{% translate 'Search' %}"
+                                   aria-label="{% translate 'Search' %}"
+                                   {% if form %}value="{{ form.cleaned_data.q }}"{% endif %}>
+                            <button class="btn btn-sm btn-outline-dark" type="submit">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                                <span class="visually-hidden">{% translate "Search" %}</span>
+                            </button>
+                        </div>
+                        <button class="btn btn-sm btn-outline-dark d-block d-sm-none" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <span class="visually-hidden">{% translate "Search" %}</span>
+                        </button>
+                    </form>
+                </div>
+            </nav>
+            <div class="collapse text-bg-highlight" id="chapters">
+                <div class="container">
+                    <ol class="pb-2 overflow-auto" style="max-height: 50vh">
+                        {% show_menu 1 100 0 1 %}
+                    </ol>
+                </div>
             </div>
-            <button class="btn btn-sm btn-outline-dark d-block d-sm-none" type="submit">
-              <i class="fa fa-search" aria-hidden="true"></i>
-              <span class="visually-hidden">{% translate "Search" %}</span>
-            </button>
-          </form>
         </div>
-      </nav>
-      <div class="collapse text-bg-highlight" id="chapters">
         <div class="container">
-          <ol class="pb-2 overflow-auto" style="max-height: 50vh">
-            {% show_menu 1 100 0 1 %}
-          </ol>
+            <div class="row justify-content-center">
+                {% if not request.current_page.soft_root and request.current_page.in_navigation %}
+                    <div class="col">
+                        <div id="toc"
+                             class="sticky-top z-2 toc bg-body-secondary my-3 mx-0 mx-md-3 p-3 small"
+                             style="top: 5rem"></div>
+                    </div>
+                {% endif %}
+                <div class="bg-body col-md-10 col-lg-8 order-md-last mt-3 mb-3 ">
+                    <div id="content" class="book-pub-content py-3 px-1 py-md-5 px-md-5">
+                        {% block app_body %}
+                            {% placeholder "content" %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="container">
-      <div class="row justify-content-center">
-        {% if not request.current_page.soft_root and request.current_page.in_navigation %}
-          <div class="col">
-            <div id="toc" class="sticky-top z-2 toc bg-body-secondary my-3 mx-0 mx-md-3 p-3 small" style="top: 5rem"></div>
-          </div>
-        {% endif %}
-        <div class="bg-body col-md-10 col-lg-8 order-md-last mt-3 mb-3 ">
-          <div id="content" class="book-pub-content py-3 px-1 py-md-5 px-md-5">
-            {% block app_body %}
-              {% placeholder "content" %}
-            {% endblock %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {% static_placeholder "book_pub_footer" %}
-
-  {% include "_frontend.html" with entry_point="bookpub.js" %}
+    {% static_placeholder "book_pub_footer" %}
+    {% include "_frontend.html" with entry_point="bookpub.js" %}
 {% endblock %}

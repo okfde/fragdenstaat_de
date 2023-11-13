@@ -1,7 +1,6 @@
 {% load cms_tags %}
-
 {% if should_render %}
-{% for plugin in instance.child_plugin_instances %}
-  {% render_plugin plugin %}
-{% endfor %}
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
 {% endif %}

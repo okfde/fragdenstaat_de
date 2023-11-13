@@ -1,100 +1,106 @@
 {% extends "fds_blog/base.html" %}
-{% load i18n easy_thumbnails_tags cms_tags markup %}{% spaceless %}
-
-{% block canonical_url %}<link rel="canonical" href="{{ view.get_view_url }}"/>{% endblock canonical_url %}
-
-{% block title %}{% if author %}{{ author.get_full_name }} – {% elif archive_date %}{% if month %}{{ archive_date|date:'F' }} {% endif %}{{ year }} – {% elif tagged_entries %}{{ tagged_entries|capfirst }} – {% elif category %}{{ category }} – {% endif %}{{ block.super }}{% endblock %}
-
-
-{% block content_blog %}
-<div class="container">
-  <section class="blog-list mt-3">
-
-    {% block blog_title %}
-    {% if author or archive_date or article_tag or category %}
-      <header class="blog-head">
-        <h2>
-          {% if archive_date %}{% trans "Archive" %} {% if month %}{{ archive_date|date:'F' }} {% endif %}{{ year }}
-          {% elif article_tag %}{% trans "Tag" %} {{ article_tag.name }}
-          {% elif category %}{% trans "Category" %} {{ category }}{% endif %}
-        </h2>
-        {% if category and category.description %}<p>{{ category.description }}</p>{% endif %}
-      </header>
-
-      {% if author %}
-        <h4>{% trans "Articles by" %}:</h4>
-        <div class="bg-body-tertiary mb-3 p-3">
-          <div class="row justify-content-center align-items-center pb-4 pt-4">
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-block">
-              {% if author.profile_photo %}
-                <img class="img-circle" src="{{ author.profile_photo.url }}" alt="Bild des Autors" loading="lazy">
-              {% endif %}
-            </div>
-            <div class="col-12 col-sm-8 col-md-6 col-lg-5">
-              <h2 class="author-title">
-                  {{ author.get_full_name }}
-              </h2>
-              <div class="author-description">
-                {{ author.profile_text | markdown }}
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endif %}
-
-    {% endif %}
+{% load i18n easy_thumbnails_tags cms_tags markup %}
+{% spaceless %}
+    {% block canonical_url %}
+        <link rel="canonical" href="{{ view.get_view_url }}" />
+    {% endblock canonical_url %}
+    {% block title %}
+        {% if author %}
+            {{ author.get_full_name }} –
+        {% elif archive_date %}
+            {% if month %}{{ archive_date|date:'F' }}{% endif %}
+            {{ year }} –
+        {% elif tagged_entries %}
+            {{ tagged_entries|capfirst }} –
+        {% elif category %}
+            {{ category }} –
+        {% endif %}
+        {{ block.super }}
     {% endblock %}
-
-    {% if featured %}
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="blog-teaser-large">
-            <div class="blog-teaser-top">
-              {% if featured.image %}
-                <a href="{{ featured.get_absolute_url }}">
-                  {% include "fds_blog/includes/blog_picture.html" with picture=featured.image %}
-                </a>
-              {% endif %}
-              <div class="blog-teaser-text">
-                <h3>
-                  <a href="{{ featured.get_absolute_url }}">
-                    {% if featured.kicker %}
-                    <span class="d-block fw-normal blog-header__meta mb-2">
-                      {{ featured.kicker }}
-                    </span>
+    {% block content_blog %}
+        <div class="container">
+            <section class="blog-list mt-3">
+                {% block blog_title %}
+                    {% if author or archive_date or article_tag or category %}
+                        <header class="blog-head">
+                            <h2>
+                                {% if archive_date %}
+                                    {% trans "Archive" %}
+                                    {% if month %}{{ archive_date|date:'F' }}{% endif %}
+                                    {{ year }}
+                                {% elif article_tag %}
+                                    {% trans "Tag" %} {{ article_tag.name }}
+                                {% elif category %}
+                                    {% trans "Category" %} {{ category }}
+                                {% endif %}
+                            </h2>
+                            {% if category and category.description %}<p>{{ category.description }}</p>{% endif %}
+                        </header>
+                        {% if author %}
+                            <h4>{% trans "Articles by" %}:</h4>
+                            <div class="bg-body-tertiary mb-3 p-3">
+                                <div class="row justify-content-center align-items-center pb-4 pt-4">
+                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-block">
+                                        {% if author.profile_photo %}
+                                            <img class="img-circle"
+                                                 src="{{ author.profile_photo.url }}"
+                                                 alt="Bild des Autors"
+                                                 loading="lazy">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-6 col-lg-5">
+                                        <h2 class="author-title">{{ author.get_full_name }}</h2>
+                                        <div class="author-description">{{ author.profile_text | markdown }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
                     {% endif %}
-                    {{ featured.title }}
-                  </a>
-                </h3>
-                <div class="blog-lead">
-                  {% render_model featured "teaser" "" "" "safe" %}
+                {% endblock %}
+                {% if featured %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="blog-teaser-large">
+                                <div class="blog-teaser-top">
+                                    {% if featured.image %}
+                                        <a href="{{ featured.get_absolute_url }}">
+                                            {% include "fds_blog/includes/blog_picture.html" with picture=featured.image %}
+                                        </a>
+                                    {% endif %}
+                                    <div class="blog-teaser-text">
+                                        <h3>
+                                            <a href="{{ featured.get_absolute_url }}">
+                                                {% if featured.kicker %}<span class="d-block fw-normal blog-header__meta mb-2">{{ featured.kicker }}</span>{% endif %}
+                                                {{ featured.title }}
+                                            </a>
+                                        </h3>
+                                        <div class="blog-lead">{% render_model featured "teaser" "" "" "safe" %}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    {% for article in article_list %}
+                        <div class="col-md-6 col-lg-4 mb-5">
+                            {% include "fds_blog/includes/blog_item.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
+                        </div>
+                    {% empty %}
+                        <div class="col-md-4">
+                            <p class="blog-empty">{% trans "No article found." %}</p>
+                        </div>
+                    {% endfor %}
                 </div>
-              </div>
-            </div>
-          </div>
+                {% if author or archive_date or tagged_entries %}
+                    <p class="blog-back">
+                        <a href="{% url 'blog:article-latest' %}">{% trans "Back" %}</a>
+                    </p>
+                {% endif %}
+                {% if is_paginated %}
+                    {% include "pagination/pagination.html" with page_obj=page_obj %}
+                {% endif %}
+            </section>
         </div>
-      </div>
-    {% endif %}
-
-    <div class="row">
-      {% for article in article_list %}
-        <div class="col-md-6 col-lg-4 mb-5">
-          {% include "fds_blog/includes/blog_item.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
-        </div>
-      {% empty %}
-        <div class="col-md-4">
-          <p class="blog-empty">{% trans "No article found." %}</p>
-        </div>
-      {% endfor %}
-    </div>
-
-    {% if author or archive_date or tagged_entries %}
-      <p class="blog-back"><a href="{% url 'blog:article-latest' %}">{% trans "Back" %}</a></p>
-    {% endif %}
-    {% if is_paginated %}
-      {% include "pagination/pagination.html" with page_obj=page_obj %}
-    {% endif %}
-  </section>
-</div>
-{% endblock %}
+    {% endblock %}
 {% endspaceless %}

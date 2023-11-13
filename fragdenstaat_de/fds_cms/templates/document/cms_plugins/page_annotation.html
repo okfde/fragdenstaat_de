@@ -1,34 +1,29 @@
 {% load thumbnail %}
-
 <div class="cms-page-annotation">
-    {% if object.title %}
-    <h4>
-        {{ object.title }}
-    </h4>
-    {% endif %}
-    {% if object.description or object.highlight %}
-        <figure>
-    {% endif %}
-
-    {% if object.image %}
-    <picture>
-    <source
-        media="(min-width: 1200px)"
-        srcset="{% thumbnail object.image 1140x0 %}">
-    <source
-        media="(min-width: 992px)"
-        srcset="{% thumbnail object.image 940x0 %}">
-    <img class="img-fluid" src="{% thumbnail object.image 768x0 crop=scale %}" alt="{{ object.title }}"{% if instance.zoom %} data-zoomwidth="{{ object.width }}" data-zoom="{{ object.image.url }}"{% endif %}>
-    </picture>
-    {% else %}
-      <div class="spinner-grow" role="status"></div>
-    {% endif %}
-
-    {% if object.description or object.highlight %}
-        <figcaption>
-            {{ object.description }}
-            {% if object.highlight %}{% if object.description %}<br/>{% endif %}<small class="text-body-secondary text-end">Hervorhebung von uns</small>{% endif %}
-        </figcaption>
-    </figure>
+    {% if object.title %}<h4>{{ object.title }}</h4>{% endif %}
+    {% if object.description or object.highlight %}<figure>{% endif %}
+        {% if object.image %}
+            <picture>
+                <source media="(min-width: 1200px)"
+                        srcset="{% thumbnail object.image 1140x0 %}">
+                <source media="(min-width: 992px)"
+                        srcset="{% thumbnail object.image 940x0 %}">
+                <img class="img-fluid"
+                     src="{% thumbnail object.image 768x0 crop=scale %}"
+                     alt="{{ object.title }}"
+                     {% if instance.zoom %}data-zoomwidth="{{ object.width }}" data-zoom="{{ object.image.url }}"{% endif %}>
+            </picture>
+        {% else %}
+            <div class="spinner-grow" role="status"></div>
+        {% endif %}
+        {% if object.description or object.highlight %}
+            <figcaption>
+                {{ object.description }}
+                {% if object.highlight %}
+                    {% if object.description %}<br />{% endif %}
+                    <small class="text-body-secondary text-end">Hervorhebung von uns</small>
+                {% endif %}
+            </figcaption>
+        </figure>
     {% endif %}
 </div>

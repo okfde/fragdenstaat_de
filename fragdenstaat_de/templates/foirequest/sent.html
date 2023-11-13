@@ -1,34 +1,25 @@
 {% extends 'foirequest/sent.html' %}
-
 {% load newsletter_tags %}
-
 {% block foirequest_sent_footer %}
-
-  {% newsletter_is_subscribed as has_newsletter %}
-
-  {% if has_newsletter %}
-    <p class="mb-0">
-      <strong>Unterstützen Sie Ihre Transparenzplattform!</strong>
-    </p>
-    <p class="mt-0 mb-3">
-      FragDenStaat ist gemeinnützig. Nur mithilfe der Spenden Vieler können wir weitermachen, unabhängig bleiben und Informationen befreien. Sind Sie dabei?
-    </p>
-
-    <a href="/spenden/?pk_campaign=request-sent&pk_keyword={{ url | urlencode }}" class="btn btn-primary">
-      Jetzt spenden!
-    </a>
-  {% else %}
-    <p class="mb-0">
-      Erhalten Sie den <strong>FragDenStaat-Newsletter</strong>!
-    </p>
-    <p class="mt-0 mb-3">
-      Wir versorgen Sie regelmäßig mit Neuigkeiten zu unseren <a href="/blog/">Recherchen</a>, <a href="/info/ueber/kampagnen/">Kampagnen</a> und <a href="/info/ueber/klagen/">Klagen</a>.
-    </p>
-
-    <div class="row">
-      <div class="col-md-8 mx-auto">
-        {% include "fds_newsletter/plugins/newsletter_form.html" %}
-      </div>
-    </div>
-  {% endif %}
+    {% newsletter_is_subscribed as has_newsletter %}
+    {% if has_newsletter %}
+        <p class="mb-0">
+            <strong>Unterstützen Sie Ihre Transparenzplattform!</strong>
+        </p>
+        <p class="mt-0 mb-3">
+            FragDenStaat ist gemeinnützig. Nur mithilfe der Spenden Vieler können wir weitermachen, unabhängig bleiben und Informationen befreien. Sind Sie dabei?
+        </p>
+        <a href="/spenden/?pk_campaign=request-sent&pk_keyword={{ url | urlencode }}"
+           class="btn btn-primary">Jetzt spenden!</a>
+    {% else %}
+        <p class="mb-0">
+            Erhalten Sie den <strong>FragDenStaat-Newsletter</strong>!
+        </p>
+        <p class="mt-0 mb-3">
+            Wir versorgen Sie regelmäßig mit Neuigkeiten zu unseren <a href="/blog/">Recherchen</a>, <a href="/info/ueber/kampagnen/">Kampagnen</a> und <a href="/info/ueber/klagen/">Klagen</a>.
+        </p>
+        <div class="row">
+            <div class="col-md-8 mx-auto">{% include "fds_newsletter/plugins/newsletter_form.html" %}</div>
+        </div>
+    {% endif %}
 {% endblock %}

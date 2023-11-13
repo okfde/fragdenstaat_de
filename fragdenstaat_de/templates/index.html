@@ -1,62 +1,49 @@
 {% extends "index.html" %}
-
 {% load i18n %}
 {% load static %}
-
 {% block title %}FragDenStaat - Portal für Informationsfreiheit und Transparenz{% endblock %}
-
 {% block index_content_row %}
-  {% include "snippets/homepage_how.html" %}
+    {% include "snippets/homepage_how.html" %}
 {% endblock %}
-
 {% block index_requests_row %}
-<div class="row">
-  <div class="col-md-6">
-    <div class="card">
-      {% if successful_foi_requests %}
-        <h4 class="card-header">
-          {% blocktrans %}Successful Requests{% endblocktrans %}
-        </h4>
-        <div class="card-body">
-          <ul class="list-unstyled">
-            {% for object in successful_foi_requests %}
-              <li class="d-flex">
-                {% include "foirequest/snippets/request_item.html" %}
-              </li>
-            {% endfor %}
-          </ul>
-          <p>
-            <a class="btn btn-default" href="{% url "foirequest-list" %}">Weitere Anfragen</a>
-          </p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                {% if successful_foi_requests %}
+                    <h4 class="card-header">{% blocktrans %}Successful Requests{% endblocktrans %}</h4>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            {% for object in successful_foi_requests %}
+                                <li class="d-flex">{% include "foirequest/snippets/request_item.html" %}</li>
+                            {% endfor %}
+                        </ul>
+                        <p>
+                            <a class="btn btn-default" href="{% url "foirequest-list" %}">Weitere Anfragen</a>
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-      {% endif %}
+        <div class="col-md-6">
+            <div class="card">
+                <h4 class="card-header">Blog</h4>
+                <div class="card-body">
+                    {% for object in featured %}
+                        <h5>
+                            <a href="{{ object.url }}">{{ object.title }}</a>
+                        </h5>
+                        <p>{{ object.text|truncatewords:55|linebreaksbr }}</p>
+                        {% if object.request %}
+                            <p>
+                                <a href="{% url 'foirequest-show' slug=object.request.slug %}">
+                                    <span class="glyphicon glyphicon-share-alt"></span>
+                                    {% blocktrans %}Visit this request{% endblocktrans %}
+                                </a>
+                            </p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="card">
-      <h4 class="card-header">
-        Blog
-      </h4>
-      <div class="card-body">
-        {% for object in featured %}
-          <h5>
-            <a href="{{ object.url }}">{{ object.title }}</a>
-          </h5>
-          <p>
-            {{ object.text|truncatewords:55|linebreaksbr }}
-          </p>
-          {% if object.request %}
-            <p>
-              <a href="{% url 'foirequest-show' slug=object.request.slug %}">
-                <span class="glyphicon glyphicon-share-alt"></span>
-                {% blocktrans %}Visit this request{% endblocktrans %}
-              </a>
-            </p>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</div>
 {% endblock %}

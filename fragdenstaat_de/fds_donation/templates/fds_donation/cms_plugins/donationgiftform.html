@@ -1,12 +1,10 @@
 {% load form_helper %}
-
-<form action="{% url 'fds_donation:make_order' category=category %}" method="post">
-  {% csrf_token %}
-  {% render_form form %}
-  <input type="hidden" name="next" value="{{ next_url }}"/>
-  <p class="text-end">
-    <button type="submit" class="btn btn-primary">
-      Abschicken
-    </button>
-  </p>
+<form action="{% url 'fds_donation:make_order' category=category %}"
+      method="post">
+    {% csrf_token %}
+    {% render_form form %}
+    <input type="hidden" name="next" value="{{ next_url }}" />
+    <p class="text-end">
+        <button type="submit" class="btn btn-primary">Abschicken</button>
+    </p>
 </form>

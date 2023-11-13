@@ -3,249 +3,266 @@
 {% load icons %}
 {% load content_helper %}
 {% load thumbnail %}
-
 {% load cms_tags %}
 {% load account_tags %}
-
 {% if request.user.is_authenticated %}
-  {% get_menu_items as menu_items %}
+    {% get_menu_items as menu_items %}
 {% endif %}
-
 <header id="header">
-  <div class="container">
-    <nav class="navbar navbar-fds bg-body">
-      {% page_url "home" as home_url %}
-      <a href="{{ home_url|default:'/' }}" class="navbar-brand navbar-brand-fds">
-        {% render_svg "img/header_logo.svg" %}
-        <span class="visually-hidden visually-hidden-focusable">{% block nav_brand_name %}{{ SITE_NAME }}{% endblock %}</span>
-      </a>
-      {% url 'foirequest-list' as requests_url %}
-      {% block nav %}
-      <div class="navbar-expand-md">
-        <button class="navbar-toggler ms-auto position-relative z-3 d-flex d-md-none align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menu" aria-label="{% translate "Toggle main menu" %}">
-          <span class="navbar-toggler-icon me-2"></span>
-          {% translate "Menu" %}
-        </button>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="menu" aria-labelledby="menu-label">
-          <div class="offcanvas-header">
-            {% render_svg "img/header_logo.svg" %}
-            <h5 id="menu-label" class="visually-hidden">{% translate "Main Menu" %}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{% translate "Close" %}"></button>
-          </div>
-          <div class="offcanvas-body d-flex flex-column">
-            <ul class="navbar-nav navbar-nav-primary">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle {% if request.path == requests_url %}active{% endif %}" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                  {% blocktrans %}Requests{% endblocktrans %}
-                </a>
-              
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="{{ requests_url }}">
-                      {% blocktrans %}See requests{% endblocktrans %}
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="{% url 'foirequest-make_request' %}">
-                      {% blocktrans %}Make request{% endblocktrans %}
-                    </a>
-                  </li>
-                  {% page_url "beginnersguide" as beginners_url %}
-                  {% if beginners_url %}
-                    <li>
-                      <a class="dropdown-item" href="{{ beginners_url }}">
-                        {% blocktrans %}Beginner's guide{% endblocktrans %}
-                      </a>
-                    </li>
-                  {% endif %}
-                </ul>
-              </li>
-
-              {% page_url "campaigns" as campaigns_url %}                
-              <li class="nav-item">
-                <a class="nav-link {% if request.path == campaigns_url %}active{% endif %}" href="{{ campaigns_url|default:'/kampagnen/' }}">
-                  {% blocktrans %}Campaigns{% endblocktrans %}
-                </a>
-              </li>
-
-              {% page_url "blog" as blog_url %}
-              <li class="nav-item">
-                <a class="nav-link {% if request.path|startswith:blog_url %}active{% endif %}" href="{{ blog_url|default:'/blog/' }}">
-                  {% blocktrans %}Investigations{% endblocktrans %}
-                </a>
-              </li>
-
-              {% page_url "lawsuits" as lawsuits_url %}
-              {% if lawsuits_url %}
-                {% page_attribute "menu_title" "lawsuits" as lawsuits_title %}
-              {% endif %}
-              <li class="nav-item">
-                <a class="nav-link {% if request.path == lawsuits_url %}active{% endif %}" href="{{ lawsuits_url|default:'/klagen/' }}">
-                  {{ lawsuits_title }}
-                </a>
-              </li>
-
-            </ul>
-            <ul class="navbar-nav navbar-nav-secondary me-auto">
-
-              {% page_url "about" as about_url %}
-              {% if about_url %}
-                {% page_attribute "menu_title" "about" as about_title %}
-              {% endif %}
-              <li class="nav-item">
-                <a class="nav-link {% if request.path|startswith:about_url %}active{% endif %}" href="{{ about_url|default:"/ueber-uns/" }}">
-                  {{ about_title }}
-                </a>
-              </li>
-
-              {% page_url "newsletter" as newsletter_url %}
-              {% if newsletter_url %}
-                <li class="nav-item">
-                  <a class="nav-link {% if request.path|startswith:newsletter_url %}active{% endif %}" href="{{ newsletter_url }}">{% translate "Newsletter" %}</a>
-                </li>
-              {% endif %}
-
-              {# Show either donate or signin as last item #}
-              {% page_url "donate" as donate_url %}
-              {% if request.user.is_authenticated %}
-                <li class="nav-item logged-in">
-                  <a class="nav-link fw-bold text-danger" href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
-                    <i class="fa fa-heart" aria-hidden="true"></i>
-                    {% blocktrans %}Donate{% endblocktrans %}
-                  </a>
-                </li>
-              {% else %}
-                {% url 'account-login' as login_url %}
-                <li class="nav-item">
-                  <a class="nav-link {% if request.path|startswith:login_url %}active{% endif %}" href="{% url 'account-login' %}?next={{ request.path|urlencode }}">
-                    <i class="fa fa-sign-in" aria-hidden="true"></i>
-                    {% blocktrans %}Sign in{% endblocktrans %}
-                  </a>
-                </li>
-              {% endif %}
-            </ul>
-            <div class="d-md-none">
-              <hr/>
-              <form action="{{ requests_url }}" method="get">
-                <p>{% blocktrans %}Search requests, authorities, investigations etc.{% endblocktrans %}</p>
-                <div class="input-group">
-                  <input type="text" name="q" class="form-control">
-                  <button type="submit" class="btn btn-outline-primary">
-                    {% translate "Search" %}
-                  </button>
+    <div class="container">
+        <nav class="navbar navbar-fds bg-body">
+            {% page_url "home" as home_url %}
+            <a href="{{ home_url|default:'/' }}"
+               class="navbar-brand navbar-brand-fds">
+                {% render_svg "img/header_logo.svg" %}
+                <span class="visually-hidden visually-hidden-focusable">
+                    {% block nav_brand_name %}{{ SITE_NAME }}{% endblock %}
+                </span>
+            </a>
+            {% url 'foirequest-list' as requests_url %}
+            {% block nav %}
+                <div class="navbar-expand-md">
+                    <button class="navbar-toggler ms-auto position-relative z-3 d-flex d-md-none align-items-center"
+                            type="button"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#menu"
+                            aria-controls="menu"
+                            aria-label="{% translate "Toggle main menu" %}">
+                        <span class="navbar-toggler-icon me-2"></span>
+                        {% translate "Menu" %}
+                    </button>
+                    <div class="offcanvas offcanvas-start"
+                         tabindex="-1"
+                         id="menu"
+                         aria-labelledby="menu-label">
+                        <div class="offcanvas-header">
+                            {% render_svg "img/header_logo.svg" %}
+                            <h5 id="menu-label" class="visually-hidden">{% translate "Main Menu" %}</h5>
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="offcanvas"
+                                    aria-label="{% translate "Close" %}"></button>
+                        </div>
+                        <div class="offcanvas-body d-flex flex-column">
+                            <ul class="navbar-nav navbar-nav-primary">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle {% if request.path == requests_url %}active{% endif %}"
+                                       href="#"
+                                       data-bs-toggle="dropdown"
+                                       aria-expanded="false">{% blocktrans %}Requests{% endblocktrans %}</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="{{ requests_url }}">{% blocktrans %}See requests{% endblocktrans %}</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'foirequest-make_request' %}">{% blocktrans %}Make request{% endblocktrans %}</a>
+                                        </li>
+                                        {% page_url "beginnersguide" as beginners_url %}
+                                        {% if beginners_url %}
+                                            <li>
+                                                <a class="dropdown-item" href="{{ beginners_url }}">{% blocktrans %}Beginner's guide{% endblocktrans %}</a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </li>
+                                {% page_url "campaigns" as campaigns_url %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if request.path == campaigns_url %}active{% endif %}"
+                                       href="{{ campaigns_url|default:'/kampagnen/' }}">
+                                        {% blocktrans %}Campaigns{% endblocktrans %}
+                                    </a>
+                                </li>
+                                {% page_url "blog" as blog_url %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if request.path|startswith:blog_url %}active{% endif %}"
+                                       href="{{ blog_url|default:'/blog/' }}">
+                                        {% blocktrans %}Investigations{% endblocktrans %}
+                                    </a>
+                                </li>
+                                {% page_url "lawsuits" as lawsuits_url %}
+                                {% if lawsuits_url %}
+                                    {% page_attribute "menu_title" "lawsuits" as lawsuits_title %}
+                                {% endif %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if request.path == lawsuits_url %}active{% endif %}"
+                                       href="{{ lawsuits_url|default:'/klagen/' }}">{{ lawsuits_title }}</a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav navbar-nav-secondary me-auto">
+                                {% page_url "about" as about_url %}
+                                {% if about_url %}
+                                    {% page_attribute "menu_title" "about" as about_title %}
+                                {% endif %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if request.path|startswith:about_url %}active{% endif %}" href="{{ about_url|default:"/ueber-uns/" }}">
+                                        {{ about_title }}
+                                    </a>
+                                </li>
+                                {% page_url "newsletter" as newsletter_url %}
+                                {% if newsletter_url %}
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.path|startswith:newsletter_url %}active{% endif %}"
+                                           href="{{ newsletter_url }}">{% translate "Newsletter" %}</a>
+                                    </li>
+                                {% endif %}
+                                {# Show either donate or signin as last item #}
+                                {% page_url "donate" as donate_url %}
+                                {% if request.user.is_authenticated %}
+                                    <li class="nav-item logged-in">
+                                        <a class="nav-link fw-bold text-danger"
+                                           href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                            {% blocktrans %}Donate{% endblocktrans %}
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    {% url 'account-login' as login_url %}
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.path|startswith:login_url %}active{% endif %}"
+                                           href="{% url 'account-login' %}?next={{ request.path|urlencode }}">
+                                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                            {% blocktrans %}Sign in{% endblocktrans %}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            <div class="d-md-none">
+                                <hr />
+                                <form action="{{ requests_url }}" method="get">
+                                    <p>{% blocktrans %}Search requests, authorities, investigations etc.{% endblocktrans %}</p>
+                                    <div class="input-group">
+                                        <input type="text" name="q" class="form-control">
+                                        <button type="submit" class="btn btn-outline-primary">{% translate "Search" %}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endblock nav %}
-
-      <ul class="navbar-nav ms-auto d-flex flex-row">
-
-        {% block nav_search %}
-        <li class="nav-item {% block nav_search_class %}d-none {% if request.user.is_authenticated %}d-sm-block{% else %}d-md-block{% endif %}{% endblock nav_search_class %}">
-          <button class="nav-link fw-bold me-2" data-bs-toggle="modal" data-bs-target="#search-modal" aria-label="{% translate "Search" %}" title="{% translate "Search" %}">
-            <i class="fa fa-search" aria-hidden="true"></i>
-            <span class="d-none d-lg-inline-block">{% translate "Search" %}</span>
-          </button>
-        </li>
-        {% endblock nav_search %}
-
-        {% block nav_donate %}
-        <li class="nav-item ms-2 {% block nav_donate_class %}{% if request.user.is_authenticated %}d-md-none{% endif %}{% endblock nav_donate_class %}">
-          <a class="nav-link fw-bold text-danger" href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}" aria-label="{% translate "Donate" %}" title="{% translate "Donate" %}">
-            <i class="fa fa-heart" aria-hidden="true"></i>
-            <span class="d-none d-sm-inline">{% translate "Donate" %}</span>
-          </a>
-        </li>
-        {% endblock nav_donate %}
-
-        {% block nav_account_login %}
-          {% if request.user.is_authenticated %}
-            <li class="nav-item ms-2 align-self-center">
-              <button class="btn py-0 pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#user-menu" aria-controls="user-menu" aria-label="{% translate "Toggle account menu" %}">
-                {% if request.user.profile_photo %}
-                  <img width="32" height="32" src="{% thumbnail request.user.profile_photo 64x64 %}" alt="{{ request.user.get_full_name }}" class="img-fluid rounded-circle">
-                {% else %}
-                  <div class="rounded-circle text-bg-callout d-flex justify-content-center align-items-center" style="aspect-ratio: 1/1; height: 32px">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <span class="visually-hidden">{{ request.user.first_name }}</span>
-                  </div>
-                {% endif %}
-              </button>      
-            </li>
-          {% endif %}
-        {% endblock %}
-      </ul>
-      {% if request.user.is_authenticated %}
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="user-menu" aria-labelledby="user-menu-label">
-          <div class="offcanvas-header text-bg-callout">
-            <h5 id="user-menu-label" class="visually-hidden">{% translate "Account Menu" %}</h5>
-            {% if request.user.profile_photo %}
-              <img width="32" height="32" src="{% thumbnail request.user.profile_photo 64x64 %}" alt="{{ request.user.get_full_name }}" class="img-fluid rounded-circle">
-            {% endif %}
-            <div class="flex-column">
-              <span class="d-block text-truncate">{{ request.user.get_full_name }}</span>
-              <small class="d-block text-truncate">{{ request.user.email }}</small>
-            </div>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{% translate "Close" %}"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              {% for menu_item in menu_items.before_request %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ menu_item.url }}">
-                    {{ menu_item.label }}
-                  </a>
-                </li>
-              {% endfor %}
-              {% for menu_item in menu_items.before_settings %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ menu_item.url }}">
-                    {{ menu_item.label }}
-                  </a>
-                </li>
-              {% endfor %}
-              {% for menu_item in menu_items.after_settings %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ menu_item.url }}">
-                    {{ menu_item.label }}
-                  </a>
-                </li>
-              {% endfor %}
-              <li class="nav-item">
-                <hr/>
-                <form action="{% url 'account-logout' %}" method="post">
-                  {% csrf_token %}
-                  <button type="submit" class="nav-link">
-                    {% blocktrans %}Log out{% endblocktrans %}
-                  </button>
-                </form>
-              </li>
+            {% endblock nav %}
+            <ul class="navbar-nav ms-auto d-flex flex-row">
+                {% block nav_search %}
+                    <li class="nav-item {% block nav_search_class %}d-none {% if request.user.is_authenticated %}d-sm-block{% else %}d-md-block{% endif %}{% endblock nav_search_class %}">
+                        <button class="nav-link fw-bold me-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#search-modal"
+                                aria-label="{% translate "Search" %}"
+                                title="{% translate "Search" %}">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <span class="d-none d-lg-inline-block">{% translate "Search" %}</span>
+                        </button>
+                    </li>
+                {% endblock nav_search %}
+                {% block nav_donate %}
+                    <li class="nav-item ms-2 {% block nav_donate_class %}{% if request.user.is_authenticated %}d-md-none{% endif %}{% endblock nav_donate_class %}">
+                        <a class="nav-link fw-bold text-danger"
+                           href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}"
+                           aria-label="{% translate "Donate" %}"
+                           title="{% translate "Donate" %}">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                            <span class="d-none d-sm-inline">{% translate "Donate" %}</span>
+                        </a>
+                    </li>
+                {% endblock nav_donate %}
+                {% block nav_account_login %}
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item ms-2 align-self-center">
+                            <button class="btn py-0 pe-0"
+                                    type="button"
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#user-menu"
+                                    aria-controls="user-menu"
+                                    aria-label="{% translate "Toggle account menu" %}">
+                                {% if request.user.profile_photo %}
+                                    <img width="32"
+                                         height="32"
+                                         src="{% thumbnail request.user.profile_photo 64x64 %}"
+                                         alt="{{ request.user.get_full_name }}"
+                                         class="img-fluid rounded-circle">
+                                {% else %}
+                                    <div class="rounded-circle text-bg-callout d-flex justify-content-center align-items-center"
+                                         style="aspect-ratio: 1/1;
+                                                height: 32px">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <span class="visually-hidden">{{ request.user.first_name }}</span>
+                                    </div>
+                                {% endif %}
+                            </button>
+                        </li>
+                    {% endif %}
+                {% endblock %}
             </ul>
-          </div>
-        {% endif %}
-      </div>
-    </nav>
-  </div>
-  <div class="modal" tabindex="-1" id="search-modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <form action="{% block nav_search_url %}{% url 'foirequest-list' %}{% endblock nav_search_url %}" method="get">
-            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="{% translate "Close" %}"></button>
-            <p>{% blocktrans %}Search requests, authorities, investigations etc.{% endblocktrans %}</p>
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" data-focus="true">
-              <button type="submit" class="btn btn-outline-primary">
-                {% translate "Search" %}
-              </button>
+            {% if request.user.is_authenticated %}
+                <div class="offcanvas offcanvas-end"
+                     tabindex="-1"
+                     id="user-menu"
+                     aria-labelledby="user-menu-label">
+                    <div class="offcanvas-header text-bg-callout">
+                        <h5 id="user-menu-label" class="visually-hidden">{% translate "Account Menu" %}</h5>
+                        {% if request.user.profile_photo %}
+                            <img width="32"
+                                 height="32"
+                                 src="{% thumbnail request.user.profile_photo 64x64 %}"
+                                 alt="{{ request.user.get_full_name }}"
+                                 class="img-fluid rounded-circle">
+                        {% endif %}
+                        <div class="flex-column">
+                            <span class="d-block text-truncate">{{ request.user.get_full_name }}</span>
+                            <small class="d-block text-truncate">{{ request.user.email }}</small>
+                        </div>
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="{% translate "Close" %}"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            {% for menu_item in menu_items.before_request %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ menu_item.url }}">{{ menu_item.label }}</a>
+                                </li>
+                            {% endfor %}
+                            {% for menu_item in menu_items.before_settings %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ menu_item.url }}">{{ menu_item.label }}</a>
+                                </li>
+                            {% endfor %}
+                            {% for menu_item in menu_items.after_settings %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ menu_item.url }}">{{ menu_item.label }}</a>
+                                </li>
+                            {% endfor %}
+                            <li class="nav-item">
+                                <hr />
+                                <form action="{% url 'account-logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="nav-link">{% blocktrans %}Log out{% endblocktrans %}</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
-          </form>
-        </div>
-      </div>
+        </nav>
     </div>
-  </div>
-  
+    <div class="modal" tabindex="-1" id="search-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="{% block nav_search_url %}{% url 'foirequest-list' %}{% endblock nav_search_url %}"
+                          method="get">
+                        <button type="button"
+                                class="btn-close float-end"
+                                data-bs-dismiss="modal"
+                                aria-label="{% translate "Close" %}"></button>
+                        <p>{% blocktrans %}Search requests, authorities, investigations etc.{% endblocktrans %}</p>
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" data-focus="true">
+                            <button type="submit" class="btn btn-outline-primary">{% translate "Search" %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>

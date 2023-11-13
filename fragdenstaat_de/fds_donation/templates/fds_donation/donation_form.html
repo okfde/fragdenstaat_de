@@ -1,55 +1,41 @@
 {% extends "fds_donation/base.html" %}
-
 {% load form_helper %}
-
 {% block title %}Ihre Spende aktualisieren{% endblock %}
-
 {% block app_body %}
-<div class="row justify-content-center"><div class="col-8">
-
-<h3>
-  Legen Sie eine neue Spende an
-</h3>
-
-{% if subscriptions %}
-  <div class="alert alert-warning">
-    <p>Bitte beachten Sie, dass momentan folgende Dauerspenden für Sie aktiv sind:</p>
-    <ul>
-    {% for subscription in subscriptions %}
-      <li>
-        {{ subscription.plan }} (<a href="{{ subscription.get_absolute_url }}">Details / Kündigung</a>)
-      </li>
-    {% endfor %}
-    </ul>
-    <p>Wenn Sie Ihre Dauerspende anpassen wollen, können Sie diese auf der Detailseite kündigen und hier neu anlegen.</p>
-  </div>
-{% endif %}
-
-<form action="{{ form.action }}" method="POST" class="donation-form">
-  {% csrf_token %}
-  {{ form.form_settings }}
-  {{ form.reference }}
-  {{ form.keyword }}
-
-  {% for field in form %}
-    {% if field.is_hidden %}
-      {{ field }}
-    {% else %}
-      <div class="row">
-        <div class="col-12">
-          {% render_field field stacked=True %}
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h3>Legen Sie eine neue Spende an</h3>
+            {% if subscriptions %}
+                <div class="alert alert-warning">
+                    <p>Bitte beachten Sie, dass momentan folgende Dauerspenden für Sie aktiv sind:</p>
+                    <ul>
+                        {% for subscription in subscriptions %}
+                            <li>
+                                {{ subscription.plan }} (<a href="{{ subscription.get_absolute_url }}">Details / Kündigung</a>)
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <p>Wenn Sie Ihre Dauerspende anpassen wollen, können Sie diese auf der Detailseite kündigen und hier neu anlegen.</p>
+                </div>
+            {% endif %}
+            <form action="{{ form.action }}" method="POST" class="donation-form">
+                {% csrf_token %}
+                {{ form.form_settings }}
+                {{ form.reference }}
+                {{ form.keyword }}
+                {% for field in form %}
+                    {% if field.is_hidden %}
+                        {{ field }}
+                    {% else %}
+                        <div class="row">
+                            <div class="col-12">{% render_field field stacked=True %}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Spenden</button>
+                <a href="{{ object.get_absolute_url }}"
+                   class="btn btn-secondary text-end">Abbrechen</a>
+            </form>
         </div>
-      </div>
-    {% endif %}
-  {% endfor %}
-
-  <button type="submit" class="btn btn-primary">
-    Spenden
-  </button>
-
-  <a href="{{ object.get_absolute_url }}" class="btn btn-secondary text-end">
-    Abbrechen
-  </a>
-</form>
-</div></div>
+    </div>
 {% endblock %}

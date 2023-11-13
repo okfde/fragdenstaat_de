@@ -1,12 +1,8 @@
 {% extends "froide_govplan/section.html" %}
-
 {% load fds_ogimage %}
-
 {% block meta %}
-  {{ block.super }}
-
-  {% url 'govplan_og:section_og' gov=object.government.slug section=object.slug as section_og_path %}
-  {% ogimage_url path=section_og_path template="fds_ogimage/govplan_section.html" as og_image_url %}
-  {% include "fds_cms/social_meta.html" with object=object title=object.title description=object.description image_url=og_image_url %}
-
+    {{ block.super }}
+    {% url 'govplan_og:section_og' gov=object.government.slug section=object.slug as section_og_path %}
+    {% ogimage_url path=section_og_path template="fds_ogimage/govplan_section.html" as og_image_url %}
+    {% include "fds_cms/social_meta.html" with object=object title=object.title description=object.description image_url=og_image_url %}
 {% endblock %}

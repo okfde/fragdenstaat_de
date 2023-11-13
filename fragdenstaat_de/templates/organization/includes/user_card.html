@@ -1,5 +1,4 @@
 {% load markup %}
-
 <div class="col-lg-4 my-3 d-flex col-md-6 col-12 my-md-5 col">
     <div class="box-card box-card-has-image-lg border-gray">
         <div>
@@ -8,7 +7,7 @@
                     <picture>
                         <img class="img-lg z-index-10"
                              src="{{ user.profile_photo.url }}"
-                             alt="{{ user.get_full_name }}"/>
+                             alt="{{ user.get_full_name }}" />
                     </picture>
                 </div>
             {% endif %}

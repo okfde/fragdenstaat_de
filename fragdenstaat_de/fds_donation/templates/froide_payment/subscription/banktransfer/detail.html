@@ -1,26 +1,31 @@
 {% extends "froide_payment/subscription/default.html" %}
-
 {% block custom_content %}
-  <div class="card border-danger">
-    <div class="card-header">
-      <h3>Bitte richten Sie einen Dauerauftrag ein</h3>
-    </div>
-    <div class="card-body">
-      <p>
-        <strong>Kontoinhaber:</strong>&nbsp;Open Knowledge Foundation Deutschland e.V.<br>
-        <strong>IBAN:&nbsp;</strong>DE36 4306 0967 1173 8932 00<br>
-        <strong>BIC:</strong>&nbsp;GENODEM1GLS<br>
-        <strong>Betrag:&nbsp;</strong>{{ subscription.plan.total_gross }}&nbsp;EUR<br/>
-        <strong>Turnus:&nbsp;</strong> {{ subscription.plan.get_interval_description }}<br/>
-        <strong>Verwendungszweck:&nbsp;</strong>{{ subscription.remote_reference }}<br>
-        <strong>BLZ:</strong>&nbsp;430 609 67 (GLS Bank)
-      </p>
-      {% comment %} <p>
-        Falls Sie eine Banking-App verwenden, die Direktaufrufe unterstützt, können Sie diesen Link verwenden:<br/>
+    <div class="card border-danger">
+        <div class="card-header">
+            <h3>Bitte richten Sie einen Dauerauftrag ein</h3>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>Kontoinhaber:</strong>&nbsp;Open Knowledge Foundation Deutschland e.V.
+                <br>
+                <strong>IBAN:&nbsp;</strong>DE36 4306 0967 1173 8932 00
+                <br>
+                <strong>BIC:</strong>&nbsp;GENODEM1GLS
+                <br>
+                <strong>Betrag:&nbsp;</strong>{{ subscription.plan.total_gross }}&nbsp;EUR
+                <br />
+                <strong>Turnus:&nbsp;</strong> {{ subscription.plan.get_interval_description }}
+                <br />
+                <strong>Verwendungszweck:&nbsp;</strong>{{ subscription.remote_reference }}
+                <br>
+                <strong>BLZ:</strong>&nbsp;430 609 67 (GLS Bank)
+            </p>
+            {% comment %} <p>
+        Falls Sie eine Banking-App verwenden, die Direktaufrufe unterstützt, können Sie diesen Link verwenden:<br />
         <a class="btn btn-success" href="bank://periodicsinglepaymentsepa?name={{ 'Open Knowledge Foundation Deutschland e.V.'|urlencode }}&amp;iban=DE36430609671173893200&amp;bic=GENODEM1GLS&amp;amount={{ subscription.plan.amount }}&amp;reason={{ subscription.remote_reference }}&amp;periodictimeunit=M&amp;periodictimeunitrotation={{ subscription.plan.interval }}">
           Direktlink für Banking-App
         </a>
-      </p> {% endcomment %}
+            </p> {% endcomment %}
+        </div>
     </div>
-  </div>
 {% endblock %}

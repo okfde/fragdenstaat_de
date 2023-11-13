@@ -2,10 +2,9 @@
 {% load markup %}
 {% load static %}
 {% load blog_tags %}
-
 <details>
     <summary>
-        <strong>{{instance.title}}</strong>
+        <strong>{{ instance.title }}</strong>
     </summary>
-    {{instance.content|safe}}
+    {{ instance.content|safe }}
 </details>

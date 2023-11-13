@@ -1,18 +1,18 @@
 <div class="cms-document-pages -{{ object.size }}">
-  {% if object.title %}
-    <h4>{{ object.title }}</h4>
-  {% endif %}
-  <div class="cms-document-pages-container">
-    {% for page in pages %}
-      <div class="card">
-        {% if page.image_url %}
-          <picture>
-            <img class="img-fluid" src="{{ page.image_url }}" alt="Seite {{ page.number }}">
-          </picture>
-        {% else %}
-          <div class="spinner-grow" role="status"></div>
-        {% endif %}
-      </div>
-    {% endfor %}
-  </div>
+    {% if object.title %}<h4>{{ object.title }}</h4>{% endif %}
+    <div class="cms-document-pages-container">
+        {% for page in pages %}
+            <div class="card">
+                {% if page.image_url %}
+                    <picture>
+                        <img class="img-fluid"
+                             src="{{ page.image_url }}"
+                             alt="Seite {{ page.number }}">
+                    </picture>
+                {% else %}
+                    <div class="spinner-grow" role="status"></div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
 </div>

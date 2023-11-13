@@ -1,79 +1,58 @@
 {% extends "foirequest/header/header.html" %}
-
 {% load static %}
 {% load i18n %}
-
 {% load foirequest_tags %}
 {% load food_tags %}
 {% load fax_tags %}
 {% load crowdfunding %}
 {% load fds_cms_tags %}
 {% load legalaction %}
-
 {% block aditional_actions %}
-  {% can_use_klageautomat object as has_legal_action_option %}
-  {% if has_legal_action_option %}
-    <li>
-      Auf Ihre Anfrage wurde mehr als drei Monate nicht geantwortet.
-      &rarr;
-      <a href="{% url 'klageautomat-info' pk=object.pk %}">
-        Zum Klageautomat
-      </a>
-    </li>
-  {% endif %}
+    {% can_use_klageautomat object as has_legal_action_option %}
+    {% if has_legal_action_option %}
+        <li>
+            Auf Ihre Anfrage wurde mehr als drei Monate nicht geantwortet.
+            &rarr;
+            <a href="{% url 'klageautomat-info' pk=object.pk %}">Zum Klageautomat</a>
+        </li>
+    {% endif %}
 {% endblock %}
-
-
 {% block foirequest_header %}
-
-  {# Brüssler Büro #}
-  {% if object.jurisdiction.id == 107 %}
-  <div class="alert alert-info">
-     🇪🇺 Sie wollen mehr Transparenz in der EU? <a href="/info/ueber/eu-recherchen/">Entdecken Sie unsere EU-Recherchen!</a>
-  </div>
-  {% endif %}
-
-  {# Triggers another query #}
-  {% if "Umwelt" in object.public_body.category_list %}
-    <div class="alert alert-info">
-      🌼 Interesse an Umweltinfos? Wir beraten Aktivist*innen und Initiativen kostenlos bei Anfragen.
-      <a href="https://fragdenstaat.de/aktionen/klima-helpdesk/">
-        Zum Klima-Helpdesk
-      </a>
-    </div>
-  {% endif %}
-
-  {% if "corona" in object.title|lower or "covid" in object.title|lower or "virus" in object.title|lower or "novavax" in object.title|lower  %}
-  <div class="alert alert-warning text-center">
-    🦠<a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/nCoV.html">Allgemeine Infos zum Corona-Virus finden Sie hier beim Robert-Koch-Institut</a>🦠
-  </div>
-  {% endif %}
-
-  {% if object|can_write_foirequest:request and object|foirequest_needs_signature %}
-    <div class="alert alert-warning">
-      <h3>
-        Schriftformerfordnis: Bitte hinterlegen Sie Ihre Unterschrift
-      </h3>
-      <div class="row">
-        <div class="col-md-8">
-          <p>
-            Diese Anfrage nach dem {{ object.law.name }} muss in Schriftform erfolgen. Wir können für Sie ein Fax versenden, wenn Sie Ihre Unterschrift hinterlegen.
-          </p>
+    {# Brüssler Büro #}
+    {% if object.jurisdiction.id == 107 %}
+        <div class="alert alert-info">
+            🇪🇺 Sie wollen mehr Transparenz in der EU? <a href="/info/ueber/eu-recherchen/">Entdecken Sie unsere EU-Recherchen!</a>
         </div>
-      </div>
-      {% include "froide_fax/_signature_form.html" with form=request.user|get_signature_form:True foirequest=object next=request.get_full_path hide_explanation=True save_button="Unterschrift speichern und Fax versenden" %}
-    </div>
-  {% endif %}
+    {% endif %}
+    {# Triggers another query #}
+    {% if "Umwelt" in object.public_body.category_list %}
+        <div class="alert alert-info">
+            🌼 Interesse an Umweltinfos? Wir beraten Aktivist*innen und Initiativen kostenlos bei Anfragen.
+            <a href="https://fragdenstaat.de/aktionen/klima-helpdesk/">Zum Klima-Helpdesk</a>
+        </div>
+    {% endif %}
+    {% if "corona" in object.title|lower or "covid" in object.title|lower or "virus" in object.title|lower or "novavax" in object.title|lower %}
+        <div class="alert alert-warning text-center">
+            🦠<a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/nCoV.html">Allgemeine Infos zum Corona-Virus finden Sie hier beim Robert-Koch-Institut</a>🦠
+        </div>
+    {% endif %}
+    {% if object|can_write_foirequest:request and object|foirequest_needs_signature %}
+        <div class="alert alert-warning">
+            <h3>Schriftformerfordnis: Bitte hinterlegen Sie Ihre Unterschrift</h3>
+            <div class="row">
+                <div class="col-md-8">
+                    <p>
+                        Diese Anfrage nach dem {{ object.law.name }} muss in Schriftform erfolgen. Wir können für Sie ein Fax versenden, wenn Sie Ihre Unterschrift hinterlegen.
+                    </p>
+                </div>
+            </div>
+            {% include "froide_fax/_signature_form.html" with form=request.user|get_signature_form:True foirequest=object next=request.get_full_path hide_explanation=True save_button="Unterschrift speichern und Fax versenden" %}
+        </div>
+    {% endif %}
 {% endblock %}
-
-
 {% block foirequest_below_header %}
-  {% if object.campaign.slug == "topf-secret" %}
-    <div class="container mt-4">
-      {% food_authority_status object %}
-    </div>
-  {% endif %}
-
-  {% include "froide_crowdfunding/includes/request_block.html" with object=object %}
-
+    {% if object.campaign.slug == "topf-secret" %}
+        <div class="container mt-4">{% food_authority_status object %}</div>
+    {% endif %}
+    {% include "froide_crowdfunding/includes/request_block.html" with object=object %}
 {% endblock %}

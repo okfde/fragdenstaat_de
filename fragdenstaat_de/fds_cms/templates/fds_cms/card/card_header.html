@@ -1,22 +1,19 @@
 {% load cms_tags %}
 {% load thumbnail %}
-
 {% if instance.background_image %}
-<style>
+    <style>
 #card-header-{{ instance.pk }}::after {
   background-image: url('{% thumbnail instance.background_image 350x150 crop subject_location=instance.picture.subject_location %}');
 }
-</style>
+    </style>
 {% endif %}
-
 <div class="box-card-header tight-margin d-flex align-items-center{% if instance.background_image %} has-background{% endif %} {{ classes }}" {{ instance.attributes_str }} id="card-header-{{ instance.pk }}">
-  <h3 class="h5 m-0 no-hyphens">{{ instance.title }}</h3>
-  
-  {% if instance.icon %}
-    <div class="ms-auto">
-      <div class="box-card-icon position-static text-bg-body">
-        <i class="fa fa-{{ instance.icon }}"></i>
-      </div>
-    </div>
-  {% endif %}
+    <h3 class="h5 m-0 no-hyphens">{{ instance.title }}</h3>
+    {% if instance.icon %}
+        <div class="ms-auto">
+            <div class="box-card-icon position-static text-bg-body">
+                <i class="fa fa-{{ instance.icon }}"></i>
+            </div>
+        </div>
+    {% endif %}
 </div>

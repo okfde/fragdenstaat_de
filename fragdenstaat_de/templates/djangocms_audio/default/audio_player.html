@@ -1,18 +1,15 @@
 {% load i18n cms_tags %}
-
 <div class="audio-player bg-body-tertiary border-gray p-3">
-  {% for plugin in instance.child_plugin_instances %}
-    {% render_plugin plugin %}
-  {% empty %}
-    {% trans "No audio file available." %}
-  {% endfor %}
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% empty %}
+        {% trans "No audio file available." %}
+    {% endfor %}
 </div>
-
 {% comment %}
     # Available variables:
     {{ instance.template }}
     {{ instance.label }}
     {{ instance.attributes_str }}
 {% endcomment %}
-
 {% include "_frontend.html" with entry_point="audio_player.js" %}

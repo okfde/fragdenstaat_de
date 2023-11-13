@@ -1,72 +1,73 @@
 {% extends "cms/page.html" %}
-
 {% load i18n %}
 {% load cms_tags %}
 {% load menu_tags %}
-
 {% block body %}
-  {% page_url 'help' as help_url %}
-  <div class="app">
-    <nav class="navbar navbar-expand-sm navbar-dark navbar-help">
-      <div class="container">
-        <a class="navbar-brand" href="{{ help_url }}">
-          <span class="d-none d-lg-inline">{% translate 'Support area: FragDenStaat and Freedom of Information' %}</span>
-          <span class="d-none d-lg-none d-sm-inline">{% translate 'Support area: FragDenStaat and <abbr title="Freedom of Information">FOI</abbr>' %}</span>
-          <span class="d-sm-none">{% translate "Support area" %}</span>
-        </a>
-        <div class="d-flex">
-          <form class="ms-2 d-block d-md-inline" role="search" method="get" action="{% page_url 'help-search' %}">
-            <div class="input-group d-none d-md-flex">
-              {% if form %}
-                {{ form.q }}
-              {% else %}
-                <input class="form-control" type="text" name="q" placeholder="{% translate 'Search' %}" aria-label="{% translate 'Search' %}">
-              {% endif %}
-              <button class="btn btn-outline-light" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-                <span class="visually-hidden">{% translate "Search" %}</span>
-            </button>
+    {% page_url 'help' as help_url %}
+    <div class="app">
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-help">
+            <div class="container">
+                <a class="navbar-brand" href="{{ help_url }}">
+                    <span class="d-none d-lg-inline">{% translate 'Support area: FragDenStaat and Freedom of Information' %}</span>
+                    <span class="d-none d-lg-none d-sm-inline">{% translate 'Support area: FragDenStaat and <abbr title="Freedom of Information">FOI</abbr>' %}</span>
+                    <span class="d-sm-none">{% translate "Support area" %}</span>
+                </a>
+                <div class="d-flex">
+                    <form class="ms-2 d-block d-md-inline"
+                          role="search"
+                          method="get"
+                          action="{% page_url 'help-search' %}">
+                        <div class="input-group d-none d-md-flex">
+                            {% if form %}
+                                {{ form.q }}
+                            {% else %}
+                                <input class="form-control"
+                                       type="text"
+                                       name="q"
+                                       placeholder="{% translate 'Search' %}"
+                                       aria-label="{% translate 'Search' %}">
+                            {% endif %}
+                            <button class="btn btn-outline-light" type="submit">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                                <span class="visually-hidden">{% translate "Search" %}</span>
+                            </button>
+                        </div>
+                        <button class="btn btn-outline-light d-block d-md-none" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <span class="visually-hidden">{% translate "Search" %}</span>
+                        </button>
+                    </form>
+                </div>
             </div>
-            <button class="btn btn-outline-light d-block d-md-none" type="submit">
-              <i class="fa fa-search" aria-hidden="true"></i>
-              <span class="visually-hidden">{% translate "Search" %}</span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
-    <nav aria-label="breadcrumb" class="bg-body-tertiary">
-      <div class="container">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="{{ help_url }}">{% translate "Support" %}</a>
-          </li>
-          {% show_breadcrumb 1 "cms/breadcrumbs.html" %}
-          {% block extra_breadcrumbs %}{% endblock %}
-        </ol>
-      </div>
-    </nav>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 order-md-last mt-3 mb-3">
-          {% block app_body %}
-            {% placeholder "content" %}
-          {% endblock %}
-        </div>
-        <nav class="col-md-4 order-md-first mb-3 mt-3">
-          <h5>
-            <a href="{{ help_url }}">
-              {% translate "Topics" %}
-            </a>
-          </h5>
-          <ul class="list-unstyled">
-            {% show_menu 1 100 0 1 %}
-          </ul>
         </nav>
-      </div>
+        <nav aria-label="breadcrumb" class="bg-body-tertiary">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ help_url }}">{% translate "Support" %}</a>
+                    </li>
+                    {% show_breadcrumb 1 "cms/breadcrumbs.html" %}
+                    {% block extra_breadcrumbs %}{% endblock %}
+                </ol>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 order-md-last mt-3 mb-3">
+                    {% block app_body %}
+                        {% placeholder "content" %}
+                    {% endblock %}
+                </div>
+                <nav class="col-md-4 order-md-first mb-3 mt-3">
+                    <h5>
+                        <a href="{{ help_url }}">{% translate "Topics" %}</a>
+                    </h5>
+                    <ul class="list-unstyled">
+                        {% show_menu 1 100 0 1 %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% static_placeholder "help_footer" %}
     </div>
-
-    {% static_placeholder "help_footer" %}
-
-  </div>
 {% endblock %}

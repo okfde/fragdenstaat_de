@@ -1,18 +1,19 @@
 {% extends "fds_ogimage/govplan_plan.html" %}
-
 {% load govplan %}
-
 {% block tagline %}Themenbereich {{ object.title }}{% endblock %}
-
 {% block bottom_row %}
-  {% get_plan_progress plans as progress %}
-  <div class="col-7">
-    <div class="progress text-bg-body" style="height: 60px;">
-      {% for section in progress.sections %}
-        <div class="progress-bar {% if section.name == 'not_started' %}progress-bar-striped bg-secondary{% else %}bg-dark{% endif %}" role="progressbar" style="width: {{ section.css_percentage }}%;" aria-valuenow="{{ section.css_percentage }}" aria-valuemin="0" aria-valuemax="100">
+    {% get_plan_progress plans as progress %}
+    <div class="col-7">
+        <div class="progress text-bg-body" style="height: 60px;">
+            {% for section in progress.sections %}
+                <div class="progress-bar {% if section.name == 'not_started' %}progress-bar-striped bg-secondary{% else %}bg-dark{% endif %}"
+                     role="progressbar"
+                     style="width: {{ section.css_percentage }}%"
+                     aria-valuenow="{{ section.css_percentage }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100"></div>
+            {% endfor %}
         </div>
-      {% endfor %}
     </div>
-  </div>
-  <div class="col-1"></div>
+    <div class="col-1"></div>
 {% endblock %}
