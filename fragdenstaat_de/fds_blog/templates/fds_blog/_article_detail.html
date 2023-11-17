@@ -20,12 +20,14 @@
                         {% with authors=article.get_authors %}
                             {% if authors %}
                                 <span> -
+                                    {# djlint:off #}
                                     {% for author in authors %}
-                                        {% if author.get_absolute_url %}<a href="{{ author.get_absolute_url }}" rel="author">{% endif %}
-                                            {{ author.get_full_name }}
-                                            {% if author.get_absolute_url %}</a>{% endif %}
-                                        {% if not forloop.last %},{% endif %}
+                                        {% if author.get_absolute_url %}
+                                        <a href="{{ author.get_absolute_url }}" rel="author">
+                                        {% endif %}
+                                        {{ author.get_full_name }}{% if author.get_absolute_url %}</a>{% endif %}{% if not forloop.last %},{% endif %}
                                     {% endfor %}
+                                    {# djlint:on #}
                                 </span>
                             {% endif %}
                         {% endwith %}
