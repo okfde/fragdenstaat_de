@@ -156,6 +156,15 @@ $c: map.get($container-max-widths, 'xxl');
       input {
         max-width: 7rem;
       }
+
+      &.nav-search-redundant {
+        opacity: 0.5;
+        transition: opacity 0.3s linear;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
 
     .nav-break {
