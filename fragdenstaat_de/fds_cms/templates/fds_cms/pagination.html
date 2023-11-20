@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load cms_pagination %}
+{% get_previous_next_pages request.current_page as pagination %}
+{% if request.current_page.node.get_depth >= min_level|default:3 %}
+    {% if pagination.next or pagination.previous %}
+        <nav>
+            <ul class="list-unstyled d-flex flex-column flex-md-row">
+                {% if pagination.previous %}
+                    <li class="w-100">
+                        <div>
+                            <div class="small text-muted mb-1">{% trans "Previous" %}:</div>
+                            <a href="{{ pagination.previous.get_absolute_url }}">{{ pagination.previous.get_menu_title }}</a>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if pagination.next %}
+                    <li class="w-100">
+                        <div class="text-end">
+                            <div class="small text-muted mb-1">{% trans "Next" %}:</div>
+                            <a href="{{ pagination.next.get_absolute_url }}">{{ pagination.next.get_menu_title }}</a>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endif %}
