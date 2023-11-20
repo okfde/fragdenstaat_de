@@ -20,6 +20,10 @@ from .models import Article, ArticleTag, Category
 User = get_user_model()
 
 
+def get_base_breadcrumb():
+    return [(_("Blog"), reverse("blog:article-latest"))]
+
+
 class BaseBlogView(object):
     model = Article
 
@@ -116,6 +120,16 @@ class ArticleDetailView(BaseBlogView, DetailView):
         ]
         return ctx
 
+    def get_breadcrumbs(self):
+        breadcrumbs = get_base_breadcrumb()
+
+        if self.object.categories.exists():
+            category = self.object.categories.first()
+            breadcrumbs += [(category.title, category.get_absolute_url())]
+
+        breadcrumbs += [(self.object.title)]
+        return breadcrumbs
+
 
 class ArticleListView(BaseBlogListView, ListView):
     view_url_name = "fds_blog:article-latest"
@@ -139,6 +153,9 @@ class ArticleListView(BaseBlogListView, ListView):
         context = super().get_context_data(**kwargs)
         context["featured"] = self.featured
         return context
+
+    def get_breadcrumbs(self):
+        return get_base_breadcrumb()
 
 
 class ArticleArchiveView(BaseBlogListView, ListView):
@@ -167,6 +184,9 @@ class ArticleArchiveView(BaseBlogListView, ListView):
         context = super().get_context_data(**kwargs)
         return context
 
+    def get_breadcrumbs(self):
+        return get_base_breadcrumb() + [(_("Archive"))]
+
 
 class TaggedListView(BaseBlogListView, ListView):
     view_url_name = "fds_blog:article-tagged"
@@ -181,6 +201,9 @@ class TaggedListView(BaseBlogListView, ListView):
         context = super().get_context_data(**kwargs)
         return context
 
+    def get_breadcrumbs(self):
+        return get_base_breadcrumb() + [(self.tag.name)]
+
 
 class AuthorArticleView(BaseBlogListView, ListView):
     view_url_name = "fds_blog:article-author"
@@ -192,9 +215,13 @@ class AuthorArticleView(BaseBlogListView, ListView):
         return self.optimize(qs)
 
     def get_context_data(self, **kwargs):
-        kwargs["author"] = get_object_or_404(User, username=self.kwargs.get("username"))
+        self.author = get_object_or_404(User, username=self.kwargs.get("username"))
+        kwargs["author"] = self.author
         context = super().get_context_data(**kwargs)
         return context
+
+    def get_breadcrumbs(self):
+        return get_base_breadcrumb() + [(self.author.get_full_name())]
 
 
 class CategoryArticleView(BaseBlogListView, ListView):
@@ -228,6 +255,9 @@ class CategoryArticleView(BaseBlogListView, ListView):
         kwargs["category"] = self.category
         context = super().get_context_data(**kwargs)
         return context
+
+    def get_breadcrumbs(self):
+        return get_base_breadcrumb() + [(self.category.title)]
 
 
 class ArticleSearchView(BaseSearchView):
