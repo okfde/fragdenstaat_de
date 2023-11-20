@@ -92,3 +92,12 @@ function updateDropdowns(): void {
 
 window.addEventListener('resize', updateDropdowns)
 updateDropdowns()
+
+const navSearch = header.querySelector<HTMLElement>('.nav-search')!
+const searchUrls = [
+  ...navSearch.querySelector<HTMLSelectElement>('select')!
+].map((el) => el.value)
+
+if (searchUrls.includes(window.location.pathname)) {
+  navSearch.classList.add('nav-search-redundant')
+}
