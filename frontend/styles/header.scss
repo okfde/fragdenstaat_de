@@ -173,6 +173,7 @@ $c: map.get($container-max-widths, 'xxl');
       margin-bottom: $spacer;
       width: 100vw;
       height: 1px;
+      z-index: -1;
 
       &::after {
         content: '';
