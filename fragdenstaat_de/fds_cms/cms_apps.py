@@ -19,6 +19,7 @@ def make_add_search(page_pk):
         try:
             return {
                 "title": page_root.get_title(request.LANGUAGE_CODE),
+                "menu_title": page_root.get_menu_title(request.LANGUAGE_CODE),
                 "name": "cms-search-{}".format(page_root.pk),
                 "url": page.get_absolute_url(request.LANGUAGE_CODE),
                 "order": 7,
