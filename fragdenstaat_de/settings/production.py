@@ -165,7 +165,9 @@ class FragDenStaat(FragDenStaatBase):
 
     CUSTOM_AUTH_USER_MODEL_DB = "auth_user"
 
-    DEFAULT_FROM_EMAIL = env(DEFAULT_FROM_EMAIL, "FragDenStaat.de <info@fragdenstaat.de>")
+    DEFAULT_FROM_EMAIL = env(
+        "DEFAULT_FROM_EMAIL", "FragDenStaat.de <info@fragdenstaat.de>"
+    )
     EMAIL_BACKEND = "fragdenstaat_de.theme.email_backend.CustomCeleryEmailBackend"
     CELERY_EMAIL_BACKEND = "froide.foirequest.smtp.EmailBackend"
     # EMAIL_HOST
@@ -272,9 +274,9 @@ class FragDenStaat(FragDenStaatBase):
     _base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     SENTRY_JS_URL = env("DJANGO_SENTRY_PUBLIC_DSN")
 
-    SERVER_EMAIL = env(SERVER_EMAIL, "info@fragdenstaat.de")
+    SERVER_EMAIL = env("SERVER_EMAIL", "info@fragdenstaat.de")
 
-    SITE_EMAIL = env(SITE_EMAIL, "info@fragdenstaat.de")
+    SITE_EMAIL = env("SITE_EMAIL", "info@fragdenstaat.de")
     SITE_ID = 1
     SITE_NAME = "FragDenStaat"
     SITE_URL = env("SITE_URL", "https://fragdenstaat.de") or "https://fragdenstaat.de"
