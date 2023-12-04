@@ -123,18 +123,16 @@ class ArticleListView(BaseBlogListView, ListView):
     def get_queryset(self):
         qs = super().get_queryset()
 
+        featured = (
+            qs.filter(date_featured__isnull=False).order_by("-date_featured").first()
+        )
         self.featured = None
         page = self.request.GET.get("page", None)
         if not page or page == "1":
-            try:
-                self.featured = qs.filter(date_featured__isnull=False).order_by(
-                    "-date_featured"
-                )[0]
-            except IndexError:
-                pass
+            self.featured = featured
 
-        if self.featured is not None:
-            qs = qs.exclude(pk=self.featured.pk)
+        if featured is not None:
+            qs = qs.exclude(pk=featured.pk)
         return qs
 
     def get_context_data(self, **kwargs):
