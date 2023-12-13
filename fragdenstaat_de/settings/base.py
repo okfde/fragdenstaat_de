@@ -822,7 +822,7 @@ class FragDenStaatBase(German, Base):
     TELNYX_FROM_NUMBER = os.environ.get("TELNYX_FROM_NUMBER", "")
 
     SLACK_DEFAULT_CHANNEL = os.environ.get(
-        "SLACK_DEFAULT_CHANNEL", "fragdenstaat-alerts"
+        "SLACK_DEFAULT_CHANNEL", "fragdenstaat-notifications"
     )
     SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL", "")
     MATOMO_API_URL = os.environ.get("MATOMO_API_URL", "")
