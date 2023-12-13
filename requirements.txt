@@ -232,7 +232,7 @@ django-contrib-comments==2.2.0
     # via -r requirements.in
 django-countries==7.5.1
     # via froide-payment
-django-crossdomainmedia==0.0.3
+django-crossdomainmedia==0.0.4
     # via
     #   -r requirements.in
     #   froide
