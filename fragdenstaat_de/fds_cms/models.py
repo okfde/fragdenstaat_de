@@ -30,6 +30,25 @@ class FdsPageExtension(PageExtension):
         on_delete=models.SET_NULL,
         verbose_name=_("image"),
     )
+    breadcrumb_ancestor = PageField(
+        null=True,
+        blank=True,
+        help_text=_("If present, this page will be displayed as the ancestor in the breadcrumbs."),
+        verbose_name=_("Ancestor"),
+        related_name='breadcrumb_ancestor'
+    )
+    ancestor_only_upwards = models.BooleanField(_("Only show the breadcrumb ancestor on this page, but not its children"), default=True)
+    icon = models.CharField(
+        _("Icon"),
+        max_length=50,
+        blank=True,
+        help_text=_(
+            """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
+        ),
+    )
+    breadcrumb_background = models.CharField(
+        _("Breadcrumbs background"), choices=BACKGROUND, default="", max_length=50, blank=True
+    )
 
 
 class PageAnnotationCMSPlugin(CMSPlugin):

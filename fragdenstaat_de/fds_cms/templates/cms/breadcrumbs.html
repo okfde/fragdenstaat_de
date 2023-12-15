@@ -1,3 +1,15 @@
+{% load fds_cms_tags %}
+
+{% get_breadcrumb_ancestor ancestors.0 as custom_ancestor %}
+{% if custom_ancestor %}
+<li class="breadcrumb-item">
+    {% if custom_ancestor.icon %}<i class="fa fa-{{ custom_ancestor.icon }}" aria-hidden="true"></i>{% endif %}
+    <a href="{{ custom_ancestor.url }}">
+        {{ custom_ancestor.title }}
+    </a>
+</li>
+{% endif %}
+
 {% for ance in ancestors %}
     <li {% if forloop.last %}class="breadcrumb-item active" aria-current="page"{% else %}class="breadcrumb-item"{% endif %}>
         {% if not forloop.last %}

@@ -1,7 +1,7 @@
 from django import template
 from django.conf import settings
 
-from cms.models import StaticPlaceholder
+from cms.models import StaticPlaceholder, Page
 
 from ..responsive_images import (
     ResponsiveImage,
@@ -77,3 +77,34 @@ def get_soft_root(page):
     if soft_root:
         return soft_root
     return page.get_root()
+
+@register.simple_tag(takes_context=True)
+def get_breadcrumb_ancestor(context, navigation_node):
+    print(context)
+    if navigation_node == None:
+        return
+    
+    try:
+        request = context["request"]
+    except KeyError:
+        return
+    
+    page = Page.objects.get(pk=navigation_node.id)
+
+    try:
+        ancestor = page.fdspageextension.breadcrumb_ancestor
+        only_upwards = page.fdspageextension.ancestor_only_upwards
+    except AttributeError:
+        return
+
+    if ancestor == None:
+        return
+    
+    if only_upwards and request.current_page != page:
+        return
+
+    title = ancestor.get_title(language=request.LANGUAGE_CODE)
+    url = ancestor.get_absolute_url(language=request.LANGUAGE_CODE)
+    icon = ancestor.fdspageextension.icon
+
+    return {"title": title, "url": url, "icon": icon}
