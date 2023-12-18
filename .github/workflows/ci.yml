@@ -15,20 +15,9 @@ jobs:
         with:
           node-version: '20'
           cache: 'yarn'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install black==23.9.1 isort==5.12.0 flake8==6.1.0 flake8-bugbear==23.9.16
-          yarn install
-      - name: Run flake8
-        run: flake8 fragdenstaat_de --statistics
-      - name: Run black
-        run: black --check fragdenstaat_de
-      - name: Run isort
-        run: isort --check fragdenstaat_de
 
-      - name: Run eslint
-        run: yarn lint
+      - uses: pre-commit/action@v3.0.0
+      - uses: pre-commit-ci/lite-action@v1.0.1
 
   test:
     runs-on: ubuntu-latest
