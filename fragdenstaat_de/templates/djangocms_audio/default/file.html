@@ -28,8 +28,10 @@
             </button>
         </div>
         <div class="hstack align-items-center gap-3 mt-3 mt-md-0 ">
+            {# djlint:off H021 #}
             <div class="audio-player__textprogress text-center"
                  style="min-width: 11ch">00:00 / 00:00</div>
+            {# djlint:on #}
             <button class="btn d-flex align-items-center audio-player__speed">
                 <i class="fa fa-clock-o"></i>
                 <span class="sr-only">{% trans "Playback speed" %}:</span>

@@ -72,9 +72,8 @@
                         <div class="pb-2 mb-3">
                             {% if step_count > 1 %}<div class="fw-bold mb-3">{{ question.questionaire }}</div>{% endif %}
                             <div class="progress">
-                                <div class="progress-bar"
+                                <div class="progress-bar w-100"
                                      role="progressbar"
-                                     style="width: 100%"
                                      aria-valuenow="100"
                                      aria-valuemin="0"
                                      aria-valuemax="100"></div>
@@ -188,12 +187,12 @@
                             </div>
                         </div>
                         <div class="info-box__body">
-                            <ul class="info-box__list ">
+                            <ul class="info-box__list">
                                 <li class="info-box__list-item">
                                     <div class="info-box__list-label"></div>
                                     <div class="info-box__list-value">{{ question.information|markdown|linebreaks }}</div>
                                 </li>
-                            </div>
+                            </ul>
                         </div>
                     {% endif %}
                     {% if answer_form %}
@@ -203,4 +202,5 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

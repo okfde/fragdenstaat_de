@@ -25,9 +25,11 @@
                         </div>
                         <div class="bg-body-tertiary p-3 tight-margin mt-3">
                             <p class="text-muted">{% trans "Chapter overview:" %}</p>
+                            {# djlint:off H021 #}
                             <ol class="overflow-auto m-0" style="max-height: 50vh">
                                 {% show_menu 1 100 0 1 %}
                             </ol>
+                            {# djlint:on #}
                         </div>
                     </div>
                 </div>

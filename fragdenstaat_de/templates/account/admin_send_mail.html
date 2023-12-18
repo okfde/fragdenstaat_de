@@ -14,23 +14,24 @@
                 <label>
                     {% trans "Mailing name" %}:
                     <input type="text" name="subject" value="" />
-                </p>
-                <p>
-                    <input type="submit"
-                           value="{% blocktrans count count=queryset.count %}Setup mailing to one user{% plural %}Setup mailing to {{ count }} users{% endblocktrans %}" />
-                </p>
-            </div>
-            <input type="hidden" name="action" value="{{ action_name }}" />
-            {% if select_across %}
-                <input type="hidden" name="select_across" value="1" />
-                {# set invalid selected, so confirmation action path is chosen in admin #}
-                <input type="hidden" name="{{ action_checkbox_name }}" value="_" />
-            {% else %}
-                {% for obj in queryset %}
-                    <input type="hidden"
-                           name="{{ action_checkbox_name }}"
-                           value="{{ obj.pk|unlocalize }}" />
-                {% endfor %}
-            {% endif %}
-        </form>
-    {% endblock %}
+                </label>
+            </p>
+            <p>
+                <input type="submit"
+                       value="{% blocktrans count count=queryset.count %}Setup mailing to one user{% plural %}Setup mailing to {{ count }} users{% endblocktrans %}" />
+            </p>
+        </div>
+        <input type="hidden" name="action" value="{{ action_name }}" />
+        {% if select_across %}
+            <input type="hidden" name="select_across" value="1" />
+            {# set invalid selected, so confirmation action path is chosen in admin #}
+            <input type="hidden" name="{{ action_checkbox_name }}" value="_" />
+        {% else %}
+            {% for obj in queryset %}
+                <input type="hidden"
+                       name="{{ action_checkbox_name }}"
+                       value="{{ obj.pk|unlocalize }}" />
+            {% endfor %}
+        {% endif %}
+    </form>
+{% endblock %}

@@ -19,6 +19,9 @@
                 </picture>
             {% endwith %}
             {% if instance.link %}
-            </a>{% else %}
+                {# djlint:off H025 #}
+            </a>
+            {# djlint:on #}
+        {% else %}
         </div>
     {% endif %}

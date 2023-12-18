@@ -30,10 +30,12 @@
     {% elif has_newsletter and fallback %}
         <h4>Unterstützen Sie FragDenStaat!</h4>
         <div class="d-grid">
+            {# djlint:off D018 #}
             <a class="btn btn-danger text-white"
                href="/spenden/?pk_campaign=newsletter-subscribed&amp;pk_keyword={{ request.path | urlencode }}">
                 Jetzt spenden
             </a>
+            {# djlint:on #}
         </div>
     {% endif %}
 </div>
