@@ -54,7 +54,7 @@ pkgs.mkShell {
     pythonPackages.ocrmypdf
     pythonPackages.weasyprint
 
-    pkgconfig
+    pkg-config
     geos
     cairo
     pango
