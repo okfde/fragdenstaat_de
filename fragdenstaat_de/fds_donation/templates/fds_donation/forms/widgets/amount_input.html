@@ -17,7 +17,9 @@
             </div>
         </div>
     {% endif %}
+    {# djlint:off H021 #}
     <div class="input-group mt-2" style="max-width: 200px">
+        {# djlint:on #}
         {% include "django/forms/widgets/text.html" %}
         <span class="input-group-text">{{ currency }}</span>
     </div>

@@ -35,24 +35,24 @@
                     />
                     {% if not instance.external_picture and not instance.use_no_cropping %}</picture>{% endif %}
                 {% if picture_link %}</a>{% endif %}
-            {# start render figure/figcaption #}
-            {% if instance.caption_text or instance.picture.author or instance.picture.description %}
-                <figcaption class="text-end">
-                    {% if instance.caption_text or instance.picture.description %}
-                        <div class="picture-description">
-                            {% if instance.caption_text %}
-                                {{ instance.caption_text }}
-                            {% elif instance.picture.description %}
-                                {{ instance.picture.description }}{% endif %}
-                                {% if instance.picture.author %}–{% endif %}
-                                </div>
-                            {% endif %}
-                            {% if instance.picture.author %}<div class="picture-credits">{{ instance.picture.author|markdown }}</div>{% endif %}
-                        </figcaption>
-                    </figure>
-                {% endif %}
-                {# end render figure/figcaption #}
-                {% comment %}
+                {# start render figure/figcaption #}
+                {% if instance.caption_text or instance.picture.author or instance.picture.description %}
+                    <figcaption class="text-end">
+                        {% if instance.caption_text or instance.picture.description %}
+                            <div class="picture-description">
+                                {% if instance.caption_text %}
+                                    {{ instance.caption_text }}
+                                {% elif instance.picture.description %}
+                                    {{ instance.picture.description }}{% endif %}
+                                    {% if instance.picture.author %}–{% endif %}
+                                    </div>
+                                {% endif %}
+                                {% if instance.picture.author %}<div class="picture-credits">{{ instance.picture.author|markdown }}</div>{% endif %}
+                            </figcaption>
+                        </figure>
+                    {% endif %}
+                    {# end render figure/figcaption #}
+                    {% comment %}
     # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
     # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure
     # https://github.com/divio/django-filer/blob/master/filer/models/imagemodels.py
@@ -83,4 +83,4 @@
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% endfor %}
-                {% endcomment %}
+                    {% endcomment %}

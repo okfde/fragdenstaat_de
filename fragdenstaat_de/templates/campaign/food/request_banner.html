@@ -4,11 +4,13 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
+                    {# djlint:off D018 #}
                     <a href="/kampagnen/lebensmittelkontrolle/app/?pk_campaign=request">
                         <img src="https://media.frag-den-staat.de/files/media/thumbnails/95/94/9594735c-851f-4192-b86f-9845806ff763/topf_secret_square_1.png__210x0_q85_subject_location-500%2C500_subsampling-2_upscale.png"
                              height="100px"
                              alt="Topf Secret" />
                     </a>
+                    {# djlint:on #}
                 </div>
                 <div class="col-auto">
                     {% if campaign.description %}{{ campaign.description|markdown }}{% endif %}
