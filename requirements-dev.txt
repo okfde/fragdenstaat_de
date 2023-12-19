@@ -103,7 +103,7 @@ celery==5.2.7
     #   froide
 certifi==2023.7.22
     # via
-    #   elasticsearch
+    #   elastic-transport
     #   requests
     #   sentry-sdk
 cffi==1.15.1
@@ -263,8 +263,10 @@ django-crossdomainmedia==0.0.4
     #   froide
 django-debug-toolbar==4.1.0
     # via -r requirements-dev.in
-django-elasticsearch-dsl==7.3
-    # via froide
+django-elasticsearch-dsl==8.0
+    # via
+    #   -r requirements.in
+    #   froide
 django-entangled==0.5.4
     # via djangocms-frontend
 django-filer==2.2.4
@@ -409,11 +411,13 @@ easy-thumbnails[svg]==2.8.5
     #   djangocms-frontend
     #   djangocms-picture
     #   froide
-elasticsearch==7.17.9
+elastic-transport==8.11.0
+    # via elasticsearch
+elasticsearch==8.11.1
     # via
     #   -r requirements.in
     #   elasticsearch-dsl
-elasticsearch-dsl==7.4.1
+elasticsearch-dsl==8.11.0
     # via
     #   -r requirements.in
     #   django-elasticsearch-dsl
@@ -788,7 +792,6 @@ six==1.16.0
     #   click-repl
     #   django-elasticsearch-dsl
     #   djangorestframework-csv
-    #   elasticsearch-dsl
     #   geocoder
     #   html5lib
     #   python-dateutil
@@ -874,7 +877,7 @@ uritemplate==4.1.1
     #   drf-spectacular
 urllib3==1.26.16
     # via
-    #   elasticsearch
+    #   elastic-transport
     #   requests
     #   sentry-sdk
 vine==5.0.0

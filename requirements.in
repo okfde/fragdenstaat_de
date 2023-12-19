@@ -12,6 +12,7 @@ django-configurations
 django-contractor
 django-contrib-comments
 django-crossdomainmedia
+django-elasticsearch-dsl>=8.0,<9.0
 django-filer>=2.2.4
 django-filingcabinet
 django-filter
@@ -37,8 +38,8 @@ djangocms-video
 djangorestframework>=3.14.0
 djangorestframework-csv
 djangorestframework-jsonp
-elasticsearch-dsl>=7.0.0<8.0.0
-elasticsearch<8.0.0,>=7.0.0
+elasticsearch-dsl>=8.0.0<9.0.0
+elasticsearch<9.0.0,>=8.0.0
 geoip2
 html-text
 icalendar
