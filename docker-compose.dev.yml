@@ -23,6 +23,7 @@ services:
       - "cluster.routing.allocation.disk.watermark.low=3gb"
       - "cluster.routing.allocation.disk.watermark.high=2gb"
       - "cluster.routing.allocation.disk.watermark.flood_stage=1gb"
+      - "xpack.security.enabled=false"
     ports:
       - "127.0.0.1:9200:9200"
 volumes:
