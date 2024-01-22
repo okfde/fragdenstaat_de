@@ -852,7 +852,7 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         "donation_gift",
     )
     search_fields = ("email", "donation__donor__email", "donation_gift__name")
-    actions = ["notify_shipped"]
+    actions = ["notify_shipped", "export_csv"]
 
     def get_queryset(self, request):
         return (
@@ -903,6 +903,27 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         )
 
     notify_shipped.short_description = _("notify shipped and set date")
+
+    def export_csv(self, request, queryset):
+        def get_rows(queryset):
+            for object in queryset:
+                yield {
+                    "id": object.id,
+                    "email": object.email,
+                    "first_name": object.first_name,
+                    "last_name": object.last_name,
+                    "company_name": object.company_name,
+                    "address": object.address,
+                    "postcode": object.postcode,
+                    "city": object.city,
+                    "country": object.country.name,
+                    "full_address": object.formatted_address(),
+                }
+
+        donor_data = list(get_rows(queryset))
+        return export_csv_response(dict_to_csv_stream(donor_data))
+
+    export_csv.short_description = _("export as csv")
 
 
 class DefaultDonationAdmin(DonationAdmin):
