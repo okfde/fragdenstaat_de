@@ -34,6 +34,6 @@ class Test(FragDenStaatBase):
     )
     ELASTICSEARCH_INDEX_PREFIX = "fds_test"
     ELASTICSEARCH_DSL = {
-        "default": {"hosts": "localhost:9200"},
+        "default": {"hosts": "http://localhost:9200"},
     }
     FIXTURE_DIRS = [os.path.join(THEME_ROOT, "..", "tests", "fixtures")]

@@ -519,7 +519,7 @@ class FragDenStaatBase(German, Base):
 
     ELASTICSEARCH_INDEX_PREFIX = "fragdenstaat_de"
     ELASTICSEARCH_DSL = {
-        "default": {"hosts": "localhost:9200"},
+        "default": {"hosts": "http://localhost:9200"},
     }
     ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = "froide.helper.search.CelerySignalProcessor"
 
