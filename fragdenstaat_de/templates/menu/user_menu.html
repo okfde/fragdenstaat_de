@@ -1,33 +1,39 @@
 {% load i18n %}
 {% load account_tags %}
-
 {% if request.user.is_authenticated %}
-  {% get_menu_items as menu_items %}
+    {% get_menu_items as menu_items %}
 {% endif %}
-
 {% if request.user.is_authenticated %}
-  {% for menu_item in menu_items.before_request %}
-    <li>
-      <a class="dropdown-item" href="{{ menu_item.url }}">{{ menu_item.label }}</a>
+    <li class="text-bg-body-tertiary dropdown-header tight-margin py-3">
+        <div class="text-primary font-weight-semibold">
+            {% blocktrans with name=request.user.get_full_name %}Hello, {{ name }}!{% endblocktrans %}
+        </div>
+        <div>{{ request.user.email }}</div>
     </li>
-  {% endfor %}
-  {% for menu_item in menu_items.before_settings %}
+    {% for menu_item in menu_items.before_request %}
+        <li>
+            <a class="dropdown-item" href="{{ menu_item.url }}">{{ menu_item.label }}</a>
+        </li>
+    {% endfor %}
+    {% for menu_item in menu_items.before_settings %}
+        <li>
+            <a class="dropdown-item" href="{{ menu_item.url }}">{{ menu_item.label }}</a>
+        </li>
+    {% endfor %}
+    {% for menu_item in menu_items.after_settings %}
+        <li>
+            <a class="dropdown-item" href="{{ menu_item.url }}">{{ menu_item.label }}</a>
+        </li>
+    {% endfor %}
     <li>
-      <a class="dropdown-item" href="{{ menu_item.url }}">{{ menu_item.label }}</a>
+        <hr class="dropdown-divider" />
     </li>
-  {% endfor %}
-  {% for menu_item in menu_items.after_settings %}
     <li>
-      <a class="dropdown-item" href="{{ menu_item.url }}">{{ menu_item.label }}</a>
+        <form action="{% url 'account-logout' %}"
+              method="post"
+              class="dropdown-item">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link p-0">{% blocktrans %}Log out{% endblocktrans %}</button>
+        </form>
     </li>
-  {% endfor %}
-  <li>
-    <hr class="dropdown-divider" />
-  </li>
-  <li>
-    <form action="{% url 'account-logout' %}" method="post" class="dropdown-item">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-link p-0">{% blocktrans %}Log out{% endblocktrans %}</button>
-    </form>
-  </li>
 {% endif %}

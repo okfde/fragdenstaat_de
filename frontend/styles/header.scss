@@ -13,7 +13,7 @@ $c: map.get($container-max-widths, 'xxl');
     list-style: none;
     padding: 0;
     margin: 0;
-    z-index: 1047;
+    z-index: 100;
   }
 
   ul.nav-ul {
@@ -60,7 +60,6 @@ $c: map.get($container-max-widths, 'xxl');
       top: calc(100% + $spacer + 1px); // to show the navbar border
       left: calc(var(--bs-gutter-x) * -0.5);
       right: calc(var(--bs-gutter-x) * -0.5);
-      padding: var(--bs-gutter-x);
       background-color: var(--bs-body-bg);
       width: calc(100% + var(--bs-gutter-x));
       opacity: 0;
@@ -70,6 +69,10 @@ $c: map.get($container-max-widths, 'xxl');
       transform-origin: top;
       border-bottom: 3px var(--bs-blue-500) solid;
       z-index: 1046;
+
+      li {
+        padding: 0 var(--bs-gutter-x);
+      }
 
       &::before {
         position: absolute;
@@ -141,18 +144,11 @@ $c: map.get($container-max-widths, 'xxl');
     }
 
     li.nav-search {
+      align-self: end; // to align with the logo
+
       select,
       input {
         max-width: 7rem;
-      }
-
-      &.nav-search-redundant {
-        opacity: 0.5;
-        transition: opacity 0.3s linear;
-
-        &:hover {
-          opacity: 1;
-        }
       }
     }
 
