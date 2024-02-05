@@ -28,6 +28,7 @@ $c: map.get($container-max-widths, 'xxl');
     display: block;
     font-weight: 600;
     color: var(--bs-emphasis-color);
+    padding: 0;
 
     &:hover {
       text-decoration: none;
@@ -187,5 +188,11 @@ $c: map.get($container-max-widths, 'xxl');
         max-width: none;
       }
     }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  header#header:has(+ nav .breadcrumb) {
+    border-bottom: 1px var(--bs-border-color-translucent) solid;
   }
 }

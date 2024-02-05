@@ -1,4 +1,14 @@
+{% load i18n %}
 {% load fds_cms_tags %}
+{% load cms_tags %}
+
+<li class="breadcrumb-item">
+    {% page_url "home" as home_url %}
+    <a href="{{ home_url|default:'/' }}">
+        <i class="fa fa-home"></i>
+        <span class="sr-only">{% trans "Home Page" %}</span>
+    </a>
+</li>
 
 {% get_breadcrumb_ancestor ancestors.0 as custom_ancestor %}
 {% if custom_ancestor %}
