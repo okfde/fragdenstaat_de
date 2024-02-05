@@ -40,8 +40,8 @@ $c: map.get($container-max-widths, 'xxl');
     align-items: center;
 
     img {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2rem;
+      height: 2rem;
     }
 
     span {
@@ -123,13 +123,6 @@ $c: map.get($container-max-widths, 'xxl');
     ul.nav-ul {
       justify-content: space-between;
     }
-
-    li.nav-search {
-      padding-top: $spacer;
-      padding-bottom: $spacer * 2;
-      margin-bottom: $spacer;
-      border-bottom: 1px var(--bs-border-color-translucent) solid;
-    }
   }
 
   @include media-breakpoint-up(md) {
@@ -140,10 +133,6 @@ $c: map.get($container-max-widths, 'xxl');
 
     ul.nav-menu-expanded {
       display: contents;
-    }
-
-    li.nav-sm {
-      transform: translateY(0.25rem); // balance to logo
     }
 
     li.nav-sm a,
