@@ -112,21 +112,24 @@
                         <li>
                             <a href="{{ lawsuits_url|default:'/klagen/' }}">{{ lawsuits_title }}</a>
                         </li>
+
                         {% page_url "about" as about_url %}
                         {% if about_url %}
                             {% page_attribute "menu_title" "about" as about_title %}
-                            <li class="nav-sm ms-md-auto">
+                            <li class="nav-sm ms-md-auto order-md-5">
                                 <a href="{{ about_url|default:"/ueber-uns/" }}">{{ about_title }}</a>
                             </li>
                         {% endif %}
+
                         {% page_url "newsletter" as newsletter_url %}
                         {% if newsletter_url %}
-                            <li class="nav-sm">
+                            <li class="nav-sm order-md-5">
                                 <a href="{{ newsletter_url }}">{% translate "Newsletter" %}</a>
                             </li>
                         {% endif %}
+
                         {% page_url "donate" as donate_url %}
-                        <li class="nav-sm">
+                        <li class="nav-sm order-md-5">
                             <a class="text-danger"
                                href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
@@ -138,7 +141,7 @@
                         </li>
                         {% if not request.user.is_authenticated %}
                             {% url 'account-login' as login_url %}
-                            <li class="nav-sm">
+                            <li class="nav-sm order-md-5">
                                 <a href="{% url 'account-login' %}?next={{ request.path|urlencode }}">
                                     <i class="fa fa-sign-in d-none d-md-inline" aria-hidden="true"></i>
                                     {% blocktrans %}Sign in{% endblocktrans %}
@@ -147,7 +150,7 @@
                             <li class="nav-sm d-md-none">
                                 <a href="{% url 'account-signup' %}?next={{ request.path|urlencode }}">{% blocktrans %}Sign Up{% endblocktrans %}</a>
                             </li>
-                            <li class="nav-sm">
+                            <li class="nav-sm d-md-none">
                                 <hr>
                             </li>
                         {% endif %}
