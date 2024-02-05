@@ -5,9 +5,13 @@
 {% block navbar %}
   {{ block.super }}
 
-  <nav class="container-md" aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      {% show_breadcrumb 1 "cms/breadcrumbs.html" %}
-    </ol>
+  
+
+  <nav aria-label="breadcrumb"{% if request.current_page.fdspageextension.breadcrumb_background %} class="text-bg-{{ request.current_page.fdspageextension.breadcrumb_background }}"{% endif %}>
+    <div class="container-md">
+      <ol class="breadcrumb">
+        {% show_breadcrumb 1 "cms/breadcrumbs.html" %}
+      </ol>
+    </div>
   </nav>
 {% endblock navbar %}
