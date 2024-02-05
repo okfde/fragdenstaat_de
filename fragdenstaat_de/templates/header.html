@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 {% if request.user.is_authenticated or reduced != True %}
-                    <li class="nav-sm">
+                    <li class="nav-sm order-md-last" id="menu-user-nav">
                         {% if request.user.is_authenticated %}
                             <div>
                                 {% if request.user.profile_photo %}
@@ -59,7 +59,8 @@
                                         <span class="d-none d-md-block">{{ request.user.first_name }}</span>
                                     </button>
                                 {% endif %}
-                                <ul class="nav-menu dropdown-menu dropdown-menu-end" id="menu-user">
+                                <ul class="nav-menu dropdown-menu dropdown-menu-end pb-3 pb-md-0"
+                                    id="menu-user">
                                     {% include "menu/user_menu.html" %}
                                 </ul>
                             </div>
@@ -74,8 +75,8 @@
                     </li>
                 {% endif %}
                 {% if reduced != True %}
-                    <ul class="nav-menu nav-menu-expanded" id="menu-main">
-                        <li class="nav-break" aria-hidden="true"></li>
+                    <ul class="nav-menu nav-menu-expanded py-3 py-md-0" id="menu-main">
+                        <li class="nav-break d-none d-md-block" aria-hidden="true"></li>
                         {% url 'foirequest-list' as requests_url %}
                         <li class="nav-dropdown">
                             <button class="btn btn-link p-0 nav-dropdown-trigger" aria-expanded="false">
@@ -155,7 +156,7 @@
                 {% endif %}
                 {% if reduced == True %}
                     {% page_url "donate" as donate_url %}
-                    <li class="nav-sm ms-auto">
+                    <li class="nav-sm ms-auto d-none d-md-block">
                         <a class="text-danger"
                            href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
                             <i class="fa fa-heart" aria-hidden="true"></i>
