@@ -100,7 +100,6 @@ const searchUrls = [
 
 if (searchUrls.includes(window.location.pathname)) {
   navSearch?.remove()
-  document.querySelector('#menu-user-nav')?.classList.add('ms-md-auto')
 }
 
 const input = navSearch?.querySelector('input')
