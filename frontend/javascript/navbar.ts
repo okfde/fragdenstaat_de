@@ -1,9 +1,9 @@
 import transitionDone from './misc/await-transition'
 
-const header = document.querySelector('#header')!
+const header = document.querySelector('#header')
 let counter = 0
 
-header.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
+header?.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
   el.addEventListener('click', async () => {
     const targetName = el.dataset.target
     if (targetName == null) return
@@ -93,11 +93,29 @@ function updateDropdowns(): void {
 window.addEventListener('resize', updateDropdowns)
 updateDropdowns()
 
-const navSearch = header.querySelector<HTMLElement>('.nav-search')!
+const navSearch = header?.querySelector<HTMLElement>('.nav-search')
 const searchUrls = [
-  ...navSearch.querySelector<HTMLSelectElement>('select')!
+  ...(navSearch?.querySelector<HTMLSelectElement>('select') ?? [])
 ].map((el) => el.value)
 
 if (searchUrls.includes(window.location.pathname)) {
-  navSearch.classList.add('nav-search-redundant')
+  navSearch?.remove()
+  document.querySelector('#menu-user-nav')?.classList.add('ms-md-auto')
 }
+
+const input = navSearch?.querySelector('input')
+const placeholder = input?.getAttribute('placeholder') ?? ''
+const isMac = navigator.userAgent.includes('Mac OS X')
+if (isMac) {
+  // macOS
+  input?.setAttribute('placeholder', `${placeholder} (⌘ + K)`)
+} else {
+  input?.setAttribute('placeholder', `${placeholder} (Ctrl + K)`)
+}
+
+document.addEventListener('keydown', (e) => {
+  if ((isMac ? e.metaKey : e.ctrlKey) && e.key === 'k') {
+    e.preventDefault()
+    input?.focus()
+  }
+})
