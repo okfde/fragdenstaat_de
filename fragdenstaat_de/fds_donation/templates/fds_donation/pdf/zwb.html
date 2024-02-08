@@ -90,13 +90,12 @@
         .mt-3 {
           margin-top: 12pt;
         }
-        hr {
-          margin-top: 96pt;
+
+        .bottom {
+          position: absolute;
+          bottom: 0;
         }
-        aside {
-          top: 90pt;
-          position: relative;
-        }
+
         .signature {
           width: auto;
           height: 100px;
@@ -182,27 +181,29 @@
                     ☐  Es wird bestätigt, dass es sich nicht um einen Mitgliedsbeitrag handelt, dessen Abzug nach § 10b Abs. 1 des Einkommensteuergesetzes ausgeschlossen ist.
                 </p>
             </div>
-            <aside>
-                Berlin, {{ current_date }}
-                {% if signature_string %}
-                    <img class="signature"
-                         alt="Signature"
-                         src="data:image/png;base64,{{ signature_string }}" />
-                {% endif %}
-            </aside>
-            <hr />
-            <small>(Ort, Datum und Unterschrift des Zuwendungsempfängers)</small>
-            <p class="fineprint mt-3">
-                <strong>Hinweis:</strong>
-                <br />
-                Der Zuwendungsempfänger hat die Nutzung des maschinellen Verfahrens zur Erstellung der Zuwendungsbestätigung dem Finanzamt Leipzig I mit Schreiben vom 04.09.2020 angezeigt.
-                <br />
-                <br />
-                Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt oder veranlasst, dass Zuwendungen nicht zu den in der Zuwendungsbestätigung angegebenen steuerbegünstigten Zwecken verwendet werden, haftet für die entgangene Steuer (§ 10b Abs. 4 EStG, § 9 Abs. 3 KStG, § 9 Nr. 5 GewStG).
-            </p>
-            <p class="fineprint">
-                Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der Zuwendung anerkannt, wenn das Datum des Freistellungsbescheides länger als 5 Jahre bzw. <strong>das Datum der Feststellung der Einhaltung der satzungsmäßigen Voraussetzungen nach § 60a Abs. 1 AO länger als 3 Jahre seit Ausstellung des Bescheides zurückliegt (§ 63 Abs. 5 AO).</strong>
-            </p>
+            <div class="bottom">
+                <aside>
+                    Berlin, {{ current_date }}
+                    {% if signature_string %}
+                        <img class="signature"
+                             alt="Signature"
+                             src="data:image/png;base64,{{ signature_string }}" />
+                    {% endif %}
+                </aside>
+                <hr />
+                <small>(Ort, Datum und Unterschrift des Zuwendungsempfängers)</small>
+                <p class="fineprint mt-3">
+                    <strong>Hinweis:</strong>
+                    <br />
+                    Der Zuwendungsempfänger hat die Nutzung des maschinellen Verfahrens zur Erstellung der Zuwendungsbestätigung dem Finanzamt Leipzig I mit Schreiben vom 04.09.2020 angezeigt.
+                    <br />
+                    <br />
+                    Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt oder veranlasst, dass Zuwendungen nicht zu den in der Zuwendungsbestätigung angegebenen steuerbegünstigten Zwecken verwendet werden, haftet für die entgangene Steuer (§ 10b Abs. 4 EStG, § 9 Abs. 3 KStG, § 9 Nr. 5 GewStG).
+                </p>
+                <p class="fineprint">
+                    Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der Zuwendung anerkannt, wenn das Datum des Freistellungsbescheides länger als 5 Jahre bzw. <strong>das Datum der Feststellung der Einhaltung der satzungsmäßigen Voraussetzungen nach § 60a Abs. 1 AO länger als 3 Jahre seit Ausstellung des Bescheides zurückliegt (§ 63 Abs. 5 AO).</strong>
+                </p>
+            </div>
         </section>
         <section>
             <h3>Anlage zur Sammelbestätigung</h3>
