@@ -22,10 +22,6 @@
 
 {% for ance in ancestors %}
     <li {% if forloop.last %}class="breadcrumb-item active" aria-current="page"{% else %}class="breadcrumb-item"{% endif %}>
-        {% if not forloop.last %}
-            <a href="{{ ance.get_absolute_url }}">{{ ance.get_menu_title }}</a>
-        {% else %}
-            {{ ance.get_menu_title }}
-        {% endif %}
+        <a href="{{ ance.get_absolute_url }}"{% if forloop.last %} aria-current="page"{% endif %}>{{ ance.get_menu_title }}</a>
     </li>
 {% endfor %}
