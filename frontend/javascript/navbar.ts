@@ -99,6 +99,7 @@ const searchUrls = [
 ].map((el) => el.value)
 
 if (searchUrls.includes(window.location.pathname)) {
+  navSearch?.previousElementSibling?.remove()
   navSearch?.remove()
 }
 

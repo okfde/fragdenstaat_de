@@ -36,6 +36,11 @@ $c: map.get($container-max-widths, 'xxl');
     }
   }
 
+  a.active,
+  button.active {
+    color: var(--bs-link-color);
+  }
+
   button.user-profile {
     display: flex;
     align-items: center;
@@ -73,6 +78,10 @@ $c: map.get($container-max-widths, 'xxl');
 
       li {
         padding: 0 var(--bs-gutter-x);
+      }
+
+      ul li {
+        padding: 0 calc(0.75 * var(--bs-gutter-x));
       }
 
       &::before {
@@ -120,7 +129,6 @@ $c: map.get($container-max-widths, 'xxl');
     }
 
     .nav-dropdown .dropdown-item {
-      padding: $spacer * 0.25 $spacer;
       color: var(--bs-link-color);
     }
 
@@ -171,6 +179,10 @@ $c: map.get($container-max-widths, 'xxl');
         background-color: var(--bs-border-color-translucent);
         height: 1px;
       }
+    }
+
+    #menu-user-nav {
+      order: 7;
     }
   }
 
