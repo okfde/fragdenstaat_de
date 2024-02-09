@@ -1,7 +1,6 @@
 {% load i18n %}
 {% load fds_cms_tags %}
 {% load cms_tags %}
-
 <li class="breadcrumb-item">
     {% page_url "home" as home_url %}
     <a href="{{ home_url|default:'/' }}">
@@ -9,19 +8,15 @@
         <span class="sr-only">{% trans "Home Page" %}</span>
     </a>
 </li>
-
 {% get_breadcrumb_ancestor ancestors.0 as custom_ancestor %}
 {% if custom_ancestor %}
-<li class="breadcrumb-item">
-    {% if custom_ancestor.icon %}<i class="fa fa-{{ custom_ancestor.icon }}" aria-hidden="true"></i>{% endif %}
-    <a href="{{ custom_ancestor.url }}">
-        {{ custom_ancestor.title }}
-    </a>
-</li>
+    <li class="breadcrumb-item">
+        <a href="{{ custom_ancestor.url }}">{{ custom_ancestor.title }}</a>
+    </li>
 {% endif %}
-
 {% for ance in ancestors %}
     <li {% if forloop.last %}class="breadcrumb-item active" aria-current="page"{% else %}class="breadcrumb-item"{% endif %}>
-        <a href="{{ ance.get_absolute_url }}"{% if forloop.last %} aria-current="page"{% endif %}>{{ ance.get_menu_title }}</a>
+        <a href="{{ ance.get_absolute_url }}"
+           {% if forloop.last %}aria-current="page"{% endif %}>{{ ance.get_menu_title }}</a>
     </li>
 {% endfor %}
