@@ -81,7 +81,6 @@ def get_soft_root(page):
 
 @register.simple_tag(takes_context=True)
 def get_breadcrumb_ancestor(context, navigation_node):
-    print(context)
     if navigation_node is None:
         return
 
@@ -89,7 +88,6 @@ def get_breadcrumb_ancestor(context, navigation_node):
         request = context["request"]
     except KeyError:
         return
-
 
     try:
         page = Page.objects.get(pk=navigation_node.id)
@@ -106,6 +104,5 @@ def get_breadcrumb_ancestor(context, navigation_node):
 
     title = ancestor.get_title(language=request.LANGUAGE_CODE)
     url = ancestor.get_absolute_url(language=request.LANGUAGE_CODE)
-    icon = ancestor.fdspageextension.icon
 
-    return {"title": title, "url": url, "icon": icon}
+    return {"title": title, "url": url}
