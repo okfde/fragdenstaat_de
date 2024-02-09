@@ -1,19 +1,23 @@
 from django.utils.translation import gettext_lazy as _
 
+MAIN_BACKGROUNDS = [
+    ("", _("None")),
+    ("callout", _("Callout")),
+    ("highlight", _("Highlight")),
+    ("body", _("Default Body")),
+    ("body-secondary", _("Body Secondary")),
+    ("body-tertiary", _("Body Tertiary")),
+    ("dark-subtle", _("Dark Subtle")),
+    ("light-subtle", _("Light Subtle")),
+    ("primary", _("Primary")),
+    ("primary-subtle", _("Primary Subtle")),
+    ("secondary", _("Secondary")),
+    ("secondary-subtle", _("Secondary Subtle")),
+]
+
 BACKGROUND = (
-    [
-        ("", _("None")),
-        ("callout", _("Callout")),
-        ("highlight", _("Highlight")),
-        ("body", _("Default Body")),
-        ("body-secondary", _("Body Secondary")),
-        ("body-tertiary", _("Body Tertiary")),
-        ("dark-subtle", _("Dark Subtle")),
-        ("light-subtle", _("Light Subtle")),
-        ("primary", _("Primary")),
-        ("primary-subtle", _("Primary Subtle")),
-        ("secondary", _("Secondary")),
-        ("secondary-subtle", _("Secondary Subtle")),
+    MAIN_BACKGROUNDS
+    + [
         ("info", _("Info")),
         ("info-subtle", _("Info Subtle")),
         ("success", _("Success")),
