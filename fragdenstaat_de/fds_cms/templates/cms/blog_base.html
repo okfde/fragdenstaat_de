@@ -7,8 +7,9 @@
           href="{% url 'blog:article-latest-feed' %}" />
 {% endblock extra_head %}
 {% block body %}
-    {% include "snippets/breadcrumbs.html" %}
+    {% include "snippets/breadcrumbs.html" with breadcrumbs_background="blue-500" %}
     {% block app_body %}
-        {% block content %}{% endblock %}
-    {% endblock %}
-{% endblock %}
+        {% block content %}
+        {% endblock content %}
+    {% endblock app_body %}
+{% endblock body %}
