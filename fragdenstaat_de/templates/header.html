@@ -37,17 +37,17 @@
                     </a>
                 </li>
                 {% if request.user.is_authenticated and reduced != True %}
-                    <li class="nav-sm" id="menu-user-nav">
+                    <li id="menu-user-nav">
                         <div>
                             {% if request.user.profile_photo %}
                                 <button class="btn btn-link user-profile nav-toggle-menu nav-dropdown-trigger"
                                         data-target="user"
                                         aria-controls="menu-user">
                                     <img width="32"
-                                            height="32"
-                                            src="{% thumbnail request.user.profile_photo 64x64 %}"
-                                            alt=""
-                                            class="rounded-circle" />
+                                         height="32"
+                                         src="{% thumbnail request.user.profile_photo 64x64 %}"
+                                         alt=""
+                                         class="rounded-circle" />
                                     <span class="d-none d-md-inline">{{ request.user.first_name }}</span>
                                 </button>
                             {% else %}
@@ -68,21 +68,19 @@
                     <li class="nav-sm d-md-none">
                         {% page_url "donate" as donate_url %}
                         <a class="btn text-danger"
-                            href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+                           href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
                             <i class="fa fa-heart" aria-hidden="true"></i>
                             <span class="visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
                         </a>
                     </li>
                 {% endif %}
-
                 {% if reduced != True %}
                     <ul class="nav-menu nav-menu-expanded py-3 py-md-0" id="menu-main">
                         <li class="nav-break d-none d-md-block" aria-hidden="true"></li>
                         {% url 'foirequest-list' as requests_url %}
                         <li class="nav-dropdown">
-                            <button class="btn btn-link p-0 nav-dropdown-trigger{% if request.path|startswith:requests_url %} active{% endif %}" aria-expanded="false">
-                                {% blocktrans %}Requests{% endblocktrans %}
-                            </button>
+                            <button class="btn btn-link p-0 nav-dropdown-trigger{% if request.path|startswith:requests_url %} active{% endif %}"
+                                    aria-expanded="false">{% blocktrans %}Requests{% endblocktrans %}</button>
                             <ul class="list-unstyled dropdown-menu">
                                 <li>
                                     <a class="dropdown-item" href="{{ requests_url }}">{% blocktrans %}See requests{% endblocktrans %}</a>
@@ -100,20 +98,22 @@
                         </li>
                         {% page_url "campaigns"|default:'/kampagnen/' as campaigns_url %}
                         <li>
-                            <a href="{{ campaigns_url }}"{% if request.path|startswith:campaigns_url %} class="active" aria-current="page"{% endif %}>{% blocktrans %}Campaigns{% endblocktrans %}</a>
+                            <a href="{{ campaigns_url }}"
+                               {% if request.path|startswith:campaigns_url %}class="active" aria-current="page"{% endif %}>{% blocktrans %}Campaigns{% endblocktrans %}</a>
                         </li>
                         {% page_url "blog" as blog_url %}
                         <li>
-                            <a href="{{ blog_url|default:'/blog/' }}"{% if request.path|startswith:blog_url %} class="active" aria-current="page"{% endif %}>{% blocktrans %}Investigations{% endblocktrans %}</a>
+                            <a href="{{ blog_url|default:'/blog/' }}"
+                               {% if request.path|startswith:blog_url %}class="active" aria-current="page"{% endif %}>{% blocktrans %}Investigations{% endblocktrans %}</a>
                         </li>
                         {% page_url "lawsuits" as lawsuits_url %}
                         {% if lawsuits_url %}
                             {% page_attribute "menu_title" "lawsuits" as lawsuits_title %}
                         {% endif %}
                         <li>
-                            <a href="{{ lawsuits_url|default:'/klagen/' }}"{% if request.path|startswith:lawsuits_url %} class="active" aria-current="page"{% endif %}>{{ lawsuits_title }}</a>
+                            <a href="{{ lawsuits_url|default:'/klagen/' }}"
+                               {% if request.path|startswith:lawsuits_url %}class="active" aria-current="page"{% endif %}>{{ lawsuits_title }}</a>
                         </li>
-
                         {% page_url "about" as about_url %}
                         {% if about_url %}
                             {% page_attribute "menu_title" "about" as about_title %}
@@ -121,14 +121,13 @@
                                 <a href="{{ about_url|default:"/ueber-uns/" }}"{% if request.path|startswith:about_url %} class="active" aria-current="page"{% endif %}>{{ about_title }}</a>
                             </li>
                         {% endif %}
-
                         {% page_url "newsletter" as newsletter_url %}
                         {% if newsletter_url %}
                             <li class="nav-sm order-md-last">
-                                <a href="{{ newsletter_url }}"{% if request.path|startswith:newsletter_url %} class="active" aria-current="page"{% endif %}>{% translate "Newsletter" %}</a>
+                                <a href="{{ newsletter_url }}"
+                                   {% if request.path|startswith:newsletter_url %}class="active" aria-current="page"{% endif %}>{% translate "Newsletter" %}</a>
                             </li>
                         {% endif %}
-
                         {% page_url "donate" as donate_url %}
                         <li class="nav-sm order-md-last">
                             <a class="text-danger"
@@ -160,7 +159,7 @@
                 {% endif %}
                 {% if reduced == True %}
                     {% page_url "donate" as donate_url %}
-                    <li class="nav-sm ms-auto d-none d-md-block">
+                    <li class="ms-auto d-none d-md-block">
                         <a class="text-danger"
                            href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
                             <i class="fa fa-heart" aria-hidden="true"></i>
