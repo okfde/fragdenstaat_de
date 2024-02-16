@@ -26,7 +26,6 @@ header?.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
 
     target.classList.toggle('show')
     target.classList.remove('d-none')
-    target.style.visibility = 'visible'
 
     el.setAttribute(
       'aria-expanded',
