@@ -68,19 +68,22 @@ $c: map.get($container-max-widths, 'xxl');
       display: flex;
       flex-direction: column;
       gap: $spacer * 0.5 0;
+
       position: absolute;
+      width: calc(100% + var(--bs-gutter-x));
       top: calc(100% + $spacer + 1px); // to show the navbar border
       left: calc(var(--bs-gutter-x) * -0.5);
       right: calc(var(--bs-gutter-x) * -0.5);
+
       background-color: var(--bs-body-bg);
-      width: calc(100% + var(--bs-gutter-x));
+      border-bottom: 3px var(--bs-blue-500) solid;
 
       transition: clip-path 0.25s cubic-bezier(0, 0, 0.2, 1);
+      clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0);
 
-      clip-path: rect(0 0 0 100%);
-
-      transform-origin: top;
-      border-bottom: 3px var(--bs-blue-500) solid;
+      &.show {
+        clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+      }
 
       li {
         padding: 0 var(--bs-gutter-x);
@@ -89,11 +92,6 @@ $c: map.get($container-max-widths, 'xxl');
       ul li {
         padding: 0 calc(0.75 * var(--bs-gutter-x));
       }
-
-      &.show {
-        clip-path: rect(0 0 100% 100%);
-        //transform: translateY(0);
-      }
     }
 
     &::before {
@@ -101,7 +99,7 @@ $c: map.get($container-max-widths, 'xxl');
       z-index: 1045;
       left: 0;
       right: 0;
-      top: 100%;
+      top: calc(100% + 1px); // to show the navbar border
       height: 100vh;
       background-color: var(--bs-body-color);
       opacity: 0;
@@ -176,7 +174,7 @@ $c: map.get($container-max-widths, 'xxl');
         content: '';
         position: absolute;
         top: 0;
-        left: calc(calc(100vw - 100%) / -2);
+        left: calc((100vw - 100% + 1rem) / -2);
         right: 0;
         width: 100vw;
         background-color: var(--bs-border-color-translucent);
