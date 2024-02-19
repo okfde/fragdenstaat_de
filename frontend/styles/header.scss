@@ -43,6 +43,7 @@ $c: map.get($container-max-widths, 'xxl');
   a.active,
   button.active {
     color: var(--bs-link-color);
+    font-weight: 600;
   }
 
   .nav-logo svg {
@@ -194,6 +195,13 @@ $c: map.get($container-max-widths, 'xxl');
         width: 100vw;
         background-color: var(--bs-border-color-translucent);
         height: 1px;
+      }
+    }
+
+    #menu-main > li:not(.nav-sm) {
+      > a,
+      > button {
+        font-weight: 600;
       }
     }
 
