@@ -120,7 +120,7 @@ class ArticleDetailView(BaseBlogView, DetailView):
         ]
         return ctx
 
-    def get_breadcrumbs(self):
+    def get_breadcrumbs(self, context):
         breadcrumbs = get_base_breadcrumb()
 
         if self.object.categories.exists():
@@ -154,7 +154,7 @@ class ArticleListView(BaseBlogListView, ListView):
         context["featured"] = self.featured
         return context
 
-    def get_breadcrumbs(self):
+    def get_breadcrumbs(self, context):
         return get_base_breadcrumb()
 
 
@@ -184,7 +184,7 @@ class ArticleArchiveView(BaseBlogListView, ListView):
         context = super().get_context_data(**kwargs)
         return context
 
-    def get_breadcrumbs(self):
+    def get_breadcrumbs(self, context):
         return get_base_breadcrumb() + [(_("Archive"))]
 
 
@@ -201,7 +201,7 @@ class TaggedListView(BaseBlogListView, ListView):
         context = super().get_context_data(**kwargs)
         return context
 
-    def get_breadcrumbs(self):
+    def get_breadcrumbs(self, context):
         return get_base_breadcrumb() + [(self.tag.name)]
 
 
@@ -220,7 +220,7 @@ class AuthorArticleView(BaseBlogListView, ListView):
         context = super().get_context_data(**kwargs)
         return context
 
-    def get_breadcrumbs(self):
+    def get_breadcrumbs(self, context):
         return get_base_breadcrumb() + [(self.author.get_full_name())]
 
 
@@ -256,7 +256,7 @@ class CategoryArticleView(BaseBlogListView, ListView):
         context = super().get_context_data(**kwargs)
         return context
 
-    def get_breadcrumbs(self):
+    def get_breadcrumbs(self, context):
         return get_base_breadcrumb() + [(self.category.title)]
 
 
