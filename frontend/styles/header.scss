@@ -220,7 +220,7 @@ $c: map.get($container-max-widths, 'xxl');
 }
 
 @include media-breakpoint-up(lg) {
-  header#header:has(+ nav .breadcrumb) {
+  #header:has(+ nav .breadcrumb) {
     border-bottom: 1px var(--bs-border-color-translucent) solid;
   }
 }

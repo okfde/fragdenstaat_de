@@ -52,6 +52,12 @@ class FdsPageExtension(PageExtension):
         max_length=50,
         blank=True,
     )
+    breadcrumb_overlay = models.BooleanField(
+        _(
+            "Lay the breadcrumbs over the page content. Works well with hero image headers."
+        ),
+        default=False,
+    )
 
 
 class PageAnnotationCMSPlugin(CMSPlugin):
