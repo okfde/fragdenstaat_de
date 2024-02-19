@@ -52,8 +52,9 @@ header?.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
       })
     })
 
+    const height = target.clientHeight
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 150) hide()
+      if (window.scrollY > height) hide()
     })
   })
 )
