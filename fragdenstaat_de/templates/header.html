@@ -67,7 +67,7 @@
                 {% else %}
                     <li class="nav-sm d-lg-none">
                         {% page_url "donate" as donate_url %}
-                        <a class="btn text-danger"
+                        <a class="btn link-danger"
                            href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
                             <i class="fa fa-heart" aria-hidden="true"></i>
                             <span class="visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
@@ -130,7 +130,7 @@
                         {% endif %}
                         {% page_url "donate" as donate_url %}
                         <li class="nav-sm order-lg-last">
-                            <a class="text-danger"
+                            <a class="link-danger"
                                href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                 {% blocktrans %}Donate{% endblocktrans %}
@@ -160,7 +160,7 @@
                 {% if reduced == True %}
                     {% page_url "donate" as donate_url %}
                     <li class="ms-auto d-none d-lg-block">
-                        <a class="text-danger"
+                        <a class="link-danger"
                            href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
                             <i class="fa fa-heart" aria-hidden="true"></i>
                             <span class="visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
