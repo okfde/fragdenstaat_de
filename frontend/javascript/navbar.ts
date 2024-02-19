@@ -5,6 +5,8 @@ let counter = 0
 
 header?.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
   el.addEventListener('click', async () => {
+    counter++
+
     const targetName = el.dataset.target
     if (targetName == null) return
 
@@ -19,10 +21,8 @@ header?.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
     const otherTriggers = header.querySelectorAll('a[data-target]')
     otherTriggers.forEach((el) => el.setAttribute('aria-expanded', 'false'))
 
-    counter++
-
     updateDropdowns()
-    if (window.innerWidth >= 768) return
+    if (window.innerWidth >= 992) return
 
     target.classList.toggle('show')
     target.classList.remove('d-none')
@@ -63,7 +63,7 @@ function updateDropdowns(): void {
     const target = trigger.nextElementSibling!
     const el = target.parentElement!
 
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 992) {
       el.classList.remove('dropdown')
       target?.classList.remove('dropdown-menu')
       trigger.removeAttribute('data-bs-toggle')

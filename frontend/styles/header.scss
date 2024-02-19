@@ -26,7 +26,6 @@ $c: map.get($container-max-widths, 'xxl');
   a:not(.dropdown-item),
   button.btn-link {
     display: block;
-    font-weight: 600;
     color: var(--bs-emphasis-color);
     padding: 0;
 
@@ -55,7 +54,7 @@ $c: map.get($container-max-widths, 'xxl');
     }
   }
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     position: relative;
     border-bottom: 1px var(--bs-border-color-translucent) solid;
 
@@ -138,7 +137,18 @@ $c: map.get($container-max-widths, 'xxl');
     }
   }
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-between(md, lg) {
+    #menu-user {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    li.dropdown-header {
+      grid-column: span 2;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
     ul.nav-ul {
       flex-direction: row;
       gap: 0 $spacer * 2;
@@ -146,11 +156,6 @@ $c: map.get($container-max-widths, 'xxl');
 
     ul.nav-menu-expanded {
       display: contents;
-    }
-
-    li a,
-    li button {
-      font-weight: 500;
     }
 
     li.nav-search {
@@ -204,7 +209,7 @@ $c: map.get($container-max-widths, 'xxl');
   }
 }
 
-@include media-breakpoint-up(md) {
+@include media-breakpoint-up(lg) {
   header#header:has(+ nav .breadcrumb) {
     border-bottom: 1px var(--bs-border-color-translucent) solid;
   }
