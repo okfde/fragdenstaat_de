@@ -2,6 +2,11 @@
 
 $c: map.get($container-max-widths, 'xxl');
 
+#header {
+  position: relative;
+  z-index: 50;
+}
+
 #header nav {
   padding: $spacer 0;
   --#{$prefix}navbar-toggler-icon-bg: #{escape-svg(
@@ -38,6 +43,11 @@ $c: map.get($container-max-widths, 'xxl');
   a.active,
   button.active {
     color: var(--bs-link-color);
+  }
+
+  .nav-logo svg {
+    height: 2.5rem;
+    width: auto;
   }
 
   button.user-profile {
@@ -94,12 +104,12 @@ $c: map.get($container-max-widths, 'xxl');
     }
 
     &::before {
-      position: absolute;
-      z-index: 1045;
+      position: fixed;
+      z-index: -1; // still at least level of #header
       left: 0;
       right: 0;
-      top: calc(100% + 1px); // to show the navbar border
-      height: 100vh;
+      top: 0;
+      bottom: 0;
       background-color: var(--bs-body-color);
       opacity: 0;
       content: '';
