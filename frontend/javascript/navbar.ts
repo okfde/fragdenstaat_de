@@ -1,63 +1,73 @@
 import transitionDone from './misc/await-transition'
 
 const header = document.querySelector('#header')
-let counter = 0
+let open: HTMLElement | undefined = undefined
+let hide: () => void = () => {}
 
-header?.querySelectorAll<HTMLElement>('.nav-toggle-menu').forEach((el) =>
+const menuToggles = [
+  ...(header?.querySelectorAll<HTMLElement>('.nav-toggle-menu') ?? [])
+]
+
+menuToggles.forEach((el) =>
   el.addEventListener('click', async () => {
-    counter++
-
     const targetName = el.dataset.target
     if (targetName == null) return
 
-    const target = header.querySelector<HTMLElement>(`#menu-${targetName}`)
+    const target = header!.querySelector<HTMLElement>(`#menu-${targetName}`)
     if (target == null) return
 
     // hide other navs
-    const otherNavs = header.querySelectorAll('.nav-menu')
+    const otherNavs = header!.querySelectorAll('.nav-menu')
     otherNavs.forEach((el) => el !== target && el.classList.remove('show'))
     await transitionDone(otherNavs)
 
-    const otherTriggers = header.querySelectorAll('a[data-target]')
+    const otherTriggers = header!.querySelectorAll('a[data-target]')
     otherTriggers.forEach((el) => el.setAttribute('aria-expanded', 'false'))
 
     updateDropdowns()
     if (window.innerWidth >= 992) return
 
-    target.classList.toggle('show')
+    // hide if it is already open
+    if (open === target) return hide()
+
+    const show = !target.classList.contains('show')
+    open = target
+
     target.classList.remove('d-none')
 
-    el.setAttribute(
-      'aria-expanded',
-      target.classList.contains('show') ? 'true' : 'false'
-    )
+    el.setAttribute('aria-expanded', show ? 'true' : 'false')
 
-    if (target.classList.contains('show')) {
+    if (show) {
       target.querySelector('a')?.focus()
+      target.classList.add('show')
+    } else {
+      target.classList.remove('show')
     }
 
-    let id = counter
-
-    const hide = () => {
-      if (id === counter) {
-        target.classList.remove('show')
-        el.setAttribute('aria-expanded', 'false')
-      }
+    hide = () => {
+      target.classList.remove('show')
+      el.setAttribute('aria-expanded', 'false')
+      open = undefined
     }
-    window.addEventListener('resize', hide, { once: true })
-
-    window.requestAnimationFrame(() => {
-      window.addEventListener('click', (e) => {
-        if (!target.contains(e.target as Element) && id === counter) hide()
-      })
-    })
-
-    const height = target.clientHeight
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > height) hide()
-    })
   })
 )
+
+window.addEventListener('resize', () => hide())
+
+window.addEventListener('click', (e) => {
+  if (
+    open !== undefined &&
+    header?.contains(e.target as HTMLElement) === false
+  ) {
+    hide()
+  }
+})
+
+window.addEventListener('scroll', () => {
+  if (open && open.clientHeight * 2 < window.scrollY) {
+    hide()
+  }
+})
 
 function updateDropdowns(): void {
   document.querySelectorAll('.nav-dropdown-trigger').forEach((trigger) => {
