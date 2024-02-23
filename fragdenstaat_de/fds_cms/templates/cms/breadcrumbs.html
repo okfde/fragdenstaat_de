@@ -15,8 +15,10 @@
     </li>
 {% endif %}
 {% for ance in ancestors %}
-    <li {% if forloop.last %}class="breadcrumb-item active" aria-current="page"{% else %}class="breadcrumb-item"{% endif %}>
-        <a href="{{ ance.get_absolute_url }}"
-           {% if forloop.last %}aria-current="page"{% endif %}>{{ ance.get_menu_title }}</a>
-    </li>
+    {% if ance.get_absolute_url != '/' %}
+        <li {% if forloop.last %}class="breadcrumb-item active" aria-current="page"{% else %}class="breadcrumb-item"{% endif %}>
+            <a href="{{ ance.get_absolute_url }}"
+               {% if forloop.last %}aria-current="page"{% endif %}>{{ ance.get_menu_title }}</a>
+        </li>
+    {% endif %}
 {% endfor %}
