@@ -4,7 +4,7 @@ $c: map.get($container-max-widths, 'xxl');
 
 #header {
   position: relative;
-  z-index: 50;
+  z-index: 1031; // over .fixed-* and .sticky-*, but below modals etc.
 }
 
 #header nav {
@@ -18,7 +18,7 @@ $c: map.get($container-max-widths, 'xxl');
     list-style: none;
     padding: 0;
     margin: 0;
-    z-index: 100;
+    z-index: 1031;
   }
 
   ul.nav-ul {
