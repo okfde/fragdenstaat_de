@@ -1,11 +1,9 @@
 {% extends CMS_TEMPLATE %}
 {% load i18n %}
 {% load cms_tags %}
-{% block navbar %}
-    {% include "fds_blog/header_blog.html" %}
-{% endblock %}
 {% block content %}
-  <div class="app app-blog">
-    {% block content_blog %}{% endblock %}
-  </div>
-{% endblock %}
+    <div class="app app-blog">
+        {% block content_blog %}
+        {% endblock content_blog %}
+    </div>
+{% endblock content %}
