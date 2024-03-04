@@ -16,4 +16,4 @@ requirements: requirements.in requirements-dev.in requirements-production.in
 	pip-compile requirements-production.in
 
 messagesde:
-	django-admin makemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore LICENSE.txt --add-location file
+	python manage.py makemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --add-location file
