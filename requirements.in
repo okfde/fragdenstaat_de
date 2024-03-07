@@ -56,7 +56,7 @@ Pillow>=9.0.0
 pikepdf==7.0.0
 psycopg[binary]>=3.1.9
 # pygtail>=0.14.0
--e git+https://github.com/okfde/pygtail.git@3be17b00f55781caba62d589bcf8aceb0805a58c#egg=pygtail
+-e git+https://github.com/okfde/pygtail.git@dac8bc6fc8d65c7ac820806e570242919616e946#egg=pygtail
 pyisemail
 pypdf
 python-magic
