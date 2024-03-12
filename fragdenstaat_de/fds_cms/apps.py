@@ -1,6 +1,9 @@
 from django.apps import AppConfig
 from django.conf import settings
 
+from easy_thumbnails.optimize import thumbnail_created_callback
+from easy_thumbnails.signals import thumbnail_created
+
 
 class FdsCmsConfig(AppConfig):
     name = "fragdenstaat_de.fds_cms"
@@ -13,9 +16,10 @@ class FdsCmsConfig(AppConfig):
 
         account_merged.connect(merge_user)
 
-        if settings.FDS_THUMBNAIL_ENABLE_AVIF:
-            from easy_thumbnails.signals import thumbnail_created
+        thumbnail_created.disconnect(thumbnail_created_callback)
+        thumbnail_created.connect(async_optimize_thumbnail)
 
+        if settings.FDS_THUMBNAIL_ENABLE_AVIF:
             thumbnail_created.connect(store_as_avif)
 
 
@@ -32,3 +36,11 @@ def store_as_avif(sender, **kwargs):
     from .tasks import generate_avif_thumbnail
 
     generate_avif_thumbnail.delay(sender.name, sender.storage)
+
+
+def async_optimize_thumbnail(sender, **kwargs):
+    from .tasks import optimize_thumbnail_task
+
+    optimize_thumbnail_task.delay(
+        sender.name, sender.file, sender.storage, sender.thumbnail_options
+    )
