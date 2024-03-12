@@ -89,7 +89,7 @@ def get_join_list(table, schema, graph, filters, fk_sets):
     return join_list
 
 
-def get_copy_selects(schema, filters, safe_tables):
+def get_copy_selects(schema, filters, safe_tables, safe_fks):
     restricted_tables = set(filters.keys())
     controlled_tables = restricted_tables | safe_tables
 
@@ -109,7 +109,10 @@ def get_copy_selects(schema, filters, safe_tables):
                 filter_set |= {f"{b}.{f}" for f in filters.get(b, ())}
                 filter_set |= {f"{a}.{f}" for f in filters.get(a, ())}
                 for fk in fk_sets[(a, b)]:
-                    filter_set.add(f"{a}.{fk} = {b}.id")
+                    if (a, fk) in safe_fks:
+                        filter_set.add(f"({a}.{fk} = {b}.id OR {a}.{fk} IS NULL)")
+                    else:
+                        filter_set.add(f"{a}.{fk} = {b}.id")
 
             tables = list(join_tables | {table})
         else:
@@ -137,6 +140,7 @@ def generate_copy_script(
     target_connection="",
     target_owner="fragdenstaat_de",
     safe_tables="safe_tables.txt",
+    safe_fks="safe_fks.txt",
     schema_file="schema.sql",
 ):
     FILTERS = dict(
@@ -168,6 +172,15 @@ def generate_copy_script(
     with open(safe_tables) as f:
         safe_tables = set(
             ["public.{}".format(x.strip()) for x in f.readlines() if x.strip()]
+        )
+
+    with open(safe_fks) as f:
+        safe_fks = set(
+            [
+                ("public.{}".format(x.split()[0].strip()), x.split()[1].strip())
+                for x in f.readlines()
+                if x.strip()
+            ]
         )
 
     with open(schema_file) as f:
@@ -202,7 +215,7 @@ def generate_copy_script(
     outfile.write(f"psql {target_connection} {target_db} < table_setup.sql\n")
 
     outfile.write(f"export PGPASSWORD='{source_password}'\n")
-    for table, select in get_copy_selects(schema, FILTERS, safe_tables):
+    for table, select in get_copy_selects(schema, FILTERS, safe_tables, safe_fks):
         outfile.write(f'echo "Copying {table}"\n')
         cmd = f"""psql -c "COPY ({select}) TO STDOUT;" {source_connection} {source_db} | psql -c "COPY {table} FROM STDIN;" {target_connection} {target_db}\n"""
         outfile.write(cmd)
@@ -253,6 +266,7 @@ def main():
     parser.add_argument(
         "--safe_tables", help="safe tables file", default="safe_tables.txt"
     )
+    parser.add_argument("--safe_fks", help="safe fks file", default="safe_fks.txt")
     parser.add_argument(
         "--source_db",
         help="Postgres target connection details",
@@ -278,6 +292,7 @@ def main():
         generate_copy_script(
             sys.stdout,
             safe_tables=args.safe_tables,
+            safe_fks=args.safe_fks,
             schema_file=args.schema_file,
             source_connection=args.source_connection,
             target_connection=args.target_connection,
