@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-15 04:20-0600\n"
+"POT-Creation-Date: 2024-03-14 11:32+0100\n"
 "PO-Revision-Date: 2023-10-12 16:09+0200\n"
 "Last-Translator: Karl Engelhardt <karl.engelhardt@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -683,10 +683,6 @@ msgid "Menu"
 msgstr "Menü"
 
 #: fragdenstaat_de/templates/header.html
-msgid "Sign in"
-msgstr "Anmelden"
-
-#: fragdenstaat_de/templates/header.html
 msgid "Donate"
 msgstr "Spenden"
 
@@ -714,6 +710,16 @@ msgstr "Kampagnen"
 msgid "Investigations"
 msgstr "Recherchen"
 
+#: fragdenstaat_de/templates/header.html
+msgid "Sign in"
+msgstr "Anmelden"
+
+#: fragdenstaat_de/templates/header.html
+#, fuzzy
+#| msgid "Sign in"
+msgid "Sign Up"
+msgstr "Anmelden"
+
 #: fragdenstaat_de/templates/index.html
 msgid "Successful Requests"
 msgstr "Erfolgreiche Anfragen"
@@ -727,6 +733,11 @@ msgstr "Anfrage besuchen"
 #: fragdenstaat_de/templates/legal_advice_builder/klageautomat_info.html
 msgid "My requests"
 msgstr "Meine Anfragen"
+
+#: fragdenstaat_de/templates/menu/user_menu.html
+#, python-format
+msgid "Hello, %(name)s!"
+msgstr ""
 
 #: fragdenstaat_de/templates/menu/user_menu.html
 msgid "Log out"

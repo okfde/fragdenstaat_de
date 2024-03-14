@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-20 11:44-0600\n"
+"POT-Creation-Date: 2024-03-14 11:32+0100\n"
 "PO-Revision-Date: 2023-06-28 11:06+0200\n"
 "Last-Translator: Stefan Wehrmeyer <stefan.wehrmeyer@okfn.de>\n"
 "Language-Team: \n"
@@ -311,7 +311,34 @@ msgid "For example a private email address"
 msgstr "Zum Beispiel eine private E-Mail-Adresse"
 
 #: fragdenstaat_de/fds_cms/models.py
+msgid "Show in search results and search engines"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
 msgid "image"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid ""
+"If present, this page will be displayed as the ancestor in the breadcrumbs."
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Ancestor"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Only show the breadcrumb ancestor on this page, but not its children"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Breadcrumbs background"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid ""
+"Lay the breadcrumbs over the page content. Works well with hero image "
+"headers."
 msgstr ""
 
 #: fragdenstaat_de/fds_cms/models.py
@@ -553,6 +580,10 @@ msgstr ""
 msgid "Banner is dark-themed, button should therefore be light"
 msgstr ""
 
+#: fragdenstaat_de/fds_cms/templates/cms/breadcrumbs.html
+msgid "Home Page"
+msgstr ""
+
 #: fragdenstaat_de/fds_cms/templates/cms/help_base.html
 msgid "Topics"
 msgstr "Themen"
@@ -621,11 +652,11 @@ msgstr ""
 #~ msgstr "Hilfebereich: FragDenStaat und Informationsfreiheit"
 
 #~ msgid ""
-#~ "Support area: FragDenStaat and <abbr title=\"Freedom of Information"
-#~ "\">FOI</abbr>"
+#~ "Support area: FragDenStaat and <abbr title=\"Freedom of "
+#~ "Information\">FOI</abbr>"
 #~ msgstr ""
-#~ "Hilfebereich: FragDenStaat und <abbr title=\"Informationsfreiheitsgesetz"
-#~ "\">IFG</abbr>"
+#~ "Hilfebereich: FragDenStaat und <abbr "
+#~ "title=\"Informationsfreiheitsgesetz\">IFG</abbr>"
 
 #~ msgid "Support area"
 #~ msgstr "Hilfebereich"
