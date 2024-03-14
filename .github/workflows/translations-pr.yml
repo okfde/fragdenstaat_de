@@ -11,13 +11,14 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write
+  pull-requests: write
 
 jobs:
-  translation-r:
+  translation-pr:
+    name: "Create Translation PR"
     runs-on: ubuntu-latest
     steps:
       - name: create pull request
-        run: gh pr create -B main -H weblate --title 'Translations update from Weblate'
+        run: gh pr create -B main -H weblate --title 'Translations update from Weblate' --body '' --repo $GITHUB_REPOSITORY || true
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
