@@ -716,7 +716,6 @@ msgstr "Anmelden"
 
 #: fragdenstaat_de/templates/header.html
 #, fuzzy
-#| msgid "Sign in"
 msgid "Sign Up"
 msgstr "Anmelden"
 
