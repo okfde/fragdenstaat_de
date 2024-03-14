@@ -1,0 +1,23 @@
+name: Open translation PR
+
+on:
+  push:
+    branches:
+      - weblate
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  translation-r:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create pull request
+        run: gh pr create -B main -H weblate --title 'Translations update from Weblate'
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
