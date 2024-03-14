@@ -1,8 +1,11 @@
 Guten Tag,
 
-Ich habe Ihnen vor kurzem eine Anfrage mit dem Betreff „{{ foirequest.title }}“ ({{ foirequest.first_message|date:"SHORT_DATE_FORMAT" }}) geschickt. Ist diese bei Ihnen angekommen? Um sorgfältige Recherche zu garantieren, ist es wichtig für uns, die Datenlage umfassend zu erfassen. Mit Verweis auf das Informationsrecht der Presse bitte ich Sie daher mich darüber zu informieren, bis wann Sie die Anfrage beantworten können.
+Ich erinnere an die Erledigung meiner Anfrage „{{ foirequest.title }}“ vom {{ foirequest.first_message|date:"SHORT_DATE_FORMAT" }} (#{{ foirequest.pk }}). Ein presserechtliches Auskunftsersuchen ist eilig und bedarf der unverzüglichen Bearbeitung.
 
-Besten Dank!
+Ich fordere Sie erneut zur Erteilung der erbetenen Auskünfte innerhalb einer Woche auf und weise vorsorglich auf die Möglichkeit der Inanspruchnahme gerichtlichen Eilrechtsschutzes hin (vgl. BVerwG, Beschluss vom 11. April 2018 – 6 VR 1/18 –, Rn. 11).
+
+Vielen Dank im Voraus!
 
 Mit freundlichen Grüßen
 {{ foirequest.user.get_full_name }}
+{% include "foirequest/emails/overdue_reply_footer.txt" %}
