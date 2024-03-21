@@ -1,5 +1,7 @@
 from django import template
 
+from cms.utils.i18n import get_current_language
+
 register = template.Library()
 
 
@@ -12,7 +14,12 @@ def get_previous_next_pages(page):
     if parent is None:
         return
 
-    siblings = list(parent.get_child_pages())
+    current_language = get_current_language()
+    siblings = [
+        page
+        for page in parent.get_child_pages()
+        if current_language in page.get_languages()
+    ]
 
     current_index = siblings.index(page)
     previous_page = None
