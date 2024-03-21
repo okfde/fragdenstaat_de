@@ -1,6 +1,7 @@
 import logging
 from io import BytesIO
 
+from django.conf import settings
 from django.core.files.base import ContentFile
 
 from celery import shared_task
@@ -44,3 +45,6 @@ def optimize_thumbnail_task(name, file, storage, thumbnail_options):
         name=name, file=file, storage=storage, thumbnail_options=thumbnail_options
     )
     optimize_thumbnail(thumbnail)
+
+    if settings.FDS_THUMBNAIL_ENABLE_AVIF and name.endswith((".png", ".jpg", ".jpeg")):
+        generate_avif_thumbnail(name, storage)
