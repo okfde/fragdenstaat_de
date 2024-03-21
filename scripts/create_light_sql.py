@@ -149,11 +149,10 @@ def generate_copy_script(
                     "private = FALSE",
                 ),
             ),
-            ("public.document_document", ("user_id IS NOT NULL",)),
             (
-                "document_document",
+                "public.document_document",
                 (
-                    "id IN (SELECT id FROM document_document WHERE portal_id IS NULL ORDER BY id DESC LIMIT 500)",
+                    "id IN ((SELECT id FROM document_document WHERE portal_id IS NULL AND user_id IS NOT NULL ORDER BY id DESC LIMIT 500) UNION (SELECT id FROM document_document WHERE portal_id IS NOT NULL ORDER BY id DESC LIMIT 500))",
                 ),
             ),
             ("public.document_documentcollection", ("user_id IS NOT NULL",)),
