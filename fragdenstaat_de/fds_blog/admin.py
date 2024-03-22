@@ -9,7 +9,11 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext_lazy
 
-from adminsortable2.admin import SortableAdminBase, SortableInlineAdminMixin
+from adminsortable2.admin import (
+    SortableAdminBase,
+    SortableAdminMixin,
+    SortableInlineAdminMixin,
+)
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 from cms.api import add_plugin
 from djangocms_text_ckeditor.widgets import TextEditorWidget
@@ -63,7 +67,7 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
             return queryset.filter(**params)
 
 
-class CategoryAdmin(TranslatableAdmin):
+class CategoryAdmin(SortableAdminMixin, TranslatableAdmin):
     fields = (
         "title",
         "description",
