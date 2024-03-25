@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-25 12:14+0100\n"
-"PO-Revision-Date: 2024-03-25 13:23+0000\n"
+"PO-Revision-Date: 2024-03-25 13:29+0000\n"
 "Last-Translator: krmax44 <hi@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -432,117 +432,119 @@ msgstr "%s Anfragen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "One click form for {}"
-msgstr ""
+msgstr "Ein-Klick Formular für {}"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background"
-msgstr ""
+msgstr "Hintergrund"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Backdrop"
-msgstr ""
+msgstr "Backdrop"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Border"
-msgstr ""
+msgstr "Rahmen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Blue"
-msgstr ""
+msgstr "Blau"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Shadow"
-msgstr ""
+msgstr "Schatten"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Always"
-msgstr ""
+msgstr "Immer"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Spacing"
-msgstr ""
+msgstr "Abstand"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Medium"
-msgstr ""
+msgstr "Mittel"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "if present card will be clickable"
-msgstr ""
+msgstr "wenn angegeben, ist Card anklickbar"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Icon"
-msgstr ""
+msgstr "Icon"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid ""
 "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
 "\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr ""
+"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target="
+"\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background image"
-msgstr ""
+msgstr "Hintergrundbild"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Overlap"
-msgstr ""
+msgstr "Überlappung"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Left"
-msgstr ""
+msgstr "Links"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Right"
-msgstr ""
+msgstr "Rechts"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Center"
-msgstr ""
+msgstr "Zentriert"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Large (wide)"
-msgstr ""
+msgstr "Groß (breit)"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Cutoff after"
-msgstr ""
+msgstr "Abschnitt nach"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Unit"
-msgstr ""
+msgstr "Einheit"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "grid rows"
-msgstr ""
+msgstr "Grid-Zeilen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Line heights"
-msgstr ""
+msgstr "Textzeilen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "percent"
-msgstr ""
+msgstr "Prozent"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Overlay color"
-msgstr ""
+msgstr "Overlay-Farbe"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Reveal text"
-msgstr ""
+msgstr "Text zum Aufklappen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Show more..."
@@ -578,15 +580,15 @@ msgstr "Überschrift 6"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Slide banner with animation"
-msgstr ""
+msgstr "Banner mit Slide-Animation ausblenden"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Banner is dark-themed, button should therefore be light"
-msgstr ""
+msgstr "Banner ist dunkel, daher sollte der Button hell sein"
 
 #: fragdenstaat_de/fds_cms/templates/cms/breadcrumbs.html
 msgid "Home Page"
-msgstr ""
+msgstr "Startseite"
 
 #: fragdenstaat_de/fds_cms/templates/cms/help_base.html
 msgid "Topics"
@@ -651,7 +653,7 @@ msgstr "Bitte geben Sie einen Suchbegriff ein."
 msgid ""
 "%(site)s helps you to make freedom of information requests to public bodies"
 msgstr ""
-"%(site)s hilft Ihnen Informationsfreiheitsanfragen an Behörden zu stellen"
+"%(site)s hilft Ihnen, Informationsfreiheitsanfragen an Behörden zu stellen"
 
 #: fragdenstaat_de/fds_fximport/helper.py
 msgid "NAME"
@@ -1298,7 +1300,7 @@ msgstr "Bitte füllen Sie den Fragebogen aus!"
 #: fragdenstaat_de/templates/header.html
 #: fragdenstaat_de/templates/header_minimal.html
 msgid "Skip to main content"
-msgstr ""
+msgstr "Zum Hauptinhalt springen"
 
 #: fragdenstaat_de/templates/header.html
 msgid "Menu"
