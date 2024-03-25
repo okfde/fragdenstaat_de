@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# krmax44 <hi@krmax44.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-25 12:14+0100\n"
-"PO-Revision-Date: 2023-10-12 16:09+0200\n"
+"PO-Revision-Date: 2024-03-25 13:23+0000\n"
+"Last-Translator: krmax44 <hi@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: fragdenstaat_de/fds_cms/admin.py
 msgid "Edit"
@@ -68,7 +68,7 @@ msgstr "Werbung"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Dropdown Banner"
-msgstr ""
+msgstr "Dropdown Banner"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Latest FOI requests"
@@ -116,39 +116,39 @@ msgstr "Teilen-Links"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Collapsible"
-msgstr ""
+msgstr "Collapsible"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Slider"
-msgstr ""
+msgstr "Slider"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Modal"
-msgstr ""
+msgstr "Modal"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "FDS Card"
-msgstr ""
+msgstr "FDS Card"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "FDS Card Inner"
-msgstr ""
+msgstr "FDS Card Innen"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "FDS Card Header"
-msgstr ""
+msgstr "FDS Card Header"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "FDS Card Image"
-msgstr ""
+msgstr "FDS Card Bild"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "FDS Card Icon"
-msgstr ""
+msgstr "FDS Card Icon"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "FDS Card Link"
-msgstr ""
+msgstr "FDS Card Link"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Reveal more"
@@ -160,7 +160,7 @@ msgstr "Sektion mit Rahmen"
 
 #: fragdenstaat_de/fds_cms/cms_toolbars.py
 msgid "FdS Page Settings"
-msgstr ""
+msgstr "FdS Seiteneinstellungen"
 
 #: fragdenstaat_de/fds_cms/colors.py fragdenstaat_de/fds_cms/models.py
 msgid "None"
@@ -168,131 +168,131 @@ msgstr "Nichts"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Callout"
-msgstr ""
+msgstr "Callout"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Highlight"
-msgstr ""
+msgstr "Highlight"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Default Body"
-msgstr ""
+msgstr "Standard Body"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Body Secondary"
-msgstr ""
+msgstr "Body Sekundär"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Body Tertiary"
-msgstr ""
+msgstr "Body Tertiär"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Dark Subtle"
-msgstr ""
+msgstr "Dunkel Subtil"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Light Subtle"
-msgstr ""
+msgstr "Hell Subtil"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Primary"
-msgstr ""
+msgstr "Primär"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Primary Subtle"
-msgstr ""
+msgstr "Primär Subtil"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Secondary"
-msgstr ""
+msgstr "Sekundär"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Secondary Subtle"
-msgstr ""
+msgstr "Sekundär Subtil"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Info Subtle"
-msgstr ""
+msgstr "Info Subtil"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Success"
-msgstr ""
+msgstr "Erfolg"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Success Subtle"
-msgstr ""
+msgstr "Erfolg Subtil"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Warning"
-msgstr ""
+msgstr "Warnung"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Warning Subtle"
-msgstr ""
+msgstr "Warnung Subtil"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Danger"
-msgstr ""
+msgstr "Gefahr"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Danger Subtle"
-msgstr ""
+msgstr "Gefahr Subtil"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Purple"
-msgstr ""
+msgstr "Lila"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Pink"
-msgstr ""
+msgstr "Pink"
 
 #: fragdenstaat_de/fds_cms/colors.py fragdenstaat_de/fds_cms/models.py
 msgid "Yellow"
-msgstr ""
+msgstr "Gelb"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Cyan"
-msgstr ""
+msgstr "Cyan"
 
 #: fragdenstaat_de/fds_cms/colors.py fragdenstaat_de/fds_cms/models.py
 msgid "Gray"
-msgstr ""
+msgstr "Grau"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Gray Dark"
-msgstr ""
+msgstr "Grau Dunkel"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "White"
-msgstr ""
+msgstr "Weiß"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Light"
-msgstr ""
+msgstr "Hell"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Dark"
-msgstr ""
+msgstr "Dunkel"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Transparent"
-msgstr ""
+msgstr "Transparent"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Blue 10"
-msgstr ""
+msgstr "Blau 10"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Blue 20"
-msgstr ""
+msgstr "Blau 20"
 
 #: fragdenstaat_de/fds_cms/colors.py
 msgid "Blue 30"
-msgstr ""
+msgstr "Blau 30"
 
 #: fragdenstaat_de/fds_cms/contact.py
 msgid "Name"
@@ -312,7 +312,7 @@ msgstr "Zum Beispiel eine private E-Mail-Adresse"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Show in search results and search engines"
-msgstr ""
+msgstr "In Suchergebnissen und Suchmaschinen anzeigen"
 
 #: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_mailing/models.py
 msgid "image"
@@ -322,24 +322,28 @@ msgstr "Bild"
 msgid ""
 "If present, this page will be displayed as the ancestor in the breadcrumbs."
 msgstr ""
+"Wenn angegeben, wird diese Seite als Vorgänger in den Breadcrumbs angezeigt."
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Ancestor"
-msgstr ""
+msgstr "Vorgänger"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Only show the breadcrumb ancestor on this page, but not its children"
 msgstr ""
+"Zeige den Breadcrumb-Vorgänger nur auf dieser Seite, nicht auf Unterseiten"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Breadcrumbs background"
-msgstr ""
+msgstr "Breadcrumb-Hintergrund"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid ""
 "Lay the breadcrumbs over the page content. Works well with hero image "
 "headers."
 msgstr ""
+"Die Breadcrumbs über den Seiteninhalt legen. Funktioniert gut mit Herobild-"
+"Headern."
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Small"
@@ -391,35 +395,35 @@ msgstr "Vorlage"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Follow template"
-msgstr ""
+msgstr "Follow Template"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "tags"
-msgstr ""
+msgstr "Tags"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "number of entries"
-msgstr ""
+msgstr "Anzahl der anzuzeigenden Anfragen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "0 means all the entries"
-msgstr ""
+msgstr "0 bedeutet alle Anfragen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "offset"
-msgstr ""
+msgstr "Versatz"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "number of entries to skip from top of list"
-msgstr ""
+msgstr "Anzahl der ersten Anfragen, die übersprungen werden sollen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "template"
-msgstr ""
+msgstr "Template"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "template used to display the plugin"
-msgstr ""
+msgstr "Template, mit dem das Plugin angezeigt wird"
 
 #: fragdenstaat_de/fds_cms/models.py
 #, python-format
