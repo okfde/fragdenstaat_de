@@ -10,7 +10,6 @@ from ..responsive_images import (
     get_responsive_image,
     parse_colsizes,
 )
-from ..utils import get_alias_placeholder, render_placeholder
 
 register = template.Library()
 
@@ -99,17 +98,3 @@ def get_breadcrumb_ancestor(context, navigation_node):
     url = ancestor.get_absolute_url(language=request.LANGUAGE_CODE)
 
     return {"title": title, "url": url}
-
-
-@register.simple_tag(takes_context=True)
-def fds_static_alias(context, alias_name):
-    """
-    Used because `static_alias` does not resolve variables in the alias name.
-    TODO: remove when https://github.com/django-cms/djangocms-alias/pull/191
-    is merged and released.
-    """
-    request = context["request"]
-    placeholder = get_alias_placeholder(alias_name, request.LANGUAGE_CODE)
-    if placeholder:
-        return render_placeholder(context, placeholder)
-    return ""

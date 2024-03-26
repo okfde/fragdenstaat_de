@@ -346,7 +346,7 @@ django-treebeard==4.4
     #   djangocms-attributes-field
 djangocms-admin-style==3.2.4
     # via django-cms
-djangocms-alias==2.0.0rc1
+djangocms-alias==2.0.0
     # via -r requirements.in
 djangocms-attributes-field==2.1.0
     # via

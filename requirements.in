@@ -30,14 +30,14 @@ django-treebeard
 Django>=4.2
 # TODO: remove after CMS migration
 -e git+https://github.com/stefanw/djangocms-4-migration.git@fds-migration#egg=djangocms-4-migration
-djangocms-alias==2.0.0rc1
+djangocms-alias>=2.0.0
 djangocms-audio
 djangocms-frontend>=1.1.1
 djangocms-link>=3.1.0
 djangocms-icon
 djangocms-picture
 djangocms-text-ckeditor>=5.1
-djangocms-versioning==2.0.0rc1
+djangocms-versioning>=2.0.0
 djangocms-video
 djangorestframework>=3.14.0
 djangorestframework-csv
