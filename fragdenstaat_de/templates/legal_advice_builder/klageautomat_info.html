@@ -1,41 +1,42 @@
 {% extends "base.html" %}
-{% load form_helper cms_tags i18n %}
+{% load djangocms_alias_tags %}
+{% load form_helper i18n %}
 {% block body %}
-  <div class="bg-body-tertiary">
-    <div class="container">
-      <div class="row justify-content-left">
-        <div class="col-md-8">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="{% url 'account-show' %}">{% trans "My requests" %}</a>
-              </li>
-              <li class="breadcrumb-item">
-                <a href="{% url 'foirequest-shortlink' foi_request.id %}">{{ foi_request.title|truncatechars:50 }}</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">Klageautomat</li>
-            </ol>
-          </nav>
+    <div class="bg-body-tertiary">
+        <div class="container">
+            <div class="row justify-content-left">
+                <div class="col-md-8">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'account-show' %}">{% trans "My requests" %}</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'foirequest-shortlink' foi_request.id %}">{{ foi_request.title|truncatechars:50 }}</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Klageautomat</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="bg-body-tertiary py-2">
-    <div class="container mb-5">
-      <div class="row justify-content-left">
-        <div class="col-md-8">
-          {% static_alias "klageautomat_info" %}
-          <div>
-            <form method="post">
-              {% csrf_token %}
-              <div class="text-bg-body border-gray shadow-gray p-3">{% render_form form horizontal=False %}</div>
-              <p class="text-center">
-                <button type="submit" class="btn btn-primary my-5">Jetzt Untätigkeitsklage erstellen!</button>
-              </p>
-            </form>
-          </div>
+    <div class="bg-body-tertiary py-2">
+        <div class="container mb-5">
+            <div class="row justify-content-left">
+                <div class="col-md-8">
+                    {% static_alias "klageautomat_info" %}
+                    <div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="text-bg-body border-gray shadow-gray p-3">{% render_form form horizontal=False %}</div>
+                            <p class="text-center">
+                                <button type="submit" class="btn btn-primary my-5">Jetzt Untätigkeitsklage erstellen!</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 {% endblock %}
