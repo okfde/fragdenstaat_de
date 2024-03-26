@@ -20,7 +20,7 @@ def add_style(instance, placeholder, context):
 def render_text(placeholder, context):
     plugins = placeholder.get_plugins()
     return "\n".join(
-        render_plugin_text(context, plugin) for plugin in plugins if plugin.depth == 1
+        render_plugin_text(context, plugin) for plugin in plugins if not plugin.parent
     )
 
 

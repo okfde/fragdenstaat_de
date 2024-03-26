@@ -1,6 +1,7 @@
 {% extends "cms/page_breadcrumb.html" %}
 {% load i18n %}
 {% load cms_tags %}
+{% load djangocms_alias_tags %}
 {% load menu_tags %}
 {% load fds_cms_tags %}
 {% block body %}
@@ -36,6 +37,6 @@
             {% endif %}
         </div>
     </div>
-    {% static_placeholder "book_pub_footer" %}
+    {% static_alias "book_pub_footer" %}
     {% include "_frontend.html" with entry_point="bookpub.js" %}
 {% endblock body %}

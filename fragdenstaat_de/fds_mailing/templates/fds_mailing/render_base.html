@@ -1,12 +1,13 @@
 {# djlint:off H021 #}
 {% extends object.get_template %}
 {% load cms_tags %}
+{% load djangocms_alias_tags %}
 {% block body %}
     {% render_placeholder placeholder %}
     {% if extra_email_placeholder %}
         <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
             <tr>
-                <td style="padding-top:20px;background-color:#ffffff;">{% static_placeholder extra_email_placeholder %}</td>
+                <td style="padding-top:20px;background-color:#ffffff;">{% static_alias extra_email_placeholder %}</td>
             </tr>
         </table>
     {% endif %}
