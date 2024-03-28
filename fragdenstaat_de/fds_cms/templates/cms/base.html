@@ -12,7 +12,7 @@
         {% include "account/includes/impostor.html" %}
     {% endif %}
     {% block top_block %}
-        <div class="top-banner d-none">{% static_placeholder "top_banner" %}</div>
+        <div class="top-banner" hidden>{% static_placeholder "top_banner" %}</div>
     {% endblock top_block %}
     {% block navbar %}
         {% include "header.html" %}
