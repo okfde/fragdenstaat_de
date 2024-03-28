@@ -2,7 +2,7 @@ import os
 
 from configurations import values
 
-from .base import THEME_ROOT, FragDenStaatBase
+from .base import THEME_ROOT, FragDenStaatBase, env
 
 
 class Test(FragDenStaatBase):
@@ -37,3 +37,29 @@ class Test(FragDenStaatBase):
         "default": {"hosts": "http://localhost:9200"},
     }
     FIXTURE_DIRS = [os.path.join(THEME_ROOT, "..", "tests", "fixtures")]
+
+    PAYMENT_VARIANTS = {
+        # 'default': ('payments.dummy.DummyProvider', {})
+        "creditcard": (
+            "froide_payment.provider.StripeIntentProvider",
+            {
+                # Test API keys
+                "public_key": env("STRIPE_TEST_PUBLIC_KEY"),
+                "secret_key": env("STRIPE_TEST_SECRET_KEY"),
+            },
+        ),
+        "sepa": (
+            "froide_payment.provider.StripeSEPAProvider",
+            {
+                # Test API keys
+                "public_key": env("STRIPE_TEST_PUBLIC_KEY"),
+                "secret_key": env("STRIPE_TEST_SECRET_KEY"),
+            },
+        ),
+        "paypal": (
+            "froide_payment.provider.PaypalProvider",
+            {},
+        ),
+        "lastschrift": ("froide_payment.provider.LastschriftProvider", {}),
+        "banktransfer": ("froide_payment.provider.BanktransferProvider", {}),
+    }
