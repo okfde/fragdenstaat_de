@@ -335,7 +335,38 @@ class DesignContainerCMSPlugin(CMSPlugin):
 
 class ShareLinksCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=255)
-    url = models.URLField(blank=True)
+    url = models.URLField(
+        blank=True, help_text=_("Defaults to the current page's URL.")
+    )
+    icons_only = models.BooleanField(_("Only show icons"), default=False)
+
+    image = FilerImageField(
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        verbose_name=_("image"),
+        help_text=_(
+            "Only available with the Native Share API. If sharing doesn't work, the image will be downloaded instead."
+        ),
+    )
+
+    twitter = models.BooleanField("Twitter", default=True)
+    mastodon = models.BooleanField("Mastodon", default=True)
+    facebook = models.BooleanField("Facebook", default=False)
+    email = models.BooleanField(_("Email"), default=False)
+    clipboard = models.BooleanField(_("Copy to clipboard"), default=True)
+    native_share = models.BooleanField(
+        _("Native share"), default=True, help_text=_("Great on mobile devices.")
+    )
+    native_text = models.CharField(
+        _("Native share button label"), blank=True, max_length=50, default=""
+    )
+    native_links = models.BooleanField(
+        _("Link instead of button"),
+        default=False,
+        help_text=_("Only applies to the native share button."),
+    )
 
     def __str__(self):
         return self.title

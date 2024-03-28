@@ -1,0 +1,20 @@
+@import 'bootstrap/scss/mixins/buttons';
+
+.btn-share {
+  &-twitter {
+    @include button-outline-variant(#1da1f2, #fff);
+  }
+
+  &-facebook {
+    @include button-outline-variant(#4267b2);
+  }
+
+  &-mastodon {
+    @include button-outline-variant(#6364ff);
+
+    svg {
+      height: var(--#{$prefix}btn-font-size);
+      width: auto;
+    }
+  }
+}
