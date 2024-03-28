@@ -95,7 +95,7 @@ function showTopBanner(): boolean {
   })
 
   // show banner
-  topBanner.style.display = 'block'
+  topBanner.hidden = false
 
   // tracking
   setTimeout(() => {
