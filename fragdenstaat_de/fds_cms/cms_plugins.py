@@ -399,6 +399,7 @@ class ShareLinksPlugin(CMSPluginBase):
         context["object"] = instance
         context["url"] = instance.url or url
         context["text"] = instance.title
+        context["image"] = instance.image
         return context
 
 
