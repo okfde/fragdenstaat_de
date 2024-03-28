@@ -3,7 +3,7 @@ const strings = {
   de: { error: 'Konnte Inhalt nicht teilen.' },
   en: { error: 'Could not share content.' }
 }
-const lang = window.location.pathname.startsWith('/en/') ? 'en' : 'de'
+const lang = document.documentElement.lang === 'de' ? 'de' : 'en'
 const i18n = strings[lang]
 
 document.querySelectorAll<HTMLElement>('.share-native').forEach((btn) => {
