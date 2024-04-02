@@ -1,24 +1,20 @@
 {% load i18n %}
 <div class="amount-group {% if 'is-invalid' in widget.attrs.class %}is-invalid{% endif %}">
     {% if presets %}
-        <div class="btn-toolbar">
+        <div class="hstack flex-wrap gap-1">
             {% for preset in presets %}
-                <div class="btn-group me-2 mt-2">
-                    <button type="button"
-                            class="btn {% if preset|stringformat:'d' == widget.value %}btn-primary{% else %}btn-outline-primary{% endif %}"
-                            data-value="{{ preset }}"
-                            data-target="{{ widget.attrs.id }}">{{ preset }} {{ currency }}</button>
-                </div>
-            {% endfor %}
-            <div class="btn-group me-2 mt-2">
                 <button type="button"
-                        class="btn btn-outline-secondary"
-                        data-focus="{{ widget.attrs.id }}">{% trans "Other amount" %}</button>
-            </div>
+                        class="btn btn-outline-primary{% if preset|stringformat:'d' == widget.value %} active{% endif %}"
+                        data-value="{{ preset }}"
+                        data-target="{{ widget.attrs.id }}">{{ preset }} {{ currency }}</button>
+            {% endfor %}
+            <button type="button"
+                    class="btn btn-outline-secondary btn-other-amount"
+                    data-focus="{{ widget.attrs.id }}">{% trans "Other amount" %}</button>
         </div>
     {% endif %}
     {# djlint:off H021 #}
-    <div class="input-group mt-2" style="max-width: 200px">
+    <div class="input-group mt-2" style="max-width: 12rem;">
         {# djlint:on #}
         {% include "django/forms/widgets/text.html" %}
         <span class="input-group-text">{{ currency }}</span>

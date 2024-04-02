@@ -1,5 +1,4 @@
-import Tooltip from 'bootstrap/js/dist/tooltip'
-import { toggleSlide } from 'froide/frontend/javascript/lib/misc'
+import { Tooltip, Collapse } from 'bootstrap'
 
 interface IApplePaySession {
   canMakePayments: () => boolean
@@ -25,17 +24,20 @@ const fees: FeeMap = {
 
 function setupDonationForm(form: HTMLFormElement): void {
   setupAdditionalCC()
+
   const amountGroup = form.querySelector('.amount-group')
   if (amountGroup !== null) {
     setupAmountGroup(amountGroup)
     amountChanged(amountGroup.querySelector('input'))
   }
-  const radioCollapse = form.querySelectorAll('[data-toggle="radiocollapse"]')
-  ;(Array.from(radioCollapse) as HTMLInputElement[]).forEach(setupRadioCollapse)
+  form
+    .querySelectorAll<HTMLInputElement>('[data-toggle="radiocollapse"]')
+    .forEach((el) => setupRadioCollapse(el))
 
-  const intervalInputs: HTMLFormElement[] = Array.from(
-    form.querySelectorAll('input[name="interval"]')
+  const intervalInputs = form.querySelectorAll<HTMLFormElement>(
+    'input[name="interval"]'
   )
+
   if (intervalInputs.length >= 0) {
     setupIntervalGroup(intervalInputs)
   }
@@ -45,9 +47,10 @@ function setupDonationForm(form: HTMLFormElement): void {
     const fillShippingFields = form.querySelector(
       '[data-fillfields="shipping"]'
     )
-    const shippingFields: HTMLFormElement[] = Array.from(
-      form.querySelectorAll("input[name*='shipping'], select[name*='shipping']")
+    const shippingFields = form.querySelectorAll<HTMLFormElement>(
+      "input[name*='shipping'], select[name*='shipping']"
     )
+
     const addressFields: AddressFields = {}
     shippingFields.forEach((e) => {
       const key = e.name.replace('shipping_', '')
@@ -67,20 +70,21 @@ function setupDonationForm(form: HTMLFormElement): void {
       fillShippingFields.addEventListener('click', setShippingFields)
     }
 
-    const receiptRadios: HTMLFormElement[] = Array.from(
-      form.querySelectorAll('input[name="receipt"]')
-    )
-    const setFillShippingButton = (): void => {
+    const receiptRadios = form.querySelectorAll('input[name="receipt"]')
+
+    const setFillShippingButton = () => {
       const state =
         form
           .querySelector('input[name="receipt"]:checked')
           ?.getAttribute('value') ?? '0'
+
       if (state === '1') {
         fillShippingFields?.removeAttribute('disabled')
       } else {
         fillShippingFields?.setAttribute('disabled', '')
       }
     }
+
     setFillShippingButton()
     receiptRadios.forEach((el) => {
       el.addEventListener('change', setFillShippingButton)
@@ -93,6 +97,7 @@ function setupDonationForm(form: HTMLFormElement): void {
       el.parentElement.classList.add('onion-hide')
     }
   })
+
   // End of year lastschrift warning
   const d = new Date()
   const decemberDate = 22
@@ -115,7 +120,7 @@ function setupDonationForm(form: HTMLFormElement): void {
       `
       const li = ls.parentElement.parentElement
       li.appendChild(container)
-      // console.log(li.querySelector("a"))
+
       const infoLink = li.querySelector('a')
       if (infoLink != null) {
         // eslint-disable-next-line no-new
@@ -175,7 +180,7 @@ function amountChanged(amountInput: HTMLInputElement | null): void {
   }
 }
 
-function setupIntervalGroup(intervalInputs: HTMLFormElement[]): void {
+function setupIntervalGroup(intervalInputs: NodeListOf<HTMLFormElement>): void {
   const oneTimePaymentMethods = document.querySelectorAll<HTMLInputElement>(
     '#id_payment_method input[value="sofort"]'
   )
@@ -206,7 +211,7 @@ function setupIntervalGroup(intervalInputs: HTMLFormElement[]): void {
     })
   })
 
-  const preChosenIntervalInput = intervalInputs.filter((i) => i.checked)
+  const preChosenIntervalInput = [...intervalInputs].filter((i) => i.checked)
   if (preChosenIntervalInput.length > 0) {
     triggerIntervalChange(preChosenIntervalInput[0])
   }
@@ -243,7 +248,7 @@ function setupRadioCollapse(radioCollapse: HTMLInputElement): void {
   radioCollapse.addEventListener('change', () => {
     toggleRadioCollapse(radioCollapse, target)
   })
-  if (radioCollapse.checked) {
+  if (radioCollapse.checked && radioCollapse.value === '1') {
     toggleRadioCollapse(radioCollapse, target)
   }
 }
@@ -252,90 +257,62 @@ function toggleRadioCollapse(
   input: HTMLInputElement,
   target: HTMLElement
 ): void {
-  if (input.value === '1') {
-    if (!target.classList.contains('show')) {
-      target.classList.add('show')
-      toggleSlide(target, 0.5)
-    }
-    target
-      .querySelectorAll<HTMLInputElement | HTMLSelectElement>('input,select')
-      .forEach((el) => {
-        el.required = true
-      })
-  } else {
-    if (target.classList.contains('show')) {
-      target.classList.remove('show')
-      toggleSlide(target, 0.5)
-    }
-    target
-      .querySelectorAll<HTMLInputElement | HTMLSelectElement>('input,select')
-      .forEach((el) => {
-        el.required = false
-      })
-  }
+  const collapse = Collapse.getOrCreateInstance(target)
+  const show = input.value === '1'
+  if (show) collapse.show()
+  else collapse.hide()
+
+  target
+    .querySelectorAll<HTMLInputElement | HTMLSelectElement>('input,select')
+    .forEach((el) => {
+      el.required = show
+
+      const label = el.previousElementSibling
+      if (label?.tagName !== 'LABEL') return
+
+      if (show) label?.classList.add('field-required')
+      else label?.classList.remove('field-required')
+    })
 }
 
 function setupAmountGroup(amountGroup: Element): void {
   const input = amountGroup.querySelector('input')
-  const buttons = Array.from(amountGroup.querySelectorAll('button'))
+  const buttons = amountGroup.querySelectorAll('button')
+  const otherAmount = amountGroup.querySelector('.btn-other-amount')
 
   if (input != null) {
-    const focusClicks = Array.from(amountGroup.querySelectorAll('[data-focus]'))
-    focusClicks.forEach((focusClick) => {
+    amountGroup.querySelectorAll('[data-focus]').forEach((focusClick) => {
       focusClick.addEventListener('click', () => {
         input.focus()
       })
     })
-  }
 
-  function highlightButtonWithValue(value: string): boolean {
-    let hasAny = false
+    const updateButtons = () => {
+      let hasAny = false
+
+      otherAmount?.classList.remove('active')
+      buttons.forEach((button) => {
+        if (button.dataset.value === input.value) {
+          hasAny = true
+          button.classList.add('active')
+        } else {
+          button.classList.remove('active')
+        }
+      })
+
+      if (!hasAny && input.value !== '') otherAmount?.classList.add('active')
+    }
+
     buttons.forEach((button) => {
-      if (button.dataset.value === value) {
-        hasAny = true
-        button.classList.add('btn-primary')
-        button.classList.remove('btn-outline-primary')
-      } else {
-        button.classList.remove('btn-primary')
-        button.classList.add('btn-outline-primary')
-      }
-    })
-    return hasAny
-  }
+      button.addEventListener('click', () => {
+        const value = button.dataset.value ?? ''
+        input.value = value
 
-  function buttonClick(button: HTMLButtonElement): void {
-    const value = button.dataset.value ?? ''
-    if (input !== null) {
-      input.value = value
-      inputChanged(input)
-    }
-    highlightButtonWithValue(value)
-  }
-  function inputChanged(amountInput: HTMLInputElement): void {
-    const anyButton = highlightButtonWithValue(amountInput.value)
-    if (!anyButton) {
-      amountInput.classList.add('border', 'border-primary')
-    } else {
-      amountInput.classList.remove('border', 'border-primary')
-    }
-    amountChanged(amountInput)
-  }
+        updateButtons()
+      })
+    })
 
-  buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-      buttonClick(button)
-    })
-  })
-  if (input != null) {
-    input.addEventListener('focus', () => {
-      inputChanged(input)
-    })
-    input.addEventListener('keyup', () => {
-      inputChanged(input)
-    })
-    input.addEventListener('change', () => {
-      inputChanged(input)
-    })
+    input.addEventListener('change', updateButtons)
   }
 }
 
