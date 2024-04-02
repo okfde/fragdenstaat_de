@@ -1,7 +1,7 @@
 import '../styles/main.scss'
 
 import 'froide/frontend/javascript/snippets/bootstrap'
-import 'froide/frontend/javascript/snippets/copy-input'
+import 'froide/frontend/javascript/snippets/copy-text'
 import 'froide/frontend/javascript/snippets/form-ajax'
 import 'froide/frontend/javascript/snippets/misc'
 import 'froide/frontend/javascript/snippets/search'
