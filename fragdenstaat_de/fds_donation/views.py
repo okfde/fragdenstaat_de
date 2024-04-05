@@ -74,6 +74,11 @@ class DonationCompleteView(TemplateView):
 class DonationFailedView(TemplateView):
     template_name = "fds_donation/donation_failed.html"
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["donate_url"] = reverse("fds_donation:donate")
+        return ctx
+
 
 class DonorMixin:
     model = Donor
