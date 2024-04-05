@@ -1,5 +1,4 @@
 import re
-import signal
 import subprocess
 import time
 from collections import namedtuple
@@ -14,6 +13,8 @@ from fragdenstaat_de.fds_donation.models import Donation
 from playwright.sync_api import Page
 
 import froide_payment.provider.stripe
+
+from .utils import ProcessReader
 
 WebhookEvent = namedtuple("WebhookEvent", ["timestamp", "name", "event_id"])
 
@@ -66,47 +67,34 @@ class StripeWebhookForwarder:
             "--color",
             "off",
         ]
-        self.proc = subprocess.Popen(
-            process_args,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            universal_newlines=True,
-        )
+        self.proc = ProcessReader(process_args)
+        self.proc.start()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.webhooks_called = []
         final_event_count = 0
         found_final_event = False
+        if exc_val is not None:
+            self.proc.stop()
+            return
         try:
-            if self.proc.returncode is None:
-                for line in self.proc.stdout:
-                    print(line)
-                    if found_final_event:
-                        if "] POST" in line:
-                            break
-                    else:
-                        events = self.make_webhook_events(line)
-                        if not events:
-                            continue
-                        self.webhooks_called.extend(events)
-                        final_event_count += len(
-                            [ev for ev in events if ev.name == self.final_event]
-                        )
-                        if final_event_count >= self.final_event_max:
-                            found_final_event = True
-                self.proc.send_signal(signal.SIGINT)
-                try:
-                    returncode = self.proc.wait(1)
-                except subprocess.TimeoutExpired:
-                    pass
+            while True:
+                line = self.proc.readline()
+                if found_final_event:
+                    if "] POST" in line:
+                        break
                 else:
-                    if returncode != 0:
-                        raise Exception("Error stopping stripe webhook forwarder")
-            elif exc_val is not None:
-                self.proc.send_signal(signal.SIGKILL)
+                    events = self.make_webhook_events(line)
+                    if not events:
+                        continue
+                self.webhooks_called.extend(events)
+                final_event_count += len(
+                    [ev for ev in events if ev.name == self.final_event]
+                )
+                if final_event_count >= self.final_event_max:
+                    found_final_event = True
         finally:
-            if self.proc.returncode is None:
-                self.proc.send_signal(signal.SIGKILL)
+            self.proc.stop()
 
     def make_webhook_events(self, log: str):
         return [WebhookEvent(*m.groups()) for m in self.WH_EVENT_RE.finditer(log)]
