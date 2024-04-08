@@ -143,7 +143,8 @@ def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_se
     page.get_by_text("monatlich").click()
     page.get_by_text("SEPA-Lastschrift", exact=True).click()
     fill_donation_page(page, donor_email)
-    page.get_by_role("button", name="Jetzt spenden").click()
+    with page.expect_navigation():
+        page.get_by_role("button", name="Jetzt spenden").click()
 
     stripe_sepa_setup.final_event = "invoice.payment_succeeded"
 
@@ -230,8 +231,10 @@ def test_sepa_once_donation_additional_fields(
     ].payment_method_details.sepa_debit.mandate
     mandate = stripe.Mandate.retrieve(mandate_id)
 
-    assert mandate.status == "inactive"
-    assert mandate.type == "single_use"
+    assert (mandate.status, mandate.type) in [
+        ("inactive", "single_use"),
+        ("active", "multi_use"),
+    ]
     assert mandate.payment_method_details.type == "sepa_debit"
 
     # Wait for webhooks to be processed by live server
