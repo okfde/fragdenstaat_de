@@ -100,6 +100,14 @@ class StripeWebhookForwarder:
         return [WebhookEvent(*m.groups()) for m in self.WH_EVENT_RE.finditer(log)]
 
 
+@pytest.fixture(autouse=True)
+def skip_stripe_if_no_key(request, settings):
+    if request.node.get_closest_marker("stripe"):
+        secret_key = settings.PAYMENT_VARIANTS["sepa"][1]["secret_key"]
+        if not secret_key:
+            pytest.skip("skipped stripe test because stripe key is not set")
+
+
 @pytest.fixture
 def stripe_sepa_setup(settings, live_server, monkeypatch):
     settings.SITE_URL = live_server.url

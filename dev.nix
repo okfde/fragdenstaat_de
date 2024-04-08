@@ -1,7 +1,7 @@
 with import <nixpkgs> { };
 let
   dontCheckPython = drv: drv.overridePythonAttrs (old: { doCheck = false; });
-  pythonPackages = python39Packages;
+  pythonPackages = python310Packages;
 
   harfbuzz_self = harfbuzz.override { withCoreText = true; };
   ld_packages = [
@@ -75,5 +75,7 @@ pkgs.mkShell {
     glib
     libcxx
     cmake
+
+    stripe-cli
   ] ++ (lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.CoreText);
 }
