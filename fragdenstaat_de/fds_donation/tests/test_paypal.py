@@ -28,7 +28,10 @@ class PaypalWebhookForwarder:
         process_args = [
             "ssh",
             "-o",
-            "StrictHostKeyChecking=no",
+            "StrictHostKeyChecking=no",  # Accept new hostkeys
+            "-o",
+            "UserKnownHostsFile=/dev/null",  # Don't write new hostkeys to users known hosts file
+            "-q",  # Quiet mode
             "-n",  # Redirect stdin from /dev/null
             "-T",  # Disable pseudo-tty allocation
             "-R",
@@ -93,6 +96,14 @@ class PaypalWebhookForwarder:
         finally:
             self.delete_webhook_on_paypal()
             self.proc.stop()
+
+
+@pytest.fixture(autouse=True)
+def skip_paypal_if_no_key(request, settings):
+    if request.node.get_closest_marker("paypal"):
+        secret_key = settings.PAYMENT_VARIANTS["paypal"][1]["secret"]
+        if not secret_key:
+            pytest.skip("skipped paypal test because paypal secret is not set")
 
 
 @pytest.fixture
