@@ -2,7 +2,7 @@ import os
 
 from configurations import values
 
-from .base import THEME_ROOT, FragDenStaatBase
+from .base import THEME_ROOT, FragDenStaatBase, env
 
 
 class Test(FragDenStaatBase):
@@ -37,3 +37,19 @@ class Test(FragDenStaatBase):
         "default": {"hosts": "http://localhost:9200"},
     }
     FIXTURE_DIRS = [os.path.join(THEME_ROOT, "..", "tests", "fixtures")]
+
+    PAYMENT_VARIANTS = {
+        # 'default': ('payments.dummy.DummyProvider', {})
+        "paypal": (
+            "froide_payment.provider.PaypalProvider",
+            {
+                "client_id": env("PAYPAL_TEST_CLIENT_ID"),
+                "secret": env("PAYPAL_TEST_SECRET"),
+                "endpoint": "https://api-m.sandbox.paypal.com",
+                "capture": True,
+                "webhook_id": "",  # Not needed for testing as webhooks are not verified
+            },
+        ),
+        "lastschrift": ("froide_payment.provider.LastschriftProvider", {}),
+        "banktransfer": ("froide_payment.provider.BanktransferProvider", {}),
+    }
