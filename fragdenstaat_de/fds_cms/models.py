@@ -365,7 +365,6 @@ class ShareLinksCMSPlugin(CMSPlugin):
     native_links = models.BooleanField(
         _("Link instead of button"),
         default=False,
-        help_text=_("Only applies to the native share button."),
     )
 
     def __str__(self):
