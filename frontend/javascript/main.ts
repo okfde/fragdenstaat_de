@@ -5,6 +5,7 @@ import 'froide/frontend/javascript/snippets/copy-text'
 import 'froide/frontend/javascript/snippets/form-ajax'
 import 'froide/frontend/javascript/snippets/misc'
 import 'froide/frontend/javascript/snippets/search'
+import 'froide/frontend/javascript/snippets/share-links'
 import 'froide/frontend/javascript/snippets/inline-edit-forms'
 import 'froide/frontend/javascript/snippets/color-mode'
 
@@ -17,7 +18,7 @@ import './smooth-scroll'
 import './top-banner'
 
 if (document.body.dataset.sentry !== undefined) {
-  void import(/* webpackChunkName: "sentry" */ './sentry').then((mod) => {
+  void import('./sentry').then((mod) => {
     if (document.body.dataset.sentry !== undefined) {
       mod.init(document.body.dataset.sentry)
     }

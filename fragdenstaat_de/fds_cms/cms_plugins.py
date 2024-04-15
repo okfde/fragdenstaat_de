@@ -386,20 +386,27 @@ class ShareLinksPlugin(CMSPluginBase):
     model = ShareLinksCMSPlugin
     module = _("Elements")
     name = _("Share Links")
-    render_template = "fds_cms/share_buttons.html"
+    render_template = "snippets/share_buttons.html"
     text_enabled = True
     cache = True
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        url = ""
-        if "request" in context:
-            req = context["request"]
-            url = req.build_absolute_uri()
-        context["object"] = instance
-        context["url"] = instance.url or url
+
+        context["id"] = instance.pk
+        context["url"] = instance.url
         context["text"] = instance.title
         context["image"] = instance.image
+        context["twitter"] = instance.twitter
+        context["mastodon"] = instance.mastodon
+        context["facebook"] = instance.facebook
+        context["email"] = instance.email
+        context["clipboard"] = instance.clipboard
+        context["native_share"] = instance.native_share
+        context["native_text"] = instance.native_text
+        context["icons_only"] = instance.icons_only
+        context["links"] = instance.native_links
+
         return context
 
 
