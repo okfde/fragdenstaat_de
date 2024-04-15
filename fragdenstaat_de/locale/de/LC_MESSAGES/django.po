@@ -458,10 +458,12 @@ msgstr ""
 
 #: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/forms.py fragdenstaat_de/settings/base.py
+#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Email"
 msgstr "E-Mail"
 
 #: fragdenstaat_de/fds_cms/models.py
+#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -526,8 +528,8 @@ msgid ""
 "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
 "\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr ""
-"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
-"target=\"_blank\">Font Awesome 4 Icon Liste</a>"
+"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target="
+"\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background image"
@@ -635,6 +637,7 @@ msgstr "Themen"
 
 #: fragdenstaat_de/fds_cms/templates/cms/plugins/dropdown_banner.html
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
+#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Close"
 msgstr "Schließen"
 
@@ -1427,6 +1430,31 @@ msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
 
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Only applies to the native share button."
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
+msgid "Share on social media"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
+msgid "Share on Mastodon"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
+msgid "Please enter the domain of your Mastodon instance."
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
+msgid "Your Mastodon instance"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
+#, fuzzy
+msgid "Share"
+msgstr "Teilen-Links"
+
 #~ msgid "Toggle main menu"
 #~ msgstr "Hauptmenü anzeigen"
 
@@ -1561,11 +1589,11 @@ msgstr ""
 #~ msgstr "Hilfebereich: FragDenStaat und Informationsfreiheit"
 
 #~ msgid ""
-#~ "Support area: FragDenStaat and <abbr title=\"Freedom of "
-#~ "Information\">FOI</abbr>"
+#~ "Support area: FragDenStaat and <abbr title=\"Freedom of Information"
+#~ "\">FOI</abbr>"
 #~ msgstr ""
-#~ "Hilfebereich: FragDenStaat und <abbr "
-#~ "title=\"Informationsfreiheitsgesetz\">IFG</abbr>"
+#~ "Hilfebereich: FragDenStaat und <abbr title=\"Informationsfreiheitsgesetz"
+#~ "\">IFG</abbr>"
 
 #~ msgid "Toggle chapter navigation"
 #~ msgstr "Kapitel-Navigation umschalten"
