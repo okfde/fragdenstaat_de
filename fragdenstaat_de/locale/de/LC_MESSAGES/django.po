@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # krmax44 <hi@krmax44.de>, 2024.
+# krmax44 <github@krmax44.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-15 16:25+0200\n"
-"PO-Revision-Date: 2024-03-25 13:29+0000\n"
-"Last-Translator: krmax44 <hi@krmax44.de>\n"
+"PO-Revision-Date: 2024-04-15 15:05+0000\n"
+"Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -444,17 +445,19 @@ msgstr "Backdrop"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Defaults to the current page's URL."
-msgstr ""
+msgstr "URL der aktuellen Seite, wenn leergelassen."
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Only show icons"
-msgstr ""
+msgstr "Nur Icons anzeigen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid ""
 "Only available with the Native Share API. If sharing doesn't work, the image "
 "will be downloaded instead."
 msgstr ""
+"Nur bei der Native Share API verfügbar. Falls natives Teilen nicht klappt, "
+"wird das Bild stattdessen heruntergeladen."
 
 #: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/forms.py fragdenstaat_de/settings/base.py
@@ -465,23 +468,23 @@ msgstr "E-Mail"
 #: fragdenstaat_de/fds_cms/models.py
 #: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "In Zwischenablage kopieren"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Native share"
-msgstr ""
+msgstr "Natives Teilen"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Great on mobile devices."
-msgstr ""
+msgstr "Funktioniert gut bei mobilen Geräten."
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Native share button label"
-msgstr ""
+msgstr "Native Share Buttontext"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Link instead of button"
-msgstr ""
+msgstr "Link statt Button"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Border"
@@ -1337,7 +1340,7 @@ msgstr "Bitte füllen Sie den Fragebogen aus!"
 #: fragdenstaat_de/templates/header.html
 #: fragdenstaat_de/templates/header_minimal.html
 msgid "Skip to main content"
-msgstr "Zum Hauptinhalt springen"
+msgstr "Zum Hauptinhalt sprengen"
 
 #: fragdenstaat_de/templates/header.html
 msgid "Menu"
@@ -1432,28 +1435,27 @@ msgstr ""
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Only applies to the native share button."
-msgstr ""
+msgstr "Trifft nur auf den Native Share Button zu."
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Share on social media"
-msgstr ""
+msgstr "Auf sozialen Netzwerken teilen"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Share on Mastodon"
-msgstr ""
+msgstr "Auf Mastodon teilen"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Please enter the domain of your Mastodon instance."
-msgstr ""
+msgstr "Bitte geben Sie die Domain Ihrer Mastodon-Instanz ein."
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Your Mastodon instance"
-msgstr ""
+msgstr "Ihre Mastodon-Instanz"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
-#, fuzzy
 msgid "Share"
-msgstr "Teilen-Links"
+msgstr "Teilen"
 
 #~ msgid "Toggle main menu"
 #~ msgstr "Hauptmenü anzeigen"
