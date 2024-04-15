@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-25 12:14+0100\n"
+"POT-Creation-Date: 2024-04-15 16:25+0200\n"
 "PO-Revision-Date: 2024-03-25 13:29+0000\n"
 "Last-Translator: krmax44 <hi@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -443,6 +443,45 @@ msgid "Backdrop"
 msgstr "Backdrop"
 
 #: fragdenstaat_de/fds_cms/models.py
+msgid "Defaults to the current page's URL."
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Only show icons"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid ""
+"Only available with the Native Share API. If sharing doesn't work, the image "
+"will be downloaded instead."
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_mailing/cms_plugins.py
+#: fragdenstaat_de/fds_newsletter/forms.py fragdenstaat_de/settings/base.py
+msgid "Email"
+msgstr "E-Mail"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Copy to clipboard"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Native share"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Great on mobile devices."
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Native share button label"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Link instead of button"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
 msgid "Border"
 msgstr "Rahmen"
 
@@ -487,8 +526,8 @@ msgid ""
 "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
 "\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr ""
-"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target="
-"\"_blank\">Font Awesome 4 Icon Liste</a>"
+"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
+"target=\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background image"
@@ -764,11 +803,6 @@ msgstr "Lege Mailing für diese Behörden an..."
 #: fragdenstaat_de/fds_mailing/apps.py
 msgid "FragDenStaat Mailings"
 msgstr "FragDenStaat-Mailings"
-
-#: fragdenstaat_de/fds_mailing/cms_plugins.py
-#: fragdenstaat_de/fds_newsletter/forms.py fragdenstaat_de/settings/base.py
-msgid "Email"
-msgstr "E-Mail"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
 msgid "Email Body"
