@@ -207,10 +207,10 @@ django==4.2.4
     #   django-polymorphic
     #   django-prices
     #   django-sekizai
-    #   django-select2
     #   django-storages
     #   django-taggit
     #   django-treebeard
+    #   djangocms-admin-style
     #   djangocms-alias
     #   djangocms-frontend
     #   djangocms-versioning
@@ -227,9 +227,7 @@ django-admin-sortable2==2.1.8
     #   froide-campaign
     #   froide-govplan
 django-appconf==1.0.5
-    # via
-    #   django-celery-email
-    #   django-select2
+    # via django-celery-email
 django-celery-beat==2.5.0
     # via -r requirements.in
 django-celery-email==3.0.0
@@ -238,7 +236,7 @@ django-classy-tags==4.0.0
     # via
     #   django-cms
     #   django-sekizai
-django-cms==4.1.0rc3
+django-cms==4.1.0
     # via
     #   -r requirements.in
     #   djangocms-alias
@@ -337,8 +335,6 @@ django-sekizai==4.1.0
     # via
     #   -r requirements.in
     #   django-cms
-django-select2==8.1.2
-    # via djangocms-frontend
 django-storages==1.13.2
     # via
     #   -r requirements.in
@@ -360,12 +356,11 @@ django-treebeard==4.4
     #   django-cms
     #   django-filingcabinet
     #   django-legal-advice-builder
-    #   djangocms-attributes-field
-djangocms-admin-style==3.2.4
+djangocms-admin-style==3.3.1
     # via django-cms
-djangocms-alias==2.0.0
+djangocms-alias==2.0.1
     # via -r requirements.in
-djangocms-attributes-field==2.1.0
+djangocms-attributes-field==3.0.0
     # via
     #   djangocms-audio
     #   djangocms-frontend
@@ -373,23 +368,21 @@ djangocms-attributes-field==2.1.0
     #   djangocms-link
     #   djangocms-picture
     #   djangocms-video
-djangocms-audio==2.0.0
+djangocms-audio==2.1.1
     # via -r requirements.in
-djangocms-frontend==1.1.2
+djangocms-frontend==1.3.1
     # via -r requirements.in
-djangocms-icon==2.0.0
+djangocms-icon==2.1.0
     # via -r requirements.in
 djangocms-link==3.1.1
     # via -r requirements.in
-djangocms-picture==4.0.0
+djangocms-picture==4.1.1
     # via -r requirements.in
-djangocms-text-ckeditor==5.1.2
-    # via
-    #   -r requirements.in
-    #   djangocms-frontend
-djangocms-versioning==2.0.0
+djangocms-text-ckeditor==5.1.5
     # via -r requirements.in
-djangocms-video==3.0.0
+djangocms-versioning==2.0.1
+    # via -r requirements.in
+djangocms-video==3.1.0
     # via -r requirements.in
 djangorestframework==3.14.0
     # via
