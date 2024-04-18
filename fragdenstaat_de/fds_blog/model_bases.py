@@ -44,7 +44,7 @@ class CoreEntry(models.Model):
         db_index=True,
         blank=True,
         null=True,
-        help_text=_("Start date of publication."),
+        help_text=_("Start date of publication. Used to build the entry's URL."),
     )
 
     end_publication = models.DateTimeField(
@@ -66,7 +66,6 @@ class CoreEntry(models.Model):
         _("creation date"),
         db_index=True,
         default=timezone.now,
-        help_text=_("Used to build the entry's URL."),
     )
 
     last_update = models.DateTimeField(_("last update"), default=timezone.now)
