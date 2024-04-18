@@ -3,6 +3,7 @@ import uuid
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.db import models
+from django.db.models.functions import Extract
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import html, translation
@@ -345,7 +346,14 @@ class Article(
         verbose_name_plural = _("articles")
         ordering = ["-start_publication"]
         get_latest_by = "start_publication"
-        unique_together = (("slug", "start_publication"),)
+        constraints = [
+            models.UniqueConstraint(
+                "slug",
+                Extract("start_publication", "year"),
+                Extract("start_publication", "month"),
+                name="unique_blog_url",
+            ),
+        ]
         index_together = [
             ["slug", "start_publication"],
             ["status", "start_publication", "end_publication"],
