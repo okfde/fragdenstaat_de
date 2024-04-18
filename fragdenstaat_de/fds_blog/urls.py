@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
 from froide.api import api_router
@@ -9,60 +9,73 @@ from .views import (
     ArticleArchiveView,
     ArticleDetailView,
     ArticleListView,
+    ArticleRedirectView,
     ArticleSearchView,
     AuthorArticleView,
-    CategoryArticleView,
+    CategoryArticleRedirectView,
     TaggedListView,
+    root_slug_view,
 )
 
-PERMALINKS_URLS = {
-    "full_date": r"^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>\w[-\w]*)/$",
-    "short_date": r"^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>\w[-\w]*)/$",
-    "category": r"^(?P<category>\w[-\w]*)/(?P<slug>\w[-\w]*)/$",
-    "slug": r"^(?P<slug>\w[-\w]*)/$",
+REDIRECT_URLS = {
+    "full_date": "<int:year>/<int:month>/<int:day>/<slug:slug>/",
+    "category": "<slug:category>/<slug:slug>/",
 }
 
 
-def get_urls():
-    urls = PERMALINKS_URLS
+def get_redirect_urls():
+    urls = REDIRECT_URLS
     details = []
     for urlconf in urls.values():
         details.append(
-            re_path(urlconf, ArticleDetailView.as_view(), name="article-detail"),
+            path(
+                urlconf, ArticleRedirectView.as_view(), name="article-detail-redirect"
+            ),
         )
     return details
 
 
 app_name = "blog"
-detail_urls = get_urls()
+redirect_urls = get_redirect_urls()
 
 urlpatterns = [
     path("", ArticleListView.as_view(), name="article-latest"),
-    re_path(_(r"^search/$"), ArticleSearchView.as_view(), name="article-search"),
-    re_path(r"^feed/$", LatestArticlesFeed(), name="article-latest-feed"),
-    re_path(r"^feed/audio/$", LatestAudioFeed(), name="article-latest-feed-audio"),
-    re_path(
-        r"^feed/teaser/$", LatestArticlesTeaserFeed(), name="article-latest-feed-teaser"
+    path(
+        _("<slug:category>/<int:year>/<int:month>/<slug:slug>/"),
+        ArticleDetailView.as_view(),
+        name="article-detail",
     ),
-    re_path(
-        r"^(?P<year>\d{4})/$", ArticleArchiveView.as_view(), name="article-archive"
+    path(
+        _("<int:year>/<int:month>/<slug:slug>/"),
+        ArticleDetailView.as_view(),
+        name="article-detail",
     ),
-    re_path(
-        r"^(?P<year>\d{4})/(?P<month>\d{1,2})/$",
+    path(_("search/"), ArticleSearchView.as_view(), name="article-search"),
+    path("feed/", LatestArticlesFeed(), name="article-latest-feed"),
+    path("feed/audio/", LatestAudioFeed(), name="article-latest-feed-audio"),
+    path("feed/teaser/", LatestArticlesTeaserFeed(), name="article-latest-feed-teaser"),
+    path("<int:year>/", ArticleArchiveView.as_view(), name="article-archive"),
+    path(
+        "<int:year>/<int:month>/",
         ArticleArchiveView.as_view(),
         name="article-archive",
     ),
-    re_path(
-        _(r"^author/(?P<username>[\w\.@+-]+)/$"),
+    path(
+        _("author/<str:username>/"),
         AuthorArticleView.as_view(),
         name="article-author",
     ),
-    re_path(
-        _(r"^category/(?P<category>[\w\.@+-]+)/$"),
-        CategoryArticleView.as_view(),
+    path(
+        _("category/<slug:category>/"),
+        CategoryArticleRedirectView.as_view(),
+        name="article-category-redirect",
+    ),
+    path(
+        "<slug:category>/",
+        root_slug_view,
         name="article-category",
     ),
-    re_path(r"^tag/(?P<tag>[-\w]+)/$", TaggedListView.as_view(), name="article-tagged"),
-] + detail_urls
+    path("tag/<slug:tag>/", TaggedListView.as_view(), name="article-tagged"),
+] + redirect_urls
 
 api_router.register(r"articletag", ArticleTagViewSet, basename="articletag")
