@@ -393,21 +393,22 @@ class Article(
         cur_language = translation.get_language()
 
         language = language or self.language
+        category = self.categories.language(language).first()
 
         try:
             if language:
                 translation.activate(language)
 
             publication_date = self.publication_date
-            kwargs = {"slug": self.slug}
-            if publication_date is not None:
-                kwargs.update(
-                    {
-                        "year": publication_date.strftime("%Y"),
-                        "month": publication_date.strftime("%m"),
-                        "day": publication_date.strftime("%d"),
-                    }
-                )
+            kwargs = {
+                "slug": self.slug,
+                "year": publication_date.strftime("%Y"),
+                "month": publication_date.strftime("%m"),
+            }
+
+            if category is not None:
+                kwargs.update({"category": category.slug})
+
             url = reverse("blog:article-detail", kwargs=kwargs)
         finally:
             if language:

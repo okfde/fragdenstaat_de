@@ -1,14 +1,15 @@
+import logging
 import os.path
 
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, MultipleObjectsReturned
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, RedirectView
 
 from froide.helper.search.views import BaseSearchView
 
@@ -16,6 +17,8 @@ from .documents import ArticleDocument
 from .filters import ArticleFilterset
 from .managers import articles_visible
 from .models import Article, ArticleTag, Category
+
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -72,6 +75,29 @@ class BaseBlogListView(BaseBlogView):
         return 12
 
 
+class ArticleRedirectView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        qs = {"slug": kwargs["slug"]}
+
+        optional_specifiers = [
+            ("year", "start_publication__year"),
+            ("month", "start_publication__month"),
+            ("category", "categories__translations__slug"),
+        ]
+
+        for kwargs_key, filter_key in optional_specifiers:
+            if kwargs_key in kwargs:
+                qs[filter_key] = kwargs[kwargs_key]
+
+        try:
+            article = get_object_or_404(Article, language=get_language(), **qs)
+            return article.get_absolute_url()
+        except MultipleObjectsReturned:
+            # url not specific enough
+            logger.error("Ambiguous article urls at %s", self.request.path)
+            raise Http404
+
+
 class ArticleDetailView(BaseBlogView, DetailView):
     base_template_name = "article_detail.html"
     slug_field = "slug"
@@ -88,23 +114,30 @@ class ArticleDetailView(BaseBlogView, DetailView):
     def optimize(self, qs):
         return qs.prefetch_related("categories", "authors")
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(
+            start_publication__year=self.kwargs["year"],
+            start_publication__month=self.kwargs["month"],
+        )
+
+        if "category" in self.kwargs:
+            try:
+                category = Category.objects.active_translations(
+                    get_language(), slug=self.kwargs["category"]
+                ).get()
+                qs = qs.filter(categories=category)
+            except Category.DoesNotExist:
+                raise Http404
+
+        return self.optimize(qs)
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.request.article = self.object
         if hasattr(self.request, "toolbar"):
             self.request.toolbar.set_object(self.object)
 
-        if self.object.language != request.LANGUAGE_CODE:
-            queryset = self.get_queryset()
-            if self.object.uuid is not None:
-                queryset = queryset.filter(
-                    uuid=self.object.uuid, language=request.LANGUAGE_CODE
-                )
-                try:
-                    self.object = queryset.get()
-                except Article.DoesNotExist:
-                    raise Http404
-                return redirect(self.object, permanent=True)
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
@@ -202,7 +235,7 @@ class TaggedListView(BaseBlogListView, ListView):
         return context
 
     def get_breadcrumbs(self, context):
-        return get_base_breadcrumb() + [(self.tag.name)]
+        return get_base_breadcrumb() + [_("Tag “%s”") % self.tag.name]
 
 
 class AuthorArticleView(BaseBlogListView, ListView):
@@ -224,9 +257,32 @@ class AuthorArticleView(BaseBlogListView, ListView):
         return get_base_breadcrumb() + [(self.author.get_full_name())]
 
 
+class CategoryArticleRedirectView(RedirectView):
+    pattern_name = "blog:article-category"
+
+
+def root_slug_view(request, category):
+    slug = category  # to avoid confusion
+
+    category = Category.objects.active_translations(get_language(), slug=slug)
+
+    if category.exists():
+        return CategoryArticleView.as_view(category=category.get())(
+            request, category=slug
+        )
+
+    return redirect(ArticleRedirectView().get_redirect_url(slug=slug))
+
+
 class CategoryArticleView(BaseBlogListView, ListView):
     _category = None
     view_url_name = "fds_blog:article-category"
+
+    def __init__(self, *args, **kwargs):
+        if "category" in kwargs:
+            self._category = kwargs["category"]
+
+        super(CategoryArticleView, self).__init__()
 
     @property
     def category(self):
