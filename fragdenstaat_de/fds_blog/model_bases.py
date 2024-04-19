@@ -42,8 +42,7 @@ class CoreEntry(models.Model):
     start_publication = models.DateTimeField(
         _("start publication"),
         db_index=True,
-        blank=True,
-        null=True,
+        default=timezone.now,
         help_text=_("Start date of publication. Used to build the entry's URL."),
     )
 
