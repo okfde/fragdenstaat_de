@@ -41,12 +41,12 @@ redirect_urls = get_redirect_urls()
 urlpatterns = [
     path("", ArticleListView.as_view(), name="article-latest"),
     path(
-        _("<slug:category>/<int:year>/<int:month>/<slug:slug>/"),
+        "<slug:category>/<int:year>/<int:month>/<slug:slug>/",
         ArticleDetailView.as_view(),
         name="article-detail",
     ),
     path(
-        _("<int:year>/<int:month>/<slug:slug>/"),
+        "<int:year>/<int:month>/<slug:slug>/",
         ArticleDetailView.as_view(),
         name="article-detail",
     ),
