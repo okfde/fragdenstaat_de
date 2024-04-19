@@ -349,9 +349,13 @@ class Article(
         constraints = [
             models.UniqueConstraint(
                 "slug",
+                "language",
                 Extract("start_publication", "year"),
                 Extract("start_publication", "month"),
                 name="unique_blog_url",
+                violation_error_message=_(
+                    "An article with the same slug, month and year already exists. Please choose another slug."
+                ),
             ),
         ]
         index_together = [
