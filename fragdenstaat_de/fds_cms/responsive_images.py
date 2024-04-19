@@ -152,7 +152,7 @@ def get_imgsizes(colsizes):
             condition = "max-width" if container_width is None else "min-width"
             value = "100vw"
         else:
-            col_ratio = col_size / COL_BASE
+            col_ratio = "{:.2f}".format(col_size / COL_BASE)
             if container_width is None:
                 condition = "max-width"
                 value = "calc(100vw * {})".format(col_ratio)
