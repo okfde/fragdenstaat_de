@@ -1,11 +1,10 @@
 {% extends "cms/base.html" %}
 {% load i18n static sekizai_tags %}
-
-{% block title %}{% trans "Aliases" %}{% endblock %}
-
+{% block title %}
+    {% trans "Aliases" %}
+{% endblock %}
 {% block breadcrumb %}{% endblock %}
 {% block footer %}{% endblock %}
-
 {% block content %}
     <div class="aliases">
         {% block aliases_content %}
