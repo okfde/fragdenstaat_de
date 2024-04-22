@@ -68,3 +68,56 @@
 .cms-toolbar-expanded .offcanvas {
   top: 46px;
 }
+
+/*================================
+=           TIMELINE            =
+================================*/
+
+.timeline {
+  margin: 1rem 0;
+  padding: 0;
+  font-family: $font-family-sans-serif;
+
+  p {
+    font-family: $font-family-sans-serif;
+    margin-bottom: 4rem;
+  }
+}
+
+.timeline > li > *:last-child {
+  margin-bottom: 1.25rem;
+}
+
+.timeline > li {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 4px solid $primary;
+  padding-left: 30px;
+  margin-left: 15px;
+  padding-bottom: 1rem;
+
+  h5 {
+    position: relative;
+    top: -0.4rem;
+    margin: 0;
+    font-family: $font-family-sans-serif;
+  }
+}
+
+.timeline > li:last-child {
+  border-left: 4px solid transparent;
+}
+
+.timeline > li:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  left: -0.65rem;
+  border-radius: 50%;
+  border: 0.25rem solid $primary;
+  background: #fff;
+}

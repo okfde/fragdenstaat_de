@@ -51,3 +51,11 @@ body {
   font-weight: 400 !important;
   margin: 2rem 0;
 }
+
+.list-arrow {
+  list-style: none;
+}
+
+.list-arrow > li::before {
+  content: '→ ';
+}
