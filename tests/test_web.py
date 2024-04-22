@@ -1,5 +1,3 @@
-import unittest
-
 from django.test import TestCase
 
 
@@ -14,13 +12,8 @@ class TestWebAppsForm(TestCase):
         response = self.client.get("/blog/")
         self.assertEqual(response.status_code, 200)
 
-    @unittest.skip("Search needs to be setup as CMS app")
     def test_cms_search(self):
-        # Currently not working because for testing
-        # this is not setup as CMS app, but hooked directly.
-        # Template now depends on request.current_page
-        # being available
-        response = self.client.get("/cms/search/")
+        response = self.client.get("/hilfe/suche/")
         self.assertEqual(response.status_code, 200)
 
     def test_crowdfunding(self):
