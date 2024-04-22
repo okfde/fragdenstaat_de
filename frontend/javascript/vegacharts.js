@@ -105,7 +105,9 @@ document.querySelectorAll('[data-vegachart]').forEach((el) => {
   } else {
     spec = JSON.parse(document.getElementById(el.dataset.vegachart).textContent)
   }
-  if (!spec.data.url && !spec.data.values && !spec.datasets) {
+  let hasData =
+    (spec.data && (spec.data.url || spec.data.values)) || spec.datasets
+  if (!hasData) {
     const data = JSON.parse(
       document.getElementById(el.dataset.vegachart + '_data').textContent
     )
