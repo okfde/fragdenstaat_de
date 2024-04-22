@@ -1,51 +1,6 @@
-.blog-header-container {
-  @extend .container;
-}
-
-.navbar-blog {
-  background-color: $blue;
-  backdrop-filter: blur(10px);
-  z-index: 1;
-}
-
-@include media-breakpoint-down(sm) {
-  .navbar-blog .navbar-brand {
-    font-size: 1rem;
-  }
-}
-
 /*================================
 =           List-Item           =
 ================================*/
-
-h4.blog-list-heading {
-  margin-top: 0 !important;
-
-  a,
-  a:active,
-  a:visited {
-    border-color: $black;
-    text-decoration: none !important;
-    color: var(--#{$prefix}secondary-color);
-  }
-
-  a:focus,
-  a:hover,
-  a:active:focus,
-  a:active:hover,
-  a:visited:focus,
-  a:visited:hover {
-    border-bottom: 1px solid rgba(30, 32, 35, 0.3);
-    text-decoration: none;
-  }
-}
-
-.blog-list-heading__kicker {
-  color: var(--#{$prefix}secondary-color);
-  font-size: 0.9rem;
-  min-height: 1.5em;
-  line-height: 1.5;
-}
 
 .blog-lead {
   color: var(--#{$prefix}secondary-color);
@@ -303,7 +258,7 @@ h4.blog-list-heading {
   a,
   a:active,
   a:visited {
-    border-bottom: 1px solid var(--#{$prefix}link-color);;
+    border-bottom: 1px solid var(--#{$prefix}link-color);
     color: var(--#{$prefix}link-color);
     text-decoration: none;
     transition: all ease 0.3s;
@@ -361,133 +316,25 @@ h4.blog-list-heading {
 }
 
 .picture-description {
-  font-size: 0.85rem;
+  font-size: $font-size-sm;
   color: var(--#{$prefix}secondary-color);
 }
 
 .picture-credits {
   font-style: italic;
-  font-size: 0.85rem;
+  font-size: $font-size-sm;
   color: var(--#{$prefix}tertiary-color);
 
-  a,
-  a:active,
-  a:visited {
-    border-bottom: 1px solid rgba(30, 32, 35, 0.3);
-    color: var(--#{$prefix}tertiary-color);
-    text-decoration: none;
-    transition: all ease 0.3s;
-  }
-
-  a:focus,
-  a:hover,
-  a:active:focus,
-  a:active:hover,
-  a:visited:focus,
-  a:visited:hover {
-    border-color: $black;
-    text-decoration: none !important;
-    color: var(--#{$prefix}secondary-color);
+  a {
+    --#{$prefix}link-color-rgb: var(--#{$prefix}tertiary-color-rgb);
+    --#{$prefix}link-hover-color-rgb: var(--#{$prefix}secondary-color-rgb);
   }
 }
 
-.img-circle {
-  border-radius: 50%;
-  width: 100%;
-}
-
-/*================================
-=          NEXT READS           =
-================================*/
-
-.cl-effect-10 {
-  position: relative;
-  z-index: 1;
-}
-
-.cl-effect-10 a {
-  text-decoration: none !important;
-}
-
-.cl-effect-10 a:after {
-  color: $primary;
-  content: attr(data-hover);
-  transition: margin 0.3s;
-  margin-left: 0;
-  text-decoration: none !important;
-}
-
-.cl-effect-10 a:hover:after,
-.cl-effect-10 a:focus:after {
-  margin-left: 1rem;
-  text-decoration: none !important;
-}
-
-/*================================
-=           TIMELINE            =
-================================*/
-
-.timeline {
-  margin: 1rem 0;
-  padding: 0;
-  font-family: $font-family-sans-serif;
-
-  p {
-    font-family: $font-family-sans-serif;
-    margin-bottom: 4rem;
-  }
-}
-
-.timeline > li > *:last-child {
-  margin-bottom: 1.25rem;
-}
-
-.timeline > li {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-left: 4px solid $primary;
-  padding-left: 30px;
-  margin-left: 15px;
-  padding-bottom: 1rem;
-
-  h5 {
-    position: relative;
-    top: -0.4rem;
-    margin: 0;
-    font-family: $font-family-sans-serif;
-  }
-}
-
-.timeline > li:last-child {
-  border-left: 4px solid transparent;
-}
-
-.timeline > li:before {
-  content: '';
-  display: block;
-  position: absolute;
-  width: 1rem;
-  height: 1rem;
-  left: -0.65rem;
-  border-radius: 50%;
-  border: 0.25rem solid $primary;
-  background: #fff;
-}
-
-/* CKEditor hacks */
-.textarea.cke_source {
-  resize: auto !important;
-}
-
-/*================================
-=           Arrow List           =
-================================*/
 .list-arrow {
-  list-style: none
+  list-style: none;
 }
 
 .list-arrow > li::before {
-  content: "→ "
+  content: '→ ';
 }
