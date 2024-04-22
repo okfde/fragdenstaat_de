@@ -748,7 +748,7 @@ msgstr "Import erfolgreich."
 msgid "Something went wrong. Please try again later."
 msgstr "Etwas lief schief, bitte versuchen Sie es später noch einmal."
 
-#: fragdenstaat_de/fds_mailing/admin.py
+#: fragdenstaat_de/fds_mailing/admin.py fragdenstaat_de/fds_cms/admin.py
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -1455,8 +1455,9 @@ msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
 
-#~ msgid "Apply"
-#~ msgstr "Übernehmen"
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
+msgid "Apply"
+msgstr "Übernehmen"
 
 #~ msgid "Only applies to the native share button."
 #~ msgstr "Trifft nur auf den Native Share Button zu."
