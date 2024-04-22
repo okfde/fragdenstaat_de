@@ -17,7 +17,7 @@
                 </div>
                 {% include "fds_cms/pagination.html" with min_level=-1 %}
             </div>
-            {% if not request.current_page.soft_root and request.current_page.in_navigation %}
+            {% if not request.current_page.soft_root and request.current_page.get_in_navigation %}
                 <div class="col col-md-4 col-xl-3">
                     <div class="sticky-top z-2 pt-md-1 small">
                         <div class="bg-blue-100 p-3 tight-margin">
