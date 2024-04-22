@@ -43,19 +43,6 @@
                 {% blocktrans with extra_placeholder=extra_placeholder %}'{{ extra_placeholder }}' static placeholder{% endblocktrans %}
             </h4>
             <div class="border border-dark p-2 mb-2">{% static_alias extra_placeholder %}</div>
-            <form method="post"
-                  action="{% url 'admin:cms_staticplaceholder_changelist' %}"
-                  class="mb-5">
-                {% csrf_token %}
-                <input type="hidden" name="action" value="publish" />
-                <input type="hidden" name="select_across" value="0" />
-                <input type="hidden" name="index" value="0" />
-                <input type="hidden" name="next" value="{{ request.get_full_path }}" />
-                <input type="hidden"
-                       name="_selected_action"
-                       value="{{ static_placeholder_id }}" />
-                <button type="submit" class="btn btn-primary">{% trans "Apply" %}</button>
-            </form>
         {% endif %}
     {% endwith %}
 {% endblock %}
