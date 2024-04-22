@@ -1,5 +1,6 @@
 {% extends "fds_blog/base.html" %}
 {% load i18n cms_tags %}
+{% load djangocms_alias_tags %}
 {% load markup %}
 {% load static %}
 {% load blog_tags %}
@@ -22,7 +23,7 @@
     {% spaceless %}
         <article id="post-{{ article.slug }} post-item post-detail">{% include article.content_template %}</article>
     {% endspaceless %}
-    {% static_placeholder "blog_donation_banner" %}
+    {% static_alias "blog_donation_banner" %}
     {% with next_read=article|get_next_read %}
         {% if next_read %}
             <div class="container">

@@ -15,6 +15,8 @@
     #   froide
 -e git+https://github.com/fragdenstaat/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
     # via -r requirements.in
+-e git+https://github.com/stefanw/djangocms-4-migration.git@fds-migration#egg=djangocms-4-migration
+    # via -r requirements.in
 -e git+https://github.com/okfde/fcdocs-annotate.git@main#egg=fcdocs_annotate
     # via -r requirements.in
 -e git+https://github.com/okfde/froide.git@main#egg=froide
@@ -192,11 +194,13 @@ django==4.2.4
     #   django-polymorphic
     #   django-prices
     #   django-sekizai
-    #   django-select2
     #   django-storages
     #   django-taggit
     #   django-treebeard
+    #   djangocms-admin-style
+    #   djangocms-alias
     #   djangocms-frontend
+    #   djangocms-versioning
     #   djangorestframework
     #   drf-spectacular
     #   drf-spectacular-sidecar
@@ -210,9 +214,7 @@ django-admin-sortable2==2.1.8
     #   froide-campaign
     #   froide-govplan
 django-appconf==1.0.5
-    # via
-    #   django-celery-email
-    #   django-select2
+    # via django-celery-email
 django-celery-beat==2.5.0
     # via -r requirements.in
 django-celery-email==3.0.0
@@ -221,9 +223,10 @@ django-classy-tags==4.0.0
     # via
     #   django-cms
     #   django-sekizai
-django-cms==3.11.3
+django-cms==4.1.0
     # via
     #   -r requirements.in
+    #   djangocms-alias
     #   djangocms-attributes-field
     #   djangocms-audio
     #   djangocms-frontend
@@ -231,6 +234,7 @@ django-cms==3.11.3
     #   djangocms-link
     #   djangocms-picture
     #   djangocms-text-ckeditor
+    #   djangocms-versioning
     #   djangocms-video
     #   froide-govplan
     #   sortabletable
@@ -272,7 +276,9 @@ django-floppyforms==1.9.0
 django-formtools==2.4.1
     # via django-cms
 django-fsm==2.8.1
-    # via froide-legalaction
+    # via
+    #   djangocms-versioning
+    #   froide-legalaction
 django-js-asset==2.0.0
     # via django-mptt
 django-json-widget==1.1.1
@@ -298,6 +304,7 @@ django-oauth-toolkit==1.7.1
 django-parler==2.3
     # via
     #   -r requirements.in
+    #   djangocms-alias
     #   froide
 django-payments[stripe]==2.0.0
     # via froide-payment
@@ -311,8 +318,6 @@ django-sekizai==4.1.0
     # via
     #   -r requirements.in
     #   django-cms
-django-select2==8.1.2
-    # via djangocms-frontend
 django-storages==1.13.2
     # via
     #   -r requirements.in
@@ -334,10 +339,11 @@ django-treebeard==4.4
     #   django-cms
     #   django-filingcabinet
     #   django-legal-advice-builder
-    #   djangocms-attributes-field
-djangocms-admin-style==3.2.4
+djangocms-admin-style==3.3.1
     # via django-cms
-djangocms-attributes-field==2.1.0
+djangocms-alias==2.0.1
+    # via -r requirements.in
+djangocms-attributes-field==3.0.0
     # via
     #   djangocms-audio
     #   djangocms-frontend
@@ -345,21 +351,21 @@ djangocms-attributes-field==2.1.0
     #   djangocms-link
     #   djangocms-picture
     #   djangocms-video
-djangocms-audio==2.0.0
+djangocms-audio==2.1.1
     # via -r requirements.in
-djangocms-frontend==1.1.2
+djangocms-frontend==1.3.1
     # via -r requirements.in
-djangocms-icon==2.0.0
+djangocms-icon==2.1.0
     # via -r requirements.in
 djangocms-link==3.1.1
     # via -r requirements.in
-djangocms-picture==4.0.0
+djangocms-picture==4.1.1
     # via -r requirements.in
-djangocms-text-ckeditor==5.1.2
-    # via
-    #   -r requirements.in
-    #   djangocms-frontend
-djangocms-video==3.0.0
+djangocms-text-ckeditor==5.1.5
+    # via -r requirements.in
+djangocms-versioning==2.0.1
+    # via -r requirements.in
+djangocms-video==3.1.0
     # via -r requirements.in
 djangorestframework==3.14.0
     # via

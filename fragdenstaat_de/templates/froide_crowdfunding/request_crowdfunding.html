@@ -1,5 +1,5 @@
 {% extends "froide_crowdfunding/request_crowdfunding.html" %}
-{% load cms_tags %}
+{% load djangocms_alias_tags %}
 {% block conditions %}
-    {% static_placeholder "crowdfunding_conditions" %}
+    {% static_alias "crowdfunding_conditions" %}
 {% endblock %}

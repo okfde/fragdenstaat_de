@@ -9,13 +9,14 @@ from django.db.models.query import QuerySet
 from django.template import Context, Template
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from cms.models.fields import PlaceholderField
+from cms.models.fields import PlaceholderRelationField
 from cms.models.pluginmodel import CMSPlugin
-from cms.models.static_placeholder import StaticPlaceholder
+from cms.utils.placeholder import get_placeholder_from_slot
 from filer.fields.image import FilerImageField
-from fragdenstaat_de.fds_cms.utils import get_request
+from fragdenstaat_de.fds_cms.utils import get_alias_placeholder, get_request
 from fragdenstaat_de.fds_donation.models import Donor
 from fragdenstaat_de.fds_newsletter.models import Newsletter, Subscriber
 
@@ -45,7 +46,7 @@ class EmailTemplate(models.Model):
     subject = models.CharField(max_length=255, blank=True)
     text = models.TextField(blank=True)
 
-    email_body = PlaceholderField("email_body")
+    placeholders = PlaceholderRelationField()
 
     template = models.CharField(
         max_length=255, blank=True, choices=EMAIL_TEMPLATE_CHOICES
@@ -61,7 +62,14 @@ class EmailTemplate(models.Model):
     def __str__(self):
         return self.name
 
-    def get_template(self, name="base.html"):
+    @cached_property
+    def email_body(self):
+        return get_placeholder_from_slot(self.placeholders, "email_body")
+
+    def get_template(self):
+        return "fds_mailing/placeholders.html"
+
+    def get_base_template(self, name="base.html"):
         template_base = self.template
         if template_base == "":
             template_base = "default"
@@ -124,17 +132,11 @@ class EmailTemplate(models.Model):
             text = self.text
         elif self.email_body:
             text = render_text(self.email_body, context)
-        extra_placeholder = self.get_extra_placeholder_name()
-        if extra_placeholder:
-            try:
-                sp = (
-                    StaticPlaceholder.objects.filter(code=extra_placeholder)
-                    .select_related("public")
-                    .get()
-                )
-                text = "{}\r\n\r\n{}".format(text, render_text(sp.public, context))
-            except StaticPlaceholder.DoesNotExist:
-                pass
+        extra_placeholder_name = self.get_extra_placeholder_name()
+        if extra_placeholder_name:
+            placeholder = get_alias_placeholder(extra_placeholder_name)
+            if placeholder:
+                text = "{}\r\n\r\n{}".format(text, render_text(placeholder, context))
         return COLLAPSE_NEWLINES.sub("\r\n\r\n", text)
 
     def get_body_text(self, context=None, preview=False):

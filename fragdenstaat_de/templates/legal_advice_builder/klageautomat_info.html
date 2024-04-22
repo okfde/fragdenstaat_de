@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load form_helper cms_tags i18n %}
+{% load djangocms_alias_tags %}
+{% load form_helper i18n %}
 {% block body %}
     <div class="bg-body-tertiary">
         <div class="container">
@@ -24,7 +25,7 @@
         <div class="container mb-5">
             <div class="row justify-content-left">
                 <div class="col-md-8">
-                    {% static_placeholder "klageautomat_info" %}
+                    {% static_alias "klageautomat_info" %}
                     <div>
                         <form method="post">
                             {% csrf_token %}

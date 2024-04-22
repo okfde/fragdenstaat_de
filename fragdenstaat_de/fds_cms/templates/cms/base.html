@@ -1,5 +1,6 @@
 {% extends "cms/scaffold.html" %}
 {% load cms_tags %}
+{% load djangocms_alias_tags %}
 {% load static %}
 {% load sekizai_tags %}
 {% load frontendbuild %}
@@ -12,7 +13,7 @@
         {% include "account/includes/impostor.html" %}
     {% endif %}
     {% block top_block %}
-        <div class="top-banner" hidden>{% static_placeholder "top_banner" %}</div>
+        <div class="top-banner" hidden>{% static_alias "top_banner" %}</div>
     {% endblock top_block %}
     {% block navbar %}
         {% include "header.html" %}
@@ -33,7 +34,7 @@
     {% endblock body_wrapper %}
     {% block footer_container %}
         <footer class="footer" id="footer">
-            <div class="container">{% static_placeholder "footer" %}</div>
+            <div class="container">{% static_alias "footer" %}</div>
         </footer>
     {% endblock footer_container %}
 {% endblock body_tag %}
