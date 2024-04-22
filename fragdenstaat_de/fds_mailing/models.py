@@ -96,6 +96,7 @@ class EmailTemplate(models.Model):
     ):
         if request is None:
             request = get_request()
+            request.toolbar.set_object(self)
         ctx = {
             "placeholder": self.email_body,
             "object": self,
