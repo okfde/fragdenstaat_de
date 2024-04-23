@@ -38,14 +38,14 @@ cms_cmsplugin
 cms_globalpagepermission
 cms_globalpagepermission_sites
 cms_page
-cms_page_placeholders
+cms_pagecontent
 cms_pagepermission
+cms_pageurl
 cms_pageuser
 cms_pageusergroup
 cms_placeholder
 cms_placeholderreference
 cms_staticplaceholder
-cms_title
 cms_treenode
 cms_urlconfrevision
 cms_usersettings
@@ -68,6 +68,11 @@ django_flatpage_sites
 django_migrations
 django_redirect
 django_site
+djangocms_alias_alias
+djangocms_alias_aliascontent
+djangocms_alias_aliasplugin
+djangocms_alias_category
+djangocms_alias_category_translation
 djangocms_audio_audiofile
 djangocms_audio_audiofolder
 djangocms_audio_audioplayer
@@ -91,6 +96,8 @@ djangocms_icon_icon
 djangocms_link_link
 djangocms_picture_picture
 djangocms_text_ckeditor_text
+djangocms_versioning_statetracking
+djangocms_versioning_version
 djangocms_video_videoplayer
 djangocms_video_videosource
 djangocms_video_videotrack
@@ -112,6 +119,7 @@ fds_blog_latestarticlesplugin
 fds_blog_latestarticlesplugin_authors
 fds_blog_latestarticlesplugin_categories
 fds_blog_latestarticlesplugin_tags
+fds_blog_publication
 fds_blog_taggedarticle
 fds_cms_borderedsectioncmsplugin
 fds_cms_cardcmsplugin
