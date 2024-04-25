@@ -12,6 +12,7 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.models.fields import PlaceholderRelationField
 from cms.models.pluginmodel import CMSPlugin
+from cms.toolbar.utils import get_object_edit_url
 from cms.utils.placeholder import get_placeholder_from_slot
 from cms.utils.plugins import get_plugins
 from filer.fields.image import FilerImageField
@@ -414,7 +415,7 @@ class Article(
         return url
 
     def get_absolute_edit_url(self):
-        return self.get_absolute_url(nopage=True)
+        return get_object_edit_url(self)
 
     def get_full_url(self):
         return "%s%s" % (settings.SITE_URL, self.get_absolute_url())
