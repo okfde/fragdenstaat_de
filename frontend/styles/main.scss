@@ -1,12 +1,11 @@
 @import 'bootstrap/scss/functions';
 
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/variables-dark';
-
 @import 'froide/frontend/styles/variables';
 @import 'variables';
 
-/* Override maps here */
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+
 @import 'froide/frontend/styles/maps';
 
 @import 'bootstrap/scss/maps';
@@ -54,7 +53,6 @@
 
 // Utilities
 @import 'bootstrap/scss/utilities/api';
-// scss-docs-end import-stack
 
 // Icon font
 $fa-font-path: 'font-awesome/fonts';
