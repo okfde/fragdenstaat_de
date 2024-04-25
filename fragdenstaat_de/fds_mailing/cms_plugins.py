@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
-from fragdenstaat_de.fds_newsletter.models import Newsletter
 
 from .models import (
     EmailActionCMSPlugin,
@@ -13,6 +12,7 @@ from .models import (
     EmailSectionCMSPlugin,
     EmailStoryCMSPlugin,
     Mailing,
+    NewsletterArchiveCMSPlugin,
 )
 from .utils import render_plugin_text
 
@@ -174,6 +174,7 @@ class EmailHeaderPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
 
 @plugin_pool.register_plugin
 class NewsletterArchivePlugin(CMSPluginBase):
+    model = NewsletterArchiveCMSPlugin
     module = _("Newsletter")
     name = _("Newsletter Archive")
     cache = True
@@ -182,14 +183,14 @@ class NewsletterArchivePlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        context["newsletter"] = None
-        try:
-            context["newsletter"] = Newsletter.objects.get(
-                slug=settings.DEFAULT_NEWSLETTER
-            )
-        except Newsletter.DoesNotExist:
-            return context
-        context["latest"] = Mailing.published.filter(
-            newsletter=context["newsletter"]
+
+        latest_mailings = Mailing.published.filter(
+            newsletter=instance.newsletter
         ).order_by("-sending_date")
+
+        if instance.number_of_mailings != 0:
+            latest_mailings = latest_mailings[: instance.number_of_mailings]
+
+        context["latest"] = latest_mailings
+
         return context

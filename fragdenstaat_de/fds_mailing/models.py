@@ -525,3 +525,12 @@ class MailingMessage(models.Model):
 
         except Exception as e:
             logger.error("Mailing message %s failed with error: %s" % (self, e))
+
+
+class NewsletterArchiveCMSPlugin(CMSPlugin):
+    newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE)
+    number_of_mailings = models.PositiveIntegerField(
+        _("number of mailing"),
+        default=6,
+        help_text=_("0 means all the mailings. Should be devisible by 3."),
+    )
