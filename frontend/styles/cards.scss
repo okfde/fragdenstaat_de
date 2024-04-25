@@ -20,7 +20,8 @@
   }
 }
 
-a > .box-card {
+a > .box-card,
+.box-card:has(a.stretched-link) {
   box-shadow: 0 0 0 var(--shadow-color, var(--shadow-gray));
   transform: translate(0, 0);
   transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
