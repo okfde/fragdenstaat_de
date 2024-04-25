@@ -41,7 +41,6 @@ class FragDenStaatBase(German, Base):
             + [
                 "django.contrib.postgres",
                 "fragdenstaat_de.fds_cms.apps.FdsCmsConfig",
-                "djangocms_4_migration",
                 "djangocms_versioning",
                 "cms",
                 "djangocms_alias",

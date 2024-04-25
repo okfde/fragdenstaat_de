@@ -15,8 +15,6 @@
     #   froide
 -e git+https://github.com/fragdenstaat/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
     # via -r requirements.in
--e git+https://github.com/stefanw/djangocms-4-migration.git@fds-migration#egg=djangocms-4-migration
-    # via -r requirements.in
 -e git+https://github.com/okfde/fcdocs-annotate.git@main#egg=fcdocs_annotate
     # via -r requirements.in
 -e git+https://github.com/okfde/froide.git@main#egg=froide
@@ -353,7 +351,7 @@ djangocms-attributes-field==3.0.0
     #   djangocms-video
 djangocms-audio==2.1.1
     # via -r requirements.in
-djangocms-frontend==1.3.1
+djangocms-frontend==1.3.2
     # via -r requirements.in
 djangocms-icon==2.1.0
     # via -r requirements.in

@@ -28,11 +28,9 @@ django-storages
 django-taggit
 django-treebeard
 Django>=4.2
-# TODO: remove after CMS migration
--e git+https://github.com/stefanw/djangocms-4-migration.git@fds-migration#egg=djangocms-4-migration
 djangocms-alias>=2.0.1
 djangocms-audio
-djangocms-frontend>=1.1.1
+djangocms-frontend>=1.3.2
 djangocms-link>=3.1.0
 djangocms-icon
 djangocms-picture
