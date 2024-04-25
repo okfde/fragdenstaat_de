@@ -5,7 +5,7 @@
 {% endif %}
 {% if request.user.is_authenticated %}
     <li class="text-bg-body-tertiary dropdown-header tight-margin py-3">
-        <div class="font-weight-semibold">
+        <div class="fw-semibold">
             {% blocktrans with name=request.user.get_full_name %}Hello, {{ name }}!{% endblocktrans %}
         </div>
         <div>{{ request.user.email }}</div>
