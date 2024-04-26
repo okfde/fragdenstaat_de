@@ -1,5 +1,5 @@
 {% load frontendbuild sekizai_tags %}
-{% if request.current_page or force_cms_render %}
+{% if request.current_page or force_cms_render or request.toolbar %}
     {% getfrontendbuild entry_point as assets %}
     {% for block, output_list in assets %}
         {% for output in output_list %}
