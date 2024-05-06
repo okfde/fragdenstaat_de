@@ -525,8 +525,8 @@ msgid ""
 "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
 "\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr ""
-"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
-"target=\"_blank\">Font Awesome 4 Icon Liste</a>"
+"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target="
+"\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background image"
@@ -914,7 +914,6 @@ msgstr "Mailing-Nachrichten"
 
 #: fragdenstaat_de/fds_mailing/models.py
 #, fuzzy
-#| msgid "number of entries"
 msgid "number of mailing"
 msgstr "Anzahl der anzuzeigenden Anfragen"
 
@@ -970,7 +969,6 @@ msgstr "an diese Empfänger:innen:"
 
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/archive/mailing_detail.html
 #, fuzzy, python-format
-#| msgid "Newsletter template"
 msgid "Newsletter from %(date)s"
 msgstr "Newsletter-Vorlage"
 
@@ -1009,7 +1007,6 @@ msgstr "Mailing an ausgewählte Empfänger:innen vorbereiten..."
 
 #: fragdenstaat_de/fds_mailing/views.py
 #, fuzzy, python-format
-#| msgid "Create Mailing from CSV"
 msgid "Mailing from %s"
 msgstr "Mailing aus CSV erstellen"
 
@@ -1613,11 +1610,11 @@ msgstr ""
 #~ msgstr "Hilfebereich: FragDenStaat und Informationsfreiheit"
 
 #~ msgid ""
-#~ "Support area: FragDenStaat and <abbr title=\"Freedom of "
-#~ "Information\">FOI</abbr>"
+#~ "Support area: FragDenStaat and <abbr title=\"Freedom of Information"
+#~ "\">FOI</abbr>"
 #~ msgstr ""
-#~ "Hilfebereich: FragDenStaat und <abbr "
-#~ "title=\"Informationsfreiheitsgesetz\">IFG</abbr>"
+#~ "Hilfebereich: FragDenStaat und <abbr title=\"Informationsfreiheitsgesetz"
+#~ "\">IFG</abbr>"
 
 #~ msgid "Toggle chapter navigation"
 #~ msgstr "Kapitel-Navigation umschalten"
