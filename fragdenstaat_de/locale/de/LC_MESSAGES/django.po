@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-15 16:25+0200\n"
+"POT-Creation-Date: 2024-05-06 15:24+0200\n"
 "PO-Revision-Date: 2024-04-15 15:05+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -18,10 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.14.2\n"
-
-#: fragdenstaat_de/fds_cms/admin.py
-msgid "Edit"
-msgstr "Bearbeiten"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Document"
@@ -461,12 +457,10 @@ msgstr ""
 
 #: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/forms.py fragdenstaat_de/settings/base.py
-#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Email"
 msgstr "E-Mail"
 
 #: fragdenstaat_de/fds_cms/models.py
-#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Copy to clipboard"
 msgstr "In Zwischenablage kopieren"
 
@@ -531,8 +525,8 @@ msgid ""
 "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
 "\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr ""
-"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target="
-"\"_blank\">Font Awesome 4 Icon Liste</a>"
+"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
+"target=\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background image"
@@ -640,11 +634,11 @@ msgstr "Themen"
 
 #: fragdenstaat_de/fds_cms/templates/cms/plugins/dropdown_banner.html
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
-#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
 msgid "Close"
 msgstr "Schließen"
 
 #: fragdenstaat_de/fds_cms/templates/cms/plugins/primarylink/campaign.html
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/plugins/archive.html
 msgid "Read more"
 msgstr "Weiterlesen"
 
@@ -655,6 +649,10 @@ msgstr "In diesem Kapitel:"
 #: fragdenstaat_de/fds_cms/templates/cms/pub_base.html
 msgid "Chapter overview:"
 msgstr "Kapitelübersicht:"
+
+#: fragdenstaat_de/fds_cms/templates/djangocms_alias/base.html
+msgid "Aliases"
+msgstr ""
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/feedback.html
 msgid "Submit"
@@ -751,6 +749,10 @@ msgid "Something went wrong. Please try again later."
 msgstr "Etwas lief schief, bitte versuchen Sie es später noch einmal."
 
 #: fragdenstaat_de/fds_mailing/admin.py
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: fragdenstaat_de/fds_mailing/admin.py
 msgid "Recipients"
 msgstr "Empfänger:innen"
 
@@ -831,6 +833,7 @@ msgid "Email Header"
 msgstr "E-Mail-Einleitung"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
+#: fragdenstaat_de/fds_mailing/views.py
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py
 #: fragdenstaat_de/templates/header.html
 msgid "Newsletter"
@@ -909,6 +912,16 @@ msgstr "Mailing-Nachricht"
 msgid "mailing messages"
 msgstr "Mailing-Nachrichten"
 
+#: fragdenstaat_de/fds_mailing/models.py
+#, fuzzy
+#| msgid "number of entries"
+msgid "number of mailing"
+msgstr "Anzahl der anzuzeigenden Anfragen"
+
+#: fragdenstaat_de/fds_mailing/models.py
+msgid "0 means all the mailings. Should be devisible by 3."
+msgstr ""
+
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/emailtemplate/change_form.html
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailingmessage/change_form.html
 msgid "Preview"
@@ -955,6 +968,16 @@ msgstr "Mailing einrichten"
 msgid "to these recipients:"
 msgstr "an diese Empfänger:innen:"
 
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/archive/mailing_detail.html
+#, fuzzy, python-format
+#| msgid "Newsletter template"
+msgid "Newsletter from %(date)s"
+msgstr "Newsletter-Vorlage"
+
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/archive/mailing_detail.html
+msgid "Don't miss out on any future updates by subscribing to this newsletter!"
+msgstr ""
+
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
 msgid "Subject:"
 msgstr "Betreff:"
@@ -980,13 +1003,15 @@ msgstr "Text-Vorschau"
 msgid "'%(extra_placeholder)s' static placeholder"
 msgstr "„%(extra_placeholder)s” statischer Platzhalter"
 
-#: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
-msgid "Apply"
-msgstr "Übernehmen"
-
 #: fragdenstaat_de/fds_mailing/utils.py
 msgid "Prepare mailing to selected recipients..."
 msgstr "Mailing an ausgewählte Empfänger:innen vorbereiten..."
+
+#: fragdenstaat_de/fds_mailing/views.py
+#, fuzzy, python-format
+#| msgid "Create Mailing from CSV"
+msgid "Mailing from %s"
+msgstr "Mailing aus CSV erstellen"
 
 #: fragdenstaat_de/fds_newsletter/admin.py
 msgid "active subscriber count"
@@ -1433,29 +1458,26 @@ msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
 
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Only applies to the native share button."
-msgstr "Trifft nur auf den Native Share Button zu."
+#~ msgid "Apply"
+#~ msgstr "Übernehmen"
 
-#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
-msgid "Share on social media"
-msgstr "Auf sozialen Netzwerken teilen"
+#~ msgid "Only applies to the native share button."
+#~ msgstr "Trifft nur auf den Native Share Button zu."
 
-#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
-msgid "Share on Mastodon"
-msgstr "Auf Mastodon teilen"
+#~ msgid "Share on social media"
+#~ msgstr "Auf sozialen Netzwerken teilen"
 
-#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
-msgid "Please enter the domain of your Mastodon instance."
-msgstr "Bitte geben Sie die Domain Ihrer Mastodon-Instanz ein."
+#~ msgid "Share on Mastodon"
+#~ msgstr "Auf Mastodon teilen"
 
-#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
-msgid "Your Mastodon instance"
-msgstr "Ihre Mastodon-Instanz"
+#~ msgid "Please enter the domain of your Mastodon instance."
+#~ msgstr "Bitte geben Sie die Domain Ihrer Mastodon-Instanz ein."
 
-#: fragdenstaat_de/fds_cms/templates/fds_cms/share_buttons.html
-msgid "Share"
-msgstr "Teilen"
+#~ msgid "Your Mastodon instance"
+#~ msgstr "Ihre Mastodon-Instanz"
+
+#~ msgid "Share"
+#~ msgstr "Teilen"
 
 #~ msgid "Toggle main menu"
 #~ msgstr "Hauptmenü anzeigen"
@@ -1591,11 +1613,11 @@ msgstr "Teilen"
 #~ msgstr "Hilfebereich: FragDenStaat und Informationsfreiheit"
 
 #~ msgid ""
-#~ "Support area: FragDenStaat and <abbr title=\"Freedom of Information"
-#~ "\">FOI</abbr>"
+#~ "Support area: FragDenStaat and <abbr title=\"Freedom of "
+#~ "Information\">FOI</abbr>"
 #~ msgstr ""
-#~ "Hilfebereich: FragDenStaat und <abbr title=\"Informationsfreiheitsgesetz"
-#~ "\">IFG</abbr>"
+#~ "Hilfebereich: FragDenStaat und <abbr "
+#~ "title=\"Informationsfreiheitsgesetz\">IFG</abbr>"
 
 #~ msgid "Toggle chapter navigation"
 #~ msgstr "Kapitel-Navigation umschalten"
