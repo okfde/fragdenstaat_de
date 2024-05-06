@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-06 15:24+0200\n"
-"PO-Revision-Date: 2024-04-15 15:05+0000\n"
+"PO-Revision-Date: 2024-05-06 13:52+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -652,7 +652,7 @@ msgstr "Kapitelübersicht:"
 
 #: fragdenstaat_de/fds_cms/templates/djangocms_alias/base.html
 msgid "Aliases"
-msgstr ""
+msgstr "Aliase"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/feedback.html
 msgid "Submit"
@@ -913,13 +913,12 @@ msgid "mailing messages"
 msgstr "Mailing-Nachrichten"
 
 #: fragdenstaat_de/fds_mailing/models.py
-#, fuzzy
 msgid "number of mailing"
-msgstr "Anzahl der anzuzeigenden Anfragen"
+msgstr "Anzahl der anzuzeigenden Nachrichten"
 
 #: fragdenstaat_de/fds_mailing/models.py
 msgid "0 means all the mailings. Should be devisible by 3."
-msgstr ""
+msgstr "0 bedeutet alle Nachrichten. Sollte durch 3 teilbar sein."
 
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/emailtemplate/change_form.html
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailingmessage/change_form.html
@@ -968,13 +967,14 @@ msgid "to these recipients:"
 msgstr "an diese Empfänger:innen:"
 
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/archive/mailing_detail.html
-#, fuzzy, python-format
+#, python-format
 msgid "Newsletter from %(date)s"
-msgstr "Newsletter-Vorlage"
+msgstr "Newsletter vom %(date)s"
 
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/archive/mailing_detail.html
 msgid "Don't miss out on any future updates by subscribing to this newsletter!"
 msgstr ""
+"Verpassen Sie keine Neuigkeiten mehr, indem Sie den Newsletter abonnieren!"
 
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
 msgid "Subject:"
@@ -1006,9 +1006,9 @@ msgid "Prepare mailing to selected recipients..."
 msgstr "Mailing an ausgewählte Empfänger:innen vorbereiten..."
 
 #: fragdenstaat_de/fds_mailing/views.py
-#, fuzzy, python-format
+#, python-format
 msgid "Mailing from %s"
-msgstr "Mailing aus CSV erstellen"
+msgstr "Mailing vom %s"
 
 #: fragdenstaat_de/fds_newsletter/admin.py
 msgid "active subscriber count"
