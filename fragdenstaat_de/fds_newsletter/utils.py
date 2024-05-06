@@ -126,15 +126,16 @@ def subscribe_user(newsletter, user, reference="", keyword="") -> SubscriptionRe
     return (SubscriptionResult.SUBSCRIBED, subscriber)
 
 
-def has_newsletter(user, newsletter_slug=None) -> bool:
+def has_newsletter(user, newsletter=None, newsletter_slug=None) -> bool:
     if not user.is_authenticated:
         return None
-    try:
-        newsletter = Newsletter.objects.get(
-            slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
-        )
-    except Newsletter.DoesNotExist:
-        return None
+    if not newsletter:
+        try:
+            newsletter = Newsletter.objects.get(
+                slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
+            )
+        except Newsletter.DoesNotExist:
+            return None
 
     return Subscriber.objects.filter(
         newsletter=newsletter, user=user, subscribed__isnull=False

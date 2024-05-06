@@ -11,19 +11,28 @@
   box-shadow: 7px 7px 0 var(--shadow-color);
 }
 
-@include media-breakpoint-up(md) {
+@include media-breakpoint-down(md) {
   [class*=' md\:shadow'],
-  [class^='md\:shadow'] {
-    --shadow-color: var(--shadow-blue);
-    box-shadow: 7px 7px 0 var(--shadow-color);
+  [class^='md\:shadow'],
+  [class*=' shadow-md'],
+  [class^='shadow-md'] {
+    box-shadow: none;
   }
 }
 
+.shadow-blue,
+.shadow-md-blue,
+.md\:shadow-blue {
+  --shadow-color: var(--shadow-blue);
+}
+
 .shadow-gray,
+.shadow-md-gray,
 .md\:shadow-gray {
   --shadow-color: var(--shadow-gray);
 }
 .shadow-yellow,
+.shadow-md-yellow,
 .md\:shadow-yellow {
   --shadow-color: var(--shadow-yellow);
 }

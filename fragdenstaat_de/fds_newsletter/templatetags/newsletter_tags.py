@@ -2,7 +2,8 @@ from django import template
 from django.conf import settings
 
 from ..forms import NewsletterForm, NewslettersUserForm
-from ..models import Newsletter, Subscriber
+from ..models import Newsletter
+from ..utils import has_newsletter
 
 register = template.Library()
 
@@ -23,18 +24,6 @@ def _get_newsletter(newsletter_slug=None):
         return None
 
 
-def _has_newsletter(context, newsletter):
-    user = context["request"].user
-    if user.is_authenticated:
-        try:
-            instance = Subscriber.objects.get(newsletter=newsletter, user=user)
-            if instance.subscribed:
-                return True
-        except Subscriber.DoesNotExist:
-            pass
-    return False
-
-
 def get_newsletter_context(context, next=None, newsletter=None, fallback=True):
     ctx = {"next": next, "fallback": fallback, "has_newsletter": False}
 
@@ -44,7 +33,7 @@ def get_newsletter_context(context, next=None, newsletter=None, fallback=True):
 
     ctx["newsletter"] = newsletter
     ctx["form"] = NewsletterForm(request=context["request"])
-    ctx["has_newsletter"] = _has_newsletter(context, newsletter)
+    ctx["has_newsletter"] = has_newsletter(context["request"].user, newsletter)
     user = context["request"].user
     ctx["user"] = user
 
@@ -64,4 +53,4 @@ def newsletter_subscribe(context, next=None, newsletter_slug=None, fallback=True
 @register.simple_tag(takes_context=True)
 def newsletter_is_subscribed(context):
     newsletter = _get_newsletter()
-    return _has_newsletter(context, newsletter)
+    return has_newsletter(context["request"].user, newsletter)

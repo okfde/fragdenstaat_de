@@ -1,7 +1,12 @@
 from django.shortcuts import get_object_or_404
+from django.utils.formats import date_format
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import DateDetailView
 
+from cms.models.pagemodel import Page
+from cms.utils.i18n import get_current_language
 from fragdenstaat_de.fds_newsletter.models import Newsletter
+from fragdenstaat_de.fds_newsletter.utils import has_newsletter
 
 from .models import Mailing
 
@@ -46,7 +51,6 @@ class MailingArchiveDetailView(NewsletterEditionMixin, DateDetailView):
         context = super().get_context_data(**kwargs)
 
         message = self.object.email_template
-
         context.update(
             {
                 "message": message,
@@ -54,7 +58,25 @@ class MailingArchiveDetailView(NewsletterEditionMixin, DateDetailView):
                     template="fds_mailing/render_browser.html"
                 ),
                 "date": self.object.sending_date,
+                "has_newsletter": has_newsletter(
+                    self.request.user, self.object.newsletter
+                ),
             }
         )
 
         return context
+
+    def get_breadcrumbs(self, context):
+        try:
+            newsletter_url = Page.objects.get(reverse_id="newsletter").get_absolute_url(
+                language=get_current_language()
+            )
+            return [
+                (_("Newsletter"), newsletter_url),
+                (
+                    _("Mailing from %s")
+                    % date_format(self.object.sending_date, "DATE_FORMAT")
+                ),
+            ]
+        except Exception:
+            return None
