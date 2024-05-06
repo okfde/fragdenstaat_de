@@ -1,23 +1,37 @@
 {% extends "base.html" %}
-{% block app_body %}
-    <div class="row justify-content-center mb-5">
-        <div class="col-md-6">
-            <h4>Diesen Newsletter abonnieren</h4>
-            {% include "fds_newsletter/plugins/newsletter_form.html" %}
+{% load i18n %}
+{% block body %}
+    <div class="text-bg-body-tertiary pb-5">
+        <div class="container py-5">
+            <p>
+                {% with date|date:"DATE_FORMAT" as date %}
+                    {% blocktrans %}Newsletter from {{ date }}{% endblocktrans %}
+                {% endwith %}
+            </p>
+            <h1>{{ message.subject }}</h1>
+            {% if not has_newsletter %}
+                <div class="row">
+                    <div class="col col-md-8">
+                        <div class="border-yellow text-bg-body shadow-md-yellow p-3 mt-3">
+                            <p class="lead mt-0">{% trans "Don't miss out on any future updates by subscribing to this newsletter!" %}</p>
+                            {% include "fds_newsletter/plugins/newsletter_form.html" %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Newsletter vom {{ date|date:"DATE_FORMAT" }}</div>
-                <div class="card-body">
-                    <h3 class="card-title">{{ message.subject }}</h3>
-                    <div class="card-text">{{ content }}</div>
-                </div>
+    <div class="container pb-5">
+        <div class="row">
+            <div class="col col-md-10 col-lg-8">
+                <div class="border-gray shadow-md-gray mt-n3 mt-n6 p-3 text-bg-body">{{ content }}</div>
+                {% if not has_newsletter %}
+                    <div class="border-yellow shadow-md-yellow p-3 mt-5">
+                        <p class="lead mt-0">{% trans "Don't miss out on any future updates by subscribing to this newsletter!" %}</p>
+                        {% include "fds_newsletter/plugins/newsletter_form.html" %}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-6">{% include "fds_newsletter/plugins/newsletter_form.html" %}</div>
-    </div>
-{% endblock %}
+{% endblock body %}
