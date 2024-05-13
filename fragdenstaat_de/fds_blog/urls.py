@@ -17,65 +17,61 @@ from .views import (
     root_slug_view,
 )
 
-REDIRECT_URLS = {
-    "full_date": "<int:year>/<int:month>/<int:day>/<slug:slug>/",
-    "category": "<slug:category>/<slug:slug>/",
-}
-
-
-def get_redirect_urls():
-    urls = REDIRECT_URLS
-    details = []
-    for urlconf in urls.values():
-        details.append(
-            path(
-                urlconf, ArticleRedirectView.as_view(), name="article-detail-redirect"
-            ),
-        )
-    return details
-
-
 app_name = "blog"
-redirect_urls = get_redirect_urls()
 
-urlpatterns = [
-    path("", ArticleListView.as_view(), name="article-latest"),
-    path(
-        "<slug:category>/<int:year>/<int:month>/<slug:slug>/",
-        ArticleDetailView.as_view(),
-        name="article-detail",
-    ),
-    path(
-        "<int:year>/<int:month>/<slug:slug>/",
-        ArticleDetailView.as_view(),
-        name="article-detail",
-    ),
-    path(_("search/"), ArticleSearchView.as_view(), name="article-search"),
-    path("feed/", LatestArticlesFeed(), name="article-latest-feed"),
-    path("feed/audio/", LatestAudioFeed(), name="article-latest-feed-audio"),
-    path("feed/teaser/", LatestArticlesTeaserFeed(), name="article-latest-feed-teaser"),
-    path("<int:year>/", ArticleArchiveView.as_view(), name="article-archive"),
-    path(
-        "<int:year>/<int:month>/",
-        ArticleArchiveView.as_view(),
-        name="article-archive",
-    ),
-    path(
-        _("author/<str:username>/"),
-        AuthorArticleView.as_view(),
-        name="article-author",
-    ),
-    path(
-        _("category/<slug:category>/"),
-        CategoryArticleRedirectView.as_view(),
-        name="article-category-redirect",
-    ),
-    path(
-        "<slug:category>/",
-        root_slug_view,
-        name="article-category",
-    ),
-    path("tag/<slug:tag>/", TaggedListView.as_view(), name="article-tagged"),
-] + redirect_urls
+REDIRECT_PATTERNS = [
+    "<int:year>/<int:month>/<int:day>/<slug:slug>/",
+    "<int:year>/<int:month>/<slug:slug>/",
+    "<slug:category>/<slug:slug>/",
+]
+
+redirect_urls = [
+    path(urlconf, ArticleRedirectView.as_view()) for urlconf in REDIRECT_PATTERNS
+]
+
+# redirect urls need to come before actual urls: with /1970/01/01/foo/,
+# "1970" could also be a category slug.
+
+urlpatterns = (
+    [path("", ArticleListView.as_view(), name="article-latest")]
+    + redirect_urls
+    + [
+        path(
+            "<slug:category>/<int:year>/<int:month>/<slug:slug>/",
+            ArticleDetailView.as_view(),
+            name="article-detail",
+        ),
+        path(_("search/"), ArticleSearchView.as_view(), name="article-search"),
+        path("feed/", LatestArticlesFeed(), name="article-latest-feed"),
+        path("feed/audio/", LatestAudioFeed(), name="article-latest-feed-audio"),
+        path(
+            "feed/teaser/",
+            LatestArticlesTeaserFeed(),
+            name="article-latest-feed-teaser",
+        ),
+        path("<int:year>/", ArticleArchiveView.as_view(), name="article-archive"),
+        path(
+            "<int:year>/<int:month>/",
+            ArticleArchiveView.as_view(),
+            name="article-archive",
+        ),
+        path(
+            _("author/<str:username>/"),
+            AuthorArticleView.as_view(),
+            name="article-author",
+        ),
+        path(
+            _("category/<slug:category>/"),
+            CategoryArticleRedirectView.as_view(),
+            name="article-category-redirect",
+        ),
+        path(
+            "<slug:category>/",
+            root_slug_view,
+            name="article-category",
+        ),
+        path("tag/<slug:tag>/", TaggedListView.as_view(), name="article-tagged"),
+    ]
+)
 
 api_router.register(r"articletag", ArticleTagViewSet, basename="articletag")
