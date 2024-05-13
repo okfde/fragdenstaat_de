@@ -82,6 +82,7 @@ class ArticleRedirectView(RedirectView):
         optional_specifiers = [
             ("year", "start_publication__year"),
             ("month", "start_publication__month"),
+            ("day", "start_publication__day"),
             ("category", "categories__translations__slug"),
         ]
 
