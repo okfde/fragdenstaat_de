@@ -4,7 +4,9 @@
         <div class="text-bg-{{ object.background }} h-{{ object.backdrop }} position-absolute top-0 bottom-0 start-0 end-0">
         </div>
     {% endif %}
-    {% if object.container %}<div class="container">{% endif %}
+    {% if object.container %}
+        <div class="container{% if object.has_backdrop %} position-relative{% endif %}">
+        {% endif %}
         {% for plugin in instance.child_plugin_instances %}
             {% render_plugin plugin %}
         {% endfor %}
