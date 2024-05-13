@@ -33,8 +33,13 @@
 @include make-font(StixTwo, 200 900, italic);
 
 body {
-  // Activates nicer l, German sz, tabular numbers and round quotes in Inter
-  font-feature-settings: 'cv05', 'cv07', 'tnum', 'ss03';
+  // Activates nicer l, German sz, and round quotes in Inter
+  font-feature-settings: 'cv05', 'cv07', 'ss03';
+}
+
+table,
+.tabular-numbers {
+  font-variant-numeric: tabular-nums;
 }
 
 .lead {
