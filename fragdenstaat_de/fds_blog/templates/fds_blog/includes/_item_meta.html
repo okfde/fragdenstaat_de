@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load cms_tags %}
+<div>
+    <time datetime="{{ article.start_publication|date:"c" }}"
+          class="float-md-end text-body-secondary fs-sm">{{ article.start_publication|date:"DATE_FORMAT" }}</time>
+    <h3 class="h4 mt-1 mt-md-0 mb-2">
+        {% if article.kicker %}
+            <span class="d-block mb-1 text-body-secondary fw-normal fs-base">{{ article.kicker }}<span class="sr-only">:</span></span>
+        {% endif %}
+        {{ article.title }}
+    </h3>
+</div>
+{% if article.teaser %}
+    {% if not TRUNCWORDS_COUNT %}
+        {% render_model article "teaser" "" "" "safe" %}
+    {% else %}
+        {% render_model article "teaser" "" "" "truncatewords_html:TRUNCWORDS_COUNT|safe" %}
+    {% endif %}
+{% endif %}
+<a class="stretched-link action-link"
+   href="{{ article.get_absolute_url }}">{% trans "Read more" %} →</a>
