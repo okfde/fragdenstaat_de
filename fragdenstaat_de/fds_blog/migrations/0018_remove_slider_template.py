@@ -12,7 +12,7 @@ def migrate_slider_template(apps, schema_editor):
     for model in models:
         model.objects.filter(template="fds_blog/plugins/slider_articles.html").update(
             template="fds_blog/plugins/featured_articles.html"
-        ).save()
+        )
 
 
 class Migration(migrations.Migration):
