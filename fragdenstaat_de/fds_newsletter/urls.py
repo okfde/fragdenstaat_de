@@ -1,4 +1,5 @@
 from django.urls import path
+from django.utils.translation import gettext_lazy as _
 
 from .views import (
     confirm_subscribe,
@@ -6,6 +7,7 @@ from .views import (
     newsletter_ajax_subscribe_request,
     newsletter_subscribe_request,
     newsletter_user_settings,
+    unsubscribe_feedback,
 )
 
 urlpatterns = [
@@ -37,6 +39,11 @@ urlpatterns = [
         "<slug:newsletter_slug>/subscription/<int:pk>/unsubscribe/<slug:activation_code>/",
         confirm_unsubscribe,
         name="newsletter_confirm_unsubscribe",
+    ),
+    path(
+        _("<slug:newsletter_slug>/feedback/"),
+        unsubscribe_feedback,
+        name="newsletter_unsubscribe_feedback",
     ),
     # re_path(
     #     r'^(?P<newsletter_slug>[\w-]+)/subscription/'

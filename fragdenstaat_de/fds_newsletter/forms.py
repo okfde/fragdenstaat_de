@@ -2,13 +2,14 @@ from io import StringIO
 
 from django import forms
 from django.conf import settings
+from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 
 from froide.helper.spam import SpamProtectionMixin
-from froide.helper.widgets import BootstrapCheckboxSelectMultiple
+from froide.helper.widgets import BootstrapCheckboxSelectMultiple, BootstrapRadioSelect
 
-from .models import Newsletter, Subscriber
-from .utils import import_csv, subscribe
+from .models import Newsletter, Subscriber, UnsubscribeFeedback
+from .utils import import_csv, subscribe, subscribed_newsletters
 
 
 class NewsletterForm(SpamProtectionMixin, forms.Form):
@@ -60,7 +61,7 @@ FORM_REFERENCE = "settings"
 class NewslettersUserForm(forms.Form):
     newsletters = forms.ModelMultipleChoiceField(
         label=_("Newsletters"),
-        queryset=None,
+        queryset=Newsletter.objects.get_visible().filter(visible=True),
         required=False,
         widget=BootstrapCheckboxSelectMultiple,
     )
@@ -68,13 +69,8 @@ class NewslettersUserForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
         self.user = user
         super().__init__(*args, **kwargs)
-        newsletters = Newsletter.objects.get_visible()
-        subscribed_nls = list(
-            Subscriber.objects.filter(
-                newsletter__in=newsletters, user=self.user, subscribed__isnull=False
-            ).values_list("newsletter_id", flat=True)
-        )
-        self.fields["newsletters"].queryset = newsletters
+
+        subscribed_nls = list(subscribed_newsletters(self.user))
         self.fields["newsletters"].initial = subscribed_nls
 
     def save(self):
@@ -162,3 +158,19 @@ class SubscriberImportForm(forms.Form):
             reference=self.cleaned_data["reference"],
             email_confirmed=self.cleaned_data["email_confirmed"],
         )
+
+
+class UnsubscribeFeedbackForm(ModelForm):
+    class Meta:
+        model = UnsubscribeFeedback
+        fields = ["reason", "comment"]
+        widgets = {
+            "reason": BootstrapRadioSelect,
+            "comment": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": "3",
+                    "placeholder": _("Anything else you want to tell us?"),
+                }
+            ),
+        }
