@@ -211,7 +211,7 @@ django-classy-tags==4.0.0
     # via
     #   django-cms
     #   django-sekizai
-django-cms==4.1.0
+django-cms==4.1.1
     # via
     #   -r requirements.in
     #   djangocms-alias
@@ -351,7 +351,7 @@ djangocms-picture==4.1.1
     # via -r requirements.in
 djangocms-text-ckeditor==5.1.5
     # via -r requirements.in
-djangocms-versioning==2.0.1
+djangocms-versioning==2.0.2
     # via -r requirements.in
 djangocms-video==3.1.0
     # via -r requirements.in
