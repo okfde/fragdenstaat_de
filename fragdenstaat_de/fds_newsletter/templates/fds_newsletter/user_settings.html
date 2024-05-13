@@ -6,7 +6,7 @@
         <p>Bitte wählen Sie, welche Newsletter Sie erhalten wollen.</p>
         <form method="POST" action="{% url 'newsletter_user_settings' %}">
             {% csrf_token %}
-            {% render_form form %}
+            {% render_form newsletter_form %}
             <p>
                 <button class="btn btn-secondary" type="submit">{% trans "Update subscriptions" %}</button>
             </p>

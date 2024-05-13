@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load form_helper %}
+{% block app_body %}
+    <h1>
+        {% blocktrans %}
+        You successfully unsubscribed from {{ newsletter }}.
+        {% endblocktrans %}
+    </h1>
+    <p>{% trans "We'd love to know why you chose to unsubscribe." %}</p>
+    <form method="post" action="">
+        {% csrf_token %}
+        {% render_form form %}
+        <input type="submit" class="btn btn-primary" value="{% trans "Submit" %}">
+    </form>
+{% endblock app_body %}
