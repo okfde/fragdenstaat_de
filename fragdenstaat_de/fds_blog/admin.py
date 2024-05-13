@@ -77,12 +77,7 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
 
 
 class CategoryAdmin(SortableAdminMixin, TranslatableAdmin):
-    fields = (
-        "title",
-        "description",
-        "slug",
-        "order",
-    )
+    fields = ("title", "description", "slug", "order", "color", "donation_banner")
     list_display = ("title",)
     search_fields = ("translations__title", "translations__description")
 

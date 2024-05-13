@@ -16,8 +16,10 @@ from cms.models.pluginmodel import CMSPlugin
 from cms.toolbar.utils import get_object_edit_url
 from cms.utils.placeholder import get_placeholder_from_slot
 from cms.utils.plugins import get_plugins
+from djangocms_alias.models import Alias
 from filer.fields.image import FilerImageField
 from fragdenstaat_de.fds_cms.utils import get_request
+from fragdenstaat_de.theme.colors import BACKGROUND
 from parler.models import TranslatableModel, TranslatedFields
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
@@ -183,6 +185,25 @@ class Category(TranslatableModel):
         description=models.TextField(_("description"), blank=True),
     )
     order = models.PositiveIntegerField(default=0)
+
+    color = models.CharField(
+        _("Category color"),
+        choices=BACKGROUND,
+        default="",
+        max_length=50,
+        blank=True,
+        help_text=_("Will be visible as the breadcrumb background."),
+    )
+
+    donation_banner = models.ForeignKey(
+        Alias,
+        on_delete=models.SET_NULL,
+        null=True,
+        default=None,
+        related_name="donation_banner",
+        verbose_name=_("Donation banner"),
+        help_text=_("Inserted after a couple of paragraphs on the article page."),
+    )
 
     objects = CategoryManager()
     published = RelatedPublishedManager()

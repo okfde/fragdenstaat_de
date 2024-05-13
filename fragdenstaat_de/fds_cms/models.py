@@ -11,13 +11,12 @@ from djangocms_frontend.fields import AttributesField, TagTypeField
 from filer.fields.file import FilerFileField
 from filer.fields.image import FilerImageField
 from filingcabinet.models import DocumentPortal, PageAnnotation
+from fragdenstaat_de.theme.colors import BACKDROP, BACKGROUND, get_css_color_variable
 from taggit.models import Tag
 
 from froide.document.models import Document, DocumentCollection
 from froide.foirequest.models import FoiProject, FoiRequest
 from froide.publicbody.models import Category, Classification, Jurisdiction, PublicBody
-
-from .colors import BACKDROP, BACKGROUND, get_css_color_variable
 
 
 @extension_pool.register
