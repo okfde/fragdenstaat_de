@@ -7,7 +7,7 @@ dj-database-url
 django-admin-sortable2>=2.1.6
 django-celery-beat>=2.5.0
 django-celery-email
-django-cms==4.1.0
+django-cms>=4.1.1
 django-configurations
 django-contractor
 django-contrib-comments
@@ -35,7 +35,7 @@ djangocms-link>=3.1.0
 djangocms-icon
 djangocms-picture
 djangocms-text-ckeditor>=5.1
-djangocms-versioning>=2.0.1
+djangocms-versioning>=2.0.2
 djangocms-video
 djangorestframework>=3.14.0
 djangorestframework-csv
