@@ -3,7 +3,7 @@ import datetime
 import hashlib
 from datetime import timedelta
 from enum import Enum
-from typing import Tuple
+from typing import List, Tuple
 
 from django.conf import settings
 from django.db.models import Q
@@ -12,7 +12,7 @@ from django.utils import timezone
 
 from froide.helper.email_sending import mail_registry
 
-from .models import Newsletter, Subscriber
+from .models import Newsletter, Subscriber, UnsubscribeFeedback
 
 
 class SubscriptionResult(Enum):
@@ -142,6 +142,14 @@ def has_newsletter(user, newsletter=None, newsletter_slug=None) -> bool:
     ).exists()
 
 
+def subscribed_newsletters(user) -> List[Newsletter]:
+    # .values_list would only result in a pk-list
+    return [
+        s.newsletter
+        for s in Subscriber.objects.filter(user=user, subscribed__isnull=False)
+    ]
+
+
 def cleanup_subscribers():
     now = timezone.now()
     month_ago = now - timedelta(days=30)
@@ -165,6 +173,12 @@ def cleanup_subscribers():
         sub.user = None
         sub.name = ""
         sub.save()
+
+
+def cleanup_feedback():
+    now = timezone.now()
+    hour_ago = now - timedelta(hours=1)
+    UnsubscribeFeedback.objects.filter(created__lt=hour_ago).update(subscriber=None)
 
 
 def send_onboarding_schedule(date: datetime.date):

@@ -13,10 +13,11 @@ from froide.helper.admin_utils import make_daterangefilter, make_rangefilter
 from froide.helper.csv_utils import export_csv, export_csv_response
 
 from .forms import SubscriberImportForm
-from .models import Newsletter, Subscriber
+from .models import Newsletter, Subscriber, UnsubscribeFeedback
 from .utils import unsubscribe_queryset
 
 
+@admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ("title", "visible", "subscriber_count", "admin_subscribers")
     prepopulated_fields = {"slug": ("title",)}
@@ -82,6 +83,7 @@ class NewsletterAdmin(admin.ModelAdmin):
         return render(request, "fds_newsletter/admin/import_csv.html", ctx)
 
 
+@admin.register(Subscriber)
 class SubscriberAdmin(SetupMailingMixin, admin.ModelAdmin):
     raw_id_fields = ("user",)
     list_display = (
@@ -185,5 +187,9 @@ class SubscriberAdmin(SetupMailingMixin, admin.ModelAdmin):
         )
 
 
-admin.site.register(Subscriber, SubscriberAdmin)
-admin.site.register(Newsletter, NewsletterAdmin)
+@admin.register(UnsubscribeFeedback)
+class UnsubscribeFeedbackAdmin(admin.ModelAdmin):
+    list_display = ("reason", "comment", "created")
+    list_filter = ("reason", "created")
+    search_fields = ("comment",)
+    date_hierarchy = "created"

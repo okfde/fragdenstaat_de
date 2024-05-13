@@ -8,12 +8,17 @@ from fragdenstaat_de.theme.notifications import send_notification
 from froide.celery import app as celery_app
 
 from .analytics import get_analytics
-from .utils import cleanup_subscribers, send_onboarding_schedule
+from .utils import cleanup_feedback, cleanup_subscribers, send_onboarding_schedule
 
 
 @celery_app.task(name="fragdenstaat_de.fds_newsletter.cleanup_subscribers")
 def cleanup_subscribers_task():
     cleanup_subscribers()
+
+
+@celery_app.task(name="fragdenstaat_de.fds_newsletter.cleanup_feedback")
+def cleanup_feedback_task():
+    cleanup_feedback()
 
 
 @celery_app.task(name="fragdenstaat_de.fds_newsletter.trigger_onboarding_schedule")
