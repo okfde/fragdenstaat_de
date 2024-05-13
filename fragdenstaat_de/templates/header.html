@@ -101,10 +101,10 @@
                             <a href="{{ campaigns_url }}"
                                {% if request.path|startswith:campaigns_url %}class="active" aria-current="page"{% endif %}>{% blocktrans %}Campaigns{% endblocktrans %}</a>
                         </li>
-                        {% page_url "blog" as blog_url %}
+                        {% page_url "investigations" as investigations_url %}
                         <li>
-                            <a href="{{ blog_url|default:'/blog/' }}"
-                               {% if request.path|startswith:blog_url %}class="active" aria-current="page"{% endif %}>{% blocktrans %}Investigations{% endblocktrans %}</a>
+                            <a href="{{ investigations_url|default:'/recherchen/' }}"
+                               {% if request.path|startswith:investigations_url %}class="active" aria-current="page"{% endif %}>{% blocktrans %}Investigations{% endblocktrans %}</a>
                         </li>
                         {% page_url "lawsuits" as lawsuits_url %}
                         {% if lawsuits_url %}
