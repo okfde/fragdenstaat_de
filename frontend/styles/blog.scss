@@ -210,7 +210,7 @@ h4.blog-list-heading {
   > p,
   > ul,
   > ol,
-  > div.text-container,
+  .text-container,
   > blockquote,
   > .blockquote-figure,
   > details {
@@ -228,7 +228,7 @@ h4.blog-list-heading {
   > h4,
   > ul,
   > ol,
-  > div.text-container {
+  .text-container {
     @include make-col(12);
     margin: 1rem auto 0.5rem;
     padding: 0 15px;
@@ -257,7 +257,7 @@ h4.blog-list-heading {
     > h4,
     > ul,
     > ol,
-    > div.text-container,
+    .text-container,
     > details {
       @include make-col(10);
       margin-left: 15%;
@@ -272,7 +272,7 @@ h4.blog-list-heading {
     > h4,
     > ul,
     > ol,
-    > div.text-container,
+    .text-container,
     > details {
       @include make-col(8);
       margin-left: 15%;
@@ -287,7 +287,7 @@ h4.blog-list-heading {
     > h4,
     > ul,
     > ol,
-    > div.text-container,
+    .text-container,
     > details {
       @include make-col(6);
       margin-left: 25%;
