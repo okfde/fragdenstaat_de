@@ -239,11 +239,7 @@ h4.blog-list-heading {
   > div.infotextbox {
     color: var(--#{$prefix}primary-text-emphasis);
     background-color: var(--#{$prefix}primary-bg-subtle);
-
-    @include make-col(12);
-    margin: 1rem auto 0rem;
     padding: 1rem 1rem 0;
-    width: 100%;
 
     > summary {
       padding-bottom: 1rem;
