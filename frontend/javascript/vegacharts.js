@@ -1,6 +1,7 @@
 import '../styles/vega.scss'
 
 import { expressionInterpreter } from 'vega-interpreter'
+import { Tooltip } from 'bootstrap'
 import { mergeConfig } from 'vega'
 import embed from 'vega-embed'
 
@@ -98,6 +99,28 @@ const LOCALE = {
   }
 }
 
+const bootstrapTooltipHandler = (handler, event, item, value) => {
+  let tooltip = Tooltip.getInstance(item._svg)
+  let created = false
+  if (!tooltip && value) {
+    let html = `<dl>${Object.keys(value)
+      .map((key) => `<dt>${key}</dt><dd>${value[key]}</dd>`)
+      .join('')}</dl>`
+
+    tooltip = Tooltip.getOrCreateInstance(item._svg, {
+      html: true,
+      sanitize: false,
+      container: handler._el,
+      placement: 'auto',
+      title: html
+    })
+    created = true
+  }
+  if (value && created) {
+    tooltip.show()
+  }
+}
+
 document.querySelectorAll('[data-vegachart]').forEach((el) => {
   let spec
   if (el.dataset.vegachartdata) {
@@ -137,6 +160,7 @@ document.querySelectorAll('[data-vegachart]').forEach((el) => {
     expr: expressionInterpreter,
     renderer: 'svg',
     actions: showActions,
+    tooltip: bootstrapTooltipHandler,
     config: mergeConfig(colorTheme, spec.config),
     ...extras
   })
