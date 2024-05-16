@@ -23,6 +23,7 @@ REDIRECT_PATTERNS = [
     "<int:year>/<int:month>/<int:day>/<slug:slug>/",
     "<int:year>/<int:month>/<slug:slug>/",
     "<slug:category>/<slug:slug>/",
+    "<int:pk>/",
 ]
 
 redirect_urls = [

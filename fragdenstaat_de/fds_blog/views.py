@@ -77,21 +77,24 @@ class BaseBlogListView(BaseBlogView):
 
 class ArticleRedirectView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
-        qs = {"slug": kwargs["slug"]}
+        if "pk" in kwargs:
+            qs = {"pk": kwargs["pk"]}
+        else:
+            qs = {"slug": kwargs["slug"], "language": get_language()}
 
-        optional_specifiers = [
-            ("year", "start_publication__year"),
-            ("month", "start_publication__month"),
-            ("day", "start_publication__day"),
-            ("category", "categories__translations__slug"),
-        ]
+            optional_specifiers = [
+                ("year", "start_publication__year"),
+                ("month", "start_publication__month"),
+                ("day", "start_publication__day"),
+                ("category", "categories__translations__slug"),
+            ]
 
-        for kwargs_key, filter_key in optional_specifiers:
-            if kwargs_key in kwargs:
-                qs[filter_key] = kwargs[kwargs_key]
+            for kwargs_key, filter_key in optional_specifiers:
+                if kwargs_key in kwargs:
+                    qs[filter_key] = kwargs[kwargs_key]
 
         try:
-            article = get_object_or_404(Article, language=get_language(), **qs)
+            article = get_object_or_404(Article, **qs)
             return article.get_absolute_url()
         except MultipleObjectsReturned:
             # url not specific enough
