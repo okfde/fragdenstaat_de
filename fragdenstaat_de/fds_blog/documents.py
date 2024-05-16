@@ -41,7 +41,7 @@ class ArticleDocument(Document):
         analyzer=analyzer,
     )
     start_publication = fields.DateField()
-    author = fields.ListField(fields.IntegerField())
+    author = fields.ListField(fields.TextField())
     category = fields.ListField(fields.IntegerField())
 
     content = fields.TextField(
@@ -86,7 +86,7 @@ class ArticleDocument(Document):
 
     def prepare_author(self, obj):
         authors = obj.authors.all()
-        return [o.id for o in authors]
+        return [o.get_full_name() for o in authors]
 
 
 def index_article(article):

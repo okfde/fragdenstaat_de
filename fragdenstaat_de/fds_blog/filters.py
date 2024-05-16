@@ -9,7 +9,7 @@ from .models import Author, Category
 
 
 class ArticleFilterset(BaseSearchFilterSet):
-    query_fields = ["title^5", "description^3", "content"]
+    query_fields = ["title^5", "description^3", "content", "author"]
 
     category = django_filters.ModelChoiceFilter(
         queryset=Category.objects.all(),
