@@ -24,7 +24,7 @@ User = get_user_model()
 
 
 def get_base_breadcrumb():
-    return [(_("Blog"), reverse("blog:article-latest"))]
+    return [(_("Article"), reverse("blog:article-latest"))]
 
 
 class BaseBlogView(object):
