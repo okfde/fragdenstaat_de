@@ -328,7 +328,7 @@ class ArticleSearchView(BaseSearchView):
     document = ArticleDocument
     filterset = ArticleFilterset
     search_url_name = "blog:article-search"
-    default_sort = "-start_publication"
+    default_sort = "_score"
     show_filters = {"category", "author"}
     has_facets = True
     facet_config = {

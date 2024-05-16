@@ -8,8 +8,8 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <h2>{% translate "Search articles" %}</h2>
-                <form class="mb-3" role="search" method="get" action=".">
-                    <div class="input-group mb-3">
+                <form class="mb-3 vstack gap-1" role="search" method="get" action=".">
+                    <div class="input-group">
                         {% if form %}
                             {{ form.q }}
                         {% else %}
@@ -25,6 +25,7 @@
                         </button>
                     </div>
                     {{ form.category }}
+                    {{ form.sort }}
                 </form>
                 {% if object_list and form.q.value %}
                     <p>{% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}</p>
