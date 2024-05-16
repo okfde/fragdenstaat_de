@@ -1,4 +1,5 @@
 import uuid
+from typing import Optional
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
@@ -238,6 +239,11 @@ class CategoriesEntry(models.Model):
     categories = models.ManyToManyField(
         Category, related_name="articles", blank=True, verbose_name=_("categories")
     )
+
+    @cached_property
+    def first_category(self) -> Optional[Category]:
+        if self.categories.exists():
+            return self.categories.first()
 
     class Meta:
         abstract = True

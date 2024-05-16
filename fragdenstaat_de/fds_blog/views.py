@@ -152,13 +152,16 @@ class ArticleDetailView(BaseBlogView, DetailView):
         ctx["previous_articles"] = [
             a for a in related_articles if a.publication_date < object.publication_date
         ]
+
+        ctx["category"] = self.object.first_category
+
         return ctx
 
     def get_breadcrumbs(self, context):
         breadcrumbs = get_base_breadcrumb()
 
-        if self.object.categories.exists():
-            category = self.object.categories.first()
+        category = self.object.first_category
+        if category:
             breadcrumbs += [(category.title, category.get_absolute_url())]
 
         breadcrumbs += [(self.object.title)]
