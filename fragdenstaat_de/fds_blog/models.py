@@ -237,7 +237,7 @@ class CategoriesEntry(models.Model):
     """
 
     categories = models.ManyToManyField(
-        Category, related_name="articles", blank=True, verbose_name=_("categories")
+        Category, related_name="articles", verbose_name=_("categories")
     )
 
     @cached_property
@@ -443,6 +443,7 @@ class Article(
                 "slug": self.slug,
                 "year": publication_date.strftime("%Y"),
                 "month": publication_date.strftime("%m"),
+                "day": publication_date.strftime("%d"),
             }
 
             if category is not None:
