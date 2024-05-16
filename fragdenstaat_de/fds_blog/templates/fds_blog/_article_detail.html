@@ -2,43 +2,40 @@
 {% load djangocms_alias_tags %}
 {% load markup %}
 {% load static %}
+{% load blog_tags %}
 {% block article_header %}
-    <header class="blog-header">
-        <div class="row justify-content-center">
-            <div class="col-md-12 col-lg-10">
-                <h1>
-                    <span class="d-block fw-normal fs-base mb-2">{{ article.kicker }}</span>
-                    <span>{% render_model article "title" %}</span>
-                </h1>
-                {% if article.teaser %}
-                    <div class="lead">{% render_model article "teaser" "" "" "safe" %}</div>
-                {% endif %}
-                <div class="mt-3 mb-5 blog-header__meta">
-                    <time datetime="{{ article.start_publication|date:'c' }}">
-                        {{ article.start_publication|date:"DATE_FORMAT" }}
-                    </time>
-                    {% with authors=article.get_authors %}
-                        {% if authors %}
-                            <span> -
-                                {# djlint:off #}
+    <header class="container">
+        <h1>
+            <span class="d-block fw-normal fs-base mb-2">{{ article.kicker }}</span>
+            <span>{% render_model article "title" %}</span>
+        </h1>
+        {% if article.teaser %}
+            <div class="lead">{% render_model article "teaser" "" "" "safe" %}</div>
+        {% endif %}
+        <div class="mt-3 mb-5">
+            <time datetime="{{ article.start_publication|date:'c' }}">
+                {{ article.start_publication|date:"DATE_FORMAT" }}
+            </time>
+            {% with authors=article.get_authors %}
+                {% if authors %}
+                    <span> -
+                        {# djlint:off #}
                                     {% for author in authors %}
                                         {% if author.get_absolute_url %}
                                         <a href="{{ author.get_absolute_url }}" rel="author">
                                         {% endif %}
                                         {{ author.get_full_name }}{% if author.get_absolute_url %}</a>{% endif %}{% if not forloop.last %},{% endif %}
                                     {% endfor %}
-                                {# djlint:on #}
-                            </span>
-                        {% endif %}
-                    {% endwith %}
-                </div>
-                {% block article_header_image %}
-                    {% if article.image %}
-                        {% include "fds_blog/includes/blog_picture.html" with picture=article.image columns="col-12 col-lg-10" loading="eager" %}
-                    {% endif %}
-                {% endblock article_header_image %}
-            </div>
+                        {# djlint:on #}
+                    </span>
+                {% endif %}
+            {% endwith %}
         </div>
+        {% block article_header_image %}
+            {% if article.image %}
+                {% include "fds_blog/includes/blog_picture.html" with picture=article.image columns="col-12 col-lg-10" loading="eager" %}
+            {% endif %}
+        {% endblock article_header_image %}
     </header>
 {% endblock article_header %}
 {% block article_updates %}
@@ -59,7 +56,22 @@
     {% endif %}
 {% endblock %}
 {% block article_content %}
-    {% render_placeholder article.content_placeholder %}
+    {% if request.toolbar.edit_mode_active %}
+        {% render_placeholder article.content_placeholder %}
+    {% else %}
+        {% render_placeholder article.content_placeholder as content %}
+        {% with content|split_for_banner as split %}
+            {{ split.0|safe }}
+            {% with banner=category.donation_banner %}
+                {% if banner %}
+                    {% render_alias banner %}
+                {% else %}
+                    {% static_alias "blog_donation_banner" %}
+                {% endif %}
+            {% endwith %}
+            {{ split.1|safe }}
+        {% endwith %}
+    {% endif %}
 {% endblock article_content %}
 {% block article_previous %}
     {% if previous_articles %}
@@ -78,9 +90,6 @@
         </div>
     {% endif %}
 {% endblock %}
-{% block article_ads %}
-    {% static_alias "banner_ad" %}
-{% endblock article_ads %}
 {% block article_languages %}
     <div class="container">
         <div class="row justify-content-center pt-5">
