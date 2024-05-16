@@ -443,7 +443,6 @@ class Article(
                 "slug": self.slug,
                 "year": publication_date.strftime("%Y"),
                 "month": publication_date.strftime("%m"),
-                "day": publication_date.strftime("%d"),
             }
 
             if category is not None:
