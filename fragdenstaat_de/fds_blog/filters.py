@@ -25,8 +25,24 @@ class ArticleFilterset(BaseSearchFilterSet):
         method="filter_author",
     )
 
+    sort = django_filters.ChoiceFilter(
+        choices=[
+            ("-start_publication", _("Publication date (newest first)")),
+            ("start_publication", _("Publication date (oldest first)")),
+        ],
+        label=_("sort"),
+        empty_label=_("default sort"),
+        widget=BootstrapSelect,
+        method="add_sort",
+    )
+
     def filter_category(self, qs, name, value):
         return qs.filter(category=value.id)
 
     def filter_author(self, qs, name, value):
         return qs.filter(author=value.id)
+
+    def add_sort(self, qs, name, value):
+        if value:
+            return qs.add_sort(value)
+        return qs
