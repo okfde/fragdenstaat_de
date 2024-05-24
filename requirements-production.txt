@@ -131,6 +131,8 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.2.0
     # via celery
+cmake==3.29.3
+    # via triton
 coreapi==2.3.3
     # via -r requirements.in
 coreschema==0.0.4
@@ -417,7 +419,9 @@ feedgen==0.9.0
 fido2==1.1.1
     # via django-mfa3
 filelock==3.12.0
-    # via torch
+    # via
+    #   torch
+    #   triton
 fonttools[woff]==4.39.4
     # via weasyprint
 freetype-py==2.3.0
@@ -502,6 +506,8 @@ jwcrypto==1.4.2
     # via django-oauth-toolkit
 kombu==5.2.4
     # via celery
+lit==18.1.6
+    # via triton
 lxml==4.9.2
     # via
     #   -r requirements.in
@@ -539,6 +545,31 @@ numpy==1.24.3
     #   pandas
     #   torchvision
     #   webp
+nvidia-cublas-cu11==11.10.3.66
+    # via
+    #   nvidia-cudnn-cu11
+    #   nvidia-cusolver-cu11
+    #   torch
+nvidia-cuda-cupti-cu11==11.7.101
+    # via torch
+nvidia-cuda-nvrtc-cu11==11.7.99
+    # via torch
+nvidia-cuda-runtime-cu11==11.7.99
+    # via torch
+nvidia-cudnn-cu11==8.5.0.96
+    # via torch
+nvidia-cufft-cu11==10.9.0.58
+    # via torch
+nvidia-curand-cu11==10.2.10.91
+    # via torch
+nvidia-cusolver-cu11==11.4.0.1
+    # via torch
+nvidia-cusparse-cu11==11.7.4.91
+    # via torch
+nvidia-nccl-cu11==2.14.3
+    # via torch
+nvidia-nvtx-cu11==11.7.91
+    # via torch
 oauthlib==3.2.2
     # via django-oauth-toolkit
 openpyxl==3.1.2
@@ -732,12 +763,15 @@ tinycss2==1.2.1
     #   cssselect2
     #   svglib
     #   weasyprint
-torch==2.0.1
+torch==2.0.0
     # via
     #   -r requirements.in
     #   torchvision
-torchvision==0.15.2
+    #   triton
+torchvision==0.15.1
     # via -r requirements.in
+triton==2.0.0
+    # via torch
 typing-extensions==4.6.1
     # via
     #   asgiref
@@ -794,6 +828,14 @@ webp==0.1.6
     # via -r requirements.in
 websockets==11.0.3
     # via -r requirements.in
+wheel==0.43.0
+    # via
+    #   nvidia-cublas-cu11
+    #   nvidia-cuda-cupti-cu11
+    #   nvidia-cuda-runtime-cu11
+    #   nvidia-curand-cu11
+    #   nvidia-cusparse-cu11
+    #   nvidia-nvtx-cu11
 wrapt==1.15.0
     # via deprecated
 xlrd==2.0.1
