@@ -4,38 +4,34 @@
 {% load static %}
 {% load blog_tags %}
 {% block article_header %}
-    <header class="container">
-        <h1>
-            <span class="d-block fw-normal fs-base mb-2">{{ article.kicker }}</span>
-            <span>{% render_model article "title" %}</span>
-        </h1>
-        {% if article.teaser %}
-            <div class="lead">{% render_model article "teaser" "" "" "safe" %}</div>
-        {% endif %}
-        <div class="mt-3 mb-5">
-            <time datetime="{{ article.start_publication|date:'c' }}">
-                {{ article.start_publication|date:"DATE_FORMAT" }}
-            </time>
-            {% with authors=article.get_authors %}
-                {% if authors %}
-                    <span> -
-                        {# djlint:off #}
-                                    {% for author in authors %}
-                                        {% if author.get_absolute_url %}
-                                        <a href="{{ author.get_absolute_url }}" rel="author">
-                                        {% endif %}
-                                        {{ author.get_full_name }}{% if author.get_absolute_url %}</a>{% endif %}{% if not forloop.last %},{% endif %}
-                                    {% endfor %}
-                        {# djlint:on #}
-                    </span>
+    <header class="blog-header">
+        <div class="text-bg-body-tertiary">
+            <div class="container-lg py-5">
+                <h1>
+                    <span class="d-block fw-normal fs-base mb-2">{{ article.kicker }}</span>
+                    <span>{% render_model article "title" %}</span>
+                </h1>
+                {% if article.teaser %}
+                    <div class="lead">{% render_model article "teaser" "" "" "safe" %}</div>
                 {% endif %}
-            {% endwith %}
+                <div class="mt-3">
+                    {% with authors=article.get_authors %}
+                        {% include "fds_blog/includes/_authors.html" %}
+                    {% endwith %}
+                </div>
+            </div>
         </div>
-        {% block article_header_image %}
-            {% if article.image %}
-                {% include "fds_blog/includes/blog_picture.html" with picture=article.image columns="col-12 col-lg-10" loading="eager" %}
-            {% endif %}
-        {% endblock article_header_image %}
+        <div class="backdrop backdrop-body-tertiary">
+            <div class="container-lg">
+                <div class="shadow-gray">
+                    {% block article_header_image %}
+                        {% if article.image %}
+                            {% include "fds_blog/includes/blog_picture.html" with picture=article.image columns="col-12 col-lg-10" loading="eager" %}
+                        {% endif %}
+                    {% endblock article_header_image %}
+                </div>
+            </div>
+        </div>
     </header>
 {% endblock article_header %}
 {% block article_updates %}
@@ -91,7 +87,7 @@
     {% endif %}
 {% endblock %}
 {% block article_languages %}
-    <div class="container">
+    <div class="container-lg">
         <div class="row justify-content-center pt-5">
             <div class="col-md-8">
                 {% with other_langs=article.other_languages %}
@@ -111,5 +107,3 @@
         </div>
     </div>
 {% endblock article_languages %}
-{% block article_authors %}
-{% endblock article_authors %}

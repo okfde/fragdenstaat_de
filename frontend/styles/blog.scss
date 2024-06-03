@@ -58,91 +58,55 @@
 }
 
 // add hover effect when hovering over image or the image's next element (description)
-.blog-visual:hover img,
+a:hover > .blog-visual img,
 a:has(+ *:hover) > .blog-visual img {
-  transform: scale(1.05);
-}
-
-.has-arrow::after {
-  margin-left: 5px;
-  content: '\2192';
-  display: inline-block;
-  font-family: $font-family-sans-serif;
-  line-height: 1;
-}
-
-.teaser-arrow {
-  height: 15px;
-  margin-top: 10px;
-  font-size: 1.5rem;
-  position: relative;
-}
-
-.teaser-arrow:after {
-  margin-left: 0;
-  position: absolute;
-  left: 0;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+  transform: scale(1.03);
 }
 
 /*================================
 =          Post-Detail          =
 ================================*/
 
-.blog-header {
-  margin: 4rem 0 1rem 0;
+// about 70-90 characters per line
+$blog-normal-width: 50rem;
+$blog-standout-width: 72rem;
 
-  .blog-lead {
-    p {
-      color: var(--#{$prefix}body-color);
-      font-size: 1.3rem;
-      font-weight: 400;
-      line-height: 1.5;
-      text-align: left;
-    }
+@mixin blog-width($max-width: 50rem) {
+  width: 100%;
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog-header .container {
+  @include blog-width($blog-standout-width);
+}
+
+@include media-breakpoint-up(md) {
+  .blog-authors {
+    display: flex;
+  }
+
+  .blog-author-list {
+    display: flex;
+    align-items: center;
+    gap: 1ch;
   }
 }
 
-.blog-header__meta {
-  color: var(--#{$prefix}secondary);
-  font-size: 1rem;
+.blog-author-images {
+  display: flex;
+  margin-left: -4px; // to offset border
 
-  & a {
-    color: var(--#{$prefix}secondary);
+  img {
+    width: 4rem;
+    height: 4rem;
+    border: 4px solid var(--#{$prefix}tertiary-bg);
   }
-}
 
-.blog-header__tags,
-.blog-header__categories {
-  @extend .list-inline;
-  display: inline;
-  font-size: 0.9rem;
-
-  li {
-    @extend .list-inline-item;
-
-    a {
-      @extend .text-body-secondary;
-    }
+  > a:not(:first-of-type) {
+    margin-left: calc(-0.5rem);
   }
-}
-
-.blog-header__tags {
-  a::before {
-    content: '#';
-  }
-}
-
-.blog-header__title {
-  margin: 1rem 0 1rem 0 !important;
-}
-
-.blog-header__figure {
-  text-align: center;
 }
 
 .blog-content {
@@ -150,6 +114,7 @@ a:has(+ *:hover) > .blog-visual img {
   -moz-osx-font-smoothing: grayscale;
 
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
 
@@ -187,9 +152,11 @@ a:has(+ *:hover) > .blog-visual img {
   > h4,
   > ul,
   > ol,
-  .text-container {
-    @include make-col(12);
-    margin: 1rem auto 0.5rem;
+  > div.text-container {
+    @include blog-width();
+
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
     padding: 0 15px;
     width: 100%;
   }
@@ -198,55 +165,13 @@ a:has(+ *:hover) > .blog-visual img {
   > div.infotextbox {
     color: var(--#{$prefix}primary-text-emphasis);
     background-color: var(--#{$prefix}primary-bg-subtle);
+
+    @include blog-width();
+    margin-top: 1rem;
     padding: 1rem 1rem 0;
 
     > summary {
       padding-bottom: 1rem;
-    }
-  }
-
-  @include media-breakpoint-up(sm) {
-    > p,
-    > h2,
-    > h3,
-    > h4,
-    > ul,
-    > ol,
-    .text-container,
-    > details {
-      @include make-col(10);
-      margin-left: 15%;
-      margin-right: 15%;
-    }
-  }
-
-  @include media-breakpoint-up(md) {
-    > p,
-    > h2,
-    > h3,
-    > h4,
-    > ul,
-    > ol,
-    .text-container,
-    > details {
-      @include make-col(8);
-      margin-left: 15%;
-      margin-right: 15%;
-    }
-  }
-
-  @include media-breakpoint-up(xl) {
-    > p,
-    > h2,
-    > h3,
-    > h4,
-    > ul,
-    > ol,
-    .text-container,
-    > details {
-      @include make-col(6);
-      margin-left: 25%;
-      margin-right: 25%;
     }
   }
 
@@ -259,32 +184,12 @@ a:has(+ *:hover) > .blog-visual img {
     font-family: $font-family-sans-serif;
   }
 
-  a,
-  a:active,
-  a:visited {
-    border-bottom: 1px solid var(--#{$prefix}link-color);
-    color: var(--#{$prefix}link-color);
-    text-decoration: none;
-    transition: all ease 0.3s;
-  }
-
-  a:focus,
-  a:hover,
-  a:active:focus,
-  a:active:hover,
-  a:visited:focus,
-  a:visited:hover {
-    border-bottom: 1px solid var(--#{$prefix}link-hover-color);
-    text-decoration: none !important;
-    color: var(--#{$prefix}link-hover-color);
-  }
-
   > blockquote,
   > .blockquote-figure {
-    @include make-col(12);
-    margin: 1rem auto 0.5rem;
+    @include blog-width($blog-standout-width);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
     padding: 1rem 2rem;
-    width: 100%;
     background-color: var(--#{$prefix}tertiary-bg);
 
     > p,
@@ -298,24 +203,6 @@ a:has(+ *:hover) > .blog-visual img {
 
   > .blockquote-figure {
     padding: 1rem 2rem 0;
-  }
-
-  @include media-breakpoint-up(md) {
-    > blockquote,
-    > .blockquote-figure {
-      @include make-col(10);
-      margin-left: 15%;
-      margin-right: 15%;
-    }
-  }
-
-  @include media-breakpoint-up(lg) {
-    > blockquote,
-    > .blockquote-figure {
-      @include make-col(8);
-      margin-left: 25%;
-      margin-right: 25%;
-    }
   }
 }
 

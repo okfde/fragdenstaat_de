@@ -5,12 +5,12 @@
             {% include "fds_blog/includes/blog_picture_small.html" with picture=article.image %}
         </a>
     {% endif %}
-    <h4 class="blog-list-heading">
+    <h3>
         <a href="{{ article.get_absolute_url }}">
             <span class="d-block fw-normal blog-list-heading__kicker">{{ article.kicker }}</span>
             {{ article.title }}
         </a>
-    </h4>
+    </h3>
     {% if article.teaser %}
         <div class="blog-lead">
             {% if not TRUNCWORDS_COUNT %}

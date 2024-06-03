@@ -116,7 +116,7 @@ const searchUrls = [
 ].map((el) => el.value)
 
 if (searchUrls.includes(window.location.pathname)) {
-  navSearch?.previousElementSibling?.remove()
+  navSearch?.previousElementSibling?.remove() // divider for mobile
   navSearch?.remove()
 }
 
