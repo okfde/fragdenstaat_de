@@ -21,7 +21,10 @@
 {% endblock %}
 {% block content_blog %}
     {% spaceless %}
-        <article>{% include article.content_template %}</article>
+        <article class="blog-article"
+                 {% if category.color %}style="--article-color: var(--bs-{{ category.color }}-rgb)"{% endif %}>
+            {% include article.content_template %}
+        </article>
     {% endspaceless %}
     {% with next_read=article|get_next_read %}
         {% if next_read %}

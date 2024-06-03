@@ -8,6 +8,8 @@ from cms.utils.i18n import get_current_language
 from fragdenstaat_de.fds_newsletter.models import Newsletter
 from fragdenstaat_de.fds_newsletter.utils import has_newsletter
 
+from froide.helper.breadcrumbs import BreadcrumbView
+
 from .models import Mailing
 
 
@@ -41,7 +43,7 @@ class NewsletterEditionMixin:
         return context
 
 
-class MailingArchiveDetailView(NewsletterEditionMixin, DateDetailView):
+class MailingArchiveDetailView(NewsletterEditionMixin, DateDetailView, BreadcrumbView):
     template_name = "fds_mailing/archive/mailing_detail.html"
 
     def get_context_data(self, **kwargs):

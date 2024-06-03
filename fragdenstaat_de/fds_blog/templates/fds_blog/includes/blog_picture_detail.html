@@ -1,0 +1,15 @@
+{% load markup %}
+<figure>
+    <div class="shadow-gray">
+        {% include "fds_blog/includes/_picture.html" with picture=picture columns=columns loading=loading %}
+    </div>
+    {% if picture.author or picture.description %}
+        <figcaption class="picture-description mt-3 text-end">
+            {% if picture.description %}
+                {{ picture.description|markdown }}
+                {% if picture.author %}<span class="px-2">–</span>{% endif %}
+            {% endif %}
+            {% if picture.author %}{{ picture.author|markdown }}{% endif %}
+        </figcaption>
+    {% endif %}
+</figure>
