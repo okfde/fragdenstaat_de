@@ -2,7 +2,7 @@
 {% spaceless %}
     {% for article in article_list %}
         <div class="d-flex {% if not forloop.last %}mb-3{% endif %}">
-            {% include "fds_blog/includes/blog_item_simple.html" with article=article image="true" %}
+            {% include "fds_blog/includes/blog_item.html" with article=article image="true" %}
         </div>
     {% endfor %}
 {% endspaceless %}

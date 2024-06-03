@@ -11,6 +11,7 @@ from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, ListView, RedirectView
 
+from froide.helper.breadcrumbs import Breadcrumbs, BreadcrumbView
 from froide.helper.search.views import BaseSearchView
 
 from .documents import ArticleDocument
@@ -24,7 +25,9 @@ User = get_user_model()
 
 
 def get_base_breadcrumb():
-    return [(_("Article"), reverse("blog:article-latest"))]
+    return Breadcrumbs(
+        items=[(_("Article"), reverse("blog:article-latest"))], color="blue-500"
+    )
 
 
 class BaseBlogView(object):
@@ -102,7 +105,7 @@ class ArticleRedirectView(RedirectView):
             raise Http404
 
 
-class ArticleDetailView(BaseBlogView, DetailView):
+class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
     base_template_name = "article_detail.html"
     slug_field = "slug"
     view_url_name = "fds_blog:article-detail"
@@ -165,13 +168,15 @@ class ArticleDetailView(BaseBlogView, DetailView):
 
         category = self.object.first_category
         if category:
-            breadcrumbs += [(category.title, category.get_absolute_url())]
+            breadcrumbs.items += [(category.title, category.get_absolute_url())]
+            if category.color:
+                breadcrumbs.color = category.color
 
-        breadcrumbs += [(self.object.title)]
+        breadcrumbs.items += [(self.object.title)]
         return breadcrumbs
 
 
-class ArticleListView(BaseBlogListView, ListView):
+class ArticleListView(BaseBlogListView, ListView, BreadcrumbView):
     view_url_name = "fds_blog:article-latest"
 
     def get_queryset(self):
@@ -198,7 +203,7 @@ class ArticleListView(BaseBlogListView, ListView):
         return get_base_breadcrumb()
 
 
-class ArticleArchiveView(BaseBlogListView, ListView):
+class ArticleArchiveView(BaseBlogListView, ListView, BreadcrumbView):
     date_field = "start_publication"
     allow_empty = True
     allow_future = True
@@ -228,7 +233,7 @@ class ArticleArchiveView(BaseBlogListView, ListView):
         return get_base_breadcrumb() + [(_("Archive"))]
 
 
-class TaggedListView(BaseBlogListView, ListView):
+class TaggedListView(BaseBlogListView, ListView, BreadcrumbView):
     view_url_name = "fds_blog:article-tagged"
 
     def get_queryset(self):
@@ -245,7 +250,7 @@ class TaggedListView(BaseBlogListView, ListView):
         return get_base_breadcrumb() + [_("Tag “%s”") % self.tag.name]
 
 
-class AuthorArticleView(BaseBlogListView, ListView):
+class AuthorArticleView(BaseBlogListView, ListView, BreadcrumbView):
     view_url_name = "fds_blog:article-author"
 
     def get_queryset(self):
@@ -281,7 +286,7 @@ def root_slug_view(request, category):
     return redirect(ArticleRedirectView().get_redirect_url(slug=slug))
 
 
-class CategoryArticleView(BaseBlogListView, ListView):
+class CategoryArticleView(BaseBlogListView, ListView, BreadcrumbView):
     _category = None
     view_url_name = "fds_blog:article-category"
 

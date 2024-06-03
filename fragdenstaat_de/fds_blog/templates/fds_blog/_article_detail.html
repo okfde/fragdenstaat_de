@@ -5,7 +5,7 @@
 {% load blog_tags %}
 {% block article_header %}
     <header class="blog-header">
-        <div class="text-bg-body-tertiary">
+        <div class="blog-header-meta bg-{{ category.color|default:"blue-500" }}">
             <div class="container-lg py-5">
                 <h1>
                     <span class="d-block fw-normal fs-base mb-2">{{ article.kicker }}</span>
@@ -21,15 +21,13 @@
                 </div>
             </div>
         </div>
-        <div class="backdrop backdrop-body-tertiary">
+        <div class="blog-header-image backdrop">
             <div class="container-lg">
-                <div class="shadow-gray">
-                    {% block article_header_image %}
-                        {% if article.image %}
-                            {% include "fds_blog/includes/blog_picture.html" with picture=article.image columns="col-12 col-lg-10" loading="eager" %}
-                        {% endif %}
-                    {% endblock article_header_image %}
-                </div>
+                {% block article_header_image %}
+                    {% if article.image %}
+                        {% include "fds_blog/includes/blog_picture_detail.html" with picture=article.image columns="col-12 col-lg-10" loading="eager" %}
+                    {% endif %}
+                {% endblock article_header_image %}
             </div>
         </div>
     </header>
