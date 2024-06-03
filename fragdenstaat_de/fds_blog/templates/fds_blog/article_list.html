@@ -25,7 +25,7 @@
                         <header class="blog-head">
                             <h2>
                                 {% if archive_date %}
-                                    {% trans "Archive" %}
+                                    {% trans "Archive" context "noun" %}
                                     {% if month %}{{ archive_date|date:'F' }}{% endif %}
                                     {{ year }}
                                 {% elif article_tag %}

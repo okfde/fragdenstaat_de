@@ -68,6 +68,7 @@
     left: 0;
     right: 0;
     top: 0;
+    z-index: -1;
   }
 
   &.backdrop-75::before {
@@ -81,7 +82,8 @@ $backdrops: (
   'gray': 'gray-200',
   'gray-100': 'gray-100',
   'yellow': 'yellow-100',
-  'yellow-200': 'yellow-200'
+  'yellow-200': 'yellow-200',
+  'body-tertiary': 'tertiary-bg'
 );
 
 @each $name, $value in $backdrops {
