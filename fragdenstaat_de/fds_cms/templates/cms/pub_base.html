@@ -8,26 +8,26 @@
     {% page_url request.current_page|get_soft_root as base_url %}
     {% page_attribute "page_title" request.current_page|get_soft_root as base_title %}
     <div class="app container-md-full">
-        <div class="row">
+        <div class="row g-0 g-md-3">
             <div class="col-md-8 col-xl-6 offset-xl-1 mt-3 mb-3 order-md-last">
                 <div id="content" class="container">
                     {% block app_body %}
                         {% placeholder "content" %}
                     {% endblock app_body %}
                 </div>
-                {% include "fds_cms/pagination.html" with min_level=-1 %}
+                <div class="container">{% include "fds_cms/pagination.html" with min_level=-1 %}</div>
             </div>
             {% if not request.current_page.soft_root and request.current_page.get_in_navigation %}
                 <div class="col col-md-4 col-xl-3">
-                    <div class="sticky-top z-2 pt-md-1 small">
+                    <div class="sticky-top z-2 pt-md-1 small overflow-auto toc">
                         <div class="bg-blue-100 p-3 tight-margin">
                             <p class="text-muted">{% trans "In this chapter:" %}</p>
-                            <div id="toc" class="toc"></div>
+                            <div id="toc"></div>
                         </div>
                         <div class="bg-body-tertiary p-3 tight-margin mt-3">
                             <p class="text-muted">{% trans "Chapter overview:" %}</p>
                             {# djlint:off H021 #}
-                            <ol class="overflow-auto m-0" style="max-height: 50vh">
+                            <ol class="m-0">
                                 {% show_menu 1 100 0 1 %}
                             </ol>
                             {# djlint:on #}
