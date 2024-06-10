@@ -6,100 +6,124 @@
     {% endblock canonical_url %}
     {% block title %}
         {% if author %}
-            {{ author.get_full_name }} –
+            {% blocktrans with name=author.get_full_name %}Articles by {{ name }}{% endblocktrans %} –
         {% elif archive_date %}
             {% if month %}{{ archive_date|date:'F' }}{% endif %}
             {{ year }} –
-        {% elif tagged_entries %}
-            {{ tagged_entries|capfirst }} –
+        {% elif article_tag %}
+            {% blocktrans with tag=article_tag|capfirst %}Articles with tag “{{ tag }}”{% endblocktrans %} –
         {% elif category %}
-            {{ category }} –
+            {% blocktrans with category=category %}Category {{ category }}{% endblocktrans %} –
         {% endif %}
-        {{ block.super }}
+        {{ SITE_NAME }}
     {% endblock %}
     {% block content_blog %}
+        <header class="blog-header blog-header-meta">
+            <div class="container-lg py-3 py-md-5">
+                {% block blog_list_header %}
+                    {% if archive_date %}
+                        <h1>
+                            <div class="fs-5 fw-normal mb-1">{% trans "Archive" context "noun" %}</div>
+                            {% if month %}{{ archive_date|date:'F' }}{% endif %}
+                            {{ year }}
+                        </h1>
+                        <p class="text-secondary">{% blocktrans with n=article_count %}{{ n }} articles{% endblocktrans %}</p>
+                    {% elif article_tag %}
+                        <h1>
+                            <div class="fs-5 fw-normal mb-1">{% trans "Tag" %}</div>
+                            {{ article_tag.name }}
+                        </h1>
+                        <p class="text-secondary">{% blocktrans with n=article_count %}{{ n }} articles{% endblocktrans %}</p>
+                    {% elif category %}
+                        <h1>
+                            <div class="fs-5 fw-normal mb-1">{% trans "Category" %}</div>
+                            {{ category }}
+                        </h1>
+                        {{ category.description|markdown }}
+                        <p class="text-secondary">{% blocktrans with n=article_count %}{{ n }} articles{% endblocktrans %}</p>
+                    {% elif author %}
+                        <div class="row">
+                            <div class="col col-12 col-md-4 order-md-2 text-center text-md-end mb-3 mb-md-0">
+                                {% if author.profile_photo %}
+                                    <img class="shadow"
+                                         src="{{ author.profile_photo.url }}"
+                                         alt=""
+                                         loading="lazy">
+                                {% endif %}
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <h1>
+                                    <div class="fs-5 fw-normal mb-1">{% trans "Articles by" %}</div>
+                                    {{ author.get_full_name }}
+                                </h1>
+                                <div>{{ author.profile_text | markdown }}</div>
+                                <p class="text-secondary">{% blocktrans with n=article_count %}{{ n }} articles{% endblocktrans %}</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <h1>{% trans "Article archive" %}</h1>
+                        <p>
+                            {% page_url "newsletter" as newsletter_url %}
+                            {% url "blog:article-latest-feed" as feed_url %}
+                            {% blocktrans with newsletter=newsletter_url feed=feed_url %}
+                                Browse our recent or historical articles. Stay up to date by subscribing to our <a href="{{ newsletter }}">newsletter</a> or the <a href="{{ feed }}">RSS feed</a>.
+                            {% endblocktrans %}
+                        </p>
+                    {% endif %}
+                    {% if category_filter or month_filter or year_filter %}
+                        <nav class="h-stack gap-1 flex-wrap">
+                            {% if category_filter %}
+                                <p class="sr-only">{% trans "Filter by category" %}</p>
+                                <ul class="d-contents">
+                                    {% for category in category_filter %}
+                                        <li class="d-contents">
+                                            <a href="{% url 'blog:article-category' category=category.slug %}"
+                                               class="badge text-bg-secondary rounded-pill">{{ category }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            {% if month_filter %}
+                                <p class="sr-only">{% trans "Filter by month" %}</p>
+                                <ul class="d-contents">
+                                    {% for date in month_filter %}
+                                        <li class="d-contents">
+                                            <a href="{% url 'blog:article-archive' year=date.year month=date.month %}"
+                                               class="badge text-bg-body-secondary rounded-pill">{{ date|date:"F" }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            {% if category_filter %}
+                                <p class="sr-only">{% trans "Filter by year" %}</p>
+                                <ul class="d-contents">
+                                    {% for date in year_filter %}
+                                        <li class="d-contents">
+                                            <a href="{% url 'blog:article-archive' year=date.year %}"
+                                               class="badge text-bg-body-secondary rounded-pill">{{ date|date:"Y" }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </nav>
+                    {% endif %}
+                {% endblock blog_list_header %}
+            </div>
+        </header>
         <div class="container">
             <section class="blog-list mt-3">
-                {% block blog_title %}
-                    {% if author or archive_date or article_tag or category %}
-                        <header class="blog-head">
-                            <h2>
-                                {% if archive_date %}
-                                    {% trans "Archive" context "noun" %}
-                                    {% if month %}{{ archive_date|date:'F' }}{% endif %}
-                                    {{ year }}
-                                {% elif article_tag %}
-                                    {% trans "Tag" %} {{ article_tag.name }}
-                                {% elif category %}
-                                    {% trans "Category" %} {{ category }}
-                                {% endif %}
-                            </h2>
-                            {% if category and category.description %}<p>{{ category.description }}</p>{% endif %}
-                        </header>
-                        {% if author %}
-                            <h4>{% trans "Articles by" %}:</h4>
-                            <div class="bg-body-tertiary mb-3 p-3">
-                                <div class="row justify-content-center align-items-center pb-4 pt-4">
-                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-block">
-                                        {% if author.profile_photo %}
-                                            <img class="img-circle"
-                                                 src="{{ author.profile_photo.url }}"
-                                                 alt="Bild des Autors"
-                                                 loading="lazy">
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-12 col-sm-8 col-md-6 col-lg-5">
-                                        <h2 class="author-title">{{ author.get_full_name }}</h2>
-                                        <div class="author-description">{{ author.profile_text | markdown }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endif %}
-                {% endblock %}
-                {% if featured %}
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="blog-teaser-large">
-                                <div class="blog-teaser-top">
-                                    {% if featured.image %}
-                                        <a href="{{ featured.get_absolute_url }}">
-                                            {% include "fds_blog/includes/blog_picture.html" with picture=featured.image %}
-                                        </a>
-                                    {% endif %}
-                                    <div class="blog-teaser-text">
-                                        <h3>
-                                            <a href="{{ featured.get_absolute_url }}">
-                                                {% if featured.kicker %}<span class="d-block fw-normal blog-header__meta mb-2">{{ featured.kicker }}</span>{% endif %}
-                                                {{ featured.title }}
-                                            </a>
-                                        </h3>
-                                        <div class="blog-lead">{% render_model featured "teaser" "" "" "safe" %}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-                <div class="row">
-                    {% for article in article_list %}
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            {% include "fds_blog/includes/blog_item.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
-                        </div>
-                    {% empty %}
-                        <div class="col-md-4">
-                            <p class="blog-empty">{% trans "No article found." %}</p>
-                        </div>
-                    {% endfor %}
+                <div class="vstack gap-3">
+                    {% block blog_list_items %}
+                        {% for article in article_list %}
+                            {% include "fds_blog/includes/blog_item_list.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
+                        {% endfor %}
+                    {% endblock blog_list_items %}
                 </div>
-                {% if author or archive_date or tagged_entries %}
-                    <p class="blog-back">
-                        <a href="{% url 'blog:article-latest' %}">{% trans "Back" %}</a>
-                    </p>
-                {% endif %}
-                {% if is_paginated %}
-                    {% include "pagination/pagination.html" with page_obj=page_obj %}
-                {% endif %}
+                {% block blog_pagination %}
+                    {% if is_paginated %}
+                        {% include "pagination/pagination.html" with page_obj=page_obj %}
+                    {% endif %}
+                {% endblock blog_pagination %}
             </section>
         </div>
     {% endblock %}

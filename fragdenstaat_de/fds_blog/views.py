@@ -1,15 +1,19 @@
+from __future__ import annotations
+
 import logging
 import os.path
+from calendar import month_name
+from typing import Any
 
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ImproperlyConfigured, MultipleObjectsReturned
+from django.core.exceptions import ImproperlyConfigured
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, ListView, RedirectView
+from django.views.generic import DetailView, ListView
 
 from froide.helper.breadcrumbs import Breadcrumbs, BreadcrumbView
 from froide.helper.search.views import BaseSearchView
@@ -18,6 +22,7 @@ from .documents import ArticleDocument
 from .filters import ArticleFilterset
 from .managers import articles_visible
 from .models import Article, ArticleTag, Category
+from .redirect_views import ArticleRedirectView
 
 logger = logging.getLogger(__name__)
 
@@ -26,17 +31,18 @@ User = get_user_model()
 
 def get_base_breadcrumb():
     return Breadcrumbs(
-        items=[(_("Article"), reverse("blog:article-latest"))], color="blue-500"
+        items=[(_("Articles"), reverse("blog:article-latest"))], color="blue-500"
     )
 
 
 class BaseBlogView(object):
     model = Article
+    namespace = "blog"
 
     def optimize(self, qs):
         return qs
 
-    def get_view_url(self):
+    def get_view_url(self, kwargs=None):
         if not self.view_url_name:
             raise ImproperlyConfigured(
                 "Missing `view_url_name` attribute on {0}".format(
@@ -46,8 +52,7 @@ class BaseBlogView(object):
 
         url = reverse(
             self.view_url_name,
-            args=self.args,
-            kwargs=self.kwargs,
+            kwargs=kwargs or self.kwargs,
             current_app=self.namespace,
         )
         return self.request.build_absolute_uri(url)
@@ -74,41 +79,19 @@ class BaseBlogListView(BaseBlogView):
     context_object_name = "article_list"
     base_template_name = "article_list.html"
 
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["article_count"] = self.get_queryset().count()
+        return context
+
     def get_paginate_by(self, queryset):
         return 12
-
-
-class ArticleRedirectView(RedirectView):
-    def get_redirect_url(self, *args, **kwargs):
-        if "pk" in kwargs:
-            qs = {"pk": kwargs["pk"]}
-        else:
-            qs = {"slug": kwargs["slug"], "language": get_language()}
-
-            optional_specifiers = [
-                ("year", "start_publication__year"),
-                ("month", "start_publication__month"),
-                ("day", "start_publication__day"),
-                ("category", "categories__translations__slug"),
-            ]
-
-            for kwargs_key, filter_key in optional_specifiers:
-                if kwargs_key in kwargs:
-                    qs[filter_key] = kwargs[kwargs_key]
-
-        try:
-            article = get_object_or_404(Article, **qs)
-            return article.get_absolute_url()
-        except MultipleObjectsReturned:
-            # url not specific enough
-            logger.error("Ambiguous article urls at %s", self.request.path)
-            raise Http404
 
 
 class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
     base_template_name = "article_detail.html"
     slug_field = "slug"
-    view_url_name = "fds_blog:article-detail"
+    view_url_name = "blog:article-detail"
 
     def get_base_queryset(self):
         if (
@@ -172,31 +155,17 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
             if category.color:
                 breadcrumbs.color = category.color
 
-        breadcrumbs.items += [(self.object.title)]
+        breadcrumbs.items += [(self.object.title, self.get_view_url())]
         return breadcrumbs
 
 
 class ArticleListView(BaseBlogListView, ListView, BreadcrumbView):
-    view_url_name = "fds_blog:article-latest"
+    view_url_name = "blog:article-latest"
 
-    def get_queryset(self):
-        qs = super().get_queryset()
-
-        featured = (
-            qs.filter(date_featured__isnull=False).order_by("-date_featured").first()
-        )
-        self.featured = None
-        page = self.request.GET.get("page", None)
-        if not page or page == "1":
-            self.featured = featured
-
-        if featured is not None:
-            qs = qs.exclude(pk=featured.pk)
-        return qs
-
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["featured"] = self.featured
+        context["year_filter"] = self.get_queryset().dates("start_publication", "year")
+        context["category_filter"] = Category.objects.all()
         return context
 
     def get_breadcrumbs(self, context):
@@ -207,7 +176,7 @@ class ArticleArchiveView(BaseBlogListView, ListView, BreadcrumbView):
     date_field = "start_publication"
     allow_empty = True
     allow_future = True
-    view_url_name = "fds_blog:article-archive"
+    view_url_name = "blog:article-archive"
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -215,7 +184,12 @@ class ArticleArchiveView(BaseBlogListView, ListView, BreadcrumbView):
             qs = qs.filter(**{"%s__month" % self.date_field: self.kwargs["month"]})
         if "year" in self.kwargs:
             qs = qs.filter(**{"%s__year" % self.date_field: self.kwargs["year"]})
-        return self.optimize(qs)
+        qs = self.optimize(qs)
+
+        if not qs.exists():
+            raise Http404(_("No articles found"))
+
+        return qs
 
     def get_context_data(self, **kwargs):
         kwargs["month"] = (
@@ -226,15 +200,41 @@ class ArticleArchiveView(BaseBlogListView, ListView, BreadcrumbView):
             kwargs["archive_date"] = now().replace(
                 kwargs["year"], kwargs["month"] or 1, 1
             )
+
         context = super().get_context_data(**kwargs)
+
+        if kwargs["year"] and not kwargs["month"]:
+            context["month_filter"] = self.get_queryset().dates(
+                "start_publication", "month"
+            )
+
         return context
 
     def get_breadcrumbs(self, context):
-        return get_base_breadcrumb() + [(_("Archive"))]
+        breadcrumbs = get_base_breadcrumb()
+
+        if "year" in self.kwargs:
+            breadcrumbs.items += [
+                (
+                    context["year"],
+                    self.get_view_url({"year": context["year"]}),
+                )
+            ]
+            if "month" in self.kwargs:
+                breadcrumbs.items += [
+                    (
+                        _(month_name[context["month"]]),
+                        self.get_view_url(
+                            {"year": context["year"], "month": context["month"]}
+                        ),
+                    )
+                ]
+
+        return breadcrumbs
 
 
 class TaggedListView(BaseBlogListView, ListView, BreadcrumbView):
-    view_url_name = "fds_blog:article-tagged"
+    view_url_name = "blog:article-tagged"
 
     def get_queryset(self):
         self.tag = get_object_or_404(ArticleTag, slug=self.kwargs["tag"])
@@ -247,11 +247,13 @@ class TaggedListView(BaseBlogListView, ListView, BreadcrumbView):
         return context
 
     def get_breadcrumbs(self, context):
-        return get_base_breadcrumb() + [_("Tag “%s”") % self.tag.name]
+        return get_base_breadcrumb() + [
+            (_("Tag “%s”") % self.tag.name, self.get_view_url())
+        ]
 
 
 class AuthorArticleView(BaseBlogListView, ListView, BreadcrumbView):
-    view_url_name = "fds_blog:article-author"
+    view_url_name = "blog:article-author"
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -266,11 +268,10 @@ class AuthorArticleView(BaseBlogListView, ListView, BreadcrumbView):
         return context
 
     def get_breadcrumbs(self, context):
-        return get_base_breadcrumb() + [(self.author.get_full_name())]
-
-
-class CategoryArticleRedirectView(RedirectView):
-    pattern_name = "blog:article-category"
+        return get_base_breadcrumb() + [
+            _("Authors"),
+            (self.author.get_full_name(), self.get_view_url()),
+        ]
 
 
 def root_slug_view(request, category):
@@ -288,7 +289,7 @@ def root_slug_view(request, category):
 
 class CategoryArticleView(BaseBlogListView, ListView, BreadcrumbView):
     _category = None
-    view_url_name = "fds_blog:article-category"
+    view_url_name = "blog:article-category"
 
     def __init__(self, *args, **kwargs):
         if "category" in kwargs:
@@ -325,10 +326,16 @@ class CategoryArticleView(BaseBlogListView, ListView, BreadcrumbView):
         return context
 
     def get_breadcrumbs(self, context):
-        return get_base_breadcrumb() + [(self.category.title)]
+        breadcrumbs = get_base_breadcrumb()
+        breadcrumbs.items += [(self.category.title, self.get_view_url())]
+
+        if self.category.color:
+            breadcrumbs.color = self.category.color
+
+        return breadcrumbs
 
 
-class ArticleSearchView(BaseSearchView):
+class ArticleSearchView(BaseSearchView, BreadcrumbView):
     search_name = "blog"
     template_name = "fds_blog/search.html"
     object_template = "fds_blog/result_item.html"
@@ -347,3 +354,6 @@ class ArticleSearchView(BaseSearchView):
             "label": _("categories"),
         }
     }
+
+    def get_breadcrumbs(self, context):
+        return get_base_breadcrumb() + [_("Search")]
