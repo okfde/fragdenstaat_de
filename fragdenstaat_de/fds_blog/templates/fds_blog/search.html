@@ -1,64 +1,50 @@
-{% extends "fds_blog/base.html" %}
+{% extends "fds_blog/article_list.html" %}
 {% load i18n %}
 {% block title %}
-    {% translate "Search articles" %}
-{% endblock %}
-{% block content_blog %}
-    <div class="container mt-3">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <h2>{% translate "Search articles" %}</h2>
-                <form class="mb-3 vstack gap-1" role="search" method="get" action=".">
-                    <div class="input-group">
-                        {% if form %}
-                            {{ form.q }}
-                        {% else %}
-                            <input class="form-control"
-                                   type="text"
-                                   name="q"
-                                   placeholder="{% translate 'Search' %}"
-                                   aria-label="{% translate 'Search' %}">
-                        {% endif %}
-                        <button class="btn btn-outline-primary" type="submit">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                            {% translate "Search" %}
-                        </button>
-                    </div>
-                    {{ form.category }}
-                    {{ form.sort }}
-                </form>
-                {% if object_list and form.q.value %}
-                    <p>{% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}</p>
-                    {% for object in object_list %}
-                        <div class="row">
-                            {% if object.image %}
-                                <div class="col-sm-4">
-                                    <a href="{{ object.get_absolute_url }}">
-                                        {% include "fds_blog/includes/blog_picture_small.html" with picture=object.image columns="col-sm-4" %}
-                                    </a>
-                                </div>
-                            {% endif %}
-                            <div class="col-sm-8">
-                                <h5 class="mt-0 mb-1">
-                                    <span class="d-block text-body-secondary font-weight-bold font-size-sm">
-                                        <time datetime="{{ object.start_publication|date:'c' }}">
-                                            {{ object.start_publication|date:"SHORT_DATE_FORMAT" }}
-                                        </time>
-                                        {% if object.kicker %}&ndash;{% endif %}
-                                        {{ object.kicker }}
-                                    </span>
-                                    <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
-                                </h5>
-                                {% if object.query_highlight %}<p class="search-highlight">{{ object.query_highlight }}</p>{% endif %}
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% elif form.q.value %}
-                    <p>{% translate "No results found." %}</p>
+    {% translate "Search articles" %} –
+    {{ block.super }}
+{% endblock title %}
+{% block blog_list_header %}
+    <h2>
+        {% if form.q %}
+            {% blocktranslate with q=form.q.value %}Search results for “{{ q }}”{% endblocktranslate %}
+        {% else %}
+            {% translate "Search articles" %}
+        {% endif %}
+    </h2>
+    <form class="row froide-auto-submit row-gap-2"
+          role="search"
+          method="get"
+          action=".">
+        <div class="col-12 col-md-6">
+            <div class="input-group">
+                {% if form %}
+                    {{ form.q }}
                 {% else %}
-                    <p>{% translate "Please enter a search term." %}</p>
+                    <input class="form-control"
+                           type="text"
+                           name="q"
+                           placeholder="{% translate 'Search' %}"
+                           aria-label="{% translate 'Search' %}">
                 {% endif %}
+                <button class="btn btn-outline-primary" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    {% translate "Search" %}
+                </button>
             </div>
         </div>
-    </div>
+        <div class="col-12 col-md-3">{{ form.category }}</div>
+        <div class="col-12 col-md-3">{{ form.sort }}</div>
+    </form>
 {% endblock %}
+{% block blog_list_items %}
+    {% if object_list and form.q.value %}
+        {% for article in object_list %}
+            {% include "fds_blog/includes/blog_item_list.html" with article=article %}
+        {% endfor %}
+    {% elif form.q.value %}
+        <p>{% translate "No results found." %}</p>
+    {% else %}
+        <p>{% translate "Please enter a search term." %}</p>
+    {% endif %}
+{% endblock blog_list_items %}

@@ -59,7 +59,8 @@
 
 // add hover effect when hovering over image or the image's next element (description)
 a:hover > .blog-visual img,
-a:has(+ *:hover) > .blog-visual img {
+a:has(+ *:hover) > .blog-visual img,
+.blog-article-item:hover img {
   transform: scale(1.03);
 }
 
@@ -78,21 +79,20 @@ $blog-standout-width: 72rem;
   margin-right: auto;
 }
 
-.blog-article {
-  --article-color: var(--#{$prefix}blue-500-rgb);
-}
-
 .blog-header {
   .container {
     @include blog-width($blog-standout-width);
   }
 
   &-meta {
-    --#{$prefix}bg-opacity: 0.05;
+    background-color: rgba(
+      var(--article-color, var(--#{$prefix}blue-500-rgb)),
+      0.05
+    );
   }
 
   &-image.backdrop::before {
-    background: rgba(var(--article-color), 0.05);
+    background: rgba(var(--article-color, var(--#{$prefix}blue-500-rgb)), 0.05);
   }
 }
 
@@ -140,9 +140,9 @@ $blog-standout-width: 72rem;
   > p,
   > ul,
   > ol,
-  .text-container,
-  > blockquote,
-  > .blockquote-figure,
+  > div.text-container,
+  // > blockquote,
+  // > .blockquote-figure,
   > details {
     font-family: $font-family-serif;
     color: var(--#{$prefix}body-color);
@@ -198,23 +198,19 @@ $blog-standout-width: 72rem;
 
   > blockquote,
   > .blockquote-figure {
-    @include blog-width($blog-standout-width);
+    @include blog-width();
     margin-top: 1rem;
     margin-bottom: 0.5rem;
-    padding: 1rem 2rem;
+    padding: 1rem;
+    padding-bottom: 0;
     background-color: var(--#{$prefix}tertiary-bg);
 
     > p,
     > blockquote > p {
       border-left: 4px solid var(--#{$prefix}dark-bg-subtle);
       padding: 0.5rem 0 0.5rem 1rem;
-      font-size: 1.3rem;
       margin: 0;
     }
-  }
-
-  > .blockquote-figure {
-    padding: 1rem 2rem 0;
   }
 }
 

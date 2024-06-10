@@ -1,0 +1,12 @@
+<article class="blog-article-item row position-relative">
+    <div class="col col-12 col-md-4">
+        {% if article.image %}
+            <div class="shadow">
+                <a href="{{ article.get_absolute_url }}">
+                    {% include "fds_blog/includes/blog_picture.html" with picture=article.image columns="col-12 col-md-10 col-lg-8" %}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="col col-12 col-md-8">{% include "fds_blog/includes/_item_meta.html" with size="sm" %}</div>
+</article>
