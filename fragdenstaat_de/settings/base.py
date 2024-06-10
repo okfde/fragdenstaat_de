@@ -228,6 +228,7 @@ class FragDenStaatBase(German, Base):
         ],
     }
 
+    CMS_SIDEFRAME_ENABLED = False
     CMS_TOOLBAR_ANONYMOUS_ON = False
     CMS_TEMPLATES = [
         ("cms/home.html", "Homepage template"),
