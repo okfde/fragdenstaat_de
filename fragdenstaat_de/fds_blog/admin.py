@@ -23,7 +23,16 @@ from froide.helper.admin_utils import make_choose_object_action, make_nullfilter
 from froide.helper.widgets import TagAutocompleteWidget
 
 from .documents import index_article
-from .models import Article, ArticleTag, Author, Category, Publication, TaggedArticle
+from .models import (
+    Article,
+    ArticleAuthorship,
+    ArticleTag,
+    Author,
+    Category,
+    LatestArticlesPlugin,
+    Publication,
+    TaggedArticle,
+)
 
 
 class RelatedPublishedFilter(admin.SimpleListFilter):
@@ -97,6 +106,19 @@ class CategoryListFilter(RelatedPublishedFilter):
 
 class AuthorAdmin(admin.ModelAdmin):
     raw_id_fields = ("user",)
+    actions = ["merge_authors"]
+
+    def merge_authors(self, request, queryset):
+        assert len(queryset) >= 1
+        author = queryset[0]
+        other_authors = list(queryset)[1:]
+        for other in other_authors:
+            ArticleAuthorship.objects.filter(author=other).update(author=author)
+            plugins = LatestArticlesPlugin.objects.filter(authors=other)
+            for plugin in plugins:
+                plugin.authors.remove(other)
+                plugin.authors.add(author)
+            other.delete()
 
 
 class AuthorshipInlineAdmin(SortableInlineAdminMixin, admin.TabularInline):
