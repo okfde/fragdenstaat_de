@@ -236,6 +236,7 @@ class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
         "creation_date",
         "start_publication",
         "end_publication",
+        make_nullfilter("categories", "Hat Kategorie"),
     )
     radio_fields = {
         "content_template": admin.VERTICAL,
