@@ -19,7 +19,7 @@ from cms.toolbar.utils import get_object_edit_url
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 from parler.admin import TranslatableAdmin
 
-from froide.helper.admin_utils import make_nullfilter
+from froide.helper.admin_utils import make_choose_object_action, make_nullfilter
 from froide.helper.widgets import TagAutocompleteWidget
 
 from .documents import index_article
@@ -102,6 +102,11 @@ class AuthorAdmin(admin.ModelAdmin):
 class AuthorshipInlineAdmin(SortableInlineAdminMixin, admin.TabularInline):
     model = Article.authors.through
     raw_id_fields = ("author",)
+
+
+def add_category_on_articles(admin, request, queryset, action_obj):
+    for article in queryset:
+        article.categories.add(action_obj)
 
 
 class ArticleAdminForm(forms.ModelForm):
@@ -247,9 +252,12 @@ class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
     )
     save_on_top = True
 
-    actions = ["set_language"]
+    actions = ["set_language", "add_category"]
     actions_on_top = True
-    actions_on_bottom = True
+
+    add_category = make_choose_object_action(
+        Category, add_category_on_articles, _("Set category on articles...")
+    )
 
     # def __init__(self, model, admin_site):
     #     # self.form.admin_site = admin_site
