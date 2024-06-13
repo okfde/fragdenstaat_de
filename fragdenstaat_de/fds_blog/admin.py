@@ -221,11 +221,7 @@ class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": (
-                    "title",
-                    "slug",
-                    "language",
-                ),
+                "fields": ("title", "slug", "language", "categories"),
             },
         ),
     )
