@@ -26,33 +26,4 @@
             {% include article.content_template %}
         </article>
     {% endspaceless %}
-    {% with next_read=article|get_next_read %}
-        {% if next_read %}
-            <div class="container">
-                <div class="row justify-content-center py-5">
-                    <div class="col-md-5">
-                        {% if next_read.image_id %}
-                            <a href="{{ next_read.get_absolute_url }}">
-                                {% include "fds_blog/includes/blog_picture.html" with picture=next_read.image columns="col-md-5" %}
-                            </a>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-5 next-reads__text">
-                        <h3>
-                            <a href="{{ next_read.get_absolute_url }}">
-                                {% if next_read.kicker %}<span class="d-block fw-normal blog-header__meta">{{ next_read.kicker }}</span>{% endif %}
-                                {{ next_read.title }}
-                            </a>
-                        </h3>
-                        <p>{% render_model next_read "teaser" "" "" "safe" %}</p>
-                        <p>
-                            <div class="cl-effect-10">
-                                <a href="{{ next_read.get_absolute_url }}" data-hover="&rarr;">{% translate "Read article" %}</a>
-                            </div>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    {% endwith %}
 {% endblock content_blog %}

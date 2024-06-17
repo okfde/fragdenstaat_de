@@ -105,7 +105,9 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
         return self.model._default_manager.all()
 
     def optimize(self, qs):
-        return qs.prefetch_related("categories", "categories__translations", "authors")
+        return qs.prefetch_related(
+            "categories", "categories__translations", "authors", "authors__user"
+        )
 
     def get_queryset(self):
         qs = super().get_queryset()

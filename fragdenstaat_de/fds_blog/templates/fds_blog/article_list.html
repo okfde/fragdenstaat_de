@@ -120,7 +120,7 @@
                                 anchor to the 7th article, so that the landing page can add an continue link here.
                             {% endcomment %}
                             {% if page_obj.number == 1 and forloop.counter == 7 %}<div id="continue">{% endif %}
-                                {% include "fds_blog/includes/blog_item_list.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
+                                {% include "fds_blog/includes/blog_item_list.html" with article=article %}
                                 {% if page_obj.number == 1 and forloop.counter == 7 %}</div>{% endif %}
                         {% endfor %}
                     {% endblock blog_list_items %}
