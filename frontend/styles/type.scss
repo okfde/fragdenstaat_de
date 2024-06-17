@@ -4,7 +4,7 @@
   $file: string.to-lower-case($name);
   $folder: $file;
   @if $style != 'normal' {
-    $file: '-' + $style;
+    $file: $file + '-' + $style;
   }
 
   @font-face {
