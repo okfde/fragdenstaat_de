@@ -46,6 +46,7 @@ class FragDenStaatBase(German, Base):
                 "djangocms_alias",
                 "menus",
                 "sekizai",
+                "djangocms_transfer",
                 # easy thumbnails comes from froide
                 "filer",
                 "mptt",

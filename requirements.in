@@ -90,5 +90,6 @@ xlrd
 -e git+https://github.com/okfde/froide-govplan.git@main#egg=froide-govplan
 -e git+https://github.com/stefanw/django-contractor.git@main#egg=django-contractor
 -e git+https://github.com/stefanw/djangocms-sortabletable.git@main#egg=sortabletable
+-e git+https://github.com/stefanw/djangocms-transfer.git@stefanw/djangocms-4#egg=djangocms-transfer
 -e git+https://github.com/fragdenstaat/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
 -e git+https://github.com/okfde/fcdocs-annotate.git@main#egg=fcdocs_annotate
