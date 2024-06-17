@@ -115,16 +115,23 @@
                 <div class="vstack gap-3">
                     {% block blog_list_items %}
                         {% for article in article_list %}
-                            {% include "fds_blog/includes/blog_item_list.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
+                            {% comment %}
+                                landing pages display 6 articles. on the first page, add an
+                                anchor to the 7th article, so that the landing page can add an continue link here.
+                            {% endcomment %}
+                            {% if page_obj.number == 1 and forloop.counter == 7 %}<div id="continue">{% endif %}
+                                {% include "fds_blog/includes/blog_item_list.html" with article=article image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
+                                {% if page_obj.number == 1 and forloop.counter == 7 %}</div>{% endif %}
                         {% endfor %}
                     {% endblock blog_list_items %}
-                </div>
-                {% block blog_pagination %}
-                    {% if is_paginated %}
-                        {% include "pagination/pagination.html" with page_obj=page_obj %}
-                    {% endif %}
-                {% endblock blog_pagination %}
-            </section>
+                    </>
+                    {% block blog_pagination %}
+                        {% if is_paginated %}
+                            {% include "pagination/pagination.html" with page_obj=page_obj %}
+                        {% endif %}
+                    {% endblock blog_pagination %}
+                </section>
+            </div>
         </div>
     {% endblock %}
 {% endspaceless %}
