@@ -79,6 +79,9 @@ class BaseBlogListView(BaseBlogView):
     context_object_name = "article_list"
     base_template_name = "article_list.html"
 
+    def optimize(self, qs):
+        return qs.prefetch_related("categories", "categories__translations")
+
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["article_count"] = self.get_queryset().count()
@@ -102,7 +105,7 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
         return self.model._default_manager.all()
 
     def optimize(self, qs):
-        return qs.prefetch_related("categories", "authors")
+        return qs.prefetch_related("categories", "categories__translations", "authors")
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -132,19 +135,19 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
         return self.render_to_response(context)
 
     def get_context_data(self, object=None):
-        ctx = super().get_context_data(object=object)
+        context = super().get_context_data(object=object)
         related_articles = list(object.related.all())
 
-        ctx["updated_articles"] = [
+        context["updated_articles"] = [
             a for a in related_articles if a.publication_date > object.publication_date
         ]
-        ctx["previous_articles"] = [
+        context["previous_articles"] = [
             a for a in related_articles if a.publication_date < object.publication_date
         ]
 
-        ctx["category"] = self.object.first_category
+        context["category"] = self.object.first_category
 
-        return ctx
+        return context
 
     def get_breadcrumbs(self, context):
         breadcrumbs = get_base_breadcrumb()
