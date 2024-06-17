@@ -1,3 +1,4 @@
+import re
 from typing import Tuple
 
 from django import template
@@ -19,17 +20,15 @@ def get_next_read(article):
 @register.filter
 def split_for_banner(content: str) -> Tuple[str, str]:
     # splits the content into content that is shown before the ad, and content that is shown after the ad
-    TAG = "<h3"
 
-    sections = content.split(TAG)
+    # sections are split by h3 tags with an id attribute
+    TAG = r'(<h3\s+[^>]*id="[^"]+".*?>.*?</h3>)'
+    sections = re.split(TAG, content)
 
     # if there are at least three sections, show the ad before the third section
     if len(sections) >= 3:
-        before = TAG.join(sections[0:2])
-        after = TAG.join(sections[2:])
-        if after:
-            # we lost one <h3 because of the section splitting
-            after = TAG + after
+        before = "".join(sections[0:3])
+        after = "".join(sections[3:])
 
         return (before, after)
 
