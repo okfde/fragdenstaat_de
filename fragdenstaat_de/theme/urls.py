@@ -64,6 +64,7 @@ urlpatterns = [
     path("payment/", include("froide_payment.urls")),
     path("contractor/", include("contractor.urls")),
     path("fax/", include("froide_fax.urls")),
+    path("paperless/", include("fragdenstaat_de.fds_paperless.urls")),
     path("newsletter/update/", include("fragdenstaat_de.fds_newsletter.urls")),
     path("newsletter/archive/", include("fragdenstaat_de.fds_mailing.urls")),
     path(

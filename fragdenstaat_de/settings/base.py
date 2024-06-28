@@ -60,6 +60,7 @@ class FragDenStaatBase(German, Base):
                 "fragdenstaat_de.fds_mailing.apps.FdsMailingConfig",
                 "fragdenstaat_de.fds_ogimage.apps.FdsOgImageConfig",
                 "fragdenstaat_de.fds_fximport.apps.FdsFxImportConfig",
+                "fragdenstaat_de.fds_paperless",
                 # Additional CMS plugins
                 "djangocms_text_ckeditor",
                 "djangocms_picture",
@@ -844,3 +845,6 @@ class FragDenStaatBase(German, Base):
     DJANGOCMS_ICON_SETS = [
         ("fontawesome4", "fa", "Font Awesome 4", "4.7.0"),
     ]
+
+    PAPERLESS_API_URL = os.environ.get("PAPERLESS_API_URL", "")
+    PAPERLESS_API_TOKEN = os.environ.get("PAPERLESS_API_TOKEN", "")
