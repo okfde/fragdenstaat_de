@@ -30,7 +30,7 @@ def get_document_data(paperless_document_id):
 def list_documents():
     client = get_paperless_client()
     last_week = timezone.now() - timedelta(days=7)
-    API_URL = settings.PAPERLESS_API_URL + "/documents/?created__date__gt={}".format(
+    API_URL = settings.PAPERLESS_API_URL + "/documents/?added__date__gt={}".format(
         last_week.date()
     )
     data = client.get(API_URL).json()
