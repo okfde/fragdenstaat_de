@@ -18,6 +18,11 @@ def paperless_start(request, pk):
 
 @allow_write_foirequest
 def add_postal_message(request, foirequest):
+    if not request.user.is_staff or not request.user.has_perm(
+        "foirequest.change_foimessage"
+    ):
+        return render_403(request)
+
     paperless_docs = list_documents()
     if request.method == "POST":
         form = PaperlessPostalReplyForm(
