@@ -233,7 +233,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         self.action = kwargs.pop("action", None)
 
         user = kwargs.pop("user", None)
-        if not user.is_authenticated:
+        if user is None or not user.is_authenticated:
             user = None
         self.user = user
         self.settings = kwargs.pop("form_settings", DonationFormFactory.default)
@@ -559,11 +559,11 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
                 self.fields.update(
                     get_basic_info_fields(prefix="shipping", name_required=False)
                 )
-            if len(gift_options) == 1:
-                self.fields["chosen_gift"].widget = forms.HiddenInput()
-                self.fields["chosen_gift"].initial = gift_options[0].id
-            elif self.settings["default_gift"]:
-                self.fields["chosen_gift"].initial = self.settings["default_gift"]
+                if len(gift_options) == 1:
+                    self.fields["chosen_gift"].widget = forms.HiddenInput()
+                    self.fields["chosen_gift"].initial = gift_options[0].id
+                elif self.settings["default_gift"]:
+                    self.fields["chosen_gift"].initial = self.settings["default_gift"]
 
     def clean(self):
         if not self.settings["gift_options"]:
@@ -573,9 +573,8 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
         address_fields = ("address", "postcode", "city", "country")
         for address_field in address_fields:
             shipping_field = "shipping_{}".format(address_field)
-            if (
-                not self.cleaned_data[address_field]
-                and not self.cleaned_data[shipping_field]
+            if not self.cleaned_data.get(address_field) and not self.cleaned_data.get(
+                shipping_field
             ):
                 self.add_error(
                     shipping_field, _("Please complete your shipping address.")
