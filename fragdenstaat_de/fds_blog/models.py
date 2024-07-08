@@ -228,7 +228,7 @@ class Category(TranslatableModel):
         return articles_published(self.articles)
 
     def get_absolute_url(self):
-        return reverse("blog:article-category", kwargs={"category": self.slug})
+        return reverse("blog:article-category", kwargs={"slug": self.slug})
 
 
 class CategoriesEntry(models.Model):

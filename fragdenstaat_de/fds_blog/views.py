@@ -278,8 +278,10 @@ class AuthorArticleView(BaseBlogListView, ListView, BreadcrumbView):
         ]
 
 
-def root_slug_view(request, category):
-    slug = category  # to avoid confusion
+def root_slug_view(request, slug):
+    # previously, articles could be accessed by just their slug, i.e. /blog/foo/.
+    # now, categories are at the url top level.
+    # if no category `foo` is found, try to find an article instead.
 
     category = Category.objects.active_translations(get_language(), slug=slug)
 
@@ -331,7 +333,12 @@ class CategoryArticleView(BaseBlogListView, ListView, BreadcrumbView):
 
     def get_breadcrumbs(self, context):
         breadcrumbs = get_base_breadcrumb()
-        breadcrumbs.items += [(self.category.title, self.get_view_url())]
+        breadcrumbs.items += [
+            (
+                self.category.title,
+                self.get_view_url(kwargs={"slug": self.category.slug}),
+            )
+        ]
 
         if self.category.color:
             breadcrumbs.color = self.category.color
