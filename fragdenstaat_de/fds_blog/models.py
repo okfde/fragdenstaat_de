@@ -4,6 +4,7 @@ from typing import Optional
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.db import models
+from django.db.models import Q
 from django.db.models.functions import Extract
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -184,6 +185,15 @@ class Category(TranslatableModel):
             help_text=_("Used to build the category's URL."),
         ),
         description=models.TextField(_("description"), blank=True),
+        meta={
+            "constraints": [
+                models.CheckConstraint(
+                    check=~Q(slug__regex=r"^\d+$"),
+                    name="not_just_digits_slug",
+                    violation_error_message="The slug may not only consist of digits.",
+                )
+            ]
+        },
     )
     order = models.PositiveIntegerField(default=0)
 
