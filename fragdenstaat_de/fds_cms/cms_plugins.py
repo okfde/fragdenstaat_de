@@ -312,7 +312,7 @@ class PublicBodyFeedbackPlugin(CMSPluginBase):
         """
 
         context = super().render(context, instance, placeholder)
-        context["form"] = ContactForm()
+        context["form"] = ContactForm(request=context["request"])
         return context
 
 
