@@ -49,7 +49,7 @@ urlpatterns = [
         name="article-detail",
     ),
     path(
-        "<slug:category>/",
+        "<slug:slug>/",
         root_slug_view,
         name="article-category",
     ),

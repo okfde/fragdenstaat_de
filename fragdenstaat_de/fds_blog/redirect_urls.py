@@ -61,7 +61,7 @@ urlpatterns = [
         name="legacy-article-author",
     ),
     re_path(
-        _(r"^category/(?P<category>[\w\.@+-]+)/$"),
+        _(r"^category/(?P<slug>[\w\.@+-]+)/$"),
         CategoryRedirectView.as_view(),
         name="legacy-article-category",
     ),
