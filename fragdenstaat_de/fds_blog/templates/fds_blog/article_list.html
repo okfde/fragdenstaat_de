@@ -18,7 +18,8 @@
         {{ SITE_NAME }}
     {% endblock %}
     {% block content_blog %}
-        <header class="blog-header blog-header-meta">
+        <header class="blog-header blog-header-meta"
+                {% if category.color %}style="--article-color: var(--bs-{{ category.color }}-rgb)"{% endif %}>
             <div class="container-lg py-3 py-md-5">
                 {% block blog_list_header %}
                     {% if archive_date %}
@@ -71,39 +72,54 @@
                         </p>
                     {% endif %}
                     {% if category_filter or month_filter or year_filter %}
-                        <nav class="h-stack gap-1 flex-wrap">
+                        <nav class="hstack gap-2">
                             {% if category_filter %}
-                                <p class="sr-only">{% trans "Filter by category" %}</p>
-                                <ul class="d-contents">
-                                    {% for category in category_filter %}
-                                        <li class="d-contents">
-                                            <a href="{% url 'blog:article-category' category=category.slug %}"
-                                               class="badge text-bg-secondary rounded-pill">{{ category }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-secondary dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">{% trans "Filter by category…" %}</button>
+                                    <ul class="dropdown-menu">
+                                        {% for category in category_filter %}
+                                            <li>
+                                                <a href="{% url 'blog:article-category' slug=category.slug %}"
+                                                   class="dropdown-item">{{ category }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             {% endif %}
                             {% if month_filter %}
-                                <p class="sr-only">{% trans "Filter by month" %}</p>
-                                <ul class="d-contents">
-                                    {% for date in month_filter %}
-                                        <li class="d-contents">
-                                            <a href="{% url 'blog:article-archive' year=date.year month=date.month %}"
-                                               class="badge text-bg-body-secondary rounded-pill">{{ date|date:"F" }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-secondary dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">{% trans "Filter by month…" %}</button>
+                                    <ul class="dropdown-menu">
+                                        {% for date in month_filter %}
+                                            <li class="d-contents">
+                                                <a href="{% url 'blog:article-archive' year=date.year month=date.month %}"
+                                                   class="dropdown-item">{{ date|date:"F" }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             {% endif %}
                             {% if category_filter %}
-                                <p class="sr-only">{% trans "Filter by year" %}</p>
-                                <ul class="d-contents">
-                                    {% for date in year_filter %}
-                                        <li class="d-contents">
-                                            <a href="{% url 'blog:article-archive' year=date.year %}"
-                                               class="badge text-bg-body-secondary rounded-pill">{{ date|date:"Y" }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-secondary dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">{% trans "Filter by year…" %}</button>
+                                    <ul class="dropdown-menu">
+                                        {% for date in year_filter %}
+                                            <li class="d-contents">
+                                                <a href="{% url 'blog:article-archive' year=date.year %}"
+                                                   class="dropdown-item">{{ date|date:"Y" }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             {% endif %}
                         </nav>
                     {% endif %}
