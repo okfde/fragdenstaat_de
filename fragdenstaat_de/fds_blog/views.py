@@ -116,15 +116,6 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
             start_publication__month=self.kwargs["month"],
         )
 
-        if "category" in self.kwargs:
-            try:
-                category = Category.objects.active_translations(
-                    get_language(), slug=self.kwargs["category"]
-                ).get()
-                qs = qs.filter(categories=category)
-            except Category.DoesNotExist:
-                raise Http404
-
         return self.optimize(qs)
 
     def get(self, request, *args, **kwargs):
@@ -132,6 +123,10 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
         self.request.article = self.object
         if hasattr(self.request, "toolbar"):
             self.request.toolbar.set_object(self.object)
+
+        if "category" in self.kwargs:
+            if self.object.first_category.slug != self.kwargs["category"]:
+                return redirect(self.object.get_absolute_url())
 
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
