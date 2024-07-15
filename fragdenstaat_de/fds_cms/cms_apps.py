@@ -51,3 +51,12 @@ class FdsCmsContactApp(CMSApp):
 
     def get_urls(self, page=None, language=None, **kwargs):
         return ["fragdenstaat_de.fds_cms.contact"]
+
+
+@apphook_pool.register
+class FdsCmsPlainAPIApp(CMSApp):
+    name = "FragDenStaat-CMS-Plain API"
+    app_name = "fds_cms_plainapi"
+
+    def get_urls(self, page=None, language=None, **kwargs):
+        return ["fragdenstaat_de.fds_cms.urls_plainapi"]
