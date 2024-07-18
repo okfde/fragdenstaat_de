@@ -7,9 +7,9 @@ from django.db import migrations, models
 def migrate_start_creation(apps, schema_editor):
     Article = apps.get_model("fds_blog", "Article")
 
-    for article in Article.objects.filter(start_publication__isnull=True):
-        article.start_publication = article.creation_date
-        article.save()
+    Article.objects.filter(start_publication__isnull=True).update(
+        start_publication=models.F("creation_date")
+    )
 
 
 class Migration(migrations.Migration):
