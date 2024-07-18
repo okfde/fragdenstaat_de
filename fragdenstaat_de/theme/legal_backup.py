@@ -8,6 +8,7 @@ from django.conf import settings
 
 import requests
 
+from froide.account.export import export_user_data
 from froide.foirequest.pdf_generator import FoiRequestPDFGenerator
 
 logger = logging.getLogger(__name__)
@@ -43,6 +44,17 @@ def make_legal_backup_for_user(user):
         "MKCOL", folder_url, auth=(webdav_username, webdav_password)
     )
     response.raise_for_status()
+
+    # Add basic account info
+    filename, filebytes = next(export_user_data(user))
+    assert filename == "account.json"
+    file_handle = io.BytesIO(filebytes)
+    r = requests.put(
+        f"{folder_url}/{quote_plus(filename)}",
+        data=file_handle,
+        auth=(webdav_username, webdav_password),
+    )
+    r.raise_for_status()
 
     foirequests = user.foirequest_set.all()
     for foirequest in foirequests:
