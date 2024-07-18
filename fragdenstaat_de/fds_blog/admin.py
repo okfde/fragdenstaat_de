@@ -126,6 +126,11 @@ def add_category_on_articles(admin, request, queryset, action_obj):
         article.categories.add(action_obj)
 
 
+def remove_category_on_articles(admin, request, queryset, action_obj):
+    for article in queryset:
+        article.categories.remove(action_obj)
+
+
 class ArticleAdminForm(forms.ModelForm):
     class Meta:
         model = Article
@@ -266,11 +271,15 @@ class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
     )
     save_on_top = True
 
-    actions = ["set_language", "add_category"]
+    actions = ["set_language", "add_category", "remove_category"]
     actions_on_top = True
 
     add_category = make_choose_object_action(
-        Category, add_category_on_articles, _("Set category on articles...")
+        Category, add_category_on_articles, _("Add category to articles...")
+    )
+
+    remove_category = make_choose_object_action(
+        Category, remove_category_on_articles, _("Remove category to articles...")
     )
 
     # def __init__(self, model, admin_site):
