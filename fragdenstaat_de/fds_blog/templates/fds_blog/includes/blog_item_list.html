@@ -1,4 +1,5 @@
-<article class="blog-article-item row position-relative">
+<article class="blog-article-item row position-relative"
+         {% if counter %}id="article-{{ counter }}"{% endif %}>
     <div class="col col-12 col-md-4">
         {% if article.image %}
             <div class="shadow">

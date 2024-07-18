@@ -1,8 +1,5 @@
-{% load i18n %}
 {% spaceless %}
     {% for article in article_list %}
-        <div class="row">
-            <div class="col px-0">{% include "fds_blog/includes/blog_item_featured.html" with article=article image="true" %}</div>
-        </div>
+        {% include "fds_blog/includes/blog_item_featured.html" with article=article %}
     {% endfor %}
 {% endspaceless %}

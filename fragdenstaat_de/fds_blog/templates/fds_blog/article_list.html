@@ -78,7 +78,7 @@
                                     <button class="btn btn-sm btn-secondary dropdown-toggle"
                                             type="button"
                                             data-bs-toggle="dropdown"
-                                            aria-expanded="false">{% trans "Filter by category…" %}</button>
+                                            aria-expanded="false">{% trans "Categories…" %}</button>
                                     <ul class="dropdown-menu">
                                         {% for category in category_filter %}
                                             <li>
@@ -94,7 +94,7 @@
                                     <button class="btn btn-sm btn-secondary dropdown-toggle"
                                             type="button"
                                             data-bs-toggle="dropdown"
-                                            aria-expanded="false">{% trans "Filter by month…" %}</button>
+                                            aria-expanded="false">{% trans "Months…" %}</button>
                                     <ul class="dropdown-menu">
                                         {% for date in month_filter %}
                                             <li class="d-contents">
@@ -110,7 +110,7 @@
                                     <button class="btn btn-sm btn-secondary dropdown-toggle"
                                             type="button"
                                             data-bs-toggle="dropdown"
-                                            aria-expanded="false">{% trans "Filter by year…" %}</button>
+                                            aria-expanded="false">{% trans "Years…" %}</button>
                                     <ul class="dropdown-menu">
                                         {% for date in year_filter %}
                                             <li class="d-contents">
@@ -131,13 +131,7 @@
                 <div class="vstack gap-3">
                     {% block blog_list_items %}
                         {% for article in article_list %}
-                            {% comment %}
-                                landing pages display 6 articles. on the first page, add an
-                                anchor to the 7th article, so that the landing page can add an continue link here.
-                            {% endcomment %}
-                            {% if page_obj.number == 1 and forloop.counter == 7 %}<div id="continue">{% endif %}
-                                {% include "fds_blog/includes/blog_item_list.html" with article=article %}
-                                {% if page_obj.number == 1 and forloop.counter == 7 %}</div>{% endif %}
+                            {% include "fds_blog/includes/blog_item_list.html" with article=article counter=forloop.counter %}
                         {% endfor %}
                     {% endblock blog_list_items %}
                     </>

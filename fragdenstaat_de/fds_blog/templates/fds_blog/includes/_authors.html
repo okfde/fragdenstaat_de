@@ -1,9 +1,9 @@
 {% load thumbnail %}
 {% load i18n %}
 {% if authors %}
-    <div class="blog-authors">
+    <div class="hstack gap-3 align-content-center">
         {# authors are also linked with text below, so spare screenreaders/keyboard nav #}
-        <div class="blog-author-images mb-1 mb-md-0" aria-hidden="true">
+        <div class="blog-author-images" aria-hidden="true">
             {% for author in authors %}
                 {% if author.user.profile_photo %}
                     <a href="{{ author.get_absolute_url }}" tabindex="-1">
@@ -30,12 +30,14 @@
                     {{ article.credits }}
                 {% endspaceless %}
             </p>
-            <span class="d-none d-md-inline">–</span>
-            <p class="m-0">
-                <time datetime="{{ article.start_publication|date:'c' }}">
-                    {{ article.start_publication|date:"DATE_FORMAT" }}
-                </time>
-            </p>
+            {% if hide_date != True %}
+                <span class="d-none d-md-inline">–</span>
+                <p class="m-0">
+                    <time datetime="{{ article.start_publication|date:'c' }}">
+                        {{ article.start_publication|date:"DATE_FORMAT" }}
+                    </time>
+                </p>
+            {% endif %}
         </div>
     </div>
 {% endif %}

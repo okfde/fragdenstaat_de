@@ -6,7 +6,7 @@
                 sizes="{{ respimg.sizes }}"
                 type="{{ source.mime_type }}" />
     {% endfor %}
-    <img class="img-fluid"
+    <img class="{{ classes|default:"img-fluid" }}"
          loading="{{ loading|default:"lazy" }}"
          src="{{ respimg.src }}"
          srcset="{{ respimg.srcset }}"
