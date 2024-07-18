@@ -1,4 +1,4 @@
-<article class="d-flex flex-column w-100 mx-auto position-relative">
+<article class="blog-article-item d-flex flex-column w-100 mx-auto position-relative">
     {% if article.image %}
         <a href="{{ article.get_absolute_url }}">
             {% include "fds_blog/includes/blog_picture.html" with picture=article.image columns="col-12 col-md-10 col-lg-8" %}

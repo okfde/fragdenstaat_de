@@ -1,0 +1,19 @@
+<article class="blog-article-item text-bg-body bg-opacity-90">
+    <div class="row g-0">
+        {% if article.image %}
+            <div class="col-lg-7">
+                <a href="{{ article.get_absolute_url }}">
+                    <figure class="blog-visual mb-0 h-100">
+                        {% include "fds_blog/includes/_picture.html" with picture=article.image classes="w-100 h-100 object-fit-cover" columns="col-12 col-lg-7" %}
+                    </figure>
+                </a>
+            </div>
+        {% endif %}
+        <div class="d-flex flex-column col-lg-5 p-3 p-md-4 order-lg-first border-blue blog-top-feature-meta">
+            {% include "fds_blog/includes/_item_meta.html" %}
+            <div class="mt-auto pt-3">
+                {% include "fds_blog/includes/_authors.html" with authors=article.authors.all hide_date=True %}
+            </div>
+        </div>
+    </div>
+</article>

@@ -37,17 +37,7 @@ $blog-standout-width: 72rem;
   }
 }
 
-.blog-authors {
-  display: flex;
-  flex-direction: column;
-  gap: $spacer;
-}
-
 @include media-breakpoint-up(md) {
-  .blog-authors {
-    flex-direction: row;
-  }
-
   .blog-author-list {
     display: flex;
     align-items: center;
@@ -59,15 +49,8 @@ $blog-standout-width: 72rem;
   display: flex;
 
   img {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  @include media-breakpoint-up(md) {
-    img {
-      width: 4rem;
-      height: 4rem;
-    }
+    width: 3rem;
+    height: 3rem;
   }
 
   > a:not(:first-of-type) {
@@ -184,9 +167,16 @@ aside.article-banner {
   }
 }
 
+.blog-top-feature-meta.border-blue {
+  border-top-width: 0;
+
+  @include media-breakpoint-up(lg) {
+    border-top-width: unset;
+    border-right-width: 0;
+  }
+}
+
 // add hover effect when hovering over image or the image's next element (description)
-a:hover > .blog-visual img,
-a:has(+ *:hover) > .blog-visual img,
-.blog-article-item:hover img {
+.blog-article-item:hover figure img {
   transform: scale(1.03);
 }
