@@ -134,7 +134,6 @@
                             {% include "fds_blog/includes/blog_item_list.html" with article=article counter=forloop.counter %}
                         {% endfor %}
                     {% endblock blog_list_items %}
-                    </>
                     {% block blog_pagination %}
                         {% if is_paginated %}
                             {% include "pagination/pagination.html" with page_obj=page_obj %}
