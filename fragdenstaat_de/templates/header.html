@@ -96,11 +96,6 @@
                                 {% endif %}
                             </ul>
                         </li>
-                        {% page_url "campaigns"|default:'/kampagnen/' as campaigns_url %}
-                        <li>
-                            <a href="{{ campaigns_url }}"
-                               {% if request.path|startswith:campaigns_url %}class="active" aria-current="page"{% endif %}>{% blocktrans %}Campaigns{% endblocktrans %}</a>
-                        </li>
                         {% page_url "investigations" as investigations_url %}
                         <li>
                             <a href="{{ investigations_url|default:'/recherchen/' }}"
@@ -113,6 +108,11 @@
                         <li>
                             <a href="{{ lawsuits_url|default:'/klagen/' }}"
                                {% if request.path|startswith:lawsuits_url %}class="active" aria-current="page"{% endif %}>{{ lawsuits_title }}</a>
+                        </li>
+                        {% page_url "campaigns"|default:'/kampagnen/' as campaigns_url %}
+                        <li>
+                            <a href="{{ campaigns_url }}"
+                               {% if request.path|startswith:campaigns_url %}class="active" aria-current="page"{% endif %}>{% blocktrans %}Campaigns{% endblocktrans %}</a>
                         </li>
                         {% page_url "about" as about_url %}
                         {% if about_url %}
