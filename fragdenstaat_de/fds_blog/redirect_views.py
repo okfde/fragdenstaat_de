@@ -30,7 +30,7 @@ class ArticleRedirectView(RedirectView):
                     qs[filter_key] = kwargs[kwargs_key]
 
         try:
-            article = get_object_or_404(Article, **qs)
+            article = get_object_or_404(Article.published, **qs)
             return article.get_absolute_url()
         except MultipleObjectsReturned:
             # url not specific enough

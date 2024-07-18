@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.urls import path, re_path
+from django.urls import include, path, re_path
 from django.utils.translation import gettext_lazy as _
 
 from .redirect_views import (
@@ -24,53 +24,74 @@ ARTICLE_URLS = [
 ]
 
 urlpatterns = [
-    path("", fixed_redirect("blog:article-latest"), name="legacy-article-latest"),
-    re_path(
-        _(r"^search/$"),
-        SearchRedirectView.as_view(),
-        name="legacy-article-search",
+    path(
+        "t/<int:pk>",
+        ArticleRedirectView.as_view(),
+        name="article-short-url",
     ),
-    re_path(
-        r"^feed/$",
-        fixed_redirect("blog:article-latest-feed"),
-        name="legacy-article-latest-feed",
+    path(
+        "blog/",
+        include(
+            [
+                path(
+                    "",
+                    fixed_redirect("blog:article-latest"),
+                    name="legacy-article-latest",
+                ),
+                re_path(
+                    _(r"^search/$"),
+                    SearchRedirectView.as_view(),
+                    name="legacy-article-search",
+                ),
+                re_path(
+                    r"^feed/$",
+                    fixed_redirect("blog:article-latest-feed"),
+                    name="legacy-article-latest-feed",
+                ),
+                re_path(
+                    r"^feed/audio/$",
+                    fixed_redirect("blog:article-latest-feed-audio"),
+                    name="legacy-article-latest-feed-audio",
+                ),
+                re_path(
+                    r"^feed/teaser/$",
+                    fixed_redirect("blog:article-latest-feed-teaser"),
+                    name="legacy-article-latest-feed-teaser",
+                ),
+                re_path(
+                    r"^(?P<year>\d{4})/$",
+                    ArchiveRedirectView.as_view(),
+                    name="legacy-article-archive",
+                ),
+                re_path(
+                    r"^(?P<year>\d{4})/(?P<month>\d{1,2})/$",
+                    ArchiveRedirectView.as_view(),
+                    name="legacy-article-archive",
+                ),
+                re_path(
+                    _(r"^author/(?P<username>[\w\.@+-]+)/$"),
+                    AuthorRedirectView.as_view(),
+                    name="legacy-article-author",
+                ),
+                re_path(
+                    _(r"^category/(?P<slug>[\w\.@+-]+)/$"),
+                    CategoryRedirectView.as_view(),
+                    name="legacy-article-category",
+                ),
+                re_path(
+                    r"^tag/(?P<tag>[-\w]+)/$",
+                    TagRedirectView.as_view(),
+                    name="legacy-article-tagged",
+                ),
+            ]
+            + [
+                re_path(
+                    urlconf,
+                    ArticleRedirectView.as_view(),
+                    name="legacy-article-redirect",
+                )
+                for urlconf in ARTICLE_URLS
+            ]
+        ),
     ),
-    re_path(
-        r"^feed/audio/$",
-        fixed_redirect("blog:article-latest-feed-audio"),
-        name="legacy-article-latest-feed-audio",
-    ),
-    re_path(
-        r"^feed/teaser/$",
-        fixed_redirect("blog:article-latest-feed-teaser"),
-        name="legacy-article-latest-feed-teaser",
-    ),
-    re_path(
-        r"^(?P<year>\d{4})/$",
-        ArchiveRedirectView.as_view(),
-        name="legacy-article-archive",
-    ),
-    re_path(
-        r"^(?P<year>\d{4})/(?P<month>\d{1,2})/$",
-        ArchiveRedirectView.as_view(),
-        name="legacy-article-archive",
-    ),
-    re_path(
-        _(r"^author/(?P<username>[\w\.@+-]+)/$"),
-        AuthorRedirectView.as_view(),
-        name="legacy-article-author",
-    ),
-    re_path(
-        _(r"^category/(?P<slug>[\w\.@+-]+)/$"),
-        CategoryRedirectView.as_view(),
-        name="legacy-article-category",
-    ),
-    re_path(
-        r"^tag/(?P<tag>[-\w]+)/$",
-        TagRedirectView.as_view(),
-        name="legacy-article-tagged",
-    ),
-] + [
-    re_path(urlconf, ArticleRedirectView.as_view(), name="legacy-article-redirect")
-    for urlconf in ARTICLE_URLS
 ]
