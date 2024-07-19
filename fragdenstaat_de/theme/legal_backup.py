@@ -1,5 +1,6 @@
 import io
 import logging
+import re
 from datetime import date, timedelta
 from urllib.parse import quote_plus, urlparse
 from xml.dom import minidom
@@ -84,10 +85,17 @@ def cleanup_legal_backups():
 
     parser = minidom.parseString(response.text)
 
+    # Two different separators used in folder names
+    SPLIT_CHARS = re.compile(r"[:_]")
+
     for entry in parser.getElementsByTagName("d:response"):
         href = entry.getElementsByTagName("d:href")[0].firstChild.data.strip()
-        name = href.split("/")[-1]
-        cancel_date = date.fromisoformat(name.split(":")[0])
+        # Folders always end in /
+        name = href.split("/")[-2]
+        try:
+            cancel_date = date.fromisoformat(SPLIT_CHARS.split(name)[0])
+        except ValueError:
+            continue
         if cancel_date + RETENTION_PERIOD < today:
             logger.info(
                 "Deleting expired legal backup %s at %s",
