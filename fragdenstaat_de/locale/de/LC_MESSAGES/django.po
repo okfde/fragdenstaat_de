@@ -72,11 +72,11 @@ msgstr "Fortgeschritten"
 
 #: fragdenstaat_de/fds_blog/admin.py
 msgid "Add category to articles..."
-msgstr ""
+msgstr "Kategorien zu Artikeln hinzufügen…"
 
 #: fragdenstaat_de/fds_blog/admin.py
 msgid "Remove category to articles..."
-msgstr ""
+msgstr "Kategorien von Artikeln entfernen…"
 
 #: fragdenstaat_de/fds_blog/admin.py fragdenstaat_de/fds_blog/model_bases.py
 #: fragdenstaat_de/fds_blog/models.py
@@ -146,19 +146,16 @@ msgid "Blog"
 msgstr "Blog"
 
 #: fragdenstaat_de/fds_blog/cms_toolbars.py
-#, fuzzy
 msgid "Edit this article"
-msgstr "Artikel bearbeiten"
+msgstr "Diesen Artikel bearbeiten"
 
 #: fragdenstaat_de/fds_blog/cms_toolbars.py
-#, fuzzy
 msgid "Article overview"
-msgstr "Artikel-Vorschau"
+msgstr "Übersicht aller Artikel"
 
 #: fragdenstaat_de/fds_blog/cms_toolbars.py
-#, fuzzy
 msgid "Create new article"
-msgstr "verwandte Artikel"
+msgstr "Neuen Artikel erstellen"
 
 #: fragdenstaat_de/fds_blog/filters.py
 msgid "all categories"
@@ -177,23 +174,20 @@ msgid "author"
 msgstr "Autor"
 
 #: fragdenstaat_de/fds_blog/filters.py
-#, fuzzy
 msgid "Publication date (newest first)"
-msgstr "Veröffentlichungsdatum"
+msgstr "Neuste Artikel"
 
 #: fragdenstaat_de/fds_blog/filters.py
-#, fuzzy
 msgid "Publication date (oldest first)"
-msgstr "Veröffentlichungsdatum"
+msgstr "Älteste Artikel"
 
 #: fragdenstaat_de/fds_blog/filters.py
 msgid "sort"
-msgstr ""
+msgstr "Sortierung"
 
 #: fragdenstaat_de/fds_blog/filters.py
-#, fuzzy
 msgid "default sort"
-msgstr "Standard Body"
+msgstr "Relevanz (Standard)"
 
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "draft"
@@ -224,9 +218,9 @@ msgid "start publication"
 msgstr "Start der Veröffentlichung"
 
 #: fragdenstaat_de/fds_blog/model_bases.py
-#, fuzzy
 msgid "Start date of publication. Used to build the entry's URL."
-msgstr "Wird genutzt, um die Artikel-URL zu bauen."
+msgstr ""
+"Start-Datum der Veröffentlichung. Wird genutzt, um die Artikel-URL zu bauen."
 
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "end publication"
@@ -323,22 +317,20 @@ msgid "description"
 msgstr "Beschreibung"
 
 #: fragdenstaat_de/fds_blog/models.py
-#, fuzzy
 msgid "Category color"
-msgstr "Kategorie"
+msgstr "Kategorie-Farbe"
 
 #: fragdenstaat_de/fds_blog/models.py
 msgid "Will be visible as the breadcrumb background."
-msgstr ""
+msgstr "Wird als Breadcrumb-Hintergrund verwendet."
 
 #: fragdenstaat_de/fds_blog/models.py
-#, fuzzy
 msgid "Donation banner"
-msgstr "Spendenform"
+msgstr "Spenden-Banner"
 
 #: fragdenstaat_de/fds_blog/models.py
 msgid "Inserted after a couple of paragraphs on the article page."
-msgstr ""
+msgstr "Wird nach einigen Absätzen auf der Artikelseite eingefügt."
 
 #: fragdenstaat_de/fds_blog/models.py fragdenstaat_de/fds_blog/views.py
 msgid "categories"
@@ -377,6 +369,8 @@ msgid ""
 "An article with the same slug, month and year already exists. Please choose "
 "another slug."
 msgstr ""
+"Ein Artikel mit dem gleichen Slug, Monat und Jahr existiert bereits. Wählen "
+"Sie einen anderen Slug."
 
 #: fragdenstaat_de/fds_blog/models.py
 #, python-format
@@ -392,9 +386,8 @@ msgid "Featured"
 msgstr "Prominent"
 
 #: fragdenstaat_de/fds_blog/models.py
-#, fuzzy
 msgid "Top Featured"
-msgstr "Prominent"
+msgstr "Top Prominent"
 
 #: fragdenstaat_de/fds_blog/models.py
 msgid "Simple"
@@ -413,9 +406,8 @@ msgid "Hide featured articles"
 msgstr "Verstecke prominente Artikel"
 
 #: fragdenstaat_de/fds_blog/models.py
-#, fuzzy
 msgid "Only show one featured article"
-msgstr "Zeige prominente Artikel"
+msgstr "Zeige genau einen prominenten Artikel"
 
 #: fragdenstaat_de/fds_blog/models.py
 msgid "language"
@@ -467,9 +459,8 @@ msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
 msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
 
 #: fragdenstaat_de/fds_blog/redirect_urls.py
-#, fuzzy
 msgid "^category/(?P<slug>[\\w\\.@+-]+)/$"
-msgstr "^kategorie/(?P<category>[\\w\\.@+-]+)/$"
+msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid ""
@@ -490,7 +481,6 @@ msgstr[1] ""
 "      "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
-#, fuzzy
 msgid ""
 "\n"
 "                        About the author\n"
@@ -501,19 +491,18 @@ msgid_plural ""
 "                    "
 msgstr[0] ""
 "\n"
-"                  %(type)s - %(court)s vom %(date)s\n"
-"                  "
+"                        Über den*die Autor*in\n"
+"                    "
 msgstr[1] ""
 "\n"
-"                  %(type)s - %(court)s vom %(date)s\n"
-"                  "
+"                        Über die Autor*innen\n"
+"                    "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid "Tags"
 msgstr "Schlagwörter"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
-#, fuzzy
 msgid ""
 "\n"
 "                            Previous article:\n"
@@ -524,31 +513,31 @@ msgid_plural ""
 "                        "
 msgstr[0] ""
 "\n"
-"                  %(type)s - %(court)s vom %(date)s\n"
-"                  "
+"                            Vorheriger Artikel:\n"
+"                        "
 msgstr[1] ""
 "\n"
-"                  %(type)s - %(court)s vom %(date)s\n"
-"                  "
+"                            Vorherige Artikel:\n"
+"                        "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid "This article is available in other languages."
 msgstr "Dieser Artikel ist in anderen Sprachen verfügbar."
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
-#, fuzzy, python-format
+#, python-format
 msgid "Articles by %(name)s"
-msgstr "Profil von %(name)s"
+msgstr "Artikel von %(name)s"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 #, python-format
 msgid "Articles with tag “%(tag)s”"
-msgstr ""
+msgstr "Artikel mit dem Schlagwort „%(tag)s“"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
-#, fuzzy, python-format
+#, python-format
 msgid "Category %(category)s"
-msgstr "Nach Kategorie"
+msgstr "Kategorie %(category)s"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 #, fuzzy
@@ -557,9 +546,9 @@ msgid "Archive"
 msgstr "Archiv"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
-#, fuzzy, python-format
+#, python-format
 msgid "%(n)s articles"
-msgstr "Artikel"
+msgstr "%(n)s Artikel"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 msgid "Tag"
@@ -574,9 +563,8 @@ msgid "Articles by"
 msgstr "Artikel von"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
-#, fuzzy
 msgid "Article archive"
-msgstr "Artikel-Vorschau"
+msgstr "Artikel-Archiv"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 #, python-format
@@ -587,19 +575,24 @@ msgid ""
 "a> or the <a href=\"%(feed)s\">RSS feed</a>.\n"
 "                            "
 msgstr ""
+"\n"
+"                                Durchsuchen Sie unsere aktuellen oder "
+"verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a href="
+"\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-Feed</a> "
+"abonnieren.\n"
+"                            "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
-#, fuzzy
 msgid "Categories…"
-msgstr "Kategorien"
+msgstr "Kategorien…"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 msgid "Months…"
-msgstr ""
+msgstr "Monate…"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 msgid "Years…"
-msgstr ""
+msgstr "Jahre…"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/full_content.html
 msgid "image credit: "
@@ -615,9 +608,9 @@ msgid "Search articles"
 msgstr "Artikel suchen"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
-#, fuzzy, python-format
+#, python-format
 msgid "Search results for “%(q)s”"
-msgstr "Ergebnisse für „%(q)s“"
+msgstr "Suchergebnisse für „%(q)s“"
 
 #. Translators: Search as noun
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
@@ -637,14 +630,12 @@ msgid "Please enter a search term."
 msgstr "Bitte geben Sie einen Suchbegriff ein."
 
 #: fragdenstaat_de/fds_blog/urls.py
-#, fuzzy
 msgid "author/<str:username>/"
-msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
+msgstr "autor/<str:username>/"
 
 #: fragdenstaat_de/fds_blog/urls.py
-#, fuzzy
 msgid "search/"
-msgstr "suche"
+msgstr "suche/"
 
 #: fragdenstaat_de/fds_blog/views.py
 #, fuzzy
@@ -659,12 +650,11 @@ msgstr "Keine Artikel gefunden."
 #: fragdenstaat_de/fds_blog/views.py
 #, python-format
 msgid "Tag “%s”"
-msgstr ""
+msgstr "Schlagwort „%s“"
 
 #: fragdenstaat_de/fds_blog/views.py
-#, fuzzy
 msgid "Authors"
-msgstr "Autoren"
+msgstr "Autor*innen"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Document"
@@ -1144,7 +1134,7 @@ msgstr "Weiterlesen"
 
 #: fragdenstaat_de/fds_cms/templates/cms/pub_base.html
 msgid "Table of contents"
-msgstr ""
+msgstr "Inhaltsverzeichnis"
 
 #: fragdenstaat_de/fds_cms/templates/cms/pub_base.html
 msgid "In this chapter:"
@@ -1248,9 +1238,8 @@ msgid "Detect duplicate donors"
 msgstr "Duplikate erkennen"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, fuzzy
 msgid "Mark invalid addresses"
-msgstr "Deine E-Mail-Adresse"
+msgstr "Ungültige Adressen markieren"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Select across not allowed!"
@@ -1272,7 +1261,7 @@ msgstr "Spender*innen zusammenführen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Export JZWB..."
-msgstr ""
+msgstr "JZWB exportieren…"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Sending JZWB email to {} donors."
@@ -1296,9 +1285,8 @@ msgid "passive"
 msgstr "passiv"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, fuzzy
 msgid "Received"
-msgstr "Zeitpunkt des Erhalts"
+msgstr "Erhalten"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Received timestamp"
@@ -1321,9 +1309,8 @@ msgid "Receipt sent"
 msgstr "Spendenbestätigung versendet"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, fuzzy
 msgid "Has payment record"
-msgstr "Zahlungsweise"
+msgstr "Hat Zahlungseingang"
 
 #: fragdenstaat_de/fds_donation/admin.py
 #: fragdenstaat_de/fds_newsletter/admin.py
@@ -1394,22 +1381,21 @@ msgid "donation received date"
 msgstr "Datum Spende erhalten"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, fuzzy
 msgid "recurring amount"
-msgstr "wiederkehrender monatlicher Betrag"
+msgstr "wiederkehrender Betrag"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Send {count} shipped mails."
-msgstr "Sende {count} Opt-In-E-Mails."
+msgstr "Sende {count} Versand-E-Mails."
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "notify shipped and set date"
-msgstr ""
+msgstr "Als versandt markieren und Datum setzen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "export as csv"
-msgstr ""
+msgstr "Als CSV exportieren"
 
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "FragDenStaat Donations"
@@ -1474,37 +1460,35 @@ msgstr "Fortschrittsbalken für Spenden"
 
 #: fragdenstaat_de/fds_donation/export.py
 msgid "PDF (encrypted)"
-msgstr ""
+msgstr "PDF (verschlüsselt)"
 
 #: fragdenstaat_de/fds_donation/export.py
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: fragdenstaat_de/fds_donation/export.py
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 #: fragdenstaat_de/fds_donation/export.py
-#, fuzzy
 msgid "Send mailing"
-msgstr "Opt-in-E-Mail senden"
+msgstr "Mailing senden"
 
 #: fragdenstaat_de/fds_donation/export.py
 msgid "Store backup"
-msgstr ""
+msgstr "Backup speichern"
 
 #: fragdenstaat_de/fds_donation/export.py
 msgid "A backup of generated document will be stored."
-msgstr ""
+msgstr "Ein Backup des generierten Dokuments wird gespeichert."
 
 #: fragdenstaat_de/fds_donation/export.py
-#, fuzzy
 msgid "Set receipt date"
-msgstr "Bestätigungsdatum entfernen"
+msgstr "Empfangsdatum setzen"
 
 #: fragdenstaat_de/fds_donation/export.py
 msgid "The donations will be marked as receipted."
-msgstr ""
+msgstr "Die Spenden werden als erhalten markiert."
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Donation amount:"
@@ -1830,7 +1814,7 @@ msgstr "Exportiere CSV"
 
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/export_jzwb.html
 msgid "Execute"
-msgstr ""
+msgstr "Ausführen"
 
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
 msgid "Merge Donors"
@@ -1927,9 +1911,8 @@ msgid "Confirmation pending"
 msgstr "Bearbeitung läuft"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/email/donation_gift_order_shipped_subject.txt
-#, fuzzy
 msgid "Your donation gift shipped"
-msgstr "Spendengeschenke"
+msgstr "Ihr Spendengeschenk wurde versandt"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Your donation frees information"
@@ -2828,7 +2811,7 @@ msgstr ""
 #: fragdenstaat_de/theme/admin.py
 #, python-brace-format
 msgid "Prepared mailing to crowdfunding contributors with {count} recipients"
-msgstr ""
+msgstr "Mailing an {count} Crowdfunding-Unterstützer*innen wurde vorbereitet"
 
 #: fragdenstaat_de/theme/apps.py
 msgid "FragDenStaat"
