@@ -22,9 +22,12 @@
                 {% spaceless %}
                     {% for author in authors %}
                         <span itemscope="" itemtype="http://schema.org/Person">
-                            {# djlint:off #}
-                <a href="{{ author.get_absolute_url }}" rel="author" itemprop="url">{{ author.get_full_name }}</a>{% if article.credits or not forloop.last %},{% endif %}
-                            {# djlint:on #}
+                            {% if author.get_absolute_url %}
+                                <a href="{{ author.get_absolute_url }}" rel="author" itemprop="url">{{ author.get_full_name }}</a>
+                            {% else %}
+                                {{ author.get_full_name }}
+                            {% endif %}
+                            {% if article.credits or not forloop.last %},{% endif %}
                         </span>
                     {% endfor %}
                     {{ article.credits }}
