@@ -301,9 +301,11 @@ def get_donation_data(donations, ignore_receipt_date: Optional[datetime] = None)
         {
             "date": format_date(donation.received_timestamp),
             "formatted_amount": format_number(donation.amount),
-            "receipt_date": donation.receipt_date < ignore_receipt_date
-            if ignore_receipt_date is not None
-            else bool(donation.receipt_date),
+            "receipt_date": (
+                donation.receipt_date < ignore_receipt_date
+                if ignore_receipt_date is not None
+                else bool(donation.receipt_date)
+            ),
             "amount": donation.amount,
         }
         for donation in donations
