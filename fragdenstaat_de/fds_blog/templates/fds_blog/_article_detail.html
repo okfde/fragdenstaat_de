@@ -8,7 +8,7 @@
         <div class="blog-header-meta">
             <div class="container-lg py-5">
                 <h1>
-                    <span class="d-block fw-normal fs-base mb-2">{{ article.kicker }}</span>
+                    <span class="d-block fw-normal fs-5 mb-2">{{ article.kicker }}</span>
                     <span>{% render_model article "title" %}</span>
                 </h1>
                 {% if article.teaser %}
@@ -70,11 +70,11 @@
     {% endif %}
 {% endblock article_content %}
 {% block article_footer %}
-    <footer>
+    <footer class="mb-3">
         <section>
             {% block article_author_bios %}
                 <div class="container-lg">
-                    <h3>
+                    <h3 class="small text-secondary">
                         {% blocktrans count counter=article.get_authors|length %}
                         About the author
                     {% plural %}
@@ -120,7 +120,7 @@
             {% if previous_articles %}
                 <section>
                     <div class="container-lg">
-                        <h3>
+                        <h3 class="small text-secondary">
                             {% blocktranslate count counter=previous_articles|length %}
                             Previous article:
                         {% plural %}

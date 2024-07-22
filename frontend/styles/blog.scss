@@ -70,7 +70,6 @@ $blog-standout-width: 72rem;
   > ul,
   > ol,
   > p,
-  .text-container,
   > details,
   > hr {
     font-family: $font-family-serif;
@@ -81,10 +80,13 @@ $blog-standout-width: 72rem;
     margin-bottom: 0.75rem;
   }
 
+  > .text-container {
+    @include blog-width();
+  }
+
   > p,
   > ul,
   > ol,
-  .text-container,
   > details {
     font-size: 1.225rem;
     line-height: 1.5;
@@ -135,18 +137,10 @@ $blog-standout-width: 72rem;
   }
 }
 
-.blog-article footer {
-  h3 {
-    font-size: $font-size-sm;
-    color: var(--#{$prefix}secondary-color);
-    margin-bottom: $spacer * 1.5;
-  }
-
-  > section {
-    border-top: 1px var(--#{$prefix}border-color) solid;
-    margin-top: $spacer * 1.5;
-    padding-top: $spacer * 1.5;
-  }
+.blog-article footer > section {
+  border-top: 1px var(--#{$prefix}border-color) solid;
+  margin-top: $spacer * 1.5;
+  padding-top: $spacer * 1.5;
 }
 
 aside.article-banner {
