@@ -33,14 +33,12 @@
                     {{ article.credits }}
                 {% endspaceless %}
             </p>
-            {% if hide_date != True %}
-                <span class="d-none d-md-inline">–</span>
-                <p class="m-0">
-                    <time datetime="{{ article.start_publication|date:'c' }}">
-                        {{ article.start_publication|date:"DATE_FORMAT" }}
-                    </time>
-                </p>
-            {% endif %}
+            <span class="d-none d-md-inline">–</span>
+            <p class="m-0">
+                <time datetime="{{ article.start_publication|date:'c' }}">
+                    {{ article.start_publication|date:"DATE_FORMAT" }}
+                </time>
+            </p>
         </div>
     </div>
 {% endif %}
