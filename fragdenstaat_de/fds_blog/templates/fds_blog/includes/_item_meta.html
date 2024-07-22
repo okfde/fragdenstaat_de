@@ -3,7 +3,14 @@
 {# size can be sm, lg or xl, which will adjust the heading font size #}
 {% with size=size|default:"lg" %}
     <div>
-        <h3 class="{% if size == "lg" %}h4{% elif size == "sm" %}h5{% endif %} mb-2">
+        {% if hide_date != True %}
+            <div class="text-end small text-secondary">
+                <time datetime="{{ article.start_publication|date:'c' }}">
+                    {{ article.start_publication|date:"DATE_FORMAT" }}
+                </time>
+            </div>
+        {% endif %}
+        <h3 class="{% if size == "lg" %}h4{% elif size == "sm" %}h5{% endif %} mt-0 mb-2">
             {% if article.kicker %}
                 <span class="d-block mb-1 text-body-secondary fw-normal fs-base">{{ article.kicker }}<span class="sr-only">:</span></span>
             {% endif %}
