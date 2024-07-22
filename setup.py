@@ -84,7 +84,6 @@ setup(
         "pyisemail",
         "icalendar",
         "django-newsletter",
-        "xlrd",
     ],
     include_package_data=True,
     classifiers=[

@@ -40,7 +40,7 @@ djangocms-video
 djangorestframework>=3.14.0
 djangorestframework-csv
 djangorestframework-jsonp
-elasticsearch-dsl>=8.0.0<9.0.0
+elasticsearch-dsl>=8.0.0,<9.0.0
 elasticsearch<9.0.0,>=8.0.0
 geoip2
 html-text
@@ -55,8 +55,8 @@ pandas
 pgpy>=0.6.0
 phonenumbers
 Pillow>=9.0.0
-pikepdf==7.0.0
-psycopg[binary]>=3.1.9
+pikepdf==9.0.0
+psycopg[binary]>=3.2.1
 # pygtail>=0.14.0
 -e git+https://github.com/okfde/pygtail.git@dac8bc6fc8d65c7ac820806e570242919616e946#egg=pygtail
 pyisemail
@@ -75,7 +75,6 @@ Wand
 WeasyPrint
 webp
 websockets
-xlrd
 
 -e git+https://github.com/okfde/django-amenities.git@main#egg=django-amenities
 -e git+https://github.com/okfde/froide.git@main#egg=froide

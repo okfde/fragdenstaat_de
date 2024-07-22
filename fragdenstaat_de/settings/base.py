@@ -49,7 +49,6 @@ class FragDenStaatBase(German, Base):
                 "djangocms_transfer",
                 # easy thumbnails comes from froide
                 "filer",
-                "mptt",
                 "logentry_admin",
                 "localflavor",
                 "fragdenstaat_de.fds_blog",
