@@ -96,12 +96,16 @@ class ContributionAdmin(SetupMailingMixin, crowdfunding_admin.ContributionAdmin)
             messages.append(
                 (
                     contribution.user,
-                    contribution.order.user_email
-                    if contribution.order and not contribution.user
-                    else "",
-                    contribution.order.get_full_name()
-                    if contribution.order and not contribution.user
-                    else "",
+                    (
+                        contribution.order.user_email
+                        if contribution.order and not contribution.user
+                        else ""
+                    ),
+                    (
+                        contribution.order.get_full_name()
+                        if contribution.order and not contribution.user
+                        else ""
+                    ),
                     donor,
                 )
             )

@@ -24,9 +24,9 @@ def get_analytics(start_date, end_date, newsletter=None):
         .order_by("-count")
     )
     for subscriber_reference in subscriber_references:
-        data[
-            "new_subscriber_count_" + subscriber_reference["reference"]
-        ] = subscriber_reference["count"]
+        data["new_subscriber_count_" + subscriber_reference["reference"]] = (
+            subscriber_reference["count"]
+        )
 
     unsubscribers = Subscriber.objects.filter(newsletter=newsletter).filter(
         unsubscribed__date__gte=start_date, unsubscribed__date__lt=end_date
@@ -38,9 +38,9 @@ def get_analytics(start_date, end_date, newsletter=None):
         .order_by("-count")
     )
     for unsubscriber_reference in unsubscriber_references:
-        data[
-            "unsubscriber_count_" + unsubscriber_reference["reference"]
-        ] = unsubscriber_reference["count"]
+        data["unsubscriber_count_" + unsubscriber_reference["reference"]] = (
+            unsubscriber_reference["count"]
+        )
 
     data.update(get_donation_data(start_date, end_date, "newsletter"))
     data.update(get_matomo_data(start_date, end_date, "newsletter"))
@@ -60,9 +60,9 @@ def get_donation_data(start_date, end_date, reference_name):
         donations_count=Count("id"),
     )
     return {
-        "donations_reference_newsletter_amount": float(data["donations_total"])
-        if data["donations_total"]
-        else 0.0,
+        "donations_reference_newsletter_amount": (
+            float(data["donations_total"]) if data["donations_total"] else 0.0
+        ),
         "donations_reference_newsletter_count": data["donations_count"],
     }
 
