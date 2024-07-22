@@ -6,16 +6,18 @@
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/variables-dark';
 
+@import 'froide/frontend/styles/color-contrast';
+
 @import 'froide/frontend/styles/maps';
 
 @import 'bootstrap/scss/maps';
 
 // Bootstrap imports
 @import 'bootstrap/scss/mixins';
-@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/root';
 
 // Layout & components
-@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/utilities';
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/type';
 @import 'bootstrap/scss/images';
