@@ -694,14 +694,13 @@ class FragDenStaatBase(German, Base):
                 ],
                 closings=[
                     rec(
-                        r"\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? "
-                        r"*Gr(ü|u|\?)(ß|ss|\?)(?!\s+Gott)(en?)?,?"
-                    ),
-                    rec(r"\bHochachtungsvoll,?"),
-                    rec(r"\bi\. ?A\."),
-                    rec(r"\bMfG"),
-                    rec(r"\b[iI]m Auftrag"),
-                    rec(r"\b(?:Best *regards|Kind *regards|Sincerely),?"),
+                        r"(?:\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? *Gr(ü|u|\?)(ß|ss|\?)(?!\s+Gott)(en?)?,?)|"
+                        r"(?:\bHochachtungsvoll,?)|"
+                        r"(?:\bi\. ?A\.)|"
+                        r"(?:\bMfG)|"
+                        r"(?:\b[iI]m Auftrag)|"
+                        r"(?:\b(?:Best *regards|Kind *regards|Sincerely),?)"
+                    )
                 ],
                 hide_content_funcs=[
                     lambda email: email.from_[1]
