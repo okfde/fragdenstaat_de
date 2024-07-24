@@ -1,9 +1,6 @@
 @import 'bootstrap/scss/functions';
 
-// importing FROIDE variables
 @import 'froide/frontend/styles/variables';
-
-// Override variables here
 @import 'variables';
 
 @import 'bootstrap/scss/variables';
@@ -11,17 +8,16 @@
 
 @import 'froide/frontend/styles/color-contrast';
 
-/* Override maps here */
 @import 'froide/frontend/styles/maps';
 
 @import 'bootstrap/scss/maps';
 
 // Bootstrap imports
 @import 'bootstrap/scss/mixins';
-@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/root';
 
 // Layout & components
-@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/utilities';
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/type';
 @import 'bootstrap/scss/images';
@@ -59,7 +55,6 @@
 
 // Utilities
 @import 'bootstrap/scss/utilities/api';
-// scss-docs-end import-stack
 
 // Icon font
 $fa-font-path: 'font-awesome/fonts';

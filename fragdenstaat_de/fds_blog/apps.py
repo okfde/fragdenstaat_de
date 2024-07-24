@@ -23,18 +23,6 @@ class BlogConfig(AppConfig):
     verbose_name = "FragDenStaat Blog"
 
     def ready(self):
-        """
-        Remove when https://github.com/divio/django-filer/issues/1103
-        """
-        from filer.fields.file import AdminFileWidget
-
-        AdminFileWidget.Media.js = (
-            "admin/js/vendor/jquery/jquery.js",
-            "admin/js/jquery.init.js",
-        ) + AdminFileWidget.Media.js
-
-        AdminFileWidget.obj_for_value = obj_for_value
-
         from froide.account import account_merged
         from froide.helper.search import search_registry
 

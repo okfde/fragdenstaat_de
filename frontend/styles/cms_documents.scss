@@ -21,14 +21,10 @@
 .cms-page-annotation {
   margin: 1rem auto 0.5rem;
   padding: 1rem 2rem;
-  background-color: var(--froide-callout-bg);;
+  background-color: var(--froide-callout-bg);
 
   width: 100%;
-
-  @include media-breakpoint-up(md) {
-    width: 80%;
-    max-width: 1200px;
-  }
+  max-width: 72rem;
 
   figcaption {
     margin: 1rem 0 0.25rem;

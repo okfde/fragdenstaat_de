@@ -1,3 +1,6 @@
+import re
+from typing import Tuple
+
 from django import template
 
 from ..managers import articles_published
@@ -8,10 +11,33 @@ register = template.Library()
 
 @register.filter
 def get_next_read(article):
-    qs = articles_published(Article.objects.filter(language=article.language))
+    qs = articles_published(
+        Article.objects.filter(
+            language=article.language, categories=article.first_category
+        )
+    )
     if article.start_publication:
         return qs.filter(start_publication__lt=article.start_publication).first()
     return qs.exclude(pk=article.pk).first()
+
+
+@register.filter
+def split_for_banner(content: str) -> Tuple[str, str]:
+    # splits the content into content that is shown before the ad, and content that is shown after the ad
+
+    # sections are split by h3 tags with an id attribute
+    TAG = r'(<h3\s+[^>]*id="[^"]+".*?>.*?</h3>)'
+    sections = re.split(TAG, content)
+
+    # if there are at least three sections, show the ad before the third section
+    if len(sections) >= 3:
+        before = "".join(sections[0:3])
+        after = "".join(sections[3:])
+
+        return (before, after)
+
+    # otherwise, just show it at the end
+    return (content, "")
 
 
 @register.inclusion_tag("fds_blog/blog_preview.html", takes_context=True)

@@ -1,15 +1,13 @@
 {% load markup %}
-<figure class="blog-header__figure">
-    {% include "fds_blog/includes/_picture.html" with picture=picture columns="" loading=loading %}
+<figure>
+    {% include "fds_blog/includes/_picture.html" with picture=picture columns=columns loading=loading %}
     {% if picture.author or picture.description %}
-        <figcaption class="g-0 text-end">
+        <figcaption class="picture-description mt-2 text-end">
             {% if picture.description %}
-                <div class="picture-description">
-                    {{ picture.description }}
-                    {% if picture.author %}–{% endif %}
-                </div>
+                {{ picture.description|markdown }}
+                {% if picture.author %}<span class="px-2">–</span>{% endif %}
             {% endif %}
-            {% if picture.author %}<div class="picture-credits">{{ picture.author|markdown }}</div>{% endif %}
+            {% if picture.author %}{{ picture.author|markdown }}{% endif %}
         </figcaption>
     {% endif %}
 </figure>

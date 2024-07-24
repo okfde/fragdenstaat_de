@@ -13,6 +13,7 @@ class NewsletterConfig(AppConfig):
         from froide.account import (
             account_activated,
             account_canceled,
+            account_confirmed,
             account_email_changed,
             account_merged,
         )
@@ -26,6 +27,7 @@ class NewsletterConfig(AppConfig):
         from .listeners import (
             activate_newsletter_subscription,
             cancel_user,
+            check_account_confirmed_wants_newsletter,
             handle_bounce,
             handle_unsubscribe,
             merge_user,
@@ -38,6 +40,7 @@ class NewsletterConfig(AppConfig):
         account_merged.connect(merge_user)
         account_email_changed.connect(user_email_changed)
         account_activated.connect(activate_newsletter_subscription)
+        account_confirmed.connect(check_account_confirmed_wants_newsletter)
         email_bounced.connect(handle_bounce)
         email_unsubscribed.connect(handle_unsubscribe)
         subscribed.connect(send_welcome_mail)

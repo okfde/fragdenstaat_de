@@ -18,3 +18,5 @@ data/
 *hot-update.js
 htmlcov/
 .coverage
+django.po
+!fragdenstaat_de/locale/**/django.po

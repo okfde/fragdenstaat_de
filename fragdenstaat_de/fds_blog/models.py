@@ -1,8 +1,11 @@
 import uuid
+from typing import Optional
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.db import models
+from django.db.models import Case, Q, Subquery, Value, When
+from django.db.models.functions import Extract
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import html, translation
@@ -15,8 +18,10 @@ from cms.models.pluginmodel import CMSPlugin
 from cms.toolbar.utils import get_object_edit_url
 from cms.utils.placeholder import get_placeholder_from_slot
 from cms.utils.plugins import get_plugins
+from djangocms_alias.models import Alias
 from filer.fields.image import FilerImageField
 from fragdenstaat_de.fds_cms.utils import get_request
+from fragdenstaat_de.theme.colors import BACKGROUND
 from parler.models import TranslatableModel, TranslatedFields
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
@@ -180,8 +185,36 @@ class Category(TranslatableModel):
             help_text=_("Used to build the category's URL."),
         ),
         description=models.TextField(_("description"), blank=True),
+        meta={
+            "constraints": [
+                models.CheckConstraint(
+                    check=~Q(slug__regex=r"^\d+$"),
+                    name="not_just_digits_slug",
+                    violation_error_message="The slug may not only consist of digits.",
+                )
+            ]
+        },
     )
     order = models.PositiveIntegerField(default=0)
+
+    color = models.CharField(
+        _("Category color"),
+        choices=BACKGROUND,
+        default="",
+        max_length=50,
+        blank=True,
+        help_text=_("Will be visible as the breadcrumb background."),
+    )
+
+    donation_banner = models.ForeignKey(
+        Alias,
+        on_delete=models.SET_NULL,
+        null=True,
+        default=None,
+        related_name="donation_banner",
+        verbose_name=_("Donation banner"),
+        help_text=_("Inserted after a couple of paragraphs on the article page."),
+    )
 
     objects = CategoryManager()
     published = RelatedPublishedManager()
@@ -205,7 +238,7 @@ class Category(TranslatableModel):
         return articles_published(self.articles)
 
     def get_absolute_url(self):
-        return reverse("blog:article-category", kwargs={"category": self.slug})
+        return reverse("blog:article-category", kwargs={"slug": self.slug})
 
 
 class CategoriesEntry(models.Model):
@@ -214,8 +247,13 @@ class CategoriesEntry(models.Model):
     """
 
     categories = models.ManyToManyField(
-        Category, related_name="articles", blank=True, verbose_name=_("categories")
+        Category, related_name="articles", verbose_name=_("categories")
     )
+
+    @cached_property
+    def first_category(self) -> Optional[Category]:
+        if self.categories.exists():
+            return self.categories.first()
 
     class Meta:
         abstract = True
@@ -345,7 +383,18 @@ class Article(
         verbose_name_plural = _("articles")
         ordering = ["-start_publication"]
         get_latest_by = "start_publication"
-        unique_together = (("slug", "start_publication"),)
+        constraints = [
+            models.UniqueConstraint(
+                "slug",
+                "language",
+                Extract("start_publication", "year"),
+                Extract("start_publication", "month"),
+                name="unique_blog_url",
+                violation_error_message=_(
+                    "An article with the same slug, month and year already exists. Please choose another slug."
+                ),
+            ),
+        ]
         index_together = [
             ["slug", "start_publication"],
             ["status", "start_publication", "end_publication"],
@@ -393,21 +442,20 @@ class Article(
         cur_language = translation.get_language()
 
         language = language or self.language
+        category = self.categories.language(language).first()
 
         try:
             if language:
                 translation.activate(language)
 
             publication_date = self.publication_date
-            kwargs = {"slug": self.slug}
-            if publication_date is not None:
-                kwargs.update(
-                    {
-                        "year": publication_date.strftime("%Y"),
-                        "month": publication_date.strftime("%m"),
-                        "day": publication_date.strftime("%d"),
-                    }
-                )
+            kwargs = {
+                "slug": self.slug,
+                "year": publication_date.strftime("%Y"),
+                "month": publication_date.strftime("%m"),
+                "category": category.slug,
+            }
+
             url = reverse("blog:article-detail", kwargs=kwargs)
         finally:
             if language:
@@ -459,8 +507,8 @@ class Article(
 TEMPLATES = [
     ("fds_blog/plugins/latest_articles.html", _("Normal")),
     ("fds_blog/plugins/featured_articles.html", _("Featured")),
+    ("fds_blog/plugins/top_featured_articles.html", _("Top Featured")),
     ("fds_blog/plugins/simple_articles.html", _("Simple")),
-    ("fds_blog/plugins/slider_articles.html", _("Featured Slider")),
 ]
 
 
@@ -469,13 +517,15 @@ class LatestArticlesPlugin(CMSPlugin):
     CMS Plugin for displaying latest articles
     """
 
-    featured = models.BooleanField(
+    featured = models.CharField(
         _("featured"),
         blank=True,
         null=True,
+        max_length=5,
         choices=(
-            (True, _("Show featured articles only")),
-            (False, _("Hide featured articles")),
+            ("show", _("Show featured articles only")),
+            ("hide", _("Hide featured articles")),
+            ("one", _("Only show one featured article")),
         ),
     )
     article_language = models.CharField(
@@ -545,23 +595,44 @@ class LatestArticlesPlugin(CMSPlugin):
         if self.article_language:
             filters["language"] = self.article_language
         if self.featured is not None:
-            filters["date_featured__isnull"] = not self.featured
+            # for cms previews, we only care about one featured article
+            if self.featured == "hide":
+                filters["date_featured__isnull"] = True
+            elif self.featured == "show":
+                filters["date_featured__isnull"] = False
+            else:
+                # show one featured article at the top, then the rest in chronological order
+                featured = articles.filter(date_featured__isnull=False).order_by(
+                    "-date_featured"
+                )
+
+                articles = articles.annotate(
+                    is_top_featured=Case(
+                        When(pk=Subquery(featured.values("pk")[:1]), then=Value(1)),
+                        default=Value(0),
+                    )
+                ).order_by("-is_top_featured", "-start_publication")
+
         tag_list = self.tags.all().values_list("id", flat=True)
         if tag_list:
             filters["tags__in"] = tag_list
+
         cat_list = self.categories.all().values_list("id", flat=True)
         if cat_list:
             filters["categories__in"] = cat_list
+
         author_list = self.authors.all().values_list("id", flat=True)
         if author_list:
             filters["authors__in"] = author_list
 
-        articles = articles.filter(**filters).distinct()
-        articles = articles.prefetch_related(
-            "categories",
-            "categories__translations",
-            "authors",
-            "tags",
+        articles = (
+            articles.filter(**filters)
+            .distinct()
+            .prefetch_related(
+                "categories",
+                "categories__translations",
+                "authors",
+            )
         )
         if self.number_of_articles == 0:
             return articles[self.offset :]

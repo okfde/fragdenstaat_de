@@ -19,11 +19,20 @@ from cms.toolbar.utils import get_object_edit_url
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 from parler.admin import TranslatableAdmin
 
-from froide.helper.admin_utils import make_nullfilter
+from froide.helper.admin_utils import make_choose_object_action, make_nullfilter
 from froide.helper.widgets import TagAutocompleteWidget
 
 from .documents import index_article
-from .models import Article, ArticleTag, Author, Category, Publication, TaggedArticle
+from .models import (
+    Article,
+    ArticleAuthorship,
+    ArticleTag,
+    Author,
+    Category,
+    LatestArticlesPlugin,
+    Publication,
+    TaggedArticle,
+)
 
 
 class RelatedPublishedFilter(admin.SimpleListFilter):
@@ -68,12 +77,7 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
 
 
 class CategoryAdmin(SortableAdminMixin, TranslatableAdmin):
-    fields = (
-        "title",
-        "description",
-        "slug",
-        "order",
-    )
+    fields = ("title", "description", "slug", "order", "color", "donation_banner")
     list_display = ("title",)
     search_fields = ("translations__title", "translations__description")
 
@@ -97,11 +101,34 @@ class CategoryListFilter(RelatedPublishedFilter):
 
 class AuthorAdmin(admin.ModelAdmin):
     raw_id_fields = ("user",)
+    actions = ["merge_authors"]
+
+    def merge_authors(self, request, queryset):
+        assert len(queryset) >= 1
+        author = queryset[0]
+        other_authors = list(queryset)[1:]
+        for other in other_authors:
+            ArticleAuthorship.objects.filter(author=other).update(author=author)
+            plugins = LatestArticlesPlugin.objects.filter(authors=other)
+            for plugin in plugins:
+                plugin.authors.remove(other)
+                plugin.authors.add(author)
+            other.delete()
 
 
 class AuthorshipInlineAdmin(SortableInlineAdminMixin, admin.TabularInline):
     model = Article.authors.through
     raw_id_fields = ("author",)
+
+
+def add_category_on_articles(admin, request, queryset, action_obj):
+    for article in queryset:
+        article.categories.add(action_obj)
+
+
+def remove_category_on_articles(admin, request, queryset, action_obj):
+    for article in queryset:
+        article.categories.remove(action_obj)
 
 
 class ArticleAdminForm(forms.ModelForm):
@@ -199,11 +226,7 @@ class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": (
-                    "title",
-                    "slug",
-                    "language",
-                ),
+                "fields": ("title", "slug", "language", "categories"),
             },
         ),
     )
@@ -231,6 +254,7 @@ class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
         "creation_date",
         "start_publication",
         "end_publication",
+        make_nullfilter("categories", "Hat Kategorie"),
     )
     radio_fields = {
         "content_template": admin.VERTICAL,
@@ -247,9 +271,16 @@ class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
     )
     save_on_top = True
 
-    actions = ["set_language"]
+    actions = ["set_language", "add_category", "remove_category"]
     actions_on_top = True
-    actions_on_bottom = True
+
+    add_category = make_choose_object_action(
+        Category, add_category_on_articles, _("Add category to articles...")
+    )
+
+    remove_category = make_choose_object_action(
+        Category, remove_category_on_articles, _("Remove category to articles...")
+    )
 
     # def __init__(self, model, admin_site):
     #     # self.form.admin_site = admin_site

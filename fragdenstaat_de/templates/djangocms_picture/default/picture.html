@@ -37,17 +37,16 @@
                 {% if picture_link %}</a>{% endif %}
                 {# start render figure/figcaption #}
                 {% if instance.caption_text or instance.picture.author or instance.picture.description %}
-                    <figcaption class="text-end">
+                    <figcaption class="text-end picture-description">
                         {% if instance.caption_text or instance.picture.description %}
-                            <div class="picture-description">
-                                {% if instance.caption_text %}
-                                    {{ instance.caption_text }}
-                                {% elif instance.picture.description %}
-                                    {{ instance.picture.description }}{% endif %}
-                                    {% if instance.picture.author %}–{% endif %}
-                                    </div>
-                                {% endif %}
-                                {% if instance.picture.author %}<div class="picture-credits">{{ instance.picture.author|markdown }}</div>{% endif %}
+                            {% if instance.caption_text %}
+                                {{ instance.caption_text|markdown }}
+                            {% elif instance.picture.description %}
+                                {{ instance.picture.description|markdown }}
+                            {% endif %}
+                            {% if instance.picture.author %}–{% endif %}
+                            {% endif %}
+                            {% if instance.picture.author %}{{ instance.picture.author|markdown }}{% endif %}
                             </figcaption>
                         </figure>
                     {% endif %}

@@ -59,3 +59,7 @@ CMS.$(window).on('cms-modal-close', function () {
     room = null
   }
 })
+
+// Remove CMS settings from localstorage
+// to always bust a potentially stale settings cache
+window.localStorage.setItem('cms_cookie', 'null')

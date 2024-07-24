@@ -6,6 +6,16 @@ from .models import REFERENCE_PREFIX, Subscriber
 from .utils import subscribe_to_default_newsletter, unsubscribe_queryset
 
 
+def check_account_confirmed_wants_newsletter(sender, request=None, **kwargs):
+    wants_newsletter = request.GET.get("newsletter")
+    if not wants_newsletter:
+        return
+
+    subscribe_to_default_newsletter(
+        sender.email, user=sender, reference="user_extra_confirmation_link"
+    )
+
+
 def activate_newsletter_subscription(sender, **kwargs):
     # Subscribe previously setup subscriber objects
     unconfirmed_user_subscribers = Subscriber.objects.filter(

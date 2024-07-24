@@ -64,6 +64,7 @@ urlpatterns = [
     path("payment/", include("froide_payment.urls")),
     path("contractor/", include("contractor.urls")),
     path("fax/", include("froide_fax.urls")),
+    path("paperless/", include("fragdenstaat_de.fds_paperless.urls")),
     path("newsletter/update/", include("fragdenstaat_de.fds_newsletter.urls")),
     path("newsletter/archive/", include("fragdenstaat_de.fds_mailing.urls")),
     path(
@@ -119,6 +120,7 @@ urlpatterns += i18n_patterns(
     *froide_urlpatterns,
     *jurisdiction_urls,
     *admin_urls,
+    path("", include("fragdenstaat_de.fds_blog.redirect_urls")),
     path("", include("fragdenstaat_de.fds_ogimage.urls")),
     path(pgettext_lazy("url part", "campaign/"), include(campaign_urls)),
     path("", include("cms.urls")),

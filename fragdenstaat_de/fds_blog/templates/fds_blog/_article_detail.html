@@ -2,46 +2,35 @@
 {% load djangocms_alias_tags %}
 {% load markup %}
 {% load static %}
+{% load blog_tags %}
 {% block article_header %}
-    <div class="blog-header-container">
-        <header class="blog-header">
-            <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-10">
-                    <h1 class="blog-header__title">
-                        <span class="d-block fw-normal blog-header__meta mb-2">{{ article.kicker }}</span>
-                        <span>{% render_model article "title" %}</span>
-                    </h1>
-                    {% if article.teaser %}
-                        <div class="blog-lead">{% render_model article "teaser" "" "" "safe" %}</div>
-                    {% endif %}
-                    <div class="mt-3 mb-5 blog-header__meta">
-                        <time datetime="{{ article.start_publication|date:'c' }}">
-                            {{ article.start_publication|date:"DATE_FORMAT" }}
-                        </time>
-                        {% with authors=article.get_authors %}
-                            {% if authors %}
-                                <span> -
-                                    {# djlint:off #}
-                                    {% for author in authors %}
-                                        {% if author.get_absolute_url %}
-                                        <a href="{{ author.get_absolute_url }}" rel="author">
-                                        {% endif %}
-                                        {{ author.get_full_name }}{% if author.get_absolute_url %}</a>{% endif %}{% if not forloop.last %},{% endif %}
-                                    {% endfor %}
-                                    {# djlint:on #}
-                                </span>
-                            {% endif %}
-                        {% endwith %}
-                    </div>
-                    {% block article_header_image %}
-                        {% if article.image %}
-                            {% include "fds_blog/includes/blog_picture_detail.html" with picture=article.image columns="col-12 col-lg-10" loading="eager" %}
-                        {% endif %}
-                    {% endblock article_header_image %}
+    <header class="blog-header">
+        <div class="blog-header-meta">
+            <div class="container-lg py-5">
+                <h1>
+                    <span class="d-block fw-normal fs-5 mb-2">{{ article.kicker }}</span>
+                    <span>{% render_model article "title" %}</span>
+                </h1>
+                {% if article.teaser %}
+                    <div class="lead">{% render_model article "teaser" "" "" "safe" %}</div>
+                {% endif %}
+                <div class="mt-5">
+                    {% with authors=article.get_authors %}
+                        {% include "fds_blog/includes/_authors.html" %}
+                    {% endwith %}
                 </div>
             </div>
-        </header>
-    </div>
+        </div>
+        <div class="backdrop">
+            <div class="blog-header-image">
+                {% block article_header_image %}
+                    {% if article.image %}
+                        {% include "fds_blog/includes/blog_picture_detail.html" with picture=article.image columns="col-12 col-lg-10" loading="eager" %}
+                    {% endif %}
+                {% endblock article_header_image %}
+            </div>
+        </div>
+    </header>
 {% endblock article_header %}
 {% block article_updates %}
     {% if updated_articles %}
@@ -61,48 +50,108 @@
     {% endif %}
 {% endblock %}
 {% block article_content %}
-    {% render_placeholder article.content_placeholder %}
-{% endblock article_content %}
-{% block article_previous %}
-    {% if previous_articles %}
-        <div class="blog-content">
-            <p>
-                {% blocktranslate count counter=previous_articles|length %}
-        Previous article:
-      {% plural %}
-        Previous articles:
-      {% endblocktranslate %}
-                {% for related_article in previous_articles %}
-                    {{ related_article.publication_date|date:"SHORT_DATE_FORMAT" }} – <a href="{{ related_article.get_absolute_url }}">{{ related_article.title }}</a>
-                    {% if not forloop.last %},{% endif %}
-                {% endfor %}
-            </p>
-        </div>
+    {% if request.toolbar.edit_mode_active %}
+        {% render_placeholder article.content_placeholder %}
+    {% else %}
+        {% render_placeholder article.content_placeholder as content %}
+        {% with content|split_for_banner as split %}
+            {{ split.0|safe }}
+            {% with banner=category.donation_banner %}
+                <aside class="article-banner">
+                    {% if banner %}
+                        {% render_alias banner %}
+                    {% else %}
+                        {% static_alias "blog_donation_banner" %}
+                    {% endif %}
+                </aside>
+            {% endwith %}
+            {{ split.1|safe }}
+        {% endwith %}
     {% endif %}
-{% endblock %}
-{% block article_ads %}
-    {% static_alias "banner_ad" %}
-{% endblock article_ads %}
-{% block article_languages %}
-    <div class="container">
-        <div class="row justify-content-center pt-5">
-            <div class="col-md-8">
-                {% with other_langs=article.other_languages %}
-                    {% if other_langs %}
-                        <p>{% trans "This article is available in other languages." %}</p>
-                        <ul class="list-unstyled">
-                            {% for lang_article in other_langs %}
-                                <li>
-                                    {{ lang_article.language|language_name }}:
-                                    <a href="{{ lang_article.get_absolute_url }}">{{ lang_article.title }}</a>
+{% endblock article_content %}
+{% block article_footer %}
+    <footer class="mb-3">
+        <section>
+            {% block article_author_bios %}
+                <div class="container-lg">
+                    <h3 class="small text-secondary">
+                        {% blocktrans count counter=article.get_authors|length %}
+                        About the author
+                    {% plural %}
+                        About the authors
+                    {% endblocktrans %}
+                    </h3>
+                    <div class="row">
+                        {% for author in article.get_authors %}
+                            <div class="col-12 col-md-6 tight-margin">
+                                <h4 class="h6">{{ author.get_full_name }}</h4>
+                                {{ author.user.profile_text | markdown }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endblock article_author_bios %}
+            {% block article_tags %}
+                {% if article.tags.count > 0 %}
+                    <div class="container-lg d-flex flex-wrap mt-3">
+                        {% trans "Tags" %}:
+                        <ul class="list-unstyled d-contents">
+                            {% for tag in article.tags.all %}
+                                <li class="ms-2">
+                                    <span aria-hidden="true" class="text-secondary">#</span>
+                                    <a href="{% url 'blog:article-tagged' tag.slug %}">{{ tag.name }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
-                    {% endif %}
-                {% endwith %}
-            </div>
-        </div>
-    </div>
-{% endblock article_languages %}
-{% block article_authors %}
-{% endblock article_authors %}
+                    </div>
+                {% endif %}
+            {% endblock article_tags %}
+        </section>
+        {% block article_suggestions %}
+            {% with next_read=article|get_next_read %}
+                {% if next_read %}
+                    <section>
+                        <div class="container-lg">{% include "fds_blog/includes/blog_item_list.html" with article=next_read %}</div>
+                    </section>
+                {% endif %}
+            {% endwith %}
+        {% endblock article_suggestions %}
+        {% block article_previous %}
+            {% if previous_articles %}
+                <section>
+                    <div class="container-lg">
+                        <h3 class="small text-secondary">
+                            {% blocktranslate count counter=previous_articles|length %}
+                            Previous article:
+                        {% plural %}
+                            Previous articles:
+                        {% endblocktranslate %}
+                        </h3>
+                        {% for related_article in previous_articles %}
+                            {% include "fds_blog/includes/blog_item_list.html" with article=related_article %}
+                        {% endfor %}
+                    </div>
+                </section>
+            {% endif %}
+        {% endblock %}
+        {% block article_languages %}
+            {% with other_langs=article.other_languages %}
+                {% if other_langs %}
+                    <section>
+                        <div class="container-lg">
+                            <p>{% trans "This article is available in other languages." %}</p>
+                            <ul class="list-unstyled">
+                                {% for lang_article in other_langs %}
+                                    <li>
+                                        {{ lang_article.language|language_name }}:
+                                        <a href="{{ lang_article.get_absolute_url }}">{{ lang_article.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </section>
+                {% endif %}
+            {% endwith %}
+        {% endblock article_languages %}
+    </footer>
+{% endblock article_footer %}

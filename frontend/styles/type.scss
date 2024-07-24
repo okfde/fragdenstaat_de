@@ -1,49 +1,46 @@
-$inter-font-path: '../fonts/inter';
+@use 'sass:string';
 
-$unicode-ranges: (
-  'latin': 'U+0000-007a,U+00A0-00FF,U+2010-2027,U+20AC,U+2192,U+2764',
-  'latin-ext':
-    'U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF'
-);
+@mixin make-font($name, $weight-range, $style: normal) {
+  $file: string.to-lower-case($name);
+  $folder: $file;
+  @if $style != 'normal' {
+    $file: $file + '-' + $style;
+  }
 
-@mixin makeFont($name, $weight: 400, $style: normal, $range: false) {
   @font-face {
-    font-family: 'Inter';
+    font-family: $name;
     font-style: $style;
-    font-weight: $weight;
+    font-weight: $weight-range;
     font-display: swap;
-    @if $range {
-      src: local('Inter #{$name}'), local('Inter-#{$name}'),
-        url('#{$inter-font-path}/Inter-#{$name}-#{$range}.woff2')
-          format('woff2'),
-        url('#{$inter-font-path}/Inter-#{$name}-#{$range}.woff') format('woff');
-      unicode-range: unquote(map-get($unicode-ranges, $range));
-    } @else {
-      src: local('Inter #{$name}'), local('Inter-#{$name}'),
-        url('#{$inter-font-path}/Inter-#{$name}.woff2') format('woff2'),
-        url('#{$inter-font-path}/Inter-#{$name}.woff') format('woff');
-    }
+    src: url('../fonts/#{$folder}/#{$file}-latin.woff2');
+    unicode-range: U+0000-007a, U+00A0-00FF, U+2010-2027, U+20AC, U+2190-2199,
+      U+2764;
+  }
+
+  @font-face {
+    font-family: $name;
+    font-style: $style;
+    font-weight: $weight-range;
+    font-display: swap;
+    src: url('../fonts/#{$folder}/#{$file}-latin-ext.woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+      U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
   }
 }
 
-@include makeFont('Regular', $range: 'latin');
-@include makeFont('Italic', $style: italic, $range: 'latin');
-@include makeFont('SemiBold', $weight: 600, $range: 'latin');
-@include makeFont('Bold', $weight: 700, $range: 'latin');
-
-@include makeFont('Regular', $range: 'latin-ext');
-@include makeFont('Italic', $style: italic, $range: 'latin-ext');
-@include makeFont('SemiBold', $weight: 600, $range: 'latin-ext');
-@include makeFont('Bold', $weight: 700, $range: 'latin-ext');
+@include make-font(Inter, 100 900, normal);
+@include make-font(Inter, 100 900, italic);
+@include make-font(StixTwo, 200 900, normal);
+@include make-font(StixTwo, 200 900, italic);
 
 body {
-  -webkit-font-smoothing: antialiased;
-  // Fix broken hyphen in Chrome
-  // See: https://www.bram.us/2021/12/18/broken-hyphens-in-chromium-96-an-explanation-and-fix/
-  -webkit-hyphenate-character: '-';
-  -moz-osx-font-smoothing: grayscale;
-  // Activates nicer l and German sz in Inter
-  font-feature-settings: 'cv05', 'cv07';
+  // Activates nicer l, German sz, and round quotes in Inter
+  font-feature-settings: 'cv05', 'cv07', 'ss03';
+}
+
+table,
+.tabular-numbers {
+  font-variant-numeric: tabular-nums;
 }
 
 .lead {
@@ -52,54 +49,10 @@ body {
   margin: 2rem 0;
 }
 
-h1,
-.h1 {
-  @include font-size($h2-font-size);
-}
-h2,
-.h2 {
-  @include font-size($h3-font-size);
-}
-h3,
-.h3 {
-  @include font-size($h4-font-size);
-}
-h4,
-.h4 {
-  @include font-size($h5-font-size);
-}
-h5,
-.h5 {
-  @include font-size($h6-font-size);
-}
-h6,
-.h6 {
-  @include font-size($h6-font-size);
+.list-arrow {
+  list-style: none;
 }
 
-@include media-breakpoint-up(md) {
-  h1,
-  .h1 {
-    @include font-size($h1-font-size);
-  }
-  h2,
-  .h2 {
-    @include font-size($h2-font-size);
-  }
-  h3,
-  .h3 {
-    @include font-size($h3-font-size);
-  }
-  h4,
-  .h4 {
-    @include font-size($h4-font-size);
-  }
-  h5,
-  .h5 {
-    @include font-size($h5-font-size);
-  }
-  h6,
-  .h6 {
-    @include font-size($h6-font-size);
-  }
+.list-arrow > li::before {
+  content: '→ ';
 }

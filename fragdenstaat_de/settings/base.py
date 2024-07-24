@@ -46,6 +46,7 @@ class FragDenStaatBase(German, Base):
                 "djangocms_alias",
                 "menus",
                 "sekizai",
+                "djangocms_transfer",
                 # easy thumbnails comes from froide
                 "filer",
                 "mptt",
@@ -59,6 +60,7 @@ class FragDenStaatBase(German, Base):
                 "fragdenstaat_de.fds_mailing.apps.FdsMailingConfig",
                 "fragdenstaat_de.fds_ogimage.apps.FdsOgImageConfig",
                 "fragdenstaat_de.fds_fximport.apps.FdsFxImportConfig",
+                "fragdenstaat_de.fds_paperless",
                 # Additional CMS plugins
                 "djangocms_text_ckeditor",
                 "djangocms_picture",
@@ -228,6 +230,7 @@ class FragDenStaatBase(German, Base):
         ],
     }
 
+    CMS_SIDEFRAME_ENABLED = False
     CMS_TOOLBAR_ANONYMOUS_ON = False
     CMS_TEMPLATES = [
         ("cms/home.html", "Homepage template"),
@@ -249,6 +252,8 @@ class FragDenStaatBase(German, Base):
         "IsNotRecentDonor",
         "ConcactAllowedDonor",
         "ConcactNotAllowedDonor",
+        "IsNewsletterSubscriberPlugin",
+        "IsNotNewsletterSubscriberPlugin",
     ]
     CMS_PLACEHOLDER_CONF = {
         "email_body": {
@@ -568,6 +573,9 @@ class FragDenStaatBase(German, Base):
     DONATION_BACKUP_URL = env("DONATION_BACKUP_URL")
     DONATION_BACKUP_CREDENTIALS = env("DONATION_BACKUP_CREDENTIALS")
 
+    FDS_LEGAL_BACKUP_URL = env("FDS_LEGAL_BACKUP_URL")
+    FDS_LEGAL_BACKUP_CREDENTIALS = env("FDS_LEGAL_BACKUP_CREDENTIALS")
+
     EMAIL_BACKEND = "fragdenstaat_de.theme.email_backend.CustomCeleryEmailBackend"
     CELERY_EMAIL_BACKEND = "froide.foirequest.smtp.EmailBackend"
     CELERY_EMAIL_TASK_CONFIG = {
@@ -686,14 +694,13 @@ class FragDenStaatBase(German, Base):
                 ],
                 closings=[
                     rec(
-                        r"\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? "
-                        r"*Gr(ü|u|\?)(ß|ss|\?)(?!\s+Gott)(en?)?,?"
-                    ),
-                    rec(r"\bHochachtungsvoll,?"),
-                    rec(r"\bi\. ?A\."),
-                    rec(r"\bMfG"),
-                    rec(r"\b[iI]m Auftrag"),
-                    rec(r"\b(?:Best *regards|Kind *regards|Sincerely),?"),
+                        r"(?:\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? *Gr(ü|u|\?)(ß|ss|\?)(?!\s+Gott)(en?)?,?)|"
+                        r"(?:\bHochachtungsvoll,?)|"
+                        r"(?:\bi\. ?A\.)|"
+                        r"(?:\bMfG)|"
+                        r"(?:\b[iI]m Auftrag)|"
+                        r"(?:\b(?:Best *regards|Kind *regards|Sincerely),?)"
+                    )
                 ],
                 hide_content_funcs=[
                     lambda email: email.from_[1]
@@ -840,3 +847,6 @@ class FragDenStaatBase(German, Base):
     DJANGOCMS_ICON_SETS = [
         ("fontawesome4", "fa", "Font Awesome 4", "4.7.0"),
     ]
+
+    PAPERLESS_API_URL = os.environ.get("PAPERLESS_API_URL", "")
+    PAPERLESS_API_TOKEN = os.environ.get("PAPERLESS_API_TOKEN", "")

@@ -3,17 +3,14 @@ $enable-shadows: true;
 $btn-box-shadow: none;
 $border-radius: 0.25rem;
 $border-radius-lg: 0.375rem;
-// $border-radius-sm: .2rem;
-$nav-link-font-weight: 700;
 
 $caret-width: 0.3em;
 $caret-vertical-align: $caret-width * 0.85;
 $caret-spacing: $caret-width * 0.5;
 
 // Typography
-$enable-responsive-font-sizes: false;
 $font-family-sans-serif: 'Inter', sans-serif;
-$font-family-serif: 'Georgia', serif;
+$font-family-serif: 'StixTwo', serif;
 $headings-font-weight: 600;
 $line-height-smaller: 1.25;
 $modal-content-color: var(--#{$prefix}body-color);

@@ -93,6 +93,7 @@ export default defineConfig({
   },
   plugins: [vue(), devManifest()],
   css: {
+    devSourcemap: true,
     postcss: {
       plugins: [autoprefixer]
     }

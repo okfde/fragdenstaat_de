@@ -9,6 +9,7 @@ try:
 except ImportError:
     pgpy = None
 
+from froide.helper.spam import SpamProtectionMixin
 from froide.helper.utils import get_redirect
 
 PUBLIC_KEY = """
@@ -257,7 +258,7 @@ u03LEotmIxMZ
 """
 
 
-class ContactForm(forms.Form):
+class ContactForm(SpamProtectionMixin, forms.Form):
     name = forms.CharField(
         max_length=255,
         required=False,
@@ -267,7 +268,7 @@ class ContactForm(forms.Form):
 
     message = forms.CharField(
         max_length=255,
-        required=False,
+        required=True,
         label=_("Message"),
         widget=forms.Textarea(attrs={"class": "form-control"}),
     )
@@ -279,20 +280,14 @@ class ContactForm(forms.Form):
         help_text=_("For example a private email address"),
         widget=forms.TextInput(attrs={"class": "form-control"}),
     )
-    # Honey pot field
-    url = forms.CharField(max_length=255, required=False, widget=forms.HiddenInput())
+
+    SPAM_PROTECTION = {"captcha": "ip", "action": "contactform"}
 
     def clean_message(self):
         # Simple spam protection
         if "<a href=" in self.cleaned_data["message"]:
             raise forms.ValidationError("")
         return self.cleaned_data["message"]
-
-    def clean_url(self):
-        # Simple spam protection
-        if self.cleaned_data["url"]:
-            raise forms.ValidationError("")
-        return ""
 
     def send_mail(self):
         text = """
@@ -316,13 +311,17 @@ class ContactForm(forms.Form):
 
 def contact(request):
     if request.method == "POST":
-        form = ContactForm(data=request.POST)
+        form = ContactForm(data=request.POST, request=request)
         if form.is_valid():
             form.send_mail()
             messages.add_message(
                 request, messages.SUCCESS, "Wir haben Ihre Nachricht erhalten."
             )
-    return get_redirect(request)
+        else:
+            messages.add_message(
+                request, messages.ERROR, "Es gab ein Problem mit Ihrer Nachricht."
+            )
+    return get_redirect(request, default=None)
 
 
 app_name = "fds_cms_contact"

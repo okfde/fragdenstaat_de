@@ -4,6 +4,8 @@ const header = document.querySelector('#header')
 let open: HTMLElement | undefined = undefined
 let hide: () => void = () => {}
 
+const navSearch = header?.querySelector<HTMLElement>('.nav-search')
+
 const menuToggles = [
   ...(header?.querySelectorAll<HTMLElement>('.nav-toggle-menu') ?? [])
 ]
@@ -52,18 +54,23 @@ menuToggles.forEach((el) =>
   })
 )
 
-window.addEventListener('resize', () => hide())
+window.addEventListener('resize', () => {
+  // hide navbar when window resizes, except when the search is focused
+  // (resize due to onscreen keyboard on mobile devices)
+  if (navSearch?.contains(document.activeElement) !== true) hide()
+})
 
 window.addEventListener('click', (e) => {
   if (
     open !== undefined &&
-    header?.contains(e.target as HTMLElement) === false
+    header?.contains(e.target as HTMLElement) === false // click is outside of navbar
   ) {
     hide()
   }
 })
 
 window.addEventListener('scroll', () => {
+  // hide navbar when scrolling down
   if (open && open.clientHeight * 2 < window.scrollY) {
     hide()
   }
@@ -103,21 +110,21 @@ function updateDropdowns(): void {
 window.addEventListener('resize', updateDropdowns)
 updateDropdowns()
 
-const navSearch = header?.querySelector<HTMLElement>('.nav-search')
+// hide search in navbar if the current page is a search page
 const searchUrls = [
   ...(navSearch?.querySelector<HTMLSelectElement>('select') ?? [])
 ].map((el) => el.value)
 
 if (searchUrls.includes(window.location.pathname)) {
-  navSearch?.previousElementSibling?.remove()
+  navSearch?.previousElementSibling?.remove() // divider for mobile
   navSearch?.remove()
 }
 
+// keyboard shortcuts for search
 const input = navSearch?.querySelector('input')
 const placeholder = input?.getAttribute('placeholder') ?? ''
 const isMac = navigator.userAgent.includes('Mac OS X')
 if (isMac) {
-  // macOS
   input?.setAttribute('placeholder', `${placeholder} (⌘ + K)`)
 } else {
   input?.setAttribute('placeholder', `${placeholder} (Ctrl + K)`)
