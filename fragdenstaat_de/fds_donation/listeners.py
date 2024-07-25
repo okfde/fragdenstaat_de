@@ -5,9 +5,9 @@ from decimal import Decimal
 from django.db import transaction
 from django.utils import timezone
 
-from fragdenstaat_de.fds_newsletter.models import Subscriber
-
 from froide_payment.models import PaymentStatus
+
+from fragdenstaat_de.fds_newsletter.models import Subscriber
 
 from .models import Donation, Donor
 from .services import (

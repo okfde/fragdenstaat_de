@@ -311,7 +311,7 @@ class CategoryArticleView(BaseBlogListView, ListView, BreadcrumbView):
                     get_language(), slug=self.kwargs["category"]
                 ).get()
             except Category.DoesNotExist:
-                raise Http404
+                raise Http404 from None
         return self._category
 
     def get(self, *args, **kwargs):

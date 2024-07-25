@@ -16,12 +16,13 @@ from cms.models.fields import PlaceholderRelationField
 from cms.models.pluginmodel import CMSPlugin
 from cms.utils.placeholder import get_placeholder_from_slot
 from filer.fields.image import FilerImageField
-from fragdenstaat_de.fds_cms.utils import get_alias_placeholder, get_request
-from fragdenstaat_de.fds_donation.models import Donor
-from fragdenstaat_de.fds_newsletter.models import Newsletter, Subscriber
 
 from froide.helper.email_sending import EmailContent, mail_registry, send_mail
 from froide.helper.email_utils import make_address
+
+from fragdenstaat_de.fds_cms.utils import get_alias_placeholder, get_request
+from fragdenstaat_de.fds_donation.models import Donor
+from fragdenstaat_de.fds_newsletter.models import Newsletter, Subscriber
 
 from .utils import render_text
 
@@ -201,7 +202,7 @@ class EmailTemplate(models.Model):
             email_content.text,
             make_address(user.email, name=user.get_full_name()),
             from_email=settings.DEFAULT_FROM_EMAIL,
-            **extra_kwargs
+            **extra_kwargs,
         )
 
     def get_email_bytes(self, context, recipients=None):
@@ -234,7 +235,7 @@ class EmailActionCMSPlugin(VariableTemplateMixin, CMSPlugin):
     action_label = models.CharField(max_length=255, blank=True)
 
     context_vars = ["heading", "action_url", "action_label"]
-    empty_vars = set(["heading"])
+    empty_vars = {"heading"}
 
     def __str__(self):
         return str(self.heading)
@@ -518,7 +519,7 @@ class MailingMessage(models.Model):
                 make_address(self.email, name=self.name),
                 from_email=self.mailing.get_sender(),
                 unsubscribe_reference=unsubscribe_reference,
-                **extra_kwargs
+                **extra_kwargs,
             )
             self.sent = timezone.now()
             self.save()

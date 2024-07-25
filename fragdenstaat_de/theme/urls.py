@@ -4,12 +4,8 @@ from django.contrib.sitemaps import views as sitemaps_views
 from django.urls import include, path
 from django.utils.translation import pgettext_lazy
 
-import fragdenstaat_de.fds_blog.urls  # noqa
 import froide_food.urls  # noqa
 from fcdocs_annotate.annotation.api import FeatureViewSet
-from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
-from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
-from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 
 # Import early to register with api_router
 from froide_campaign import urls as campaign_urls
@@ -22,6 +18,11 @@ from froide.urls import (
     jurisdiction_urls,
     sitemaps,
 )
+
+import fragdenstaat_de.fds_blog.urls  # noqa
+from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
+from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
+from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 
 from .views import FDSAnnotationView, glyphosat_download, meisterschaften_tippspiel
 
@@ -124,5 +125,5 @@ urlpatterns += i18n_patterns(
     path("", include("fragdenstaat_de.fds_ogimage.urls")),
     path(pgettext_lazy("url part", "campaign/"), include(campaign_urls)),
     path("", include("cms.urls")),
-    prefix_default_language=False
+    prefix_default_language=False,
 )

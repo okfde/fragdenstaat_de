@@ -146,45 +146,35 @@ def generate_copy_script(
     safe_fks="safe_fks.txt",
     schema_file="schema.sql",
 ):
-    FILTERS = dict(
-        [
-            (
-                "public.account_user",
-                (
-                    "email COLLATE \"und-x-icu\" LIKE '%@okfn.de'",
-                    "is_staff = TRUE",
-                    "private = FALSE",
-                ),
-            ),
-            (
-                "public.document_document",
-                (
-                    "id IN ((SELECT id FROM document_document WHERE portal_id IS NULL AND user_id IS NOT NULL ORDER BY id DESC LIMIT 500) UNION (SELECT id FROM document_document WHERE portal_id IS NOT NULL ORDER BY id DESC LIMIT 500))",
-                ),
-            ),
-            ("public.document_documentcollection", ("user_id IS NOT NULL",)),
-            ("public.fds_donation_donor", ("user_id IS NOT NULL",)),
-            ("public.fds_donation_donation", ("donor_id IS NOT NULL",)),
-            ("public.foirequest_foirequest", ("public = TRUE",)),
-            ("public.foirequest_foiproject", ("public = TRUE",)),
-            ("public.fds_blog_article", ("start_publication IS NOT NULL",)),
-            ("public.django_amenities_amenity", ("city = 'Berlin'",)),
-        ]
-    )
+    FILTERS = {
+        "public.account_user": (
+            "email COLLATE \"und-x-icu\" LIKE '%@okfn.de'",
+            "is_staff = TRUE",
+            "private = FALSE",
+        ),
+        "public.document_document": (
+            "id IN ((SELECT id FROM document_document WHERE portal_id IS NULL AND user_id IS NOT NULL ORDER BY id DESC LIMIT 500) UNION (SELECT id FROM document_document WHERE portal_id IS NOT NULL ORDER BY id DESC LIMIT 500))",
+        ),
+        "public.document_documentcollection": ("user_id IS NOT NULL",),
+        "public.fds_donation_donor": ("user_id IS NOT NULL",),
+        "public.fds_donation_donation": ("donor_id IS NOT NULL",),
+        "public.foirequest_foirequest": ("public = TRUE",),
+        "public.foirequest_foiproject": ("public = TRUE",),
+        "public.fds_blog_article": ("start_publication IS NOT NULL",),
+        "public.django_amenities_amenity": ("city = 'Berlin'",),
+    }
 
     with open(safe_tables) as f:
-        safe_tables = set(
-            ["public.{}".format(x.strip()) for x in f.readlines() if x.strip()]
-        )
+        safe_tables = {
+            "public.{}".format(x.strip()) for x in f.readlines() if x.strip()
+        }
 
     with open(safe_fks) as f:
-        safe_fks = set(
-            [
-                ("public.{}".format(x.split()[0].strip()), x.split()[1].strip())
-                for x in f.readlines()
-                if x.strip()
-            ]
-        )
+        safe_fks = {
+            ("public.{}".format(x.split()[0].strip()), x.split()[1].strip())
+            for x in f.readlines()
+            if x.strip()
+        }
 
     with open(schema_file) as f:
         schema = f.read()
@@ -251,9 +241,9 @@ def show_unsafe(safe_tables="safe_tables.txt", schema_file="schema.sql"):
 
     all_tables = set(TABLE_RE.findall(schema))
     with open(safe_tables) as f:
-        safe_tables = set(
-            ["public.{}".format(x.strip()) for x in f.readlines() if x.strip()]
-        )
+        safe_tables = {
+            "public.{}".format(x.strip()) for x in f.readlines() if x.strip()
+        }
 
     for table in sorted(all_tables - safe_tables):
         print("{}".format(table))

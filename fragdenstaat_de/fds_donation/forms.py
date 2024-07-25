@@ -10,6 +10,10 @@ from django.core.validators import MinValueValidator
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
+from froide_payment.forms import StartPaymentMixin
+from froide_payment.models import CHECKOUT_PAYMENT_CHOICES_DICT
+from froide_payment.utils import interval_description
+
 from froide.account.utils import parse_address
 from froide.campaign.models import Campaign
 from froide.helper.content_urls import get_content_url
@@ -19,10 +23,6 @@ from froide.helper.widgets import (
     BootstrapSelect,
     InlineBootstrapRadioSelect,
 )
-
-from froide_payment.forms import StartPaymentMixin
-from froide_payment.models import CHECKOUT_PAYMENT_CHOICES_DICT
-from froide_payment.utils import interval_description
 
 from .models import (
     INTERVAL_SETTINGS_CHOICES,
@@ -387,8 +387,8 @@ COUNTRY_CHOICES = (
 def get_basic_info_fields(
     prefix=None, name_required=True, country_choices=COUNTRY_CHOICES
 ):
-    fields = dict(
-        first_name=forms.CharField(
+    fields = {
+        "first_name": forms.CharField(
             max_length=255,
             label=_("First name"),
             required=name_required,
@@ -397,7 +397,7 @@ def get_basic_info_fields(
                 attrs={"placeholder": _("First name"), "class": "form-control"}
             ),
         ),
-        last_name=forms.CharField(
+        "last_name": forms.CharField(
             max_length=255,
             label=_("Last name"),
             required=name_required,
@@ -405,7 +405,7 @@ def get_basic_info_fields(
                 attrs={"placeholder": _("Last name"), "class": "form-control"}
             ),
         ),
-        address=forms.CharField(
+        "address": forms.CharField(
             max_length=255,
             label=_("Street, house number"),
             required=False,
@@ -416,7 +416,7 @@ def get_basic_info_fields(
                 }
             ),
         ),
-        postcode=forms.CharField(
+        "postcode": forms.CharField(
             max_length=20,
             label=_("Postcode"),
             required=False,
@@ -424,7 +424,7 @@ def get_basic_info_fields(
                 attrs={"placeholder": _("Postcode"), "class": "form-control"}
             ),
         ),
-        city=forms.CharField(
+        "city": forms.CharField(
             max_length=255,
             label=_("City"),
             required=False,
@@ -432,13 +432,13 @@ def get_basic_info_fields(
                 attrs={"placeholder": _("City"), "class": "form-control"}
             ),
         ),
-        country=forms.ChoiceField(
+        "country": forms.ChoiceField(
             label=_("Country"),
             required=False,
             choices=country_choices,
             widget=BootstrapSelect,
         ),
-    )
+    }
     if prefix:
         fields = {"{}_{}".format(prefix, k): v for k, v in fields.items()}
 
