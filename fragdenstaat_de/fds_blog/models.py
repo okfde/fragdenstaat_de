@@ -20,11 +20,12 @@ from cms.utils.placeholder import get_placeholder_from_slot
 from cms.utils.plugins import get_plugins
 from djangocms_alias.models import Alias
 from filer.fields.image import FilerImageField
-from fragdenstaat_de.fds_cms.utils import get_request
-from fragdenstaat_de.theme.colors import BACKGROUND
 from parler.models import TranslatableModel, TranslatedFields
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
+
+from fragdenstaat_de.fds_cms.utils import get_request
+from fragdenstaat_de.theme.colors import BACKGROUND
 
 from . import model_bases as entry
 from .managers import (

@@ -1,11 +1,12 @@
 from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta
-from fragdenstaat_de.theme.notifications import send_notification
 
 from froide.celery import app as celery_app
 
-TIME_ZERO = dict(hour=0, minute=0, second=0, microsecond=0)
+from fragdenstaat_de.theme.notifications import send_notification
+
+TIME_ZERO = {"hour": 0, "minute": 0, "second": 0, "microsecond": 0}
 
 
 @celery_app.task(name="fragdenstaat_de.fds_donation.new_donation")

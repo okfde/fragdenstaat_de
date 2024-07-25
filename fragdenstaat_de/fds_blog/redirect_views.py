@@ -32,10 +32,10 @@ class ArticleRedirectView(RedirectView):
         try:
             article = get_object_or_404(Article.published, **qs)
             return article.get_absolute_url()
-        except MultipleObjectsReturned:
+        except MultipleObjectsReturned as exception:
             # url not specific enough
             logger.error("Ambiguous article urls at %s", self.request.path)
-            raise Http404
+            raise Http404 from exception
 
 
 class CategoryRedirectView(RedirectView):

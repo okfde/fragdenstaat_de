@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
+
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
 
 from .models import (
@@ -105,9 +106,7 @@ class EmailActionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
 {action_label}
 {action_url}
 {text2}
-""".format(
-            **context
-        )
+""".format(**context)
 
 
 @plugin_pool.register_plugin
@@ -130,9 +129,7 @@ class EmailSectionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
         )
         return """## {title}
 {text}
-""".format(
-            **context
-        )
+""".format(**context)
 
 
 @plugin_pool.register_plugin
@@ -155,9 +152,7 @@ class EmailStoryPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
 
 -> {url}
 
-""".format(
-            **context
-        )
+""".format(**context)
 
 
 @plugin_pool.register_plugin
