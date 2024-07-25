@@ -55,25 +55,19 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
                         return HttpResponse(
                             content=f"""<div class="alert alert-info" role="alert">
                         {_("You are already subscribed to our newsletter.")}
-                        </div>""".encode(
-                                "utf-8"
-                            )
+                        </div>""".encode("utf-8")
                         )
                     elif result == SubscriptionResult.SUBSCRIBED:
                         return HttpResponse(
                             content=f"""<div class="alert alert-primary" role="alert">
                         {_("You have been subscribed to our newsletter.")}
-                        </div>""".encode(
-                                "utf-8"
-                            )
+                        </div>""".encode("utf-8")
                         )
 
                 return HttpResponse(
                     content=f"""<div class="alert alert-primary" role="alert">
                 {_("You have received an email to confirm your subscription.")}
-                </div>""".encode(
-                        "utf-8"
-                    )
+                </div>""".encode("utf-8")
                 )
 
             if result == SubscriptionResult.CONFIRM:

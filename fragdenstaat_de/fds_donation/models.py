@@ -14,11 +14,11 @@ from django.utils.translation import pgettext
 
 from cms.models.pluginmodel import CMSPlugin
 from django_countries.fields import CountryField
-from fragdenstaat_de.fds_newsletter.models import Subscriber
+from froide_payment.models import Order, Payment, PaymentStatus, Subscription
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
 
-from froide_payment.models import Order, Payment, PaymentStatus, Subscription
+from fragdenstaat_de.fds_newsletter.models import Subscriber
 
 INTERVAL_SETTINGS_CHOICES = [
     ("once", _("Only once")),

@@ -335,8 +335,6 @@ class Command(BaseCommand):
             #     link.getparent().replace(link, img)
 
             if imgid is not None and imgid.startswith("plugin_obj_"):
-                plugin_id = imgid.rsplit("_", 1)[0]
-                plugin_id
                 continue
 
             found = True

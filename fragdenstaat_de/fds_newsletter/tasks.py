@@ -3,9 +3,9 @@ from datetime import timedelta
 
 from django.utils import timezone
 
-from fragdenstaat_de.theme.notifications import send_notification
-
 from froide.celery import app as celery_app
+
+from fragdenstaat_de.theme.notifications import send_notification
 
 from .analytics import get_analytics
 from .utils import cleanup_feedback, cleanup_subscribers, send_onboarding_schedule

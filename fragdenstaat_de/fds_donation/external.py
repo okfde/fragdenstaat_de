@@ -6,7 +6,6 @@ from django.conf import settings
 from django.db.models import Q
 
 import pandas as pd
-
 from froide_payment.models import Payment, PaymentStatus
 from froide_payment.provider.banktransfer import find_transfer_code
 
@@ -118,7 +117,7 @@ def import_banktransfer(transfer_ident, row, project):
     return is_new
 
 
-BLOCK_LIST = set(["Stripe Payments UK Ltd", "Stripe Technology Europe Ltd", "Stripe"])
+BLOCK_LIST = {"Stripe Payments UK Ltd", "Stripe Technology Europe Ltd", "Stripe"}
 DEBIT_PATTERN = re.compile(r" \(P(\d+)\)")
 
 

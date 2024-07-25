@@ -6,11 +6,11 @@ from django.urls import path, reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
-from fragdenstaat_de.fds_mailing.models import MailingMessage
-from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
-
 from froide.helper.admin_utils import make_daterangefilter, make_rangefilter
 from froide.helper.csv_utils import export_csv, export_csv_response
+
+from fragdenstaat_de.fds_mailing.models import MailingMessage
+from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
 from .forms import SubscriberImportForm
 from .models import Newsletter, Subscriber, UnsubscribeFeedback

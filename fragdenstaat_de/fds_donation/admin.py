@@ -19,8 +19,6 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from adminsortable2.admin import SortableAdminMixin
-from fragdenstaat_de.fds_mailing.models import MailingMessage
-from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
 from froide.helper.admin_utils import (
     ForeignKeyFilter,
@@ -34,6 +32,9 @@ from froide.helper.admin_utils import (
 )
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 from froide.helper.widgets import TagAutocompleteWidget
+
+from fragdenstaat_de.fds_mailing.models import MailingMessage
+from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
 from .export import JZWBExportForm
 from .models import (
@@ -236,7 +237,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             ),
             donation_count=Count("donations", filter=donations_filter),
             last_donation=Max("donations__timestamp", filter=donations_filter),
-            **any_donation
+            **any_donation,
         )
         if donation_projects:
             qs = qs.filter(any_donation__gt=0)
