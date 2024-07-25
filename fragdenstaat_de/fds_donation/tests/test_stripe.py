@@ -6,13 +6,13 @@ from datetime import datetime
 
 from django.urls import reverse
 
+import froide_payment.provider.stripe
 import payments.core
 import pytest
 import stripe
-from fragdenstaat_de.fds_donation.models import Donation
 from playwright.sync_api import Page
 
-import froide_payment.provider.stripe
+from fragdenstaat_de.fds_donation.models import Donation
 
 from .utils import ProcessReader
 
@@ -126,9 +126,9 @@ def stripe_sepa_setup(settings, live_server, monkeypatch):
 
     webhook_url = live_server.url + "/payments/process/sepa/"
     forwarder = StripeWebhookForwarder(secret_key, webhook_url)
-    settings.PAYMENT_VARIANTS["sepa"][1][
-        "signing_secret"
-    ] = forwarder.get_webhook_secret()
+    settings.PAYMENT_VARIANTS["sepa"][1]["signing_secret"] = (
+        forwarder.get_webhook_secret()
+    )
     yield forwarder
 
 

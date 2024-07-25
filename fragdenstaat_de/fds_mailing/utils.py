@@ -114,9 +114,9 @@ def add_fake_context(context, intent):
     if intent is None:
         return context
 
-    from fragdenstaat_de.fds_donation.models import Donation, Donor
-
     from froide.foirequest.models import FoiRequest
+
+    from fragdenstaat_de.fds_donation.models import Donation, Donor
 
     USER_FAKERS = {
         "user": lambda u: u,

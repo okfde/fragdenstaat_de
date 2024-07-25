@@ -10,6 +10,7 @@ class FdsDonationConfig(AppConfig):
     verbose_name = _("FragDenStaat Donations")
 
     def ready(self):
+        from froide_payment.signals import sepa_notification, subscription_canceled
         from payments.signals import status_changed
 
         from froide.account import (
@@ -18,8 +19,6 @@ class FdsDonationConfig(AppConfig):
             account_merged,
         )
         from froide.account.export import registry
-
-        from froide_payment.signals import sepa_notification, subscription_canceled
 
         from .listeners import (
             cancel_user,

@@ -12,7 +12,6 @@ from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
 from cms.toolbar.utils import get_object_edit_url
-from fragdenstaat_de.theme.admin import PublicBodyAdmin
 
 from froide.account.admin import UserAdmin
 from froide.helper.admin_utils import (
@@ -20,6 +19,8 @@ from froide.helper.admin_utils import (
     make_choose_object_action,
     make_nullfilter,
 )
+
+from fragdenstaat_de.theme.admin import PublicBodyAdmin
 
 from .models import EmailTemplate, Mailing, MailingMessage
 from .tasks import continue_sending, send_mailing

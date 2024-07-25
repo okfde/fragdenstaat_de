@@ -22,7 +22,7 @@ class CustomCeleryEmailBackend(CeleryEmailBackend):
                 send_emails.apply_async(
                     args=[chunk],
                     kwargs={"backend_kwargs": self.init_kwargs},
-                    **task_kwargs
+                    **task_kwargs,
                 )
             )
         return result_tasks
