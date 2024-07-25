@@ -58,7 +58,7 @@ Pillow>=9.0.0
 pikepdf==9.0.0
 psycopg[binary]>=3.2.1
 # pygtail>=0.14.0
--e git+https://github.com/okfde/pygtail.git@dac8bc6fc8d65c7ac820806e570242919616e946#egg=pygtail
+pygtail @ git+https://github.com/okfde/pygtail.git@dac8bc6fc8d65c7ac820806e570242919616e946
 pyisemail
 pypdf
 python-magic
@@ -76,18 +76,19 @@ WeasyPrint
 webp
 websockets
 
--e git+https://github.com/okfde/django-amenities.git@main#egg=django-amenities
--e git+https://github.com/okfde/froide.git@main#egg=froide
--e git+https://github.com/okfde/froide-campaign.git@main#egg=froide-campaign
--e git+https://github.com/okfde/froide-food.git@main#egg=froide-food
--e git+https://github.com/okfde/froide-fax.git@main#egg=froide-fax
--e git+https://github.com/okfde/froide-legalaction.git@main#egg=froide-legalaction
--e git+https://github.com/okfde/froide-exam.git@main#egg=froide-exam
--e git+https://github.com/okfde/django-filingcabinet.git@main#egg=django-filingcabinet
--e git+https://github.com/okfde/froide-payment.git@main#egg=froide-payment
--e git+https://github.com/okfde/froide-crowdfunding.git@main#egg=froide-crowdfunding
--e git+https://github.com/okfde/froide-govplan.git@main#egg=froide-govplan
--e git+https://github.com/stefanw/djangocms-sortabletable.git@main#egg=sortabletable
--e git+https://github.com/stefanw/djangocms-transfer.git@stefanw/djangocms-4#egg=djangocms-transfer
--e git+https://github.com/fragdenstaat/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
--e git+https://github.com/okfde/fcdocs-annotate.git@main#egg=fcdocs_annotate
+git+https://github.com/okfde/django-amenities.git@main#egg=django-amenities
+git+https://github.com/okfde/froide.git@main#egg=froide
+git+https://github.com/okfde/froide-campaign.git@main#egg=froide-campaign
+git+https://github.com/okfde/froide-food.git@main#egg=froide-food
+git+https://github.com/okfde/froide-fax.git@main#egg=froide-fax
+git+https://github.com/okfde/froide-legalaction.git@main#egg=froide-legalaction
+git+https://github.com/okfde/froide-exam.git@main#egg=froide-exam
+git+https://github.com/okfde/django-filingcabinet.git@main#egg=django-filingcabinet
+git+https://github.com/okfde/froide-payment.git@main#egg=froide-payment
+git+https://github.com/okfde/froide-crowdfunding.git@main#egg=froide-crowdfunding
+git+https://github.com/okfde/froide-govplan.git@main#egg=froide-govplan
+git+https://github.com/stefanw/django-contractor.git@main#egg=django-contractor
+git+https://github.com/stefanw/djangocms-sortabletable.git@main#egg=sortabletable
+git+https://github.com/stefanw/djangocms-transfer.git@stefanw/djangocms-4#egg=djangocms-transfer
+git+https://github.com/fragdenstaat/django-legal-advice-builder.git@main#egg=django_legal_advice_builder
+git+https://github.com/okfde/fcdocs-annotate.git@main#egg=fcdocs_annotate
