@@ -3,7 +3,7 @@ export DJANGO_CONFIGURATION=Test
 export PYTHONWARNINGS=ignore,default:::fragdenstaat_de
 
 test:
-	flake8 fragdenstaat_de
+	ruff check
 	pytest --reuse-db
 
 testci:
@@ -11,9 +11,9 @@ testci:
 	coverage report
 
 requirements: requirements.in requirements-dev.in requirements-production.in
-	pip-compile requirements.in
-	pip-compile requirements-dev.in
-	pip-compile requirements-production.in
+	uv pip compile requirements.in -o requirements.txt
+	uv pip compile requirements-dev.in -o requirements-dev.txt
+	uv pip compile requirements-production.in -o requirements-production.txt
 
 messagesde:
 	python manage.py makemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file

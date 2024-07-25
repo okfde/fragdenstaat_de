@@ -1,13 +1,9 @@
 -r requirements.in
-black>=22.1.0
 Sphinx
 django-debug-toolbar>=3.2.1
 coverage
 factory-boy
 faker
-flake8
-flake8-bugbear
-mccabe
 mock
 pbr
 pre-commit
@@ -22,5 +18,4 @@ time-machine
 honcho
 ipdb
 ipython>=7.31.1,<8
-isort
 pywatchman
