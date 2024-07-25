@@ -80,7 +80,7 @@ $blog-standout-width: 72rem;
     margin-bottom: 0.75rem;
   }
 
-  > .text-container {
+  .text-container {
     @include blog-width();
   }
 
