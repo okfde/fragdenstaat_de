@@ -19,7 +19,7 @@
     # via -r requirements.in
 -e git+https://github.com/okfde/fcdocs-annotate.git@main#egg=fcdocs_annotate
     # via -r requirements.in
--e git+https://github.com/okfde/froide.git@main#egg=froide
+-e git+https://github.com/okfde/froide.git@bikubi/postupload-wip#egg=froide
     # via
     #   -r requirements.in
     #   froide-campaign
