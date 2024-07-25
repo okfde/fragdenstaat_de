@@ -38,23 +38,23 @@ urlpatterns = [
                     fixed_redirect("blog:article-latest"),
                     name="legacy-article-latest",
                 ),
-                re_path(
-                    _(r"^search/$"),
+                path(
+                    _("search/"),
                     SearchRedirectView.as_view(),
                     name="legacy-article-search",
                 ),
-                re_path(
-                    r"^feed/$",
+                path(
+                    "feed/",
                     fixed_redirect("blog:article-latest-feed"),
                     name="legacy-article-latest-feed",
                 ),
-                re_path(
-                    r"^feed/audio/$",
+                path(
+                    "feed/audio/",
                     fixed_redirect("blog:article-latest-feed-audio"),
                     name="legacy-article-latest-feed-audio",
                 ),
-                re_path(
-                    r"^feed/teaser/$",
+                path(
+                    "feed/teaser/",
                     fixed_redirect("blog:article-latest-feed-teaser"),
                     name="legacy-article-latest-feed-teaser",
                 ),
@@ -68,18 +68,18 @@ urlpatterns = [
                     ArchiveRedirectView.as_view(),
                     name="legacy-article-archive",
                 ),
-                re_path(
-                    _(r"^author/(?P<username>[\w\.@+-]+)/$"),
+                path(
+                    _("author/<str:username>/"),
                     AuthorRedirectView.as_view(),
                     name="legacy-article-author",
                 ),
-                re_path(
-                    _(r"^category/(?P<slug>[\w\.@+-]+)/$"),
+                path(
+                    _("category/<slug:slug>/"),
                     CategoryRedirectView.as_view(),
                     name="legacy-article-category",
                 ),
-                re_path(
-                    r"^tag/(?P<tag>[-\w]+)/$",
+                path(
+                    "tag/<slug:tag>/",
                     TagRedirectView.as_view(),
                     name="legacy-article-tagged",
                 ),
