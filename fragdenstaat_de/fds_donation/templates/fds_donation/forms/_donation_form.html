@@ -2,7 +2,8 @@
 {% load form_helper %}
 <form action="{{ form.action }}"
       method="POST"
-      class="donation-form {% if object.extra_classes %}{{ object.extra_classes }}{% else %}text-bg-body text-body px-3 pt-3 pb-1{% endif %}">
+      class="donation-form {% if object.extra_classes %}{{ object.extra_classes }}{% else %}text-bg-body text-body px-3 pt-3 pb-1{% endif %}"
+      {% if object.open_in_new_tab %}target="_blank"{% endif %}>
     {% csrf_token %}
     {{ form.form_settings }}
     {{ form.reference }}
