@@ -647,3 +647,9 @@ class DropdownBannerCMSPlugin(CMSPlugin):
     dark = models.BooleanField(
         _("Banner is dark-themed, button should therefore be light"), default=False
     )
+
+
+class PretixEmbedCMSPlugin(CMSPlugin):
+    shop_url = models.CharField()
+    js_url = models.CharField()
+    additional_settings = models.CharField(default="", blank=True)

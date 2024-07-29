@@ -30,6 +30,7 @@ from .models import (
     ModalCMSPlugin,
     OneClickFoiRequestCMSPlugin,
     PageAnnotationCMSPlugin,
+    PretixEmbedCMSPlugin,
     PrimaryLinkCMSPlugin,
     RevealMoreCMSPlugin,
     ShareLinksCMSPlugin,
@@ -716,3 +717,11 @@ class PicturePlugin(BasePicturePlugin):
 
 plugin_pool.unregister_plugin(BasePicturePlugin)
 plugin_pool.register_plugin(PicturePlugin)
+
+
+@plugin_pool.register_plugin
+class PretixPlugin(CMSPluginBase):
+    model = PretixEmbedCMSPlugin
+    name = _("Pretix Shop-Embed")
+    render_template = "fds_cms/pretix.html"
+    allow_children = False
