@@ -524,6 +524,8 @@ class DonationFormCMSPlugin(CMSPlugin):
     form_action = models.CharField(max_length=255, blank=True)
     next_url = models.CharField(max_length=255, blank=True)
 
+    open_in_new_tab = models.BooleanField(default=False)
+
     def __str__(self):
         return "{interval} {amount_presets}".format(
             interval=self.interval, amount_presets=self.amount_presets
