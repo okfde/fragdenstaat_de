@@ -9,17 +9,18 @@ import tempfile
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional
 from urllib.parse import urljoin
 
 import bs4
 import html_text
-import PIL
 import requests
 import urllib3
 from bs4 import BeautifulSoup
+from PIL import Image
 
-from . import captcha
+if TYPE_CHECKING:
+    from . import captcha
 
 TOKEN_RE = r"^Token: (?P<token>.+)$"
 EMAIL_RE = r"^Email: (?P<email>.+)$"
@@ -220,7 +221,7 @@ class FrontexHttpAdapter(requests.adapters.HTTPAdapter):
 
 
 class FrontexPadClient:
-    def __init__(self, credentials: FrontexCredentials, captcha_net: captcha.Net):
+    def __init__(self, credentials: FrontexCredentials, captcha_net: "captcha.Net"):
         self.session = requests.Session()
         self.session.mount("https://", FrontexHttpAdapter())
         self.login_url = LOGIN_URL
@@ -238,8 +239,8 @@ class FrontexPadClient:
         captcha_url = f"https://pad.frontex.europa.eu/Captcha/Image/{captcha_id}"
         req = self._get(captcha_url)
         image_file = io.BytesIO(req.content)
-        captcha_image = PIL.Image.open(image_file)
-        text = captcha.solve_image(self.captcha_net, captcha_image)
+        captcha_image = Image.open(image_file)
+        text = self.captcha_net.solve_image(captcha_image)
         return CaptchaResponse(id=captcha_id, text=text)
 
     def _extract_form(self, src: str):

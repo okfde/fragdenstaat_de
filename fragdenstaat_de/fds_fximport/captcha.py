@@ -38,6 +38,21 @@ class Net(nn.Module):
         output = F.log_softmax(x, dim=1)
         return output
 
+    def solve_image(self, image: Image.Image) -> str:
+        image = image.convert("L")
+        transform = transforms.Compose(
+            [transforms.ToTensor(), transforms.Normalize((0.5), (0.5))]
+        )
+        with torch.no_grad():
+            self.eval()
+            images = [
+                transform(x) for x in split_letters(image, letter_count=LETTER_COUNT)
+            ]
+
+            outputs = self(torch.stack(images))
+            predictions = outputs.argmax(dim=1, keepdim=True)
+            return "".join(CLASSES[pred] for pred in predictions)
+
 
 def split_letters(image, letter_count: int = 5):
     w, h = image.size
@@ -50,17 +65,3 @@ def load_net(path: str) -> Net:
     net = Net()
     net.load_state_dict(torch.load(path))
     return net
-
-
-def solve_image(net: Net, image: Image) -> str:
-    image = image.convert("L")
-    transform = transforms.Compose(
-        [transforms.ToTensor(), transforms.Normalize((0.5), (0.5))]
-    )
-    with torch.no_grad():
-        net.eval()
-        images = [transform(x) for x in split_letters(image, letter_count=LETTER_COUNT)]
-
-        outputs = net(torch.stack(images))
-        predictions = outputs.argmax(dim=1, keepdim=True)
-        return "".join(CLASSES[pred] for pred in predictions)
