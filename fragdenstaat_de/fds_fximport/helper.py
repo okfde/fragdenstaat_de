@@ -1,5 +1,5 @@
 import datetime
-from typing import Iterable, Iterator, Tuple
+from typing import TYPE_CHECKING, Iterable, Iterator, Tuple
 
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -15,8 +15,10 @@ from froide.foirequest.models.message import MessageKind
 from froide.helper.storage import make_unique_filename
 from froide.helper.text_utils import redact_subject
 
-from . import captcha
 from .askfx import Direction, FrontexCredentials, FrontexPadClient, PadCase, PadMessage
+
+if TYPE_CHECKING:
+    from . import captcha
 
 MARKER = "https://pad.frontex.europa.eu"
 IMPORTED_TAG = "frontex_imported"
@@ -57,7 +59,9 @@ def add_msg_ids(
 _captcha_net = None
 
 
-def get_captcha_net() -> captcha.Net:
+def get_captcha_net() -> "captcha.Net":
+    from . import captcha
+
     global _captcha_net
     if _captcha_net is None:
         if settings.FRONTEX_CAPTCHA_MODEL_PATH is None:
