@@ -29,7 +29,7 @@ def generate_avif_thumbnail(filepath: str, storage):
     if pillow_avif is None:
         return
     logger.info("Converting %s to avif", filepath)
-    avif_path = storage.path(".".join([filepath, "avif"]))
+    avif_path = ".".join([filepath, "avif"])
     img_file = storage.open(filepath, "rb")
     im = Image.open(img_file)
     out_file = BytesIO()
