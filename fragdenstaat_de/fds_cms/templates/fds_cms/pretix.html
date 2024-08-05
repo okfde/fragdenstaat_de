@@ -9,7 +9,7 @@
 {% addtoblock "js" %}
 <script type="text/javascript" src="{{ instance.js_url }}" async crossorigin></script>
 {% endaddtoblock %}
-<pretix-widget event="{{ instance.shop_url }}" single-item-select="button"></pretix-widget>
+<pretix-widget event="{{ instance.shop_url }}" {{ instance.additional_settings }}></pretix-widget>
 <noscript>
     <div class="pretix-widget">
         <div class="pretix-widget-info-message">
