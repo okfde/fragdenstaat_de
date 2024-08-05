@@ -219,7 +219,7 @@ django-classy-tags==4.0.0
     # via
     #   django-cms
     #   django-sekizai
-django-cms==4.1.1
+django-cms==4.1.2
     # via
     #   -r requirements.in
     #   djangocms-alias
