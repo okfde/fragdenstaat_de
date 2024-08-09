@@ -3040,11 +3040,17 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
-#~ msgid "^search/$"
-#~ msgstr "^suche/$"
+#: fragdenstaat_de/fds_blog/redirect_urls.py
+msgid "^search/$"
+msgstr "^suche/$"
 
-#~ msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
-#~ msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
+#: fragdenstaat_de/fds_blog/redirect_urls.py
+msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
+msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
+
+#: fragdenstaat_de/fds_blog/redirect_urls.py
+msgid "^category/(?P<slug>[\\w\\.@+-]+)/$"
+msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "Apply"
 #~ msgstr "Übernehmen"
@@ -7062,6 +7068,3 @@ msgstr "kampagne/"
 
 #~ msgid "By category"
 #~ msgstr "Nach Kategorie"
-
-#~ msgid "^category/(?P<slug>[\\w\\.@+-]+)/$"
-#~ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
