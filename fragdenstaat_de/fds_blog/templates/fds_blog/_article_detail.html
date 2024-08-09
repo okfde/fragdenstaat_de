@@ -57,13 +57,16 @@
         {% with content|split_for_banner as split %}
             {{ split.0|safe }}
             {% with banner=category.donation_banner %}
-                <aside class="article-banner">
-                    {% if banner %}
-                        {% render_alias banner %}
-                    {% else %}
-                        {% static_alias "blog_donation_banner" %}
-                    {% endif %}
-                </aside>
+                {% if banner %}
+                    {% render_alias banner as banner_content %}
+                {% else %}
+                    {% static_alias "blog_donation_banner" as banner_content %}
+                {% endif %}
+                {% if banner_content %}
+                    <aside class="article-banner">
+                        {{ banner_content }}
+                    </aside>
+                {% endif %}
             {% endwith %}
             {{ split.1|safe }}
         {% endwith %}
