@@ -348,6 +348,37 @@ class Subscriber(models.Model):
         unsubscribed.send(sender=self)
 
 
+UNSUBSCRIBE_REASONS = [
+    ("too_much", _("I received too many emails")),
+    ("expected_updates", _("I expected more updates regarding certain campaings")),
+    ("specific_request", _("I only signed up regarding a specific FOI request")),
+    ("not_interested", _("The topics are not interesting to me")),
+    ("dislike", _("I don't like your work anymore")),
+    ("other", _("Other")),
+]
+
+
+class UnsubscribeFeedback(models.Model):
+    reason = models.CharField(max_length=50, choices=UNSUBSCRIBE_REASONS)
+    comment = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE)
+
+    # only stored for one hour, to prevent spam
+    subscriber = models.ForeignKey(
+        Subscriber, blank=True, null=True, on_delete=models.CASCADE
+    )
+
+    class Meta:
+        verbose_name = _("Newsletter Unsubscribe Feedback")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["subscriber", "newsletter"], name="unique_feedback_subscriber"
+            )
+        ]
+
+
 class NewsletterCMSPlugin(CMSPlugin):
     newsletter = models.ForeignKey(
         Newsletter, related_name="+", on_delete=models.CASCADE, null=True, blank=True

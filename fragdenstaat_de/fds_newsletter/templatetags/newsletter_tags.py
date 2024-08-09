@@ -12,7 +12,7 @@ register = template.Library()
 def newsletter_settings(context):
     request = context["request"]
     user = request.user
-    return {"form": NewslettersUserForm(user)}
+    return {"newsletter_form": NewslettersUserForm(user)}
 
 
 def _get_newsletter(newsletter_slug=None):
