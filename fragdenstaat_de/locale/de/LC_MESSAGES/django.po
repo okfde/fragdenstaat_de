@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-22 19:04+0200\n"
+"POT-Creation-Date: 2024-08-09 10:01+0200\n"
 "PO-Revision-Date: 2024-05-06 13:52+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -491,11 +491,11 @@ msgid_plural ""
 "                    "
 msgstr[0] ""
 "\n"
-"                        Über den*die Autor*in\n"
+"                        Über den:die Autor:in\n"
 "                    "
 msgstr[1] ""
 "\n"
-"                        Über die Autor*innen\n"
+"                        Über die Autor:innen\n"
 "                    "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
@@ -654,7 +654,7 @@ msgstr "Schlagwort „%s“"
 
 #: fragdenstaat_de/fds_blog/views.py
 msgid "Authors"
-msgstr "Autor*innen"
+msgstr "Autor:innen"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Document"
@@ -791,6 +791,10 @@ msgstr "Weiterlesen"
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Bordered section"
 msgstr "Sektion mit Rahmen"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Pretix Shop-Embed"
+msgstr ""
 
 #: fragdenstaat_de/fds_cms/cms_toolbars.py
 msgid "FdS Page Settings"
@@ -1257,7 +1261,7 @@ msgstr "{count} Spenderinnen wurden vereinigt zu {donor}"
 #: fragdenstaat_de/fds_donation/admin.py
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
 msgid "Merge donors"
-msgstr "Spender*innen zusammenführen"
+msgstr "Spender:innen zusammenführen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Export JZWB..."
@@ -1766,19 +1770,19 @@ msgstr "Standard"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Donor Tag"
-msgstr "Spender*in-Tag"
+msgstr "Spender:in-Tag"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Donor Tags"
-msgstr "Spender*innen Tags"
+msgstr "Spender:innen Tags"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Tagged Donor"
-msgstr "Getaggte/r Spender*in"
+msgstr "Getaggte/r Spender:in"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Tagged Donors"
-msgstr "Getaggte Spender*innen"
+msgstr "Getaggte Spender:innen"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "donor"
@@ -1818,7 +1822,7 @@ msgstr "Ausführen"
 
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
 msgid "Merge Donors"
-msgstr "Spender*innen zusammenführen"
+msgstr "Spender:innen zusammenführen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donation_progress_bar.html
 msgid "Donation progress"
@@ -2811,7 +2815,7 @@ msgstr ""
 #: fragdenstaat_de/theme/admin.py
 #, python-brace-format
 msgid "Prepared mailing to crowdfunding contributors with {count} recipients"
-msgstr "Mailing an {count} Crowdfunding-Unterstützer*innen wurde vorbereitet"
+msgstr "Mailing an {count} Crowdfunding-Unterstützer:innen wurde vorbereitet"
 
 #: fragdenstaat_de/theme/apps.py
 msgid "FragDenStaat"
