@@ -198,7 +198,6 @@ def import_paypal(csv_file):
             "Ort": "city",
             "PLZ": "postcode",
             "Hinweis": "note",
-            "Auswirkung auf Guthaben": "Guthaben",
             "Absender E-Mail-Adresse": "paypal_email",
         }
     )
@@ -212,7 +211,7 @@ def import_paypal(csv_file):
         "subscription_id",
     )
 
-    df = df.query('Guthaben == "Haben"')
+    df = df.query('`Auswirkung auf Guthaben` == "Haben"')
     for c in make_empty:
         df[c] = df[c].fillna("")
 
