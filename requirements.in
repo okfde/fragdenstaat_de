@@ -77,7 +77,7 @@ webp
 websockets
 
 -e git+https://github.com/okfde/django-amenities.git@main#egg=django-amenities
--e git+https://github.com/okfde/froide.git@main#egg=froide
+-e git+https://github.com/okfde/froide.git@bikubi/postupload-wip#egg=froide
 -e git+https://github.com/okfde/froide-campaign.git@main#egg=froide-campaign
 -e git+https://github.com/okfde/froide-food.git@main#egg=froide-food
 -e git+https://github.com/okfde/froide-fax.git@main#egg=froide-fax
