@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-12 12:24+0200\n"
-"PO-Revision-Date: 2024-05-06 13:52+0000\n"
+"PO-Revision-Date: 2024-08-12 10:31+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -459,9 +459,8 @@ msgid "author/<str:username>/"
 msgstr "autor/<str:username>/"
 
 #: fragdenstaat_de/fds_blog/redirect_urls.py
-#, fuzzy
 msgid "category/<slug:slug>/"
-msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
+msgstr "kategorie/<slug:slug>/"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid ""
@@ -787,7 +786,7 @@ msgstr "Sektion mit Rahmen"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Pretix Shop-Embed"
-msgstr ""
+msgstr "Pretix Shop-Einbindung"
 
 #: fragdenstaat_de/fds_cms/cms_toolbars.py
 msgid "FdS Page Settings"
@@ -842,7 +841,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Space separated list of allowed frame ancestor URLs."
-msgstr ""
+msgstr "Mit Leerzeichen getrennte Liste von erlaubten Frame Ancestor URLs."
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Small"
