@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import NoReverseMatch
 from django.utils.translation import gettext_lazy as _
@@ -17,6 +18,20 @@ from taggit.models import Tag
 from froide.document.models import Document, DocumentCollection
 from froide.foirequest.models import FoiProject, FoiRequest
 from froide.publicbody.models import Category, Classification, Jurisdiction, PublicBody
+
+
+def validate_space_separated_urls(value):
+    if not value:
+        return
+    if ";" in value:
+        # Prevent adding different policy directives.
+        raise ValidationError("Use space separated URLs, no semicolons allowed.")
+    if len(value.splitlines()) > 1:
+        # Prevent header injection.
+        raise ValidationError("No line breaks allowed.")
+    for url in value.split(" "):
+        if not url.startswith("https://"):
+            raise ValidationError("Invalid URL: %s" % url)
 
 
 @extension_pool.register
@@ -57,6 +72,16 @@ class FdsPageExtension(PageExtension):
         ),
         default=False,
     )
+    frame_ancestors = models.CharField(
+        _("Space separated list of allowed frame ancestor URLs."),
+        max_length=255,
+        blank=True,
+        validators=[validate_space_separated_urls],
+    )
+
+    def get_frame_ancestors(self):
+        # Split by generic whitespace
+        return self.frame_ancestors.split()
 
 
 class PageAnnotationCMSPlugin(CMSPlugin):
