@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-12 12:24+0200\n"
-"PO-Revision-Date: 2024-08-12 10:31+0000\n"
+"PO-Revision-Date: 2024-08-12 10:33+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -540,7 +540,6 @@ msgid "Category %(category)s"
 msgstr "Kategorie %(category)s"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
-#, fuzzy
 msgctxt "noun"
 msgid "Archive"
 msgstr "Archiv"
@@ -630,14 +629,12 @@ msgid "Please enter a search term."
 msgstr "Bitte geben Sie einen Suchbegriff ein."
 
 #: fragdenstaat_de/fds_blog/views.py
-#, fuzzy
 msgid "Articles"
 msgstr "Artikel"
 
 #: fragdenstaat_de/fds_blog/views.py
-#, fuzzy
 msgid "No articles found"
-msgstr "Keine Artikel gefunden."
+msgstr "Keine Artikel gefunden"
 
 #: fragdenstaat_de/fds_blog/views.py
 #, python-format
