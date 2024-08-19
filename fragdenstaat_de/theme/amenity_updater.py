@@ -65,7 +65,7 @@ def write_last_update(date):
         f.write(date.strftime("%Y-%m-%d"))
 
 
-def update_osm_amenities():
+def update_osm_amenities(delete_obsolete=False):
     timestamp = find_last_update_time()
     LATEST_OSM_URL = "https://download.geofabrik.de/europe/germany-latest.osm.pbf"
     filename = LATEST_OSM_URL.split("/")[-1]
@@ -98,7 +98,7 @@ def update_osm_amenities():
             os.path.join(tmpdirname, output_filename),
             timestamp=timestamp,
             topics=settings.AMENITY_TOPICS,
-            delete_obsolete=False,
+            delete_obsolete=delete_obsolete,
             category_func=getattr(settings, "AMENITY_CATEGORY_FUNC", None),
         )
         updater.run()
