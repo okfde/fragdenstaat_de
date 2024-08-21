@@ -177,7 +177,6 @@ django==4.2.14
     #   django-filingcabinet
     #   django-filter
     #   django-formtools
-    #   django-js-asset
     #   django-leaflet
     #   django-legal-advice-builder
     #   django-localflavor
@@ -253,7 +252,7 @@ django-elasticsearch-dsl==8.0
     #   froide
 django-entangled==0.5.4
     # via djangocms-frontend
-django-filer==2.2.4
+django-filer==3.1.4
     # via
     #   -r requirements.in
     #   djangocms-audio
@@ -276,8 +275,6 @@ django-fsm==2.8.1
     # via
     #   djangocms-versioning
     #   froide-legalaction
-django-js-asset==2.0.0
-    # via django-mptt
 django-json-widget==1.1.1
     # via
     #   -r requirements.in
@@ -292,8 +289,6 @@ django-mfa3==0.11.0
     # via
     #   -r requirements.in
     #   froide-govplan
-django-mptt==0.16.0
-    # via django-filer
 django-oauth-toolkit==1.7.1
     # via
     #   -r requirements.in
@@ -720,9 +715,7 @@ tzdata==2023.3
 unicodecsv==0.14.1
     # via djangorestframework-csv
 unidecode==1.1.2
-    # via
-    #   -r requirements.in
-    #   django-filer
+    # via -r requirements.in
 uritemplate==4.1.1
     # via
     #   coreapi
