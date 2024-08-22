@@ -16,6 +16,7 @@ from adminsortable2.admin import (
 )
 from cms.api import add_plugin
 from cms.toolbar.utils import get_object_edit_url
+from djangocms_alias.models import Alias
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 from parler.admin import TranslatableAdmin
 
@@ -78,13 +79,20 @@ class RelatedPublishedFilter(admin.SimpleListFilter):
 
 class CategoryAdmin(SortableAdminMixin, TranslatableAdmin):
     fields = ("title", "description", "slug", "order", "color", "donation_banner")
-    list_display = ("title",)
+    list_display = ("title", "donation_banner")
     search_fields = ("translations__title", "translations__description")
+    actions = ["set_donation_banner"]
 
     def get_prepopulated_fields(self, request, obj=None):
         # can't use `prepopulated_fields = ..` because it breaks the admin validation
         # for translated fields. This is the official django-parler workaround.
         return {"slug": ("title",)}
+
+    set_donation_banner = make_choose_object_action(
+        Alias,
+        lambda admin, request, qs, obj: qs.update(donation_banner=obj),
+        _("Set donation banner..."),
+    )
 
 
 class CategoryListFilter(RelatedPublishedFilter):
