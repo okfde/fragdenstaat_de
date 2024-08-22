@@ -37,14 +37,6 @@ $blog-standout-width: 72rem;
   }
 }
 
-@include media-breakpoint-up(md) {
-  .blog-author-list {
-    display: flex;
-    align-items: center;
-    gap: 1ch;
-  }
-}
-
 .blog-author-images {
   display: flex;
 
