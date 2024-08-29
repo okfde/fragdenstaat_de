@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-12 12:24+0200\n"
-"PO-Revision-Date: 2024-08-12 10:33+0000\n"
+"POT-Creation-Date: 2024-08-29 11:46+0200\n"
+"PO-Revision-Date: 2024-08-29 10:21+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -25,6 +25,10 @@ msgid "%(item)s (%(count)i entry)"
 msgid_plural "%(item)s (%(count)i articles)"
 msgstr[0] "%(item)s (%(count)i Artikel)"
 msgstr[1] "%(item)s (%(count)i Artikel)"
+
+#: fragdenstaat_de/fds_blog/admin.py
+msgid "Set donation banner..."
+msgstr "Spenden-Banner setzen..."
 
 #: fragdenstaat_de/fds_blog/admin.py
 msgid "published categories"
