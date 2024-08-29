@@ -1,5 +1,6 @@
 [project]
 name = "fragdenstaat_de"
+readme = "README.md"
 license = { file = "LICENSE.txt" }
 requires-python = ">=3.10"
 description = "FragDenStaat.de theme for Froide install"
