@@ -233,6 +233,8 @@ django-configurations==2.5.1
     # via
     #   -r requirements.in
     #   froide
+django-contractor @ git+https://github.com/stefanw/django-contractor.git@8785089edd6d7acbe2773a892979b783c00eaf00#egg=django-contractor
+    # via -r requirements.in
 django-contrib-comments==2.2.0
     # via -r requirements.in
 django-countries==7.6.1
