@@ -2444,7 +2444,7 @@ msgstr "E-Mail-Adressen wurden bestätigt"
 
 #: fragdenstaat_de/fds_newsletter/forms.py
 msgid "Anything else you want to tell us?"
-msgstr ""
+msgstr "Gibt es sonst etwas, dass Sie uns mitteilen möchten?"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "newsletter title"
@@ -2532,23 +2532,23 @@ msgstr "E-Mail-Adresse für diesen Nutzer schon vorhanden."
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "I received too many emails"
-msgstr ""
+msgstr "Ich habe zu viele E-Mails erhalten"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "I expected more updates regarding certain campaings"
-msgstr ""
+msgstr "Ich habe mehr Updates zu spezifischen Kampagnen erwartet"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "I only signed up regarding a specific FOI request"
-msgstr ""
+msgstr "Ich wollte nur Updates zu einer bestimmten IFG-Anfrage erhalten"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "The topics are not interesting to me"
-msgstr ""
+msgstr "Ich finde die Themen nicht interessent"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "I don't like your work anymore"
-msgstr ""
+msgstr "Mir gefällt Ihre Arbeit nicht mehr"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 #, fuzzy
@@ -2632,26 +2632,30 @@ msgid ""
 "        You successfully unsubscribed from %(newsletter)s.\n"
 "        "
 msgstr ""
+"\n"
+"        Sie haben Sich erfolgreich vom %(newsletter)s abgemeldet.\n"
+"        "
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
 msgid "We'd love to know why you chose to unsubscribe."
-msgstr ""
+msgstr "Wir wären dankbar, wenn Sie mit uns den Grund dafür teilen."
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/user_settings.html
 msgid "Update subscriptions"
 msgstr "Abos anpassen"
 
 #: fragdenstaat_de/fds_newsletter/urls.py
+#, fuzzy
 msgid "<slug:newsletter_slug>/feedback/"
-msgstr ""
+msgstr "<slug:newsletter_slug>/feedback/"
 
 #: fragdenstaat_de/fds_newsletter/views.py
 msgid "You have received an email to confirm your subscription."
-msgstr ""
+msgstr "Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen."
 
 #: fragdenstaat_de/fds_newsletter/views.py
 msgid "Please correct the errors below."
-msgstr ""
+msgstr "Bitte korrigieren Sie die unten stehenden Fehler."
 
 #: fragdenstaat_de/fds_newsletter/views.py
 #, fuzzy, python-format
