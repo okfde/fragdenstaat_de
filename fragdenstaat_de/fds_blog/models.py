@@ -210,6 +210,7 @@ class Category(TranslatableModel):
         Alias,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         default=None,
         related_name="donation_banner",
         verbose_name=_("Donation banner"),
