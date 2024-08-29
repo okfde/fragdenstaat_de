@@ -72,10 +72,6 @@ $blog-standout-width: 72rem;
     margin-bottom: 0.75rem;
   }
 
-  .text-container {
-    @include blog-width();
-  }
-
   > p,
   > ul,
   > ol,
@@ -127,6 +123,10 @@ $blog-standout-width: 72rem;
       padding-bottom: 1rem;
     }
   }
+}
+
+.blog-article .text-container {
+  @include blog-width();
 }
 
 .blog-article footer > section {
