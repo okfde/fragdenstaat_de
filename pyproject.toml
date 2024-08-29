@@ -14,8 +14,13 @@ classifiers = [
 ]
 dynamic = ["version"]
 
-[tool.setuptools.packages.find]
-include = ["fragdenstaat_de"]
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["fragdenstaat_de"]
+
 
 [tool.ruff]
 exclude = ["migrations", "build", "node_modules"]
@@ -59,8 +64,6 @@ show_missing = true
 skip_covered = true
 exclude_lines = ["pragma: no cover"]
 
-[tool.distutils.bdist_wheel]
-universal = true
 
 [tool.pytest.ini_options]
 DJANGO_CONFIGURATION = "Test"
