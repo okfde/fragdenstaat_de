@@ -2551,14 +2551,12 @@ msgid "I don't like your work anymore"
 msgstr "Mir gefällt Ihre Arbeit nicht mehr"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, fuzzy
 msgid "Other"
-msgstr "Andere Namen"
+msgstr "Sonstiges"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, fuzzy
 msgid "Newsletter Unsubscribe Feedback"
-msgstr "Newsletter-Abonennt:in"
+msgstr "Newsletter Kündigungs-Feedback"
 
 #: fragdenstaat_de/fds_newsletter/templates/admin/fds_newsletter/newsletter/change_form.html
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/admin/import_csv.html
@@ -2645,7 +2643,6 @@ msgid "Update subscriptions"
 msgstr "Abos anpassen"
 
 #: fragdenstaat_de/fds_newsletter/urls.py
-#, fuzzy
 msgid "<slug:newsletter_slug>/feedback/"
 msgstr "<slug:newsletter_slug>/feedback/"
 
@@ -2658,19 +2655,17 @@ msgid "Please correct the errors below."
 msgstr "Bitte korrigieren Sie die unten stehenden Fehler."
 
 #: fragdenstaat_de/fds_newsletter/views.py
-#, fuzzy, python-format
+#, python-format
 msgid "You now receive the %s."
-msgstr "Datum Spende erhalten"
+msgstr "Sie erhalten den %s."
 
 #: fragdenstaat_de/fds_newsletter/views.py
-#, fuzzy
 msgid "Thank you for your feedback!"
-msgstr "Vielen Dank für Ihre Spende!"
+msgstr "Vielen Dank für Ihr Feedback!"
 
 #: fragdenstaat_de/fds_newsletter/views.py
-#, fuzzy
 msgid "Your newsletter subscriptions have been updated."
-msgstr "Ihre Spender-Informationen wurden aktualisiert!"
+msgstr "Ihre Newsletter-Abonnements wurden aktualisiert."
 
 #: fragdenstaat_de/fds_ogimage/apps.py
 msgid "FragDenStaat OG Image"
