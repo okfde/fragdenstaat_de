@@ -78,6 +78,8 @@ venv() {
   if [ ! -d fds-env ]; then
     echo "Could not find virtual environment fds-env"
   fi
+
+  source fds-env/bin/activate
 }
 
 pull() {
@@ -103,9 +105,6 @@ pull() {
 }
 
 dependencies() {
-  echo "Activating virtual environment..."
-  source fds-env/bin/activate
-
   echo "Installing $MAIN..."
 
   uv pip sync $MAIN/requirements-dev.txt
@@ -125,15 +124,15 @@ frontend() {
   echo "Linking frontend dependencies..."
 
   for name in "${FRONTEND_DIR[@]}"; do
-    fds-env/bin/python -c "import $name as mod; print(mod.__path__[0])"
-    pushd $(fds-env/bin/python -c "import $name as mod; print(mod.__path__[0])")
+    python -c "import $name as mod; print(mod.__path__[0])"
+    pushd $(python -c "import $name as mod; print(mod.__path__[0])")
     yarn link
     popd
   done
 
   echo "Installing frontend dependencies..."
   for name in "${FRONTEND_DIR[@]}"; do
-    pushd $(fds-env/bin/python -c "import $name as mod; print(mod.__path__[0])")/..
+    pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
     for dep in "${FRONTEND_DEPS[@]}"; do
       if [ "$name" != "$dep" ]; then
         yarn link $dep
