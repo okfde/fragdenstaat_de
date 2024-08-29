@@ -6,13 +6,13 @@ from cms.models import PageContent, PageUrl
 from cms.utils import get_current_site
 from djangocms_versioning.constants import PUBLISHED
 from djangocms_versioning.models import Version
-from fragdenstaat_de.fds_cms.utils import get_request, render_placeholder
 from sekizai.context import SekizaiContext
 
 from froide.helper.search.filters import BaseSearchFilterSet
 from froide.helper.search.views import BaseSearchView
 
 from .documents import CMSDocument
+from .utils import get_request, render_placeholder
 
 
 class CMSFilterset(BaseSearchFilterSet):
