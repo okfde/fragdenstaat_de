@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 # macOS's System Integrity Protection purges the environment variables controlling
 # `dyld` when launching protected processes (https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/RuntimeProtections/RuntimeProtections.html#//apple_ref/doc/uid/TP40016462-CH3-SW1)
@@ -61,27 +61,26 @@ install_precommit() {
   fi
 }
 
-setup() {
-
-  echo "You need python3 >= 3.8 and yarn installed."
+venv() {
+  echo "You need python >= 3.10, uv and yarn installed."
 
   python3 --version
   yarn --version
+  uv --version
 
   if [ ! -d fds-env ]; then
     if ask "Do you want to create a virtual environment using $(python3 --version)?" Y; then
-      echo "Creating virtual environment with Python: $(python3 --version)"
-      python3 -m venv fds-env
+      echo "Creating virtual environment with uv and $(python3 --version)"
+      uv venv fds-env
     fi
   fi
 
   if [ ! -d fds-env ]; then
     echo "Could not find virtual environment fds-env"
   fi
+}
 
-  echo "Activating virtual environment..."
-  source fds-env/bin/activate
-
+pull() {
   echo "Cloning / installing $MAIN"
 
   if [ ! -d $MAIN ]; then
@@ -91,12 +90,6 @@ setup() {
       git pull origin "$(git branch --show-current)"
     popd
   fi
-  pip install -U pip-tools
-  pip-sync $MAIN/requirements-dev.txt
-  pip install -e $MAIN
-  install_precommit "$MAIN"
-
-  echo "Cloning / installing all editable dependencies..."
 
   for name in "${REPOS[@]}"; do
     if [ ! -d $name ]; then
@@ -106,32 +99,41 @@ setup() {
         git pull origin "$(git branch --show-current)"
       popd
     fi
-    pip uninstall -y $name
-    pip install -e $name
+  done
+}
+
+dependencies() {
+  echo "Activating virtual environment..."
+  source fds-env/bin/activate
+
+  echo "Installing $MAIN..."
+
+  uv pip sync $MAIN/requirements-dev.txt
+  uv pip install -e $MAIN
+  install_precommit "$MAIN"
+
+  echo "Cloning / installing all editable dependencies..."
+
+  for name in "${REPOS[@]}"; do
+    uv pip uninstall $name
+    uv pip install -e $name
     install_precommit "$name"
   done
-
-  echo "Installing all frontend dependencies..."
-
-  frontend
-
-  fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de
-
-  echo "Done."
 }
 
 frontend() {
   echo "Linking frontend dependencies..."
 
   for name in "${FRONTEND_DIR[@]}"; do
-    pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
+    fds-env/bin/python -c "import $name as mod; print(mod.__path__[0])"
+    pushd $(fds-env/bin/python -c "import $name as mod; print(mod.__path__[0])")
     yarn link
     popd
   done
 
   echo "Installing frontend dependencies..."
   for name in "${FRONTEND_DIR[@]}"; do
-    pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
+    pushd $(fds-env/bin/python -c "import $name as mod; print(mod.__path__[0])")/..
     for dep in "${FRONTEND_DEPS[@]}"; do
       if [ "$name" != "$dep" ]; then
         yarn link $dep
@@ -147,6 +149,10 @@ frontend() {
   done
   yarn install
   popd
+}
+
+messages() {
+  fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de
 }
 
 forall() {
@@ -169,10 +175,20 @@ help() {
 }
 
 
-if [[ $1 =~ ^(forall)$ ]]; then
-  "$@"
-elif [[ $1 =~ ^(frontend)$ ]]; then
+if [ -z "$1" ]; then
+  venv
+  pull
+  dependencies
   frontend
-else
+  messages
   setup
+  
+  echo "Done!"
+else
+  if [[ $(type -t "$1") == function ]]; then
+    "$@"
+  else
+    help
+    exit 1
+  fi
 fi
