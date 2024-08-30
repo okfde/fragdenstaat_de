@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-29 11:46+0200\n"
+"POT-Creation-Date: 2024-08-30 22:29+0200\n"
 "PO-Revision-Date: 2024-08-29 10:21+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -1150,6 +1150,7 @@ msgid "Aliases"
 msgstr "Aliase"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/feedback.html
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -2441,6 +2442,10 @@ msgstr "Referenzmarker des Imports"
 msgid "Email addresses are confirmed"
 msgstr "E-Mail-Adressen wurden bestätigt"
 
+#: fragdenstaat_de/fds_newsletter/forms.py
+msgid "Anything else you want to tell us?"
+msgstr "Gibt es sonst etwas, dass Sie uns mitteilen möchten?"
+
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "newsletter title"
 msgstr "Newsletter-Titel"
@@ -2525,6 +2530,34 @@ msgstr "Konto mit der E-Mail-Adresse schon vorhanden."
 msgid "Email for this user already present."
 msgstr "E-Mail-Adresse für diesen Nutzer schon vorhanden."
 
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "I received too many emails"
+msgstr "Ich habe zu viele E-Mails erhalten"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "I expected more updates regarding certain campaings"
+msgstr "Ich habe mehr Updates zu spezifischen Kampagnen erwartet"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "I only signed up regarding a specific FOI request"
+msgstr "Ich wollte nur Updates zu einer bestimmten IFG-Anfrage erhalten"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "The topics are not interesting to me"
+msgstr "Ich finde die Themen nicht interessent"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "I don't like your work anymore"
+msgstr "Mir gefällt Ihre Arbeit nicht mehr"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "Other"
+msgstr "Sonstiges"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "Newsletter Unsubscribe Feedback"
+msgstr "Newsletter Kündigungs-Feedback"
+
 #: fragdenstaat_de/fds_newsletter/templates/admin/fds_newsletter/newsletter/change_form.html
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/admin/import_csv.html
 msgid "Import CSV"
@@ -2590,9 +2623,49 @@ msgstr "E-Mail"
 msgid "Subscribe"
 msgstr "Abonnieren"
 
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
+#, python-format
+msgid ""
+"\n"
+"        You successfully unsubscribed from %(newsletter)s.\n"
+"        "
+msgstr ""
+"\n"
+"        Sie haben Sich erfolgreich vom %(newsletter)s abgemeldet.\n"
+"        "
+
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
+msgid "We'd love to know why you chose to unsubscribe."
+msgstr "Wir wären dankbar, wenn Sie mit uns den Grund dafür teilen."
+
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/user_settings.html
 msgid "Update subscriptions"
 msgstr "Abos anpassen"
+
+#: fragdenstaat_de/fds_newsletter/urls.py
+msgid "<slug:newsletter_slug>/feedback/"
+msgstr "<slug:newsletter_slug>/feedback/"
+
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "You have received an email to confirm your subscription."
+msgstr "Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen."
+
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "Please correct the errors below."
+msgstr "Bitte korrigieren Sie die unten stehenden Fehler."
+
+#: fragdenstaat_de/fds_newsletter/views.py
+#, python-format
+msgid "You now receive the %s."
+msgstr "Sie erhalten den %s."
+
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "Thank you for your feedback!"
+msgstr "Vielen Dank für Ihr Feedback!"
+
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "Your newsletter subscriptions have been updated."
+msgstr "Ihre Newsletter-Abonnements wurden aktualisiert."
 
 #: fragdenstaat_de/fds_ogimage/apps.py
 msgid "FragDenStaat OG Image"
@@ -6105,9 +6178,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgid "Topic"
 #~ msgstr "Thema"
 
-#~ msgid "Other names"
-#~ msgstr "Andere Namen"
-
 #~ msgid "Classification"
 #~ msgstr "Klassifikation"
 
@@ -7068,3 +7138,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "By category"
 #~ msgstr "Nach Kategorie"
+
+#~ msgid "Other names"
+#~ msgstr "Andere Namen"
