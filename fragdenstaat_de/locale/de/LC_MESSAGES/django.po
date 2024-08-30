@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-29 11:46+0200\n"
+"POT-Creation-Date: 2024-08-30 22:29+0200\n"
 "PO-Revision-Date: 2024-08-29 10:21+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -580,9 +580,9 @@ msgid ""
 msgstr ""
 "\n"
 "                                Durchsuchen Sie unsere aktuellen oder "
-"verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a href="
-"\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-Feed</a> "
-"abonnieren.\n"
+"verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a "
+"href=\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-"
+"Feed</a> abonnieren.\n"
 "                            "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
@@ -1016,8 +1016,8 @@ msgid ""
 "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
 "\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr ""
-"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target="
-"\"_blank\">Font Awesome 4 Icon Liste</a>"
+"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
+"target=\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background image"
@@ -1150,6 +1150,7 @@ msgid "Aliases"
 msgstr "Aliase"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/feedback.html
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -2441,6 +2442,10 @@ msgstr "Referenzmarker des Imports"
 msgid "Email addresses are confirmed"
 msgstr "E-Mail-Adressen wurden bestätigt"
 
+#: fragdenstaat_de/fds_newsletter/forms.py
+msgid "Anything else you want to tell us?"
+msgstr ""
+
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "newsletter title"
 msgstr "Newsletter-Titel"
@@ -2525,6 +2530,38 @@ msgstr "Konto mit der E-Mail-Adresse schon vorhanden."
 msgid "Email for this user already present."
 msgstr "E-Mail-Adresse für diesen Nutzer schon vorhanden."
 
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "I received too many emails"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "I expected more updates regarding certain campaings"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "I only signed up regarding a specific FOI request"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "The topics are not interesting to me"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "I don't like your work anymore"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/models.py
+#, fuzzy
+#| msgid "Other names"
+msgid "Other"
+msgstr "Andere Namen"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+#, fuzzy
+#| msgid "newsletter subscriber"
+msgid "Newsletter Unsubscribe Feedback"
+msgstr "Newsletter-Abonennt:in"
+
 #: fragdenstaat_de/fds_newsletter/templates/admin/fds_newsletter/newsletter/change_form.html
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/admin/import_csv.html
 msgid "Import CSV"
@@ -2590,9 +2627,51 @@ msgstr "E-Mail"
 msgid "Subscribe"
 msgstr "Abonnieren"
 
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
+#, python-format
+msgid ""
+"\n"
+"        You successfully unsubscribed from %(newsletter)s.\n"
+"        "
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
+msgid "We'd love to know why you chose to unsubscribe."
+msgstr ""
+
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/user_settings.html
 msgid "Update subscriptions"
 msgstr "Abos anpassen"
+
+#: fragdenstaat_de/fds_newsletter/urls.py
+msgid "<slug:newsletter_slug>/feedback/"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "You have received an email to confirm your subscription."
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "Please correct the errors below."
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/views.py
+#, fuzzy, python-format
+#| msgid "donation received date"
+msgid "You now receive the %s."
+msgstr "Datum Spende erhalten"
+
+#: fragdenstaat_de/fds_newsletter/views.py
+#, fuzzy
+#| msgid "Thank you for your donation!"
+msgid "Thank you for your feedback!"
+msgstr "Vielen Dank für Ihre Spende!"
+
+#: fragdenstaat_de/fds_newsletter/views.py
+#, fuzzy
+#| msgid "Your donor info has been updated!"
+msgid "Your newsletter subscriptions have been updated."
+msgstr "Ihre Spender-Informationen wurden aktualisiert!"
 
 #: fragdenstaat_de/fds_ogimage/apps.py
 msgid "FragDenStaat OG Image"
@@ -3040,17 +3119,14 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
-#: fragdenstaat_de/fds_blog/redirect_urls.py
-msgid "^search/$"
-msgstr "^suche/$"
+#~ msgid "^search/$"
+#~ msgstr "^suche/$"
 
-#: fragdenstaat_de/fds_blog/redirect_urls.py
-msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
-msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
+#~ msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
+#~ msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
 
-#: fragdenstaat_de/fds_blog/redirect_urls.py
-msgid "^category/(?P<slug>[\\w\\.@+-]+)/$"
-msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
+#~ msgid "^category/(?P<slug>[\\w\\.@+-]+)/$"
+#~ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "Apply"
 #~ msgstr "Übernehmen"
@@ -3223,11 +3299,11 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgstr "Hilfebereich: FragDenStaat und Informationsfreiheit"
 
 #~ msgid ""
-#~ "Support area: FragDenStaat and <abbr title=\"Freedom of Information"
-#~ "\">FOI</abbr>"
+#~ "Support area: FragDenStaat and <abbr title=\"Freedom of "
+#~ "Information\">FOI</abbr>"
 #~ msgstr ""
-#~ "Hilfebereich: FragDenStaat und <abbr title=\"Informationsfreiheitsgesetz"
-#~ "\">IFG</abbr>"
+#~ "Hilfebereich: FragDenStaat und <abbr "
+#~ "title=\"Informationsfreiheitsgesetz\">IFG</abbr>"
 
 #~ msgid "Toggle chapter navigation"
 #~ msgstr "Kapitel-Navigation umschalten"
@@ -3338,8 +3414,8 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgstr "Stellen Sie jetzt eine Anfrage!"
 
 #~ msgid ""
-#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn.org"
-#~ "\">the Open Knowledge Foundation</a>. If you want to support Froide, "
+#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn."
+#~ "org\">the Open Knowledge Foundation</a>. If you want to support Froide, "
 #~ "please visit the <a href=\"%(url)s\">repository on GitHub</a>."
 #~ msgstr ""
 #~ "Über FragDenStaat.de können Sie Behörden in Deutschland nach "
@@ -3457,19 +3533,20 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid ""
 #~ "You agree to our <a href=\"%(url_terms)s\" class=\"target-new\">Terms and "
-#~ "Conditions</a> and <a href=\"%(url_privacy)s\" class=\"target-new"
-#~ "\">Privacy Statement</a>"
+#~ "Conditions</a> and <a href=\"%(url_privacy)s\" class=\"target-"
+#~ "new\">Privacy Statement</a>"
 #~ msgstr ""
-#~ "Sie stimmen unseren <a href=\"%(url_terms)s\" class=\"target-new"
-#~ "\">Nutzungsbedingungen</a> und <a href=\"%(url_privacy)s\" class=\"target-"
-#~ "new\">Datenschutzbedingungen</a> zu."
+#~ "Sie stimmen unseren <a href=\"%(url_terms)s\" class=\"target-"
+#~ "new\">Nutzungsbedingungen</a> und <a href=\"%(url_privacy)s\" "
+#~ "class=\"target-new\">Datenschutzbedingungen</a> zu."
 
 #~ msgid ""
-#~ "This email address already has an account. <a href=\"%s?simple\" class="
-#~ "\"target-small\">Please login using that email address.</a>"
+#~ "This email address already has an account. <a href=\"%s?simple\" "
+#~ "class=\"target-small\">Please login using that email address.</a>"
 #~ msgstr ""
-#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" class="
-#~ "\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein.</a>"
+#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" "
+#~ "class=\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein."
+#~ "</a>"
 
 #~ msgid ""
 #~ "This email address is already registered, but not yet confirmed! Please "
@@ -5428,17 +5505,17 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ "status."
 #~ msgstr ""
 #~ "Diese Anfrage hat eine Antwort erhalten und ist in einem unbekannten "
-#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a href="
-#~ "\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
+#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a "
+#~ "href=\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
 #~ "Status."
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, please read the latest response and <a href=\"#set-"
 #~ "status\" data-tabgo=\"tab\">set a new status for this request</a>!"
 #~ msgstr ""
-#~ "<b>Hallo %(name)s</b>, bitte lesen Sie die letzte Antwort und <a href="
-#~ "\"#set-status\" data-tabgo=\"tab\">geben Sie einen neuen Status für diese "
-#~ "Anfrage an!</a>"
+#~ "<b>Hallo %(name)s</b>, bitte lesen Sie die letzte Antwort und <a "
+#~ "href=\"#set-status\" data-tabgo=\"tab\">geben Sie einen neuen Status für "
+#~ "diese Anfrage an!</a>"
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, your request is <b>overdue</b>!<br/>\n"
@@ -5449,19 +5526,19 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ " Bitte handeln Sie jetzt:"
 
 #~ msgid ""
-#~ "Have you received a reply by <b>postal mail</b>? &rarr; <a data-tabgo="
-#~ "\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
+#~ "Have you received a reply by <b>postal mail</b>? &rarr; <a data-"
+#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
 #~ msgstr ""
-#~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-tabgo="
-#~ "\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort unbedingt "
-#~ "hinzu!</a>"
+#~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-"
+#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort "
+#~ "unbedingt hinzu!</a>"
 
 #~ msgid ""
 #~ "Have you not gotten any reply? &rarr; <a data-tabgo=\"tab\" href=\"#write-"
 #~ "message\">Write a reminder to the public body!</a>"
 #~ msgstr ""
-#~ "Haben Sie keine Antwort erhalten? &rarr; <a data-tabgo=\"tab\" href="
-#~ "\"#write-message\">Fragen Sie bei der Behörde nach!</a>"
+#~ "Haben Sie keine Antwort erhalten? &rarr; <a data-tabgo=\"tab\" "
+#~ "href=\"#write-message\">Fragen Sie bei der Behörde nach!</a>"
 
 #~ msgid "You request has been refused."
 #~ msgstr "Ihre Anfrage wurde abgelehnt."
@@ -5874,13 +5951,13 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgstr "Sie können auf diese Anfrage nicht zugreifen!"
 
 #~ msgid ""
-#~ "This email address already has an account. <a href=\"%s?simple\" class="
-#~ "\"target-small\">Please login using that email address in order to follow "
-#~ "this account.</a>"
+#~ "This email address already has an account. <a href=\"%s?simple\" "
+#~ "class=\"target-small\">Please login using that email address in order to "
+#~ "follow this account.</a>"
 #~ msgstr ""
-#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" class="
-#~ "\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein um "
-#~ "Benachrichtigungen zu erhalten.</a>"
+#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" "
+#~ "class=\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein "
+#~ "um Benachrichtigungen zu erhalten.</a>"
 
 #~ msgid "You cannot follow your own requests."
 #~ msgstr "Sie erhalten schon Benachrichtigungen für Ihre Anfragen."
@@ -6104,9 +6181,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "Topic"
 #~ msgstr "Thema"
-
-#~ msgid "Other names"
-#~ msgstr "Andere Namen"
 
 #~ msgid "Classification"
 #~ msgstr "Klassifikation"
@@ -6610,9 +6684,10 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ "Freedom of Information requests</a> to get a feeling for what Freedom of "
 #~ "Information is all about."
 #~ msgstr ""
-#~ "Sie können sich zum Beispiel die <a href=\"%(foirequests_url)s"
-#~ "\">existierende Informations&shy;freiheits&shy;anfragen</a> ansehen, um "
-#~ "zu verstehen wie Informations&shy;freiheit funktioniert."
+#~ "Sie können sich zum Beispiel die <a "
+#~ "href=\"%(foirequests_url)s\">existierende Informations&shy;freiheits&shy;"
+#~ "anfragen</a> ansehen, um zu verstehen wie Informations&shy;freiheit "
+#~ "funktioniert."
 
 #~ msgid "Write to them here"
 #~ msgstr "Schreiben Sie hier an sie"
@@ -6640,8 +6715,8 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgstr ""
 #~ "Wenn Sie sich einloggen, können Sie mit einem Klick eine identische "
 #~ "Anfrage in Ihrem Namen stellen, um Zugang zu diesen Dokumenten zu "
-#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?next="
-#~ "%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
+#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?"
+#~ "next=%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
 
 #~ msgid "No Public Bodies found in this jurisdiction for this query."
 #~ msgstr "Es wurden keine Behörden mit diesem Zuständigkeitsbereich gefunden."
@@ -6895,8 +6970,8 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ "You agree to our <a href=\"%(url)s\" class=\"target-new\">Privacy "
 #~ "Statement</a>"
 #~ msgstr ""
-#~ "Sie stimmen unserer <a href=\"%(url)s\" class=\"target-new"
-#~ "\">Datenschutzerklärung</a> zu"
+#~ "Sie stimmen unserer <a href=\"%(url)s\" class=\"target-"
+#~ "new\">Datenschutzerklärung</a> zu"
 
 #~ msgid ""
 #~ "This request will be public\n"
