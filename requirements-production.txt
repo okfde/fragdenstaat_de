@@ -6,8 +6,6 @@
 #
 -e git+https://github.com/okfde/django-amenities.git@main#egg=django-amenities
     # via -r requirements.in
--e git+https://github.com/stefanw/django-contractor.git@main#egg=django-contractor
-    # via -r requirements.in
 -e git+https://github.com/okfde/django-filingcabinet.git@main#egg=django-filingcabinet
     # via
     #   -r requirements.in
@@ -93,7 +91,6 @@ celery==5.4.0
     #   -r requirements.in
     #   django-celery-beat
     #   django-celery-email
-    #   django-contractor
     #   django-filingcabinet
     #   froide
 certifi==2023.7.22
@@ -169,7 +166,6 @@ django==4.2.14
     #   django-classy-tags
     #   django-cms
     #   django-configurations
-    #   django-contractor
     #   django-contrib-comments
     #   django-crossdomainmedia
     #   django-entangled
@@ -238,7 +234,7 @@ django-configurations==2.5.1
     # via
     #   -r requirements.in
     #   froide
-django-contractor @ git+https://github.com/stefanw/django-contractor.git@8785089edd6d7acbe2773a892979b783c00eaf00#egg=django-contractor
+django-contractor==0.0.8
     # via -r requirements.in
 django-contrib-comments==2.2.0
     # via -r requirements.in
@@ -485,7 +481,6 @@ lxml[html_clean]==5.2.2
     # via
     #   -r requirements.in
     #   django-amenities
-    #   django-contractor
     #   feedgen
     #   html-text
     #   lxml-html-clean
@@ -651,7 +646,6 @@ requests==2.31.0
     # via
     #   -r requirements.in
     #   coreapi
-    #   django-contractor
     #   django-oauth-toolkit
     #   django-payments
     #   froide
