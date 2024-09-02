@@ -1,4 +1,5 @@
-include README.md LICENSE.txt
+include README.md LICENSE.txt package.json
 recursive-include fragdenstaat_de/templates *
 recursive-include fragdenstaat_de/static *
 recursive-include fragdenstaat_de/locale *.po
+recursive-include frontend *
