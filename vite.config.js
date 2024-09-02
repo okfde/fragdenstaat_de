@@ -3,9 +3,15 @@ import { defineConfig } from 'vite'
 import devManifest from 'vite-plugin-dev-manifest'
 import autoprefixer from 'autoprefixer'
 import vue from '@vitejs/plugin-vue'
+import * as url from 'url'
 
-// eslint-disable-next-line no-undef
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const outputDir = resolve(__dirname, 'build')
+
+// helper function to resolve scripts from froide projects
+// (froide_campaign, list.js) => node_modules/froide_campaign/frontend/javascript/list.js
+const r = (project, file) =>
+  resolve(__dirname, 'node_modules', project, 'frontend', 'javascript', file)
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,7 +20,6 @@ export default defineConfig({
   publicDir: false,
   resolve: {
     alias: {
-      // eslint-disable-next-line no-undef
       '~froide': resolve(__dirname, 'node_modules/froide')
     },
     dedupe: ['bootstrap', 'vue', 'pdfjs-dist'],
@@ -29,40 +34,31 @@ export default defineConfig({
       input: {
         audio_player: './frontend/javascript/audio-player.ts',
         bookpub: './frontend/javascript/bookpub.js',
-        campaign_list:
-          'node_modules/froide_campaign/frontend/javascript/list.js',
-        campaign_map: 'node_modules/froide_campaign/frontend/javascript/map.js',
-        campaign_questionaire:
-          'node_modules/froide_campaign/frontend/javascript/questionaire.js',
-        document: 'node_modules/froide/frontend/javascript/document.js',
-        docupload: 'node_modules/froide/frontend/javascript/docupload.js',
-        exam_curriculum:
-          'node_modules/froide_exam/frontend/javascript/curriculum.js',
+        campaign_list: r('froide_campaign', 'list.js'),
+        campaign_map: r('froide_campaign', 'map.js'),
+        campaign_questionaire: r('froide_campaign', 'questionaire.js'),
+        document: r('froide', 'document.js'),
+        docupload: r('froide', 'docupload.js'),
+        exam_curriculum: r('froide_exam', 'curriculum.js'),
         fds_cms: './frontend/javascript/fds_cms.js',
-        fileuploader: 'node_modules/froide/frontend/javascript/fileuploader.js',
-        filingcabinet:
-          'node_modules/@okfde/filingcabinet/frontend/javascript/filingcabinet.js',
-        food: 'node_modules/froide_food/frontend/javascript/food.js',
-        foodreport: 'node_modules/froide_food/frontend/javascript/report.js',
-        geomatch: 'node_modules/froide/frontend/javascript/geomatch.js',
-        lawsuits_table:
-          'node_modules/froide_legalaction/frontend/javascript/table.js',
-        legal_decisions_listfilter:
-          'node_modules/froide_legalaction/frontend/javascript/listFilter.js',
+        fileuploader: r('froide', 'fileuploader.js'),
+        filingcabinet: r('@okfde/filingcabinet', 'filingcabinet.js'),
+        food: r('froide_food', 'food.js'),
+        foodreport: r('froide_food', 'report.js'),
+        geomatch: r('froide', 'geomatch.js'),
+        lawsuits_table: r('froide_legalaction', 'table.js'),
+        legal_decisions_listfilter: r('froide_legalaction', 'listFilter.js'),
         main: './frontend/javascript/main.ts',
-        makerequest: 'node_modules/froide/frontend/javascript/makerequest.js',
-        messageredaction:
-          'node_modules/froide/frontend/javascript/messageredaction.js',
-        moderation: 'node_modules/froide/frontend/javascript/moderation.js',
-        payment: 'node_modules/froide_payment/frontend/javascript/payment.ts',
-        proofupload: 'node_modules/froide/frontend/javascript/proofupload.js',
-        publicbody: 'node_modules/froide/frontend/javascript/publicbody.js',
-        publicbodyupload:
-          'node_modules/froide/frontend/javascript/publicbodyupload.js',
-        redact: 'node_modules/froide/frontend/javascript/redact.js',
-        request: 'node_modules/froide/frontend/javascript/request.ts',
-        tagautocomplete:
-          'node_modules/froide/frontend/javascript/tagautocomplete.ts',
+        makerequest: r('froide', 'makerequest.js'),
+        messageredaction: r('froide', 'messageredaction.js'),
+        moderation: r('froide', 'moderation.js'),
+        payment: r('froide_payment', 'payment.ts'),
+        proofupload: r('froide', 'proofupload.js'),
+        publicbody: r('froide', 'publicbody.js'),
+        publicbodyupload: r('froide', 'publicbodyupload.js'),
+        redact: r('froide', 'redact.js'),
+        request: r('froide', 'request.ts'),
+        tagautocomplete: r('froide', 'tagautocomplete.ts'),
         vegacharts: './frontend/javascript/vegacharts.js'
       },
       output: {
