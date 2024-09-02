@@ -307,12 +307,14 @@ function setupAmountGroup(amountGroup: Element): void {
       button.addEventListener('click', () => {
         const value = button.dataset.value ?? ''
         input.value = value
+        amountChanged(input)
 
         updateButtons()
       })
     })
 
     input.addEventListener('change', updateButtons)
+    input.addEventListener('input', () => amountChanged(input))
   }
 }
 
