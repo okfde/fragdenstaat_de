@@ -76,7 +76,6 @@ WeasyPrint
 webp
 websockets
 
-git+https://github.com/okfde/django-amenities.git@main#egg=django-amenities
 git+https://github.com/okfde/froide.git@main#egg=froide
 git+https://github.com/okfde/froide-campaign.git@main#egg=froide-campaign
 git+https://github.com/okfde/froide-food.git@main#egg=froide-food
