@@ -7,26 +7,18 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v9.7.0
+    rev: v9.9.1
     hooks:
       - id: eslint
         files: \.(js|ts|vue)?$
         types: [file]
+        args: [--no-warn-ignored]
+        entry: npx eslint
         additional_dependencies:
-          - eslint@8
-          - eslint-config-standard-with-typescript
-          - eslint-plugin-html
-          - eslint-plugin-import
-          - eslint-plugin-n
-          - eslint-plugin-promise
-          - eslint-plugin-vue
-          - prettier
-          - eslint-plugin-prettier
-          - eslint-config-standard
+          - okfde/eslint-config-froide
+
   - repo: https://github.com/Riverside-Healthcare/djLint
     rev: v1.34.1
     hooks:
       - id: djlint-reformat-django
       - id: djlint-django
-
-exclude: .eslintrc.js
