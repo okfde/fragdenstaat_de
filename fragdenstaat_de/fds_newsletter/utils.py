@@ -233,9 +233,7 @@ def check_csv_format(csv_data):
 
 def import_csv(csv_file, newsletter, reference="", email_confirmed=False):
     reader = csv.DictReader(csv_file)
-
     csv_format = check_csv_format(reader)
-    print(csv_format)
 
     for row in reader:
         email = row[csv_format["email"]]
