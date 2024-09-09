@@ -18,7 +18,7 @@ FragDenStaat.de is a Django project that uses the core `froide` project and othe
 You need to have installed:
 
 - Python 3.10+
-- yarn
+- pnpm
 - GDAL for Django's GeoDjango
 - freetype and imagemagick
 - postgresql bindings
@@ -106,7 +106,7 @@ python manage.py runserver
 
 ```bash
 cd fragdenstaat_de
-yarn run dev
+pnpm run dev
 ```
 
 ### Upgrade dependencies
