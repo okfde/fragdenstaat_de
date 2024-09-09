@@ -52,7 +52,9 @@ jobs:
       - name: Compile translations
         run: python manage.py compilemessages
       - name: Run tests
-        run: make testci
+        run: |
+          coverage run --branch -m pytest --reuse-db
+          coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
         env:
           DATABASE_URL: postgis://postgres:postgres@localhost/fragdenstaat_de
       - name: Minimize uv cache
