@@ -56,7 +56,7 @@ jobs:
           uv pip install -r requirements-dev.txt
           playwright install --with-deps chromium
           uv pip install -e .
-          bash devsetup.sh frontend
+          pnpm install
       - name: Build frontend
         run: pnpm run build
       - name: Compile translations
