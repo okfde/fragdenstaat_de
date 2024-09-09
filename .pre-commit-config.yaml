@@ -22,3 +22,13 @@ repos:
         entry: npx eslint
         additional_dependencies:
           - okfde/eslint-config-froide
+
+  - repo: local
+    hooks:
+      - id: ensure-consistent-dependencies
+        name: Ensure consistent dependencies (pnpm/requirements.txt)
+        language: python
+        entry: scripts/ensure_consistent_dependencies.py
+        additional_dependencies:
+          - pyyaml
+          - requirements-parser
