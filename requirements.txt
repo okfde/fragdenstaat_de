@@ -68,8 +68,6 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.3.0
     # via celery
-contractor @ git+https://github.com/stefanw/django-contractor.git@19aabc3fd48eb1575bc1befbc98cacd983005944#egg=django-contractor
-    # via -r requirements.in
 coreapi==2.3.3
     # via -r requirements.in
 coreschema==0.0.4
@@ -101,7 +99,6 @@ django==4.2.14
     #   channels
     #   dj-database-url
     #   django-admin-sortable2
-    #   django-amenities
     #   django-appconf
     #   django-celery-beat
     #   django-celery-email
@@ -148,8 +145,6 @@ django-admin-sortable2==2.2.1
     #   -r requirements.in
     #   froide-campaign
     #   froide-govplan
-django-amenities @ git+https://github.com/okfde/django-amenities.git@c351c2d571dcf81912502919016aeba325a1605a#egg=django-amenities
-    # via -r requirements.in
 django-appconf==1.0.6
     # via django-celery-email
 django-celery-beat==2.6.0
@@ -180,7 +175,7 @@ django-configurations==2.5.1
     # via
     #   -r requirements.in
     #   froide
-django-contractor==0.0.8
+django-contractor @ git+https://github.com/stefanw/django-contractor.git@92947c51ba23da365449f644ffa7cfc0ca433d70#egg=django-contractor
     # via -r requirements.in
 django-contrib-comments==2.2.0
     # via -r requirements.in
@@ -369,7 +364,7 @@ filelock==3.15.4
     # via torch
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@a37750e602571b09811a5053a40986239363374a#egg=froide
+froide @ git+https://github.com/okfde/froide.git@0c3aa35fa6e09619211c09919ca453e6a1f4e23f#egg=froide
     # via
     #   -r requirements.in
     #   froide-campaign
@@ -406,9 +401,7 @@ fsspec==2024.6.1
 future==1.0.0
     # via geocoder
 geocoder==1.38.1
-    # via
-    #   django-amenities
-    #   froide-food
+    # via froide-food
 geographiclib==2.0
     # via geopy
 geoip2==4.8.0
@@ -416,9 +409,7 @@ geoip2==4.8.0
     #   -r requirements.in
     #   froide
 geopy==2.4.1
-    # via
-    #   django-amenities
-    #   froide-food
+    # via froide-food
 html-text==0.6.2
     # via -r requirements.in
 html5lib==1.1
@@ -457,7 +448,6 @@ kombu==5.3.7
 lxml==5.2.2
     # via
     #   -r requirements.in
-    #   django-amenities
     #   feedgen
     #   html-text
     #   lxml-html-clean

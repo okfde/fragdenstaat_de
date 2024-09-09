@@ -1,1 +1,2 @@
-export { default } from '@okfde/eslint-config-froide'
+import config from '@okfde/eslint-config-froide'
+export default config

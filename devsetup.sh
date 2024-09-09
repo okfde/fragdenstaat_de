@@ -11,9 +11,9 @@ fi
 
 MAIN=fragdenstaat_de
 REPOS=("froide" "froide-campaign" "froide-legalaction" "froide-food" "froide-payment" "froide-crowdfunding" "froide-govplan" "froide-fax" "froide-exam" "django-filingcabinet")
-FRONTEND_DIR=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "froide_legalaction" "filingcabinet")
 FRONTEND=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "froide_legalaction" "@okfde/filingcabinet")
-FRONTEND_DEPS=("froide" "@okfde/filingcabinet")
+FRONTEND_DIR=("froide" "froide-food" "froide-exam" "froide-campaign" "froide-payment" "froide-legalaction" "django-filingcabinet")
+FROIDE_PEERS=("froide-campaign" "froide-food") # these have peer-dependencies on froide
 
 ask() {
     # https://djm.me/ask
@@ -62,10 +62,10 @@ install_precommit() {
 }
 
 venv() {
-  echo "You need python >= 3.10, uv and yarn installed."
+  echo "You need python >= 3.10, uv and pnpm installed."
 
   python3 --version
-  yarn --version
+  pnpm --version
   uv --version
 
   if [ ! -d fds-env ]; then
@@ -121,33 +121,37 @@ dependencies() {
 }
 
 frontend() {
-  echo "Linking frontend dependencies..."
+  echo "Installing frontend dependencies..."
 
+  # we need to link globally since local linking adjusts the lockfile
   for name in "${FRONTEND_DIR[@]}"; do
-    python -c "import $name as mod; print(mod.__path__[0])"
-    pushd $(python -c "import $name as mod; print(mod.__path__[0])")
-    yarn link
+    pushd $name
+    pnpm link --global
     popd
   done
 
-  echo "Installing frontend dependencies..."
+  for name in "${FROIDE_PEERS[@]}"; do
+    pushd $name
+    pnpm link --global "froide"
+    popd
+  done
+
   for name in "${FRONTEND_DIR[@]}"; do
-    pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
-    for dep in "${FRONTEND_DEPS[@]}"; do
-      if [ "$name" != "$dep" ]; then
-        yarn link $dep
-      fi
-    done
-    yarn install
+    pushd $name
+    pnpm install
     popd
   done
 
   pushd $MAIN
   for name in "${FRONTEND[@]}"; do
-    yarn link $name
+    pnpm link --global "$name"
   done
-  yarn install
+  pnpm install
   popd
+}
+
+upgrade_frontend_repos() {
+  pnpm upgrade "'${FRONTEND[*]}'"
 }
 
 messages() {

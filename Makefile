@@ -15,5 +15,10 @@ requirements: requirements.in requirements-dev.in requirements-production.in
 	uv pip compile requirements-dev.in -o requirements-dev.txt
 	uv pip compile requirements-production.in -o requirements-production.txt
 
+dependencies:
+	./devsetup.sh upgrade_frontend_repos
+
+sync_frontend_deps: requirements dependencies
+
 messagesde:
 	python manage.py makemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file
