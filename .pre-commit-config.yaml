@@ -12,16 +12,14 @@ repos:
       - id: djlint-reformat-django
       - id: djlint-django
 
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v9.9.1
+  - repo: local
     hooks:
       - id: eslint
+        name: eslint
+        language: node
         files: \.(js|ts|vue)?$
-        types: [file]
+        entry: pnpx eslint
         args: [--no-warn-ignored]
-        entry: npx eslint
-        additional_dependencies:
-          - okfde/eslint-config-froide
 
   - repo: local
     hooks:
