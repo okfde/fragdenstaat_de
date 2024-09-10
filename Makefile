@@ -10,10 +10,10 @@ testci:
 	coverage run --branch -m pytest --reuse-db
 	coverage report
 
-requirements: requirements.in requirements-dev.in requirements-production.in
-	uv pip compile requirements.in -o requirements.txt
-	uv pip compile requirements-dev.in -o requirements-dev.txt
-	uv pip compile requirements-production.in -o requirements-production.txt
+requirements: pyproject.toml
+	uv pip compile -o requirements.txt pyproject.toml
+	uv pip compile -o requirements-dev.txt --extra dev pyproject.toml
+	uv pip compile -o requirements-production.txt --extra production pyproject.toml
 
 dependencies:
 	./devsetup.sh upgrade_frontend_repos
