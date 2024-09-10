@@ -1,7 +1,0 @@
--r requirements.in
-gunicorn
-pymemcache
-channels_redis
-uvicorn
-sentry-sdk
-pillow-avif-plugin

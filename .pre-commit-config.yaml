@@ -29,4 +29,3 @@ repos:
         entry: scripts/ensure_consistent_dependencies.py
         additional_dependencies:
           - pyyaml
-          - requirements-parser
