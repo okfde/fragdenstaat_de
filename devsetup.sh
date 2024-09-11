@@ -107,15 +107,13 @@ pull() {
 dependencies() {
   echo "Installing $MAIN..."
 
-  uv pip sync $MAIN/requirements-dev.txt
-  uv pip install -e $MAIN
+  uv pip install -r $MAIN/requirements-dev.txt
   install_precommit "$MAIN"
 
   echo "Cloning / installing all editable dependencies..."
 
   for name in "${REPOS[@]}"; do
-    uv pip uninstall $name
-    uv pip install -e $name
+    uv pip install -e "./$name"
     install_precommit "$name"
   done
 }
