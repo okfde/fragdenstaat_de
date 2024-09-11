@@ -178,7 +178,7 @@ django = ["django"]
 froide = ["froide"]
 
 [tool.coverage.run]
-source = "fragdenstaat_de"
+source = ["fragdenstaat_de"]
 omit = ["*/migrations/*", "*/wsgi.py", "*/asgi.py"]
 plugins = ["django_coverage_plugin"]
 branch = true
