@@ -40,6 +40,8 @@ bleach==6.1.0
     #   froide-govplan
 brotli==1.1.0
     # via fonttools
+cachetools==5.5.0
+    # via google-auth
 celery==5.4.0
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -445,6 +447,24 @@ geopy==2.4.1
     # via
     #   django-amenities
     #   froide-food
+google-api-core==2.20.0
+    # via google-api-python-client
+google-api-python-client==2.146.0
+    # via froide-evidencecollection
+google-auth==2.35.0
+    # via
+    #   google-api-core
+    #   google-api-python-client
+    #   google-auth-httplib2
+    #   google-auth-oauthlib
+google-auth-httplib2==0.2.0
+    # via
+    #   froide-evidencecollection
+    #   google-api-python-client
+google-auth-oauthlib==1.2.1
+    # via froide-evidencecollection
+googleapis-common-protos==1.65.0
+    # via google-api-core
 gunicorn==23.0.0
     # via fragdenstaat-de (pyproject.toml)
 h11==0.14.0
@@ -457,6 +477,10 @@ html5lib==1.1
     #   weasyprint
 htmldocx==0.0.6
     # via django-legal-advice-builder
+httplib2==0.22.0
+    # via
+    #   google-api-python-client
+    #   google-auth-httplib2
 icalendar==5.0.13
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -527,7 +551,9 @@ numpy==2.1.1
     #   torchvision
     #   webp
 oauthlib==3.2.2
-    # via django-oauth-toolkit
+    # via
+    #   django-oauth-toolkit
+    #   requests-oauthlib
 openpyxl==3.1.5
     # via fragdenstaat-de (pyproject.toml)
 packaging==24.1
@@ -572,6 +598,13 @@ prices==1.1.1
     #   froide-payment
 prompt-toolkit==3.0.47
     # via click-repl
+proto-plus==1.24.0
+    # via google-api-core
+protobuf==5.28.2
+    # via
+    #   google-api-core
+    #   googleapis-common-protos
+    #   proto-plus
 psycopg==3.2.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -580,7 +613,12 @@ psycopg==3.2.1
 psycopg-binary==3.2.1
     # via psycopg
 pyasn1==0.6.0
-    # via pgpy
+    # via
+    #   pgpy
+    #   pyasn1-modules
+    #   rsa
+pyasn1-modules==0.4.1
+    # via google-auth
 pycparser==2.22
     # via cffi
 pycryptodome==3.20.0
@@ -603,6 +641,8 @@ pyopenssl==24.2.1
     # via fragdenstaat-de (pyproject.toml)
 pyotp==2.9.0
     # via django-mfa3
+pyparsing==3.1.4
+    # via httplib2
 pypdf==4.3.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -674,11 +714,17 @@ requests==2.32.3
     #   froide-payment
     #   geocoder
     #   geoip2
+    #   google-api-core
+    #   requests-oauthlib
     #   stripe
+requests-oauthlib==2.0.0
+    # via google-auth-oauthlib
 rpds-py==0.20.0
     # via
     #   jsonschema
     #   referencing
+rsa==4.9
+    # via google-auth
 sentry-sdk==2.14.0
     # via fragdenstaat-de (pyproject.toml)
 setuptools==74.1.2
@@ -743,6 +789,7 @@ uritemplate==4.1.1
     # via
     #   coreapi
     #   drf-spectacular
+    #   google-api-python-client
 urllib3==2.2.2
     # via
     #   elastic-transport
