@@ -153,7 +153,7 @@ upgrade_frontend_repos() {
 }
 
 messages() {
-  fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de
+  fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de -i node_modules
 }
 
 forall() {
@@ -182,7 +182,6 @@ if [ -z "$1" ]; then
   dependencies
   frontend
   messages
-  setup
   
   echo "Done!"
 else
