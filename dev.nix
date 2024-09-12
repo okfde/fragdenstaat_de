@@ -53,6 +53,7 @@ pkgs.mkShell {
     pythonPackages.magic
     # pythonPackages.ocrmypdf
     pythonPackages.weasyprint
+    pnpm
 
     pkg-config
     geos
