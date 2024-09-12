@@ -4,6 +4,8 @@ from django.contrib.sitemaps import views as sitemaps_views
 from django.urls import include, path
 from django.utils.translation import pgettext_lazy
 
+import froide_evidencecollection.urls  # noqa
+import froide_food.urls  # noqa
 from fcdocs_annotate.annotation.api import FeatureViewSet
 from froide_campaign import urls as campaign_urls
 from froide_govplan.admin import govplan_admin_site

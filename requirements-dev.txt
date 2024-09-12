@@ -18,9 +18,7 @@ asgiref==3.8.1
     #   django
     #   django-countries
 async-timeout==4.0.3
-    # via
-    #   fragdenstaat-de (pyproject.toml)
-    #   aiohttp
+    # via fragdenstaat-de (pyproject.toml)
 attrs==24.2.0
     # via
     #   aiohttp
@@ -213,6 +211,7 @@ django-cms==4.1.2
     #   djangocms-transfer
     #   djangocms-versioning
     #   djangocms-video
+    #   froide-evidencecollection
     #   froide-govplan
     #   sortabletable
 django-configurations==2.5.1
@@ -418,8 +417,6 @@ enmerkar==0.7.1
     # via django-prices
 et-xmlfile==1.1.0
     # via openpyxl
-exceptiongroup==1.2.2
-    # via pytest
 factory-boy==3.3.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -447,6 +444,8 @@ froide @ git+https://github.com/okfde/froide.git@0b41475c3445ca68c5950831770bb45
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@55a8a36a2ec9862dc160c1f89ed8250229cf55b2
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@dafeaab42b60563a465e044fa63a31183890299a
+    # via fragdenstaat-de (pyproject.toml)
+froide-evidencecollection @ git+ssh://git@github.com/okfde/froide-evidencecollection.git@aef3f139fcd5cf8f044bb19632bea8cc1ca39282
     # via fragdenstaat-de (pyproject.toml)
 froide-exam @ git+https://github.com/okfde/froide-exam.git@170951539a16b1186621923b84906966d3557a6d
     # via fragdenstaat-de (pyproject.toml)
@@ -612,6 +611,8 @@ pandas==2.2.2
     # via fragdenstaat-de (pyproject.toml)
 parso==0.8.4
     # via jedi
+pathlib2==2.3.7.post1
+    # via pickleshare
 pathspec==0.12.1
     # via djlint
 pbr==6.1.0
@@ -810,6 +811,7 @@ setuptools==74.1.2
     #   django-cms
     #   geoip2
     #   ipython
+    #   torch
 six==1.16.0
     # via
     #   bleach
@@ -818,6 +820,7 @@ six==1.16.0
     #   geocoder
     #   html5lib
     #   jsbeautifier
+    #   pathlib2
     #   python-dateutil
 snowballstemmer==2.2.0
     # via sphinx
@@ -862,12 +865,6 @@ tinycss2==1.3.0
     #   cssselect2
     #   svglib
     #   weasyprint
-tomli==2.0.1
-    # via
-    #   djlint
-    #   ipdb
-    #   pytest
-    #   sphinx
 torch==2.4.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -882,15 +879,12 @@ traitlets==5.14.3
     #   matplotlib-inline
 typing-extensions==4.12.2
     # via
-    #   asgiref
     #   dj-database-url
     #   django-countries
     #   elasticsearch-dsl
     #   jwcrypto
-    #   multidict
     #   psycopg
     #   pyee
-    #   pypdf
     #   pytest-factoryboy
     #   python-docx
     #   torch
