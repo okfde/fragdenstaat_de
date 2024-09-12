@@ -1,7 +1,7 @@
 with import <nixpkgs> { };
 let
   dontCheckPython = drv: drv.overridePythonAttrs (old: { doCheck = false; });
-  pythonPackages = python310Packages;
+  pythonPackages = python312Packages;
 
   harfbuzz_self = harfbuzz.override { withCoreText = true; };
   ld_packages = [
@@ -45,13 +45,13 @@ pkgs.mkShell {
     export MAGICK_HOME="${imagemagick}"
   '';
   buildInputs = [
+    uv
     pythonPackages.python
     gdal
     pythonPackages.gdal
     pythonPackages.tkinter
-    pythonPackages.keras
     pythonPackages.magic
-    pythonPackages.ocrmypdf
+    # pythonPackages.ocrmypdf
     pythonPackages.weasyprint
 
     pkg-config
