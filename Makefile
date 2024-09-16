@@ -10,15 +10,15 @@ testci:
 	coverage run --branch -m pytest --reuse-db
 	coverage report
 
-requirements: pyproject.toml
+backend_dependencies: pyproject.toml
 	uv pip compile -o requirements.txt pyproject.toml
 	uv pip compile -o requirements-dev.txt --extra dev pyproject.toml
 	uv pip compile -o requirements-production.txt --extra production pyproject.toml
 
-dependencies:
+frontend_dependencies:
 	./devsetup.sh upgrade_frontend_repos
 
-sync_frontend_deps: requirements dependencies
+dependencies: backend_dependencies frontend_dependencies
 
 messagesde:
 	python manage.py makemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file
