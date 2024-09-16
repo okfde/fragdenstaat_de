@@ -39,4 +39,4 @@ with open("requirements.txt", "r") as requirements_fd:
                     npm_version = npm_version_re.group(1)
                     assert (
                         npm_version == requirements_version
-                    ), f"{req_name} is on a different version in the requirements.txt than in the pnpm-lock.yaml. Run make sync_frontend_deps to fix this."
+                    ), f"{req_name} is on a different version in the requirements.txt than in the pnpm-lock.yaml. Run `make dependencies` to fix this."
