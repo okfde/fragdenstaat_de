@@ -15,6 +15,7 @@ classifiers = [
 ]
 dynamic = ["version"]
 dependencies = [
+  "async-timeout",
   "celery>=5.2.2",
   "cryptography>=43.0.1",
   "pyopenssl>=22.0.0",
