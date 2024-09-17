@@ -281,9 +281,8 @@ django-mfa3==0.13.0
     #   fragdenstaat-de (pyproject.toml)
     #   froide
     #   froide-govplan
-django-oauth-toolkit==1.7.1
+django-oauth-toolkit==3.0.1
     # via
-    #   fragdenstaat-de (pyproject.toml)
     #   froide
     #   froide-govplan
 django-parler==2.3
@@ -426,7 +425,7 @@ filelock==3.16.0
     #   virtualenv
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@d6bf15c7e7222910ee270833a1477c9ab051fd68
+froide @ git+https://github.com/okfde/froide.git@3eff9580cb459afc22195e3960e5ac71c9e3192f
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@a249e16c0837c3fddaaa0ed5db88811856b34760
     # via fragdenstaat-de (pyproject.toml)
