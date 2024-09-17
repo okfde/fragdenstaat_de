@@ -15,7 +15,6 @@ appnope==0.1.4
 asgiref==3.8.1
     # via
     #   channels
-    #   daphne
     #   django
     #   django-countries
 attrs==24.2.0
@@ -23,12 +22,6 @@ attrs==24.2.0
     #   aiohttp
     #   jsonschema
     #   referencing
-    #   service-identity
-    #   twisted
-autobahn==24.4.2
-    # via daphne
-automat==24.8.1
-    # via twisted
 babel==2.16.0
     # via
     #   django-prices
@@ -68,7 +61,7 @@ cffi==1.17.1
     #   webp
 cfgv==3.4.0
     # via pre-commit
-channels==3.0.5
+channels==4.0.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
@@ -89,8 +82,6 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.3.0
     # via celery
-constantly==23.10.4
-    # via twisted
 coreapi==2.3.3
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -106,18 +97,14 @@ cron-descriptor==1.4.5
 cryptography==43.0.1
     # via
     #   fragdenstaat-de (pyproject.toml)
-    #   autobahn
     #   fido2
     #   jwcrypto
     #   pgpy
     #   pyopenssl
-    #   service-identity
 cssselect2==0.7.0
     # via
     #   svglib
     #   weasyprint
-daphne==3.0.2
-    # via channels
 decorator==5.1.1
     # via
     #   ipdb
@@ -254,7 +241,7 @@ django-filer==3.2.2
     #   djangocms-picture
     #   djangocms-video
     #   froide-govplan
-django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@c3d7fcca61d7a684b741161a9ef8da329a6681c8
+django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@24c86ee9c327f4ac21cf9901e24fb5e6c1f97e70
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
@@ -438,9 +425,9 @@ filelock==3.16.0
     #   virtualenv
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@82cf6f086a23584092b4707364154ff92e87d16d
+froide @ git+https://github.com/okfde/froide.git@e46a076ed7e70a29ba5c16173c23d79516e7d6bb
     # via fragdenstaat-de (pyproject.toml)
-froide-campaign @ git+https://github.com/okfde/froide-campaign.git@a249e16c0837c3fddaaa0ed5db88811856b34760
+froide-campaign @ git+https://github.com/okfde/froide-campaign.git@56323f4db5130115667cfbb7ec7e60b92e55eaeb
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@31bdf60295ce18757a1caee3da04cabda7f0cb49
     # via fragdenstaat-de (pyproject.toml)
@@ -492,10 +479,6 @@ html5lib==1.1
     #   weasyprint
 htmldocx==0.0.6
     # via django-legal-advice-builder
-hyperlink==21.0.0
-    # via
-    #   autobahn
-    #   twisted
 icalendar==5.0.13
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -504,14 +487,10 @@ identify==2.6.0
     # via pre-commit
 idna==3.8
     # via
-    #   hyperlink
     #   requests
-    #   twisted
     #   yarl
 imagesize==1.4.1
     # via sphinx
-incremental==24.7.2
-    # via twisted
 inflection==0.5.1
     # via
     #   drf-spectacular
@@ -664,12 +643,7 @@ psycopg-binary==3.2.1
 ptyprocess==0.7.0
     # via pexpect
 pyasn1==0.6.0
-    # via
-    #   pgpy
-    #   pyasn1-modules
-    #   service-identity
-pyasn1-modules==0.4.1
-    # via service-identity
+    # via pgpy
 pycodestyle==2.12.1
     # via fragdenstaat-de (pyproject.toml)
 pycparser==2.22
@@ -697,9 +671,7 @@ pyisemail==2.0.1
 pynacl==1.5.0
     # via froide-fax
 pyopenssl==24.2.1
-    # via
-    #   fragdenstaat-de (pyproject.toml)
-    #   twisted
+    # via fragdenstaat-de (pyproject.toml)
 pyotp==2.9.0
     # via django-mfa3
 pypdf==4.3.1
@@ -801,17 +773,12 @@ rpds-py==0.20.0
     #   referencing
 sentry-sdk==2.14.0
     # via fragdenstaat-de (pyproject.toml)
-service-identity==24.1.0
-    # via twisted
 setuptools==74.1.2
     # via
-    #   autobahn
     #   django-cms
     #   geoip2
-    #   incremental
     #   ipython
     #   torch
-    #   zope-interface
 six==1.16.0
     # via
     #   bleach
@@ -872,10 +839,6 @@ traitlets==5.14.3
     # via
     #   ipython
     #   matplotlib-inline
-twisted==24.7.0
-    # via daphne
-txaio==23.1.1
-    # via autobahn
 typing-extensions==4.12.2
     # via
     #   dj-database-url
@@ -887,7 +850,6 @@ typing-extensions==4.12.2
     #   pytest-factoryboy
     #   python-docx
     #   torch
-    #   twisted
 tzdata==2024.1
     # via
     #   celery
@@ -942,7 +904,5 @@ yarl==1.11.1
     # via aiohttp
 zipstream==1.1.4
     # via django-filingcabinet
-zope-interface==7.0.3
-    # via twisted
 zopfli==0.2.3
     # via fonttools
