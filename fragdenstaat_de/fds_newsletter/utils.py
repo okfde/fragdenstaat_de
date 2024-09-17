@@ -218,7 +218,7 @@ def check_csv_format(csv_data):
             "name": "Name",
             "email": "E-Mail",
         }
-    elif "first_name" and "last_name" in headers:
+    elif "first_name" in headers and "last_name" in headers:
         csv_format = {
             "name": "combine",
             "email": "email",
