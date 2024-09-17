@@ -210,7 +210,7 @@ def check_csv_format(csv_data):
     csv_format = {}
     headers = csv_data.fieldnames
 
-    #TODO: find better place for csv format definitions
+    # TODO: find better place for csv format definitions
     pretix = ['Bestellnummer', 'E-Mail', 'Anfragedatum', 'Name', 'Vorname', 'Nachname']
 
     if headers == pretix:
