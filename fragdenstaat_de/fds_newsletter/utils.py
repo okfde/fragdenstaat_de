@@ -231,6 +231,7 @@ def check_csv_format(csv_data):
 
     return csv_format
 
+
 def import_csv(csv_file, newsletter, reference="", email_confirmed=False):
     reader = csv.DictReader(csv_file)
     csv_format = check_csv_format(reader)
