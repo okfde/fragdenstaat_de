@@ -403,6 +403,8 @@ enmerkar==0.7.1
     # via django-prices
 et-xmlfile==1.1.0
     # via openpyxl
+execnet==2.1.1
+    # via pytest-xdist
 factory-boy==3.3.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -687,6 +689,7 @@ pytest==8.3.3
     #   pytest-django
     #   pytest-factoryboy
     #   pytest-playwright
+    #   pytest-xdist
 pytest-base-url==2.1.0
     # via pytest-playwright
 pytest-django==4.9.0
@@ -694,6 +697,8 @@ pytest-django==4.9.0
 pytest-factoryboy==2.7.0
     # via fragdenstaat-de (pyproject.toml)
 pytest-playwright==0.5.2
+    # via fragdenstaat-de (pyproject.toml)
+pytest-xdist==3.6.1
     # via fragdenstaat-de (pyproject.toml)
 python-crontab==3.2.0
     # via django-celery-beat
