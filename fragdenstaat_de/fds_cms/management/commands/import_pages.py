@@ -67,7 +67,7 @@ class Command(BaseCommand):
                 title_str, replacements=[["ä", "ae"], ["ö", "oe"], ["ü", "ue"]]
             ),
             position="last-child",
-            **kwargs
+            **kwargs,
         )
         placeholder = page.placeholders.get(slot="content")
         add_plugin(

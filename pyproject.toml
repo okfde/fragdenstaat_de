@@ -1,0 +1,199 @@
+[project]
+name = "fragdenstaat_de"
+readme = "README.md"
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+description = "FragDenStaat.de theme for Froide install"
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Framework :: Django",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Utilities",
+]
+dynamic = ["version"]
+dependencies = [
+  "celery>=5.2.2",
+  "cryptography>=43.0.1",
+  "pyopenssl>=22.0.0",
+  "channels<4",
+  "coreapi>=2.3.3",
+  "dj-database-url>=2.2.0",
+  "django-admin-sortable2>=2.1.6",
+  "django-celery-beat>=2.5.0",
+  "django-celery-email>=3.0.0",
+  "django-cms>=4.1.1",
+  "django-configurations>=2.5.1",
+  "django-contractor>=0.0.8",
+  "django-contrib-comments>=2.2.0",
+  "django-crossdomainmedia>=0.0.4",
+  "django-elasticsearch-dsl>=8.0,<9.0",
+  "django-filer>=3.0.0",
+  "django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@main",
+  "django-filter>=24.3",
+  "django-floppyforms>=1.9.0",
+  "django-json-widget>=2.0.1",
+  "django-leaflet>=0.30.1",
+  "django-logentry-admin>=1.1.0",
+  "django-mfa3>=0.13.0",
+  "django-parler>=2.3",
+  "django-sekizai>=4.1.0",
+  "django-storages>=1.14.4",
+  "django-taggit>=6.0.0",
+  "django-treebeard>=4.7.1",
+  "django>=4.2,<5",
+  "djangocms-alias>=2.0.1",
+  "djangocms-audio>=2.1.1",
+  "djangocms-frontend>=1.3.2",
+  "djangocms-link>=3.1.0",
+  "djangocms-icon>=2.1.0",
+  "djangocms-picture>=4.1.1",
+  "djangocms-text-ckeditor>=5.1",
+  "djangocms-versioning>=2.0.2",
+  "djangocms-video>=3.1.0",
+  "djangorestframework>=3.14.0",
+  "djangorestframework-csv>=3.0.2",
+  "djangorestframework-jsonp>=1.0.2",
+  "elasticsearch-dsl>=8.0.0,<9.0.0",
+  "elasticsearch<9.0.0,>=8.0.0",
+  "geoip2>=4.8.0",
+  "html-text>=0.6.2",
+  "icalendar>=5.0.13",
+  "jsonschema>=4.23.0",
+  "lxml[html-clean]>=5.2.0",
+  "markdown>=3.7",
+  "num2words>=0.5.13",
+  "numpy>=1.21",
+  "openpyxl>=3.1.5",
+  "pandas>=2.2.2",
+  "pgpy>=0.6.0",
+  "phonenumbers>=8.13.45",
+  "pillow>=9.0.0",
+  "pikepdf==9.0.0",
+  "psycopg[binary]>=3.2.1",
+  "pygtail @ git+https://github.com/okfde/pygtail.git@dac8bc6fc8d65c7ac820806e570242919616e946",
+  "pyisemail>=2.0.1",
+  "pypdf>=4.3.1",
+  "python-magic>=0.4.27",
+  "python-mimeparse>=2.0.0",
+  "python-slugify>=8.0.4",
+  "reportlab>=4.2.2",
+  "requests>=2.32.3",
+  "sentry-sdk>=2.14.0",
+  "stripe>=10.10.0",
+  "torch>=2.4.1",
+  "torchvision>=0.19.1",
+  "unidecode>=1.3.8",
+  "wand>=0.6.13",
+  "weasyprint>=62.3",
+  "webp>=0.4.0",
+  "websockets>=13.0.1",
+  "django-amenities @ git+https://github.com/okfde/django-amenities.git@main",
+  "froide @ git+https://github.com/okfde/froide.git@main",
+  "froide-campaign @ git+https://github.com/okfde/froide-campaign.git@main",
+  "froide-food @ git+https://github.com/okfde/froide-food.git@main",
+  "froide-fax @ git+https://github.com/okfde/froide-fax.git@main",
+  "froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@main",
+  "froide-exam @ git+https://github.com/okfde/froide-exam.git@main",
+  "froide-payment @ git+https://github.com/okfde/froide-payment.git@main",
+  "froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@main",
+  "froide-govplan @ git+https://github.com/okfde/froide-govplan.git@main",
+  "sortabletable @ git+https://github.com/stefanw/djangocms-sortabletable.git@main",
+  "djangocms-transfer @ git+https://github.com/stefanw/djangocms-transfer.git",
+  "django-legal-advice-builder @ git+https://github.com/fragdenstaat/django-legal-advice-builder.git@main",
+  "fcdocs-annotate @ git+https://github.com/okfde/fcdocs-annotate.git@main",
+]
+
+[project.optional-dependencies]
+dev = [
+  "Sphinx",
+  "django-debug-toolbar>=3.2.1",
+  "coverage",
+  "factory-boy",
+  "faker",
+  "mock",
+  "pbr",
+  "pre-commit",
+  "pycodestyle",
+  "pyflakes",
+  "pytest-django",
+  "pytest-factoryboy",
+  "pytest-playwright",
+  "django-coverage-plugin",
+  "tblib",
+  "time-machine",
+  "honcho",
+  "ipdb",
+  "ipython>=7.31.1,<8",
+  "pywatchman",
+]
+production = [
+  "gunicorn",
+  "pymemcache",
+  "channels_redis",
+  "uvicorn",
+  "sentry-sdk",
+  "pillow-avif-plugin",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["fragdenstaat_de"]
+
+
+[tool.ruff]
+exclude = ["migrations", "build", "node_modules"]
+
+[tool.ruff.lint]
+ignore = ["E501", "C901"]
+select = ["C", "E", "F", "W", "B", "I001"]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 88
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.isort]
+section-order = [
+  "future",
+  "standard-library",
+  "django",
+  "third-party",
+  "froide",
+  "first-party",
+  "local-folder",
+]
+default-section = "third-party"
+known-local-folder = ["froide"]
+
+[tool.ruff.lint.isort.sections]
+django = ["django"]
+froide = ["froide"]
+
+[tool.coverage.run]
+source = ["fragdenstaat_de"]
+omit = ["*/migrations/*", "*/wsgi.py", "*/asgi.py"]
+plugins = ["django_coverage_plugin"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_lines = ["pragma: no cover"]
+
+[tool.djlint]
+ignore = "T002,T003,H005,H006,H021,H023,H029,H030,H031"
+
+[tool.pytest.ini_options]
+DJANGO_CONFIGURATION = "Test"
+DJANGO_SETTINGS_MODULE = "fragdenstaat_de.settings.test"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+testpaths = ["fragdenstaat_de", "tests"]
+addopts = ["--reuse-db", "-m", "not stripe"]
+markers = ["stripe: Run donation tests with stripe test keys"]

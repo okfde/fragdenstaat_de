@@ -8,7 +8,7 @@
                         srcset="{% thumbnail object.image 1140x0 %}">
                 <source media="(min-width: 992px)"
                         srcset="{% thumbnail object.image 940x0 %}">
-                <img class="img-fluid"
+                <img class="img-fluid mx-auto d-block"
                      src="{% thumbnail object.image 768x0 crop=scale %}"
                      alt="{{ object.title }}"
                      {% if instance.zoom %}data-zoomwidth="{{ object.width }}" data-zoom="{{ object.image.url }}"{% endif %}>

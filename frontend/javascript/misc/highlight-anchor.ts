@@ -4,7 +4,7 @@ function showTargetAnchor(): void {
     el = document.querySelector<HTMLElement>(
       `.highlight-anchor ${window.location.hash}`
     )
-  } catch (e) {
+  } catch {
     return
   }
 

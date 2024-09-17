@@ -7,12 +7,12 @@ from typing import Optional, Tuple
 from django.db import models
 from django.utils import timezone
 
-from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
-
 from froide.account.auth import try_login_user_without_mfa
 from froide.account.models import User
 from froide.account.services import AccountService
 from froide.helper.email_sending import mail_registry
+
+from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
 from .models import Donation, Donor
 from .utils import merge_donors, propose_donor_merge, subscribe_donor_newsletter
@@ -281,7 +281,7 @@ def create_donation_from_payment(payment):
         payment=payment,
         method=payment.variant,
         recurring=order.is_recurring,
-        **extra_kwargs
+        **extra_kwargs,
     )
     logger.info("Donation created %s", donation.id)
     return donation

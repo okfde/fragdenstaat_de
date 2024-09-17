@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
         sw = User.objects.get(username="sw")
         site = Site.objects.get_current()
-        self.topic_cache = dict([(pb.slug, pb) for pb in PublicBodyTopic.objects.all()])
+        self.topic_cache = {pb.slug: pb for pb in PublicBodyTopic.objects.all()}
         juris = Jurisdiction.objects.get(slug="hamburg")
 
         laws = FoiLaw.objects.filter(jurisdiction=juris)
@@ -62,7 +62,7 @@ class Command(BaseCommand):
                 if first:
                     first = False
                     continue
-                items = dict(zip(fields, items))
+                items = dict(zip(fields, items, strict=False))
 
                 topic = self.get_topic(items["topic__slug"])
                 classification = items["classification"]

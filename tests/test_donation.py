@@ -2,6 +2,7 @@ from django.core import mail
 from django.core.management import call_command
 
 import pytest
+
 from fragdenstaat_de.fds_donation.models import Donation
 
 

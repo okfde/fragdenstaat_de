@@ -17,9 +17,9 @@ class Command(BaseCommand):
         translation.activate(settings.LANGUAGE_CODE)
 
         jurisdiction_slug = options.get("jurisdiction")
-        self.topic_cache = dict(
-            [(tag.slug, tag) for tag in PublicBodyTag.objects.filter(is_topic=True)]
-        )
+        self.topic_cache = {
+            tag.slug: tag for tag in PublicBodyTag.objects.filter(is_topic=True)
+        }
         juris = Jurisdiction.objects.get(slug=jurisdiction_slug)
 
         for pb in PublicBody.objects.filter(jurisdiction=juris):
@@ -35,7 +35,6 @@ class Command(BaseCommand):
             "schul": "bildung-und-forschung",
             "univ": "bildung-und-forschung",
             "student": "bildung-und-forschung",
-            "schul": "bildung-und-forschung",
             "rechnungs": "finanzen",
             "finanz": "finanzen",
             "arbeit": "arbeit-und-soziales",

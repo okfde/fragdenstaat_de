@@ -7,20 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          python-version: '3.10'
-          cache: 'pip'
+          version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'yarn'
-
+          node-version: 20
+          cache: 'pnpm'
       - name: Install dependencies
-        run: |
-          yarn install
+        run: pnpm install
+      - uses: pre-commit/action@v3.0.1
 
-      - uses: pre-commit/action@v3.0.0
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -28,26 +26,42 @@ jobs:
         python-version: ['3.10', '3.12']
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v2
         with:
-          python-version: ${{ matrix.python-version }}
-          cache: 'pip'
-          cache-dependency-path: setup.py
+          enable-cache: true
+          cache-dependency-glob: |
+            requirements*.txt
+            pyproject.toml
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
       - name: Install system-level dependencies
         run: sudo apt-get update && sudo apt-get install libxml2-dev libxslt1-dev python3-dev libgdal-dev gdal-bin libmagic-dev libmagickwand-dev gettext libpoppler-cpp-dev
+      - name: Setup venv
+        run: |
+          uv venv --python ${{ matrix.python-version }}
+          source .venv/bin/activate
+          echo PATH=$PATH >> $GITHUB_ENV
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip pip-tools
-          pip-sync requirements-dev.txt
+          uv pip install -r requirements-dev.txt
+          uv pip install -e . --no-deps
           playwright install --with-deps chromium
-          pip install -e .
-          bash devsetup.sh frontend
+          pnpm install
       - name: Build frontend
-        run: yarn run build
+        run: pnpm run build
       - name: Compile translations
-        run: python manage.py compilemessages
-      - name: Run flake8 and tests
-        run: make testci
+        run: python manage.py compilemessages -i node_modules
+      - name: Run tests
+        run: |
+          coverage run --branch -m pytest --reuse-db
+          coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
         env:
           DATABASE_URL: postgis://postgres:postgres@localhost/fragdenstaat_de
     services:
@@ -59,10 +73,7 @@ jobs:
           POSTGRES_DB: fragdenstaat_de
         ports:
           - 5432:5432
-        # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
       elasticsearch:
         image: elasticsearch:8.14.3
-        options: -e "discovery.type=single-node" -e "xpack.security.enabled=false" --expose 9200 --health-cmd "curl localhost:9200/_cluster/health" --health-interval 10s --health-timeout 5s --health-retries 10
         ports:
           - 9200:9200

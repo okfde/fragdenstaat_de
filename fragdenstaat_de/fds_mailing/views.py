@@ -5,10 +5,11 @@ from django.views.generic import DateDetailView
 
 from cms.models.pagemodel import Page
 from cms.utils.i18n import get_current_language
-from fragdenstaat_de.fds_newsletter.models import Newsletter
-from fragdenstaat_de.fds_newsletter.utils import has_newsletter
 
 from froide.helper.breadcrumbs import BreadcrumbView
+
+from fragdenstaat_de.fds_newsletter.models import Newsletter
+from fragdenstaat_de.fds_newsletter.utils import has_newsletter
 
 from .models import Mailing
 

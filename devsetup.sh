@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 # macOS's System Integrity Protection purges the environment variables controlling
 # `dyld` when launching protected processes (https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/RuntimeProtections/RuntimeProtections.html#//apple_ref/doc/uid/TP40016462-CH3-SW1)
@@ -11,9 +11,9 @@ fi
 
 MAIN=fragdenstaat_de
 REPOS=("froide" "froide-campaign" "froide-legalaction" "froide-food" "froide-payment" "froide-crowdfunding" "froide-govplan" "froide-fax" "froide-exam" "django-filingcabinet")
-FRONTEND_DIR=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "froide_legalaction" "filingcabinet")
 FRONTEND=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "froide_legalaction" "@okfde/filingcabinet")
-FRONTEND_DEPS=("froide" "@okfde/filingcabinet")
+FRONTEND_DIR=("froide" "froide-food" "froide-exam" "froide-campaign" "froide-payment" "froide-legalaction" "django-filingcabinet")
+FROIDE_PEERS=("froide-campaign" "froide-food") # these have peer-dependencies on froide
 
 ask() {
     # https://djm.me/ask
@@ -61,17 +61,17 @@ install_precommit() {
   fi
 }
 
-setup() {
-
-  echo "You need python3 >= 3.8 and yarn installed."
+venv() {
+  echo "You need python >= 3.10, uv and pnpm installed."
 
   python3 --version
-  yarn --version
+  pnpm --version
+  uv --version
 
   if [ ! -d fds-env ]; then
     if ask "Do you want to create a virtual environment using $(python3 --version)?" Y; then
-      echo "Creating virtual environment with Python: $(python3 --version)"
-      python3 -m venv fds-env
+      echo "Creating virtual environment with uv and $(python3 --version)"
+      uv venv fds-env
     fi
   fi
 
@@ -79,9 +79,10 @@ setup() {
     echo "Could not find virtual environment fds-env"
   fi
 
-  echo "Activating virtual environment..."
   source fds-env/bin/activate
+}
 
+pull() {
   echo "Cloning / installing $MAIN"
 
   if [ ! -d $MAIN ]; then
@@ -91,12 +92,6 @@ setup() {
       git pull origin "$(git branch --show-current)"
     popd
   fi
-  pip install -U pip-tools
-  pip-sync $MAIN/requirements-dev.txt
-  pip install -e $MAIN
-  install_precommit "$MAIN"
-
-  echo "Cloning / installing all editable dependencies..."
 
   for name in "${REPOS[@]}"; do
     if [ ! -d $name ]; then
@@ -106,47 +101,59 @@ setup() {
         git pull origin "$(git branch --show-current)"
       popd
     fi
-    pip uninstall -y $name
-    pip install -e $name
+  done
+}
+
+dependencies() {
+  echo "Installing $MAIN..."
+
+  uv pip install -r $MAIN/requirements-dev.txt
+  install_precommit "$MAIN"
+
+  echo "Cloning / installing all editable dependencies..."
+
+  for name in "${REPOS[@]}"; do
+    uv pip install -e "./$name"
     install_precommit "$name"
   done
-
-  echo "Installing all frontend dependencies..."
-
-  frontend
-
-  fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de
-
-  echo "Done."
 }
 
 frontend() {
-  echo "Linking frontend dependencies..."
+  echo "Installing frontend dependencies..."
 
+  # we need to link globally since local linking adjusts the lockfile
   for name in "${FRONTEND_DIR[@]}"; do
-    pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
-    yarn link
+    pushd $name
+    pnpm link --global
     popd
   done
 
-  echo "Installing frontend dependencies..."
+  for name in "${FROIDE_PEERS[@]}"; do
+    pushd $name
+    pnpm link --global "froide"
+    popd
+  done
+
   for name in "${FRONTEND_DIR[@]}"; do
-    pushd $(python -c "import $name as mod; print(mod.__path__[0])")/..
-    for dep in "${FRONTEND_DEPS[@]}"; do
-      if [ "$name" != "$dep" ]; then
-        yarn link $dep
-      fi
-    done
-    yarn install
+    pushd $name
+    pnpm install
     popd
   done
 
   pushd $MAIN
   for name in "${FRONTEND[@]}"; do
-    yarn link $name
+    pnpm link --global "$name"
   done
-  yarn install
+  pnpm install
   popd
+}
+
+upgrade_frontend_repos() {
+  pnpm upgrade "'${FRONTEND[*]}'"
+}
+
+messages() {
+  fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de -i node_modules
 }
 
 forall() {
@@ -169,10 +176,19 @@ help() {
 }
 
 
-if [[ $1 =~ ^(forall)$ ]]; then
-  "$@"
-elif [[ $1 =~ ^(frontend)$ ]]; then
+if [ -z "$1" ]; then
+  venv
+  pull
+  dependencies
   frontend
+  messages
+  
+  echo "Done!"
 else
-  setup
+  if [[ $(type -t "$1") == function ]]; then
+    "$@"
+  else
+    help
+    exit 1
+  fi
 fi

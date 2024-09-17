@@ -46,7 +46,7 @@ class FragDenStaatBase(German, Base):
                 "djangocms_alias",
                 "menus",
                 "sekizai",
-                "djangocms_transfer",
+                # "djangocms_transfer",
                 # easy thumbnails comes from froide
                 "filer",
                 "logentry_admin",
@@ -597,49 +597,49 @@ class FragDenStaatBase(German, Base):
     def FROIDE_CONFIG(self):
         config = super(FragDenStaatBase, self).FROIDE_CONFIG
         config.update(
-            dict(
-                create_new_publicbody=False,
-                publicbody_empty=True,
-                user_can_hide_web=True,
-                public_body_officials_public=False,
-                public_body_officials_email_public=False,
-                default_law=2,
-                doc_conversion_binary="/usr/bin/libreoffice",
-                dryrun=False,
-                read_receipt=True,
-                delivery_receipt=True,
-                dsn=True,
-                message_handlers={
+            {
+                "create_new_publicbody": False,
+                "publicbody_empty": True,
+                "user_can_hide_web": True,
+                "public_body_officials_public": False,
+                "public_body_officials_email_public": False,
+                "default_law": 2,
+                "doc_conversion_binary": "/usr/bin/libreoffice",
+                "dryrun": False,
+                "read_receipt": True,
+                "delivery_receipt": True,
+                "dsn": True,
+                "message_handlers": {
                     "email": "froide.foirequest.message_handlers.EmailMessageHandler",
                     "fax": "froide_fax.fax.FaxMessageHandler",
                 },
-                delivery_reporter="froide.foirequest.delivery.PostfixDeliveryReporter",
-                text_analyzer="fragdenstaat_de.theme.search.get_text_analyzer",
-                search_analyzer="fragdenstaat_de.theme.search.get_search_analyzer",
-                search_quote_analyzer="fragdenstaat_de.theme.search.get_search_quote_analyzer",
-                dryrun_domain="test.fragdenstaat.de",
-                allow_pseudonym=True,
-                api_activated=True,
-                search_engine_query=(
+                "delivery_reporter": "froide.foirequest.delivery.PostfixDeliveryReporter",
+                "text_analyzer": "fragdenstaat_de.theme.search.get_text_analyzer",
+                "search_analyzer": "fragdenstaat_de.theme.search.get_search_analyzer",
+                "search_quote_analyzer": "fragdenstaat_de.theme.search.get_search_quote_analyzer",
+                "dryrun_domain": "test.fragdenstaat.de",
+                "allow_pseudonym": True,
+                "api_activated": True,
+                "search_engine_query": (
                     "http://www.google.de/search?as_q=%(query)s&as_epq=&as_oq=&as_eq=&"
                     "hl=en&lr=&cr=&as_ft=i&as_filetype=&as_qdr=all&as_occt=any&"
                     "as_dt=i&as_sitesearch=%(domain)s&as_rights=&safe=images"
                 ),
-                show_public_body_employee_name=False,
-                request_throttle=[
+                "show_public_body_employee_name": False,
+                "request_throttle": [
                     (5, 5 * 60),  # X requests in X seconds
                     (6, 6 * 60 * 60),
                     (10, 24 * 60 * 60),
                     (20, 7 * 24 * 60 * 60),
                 ],
-                message_throttle=[
+                "message_throttle": [
                     (2, 5 * 60),  # X messages in X seconds
                     (6, 6 * 60 * 60),
                     (8, 24 * 60 * 60),
                 ],
-                target_countries=("DE", "CH", "AT"),
-                suspicious_asn_provider_list=env("SUSPICIOUS_ASN", "").split("|"),
-                greetings=[
+                "target_countries": ("DE", "CH", "AT"),
+                "suspicious_asn_provider_list": env("SUSPICIOUS_ASN", "").split("|"),
+                "greetings": [
                     # Important: always needs to capture name to be removed
                     rec(r"^\s*Name des Absenders\s+(.*)"),
                     rec(r"^\s*Hallo\s+(.*)"),
@@ -652,14 +652,14 @@ class FragDenStaatBase(German, Base):
                         r"^\s*Guten\s+(?:Tag|Morgen|Mittag|Abend),?[ \t\f\v]+([^\r\n]+)"
                     ),
                 ],
-                custom_replacements=[
+                "custom_replacements": [
                     rec(r"[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([a-zA-Z0-9\s/]+)"),
                     rec(r"Ihr Kennwort lautet: (.*)"),
                     rec(r"Token: ([A-Z0-9]+)"),
                     rec(r"(https://wetransfer.com/downloads/.*)"),
                     rec(r"(https://send.firefox.com/download/.*)"),
                 ],
-                moderation_triggers=[
+                "moderation_triggers": [
                     {
                         "name": "nonfoi",
                         "label": _("Non-FOI"),
@@ -692,7 +692,7 @@ class FragDenStaatBase(German, Base):
                         ],
                     },
                 ],
-                closings=[
+                "closings": [
                     rec(
                         r"(?:\b([Mm]it *)?(den *)?(freun\w+|vielen|besten)? *Gr(ü|u|\?)(ß|ss|\?)(?!\s+Gott)(en?)?,?)|"
                         r"(?:\bHochachtungsvoll,?)|"
@@ -702,21 +702,21 @@ class FragDenStaatBase(German, Base):
                         r"(?:\b(?:Best *regards|Kind *regards|Sincerely),?)"
                     )
                 ],
-                hide_content_funcs=[
+                "hide_content_funcs": [
                     lambda email: email.from_[1]
                     in (
                         "noreply@dhl.com",  # Hide DHL delivery emails
                         "noreply-bscw@itzbund.de",  # Hide BSCW.bund.de auto messages
                     )
                 ],
-                recipient_blocklist_regex=rec(
+                "recipient_blocklist_regex": rec(
                     r".*\.de-mail\.de$|^z@bundesnachrichtendienst\.de|"
                     r"^pad\.donotreply@frontex\.europa\.eu|"
                     r"^noreply@.*|^empfangsbestaetigung@bahn\.de$|.*\.local$|^postmaster@.*|"
                     r"^askema\.noreply@ema\.europa\.eu$|^.*@nomail\.ec\.europa\.eu$|"
                     r"^eingangsbestaetigung@jobcenter-ge\.de$"
                 ),
-                content_urls={
+                "content_urls": {
                     "terms": "/nutzungsbedingungen/",
                     "privacy": "/datenschutzerklaerung/",
                     "pseudonym": "/hilfe/datenschutz-und-privatsphare/pseudonyme-nutzung/",
@@ -724,17 +724,17 @@ class FragDenStaatBase(German, Base):
                     "help": "/hilfe/",
                     "throttled": "/hilfe/erste-anfrage/wie-viele-anfragen-kann-ich-stellen/",
                 },
-                bounce_enabled=True,
-                bounce_max_age=60 * 60 * 24 * 14,  # 14 days
-                bounce_format="bounce+{token}@fragdenstaat.de",
-                unsubscribe_enabled=True,
-                unsubscribe_format="unsub+{token}@fragdenstaat.de",
-                auto_reply_subject_regex=rec(
+                "bounce_enabled": True,
+                "bounce_max_age": 60 * 60 * 24 * 14,  # 14 days
+                "bounce_format": "bounce+{token}@fragdenstaat.de",
+                "unsubscribe_enabled": True,
+                "unsubscribe_format": "unsub+{token}@fragdenstaat.de",
+                "auto_reply_subject_regex": rec(
                     r"^(Auto-?Reply|Out of office|Out of the office|Abwesenheitsnotiz|"
                     r"Automatische Antwort|automatische Empfangsbestätigung)"
                 ),
-                auto_reply_email_regex=rec("^auto(reply|responder|antwort)@"),
-                non_meaningful_subject_regex=[
+                "auto_reply_email_regex": rec("^auto(reply|responder|antwort)@"),
+                "non_meaningful_subject_regex": [
                     r"^(ifg[- ])?anfrage$",
                     r"^dokumente?$",
                     r"^infos?$",
@@ -742,8 +742,8 @@ class FragDenStaatBase(German, Base):
                     r"^e-?mails?$",
                     r"^kommunikation$",
                 ],
-                address_regex=r"\d{4,5}",
-            )
+                "address_regex": r"\d{4,5}",
+            }
         )
         return config
 
