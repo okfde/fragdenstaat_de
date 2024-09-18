@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.conf import settings  # noqa: I001
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.sitemaps import views as sitemaps_views
 from django.urls import include, path
@@ -10,6 +10,7 @@ from fcdocs_annotate.annotation.api import FeatureViewSet
 # Import early to register with api_router
 from froide_campaign import urls as campaign_urls
 from froide_govplan.admin import govplan_admin_site
+import fragdenstaat_de.fds_blog.urls  # noqa
 
 from froide.urls import (
     admin_urls,
@@ -18,8 +19,6 @@ from froide.urls import (
     jurisdiction_urls,
     sitemaps,
 )
-
-import fragdenstaat_de.fds_blog.urls  # noqa
 from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
 from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
@@ -100,6 +99,8 @@ urlpatterns += [
     path("", include("filer.server.urls")),
 ]
 
+print("saved")
+print(api_urlpatterns[2].reverse_dict.keys())
 urlpatterns += api_urlpatterns
 urlpatterns += sitemap_urlpatterns
 
