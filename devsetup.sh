@@ -149,7 +149,7 @@ frontend() {
 }
 
 upgrade_frontend_repos() {
-  pnpm upgrade "'${FRONTEND[*]}'"
+  pnpm update "${FRONTEND[@]}"
 }
 
 messages() {
