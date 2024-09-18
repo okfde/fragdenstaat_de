@@ -15,10 +15,7 @@ asgiref==3.8.1
     #   django
     #   django-countries
 async-timeout==4.0.3
-    # via
-    #   fragdenstaat-de (pyproject.toml)
-    #   aiohttp
-    #   redis
+    # via fragdenstaat-de (pyproject.toml)
 attrs==24.2.0
     # via
     #   aiohttp
@@ -228,7 +225,7 @@ django-filer==3.2.2
     #   djangocms-picture
     #   djangocms-video
     #   froide-govplan
-django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@24c86ee9c327f4ac21cf9901e24fb5e6c1f97e70
+django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@3b1dc92d89da48af9851e37a22ac1310922b9c73
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
@@ -400,7 +397,7 @@ filelock==3.16.0
     # via torch
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@e46a076ed7e70a29ba5c16173c23d79516e7d6bb
+froide @ git+https://github.com/okfde/froide.git@d700b2b94e7882acf7409d9f4c351b3cd378cb19
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@56323f4db5130115667cfbb7ec7e60b92e55eaeb
     # via fragdenstaat-de (pyproject.toml)
@@ -682,6 +679,7 @@ setuptools==74.1.2
     # via
     #   django-cms
     #   geoip2
+    #   torch
 six==1.16.0
     # via
     #   bleach
@@ -718,17 +716,13 @@ torchvision==0.19.1
     # via fragdenstaat-de (pyproject.toml)
 typing-extensions==4.12.2
     # via
-    #   asgiref
     #   dj-database-url
     #   django-countries
     #   elasticsearch-dsl
     #   jwcrypto
-    #   multidict
     #   psycopg
-    #   pypdf
     #   python-docx
     #   torch
-    #   uvicorn
 tzdata==2024.1
     # via
     #   celery
