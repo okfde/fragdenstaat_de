@@ -112,9 +112,7 @@ pnpm run dev
 ### Upgrade dependencies
 
 ```bash
-pip-compile -U requirements.in
-pip-compile -U requirements-dev.in
-pip-compile -U requirements-production.in
+make dependencies
 ```
 
 ### Main app dependencies
