@@ -850,3 +850,13 @@ class FragDenStaatBase(German, Base):
 
     PAPERLESS_API_URL = os.environ.get("PAPERLESS_API_URL", "")
     PAPERLESS_API_TOKEN = os.environ.get("PAPERLESS_API_TOKEN", "")
+
+    LEAFLET_CONFIG = {
+        "TILES": [
+            (
+                "Carto",
+                "//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+                '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
+            )
+        ]
+    }
