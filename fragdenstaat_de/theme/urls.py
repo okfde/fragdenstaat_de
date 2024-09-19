@@ -1,10 +1,13 @@
-import froide_food.urls  # noqa
-from django.conf import settings  # noqa: I001
+from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.sitemaps import views as sitemaps_views
 from django.urls import include, path
 from django.utils.translation import pgettext_lazy
+
 from fcdocs_annotate.annotation.api import FeatureViewSet
+from froide_campaign import urls as campaign_urls
+from froide_govplan.admin import govplan_admin_site
+
 from froide.urls import (
     admin_urls,
     api_urlpatterns,
@@ -13,11 +16,6 @@ from froide.urls import (
     sitemaps,
 )
 
-# Import early to register with api_router
-from froide_campaign import urls as campaign_urls
-from froide_govplan.admin import govplan_admin_site
-
-import fragdenstaat_de.fds_blog.urls  # noqa
 from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
 from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe

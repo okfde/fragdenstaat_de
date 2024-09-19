@@ -24,10 +24,15 @@ class BlogConfig(AppConfig):
 
     def ready(self):
         from froide.account import account_merged
+        from froide.api import api_router
         from froide.helper.search import search_registry
 
         account_merged.connect(merge_user)
         search_registry.register(add_search)
+
+        from .api_views import ArticleTagViewSet
+
+        api_router.register(r"articletag", ArticleTagViewSet, basename="articletag")
 
 
 def merge_user(sender, old_user=None, new_user=None, **kwargs):
