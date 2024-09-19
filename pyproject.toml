@@ -115,6 +115,7 @@ dev = [
   "faker",
   "mock",
   "pbr",
+  "djlint",
   "pre-commit",
   "pycodestyle",
   "pyflakes",

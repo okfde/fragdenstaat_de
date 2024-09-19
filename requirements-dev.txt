@@ -18,7 +18,9 @@ asgiref==3.8.1
     #   django
     #   django-countries
 async-timeout==4.0.3
-    # via fragdenstaat-de (pyproject.toml)
+    # via
+    #   fragdenstaat-de (pyproject.toml)
+    #   aiohttp
 attrs==24.2.0
     # via
     #   aiohttp
@@ -77,6 +79,7 @@ click==8.1.7
     #   click-didyoumean
     #   click-plugins
     #   click-repl
+    #   djlint
     #   geocoder
 click-didyoumean==0.3.1
     # via celery
@@ -84,6 +87,8 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.3.0
     # via celery
+colorama==0.4.6
+    # via djlint
 coreapi==2.3.3
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -103,6 +108,8 @@ cryptography==43.0.1
     #   jwcrypto
     #   pgpy
     #   pyopenssl
+cssbeautifier==1.15.1
+    # via djlint
 cssselect2==0.7.0
     # via
     #   svglib
@@ -373,6 +380,8 @@ djangorestframework-jsonp==1.0.2
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
+djlint==1.35.2
+    # via fragdenstaat-de (pyproject.toml)
 dnspython==2.6.1
     # via pyisemail
 docopt==0.6.2
@@ -389,6 +398,10 @@ easy-thumbnails==2.9
     #   djangocms-frontend
     #   djangocms-picture
     #   froide
+editorconfig==0.12.4
+    # via
+    #   cssbeautifier
+    #   jsbeautifier
 elastic-transport==8.15.0
     # via elasticsearch
 elasticsearch==8.15.1
@@ -405,6 +418,8 @@ enmerkar==0.7.1
     # via django-prices
 et-xmlfile==1.1.0
     # via openpyxl
+exceptiongroup==1.2.2
+    # via pytest
 factory-boy==3.3.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -473,8 +488,12 @@ greenlet==3.0.3
     # via playwright
 honcho==1.1.0
     # via fragdenstaat-de (pyproject.toml)
+html-tag-names==0.1.2
+    # via djlint
 html-text==0.6.2
     # via fragdenstaat-de (pyproject.toml)
+html-void-elements==0.1.0
+    # via djlint
 html5lib==1.1
     # via
     #   djangocms-text-ckeditor
@@ -514,6 +533,12 @@ jinja2==3.1.4
     #   coreschema
     #   sphinx
     #   torch
+jsbeautifier==1.15.1
+    # via
+    #   cssbeautifier
+    #   djlint
+json5==0.9.25
+    # via djlint
 jsonschema==4.23.0
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -587,6 +612,8 @@ pandas==2.2.2
     # via fragdenstaat-de (pyproject.toml)
 parso==0.8.4
     # via jedi
+pathspec==0.12.1
+    # via djlint
 pbr==6.1.0
     # via fragdenstaat-de (pyproject.toml)
 pexpect==4.9.0
@@ -737,6 +764,7 @@ pywatchman==2.0.0
     # via fragdenstaat-de (pyproject.toml)
 pyyaml==6.0.2
     # via
+    #   djlint
     #   drf-spectacular
     #   pre-commit
 qrcode==7.3.1
@@ -747,6 +775,8 @@ referencing==0.35.1
     # via
     #   jsonschema
     #   jsonschema-specifications
+regex==2024.9.11
+    # via djlint
 reportlab==4.2.2
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -780,13 +810,14 @@ setuptools==74.1.2
     #   django-cms
     #   geoip2
     #   ipython
-    #   torch
 six==1.16.0
     # via
     #   bleach
+    #   cssbeautifier
     #   django-elasticsearch-dsl
     #   geocoder
     #   html5lib
+    #   jsbeautifier
     #   python-dateutil
 snowballstemmer==2.2.0
     # via sphinx
@@ -831,24 +862,35 @@ tinycss2==1.3.0
     #   cssselect2
     #   svglib
     #   weasyprint
+tomli==2.0.1
+    # via
+    #   djlint
+    #   ipdb
+    #   pytest
+    #   sphinx
 torch==2.4.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   torchvision
 torchvision==0.19.1
     # via fragdenstaat-de (pyproject.toml)
+tqdm==4.66.5
+    # via djlint
 traitlets==5.14.3
     # via
     #   ipython
     #   matplotlib-inline
 typing-extensions==4.12.2
     # via
+    #   asgiref
     #   dj-database-url
     #   django-countries
     #   elasticsearch-dsl
     #   jwcrypto
+    #   multidict
     #   psycopg
     #   pyee
+    #   pypdf
     #   pytest-factoryboy
     #   python-docx
     #   torch
