@@ -3,7 +3,9 @@ import subprocess
 import time
 from collections import namedtuple
 from datetime import datetime
+from decimal import Decimal
 
+from django.core import mail
 from django.urls import reverse
 
 import froide_payment.provider.stripe
@@ -191,6 +193,40 @@ def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_se
     ).latest("timestamp")
     payment = donation.payment
     assert payment.status == "confirmed"
+
+    # Modify subscription
+    subscription = donation.order.subscription
+    old_plan = subscription.plan
+    assert old_plan.interval == 1
+    page.goto(
+        live_server.url
+        + reverse(
+            "froide_payment:subscription-detail", kwargs={"token": subscription.token}
+        )
+    )
+    page.locator("#id_amount").fill("10")
+    page.locator("#id_interval").select_option(label="vierteljährlich")
+    mail.outbox = []
+    page.get_by_role("button", name="Dauerspende ändern").click()
+    page.wait_for_load_state("networkidle")
+
+    # Open confirmation link in email
+    assert mail.outbox[-1].to[0] == subscription.customer.user_email
+    message = mail.outbox[-1]
+    match = re.search(r"http://\S+", message.body)
+    assert match
+    page.goto(match.group(0))
+    page.wait_for_load_state("networkidle")
+
+    # Check subscription change
+    subscription.refresh_from_db()
+    assert subscription.plan != old_plan
+    assert subscription.plan.amount == Decimal("10")
+    assert subscription.plan.interval == 3
+    stripe_sub = stripe.Subscription.retrieve(subscription.remote_reference)
+    assert stripe_sub.plan.interval_count == 3
+    assert stripe_sub.plan.id == subscription.plan.remote_reference
+    assert stripe_sub.trial_end is not None
 
 
 @pytest.mark.django_db
