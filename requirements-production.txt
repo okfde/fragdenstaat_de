@@ -404,15 +404,15 @@ froide @ git+https://github.com/okfde/froide.git@0b41475c3445ca68c5950831770bb45
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@55a8a36a2ec9862dc160c1f89ed8250229cf55b2
     # via fragdenstaat-de (pyproject.toml)
-froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@31bdf60295ce18757a1caee3da04cabda7f0cb49
+froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@dafeaab42b60563a465e044fa63a31183890299a
     # via fragdenstaat-de (pyproject.toml)
 froide-exam @ git+https://github.com/okfde/froide-exam.git@170951539a16b1186621923b84906966d3557a6d
     # via fragdenstaat-de (pyproject.toml)
-froide-fax @ git+https://github.com/okfde/froide-fax.git@c0b4fb6e81ebce3686f5f769aa4838d60df0aa5d
+froide-fax @ git+https://github.com/okfde/froide-fax.git@f060c74fa80f75c4be8f9aa87e427ef1e749ec6f
     # via fragdenstaat-de (pyproject.toml)
 froide-food @ git+https://github.com/okfde/froide-food.git@3a1cd2c63564267d3db24cf8aae8bbac3d8098e0
     # via fragdenstaat-de (pyproject.toml)
-froide-govplan @ git+https://github.com/okfde/froide-govplan.git@1dd2717ff25e8ea761d4edc993f4d987b584a0f1
+froide-govplan @ git+https://github.com/okfde/froide-govplan.git@eb0908dea9ecc64b23ca8a2bc550fcb1a400e3f1
     # via fragdenstaat-de (pyproject.toml)
 froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@3651061363c8bd9e5a415b571402ade7534242eb
     # via fragdenstaat-de (pyproject.toml)
