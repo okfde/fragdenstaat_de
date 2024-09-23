@@ -2,10 +2,11 @@
 
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: weekly
+  # TODO: wait until pnpm issues with git repos are fixed
+  # - package-ecosystem: npm
+  #   directory: /
+  #   schedule:
+  #     interval: weekly
   - package-ecosystem: pip
     directory: /
     schedule:
