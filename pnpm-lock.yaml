@@ -13,7 +13,7 @@ importers:
         version: 3.6.2
       '@okfde/filingcabinet':
         specifier: github:okfde/django-filingcabinet
-        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/3b1dc92d89da48af9851e37a22ac1310922b9c73(typescript@5.6.2)
+        version: git+https://git@github.com:okfde/django-filingcabinet.git#3b1dc92d89da48af9851e37a22ac1310922b9c73(typescript@5.6.2)
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -34,28 +34,28 @@ importers:
         version: 4.7.0
       froide:
         specifier: github:okfde/froide
-        version: https://codeload.github.com/okfde/froide/tar.gz/0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2)
+        version: git+https://git@github.com:okfde/froide.git#0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2)
       froide_campaign:
         specifier: github:okfde/froide-campaign
-        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/55a8a36a2ec9862dc160c1f89ed8250229cf55b2(froide@https://codeload.github.com/okfde/froide/tar.gz/0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
+        version: git+https://git@github.com:okfde/froide-campaign.git#55a8a36a2ec9862dc160c1f89ed8250229cf55b2(froide@git+https://git@github.com:okfde/froide.git#0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
       froide_exam:
         specifier: github:okfde/froide-exam
-        version: https://codeload.github.com/okfde/froide-exam/tar.gz/170951539a16b1186621923b84906966d3557a6d
+        version: git+https://git@github.com:okfde/froide-exam.git#170951539a16b1186621923b84906966d3557a6d
       froide_food:
         specifier: github:okfde/froide-food
-        version: https://codeload.github.com/okfde/froide-food/tar.gz/3a1cd2c63564267d3db24cf8aae8bbac3d8098e0(froide@https://codeload.github.com/okfde/froide/tar.gz/0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
+        version: git+https://git@github.com:okfde/froide-food.git#3a1cd2c63564267d3db24cf8aae8bbac3d8098e0(froide@git+https://git@github.com:okfde/froide.git#0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
       froide_legalaction:
         specifier: github:okfde/froide-legalaction
-        version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/3651061363c8bd9e5a415b571402ade7534242eb
+        version: git+https://git@github.com:okfde/froide-legalaction.git#3651061363c8bd9e5a415b571402ade7534242eb
       froide_payment:
         specifier: github:okfde/froide-payment
-        version: https://codeload.github.com/okfde/froide-payment/tar.gz/6ae73338ea2fb68ba8145d55926b6b895d5654a8
+        version: git+https://git@github.com:okfde/froide-payment.git#6ae73338ea2fb68ba8145d55926b6b895d5654a8
       vega:
         specifier: ^5.30.0
         version: 5.30.0
       vega-embed:
-        specifier: 6.19.1
-        version: 6.19.1(vega-lite@5.21.0(vega@5.30.0))(vega@5.30.0)
+        specifier: 6.26.0
+        version: 6.26.0(vega-lite@5.21.0(vega@5.30.0))(vega@5.30.0)
       vega-interpreter:
         specifier: ^1.0.5
         version: 1.0.5
@@ -65,7 +65,7 @@ importers:
     devDependencies:
       '@okfde/eslint-config-froide':
         specifier: github:okfde/eslint-config-froide
-        version: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c(typescript@5.6.2)
+        version: git+https://git@github.com:okfde/eslint-config-froide.git#daabc1889e3b91e8c09eed6326ce4788a8cd116c(typescript@5.6.2)
       '@sentry/vite-plugin':
         specifier: ^2.22.4
         version: 2.22.4
@@ -393,12 +393,12 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@okfde/eslint-config-froide@https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c':
-    resolution: {tarball: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c}
+  '@okfde/eslint-config-froide@git+https://git@github.com:okfde/eslint-config-froide.git#daabc1889e3b91e8c09eed6326ce4788a8cd116c':
+    resolution: {commit: daabc1889e3b91e8c09eed6326ce4788a8cd116c, repo: git@github.com:okfde/eslint-config-froide.git, type: git}
     version: 1.0.0
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/3b1dc92d89da48af9851e37a22ac1310922b9c73':
-    resolution: {tarball: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/3b1dc92d89da48af9851e37a22ac1310922b9c73}
+  '@okfde/filingcabinet@git+https://git@github.com:okfde/django-filingcabinet.git#3b1dc92d89da48af9851e37a22ac1310922b9c73':
+    resolution: {commit: 3b1dc92d89da48af9851e37a22ac1310922b9c73, repo: git@github.com:okfde/django-filingcabinet.git, type: git}
     version: 0.0.4
 
   '@popperjs/core@2.11.8':
@@ -1302,32 +1302,32 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/0b41475c3445ca68c5950831770bb4544858cbc4:
-    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/0b41475c3445ca68c5950831770bb4544858cbc4}
+  froide@git+https://git@github.com:okfde/froide.git#0b41475c3445ca68c5950831770bb4544858cbc4:
+    resolution: {commit: 0b41475c3445ca68c5950831770bb4544858cbc4, repo: git@github.com:okfde/froide.git, type: git}
     version: 1.0.0
 
-  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/55a8a36a2ec9862dc160c1f89ed8250229cf55b2:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-campaign/tar.gz/55a8a36a2ec9862dc160c1f89ed8250229cf55b2}
-    version: 1.0.0
-    peerDependencies:
-      froide: github:okfde/froide
-
-  froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/170951539a16b1186621923b84906966d3557a6d:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-exam/tar.gz/170951539a16b1186621923b84906966d3557a6d}
-    version: 1.0.0
-
-  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/3a1cd2c63564267d3db24cf8aae8bbac3d8098e0:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-food/tar.gz/3a1cd2c63564267d3db24cf8aae8bbac3d8098e0}
+  froide_campaign@git+https://git@github.com:okfde/froide-campaign.git#55a8a36a2ec9862dc160c1f89ed8250229cf55b2:
+    resolution: {commit: 55a8a36a2ec9862dc160c1f89ed8250229cf55b2, repo: git@github.com:okfde/froide-campaign.git, type: git}
     version: 1.0.0
     peerDependencies:
       froide: github:okfde/froide
 
-  froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/3651061363c8bd9e5a415b571402ade7534242eb:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-legalaction/tar.gz/3651061363c8bd9e5a415b571402ade7534242eb}
+  froide_exam@git+https://git@github.com:okfde/froide-exam.git#170951539a16b1186621923b84906966d3557a6d:
+    resolution: {commit: 170951539a16b1186621923b84906966d3557a6d, repo: git@github.com:okfde/froide-exam.git, type: git}
     version: 1.0.0
 
-  froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/6ae73338ea2fb68ba8145d55926b6b895d5654a8:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-payment/tar.gz/6ae73338ea2fb68ba8145d55926b6b895d5654a8}
+  froide_food@git+https://git@github.com:okfde/froide-food.git#3a1cd2c63564267d3db24cf8aae8bbac3d8098e0:
+    resolution: {commit: 3a1cd2c63564267d3db24cf8aae8bbac3d8098e0, repo: git@github.com:okfde/froide-food.git, type: git}
+    version: 1.0.0
+    peerDependencies:
+      froide: github:okfde/froide
+
+  froide_legalaction@git+https://git@github.com:okfde/froide-legalaction.git#3651061363c8bd9e5a415b571402ade7534242eb:
+    resolution: {commit: 3651061363c8bd9e5a415b571402ade7534242eb, repo: git@github.com:okfde/froide-legalaction.git, type: git}
+    version: 1.0.0
+
+  froide_payment@git+https://git@github.com:okfde/froide-payment.git#6ae73338ea2fb68ba8145d55926b6b895d5654a8:
+    resolution: {commit: 6ae73338ea2fb68ba8145d55926b6b895d5654a8, repo: git@github.com:okfde/froide-payment.git, type: git}
     version: 1.0.0
 
   fs.realpath@1.0.0:
@@ -2228,10 +2228,10 @@ packages:
   vega-dataflow@5.7.6:
     resolution: {integrity: sha512-9Md8+5iUC1MVKPKDyZ7pCEHk6I9am+DgaMzZqo/27O/KI4f23/WQXPyuI8jbNmc/mkm340P0TKREmzL5M7+2Dg==}
 
-  vega-embed@6.19.1:
-    resolution: {integrity: sha512-ILhenUl+sJtSeJtr0FhJ1zeaGOPGxST5AiAtKWmGBq9nFPf1T90TZ1duKcIhTgXI5ql/Q0UwgYpvQQT2qYK+EQ==}
+  vega-embed@6.26.0:
+    resolution: {integrity: sha512-AZCTdKHDAuhp6TFZRQOOs332tStCwZr/5e4uZMNEuJL69A57cT66NNZJdNiCP6u66REzIToYtMJhMTL9wl5B3A==}
     peerDependencies:
-      vega: ^5.20.2
+      vega: ^5.21.0
       vega-lite: '*'
 
   vega-encode@4.10.1:
@@ -2310,8 +2310,8 @@ packages:
   vega-time@2.1.2:
     resolution: {integrity: sha512-6rXc6JdDt8MnCRy6UzUCsa6EeFycPDmvioMddLfKw38OYCV8pRQC5nw44gyddOwXgUTJLiCtn/sp53P0iA542A==}
 
-  vega-tooltip@0.27.0:
-    resolution: {integrity: sha512-FRcHNfMNo9D/7an5nZuP6JC2JGEsc85qcGjyMU7VlPpjQj9eBj1P+sZSNbb54Z20g7inVSBRyd8qgNn5EYTxJA==}
+  vega-tooltip@0.34.0:
+    resolution: {integrity: sha512-TtxwkcLZ5aWQTvKGlfWDou8tISGuxmqAW1AgGZjrDpf75qsXvgtbPdRAAls2LZMqDxpr5T1kMEZs9XbSpiI8yw==}
 
   vega-transforms@4.12.0:
     resolution: {integrity: sha512-bh/2Qbj85O70mjfLRgPKAsABArgSUP0k+GjmaY54zukIRxoGxKju+85nigeX/aR/INpEqNWif+5lL+NvmyWA5w==}
@@ -2764,7 +2764,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@okfde/eslint-config-froide@https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c(typescript@5.6.2)':
+  '@okfde/eslint-config-froide@git+https://git@github.com:okfde/eslint-config-froide.git#daabc1889e3b91e8c09eed6326ce4788a8cd116c(typescript@5.6.2)':
     dependencies:
       eslint: 9.10.0
       eslint-config-prettier: 9.1.0(eslint@9.10.0)
@@ -2777,7 +2777,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/3b1dc92d89da48af9851e37a22ac1310922b9c73(typescript@5.6.2)':
+  '@okfde/filingcabinet@git+https://git@github.com:okfde/django-filingcabinet.git#3b1dc92d89da48af9851e37a22ac1310922b9c73(typescript@5.6.2)':
     dependencies:
       '@popperjs/core': 2.11.8
       bootstrap: 5.3.3(@popperjs/core@2.11.8)
@@ -3899,9 +3899,9 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2):
+  froide@git+https://git@github.com:okfde/froide.git#0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2):
     dependencies:
-      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/3b1dc92d89da48af9851e37a22ac1310922b9c73(typescript@5.6.2)
+      '@okfde/filingcabinet': git+https://git@github.com:okfde/django-filingcabinet.git#3b1dc92d89da48af9851e37a22ac1310922b9c73(typescript@5.6.2)
       '@popperjs/core': 2.11.8
       '@types/lodash.throttle': 4.1.9
       '@uppy/core': 3.13.1
@@ -3942,13 +3942,13 @@ snapshots:
       - universal-cookie
       - worker-loader
 
-  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/55a8a36a2ec9862dc160c1f89ed8250229cf55b2(froide@https://codeload.github.com/okfde/froide/tar.gz/0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
+  froide_campaign@git+https://git@github.com:okfde/froide-campaign.git#55a8a36a2ec9862dc160c1f89ed8250229cf55b2(froide@git+https://git@github.com:okfde/froide.git#0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
       '@turf/bbox': 6.5.0
       '@types/leaflet': 1.9.12
       '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.6(typescript@5.6.2))
       deepmerge: 4.3.1
-      froide: https://codeload.github.com/okfde/froide/tar.gz/0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2)
+      froide: git+https://git@github.com:okfde/froide.git#0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.2.1
       lodash.debounce: 4.0.8
@@ -3957,13 +3957,13 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/170951539a16b1186621923b84906966d3557a6d: {}
+  froide_exam@git+https://git@github.com:okfde/froide-exam.git#170951539a16b1186621923b84906966d3557a6d: {}
 
-  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/3a1cd2c63564267d3db24cf8aae8bbac3d8098e0(froide@https://codeload.github.com/okfde/froide/tar.gz/0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
+  froide_food@git+https://git@github.com:okfde/froide-food.git#3a1cd2c63564267d3db24cf8aae8bbac3d8098e0(froide@git+https://git@github.com:okfde/froide.git#0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
       '@turf/bbox': 6.5.0
       '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.6(typescript@5.6.2))
-      froide: https://codeload.github.com/okfde/froide/tar.gz/0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2)
+      froide: git+https://git@github.com:okfde/froide.git#0b41475c3445ca68c5950831770bb4544858cbc4(fuse.js@6.6.2)(typescript@5.6.2)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.3.0
       vue: 3.5.6(typescript@5.6.2)
@@ -3971,9 +3971,9 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/3651061363c8bd9e5a415b571402ade7534242eb: {}
+  froide_legalaction@git+https://git@github.com:okfde/froide-legalaction.git#3651061363c8bd9e5a415b571402ade7534242eb: {}
 
-  froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/6ae73338ea2fb68ba8145d55926b6b895d5654a8:
+  froide_payment@git+https://git@github.com:okfde/froide-payment.git#6ae73338ea2fb68ba8145d55926b6b895d5654a8:
     dependencies:
       '@stripe/stripe-js': 3.5.0
 
@@ -4871,7 +4871,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  vega-embed@6.19.1(vega-lite@5.21.0(vega@5.30.0))(vega@5.30.0):
+  vega-embed@6.26.0(vega-lite@5.21.0(vega@5.30.0))(vega@5.30.0):
     dependencies:
       fast-json-patch: 3.1.1
       json-stringify-pretty-compact: 3.0.0
@@ -4882,7 +4882,7 @@ snapshots:
       vega-lite: 5.21.0(vega@5.30.0)
       vega-schema-url-parser: 2.2.0
       vega-themes: 2.15.0(vega-lite@5.21.0(vega@5.30.0))(vega@5.30.0)
-      vega-tooltip: 0.27.0
+      vega-tooltip: 0.34.0
 
   vega-encode@4.10.1:
     dependencies:
@@ -5060,7 +5060,7 @@ snapshots:
       d3-time: 3.1.0
       vega-util: 1.17.2
 
-  vega-tooltip@0.27.0:
+  vega-tooltip@0.34.0:
     dependencies:
       vega-util: 1.17.2
 
