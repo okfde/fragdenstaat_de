@@ -1,9 +1,10 @@
-import { resolve } from 'path'
+import { resolve } from 'node:path'
+import * as url from 'node:url'
 import { defineConfig } from 'vite'
-import devManifest from 'vite-plugin-dev-manifest'
-import autoprefixer from 'autoprefixer'
 import vue from '@vitejs/plugin-vue'
-import * as url from 'url'
+import devManifest from 'vite-plugin-dev-manifest'
+import { sentryVitePlugin } from '@sentry/vite-plugin'
+import autoprefixer from 'autoprefixer'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const outputDir = resolve(__dirname, 'build')
@@ -14,7 +15,7 @@ const r = (project, file) =>
   resolve(__dirname, 'node_modules', project, 'frontend', 'javascript', file)
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   // eslint-disable-next-line no-undef
   base: process.env.ASSET_PATH || '/static/',
   publicDir: false,
@@ -87,11 +88,18 @@ export default defineConfig({
     origin: 'http://127.0.0.1:5173',
     fs: { allow: ['..'] }
   },
-  plugins: [vue(), devManifest()],
+  plugins: [
+    vue(),
+    devManifest(),
+    mode === 'production' &&
+      sentryVitePlugin({
+        telemetry: false
+      })
+  ],
   css: {
     devSourcemap: true,
     postcss: {
       plugins: [autoprefixer]
     }
   }
-})
+}))
