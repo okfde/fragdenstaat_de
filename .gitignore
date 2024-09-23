@@ -19,4 +19,5 @@ data/
 htmlcov/
 .coverage
 django.po
+.env.*
 !fragdenstaat_de/locale/**/django.po
