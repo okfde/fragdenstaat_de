@@ -141,10 +141,10 @@ frontend() {
   done
 
   pushd $MAIN
+  pnpm install
   for name in "${FRONTEND[@]}"; do
     pnpm link --global "$name"
   done
-  pnpm install
   popd
 }
 
