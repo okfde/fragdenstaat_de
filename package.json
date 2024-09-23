@@ -20,7 +20,7 @@
     "@types/leaflet": "^1.9.12",
     "@vitejs/plugin-vue": "^4.6.2",
     "autoprefixer": "^10.4.20",
-    "cli-real-favicon": "0.0.8",
+    "cli-real-favicon": "0.0.9",
     "postcss": "^8.4.47",
     "sass": "^1.78.0",
     "typescript": "^5.6.2",
