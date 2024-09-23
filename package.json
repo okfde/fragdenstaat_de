@@ -14,6 +14,7 @@
   "homepage": "https://github.com/okfde/fragdenstaat_de#readme",
   "devDependencies": {
     "@okfde/eslint-config-froide": "github:okfde/eslint-config-froide",
+    "@sentry/vite-plugin": "^2.22.4",
     "@types/bootstrap": "^5.2.10",
     "@types/glidejs__glide": "^3.6.5",
     "@types/leaflet": "^1.9.12",
