@@ -744,6 +744,7 @@ class FragDenStaatBase(German, Base):
                     "about": "/hilfe/ueber/",
                     "help": "/hilfe/",
                     "throttled": "/hilfe/erste-anfrage/wie-viele-anfragen-kann-ich-stellen/",
+                    "help_postupload_redaction": "/hilfe/plain/funktionen-der-plattform/schwaerzungen-durchfuehren/",
                 },
                 "bounce_enabled": True,
                 "bounce_max_age": 60 * 60 * 24 * 14,  # 14 days
