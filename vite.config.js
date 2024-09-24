@@ -54,6 +54,7 @@ export default defineConfig(({ mode }) => ({
         messageredaction: r('froide', 'messageredaction.js'),
         moderation: r('froide', 'moderation.js'),
         payment: r('froide_payment', 'payment.ts'),
+        postupload: r('froide', 'postupload.js'),
         proofupload: r('froide', 'proofupload.js'),
         publicbody: r('froide', 'publicbody.js'),
         publicbodyupload: r('froide', 'publicbodyupload.js'),
