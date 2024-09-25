@@ -193,3 +193,4 @@ class UnsubscribeFeedbackAdmin(admin.ModelAdmin):
     list_filter = ("reason", "created")
     search_fields = ("comment",)
     date_hierarchy = "created"
+    raw_id_fields = ("subscriber",)
