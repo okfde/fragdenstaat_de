@@ -286,12 +286,6 @@ class FragDenStaat(FragDenStaatBase):
 
     TASTYPIE_DEFAULT_FORMATS = ["json"]
 
-    @property
-    def OAUTH2_PROVIDER(self):
-        P = super(FragDenStaat, self).OAUTH2_PROVIDER
-        P["ALLOWED_REDIRECT_URI_SCHEMES"] = ["https", "fragdenstaat"]
-        return P
-
 
 class FragDenStaatDebug(FragDenStaat):
     LOGGING = dict(FragDenStaat.LOGGING)

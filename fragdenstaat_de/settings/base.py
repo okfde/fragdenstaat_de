@@ -550,6 +550,12 @@ class FragDenStaatBase(German, Base):
     ALLOWED_HOSTS = ("*",)
     ALLOWED_REDIRECT_HOSTS = ("*",)
 
+    @property
+    def OAUTH2_PROVIDER(self):
+        P = super().OAUTH2_PROVIDER
+        P["ALLOWED_REDIRECT_URI_SCHEMES"] = ["https", "fragdenstaat"]
+        return P
+
     DEFAULT_FROM_EMAIL = "FragDenStaat.de <info@fragdenstaat.de>"
     EMAIL_SUBJECT_PREFIX = "[AdminFragDenStaat] "
 
