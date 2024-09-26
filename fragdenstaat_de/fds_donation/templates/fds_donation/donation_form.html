@@ -15,7 +15,10 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    <p>Wenn Sie Ihre Dauerspende anpassen wollen, können Sie diese auf der Detailseite kündigen und hier neu anlegen.</p>
+                    <p>
+                        <a href="{{ subscription.get_absolute_url }}">Sie können den Betrag oder den Rhythmus Ihrer Dauerspende auf der Detailseite anpassen.</a>
+                        Wenn Sie die Zahlungsart ändern wollen, kündigen Sie Ihre Dauerspende bitte und legen Sie hier eine neue an.
+                    </p>
                 </div>
             {% endif %}
             <form action="{{ form.action }}" method="POST" class="donation-form">
