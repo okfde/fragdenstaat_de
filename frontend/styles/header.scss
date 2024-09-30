@@ -2,6 +2,9 @@
 
 $c: map.get($container-max-widths, 'xxl');
 
+// static height calculations
+$header-height-mobile: 4.5rem;
+
 #header {
   position: relative;
   z-index: 1031; // over .fixed-* and .sticky-*, but below modals etc.
