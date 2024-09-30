@@ -315,6 +315,10 @@ class CMSContentEntry(models.Model):
     def content_placeholder(self):
         return get_placeholder_from_slot(self.placeholders, "content")
 
+    @cached_property
+    def header_placeholder(self):
+        return get_placeholder_from_slot(self.placeholders, "header")
+
     def get_template(self):
         return "fds_blog/placeholders.html"
 
