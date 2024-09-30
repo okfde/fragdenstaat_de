@@ -266,6 +266,9 @@ class ArticleTag(TagBase):
         verbose_name = _("Article Tag")
         verbose_name_plural = _("Article Tags")
 
+    def get_absolute_url(self):
+        return reverse("blog:article-tagged", kwargs={"tag": self.slug})
+
 
 class TaggedArticle(TaggedItemBase):
     tag = models.ForeignKey(
