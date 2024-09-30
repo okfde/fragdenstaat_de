@@ -416,9 +416,16 @@ class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
 
 
 class ArticleTagAdmin(admin.ModelAdmin):
-    list_display = ["name", "slug"]
+    list_display = ["name", "slug", "articles_count"]
     search_fields = ["name"]
     prepopulated_fields = {"slug": ["name"]}
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(articles_count=Count("articles"))
+
+    @admin.display(description=_("Number of articles"))
+    def articles_count(self, obj):
+        return obj.articles_count
 
 
 class TaggedArticleAdmin(admin.ModelAdmin):
