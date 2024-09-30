@@ -149,6 +149,12 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
     def get_breadcrumbs(self, context):
         breadcrumbs = get_base_breadcrumb()
 
+        if (
+            self.object.content_template
+            == "fds_blog/content/_article_video_header.html"
+        ):
+            breadcrumbs.overlay = True
+
         category = self.object.first_category
         if category:
             breadcrumbs.items += [(category.title, category.get_absolute_url())]
@@ -156,6 +162,7 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
                 breadcrumbs.color = category.color
 
         breadcrumbs.items += [(self.object.title, self.get_view_url())]
+
         return breadcrumbs
 
 
