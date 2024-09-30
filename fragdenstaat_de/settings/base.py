@@ -180,7 +180,8 @@ class FragDenStaatBase(German, Base):
     # BLOG
 
     ARTICLE_CONTENT_TEMPLATES = [
-        ("fds_blog/content/_article_no_image.html", _("No image in article"))
+        ("fds_blog/content/_article_no_image.html", _("No image in article")),
+        ("fds_blog/content/_article_video_header.html", _("Video header")),
     ]
     ARTICLE_DETAIL_TEMPLATES = []
 
