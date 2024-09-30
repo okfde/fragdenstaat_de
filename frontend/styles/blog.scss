@@ -166,3 +166,28 @@ aside.article-banner {
 .blog-article-item:hover figure img {
   transform: scale(1.03);
 }
+
+
+.article-header-video {
+    position: relative;
+    min-height: 60vh; 
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  video {
+    position: absolute;
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index : -1;
+  }
+  .blog-header-meta {
+    background-color: transparent;
+  }
+}
