@@ -1,21 +1,24 @@
 {% load thumbnail %}
 {% load i18n %}
+{% load blog_tags %}
 {% if authors %}
     <div class="hstack gap-3 align-content-center">
-        {# authors are also linked with text below, so spare screenreaders/keyboard nav #}
-        <div class="blog-author-images" aria-hidden="true">
-            {% for author in authors %}
-                {% if author.user.profile_photo %}
-                    <a href="{{ author.get_absolute_url }}" tabindex="-1">
-                        <img width="32"
-                             height="32"
-                             src="{% thumbnail author.user.profile_photo 64x64 %}"
-                             alt=""
-                             class="rounded-circle" />
-                    </a>
-                {% endif %}
-            {% endfor %}
-        </div>
+        {% if authors|has_author_images %}
+            {# authors are also linked with text below, so spare screenreaders/keyboard nav #}
+            <div class="blog-author-images" aria-hidden="true">
+                {% for author in authors %}
+                    {% if author.user.profile_photo %}
+                        <a href="{{ author.get_absolute_url }}" tabindex="-1">
+                            <img width="32"
+                                 height="32"
+                                 src="{% thumbnail author.user.profile_photo 64x64 %}"
+                                 alt=""
+                                 class="rounded-circle" />
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
         <div class="d-md-flex flex-wrap align-items-center">
             <p class="m-0">
                 {% trans "by" %}
