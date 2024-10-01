@@ -169,17 +169,16 @@ aside.article-banner {
 
 .article-header-video {
   position: relative;
-  height: calc(100vh - $header-height-mobile);
+  min-height: calc(100vh - $header-height-mobile);
 
   @include media-breakpoint-up(lg) {
-    height: 48rem;
+    min-height: 36rem;
   }
 
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: -1; // put behind the breadcrumbs
 
   video {
     position: absolute;
