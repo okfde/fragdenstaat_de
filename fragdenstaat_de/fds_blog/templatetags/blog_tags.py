@@ -1,10 +1,10 @@
 import re
-from typing import Tuple
+from typing import List, Tuple
 
 from django import template
 
 from ..managers import articles_published
-from ..models import Article
+from ..models import Article, Author
 
 register = template.Library()
 
@@ -46,3 +46,8 @@ def get_blog_preview(context, amount=6):
     articles = Article.published.all()[:amount]
 
     return {"articles": articles, "request": context.get("request")}
+
+
+@register.filter
+def has_author_images(authors: List[Author]) -> bool:
+    return any(author.user and author.user.profile_photo for author in authors)
