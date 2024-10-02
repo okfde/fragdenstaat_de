@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-30 22:29+0200\n"
+"POT-Creation-Date: 2024-10-02 11:38+0200\n"
 "PO-Revision-Date: 2024-08-29 10:21+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -116,6 +116,11 @@ msgstr ""
 #: fragdenstaat_de/fds_blog/admin.py
 msgid "Set articles as translations of each other"
 msgstr "Markiere Artikel als Übersetzungen voneinander"
+
+#: fragdenstaat_de/fds_blog/admin.py
+#, fuzzy
+msgid "Number of articles"
+msgstr "Anzahl Artikel"
 
 #: fragdenstaat_de/fds_blog/apps.py fragdenstaat_de/templates/header.html
 msgid "Investigations"
@@ -2702,6 +2707,10 @@ msgstr "Englisch"
 #: fragdenstaat_de/settings/base.py
 msgid "No image in article"
 msgstr "Kein Bild im Artikel"
+
+#: fragdenstaat_de/settings/base.py
+msgid "Video header"
+msgstr "Video Header"
 
 #: fragdenstaat_de/settings/base.py
 msgid "E-Mail Body"
