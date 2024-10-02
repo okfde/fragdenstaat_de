@@ -2710,7 +2710,7 @@ msgstr "Kein Bild im Artikel"
 
 #: fragdenstaat_de/settings/base.py
 msgid "Video header"
-msgstr ""
+msgstr "Video Header"
 
 #: fragdenstaat_de/settings/base.py
 msgid "E-Mail Body"
