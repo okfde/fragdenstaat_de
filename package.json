@@ -37,7 +37,7 @@
     "@sentry/tracing": "^7.114.0",
     "bootstrap": "^5.3.3",
     "font-awesome": "^4.7.0",
-    "froide": "github:okfde/froide",
+    "froide": "github:okfde/froide#bikubi/postupload-wip",
     "froide_campaign": "github:okfde/froide-campaign",
     "froide_exam": "github:okfde/froide-exam",
     "froide_food": "github:okfde/froide-food",
