@@ -143,9 +143,8 @@ msgid "Article preview"
 msgstr "Artikel-Vorschau"
 
 #: fragdenstaat_de/fds_blog/cms_plugins.py
-#, fuzzy
 msgid "Blog Ad"
-msgstr "Blog"
+msgstr "Blog Werbebanner"
 
 #: fragdenstaat_de/fds_blog/cms_plugins.py
 msgid "Details Box"
@@ -627,7 +626,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/plugins/blog_ad.html
 msgid "Ad will be inserted here"
-msgstr ""
+msgstr "Werbebanner wird an dieser Stelle eingefügt"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
 msgid "Search articles"
