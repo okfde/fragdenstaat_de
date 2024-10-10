@@ -94,6 +94,18 @@ class BlogArticlePreviewPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
+class BlogAd(CMSPluginBase):
+    """
+    Inserts ad matching category
+    """
+
+    name = _("Blog Ad")
+    module = "Blog"
+    render_template = "fds_blog/plugins/blog_ad.html"
+    text_enabled = True
+
+
+@plugin_pool.register_plugin
 class DetailsBoxPlugin(CMSPluginBase):
     """
     Plugin to show an expandable explanation box

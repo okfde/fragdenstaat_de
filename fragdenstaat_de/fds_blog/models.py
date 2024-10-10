@@ -322,6 +322,11 @@ class CMSContentEntry(models.Model):
     def header_placeholder(self):
         return get_placeholder_from_slot(self.placeholders, "header")
 
+    @property
+    def has_ad_plugin(self) -> bool:
+        plugins = self.content_placeholder.get_plugins()
+        return plugins.filter(plugin_type="BlogAd").exists()
+
     def get_template(self):
         return "fds_blog/placeholders.html"
 

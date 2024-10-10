@@ -1,5 +1,4 @@
 {% load i18n cms_tags %}
-{% load djangocms_alias_tags %}
 {% load markup %}
 {% load static %}
 {% load blog_tags %}
@@ -50,25 +49,19 @@
     {% endif %}
 {% endblock %}
 {% block article_content %}
-    {% if request.toolbar.edit_mode_active %}
+    {% comment %}
+        if the article is in edit mode, or the article has manually inserted ads (via cms),
+        don't automatically insert ads
+    {% endcomment %}
+    {% if request.toolbar.edit_mode_active or article.has_ad_plugin %}
         {% render_placeholder article.content_placeholder %}
     {% else %}
         {% render_placeholder article.content_placeholder as content %}
         {% with content|split_for_banner as split %}
             {# content before ad split #}
             {{ split.0|safe }}
-            {# display the donation banner, if the category has one #}
-            {% with banner=category.donation_banner %}
-                {% if banner %}
-                    {% render_alias banner as banner_content %}
-                    {# this allows for conditional banners, i.e. hide the banner for donors using the corresponding cms plugin #}
-                    {% if banner_content %}
-                        <aside class="article-banner">
-                            {{ banner_content }}
-                        </aside>
-                    {% endif %}
-                {% endif %}
-            {% endwith %}
+            {# the actual ad #}
+            {% include "fds_blog/includes/blog_ad.html" with banner=category.donation_banner %}
             {# content after ad split #}
             {{ split.1|safe }}
         {% endwith %}
