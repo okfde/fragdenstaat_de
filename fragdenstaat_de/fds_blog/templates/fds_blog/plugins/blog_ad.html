@@ -1,0 +1,6 @@
+{% load i18n %}
+{% if article %}
+    {% include "fds_blog/includes/blog_ad.html" %}
+{% elif request.resolver_match.url_name == "cms_placeholder_edit_plugin" %}
+    <div class="text-bg-info p-3 mb-3">{% trans "Ad will be inserted here" %}</div>
+{% endif %}
