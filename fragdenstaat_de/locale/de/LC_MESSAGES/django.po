@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-02 11:38+0200\n"
+"POT-Creation-Date: 2024-10-10 12:34+0200\n"
 "PO-Revision-Date: 2024-08-29 10:21+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -141,6 +141,11 @@ msgstr "Neueste Blog-Artikel - Cache"
 #: fragdenstaat_de/fds_blog/cms_plugins.py
 msgid "Article preview"
 msgstr "Artikel-Vorschau"
+
+#: fragdenstaat_de/fds_blog/cms_plugins.py
+#, fuzzy
+msgid "Blog Ad"
+msgstr "Blog"
 
 #: fragdenstaat_de/fds_blog/cms_plugins.py
 msgid "Details Box"
@@ -610,6 +615,10 @@ msgstr "Foto-Credit: "
 #: fragdenstaat_de/fds_blog/templates/fds_blog/includes/_authors.html
 msgid "by"
 msgstr "von"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/plugins/blog_ad.html
+msgid "Ad will be inserted here"
+msgstr ""
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
 msgid "Search articles"
