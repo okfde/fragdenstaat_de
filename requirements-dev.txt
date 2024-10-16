@@ -256,7 +256,7 @@ django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@3b1
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
     #   froide
-django-filter==24.3
+django-filter==23.5
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
@@ -441,13 +441,13 @@ filelock==3.16.0
     #   virtualenv
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@93b5efa5cd0ea7bffb0e823e7e6323d308be2c2b
+froide @ git+https://github.com/okfde/froide.git@355b5f6d5861a3047cfad947f9de11413582f807
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@55a8a36a2ec9862dc160c1f89ed8250229cf55b2
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@dafeaab42b60563a465e044fa63a31183890299a
     # via fragdenstaat-de (pyproject.toml)
-froide-evidencecollection @ git+ssh://git@github.com/okfde/froide-evidencecollection.git@aef3f139fcd5cf8f044bb19632bea8cc1ca39282
+froide-evidencecollection @ git+ssh://git@github.com/okfde/froide-evidencecollection.git@0e81cce15173e4891db41a22e8b7330117107566
     # via fragdenstaat-de (pyproject.toml)
 froide-exam @ git+https://github.com/okfde/froide-exam.git@170951539a16b1186621923b84906966d3557a6d
     # via fragdenstaat-de (pyproject.toml)
