@@ -33,7 +33,7 @@ dependencies = [
   "django-elasticsearch-dsl>=8.0,<9.0",
   "django-filer>=3.0.0",
   "django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@main",
-  "django-filter>=24.3",
+  "django-filter<24.1",
   "django-floppyforms>=1.9.0",
   "django-json-widget>=2.0.1",
   "django-leaflet>=0.30.1",

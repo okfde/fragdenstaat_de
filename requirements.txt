@@ -14,9 +14,7 @@ asgiref==3.8.1
     #   django
     #   django-countries
 async-timeout==4.0.3
-    # via
-    #   fragdenstaat-de (pyproject.toml)
-    #   aiohttp
+    # via fragdenstaat-de (pyproject.toml)
 attrs==23.2.0
     # via
     #   aiohttp
@@ -227,7 +225,7 @@ django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@3b1
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
     #   froide
-django-filter==24.3
+django-filter==23.5
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
@@ -663,6 +661,7 @@ setuptools==74.1.2
     # via
     #   django-cms
     #   geoip2
+    #   torch
 six==1.16.0
     # via
     #   bleach
@@ -699,14 +698,11 @@ torchvision==0.19.1
     # via fragdenstaat-de (pyproject.toml)
 typing-extensions==4.12.2
     # via
-    #   asgiref
     #   dj-database-url
     #   django-countries
     #   elasticsearch-dsl
     #   jwcrypto
-    #   multidict
     #   psycopg
-    #   pypdf
     #   python-docx
     #   torch
 tzdata==2024.1
