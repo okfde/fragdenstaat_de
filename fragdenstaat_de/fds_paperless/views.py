@@ -29,7 +29,7 @@ def add_postal_message(request, foirequest):
             request.POST, foirequest=foirequest, paperless_docs=paperless_docs
         )
         if form.is_valid():
-            message = form.save()
+            message = form.save(request.user)
             FoiRequest.message_received.send(
                 sender=foirequest, message=message, user=request.user
             )

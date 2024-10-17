@@ -44,8 +44,8 @@ class PaperlessPostalReplyForm(PostalReplyForm):
         # Do not enforce presence of either files or text
         pass
 
-    def save(self):
-        message = super().save()
+    def save(self, user):
+        message = super().save(user)
         files = []
         for paperless_id in self.cleaned_data["paperless_ids"]:
             meta_data, file_contents = get_document_data(paperless_id)
