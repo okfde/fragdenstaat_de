@@ -1,7 +1,9 @@
+from .base import env
 from .production import FragDenStaat
 
+
 class Docker(FragDenStaat):
-    FRONTEND_DEBUG=True
+    FRONTEND_DEBUG = True
     PAYMENT_VARIANTS = {
         "creditcard": (
             "froide_payment.provider.StripeIntentProvider",
