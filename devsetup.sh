@@ -78,8 +78,6 @@ venv() {
   if [ ! -d fds-env ]; then
     echo "Could not find virtual environment fds-env"
   fi
-
-  source fds-env/bin/activate
 }
 
 pull() {
@@ -105,6 +103,7 @@ pull() {
 }
 
 dependencies() {
+  source fds-env/bin/activate
   echo "Installing $MAIN..."
 
   uv pip install -r $MAIN/requirements-dev.txt
