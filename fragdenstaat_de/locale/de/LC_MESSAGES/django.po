@@ -2810,7 +2810,7 @@ msgstr "Bitte füllen Sie den Fragebogen aus!"
 #: fragdenstaat_de/templates/header.html
 #: fragdenstaat_de/templates/header_minimal.html
 msgid "Skip to main content"
-msgstr "Zum Hauptinhalt sprengen"
+msgstr "Zum Hauptinhalt springen"
 
 #: fragdenstaat_de/templates/header.html fragdenstaat_de/theme/cms_plugins.py
 msgid "Menu"
