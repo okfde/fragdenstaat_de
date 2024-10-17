@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-02 11:38+0200\n"
+"POT-Creation-Date: 2024-10-17 18:44+0200\n"
 "PO-Revision-Date: 2024-08-29 10:21+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -141,6 +141,10 @@ msgstr "Neueste Blog-Artikel - Cache"
 #: fragdenstaat_de/fds_blog/cms_plugins.py
 msgid "Article preview"
 msgstr "Artikel-Vorschau"
+
+#: fragdenstaat_de/fds_blog/cms_plugins.py
+msgid "Blog Ad"
+msgstr "Blog Werbebanner"
 
 #: fragdenstaat_de/fds_blog/cms_plugins.py
 msgid "Details Box"
@@ -610,6 +614,10 @@ msgstr "Foto-Credit: "
 #: fragdenstaat_de/fds_blog/templates/fds_blog/includes/_authors.html
 msgid "by"
 msgstr "von"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/plugins/blog_ad.html
+msgid "Ad will be inserted here"
+msgstr "Werbebanner wird an dieser Stelle eingefügt"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
 msgid "Search articles"
@@ -2802,7 +2810,7 @@ msgstr "Bitte füllen Sie den Fragebogen aus!"
 #: fragdenstaat_de/templates/header.html
 #: fragdenstaat_de/templates/header_minimal.html
 msgid "Skip to main content"
-msgstr "Zum Hauptinhalt sprengen"
+msgstr "Zum Hauptinhalt springen"
 
 #: fragdenstaat_de/templates/header.html fragdenstaat_de/theme/cms_plugins.py
 msgid "Menu"
