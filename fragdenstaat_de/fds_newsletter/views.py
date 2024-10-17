@@ -144,7 +144,7 @@ def unsubscribe_feedback(request, newsletter_slug=None):
         subscriber = get_object_or_404(
             Subscriber,
             newsletter=newsletter,
-            activation_code=request.GET["activation_code"],
+            activation_code=request.GET.get("activation_code"),
         )
 
     # make sure the user unsubscribed, and the unsubscription happened recently
