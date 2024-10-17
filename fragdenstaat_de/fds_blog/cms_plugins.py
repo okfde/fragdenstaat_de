@@ -26,7 +26,6 @@ class BlogContainer(CMSPluginBase):
     module = "Blog"
     render_template = "fds_blog/plugins/blog_container.html"
     allow_children = True
-    parent_classes = ["BlogContent"]
 
 
 class BlogPlugin(CMSPluginBase):
