@@ -15,7 +15,10 @@ asgiref==3.8.1
     #   django
     #   django-countries
 async-timeout==4.0.3
-    # via fragdenstaat-de (pyproject.toml)
+    # via
+    #   fragdenstaat-de (pyproject.toml)
+    #   aiohttp
+    #   redis
 attrs==24.2.0
     # via
     #   aiohttp
@@ -405,7 +408,7 @@ froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@dafea
     # via fragdenstaat-de (pyproject.toml)
 froide-exam @ git+https://github.com/okfde/froide-exam.git@170951539a16b1186621923b84906966d3557a6d
     # via fragdenstaat-de (pyproject.toml)
-froide-fax @ git+https://github.com/okfde/froide-fax.git@f060c74fa80f75c4be8f9aa87e427ef1e749ec6f
+froide-fax @ git+https://github.com/okfde/froide-fax.git@85bc5f542d60659b175e7cc2a86381f322c66a21
     # via fragdenstaat-de (pyproject.toml)
 froide-food @ git+https://github.com/okfde/froide-food.git@3a1cd2c63564267d3db24cf8aae8bbac3d8098e0
     # via fragdenstaat-de (pyproject.toml)
@@ -679,7 +682,6 @@ setuptools==74.1.2
     # via
     #   django-cms
     #   geoip2
-    #   torch
 six==1.16.0
     # via
     #   bleach
@@ -716,13 +718,17 @@ torchvision==0.19.1
     # via fragdenstaat-de (pyproject.toml)
 typing-extensions==4.12.2
     # via
+    #   asgiref
     #   dj-database-url
     #   django-countries
     #   elasticsearch-dsl
     #   jwcrypto
+    #   multidict
     #   psycopg
+    #   pypdf
     #   python-docx
     #   torch
+    #   uvicorn
 tzdata==2024.1
     # via
     #   celery

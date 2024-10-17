@@ -18,7 +18,9 @@ asgiref==3.8.1
     #   django
     #   django-countries
 async-timeout==4.0.3
-    # via fragdenstaat-de (pyproject.toml)
+    # via
+    #   fragdenstaat-de (pyproject.toml)
+    #   aiohttp
 attrs==24.2.0
     # via
     #   aiohttp
@@ -416,6 +418,8 @@ enmerkar==0.7.1
     # via django-prices
 et-xmlfile==1.1.0
     # via openpyxl
+exceptiongroup==1.2.2
+    # via pytest
 factory-boy==3.3.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -446,7 +450,7 @@ froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@dafea
     # via fragdenstaat-de (pyproject.toml)
 froide-exam @ git+https://github.com/okfde/froide-exam.git@170951539a16b1186621923b84906966d3557a6d
     # via fragdenstaat-de (pyproject.toml)
-froide-fax @ git+https://github.com/okfde/froide-fax.git@f060c74fa80f75c4be8f9aa87e427ef1e749ec6f
+froide-fax @ git+https://github.com/okfde/froide-fax.git@85bc5f542d60659b175e7cc2a86381f322c66a21
     # via fragdenstaat-de (pyproject.toml)
 froide-food @ git+https://github.com/okfde/froide-food.git@3a1cd2c63564267d3db24cf8aae8bbac3d8098e0
     # via fragdenstaat-de (pyproject.toml)
@@ -608,8 +612,6 @@ pandas==2.2.2
     # via fragdenstaat-de (pyproject.toml)
 parso==0.8.4
     # via jedi
-pathlib2==2.3.7.post1
-    # via pickleshare
 pathspec==0.12.1
     # via djlint
 pbr==6.1.0
@@ -808,7 +810,6 @@ setuptools==74.1.2
     #   django-cms
     #   geoip2
     #   ipython
-    #   torch
 six==1.16.0
     # via
     #   bleach
@@ -817,7 +818,6 @@ six==1.16.0
     #   geocoder
     #   html5lib
     #   jsbeautifier
-    #   pathlib2
     #   python-dateutil
 snowballstemmer==2.2.0
     # via sphinx
@@ -862,6 +862,12 @@ tinycss2==1.3.0
     #   cssselect2
     #   svglib
     #   weasyprint
+tomli==2.0.2
+    # via
+    #   djlint
+    #   ipdb
+    #   pytest
+    #   sphinx
 torch==2.4.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -876,12 +882,15 @@ traitlets==5.14.3
     #   matplotlib-inline
 typing-extensions==4.12.2
     # via
+    #   asgiref
     #   dj-database-url
     #   django-countries
     #   elasticsearch-dsl
     #   jwcrypto
+    #   multidict
     #   psycopg
     #   pyee
+    #   pypdf
     #   pytest-factoryboy
     #   python-docx
     #   torch
