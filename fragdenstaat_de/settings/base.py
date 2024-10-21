@@ -98,6 +98,7 @@ class FragDenStaatBase(German, Base):
                 "froide_fax.apps.FroideFaxConfig",
                 "froide_exam",
                 "froide_govplan.apps.FroideGovPlanConfig",
+                "froide_evidencecollection.apps.FroideEvidencecollectionConfig",
                 "legal_advice_builder.apps.LegalAdviceBuilderConfig",
                 "fcdocs_annotate.annotation.apps.AnnotationConfig",
                 "tinymce",
