@@ -112,7 +112,7 @@ dependencies() {
   echo "Cloning / installing all editable dependencies..."
 
   for name in "${REPOS[@]}"; do
-    uv pip install -e "./$name"
+    uv pip install -e "./$name" --config-setting editable_mode=compat
     install_precommit "$name"
   done
 }
