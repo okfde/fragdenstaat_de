@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load humanize %}
+{% load searchtags %}
+{% load search_helper %}
+{% load form_helper %}
+{% block app_body %}
+    <h1>{% trans "Search for a matching request" %}</h1>
+    {% block search_form %}
+        <form action="{{ search_url }}" method="get" class="mb-3">
+            {% render_form form horizontal=True %}
+            {% for document in documents %}<input type="hidden" name="paperless_ids" value="{{ document }}">{% endfor %}
+            <input type="submit"
+                   class="btn btn-primary w-100"
+                   value="{% trans "Search" %}">
+        </form>
+    {% endblock %}
+    {% block search_results %}
+        <hr class="my-5">
+        <ul class="list-unstyled vstack gap-3">
+            {% for object in object_list %}
+                <li>
+                    <form action="{% url "paperless_import" object.slug %}"
+                          method="post"
+                          class="d-md-flex">
+                        {% csrf_token %}
+                        {% for document in documents %}<input type="hidden" name="paperless_ids" value="{{ document }}">{% endfor %}
+                        {% include "foirequest/snippets/request_item.html" %}
+                        <div class="ms-md-auto">
+                            <input type="submit" class="btn btn-primary" value="{% trans "Import" %}">
+                        </div>
+                    </form>
+                </li>
+            {% empty %}
+                <li>{% trans "No requests with these filters." %}</li>
+            {% endfor %}
+        </ul>
+        {% if paginator.num_pages > 1 %}
+            {% include "pagination/pagination.html" with page_obj=page_obj %}
+        {% endif %}
+    {% endblock %}
+{% endblock app_body %}
+{% block scripts %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock scripts %}

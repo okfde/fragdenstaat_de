@@ -1,19 +1,28 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.views.decorators.cache import cache_control
 
-from froide.foirequest.auth import can_write_foirequest
 from froide.foirequest.decorators import allow_write_foirequest
 from froide.foirequest.models import FoiRequest
+from froide.foirequest.views.list_requests import BaseListRequestView
+from froide.helper.auth import require_staff
 from froide.helper.utils import render_403
 
+from .filters import SelectRequestFilterSet
 from .forms import PaperlessPostalReplyForm
-from .paperless import list_documents
+from .paperless import add_tag_to_documents, get_thumbnail, list_documents
 
 
-def paperless_start(request, pk):
-    foirequest = get_object_or_404(FoiRequest, pk=pk)
-    if not can_write_foirequest(foirequest, request):
-        return render_403(request)
-    return redirect("paperless_import", slug=foirequest.slug)
+@require_staff
+def list_view(request):
+    paperless_docs = list_documents()
+    return render(
+        request,
+        "fds_paperless/list_documents.html",
+        {
+            "documents": paperless_docs,
+        },
+    )
 
 
 @allow_write_foirequest
@@ -33,6 +42,8 @@ def add_postal_message(request, foirequest):
             FoiRequest.message_received.send(
                 sender=foirequest, message=message, user=request.user
             )
+
+            add_tag_to_documents(form.cleaned_data["paperless_ids"])
             return redirect(message)
     else:
         form = PaperlessPostalReplyForm(
@@ -47,3 +58,27 @@ def add_postal_message(request, foirequest):
             "form": form,
         },
     )
+
+
+@require_staff
+@cache_control(max_age=86400)
+def get_thumbnail_view(request, paperless_document: int):
+    content_type, content = get_thumbnail(paperless_document_id=paperless_document)
+    return HttpResponse(content, content_type=content_type)
+
+
+class SelectRequestView(BaseListRequestView):
+    template_name = "fds_paperless/select_request.html"
+    search_url_name = "paperless_select_request"
+    default_sort = "-last_message"
+    select_related = ("public_body", "jurisdiction")
+
+    filterset = SelectRequestFilterSet
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        documents = self.request.GET.getlist("paperless_ids")
+        context["documents"] = documents
+
+        return context

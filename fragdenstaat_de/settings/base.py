@@ -873,6 +873,7 @@ class FragDenStaatBase(German, Base):
 
     PAPERLESS_API_URL = os.environ.get("PAPERLESS_API_URL", "")
     PAPERLESS_API_TOKEN = os.environ.get("PAPERLESS_API_TOKEN", "")
+    PAPERLESS_UPLOADED_TYPE = 5  # Tag for successfully uploaded documents
 
     LEAFLET_CONFIG = {
         "TILES": [
