@@ -482,6 +482,12 @@ class Article(
     def get_full_url(self):
         return "%s%s" % (settings.SITE_URL, self.get_absolute_url())
 
+    def get_short_url(self):
+        return "%s%s" % (
+            settings.SITE_URL,
+            reverse("blog-redirects:article-short-url", kwargs={"pk": self.pk}),
+        )
+
     def other_languages(self):
         if not hasattr(self, "_other_languages"):
             if self.uuid is None:

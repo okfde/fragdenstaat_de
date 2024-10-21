@@ -1,0 +1,3 @@
+{% load i18n %}
+{% trans "Copy short link" as copy_text %}
+{% include "snippets/share_buttons.html" with text=article.meta_title links=True url=article.get_full_url short_url=article.get_short_url copy_text=copy_text %}

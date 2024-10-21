@@ -117,7 +117,7 @@ urlpatterns += i18n_patterns(
     *froide_urlpatterns,
     *jurisdiction_urls,
     *admin_urls,
-    path("", include("fragdenstaat_de.fds_blog.redirect_urls")),
+    path("", include("fragdenstaat_de.fds_blog.redirect_urls"), name="blog-redirects"),
     path("", include("fragdenstaat_de.fds_ogimage.urls")),
     path(pgettext_lazy("url part", "campaign/"), include(campaign_urls)),
     path("", include("cms.urls")),
