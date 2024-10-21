@@ -883,3 +883,5 @@ class FragDenStaatBase(German, Base):
             )
         ]
     }
+
+    FROIDE_EVIDENCECOLLECTION_GSHEET_IMPORT_CONFIG = values.DictValue()
