@@ -205,7 +205,7 @@ def generate_copy_script(
     outfile.write(
         f'psql -c "CREATE DATABASE {target_db} OWNER {target_owner};" {target_connection} postgres\n'
     )
-    outfile.write(f"psql {target_connection} {target_db} < table_setup.sql\n")
+    outfile.write(f"psql {target_connection} {target_db} < table_setup.sql\nsleep 5\n")
 
     outfile.write(f"export PGPASSWORD='{source_password}'\n")
     for table, select in get_copy_selects(schema, FILTERS, safe_tables, safe_fks):
