@@ -20,10 +20,7 @@
         <ul class="list-unstyled vstack gap-3">
             {% for object in object_list %}
                 <li>
-                    <form action="{% url "paperless_import" object.slug %}"
-                          method="post"
-                          class="d-md-flex">
-                        {% csrf_token %}
+                    <form action="{% url "paperless_import" object.slug %}" class="d-md-flex">
                         {% for document in documents %}<input type="hidden" name="paperless_ids" value="{{ document }}">{% endfor %}
                         {% include "foirequest/snippets/request_item.html" %}
                         <div class="ms-md-auto">
