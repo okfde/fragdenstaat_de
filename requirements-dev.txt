@@ -403,7 +403,7 @@ editorconfig==0.12.4
     # via
     #   cssbeautifier
     #   jsbeautifier
-elastic-transport==8.15.0
+elastic-transport==8.15.1
     # via elasticsearch
 elasticsearch==8.15.1
     # via
