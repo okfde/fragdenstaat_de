@@ -118,7 +118,6 @@ msgid "Set articles as translations of each other"
 msgstr "Markiere Artikel als Übersetzungen voneinander"
 
 #: fragdenstaat_de/fds_blog/admin.py
-#, fuzzy
 msgid "Number of articles"
 msgstr "Anzahl Artikel"
 
@@ -1728,7 +1727,7 @@ msgstr "Ihr Name"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Your email address"
-msgstr "Ihre E-Mailadresse"
+msgstr "Ihre E-Mail-Adresse"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Shipping address"
