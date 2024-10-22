@@ -47,7 +47,9 @@ def add_postal_message(request, foirequest):
             return redirect(message)
     else:
         form = PaperlessPostalReplyForm(
-            foirequest=foirequest, paperless_docs=paperless_docs
+            foirequest=foirequest,
+            paperless_docs=paperless_docs,
+            initial={"paperless_ids": request.GET.getlist("paperless_ids")},
         )
 
     return render(
