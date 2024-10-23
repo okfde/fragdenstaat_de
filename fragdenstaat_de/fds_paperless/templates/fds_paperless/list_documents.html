@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block app_body %}
+    <form action="{% url "paperless_select_request" %}" method="get">
+        <div class="d-md-flex">
+            <h1>{% trans "Choose documents to import" %}</h1>
+            <div class="ms-md-auto">
+                <input type="submit" class="btn btn-primary " value="{% trans "Import" %}">
+            </div>
+        </div>
+        <ul class="row list-unstyled g-3">
+            {% for document in documents %}
+                <li class="col col-12 col-md-3 d-flex">
+                    <div class="d-flex flex-column w-100 border-gray p-1">
+                        <p>
+                            <input type="checkbox"
+                                   name="paperless_ids"
+                                   value="{{ document.id }}"
+                                   class="form-check-input"
+                                   title="{% trans "Select document" %}"
+                                   data-bs-toggle="tooltip">
+                            {{ document.title }}
+                            <a href="{{ document.url }}"
+                               target="_blank"
+                               title="{% trans "Open document in new tab" %}"
+                               data-bs-toggle="tooltip">
+                                <i class="fa fa-external-link" aria-hidden="true"></i>
+                            </a>
+                        </p>
+                        <span class="small">{{ document.created|date }}</span>
+                        <img src="{% url "paperless_thumb" document.id %}"
+                             class="w-100 mt-auto"
+                             alt="">
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </form>
+{% endblock app_body %}
