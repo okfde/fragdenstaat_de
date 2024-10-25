@@ -32,6 +32,8 @@ def add_postal_message(request, foirequest):
     ):
         return render_403(request)
 
+    context = {"object": foirequest}
+
     paperless_docs = list_documents()
     if request.method == "POST":
         form = PaperlessPostalReplyForm(
@@ -46,19 +48,22 @@ def add_postal_message(request, foirequest):
             add_tag_to_documents(form.cleaned_data["paperless_ids"])
             return redirect(message)
     else:
+        selected_documents = request.GET.getlist("paperless_ids")
         form = PaperlessPostalReplyForm(
             foirequest=foirequest,
             paperless_docs=paperless_docs,
-            initial={"paperless_ids": request.GET.getlist("paperless_ids")},
+            initial={"paperless_ids": selected_documents},
         )
+        context["documents"] = filter(
+            lambda doc: str(doc["id"]) in selected_documents, paperless_docs
+        )
+
+    context["form"] = form
 
     return render(
         request,
         "fds_paperless/add_postal_message.html",
-        {
-            "object": foirequest,
-            "form": form,
-        },
+        context,
     )
 
 
