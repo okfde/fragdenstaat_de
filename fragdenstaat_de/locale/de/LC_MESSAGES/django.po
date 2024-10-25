@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-02 11:38+0200\n"
-"PO-Revision-Date: 2024-08-29 10:21+0000\n"
+"POT-Creation-Date: 2024-10-25 11:29+0200\n"
+"PO-Revision-Date: 2024-10-25 09:33+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -118,7 +118,6 @@ msgid "Set articles as translations of each other"
 msgstr "Markiere Artikel als Übersetzungen voneinander"
 
 #: fragdenstaat_de/fds_blog/admin.py
-#, fuzzy
 msgid "Number of articles"
 msgstr "Anzahl Artikel"
 
@@ -141,6 +140,10 @@ msgstr "Neueste Blog-Artikel - Cache"
 #: fragdenstaat_de/fds_blog/cms_plugins.py
 msgid "Article preview"
 msgstr "Artikel-Vorschau"
+
+#: fragdenstaat_de/fds_blog/cms_plugins.py
+msgid "Blog Ad"
+msgstr "Blog Werbebanner"
 
 #: fragdenstaat_de/fds_blog/cms_plugins.py
 msgid "Details Box"
@@ -490,6 +493,10 @@ msgstr[1] ""
 "      "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid "Share article"
+msgstr "Artikel teilen"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid ""
 "\n"
 "                        About the author\n"
@@ -611,6 +618,14 @@ msgstr "Foto-Credit: "
 msgid "by"
 msgstr "von"
 
+#: fragdenstaat_de/fds_blog/templates/fds_blog/includes/share_article.html
+msgid "Copy short link"
+msgstr "Kurzlink kopieren"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/plugins/blog_ad.html
+msgid "Ad will be inserted here"
+msgstr "Werbebanner wird an dieser Stelle eingefügt"
+
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
 msgid "Search articles"
 msgstr "Artikel suchen"
@@ -624,6 +639,7 @@ msgstr "Suchergebnisse für „%(q)s“"
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
 #: fragdenstaat_de/fds_blog/views.py
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
 msgid "Search"
 msgstr "Suchen"
 
@@ -1710,7 +1726,7 @@ msgstr "Ihr Name"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Your email address"
-msgstr "Ihre E-Mailadresse"
+msgstr "Ihre E-Mail-Adresse"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Shipping address"
@@ -2696,6 +2712,59 @@ msgctxt "url part"
 msgid "request/<str:slug>/_og/"
 msgstr "anfrage/<str:slug>/_og/"
 
+#: fragdenstaat_de/fds_paperless/filters.py
+msgid "Public Body"
+msgstr "Behörde"
+
+#: fragdenstaat_de/fds_paperless/filters.py
+msgid "Organization"
+msgstr "Organisation"
+
+#: fragdenstaat_de/fds_paperless/forms.py
+msgid "Paperless Documents"
+msgstr "Paperless Dokumente"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
+msgid "Add the documents to the request"
+msgstr "Dokumente zur Anfrage hinzufügen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
+msgid "The following documents will be added to the request:"
+msgstr "Die folgenden Dokumente werden zur Anfrage hinzugefügt:"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
+msgid "Add letter"
+msgstr "Brief hinzufügen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
+msgid "Choose documents to import"
+msgstr "Dokumente zum Importieren auswählen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
+msgid "Import"
+msgstr "Importieren"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
+msgid "Select document"
+msgstr "Dokument auswählen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
+msgid "Open document in new tab"
+msgstr "Dokument in neuem Tab öffnen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
+msgid "Search for a matching request"
+msgstr "Nach der zugehörigen Anfrage suchen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
+msgid "No requests with these filters."
+msgstr "Noch keine Anfragen mit diesen Filtereinstellungen."
+
+#: fragdenstaat_de/fds_paperless/urls.py
+msgid "select-request/"
+msgstr "anfrage-waehlen/"
+
 #: fragdenstaat_de/settings/base.py
 msgid "German"
 msgstr "Deutsch"
@@ -2802,7 +2871,7 @@ msgstr "Bitte füllen Sie den Fragebogen aus!"
 #: fragdenstaat_de/templates/header.html
 #: fragdenstaat_de/templates/header_minimal.html
 msgid "Skip to main content"
-msgstr "Zum Hauptinhalt sprengen"
+msgstr "Zum Hauptinhalt springen"
 
 #: fragdenstaat_de/templates/header.html fragdenstaat_de/theme/cms_plugins.py
 msgid "Menu"
@@ -3464,9 +3533,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgid "help"
 #~ msgstr "hilfe"
 
-#~ msgid "make-request"
-#~ msgstr "anfrage-stellen"
-
 #~ msgid "requests"
 #~ msgstr "anfragen"
 
@@ -3512,9 +3578,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "mail@ddress.net"
 #~ msgstr "email@dresse.net"
-
-#~ msgid "Organization"
-#~ msgstr "Organisation"
 
 #~ msgid "Optional. Affiliation will be shown next to your name"
 #~ msgstr "Optional. Ihre Organisation wird neben Ihrem Namen angezeigt."
@@ -4145,9 +4208,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgid "Sender Name"
 #~ msgstr "Absender"
 
-#~ msgid "Letter"
-#~ msgstr "Brief"
-
 #~ msgid "Letter text you have received"
 #~ msgstr "Der Textinhalt des Briefes, den Sie erhalten haben"
 
@@ -4178,9 +4238,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgstr ""
 #~ "Bitte geben Sie entweder den Brieftext an oder laden Sie ein gescanntes "
 #~ "Dokument hoch."
-
-#~ msgid "Scanned Document"
-#~ msgstr "Gescanntes Dokument"
 
 #~ msgid "Comma separated and quoted"
 #~ msgstr "Komma-separiert und ggf. in \"\""
@@ -4349,9 +4406,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "Resolution Summary"
 #~ msgstr "Ergebniszusammenfassung"
-
-#~ msgid "Public Body"
-#~ msgstr "Behörde"
 
 #~ msgid "published?"
 #~ msgstr "veröffentlicht?"
@@ -4845,9 +4899,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgstr[0] "eine identische Anfrage"
 #~ msgstr[1] "%(counter)s identische Anfragen"
 
-#~ msgid "No requests with this status yet."
-#~ msgstr "Bisher keine Anfragen mit diesem Status."
-
 #~ msgid "No requests yet."
 #~ msgstr "Keine Anfragen bisher."
 
@@ -4871,9 +4922,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "Enter Tags here"
 #~ msgstr "Hier Tags eingeben"
-
-#~ msgid "Add tags to these requests"
-#~ msgstr "Fügen Sie Tags zu diesen Anfragen hinzu"
 
 #~ msgid ""
 #~ "Hello %(name)s,\n"
@@ -5764,9 +5812,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgid "Get notified by email of changes."
 #~ msgstr "Erhalten Sie Neuigkeiten per Email."
 
-#~ msgid "Share this request"
-#~ msgstr "Anfrage teilen"
-
 #~ msgid "Feeds"
 #~ msgstr "Feeds"
 
@@ -5863,9 +5908,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "Upload Attachments"
 #~ msgstr "Anhänge hochladen"
-
-#~ msgid "Upload Document"
-#~ msgstr "Dokument hochladen"
 
 #~ msgid ""
 #~ "This reply contains documents that every person can get individual access "
@@ -7150,3 +7192,24 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "Other names"
 #~ msgstr "Andere Namen"
+
+#~ msgid "make-request"
+#~ msgstr "anfrage-stellen"
+
+#~ msgid "Letter"
+#~ msgstr "Brief"
+
+#~ msgid "Scanned Document"
+#~ msgstr "Gescanntes Dokument"
+
+#~ msgid "No requests with this status yet."
+#~ msgstr "Bisher keine Anfragen mit diesem Status."
+
+#~ msgid "Add tags to these requests"
+#~ msgstr "Fügen Sie Tags zu diesen Anfragen hinzu"
+
+#~ msgid "Share this request"
+#~ msgstr "Anfrage teilen"
+
+#~ msgid "Upload Document"
+#~ msgstr "Dokument hochladen"
