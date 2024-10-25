@@ -493,9 +493,8 @@ msgstr[1] ""
 "      "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
-#, fuzzy
 msgid "Share article"
-msgstr "Artikel suchen"
+msgstr "Artikel teilen"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid ""
@@ -621,7 +620,7 @@ msgstr "von"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/includes/share_article.html
 msgid "Copy short link"
-msgstr ""
+msgstr "Kurzlink kopieren"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/plugins/blog_ad.html
 msgid "Ad will be inserted here"
