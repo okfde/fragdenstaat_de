@@ -20,7 +20,7 @@ class PaperlessPostalReplyForm(PostalReplyForm):
         paperless_docs = kwargs.pop("paperless_docs")
         super().__init__(*args, **kwargs)
         self.fields["paperless_ids"].choices = [
-            (doc["id"], doc["id"]) for doc in paperless_docs
+            (doc["id"], doc["title"]) for doc in paperless_docs
         ]
 
     def clean(self):

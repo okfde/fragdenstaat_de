@@ -1,1 +1,26 @@
-{% extends "foirequest/upload_postal_message.html" %}
+{% extends "base.html" %}
+{% load i18n %}
+{% load form_helper %}
+{% load frontendbuild %}
+{% block app_body %}
+    <h1>{% trans "Add the documents to the request" %}</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            {% render_form form horizontal=False %}
+        </fieldset>
+        <div>
+            <strong>{% trans "The following documents will be added to the request:" %}</strong>
+            <ul>
+                {% for document in documents %}<li>{{ document.title }}</li>{% endfor %}
+            </ul>
+        </div>
+        <p class="text-end">
+            <button type="submit" class="btn btn-primary">{% trans "Add letter" %}</button>
+        </p>
+    </form>
+{% endblock app_body %}
+{% block scripts %}
+    {{ block.super }}
+    {% addfrontendbuild "publicbody.js" %}
+{% endblock scripts %}
