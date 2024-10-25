@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 11:29+0200\n"
-"PO-Revision-Date: 2024-08-29 10:21+0000\n"
+"PO-Revision-Date: 2024-10-25 09:33+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -2721,57 +2721,49 @@ msgid "Organization"
 msgstr "Organisation"
 
 #: fragdenstaat_de/fds_paperless/forms.py
-#, fuzzy
 msgid "Paperless Documents"
-msgstr "Dokument hochladen"
+msgstr "Paperless Dokumente"
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
-#, fuzzy
 msgid "Add the documents to the request"
-msgstr "Fügen Sie Tags zu diesen Anfragen hinzu"
+msgstr "Dokumente zur Anfrage hinzufügen"
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
 msgid "The following documents will be added to the request:"
-msgstr ""
+msgstr "Die folgenden Dokumente werden zur Anfrage hinzugefügt:"
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
-#, fuzzy
 msgid "Add letter"
-msgstr "Brief"
+msgstr "Brief hinzufügen"
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
 msgid "Choose documents to import"
-msgstr ""
+msgstr "Dokumente zum Importieren auswählen"
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
-#, fuzzy
 msgid "Import"
-msgstr "CSV imporieren"
+msgstr "Importieren"
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
-#, fuzzy
 msgid "Select document"
-msgstr "Gescanntes Dokument"
+msgstr "Dokument auswählen"
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
 msgid "Open document in new tab"
-msgstr ""
+msgstr "Dokument in neuem Tab öffnen"
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
-#, fuzzy
 msgid "Search for a matching request"
-msgstr "Anfrage teilen"
+msgstr "Nach der zugehörigen Anfrage suchen"
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
-#, fuzzy
 msgid "No requests with these filters."
-msgstr "Bisher keine Anfragen mit diesem Status."
+msgstr "Noch keine Anfragen mit diesen Filtereinstellungen."
 
 #: fragdenstaat_de/fds_paperless/urls.py
-#, fuzzy
 msgid "select-request/"
-msgstr "anfrage-stellen"
+msgstr "anfrage-waehlen/"
 
 #: fragdenstaat_de/settings/base.py
 msgid "German"
