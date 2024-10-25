@@ -1,8 +1,9 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from django.conf import ImproperlyConfigured, settings
 from django.utils import timezone
 
+import dateutil.parser
 import requests
 
 
@@ -43,7 +44,7 @@ def list_documents():
     data = client.get(API_URL).json()
 
     def map_doc(document):
-        document["created"] = datetime.fromisoformat(document["created"])
+        document["created"] = dateutil.parser.parse(document["created"])
         document["url"] = get_preview_link(document["id"])
         return document
 
