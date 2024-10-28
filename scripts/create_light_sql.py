@@ -207,7 +207,7 @@ def generate_copy_script(
     )
     outfile.write(f"psql {target_connection} {target_db} < table_setup.sql\n")
     outfile.write(f"export PGPASSWORD='{source_password}'\n")
-    outfile.write(f"while [ $(psql -t -c \"SELECT pg_is_in_recovery()\" {target_connection} {target_db}) = \"t\" ]; do\necho \"Waiting for DB to recover from import\"\nsleep 1\ndone\n")
+    outfile.write(f"sleep 5\n")
 
     for table, select in get_copy_selects(schema, FILTERS, safe_tables, safe_fks):
         outfile.write(f'echo "Copying {table}"\n')
