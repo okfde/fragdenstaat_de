@@ -352,7 +352,6 @@ djangorestframework==3.15.2
     #   drf-spectacular
     #   froide
     #   froide-campaign
-    #   froide-exam
 djangorestframework-csv==3.0.2
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -403,15 +402,15 @@ filelock==3.16.0
     # via torch
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@2efa0b3f0559b5ca1e5b44282b1022d6c32c44ee
+froide @ git+https://github.com/okfde/froide.git@a0ecf4ffe00c8c379d404ca9df1df420b2adf913
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@55a8a36a2ec9862dc160c1f89ed8250229cf55b2
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@dafeaab42b60563a465e044fa63a31183890299a
     # via fragdenstaat-de (pyproject.toml)
-froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@13f86061bd6c20df88d061b6bc0e116da7ce9c30
+froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@9d4540d151bab6aefe9c435104aae752b57fe676
     # via fragdenstaat-de (pyproject.toml)
-froide-exam @ git+https://github.com/okfde/froide-exam.git@170951539a16b1186621923b84906966d3557a6d
+froide-exam @ git+https://github.com/okfde/froide-exam.git@00f9f1234b5b3eff5d3359894c0e3f5ec5c383eb
     # via fragdenstaat-de (pyproject.toml)
 froide-fax @ git+https://github.com/okfde/froide-fax.git@85bc5f542d60659b175e7cc2a86381f322c66a21
     # via fragdenstaat-de (pyproject.toml)
