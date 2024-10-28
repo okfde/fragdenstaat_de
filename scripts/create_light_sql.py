@@ -205,9 +205,10 @@ def generate_copy_script(
     outfile.write(
         f'psql -c "CREATE DATABASE {target_db} OWNER {target_owner};" {target_connection} postgres\n'
     )
-    outfile.write(f"psql {target_connection} {target_db} < table_setup.sql\nsleep 5\n")
-
+    outfile.write(f"psql {target_connection} {target_db} < table_setup.sql\n")
     outfile.write(f"export PGPASSWORD='{source_password}'\n")
+    outfile.write(f"while [ $(psql -t -c \"SELECT pg_is_in_recovery()\" {target_connection} {target_db}) = \"t\" ]; do\necho \"Waiting for DB to recover from import\"\nsleep 1\ndone\n")
+
     for table, select in get_copy_selects(schema, FILTERS, safe_tables, safe_fks):
         outfile.write(f'echo "Copying {table}"\n')
         cmd = f"""psql -c "COPY ({select}) TO STDOUT;" {source_connection} {source_db} | psql -c "COPY {table} FROM STDIN;" {target_connection} {target_db}\n"""
