@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% block title %}
+    {{ message.subject }}
+{% endblock title %}
 {% block body %}
     <div class="text-bg-body-tertiary pb-5">
         <div class="container py-5">
