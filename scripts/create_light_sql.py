@@ -206,8 +206,9 @@ def generate_copy_script(
         f'psql -c "CREATE DATABASE {target_db} OWNER {target_owner};" {target_connection} postgres\n'
     )
     outfile.write(f"psql {target_connection} {target_db} < table_setup.sql\n")
-
     outfile.write(f"export PGPASSWORD='{source_password}'\n")
+    outfile.write(f"sleep 5\n")
+
     for table, select in get_copy_selects(schema, FILTERS, safe_tables, safe_fks):
         outfile.write(f'echo "Copying {table}"\n')
         cmd = f"""psql -c "COPY ({select}) TO STDOUT;" {source_connection} {source_db} | psql -c "COPY {table} FROM STDIN;" {target_connection} {target_db}\n"""
