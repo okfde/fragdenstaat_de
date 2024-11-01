@@ -14,7 +14,7 @@
         <li>
             Auf Ihre Anfrage wurde mehr als drei Monate nicht geantwortet.
             &rarr;
-            <a href="{% url 'klageautomat-info' pk=object.pk %}">Zum Klageautomat</a>
+            <a href="{% url 'klageautomat-info' pk=object.pk %}" class="alert-link">Zum Klageautomat</a>
         </li>
     {% endif %}
 {% endblock %}
@@ -29,12 +29,14 @@
     {% if "Umwelt" in object.public_body.category_list %}
         <div class="alert alert-info">
             🌼 Interesse an Umweltinfos? Wir beraten Aktivist*innen und Initiativen kostenlos bei Anfragen.
-            <a href="https://fragdenstaat.de/aktionen/klima-helpdesk/">Zum Klima-Helpdesk</a>
+            <a href="https://fragdenstaat.de/aktionen/klima-helpdesk/"
+               class="alert-link">Zum Klima-Helpdesk</a>
         </div>
     {% endif %}
     {% if "corona" in object.title|lower or "covid" in object.title|lower or "virus" in object.title|lower or "novavax" in object.title|lower %}
         <div class="alert alert-warning text-center">
-            🦠<a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/nCoV.html">Allgemeine Infos zum Corona-Virus finden Sie hier beim Robert-Koch-Institut</a>🦠
+            🦠<a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/nCoV.html"
+   class="alert-link">Allgemeine Infos zum Corona-Virus finden Sie hier beim Robert-Koch-Institut</a>🦠
         </div>
     {% endif %}
     {% if object|can_write_foirequest:request and object|foirequest_needs_signature %}
