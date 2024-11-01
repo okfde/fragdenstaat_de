@@ -44,7 +44,7 @@ def list_documents():
     data = client.get(API_URL).json()
 
     def map_doc(document):
-        document["created"] = dateutil.parser.parse(document["created"])
+        document["created"] = dateutil.parser.isoparse(document["created"])
         document["url"] = get_preview_link(document["id"])
         return document
 
