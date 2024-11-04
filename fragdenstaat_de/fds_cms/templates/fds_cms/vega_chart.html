@@ -1,8 +1,10 @@
 {% load static %}
-{% load sekizai_tags %}
+{% load markup %}
 <div class="vega-chart">
     {% if instance.title %}<h5>{{ instance.title }}</h5>{% endif %}
-    {% if instance.description %}<p>{{ instance.description|linebreaksbr }}</p>{% endif %}
-    <div data-vegachart data-vegachartdata="{{ instance.vega_json }}"></div>
+    {% if instance.description %}{{ instance.description|markdown }}{% endif %}
+    <div class="w-100"
+         data-vegachart
+         data-vegachartdata="{{ instance.vega_json }}"></div>
 </div>
 {% include "_frontend.html" with entry_point="vegacharts.js" %}
