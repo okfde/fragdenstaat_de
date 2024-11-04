@@ -318,7 +318,9 @@ class OneClickFoiRequestCMSPlugin(CMSPlugin):
 
 class VegaChartCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=255, blank=True)
-    description = models.TextField(blank=True)
+    description = models.TextField(
+        blank=True, help_text=_("Formatting with Markdown is supported.")
+    )
 
     vega_json = models.TextField(
         default="",

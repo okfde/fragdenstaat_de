@@ -103,7 +103,7 @@ const bootstrapTooltipHandler = (handler, event, item, value) => {
   let tooltip = Tooltip.getInstance(item._svg)
   let created = false
   if (!tooltip && value) {
-    let html = `<dl>${Object.keys(value)
+    const html = `<dl>${Object.keys(value)
       .map((key) => `<dt>${key}</dt><dd>${value[key]}</dd>`)
       .join('')}</dl>`
 
@@ -128,7 +128,7 @@ document.querySelectorAll('[data-vegachart]').forEach((el) => {
   } else {
     spec = JSON.parse(document.getElementById(el.dataset.vegachart).textContent)
   }
-  let hasData =
+  const hasData =
     (spec.data && (spec.data.url || spec.data.values)) || spec.datasets
   if (!hasData) {
     const data = JSON.parse(
