@@ -1,0 +1,5 @@
+{% extends "froide_govplan/base.html" %}
+{% block navbar %}
+    {{ block.super }}
+    {% include "snippets/breadcrumbs.html" with breadcrumbs_background="blue-10" overlay=True %}
+{% endblock navbar %}
