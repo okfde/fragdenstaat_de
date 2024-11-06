@@ -18,7 +18,9 @@ asgiref==3.8.1
     #   django
     #   django-countries
 async-timeout==4.0.3
-    # via fragdenstaat-de (pyproject.toml)
+    # via
+    #   fragdenstaat-de (pyproject.toml)
+    #   aiohttp
 attrs==24.2.0
     # via
     #   aiohttp
@@ -337,7 +339,9 @@ django-treebeard==4.7.1
 djangocms-admin-style==3.3.1
     # via django-cms
 djangocms-alias==2.0.1
-    # via fragdenstaat-de (pyproject.toml)
+    # via
+    #   fragdenstaat-de (pyproject.toml)
+    #   froide-govplan
 djangocms-attributes-field==3.0.0
     # via
     #   djangocms-audio
@@ -418,6 +422,8 @@ enmerkar==0.7.1
     # via django-prices
 et-xmlfile==1.1.0
     # via openpyxl
+exceptiongroup==1.2.2
+    # via pytest
 factory-boy==3.3.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -446,7 +452,7 @@ froide-campaign @ git+https://github.com/okfde/froide-campaign.git@55a8a36a2ec98
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@dafeaab42b60563a465e044fa63a31183890299a
     # via fragdenstaat-de (pyproject.toml)
-froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@91d78fe6e4dd9ab146623f7eff76e3bd1fe61b21
+froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@e151a5b91e36139734ede23efd5f7048c9758deb
     # via fragdenstaat-de (pyproject.toml)
 froide-exam @ git+https://github.com/okfde/froide-exam.git@00f9f1234b5b3eff5d3359894c0e3f5ec5c383eb
     # via fragdenstaat-de (pyproject.toml)
@@ -454,11 +460,11 @@ froide-fax @ git+https://github.com/okfde/froide-fax.git@85bc5f542d60659b175e7cc
     # via fragdenstaat-de (pyproject.toml)
 froide-food @ git+https://github.com/okfde/froide-food.git@3a1cd2c63564267d3db24cf8aae8bbac3d8098e0
     # via fragdenstaat-de (pyproject.toml)
-froide-govplan @ git+https://github.com/okfde/froide-govplan.git@eb0908dea9ecc64b23ca8a2bc550fcb1a400e3f1
+froide-govplan @ git+https://github.com/okfde/froide-govplan.git@5d2f5e6c0bc883c75a00e45893f3e32761d3159f
     # via fragdenstaat-de (pyproject.toml)
 froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@3469ff9fdcb5376376a6c272ebc6e638a94e97ce
     # via fragdenstaat-de (pyproject.toml)
-froide-payment @ git+https://github.com/okfde/froide-payment.git@6ae73338ea2fb68ba8145d55926b6b895d5654a8
+froide-payment @ git+https://github.com/okfde/froide-payment.git@d7acd78b8cd79d08dc0a0202ac7944dba9e83f70
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide-crowdfunding
@@ -854,7 +860,6 @@ setuptools==74.1.2
     #   django-cms
     #   geoip2
     #   ipython
-    #   torch
 six==1.16.0
     # via
     #   bleach
@@ -894,7 +899,7 @@ stripe==5.5.0
     #   froide-payment
 svglib==1.5.1
     # via easy-thumbnails
-sympy==1.13.2
+sympy==1.13.1
     # via torch
 tblib==3.0.0
     # via fragdenstaat-de (pyproject.toml)
@@ -907,7 +912,13 @@ tinycss2==1.3.0
     #   cssselect2
     #   svglib
     #   weasyprint
-torchvision==2.5.1
+tomli==2.0.2
+    # via
+    #   djlint
+    #   ipdb
+    #   pytest
+    #   sphinx
+torch==2.5.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   torchvision
@@ -921,12 +932,15 @@ traitlets==5.14.3
     #   matplotlib-inline
 typing-extensions==4.12.2
     # via
+    #   asgiref
     #   dj-database-url
     #   django-countries
     #   elasticsearch-dsl
     #   jwcrypto
+    #   multidict
     #   psycopg
     #   pyee
+    #   pypdf
     #   pytest-factoryboy
     #   python-docx
     #   torch
