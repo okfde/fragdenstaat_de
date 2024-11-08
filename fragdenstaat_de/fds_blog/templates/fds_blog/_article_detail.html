@@ -19,7 +19,9 @@
                             {% include "fds_blog/includes/_authors.html" %}
                         {% endwith %}
                     </div>
-                    <div class="d-none d-md-block ms-auto">{% include "fds_blog/includes/share_article.html" %}</div>
+                    <div class="d-none d-md-block ms-auto">
+                        {% include "fds_blog/includes/share_article.html" with id="article-header" %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,7 +78,7 @@
             <div class="container-lg">
                 <div class="d-md-flex align-items-center">
                     <h3 class="small text-secondary m-0 me-md-3">{% trans "Share article" %}</h3>
-                    {% include "fds_blog/includes/share_article.html" %}
+                    {% include "fds_blog/includes/share_article.html" with id="article-footer" %}
                 </div>
             </div>
         </section>
