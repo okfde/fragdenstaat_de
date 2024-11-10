@@ -293,6 +293,8 @@ class FragDenStaatBase(German, Base):
     TEXT_ADDITIONAL_TAGS = (
         "iframe",
         "embed",
+        "summary",
+        "details",
     )
     TEXT_ADDITIONAL_ATTRIBUTES = (
         "scrolling",
