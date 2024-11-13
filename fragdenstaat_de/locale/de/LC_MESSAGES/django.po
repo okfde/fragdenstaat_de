@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # krmax44 <hi@krmax44.de>, 2024.
 # krmax44 <github@krmax44.de>, 2024.
+# Kara Engelhardt <kara.engelhardt@okfn.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:11+0100\n"
-"PO-Revision-Date: 2024-10-25 09:33+0000\n"
-"Last-Translator: krmax44 <github@krmax44.de>\n"
+"PO-Revision-Date: 2024-11-13 19:58+0000\n"
+"Last-Translator: Kara Engelhardt <kara.engelhardt@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -932,7 +933,7 @@ msgstr "Ein-Klick Formular für {}"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Formatting with Markdown is supported."
-msgstr ""
+msgstr "Markdown-Formattierung wird unterstützt."
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background"
