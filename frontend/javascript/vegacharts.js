@@ -148,8 +148,14 @@ document.querySelectorAll('[data-vegachart]').forEach((el) => {
     }
   }
 
-  // Slightly smaller than container
-  if (spec.width === undefined) {
+
+  if (spec.columns) {
+    // If we have a facet chart with columns and 
+    if (el.clientWidth < 500) {
+      spec.columns = Math.floor(spec.columns / 2)
+    }
+  } else if (spec.width === undefined) {
+    // Only set container width on non-facet charts
     spec.width = 'container'
     spec.autosize = 'fit'
   }
