@@ -253,7 +253,7 @@ django-filer==3.2.2
     #   djangocms-picture
     #   djangocms-video
     #   froide-govplan
-django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@35d94f1b5f03ed3567c5e06b258ef7a4fc1b93dc
+django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@5fd7de5683e286df7b778ae17e8b3523447c9ddc
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
