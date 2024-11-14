@@ -44,6 +44,7 @@ export default defineConfig(({ mode }) => ({
         fds_cms: './frontend/javascript/fds_cms.js',
         fileuploader: r('froide', 'fileuploader.js'),
         filingcabinet: r('@okfde/filingcabinet', 'filingcabinet.js'),
+        fcdownloader: r('@okfde/filingcabinet', 'fcdownloader.js'),
         food: r('froide_food', 'food.js'),
         foodreport: r('froide_food', 'report.js'),
         geomatch: r('froide', 'geomatch.js'),
