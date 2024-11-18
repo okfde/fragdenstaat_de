@@ -568,6 +568,8 @@ class FragDenStaatBase(German, Base):
     ALLOWED_HOSTS = ("*",)
     ALLOWED_REDIRECT_HOSTS = ("*",)
 
+    CREW_GROUP = 13
+
     @property
     def OAUTH2_PROVIDER(self):
         P = super().OAUTH2_PROVIDER
