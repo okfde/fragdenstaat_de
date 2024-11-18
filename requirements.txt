@@ -14,7 +14,9 @@ asgiref==3.8.1
     #   django
     #   django-countries
 async-timeout==4.0.3
-    # via fragdenstaat-de (pyproject.toml)
+    # via
+    #   fragdenstaat-de (pyproject.toml)
+    #   aiohttp
 attrs==23.2.0
     # via
     #   aiohttp
@@ -396,7 +398,7 @@ filelock==3.16.0
     # via torch
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@0756cd32b824d63c068fcbdaa1d374b5ca3a1249
+froide @ git+https://github.com/okfde/froide.git@484ca1070ea10ffa01d848499d20bf40c7cc0d79
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@55a8a36a2ec9862dc160c1f89ed8250229cf55b2
     # via fragdenstaat-de (pyproject.toml)
@@ -711,7 +713,6 @@ setuptools==74.1.2
     # via
     #   django-cms
     #   geoip2
-    #   torch
 six==1.16.0
     # via
     #   bleach
@@ -748,11 +749,14 @@ torchvision==0.20.1
     # via fragdenstaat-de (pyproject.toml)
 typing-extensions==4.12.2
     # via
+    #   asgiref
     #   dj-database-url
     #   django-countries
     #   elasticsearch-dsl
     #   jwcrypto
+    #   multidict
     #   psycopg
+    #   pypdf
     #   python-docx
     #   torch
 tzdata==2024.1
