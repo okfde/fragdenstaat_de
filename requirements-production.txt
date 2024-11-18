@@ -160,7 +160,7 @@ django==4.2.16
     #   enmerkar
     #   froide
     #   sortabletable
-django-admin-sortable2==2.2.3
+django-admin-sortable2==2.2.4
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide-campaign
