@@ -5,7 +5,7 @@ from django.views.decorators.cache import cache_control
 from froide.foirequest.decorators import allow_write_foirequest
 from froide.foirequest.models import FoiRequest
 from froide.foirequest.views.list_requests import BaseListRequestView
-from froide.helper.auth import require_staff
+from froide.helper.auth import require_crew
 from froide.helper.utils import render_403
 
 from .filters import SelectRequestFilterSet
@@ -13,7 +13,7 @@ from .forms import PaperlessPostalReplyForm
 from .paperless import add_tag_to_documents, get_thumbnail, list_documents
 
 
-@require_staff
+@require_crew
 def list_view(request):
     paperless_docs = list_documents()
     return render(
@@ -27,7 +27,7 @@ def list_view(request):
 
 @allow_write_foirequest
 def add_postal_message(request, foirequest):
-    if not request.user.is_staff or not request.user.has_perm(
+    if not request.user.is_crew or not request.user.has_perm(
         "foirequest.change_foimessage"
     ):
         return render_403(request)
@@ -67,7 +67,7 @@ def add_postal_message(request, foirequest):
     )
 
 
-@require_staff
+@require_crew
 @cache_control(max_age=86400)
 def get_thumbnail_view(request, paperless_document: int):
     content_type, content = get_thumbnail(paperless_document_id=paperless_document)
