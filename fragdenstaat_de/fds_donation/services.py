@@ -310,7 +310,12 @@ def merge_donor_list(donors):
 
 
 def confirm_donor_email(donor, request=None):
-    if request and request.user.is_crew and request.user != donor.user:
+    if (
+        request
+        and request.user.is_authenticated
+        and request.user.is_crew
+        and request.user != donor.user
+    ):
         # Don't trigger things as staff for different user
         return
     is_auth = request and request.user.is_authenticated
