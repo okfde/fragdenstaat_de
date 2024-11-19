@@ -1,4 +1,8 @@
+import os
+
+from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from dateutil.relativedelta import relativedelta
 
@@ -123,3 +127,37 @@ def backup_jzwb_pdf_task(donor_id, year, ignore_receipt_date=None):
         return
 
     backup_jzwb(donor, year, ignore_receipt_date=ignore_receipt_date)
+
+
+@celery_app.task(name="fragdenstaat_de.fds_donation.import_banktransfers")
+def import_banktransfers_task(filepath, project, user_id=None):
+    from .external import import_banktransfers
+
+    try:
+        count, new_count = import_banktransfers(filepath, project)
+    finally:
+        os.remove(filepath)
+
+    if user_id is not None:
+        user = get_user_model().objects.get(id=user_id)
+        user.send_mail(
+            _("Bank transfers imported for {project}").format(project=project),
+            _("Count: {count}\nNew: {new}").format(count=count, new=new_count),
+        )
+
+
+@celery_app.task(name="fragdenstaat_de.fds_donation.import_paypal")
+def import_paypal_task(filepath, user_id=None):
+    from .external import import_paypal
+
+    try:
+        count, new_count = import_paypal(filepath)
+    finally:
+        os.remove(filepath)
+
+    if user_id is not None:
+        user = get_user_model().objects.get(id=user_id)
+        user.send_mail(
+            _("Paypal imported"),
+            _("Count: {count}\nNew: {new}").format(count=count, new=new_count),
+        )

@@ -1,6 +1,6 @@
+import tempfile
 import uuid
 from collections import defaultdict
-from io import BytesIO
 
 from django import forms
 from django.contrib import admin, messages
@@ -772,7 +772,7 @@ class DonationAdmin(admin.ModelAdmin):
     send_donation_reminder.short_description = _("Send donation reminder")
 
     def import_banktransfers(self, request):
-        from .external import import_banktransfers
+        from .tasks import import_banktransfers_task
 
         if not request.method == "POST":
             raise PermissionDenied
@@ -785,23 +785,23 @@ class DonationAdmin(admin.ModelAdmin):
             self.message_user(request, _("No file provided."), level=messages.ERROR)
             return redirect("admin:fds_donation_donation_changelist")
 
-        xls_file = BytesIO(xls_file_obj.read())
-        xls_file.name = xls_file_obj.name
+        # Create a named temporary file for background task to read
+        file_obj = tempfile.NamedTemporaryFile(delete=False)
+        file_obj.write(xls_file_obj.read())
+        file_obj.close()
 
-        count, new_count = import_banktransfers(xls_file, project)
+        import_banktransfers_task.delay(file_obj.name, project, user_id=request.user.id)
 
         self.message_user(
             request,
-            _("Imported {rows} rows, {new} new rows.").format(
-                rows=count, new=new_count
-            ),
+            _("Import will start in background."),
             level=messages.INFO,
         )
 
         return redirect("admin:fds_donation_donation_changelist")
 
     def import_paypal(self, request):
-        from .external import import_paypal
+        from .tasks import import_paypal_task
 
         if not request.method == "POST":
             raise PermissionDenied
@@ -813,15 +813,16 @@ class DonationAdmin(admin.ModelAdmin):
             self.message_user(request, _("No file provided."), level=messages.ERROR)
             return redirect("admin:fds_donation_donation_changelist")
 
-        csv_file = BytesIO(csv_file.read())
+        # Create a named temporary file for background task to read
+        file_obj = tempfile.NamedTemporaryFile(delete=False)
+        file_obj.write(csv_file.read())
+        file_obj.close()
 
-        count, new_count = import_paypal(csv_file)
+        import_paypal_task.delay(file_obj.name, user_id=request.user.id)
 
         self.message_user(
             request,
-            _("Imported {rows} rows, {new} new rows.").format(
-                rows=count, new=new_count
-            ),
+            _("Import will start in background."),
             level=messages.INFO,
         )
 
