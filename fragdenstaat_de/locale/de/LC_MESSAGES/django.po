@@ -3225,9 +3225,10 @@ msgstr "Import erfolgreich."
 msgid "Something went wrong. Please try again later."
 msgstr "Etwas lief schief, bitte versuchen Sie es später noch einmal."
 
+#: fragdenstaat_de/fds_donation/admin.py
 #, python-brace-format
-#~ msgid "Imported {rows} rows, {new} new rows."
-#~ msgstr "{rows} Zeilen importiert, {new} neue Zeilen."
+msgid "Imported {rows} rows, {new} new rows."
+msgstr "{rows} Zeilen importiert, {new} neue Zeilen."
 
 #~ msgid "^search/$"
 #~ msgstr "^suche/$"
