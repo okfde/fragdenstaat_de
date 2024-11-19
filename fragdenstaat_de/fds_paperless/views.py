@@ -5,7 +5,7 @@ from django.views.decorators.cache import cache_control
 from froide.foirequest.decorators import allow_write_foirequest
 from froide.foirequest.models import FoiRequest
 from froide.foirequest.views.list_requests import BaseListRequestView
-from froide.helper.auth import require_crew
+from froide.helper.auth import is_crew, require_crew
 from froide.helper.utils import render_403
 
 from .filters import SelectRequestFilterSet
@@ -27,7 +27,7 @@ def list_view(request):
 
 @allow_write_foirequest
 def add_postal_message(request, foirequest):
-    if not request.user.is_crew or not request.user.has_perm(
+    if not is_crew(request.user) or not request.user.has_perm(
         "foirequest.change_foimessage"
     ):
         return render_403(request)
