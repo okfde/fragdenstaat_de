@@ -10,6 +10,7 @@ from django.utils import timezone
 from froide.account.auth import try_login_user_without_mfa
 from froide.account.models import User
 from froide.account.services import AccountService
+from froide.helper.auth import is_crew
 from froide.helper.email_sending import mail_registry
 
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
@@ -310,12 +311,7 @@ def merge_donor_list(donors):
 
 
 def confirm_donor_email(donor, request=None):
-    if (
-        request
-        and request.user.is_authenticated
-        and request.user.is_crew
-        and request.user != donor.user
-    ):
+    if request and is_crew(request.user) and request.user != donor.user:
         # Don't trigger things as staff for different user
         return
     is_auth = request and request.user.is_authenticated
