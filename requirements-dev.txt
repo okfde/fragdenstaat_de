@@ -18,9 +18,7 @@ asgiref==3.8.1
     #   django
     #   django-countries
 async-timeout==4.0.3
-    # via
-    #   fragdenstaat-de (pyproject.toml)
-    #   aiohttp
+    # via fragdenstaat-de (pyproject.toml)
 attrs==24.2.0
     # via
     #   aiohttp
@@ -422,8 +420,6 @@ enmerkar==0.7.1
     # via django-prices
 et-xmlfile==1.1.0
     # via openpyxl
-exceptiongroup==1.2.2
-    # via pytest
 factory-boy==3.3.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -860,6 +856,7 @@ setuptools==74.1.2
     #   django-cms
     #   geoip2
     #   ipython
+    #   torch
 six==1.16.0
     # via
     #   bleach
@@ -912,12 +909,6 @@ tinycss2==1.3.0
     #   cssselect2
     #   svglib
     #   weasyprint
-tomli==2.1.0
-    # via
-    #   djlint
-    #   ipdb
-    #   pytest
-    #   sphinx
 torch==2.5.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -932,15 +923,12 @@ traitlets==5.14.3
     #   matplotlib-inline
 typing-extensions==4.12.2
     # via
-    #   asgiref
     #   dj-database-url
     #   django-countries
     #   elasticsearch-dsl
     #   jwcrypto
-    #   multidict
     #   psycopg
     #   pyee
-    #   pypdf
     #   pytest-factoryboy
     #   python-docx
     #   torch
