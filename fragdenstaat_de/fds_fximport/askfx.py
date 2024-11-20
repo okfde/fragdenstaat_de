@@ -269,7 +269,7 @@ class FrontexPadClient:
         req.raise_for_status()
         return req
 
-    def _login(self, retries: int = 100) -> str:
+    def _login(self, retries: int = 500) -> str:
         """Load the login form and return a path to the captcha iamge
 
         Returns:
