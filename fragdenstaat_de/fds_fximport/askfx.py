@@ -9,12 +9,13 @@ import tempfile
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 from urllib.parse import urljoin
 
 import bs4
 import html_text
 import requests
+import requests.adapters
 import urllib3
 from bs4 import BeautifulSoup
 from PIL import Image
@@ -133,7 +134,7 @@ def parse_documents(elem: bs4.element.Tag) -> List[PadDocument]:
     return docs
 
 
-def parse_table(table_elem: bs4.element.Tag) -> Dict[str, str]:
+def parse_table(table_elem: bs4.element.Tag) -> Dict[str, Any]:
     data = {}
     for row in table_elem.find_all("tr"):
         label_elem = row.find(class_="askFX_HeaderLabel")
@@ -148,7 +149,7 @@ def parse_table(table_elem: bs4.element.Tag) -> Dict[str, str]:
     return data
 
 
-def parse_date(datestr: str) -> str:
+def parse_date(datestr: str) -> datetime.datetime:
     return datetime.datetime.strptime(datestr, "%d/%m/%Y %H:%M")
 
 
@@ -163,7 +164,7 @@ def parse_header(item: bs4.element.Tag) -> PadMetadata:
     )
 
 
-def get_item_date(item: bs4.element.Tag) -> str:
+def get_item_date(item: bs4.element.Tag) -> datetime.datetime:
     raw_date = html_text.extract_text(str(item.find(class_="askFX_itemDateTime")))
     date = datetime.datetime.strptime(raw_date, "%d/%m/%Y\n%H:%M")
     return date
@@ -171,9 +172,9 @@ def get_item_date(item: bs4.element.Tag) -> str:
 
 def parse_message(item: bs4.element.Tag) -> PadMessage:
     direction = ""
-    if "askFX_OUT" in item.get("class"):
+    if "askFX_OUT" in item.get("class", ""):
         direction = Direction.OUT
-    elif "askFX_IN" in item.get("class"):
+    elif "askFX_IN" in item.get("class", ""):
         direction = Direction.IN
     else:
         raise Exception("Unknown direction")
@@ -211,12 +212,13 @@ class FrontexHttpAdapter(requests.adapters.HTTPAdapter):
         self.ssl_context.options |= 0x4
         super().__init__(**kwargs)
 
-    def init_poolmanager(self, connections, maxsize, block=False):
+    def init_poolmanager(self, connections, maxsize, block=False, **pool_kwargs):
         self.poolmanager = urllib3.poolmanager.PoolManager(
             num_pools=connections,
             maxsize=maxsize,
             block=block,
             ssl_context=self.ssl_context,
+            **pool_kwargs,
         )
 
 
@@ -253,13 +255,17 @@ class FrontexPadClient:
 
         return form_data
 
-    def _get(self, *args, **kwargs) -> requests.Request:
-        req = self.session.get(*args, **kwargs, verify=self._ca_path, headers=HEADERS)
+    def _get(self, *args, **kwargs) -> requests.Response:
+        req = self.session.get(
+            *args, **kwargs, verify=str(self._ca_path), headers=HEADERS
+        )
         req.raise_for_status()
         return req
 
-    def _post(self, *args, **kwargs) -> requests.Request:
-        req = self.session.post(*args, **kwargs, verify=self._ca_path, headers=HEADERS)
+    def _post(self, *args, **kwargs) -> requests.Response:
+        req = self.session.post(
+            *args, **kwargs, verify=str(self._ca_path), headers=HEADERS
+        )
         req.raise_for_status()
         return req
 
