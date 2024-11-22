@@ -399,6 +399,7 @@ class ShareLinksPlugin(CMSPluginBase):
         context["text"] = instance.title
         context["image"] = instance.image
         context["twitter"] = instance.twitter
+        context["bluesky"] = instance.bluesky
         context["mastodon"] = instance.mastodon
         context["facebook"] = instance.facebook
         context["email"] = instance.email
