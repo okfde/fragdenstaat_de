@@ -378,7 +378,6 @@ class ShareLinksCMSPlugin(CMSPlugin):
         ),
     )
 
-    twitter = models.BooleanField("Twitter", default=False)
     bluesky = models.BooleanField("BlueSky", default=True)
     mastodon = models.BooleanField("Mastodon", default=True)
     facebook = models.BooleanField("Facebook", default=False)
