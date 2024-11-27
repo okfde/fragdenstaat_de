@@ -11,9 +11,9 @@ testci:
 	coverage report
 
 backend_dependencies: pyproject.toml
-	uv pip compile -o requirements.txt pyproject.toml
-	uv pip compile -o requirements-dev.txt --extra dev pyproject.toml
-	uv pip compile -o requirements-production.txt --extra production pyproject.toml
+	uv pip compile -o requirements.txt pyproject.toml -p 3.10
+	uv pip compile -o requirements-dev.txt --extra dev pyproject.toml -p 3.10
+	uv pip compile -o requirements-production.txt --extra production pyproject.toml -p 3.10
 
 frontend_dependencies:
 	./devsetup.sh upgrade_frontend_repos
