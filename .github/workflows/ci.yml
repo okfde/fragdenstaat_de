@@ -64,6 +64,8 @@ jobs:
           coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
         env:
           DATABASE_URL: postgis://postgres:postgres@localhost/fragdenstaat_de
+      - name: Check for missing migrations
+        run: python manage.py makemigrations --check
     services:
       postgres:
         image: postgis/postgis:16-3.4
