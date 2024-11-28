@@ -134,6 +134,7 @@ django==4.2.16
     #   django-configurations
     #   django-contrib-comments
     #   django-crossdomainmedia
+    #   django-datashow
     #   django-entangled
     #   django-filer
     #   django-filingcabinet
@@ -170,6 +171,7 @@ django==4.2.16
 django-admin-sortable2==2.2.3
     # via
     #   fragdenstaat-de (pyproject.toml)
+    #   django-datashow
     #   froide-campaign
     #   froide-govplan
 django-amenities @ git+https://github.com/okfde/django-amenities.git@c351c2d571dcf81912502919016aeba325a1605a
@@ -223,6 +225,8 @@ django-crossdomainmedia==0.0.4
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
+django-datashow==0.1.0
+    # via fragdenstaat-de (pyproject.toml)
 django-elasticsearch-dsl==8.0
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -538,6 +542,7 @@ lxml-html-clean==0.2.2
 markdown==3.7
     # via
     #   fragdenstaat-de (pyproject.toml)
+    #   django-datashow
     #   django-legal-advice-builder
     #   froide
 markupsafe==2.1.5
