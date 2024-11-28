@@ -86,6 +86,7 @@ class FragDenStaatBase(German, Base):
                 # Additional CMS plugins
                 "sortabletable",
                 "contractor",
+                "datashow",
                 "djcelery_email",
                 "django.contrib.redirects",
                 "django_prices",

@@ -60,3 +60,12 @@ class FdsCmsPlainAPIApp(CMSApp):
 
     def get_urls(self, page=None, language=None, **kwargs):
         return ["fragdenstaat_de.fds_cms.urls_plainapi"]
+
+
+@apphook_pool.register
+class DatashowCMSApp(CMSApp):
+    name = "Datashow CMS App"
+    app_name = "datashow"
+
+    def get_urls(self, page=None, language=None, **kwargs):
+        return ["datashow.urls"]
