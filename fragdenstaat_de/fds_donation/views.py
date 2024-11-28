@@ -56,6 +56,9 @@ class DonationView(FormView):
     def form_valid(self, form):
         order, related_obj = form.save()
         method = form.cleaned_data["payment_method"]
+        if form.settings["next_url"]:
+            self.request.session["extra_action_url"] = form.settings["next_url"]
+            self.request.session["extra_action_label"] = form.settings["next_label"]
         return redirect(order.get_absolute_payment_url(method))
 
 
@@ -133,6 +136,8 @@ class DonorView(DonorMixin, DetailView):
                 "subscriptions": self.object.subscriptions.filter(canceled=None),
                 "donations": donations,
                 "last_donation": last_donation,
+                "extra_action_url": self.request.session.pop("extra_action_url"),
+                "extra_action_label": self.request.session.pop("extra_action_label"),
             }
         )
         return ctx

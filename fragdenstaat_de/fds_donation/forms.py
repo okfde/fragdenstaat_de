@@ -8,6 +8,7 @@ from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.core.mail import mail_managers
 from django.core.validators import MinValueValidator
 from django.utils.html import format_html
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 
 from froide_payment.forms import StartPaymentMixin
@@ -81,6 +82,9 @@ class DonationSettingsForm(forms.Form):
     initial_receipt = forms.BooleanField(required=False)
     collapsed = forms.BooleanField(required=False)
 
+    next_url = forms.CharField(required=False)
+    next_label = forms.CharField(required=False)
+
     def clean_amount_presets(self):
         presets = self.cleaned_data["amount_presets"]
         if presets == "-":
@@ -109,6 +113,14 @@ class DonationSettingsForm(forms.Form):
         receipt = self.cleaned_data["initial_receipt"]
         return int(receipt)
 
+    def clean_next_url(self):
+        next_url = self.cleaned_data["next_url"]
+        if url_has_allowed_host_and_scheme(
+            next_url, allowed_hosts=settings.ALLOWED_REDIRECT_HOSTS
+        ):
+            return next_url
+        return ""
+
     def make_donation_form(self, **kwargs):
         d = {}
         if self.is_valid():
@@ -131,6 +143,8 @@ class DonationFormFactory:
         "initial_interval": 0,
         "initial_receipt": "0",
         "collapsed": False,
+        "next_url": "",
+        "next_label": "",
     }
     initials = {
         "initial_amount": "amount",
