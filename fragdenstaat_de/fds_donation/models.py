@@ -523,6 +523,7 @@ class DonationFormCMSPlugin(CMSPlugin):
 
     form_action = models.CharField(max_length=255, blank=True)
     next_url = models.CharField(max_length=255, blank=True)
+    next_label = models.CharField(max_length=255, blank=True)
 
     open_in_new_tab = models.BooleanField(default=False)
 
@@ -557,6 +558,8 @@ class DonationFormCMSPlugin(CMSPlugin):
                 "collapsed": self.collapsed,
                 "gift_options": [gift.id for gift in self.gift_options.all()],
                 "default_gift": self.default_gift_id,
+                "next_url": self.next_url,
+                "next_label": self.next_label,
             }
         )
         return form.make_donation_form(**kwargs)
