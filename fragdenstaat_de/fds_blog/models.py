@@ -691,6 +691,7 @@ class ArticlePreviewPlugin(CMSPlugin):
 class DetailsBoxCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=100, blank=True)
     content = models.TextField(blank=True)
+    inline = models.BooleanField(default=False)
 
 
 class InfotextboxCMSPlugin(CMSPlugin):

@@ -2,9 +2,24 @@
 {% load markup %}
 {% load static %}
 {% load blog_tags %}
-<details>
-    <summary>
-        <strong>{{ instance.title }}</strong>
-    </summary>
-    {{ instance.content|safe }}
-</details>
+{% spaceless %}
+    {% if instance.inline %}
+        {% if request.resolver_match.url_name == "cms_placeholder_edit_plugin" %}
+            <a class="inline_detailbox--title">{{ instance.title }}⊕</a>
+        {% else %}
+            <span class="inline_detailbox">
+                <a class="inline_detailbox--title">{{ instance.title }}</a>
+                <template>
+                    <div class="inline_detailbox--content">{{ instance.content|safe }}</div>
+                </template>
+            </span>
+        {% endif %}
+    {% else %}
+        <details>
+            <summary>
+                <strong>{{ instance.title }}</strong>
+            </summary>
+            {{ instance.content|safe }}
+        </details>
+    {% endif %}
+{% endspaceless %}
