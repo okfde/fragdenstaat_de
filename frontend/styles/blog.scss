@@ -126,7 +126,10 @@ $blog-standout-width: 72rem;
   }
 
   .inline_detailbox--content {
-    display: flex
+    display: flex;
+    flex-direction: column;
+        margin-bottom: 1rem;
+
   }
 }
 
@@ -205,12 +208,12 @@ aside.article-banner {
 }
 
 .inline_detailbox > .inline_detailbox--title::after {
-  content: " ⊕";
+  content: "⊕";
 }
 
 
 .inline_detailbox[expanded] > .inline_detailbox--title::after {
-  content: " ⊖";
+  content: "⊖";
 }
 
 .inline_detailbox {
