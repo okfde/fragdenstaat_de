@@ -1,0 +1,7 @@
+.pretix-widget {
+  border: none;
+  padding: 0;
+}
+.pretix-widget-attribution {
+  display: none;
+}
