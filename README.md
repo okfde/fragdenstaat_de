@@ -24,6 +24,7 @@ You need to have installed:
 - postgresql bindings
 - poppler
 - qpdf
+- ocrmypdf
 - pango
 - libgeoip
 - libmagic
