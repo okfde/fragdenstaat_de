@@ -361,6 +361,8 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
             recurring=order.is_recurring,
             first_recurring=order.is_recurring,
             method=data.get("payment_method", ""),
+            extra_action_url=self.settings.get("next_url", ""),
+            extra_action_label=self.settings.get("next_label", ""),
         )
         return donation
 
