@@ -1,0 +1,12 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with name=foirequest.user.get_full_name title=foirequest.title url=action_url %}Hello {{ name }},
+
+there was an error trying to import messages to your request “{{ title }}”. Please try again. If the issue persists, please contact us.
+
+To try again, click the link below:
+
+{{ action_url }}
+
+Cheers,
+{{ site_name }}{% endblocktrans %}
+{% endautoescape %}
+{% include "emails/footer.txt" %}
