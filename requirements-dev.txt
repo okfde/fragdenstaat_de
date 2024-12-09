@@ -255,7 +255,7 @@ django-elasticsearch-dsl==8.0
     #   froide
 django-entangled==0.5.4
     # via djangocms-frontend
-django-filer==3.2.2
+django-filer==3.3.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   djangocms-audio
@@ -460,7 +460,7 @@ filelock==3.16.0
     #   virtualenv
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@3b64f3c871fa77ae45c144477be07aef98d800b0
+froide @ git+https://github.com/okfde/froide.git@48b1757baa51f39f50b370088f1eb157aef57646
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@b46b3603eeb9c67f3fafaf7fa509ee6ae58698fe
     # via fragdenstaat-de (pyproject.toml)
