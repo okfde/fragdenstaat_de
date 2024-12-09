@@ -4,11 +4,13 @@ from urllib.parse import urlencode
 
 from django.conf import settings
 from django.contrib.postgres.fields import HStoreField
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.functions import RowNumber
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext
 
@@ -360,6 +362,9 @@ class Donation(models.Model):
         choices=DONATION_PROJECTS,
     )
 
+    extra_action_url = models.CharField(max_length=255, blank=True)
+    extra_action_label = models.TextField(blank=True)
+
     objects = DonationManager()
 
     class Meta:
@@ -498,6 +503,13 @@ class DonationGiftFormCMSPlugin(CMSPlugin):
         return str(self.category)
 
 
+def validate_allowed_host_and_scheme(value):
+    if not url_has_allowed_host_and_scheme(
+        value, allowed_hosts=settings.ALLOWED_REDIRECT_HOSTS
+    ):
+        raise ValidationError("Not a valid url")
+
+
 class DonationFormCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=255, blank=True)
     interval = models.CharField(max_length=20, choices=INTERVAL_SETTINGS_CHOICES)
@@ -522,7 +534,9 @@ class DonationFormCMSPlugin(CMSPlugin):
     )
 
     form_action = models.CharField(max_length=255, blank=True)
-    next_url = models.CharField(max_length=255, blank=True)
+    next_url = models.CharField(
+        max_length=255, blank=True, validators=[validate_allowed_host_and_scheme]
+    )
     next_label = models.CharField(max_length=255, blank=True)
 
     open_in_new_tab = models.BooleanField(default=False)

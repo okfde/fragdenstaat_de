@@ -9,13 +9,6 @@
             {% include "fds_donation/includes/banktransfer.html" with payment=last_donation.payment order=last_donation.payment.order %}
         </div>
     {% endif %}
-    {% if extra_action_url %}
-        <div class="alert alert-info text-center">
-            <a class="btn btn-primary btn-lg"
-               target="_blank"
-               href="{{ extra_action_url }}">{{ extra_action_label }}</a>
-        </div>
-    {% endif %}
     <p class="text-end">
         <a href="{{ object.get_absolute_change_url }}"
            class="btn btn-secondary mb-2">Spenderdaten aktualisieren</a>
@@ -57,6 +50,13 @@
                             {% endif %}
                         {% else %}
                             {% if donation.received_timestamp %}Bestätigt{% endif %}
+                        {% endif %}
+                        {% if donation.extra_action_url %}
+                            <div class="alert alert-info text-center">
+                                <a class="btn btn-primary btn-lg"
+                                   target="_blank"
+                                   href="{{ donation.extra_action_url }}">{{ donation.extra_action_label }}</a>
+                            </div>
                         {% endif %}
                     </td>
                 </tr>
