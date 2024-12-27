@@ -118,7 +118,7 @@ function setupDonationForm(form: HTMLFormElement): void {
         <span class="fa fa-info-circle"></span>
       </a>
       `
-      const li = ls.parentElement.parentElement
+      const li = ls.parentElement
       li.appendChild(container)
 
       const infoLink = li.querySelector('a')
