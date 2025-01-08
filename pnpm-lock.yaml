@@ -34,16 +34,16 @@ importers:
         version: 4.7.0
       froide:
         specifier: github:okfde/froide
-        version: https://codeload.github.com/okfde/froide/tar.gz/961164b80b7bf54a28d7fa25d14b408e2e4b32ad(fuse.js@6.6.2)(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c(fuse.js@6.6.2)(typescript@5.6.2)
       froide_campaign:
         specifier: github:okfde/froide-campaign
-        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/b46b3603eeb9c67f3fafaf7fa509ee6ae58698fe(froide@https://codeload.github.com/okfde/froide/tar.gz/961164b80b7bf54a28d7fa25d14b408e2e4b32ad(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/b46b3603eeb9c67f3fafaf7fa509ee6ae58698fe(froide@https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
       froide_exam:
         specifier: github:okfde/froide-exam
         version: https://codeload.github.com/okfde/froide-exam/tar.gz/00f9f1234b5b3eff5d3359894c0e3f5ec5c383eb
       froide_food:
         specifier: github:okfde/froide-food
-        version: https://codeload.github.com/okfde/froide-food/tar.gz/3a1cd2c63564267d3db24cf8aae8bbac3d8098e0(froide@https://codeload.github.com/okfde/froide/tar.gz/961164b80b7bf54a28d7fa25d14b408e2e4b32ad(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide-food/tar.gz/3a1cd2c63564267d3db24cf8aae8bbac3d8098e0(froide@https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
       froide_legalaction:
         specifier: github:okfde/froide-legalaction
         version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/3469ff9fdcb5376376a6c272ebc6e638a94e97ce
@@ -1311,8 +1311,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/961164b80b7bf54a28d7fa25d14b408e2e4b32ad:
-    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/961164b80b7bf54a28d7fa25d14b408e2e4b32ad}
+  froide@https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c:
+    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c}
     version: 1.0.0
 
   froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/b46b3603eeb9c67f3fafaf7fa509ee6ae58698fe:
@@ -3918,7 +3918,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/961164b80b7bf54a28d7fa25d14b408e2e4b32ad(fuse.js@6.6.2)(typescript@5.6.2):
+  froide@https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c(fuse.js@6.6.2)(typescript@5.6.2):
     dependencies:
       '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/78971c8a3f90bc24eeccae9348bd8405c3ddabe4(typescript@5.6.2)
       '@popperjs/core': 2.11.8
@@ -3961,13 +3961,13 @@ snapshots:
       - universal-cookie
       - worker-loader
 
-  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/b46b3603eeb9c67f3fafaf7fa509ee6ae58698fe(froide@https://codeload.github.com/okfde/froide/tar.gz/961164b80b7bf54a28d7fa25d14b408e2e4b32ad(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
+  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/b46b3603eeb9c67f3fafaf7fa509ee6ae58698fe(froide@https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
       '@turf/bbox': 6.5.0
       '@types/leaflet': 1.9.12
       '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.6(typescript@5.6.2))
       deepmerge: 4.3.1
-      froide: https://codeload.github.com/okfde/froide/tar.gz/961164b80b7bf54a28d7fa25d14b408e2e4b32ad(fuse.js@6.6.2)(typescript@5.6.2)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c(fuse.js@6.6.2)(typescript@5.6.2)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.2.1
       lodash.debounce: 4.0.8
@@ -3978,11 +3978,11 @@ snapshots:
 
   froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/00f9f1234b5b3eff5d3359894c0e3f5ec5c383eb: {}
 
-  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/3a1cd2c63564267d3db24cf8aae8bbac3d8098e0(froide@https://codeload.github.com/okfde/froide/tar.gz/961164b80b7bf54a28d7fa25d14b408e2e4b32ad(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
+  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/3a1cd2c63564267d3db24cf8aae8bbac3d8098e0(froide@https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
       '@turf/bbox': 6.5.0
       '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.6(typescript@5.6.2))
-      froide: https://codeload.github.com/okfde/froide/tar.gz/961164b80b7bf54a28d7fa25d14b408e2e4b32ad(fuse.js@6.6.2)(typescript@5.6.2)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c(fuse.js@6.6.2)(typescript@5.6.2)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.3.0
       vue: 3.5.6(typescript@5.6.2)
