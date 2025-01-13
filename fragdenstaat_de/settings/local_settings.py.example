@@ -10,7 +10,6 @@ class Dev(FragDenStaatBase):
     #         host = sys.argv[2]
     #         self.SITE_URL = 'http://' + host
     #         self.FRONTEND_SERVER_URL = 'http://' + host.replace('8000', '5173') +'/'
-    #         self.ALLOWED_HOSTS = ('*', host, )
 
     DEBUG = True
     ALLOWED_HOSTS = ('*',)
