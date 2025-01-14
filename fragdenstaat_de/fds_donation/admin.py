@@ -297,7 +297,8 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     send_donor_optin_email.short_description = _("Send opt-in mail")
 
     def clear_duplicates(self, request, queryset):
-        queryset.update(duplicate=None)
+        # Clear order of queryset to avoid ordering on non-existing annotation columns
+        queryset.order_by().update(duplicate=None)
         self.message_user(request, _("Duplicate flags cleared."))
 
     clear_duplicates.short_description = _("Clear duplicate flag on donors")
@@ -340,13 +341,15 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
     @admin.action(description=_("Mark invalid addresses"))
     def mark_invalid_addresses(self, request, queryset):
-        queryset.filter(
+        qs = queryset.filter(
             Q(postcode="")
             | Q(address="")
             | Q(city="")
             | Q(last_name="")
             | ~(Q(postcode__regex=r"^\d{5}$") | ~Q(country="DE"))
-        ).update(invalid=True)
+        )
+        # Clear order of queryset to avoid ordering on non-existing annotation columns
+        qs.order_by().update(invalid=True)
 
     def merge_donors(self, request, queryset):
         """
