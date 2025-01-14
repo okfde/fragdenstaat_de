@@ -9,7 +9,7 @@
     {{ form.reference }}
     {{ form.keyword }}
     <fieldset>
-        <legend class="bg-primary text-white px-2 py-0 fw-bold">
+        <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">
             {% if form.settings.title %}
                 {{ form.settings.title }}
             {% else %}
@@ -55,7 +55,7 @@
     </fieldset>
     {% if form.settings.collapsed %}<div class="collapse" id="donation-form-detail">{% endif %}
         <fieldset>
-            <legend class="bg-primary text-white px-2 py-0 fw-bold">{% trans "Your details" %}</legend>
+            <legend class="bg-primary text-white px-2 py-0 fw-bold float-none ">{% trans "Your details" %}</legend>
             <div class="row">
                 <div class="col-12 col-md-3">{% render_field form.salutation stacked=True %}</div>
                 <div class="col-12 col-md-9">
@@ -94,7 +94,7 @@
         </fieldset>
         {% if form.chosen_gift %}
             <fieldset>
-                <legend class="bg-primary text-white px-2 py-0 fw-bold">{% trans "Shipping details" %}</legend>
+                <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">{% trans "Shipping details" %}</legend>
                 <div class="row">
                     <div class="col-12">
                         <button type="button"
@@ -125,7 +125,7 @@
             </fieldset>
         {% endif %}
         <fieldset>
-            <legend class="bg-primary text-white px-2 py-0 fw-bold">{% trans "Payment method" %}</legend>
+            <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">{% trans "Payment method" %}</legend>
             <div class="row">
                 <div class="col-12">
                     <div class="d-none onion-show alert alert-danger">
@@ -140,7 +140,7 @@
             </div>
         </fieldset>
         <fieldset>
-            <legend class="bg-primary text-white px-2 py-0 fw-bold">{% trans "Stay up to date" %}</legend>
+            <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">{% trans "Stay up to date" %}</legend>
             <div class="row">
                 <div class="col-md-6 mt-2">
                     <div class="card border-primary">
