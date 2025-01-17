@@ -1,12 +1,14 @@
 {% extends 'admin/base.html' %}
+{% load static %}
 {% block extrahead %}
     {{ block.super }}
+    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}">
     <style>
-:root {
-  --primary: #356bde;
-  --secondary: #719DFF;
-  --link-fg: #0034A5;
-  --link-selected-fg: #001C5A;
-}
+    :root {
+      --primary: #356bde;
+      --secondary: #719DFF;
+      --link-fg: #0034A5;
+      --link-selected-fg: #001C5A;
+    }
     </style>
 {% endblock %}
