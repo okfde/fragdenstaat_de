@@ -3,12 +3,15 @@
 {% block extrahead %}
     {{ block.super }}
     <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}">
+{% endblock extrahead %}
+{% block extrastyle %}
+    {{ block.super }}
     <style>
-    :root {
+    html[data-theme="light"], :root {
       --primary: #356bde;
       --secondary: #719DFF;
       --link-fg: #0034A5;
       --link-selected-fg: #001C5A;
     }
     </style>
-{% endblock %}
+{% endblock extrastyle %}
