@@ -13,7 +13,7 @@ importers:
         version: 3.6.2
       '@okfde/filingcabinet':
         specifier: github:okfde/django-filingcabinet
-        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/78971c8a3f90bc24eeccae9348bd8405c3ddabe4(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/32fad57a4af51908d5df09af84510aaf021c6073(typescript@5.6.2)
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -401,8 +401,8 @@ packages:
     resolution: {tarball: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c}
     version: 1.0.0
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/78971c8a3f90bc24eeccae9348bd8405c3ddabe4':
-    resolution: {tarball: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/78971c8a3f90bc24eeccae9348bd8405c3ddabe4}
+  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/32fad57a4af51908d5df09af84510aaf021c6073':
+    resolution: {tarball: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/32fad57a4af51908d5df09af84510aaf021c6073}
     version: 0.0.4
 
   '@popperjs/core@2.11.8':
@@ -2793,7 +2793,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/78971c8a3f90bc24eeccae9348bd8405c3ddabe4(typescript@5.6.2)':
+  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/32fad57a4af51908d5df09af84510aaf021c6073(typescript@5.6.2)':
     dependencies:
       '@popperjs/core': 2.11.8
       bootstrap: 5.3.3(@popperjs/core@2.11.8)
@@ -3920,7 +3920,7 @@ snapshots:
 
   froide@https://codeload.github.com/okfde/froide/tar.gz/2377a5c11fdc84e0719397eced348f08ada3b09c(fuse.js@6.6.2)(typescript@5.6.2):
     dependencies:
-      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/78971c8a3f90bc24eeccae9348bd8405c3ddabe4(typescript@5.6.2)
+      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/32fad57a4af51908d5df09af84510aaf021c6073(typescript@5.6.2)
       '@popperjs/core': 2.11.8
       '@types/lodash.throttle': 4.1.9
       '@uppy/core': 3.13.1
