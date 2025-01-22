@@ -62,6 +62,9 @@ jobs:
         run: pnpm run build
       - name: Compile translations
         run: uv run python manage.py compilemessages -i node_modules
+      - name: Check for missing migrations
+        run: |
+          uv run python manage.py makemigrations --check
       - name: Run tests
         run: |
           uv run coverage run --branch -m pytest --reuse-db
