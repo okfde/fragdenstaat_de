@@ -186,6 +186,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         make_nullfilter("user_id", _("has user")),
         ("user", ForeignKeyFilter),
         DonorTagListFilter,
+        ("id", ForeignKeyFilter),
     )
     date_hierarchy = "first_donation"
     search_fields = (
