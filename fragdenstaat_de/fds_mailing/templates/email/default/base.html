@@ -278,7 +278,11 @@
                                                     <br>
                                                     {% if unsubscribe_url %}
                                                         <br>
-                                                        Du hast diese Mitteilung erhalten, weil du dich in die Mailingliste eingetragen hast. Du kannst dich <a href="{{ unsubscribe_url }}">hier von dieser Liste abmelden</a>. Weitere Informationen findest du in unserer <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzrichtlinie</a>.
+                                                        {% if newsletter and not newsletter.visible %}
+                                                          Du kannst dich <a href="{{ unsubscribe_url }}">hier von dieser Liste abmelden</a>. Weitere Informationen findest du in unserer <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzrichtlinie</a>.
+                                                        {% else %}
+                                                          Du hast diese Mitteilung erhalten, weil du dich in die Mailingliste eingetragen hast. Du kannst dich <a href="{{ unsubscribe_url }}">hier von dieser Liste abmelden</a>. Weitere Informationen findest du in unserer <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzrichtlinie</a>.
+                                                        {% endif %}
                                                     {% else %}
                                                         <br>
                                                         <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzerklärung</a>
