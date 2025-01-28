@@ -225,7 +225,7 @@ django-crossdomainmedia==0.0.4
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
-django-datashow==0.1.0
+django-datashow==0.1.1
     # via fragdenstaat-de (pyproject.toml)
 django-elasticsearch-dsl==8.0
     # via
