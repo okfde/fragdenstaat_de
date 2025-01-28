@@ -107,6 +107,19 @@ class FragDenStaatBase(German, Base):
         )
         return installed.default
 
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "overwrite": {
+            # Replace in Django 5.1 with allow_overwrite Option
+            "BACKEND": "froide.helper.storage.OverwriteStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+
     @property
     def TEMPLATES(self):
         TEMP = super().TEMPLATES
@@ -891,3 +904,5 @@ class FragDenStaatBase(German, Base):
     }
 
     FROIDE_EVIDENCECOLLECTION_GSHEET_IMPORT_CONFIG = values.DictValue()
+
+    DATASHOW_STORAGE_BACKEND = "overwrite"

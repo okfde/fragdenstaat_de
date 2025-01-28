@@ -38,10 +38,15 @@ class FragDenStaat(FragDenStaatBase):
         "default": {
             "BACKEND": "django.core.files.storage.FileSystemStorage",
         },
+        "overwrite": {
+            # Replace in Django 5.1 with allow_overwrite Option
+            "BACKEND": "froide.helper.storage.OverwriteStorage",
+        },
         "staticfiles": {
             "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
         },
     }
+
     STATIC_URL = env("STATIC_URL", "https://static.frag-den-staat.de/static/")
     CONTRACTOR_URL = STATIC_URL.replace("/static/", "/assets/")
 
