@@ -37,6 +37,7 @@ def find_donation(transfer_ident, row):
         if not donor.attributes or "iban" not in donor.attributes:
             donor.attributes = donor.attributes or {}
             donor.attributes["iban"] = row["iban"]
+            donor.attributes["banktransfer_reference"] = row["reference"]
             donor.save()
     return donation
 
@@ -55,9 +56,11 @@ def get_or_create_bank_transfer_donor(row):
     ident = ""
     country = ""
     if pd.notnull(row["iban"]):
-        attrs = {"iban": row["iban"]}
+        attrs.update({"iban": row["iban"]})
         country = row["iban"][:2]
         ident = row["iban"]
+    if pd.notnull(row["reference"]):
+        attrs["banktransfer_reference"] = row["reference"]
     return Donor.objects.create(
         active=True,
         salutation="",
