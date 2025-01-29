@@ -10,8 +10,16 @@ alabaster==1.0.0
     # via sphinx
 amqp==5.2.0
     # via kombu
+annotated-types==0.7.0
+    # via pydantic
+antlr4-python3-runtime==4.9.3
+    # via omegaconf
+appdirs==1.4.4
+    # via kedro-telemetry
 appnope==0.1.4 ; sys_platform == 'darwin'
     # via ipython
+arrow==1.3.0
+    # via cookiecutter
 asgiref==3.8.1
     # via
     #   channels
@@ -25,6 +33,7 @@ attrs==24.2.0
     # via
     #   aiohttp
     #   jsonschema
+    #   kedro
     #   referencing
 babel==2.16.0
     # via
@@ -38,23 +47,37 @@ beautifulsoup4==4.12.3
     # via htmldocx
 billiard==4.2.0
     # via celery
+binaryornot==0.4.4
+    # via cookiecutter
 bleach==6.1.0
     # via
     #   django-legal-advice-builder
     #   froide
     #   froide-govplan
+blis==1.2.0
+    # via thinc
 brotli==1.1.0 ; platform_python_implementation == 'CPython'
     # via fonttools
 brotlicffi==1.1.0.0 ; platform_python_implementation != 'CPython'
     # via fonttools
+build==1.2.2.post1
+    # via kedro
 cachetools==5.5.0
-    # via google-auth
+    # via
+    #   google-auth
+    #   kedro
+catalogue==2.0.10
+    # via
+    #   spacy
+    #   srsly
+    #   thinc
 celery==5.4.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-celery-beat
     #   django-celery-email
     #   django-filingcabinet
+    #   fcdocs-annotate
     #   froide
 certifi==2024.8.30
     # via
@@ -75,7 +98,9 @@ channels==4.0.0
     #   fragdenstaat-de (pyproject.toml)
     #   froide
 chardet==5.2.0
-    # via reportlab
+    # via
+    #   binaryornot
+    #   reportlab
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
@@ -84,16 +109,22 @@ click==8.1.7
     #   click-didyoumean
     #   click-plugins
     #   click-repl
+    #   cookiecutter
     #   djlint
     #   geocoder
+    #   kedro
+    #   typer
 click-didyoumean==0.3.1
     # via celery
 click-plugins==1.1.1
     # via celery
 click-repl==0.3.0
     # via celery
+cloudpathlib==0.20.0
+    # via weasel
 colorama==0.4.6
     # via
+    #   build
     #   click
     #   djlint
     #   honcho
@@ -102,6 +133,13 @@ colorama==0.4.6
     #   qrcode
     #   sphinx
     #   tqdm
+    #   wasabi
+confection==0.1.5
+    # via
+    #   thinc
+    #   weasel
+cookiecutter==2.6.0
+    # via kedro
 coreapi==2.3.3
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -127,6 +165,11 @@ cssselect2==0.7.0
     # via
     #   svglib
     #   weasyprint
+cymem==2.0.11
+    # via
+    #   preshed
+    #   spacy
+    #   thinc
 decorator==5.1.1
     # via
     #   ipdb
@@ -139,6 +182,7 @@ distlib==0.3.8
 dj-database-url==2.2.0
     # via
     #   fragdenstaat-de (pyproject.toml)
+    #   fcdocs-annotate
     #   froide
 django==4.2.16
     # via
@@ -188,6 +232,7 @@ django==4.2.16
     #   drf-spectacular-sidecar
     #   easy-thumbnails
     #   enmerkar
+    #   fcdocs-annotate
     #   froide
     #   sortabletable
 django-admin-sortable2==2.2.3
@@ -205,6 +250,7 @@ django-appconf==1.0.6
 django-celery-beat==2.7.0
     # via
     #   fragdenstaat-de (pyproject.toml)
+    #   fcdocs-annotate
     #   froide
 django-celery-email==3.0.0
     # via
@@ -234,8 +280,9 @@ django-cms==4.1.2
 django-configurations==2.5.1
     # via
     #   fragdenstaat-de (pyproject.toml)
+    #   fcdocs-annotate
     #   froide
-django-contractor==0.0.8
+django-contractor @ git+https://github.com/pajowu/django-contractor.git@262bb96247cd45417288fe95c22039d0c4e71733
     # via fragdenstaat-de (pyproject.toml)
 django-contrib-comments==2.2.0
     # via
@@ -268,7 +315,7 @@ django-filer==3.3.1
     #   djangocms-picture
     #   djangocms-video
     #   froide-govplan
-django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@32fad57a4af51908d5df09af84510aaf021c6073
+django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@7fc96c2d97bbe4b0eafe5df861cbd73f511c4fd3
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
@@ -297,7 +344,7 @@ django-leaflet==0.30.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
-django-legal-advice-builder @ git+https://github.com/fragdenstaat/django-legal-advice-builder.git@41e220bf36b65b6415ac2b5b8843d730ec4dc161
+django-legal-advice-builder @ git+https://github.com/fragdenstaat/django-legal-advice-builder.git@075ebca4bc36cdc6c97df4dfe4ac6ee886f9ace0
     # via fragdenstaat-de (pyproject.toml)
 django-localflavor==4.0
     # via froide-payment
@@ -337,6 +384,7 @@ django-taggit==6.0.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
+    #   fcdocs-annotate
     #   froide
 django-timezone-field==7.0
     # via django-celery-beat
@@ -389,6 +437,7 @@ djangorestframework==3.15.2
     #   django-filingcabinet
     #   djangorestframework-csv
     #   drf-spectacular
+    #   fcdocs-annotate
     #   froide
     #   froide-campaign
 djangorestframework-csv==3.0.2
@@ -413,6 +462,8 @@ drf-spectacular==0.27.2
     # via froide
 drf-spectacular-sidecar==2024.7.1
     # via drf-spectacular
+dynaconf==3.2.7
+    # via kedro
 easy-thumbnails==2.9
     # via
     #   django-filer
@@ -449,7 +500,7 @@ faker==28.4.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   factory-boy
-fcdocs-annotate @ git+https://github.com/okfde/fcdocs-annotate.git@0e017562c0a3da4d2340bc882523b3630f35f4c0
+fcdocs-annotate @ git+https://github.com/okfde/fcdocs-annotate.git@3ea70ba3aa546e0bb68cc4888e21436e938ec648
     # via fragdenstaat-de (pyproject.toml)
 fdfgen==0.16.1
     # via froide-food
@@ -464,15 +515,15 @@ filelock==3.16.0
     #   virtualenv
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@f827bcb7b0904c9c5f92d3098034f8bcc441c49a
+froide @ git+https://github.com/okfde/froide.git@496bb173f04e0ec5107b8eceeb5aac3a87bae7e6
     # via fragdenstaat-de (pyproject.toml)
-froide-campaign @ git+https://github.com/okfde/froide-campaign.git@b46b3603eeb9c67f3fafaf7fa509ee6ae58698fe
+froide-campaign @ git+https://github.com/okfde/froide-campaign.git@48d6a34f5b66d6303c19224b015096da4f9d704a
     # via fragdenstaat-de (pyproject.toml)
-froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@dafeaab42b60563a465e044fa63a31183890299a
+froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@c55b5397dffca569f23a1181362204e2566e87c9
     # via fragdenstaat-de (pyproject.toml)
-froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@ac3011ad2ecee814b288dd945e9bc6cbf4d5f1bb
+froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@37dd4a261f28bac407df068fa90cd3efbe814900
     # via fragdenstaat-de (pyproject.toml)
-froide-exam @ git+https://github.com/okfde/froide-exam.git@00f9f1234b5b3eff5d3359894c0e3f5ec5c383eb
+froide-exam @ git+https://github.com/okfde/froide-exam.git@94a24b87ef32d911fd1552584cfb5825bb2e5642
     # via fragdenstaat-de (pyproject.toml)
 froide-fax @ git+https://github.com/okfde/froide-fax.git@d724673500afff3f18c75ea1fc8ba69e1f9f8825
     # via fragdenstaat-de (pyproject.toml)
@@ -480,7 +531,7 @@ froide-food @ git+https://github.com/okfde/froide-food.git@3a1cd2c63564267d3db24
     # via fragdenstaat-de (pyproject.toml)
 froide-govplan @ git+https://github.com/okfde/froide-govplan.git@f1763807614b8c54a9214359a2a1e442ca58cb6d
     # via fragdenstaat-de (pyproject.toml)
-froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@3469ff9fdcb5376376a6c272ebc6e638a94e97ce
+froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@f8708ff9755397bab81dadb8b15fe5b7d17de0fd
     # via fragdenstaat-de (pyproject.toml)
 froide-payment @ git+https://github.com/okfde/froide-payment.git@f8347df06fb6fb5e722785f8b2ed3536bf0ab8df
     # via
@@ -491,7 +542,9 @@ frozenlist==1.4.1
     #   aiohttp
     #   aiosignal
 fsspec==2024.9.0
-    # via torch
+    # via
+    #   kedro
+    #   torch
 future==1.0.0
     # via geocoder
 geocoder==1.38.1
@@ -508,6 +561,10 @@ geopy==2.4.1
     # via
     #   django-amenities
     #   froide-food
+gitdb==4.0.12
+    # via gitpython
+gitpython==3.1.44
+    # via kedro
 google-api-core==2.20.0
     # via google-api-python-client
 google-api-python-client==2.146.0
@@ -558,6 +615,12 @@ idna==3.8
     #   yarl
 imagesize==1.4.1
     # via sphinx
+importlib-metadata==8.6.1
+    # via
+    #   build
+    #   kedro
+importlib-resources==6.5.2
+    # via kedro
 inflection==0.5.1
     # via
     #   drf-spectacular
@@ -576,9 +639,13 @@ jedi==0.19.1
     # via ipython
 jinja2==3.1.4
     # via
+    #   cookiecutter
     #   coreschema
+    #   spacy
     #   sphinx
     #   torch
+joblib==1.4.2
+    # via scikit-learn
 jsbeautifier==1.15.1
     # via
     #   cssbeautifier
@@ -594,8 +661,18 @@ jsonschema-specifications==2023.12.1
     # via jsonschema
 jwcrypto==1.5.6
     # via django-oauth-toolkit
+kedro==0.19.11
+    # via
+    #   fcdocs-annotate
+    #   kedro-telemetry
+kedro-telemetry==0.6.2
+    # via kedro
 kombu==5.4.0
     # via celery
+langcodes==3.5.0
+    # via spacy
+language-data==1.3.0
+    # via langcodes
 lxml==5.3.0
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -611,26 +688,39 @@ lxml-html-clean==0.2.2
     # via
     #   html-text
     #   lxml
+marisa-trie==1.2.1
+    # via language-data
 markdown==3.7
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-datashow
     #   django-legal-advice-builder
     #   froide
+markdown-it-py==3.0.0
+    # via rich
 markupsafe==2.1.5
     # via jinja2
 matplotlib-inline==0.1.7
     # via ipython
 maxminddb==2.6.2
     # via geoip2
+mdurl==0.1.2
+    # via markdown-it-py
 mock==5.1.0
     # via fragdenstaat-de (pyproject.toml)
+more-itertools==10.6.0
+    # via kedro
 mpmath==1.3.0
     # via sympy
 multidict==6.1.0
     # via
     #   aiohttp
     #   yarl
+murmurhash==1.0.12
+    # via
+    #   preshed
+    #   spacy
+    #   thinc
 networkx==3.3
     # via torch
 nodeenv==1.9.1
@@ -640,58 +730,74 @@ num2words==0.5.13
 numpy==2.1.1
     # via
     #   fragdenstaat-de (pyproject.toml)
+    #   blis
     #   pandas
+    #   scikit-learn
+    #   scipy
+    #   spacy
+    #   thinc
     #   torchvision
     #   webp
-nvidia-cublas-cu12==12.4.5.8 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-cublas-cu12==12.4.5.8 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via
     #   nvidia-cudnn-cu12
     #   nvidia-cusolver-cu12
     #   torch
-nvidia-cuda-cupti-cu12==12.4.127 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-cuda-cupti-cu12==12.4.127 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
-nvidia-cuda-nvrtc-cu12==12.4.127 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-cuda-nvrtc-cu12==12.4.127 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
-nvidia-cuda-runtime-cu12==12.4.127 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-cuda-runtime-cu12==12.4.127 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
-nvidia-cudnn-cu12==9.1.0.70 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-cudnn-cu12==9.1.0.70 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
-nvidia-cufft-cu12==11.2.1.3 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-cufft-cu12==11.2.1.3 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
-nvidia-curand-cu12==10.3.5.147 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-curand-cu12==10.3.5.147 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
-nvidia-cusolver-cu12==11.6.1.9 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-cusolver-cu12==11.6.1.9 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
-nvidia-cusparse-cu12==12.3.1.170 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-cusparse-cu12==12.3.1.170 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via
     #   nvidia-cusolver-cu12
     #   torch
-nvidia-nccl-cu12==2.21.5 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-nccl-cu12==2.21.5 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
-nvidia-nvjitlink-cu12==12.4.127 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-nvjitlink-cu12==12.4.127 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via
     #   nvidia-cufft-cu12
     #   nvidia-cusolver-cu12
     #   nvidia-cusparse-cu12
     #   torch
-nvidia-nvtx-cu12==12.4.127 ; platform_machine == 'x86_64' and sys_platform == 'linux'
+nvidia-nvtx-cu12==12.4.127 ; platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
 oauthlib==3.2.2
     # via
     #   django-oauth-toolkit
     #   requests-oauthlib
+omegaconf==2.3.0
+    # via kedro
 openpyxl==3.1.5
     # via fragdenstaat-de (pyproject.toml)
 packaging==24.1
     # via
+    #   build
     #   django-cms
     #   djangocms-text-ckeditor
     #   pikepdf
     #   pytest
     #   pytest-factoryboy
+    #   pytoolconfig
+    #   spacy
     #   sphinx
+    #   thinc
+    #   weasel
 pandas==2.2.2
-    # via fragdenstaat-de (pyproject.toml)
+    # via
+    #   fragdenstaat-de (pyproject.toml)
+    #   fcdocs-annotate
+parse==1.20.2
+    # via kedro
 parso==0.8.4
     # via jedi
 pathspec==0.12.1
@@ -729,13 +835,23 @@ pillow==10.4.0
     #   weasyprint
     #   webp
 platformdirs==4.3.2
-    # via virtualenv
+    # via
+    #   pytoolconfig
+    #   virtualenv
 playwright==1.46.0
     # via pytest-playwright
 pluggy==1.5.0
-    # via pytest
+    # via
+    #   kedro
+    #   pytest
 pre-commit==3.8.0
     # via fragdenstaat-de (pyproject.toml)
+pre-commit-hooks==5.0.0
+    # via kedro
+preshed==3.0.9
+    # via
+    #   spacy
+    #   thinc
 prices==1.1.1
     # via
     #   django-prices
@@ -773,6 +889,14 @@ pycparser==2.22
     # via cffi
 pycryptodome==3.20.0
     # via django-filingcabinet
+pydantic==2.10.6
+    # via
+    #   confection
+    #   spacy
+    #   thinc
+    #   weasel
+pydantic-core==2.27.2
+    # via pydantic
 pydyf==0.11.0
     # via weasyprint
 pyee==11.1.0
@@ -782,6 +906,7 @@ pyflakes==3.2.0
 pygments==2.18.0
     # via
     #   ipython
+    #   rich
     #   sphinx
 pygtail @ git+https://github.com/okfde/pygtail.git@dac8bc6fc8d65c7ac820806e570242919616e946
     # via fragdenstaat-de (pyproject.toml)
@@ -804,6 +929,8 @@ pypdf==4.3.1
     #   froide
 pyphen==0.16.0
     # via weasyprint
+pyproject-hooks==1.2.0
+    # via build
 pytest==8.3.3
     # via
     #   pytest-base-url
@@ -822,6 +949,7 @@ python-crontab==3.2.0
     # via django-celery-beat
 python-dateutil==2.9.0.post0
     # via
+    #   arrow
     #   celery
     #   elasticsearch-dsl
     #   faker
@@ -833,6 +961,8 @@ python-dateutil==2.9.0.post0
     #   time-machine
 python-docx==1.1.2
     # via htmldocx
+python-dotenv==1.0.1
+    # via fcdocs-annotate
 python-magic==0.4.27
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -844,10 +974,13 @@ python-mimeparse==2.0.0
 python-slugify==8.0.4
     # via
     #   fragdenstaat-de (pyproject.toml)
+    #   cookiecutter
     #   froide
     #   pytest-playwright
 python-stdnum==1.20
     # via django-localflavor
+pytoolconfig==1.3.1
+    # via rope
 pytz==2024.1
     # via
     #   froide-fax
@@ -857,8 +990,11 @@ pywatchman==2.0.0
     # via fragdenstaat-de (pyproject.toml)
 pyyaml==6.0.2
     # via
+    #   cookiecutter
     #   djlint
     #   drf-spectacular
+    #   kedro
+    #   omegaconf
     #   pre-commit
 qrcode==7.3.1
     # via django-mfa3
@@ -880,6 +1016,7 @@ reportlab==4.2.2
 requests==2.32.3
     # via
     #   fragdenstaat-de (pyproject.toml)
+    #   cookiecutter
     #   coreapi
     #   django-oauth-toolkit
     #   django-payments
@@ -890,18 +1027,36 @@ requests==2.32.3
     #   geocoder
     #   geoip2
     #   google-api-core
+    #   kedro-telemetry
     #   pytest-base-url
     #   requests-oauthlib
+    #   spacy
     #   sphinx
     #   stripe
+    #   weasel
 requests-oauthlib==2.0.0
     # via google-auth-oauthlib
+rich==13.9.4
+    # via
+    #   cookiecutter
+    #   kedro
+    #   typer
+rope==1.13.0
+    # via kedro
 rpds-py==0.20.0
     # via
     #   jsonschema
     #   referencing
 rsa==4.9
     # via google-auth
+ruamel-yaml==0.18.10
+    # via pre-commit-hooks
+ruamel-yaml-clib==0.2.12 ; python_full_version < '3.13' and platform_python_implementation == 'CPython'
+    # via ruamel-yaml
+scikit-learn==1.6.1
+    # via fcdocs-annotate
+scipy==1.15.1
+    # via scikit-learn
 sentry-sdk==2.14.0
     # via fragdenstaat-de (pyproject.toml)
 setuptools==74.1.2
@@ -909,7 +1064,12 @@ setuptools==74.1.2
     #   django-cms
     #   geoip2
     #   ipython
+    #   marisa-trie
+    #   spacy
+    #   thinc
     #   torch
+shellingham==1.5.4
+    # via typer
 six==1.16.0
     # via
     #   bleach
@@ -919,12 +1079,22 @@ six==1.16.0
     #   html5lib
     #   jsbeautifier
     #   python-dateutil
+smart-open==7.1.0
+    # via weasel
+smmap==5.0.2
+    # via gitdb
 snowballstemmer==2.2.0
     # via sphinx
-sortabletable @ git+https://github.com/stefanw/djangocms-sortabletable.git@b0c0108d4c59182629ccce8fe852c956bf0887a3
+sortabletable @ git+https://github.com/pajowu/djangocms-sortabletable.git@09f984335c1f556956f795eb39a4f7d33df94509
     # via fragdenstaat-de (pyproject.toml)
 soupsieve==2.6
     # via beautifulsoup4
+spacy==3.8.4
+    # via fcdocs-annotate
+spacy-legacy==3.0.12
+    # via spacy
+spacy-loggers==1.0.5
+    # via spacy
 sphinx==8.0.2
     # via fragdenstaat-de (pyproject.toml)
 sphinxcontrib-applehelp==2.0.0
@@ -943,6 +1113,12 @@ sqlparse==0.5.1
     # via
     #   django
     #   django-debug-toolbar
+srsly==2.5.1
+    # via
+    #   confection
+    #   spacy
+    #   thinc
+    #   weasel
 stripe==5.5.0
     # via
     #   django-payments
@@ -955,6 +1131,10 @@ tblib==3.0.0
     # via fragdenstaat-de (pyproject.toml)
 text-unidecode==1.3
     # via python-slugify
+thinc==8.3.4
+    # via spacy
+threadpoolctl==3.5.0
+    # via scikit-learn
 time-machine==2.15.0
     # via fragdenstaat-de (pyproject.toml)
 tinycss2==1.3.0
@@ -962,40 +1142,62 @@ tinycss2==1.3.0
     #   cssselect2
     #   svglib
     #   weasyprint
+toml==0.10.2
+    # via kedro
 tomli==2.1.0 ; python_full_version < '3.11'
     # via
+    #   build
     #   djlint
     #   ipdb
+    #   pre-commit-hooks
     #   pytest
+    #   pytoolconfig
     #   sphinx
 torch==2.5.1
     # via
     #   fragdenstaat-de (pyproject.toml)
+    #   fcdocs-annotate
     #   torchvision
 torchvision==0.20.1
-    # via fragdenstaat-de (pyproject.toml)
+    # via
+    #   fragdenstaat-de (pyproject.toml)
+    #   fcdocs-annotate
 tqdm==4.66.5
-    # via djlint
+    # via
+    #   djlint
+    #   spacy
 traitlets==5.14.3
     # via
     #   ipython
     #   matplotlib-inline
-triton==3.1.0 ; python_full_version < '3.13' and platform_machine == 'x86_64' and sys_platform == 'linux'
+triton==3.1.0 ; python_full_version < '3.13' and platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
+typer==0.15.1
+    # via
+    #   spacy
+    #   weasel
+types-python-dateutil==2.9.0.20241206
+    # via arrow
 typing-extensions==4.12.2
     # via
     #   asgiref
+    #   cloudpathlib
     #   dj-database-url
     #   django-countries
     #   elasticsearch-dsl
     #   jwcrypto
+    #   kedro
     #   multidict
     #   psycopg
+    #   pydantic
+    #   pydantic-core
     #   pyee
     #   pypdf
     #   pytest-factoryboy
     #   python-docx
+    #   rich
     #   torch
+    #   typer
 tzdata==2024.1
     # via
     #   celery
@@ -1027,8 +1229,15 @@ wand==0.6.13
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
     #   froide
+wasabi==1.1.3
+    # via
+    #   spacy
+    #   thinc
+    #   weasel
 wcwidth==0.2.13
     # via prompt-toolkit
+weasel==0.4.1
+    # via spacy
 weasyprint==62.3
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -1048,9 +1257,13 @@ websockets==13.0.1
     #   fragdenstaat-de (pyproject.toml)
     #   froide
 wrapt==1.16.0
-    # via deprecated
+    # via
+    #   deprecated
+    #   smart-open
 yarl==1.11.1
     # via aiohttp
+zipp==3.21.0
+    # via importlib-metadata
 zipstream==1.1.4
     # via django-filingcabinet
 zopfli==0.2.3
