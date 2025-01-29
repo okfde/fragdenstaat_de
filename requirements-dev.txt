@@ -249,7 +249,7 @@ django-crossdomainmedia==0.0.4
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
-django-datashow==0.1.2
+django-datashow==0.1.3
     # via fragdenstaat-de (pyproject.toml)
 django-debug-toolbar==4.4.6
     # via fragdenstaat-de (pyproject.toml)
