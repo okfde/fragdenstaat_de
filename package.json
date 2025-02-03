@@ -29,7 +29,7 @@
     "vue": "^3.5.6"
   },
   "dependencies": {
-    "@glidejs/glide": "^3.6.2",
+    "@glidejs/glide": "^3.7.1",
     "@okfde/filingcabinet": "github:okfde/django-filingcabinet",
     "@popperjs/core": "^2.11.8",
     "@sentry/browser": "^7.119.0",
