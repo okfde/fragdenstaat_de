@@ -15,12 +15,17 @@ from .paperless import add_tag_to_documents, get_thumbnail, list_documents
 
 @require_crew
 def list_view(request):
-    paperless_docs = list_documents()
+    try:
+        week = max(int(request.GET.get("week", 1)), 1)
+    except ValueError:
+        week = 1
+    paperless_docs = list_documents(week=week)
     return render(
         request,
         "fds_paperless/list_documents.html",
         {
             "documents": paperless_docs,
+            "week": week,
         },
     )
 

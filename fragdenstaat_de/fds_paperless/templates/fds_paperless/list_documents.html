@@ -39,4 +39,6 @@
             {% endfor %}
         </ul>
     </form>
+    <a href="{% url "paperless_list" %}?week={{ week|add:"1" }}"
+       class="btn btn-secondary">{% translate "Load week before" %}</a>
 {% endblock app_body %}
