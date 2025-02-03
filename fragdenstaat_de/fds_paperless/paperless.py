@@ -31,13 +31,14 @@ def get_document_data(paperless_document_id):
     return meta_data, file_data
 
 
-def list_documents():
+def list_documents(week=1):
     client = get_paperless_client()
-    last_week = timezone.now() - timedelta(days=7)
+    older_than = timezone.now() - timedelta(days=7 * week)
+    younger_than = older_than + timedelta(days=8)
     API_URL = (
         settings.PAPERLESS_API_URL
-        + "/documents/?added__date__gt={}&document_type__isnull=1".format(
-            last_week.date()
+        + "/documents/?added__date__lt={}&added__date__gt={}&document_type__isnull=1".format(
+            younger_than.date(), older_than.date()
         )
     )
 
