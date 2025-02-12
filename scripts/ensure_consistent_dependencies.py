@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import re
+import sys
 
 import yaml
 
@@ -17,6 +18,7 @@ repos = {
 pip_commit_re = r"^(.*) @ git.*@([0-9a-f]*)"
 pnpm_commit_re = r"tar\.gz\/([0-9a-f]*)"
 
+failed = False
 with open("requirements.txt", "r") as requirements_fd:
     with open(file="pnpm-lock.yaml", mode="r") as pnpm_lock_fd:
         pnpm_lock = yaml.load(pnpm_lock_fd, yaml.SafeLoader)
@@ -34,9 +36,14 @@ with open("requirements.txt", "r") as requirements_fd:
                     requirements_version = req_version
 
                     npm_version_re = re.search(pnpm_commit_re, npm_package["version"])
-                    assert npm_version_re is not None
+                    assert npm_version_re is not None, npm_package["version"]
 
                     npm_version = npm_version_re.group(1)
-                    assert (
-                        npm_version == requirements_version
-                    ), f"{req_name} is on a different version in the requirements.txt than in the pnpm-lock.yaml. Run `make dependencies` to fix this."
+                    if npm_version != requirements_version:
+                        print(
+                            f"{req_name} is on a different version in the requirements.txt than in the pnpm-lock.yaml. Run `make dependencies` to fix this. ({npm_version} vs {requirements_version})"
+                        )
+                        failed = True
+
+if failed:
+    sys.exit(1)
