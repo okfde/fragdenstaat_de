@@ -1,0 +1,9 @@
+{% load i18n djangocms_alias_tags %}
+{% static_alias "scannerapp_postupload" %}
+<div class="d-sm-none d-md-block text-center">
+    <h3>{% translate "Scan Code to use Scanner App" %}</h3>
+    <img src="{{ qrcode }}" alt="QR-Code" class="img-fluid mx-auto d-block">
+</div>
+<div class="d-md-none text-center">
+    <a href="{{ app_url }}" class="btn btn-primary btn-lg btn-block">{% translate "Open FragDenStaat Scanner App" %}</a>
+</div>
