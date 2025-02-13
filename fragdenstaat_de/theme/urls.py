@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.sitemaps import views as sitemaps_views
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.utils.translation import pgettext_lazy
 
 from fcdocs_annotate.annotation.api import FeatureViewSet
@@ -20,7 +20,13 @@ from fragdenstaat_de.fds_blog.sitemaps import BlogSitemap, NewsSitemap
 from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 
-from .views import FDSAnnotationView, glyphosat_download, meisterschaften_tippspiel
+from .views import (
+    FDSAnnotationView,
+    glyphosat_download,
+    meisterschaften_tippspiel,
+    scannerapp_deeplink,
+    scannerapp_postupload,
+)
 
 sitemaps["cmspages"] = FdsCMSSitemap
 sitemaps["blog"] = BlogSitemap
@@ -80,6 +86,16 @@ urlpatterns = [
         "tippspiel/",
         meisterschaften_tippspiel,
         name="fragdenstaat-meisterschaften_tippspiel",
+    ),
+    path(
+        "app/scanner/postupload/<int:message_pk>/",
+        scannerapp_postupload,
+        name="fragdenstaat-scannerapp_postupload",
+    ),
+    re_path(
+        r"app/scanner/deep/.+",
+        scannerapp_deeplink,
+        name="fragdenstaat-scannerapp_deeplink",
     ),
     path("fcdocs_annotate/", FDSAnnotationView.as_view(), name="annotate-view"),
     path(

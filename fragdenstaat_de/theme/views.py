@@ -1,9 +1,14 @@
+import base64
+import urllib.parse
+from io import BytesIO
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+import qrcode
 from fcdocs_annotate.annotation.views import AnnotateDocumentView
 
 from froide.account.models import UserPreference
@@ -87,3 +92,32 @@ class FDSAnnotationView(AnnotateDocumentView):
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(portal__isnull=True)
+
+
+@login_required
+def scannerapp_postupload(request, message_pk):
+    """
+    Generate QR code for autologin and redirect to message
+    in Scanner app
+    """
+    autologin_url = request.user.get_autologin_url()
+    app_url = f"/app/scanner/deep/message/{message_pk}/"
+    next_path = urllib.parse.quote_plus(app_url)
+    url = f"{autologin_url}?next={next_path}"
+    img = qrcode.make(url, border=2)
+    img_bytes = BytesIO()
+    img.save(img_bytes, format="PNG")
+    qrcode_base64 = base64.b64encode(img_bytes.getvalue()).decode("utf-8")
+    data_uri = f"data:image/png;base64,{qrcode_base64}"
+    return render(
+        request,
+        "scannerapp/postupload.html",
+        {
+            "qrcode": data_uri,
+            "app_url": app_url,
+        },
+    )
+
+
+def scannerapp_deeplink(request):
+    return render(request, "scannerapp/deeplink.html")
