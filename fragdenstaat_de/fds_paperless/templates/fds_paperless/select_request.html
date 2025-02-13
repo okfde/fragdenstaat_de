@@ -4,6 +4,9 @@
 {% load searchtags %}
 {% load search_helper %}
 {% load form_helper %}
+{% block title %}
+    Paperless Select Request
+{% endblock title %}
 {% block app_body %}
     <h1>{% trans "Search for a matching request" %}</h1>
     {% block search_form %}

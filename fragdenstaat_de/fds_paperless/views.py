@@ -10,22 +10,29 @@ from froide.helper.utils import render_403
 
 from .filters import SelectRequestFilterSet
 from .forms import PaperlessPostalReplyForm
-from .paperless import add_tag_to_documents, get_thumbnail, list_documents
+from .paperless import (
+    add_tag_to_documents,
+    get_documents,
+    get_thumbnail,
+    list_documents,
+)
 
 
 @require_crew
 def list_view(request):
     try:
-        week = max(int(request.GET.get("week", 1)), 1)
+        page = max(int(request.GET.get("page", 1)), 1)
     except ValueError:
-        week = 1
-    paperless_docs = list_documents(week=week)
+        page = 1
+    paperless_docs = list_documents(page=page)
     return render(
         request,
         "fds_paperless/list_documents.html",
         {
             "documents": paperless_docs,
-            "week": week,
+            "page": page,
+            "next_page": page + 1,
+            "prev_page": page - 1,
         },
     )
 
@@ -39,7 +46,8 @@ def add_postal_message(request, foirequest):
 
     context = {"object": foirequest}
 
-    paperless_docs = list_documents()
+    selected_documents = request.GET.getlist("paperless_ids")
+    paperless_docs = get_documents(selected_documents)
     if request.method == "POST":
         form = PaperlessPostalReplyForm(
             request.POST, foirequest=foirequest, paperless_docs=paperless_docs
@@ -53,7 +61,6 @@ def add_postal_message(request, foirequest):
             add_tag_to_documents(form.cleaned_data["paperless_ids"])
             return redirect(message)
     else:
-        selected_documents = request.GET.getlist("paperless_ids")
         form = PaperlessPostalReplyForm(
             foirequest=foirequest,
             paperless_docs=paperless_docs,

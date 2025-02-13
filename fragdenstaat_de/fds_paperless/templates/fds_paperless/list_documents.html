@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% block title %}
+    Paperless {{ page }}
+{% endblock title %}
 {% block app_body %}
     <form action="{% url "paperless_select_request" %}" method="get">
         <div class="d-md-flex">
@@ -39,6 +42,11 @@
             {% endfor %}
         </ul>
     </form>
-    <a href="{% url "paperless_list" %}?week={{ week|add:"1" }}"
-       class="btn btn-secondary">{% translate "Load week before" %}</a>
+    {% if prev_page %}
+        <a href="{% url "paperless_list" %}?page={{ prev_page }}"
+           class="btn btn-secondary">{{ prev_page }}</a>
+    {% endif %}
+    <span>{{ page }}</span>
+    <a href="{% url "paperless_list" %}?page={{ next_page }}"
+       class="btn btn-secondary">{{ next_page }}</a>
 {% endblock app_body %}
