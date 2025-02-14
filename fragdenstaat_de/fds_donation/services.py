@@ -276,7 +276,7 @@ def create_donation_from_payment(payment):
     donation = Donation.objects.create(
         donor=donor,
         timestamp=order.created,
-        amount=payment.captured_amount,
+        amount=order.total_gross,
         amount_received=payment.received_amount or Decimal("0.0"),
         order=order,
         payment=payment,

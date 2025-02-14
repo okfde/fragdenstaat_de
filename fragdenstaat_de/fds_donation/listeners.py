@@ -34,6 +34,8 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
 
     if instance.status == PaymentStatus.CONFIRMED:
         obj.completed = True
+        # Set donation amount to what was actually captured by payment provider
+        obj.amount = instance.captured_amount
         if instance.received_amount:
             obj.amount_reveived = instance.received_amount
         if instance.received_timestamp:
