@@ -121,3 +121,14 @@
   border: 0.25rem solid $primary;
   background: #fff;
 }
+
+/* Privacy blur on QR Code */
+.privacy-blur img {
+  filter: blur(20px);
+}
+.privacy-blur:hover img {
+  filter: none;
+}
+.privacy-blur:hover > div {
+  display: none;
+}
