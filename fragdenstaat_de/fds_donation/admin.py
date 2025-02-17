@@ -466,9 +466,9 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             ]
         )
 
-        return _(
-            "Prepared mailing of emailable donors " "with {count} recipients"
-        ).format(count=count)
+        return _("Prepared mailing of emailable donors with {count} recipients").format(
+            count=count
+        )
 
     def export_donor_csv(self, request, queryset):
         def get_donor_row(queryset):
@@ -482,7 +482,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                     "postcode": donor.postcode,
                     "location": donor.city,
                     "country": donor.country.name,
-                    "salutation": donor.get_salutation_display(),
+                    "salutation": donor.get_salutation(),
                 }
 
         donor_data = list(get_donor_row(queryset))
