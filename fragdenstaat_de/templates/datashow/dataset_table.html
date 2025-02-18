@@ -1,0 +1,26 @@
+{% extends "datashow/dataset_table.html" %}
+{% load markup %}
+{% block datashow_header %}
+    {% if dataset.theme.banner %}
+        {% include "datashow/_dataset_banner.html" with title=table.label %}
+    {% endif %}
+    <div class="container">
+        {% if dataset.default_table != table %}
+            <div class="mb-3">
+                <a href="{% url "datashow:dataset-index" dataset.slug %}">← {{ dataset.name }}</a>
+            </div>
+        {% endif %}
+        <div class="row mb-3">
+            <div class="col-md-8">
+                {% if not dataset.theme.banner %}<h1>{{ table.label }}</h1>{% endif %}
+                {% if table.description %}<div>{{ table.description|markdown }}</div>{% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock datashow_header %}
+{% block datashow_table %}
+    <div class="container">{{ block.super }}</div>
+{% endblock datashow_table %}
+{% block datashow_footer %}
+    <div class="container">{{ block.super }}</div>
+{% endblock datashow_footer %}

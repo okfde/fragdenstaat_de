@@ -1,0 +1,12 @@
+{% extends "datashow/dataset_row.html" %}
+{% block datashow_rowheader %}
+    {% if dataset.theme.banner %}
+        {% include "datashow/_dataset_banner.html" with title=row_label %}
+    {% endif %}
+    {% block datashow_rowheader_breadcrumb %}
+        <div class="container mb-2">{{ block.super }}</div>
+    {% endblock datashow_rowheader_breadcrumb %}
+{% endblock datashow_rowheader %}
+{% block datashow_rowbody %}
+    <div class="container">{{ block.super }}</div>
+{% endblock datashow_rowbody %}

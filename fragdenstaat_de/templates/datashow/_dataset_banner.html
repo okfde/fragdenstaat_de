@@ -1,0 +1,22 @@
+{% load fds_cms_tags %}
+{% get_responsive_filer_image dataset.theme.banner "col-12" as respimg %}
+<div class="hero-image hero-image-sm mb-3">
+    <picture>
+        {% for source in respimg.sources %}
+            <source srcset="{{ source.srcset }}"
+                    sizes="{{ respimg.sizes }}"
+                    type="{{ source.mime_type }}" />
+        {% endfor %}
+        <img class="hero-image-img"
+             loading="lazy"
+             src="{{ respimg.src }}"
+             srcset="{{ respimg.srcset }}"
+             sizes="{{ respimg.sizes }}"
+             alt="{{ dataset.theme.banner.default_alt_text|default:"" }}"
+             width="{{ dataset.theme.banner.width|floatformat:"0u" }}"
+             height="{{ dataset.theme.banner.height|floatformat:"0u" }}">
+    </picture>
+    <div class="hero-image-backdrop container-fluid d-flex flex-column align-items-center justify-content-center">
+        <h1 class="p-3 hero-image-heading">{{ title }}</h1>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{% extends "datashow/dataset_index.html" %}
+{% load markup %}
+{% block datashow_indexheader %}
+    {% if dataset.theme.banner %}
+        {% include "datashow/_dataset_banner.html" with title=dataset.name %}
+    {% endif %}
+    <div class="container">
+        {% if not dataset.theme.banner %}<h1>{{ dataset.name }}</h1>{% endif %}
+        {% if dataset.description %}<div class="my-3">{{ dataset.description|markdown }}</div>{% endif %}
+    </div>
+{% endblock datashow_indexheader %}
+{% block datashow_indexbody %}
+    <div class="container">{{ block.super }}</div>
+{% endblock datashow_indexbody %}
+{% block datashow_indexfooter %}
+    <div class="container">{{ block.super }}</div>
+{% endblock datashow_indexfooter %}

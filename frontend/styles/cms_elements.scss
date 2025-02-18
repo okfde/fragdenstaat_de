@@ -14,6 +14,10 @@
   width: 100%;
   min-height: 24rem;
 }
+
+.hero-image-sm {
+  min-height: 14rem;
+}
 .hero-image-img {
   pointer-events: none;
   position: absolute;
@@ -22,6 +26,13 @@
   z-index: -1;
   object-fit: cover;
   object-position: top;
+}
+.hero-image-heading {
+  text-shadow: 2px 2px 2px rgba(var(--#{$prefix}body-bg-rgb), 0.5);
+}
+
+.hero-image-backdrop {
+  background-color: rgba(var(--#{$prefix}body-bg-rgb), 0.6);
 }
 
 figcaption.picture-description {
