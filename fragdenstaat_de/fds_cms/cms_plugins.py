@@ -1,10 +1,13 @@
 import json
+import urllib.parse
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
+from datashow.models import Dataset
+from datashow.table import RowQueryset
 from djangocms_picture.cms_plugins import PicturePlugin as BasePicturePlugin
 
 from froide.foirequest.models import FoiRequest
@@ -20,6 +23,7 @@ from .models import (
     CardInnerCMSPlugin,
     CardLinkCMSPlugin,
     CollapsibleCMSPlugin,
+    DatashowTableCMSPlugin,
     DesignContainerCMSPlugin,
     DocumentCollectionEmbedCMSPlugin,
     DocumentEmbedCMSPlugin,
@@ -725,3 +729,37 @@ class PretixPlugin(CMSPluginBase):
     name = _("Pretix Shop-Embed")
     render_template = "fds_cms/pretix.html"
     allow_children = False
+
+
+@plugin_pool.register_plugin
+class DatashowDatasetsPlugin(CMSPluginBase):
+    module = _("Datashow")
+    name = _("Datasets")
+    render_template = "fds_cms/datashow/datasets.html"
+
+    def render(self, context, instance, placeholder):
+        context["datasets"] = Dataset.objects.all()
+        return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class DatashowTablePlugin(CMSPluginBase):
+    model = DatashowTableCMSPlugin
+    module = _("Datashow")
+    name = _("Table")
+    render_template = "fds_cms/datashow/table.html"
+    raw_id_fields = ("table",)
+
+    def render(self, context, instance, placeholder):
+        context["table"] = instance.table
+        context["dataset"] = instance.table.dataset
+        query_data = urllib.parse.parse_qs(instance.query)
+        context["object_list"] = RowQueryset(instance.table, formdata=query_data)[
+            : instance.limit
+        ]
+        columns = instance.table.get_formatted_columns()
+        # Force disable sorting for all columns
+        for column, _css in columns:
+            column.sortable = False
+        context["columns"] = columns
+        return super().render(context, instance, placeholder)
