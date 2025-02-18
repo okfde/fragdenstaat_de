@@ -20,5 +20,9 @@ frontend_dependencies:
 
 dependencies: backend_dependencies frontend_dependencies
 
+commitdependencies: dependencies
+	git add requirements.txt requirements-dev.txt requirements-production.txt pnpm-lock.yaml
+	git commit -m "Update dependencies"
+
 messagesde:
 	python manage.py makemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file
