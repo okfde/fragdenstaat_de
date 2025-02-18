@@ -1,0 +1,35 @@
+{% load fds_cms_tags %}
+<div class="row">
+    {% for dataset in datasets %}
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card mb-3">
+                {% if dataset.theme.image %}
+                    {% with object=dataset.theme %}
+                        {% get_responsive_filer_image object.image "col-12 col-sm-6 col-md-4" as respimg %}
+                        <picture>
+                            {% for source in respimg.sources %}
+                                <source srcset="{{ source.srcset }}"
+                                        sizes="{{ respimg.sizes }}"
+                                        type="{{ source.mime_type }}" />
+                            {% endfor %}
+                            <img class="card-img-top img-fluid"
+                                 loading="lazy"
+                                 src="{{ respimg.src }}"
+                                 srcset="{{ respimg.srcset }}"
+                                 sizes="{{ respimg.sizes }}"
+                                 alt="{{ object.image.default_alt_text|default:"" }}"
+                                 width="{{ object.image.width|floatformat:"0u" }}"
+                                 height="{{ object.image.height|floatformat:"0u" }}">
+                        </picture>
+                    {% endwith %}
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ dataset.name }}</h5>
+                    <p class="card-text">{{ dataset.description|striptags|truncatewords:15 }}</p>
+                    <a href="{{ dataset.get_absolute_url }}"
+                       class="float-end btn btn-primary">{{ dataset.name }}</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -8,6 +8,7 @@ from cms.extensions import PageExtension
 from cms.extensions.extension_pool import extension_pool
 from cms.models.fields import PageField
 from cms.models.pluginmodel import CMSPlugin
+from datashow.models import Dataset, Table
 from djangocms_frontend.fields import AttributesField, TagTypeField
 from filer.fields.file import FilerFileField
 from filer.fields.image import FilerImageField
@@ -681,3 +682,38 @@ class PretixEmbedCMSPlugin(CMSPlugin):
     shop_url = models.CharField()
     js_url = models.CharField()
     additional_settings = models.CharField(default="", blank=True)
+
+
+class DatashowDatasetTheme(models.Model):
+    dataset = models.OneToOneField(
+        Dataset, on_delete=models.CASCADE, related_name="theme"
+    )
+
+    image = FilerImageField(
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name=_("image"),
+    )
+    banner = FilerImageField(
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name=_("banner image"),
+    )
+
+    def __str__(self):
+        return "Theme for %s" % self.dataset
+
+
+class DatashowTableCMSPlugin(CMSPlugin):
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    query = models.TextField(blank=True)
+    limit = models.SmallIntegerField(default=10)
+
+    def __str__(self):
+        return self.table.label

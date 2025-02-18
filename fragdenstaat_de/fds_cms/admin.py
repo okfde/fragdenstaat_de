@@ -4,14 +4,17 @@ from cms.extensions import PageExtensionAdmin
 from filer.admin import FolderAdmin
 from filer.models import Folder
 
-from .models import FdsPageExtension
+from .models import DatashowDatasetTheme, FdsPageExtension
 
 
+@admin.register(FdsPageExtension)
 class FdsPageExtensionAdmin(PageExtensionAdmin):
     pass
 
 
-admin.site.register(FdsPageExtension, FdsPageExtensionAdmin)
+@admin.register(DatashowDatasetTheme)
+class DatashowDatasetThemeAdmin(admin.ModelAdmin):
+    raw_id_fields = ["dataset"]
 
 
 class FdsFolderAdmin(FolderAdmin):

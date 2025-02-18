@@ -1,0 +1,7 @@
+{% extends "datashow/_table.html" %}
+{% load sekizai_tags static %}
+{% block datashow_table_footer %}
+    {% addtoblock "css" %}
+    <link rel="stylesheet" href="{% static 'datashow/css/datashow.css' %}">
+{% endaddtoblock %}
+{% endblock %}
