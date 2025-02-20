@@ -34,6 +34,8 @@ class CMSDocument(Document):
     title = fields.TextField(
         fields={"raw": fields.KeywordField()},
         analyzer=analyzer,
+        search_analyzer=search_analyzer,
+        search_quote_analyzer=search_quote_analyzer,
     )
     url = fields.TextField(
         fields={"raw": fields.KeywordField()},
@@ -42,6 +44,8 @@ class CMSDocument(Document):
     description = fields.TextField(
         fields={"raw": fields.KeywordField()},
         analyzer=analyzer,
+        search_analyzer=search_analyzer,
+        search_quote_analyzer=search_quote_analyzer,
     )
 
     content = fields.TextField(

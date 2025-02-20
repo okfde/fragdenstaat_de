@@ -30,6 +30,8 @@ search_quote_analyzer = get_search_quote_analyzer()
 class ArticleDocument(Document):
     title = fields.TextField(
         fields={"raw": fields.KeywordField()},
+        search_analyzer=search_analyzer,
+        search_quote_analyzer=search_quote_analyzer,
         analyzer=analyzer,
     )
     url = fields.TextField(
@@ -38,6 +40,8 @@ class ArticleDocument(Document):
     )
     description = fields.TextField(
         fields={"raw": fields.KeywordField()},
+        search_analyzer=search_analyzer,
+        search_quote_analyzer=search_quote_analyzer,
         analyzer=analyzer,
     )
     start_publication = fields.DateField()
@@ -66,6 +70,7 @@ class ArticleDocument(Document):
             [obj.title, strip_tags(obj.description), strip_tags(html)]
             + [o.title for o in obj.categories.all()]
             + [t.name for t in obj.tags.all()]
+            + [str(a) for a in obj.authors.all()]
         )
 
     def prepare_description(self, obj):
