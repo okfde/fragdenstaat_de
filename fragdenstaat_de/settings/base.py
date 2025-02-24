@@ -60,6 +60,7 @@ class FragDenStaatBase(German, Base):
                 "fragdenstaat_de.fds_ogimage.apps.FdsOgImageConfig",
                 "fragdenstaat_de.fds_fximport.apps.FdsFxImportConfig",
                 "fragdenstaat_de.fds_paperless",
+                "fragdenstaat_de.fds_events",
                 # Additional CMS plugins
                 "djangocms_text_ckeditor",
                 "djangocms_picture",
