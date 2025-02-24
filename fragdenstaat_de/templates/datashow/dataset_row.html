@@ -1,4 +1,5 @@
 {% extends "datashow/dataset_row.html" %}
+{% load markup %}
 {% block datashow_rowheader %}
     {% if dataset.theme.banner %}
         {% include "datashow/_dataset_banner.html" with title=row_label %}
@@ -6,6 +7,13 @@
     {% block datashow_rowheader_breadcrumb %}
         <div class="container mb-2">{{ block.super }}</div>
     {% endblock datashow_rowheader_breadcrumb %}
+    {% if row_description %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">{{ row_description|markdown }}</div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock datashow_rowheader %}
 {% block datashow_rowbody %}
     <div class="container">{{ block.super }}</div>
