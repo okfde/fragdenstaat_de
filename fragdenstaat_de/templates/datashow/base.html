@@ -59,7 +59,7 @@
                                 {% endif %}
                             </li>
                         {% endif %}
-                        {% if row %}<li class="breadcrumb-item">{{ row_label }}</li>{% endif %}
+                        {% if row %}<li class="breadcrumb-item">{{ row_label|truncatewords:5 }}</li>{% endif %}
                     </ol>
                 </nav>
             </div>
