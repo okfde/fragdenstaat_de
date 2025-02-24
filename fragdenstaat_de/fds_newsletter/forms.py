@@ -143,7 +143,12 @@ class NewsletterFollowExtra(NewsletterUserExtra):
 
 
 class SubscriberImportForm(forms.Form):
-    csv_file = forms.FileField(label=_("CSV file"))
+    csv_file = forms.FileField(
+        label=_("CSV file"),
+        help_text=_(
+            "Requires an email column. Optionally, name (or first_name, last_name) can be provided."
+        ),
+    )
     reference = forms.CharField(label=_("Import reference label"), required=True)
     email_confirmed = forms.BooleanField(
         label=_("Email addresses are confirmed"), required=False
