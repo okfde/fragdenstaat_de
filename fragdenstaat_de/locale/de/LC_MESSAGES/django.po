@@ -3322,18 +3322,22 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
-#~ msgid "Load week before"
-#~ msgstr "Vorherige Woche laden"
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
+msgid "Load week before"
+msgstr "Vorherige Woche laden"
 
+#: fragdenstaat_de/fds_donation/admin.py
 #, python-brace-format
-#~ msgid "Imported {rows} rows, {new} new rows."
-#~ msgstr "{rows} Zeilen importiert, {new} neue Zeilen."
+msgid "Imported {rows} rows, {new} new rows."
+msgstr "{rows} Zeilen importiert, {new} neue Zeilen."
 
-#~ msgid "Import successful."
-#~ msgstr "Import erfolgreich."
+#: fragdenstaat_de/fds_fximport/views.py
+msgid "Import successful."
+msgstr "Import erfolgreich."
 
-#~ msgid "Something went wrong. Please try again later."
-#~ msgstr "Etwas lief schief, bitte versuchen Sie es später noch einmal."
+#: fragdenstaat_de/fds_fximport/views.py
+msgid "Something went wrong. Please try again later."
+msgstr "Etwas lief schief, bitte versuchen Sie es später noch einmal."
 
 #~ msgid "^search/$"
 #~ msgstr "^suche/$"
