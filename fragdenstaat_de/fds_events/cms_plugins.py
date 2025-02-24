@@ -28,8 +28,7 @@ class NextEventsPlugin(CMSPluginBase):
         events = Event.objects.get_upcoming()
         lawsuits = Lawsuit.upcoming.all()
 
-        objects = sorted([*events, *lawsuits], key=sort_event)
-        # objects = lawsuits
+        objects = sorted([*events, *lawsuits], key=sort_event, reverse=True)
 
         context.update({"events": objects})
         return context
