@@ -1,16 +1,39 @@
 {% extends CMS_TEMPLATE %}
+{% load thumbnail %}
 {% load cms_tags %}
 {% load i18n %}
-{% block title %}{{ event.title }}{% endblock %}
+{% block meta %}
+    <meta property="og:title" content="{{ event.title }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ event.get_absolute_domain_url }}" />
+    <meta name="description" content="{{ event.description }}" />
+    <meta property="og:description" content="{{ event.description }}" />
+    {% if event.image %}
+        <meta property="og:image"
+              content="{% thumbnail event.image 1200x630 crop subject_location=event.image.subject_location %}" />
+    {% endif %}
+{% endblock meta %}
+{% block title %}{{ event.title }} – {{ SITE_NAME }}{% endblock %}
 {% block body %}
     <div class="text-bg-blue-10 py-3 py-md-5">
         <div class="container">
-            <h1>{{ event.title }}</h1>
-            <p class="lead">{{ event.description|linebreaksbr }}</p>
+            <div class="row">
+                <div class="col-12{% if event.image %} col-md-6 col-lg-8{% endif %}">
+                    <h1>{{ event.title }}</h1>
+                    <p class="lead">{{ event.description|linebreaksbr }}</p>
+                </div>
+                {% if event.image %}
+                    <div class="col-12 col-md-6 col-lg-4 pb-3">
+                        <img src="{% thumbnail event.image 1200x630 crop subject_location=event.image.subject_location %}"
+                             alt="{{ event.image.default_alt_text }}"
+                             class="img-fluid" />
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
     <div class="container">
-        <div class="p-3 p-md-5 pb-md-4 border-blue mt-n3 mt-md-n5 bg-body">
+        <div class="p-3 p-md-5 pb-md-4 border-blue shadow-blue mt-n3 mt-md-n5 bg-body">
             <div class="row">
                 {% if event.location %}
                     <div class="col col-12 col-md-3">
@@ -37,5 +60,5 @@
             </div>
         </div>
     </div>
-    <div class="container mt-3">{% render_placeholder event.content_placeholder %}</div>
+    <div class="container my-5">{% render_placeholder event.content_placeholder %}</div>
 {% endblock body %}
