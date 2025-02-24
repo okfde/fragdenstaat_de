@@ -9,6 +9,7 @@ from django.utils.translation import pgettext_lazy
 
 from cms.models.fields import PlaceholderRelationField
 from cms.utils.placeholder import get_placeholder_from_slot
+from filer.fields.image import FilerImageField
 
 
 class EventManager(models.Manager):
@@ -34,6 +35,14 @@ class Event(models.Model):
         null=True,
     )
     placeholders = PlaceholderRelationField()
+
+    image = FilerImageField(
+        null=True,
+        blank=True,
+        default=None,
+        verbose_name=_("image"),
+        on_delete=models.SET_NULL,
+    )
 
     objects = EventManager()
 

@@ -28,6 +28,9 @@ class EventDetailView(DetailView, BreadcrumbView):
             items=["Events", (self.object.title, self.object.get_absolute_url())]
         )
 
+    def optimize(self, queryset):
+        return queryset.select_related("image")
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.request.event = self.object
@@ -35,7 +38,7 @@ class EventDetailView(DetailView, BreadcrumbView):
         if hasattr(self.request, "toolbar"):
             self.request.toolbar.set_object(self.object)
 
-        context = self.get_context_data(object=self.object)
+        context = self.get_context_data()
         return self.render_to_response(context)
 
 
