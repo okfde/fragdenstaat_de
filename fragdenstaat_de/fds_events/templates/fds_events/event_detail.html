@@ -1,0 +1,41 @@
+{% extends CMS_TEMPLATE %}
+{% load cms_tags %}
+{% load i18n %}
+{% block title %}{{ event.title }}{% endblock %}
+{% block body %}
+    <div class="text-bg-blue-10 py-3 py-md-5">
+        <div class="container">
+            <h1>{{ event.title }}</h1>
+            <p class="lead">{{ event.description|linebreaksbr }}</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="p-3 p-md-5 pb-md-4 border-blue mt-n3 mt-md-n5 bg-body">
+            <div class="row">
+                {% if event.location %}
+                    <div class="col col-12 col-md-3">
+                        <h2 class="h6">{% trans "Location" %}</h2>
+                        <p>{{ event.location|linebreaksbr }}</p>
+                    </div>
+                {% endif %}
+                <div class="col col-6 col-md-3">
+                    <h2 class="h6">{% trans "Start" %}</h2>
+                    <time datetime="{{ event.start_date|date:"c" }}">
+                        {{ event.start_date | date:"DATETIME_FORMAT" }}
+                    </time>
+                </div>
+                <div class="col col-6 col-md-3">
+                    <h2 class="h6">{% trans "End" %}</h2>
+                    <time datetime="{{ event.end_date|date:"c" }}">
+                        {{ event.end_date | date:"DATETIME_FORMAT" }}
+                    </time>
+                </div>
+                <div class="col col-12 col-md-3 mt-3 mt-md-0">
+                    <a href="{{ event.get_ical_url }}"><i class="fa fa-download"></i> {% trans "Add to calendar" %}</a>
+                    {% include "snippets/share_buttons.html" with text=event.title links=True url=event.get_absolute_domain_url copy_text=copy_text %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">{% render_placeholder event.content_placeholder %}</div>
+{% endblock body %}
