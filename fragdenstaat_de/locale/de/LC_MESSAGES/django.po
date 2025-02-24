@@ -2,15 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # krmax44 <hi@krmax44.de>, 2024.
-# krmax44 <github@krmax44.de>, 2024.
+# krmax44 <github@krmax44.de>, 2024, 2025.
 # Kara Engelhardt <kara.engelhardt@okfn.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-13 19:11+0100\n"
-"PO-Revision-Date: 2024-11-13 19:58+0000\n"
-"Last-Translator: Kara Engelhardt <kara.engelhardt@okfn.de>\n"
+"POT-Creation-Date: 2025-02-24 13:43+0100\n"
+"PO-Revision-Date: 2025-02-24 12:49+0000\n"
+"Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -811,6 +811,18 @@ msgstr "Sektion mit Rahmen"
 msgid "Pretix Shop-Embed"
 msgstr "Pretix Shop-Einbindung"
 
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Datashow"
+msgstr "Datashow"
+
+#: fragdenstaat_de/templates/datashow/base.html
+msgid "Datasets"
+msgstr "Datensätze"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Table"
+msgstr "Tabelle"
+
 #: fragdenstaat_de/fds_cms/cms_toolbars.py
 msgid "FdS Page Settings"
 msgstr "FdS Seiteneinstellungen"
@@ -1141,7 +1153,12 @@ msgstr "Banner mit Slide-Animation ausblenden"
 msgid "Banner is dark-themed, button should therefore be light"
 msgstr "Banner ist dunkel, daher sollte der Button hell sein"
 
+#: fragdenstaat_de/fds_cms/models.py
+msgid "banner image"
+msgstr "Banner-Bild"
+
 #: fragdenstaat_de/fds_cms/templates/cms/breadcrumbs.html
+#: fragdenstaat_de/templates/datashow/base.html
 msgid "Home Page"
 msgstr "Startseite"
 
@@ -1384,9 +1401,8 @@ msgid "No file provided."
 msgstr "Keine Datei ausgewählt."
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, python-brace-format
-msgid "Imported {rows} rows, {new} new rows."
-msgstr "{rows} Zeilen importiert, {new} neue Zeilen."
+msgid "Import will start in background."
+msgstr "Import wird im Hintergrund durchgeführt."
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "donation received"
@@ -1836,6 +1852,24 @@ msgstr "Spendengeschenk-Bestellung"
 msgid "donation gift orders"
 msgstr "Spendengeschenk-Bestellungen"
 
+#: fragdenstaat_de/fds_donation/tasks.py
+#, python-brace-format
+msgid "Bank transfers imported for {project}"
+msgstr "Überweisungen für {project} importiert"
+
+#: fragdenstaat_de/fds_donation/tasks.py
+#, python-brace-format
+msgid ""
+"Count: {count}\n"
+"New: {new}"
+msgstr ""
+"Anzahl: {count}\n"
+"Neu: {new}"
+
+#: fragdenstaat_de/fds_donation/tasks.py
+msgid "Paypal imported"
+msgstr "PayPal importiert"
+
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donation/change_list.html
 msgid "Export CSV"
 msgstr "Exportiere CSV"
@@ -2091,6 +2125,72 @@ msgstr "Ihre Spender-Informationen wurden aktualisiert!"
 msgid "NAME"
 msgstr "NAME"
 
+#: fragdenstaat_de/fds_fximport/tasks.py
+msgid "New Message imported"
+msgstr "Neue Nachricht importiert"
+
+#: fragdenstaat_de/fds_fximport/tasks.py
+msgid "Message import failed"
+msgstr "Nachrichtenimport fehlgeschlagen"
+
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/emails/failed.txt
+#, python-format
+msgid ""
+"Hello %(name)s,\n"
+"\n"
+"there was an error trying to import messages to your request “%(title)s”. "
+"Please try again. If the issue persists, please contact us.\n"
+"\n"
+"To try again, click the link below:\n"
+"\n"
+"%(action_url)s\n"
+"\n"
+"Cheers,\n"
+"%(site_name)s"
+msgstr ""
+"Hallo %(name)s,\n"
+"\n"
+"beim Importieren der Nachrichten zu Ihrer Anfrage \"%(title)s\" ist ein "
+"Fehler aufgetreten. Bitte probieren Sie es erneut und kontaktieren Sie uns, "
+"falls der Fehler weiterhin besteht.\n"
+"\n"
+"Um es erneut zu versuchen, klicken Sie bitte den folgenden Link:\n"
+"\n"
+"%(action_url)s\n"
+"\n"
+"Beste Grüße\n"
+"%(site_name)s"
+
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/emails/success.txt
+#, python-format
+msgid ""
+"Hello %(name)s,\n"
+"\n"
+"we successfully imported the messages to your request “%(title)s”. Please "
+"read the response and change the status of the request if needed. You can "
+"also send another message.\n"
+"\n"
+"To read your response and to reply to the authority, click the link below:\n"
+"\n"
+"%(action_url)s\n"
+"\n"
+"Cheers,\n"
+"%(site_name)s"
+msgstr ""
+"Hallo %(name)s,\n"
+"\n"
+"die Nachrichten zu Ihrer Anfrage \"%(title)s\" wurden erfolgreich "
+"importiert. Bitte lesen Sie die Antwort und ändern Sie den Status Ihrer "
+"Anfrage falls nötig. Sie können auch eine weitere Nachricht senden.\n"
+"\n"
+"Um die Antwort zu lesen und den richtigen Zustand anzugeben, klicken Sie auf "
+"diesen Link:\n"
+"\n"
+"%(action_url)s\n"
+"\n"
+"Beste Grüße\n"
+"%(site_name)s"
+
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
 msgid ""
 "\n"
@@ -2130,12 +2230,9 @@ msgid "This is not a message from frontex."
 msgstr "Dies ist keine Nachricht von Frontex."
 
 #: fragdenstaat_de/fds_fximport/views.py
-msgid "Import successful."
-msgstr "Import erfolgreich."
-
-#: fragdenstaat_de/fds_fximport/views.py
-msgid "Something went wrong. Please try again later."
-msgstr "Etwas lief schief, bitte versuchen Sie es später noch einmal."
+msgid "Import stated. You will receive an email once it finishes."
+msgstr ""
+"Import gestartet. Sie erhalten eine E-Mail, sobald dieser abgeschlossen ist."
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Edit"
@@ -2461,12 +2558,28 @@ msgid "CSV file"
 msgstr "CSV-Daten"
 
 #: fragdenstaat_de/fds_newsletter/forms.py
+msgid ""
+"Requires an email column. Optionally, name (or first_name, last_name) can be "
+"provided."
+msgstr ""
+"Benötigt eine \"email\" Spalte. Optional kann auch die Spalte name (oder "
+"first_name, last_name) angegeben werden."
+
+#: fragdenstaat_de/fds_newsletter/forms.py
 msgid "Import reference label"
 msgstr "Referenzmarker des Imports"
 
 #: fragdenstaat_de/fds_newsletter/forms.py
 msgid "Email addresses are confirmed"
 msgstr "E-Mail-Adressen wurden bestätigt"
+
+#: fragdenstaat_de/fds_newsletter/forms.py
+msgid ""
+"Make sure there exists one active mailing template for the batch confirm "
+"intent (fds_newsletter/email/subscriber_batch_confirm)."
+msgstr ""
+"Es wird ein aktives Mailing-Template für das Batch Confirm Intent ("
+"fds_newsletter/email/subscriber_batch_confirm) benötigt."
 
 #: fragdenstaat_de/fds_newsletter/forms.py
 msgid "Anything else you want to tell us?"
@@ -2957,6 +3070,18 @@ msgstr "Organisationen"
 msgid "No organizations found."
 msgstr "Keine Organisation gefunden."
 
+#: fragdenstaat_de/templates/scannerapp/deeplink.html
+msgid "FragDenStaat Scanner App"
+msgstr "FragDenStaat Scanner App"
+
+#: fragdenstaat_de/templates/scannerapp/postupload.html
+msgid "Hover to show QR Code"
+msgstr "Maus hierhin bewegen, um QR-Code anzuzeigen"
+
+#: fragdenstaat_de/templates/scannerapp/postupload.html
+msgid "Open FragDenStaat Scanner App"
+msgstr "FragDenStaat Scanner App öffnen"
+
 #: fragdenstaat_de/templates/snippets/meta.html
 msgid ""
 "Freedom of Information Requests, Freedom of Information Law, Public Body "
@@ -3196,17 +3321,31 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
-#: fragdenstaat_de/fds_blog/redirect_urls.py
-msgid "^search/$"
-msgstr "^suche/$"
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
+msgid "Load week before"
+msgstr "Vorherige Woche laden"
 
-#: fragdenstaat_de/fds_blog/redirect_urls.py
-msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
-msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
+#: fragdenstaat_de/fds_donation/admin.py
+#, python-brace-format
+msgid "Imported {rows} rows, {new} new rows."
+msgstr "{rows} Zeilen importiert, {new} neue Zeilen."
 
-#: fragdenstaat_de/fds_blog/redirect_urls.py
-msgid "^category/(?P<slug>[\\w\\.@+-]+)/$"
-msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
+#: fragdenstaat_de/fds_fximport/views.py
+msgid "Import successful."
+msgstr "Import erfolgreich."
+
+#: fragdenstaat_de/fds_fximport/views.py
+msgid "Something went wrong. Please try again later."
+msgstr "Etwas lief schief, bitte versuchen Sie es später noch einmal."
+
+#~ msgid "^search/$"
+#~ msgstr "^suche/$"
+
+#~ msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
+#~ msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
+
+#~ msgid "^category/(?P<slug>[\\w\\.@+-]+)/$"
+#~ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "Apply"
 #~ msgstr "Übernehmen"
@@ -5136,34 +5275,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ "fragdenstaat.de/hilfe/fuer-behoerden/\n"
 
 #~ msgid ""
-#~ "Hello %(name)s,\n"
-#~ "\n"
-#~ "You received a response to your request \"%(title)s\". Please read the "
-#~ "response and change the status of the request if needed. You can also "
-#~ "send another message.\n"
-#~ "\n"
-#~ "To read your response and set the right status, click the link below:\n"
-#~ "\n"
-#~ "%(url)s\n"
-#~ "\n"
-#~ "Cheers,\n"
-#~ "%(site_name)s"
-#~ msgstr ""
-#~ "Hallo %(name)s,\n"
-#~ "\n"
-#~ "Sie haben eine Antwort auf Ihre Anfrage \"%(title)s\" erhalten. Bitte "
-#~ "lesen Sie die Antwort und ändern Sie den Status Ihrer Anfrage falls "
-#~ "nötig. Sie können auch eine weitere Nachricht senden.\n"
-#~ "\n"
-#~ "Um die Antwort zu lesen und den richtigen Zustand anzugeben, klicken Sie "
-#~ "auf diesen Link:\n"
-#~ "\n"
-#~ "%(url)s\n"
-#~ "\n"
-#~ "Beste Grüße\n"
-#~ "%(site_name)s"
-
-#~ msgid ""
 #~ "Dear Sir or Madam,\n"
 #~ "\n"
 #~ "My Freedom of Information request \"%(title)s\" (%(date)s) was not "
@@ -7061,9 +7172,6 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 #~ msgid "Error Occured"
 #~ msgstr "Fehler aufgetreten"
 
-#~ msgid "Message not found"
-#~ msgstr "Nachricht nicht gefunden"
-
 #~ msgid "Examples:"
 #~ msgstr "Beispiele:"
 
@@ -7218,3 +7326,34 @@ msgstr "^kategorie/(?P<slug>[\\w\\.@+-]+)/$"
 
 #~ msgid "Upload Document"
 #~ msgstr "Dokument hochladen"
+
+#~ msgid ""
+#~ "Hello %(name)s,\n"
+#~ "\n"
+#~ "You received a response to your request \"%(title)s\". Please read the "
+#~ "response and change the status of the request if needed. You can also "
+#~ "send another message.\n"
+#~ "\n"
+#~ "To read your response and set the right status, click the link below:\n"
+#~ "\n"
+#~ "%(url)s\n"
+#~ "\n"
+#~ "Cheers,\n"
+#~ "%(site_name)s"
+#~ msgstr ""
+#~ "Hallo %(name)s,\n"
+#~ "\n"
+#~ "Sie haben eine Antwort auf Ihre Anfrage \"%(title)s\" erhalten. Bitte "
+#~ "lesen Sie die Antwort und ändern Sie den Status Ihrer Anfrage falls "
+#~ "nötig. Sie können auch eine weitere Nachricht senden.\n"
+#~ "\n"
+#~ "Um die Antwort zu lesen und den richtigen Zustand anzugeben, klicken Sie "
+#~ "auf diesen Link:\n"
+#~ "\n"
+#~ "%(url)s\n"
+#~ "\n"
+#~ "Beste Grüße\n"
+#~ "%(site_name)s"
+
+#~ msgid "Message not found"
+#~ msgstr "Nachricht nicht gefunden"
