@@ -219,7 +219,7 @@ django-crossdomainmedia==0.0.4
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
-django-datashow==0.1.7
+django-datashow==0.1.9
     # via fragdenstaat-de (pyproject.toml)
 django-elasticsearch-dsl==8.0
     # via
@@ -413,7 +413,7 @@ filelock==3.16.0
     #   triton
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@bededcf088533c7dc0b0d23ddf1972045a307e5a
+froide @ git+https://github.com/okfde/froide.git@a7e1852804d7bb8a485acbde945e82836bd7a79d
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae
     # via fragdenstaat-de (pyproject.toml)
