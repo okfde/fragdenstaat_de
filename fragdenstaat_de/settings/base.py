@@ -764,6 +764,7 @@ class FragDenStaatBase(German, Base):
                     "help": "/hilfe/",
                     "throttled": "/hilfe/erste-anfrage/wie-viele-anfragen-kann-ich-stellen/",
                     "help_postupload_redaction": "/hilfe/plain/funktionen-der-plattform/schwaerzungen-durchfuehren/",
+                    "help_attachments_management": "/hilfe/plain/funktionen-der-plattform/anhange-verwalten/",
                 },
                 "mobile_app_content_url": "/app/scanner/postupload/message/{}/",
                 "bounce_enabled": True,
