@@ -94,9 +94,13 @@
                     </h3>
                     <div class="row">
                         {% for author in article.get_authors %}
-                            <div class="col-12 col-md-6 tight-margin">
-                                <h4 class="h6">{{ author.get_full_name }}</h4>
-                                {{ author.user.profile_text | markdown }}
+                            <div class="col-12 col-md-6 tight-margin mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{ author.get_full_name }}</h4>
+                                        {{ author.user.profile_text | markdown }}
+                                    </div>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
