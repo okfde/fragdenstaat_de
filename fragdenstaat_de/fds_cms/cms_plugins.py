@@ -753,7 +753,7 @@ class DatashowTablePlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context["table"] = instance.table
         context["dataset"] = instance.table.dataset
-        query_data = urllib.parse.parse_qs(instance.query)
+        query_data = dict(urllib.parse.parse_qsl(instance.query))
         context["object_list"] = RowQueryset(instance.table, formdata=query_data)[
             : instance.limit
         ]
