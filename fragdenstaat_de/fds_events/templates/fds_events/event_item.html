@@ -1,0 +1,14 @@
+{% load cms_tags %}
+<li class="col col-12 col-md-4 d-flex mb-2">
+    <div class="box-card border-gray p-3 w-100 position-relative">
+        <p class="mb-2">
+            <a href="{% url "fds_events:event-detail" event.slug %}"
+               data-toggle-row
+               class="action-link stretched-link">{{ event.title }}</a>
+        </p>
+        <time datetime="{{ event.start_date|date:"c" }}">
+            <i class="fa fa-calendar me-1"></i> {{ event.start_date }}
+        </time>
+        <p class="mt-3 mb-0">{{ event.description }}</p>
+    </div>
+</li>
