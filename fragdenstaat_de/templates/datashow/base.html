@@ -11,16 +11,16 @@
     {% if table %}
         {% with title=row_label|default:table.label description=row_description|default:table.description|striptags|truncatewords:40 %}
             {% if dataset.theme.image %}
-                {% thumbnail dataset.theme.image 1120x600 crop subject_location=dataset.theme.image.subject_location as image_url %}
+                {% thumbnail dataset.theme.image 1120x600 crop subject_location=dataset.theme.image.subject_location as image %}
                 {% endif %}
-                {% include "fds_cms/social_meta.html" with title=title description=description image_url=image_url %}
+                {% include "fds_cms/social_meta.html" with title=title description=description image_url=image.url %}
             {% endwith %}
         {% else %}
             {% with title=dataset.name description=dataset.description|striptags|truncatewords:40 %}
                 {% if dataset.theme.image %}
-                    {% thumbnail dataset.theme.image 1120x600 crop subject_location=dataset.theme.image.subject_location as image_url %}
+                    {% thumbnail dataset.theme.image 1120x600 crop subject_location=dataset.theme.image.subject_location as image %}
                     {% endif %}
-                    {% include "fds_cms/social_meta.html" with title=title description=description image_url=image_url %}
+                    {% include "fds_cms/social_meta.html" with title=title description=description image_url=image.url %}
                 {% endwith %}
             {% endif %}
         {% endblock meta %}
