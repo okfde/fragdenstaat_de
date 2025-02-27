@@ -40,7 +40,7 @@ importers:
         version: https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/a7e1852804d7bb8a485acbde945e82836bd7a79d(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
       froide_exam:
         specifier: github:okfde/froide-exam
-        version: https://codeload.github.com/okfde/froide-exam/tar.gz/00f9f1234b5b3eff5d3359894c0e3f5ec5c383eb
+        version: https://codeload.github.com/okfde/froide-exam/tar.gz/98bf57f33a312fb8d8188253814ae12d6d37d9a0
       froide_food:
         specifier: github:okfde/froide-food
         version: https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/a7e1852804d7bb8a485acbde945e82836bd7a79d(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
@@ -1384,8 +1384,8 @@ packages:
     peerDependencies:
       froide: github:okfde/froide
 
-  froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/00f9f1234b5b3eff5d3359894c0e3f5ec5c383eb:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-exam/tar.gz/00f9f1234b5b3eff5d3359894c0e3f5ec5c383eb}
+  froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/98bf57f33a312fb8d8188253814ae12d6d37d9a0:
+    resolution: {tarball: https://codeload.github.com/okfde/froide-exam/tar.gz/98bf57f33a312fb8d8188253814ae12d6d37d9a0}
     version: 1.0.0
 
   froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff:
@@ -4196,7 +4196,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/00f9f1234b5b3eff5d3359894c0e3f5ec5c383eb: {}
+  froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/98bf57f33a312fb8d8188253814ae12d6d37d9a0: {}
 
   froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/a7e1852804d7bb8a485acbde945e82836bd7a79d(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
