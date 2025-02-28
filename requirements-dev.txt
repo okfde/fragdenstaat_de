@@ -525,7 +525,7 @@ google-auth-oauthlib==1.2.1
     # via froide-evidencecollection
 googleapis-common-protos==1.65.0
     # via google-api-core
-greenlet==3.0.3
+greenlet==3.1.1
     # via playwright
 honcho==1.1.0
     # via fragdenstaat-de (pyproject.toml)
