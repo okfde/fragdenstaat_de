@@ -95,13 +95,14 @@ class FDSAnnotationView(AnnotateDocumentView):
 
 
 @login_required
-def scannerapp_postupload(request, message_pk):
+def scannerapp_postupload(request, message_type, message_pk):
     """
     Generate QR code for autologin and redirect to message
     in Scanner app
     """
+    message_type = "draft" if message_type == "draft" else "message"
     autologin_url = request.user.get_autologin_url()
-    app_url = f"/app/scanner/deep/message/{message_pk}/"
+    app_url = f"/app/scanner/deep/{message_type}/{message_pk}/"
     next_path = urllib.parse.quote_plus(app_url)
     url = f"{autologin_url}?next={next_path}"
     img = qrcode.make(url, border=2)

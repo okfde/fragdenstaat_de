@@ -88,7 +88,7 @@ urlpatterns = [
         name="fragdenstaat-meisterschaften_tippspiel",
     ),
     path(
-        "app/scanner/postupload/<int:message_pk>/",
+        "app/scanner/postupload/<slug:message_type>/<int:message_pk>/",
         scannerapp_postupload,
         name="fragdenstaat-scannerapp_postupload",
     ),
