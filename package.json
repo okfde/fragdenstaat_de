@@ -45,7 +45,7 @@
     "froide_payment": "github:okfde/froide-payment",
     "vega": "^5.30.0",
     "vega-embed": "6.19.1",
-    "vega-interpreter": "^1.0.5",
+    "vega-interpreter": "^1.2.0",
     "vega-lite": "^5.21.0"
   },
   "prettier": "prettier-config-standard"
