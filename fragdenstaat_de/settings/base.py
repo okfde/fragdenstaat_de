@@ -765,7 +765,7 @@ class FragDenStaatBase(German, Base):
                     "throttled": "/hilfe/erste-anfrage/wie-viele-anfragen-kann-ich-stellen/",
                     "help_postupload_redaction": "/hilfe/plain/funktionen-der-plattform/schwaerzungen-durchfuehren/",
                 },
-                "mobile_app_content_url": "/app/scanner/postupload/{}/",
+                "mobile_app_content_url": "/app/scanner/postupload/draft/{}/",
                 "bounce_enabled": True,
                 "bounce_max_age": 60 * 60 * 24 * 14,  # 14 days
                 "bounce_format": "bounce+{token}@fragdenstaat.de",
