@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug running server",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/manage.py",
+      "console": "integratedTerminal",
+      "args": [
+        "runserver"
+      ]
+    }
+  ]
+}
