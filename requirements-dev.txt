@@ -268,7 +268,7 @@ django-filer==3.3.1
     #   djangocms-picture
     #   djangocms-video
     #   froide-govplan
-django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@442ed2825732475ebbd6e8dc2b61a4aa35e2225a
+django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@99d75e0903629436234f6d30d4fdbf8cddc15f13
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
@@ -464,7 +464,7 @@ filelock==3.16.0
     #   virtualenv
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@fec9d284e9a617fd4675df74029127e0c684f575
+froide @ git+https://github.com/okfde/froide.git@f0cfcbe2efe4f3629a0da0d415140a30f76cf74a
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae
     # via fragdenstaat-de (pyproject.toml)
