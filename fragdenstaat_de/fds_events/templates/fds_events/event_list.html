@@ -1,0 +1,14 @@
+{% load i18n %}
+{% if events|length == 0 %}
+    <p class="text-body-secondary">{% trans "There are currently no upcoming events." %}</p>
+{% else %}
+    <ul class="row list-unstyled py-1">
+        {% for event in events %}
+            {% if event.is_event %}
+                {% include "./event_item.html" with event=event %}
+            {% else %}
+                {% include "froide_legalaction/cms_plugins/trial.html" with lawsuit=event %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}
