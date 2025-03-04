@@ -104,9 +104,9 @@ def scannerapp_postupload(request, message_type, message_pk):
     app_url = f"/app/scanner/deep/{message_type}/{message_pk}/"
 
     if request.user.can_autologin():
-        next_path = urllib.parse.quote_plus(app_url)
-        start_url = request.user.get_autologin_url()
-        url = f"{start_url}?next={next_path}"
+        login_url = request.user.get_autologin_url()
+        start_url = urllib.parse.quote_plus(login_url)
+        url = f"{app_url}?start_url={start_url}"
     else:
         url = app_url
 
