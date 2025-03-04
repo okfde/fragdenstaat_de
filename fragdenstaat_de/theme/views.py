@@ -101,10 +101,15 @@ def scannerapp_postupload(request, message_type, message_pk):
     in Scanner app
     """
     message_type = "draft" if message_type == "draft" else "message"
-    autologin_url = request.user.get_autologin_url()
     app_url = f"/app/scanner/deep/{message_type}/{message_pk}/"
-    next_path = urllib.parse.quote_plus(app_url)
-    url = f"{autologin_url}?next={next_path}"
+
+    if request.user.can_autologin():
+        next_path = urllib.parse.quote_plus(app_url)
+        start_url = request.user.get_autologin_url()
+        url = f"{start_url}?next={next_path}"
+    else:
+        url = app_url
+
     img = qrcode.make(url, border=2)
     img_bytes = BytesIO()
     img.save(img_bytes, format="PNG")
