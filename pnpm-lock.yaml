@@ -34,16 +34,16 @@ importers:
         version: 4.7.0
       froide:
         specifier: github:okfde/froide
-        version: https://codeload.github.com/okfde/froide/tar.gz/f0cfcbe2efe4f3629a0da0d415140a30f76cf74a(fuse.js@6.6.2)(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37(fuse.js@6.6.2)(typescript@5.6.2)
       froide_campaign:
         specifier: github:okfde/froide-campaign
-        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/f0cfcbe2efe4f3629a0da0d415140a30f76cf74a(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
       froide_exam:
         specifier: github:okfde/froide-exam
         version: https://codeload.github.com/okfde/froide-exam/tar.gz/3cb22a2e3d94e1be473767dd6a79988bd1a17256
       froide_food:
         specifier: github:okfde/froide-food
-        version: https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/f0cfcbe2efe4f3629a0da0d415140a30f76cf74a(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
       froide_legalaction:
         specifier: github:okfde/froide-legalaction
         version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/3469ff9fdcb5376376a6c272ebc6e638a94e97ce
@@ -813,6 +813,11 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
+  acorn@8.14.1:
+    resolution: {integrity: sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+
   agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
@@ -1374,8 +1379,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/f0cfcbe2efe4f3629a0da0d415140a30f76cf74a:
-    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/f0cfcbe2efe4f3629a0da0d415140a30f76cf74a}
+  froide@https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37:
+    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37}
     version: 1.0.0
 
   froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae:
@@ -3445,6 +3450,9 @@ snapshots:
 
   acorn@8.14.0: {}
 
+  acorn@8.14.1:
+    optional: true
+
   agent-base@6.0.2:
     dependencies:
       debug: 4.3.7
@@ -4134,7 +4142,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/f0cfcbe2efe4f3629a0da0d415140a30f76cf74a(fuse.js@6.6.2)(typescript@5.6.2):
+  froide@https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37(fuse.js@6.6.2)(typescript@5.6.2):
     dependencies:
       '@hey-api/client-fetch': 0.4.4
       '@hey-api/openapi-ts': 0.55.3(typescript@5.6.2)
@@ -4181,13 +4189,13 @@ snapshots:
       - universal-cookie
       - worker-loader
 
-  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/f0cfcbe2efe4f3629a0da0d415140a30f76cf74a(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
+  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
       '@turf/bbox': 6.5.0
       '@types/leaflet': 1.9.12
       '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.6(typescript@5.6.2))
       deepmerge: 4.3.1
-      froide: https://codeload.github.com/okfde/froide/tar.gz/f0cfcbe2efe4f3629a0da0d415140a30f76cf74a(fuse.js@6.6.2)(typescript@5.6.2)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37(fuse.js@6.6.2)(typescript@5.6.2)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.2.1
       lodash.debounce: 4.0.8
@@ -4198,11 +4206,11 @@ snapshots:
 
   froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/3cb22a2e3d94e1be473767dd6a79988bd1a17256: {}
 
-  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/f0cfcbe2efe4f3629a0da0d415140a30f76cf74a(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
+  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
       '@turf/bbox': 6.5.0
       '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.6(typescript@5.6.2))
-      froide: https://codeload.github.com/okfde/froide/tar.gz/f0cfcbe2efe4f3629a0da0d415140a30f76cf74a(fuse.js@6.6.2)(typescript@5.6.2)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37(fuse.js@6.6.2)(typescript@5.6.2)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.3.0
       vue: 3.5.6(typescript@5.6.2)
@@ -5052,7 +5060,7 @@ snapshots:
   terser@5.32.0:
     dependencies:
       '@jridgewell/source-map': 0.3.6
-      acorn: 8.14.0
+      acorn: 8.14.1
       commander: 2.20.3
       source-map-support: 0.5.21
     optional: true
