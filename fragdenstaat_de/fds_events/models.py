@@ -15,7 +15,11 @@ from filer.fields.image import FilerImageField
 class EventManager(models.Manager):
     def get_upcoming(self):
         tomorrow = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
-        return self.get_queryset().filter(end_date__gt=tomorrow).order_by("start_date")
+        return (
+            self.get_queryset()
+            .filter(public=True, end_date__gt=tomorrow)
+            .order_by("start_date")
+        )
 
 
 class Event(models.Model):
@@ -34,6 +38,7 @@ class Event(models.Model):
         blank=True,
         null=True,
     )
+    public = models.BooleanField(default=False)
     placeholders = PlaceholderRelationField()
 
     image = FilerImageField(
