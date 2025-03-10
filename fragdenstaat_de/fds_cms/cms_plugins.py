@@ -4,6 +4,7 @@ import urllib.parse
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 
+from cms.models import Page
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from datashow.models import Dataset
@@ -34,6 +35,7 @@ from .models import (
     ModalCMSPlugin,
     OneClickFoiRequestCMSPlugin,
     PageAnnotationCMSPlugin,
+    PagePreviewCMSPlugin,
     PretixEmbedCMSPlugin,
     PrimaryLinkCMSPlugin,
     RevealMoreCMSPlugin,
@@ -763,4 +765,27 @@ class DatashowTablePlugin(CMSPluginBase):
         for column, _css in columns:
             column.sortable = False
         context["columns"] = columns
+        return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class PagePreviewPlugin(CMSPluginBase):
+    model = PagePreviewCMSPlugin
+    module = _("Elements")
+    name = _("Page Preview")
+    render_template = "fds_cms/page_preview.html"
+
+    def render(self, context, instance, placeholder):
+        page = instance.page
+        context["page"] = page
+
+        try:
+            context["image"] = page.fdspageextension.image
+        except Page.fdspageextension.RelatedObjectDoesNotExist:
+            context["image"] = None
+            print("NO IMAGE")
+
+        context["title"] = page.get_title()
+        context["description"] = page.get_meta_description()
+
         return super().render(context, instance, placeholder)
