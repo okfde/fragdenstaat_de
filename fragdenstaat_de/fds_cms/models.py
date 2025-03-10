@@ -756,3 +756,10 @@ class DatashowTableCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return self.table.label
+
+
+class PagePreviewCMSPlugin(CMSPlugin):
+    page = PageField()
+
+    def __str__(self):
+        return str(self.page)
