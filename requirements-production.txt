@@ -242,7 +242,7 @@ django-filer==3.3.1
     #   djangocms-picture
     #   djangocms-video
     #   froide-govplan
-django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@99d75e0903629436234f6d30d4fdbf8cddc15f13
+django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@6ea744bcf5891b45434f5fc5035d60a9148769a0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
@@ -435,7 +435,7 @@ froide-food @ git+https://github.com/okfde/froide-food.git@1c5b611ec6273e4e8dc5d
     # via fragdenstaat-de (pyproject.toml)
 froide-govplan @ git+https://github.com/okfde/froide-govplan.git@f1763807614b8c54a9214359a2a1e442ca58cb6d
     # via fragdenstaat-de (pyproject.toml)
-froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@3469ff9fdcb5376376a6c272ebc6e638a94e97ce
+froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@f85308f1d439e796773a11399794b186b86a46b3
     # via fragdenstaat-de (pyproject.toml)
 froide-payment @ git+https://github.com/okfde/froide-payment.git@766ea0acaf1a0e613ef3de2c59d13860f0a5487a
     # via
