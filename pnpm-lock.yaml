@@ -13,7 +13,7 @@ importers:
         version: 3.6.2
       '@okfde/filingcabinet':
         specifier: github:okfde/django-filingcabinet
-        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/99d75e0903629436234f6d30d4fdbf8cddc15f13(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/6ea744bcf5891b45434f5fc5035d60a9148769a0(typescript@5.6.2)
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -46,7 +46,7 @@ importers:
         version: https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/c202a3ba8f1847910b761432d8bd67ac38010b37(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
       froide_legalaction:
         specifier: github:okfde/froide-legalaction
-        version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/3469ff9fdcb5376376a6c272ebc6e638a94e97ce
+        version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/f85308f1d439e796773a11399794b186b86a46b3
       froide_payment:
         specifier: github:okfde/froide-payment
         version: https://codeload.github.com/okfde/froide-payment/tar.gz/766ea0acaf1a0e613ef3de2c59d13860f0a5487a
@@ -418,8 +418,8 @@ packages:
     resolution: {tarball: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c}
     version: 1.0.0
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/99d75e0903629436234f6d30d4fdbf8cddc15f13':
-    resolution: {tarball: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/99d75e0903629436234f6d30d4fdbf8cddc15f13}
+  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/6ea744bcf5891b45434f5fc5035d60a9148769a0':
+    resolution: {tarball: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/6ea744bcf5891b45434f5fc5035d60a9148769a0}
     version: 0.0.4
 
   '@panzoom/panzoom@4.6.0':
@@ -1399,8 +1399,8 @@ packages:
     peerDependencies:
       froide: github:okfde/froide
 
-  froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/3469ff9fdcb5376376a6c272ebc6e638a94e97ce:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-legalaction/tar.gz/3469ff9fdcb5376376a6c272ebc6e638a94e97ce}
+  froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/f85308f1d439e796773a11399794b186b86a46b3:
+    resolution: {tarball: https://codeload.github.com/okfde/froide-legalaction/tar.gz/f85308f1d439e796773a11399794b186b86a46b3}
     version: 1.0.0
 
   froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/766ea0acaf1a0e613ef3de2c59d13860f0a5487a:
@@ -2972,7 +2972,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/99d75e0903629436234f6d30d4fdbf8cddc15f13(typescript@5.6.2)':
+  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/6ea744bcf5891b45434f5fc5035d60a9148769a0(typescript@5.6.2)':
     dependencies:
       '@popperjs/core': 2.11.8
       bootstrap: 5.3.3(@popperjs/core@2.11.8)
@@ -4146,7 +4146,7 @@ snapshots:
     dependencies:
       '@hey-api/client-fetch': 0.4.4
       '@hey-api/openapi-ts': 0.55.3(typescript@5.6.2)
-      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/99d75e0903629436234f6d30d4fdbf8cddc15f13(typescript@5.6.2)
+      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/6ea744bcf5891b45434f5fc5035d60a9148769a0(typescript@5.6.2)
       '@panzoom/panzoom': 4.6.0
       '@popperjs/core': 2.11.8
       '@types/lodash.throttle': 4.1.9
@@ -4218,7 +4218,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/3469ff9fdcb5376376a6c272ebc6e638a94e97ce: {}
+  froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/f85308f1d439e796773a11399794b186b86a46b3: {}
 
   froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/766ea0acaf1a0e613ef3de2c59d13860f0a5487a:
     dependencies:
