@@ -17,8 +17,14 @@ def event_calendar_feed(request):
     return response
 
 
-class EventDetailView(DetailView, BreadcrumbView):
+class BaseEventDetailView(DetailView):
     model = Event
+
+    def get_queryset(self):
+        return super().get_queryset().filter(public=True)
+
+
+class EventDetailView(BaseEventDetailView, BreadcrumbView):
     namespace = "fds_events"
     template_name = "fds_events/event_detail.html"
     context_object_name = "event"
@@ -42,9 +48,7 @@ class EventDetailView(DetailView, BreadcrumbView):
         return self.render_to_response(context)
 
 
-class EventIcalDetailView(DetailView):
-    model = Event
-
+class EventIcalDetailView(BaseEventDetailView):
     def get(self, request, *args, **kwargs):
         cal = icalendar.Calendar()
         event = make_ical_event(self.get_object())
