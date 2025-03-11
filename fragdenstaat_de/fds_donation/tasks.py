@@ -202,4 +202,5 @@ def send_donation_tasks_update_mail():
             )
         )
 
-    mail_managers(_("Donation Admin Tasks"), "\n\n".join(messages))
+    if messages:
+        mail_managers(_("Donation Admin Tasks"), "\n\n".join(messages))
