@@ -857,6 +857,7 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
     list_filter = (
         make_nullfilter("donation__received_timestamp", _("donation received")),
         make_nullfilter("shipped", _("has shipped")),
+        make_daterangefilter("timestamp", _("order timestamp")),
         "donation_gift",
     )
     search_fields = ("email", "donation__donor__email", "donation_gift__name")
