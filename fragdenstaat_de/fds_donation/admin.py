@@ -858,7 +858,7 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         "donation_gift",
     )
     search_fields = ("email", "donation__donor__email", "donation_gift__name")
-    actions = ["notify_shipped", "export_csv"]
+    actions = ["notify_shipped", "set_shipped", "export_csv"]
 
     def get_queryset(self, request):
         return (
@@ -908,7 +908,19 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
             level=messages.INFO,
         )
 
-    notify_shipped.short_description = _("notify shipped and set date")
+    notify_shipped.short_description = _("Send shipped email and set date")
+
+    def set_shipped(self, request, queryset):
+        queryset = queryset.filter(shipped=None)
+        count = len(queryset)
+        queryset.update(shipped=timezone.now())
+        self.message_user(
+            request,
+            _("Set {count} order to shipped.").format(count=count),
+            level=messages.INFO,
+        )
+
+    set_shipped.short_description = _("Set shipped date")
 
     def export_csv(self, request, queryset):
         def get_rows(queryset):
