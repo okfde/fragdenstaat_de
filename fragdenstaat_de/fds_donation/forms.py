@@ -563,7 +563,7 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
                 (0, _("No, thank you.")),
             )
         if self.settings["gift_options"]:
-            gift_options = DonationGift.objects.filter(
+            gift_options = DonationGift.objects.available().filter(
                 id__in=self.settings["gift_options"]
             )
             if gift_options:
@@ -580,10 +580,23 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
                     self.fields["chosen_gift"].initial = gift_options[0].id
                 elif self.settings["default_gift"]:
                     self.fields["chosen_gift"].initial = self.settings["default_gift"]
+            else:
+                self.gift_error_message = _(
+                    "Unfortunately, all available donation gifts have been reserved."
+                )
 
     def clean(self):
         if not self.settings["gift_options"]:
             return
+
+        chosen_gift = self.cleaned_data.get("chosen_gift")
+        if chosen_gift is None:
+            return
+        if not chosen_gift.has_remaining_available_to_order():
+            self.add_error(
+                "chosen_gift",
+                _("The chosen donation gift is no longer available, sorry!"),
+            )
 
         # Check if any address is given
         address_fields = ("address", "postcode", "city", "country")

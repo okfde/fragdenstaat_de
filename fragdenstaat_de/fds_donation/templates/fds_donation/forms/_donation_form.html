@@ -25,6 +25,7 @@
                 </div>
             {% endif %}
         {% endif %}
+        {% if form.gift_error_message %}<div class="alert alert-warning">{{ form.gift_error_message }}</div>{% endif %}
         <div class="row">
             <div class="col-12">{% render_field form.amount stacked=True %}</div>
         </div>

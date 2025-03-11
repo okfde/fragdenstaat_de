@@ -433,12 +433,28 @@ class DeferredDonation(Donation):
         verbose_name_plural = _("Deferred Donation")
 
 
+class DonationGiftManager(models.Manager):
+    def available(self):
+        return (
+            super()
+            .get_queryset()
+            .annotate(order_count=models.Count("donationgiftorder"))
+            .filter(
+                models.Q(inventory__isnull=True)
+                | models.Q(inventory__gt=models.F("order_count"))
+            )
+        )
+
+
 class DonationGift(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     category_slug = models.SlugField(max_length=255, blank=True)
+    inventory = models.PositiveIntegerField(blank=True, default=None, null=True)
 
     order = models.PositiveIntegerField(default=0)
+
+    objects = DonationGiftManager()
 
     class Meta:
         verbose_name = _("donation gift")
@@ -450,6 +466,14 @@ class DonationGift(models.Model):
 
     def __str__(self):
         return self.name
+
+    def has_remaining_available_to_order(self) -> bool:
+        if self.inventory is None:
+            return True
+        return (
+            self.inventory
+            - DonationGiftOrder.objects.filter(donation_gift=self).count()
+        ) > 0
 
 
 class DonationGiftOrder(models.Model):

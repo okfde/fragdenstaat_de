@@ -836,9 +836,34 @@ class DonationAdmin(admin.ModelAdmin):
 
 
 class DonationGiftAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ("name", "category_slug")
+    list_display = (
+        "name",
+        "category_slug",
+        "inventory",
+        "order_count",
+        "remaining_count",
+    )
     list_filter = ("category_slug",)
     search_fields = ("name",)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.annotate(
+            order_count=Count("donationgiftorder"),
+        )
+
+    def order_count(self, obj):
+        return obj.order_count
+
+    order_count.admin_order_field = "order_count"
+    order_count.short_description = _("order count")
+
+    def remaining_count(self, obj):
+        if obj.inventory is None:
+            return "-"
+        return obj.inventory - obj.order_count
+
+    remaining_count.short_description = _("remaining count")
 
 
 class DonationGiftOrderAdmin(admin.ModelAdmin):
