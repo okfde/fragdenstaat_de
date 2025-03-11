@@ -1,6 +1,10 @@
 import os
+from datetime import timedelta
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.mail import mail_managers
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -161,3 +165,41 @@ def import_paypal_task(filepath, user_id=None):
             _("Paypal imported"),
             _("Count: {count}\nNew: {new}").format(count=count, new=new_count),
         )
+
+
+@celery_app.task(name="fragdenstaat_de.fds_donation.send_donation_tasks_update_mail")
+def send_donation_tasks_update_mail():
+    from froide_payment.models import PaymentStatus
+
+    from .models import Donation, DonationGiftOrder
+
+    messages = []
+
+    WEEK = timedelta(days=7) + timedelta(hours=1)
+    new_orders = DonationGiftOrder.objects.filter(
+        timestamp__gte=timezone.now() - WEEK, shipped__isnull=True
+    ).count()
+    if new_orders > 0:
+        order_admin = settings.SITE_URL + reverse(
+            "admin:fds_donation_donationgiftorder_changelist"
+        )
+        messages.append(
+            _("{count} new donation gift orders in the last week\n{url}").format(
+                count=new_orders, url=order_admin
+            )
+        )
+
+    deferred_donations = Donation.objects.filter(
+        payment__status=PaymentStatus.DEFERRED,
+    ).count()
+    if deferred_donations > 0:
+        deferred_admin = settings.SITE_URL + reverse(
+            "admin:fds_donation_deferreddonation_changelist"
+        )
+        messages.append(
+            _("{count} deferred donations\n{url}").format(
+                count=deferred_donations, url=deferred_admin
+            )
+        )
+
+    mail_managers(_("Donation Admin Tasks"), "\n\n".join(messages))
