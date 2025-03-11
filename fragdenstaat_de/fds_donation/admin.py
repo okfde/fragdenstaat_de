@@ -965,6 +965,7 @@ class DeferredDonationAdmin(admin.ModelAdmin):
         "amount",
         "donor_details",
         "number",
+        "admin_link_donations",
         "donor_email_confirmed",
         "payment_fraud_message",
         "payment_details",
@@ -974,6 +975,7 @@ class DeferredDonationAdmin(admin.ModelAdmin):
         "reference",
         "keyword",
     )
+    raw_id_fields = ("donor", "order", "payment")
 
     actions = ["confirm", "cancel"]
 
@@ -984,6 +986,16 @@ class DeferredDonationAdmin(admin.ModelAdmin):
             .filter(payment__status=PaymentStatus.DEFERRED)
             .select_related("payment", "donor")
         )
+
+    def admin_link_donations(self, obj):
+        return format_html(
+            '<a href="{}">{}</a>',
+            reverse("admin:fds_donation_donation_changelist")
+            + ("?donor=%s" % obj.donor_id),
+            _("donations"),
+        )
+
+    admin_link_donations.short_description = _("donations")
 
     def donor_details(self, obj):
         return str(obj.donor)
