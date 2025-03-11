@@ -426,6 +426,13 @@ class DefaultDonation(Donation):
         verbose_name_plural = "FragDenStaat Spenden"
 
 
+class DeferredDonation(Donation):
+    class Meta:
+        proxy = True
+        verbose_name = _("Deferred Donation")
+        verbose_name_plural = _("Deferred Donation")
+
+
 class DonationGift(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)

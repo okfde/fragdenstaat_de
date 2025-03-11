@@ -19,6 +19,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from adminsortable2.admin import SortableAdminMixin
+from froide_payment.models import PaymentStatus
 
 from froide.helper.admin_utils import (
     ForeignKeyFilter,
@@ -40,6 +41,7 @@ from .export import JZWBExportForm
 from .models import (
     DONATION_PROJECTS,
     DefaultDonation,
+    DeferredDonation,
     Donation,
     DonationGift,
     DonationGiftOrder,
@@ -955,3 +957,83 @@ admin.site.register(DonationGift, DonationGiftAdmin)
 admin.site.register(DonationGiftOrder, DonationGiftOrderAdmin)
 admin.site.register(DonorTag, DonorTagAdmin)
 admin.site.register(DefaultDonation, DefaultDonationAdmin)
+
+
+class DeferredDonationAdmin(admin.ModelAdmin):
+    list_display = (
+        "timestamp",
+        "amount",
+        "donor_details",
+        "number",
+        "donor_email_confirmed",
+        "payment_fraud_message",
+        "payment_details",
+        "project",
+        "purpose",
+        "method",
+        "reference",
+        "keyword",
+    )
+
+    actions = ["confirm", "cancel"]
+
+    def get_queryset(self, request):
+        return (
+            super()
+            .get_queryset(request)
+            .filter(payment__status=PaymentStatus.DEFERRED)
+            .select_related("payment", "donor")
+        )
+
+    def donor_details(self, obj):
+        return str(obj.donor)
+
+    donor_details.short_description = _("Donor")
+    donor_details.admin_order_field = Concat(
+        "donor__first_name", Value(" "), "donor__last_name"
+    )
+
+    def donor_email_confirmed(self, obj):
+        return obj.donor.email_confirmed
+
+    donor_email_confirmed.short_description = _("Email confirmed")
+
+    def payment_fraud_message(self, obj):
+        return obj.payment.fraud_message
+
+    payment_fraud_message.short_description = _("Suspicious")
+
+    def payment_fraud_message(self, obj):
+        return obj.payment.fraud_message
+
+    payment_fraud_message.short_description = _("Suspicious")
+
+    def payment_details(self, obj):
+        try:
+            iban = obj.payment.attrs.iban
+        except AttributeError:
+            iban = "n/a"
+        iban = iban[:4]
+        return "IBAN[4]: {iban}, IP: {ip}".format(
+            iban=iban,
+            ip=obj.payment.customer_ip_address,
+        )
+
+    payment_details.short_description = _("Payment details")
+
+    @admin.action(description=_("✅ Confirm donations"))
+    def confirm(self, request, queryset):
+        for donation in queryset:
+            obj = donation.payment
+            provider = obj.get_provider()
+            provider.confirm_payment(obj)
+
+    @admin.action(description=_("❌ Cancel donations"))
+    def cancel(self, request, queryset):
+        for donation in queryset:
+            obj = donation.payment
+            provider = obj.get_provider()
+            provider.cancel_payment(obj)
+
+
+admin.site.register(DeferredDonation, DeferredDonationAdmin)
