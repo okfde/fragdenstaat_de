@@ -69,3 +69,12 @@ class DatashowCMSApp(CMSApp):
 
     def get_urls(self, page=None, language=None, **kwargs):
         return ["datashow.urls"]
+
+
+@apphook_pool.register
+class ScannerAppDeepLinkCMSApp(CMSApp):
+    name = "Scanner App Deep Link CMS App"
+    app_name = "scannerapp"
+
+    def get_urls(self, page=None, language=None, **kwargs):
+        return ["fragdenstaat_de.fds_cms.urls_scannerapp"]

@@ -1,7 +1,14 @@
+import base64
+import urllib.parse
+from io import BytesIO
+
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
+import qrcode
 from cms.models import PageContent, PageUrl
 from cms.utils import get_current_site
 from djangocms_versioning.constants import PUBLISHED
@@ -77,3 +84,38 @@ def cms_plain_api(request, slug):
     content = render_placeholder(context, content_placeholder, use_cache=True)
 
     return HttpResponse(content)
+
+
+@login_required
+def scannerapp_postupload(request, message_type, message_pk):
+    """
+    Generate QR code for autologin and redirect to message
+    in Scanner app
+    """
+    message_type = "draft" if message_type == "draft" else "message"
+    app_url = f"{settings.SITE_URL}/app/scanner/deep/{message_type}/{message_pk}/"
+
+    if request.user.can_autologin():
+        login_url = request.user.get_autologin_url()
+        start_url = urllib.parse.quote_plus(login_url)
+        url = f"{app_url}?start_url={start_url}"
+    else:
+        url = app_url
+
+    img = qrcode.make(url, border=2)
+    img_bytes = BytesIO()
+    img.save(img_bytes, format="PNG")
+    qrcode_base64 = base64.b64encode(img_bytes.getvalue()).decode("utf-8")
+    data_uri = f"data:image/png;base64,{qrcode_base64}"
+    return render(
+        request,
+        "scannerapp/postupload.html",
+        {
+            "qrcode": data_uri,
+            "app_url": app_url,
+        },
+    )
+
+
+def scannerapp_deeplink(request, slug):
+    return render(request, "scannerapp/deeplink.html")
