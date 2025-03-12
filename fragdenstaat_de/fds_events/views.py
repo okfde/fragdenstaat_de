@@ -1,5 +1,4 @@
 from django.http import HttpResponse
-from django.utils.translation import pgettext
 from django.views.generic import DetailView
 
 import icalendar
@@ -31,11 +30,17 @@ class EventDetailView(BaseEventDetailView, BreadcrumbView):
     context_object_name = "event"
 
     def get_breadcrumbs(self, context):
+        items = []
+
+        if "request" in context:
+            request = context["request"]
+
+            title = request.current_page.get_title()
+            url = request.current_page.get_absolute_url()
+            items.append((title, url))
+
         return Breadcrumbs(
-            items=[
-                pgettext("physical event", "Events"),
-                (self.object.title, self.object.get_absolute_url()),
-            ]
+            items=items + [(self.object.title, self.object.get_absolute_url())]
         )
 
     def optimize(self, queryset):

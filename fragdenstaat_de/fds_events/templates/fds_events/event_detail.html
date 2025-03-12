@@ -1,4 +1,4 @@
-{% extends CMS_TEMPLATE %}
+{% extends "cms/page.html" %}
 {% load thumbnail %}
 {% load cms_tags %}
 {% load i18n %}
@@ -15,6 +15,7 @@
 {% endblock meta %}
 {% block title %}{{ event.title }} – {{ SITE_NAME }}{% endblock %}
 {% block body %}
+    {% include "snippets/breadcrumbs.html" %}
     <div class="text-bg-blue-10 py-3 py-md-5">
         <div class="container">
             <div class="row">
