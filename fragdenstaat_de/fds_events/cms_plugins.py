@@ -1,6 +1,6 @@
 import datetime
 
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
@@ -17,8 +17,8 @@ def sort_event(event: Event | Lawsuit) -> datetime.date:
 
 @plugin_pool.register_plugin
 class NextEventsPlugin(CMSPluginBase):
-    module = _("Events")
-    name = _("Next events")
+    module = pgettext_lazy("physical event", "Events")
+    name = pgettext_lazy("physical event", "Next events")
     render_template = "fds_events/event_list.html"
 
     def render(self, context, instance, placeholder):
