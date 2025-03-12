@@ -268,7 +268,7 @@ django-filer==3.3.1
     #   djangocms-picture
     #   djangocms-video
     #   froide-govplan
-django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@36ab0eb72396808417aeff59a4a880411ba0a935
+django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@29b5827a255ae70fa74b3a2e19eef31472890299
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
@@ -472,7 +472,7 @@ froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@dafea
     # via fragdenstaat-de (pyproject.toml)
 froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@ac3011ad2ecee814b288dd945e9bc6cbf4d5f1bb
     # via fragdenstaat-de (pyproject.toml)
-froide-exam @ git+https://github.com/okfde/froide-exam.git@3cb22a2e3d94e1be473767dd6a79988bd1a17256
+froide-exam @ git+https://github.com/okfde/froide-exam.git@ba9716cb24087906c24e793223303b427c33d165
     # via fragdenstaat-de (pyproject.toml)
 froide-fax @ git+https://github.com/okfde/froide-fax.git@d724673500afff3f18c75ea1fc8ba69e1f9f8825
     # via fragdenstaat-de (pyproject.toml)
