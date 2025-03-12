@@ -160,19 +160,16 @@ msgid "Blog"
 msgstr "Blog"
 
 #: fragdenstaat_de/fds_blog/cms_toolbars.py
-#, fuzzy
 msgid "Edit this article"
-msgstr "Artikel bearbeiten"
+msgstr "Diesen Artikel bearbeiten"
 
 #: fragdenstaat_de/fds_blog/cms_toolbars.py
-#, fuzzy
 msgid "Article overview"
-msgstr "Artikel-Vorschau"
+msgstr "Artikel-Übersicht"
 
 #: fragdenstaat_de/fds_blog/cms_toolbars.py
-#, fuzzy
 msgid "Create new article"
-msgstr "verwandte Artikel"
+msgstr "Neuen Artikel erstellen"
 
 #: fragdenstaat_de/fds_blog/filters.py
 msgid "all categories"
@@ -700,9 +697,8 @@ msgid "Document portal embed"
 msgstr "Dokumentenportal-Embed"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
-#, fuzzy
 msgid "Elements"
-msgstr "Termine"
+msgstr "Elemente"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Primary Link"
@@ -2223,7 +2219,6 @@ msgid "Events"
 msgstr "Termine"
 
 #: fragdenstaat_de/fds_events/cms_plugins.py
-#, fuzzy
 msgctxt "physical event"
 msgid "Next events"
 msgstr "Nächste Termine"
