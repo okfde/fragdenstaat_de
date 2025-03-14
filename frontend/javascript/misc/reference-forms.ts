@@ -10,7 +10,7 @@ function getReferenceData(): ReferenceData {
   if (URLSearchParams === undefined) return {}
 
   const urlParams = new URLSearchParams(window.location.search)
-  const reference = urlParams.get('pk_campaign') ?? ''
+  const reference = urlParams.get('pk_campaign') ?? document.location.pathname.split("/")[1] ?? 'homepage'
   const keyword =
     urlParams.get('pk_keyword') ??
     `${document.location.href} @ ${document.referrer}`
