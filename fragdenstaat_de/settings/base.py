@@ -870,6 +870,7 @@ class FragDenStaatBase(German, Base):
     }
 
     FDS_OGIMAGE_URL = "https://ogimage.frag-den-staat.de/api/{hash}?path={path}"
+    APP_SITE_URL = "https://app.fragdenstaat.de"
 
     TELNYX_APP_ID = os.environ.get("TELNYX_APP_ID", "")
     TELNYX_API_KEY = os.environ.get("TELNYX_API_KEY", "")

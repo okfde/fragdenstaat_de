@@ -93,7 +93,7 @@ def scannerapp_postupload(request, message_type, message_pk):
     in Scanner app
     """
     message_type = "draft" if message_type == "draft" else "message"
-    app_url = f"{settings.SITE_URL}/app/scanner/deep/{message_type}/{message_pk}/"
+    app_url = f"{settings.APP_SITE_URL}/app/scanner/deep/{message_type}/{message_pk}/"
 
     if request.user.can_autologin():
         login_url = request.user.get_autologin_url()
