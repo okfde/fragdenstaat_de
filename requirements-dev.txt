@@ -464,7 +464,7 @@ filelock==3.16.0
     #   virtualenv
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@651d5c2135ed9e3b5351b2f64ff9fe671ac51328
+froide @ git+https://github.com/okfde/froide.git@3305b448a50420f4cc2ff01ab278f156860b2466
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae
     # via fragdenstaat-de (pyproject.toml)
@@ -472,7 +472,7 @@ froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@dafea
     # via fragdenstaat-de (pyproject.toml)
 froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@ac3011ad2ecee814b288dd945e9bc6cbf4d5f1bb
     # via fragdenstaat-de (pyproject.toml)
-froide-exam @ git+https://github.com/okfde/froide-exam.git@ae5256a0812c92010d8b066a4a7c684be7bf5fe3
+froide-exam @ git+https://github.com/okfde/froide-exam.git@04cbfc2b4e5c7072cca67949a42ed70efe7596bb
     # via fragdenstaat-de (pyproject.toml)
 froide-fax @ git+https://github.com/okfde/froide-fax.git@d724673500afff3f18c75ea1fc8ba69e1f9f8825
     # via fragdenstaat-de (pyproject.toml)
