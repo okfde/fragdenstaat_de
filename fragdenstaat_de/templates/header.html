@@ -70,7 +70,10 @@
                         <a class="btn link-danger"
                            href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
                             <i class="fa fa-heart" aria-hidden="true"></i>
-                            <span class="visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
+                            <span class="d-none d-sm-inline">
+                                <span>{% blocktrans %}Donate{% endblocktrans %}</span>
+                            </span>
+                            <span class="d-inline d-sm-none visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
                         </a>
                     </li>
                 {% endif %}
