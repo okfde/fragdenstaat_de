@@ -87,13 +87,12 @@ def cms_plain_api(request, slug):
 
 
 @login_required
-def scannerapp_postupload(request, message_type, message_pk):
+def scannerapp_postupload(request, message_pk):
     """
     Generate QR code for autologin and redirect to message
     in Scanner app
     """
-    message_type = "draft" if message_type == "draft" else "message"
-    app_url = f"{settings.APP_SITE_URL}/app/scanner/deep/{message_type}/{message_pk}/"
+    app_url = f"{settings.APP_SITE_URL}/app/scanner/deep/message/{message_pk}/"
 
     if request.user.can_autologin():
         login_url = request.user.get_autologin_url()
