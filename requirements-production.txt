@@ -655,12 +655,12 @@ protobuf==5.28.2
     #   google-api-core
     #   googleapis-common-protos
     #   proto-plus
-psycopg==3.2.1
+psycopg==3.2.6
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
     #   froide-govplan
-psycopg-binary==3.2.1 ; implementation_name != 'pypy'
+psycopg-binary==3.2.6 ; implementation_name != 'pypy'
     # via psycopg
 pyasn1==0.6.0
     # via

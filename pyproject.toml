@@ -74,7 +74,7 @@ dependencies = [
   "phonenumbers>=8.13.45",
   "pillow>=9.0.0",
   "pikepdf==9.5.2",
-  "psycopg[binary]>=3.2.1",
+  "psycopg[binary]>=3.2.2",
   "pygtail @ git+https://github.com/okfde/pygtail.git@dac8bc6fc8d65c7ac820806e570242919616e946",
   "pyisemail>=2.0.1",
   "pypdf>=4.3.1",
