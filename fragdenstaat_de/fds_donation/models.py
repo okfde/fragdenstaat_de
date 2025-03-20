@@ -502,7 +502,7 @@ class DonationGiftOrder(models.Model):
     class Meta:
         verbose_name = _("donation gift order")
         verbose_name_plural = _("donation gift orders")
-        ordering = ("timestamp",)
+        ordering = ("-timestamp",)
 
     def __str__(self):
         return "{} {} - {} ({})".format(
