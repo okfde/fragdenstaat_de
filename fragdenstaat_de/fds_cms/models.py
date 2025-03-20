@@ -166,6 +166,7 @@ class DocumentPagesCMSPlugin(CMSPlugin):
 class PrimaryLinkCMSPlugin(CMSPlugin):
     TEMPLATES = [
         ("", _("Default template")),
+        ("tile.html", _("Social tile template")),
         ("featured.html", _("Featured template")),
         ("campaign.html", _("Campaign template")),
     ]
