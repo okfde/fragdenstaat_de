@@ -113,9 +113,25 @@
                         </li>
                         {% page_url "campaigns" as campaigns_url %}
                         {% page_attribute "menu_title" "campaigns" as campaigns_title %}
-                        <li>
-                            <a href="{{ campaigns_url|default:'/aktionen/' }}"
-                               {% if request.path|startswith:campaigns_url %}class="active" aria-current="page"{% endif %}>{{ campaigns_title|default:"Aktionen" }}</a>
+                        <li class="nav-dropdown">
+                            <button class="btn btn-link p-0 nav-dropdown-trigger{% if request.path|startswith:campaings_url %} active{% endif %}"
+                                    aria-expanded="false">{{ campaigns_title|default:"Aktionen" }}</button>
+                            <ul class="list-unstyled dropdown-menu">
+                                {# TODO: make this dynamic #}
+                                <li>
+                                    <a class="dropdown-item" href="{{ campaigns_url }}">Alle Aktionen</a>
+                                </li>
+                                <li>
+                                    {# djlint:off D018 #}
+                                    <a class="dropdown-item" href="/kontakt/beratung/">Beratung</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="https://gegenrechtsschutz.de">Gegenrechtsschutz</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/aktionen/klima-helpdesk/">Klima-Helpdesk</a>
+                                </li>
+                            </ul>
                         </li>
                         {% page_url "about" as about_url %}
                         {% page_attribute "menu_title" "about" as about_title %}
