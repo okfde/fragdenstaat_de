@@ -266,7 +266,7 @@ django-filer==3.3.1
     #   djangocms-picture
     #   djangocms-video
     #   froide-govplan
-django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@044d21833165c9580028041dbffc13590dc06051
+django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@2be6eb0988ee51a37d83f2f30d139d4c6d73f703
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
@@ -460,7 +460,7 @@ filelock==3.16.0
     #   virtualenv
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@0b47704434a5c4211380c7626943b7416616dc6c
+froide @ git+https://github.com/okfde/froide.git@dd46a5db7ab518c8f3cd8d2e84a4c24242843694
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae
     # via fragdenstaat-de (pyproject.toml)
@@ -611,6 +611,7 @@ markdown==3.7
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-datashow
+    #   django-filingcabinet
     #   django-legal-advice-builder
     #   froide
 markupsafe==2.1.5
@@ -629,6 +630,8 @@ multidict==6.1.0
     #   yarl
 networkx==3.3
     # via torch
+nh3==0.2.21
+    # via django-filingcabinet
 nodeenv==1.9.1
     # via pre-commit
 num2words==0.5.13
