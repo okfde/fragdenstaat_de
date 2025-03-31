@@ -3197,6 +3197,12 @@ msgstr "Erfolgreiche Anfragen"
 msgid "Visit this request"
 msgstr "Anfrage besuchen"
 
+msgid "My campaigns"
+msgstr "Meine Aktionen"
+
+msgid "Your campaigns"
+msgstr "Ihre Aktionen"
+
 #: fragdenstaat_de/templates/legal_advice_builder/answer_form.html
 #: fragdenstaat_de/templates/legal_advice_builder/form_wizard.html
 #: fragdenstaat_de/templates/legal_advice_builder/klageautomat_info.html
