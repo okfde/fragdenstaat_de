@@ -100,43 +100,42 @@
                             </ul>
                         </li>
                         {% page_url "investigations" as investigations_url %}
+                        {% page_attribute "menu_title" "investigations" as investigations_title %}
                         <li>
                             <a href="{{ investigations_url|default:'/recherchen/' }}"
-                               {% if request.path|startswith:investigations_url %}class="active" aria-current="page"{% endif %}>{% blocktrans %}Investigations{% endblocktrans %}</a>
+                               {% if request.path|startswith:investigations_url %}class="active" aria-current="page"{% endif %}>{{ investigations_title|default:"Recherchen" }}</a>
                         </li>
                         {% page_url "lawsuits" as lawsuits_url %}
-                        {% if lawsuits_url %}
-                            {% page_attribute "menu_title" "lawsuits" as lawsuits_title %}
-                        {% endif %}
+                        {% page_attribute "menu_title" "lawsuits" as lawsuits_title %}
                         <li>
                             <a href="{{ lawsuits_url|default:'/klagen/' }}"
-                               {% if request.path|startswith:lawsuits_url %}class="active" aria-current="page"{% endif %}>{{ lawsuits_title }}</a>
+                               {% if request.path|startswith:lawsuits_url %}class="active" aria-current="page"{% endif %}>{{ lawsuits_title|default:"Klagen" }}</a>
                         </li>
-                        {% page_url "campaigns"|default:'/kampagnen/' as campaigns_url %}
+                        {% page_url "campaigns" as campaigns_url %}
+                        {% page_attribute "menu_title" "campaigns" as campaigns_title %}
                         <li>
-                            <a href="{{ campaigns_url }}"
-                               {% if request.path|startswith:campaigns_url %}class="active" aria-current="page"{% endif %}>{% blocktrans %}Campaigns{% endblocktrans %}</a>
+                            <a href="{{ campaigns_url|default:'/aktionen/' }}"
+                               {% if request.path|startswith:campaigns_url %}class="active" aria-current="page"{% endif %}>{{ campaigns_title|default:"Aktionen" }}</a>
                         </li>
                         {% page_url "about" as about_url %}
-                        {% if about_url %}
-                            {% page_attribute "menu_title" "about" as about_title %}
-                            <li class="nav-sm ms-lg-auto order-lg-last">
-                                <a href="{{ about_url|default:"/ueber-uns/" }}"{% if request.path|startswith:about_url %} class="active" aria-current="page"{% endif %}>{{ about_title }}</a>
-                            </li>
-                        {% endif %}
+                        {% page_attribute "menu_title" "about" as about_title %}
+                        <li class="nav-sm ms-lg-auto order-lg-last">
+                            <a href="{{ about_url }}"
+                               {% if request.path|startswith:about_url %}class="active" aria-current="page"{% endif %}>{{ about_title }}</a>
+                        </li>
                         {% page_url "newsletter" as newsletter_url %}
-                        {% if newsletter_url %}
-                            <li class="nav-sm order-lg-last">
-                                <a href="{{ newsletter_url }}"
-                                   {% if request.path|startswith:newsletter_url %}class="active" aria-current="page"{% endif %}>{% translate "Newsletter" %}</a>
-                            </li>
-                        {% endif %}
+                        {% page_attribute "menu_title" "newsletter" as newsletter_title %}
+                        <li class="nav-sm order-lg-last">
+                            <a href="{{ newsletter_url }}"
+                               {% if request.path|startswith:newsletter_url %}class="active" aria-current="page"{% endif %}>{{ newsletter_title }}</a>
+                        </li>
                         {% page_url "donate" as donate_url %}
+                        {% page_attribute "menu_title" "donate" as donate_title %}
                         <li class="nav-sm order-lg-last">
                             <a class="link-danger"
                                href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
-                                {% blocktrans %}Donate{% endblocktrans %}
+                                {{ donate_title|default:"Spenden" }}
                             </a>
                         </li>
                         <li class="nav-sm d-lg-none">
