@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import NoReverseMatch
+from django.utils.cache import add_never_cache_headers
 from django.utils.translation import gettext_lazy as _
 
 from cms.cache import page as cms_cache_page_module
@@ -36,6 +37,7 @@ def monkey_patch_cms_cache():
     def set_page_cache(response):
         request = response._request
         if not can_cache_page(request):
+            add_never_cache_headers(response)
             return response
         return _inner_set_page_cache(response)
 
