@@ -296,9 +296,7 @@ class FragDenStaatBase(German, Base):
 
     DJANGOCMS_PICTURE_NESTING = True
 
-    # Set to False until this is fixed
-    # https://github.com/divio/django-cms/issues/5725
-    CMS_PAGE_CACHE = False
+    CMS_PAGE_CACHE = True  # Workaround in fds_cms/models.py
     CMS_COLOR_SCHEME_TOGGLE = True
     CMS_COLOR_SCHEME = "auto"
     # Automatically redirect to the lowercase version of a slug if a cms page is

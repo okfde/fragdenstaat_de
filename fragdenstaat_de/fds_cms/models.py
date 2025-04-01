@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import NoReverseMatch
 from django.utils.translation import gettext_lazy as _
 
+from cms.cache import page as cms_cache_page_module
 from cms.extensions import PageExtension
 from cms.extensions.extension_pool import extension_pool
 from cms.models.fields import PageField
@@ -20,6 +21,34 @@ from froide.foirequest.models import FoiProject, FoiRequest
 from froide.publicbody.models import Category, Classification, Jurisdiction, PublicBody
 
 from fragdenstaat_de.theme.colors import BACKDROP, BACKGROUND, get_css_color_variable
+
+
+def monkey_patch_cms_cache():
+    """
+    This is a monkey patch to fix caching messages, workaround for django-cms/django-cms#5725
+    """
+    _inner_set_page_cache = cms_cache_page_module.set_page_cache
+    _inner_get_page_cache = cms_cache_page_module.get_page_cache
+
+    def can_cache_page(request):
+        return not hasattr(request, "_messages") or len(request._messages) == 0
+
+    def set_page_cache(response):
+        request = response._request
+        if not can_cache_page(request):
+            return response
+        return _inner_set_page_cache(response)
+
+    def get_page_cache(request):
+        if not can_cache_page(request):
+            return None
+        return _inner_get_page_cache(request)
+
+    cms_cache_page_module.set_page_cache = set_page_cache
+    cms_cache_page_module.get_page_cache = get_page_cache
+
+
+monkey_patch_cms_cache()
 
 
 def validate_space_separated_urls(value):
