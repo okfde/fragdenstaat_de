@@ -116,33 +116,37 @@ dependencies() {
     install_precommit "$name"
   done
 }
-
 frontend() {
   echo "Installing frontend dependencies..."
 
   # we need to link globally since local linking adjusts the lockfile
-  for name in "${FRONTEND_DIR[@]}"; do
-    pushd $name
-    pnpm link --global
-    popd
-  done
 
-  for name in "${FROIDE_PEERS[@]}"; do
-    pushd $name
-    pnpm link --global "froide"
-    popd
-  done
-
+  # Install and link all frontend packages
   for name in "${FRONTEND_DIR[@]}"; do
-    pushd $name
+    pushd "$name"
+    if ! pnpm list -g --depth=0 | grep -q "$name"; then
+        pnpm link --global
+    fi
     pnpm install
     popd
   done
 
-  pushd $MAIN
+ # Link froide peer dependencies
+  for name in "${FROIDE_PEERS[@]}"; do
+    pushd "$name"
+    if ! pnpm list -g --depth=0 | grep -q "$name"; then
+        pnpm link --global "froide"
+    fi
+    popd
+  done
+
+  # Setup main project and link dependencies
+  pushd "$MAIN"
   pnpm install
   for name in "${FRONTEND[@]}"; do
-    pnpm link --global "$name"
+    if ! pnpm list -g --depth=0 | grep -q "$name"; then
+        pnpm link --global "$name"
+    fi
   done
   popd
 }
