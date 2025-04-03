@@ -127,6 +127,7 @@ class DocumentCollectionEmbedPlugin(CMSPluginBase):
         ctx = get_document_collection_context(
             instance.collection,
             context["request"],
+            deep_urls=instance.deep_urls,
         )
         context.update(ctx)
         context["instance"] = instance

@@ -109,7 +109,14 @@ class DocumentCollectionEmbedCMSPlugin(CMSPlugin):
     collection = models.ForeignKey(
         DocumentCollection, related_name="+", on_delete=models.CASCADE
     )
-    settings = models.TextField(default="{}")
+    deep_urls = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text=_(
+            "The embed will use deep URLs to link to the document pages and directories. "
+            "Only enable this when no other embeds are on the same page."
+        ),
+    )
 
     def __str__(self):
         return "Embed %s" % (self.collection,)
