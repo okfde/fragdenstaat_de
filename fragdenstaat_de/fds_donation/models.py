@@ -574,8 +574,8 @@ class DonationFormCMSPlugin(CMSPlugin):
     open_in_new_tab = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{interval} {amount_presets}".format(
-            interval=self.interval, amount_presets=self.amount_presets
+        return "{title}: {interval} {amount_presets}".format(
+            title=self.title, interval=self.interval, amount_presets=self.amount_presets
         )
 
     def copy_relations(self, old_instance):
