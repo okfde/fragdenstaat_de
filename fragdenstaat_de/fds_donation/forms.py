@@ -580,6 +580,11 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
                     widget=BootstrapSelect,
                     queryset=gift_options,
                     label=_("Donation gift"),
+                    error_messages={
+                        "invalid_choice": _(
+                            "The chosen donation gift is no longer available, sorry!"
+                        )
+                    },
                 )
                 self.fields.update(
                     get_basic_info_fields(prefix="shipping", name_required=False)
