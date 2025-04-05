@@ -43,6 +43,7 @@ from .models import (
     DefaultDonation,
     DeferredDonation,
     Donation,
+    DonationFormCMSPlugin,
     DonationGift,
     DonationGiftOrder,
     Donor,
@@ -1075,3 +1076,52 @@ class DeferredDonationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(DeferredDonation, DeferredDonationAdmin)
+
+
+@admin.register(DonationFormCMSPlugin)
+class DonationFormAdmin(admin.ModelAdmin):
+    list_display = (
+        "get_title",
+        "language",
+        "interval",
+        "amount_presets",
+        "collapsed",
+        "purpose",
+        "link",
+    )
+
+    def get_title(self, obj):
+        return obj.title or "-"
+
+    def get_queryset(self, request):
+        from django.contrib.contenttypes.models import ContentType
+
+        from cms.models import PageContent, Placeholder
+        from djangocms_versioning.constants import PUBLISHED
+        from djangocms_versioning.models import Version
+
+        ct = ContentType.objects.get_for_model(PageContent)
+        published_page_content = PageContent.objects.filter(
+            pk__in=Version.objects.filter(
+                content_type=ct,
+                state=PUBLISHED,
+            ).values("object_id"),
+            language=request.LANGUAGE_CODE,
+        )
+        placeholders = Placeholder.objects.filter(
+            content_type=ct, object_id__in=published_page_content
+        )
+
+        return super().get_queryset(request).filter(placeholder__in=placeholders)
+
+    def link(self, obj):
+        url = self.view_on_site(obj)
+        if url:
+            return format_html('<a href="{}" target="_blank">{}</a>', url, url)
+        return _("Not available")
+
+    def view_on_site(self, obj):
+        try:
+            return obj.placeholder.page.get_absolute_url()
+        except AttributeError:
+            return False
