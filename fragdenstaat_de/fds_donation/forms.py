@@ -236,6 +236,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
     )
     reference = forms.CharField(required=False, widget=forms.HiddenInput())
     keyword = forms.CharField(required=False, widget=forms.HiddenInput())
+    form_url = forms.CharField(required=False, widget=forms.HiddenInput())
     payment_method = forms.ChoiceField(
         label=_("Payment method"),
         choices=PAYMENT_METHODS,
@@ -252,7 +253,14 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         self.user = user
         self.settings = kwargs.pop("form_settings", DonationFormFactory.default)
 
+        if not hasattr(self, "request"):
+            self.request = kwargs.pop("request", None)
+        kwargs.pop("request", None)
+
         super().__init__(*args, **kwargs)
+
+        if hasattr(self, "request"):
+            self.fields["form_url"].initial = self.request.path
 
         if self.settings["min_amount"] and self.settings["min_amount"] >= MIN_AMOUNT:
             self.fields["amount"].min_value = self.settings["min_amount"]
@@ -357,6 +365,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
             reference=data.get("reference", ""),
             keyword=keyword,
             purpose=data.get("purpose", "") or order.description,
+            form_url=data.get("form_url", ""),
             order=order,
             recurring=order.is_recurring,
             first_recurring=order.is_recurring,
