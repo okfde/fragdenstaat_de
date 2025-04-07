@@ -12,11 +12,11 @@
         <div class="w-100 hstack align-items-center gap-3">
             <button class="btn btn-primary rounded-circle audio-player__playpause">
                 <i class="fa fa-play"></i>
-                <span class="sr-only">{% trans "Play/pause" %}</span>
+                <span class="visually-hidden">{% trans "Play/pause" %}</span>
             </button>
             <button class="btn text-center btn-sm rounded-circle audio-player__backward">
                 <i class="fa fa-backward"></i>
-                <span class="sr-only">{% trans "Backwards" %}</span>
+                <span class="visually-hidden">{% trans "Backwards" %}</span>
             </button>
             <input type="range"
                    class="form-range audio-player__progress"
@@ -24,7 +24,7 @@
                    min="0">
             <button class="btn text-center btn-sm rounded-circle audio-player__forward">
                 <i class="fa fa-forward"></i>
-                <span class="sr-only">{% trans "Forwards" %}</span>
+                <span class="visually-hidden">{% trans "Forwards" %}</span>
             </button>
         </div>
         <div class="hstack align-items-center gap-3 mt-3 mt-md-0 ">
@@ -34,7 +34,7 @@
             {# djlint:on #}
             <button class="btn d-flex align-items-center audio-player__speed">
                 <i class="fa fa-clock-o"></i>
-                <span class="sr-only">{% trans "Playback speed" %}:</span>
+                <span class="visually-hidden">{% trans "Playback speed" %}:</span>
                 &nbsp;<span class="audio-player__speed-display">1x</span>
             </button>
             <a href="{{ instance.audio_file.url }}"
