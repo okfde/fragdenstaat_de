@@ -160,7 +160,7 @@ django==4.2.14
     #   enmerkar
     #   froide
     #   sortabletable
-django-admin-sortable2==2.2.1
+django-admin-sortable2==2.2.6
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-datashow
