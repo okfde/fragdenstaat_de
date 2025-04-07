@@ -1499,9 +1499,8 @@ msgid "❌ Cancel donations"
 msgstr "❌ Spende abbrechen"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, fuzzy
 msgid "Not available"
-msgstr "Keine Audiodatei verfügbar."
+msgstr "Nicht verfügbar"
 
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "FragDenStaat Donations"
