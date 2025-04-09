@@ -17,8 +17,8 @@ FragDenStaat.de is a Django project that uses the core `froide` project and othe
 
 You need to have installed:
 
-- Python 3.10+
-- pnpm
+- Python 3.10-3.12
+- pnpm & npm
 - GDAL for Django's GeoDjango
 - freetype and imagemagick
 - postgresql bindings
@@ -28,6 +28,7 @@ You need to have installed:
 - pango
 - libgeoip
 - libmagic
+- uv
 
 All of these dependencies should be installable via package managers (e.g. `brew` on macOS).
 
