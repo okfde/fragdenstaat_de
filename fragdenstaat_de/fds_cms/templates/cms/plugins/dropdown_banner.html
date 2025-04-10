@@ -1,7 +1,6 @@
 {% load cms_tags %}
 {% load i18n %}
-<div class="position-relative"
-     {% if instance.animation %}data-slide{% endif %}>
+<div class="position-relative" data-slide="{{ instance.animation }}">
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% endfor %}
