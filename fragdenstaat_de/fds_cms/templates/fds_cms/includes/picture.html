@@ -1,4 +1,5 @@
 {% load fds_cms_tags %}
+{# pass picture and columns #}
 <picture>
     {% get_responsive_filer_image picture columns as respimg %}
     {% for source in respimg.sources %}
