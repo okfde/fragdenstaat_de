@@ -1,7 +1,7 @@
 <article class="blog-article-item w-100 mx-auto">
     {% if image %}
         <a href="{{ page.get_absolute_url }}">
-            {% include "fds_blog/includes/blog_picture.html" with picture=image columns="col-12 col-md-10 col-lg-8" %}
+            {% include "fds_cms/includes/picture.html" with picture=image columns="col-12 col-md-10 col-lg-8" %}
         </a>
     {% endif %}
     <div class="text-bg-body border-gray md:shadow-gray z-index-20 position-relative mx-1 mx-md-3 p-3 p-md-4 {% if image %}mt-n5{% endif %}">
