@@ -14,6 +14,7 @@ from django.utils.translation import gettext as _
 from cms.toolbar.utils import get_object_edit_url
 
 from froide.account.admin import UserAdmin
+from froide.follow.admin import FollowerAdmin
 from froide.helper.admin_utils import (
     ForeignKeyFilter,
     make_choose_object_action,
@@ -379,6 +380,33 @@ PublicBodyAdmin.setup_mailing = make_choose_object_action(
     EmailTemplate, setup_mailing_publicbodies, _("Setup mailing for public bodies...")
 )
 PublicBodyAdmin.actions += ["setup_mailing"]
+
+
+# Monkey-Patch Follow to create mailing for any follows
+
+
+def setup_mailing_follow(admin, request, queryset, action_obj):
+    mailing = Mailing.objects.create(
+        name=_("Follow Mailing"),
+        creator_user=request.user,
+        publish=False,
+        email_template=action_obj,
+    )
+    MailingMessage.objects.bulk_create(
+        [
+            MailingMessage(
+                mailing=mailing, name=follow.get_full_name(), email=follow.get_email()
+            )
+            for follow in queryset
+        ]
+    )
+    admin.message_user(request, _("Mailing was set up."), level=messages.INFO)
+
+
+FollowerAdmin.setup_mailing = make_choose_object_action(
+    EmailTemplate, setup_mailing_follow, _("Setup mailing for followers...")
+)
+FollowerAdmin.actions += ["setup_mailing"]
 
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
 admin.site.register(Mailing, MailingAdmin)
