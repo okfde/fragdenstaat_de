@@ -108,7 +108,7 @@ $header-height-mobile: 4.5rem;
       left: 0;
       right: 0;
       top: 0;
-      bottom: 0;
+      height: 150%; // Bug on iPad makes backdrop not cover the whole screen
       background-color: var(--bs-body-color);
       opacity: 0;
       content: '';

@@ -10,6 +10,8 @@ const menuToggles = [
   ...(header?.querySelectorAll<HTMLElement>('.nav-toggle-menu') ?? [])
 ]
 
+const MENU_BREAKPOINT = 992
+
 menuToggles.forEach((el) =>
   el.addEventListener('click', async () => {
     const targetName = el.dataset.target
@@ -27,7 +29,7 @@ menuToggles.forEach((el) =>
     otherTriggers.forEach((el) => el.setAttribute('aria-expanded', 'false'))
 
     updateDropdowns()
-    if (window.innerWidth >= 992) return
+    if (window.innerWidth >= MENU_BREAKPOINT) return
 
     // hide if it is already open
     if (open === target) return hide()
@@ -57,6 +59,10 @@ menuToggles.forEach((el) =>
 window.addEventListener('resize', () => {
   // hide navbar when window resizes, except when the search is focused
   // (resize due to onscreen keyboard on mobile devices)
+  if (window.innerWidth < MENU_BREAKPOINT) {
+    // Ignore if we are still in mobile view
+    return
+  }
   if (navSearch?.contains(document.activeElement) !== true) hide()
 })
 
@@ -81,7 +87,7 @@ function updateDropdowns(): void {
     const target = trigger.nextElementSibling!
     const el = target.parentElement!
 
-    if (window.innerWidth < 992) {
+    if (window.innerWidth < MENU_BREAKPOINT) {
       el.classList.remove('dropdown')
       target?.classList.remove('dropdown-menu')
       trigger.removeAttribute('data-bs-toggle')
