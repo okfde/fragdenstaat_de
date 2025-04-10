@@ -15,7 +15,7 @@ import './misc'
 import './navbar'
 import './slider.js'
 import './smooth-scroll'
-import './top-banner'
+import './banner'
 
 if (document.body.dataset.sentry !== undefined) {
   void import('./sentry').then((mod) => {

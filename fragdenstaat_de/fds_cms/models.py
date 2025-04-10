@@ -711,7 +711,14 @@ class BorderedSectionCMSPlugin(CMSPlugin):
 
 
 class DropdownBannerCMSPlugin(CMSPlugin):
-    animation = models.BooleanField(_("Slide banner with animation"), default=True)
+    ANIMATION_CHOICES = (("up", _("Up")), ("down", _("Down")))
+    animation = models.CharField(
+        _("Animation when closing banner"),
+        choices=ANIMATION_CHOICES,
+        max_length=10,
+        default="up",
+        blank=True,
+    )
     dark = models.BooleanField(
         _("Banner is dark-themed, button should therefore be light"), default=False
     )

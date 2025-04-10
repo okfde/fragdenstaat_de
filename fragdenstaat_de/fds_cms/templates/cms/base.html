@@ -13,7 +13,7 @@
         {% include "account/includes/impostor.html" %}
     {% endif %}
     {% block top_block %}
-        <div class="top-banner" hidden>{% static_alias "top_banner" %}</div>
+        <div class="fds-banner" data-banner="topBanner" hidden>{% static_alias "top_banner" %}</div>
     {% endblock top_block %}
     {% block navbar %}
         {% include "header.html" %}
@@ -33,6 +33,7 @@
         </main>
     {% endblock body_wrapper %}
     {% block footer_container %}
+        <div class="fds-banner" data-banner="bottomBanner" hidden>{% static_alias "bottom_banner" %}</div>
         <footer class="footer" id="footer">
             <div class="container">{% static_alias "footer" %}</div>
         </footer>
