@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-24 15:00+0100\n"
+"POT-Creation-Date: 2025-04-11 14:08+0200\n"
 "PO-Revision-Date: 2025-03-31 12:45+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -123,7 +123,7 @@ msgstr "Markiere Artikel als Übersetzungen voneinander"
 msgid "Number of articles"
 msgstr "Anzahl Artikel"
 
-#: fragdenstaat_de/fds_blog/apps.py fragdenstaat_de/templates/header.html
+#: fragdenstaat_de/fds_blog/apps.py
 msgid "Investigations"
 msgstr "Recherchen"
 
@@ -881,6 +881,12 @@ msgid "Space separated list of allowed frame ancestor URLs."
 msgstr "Mit Leerzeichen getrennte Liste von erlaubten Frame Ancestor URLs."
 
 #: fragdenstaat_de/fds_cms/models.py
+msgid ""
+"The embed will use deep URLs to link to the document pages and directories. "
+"Only enable this when no other embeds are on the same page."
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/models.py
 msgid "Small"
 msgstr "Klein"
 
@@ -1492,6 +1498,10 @@ msgstr "✅ Spende bestätigen"
 msgid "❌ Cancel donations"
 msgstr "❌ Spende abbrechen"
 
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Not available"
+msgstr "Nicht verfügbar"
+
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "FragDenStaat Donations"
 msgstr "FragDenStaat-Spenden"
@@ -1789,13 +1799,13 @@ msgid "Donation gift"
 msgstr "Ihr Dankeschön"
 
 #: fragdenstaat_de/fds_donation/forms.py
-msgid "Unfortunately, all available donation gifts have been reserved."
-msgstr "Leider sind alle verfügbaren Spendengeschenke schon weg."
-
-#: fragdenstaat_de/fds_donation/forms.py
 msgid "The chosen donation gift is no longer available, sorry!"
 msgstr ""
 "Das ausgewählte Spendengeschenk ist leider nicht mehr verfügbar, sorry!"
+
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "Unfortunately, all available donation gifts have been reserved."
+msgstr "Leider sind alle verfügbaren Spendengeschenke schon weg."
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Please complete your shipping address."
@@ -2456,6 +2466,16 @@ msgstr "Mailing wurde vorbereitet."
 msgid "Setup mailing for public bodies..."
 msgstr "Lege Mailing für diese Behörden an..."
 
+#: fragdenstaat_de/fds_mailing/admin.py
+#, fuzzy
+msgid "Follow Mailing"
+msgstr "Behörden-Mailing"
+
+#: fragdenstaat_de/fds_mailing/admin.py
+#, fuzzy
+msgid "Setup mailing for followers..."
+msgstr "Lege Mailing für diese User an..."
+
 #: fragdenstaat_de/fds_mailing/apps.py
 msgid "FragDenStaat Mailings"
 msgstr "FragDenStaat-Mailings"
@@ -2483,7 +2503,6 @@ msgstr "E-Mail-Einleitung"
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_mailing/views.py
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py
-#: fragdenstaat_de/templates/header.html
 msgid "Newsletter"
 msgstr "Newsletter"
 
@@ -3178,10 +3197,6 @@ msgid "Beginner's guide"
 msgstr "Einsteiger-Guide"
 
 #: fragdenstaat_de/templates/header.html
-msgid "Campaigns"
-msgstr "Kampagnen"
-
-#: fragdenstaat_de/templates/header.html
 msgid "Sign in"
 msgstr "Anmelden"
 
@@ -3196,12 +3211,6 @@ msgstr "Erfolgreiche Anfragen"
 #: fragdenstaat_de/templates/index.html
 msgid "Visit this request"
 msgstr "Anfrage besuchen"
-
-msgid "My campaigns"
-msgstr "Meine Aktionen"
-
-msgid "Your campaigns"
-msgstr "Ihre Aktionen"
 
 #: fragdenstaat_de/templates/legal_advice_builder/answer_form.html
 #: fragdenstaat_de/templates/legal_advice_builder/form_wizard.html
@@ -3488,6 +3497,15 @@ msgstr "User automatisch blockiert"
 msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
+
+#~ msgid "Campaigns"
+#~ msgstr "Kampagnen"
+
+#~ msgid "My campaigns"
+#~ msgstr "Meine Aktionen"
+
+#~ msgid "Your campaigns"
+#~ msgstr "Ihre Aktionen"
 
 #~ msgid "You are already subscribed to our newsletter."
 #~ msgstr "Sie sind schon in unserem Newsletter."
