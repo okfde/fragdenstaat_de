@@ -74,9 +74,7 @@ class DonationSettingsForm(forms.Form):
     initial_amount = forms.IntegerField(
         required=False,
     )
-    min_amount = forms.IntegerField(
-        required=False,
-    )
+    min_amount = forms.IntegerField(initial=0, required=False)
     initial_interval = forms.IntegerField(
         required=False,
     )
@@ -152,11 +150,28 @@ class DonationFormFactory:
         "initial_interval": "interval",
         "initial_receipt": "receipt",
     }
+    request_configurable = {
+        "amount_presets",
+        "initial_amount",
+        "initial_interval",
+        "interval",
+        "min_amount",
+        "purpose",
+    }
 
     def __init__(self, **kwargs):
         self.settings = {}
         for key in self.default:
             self.settings[key] = kwargs.get(key, self.default[key])
+
+    @classmethod
+    def from_request(cls, request):
+        data = {}
+        for key in cls.request_configurable:
+            value = request.GET.get(key)
+            if value is not None:
+                data[key] = value
+        return data
 
     def get_form_kwargs(self, **kwargs):
         if "data" in kwargs:

@@ -16,6 +16,7 @@ from django.utils.translation import pgettext
 
 from cms.models.pluginmodel import CMSPlugin
 from django_countries.fields import CountryField
+from djangocms_frontend.fields import AttributesField
 from froide_payment.models import Order, Payment, PaymentStatus, Subscription
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
@@ -586,29 +587,32 @@ class DonationFormCMSPlugin(CMSPlugin):
         self.gift_options.set(old_instance.gift_options.all())
 
     def make_form(self, **kwargs):
-        from .forms import DonationSettingsForm
+        from .forms import DonationFormFactory, DonationSettingsForm
 
+        request = kwargs["request"]
         reference = kwargs.pop("reference", "")
         keyword = kwargs.pop("keyword", "")
 
-        form = DonationSettingsForm(
-            data={
-                "title": self.title,
-                "interval": self.interval,
-                "amount_presets": self.amount_presets,
-                "initial_amount": self.initial_amount,
-                "initial_interval": self.initial_interval,
-                "min_amount": self.min_amount,
-                "reference": self.reference or reference,
-                "keyword": self.keyword or keyword,
-                "purpose": self.purpose,
-                "collapsed": self.collapsed,
-                "gift_options": [gift.id for gift in self.gift_options.all()],
-                "default_gift": self.default_gift_id,
-                "next_url": self.next_url,
-                "next_label": self.next_label,
-            }
-        )
+        plugin_data = {
+            "title": self.title,
+            "interval": self.interval,
+            "amount_presets": self.amount_presets,
+            "initial_amount": self.initial_amount,
+            "initial_interval": self.initial_interval,
+            "min_amount": self.min_amount,
+            "reference": self.reference or reference,
+            "keyword": self.keyword or keyword,
+            "purpose": self.purpose,
+            "collapsed": self.collapsed,
+            "gift_options": [gift.id for gift in self.gift_options.all()],
+            "default_gift": self.default_gift_id,
+            "next_url": self.next_url,
+            "next_label": self.next_label,
+        }
+        request_data = DonationFormFactory.from_request(request)
+        plugin_data.update(request_data)
+
+        form = DonationSettingsForm(data=plugin_data)
         return form.make_donation_form(**kwargs)
 
 
@@ -621,3 +625,46 @@ class DonationProgressBarCMSPlugin(CMSPlugin):
     white_text = models.BooleanField(default=False)
     donation_goal = models.DecimalField(decimal_places=2, max_digits=10)
     purpose = models.CharField(blank=True)
+
+
+class EmailDonationButtonCMSPlugin(CMSPlugin):
+    interval = models.CharField(max_length=20, choices=INTERVAL_SETTINGS_CHOICES)
+    amount_presets = models.CharField(max_length=255, blank=True)
+    initial_amount = models.IntegerField(null=True, blank=True)
+    initial_interval = models.IntegerField(null=True, blank=True)
+    min_amount = models.IntegerField(default=0)
+
+    action_url = models.CharField(max_length=255, blank=True)
+    action_label = models.CharField(max_length=255, blank=True)
+    attributes = AttributesField()
+
+    context_vars = ["action_url", "action_label"]
+
+    empty_vars = set()
+
+    def __str__(self):
+        return str(self.action_label)
+
+    def get_context(self):
+        action_url = self.action_url
+        if not action_url:
+            action_url = reverse("fds_donation:donate")
+        if "?" in action_url:
+            action_url += "&"
+        else:
+            action_url += "?"
+
+        action_url += urlencode(
+            {
+                "amount_presets": self.amount_presets,
+                "initial_amount": self.initial_amount,
+                "initial_interval": str(self.initial_interval),
+                "interval": str(self.interval),
+                "min_amount": str(self.min_amount),
+                "pk_placement": f"donationbutton-{self.pk}",
+            }
+        )
+        return {
+            "action_label": self.action_label,
+            "action_url": action_url,
+        }

@@ -1,0 +1,3 @@
+<mj-button href="{{ action_url }}" {{ instance.attributes_str }}>
+{{ action_label|safe }}
+</mj-button>
