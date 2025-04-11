@@ -272,6 +272,7 @@ class FragDenStaatBase(German, Base):
         "ContactNotAllowedDonor",
         "IsNewsletterSubscriberPlugin",
         "IsNotNewsletterSubscriberPlugin",
+        "EmailDonationButtonPlugin",
     ]
     CMS_PLACEHOLDER_CONF = {
         "email_body": {

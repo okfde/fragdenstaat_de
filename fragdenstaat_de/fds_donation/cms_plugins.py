@@ -8,6 +8,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
+from fragdenstaat_de.fds_mailing.cms_plugins import EmailRenderMixin, EmailTemplateMixin
 
 from .models import (
     DefaultDonation,
@@ -15,6 +16,7 @@ from .models import (
     DonationGiftFormCMSPlugin,
     DonationProgressBarCMSPlugin,
     Donor,
+    EmailDonationButtonCMSPlugin,
 )
 
 
@@ -239,3 +241,24 @@ class DonationProgressBarPlugin(CMSPluginBase):
             )
 
         return context
+
+
+@plugin_pool.register_plugin
+class EmailDonationButtonPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
+    model = EmailDonationButtonCMSPlugin
+    module = _("Email")
+    name = _("Donation Button")
+    allow_children = False
+    render_template_template = "email/mjml/donation_button.mjml"
+
+    def render(self, context, instance, placeholder):
+        instance.attributes.setdefault("color", "#ffffff")
+        instance.attributes.setdefault("background-color", "#ff5029")
+        return super().render(context, instance, placeholder)
+
+    def render_text(self, context, instance):
+        context = instance.get_context()
+        return """
+{action_label}
+{action_url}
+""".format(**context)
