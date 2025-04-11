@@ -1,48 +1,53 @@
 import { slideUp } from 'froide/frontend/javascript/lib/misc'
 
-interface IDonationBannerStore {
+interface DonationBannerStore {
   timestamp: number
 }
 
-function showTopBanner(): boolean {
-  const topBanner = document.querySelector<HTMLElement>('.top-banner')
-  if (topBanner === null) return false
+function initializeBanner(banner: HTMLElement): boolean {
+  const bannerId = banner.dataset.banner ?? 'unknown'
 
-  const hasAnimation =
-    topBanner.firstElementChild?.hasAttribute('data-slide') === true
+  const slide = banner.firstElementChild?.getAttribute('data-slide')
 
   const removeBanner = (): boolean => {
-    topBanner.remove()
+    banner.remove()
     return false
   }
 
-  const itemName = 'top-banner'
+  const itemName = `banner-${bannerId}`
   const now = new Date().getTime()
   const data = localStorage.getItem(itemName)
 
   if (data !== null) {
-    const last = JSON.parse(data) as IDonationBannerStore
+    const last = JSON.parse(data) as DonationBannerStore
     if (last.timestamp !== 0 && now - last.timestamp < 60 * 60 * 24 * 1000) {
       return removeBanner()
     }
   }
   localStorage.removeItem(itemName)
 
-  const hideBanner = (el: HTMLElement, e: Event): void => {
+  const hideBanner = async (el: HTMLElement, e: Event) => {
     e.preventDefault()
 
     const data = JSON.stringify({ timestamp: now })
     localStorage.setItem(itemName, data)
 
-    if (hasAnimation) {
-      slideUp(el)
+    if (slide === 'up') {
+      await slideUp(el)
+
+      el.addEventListener('transitionend', removeBanner)
+      setTimeout(removeBanner, 1000)
+    } else if (slide === 'down') {
+      el.style.transition = 'transform 0.3s ease-out'
+      el.style.transform = 'translateY(105%)'
+
       el.addEventListener('transitionend', removeBanner)
       setTimeout(removeBanner, 1000)
     } else {
       removeBanner()
     }
 
-    window._paq?.push(['trackEvent', 'ads', 'topBanner', 'close'])
+    window._paq?.push(['trackEvent', 'ads', bannerId, 'close'])
   }
 
   // various checks, if banner should not be shown on current page
@@ -62,7 +67,7 @@ function showTopBanner(): boolean {
     return removeBanner()
   }
 
-  const linksInBanner = topBanner.querySelectorAll('a')
+  const linksInBanner = banner.querySelectorAll('a')
   for (const link of linksInBanner) {
     if (
       path.startsWith(link.pathname) &&
@@ -82,26 +87,26 @@ function showTopBanner(): boolean {
     return removeBanner()
   }
 
-  if (window.localStorage === undefined) {
-    return removeBanner()
-  }
-
   // close buttons
-  const closeButtons = topBanner.querySelectorAll('.banner-close')
+  const closeButtons = banner.querySelectorAll('.banner-close')
   closeButtons.forEach((closeButton) => {
     closeButton.addEventListener('click', (e) => {
-      hideBanner(topBanner, e)
+      hideBanner(banner, e)
     })
   })
 
   // show banner
-  topBanner.hidden = false
+  banner.hidden = false
 
   // tracking
   setTimeout(() => {
-    window._paq?.push(['trackEvent', 'ads', 'topBanner', 'shown'])
+    window._paq?.push(['trackEvent', 'ads', bannerId, 'shown'])
   }, 3000)
   return true
 }
 
-document.addEventListener('DOMContentLoaded', showTopBanner)
+document.addEventListener('DOMContentLoaded', () => {
+  document
+    .querySelectorAll<HTMLElement>('.fds-banner')
+    .forEach(initializeBanner)
+})
