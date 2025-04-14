@@ -824,7 +824,7 @@ uritemplate==4.1.1
     #   coreapi
     #   drf-spectacular
     #   google-api-python-client
-urllib3==2.2.2
+urllib3==2.4.0
     # via
     #   elastic-transport
     #   requests
