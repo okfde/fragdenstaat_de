@@ -538,6 +538,8 @@ markupsafe==2.1.5
     # via jinja2
 maxminddb==2.6.2
     # via geoip2
+mjml-python==1.3.5
+    # via fragdenstaat-de (pyproject.toml)
 mpmath==1.3.0
     # via sympy
 multidict==6.1.0

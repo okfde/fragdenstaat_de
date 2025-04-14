@@ -1,0 +1,7 @@
+<mj-text>
+    <h3>{{ heading }}</h3>
+    {% block content %}{% endblock %}
+    <p>
+        <a href="{{ url }}" style="color:{{ style.primary }};">{{ label }}</a>
+    </p>
+</mj-text>

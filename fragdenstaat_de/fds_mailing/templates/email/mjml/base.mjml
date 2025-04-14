@@ -1,0 +1,71 @@
+<mjml>
+    <mj-head>
+        <mj-title>{{ subject }}</mj-title>
+        <mj-preview>{{ preview }}</mj-preview>
+        <mj-attributes>
+            <mj-text font-family="Arial, Helvetica, sans-serif" font-size="15px" color="#333333" line-height="22px"></mj-text>
+        </mj-attributes>
+        <mj-style>
+        a {
+            color: #2A5DB0;
+            text-decoration: underline;
+        }
+        .footer a {
+            color: #999999;
+            text-decoration: underline;
+        }
+        .footer a:hover {
+            color: #2A5DB0;
+        }
+        </mj-style>
+    </mj-head>
+    <mj-body background-color="#d0d0d0">
+
+        {% block content %}
+
+        {% block body %}{% endblock %}
+
+        {% endblock %}
+
+        <mj-section background-color="#eeeeee" >
+          <mj-column>
+            {% block footer %}
+            <mj-text css-class="footer" font-size="13px" color="#999999" align="center">
+                {% if newsletter.visible %}
+                    Wurde die Mail an dich weitergeleitet? Erhalte den nächsten Newsletter persönlich und <a href="https://fragdenstaat.de/newsletter/">abonniere den FragDenStaat-Newsletter direkt hier</a>. Falls dir der Newsletter gefällt, dann  würden wir uns über das Teilen in deinem Netzwerk freuen.
+                    <br>
+                    <br>
+                {% endif %}
+                {% block social_media %}
+                    Unsere Social-Media-Kanäle:
+                    <br>
+                    <a href="https://instagram.com/fragdenstaat">Instagram</a> | <a href="https://chaos.social/@fragdenstaat">Mastodon</a> | <a href="https://bsky.app/profile/fragdenstaat.de">Bluesky</a>
+                    <br>
+                    <br>
+                {% endblock %}
+                Impressum:
+                <br>
+                FragDenStaat ist ein Projekt der Open Knowledge Foundation Deutschland e.V.
+                <br>
+                Singerstr. 109 | 10179 Berlin
+                <br>
+                <a href="mailto:info@fragdenstaat.de">info@fragdenstaat.de</a> | <a href="{{ site_url }}">fragdenstaat.de</a>
+                <br>
+                {% if unsubscribe_url %}
+                    <br>
+                    {% if newsletter and not newsletter.visible %}
+                        Du kannst dich <a href="{{ unsubscribe_url }}">hier von dieser Liste abmelden</a>. Weitere Informationen findest du in unserer <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzrichtlinie</a>.
+                    {% else %}
+                        Du hast diese Mitteilung erhalten, weil du dich in die Mailingliste eingetragen hast. Du kannst dich <a href="{{ unsubscribe_url }}">hier von dieser Liste abmelden</a>. Weitere Informationen findest du in unserer <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzrichtlinie</a>.
+                    {% endif %}
+                {% else %}
+                    <br>
+                    <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzerklärung</a>
+                {% endif %}
+            </mj-text>
+            {% endblock %}
+          </mj-column>
+        </mj-section>
+
+    </mj-body>
+</mjml>

@@ -20,9 +20,13 @@ from .utils import render_plugin_text
 
 class EmailTemplateMixin:
     def get_render_template(self, context, instance, placeholder):
-        template_name = self.render_template_template.format(
-            name=context.get("template") or "default"
-        )
+        template_base = "default"
+        obj = context.get("object")
+        if obj is not None:
+            template_base = obj.template
+        template_name = self.render_template_template.format(name=template_base)
+        if template_base == "mjml":
+            template_name = template_name.replace(".html", ".mjml")
         try:
             get_template(template_name)
             return template_name

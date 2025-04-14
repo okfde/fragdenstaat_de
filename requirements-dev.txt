@@ -620,6 +620,8 @@ matplotlib-inline==0.1.7
     # via ipython
 maxminddb==2.6.2
     # via geoip2
+mjml-python==1.3.5
+    # via fragdenstaat-de (pyproject.toml)
 mock==5.1.0
     # via fragdenstaat-de (pyproject.toml)
 mpmath==1.3.0

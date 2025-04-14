@@ -16,6 +16,7 @@ from cms.models.fields import PlaceholderRelationField
 from cms.models.pluginmodel import CMSPlugin
 from cms.utils.placeholder import get_placeholder_from_slot
 from filer.fields.image import FilerImageField
+from mjml import mjml2html
 
 from froide.helper.email_sending import EmailContent, mail_registry, send_mail
 from froide.helper.email_utils import make_address
@@ -34,6 +35,7 @@ EMAIL_TEMPLATE_CHOICES = [
     ("", _("Default template")),
     ("newsletter", _("Newsletter template")),
     ("formal", _("Formal email template")),
+    ("mjml", _("MJML email template")),
 ]
 
 COLLAPSE_NEWLINES = re.compile(r"((?:\r?\n){3,})")
@@ -74,6 +76,8 @@ class EmailTemplate(models.Model):
         template_base = self.template
         if template_base == "":
             template_base = "default"
+        if template_base == "mjml":
+            name = name.replace(".html", ".mjml")
         return "email/{}/{}".format(template_base, name)
 
     def get_mail_intent_app(self):
@@ -108,7 +112,12 @@ class EmailTemplate(models.Model):
             ctx.update(context)
         safe_html = render_to_string(template, context=ctx, request=request)
         # Call strip marks it unsafe again!
-        return safe_html.strip()
+        html = safe_html.strip()
+
+        if "<mjml>" in html:
+            html = html.replace("<p>\xa0</p>", "")
+            html = mjml2html(html, disable_comments=True)
+        return html
 
     def update_context(self, ctx):
         ctx.update({"subject": self.subject})

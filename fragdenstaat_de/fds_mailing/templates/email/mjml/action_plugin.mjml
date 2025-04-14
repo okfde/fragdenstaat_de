@@ -1,0 +1,20 @@
+{% extends "email/mjml/action.mjml" %}
+{% load cms_tags %}
+{% block top_text %}
+    {% if instance.child_plugin_instances|length > 1 %}
+        {% for plugin in instance.child_plugin_instances|slice:":-1" %}
+            {% render_plugin plugin %}
+        {% endfor %}
+    {% else %}
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block bottom_text %}
+    {% if instance.child_plugin_instances|length > 1 %}
+        {% for plugin in instance.child_plugin_instances|slice:"-1:" %}
+            {% render_plugin plugin %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

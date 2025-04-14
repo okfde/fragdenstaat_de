@@ -1,0 +1,15 @@
+{% load cms_tags %}
+        <mj-section background-color="#ffffff">
+            <mj-column>
+{% for plugin in instance.child_plugin_instances %}
+    {% if plugin.plugin_type == "TextPlugin" %}
+        <mj-text>
+        {% render_plugin plugin %}
+        </mj-text>
+    {% else %}
+        {% render_plugin plugin %}
+    {% endif %}
+{% endfor %}
+
+            </mj-column>
+        </mj-section>
