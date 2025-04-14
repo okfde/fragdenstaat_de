@@ -2668,6 +2668,7 @@ msgstr "E-Mail-Einleitung"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py
+#: fragdenstaat_de/fds_mailing/views.py
 msgid "Newsletter"
 msgstr "Newsletter"
 
@@ -3876,6 +3877,11 @@ msgstr "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
 msgid "Sending to all newsletter subscribers"
 msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
 
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/archive/mailing_detail.html
+#, python-format
+msgid "Newsletter from %(date)s"
+msgstr "Newsletter vom %(date)s"
+
 #~ msgid "Status"
 #~ msgstr "Status"
 
@@ -3884,10 +3890,6 @@ msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#, python-format
-#~ msgid "Newsletter from %(date)s"
-#~ msgstr "Newsletter vom %(date)s"
 
 #~ msgid "Campaigns"
 #~ msgstr "Kampagnen"
