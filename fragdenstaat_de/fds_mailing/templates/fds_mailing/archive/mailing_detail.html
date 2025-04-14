@@ -1,18 +1,21 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load thumbnail %}
 {% block title %}
     {{ message.subject }}
 {% endblock title %}
+{% block meta %}
+    {% with description=content|striptags|truncatewords:40 title=message.subject %}
+        {% include "snippets/meta.html" with description=description title=title %}
+        {% include "fds_cms/social_meta.html" with title=title description=description image_url="https://media.frag-den-staat.de/files/media/thumbnails/c2/6d/c26ddac1-ae89-4b55-97f3-a6c21f272a74/og_image.png__1200x630_crop_subsampling-2.png" %}
+    {% endwith %}
+{% endblock meta %}
 {% block body %}
     <div class="text-bg-body-tertiary pb-5">
         <div class="container py-5">
-            <p>
-                {% with date|date:"DATE_FORMAT" as date %}
-                    {% blocktrans %}Newsletter from {{ date }}{% endblocktrans %}
-                {% endwith %}
-            </p>
+            <p>{{ date|date:"DATE_FORMAT" }}</p>
             <h1>{{ message.subject }}</h1>
-            {% if not has_newsletter %}
+            {% if newsletter.visible and not has_newsletter %}
                 <div class="row">
                     <div class="col col-md-8">
                         <div class="border-yellow text-bg-body shadow-md-yellow p-3 mt-3">
@@ -28,7 +31,7 @@
         <div class="row">
             <div class="col col-md-10 col-lg-8">
                 <div class="border-gray shadow-md-gray mt-n3 mt-n6 p-3 text-bg-body">{{ content }}</div>
-                {% if not has_newsletter %}
+                {% if newsletter.visible and not has_newsletter %}
                     <div class="border-yellow shadow-md-yellow p-3 mt-5">
                         <p class="lead mt-0">{% trans "Don't miss out on any future updates by subscribing to this newsletter!" %}</p>
                         {% include "fds_newsletter/plugins/newsletter_form.html" %}
