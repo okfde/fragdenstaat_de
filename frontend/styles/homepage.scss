@@ -4,7 +4,7 @@
 
 */
 
-.homepage-steps {
+div.homepage-steps {
   position: relative;
   &__wrap {
     display: flex;
@@ -138,27 +138,57 @@
   }
 }
 
-// Video embed
-.video-embed {
-  display: block;
-}
+ol.homepage-steps {
+  display: flex;
+  flex-direction: column;
+  gap: $spacer;
+  list-style: none;
+  padding: 0;
+  padding-bottom: $spacer;
+  margin: 0;
+  position: relative;
 
-.video-embed-container {
-  text-align: center;
-  margin-top: 1em;
-}
-
-@include media-breakpoint-up(xl) {
-  .video-embed-container {
-    margin-top: 0;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 2px;
+    left: 1.5rem;
+    height: 100%;
+    border-left: 1px dashed $gray-500;
   }
-}
 
-.video-embed img {
-  display: block;
-  height: auto;
-  max-width: 100%;
-  margin: 0 auto;
+  li {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 4em;
+    min-height: 3em;
+
+    &::before {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      content: '1';
+      top: 0;
+      left: 0;
+      width: 3em;
+      height: 3em;
+      border-radius: 50%;
+      border: 1px solid $blue-20;
+      background-color: var(--#{$prefix}body-bg);
+      box-shadow: 2px 2px 0 $gray-100;
+    }
+
+    &:nth-child(2)::before {
+      content: '2';
+    }
+
+    &:nth-child(3)::before {
+      content: '3';
+    }
+  }
 }
 
 .slider-card {
