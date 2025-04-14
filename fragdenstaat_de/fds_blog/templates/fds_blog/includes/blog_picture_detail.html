@@ -1,6 +1,6 @@
 {% load markup %}
 <figure>
-    {% include "fds_cms/includes/_picture.html" with picture=picture columns=columns loading=loading %}
+    {% include "fds_cms/includes/picture.html" with picture=picture columns=columns loading=loading %}
     {% if picture.author or picture.description %}
         <figcaption class="picture-description mt-2 text-end">
             {% if picture.description %}
