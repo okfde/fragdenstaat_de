@@ -16,7 +16,7 @@ from fragdenstaat_de.fds_newsletter.utils import has_newsletter
 
 from .models import Mailing
 
-HEADING_RE = re.compile(r"<h1[^>]+>[^<]+</h1>")
+HEADING_RE = re.compile(r"<h\d[^>]+>[^<]+</h\d>")
 
 
 class NewsletterEditionMixin:
