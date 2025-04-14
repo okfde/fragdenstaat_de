@@ -1,0 +1,7 @@
+{% load thumbnail %}
+
+<mj-section background-color="{{ color|default:"#eeeeee" }}">
+    <mj-column>
+        <mj-image width="280px" src="{% thumbnail image 280x60 crop=smart subject_location=image.subject_location %}" alt="{{ label }}"/>
+    </mj-column>
+</mj-section>
