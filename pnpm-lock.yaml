@@ -18,8 +18,8 @@ importers:
         specifier: ^2.11.8
         version: 2.11.8
       '@sentry/browser':
-        specifier: ^7.119.0
-        version: 7.119.0
+        specifier: ^9.12.0
+        version: 9.12.0
       '@sentry/integrations':
         specifier: ^7.114.0
         version: 7.114.0
@@ -34,16 +34,16 @@ importers:
         version: 4.7.0
       froide:
         specifier: github:okfde/froide
-        version: https://codeload.github.com/okfde/froide/tar.gz/acbf1e0ed2e676a96ca9ff6467ea9941ea2aa552(fuse.js@6.6.2)(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide/tar.gz/cedde24ec1a03f37a35052c96c56f28d17848ffa(fuse.js@6.6.2)(typescript@5.6.2)
       froide_campaign:
         specifier: github:okfde/froide-campaign
-        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/acbf1e0ed2e676a96ca9ff6467ea9941ea2aa552(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/cedde24ec1a03f37a35052c96c56f28d17848ffa(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
       froide_exam:
         specifier: github:okfde/froide-exam
         version: https://codeload.github.com/okfde/froide-exam/tar.gz/d34fcbff5cbb771ebf132ef80c68ead1ff65fe5e
       froide_food:
         specifier: github:okfde/froide-food
-        version: https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/acbf1e0ed2e676a96ca9ff6467ea9941ea2aa552(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/cedde24ec1a03f37a35052c96c56f28d17848ffa(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
       froide_legalaction:
         specifier: github:okfde/froide-legalaction
         version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/f85308f1d439e796773a11399794b186b86a46b3
@@ -65,7 +65,7 @@ importers:
     devDependencies:
       '@okfde/eslint-config-froide':
         specifier: github:okfde/eslint-config-froide
-        version: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c(jiti@2.4.2)(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/529bd171c90010eedd11cd0c77abd6f1e1b033cd(jiti@2.4.2)(typescript@5.6.2)
       '@sentry/vite-plugin':
         specifier: ^2.22.4
         version: 2.22.4
@@ -431,8 +431,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@okfde/eslint-config-froide@https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c':
-    resolution: {tarball: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c}
+  '@okfde/eslint-config-froide@https://codeload.github.com/okfde/eslint-config-froide/tar.gz/529bd171c90010eedd11cd0c77abd6f1e1b033cd':
+    resolution: {tarball: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/529bd171c90010eedd11cd0c77abd6f1e1b033cd}
     version: 1.0.0
 
   '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/64b7b4ad804067e2f16e8a0f165c139e3ffe5fb5':
@@ -442,32 +442,40 @@ packages:
   '@panzoom/panzoom@4.6.0':
     resolution: {integrity: sha512-3KxkY1lNKFn98fW5ZFR6vV0YzsXj3I4EQDyFWSXME6/cic86eSS7VjuqIjrA3PEpySo0r5fFtlX8eYCt4JPUFQ==}
 
+  '@pkgr/core@0.2.3':
+    resolution: {integrity: sha512-yMV8bb9prWI21N6FsrnPCbhoYb8UUvYCDGoSvPHBloVC095Ef2ker43hzXkJ6TpJPw53S8FeFYkARa7GGIGwxg==}
+    engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@sentry-internal/feedback@7.119.0':
-    resolution: {integrity: sha512-om8TkAU5CQGO8nkmr7qsSBVkP+/vfeS4JgtW3sjoTK0fhj26+DljR6RlfCGWtYQdPSP6XV7atcPTjbSnsmG9FQ==}
-    engines: {node: '>=12'}
+  '@sentry-internal/browser-utils@9.12.0':
+    resolution: {integrity: sha512-GXuDEG2Ix8DmVtTkjsItWdusk2CvJ6EPWKYVqFKifxt+IAT3ZbhGZd99Rg3wdRmt9xhCNuS4QrDzDTPMPgfdCw==}
+    engines: {node: '>=18'}
 
-  '@sentry-internal/replay-canvas@7.119.0':
-    resolution: {integrity: sha512-NL02VQx6ekPxtVRcsdp1bp5Tb5w6vnfBKSIfMKuDRBy5A10Uc3GSoy/c3mPyHjOxB84452A+xZSx6bliEzAnuA==}
-    engines: {node: '>=12'}
+  '@sentry-internal/feedback@9.12.0':
+    resolution: {integrity: sha512-3+UxoT97QIXNSUQS4ATL1FFws0RkUb6PeaQN8CPndI6mFlqTW5tuVVLNg9Eo1seNg7R/dfk6WHCWrYN1NbFFKQ==}
+    engines: {node: '>=18'}
+
+  '@sentry-internal/replay-canvas@9.12.0':
+    resolution: {integrity: sha512-p8LuKZgWT/CoQBbDOXkSGjWWnc8WsnAayWgna8M/ZFWNITCNEM2rCuqZOyWOElIlrni+M7qoEA3jS7MZe8Ejxw==}
+    engines: {node: '>=18'}
+
+  '@sentry-internal/replay@9.12.0':
+    resolution: {integrity: sha512-njEQosFeO/UX+gG+DMRANkPUuz6OIJLb+A1GVylhq9adUgFQydQ9Ay3v7/x1gMhdfHVP6Jeb27qkti0BWYbzBQ==}
+    engines: {node: '>=18'}
 
   '@sentry-internal/tracing@7.114.0':
     resolution: {integrity: sha512-dOuvfJN7G+3YqLlUY4HIjyWHaRP8vbOgF+OsE5w2l7ZEn1rMAaUbPntAR8AF9GBA6j2zWNoSo8e7GjbJxVofSg==}
-    engines: {node: '>=8'}
-
-  '@sentry-internal/tracing@7.119.0':
-    resolution: {integrity: sha512-oKdFJnn+56f0DHUADlL8o9l8jTib3VDLbWQBVkjD9EprxfaCwt2m8L5ACRBdQ8hmpxCEo4I8/6traZ7qAdBUqA==}
     engines: {node: '>=8'}
 
   '@sentry/babel-plugin-component-annotate@2.22.4':
     resolution: {integrity: sha512-hbSq067KwmeKIEkmyzkTNJbmbtx2KRqvpiy9Q/DynI5Z46Nko/ppvgIfyFXK9DelwvEPOqZic4WXTIhO4iv3DA==}
     engines: {node: '>= 14'}
 
-  '@sentry/browser@7.119.0':
-    resolution: {integrity: sha512-WwmW1Y4D764kVGeKmdsNvQESZiAn9t8LmCWO0ucBksrjL2zw9gBPtOpRcO6l064sCLeSxxzCN+kIxhRm1gDFEA==}
-    engines: {node: '>=8'}
+  '@sentry/browser@9.12.0':
+    resolution: {integrity: sha512-4xQYoZqi+VVhNvlhWiwRd57+SMr3Og4sLjuayAA+zIp1Wx/bDcIld697cugLwml/BR+mVJI2eokkgh1CBl6zag==}
+    engines: {node: '>=18'}
 
   '@sentry/bundler-plugin-core@2.22.4':
     resolution: {integrity: sha512-25NiyV3v6mdqOXlpzbbJnq0FHdAu1uTEDr+DU8CzNLjIXlq2Sr2CFZ/mhRcR6daM8OAretJdQ34lu0yHUVeE4Q==}
@@ -523,21 +531,13 @@ packages:
     resolution: {integrity: sha512-YnanVlmulkjgZiVZ9BfY9k6I082n+C+LbZo52MTvx3FY6RE5iyiPMpaOh67oXEZRWcYQEGm+bKruRxLVP6RlbA==}
     engines: {node: '>=8'}
 
-  '@sentry/core@7.119.0':
-    resolution: {integrity: sha512-CS2kUv9rAJJEjiRat6wle3JATHypB0SyD7pt4cpX5y0dN5dZ1JrF57oLHRMnga9fxRivydHz7tMTuBhSSwhzjw==}
-    engines: {node: '>=8'}
+  '@sentry/core@9.12.0':
+    resolution: {integrity: sha512-jOqQK/90uzHmsBvkPTj/DAEFvA5poX4ZRyC7LE1zjg4F5jdOp3+M4W3qCy0CkSTu88Zu5VWBoppCU2Bs34XEqg==}
+    engines: {node: '>=18'}
 
   '@sentry/integrations@7.114.0':
     resolution: {integrity: sha512-BJIBWXGKeIH0ifd7goxOS29fBA8BkEgVVCahs6xIOXBjX1IRS6PmX0zYx/GP23nQTfhJiubv2XPzoYOlZZmDxg==}
     engines: {node: '>=8'}
-
-  '@sentry/integrations@7.119.0':
-    resolution: {integrity: sha512-OHShvtsRW0A+ZL/ZbMnMqDEtJddPasndjq+1aQXw40mN+zeP7At/V1yPZyFaURy86iX7Ucxw5BtmzuNy7hLyTA==}
-    engines: {node: '>=8'}
-
-  '@sentry/replay@7.119.0':
-    resolution: {integrity: sha512-BnNsYL+X5I4WCH6wOpY6HQtp4MgVt0NVlhLUsEyrvMUiTs0bPkDBrulsgZQBUKJsbOr3l9nHrFoNVB/0i6WNLA==}
-    engines: {node: '>=12'}
 
   '@sentry/tracing@7.114.0':
     resolution: {integrity: sha512-eldEYGADReZ4jWdN5u35yxLUSTOvjsiZAYd4KBEpf+Ii65n7g/kYOKAjNl7tHbrEG1EsMW4nDPWStUMk1w+tfg==}
@@ -547,16 +547,8 @@ packages:
     resolution: {integrity: sha512-tsqkkyL3eJtptmPtT0m9W/bPLkU7ILY7nvwpi1hahA5jrM7ppoU0IMaQWAgTD+U3rzFH40IdXNBFb8Gnqcva4w==}
     engines: {node: '>=8'}
 
-  '@sentry/types@7.119.0':
-    resolution: {integrity: sha512-27qQbutDBPKGbuJHROxhIWc1i0HJaGLA90tjMu11wt0E4UNxXRX+UQl4Twu68v4EV3CPvQcEpQfgsViYcXmq+w==}
-    engines: {node: '>=8'}
-
   '@sentry/utils@7.114.0':
     resolution: {integrity: sha512-319N90McVpupQ6vws4+tfCy/03AdtsU0MurIE4+W5cubHME08HtiEWlfacvAxX+yuKFhvdsO4K4BB/dj54ideg==}
-    engines: {node: '>=8'}
-
-  '@sentry/utils@7.119.0':
-    resolution: {integrity: sha512-ZwyXexWn2ZIe2bBoYnXJVPc2esCSbKpdc6+0WJa8eutXfHq3FRKg4ohkfCBpfxljQGEfP1+kfin945lA21Ka+A==}
     engines: {node: '>=8'}
 
   '@sentry/vite-plugin@2.22.4':
@@ -1271,6 +1263,20 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
+  eslint-plugin-prettier@5.2.6:
+    resolution: {integrity: sha512-mUcf7QG2Tjk7H055Jk0lGBjbgDnfrvqjhXh9t2xLMSCjZVcw9Rb1V6sVNXO0th3jgeO7zllWPTNRil3JW94TnQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      '@types/eslint': '>=8.0.0'
+      eslint: '>=8.0.0'
+      eslint-config-prettier: '>= 7.0.0 <10.0.0 || >=10.1.0'
+      prettier: '>=3.0.0'
+    peerDependenciesMeta:
+      '@types/eslint':
+        optional: true
+      eslint-config-prettier:
+        optional: true
+
   eslint-plugin-vue@9.28.0:
     resolution: {integrity: sha512-ShrihdjIhOTxs+MfWun6oJWuk+g/LAhN+CiuOl/jjkG3l0F2AuK5NMTaWqyvBgkFtpYmyks6P4603mLmhNJW8g==}
     engines: {node: ^14.17.0 || >=16.0.0}
@@ -1342,6 +1348,9 @@ packages:
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
 
+  fast-diff@1.3.0:
+    resolution: {integrity: sha512-VxPP4NqbUjj6MaAOafWeUn2cXWLcCtljklUtZf0Ind4XQ+QPtmA0b18zZy0jIQx+ExRVCR/ZQpBmik5lXshNsw==}
+
   fast-glob@3.3.2:
     resolution: {integrity: sha512-oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==}
     engines: {node: '>=8.6.0'}
@@ -1396,8 +1405,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/acbf1e0ed2e676a96ca9ff6467ea9941ea2aa552:
-    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/acbf1e0ed2e676a96ca9ff6467ea9941ea2aa552}
+  froide@https://codeload.github.com/okfde/froide/tar.gz/cedde24ec1a03f37a35052c96c56f28d17848ffa:
+    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/cedde24ec1a03f37a35052c96c56f28d17848ffa}
     version: 1.0.0
 
   froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae:
@@ -2079,6 +2088,10 @@ packages:
     peerDependencies:
       prettier: ^2.6.0 || ^3.0.0
 
+  prettier-linter-helpers@1.0.0:
+    resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
+    engines: {node: '>=6.0.0'}
+
   prettier@3.3.3:
     resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
     engines: {node: '>=14'}
@@ -2285,6 +2298,10 @@ packages:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
 
+  synckit@0.11.4:
+    resolution: {integrity: sha512-Q/XQKRaJiLiFIBNN+mndW7S/RHxvwzuZS6ZwmRzUBqJBv/5QIKCEwkBC8GBf8EQJKYnaFs0wOZbKTXBPj8L9oQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
@@ -2329,6 +2346,9 @@ packages:
 
   tslib@2.7.0:
     resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
+
+  tslib@2.8.1:
+    resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
   tus-js-client@3.1.3:
     resolution: {integrity: sha512-n9k6rI/nPOuP2TaqPG6Ogz3a3V1cSH9en7N0VH4gh95jmG8JA58TJzLms2lBfb7aKVb3fdUunqYEG3WnQnZRvQ==}
@@ -3001,15 +3021,17 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@okfde/eslint-config-froide@https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c(jiti@2.4.2)(typescript@5.6.2)':
+  '@okfde/eslint-config-froide@https://codeload.github.com/okfde/eslint-config-froide/tar.gz/529bd171c90010eedd11cd0c77abd6f1e1b033cd(jiti@2.4.2)(typescript@5.6.2)':
     dependencies:
       eslint: 9.10.0(jiti@2.4.2)
       eslint-config-prettier: 9.1.0(eslint@9.10.0(jiti@2.4.2))
+      eslint-plugin-prettier: 5.2.6(eslint-config-prettier@9.1.0(eslint@9.10.0(jiti@2.4.2)))(eslint@9.10.0(jiti@2.4.2))(prettier@3.3.3)
       eslint-plugin-vue: 9.28.0(eslint@9.10.0(jiti@2.4.2))
       prettier: 3.3.3
       prettier-config-standard: 7.0.0(prettier@3.3.3)
       typescript-eslint: 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)
     transitivePeerDependencies:
+      - '@types/eslint'
       - jiti
       - supports-color
       - typescript
@@ -3029,20 +3051,27 @@ snapshots:
 
   '@panzoom/panzoom@4.6.0': {}
 
+  '@pkgr/core@0.2.3': {}
+
   '@popperjs/core@2.11.8': {}
 
-  '@sentry-internal/feedback@7.119.0':
+  '@sentry-internal/browser-utils@9.12.0':
     dependencies:
-      '@sentry/core': 7.119.0
-      '@sentry/types': 7.119.0
-      '@sentry/utils': 7.119.0
+      '@sentry/core': 9.12.0
 
-  '@sentry-internal/replay-canvas@7.119.0':
+  '@sentry-internal/feedback@9.12.0':
     dependencies:
-      '@sentry/core': 7.119.0
-      '@sentry/replay': 7.119.0
-      '@sentry/types': 7.119.0
-      '@sentry/utils': 7.119.0
+      '@sentry/core': 9.12.0
+
+  '@sentry-internal/replay-canvas@9.12.0':
+    dependencies:
+      '@sentry-internal/replay': 9.12.0
+      '@sentry/core': 9.12.0
+
+  '@sentry-internal/replay@9.12.0':
+    dependencies:
+      '@sentry-internal/browser-utils': 9.12.0
+      '@sentry/core': 9.12.0
 
   '@sentry-internal/tracing@7.114.0':
     dependencies:
@@ -3050,24 +3079,15 @@ snapshots:
       '@sentry/types': 7.114.0
       '@sentry/utils': 7.114.0
 
-  '@sentry-internal/tracing@7.119.0':
-    dependencies:
-      '@sentry/core': 7.119.0
-      '@sentry/types': 7.119.0
-      '@sentry/utils': 7.119.0
-
   '@sentry/babel-plugin-component-annotate@2.22.4': {}
 
-  '@sentry/browser@7.119.0':
+  '@sentry/browser@9.12.0':
     dependencies:
-      '@sentry-internal/feedback': 7.119.0
-      '@sentry-internal/replay-canvas': 7.119.0
-      '@sentry-internal/tracing': 7.119.0
-      '@sentry/core': 7.119.0
-      '@sentry/integrations': 7.119.0
-      '@sentry/replay': 7.119.0
-      '@sentry/types': 7.119.0
-      '@sentry/utils': 7.119.0
+      '@sentry-internal/browser-utils': 9.12.0
+      '@sentry-internal/feedback': 9.12.0
+      '@sentry-internal/replay': 9.12.0
+      '@sentry-internal/replay-canvas': 9.12.0
+      '@sentry/core': 9.12.0
 
   '@sentry/bundler-plugin-core@2.22.4':
     dependencies:
@@ -3128,10 +3148,7 @@ snapshots:
       '@sentry/types': 7.114.0
       '@sentry/utils': 7.114.0
 
-  '@sentry/core@7.119.0':
-    dependencies:
-      '@sentry/types': 7.119.0
-      '@sentry/utils': 7.119.0
+  '@sentry/core@9.12.0': {}
 
   '@sentry/integrations@7.114.0':
     dependencies:
@@ -3140,35 +3157,15 @@ snapshots:
       '@sentry/utils': 7.114.0
       localforage: 1.10.0
 
-  '@sentry/integrations@7.119.0':
-    dependencies:
-      '@sentry/core': 7.119.0
-      '@sentry/types': 7.119.0
-      '@sentry/utils': 7.119.0
-      localforage: 1.10.0
-
-  '@sentry/replay@7.119.0':
-    dependencies:
-      '@sentry-internal/tracing': 7.119.0
-      '@sentry/core': 7.119.0
-      '@sentry/types': 7.119.0
-      '@sentry/utils': 7.119.0
-
   '@sentry/tracing@7.114.0':
     dependencies:
       '@sentry-internal/tracing': 7.114.0
 
   '@sentry/types@7.114.0': {}
 
-  '@sentry/types@7.119.0': {}
-
   '@sentry/utils@7.114.0':
     dependencies:
       '@sentry/types': 7.114.0
-
-  '@sentry/utils@7.119.0':
-    dependencies:
-      '@sentry/types': 7.119.0
 
   '@sentry/vite-plugin@2.22.4':
     dependencies:
@@ -4031,6 +4028,15 @@ snapshots:
     dependencies:
       eslint: 9.10.0(jiti@2.4.2)
 
+  eslint-plugin-prettier@5.2.6(eslint-config-prettier@9.1.0(eslint@9.10.0(jiti@2.4.2)))(eslint@9.10.0(jiti@2.4.2))(prettier@3.3.3):
+    dependencies:
+      eslint: 9.10.0(jiti@2.4.2)
+      prettier: 3.3.3
+      prettier-linter-helpers: 1.0.0
+      synckit: 0.11.4
+    optionalDependencies:
+      eslint-config-prettier: 9.1.0(eslint@9.10.0(jiti@2.4.2))
+
   eslint-plugin-vue@9.28.0(eslint@9.10.0(jiti@2.4.2)):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@9.10.0(jiti@2.4.2))
@@ -4136,6 +4142,8 @@ snapshots:
 
   fast-deep-equal@3.1.3: {}
 
+  fast-diff@1.3.0: {}
+
   fast-glob@3.3.2:
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -4184,7 +4192,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/acbf1e0ed2e676a96ca9ff6467ea9941ea2aa552(fuse.js@6.6.2)(typescript@5.6.2):
+  froide@https://codeload.github.com/okfde/froide/tar.gz/cedde24ec1a03f37a35052c96c56f28d17848ffa(fuse.js@6.6.2)(typescript@5.6.2):
     dependencies:
       '@hey-api/client-fetch': 0.4.4
       '@hey-api/openapi-ts': 0.55.3(typescript@5.6.2)
@@ -4231,13 +4239,13 @@ snapshots:
       - universal-cookie
       - worker-loader
 
-  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/acbf1e0ed2e676a96ca9ff6467ea9941ea2aa552(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
+  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/cedde24ec1a03f37a35052c96c56f28d17848ffa(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
       '@turf/bbox': 6.5.0
       '@types/leaflet': 1.9.12
       '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.13(typescript@5.6.2))
       deepmerge: 4.3.1
-      froide: https://codeload.github.com/okfde/froide/tar.gz/acbf1e0ed2e676a96ca9ff6467ea9941ea2aa552(fuse.js@6.6.2)(typescript@5.6.2)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/cedde24ec1a03f37a35052c96c56f28d17848ffa(fuse.js@6.6.2)(typescript@5.6.2)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.2.1
       lodash.debounce: 4.0.8
@@ -4248,11 +4256,11 @@ snapshots:
 
   froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/d34fcbff5cbb771ebf132ef80c68ead1ff65fe5e: {}
 
-  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/acbf1e0ed2e676a96ca9ff6467ea9941ea2aa552(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
+  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/cedde24ec1a03f37a35052c96c56f28d17848ffa(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
       '@turf/bbox': 6.5.0
       '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.13(typescript@5.6.2))
-      froide: https://codeload.github.com/okfde/froide/tar.gz/acbf1e0ed2e676a96ca9ff6467ea9941ea2aa552(fuse.js@6.6.2)(typescript@5.6.2)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/cedde24ec1a03f37a35052c96c56f28d17848ffa(fuse.js@6.6.2)(typescript@5.6.2)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.3.0
       vue: 3.5.13(typescript@5.6.2)
@@ -4884,6 +4892,10 @@ snapshots:
     dependencies:
       prettier: 3.3.3
 
+  prettier-linter-helpers@1.0.0:
+    dependencies:
+      fast-diff: 1.3.0
+
   prettier@3.3.3: {}
 
   progress@2.0.3: {}
@@ -5100,6 +5112,11 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
+  synckit@0.11.4:
+    dependencies:
+      '@pkgr/core': 0.2.3
+      tslib: 2.8.1
+
   tar@6.2.1:
     dependencies:
       chownr: 2.0.0
@@ -5142,6 +5159,8 @@ snapshots:
   tslib@2.6.3: {}
 
   tslib@2.7.0: {}
+
+  tslib@2.8.1: {}
 
   tus-js-client@3.1.3:
     dependencies:
