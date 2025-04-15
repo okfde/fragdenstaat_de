@@ -2,6 +2,12 @@
 {% load cms_tags %}
 {% block content %}
     {% for plugin in instance.child_plugin_instances %}
-        {% render_plugin plugin %}
+        {% if plugin.plugin_type == "TextPlugin" %}
+            <mj-text>
+            {% render_plugin plugin %}
+            </mj-text>
+        {% else %}
+            {% render_plugin plugin %}
+        {% endif %}
     {% endfor %}
 {% endblock %}

@@ -3,18 +3,36 @@
 {% block top_text %}
     {% if instance.child_plugin_instances|length > 1 %}
         {% for plugin in instance.child_plugin_instances|slice:":-1" %}
-            {% render_plugin plugin %}
+            {% if plugin.plugin_type == "TextPlugin" %}
+                <mj-text>
+                {% render_plugin plugin %}
+                </mj-text>
+            {% else %}
+                {% render_plugin plugin %}
+            {% endif %}
         {% endfor %}
     {% else %}
         {% for plugin in instance.child_plugin_instances %}
-            {% render_plugin plugin %}
+                {% if plugin.plugin_type == "TextPlugin" %}
+                <mj-text>
+                {% render_plugin plugin %}
+                </mj-text>
+            {% else %}
+                {% render_plugin plugin %}
+            {% endif %}
         {% endfor %}
     {% endif %}
 {% endblock %}
 {% block bottom_text %}
     {% if instance.child_plugin_instances|length > 1 %}
         {% for plugin in instance.child_plugin_instances|slice:"-1:" %}
-            {% render_plugin plugin %}
+                {% if plugin.plugin_type == "TextPlugin" %}
+                <mj-text>
+                {% render_plugin plugin %}
+                </mj-text>
+            {% else %}
+                {% render_plugin plugin %}
+            {% endif %}
         {% endfor %}
     {% endif %}
 {% endblock %}
