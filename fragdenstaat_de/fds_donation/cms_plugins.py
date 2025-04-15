@@ -162,7 +162,7 @@ class IsNotRecentDonor(DonorLogicMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class ConcactAllowedDonor(DonorLogicMixin, CMSPluginBase):
+class ContactAllowedDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is contact allowed donor")
 
     def should_render(self, context):
@@ -170,7 +170,7 @@ class ConcactAllowedDonor(DonorLogicMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class ConcactNotAllowedDonor(DonorLogicMixin, CMSPluginBase):
+class ContactNotAllowedDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is contact not allowed donor")
 
     def should_render(self, context):
