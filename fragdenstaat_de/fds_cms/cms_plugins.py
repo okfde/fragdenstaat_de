@@ -2,6 +2,7 @@ import json
 import urllib.parse
 
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from cms.models import Page
@@ -34,6 +35,7 @@ from .models import (
     FoiRequestListCMSPlugin,
     ModalCMSPlugin,
     OneClickFoiRequestCMSPlugin,
+    OpenSearchCMSPlugin,
     PageAnnotationCMSPlugin,
     PagePreviewCMSPlugin,
     PretixEmbedCMSPlugin,
@@ -788,4 +790,22 @@ class PagePreviewPlugin(CMSPluginBase):
         context["title"] = page.get_title()
         context["description"] = page.get_meta_description()
 
+        return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class OpenSearchPlugin(CMSPluginBase):
+    model = OpenSearchCMSPlugin
+    module = _("Elements")
+    name = _("OpenSearch Searchbox")
+    render_template = "fds_cms/opensearch.html"
+
+    def render(self, context, instance, placeholder):
+        context["i18n"] = json.dumps(
+            {
+                "noResults": gettext("No results"),
+                "enterTerm": gettext("Enter search term"),
+                "search": gettext("Search"),
+            }
+        )
         return super().render(context, instance, placeholder)

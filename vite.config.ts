@@ -61,7 +61,8 @@ export default defineConfig(({ mode }) => ({
         redact: r('froide', 'redact.js'),
         request: r('froide', 'request.ts'),
         tagautocomplete: r('froide', 'tagautocomplete.ts'),
-        vegacharts: './frontend/javascript/vegacharts.js'
+        vegacharts: './frontend/javascript/vegacharts.js',
+        opensearch: './frontend/javascript/opensearch.ts'
       },
       output: {
         sourcemap: true,
