@@ -13,4 +13,13 @@
             <input type="submit" />
         </form>
     </div>
+    <div>
+        <h4>{% translate "Generate random split" %}</h4>
+        <form method="post"
+              action="{% url 'admin:fds_mailing-mailing-random_split' %}">
+            {% csrf_token %}
+            {{ random_split_form.as_div }}
+            <input type="submit" />
+        </form>
+    </div>
 {% endblock %}
