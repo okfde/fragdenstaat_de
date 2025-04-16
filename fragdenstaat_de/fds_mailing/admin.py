@@ -23,6 +23,7 @@ from froide.helper.admin_utils import (
 
 from fragdenstaat_de.theme.admin import PublicBodyAdmin
 
+from .forms import RandomSplitForm
 from .models import EmailTemplate, Mailing, MailingMessage
 from .tasks import continue_sending, send_mailing
 from .utils import add_fake_context
@@ -148,6 +149,11 @@ class MailingAdmin(admin.ModelAdmin):
         my_urls = [
             re_path(r"^(.+)/send/$", self.send, name="fds_mailing_mailing_send"),
             path(
+                "random-split/",
+                self.admin_site.admin_view(self.random_split),
+                name="fds_mailing-mailing-random_split",
+            ),
+            path(
                 "import-csv/",
                 self.admin_site.admin_view(self.import_csv),
                 name="fds_mailing-mailing-import_csv",
@@ -173,6 +179,12 @@ class MailingAdmin(admin.ModelAdmin):
             obj.creator_user = request.user
         super().save_model(request, obj, form, change)
 
+    def changelist_view(self, request, extra_context=None):
+        if extra_context is None:
+            extra_context = {}
+        extra_context["random_split_form"] = RandomSplitForm()
+        return super().changelist_view(request, extra_context=extra_context)
+
     def segment_list(self, obj):
         return ", ".join([segment.name for segment in obj.segments.all()]) or "-"
 
@@ -197,6 +209,24 @@ class MailingAdmin(admin.ModelAdmin):
         )
 
     trigger_continue_sending.short_description = _("Continue sending mailing")
+
+    def random_split(self, request):
+        if not request.method == "POST":
+            raise PermissionDenied
+        if not self.has_add_permission(request):
+            raise PermissionDenied
+
+        form = RandomSplitForm(request.POST)
+        if form.is_valid():
+            form.save(user=request.user)
+            self.message_user(
+                request, _("Random split mailings created."), level=messages.INFO
+            )
+        else:
+            self.message_user(
+                request, _("Invalid form: {}").format(form.errors), level=messages.ERROR
+            )
+        return redirect("admin:fds_mailing_mailing_changelist")
 
     def import_csv(self, request):
         if not request.method == "POST":

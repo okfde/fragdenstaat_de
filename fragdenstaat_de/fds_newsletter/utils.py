@@ -1,18 +1,27 @@
 import csv
 import datetime
 import hashlib
+import string
 from datetime import timedelta
 from enum import Enum
 from typing import List, Tuple
 
 from django.conf import settings
+from django.db import connection
 from django.db.models import Q
 from django.db.models.functions import Collate
 from django.utils import timezone
 
 from froide.helper.email_sending import mail_registry
 
-from .models import Newsletter, Subscriber, UnsubscribeFeedback
+from .models import (
+    Newsletter,
+    Segment,
+    Subscriber,
+    SubscriberTag,
+    TaggedSubscriber,
+    UnsubscribeFeedback,
+)
 
 
 class SubscriptionResult(Enum):
@@ -224,3 +233,73 @@ def import_csv(csv_file, newsletter, reference="", email_confirmed=False):
             reference=reference,
             batch=True,
         )
+
+
+def get_subscribers(newsletter, segments=None):
+    if not newsletter:
+        return Subscriber.objects.none()
+    qs = Subscriber.objects.filter(newsletter=newsletter, subscribed__isnull=False)
+
+    if segments:
+        first_segment = segments[0]
+        out_qs = first_segment.filter_subscribers(qs)
+        out_qs = out_qs.union(*[seg.filter_subscribers(qs) for seg in segments[1:]])
+        qs = out_qs
+    return qs
+
+
+def generate_random_split(
+    name: str, newsletter: Newsletter, segments: list[Segment], groups: list[int]
+) -> list[Segment]:
+    subscribers = get_subscribers(newsletter, segments)
+
+    count = subscribers.count()
+    group_sizes = [round(count * (g / 100.0)) for g in groups]
+    group_total = sum(group_sizes)
+
+    # Use a PostgreSQL CTE to select random subscribers
+    # This is a workaround for Django not supporting random ordering in across unions
+    subscriber_query = str(subscribers.values_list("id", flat=True).query)
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "WITH selection AS ({query}) SELECT col1 AS id FROM selection ORDER BY RANDOM() LIMIT {limit}".format(
+                query=subscriber_query, limit=group_total
+            )
+        )
+        sub_ids = [row[0] for row in cursor.fetchall()]
+
+    group_tags = []
+    for i, group in enumerate(groups, start=0):
+        group_letter = string.ascii_uppercase[i]
+        tag_name = f"random:{name}:{group}%:{group_letter}"
+        tag, _created = SubscriberTag.objects.get_or_create(
+            name=tag_name,
+        )
+        group_tags.append(tag)
+
+    start = 0
+    for size, group_tag in zip(group_sizes, group_tags, strict=True):
+        end = start + size
+        TaggedSubscriber.objects.bulk_create(
+            [
+                TaggedSubscriber(
+                    content_object_id=sub_id,
+                    tag=group_tag,
+                )
+                for sub_id in sub_ids[start:end]
+            ]
+        )
+        start = end
+
+    target_segments = []
+    for i, group_tag in enumerate(group_tags):
+        group_letter = string.ascii_uppercase[i]
+        segment = Segment.add_root(
+            name=f"Group {group_letter} ({groups[i]}%) {name}",
+            description=f"""Selects {groups[i]}% of the subscribers
+                of newsletter {newsletter.title} and
+                with segments {segments}""",
+        )
+        segment.tags.add(group_tag)
+        target_segments.append(segment)
+    return target_segments
