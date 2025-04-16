@@ -1,7 +1,9 @@
 import json
+from datetime import timedelta
 
 from django.apps import AppConfig
 from django.conf import settings
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -22,7 +24,7 @@ class NewsletterConfig(AppConfig):
         from froide.bounce.signals import email_bounced, email_unsubscribed
         from froide.foirequestfollower.models import FoiRequestFollower
 
-        from . import subscribed
+        from . import subscribed, tag_subscriber
         from .forms import NewsletterFollowExtra, NewsletterUserExtra
         from .listeners import (
             activate_newsletter_subscription,
@@ -47,6 +49,7 @@ class NewsletterConfig(AppConfig):
         user_extra_registry.register("registration", NewsletterUserExtra())
         user_extra_registry.register("follow", NewsletterFollowExtra())
         FoiRequestFollower.followed.connect(subscribe_follower)
+        tag_subscriber.connect(set_new_subscriber_tag)
 
         registry.register(export_user_data)
 
@@ -95,3 +98,15 @@ def export_user_data(user):
                 ]
             ).encode("utf-8"),
         )
+
+
+def set_new_subscriber_tag(sender, email=None, **kwargs):
+    SIX_MONTHS = timedelta(days=182)
+    is_new = sender.created + SIX_MONTHS > timezone.now()
+    add_tags = set()
+    remove_tags = set()
+    if is_new:
+        add_tags.add("newsletter:new")
+    else:
+        remove_tags.add("newsletter:new")
+    return add_tags, remove_tags

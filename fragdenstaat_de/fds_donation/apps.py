@@ -20,6 +20,8 @@ class FdsDonationConfig(AppConfig):
         )
         from froide.account.export import registry
 
+        from fragdenstaat_de.fds_newsletter import tag_subscriber
+
         from .listeners import (
             cancel_user,
             export_user_data,
@@ -28,6 +30,7 @@ class FdsDonationConfig(AppConfig):
             remove_newsletter_subscriber,
             sepa_payment_processing,
             subscription_was_canceled,
+            tag_subscriber_donor,
             user_email_changed,
         )
 
@@ -39,6 +42,7 @@ class FdsDonationConfig(AppConfig):
         account_merged.connect(merge_user)
         unsubscribed.connect(remove_newsletter_subscriber)
         registry.register(export_user_data)
+        tag_subscriber.connect(tag_subscriber_donor)
 
         from froide.account.menu import MenuItem, menu_registry
 

@@ -3,6 +3,7 @@ from datetime import timedelta
 from decimal import Decimal
 
 from django.db import transaction
+from django.db.models import Max, Q
 from django.utils import timezone
 
 from froide_payment.models import PaymentStatus
@@ -179,3 +180,40 @@ def export_user_data(user):
 
 def remove_newsletter_subscriber(sender: Subscriber, **kwargs):
     Donor.objects.filter(subscriber=sender).update(subscriber=None)
+
+
+def tag_subscriber_donor(sender: Subscriber, email=None, **kwargs):
+    add_tags = set()
+    remove_tags = set()
+    donor = (
+        Donor.objects.filter(subscriber=sender)
+        .annotate(
+            last_donation=Max(
+                "donations__timestamp",
+                filter=Q(donations__received_timestamp__isnull=False),
+            )
+        )
+        .first()
+    )
+    if not donor:
+        return add_tags, remove_tags
+
+    ROUGH_YEAR = timedelta(days=370)
+
+    add_tags.add("donor")
+
+    if donor.recurring_amount:
+        add_tags.add("donor:recurring")
+    else:
+        remove_tags.add("donor:recurring")
+
+    if donor.last_donation:
+        if donor.last_donation > timezone.now() - ROUGH_YEAR:
+            add_tags.add("donor:active")
+        else:
+            add_tags.add("donor:inactive")
+            remove_tags.add("donor:active")
+    else:
+        remove_tags.add("donor:active")
+
+    return add_tags, remove_tags

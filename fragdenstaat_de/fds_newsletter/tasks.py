@@ -39,3 +39,13 @@ def send_analytics():
     send_notification(
         "📊 Newsletter Analytics\n```{}```".format(json.dumps(data, indent=4))
     )
+
+
+@celery_app.task(name="fragdenstaat_de.fds_newsletter.gather_subscriber_tags")
+def gather_subscriber_tags():
+    from .models import Subscriber
+
+    qs = Subscriber.objects.get_subscribed()
+
+    for subscriber in qs.iterator():
+        subscriber.update_tags()
