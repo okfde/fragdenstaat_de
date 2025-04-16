@@ -770,3 +770,8 @@ class PagePreviewCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return str(self.page)
+
+
+class OpenSearchCMSPlugin(CMSPlugin):
+    search_endpoint = models.URLField()
+    urltemplate = models.URLField()
