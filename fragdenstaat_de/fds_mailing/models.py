@@ -3,6 +3,8 @@ import re
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.core.mail import EmailMultiAlternatives, mail_managers
 from django.db import models
 from django.db.models.query import QuerySet
@@ -23,7 +25,8 @@ from froide.helper.email_utils import make_address
 
 from fragdenstaat_de.fds_cms.utils import get_alias_placeholder, get_request
 from fragdenstaat_de.fds_donation.models import Donor
-from fragdenstaat_de.fds_newsletter.models import Newsletter, Subscriber
+from fragdenstaat_de.fds_newsletter.models import Newsletter, Segment, Subscriber
+from fragdenstaat_de.fds_newsletter.utils import get_subscribers
 
 from .utils import render_text
 
@@ -309,6 +312,7 @@ class Mailing(models.Model):
     newsletter = models.ForeignKey(
         Newsletter, blank=True, null=True, on_delete=models.SET_NULL
     )
+    segments = models.ManyToManyField(Segment, blank=True)
     sender_name = models.CharField(max_length=255)
     sender_email = models.EmailField(max_length=255, default=settings.SITE_EMAIL)
 
@@ -376,21 +380,35 @@ class Mailing(models.Model):
         }
         return ctx
 
-    def finalize(self):
-        if self.newsletter:
-            # Remove and re-add all newsletter recipients
-            self.recipients.all().delete()
-            subscribers = Subscriber.objects.filter(
-                newsletter=self.newsletter, subscribed__isnull=False
-            )
-            for subscriber in subscribers:
-                MailingMessage.objects.create(
-                    mailing=self,
-                    subscriber=subscriber,
-                    name=subscriber.get_name(),
-                    email=subscriber.get_email(),
-                )
+    def get_recipient_count(self):
+        if not hasattr(self, "_recipient_count"):
+            if self.newsletter:
+                self._recipient_count = self.get_subscribers().count()
+            else:
+                self._recipient_count = self.recipients.count()
+        return self._recipient_count
+
+    def get_subscribers(self):
+        return get_subscribers(self.newsletter, self.segments.all())
+
+    def auto_populate(self):
+        if not self.newsletter:
             return
+
+        # Remove and re-add all newsletter recipients
+        self.recipients.all().delete()
+
+        for subscriber in self.get_subscribers():
+            MailingMessage.objects.create(
+                mailing=self,
+                subscriber=subscriber,
+                name=subscriber.get_name(),
+                email=subscriber.get_email(),
+            )
+
+    def finalize(self):
+        self.auto_populate()
+
         for recipient in self.recipients.all():
             recipient.finalize()
             recipient.save()
@@ -456,6 +474,22 @@ class MailingMessage(models.Model):
         ordering = ("-sent",)
         verbose_name = _("mailing message")
         verbose_name_plural = _("mailing messages")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["mailing", "email"],
+                name="unique_mailing_email",
+            ),
+            models.UniqueConstraint(
+                fields=["mailing", "subscriber"],
+                condition=models.Q(subscriber__isnull=False),
+                name="unique_mailing_subscriber",
+            ),
+            models.UniqueConstraint(
+                fields=["mailing", "user"],
+                condition=models.Q(user__isnull=False),
+                name="unique_mailing_user",
+            ),
+        ]
 
     def __str__(self):
         return "MailingRecipient  %s (%s)" % (self.email, self.mailing)
@@ -535,6 +569,27 @@ class MailingMessage(models.Model):
 
         except Exception as e:
             logger.error("Mailing message %s failed with error: %s" % (self, e))
+
+
+class MailingMessageReference(models.Model):
+    mailing_message = models.ForeignKey(MailingMessage, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveBigIntegerField()
+    content_object = GenericForeignKey("content_type", "object_id")
+
+    def __str__(self):
+        return "%s - %s" % (self.mailing_message, self.content_type)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["content_type", "object_id"]),
+        ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["mailing_message", "content_type"],
+                name="unique_mailing_message_content_type",
+            )
+        ]
 
 
 class NewsletterArchiveCMSPlugin(CMSPlugin):

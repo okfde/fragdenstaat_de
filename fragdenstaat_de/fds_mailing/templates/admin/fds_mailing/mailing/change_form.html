@@ -3,7 +3,15 @@
 {% block object-tools-items %}
     {% if original.pk %}
         {% if original.newsletter %}
-            <li>{% trans "Sending to all newsletter subscribers" %}</li>
+            {% with segment_count=original.segments.count %}
+                {% if segment_count %}
+                    <li>
+                        {% blocktrans with segment_count=segment_count %}Sending to newsletter subscribers of {{ segment_count }} segments{% endblocktrans %}
+                    </li>
+                {% else %}
+                    <li>{% trans "Sending to all newsletter subscribers" %}</li>
+                {% endif %}
+            {% endwith %}
         {% else %}
             <li>
                 <a href="{% url 'admin:fds_mailing_mailingmessage_changelist' %}?mailing={{ original.pk }}">

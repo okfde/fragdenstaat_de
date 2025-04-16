@@ -106,12 +106,14 @@ class EmailTemplateAdmin(admin.ModelAdmin):
 
 
 class MailingAdmin(admin.ModelAdmin):
-    raw_id_fields = ("email_template", "newsletter")
+    raw_id_fields = ("email_template",)
+    filter_horizontal = ("segments",)
     list_display = (
         "name",
         "email_template",
         "created",
         "newsletter",
+        "segment_list",
         "ready",
         "recipients",
         "sending_date",
@@ -164,12 +166,15 @@ class MailingAdmin(admin.ModelAdmin):
             ),
         )
 
-        return qs.prefetch_related("email_template", "newsletter")
+        return qs.prefetch_related("email_template", "newsletter", "segments")
 
     def save_model(self, request, obj, form, change):
         if not change:
             obj.creator_user = request.user
         super().save_model(request, obj, form, change)
+
+    def segment_list(self, obj):
+        return ", ".join([segment.name for segment in obj.segments.all()]) or "-"
 
     def sent_percentage(self, obj):
         if obj.total_recipients == 0:
@@ -177,9 +182,10 @@ class MailingAdmin(admin.ModelAdmin):
         return "{0:.2f}%".format(obj.sent_recipients / obj.total_recipients * 100)
 
     def recipients(self, obj):
+        if obj.total_recipients == 0:
+            return obj.get_recipient_count()
         return obj.total_recipients
 
-    recipients.admin_order_field = "total_recipients"
     recipients.short_description = _("Recipients")
 
     def trigger_continue_sending(self, request, queryset):
