@@ -13,10 +13,11 @@ from django.utils.translation import gettext_lazy as _
 from cms.models.pluginmodel import CMSPlugin
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
+from treebeard.mp_tree import MP_Node
 
 from froide.helper.email_sending import mail_registry
 
-from . import subscribed, unsubscribed
+from . import subscribed, tag_subscriber, unsubscribed
 
 logger = logging.getLogger(__name__)
 
@@ -118,6 +119,7 @@ class TaggedSubscriber(TaggedItemBase):
         SubscriberTag, related_name="subscribers", on_delete=models.CASCADE
     )
     content_object = models.ForeignKey("Subscriber", on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = _("Tagged Subscriber")
@@ -126,6 +128,11 @@ class TaggedSubscriber(TaggedItemBase):
 
 def make_activation_code():
     return get_random_string(length=40)
+
+
+class SubscriberManager(models.Manager):
+    def get_subscribed(self):
+        return self.get_queryset().filter(subscribed__isnull=False)
 
 
 class Subscriber(models.Model):
@@ -171,6 +178,8 @@ class Subscriber(models.Model):
     keyword = models.CharField(max_length=255, blank=True)
 
     tags = TaggableManager(through=TaggedSubscriber, blank=True)
+
+    objects = SubscriberManager()
 
     class Meta:
         verbose_name = _("newsletter subscriber")
@@ -346,6 +355,76 @@ class Subscriber(models.Model):
         self.unsubscribe_method = method
         self.save()
         unsubscribed.send(sender=self)
+
+    def update_tags(self):
+        add_tags = set()
+        remove_tags = set()
+        # Collect tags from all sources
+        for _receiver, response in tag_subscriber.send(self, email=self.get_email()):
+            if not response:
+                continue
+            add, remove = response
+            add_tags |= add
+            remove_tags |= remove
+
+        # Apply tags
+        if add_tags:
+            self.tags.add(*add_tags)
+        if remove_tags:
+            self.tags.remove(*remove_tags)
+
+
+class TaggedSegment(TaggedItemBase):
+    tag = models.ForeignKey(
+        SubscriberTag, related_name="segments", on_delete=models.CASCADE
+    )
+    content_object = models.ForeignKey("Segment", on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("Tagged Segment")
+        verbose_name_plural = _("Tagged Segments")
+
+
+class Segment(MP_Node):
+    name = models.CharField(max_length=200, verbose_name=_("name"))
+    description = models.TextField(blank=True)
+    created = models.DateTimeField(editable=False, default=timezone.now)
+
+    tags = TaggableManager(
+        through=TaggedSegment,
+        verbose_name=_("contains subscribers with all of these"),
+    )
+
+    node_order_by = ["name"]
+
+    class Meta:
+        verbose_name = _("segment")
+        verbose_name_plural = _("segments")
+
+    def __str__(self):
+        return self.name
+
+    def get_subscribers(self, newsletter=None):
+        qs = Subscriber.objects.filter(subscribed__isnull=False)
+        if newsletter is not None:
+            qs = qs.filter(newsletter=newsletter)
+        return self.filter_subscribers(qs)
+
+    def filter_subscribers(self, qs):
+        # AND-Filter by tags
+        for tag in self.tags.all():
+            qs = qs.filter(taggedsubscriber__tag=tag)
+
+        # OR-Filter by children
+        children = self.get_children()
+        if children:
+            first_child = children[0]
+            out_qs = first_child.filter_subscribers(qs).order_by()
+            out_qs = out_qs.union(
+                *[child.filter_subscribers(qs).order_by() for child in children[1:]]
+            )
+            return out_qs
+        return qs
 
 
 UNSUBSCRIBE_REASONS = [
