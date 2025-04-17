@@ -11,7 +11,7 @@ from django.utils import timezone
 
 from froide.foirequest.tests.factories import UserFactory
 
-from .listeners import (
+from ..listeners import (
     activate_newsletter_subscription,
     cancel_user,
     handle_bounce,
@@ -20,7 +20,7 @@ from .listeners import (
     subscribe_follower,
     user_email_changed,
 )
-from .models import Newsletter, Subscriber
+from ..models import Newsletter, Subscriber
 
 User = get_user_model()
 
