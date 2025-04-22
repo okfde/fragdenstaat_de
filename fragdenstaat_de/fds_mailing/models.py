@@ -28,7 +28,7 @@ from fragdenstaat_de.fds_donation.models import Donor
 from fragdenstaat_de.fds_newsletter.models import Newsletter, Segment, Subscriber
 from fragdenstaat_de.fds_newsletter.utils import get_subscribers
 
-from .utils import render_text
+from .utils import generate_random_unique_pixel_url, render_text
 
 User = get_user_model()
 logger = logging.getLogger()
@@ -520,7 +520,12 @@ class MailingMessage(models.Model):
                 ctx.update(obj.get_email_context())
         if "name" not in ctx:
             ctx["name"] = self.name
+        if "pixel_url" not in ctx:
+            ctx["pixel_url"] = self.generate_random_unique_pixel_url()
         return ctx
+
+    def generate_random_unique_pixel_url(self):
+        return generate_random_unique_pixel_url(self.mailing.id)
 
     def finalize(self):
         if self.donor:

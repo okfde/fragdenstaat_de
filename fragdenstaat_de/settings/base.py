@@ -180,6 +180,7 @@ class FragDenStaatBase(German, Base):
             "date": three_days_ago_but_not_sundays,
         }
     ]
+    NEWSLETTER_PIXEL_ORIGIN = env("NEWSLETTER_PIXEL_ORIGIN", "http://localhost:8000")
 
     # Campaign
 
