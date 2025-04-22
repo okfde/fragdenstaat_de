@@ -50,6 +50,7 @@ class EmailTemplate(models.Model):
     updated = models.DateTimeField(default=timezone.now)
     category = models.CharField(max_length=30, blank=True)
     subject = models.CharField(max_length=255, blank=True)
+    preheader = models.CharField(max_length=255, blank=True)
     text = models.TextField(blank=True)
 
     placeholders = PlaceholderRelationField()
@@ -123,7 +124,7 @@ class EmailTemplate(models.Model):
         return html
 
     def update_context(self, ctx):
-        ctx.update({"subject": self.subject})
+        ctx.update({"subject": self.subject, "preheader": self.preheader})
 
     def get_body_html(
         self, context=None, preview=False, template="fds_mailing/render_base.html"

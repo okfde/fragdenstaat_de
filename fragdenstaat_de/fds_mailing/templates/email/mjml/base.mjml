@@ -1,7 +1,7 @@
 <mjml>
     <mj-head>
         <mj-title>{{ subject }}</mj-title>
-        <mj-preview>{{ preview }}</mj-preview>
+        {% if preheader %}<mj-preview>{{ preheader }}</mj-preview>{% endif %}
         <mj-attributes>
             <mj-text font-family="Arial, Helvetica, sans-serif" font-size="15px" color="#333333" line-height="22px"></mj-text>
         </mj-attributes>
