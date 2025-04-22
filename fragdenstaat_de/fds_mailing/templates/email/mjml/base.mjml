@@ -62,6 +62,9 @@
                     <br>
                     <a href="https://fragdenstaat.de/datenschutzerklaerung/">Datenschutzerklärung</a>
                 {% endif %}
+                {% if pixel_url %}
+                    <img src="{{ pixel_url }}"/>
+                {% endif %}
             </mj-text>
             {% endblock %}
           </mj-column>
