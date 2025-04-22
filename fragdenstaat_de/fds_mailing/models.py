@@ -28,7 +28,7 @@ from fragdenstaat_de.fds_donation.models import Donor
 from fragdenstaat_de.fds_newsletter.models import Newsletter, Segment, Subscriber
 from fragdenstaat_de.fds_newsletter.utils import get_subscribers
 
-from .utils import generate_random_unique_pixel_url, render_text
+from .utils import generate_random_unique_pixel_url, get_url_tagger, render_text
 
 User = get_user_model()
 logger = logging.getLogger()
@@ -414,6 +414,30 @@ class Mailing(models.Model):
             recipient.finalize()
             recipient.save()
 
+    @property
+    def mailing_ident(self):
+        if self.sending_date:
+            date_str = self.sending_date.strftime("%Y%m%d%H%M")
+            return f"mailing-{date_str}-{self.id}"
+        return f"mailing--{self.id}"
+
+    def get_email_content(self, context) -> EmailContent:
+        if not self.email_template:
+            raise ValueError("No email template set")
+
+        email_content = self.email_template.get_email_content(context)
+
+        # Add campaign param to all URLs
+        url_tagger = get_url_tagger(self.mailing_ident)
+        text = email_content.text
+        if text:
+            text = url_tagger(text)
+        html = email_content.html
+        if html:
+            html = url_tagger(html)
+
+        return EmailContent(email_content.subject, text, html)
+
     def send(self):
         if self.sending or self.sent or not self.submitted:
             return
@@ -538,7 +562,7 @@ class MailingMessage(models.Model):
             self.email = self.subscriber.get_email()
             self.name = self.subscriber.get_name()
 
-    def send_message(self, mailing_context=None, email_template=None):
+    def send_message(self, mailing_context=None):
         assert self.sent is None
 
         if not self.email:
@@ -548,10 +572,8 @@ class MailingMessage(models.Model):
         context = self.get_email_context()
         if mailing_context is not None:
             context.update(mailing_context)
-        if email_template is None:
-            email_template = self.mailing.email_template
 
-        email_content = email_template.get_email_content(context)
+        email_content = self.mailing.get_email_content(context)
 
         extra_kwargs = {"queue": settings.EMAIL_BULK_QUEUE}
         if email_content.html:

@@ -1,8 +1,9 @@
 import base64
+import re
 from collections import namedtuple
 from datetime import timedelta
 from typing import Optional
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlencode, urlparse
 
 from django.conf import settings
 from django.contrib.admin import helpers
@@ -213,3 +214,21 @@ def verify_random_unique_pixel_url(url_string: str) -> Optional[SignedPixelPath]
             mailing_id=int(mailing_id),
             valid=False,
         )
+
+
+def get_url_tagger(mailing_campaign: str, query_param: str = "pk_campaign") -> str:
+    url_regex = re.compile('(%s[^\\s"]+)' % re.escape(settings.SITE_URL))
+
+    def tag_urls(text):
+        def replace_match(match):
+            url = urlparse(match.group(1))
+            qs = parse_qs(url.query)
+            if query_param in qs:
+                return match.group(0)
+            qs[query_param] = [mailing_campaign]
+            url_str = url._replace(query=urlencode(qs, doseq=True)).geturl()
+            return url_str
+
+        return url_regex.sub(replace_match, text)
+
+    return tag_urls
