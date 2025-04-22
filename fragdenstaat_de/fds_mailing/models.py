@@ -336,7 +336,7 @@ class Mailing(models.Model):
     created = models.DateTimeField(default=timezone.now, editable=False)
 
     publish = models.BooleanField(
-        default=True,
+        default=False,
         verbose_name=_("publish"),
         help_text=_("Publish in archive."),
         db_index=True,
