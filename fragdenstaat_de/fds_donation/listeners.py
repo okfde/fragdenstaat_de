@@ -190,7 +190,7 @@ def tag_subscriber_donor(sender: Subscriber, email=None, **kwargs):
     a_year_ago = timezone.now() - roughly_year
     donor = (
         Donor.objects.filter(
-            Q(subscriber=sender) | Q(email__iexact=email, email_confirmed=True)
+            Q(subscriber=sender) | Q(email__iexact=email, email_confirmed__isnull=False)
         )
         .annotate(
             last_donation=Max(
