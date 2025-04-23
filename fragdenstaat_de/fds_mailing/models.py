@@ -342,6 +342,12 @@ class Mailing(models.Model):
         db_index=True,
     )
 
+    tracking = models.BooleanField(
+        default=False,
+        verbose_name=_("tracking"),
+        help_text=_("Track opens and clicks."),
+    )
+
     ready = models.BooleanField(
         default=False,
         verbose_name=_("ready"),
@@ -426,6 +432,9 @@ class Mailing(models.Model):
             raise ValueError("No email template set")
 
         email_content = self.email_template.get_email_content(context)
+
+        if not self.tracking:
+            return email_content
 
         # Add campaign param to all URLs
         url_tagger = get_url_tagger(self.mailing_ident)
@@ -544,7 +553,7 @@ class MailingMessage(models.Model):
                 ctx.update(obj.get_email_context())
         if "name" not in ctx:
             ctx["name"] = self.name
-        if "pixel_url" not in ctx:
+        if "pixel_url" not in ctx and self.mailing.tracking:
             ctx["pixel_url"] = self.generate_random_unique_pixel_url()
         return ctx
 

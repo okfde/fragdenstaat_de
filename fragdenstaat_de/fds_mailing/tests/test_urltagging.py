@@ -85,7 +85,7 @@ def test_mailing_url_tagging(settings):
     sending_date = datetime.datetime(
         2024, 12, 13, 12, 42, 40, tzinfo=datetime.timezone.utc
     )
-    mailing = Mailing(id=1, sending_date=sending_date)
+    mailing = Mailing(id=1, sending_date=sending_date, tracking=True)
     mailing.email_template = email_template
 
     content = mailing.get_email_content({"foo": "bar"})
