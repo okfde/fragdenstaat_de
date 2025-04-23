@@ -3,7 +3,7 @@ from datetime import timedelta
 from decimal import Decimal
 
 from django.db import transaction
-from django.db.models import Max, Q
+from django.db.models import Max, Q, Sum
 from django.utils import timezone
 
 from froide_payment.models import PaymentStatus
@@ -185,20 +185,27 @@ def remove_newsletter_subscriber(sender: Subscriber, **kwargs):
 def tag_subscriber_donor(sender: Subscriber, email=None, **kwargs):
     add_tags = set()
     remove_tags = set()
+    roughly_year = timedelta(days=370)
+    high_value = 120
+    a_year_ago = timezone.now() - roughly_year
     donor = (
-        Donor.objects.filter(subscriber=sender)
+        Donor.objects.filter(
+            Q(subscriber=sender) | Q(email__iexact=email, email_confirmed=True)
+        )
         .annotate(
             last_donation=Max(
                 "donations__timestamp",
                 filter=Q(donations__received_timestamp__isnull=False),
-            )
+            ),
+            amount_last_year=Sum(
+                "donations__amount",
+                filter=Q(donations__received_timestamp__gte=a_year_ago),
+            ),
         )
         .first()
     )
     if not donor:
         return add_tags, remove_tags
-
-    ROUGH_YEAR = timedelta(days=370)
 
     add_tags.add("donor")
 
@@ -207,8 +214,13 @@ def tag_subscriber_donor(sender: Subscriber, email=None, **kwargs):
     else:
         remove_tags.add("donor:recurring")
 
+    if donor.amount_last_year is not None and donor.amount_last_year >= high_value:
+        add_tags.add("donor:highvalue")
+    else:
+        remove_tags.add("donor:highvalue")
+
     if donor.last_donation:
-        if donor.last_donation > timezone.now() - ROUGH_YEAR:
+        if donor.last_donation > a_year_ago:
             add_tags.add("donor:active")
         else:
             add_tags.add("donor:inactive")
