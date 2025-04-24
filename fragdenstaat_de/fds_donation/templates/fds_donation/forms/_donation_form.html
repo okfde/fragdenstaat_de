@@ -18,43 +18,57 @@
                 {% trans "Your donation frees information" %}
             {% endif %}
         </legend>
-        {% if form.chosen_gift %}
-            {% if form.chosen_gift.is_hidden %}
-                {{ form.chosen_gift }}
+        {% if form.settings.prefilled_amount %}
+            <p class="mt-1 mb-3">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                {{ form.prefilled_amount_label }}
+                <button type="button"
+                        class="btn btn-link p-0 float-end hideparent"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#donation-form-amount"
+                        aria-expanded="false"
+                        aria-controls="donation-form-amount">{% translate "Change" %}</button>
+            </p>
+            <div class="collapse" id="donation-form-amount">
+            {% endif %}
+            {% if form.chosen_gift %}
+                {% if form.chosen_gift.is_hidden %}
+                    {{ form.chosen_gift }}
+                {% else %}
+                    <div class="row">
+                        <div class="col-12">{% render_field form.chosen_gift %}</div>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if form.gift_error_message %}<div class="alert alert-warning">{{ form.gift_error_message }}</div>{% endif %}
+            <div class="row">
+                <div class="col-12">{% render_field form.amount stacked=True %}</div>
+            </div>
+            {% if form.interval.is_hidden %}
+                {{ form.interval }}
             {% else %}
                 <div class="row">
-                    <div class="col-12">{% render_field form.chosen_gift %}</div>
+                    <div class="col-12" data-group="interval">{% render_field form.interval inline=True %}</div>
                 </div>
             {% endif %}
-        {% endif %}
-        {% if form.gift_error_message %}<div class="alert alert-warning">{{ form.gift_error_message }}</div>{% endif %}
-        <div class="row">
-            <div class="col-12">{% render_field form.amount stacked=True %}</div>
-        </div>
-        {% if form.interval.is_hidden %}
-            {{ form.interval }}
-        {% else %}
-            <div class="row">
-                <div class="col-12" data-group="interval">{% render_field form.interval inline=True %}</div>
-            </div>
-        {% endif %}
-        {% if form.purpose.is_hidden %}
-            {{ form.purpose }}
-        {% else %}
-            <div class="row">
-                <div class="col-12">{% render_field form.purpose stacked=True %}</div>
-            </div>
-        {% endif %}
-        {% if form.settings.collapsed %}
-            <button type="button"
-                    class="btn btn-primary btn-lg mb-3"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#donation-form-detail"
-                    aria-expanded="false"
-                    aria-controls="donation-form-detail">
-                <span class="hideparent">{% trans "Continue" %}</span>
-            </button>
-        {% endif %}
+            {% if form.purpose.is_hidden %}
+                {{ form.purpose }}
+            {% else %}
+                <div class="row">
+                    <div class="col-12">{% render_field form.purpose stacked=True %}</div>
+                </div>
+            {% endif %}
+            {% if form.settings.collapsed %}
+                <button type="button"
+                        class="btn btn-primary btn-lg mb-3"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#donation-form-detail"
+                        aria-expanded="false"
+                        aria-controls="donation-form-detail">
+                    <span class="hideparent">{% trans "Continue" %}</span>
+                </button>
+            {% endif %}
+            {% if form.settings.prefilled_amount %}</div>{% endif %}
     </fieldset>
     {% if form.settings.collapsed %}<div class="collapse" id="donation-form-detail">{% endif %}
         <fieldset>

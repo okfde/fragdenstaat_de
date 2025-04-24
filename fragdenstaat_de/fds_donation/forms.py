@@ -90,6 +90,7 @@ class DonationSettingsForm(forms.Form):
     initial_interval = forms.IntegerField(
         required=False,
     )
+    prefilled_amount = forms.BooleanField(required=False)
     initial_receipt = forms.BooleanField(required=False)
     collapsed = forms.BooleanField(required=False)
 
@@ -170,6 +171,7 @@ class DonationFormFactory:
         "initial_amount": None,
         "min_amount": MIN_AMOUNT,
         "gift_options": [],
+        "prefilled_amount": False,
         "default_gift": None,
         "initial_interval": 0,
         "initial_receipt": "0",
