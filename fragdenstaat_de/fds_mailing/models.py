@@ -28,7 +28,8 @@ from fragdenstaat_de.fds_donation.models import Donor
 from fragdenstaat_de.fds_newsletter.models import Newsletter, Segment, Subscriber
 from fragdenstaat_de.fds_newsletter.utils import get_subscribers
 
-from .utils import generate_random_unique_pixel_url, get_url_tagger, render_text
+from .pixel_log import generate_random_unique_pixel_url
+from .utils import get_url_tagger, render_text
 
 User = get_user_model()
 logger = logging.getLogger()

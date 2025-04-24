@@ -181,6 +181,7 @@ class FragDenStaatBase(German, Base):
         }
     ]
     NEWSLETTER_PIXEL_ORIGIN = env("NEWSLETTER_PIXEL_ORIGIN", "http://localhost:8000")
+    NEWSLETTER_PIXEL_LOG = env("NEWSLETTER_PIXEL_LOG", "/var/log/pixel.log")
 
     # Campaign
 

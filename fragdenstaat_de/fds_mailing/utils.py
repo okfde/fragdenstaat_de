@@ -1,19 +1,16 @@
 import base64
 import re
-from collections import namedtuple
 from datetime import timedelta
-from typing import Optional
 from urllib.parse import parse_qs, urlencode, urlparse
 
 from django.conf import settings
 from django.contrib.admin import helpers
 from django.core import signing
 from django.core.exceptions import PermissionDenied
-from django.core.signing import BadSignature
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.crypto import get_random_string, salted_hmac
+from django.utils.crypto import salted_hmac
 from django.utils.translation import gettext_lazy as _
 
 from froide.helper.email_sending import send_mail
@@ -172,48 +169,6 @@ class LowerCaseSigner(signing.Signer):
         return base32_hmac(
             self.salt + "signer", value, key, algorithm=self.algorithm
         ).lower()
-
-
-def generate_random_unique_pixel_url(mailing_id: int, namespace="mailing"):
-    random = get_random_string(12, allowed_chars="abcdefghijklmnopqrstuvwxyz0123456789")
-    path = f"{namespace}/{mailing_id}/{random}"
-    signer = LowerCaseSigner()
-    signature = signer.signature(path)
-    return f"{settings.NEWSLETTER_PIXEL_ORIGIN}/{path}/{signature}.gif"
-
-
-SignedPixelPath = namedtuple("VerifiedPixelPath", ["namespace", "mailing_id", "valid"])
-
-
-def verify_random_unique_pixel_url(url_string: str) -> Optional[SignedPixelPath]:
-    url = urlparse(url_string)
-    if url.netloc != "" and not settings.NEWSLETTER_PIXEL_ORIGIN.endswith(url.netloc):
-        # Wrong domain
-        return None
-    path = url.path
-    path_parts = [x for x in path.split("/") if x]
-    if len(path_parts) != 4:
-        return None
-    namespace, mailing_id, random, signature_filename = path_parts
-    if not signature_filename.endswith(".gif"):
-        return None
-    signature = signature_filename.replace(".gif", "")
-    signer = LowerCaseSigner()
-    data = f"{namespace}/{mailing_id}/{random}"
-    signed_value = signer.sep.join([data, signature])
-    try:
-        signer.unsign(signed_value)
-        return SignedPixelPath(
-            namespace=namespace,
-            mailing_id=int(mailing_id),
-            valid=True,
-        )
-    except BadSignature:
-        return SignedPixelPath(
-            namespace=namespace,
-            mailing_id=int(mailing_id),
-            valid=False,
-        )
 
 
 def get_url_tagger(mailing_campaign: str, query_param: str = "pk_campaign") -> str:
