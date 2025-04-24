@@ -13,7 +13,7 @@ importers:
         version: 3.6.2
       '@okfde/filingcabinet':
         specifier: github:okfde/django-filingcabinet
-        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/64b7b4ad804067e2f16e8a0f165c139e3ffe5fb5(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/64b7b4ad804067e2f16e8a0f165c139e3ffe5fb5(typescript@5.8.3)
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -34,16 +34,16 @@ importers:
         version: 4.7.0
       froide:
         specifier: github:okfde/froide
-        version: https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.8.3)
       froide_campaign:
         specifier: github:okfde/froide-campaign
-        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.8.3))(typescript@5.8.3)
       froide_exam:
         specifier: github:okfde/froide-exam
         version: https://codeload.github.com/okfde/froide-exam/tar.gz/88a2cda9f71b9f8eef9d4bb07e200463e5554e62
       froide_food:
         specifier: github:okfde/froide-food
-        version: https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.8.3))(typescript@5.8.3)
       froide_legalaction:
         specifier: github:okfde/froide-legalaction
         version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/f85308f1d439e796773a11399794b186b86a46b3
@@ -65,7 +65,7 @@ importers:
     devDependencies:
       '@okfde/eslint-config-froide':
         specifier: github:okfde/eslint-config-froide
-        version: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c(jiti@2.4.2)(typescript@5.6.2)
+        version: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/529bd171c90010eedd11cd0c77abd6f1e1b033cd(jiti@2.4.2)(typescript@5.8.3)
       '@sentry/vite-plugin':
         specifier: ^2.22.4
         version: 2.22.4
@@ -80,7 +80,7 @@ importers:
         version: 1.9.12
       '@vitejs/plugin-vue':
         specifier: ^4.6.2
-        version: 4.6.2(vite@4.5.5(@types/node@22.5.4)(sass@1.78.0)(terser@5.32.0))(vue@3.5.13(typescript@5.6.2))
+        version: 4.6.2(vite@4.5.5(@types/node@22.5.4)(sass@1.78.0)(terser@5.32.0))(vue@3.5.13(typescript@5.8.3))
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
@@ -94,8 +94,8 @@ importers:
         specifier: ^1.78.0
         version: 1.78.0
       typescript:
-        specifier: ^5.6.2
-        version: 5.6.2
+        specifier: ^5.8.3
+        version: 5.8.3
       vite:
         specifier: ^4.5.5
         version: 4.5.5(@types/node@22.5.4)(sass@1.78.0)(terser@5.32.0)
@@ -104,7 +104,7 @@ importers:
         version: 1.3.1(vite@4.5.5(@types/node@22.5.4)(sass@1.78.0)(terser@5.32.0))
       vue:
         specifier: ^3.5.13
-        version: 3.5.13(typescript@5.6.2)
+        version: 3.5.13(typescript@5.8.3)
 
 packages:
 
@@ -431,8 +431,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@okfde/eslint-config-froide@https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c':
-    resolution: {tarball: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c}
+  '@okfde/eslint-config-froide@https://codeload.github.com/okfde/eslint-config-froide/tar.gz/529bd171c90010eedd11cd0c77abd6f1e1b033cd':
+    resolution: {tarball: https://codeload.github.com/okfde/eslint-config-froide/tar.gz/529bd171c90010eedd11cd0c77abd6f1e1b033cd}
     version: 1.0.0
 
   '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/64b7b4ad804067e2f16e8a0f165c139e3ffe5fb5':
@@ -441,6 +441,10 @@ packages:
 
   '@panzoom/panzoom@4.6.0':
     resolution: {integrity: sha512-3KxkY1lNKFn98fW5ZFR6vV0YzsXj3I4EQDyFWSXME6/cic86eSS7VjuqIjrA3PEpySo0r5fFtlX8eYCt4JPUFQ==}
+
+  '@pkgr/core@0.2.4':
+    resolution: {integrity: sha512-ROFF39F6ZrnzSUEmQQZUar0Jt4xVoP9WnDRdWwF4NNcXs3xBTLgBUDoOwW141y1jP+S8nahIbdxbFC7IShw9Iw==}
+    engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
@@ -1271,6 +1275,20 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
+  eslint-plugin-prettier@5.2.6:
+    resolution: {integrity: sha512-mUcf7QG2Tjk7H055Jk0lGBjbgDnfrvqjhXh9t2xLMSCjZVcw9Rb1V6sVNXO0th3jgeO7zllWPTNRil3JW94TnQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      '@types/eslint': '>=8.0.0'
+      eslint: '>=8.0.0'
+      eslint-config-prettier: '>= 7.0.0 <10.0.0 || >=10.1.0'
+      prettier: '>=3.0.0'
+    peerDependenciesMeta:
+      '@types/eslint':
+        optional: true
+      eslint-config-prettier:
+        optional: true
+
   eslint-plugin-vue@9.28.0:
     resolution: {integrity: sha512-ShrihdjIhOTxs+MfWun6oJWuk+g/LAhN+CiuOl/jjkG3l0F2AuK5NMTaWqyvBgkFtpYmyks6P4603mLmhNJW8g==}
     engines: {node: ^14.17.0 || >=16.0.0}
@@ -1341,6 +1359,9 @@ packages:
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
+
+  fast-diff@1.3.0:
+    resolution: {integrity: sha512-VxPP4NqbUjj6MaAOafWeUn2cXWLcCtljklUtZf0Ind4XQ+QPtmA0b18zZy0jIQx+ExRVCR/ZQpBmik5lXshNsw==}
 
   fast-glob@3.3.2:
     resolution: {integrity: sha512-oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==}
@@ -2088,6 +2109,10 @@ packages:
     peerDependencies:
       prettier: ^2.6.0 || ^3.0.0
 
+  prettier-linter-helpers@1.0.0:
+    resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
+    engines: {node: '>=6.0.0'}
+
   prettier@3.3.3:
     resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
     engines: {node: '>=14'}
@@ -2294,6 +2319,10 @@ packages:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
 
+  synckit@0.11.4:
+    resolution: {integrity: sha512-Q/XQKRaJiLiFIBNN+mndW7S/RHxvwzuZS6ZwmRzUBqJBv/5QIKCEwkBC8GBf8EQJKYnaFs0wOZbKTXBPj8L9oQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
@@ -2339,6 +2368,9 @@ packages:
   tslib@2.7.0:
     resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
 
+  tslib@2.8.1:
+    resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
   tus-js-client@3.1.3:
     resolution: {integrity: sha512-n9k6rI/nPOuP2TaqPG6Ogz3a3V1cSH9en7N0VH4gh95jmG8JA58TJzLms2lBfb7aKVb3fdUunqYEG3WnQnZRvQ==}
 
@@ -2375,8 +2407,8 @@ packages:
       typescript:
         optional: true
 
-  typescript@5.6.2:
-    resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2952,13 +2984,13 @@ snapshots:
 
   '@hey-api/client-fetch@0.4.4': {}
 
-  '@hey-api/openapi-ts@0.55.3(typescript@5.6.2)':
+  '@hey-api/openapi-ts@0.55.3(typescript@5.8.3)':
     dependencies:
       '@apidevtools/json-schema-ref-parser': 11.7.2
       c12: 2.0.1
       commander: 12.1.0
       handlebars: 4.7.8
-      typescript: 5.6.2
+      typescript: 5.8.3
     transitivePeerDependencies:
       - magicast
 
@@ -3010,33 +3042,37 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@okfde/eslint-config-froide@https://codeload.github.com/okfde/eslint-config-froide/tar.gz/daabc1889e3b91e8c09eed6326ce4788a8cd116c(jiti@2.4.2)(typescript@5.6.2)':
+  '@okfde/eslint-config-froide@https://codeload.github.com/okfde/eslint-config-froide/tar.gz/529bd171c90010eedd11cd0c77abd6f1e1b033cd(jiti@2.4.2)(typescript@5.8.3)':
     dependencies:
       eslint: 9.10.0(jiti@2.4.2)
       eslint-config-prettier: 9.1.0(eslint@9.10.0(jiti@2.4.2))
+      eslint-plugin-prettier: 5.2.6(eslint-config-prettier@9.1.0(eslint@9.10.0(jiti@2.4.2)))(eslint@9.10.0(jiti@2.4.2))(prettier@3.3.3)
       eslint-plugin-vue: 9.28.0(eslint@9.10.0(jiti@2.4.2))
       prettier: 3.3.3
       prettier-config-standard: 7.0.0(prettier@3.3.3)
-      typescript-eslint: 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)
+      typescript-eslint: 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)
     transitivePeerDependencies:
+      - '@types/eslint'
       - jiti
       - supports-color
       - typescript
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/64b7b4ad804067e2f16e8a0f165c139e3ffe5fb5(typescript@5.6.2)':
+  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/64b7b4ad804067e2f16e8a0f165c139e3ffe5fb5(typescript@5.8.3)':
     dependencies:
       '@popperjs/core': 2.11.8
       bootstrap: 5.3.3(@popperjs/core@2.11.8)
       font-awesome: 4.7.0
       intersection-observer: 0.12.2
       pdfjs-dist: 2.16.105
-      vue: 3.5.13(typescript@5.6.2)
-      vue-virtual-scroller: 2.0.0-beta.8(vue@3.5.13(typescript@5.6.2))
+      vue: 3.5.13(typescript@5.8.3)
+      vue-virtual-scroller: 2.0.0-beta.8(vue@3.5.13(typescript@5.8.3))
     transitivePeerDependencies:
       - typescript
       - worker-loader
 
   '@panzoom/panzoom@4.6.0': {}
+
+  '@pkgr/core@0.2.4': {}
 
   '@popperjs/core@2.11.8': {}
 
@@ -3235,34 +3271,34 @@ snapshots:
 
   '@types/web-bluetooth@0.0.20': {}
 
-  '@typescript-eslint/eslint-plugin@8.6.0(@typescript-eslint/parser@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2))(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)':
+  '@typescript-eslint/eslint-plugin@8.6.0(@typescript-eslint/parser@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)':
     dependencies:
       '@eslint-community/regexpp': 4.11.1
-      '@typescript-eslint/parser': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)
+      '@typescript-eslint/parser': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)
       '@typescript-eslint/scope-manager': 8.6.0
-      '@typescript-eslint/type-utils': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)
-      '@typescript-eslint/utils': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)
+      '@typescript-eslint/type-utils': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/utils': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)
       '@typescript-eslint/visitor-keys': 8.6.0
       eslint: 9.10.0(jiti@2.4.2)
       graphemer: 1.4.0
       ignore: 5.3.2
       natural-compare: 1.4.0
-      ts-api-utils: 1.3.0(typescript@5.6.2)
+      ts-api-utils: 1.3.0(typescript@5.8.3)
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.8.3
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)':
+  '@typescript-eslint/parser@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.6.0
       '@typescript-eslint/types': 8.6.0
-      '@typescript-eslint/typescript-estree': 8.6.0(typescript@5.6.2)
+      '@typescript-eslint/typescript-estree': 8.6.0(typescript@5.8.3)
       '@typescript-eslint/visitor-keys': 8.6.0
       debug: 4.3.7
       eslint: 9.10.0(jiti@2.4.2)
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.8.3
     transitivePeerDependencies:
       - supports-color
 
@@ -3271,21 +3307,21 @@ snapshots:
       '@typescript-eslint/types': 8.6.0
       '@typescript-eslint/visitor-keys': 8.6.0
 
-  '@typescript-eslint/type-utils@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)':
+  '@typescript-eslint/type-utils@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)':
     dependencies:
-      '@typescript-eslint/typescript-estree': 8.6.0(typescript@5.6.2)
-      '@typescript-eslint/utils': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)
+      '@typescript-eslint/typescript-estree': 8.6.0(typescript@5.8.3)
+      '@typescript-eslint/utils': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)
       debug: 4.3.7
-      ts-api-utils: 1.3.0(typescript@5.6.2)
+      ts-api-utils: 1.3.0(typescript@5.8.3)
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.8.3
     transitivePeerDependencies:
       - eslint
       - supports-color
 
   '@typescript-eslint/types@8.6.0': {}
 
-  '@typescript-eslint/typescript-estree@8.6.0(typescript@5.6.2)':
+  '@typescript-eslint/typescript-estree@8.6.0(typescript@5.8.3)':
     dependencies:
       '@typescript-eslint/types': 8.6.0
       '@typescript-eslint/visitor-keys': 8.6.0
@@ -3294,18 +3330,18 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.6.3
-      ts-api-utils: 1.3.0(typescript@5.6.2)
+      ts-api-utils: 1.3.0(typescript@5.8.3)
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.8.3
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)':
+  '@typescript-eslint/utils@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)':
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@9.10.0(jiti@2.4.2))
       '@typescript-eslint/scope-manager': 8.6.0
       '@typescript-eslint/types': 8.6.0
-      '@typescript-eslint/typescript-estree': 8.6.0(typescript@5.6.2)
+      '@typescript-eslint/typescript-estree': 8.6.0(typescript@5.8.3)
       eslint: 9.10.0(jiti@2.4.2)
     transitivePeerDependencies:
       - supports-color
@@ -3393,15 +3429,15 @@ snapshots:
       lodash: 4.17.21
       preact: 10.24.0
 
-  '@vitejs/plugin-vue@4.6.2(vite@4.5.5(@types/node@22.5.4)(sass@1.78.0)(terser@5.32.0))(vue@3.5.13(typescript@5.6.2))':
+  '@vitejs/plugin-vue@4.6.2(vite@4.5.5(@types/node@22.5.4)(sass@1.78.0)(terser@5.32.0))(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       vite: 4.5.5(@types/node@22.5.4)(sass@1.78.0)(terser@5.32.0)
-      vue: 3.5.13(typescript@5.6.2)
+      vue: 3.5.13(typescript@5.8.3)
 
-  '@vue-leaflet/vue-leaflet@0.8.4(leaflet@1.9.4)(vue@3.5.13(typescript@5.6.2))':
+  '@vue-leaflet/vue-leaflet@0.8.4(leaflet@1.9.4)(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       leaflet: 1.9.4
-      vue: 3.5.13(typescript@5.6.2)
+      vue: 3.5.13(typescript@5.8.3)
 
   '@vue/compiler-core@3.5.13':
     dependencies:
@@ -3451,29 +3487,29 @@ snapshots:
       '@vue/shared': 3.5.13
       csstype: 3.1.3
 
-  '@vue/server-renderer@3.5.13(vue@3.5.13(typescript@5.6.2))':
+  '@vue/server-renderer@3.5.13(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       '@vue/compiler-ssr': 3.5.13
       '@vue/shared': 3.5.13
-      vue: 3.5.13(typescript@5.6.2)
+      vue: 3.5.13(typescript@5.8.3)
 
   '@vue/shared@3.5.13': {}
 
-  '@vueuse/core@10.11.1(vue@3.5.13(typescript@5.6.2))':
+  '@vueuse/core@10.11.1(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       '@types/web-bluetooth': 0.0.20
       '@vueuse/metadata': 10.11.1
-      '@vueuse/shared': 10.11.1(vue@3.5.13(typescript@5.6.2))
-      vue-demi: 0.14.10(vue@3.5.13(typescript@5.6.2))
+      '@vueuse/shared': 10.11.1(vue@3.5.13(typescript@5.8.3))
+      vue-demi: 0.14.10(vue@3.5.13(typescript@5.8.3))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@10.11.1(fuse.js@6.6.2)(sortablejs@1.15.3)(vue@3.5.13(typescript@5.6.2))':
+  '@vueuse/integrations@10.11.1(fuse.js@6.6.2)(sortablejs@1.15.3)(vue@3.5.13(typescript@5.8.3))':
     dependencies:
-      '@vueuse/core': 10.11.1(vue@3.5.13(typescript@5.6.2))
-      '@vueuse/shared': 10.11.1(vue@3.5.13(typescript@5.6.2))
-      vue-demi: 0.14.10(vue@3.5.13(typescript@5.6.2))
+      '@vueuse/core': 10.11.1(vue@3.5.13(typescript@5.8.3))
+      '@vueuse/shared': 10.11.1(vue@3.5.13(typescript@5.8.3))
+      vue-demi: 0.14.10(vue@3.5.13(typescript@5.8.3))
     optionalDependencies:
       fuse.js: 6.6.2
       sortablejs: 1.15.3
@@ -3483,9 +3519,9 @@ snapshots:
 
   '@vueuse/metadata@10.11.1': {}
 
-  '@vueuse/shared@10.11.1(vue@3.5.13(typescript@5.6.2))':
+  '@vueuse/shared@10.11.1(vue@3.5.13(typescript@5.8.3))':
     dependencies:
-      vue-demi: 0.14.10(vue@3.5.13(typescript@5.6.2))
+      vue-demi: 0.14.10(vue@3.5.13(typescript@5.8.3))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -4040,6 +4076,15 @@ snapshots:
     dependencies:
       eslint: 9.10.0(jiti@2.4.2)
 
+  eslint-plugin-prettier@5.2.6(eslint-config-prettier@9.1.0(eslint@9.10.0(jiti@2.4.2)))(eslint@9.10.0(jiti@2.4.2))(prettier@3.3.3):
+    dependencies:
+      eslint: 9.10.0(jiti@2.4.2)
+      prettier: 3.3.3
+      prettier-linter-helpers: 1.0.0
+      synckit: 0.11.4
+    optionalDependencies:
+      eslint-config-prettier: 9.1.0(eslint@9.10.0(jiti@2.4.2))
+
   eslint-plugin-vue@9.28.0(eslint@9.10.0(jiti@2.4.2)):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@9.10.0(jiti@2.4.2))
@@ -4145,6 +4190,8 @@ snapshots:
 
   fast-deep-equal@3.1.3: {}
 
+  fast-diff@1.3.0: {}
+
   fast-glob@3.3.2:
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -4193,19 +4240,19 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.6.2):
+  froide@https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.8.3):
     dependencies:
       '@hey-api/client-fetch': 0.4.4
-      '@hey-api/openapi-ts': 0.55.3(typescript@5.6.2)
-      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/64b7b4ad804067e2f16e8a0f165c139e3ffe5fb5(typescript@5.6.2)
+      '@hey-api/openapi-ts': 0.55.3(typescript@5.8.3)
+      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/64b7b4ad804067e2f16e8a0f165c139e3ffe5fb5(typescript@5.8.3)
       '@panzoom/panzoom': 4.6.0
       '@popperjs/core': 2.11.8
       '@types/lodash.throttle': 4.1.9
       '@uppy/core': 3.13.1
       '@uppy/dashboard': 3.9.1(@uppy/core@3.13.1)
       '@uppy/tus': 3.5.5(@uppy/core@3.13.1)
-      '@vueuse/core': 10.11.1(vue@3.5.13(typescript@5.6.2))
-      '@vueuse/integrations': 10.11.1(fuse.js@6.6.2)(sortablejs@1.15.3)(vue@3.5.13(typescript@5.6.2))
+      '@vueuse/core': 10.11.1(vue@3.5.13(typescript@5.8.3))
+      '@vueuse/integrations': 10.11.1(fuse.js@6.6.2)(sortablejs@1.15.3)(vue@3.5.13(typescript@5.8.3))
       bootstrap: 5.3.3(@popperjs/core@2.11.8)
       choices.js: 10.2.0
       driver.js: 1.3.1
@@ -4218,12 +4265,12 @@ snapshots:
       lodash.sortby: 4.7.0
       lodash.throttle: 4.1.1
       pdfjs-dist: 2.16.105
-      pinia: 2.3.1(typescript@5.6.2)(vue@3.5.13(typescript@5.6.2))
+      pinia: 2.3.1(typescript@5.8.3)(vue@3.5.13(typescript@5.8.3))
       sortablejs: 1.15.3
       string.prototype.repeat: 1.0.0
-      vue: 3.5.13(typescript@5.6.2)
+      vue: 3.5.13(typescript@5.8.3)
       vuedraggable: 2.24.3
-      vuex: 4.1.0(vue@3.5.13(typescript@5.6.2))
+      vuex: 4.1.0(vue@3.5.13(typescript@5.8.3))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - async-validator
@@ -4241,32 +4288,32 @@ snapshots:
       - universal-cookie
       - worker-loader
 
-  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
+  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/5d4914f7c2d8eabcc0d121bb46ec9d56595d9eae(froide@https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.8.3))(typescript@5.8.3):
     dependencies:
       '@turf/bbox': 6.5.0
       '@types/leaflet': 1.9.12
-      '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.13(typescript@5.6.2))
+      '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.13(typescript@5.8.3))
       deepmerge: 4.3.1
-      froide: https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.6.2)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.8.3)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.2.1
       lodash.debounce: 4.0.8
-      vue: 3.5.13(typescript@5.6.2)
-      vue3-slide-up-down: 1.2.5(vue@3.5.13(typescript@5.6.2))
+      vue: 3.5.13(typescript@5.8.3)
+      vue3-slide-up-down: 1.2.5(vue@3.5.13(typescript@5.8.3))
     transitivePeerDependencies:
       - typescript
 
   froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/88a2cda9f71b9f8eef9d4bb07e200463e5554e62: {}
 
-  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.6.2))(typescript@5.6.2):
+  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/1c5b611ec6273e4e8dc5d27ef048231343f95dff(froide@https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.8.3))(typescript@5.8.3):
     dependencies:
       '@turf/bbox': 6.5.0
-      '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.13(typescript@5.6.2))
-      froide: https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.6.2)
+      '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.13(typescript@5.8.3))
+      froide: https://codeload.github.com/okfde/froide/tar.gz/d757e00dc1f85e56f251d96c224172d97c650c54(fuse.js@6.6.2)(typescript@5.8.3)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.3.0
-      vue: 3.5.13(typescript@5.6.2)
-      vue3-slide-up-down: 1.2.5(vue@3.5.13(typescript@5.6.2))
+      vue: 3.5.13(typescript@5.8.3)
+      vue3-slide-up-down: 1.2.5(vue@3.5.13(typescript@5.8.3))
     transitivePeerDependencies:
       - typescript
 
@@ -4859,13 +4906,13 @@ snapshots:
 
   picomatch@2.3.1: {}
 
-  pinia@2.3.1(typescript@5.6.2)(vue@3.5.13(typescript@5.6.2)):
+  pinia@2.3.1(typescript@5.8.3)(vue@3.5.13(typescript@5.8.3)):
     dependencies:
       '@vue/devtools-api': 6.6.4
-      vue: 3.5.13(typescript@5.6.2)
-      vue-demi: 0.14.10(vue@3.5.13(typescript@5.6.2))
+      vue: 3.5.13(typescript@5.8.3)
+      vue-demi: 0.14.10(vue@3.5.13(typescript@5.8.3))
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.8.3
     transitivePeerDependencies:
       - '@vue/composition-api'
 
@@ -4903,6 +4950,10 @@ snapshots:
   prettier-config-standard@7.0.0(prettier@3.3.3):
     dependencies:
       prettier: 3.3.3
+
+  prettier-linter-helpers@1.0.0:
+    dependencies:
+      fast-diff: 1.3.0
 
   prettier@3.3.3: {}
 
@@ -5120,6 +5171,11 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
+  synckit@0.11.4:
+    dependencies:
+      '@pkgr/core': 0.2.4
+      tslib: 2.8.1
+
   tar@6.2.1:
     dependencies:
       chownr: 2.0.0
@@ -5155,13 +5211,15 @@ snapshots:
 
   traverse@0.3.9: {}
 
-  ts-api-utils@1.3.0(typescript@5.6.2):
+  ts-api-utils@1.3.0(typescript@5.8.3):
     dependencies:
-      typescript: 5.6.2
+      typescript: 5.8.3
 
   tslib@2.6.3: {}
 
   tslib@2.7.0: {}
+
+  tslib@2.8.1: {}
 
   tus-js-client@3.1.3:
     dependencies:
@@ -5211,18 +5269,18 @@ snapshots:
       is-typed-array: 1.1.13
       possible-typed-array-names: 1.0.0
 
-  typescript-eslint@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2):
+  typescript-eslint@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3):
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.6.0(@typescript-eslint/parser@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2))(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)
-      '@typescript-eslint/parser': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)
-      '@typescript-eslint/utils': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.6.2)
+      '@typescript-eslint/eslint-plugin': 8.6.0(@typescript-eslint/parser@8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/parser': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/utils': 8.6.0(eslint@9.10.0(jiti@2.4.2))(typescript@5.8.3)
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.8.3
     transitivePeerDependencies:
       - eslint
       - supports-color
 
-  typescript@5.6.2: {}
+  typescript@5.8.3: {}
 
   ufo@1.5.4: {}
 
@@ -5583,9 +5641,9 @@ snapshots:
       sass: 1.78.0
       terser: 5.32.0
 
-  vue-demi@0.14.10(vue@3.5.13(typescript@5.6.2)):
+  vue-demi@0.14.10(vue@3.5.13(typescript@5.8.3)):
     dependencies:
-      vue: 3.5.13(typescript@5.6.2)
+      vue: 3.5.13(typescript@5.8.3)
 
   vue-eslint-parser@9.4.3(eslint@9.10.0(jiti@2.4.2)):
     dependencies:
@@ -5600,43 +5658,43 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vue-observe-visibility@2.0.0-alpha.1(vue@3.5.13(typescript@5.6.2)):
+  vue-observe-visibility@2.0.0-alpha.1(vue@3.5.13(typescript@5.8.3)):
     dependencies:
-      vue: 3.5.13(typescript@5.6.2)
+      vue: 3.5.13(typescript@5.8.3)
 
-  vue-resize@2.0.0-alpha.1(vue@3.5.13(typescript@5.6.2)):
+  vue-resize@2.0.0-alpha.1(vue@3.5.13(typescript@5.8.3)):
     dependencies:
-      vue: 3.5.13(typescript@5.6.2)
+      vue: 3.5.13(typescript@5.8.3)
 
-  vue-virtual-scroller@2.0.0-beta.8(vue@3.5.13(typescript@5.6.2)):
+  vue-virtual-scroller@2.0.0-beta.8(vue@3.5.13(typescript@5.8.3)):
     dependencies:
       mitt: 2.1.0
-      vue: 3.5.13(typescript@5.6.2)
-      vue-observe-visibility: 2.0.0-alpha.1(vue@3.5.13(typescript@5.6.2))
-      vue-resize: 2.0.0-alpha.1(vue@3.5.13(typescript@5.6.2))
+      vue: 3.5.13(typescript@5.8.3)
+      vue-observe-visibility: 2.0.0-alpha.1(vue@3.5.13(typescript@5.8.3))
+      vue-resize: 2.0.0-alpha.1(vue@3.5.13(typescript@5.8.3))
 
-  vue3-slide-up-down@1.2.5(vue@3.5.13(typescript@5.6.2)):
+  vue3-slide-up-down@1.2.5(vue@3.5.13(typescript@5.8.3)):
     dependencies:
-      vue: 3.5.13(typescript@5.6.2)
+      vue: 3.5.13(typescript@5.8.3)
 
-  vue@3.5.13(typescript@5.6.2):
+  vue@3.5.13(typescript@5.8.3):
     dependencies:
       '@vue/compiler-dom': 3.5.13
       '@vue/compiler-sfc': 3.5.13
       '@vue/runtime-dom': 3.5.13
-      '@vue/server-renderer': 3.5.13(vue@3.5.13(typescript@5.6.2))
+      '@vue/server-renderer': 3.5.13(vue@3.5.13(typescript@5.8.3))
       '@vue/shared': 3.5.13
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.8.3
 
   vuedraggable@2.24.3:
     dependencies:
       sortablejs: 1.10.2
 
-  vuex@4.1.0(vue@3.5.13(typescript@5.6.2)):
+  vuex@4.1.0(vue@3.5.13(typescript@5.8.3)):
     dependencies:
       '@vue/devtools-api': 6.6.4
-      vue: 3.5.13(typescript@5.6.2)
+      vue: 3.5.13(typescript@5.8.3)
 
   web-streams-polyfill@3.3.3: {}
 
