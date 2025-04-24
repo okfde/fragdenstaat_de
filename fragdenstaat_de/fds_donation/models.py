@@ -624,6 +624,10 @@ class DonationFormCMSPlugin(CMSPlugin):
         request_data = DonationFormFactory.from_request(request)
         plugin_data.update(request_data)
 
+        if request.GET.get("initial_amount"):
+            plugin_data["prefilled_amount"] = True
+            plugin_data["collapsed"] = False
+
         form = DonationSettingsForm(data=plugin_data)
         return form.make_donation_form(**kwargs)
 
