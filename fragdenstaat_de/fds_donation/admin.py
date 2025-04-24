@@ -14,7 +14,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.urls import path, reverse, reverse_lazy
-from django.utils import timezone
+from django.utils import formats, timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
@@ -201,6 +201,84 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "note",
     )
     raw_id_fields = ("user", "subscriptions", "subscriber")
+
+    readonly_fields = (
+        "first_donation",
+        "email_confirmation_sent",
+        "become_user",
+        "recurring_amount",
+        "subscriber",
+        "amount_total",
+        "amount_last_year",
+        "donation_count",
+        "last_donation",
+    )
+
+    fieldsets = (
+        (
+            _("Donor"),
+            {
+                "fields": (
+                    "email",
+                    "salutation",
+                    (
+                        "first_name",
+                        "last_name",
+                    ),
+                    "company_name",
+                    "address",
+                    (
+                        "postcode",
+                        "city",
+                    ),
+                    "country",
+                    "user",
+                )
+            },
+        ),
+        (
+            _("Contact"),
+            {
+                "fields": (
+                    "email_confirmation_sent",
+                    "email_confirmed",
+                    "contact_allowed",
+                    "receipt",
+                    "invalid",
+                    "note",
+                    "tags",
+                )
+            },
+        ),
+        (
+            _("Stats"),
+            {
+                "fields": (
+                    "first_donation",
+                    "recurring_amount",
+                    "amount_total",
+                    "amount_last_year",
+                    "donation_count",
+                    "last_donation",
+                )
+            },
+        ),
+        (
+            _("Advanced"),
+            {
+                "fields": (
+                    "active",
+                    "subscriptions",
+                    "subscriber",
+                    "become_user",
+                    "identifier",
+                    "attributes",
+                ),
+                "classes": ("collapse", "collapse-closed"),
+            },
+        ),
+    )
+
     actions = [
         "send_donor_optin_email",
         "merge_donors",
@@ -251,23 +329,25 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         return obj.donation_count
 
     donation_count.admin_order_field = "donation_count"
-    donation_count.short_description = "Anzahl"
+    donation_count.short_description = _("Donation count")
 
     def amount_total(self, obj):
-        return obj.amount_total
+        return formats.number_format(obj.amount_total or 0, decimal_pos=2)
 
     amount_total.admin_order_field = "amount_total"
 
     def amount_last_year(self, obj):
-        return obj.amount_last_year
+        return formats.number_format(obj.amount_last_year or 0, decimal_pos=2)
 
     amount_last_year.admin_order_field = "amount_last_year"
 
     def last_donation(self, obj):
-        return obj.last_donation
+        if obj.last_donation:
+            return formats.date_format(obj.last_donation, "DATETIME_FORMAT")
+        return "-"
 
     last_donation.admin_order_field = "last_donation"
-    last_donation.short_description = "Letzte Spende"
+    last_donation.short_description = _("Last donation")
 
     def get_name(self, obj):
         return str(obj)
@@ -588,6 +668,84 @@ class DonationAdmin(admin.ModelAdmin):
         "donor__company_name",
         "keyword",
         "reference",
+    )
+
+    readonly_fields = (
+        "timestamp",
+        "completed",
+        "received_timestamp",
+        "amount_received",
+        "email_sent",
+        "number",
+        "method",
+        "recurring",
+        "first_recurring",
+        "form_url",
+    )
+
+    fieldsets = (
+        (
+            _("Donation"),
+            {
+                "fields": (
+                    "donor",
+                    "timestamp",
+                    "amount",
+                    "amount_received",
+                    "received_timestamp",
+                    "completed",
+                    "method",
+                )
+            },
+        ),
+        (
+            _("Analytics"),
+            {
+                "fields": (
+                    "project",
+                    "purpose",
+                    "reference",
+                    "keyword",
+                    "number",
+                    "form_url",
+                    "recurring",
+                    "first_recurring",
+                )
+            },
+        ),
+        (
+            _("Admin"),
+            {
+                "fields": (
+                    "email_sent",
+                    "note",
+                    "receipt_date",
+                    "export_date",
+                )
+            },
+        ),
+        (
+            _("Payment"),
+            {
+                "fields": (
+                    "order",
+                    "payment",
+                    "identifier",
+                ),
+                "classes": ("collapse", "collapse-closed"),
+            },
+        ),
+        (
+            _("Advanced"),
+            {
+                "fields": (
+                    "data",
+                    "extra_action_url",
+                    "extra_action_label",
+                ),
+                "classes": ("collapse", "collapse-closed"),
+            },
+        ),
     )
 
     actions = [
