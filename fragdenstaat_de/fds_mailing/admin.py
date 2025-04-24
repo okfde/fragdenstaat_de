@@ -7,7 +7,7 @@ from django.db import models, transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse
-from django.utils import timezone
+from django.utils import formats, timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
@@ -118,9 +118,8 @@ class MailingAdmin(admin.ModelAdmin):
         "ready",
         "recipients",
         "sending_date",
-        "sending",
-        "sent",
-        "sent_percentage",
+        "status",
+        "open_rate",
         "publish",
     )
     list_filter = (
@@ -138,7 +137,58 @@ class MailingAdmin(admin.ModelAdmin):
         "sender_user",
         "sent_date",
         "sent",
+        "open_count",
+        "open_log_timestamp",
         "sending",
+    )
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "name",
+                    "newsletter",
+                    "segments",
+                )
+            },
+        ),
+        (
+            _("Mailing"),
+            {
+                "fields": (
+                    "email_template",
+                    "sender_name",
+                    "sender_email",
+                    "tracking",
+                    "publish",
+                    "sending_date",
+                    "ready",
+                )
+            },
+        ),
+        (
+            _("Status"),
+            {
+                "fields": (
+                    "created",
+                    "submitted",
+                    "sending",
+                    "sent",
+                    "sent_date",
+                    "open_count",
+                    "open_log_timestamp",
+                )
+            },
+        ),
+        (
+            _("User"),
+            {
+                "fields": (
+                    "creator_user",
+                    "sender_user",
+                )
+            },
+        ),
     )
     search_fields = ("name",)
     actions = ["trigger_continue_sending"]
@@ -185,20 +235,47 @@ class MailingAdmin(admin.ModelAdmin):
         extra_context["random_split_form"] = RandomSplitForm()
         return super().changelist_view(request, extra_context=extra_context)
 
+    @admin.display(description=_("Segments"))
     def segment_list(self, obj):
         return ", ".join([segment.name for segment in obj.segments.all()]) or "-"
 
-    def sent_percentage(self, obj):
+    @admin.display(description=_("Status"))
+    def status(self, obj):
+        if not (obj.sending or obj.sent):
+            if obj.submitted:
+                return _("Submitted")
+            if obj.ready:
+                return _("Ready")
+            else:
+                return _("Draft")
         if obj.total_recipients == 0:
-            return "-"
-        return "{0:.2f}%".format(obj.sent_recipients / obj.total_recipients * 100)
+            return _("Not sent")
+        sent_percentage = "{}%".format(
+            formats.number_format(
+                obj.sent_recipients / obj.total_recipients * 100, decimal_pos=1
+            )
+        )
+        if obj.sending:
+            return _("Sending...\u202f{}").format(sent_percentage)
+        return _("Sent\u202f{}").format(sent_percentage)
 
+    @admin.display(description=_("Recipients"))
     def recipients(self, obj):
         if obj.total_recipients == 0:
             return obj.get_recipient_count()
         return obj.total_recipients
 
-    recipients.short_description = _("Recipients")
+    @admin.display(description=_("Open rate"))
+    def open_rate(self, obj):
+        if not obj.tracking:
+            return "n/a"
+        if not (obj.sending or obj.sent):
+            return "..."
+        if obj.total_recipients == 0:
+            return "-"
+        return formats.number_format(
+            obj.open_count / obj.total_recipients * 100, decimal_pos=3
+        )
 
     def trigger_continue_sending(self, request, queryset):
         for mailing in queryset:
