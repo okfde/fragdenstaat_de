@@ -366,6 +366,16 @@ class Mailing(models.Model):
         default=False, verbose_name=_("sending"), editable=False
     )
 
+    open_count = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("open count"),
+        help_text=_("Number of times the email was opened."),
+    )
+    open_log_timestamp = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
     objects = models.Manager()
     published = PublishedMailingManager()
 
