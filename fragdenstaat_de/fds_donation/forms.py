@@ -1,6 +1,7 @@
 import base64
 import decimal
 import json
+import logging
 from urllib.parse import parse_qsl
 
 from django import forms
@@ -17,7 +18,6 @@ from froide_payment.models import CHECKOUT_PAYMENT_CHOICES_DICT
 from froide_payment.utils import interval_description
 
 from froide.account.utils import parse_address
-from froide.campaign.models import Campaign
 from froide.helper.content_urls import get_content_url
 from froide.helper.spam import SpamProtectionMixin
 from froide.helper.widgets import (
@@ -27,7 +27,11 @@ from froide.helper.widgets import (
 )
 
 from .models import (
+    INTERVAL_CHOICES,
     INTERVAL_SETTINGS_CHOICES,
+    ONCE,
+    ONCE_RECURRING,
+    RECURRING,
     SALUTATION_CHOICES,
     Donation,
     DonationGift,
@@ -38,6 +42,8 @@ from .services import get_or_create_donor
 from .utils import MERGE_DONOR_FIELDS
 from .validators import validate_not_too_many_uppercase
 from .widgets import AmountInput
+
+logger = logging.getLogger(__name__)
 
 PAYMENT_METHOD_LIST = (
     "sepa",
@@ -58,6 +64,12 @@ class DonationSettingsForm(forms.Form):
     title = forms.CharField(required=False)
     interval = forms.ChoiceField(
         choices=INTERVAL_SETTINGS_CHOICES,
+        required=False,
+        initial=ONCE_RECURRING,
+    )
+    interval_choices = forms.RegexField(
+        regex=r"(\d+(?:,\d+)*|\-)",
+        required=False,
     )
     amount_presets = forms.RegexField(
         regex=r"(\d+(?:,\d+)*|\-)",
@@ -84,12 +96,29 @@ class DonationSettingsForm(forms.Form):
     next_url = forms.CharField(required=False)
     next_label = forms.CharField(required=False)
 
+    def clean_interval_choices(self):
+        presets = self.cleaned_data["interval_choices"]
+        if not presets:
+            return DonationFormFactory.default["interval_choices"]
+        if "[" in presets:
+            presets = presets.replace("[", "").replace("]", "")
+        try:
+            values = [int(x.strip()) for x in presets.split(",") if x.strip()]
+            values = [
+                x
+                for x in values
+                if x in DonationFormFactory.default["interval_choices"]
+            ]
+            return values
+        except ValueError:
+            return []
+
     def clean_amount_presets(self):
         presets = self.cleaned_data["amount_presets"]
         if presets == "-":
             return []
         if not presets:
-            return [5, 20, 50]
+            return DonationFormFactory.default["amount_presets"]
         if "[" in presets:
             presets = presets.replace("[", "").replace("]", "")
         try:
@@ -124,13 +153,16 @@ class DonationSettingsForm(forms.Form):
         d = {}
         if self.is_valid():
             d = self.cleaned_data
+        else:
+            logger.warning(("Donation settings form not valid: %s", self.errors))
         return DonationFormFactory(**d).make_form(**kwargs)
 
 
 class DonationFormFactory:
     default = {
         "title": "",
-        "interval": "once_recurring",
+        "interval": ONCE_RECURRING,
+        "interval_choices": [x[0] for x in INTERVAL_CHOICES],
         "reference": "",
         "keyword": "",
         "purpose": "",
@@ -180,6 +212,11 @@ class DonationFormFactory:
             settings_form = DonationSettingsForm(data=raw_data)
             if settings_form.is_valid():
                 self.settings.update(settings_form.cleaned_data)
+            else:
+                logger.warning(
+                    "Donation settings form via data not valid: %s",
+                    settings_form.errors,
+                )
 
         kwargs.setdefault("initial", {})
         kwargs["initial"]["form_settings"] = self.serialize()
@@ -286,30 +323,28 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
                 MinValueValidator(self.settings["min_amount"])
             )
 
-        interval_choices = []
-        has_purpose = True
-        if "once" in self.settings["interval"]:
-            interval_choices.append(
-                ("0", _("once")),
-            )
-        else:
-            # No once option -> not choosing purpose
-            has_purpose = False
-            self.fields["purpose"].widget = forms.HiddenInput()
-        if "recurring" in self.settings["interval"]:
-            interval_choices.extend(
-                [
-                    ("1", _("monthly")),
-                    ("3", _("quarterly")),
-                    ("12", _("yearly")),
-                ]
-            )
-
+        interval_choices = self.get_interval_choices()
         self.fields["interval"].choices = interval_choices
-        if self.settings["interval"] == "once":
-            self.fields["interval"].initial = "0"
+
+        show_purpose = self.settings["interval"] != RECURRING
+        if len(interval_choices) == 1:
+            show_purpose = interval_choices[0][0] == 0
+            self.fields["interval"].initial = interval_choices[0][0]
             self.fields["interval"].widget = forms.HiddenInput()
-            self.fields["amount"].label = _("One time donation amount")
+            if interval_choices[0][0] == 0:
+                self.fields["amount"].label = _("One time donation amount")
+            else:
+                self.fields["amount"].label = _(
+                    "Your {recurring} donation amount"
+                ).format(recurring=interval_choices[0][1])
+
+        if all(x[0] > 0 for x in interval_choices):
+            # Don't show purpose if all interval options are recurring
+            show_purpose = False
+
+        if not show_purpose:
+            # No once option -> not choosing purpose
+            self.fields["purpose"].widget = forms.HiddenInput()
 
         self.fields["amount"].widget.presets = self.settings["amount_presets"]
         self.fields["reference"].initial = self.settings["reference"]
@@ -325,10 +360,40 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
             else:
                 purpose_choices = [(purpose, purpose) for purpose in purpose_split]
                 self.fields["purpose"].choices = purpose_choices
-        elif has_purpose:
-            choices = [(x.name, x.name) for x in Campaign.objects.get_filter_list()]
-            self.fields["purpose"].widget.choices.extend(choices)
-            self.fields["purpose"].choices.extend(choices)
+        else:
+            self.fields["purpose"].widget = forms.HiddenInput()
+
+    def get_interval_choices(self):
+        if self.settings["interval"] == ONCE:
+            interval_choices = [INTERVAL_CHOICES[0]]
+        elif not self.settings["interval_choices"]:
+            interval_choices = []
+            if self.settings["interval"] in (ONCE, ONCE_RECURRING):
+                interval_choices.append(INTERVAL_CHOICES[0])
+            if self.settings["interval"] in (ONCE_RECURRING, RECURRING):
+                interval_choices.append(INTERVAL_CHOICES[1:])
+        else:
+            interval_choices = self.settings["interval_choices"]
+            if self.settings["interval"] == RECURRING:
+                interval_choices = [
+                    x for x in interval_choices if x != INTERVAL_CHOICES[0][0]
+                ]
+            interval_choices = [x for x in INTERVAL_CHOICES if x[0] in interval_choices]
+        return interval_choices
+
+    @property
+    def prefilled_amount_label(self):
+        amount = self.initial.get("amount", self.settings["initial_amount"])
+        interval = self.initial.get("interval", self.settings["initial_interval"])
+        if interval > 0:
+            str_interval = interval_description(interval)
+            return _("{amount} EUR {str_interval}.").format(
+                amount=amount,
+                str_interval=str_interval,
+            )
+        return _("{amount} EUR.").format(
+            amount=amount,
+        )
 
     def clean(self):
         amount = self.cleaned_data.get("amount")
