@@ -75,6 +75,9 @@ importers:
       '@types/bootstrap':
         specifier: ^5.2.10
         version: 5.2.10
+      '@types/dompurify':
+        specifier: ^3.2.0
+        version: 3.2.0
       '@types/glidejs__glide':
         specifier: ^3.6.5
         version: 3.6.5
@@ -822,6 +825,10 @@ packages:
 
   '@types/bootstrap@5.2.10':
     resolution: {integrity: sha512-F2X+cd6551tep0MvVZ6nM8v7XgGN/twpdNDjqS1TUM7YFNEtQYWk+dKAnH+T1gr6QgCoGMPl487xw/9hXooa2g==}
+
+  '@types/dompurify@3.2.0':
+    resolution: {integrity: sha512-Fgg31wv9QbLDA0SpTOXO3MaxySc4DKGLi8sna4/Utjo4r3ZRPdCt4UQee8BWr+Q5z21yifghREPJGYaEOEIACg==}
+    deprecated: This is a stub types definition. dompurify provides its own type definitions, so you do not need this installed.
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
@@ -3627,6 +3634,10 @@ snapshots:
   '@types/bootstrap@5.2.10':
     dependencies:
       '@popperjs/core': 2.11.8
+
+  '@types/dompurify@3.2.0':
+    dependencies:
+      dompurify: 3.2.5
 
   '@types/estree@1.0.5': {}
 
