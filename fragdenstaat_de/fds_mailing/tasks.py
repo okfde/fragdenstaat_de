@@ -46,3 +46,12 @@ def continue_sending(mailing_id):
     finally:
         mailing.sending = False
         mailing.save()
+
+
+@celery_app.task(name="fragdenstaat_de.fds_mailing.process_pixel_log")
+def process_pixel_log():
+    from .pixel_log_parsing import PixelProcessor, get_pixel_log_generator
+
+    pixel_generator = get_pixel_log_generator()
+    processor = PixelProcessor(pixel_generator)
+    processor.run()
