@@ -1,6 +1,7 @@
 import base64
 import decimal
 import json
+from urllib.parse import parse_qsl
 
 from django import forms
 from django.conf import settings
@@ -237,6 +238,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
     reference = forms.CharField(required=False, widget=forms.HiddenInput())
     keyword = forms.CharField(required=False, widget=forms.HiddenInput())
     form_url = forms.CharField(required=False, widget=forms.HiddenInput())
+    query_params = forms.CharField(required=False, widget=forms.HiddenInput())
     payment_method = forms.ChoiceField(
         label=_("Payment method"),
         choices=PAYMENT_METHODS,
@@ -261,6 +263,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
 
         if hasattr(self, "request"):
             self.fields["form_url"].initial = self.request.path
+            self.fields["query_params"].initial = self.request.GET.urlencode()
 
         if self.settings["min_amount"] and self.settings["min_amount"] >= MIN_AMOUNT:
             self.fields["amount"].min_value = self.settings["min_amount"]
@@ -359,6 +362,10 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         if keyword.startswith(settings.SITE_URL):
             keyword = keyword.replace(settings.SITE_URL, "", 1)
 
+        query_params = dict(
+            parse_qsl(data.get("query_params", ""), keep_blank_values=True)
+        )
+
         donation = Donation.objects.create(
             donor=donor,
             amount=order.total_gross,
@@ -372,6 +379,10 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
             method=data.get("payment_method", ""),
             extra_action_url=self.settings.get("next_url", ""),
             extra_action_label=self.settings.get("next_label", ""),
+            data={
+                "query_params": query_params,
+                "form_settings": self.settings,
+            },
         )
         return donation
 
