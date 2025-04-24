@@ -23,10 +23,20 @@ from taggit.models import TagBase, TaggedItemBase
 
 from fragdenstaat_de.fds_newsletter.models import Subscriber
 
+ONCE = "once"
+RECURRING = "recurring"
+ONCE_RECURRING = "once_recurring"
+
 INTERVAL_SETTINGS_CHOICES = [
-    ("once", _("Only once")),
-    ("recurring", _("Only recurring")),
-    ("once_recurring", _("Both")),
+    (ONCE, _("Only once")),
+    (RECURRING, _("Only recurring")),
+    (ONCE_RECURRING, _("Both")),
+]
+INTERVAL_CHOICES = [
+    (0, _("once")),
+    (1, _("monthly")),
+    (3, _("quarterly")),
+    (12, _("yearly")),
 ]
 
 
@@ -547,6 +557,7 @@ def validate_allowed_host_and_scheme(value):
 class DonationFormCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=255, blank=True)
     interval = models.CharField(max_length=20, choices=INTERVAL_SETTINGS_CHOICES)
+    interval_choices = models.CharField(max_length=255, blank=True)
     amount_presets = models.CharField(max_length=255, blank=True)
     initial_amount = models.IntegerField(null=True, blank=True)
     initial_interval = models.IntegerField(null=True, blank=True)
@@ -596,6 +607,7 @@ class DonationFormCMSPlugin(CMSPlugin):
         plugin_data = {
             "title": self.title,
             "interval": self.interval,
+            "interval_choices": self.interval_choices,
             "amount_presets": self.amount_presets,
             "initial_amount": self.initial_amount,
             "initial_interval": self.initial_interval,
