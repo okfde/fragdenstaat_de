@@ -345,6 +345,7 @@ class Donation(models.Model):
     reference = models.CharField(max_length=255, blank=True)
     keyword = models.CharField(max_length=255, blank=True)
     form_url = models.CharField(max_length=255, blank=True)
+    data = models.JSONField(blank=True, default=dict)
 
     export_date = models.DateTimeField(null=True, blank=True)
     receipt_date = models.DateTimeField(null=True, blank=True)
