@@ -142,6 +142,7 @@ def test_validate_pixel_log():
 def test_processing_pixel_log():
     mailing = Mailing.objects.create(
         open_count=0,
+        tracking=True,
         ready=True,
         submitted=True,
         sending=True,
