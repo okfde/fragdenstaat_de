@@ -292,7 +292,19 @@ class EmailHeaderCMSPlugin(VariableTemplateMixin, CMSPlugin):
         return self.label
 
 
-class PublishedMailingManager(models.Manager):
+class MailingManager(models.Manager):
+    def get_tracked(self):
+        return (
+            self.get_queryset()
+            .filter(
+                tracking=True,
+                submitted=True,
+            )
+            .filter(models.Q(sending=True) | models.Q(sent=True))
+        )
+
+
+class PublishedMailingManager(MailingManager):
     def get_queryset(self) -> QuerySet:
         return (
             super()
@@ -377,7 +389,7 @@ class Mailing(models.Model):
         blank=True,
     )
 
-    objects = models.Manager()
+    objects = MailingManager()
     published = PublishedMailingManager()
 
     class Meta:
