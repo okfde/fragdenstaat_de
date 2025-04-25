@@ -273,8 +273,10 @@ class MailingAdmin(admin.ModelAdmin):
             return "..."
         if obj.total_recipients == 0:
             return "-"
-        return formats.number_format(
-            obj.open_count / obj.total_recipients * 100, decimal_pos=3
+        return "{}%".format(
+            formats.number_format(
+                obj.open_count / obj.total_recipients * 100, decimal_pos=3
+            )
         )
 
     def trigger_continue_sending(self, request, queryset):
