@@ -5,9 +5,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Generator, Iterable, List, Optional
-
-from django.conf import settings
+from typing import Generator, Iterable, Optional
 
 from dogtail import Dogtail
 
@@ -160,14 +158,12 @@ def read_pixel_log(
 
 
 def get_pixel_log_generator(
-    log_paths: List[str], offset_path: Optional[Path] = None
+    log_path: Path, offset_path: Optional[Path] = None
 ) -> Generator[VerifiedPixelPath, None, None]:
-    if log_paths is None:
-        PIXEL_LOG_PATH = settings.NEWSLETTER_PIXEL_LOG
-        log_paths = [
-            Path(PIXEL_LOG_PATH),
-            Path(PIXEL_LOG_PATH).with_suffix(".1"),
-        ]
+    log_paths = [
+        log_path,
+        log_path.with_suffix(".1"),
+    ]
     return read_pixel_log(DogtailPixelLogParser(log_paths, offset_path))
 
 
