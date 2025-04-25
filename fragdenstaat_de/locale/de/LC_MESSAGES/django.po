@@ -3861,15 +3861,27 @@ msgstr "Kategorien von Artikeln entfernen…"
 msgid "Slide banner with animation"
 msgstr "Banner mit Slide-Animation ausblenden"
 
-#~ msgid "See recipients"
-#~ msgstr "Empfänger:innen anzeigen"
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+msgid "See recipients"
+msgstr "Empfänger:innen anzeigen"
 
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
 #, python-format
-#~ msgid "Send on %(date)s"
-#~ msgstr "Versende am %(date)s"
+msgid "Send on %(date)s"
+msgstr "Versende am %(date)s"
 
-#~ msgid "Send now"
-#~ msgstr "Jetzt versenden"
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+msgid "Send now"
+msgstr "Jetzt versenden"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+#, python-format
+msgid "Sending to newsletter subscribers of %(segment_count)s segments"
+msgstr "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+msgid "Sending to all newsletter subscribers"
+msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
 
 #~ msgid "You are already subscribed to our newsletter."
 #~ msgstr "Sie sind schon in unserem Newsletter."
@@ -7856,14 +7868,6 @@ msgstr "Banner mit Slide-Animation ausblenden"
 
 #~ msgid "Edit article"
 #~ msgstr "Artikel bearbeiten"
-
-#, python-format
-#~ msgid "Sending to newsletter subscribers of %(segment_count)s segments"
-#~ msgstr ""
-#~ "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
-
-#~ msgid "Sending to all newsletter subscribers"
-#~ msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
 
 #~ msgid "request"
 #~ msgstr "anfrage"
