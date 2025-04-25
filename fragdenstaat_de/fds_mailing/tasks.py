@@ -70,6 +70,6 @@ def process_pixel_log():
         )
         return
 
-    pixel_generator = get_pixel_log_generator()
+    pixel_generator = get_pixel_log_generator(pixel_log_path)
     processor = PixelProcessor(pixel_generator)
     processor.run()
