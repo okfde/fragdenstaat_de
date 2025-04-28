@@ -112,10 +112,13 @@ def handle_unsubscribe(sender, email, reference, **kwargs):
     if not reference.startswith(REFERENCE_PREFIX):
         # not for us
         return
+    reference = reference[len(REFERENCE_PREFIX) :]
+    parts = reference.split("-", 1)
     try:
-        sub_id = int(reference.split(REFERENCE_PREFIX, 1)[1])
+        sub_id = int(parts[0])
     except ValueError:
         return
+    unsub_reference = "-".join(parts[1:])
     try:
         subscriber = Subscriber.objects.all().select_related("user").get(id=sub_id)
     except Subscriber.DoesNotExist:
@@ -124,7 +127,7 @@ def handle_unsubscribe(sender, email, reference, **kwargs):
     if (subscriber.email and subscriber.email.lower() == email) or (
         subscriber.user and subscriber.user.email.lower() == email
     ):
-        subscriber.unsubscribe(method="unsubscribe-mail")
+        subscriber.unsubscribe(method="unsubscribe-mail", reference=unsub_reference)
 
 
 def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):

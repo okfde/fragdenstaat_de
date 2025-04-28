@@ -576,6 +576,15 @@ class MailingMessage(models.Model):
                 ctx.update(obj.get_email_context())
         if "name" not in ctx:
             ctx["name"] = self.name
+
+        if "unsubscribe_reference" in ctx:
+            ctx["unsubscribe_reference"] += "-%s" % self.mailing.mailing_ident
+        if self.subscriber:
+            # Set unsubscribe URL again with unsubscribe reference
+            ctx["unsubscribe_url"] = self.subscriber.get_unsubscribe_url(
+                reference=self.mailing.mailing_ident
+            )
+
         if "pixel_url" not in ctx and self.mailing.tracking:
             ctx["pixel_url"] = self.generate_random_unique_pixel_url()
         return ctx
