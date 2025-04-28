@@ -111,6 +111,7 @@ class AuthorAdmin(admin.ModelAdmin):
     raw_id_fields = ("user",)
     actions = ["merge_authors"]
 
+    @admin.action(description=_("Merge selected authors"))
     def merge_authors(self, request, queryset):
         assert len(queryset) >= 1
         author = queryset[0]
