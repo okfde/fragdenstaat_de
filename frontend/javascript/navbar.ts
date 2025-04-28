@@ -1,3 +1,5 @@
+import { Dropdown } from 'bootstrap'
+
 import transitionDone from './misc/await-transition'
 
 const header = document.querySelector('#header')
@@ -98,7 +100,7 @@ function updateDropdowns(): void {
         trigger.setAttribute('tabindex', '-1')
       }
 
-      const dropdown = window.bootstrap.Dropdown.getInstance(trigger)
+      const dropdown = Dropdown.getInstance(trigger)
       dropdown?.dispose()
     } else {
       el.classList.add('dropdown')
@@ -108,7 +110,7 @@ function updateDropdowns(): void {
       trigger.classList.add('dropdown-toggle')
       target?.classList.add('dropdown-menu')
 
-      window.bootstrap.Dropdown.getOrCreateInstance(trigger)
+      Dropdown.getOrCreateInstance(trigger)
     }
   })
 }
