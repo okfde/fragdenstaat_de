@@ -3857,6 +3857,10 @@ msgstr "Suchbegriff"
 msgid "Remove category to articles..."
 msgstr "Kategorien von Artikeln entfernen…"
 
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Slide banner with animation"
+msgstr "Banner mit Slide-Animation ausblenden"
+
 #~ msgid "See recipients"
 #~ msgstr "Empfänger:innen anzeigen"
 
@@ -3872,9 +3876,6 @@ msgstr "Kategorien von Artikeln entfernen…"
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#~ msgid "Slide banner with animation"
-#~ msgstr "Banner mit Slide-Animation ausblenden"
 
 #, python-format
 #~ msgid "Newsletter from %(date)s"
