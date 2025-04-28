@@ -16,7 +16,6 @@ const r = (project, file) =>
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // eslint-disable-next-line no-undef
   base: process.env.ASSET_PATH || '/static/',
   publicDir: false,
   resolve: {
@@ -27,7 +26,7 @@ export default defineConfig(({ mode }) => ({
     extensions: ['.mjs', '.js', '.ts', '.vue', '.json']
   },
   build: {
-    manifest: true,
+    manifest: 'manifest.json',
     emptyOutDir: true,
     outDir: outputDir,
     sourcemap: true,
@@ -69,17 +68,17 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: '[name].js',
         chunkFileNames: 'js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name.endsWith('.css')) {
+          // TODO: assetInfo.name is deprecated. Use names instead.
+          if (assetInfo.name?.endsWith('.css')) {
             return 'css/[name][extname]'
           } else if (
-            assetInfo.name.match(/(\.(woff2?|eot|ttf|otf)|font\.svg)(\?.*)?$/)
+            assetInfo.name?.match(/(\.(woff2?|eot|ttf|otf)|font\.svg)(\?.*)?$/)
           ) {
             return 'fonts/[name][extname]'
-          } else if (assetInfo.name.match(/\.(jpg|png|svg)$/)) {
+          } else if (assetInfo.name?.match(/\.(jpg|png|svg)$/)) {
             return 'img/[name][extname]'
           }
 
-          console.log('assetInfo', assetInfo)
           return 'js/[name][extname]'
         }
       }
