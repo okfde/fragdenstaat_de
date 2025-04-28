@@ -172,6 +172,7 @@ class Subscriber(models.Model):
         verbose_name=_("unsubscribe date"), null=True, blank=True
     )
     unsubscribe_method = models.CharField(max_length=255, blank=True)
+    unsubscribe_reference = models.CharField(max_length=255, blank=True)
     email_hash = models.CharField(max_length=64, blank=True)
 
     reference = models.CharField(max_length=255, blank=True)
