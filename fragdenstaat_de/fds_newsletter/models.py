@@ -283,18 +283,23 @@ class Subscriber(models.Model):
             },
         )
 
-    def get_unsubscribe_url(self):
+    def get_unsubscribe_url(self, reference=""):
+        unsub_ref = ""
+        if reference:
+            unsub_ref = f"?pk_campaign={reference}"
         if self.user:
-            return (
-                self.user.get_autologin_url(reverse("account-settings")) + "#newsletter"
+            return f"{self.user.get_autologin_url(reverse('account-settings'))}{unsub_ref}#newsletter"
+        return (
+            settings.SITE_URL
+            + reverse(
+                "newsletter_confirm_unsubscribe",
+                kwargs={
+                    "newsletter_slug": self.newsletter.slug,
+                    "pk": self.pk,
+                    "activation_code": self.activation_code,
+                },
             )
-        return settings.SITE_URL + reverse(
-            "newsletter_confirm_unsubscribe",
-            kwargs={
-                "newsletter_slug": self.newsletter.slug,
-                "pk": self.pk,
-                "activation_code": self.activation_code,
-            },
+            + unsub_ref
         )
 
     def find_user(self):
@@ -348,12 +353,13 @@ class Subscriber(models.Model):
         subscribed.send(sender=self, batch=batch)
         return self
 
-    def unsubscribe(self, method=""):
+    def unsubscribe(self, method="", reference=""):
         if self.unsubscribed:
             return
         self.subscribed = None
         self.unsubscribed = timezone.now()
         self.unsubscribe_method = method
+        self.unsubscribe_reference = reference
         self.save()
         unsubscribed.send(sender=self)
 
