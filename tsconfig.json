@@ -23,6 +23,6 @@
   },
   "include": [
     "./frontend/**/*",
-    "vite.config.js"
+    "vite.config.ts"
   ]
 }
