@@ -1,8 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface Window {
-  _paq: undefined | Array<Array<string | string[]>>
-}
-
 const MATOMO_DOMAIN = 'https://traffic.okfn.de'
 
 window._paq = window._paq ?? []
