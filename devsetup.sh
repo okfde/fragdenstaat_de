@@ -116,35 +116,48 @@ dependencies() {
     install_precommit "$name"
   done
 }
-
 frontend() {
   echo "Installing frontend dependencies..."
 
-  # we need to link globally since local linking adjusts the lockfile
-  for name in "${FRONTEND_DIR[@]}"; do
-    pushd $name
-    pnpm link --global
-    popd
+  safe_global_link () {
+    # $1 = directory of the package     (e.g. froide-food)
+    # $2 = optional target to link to   (e.g. froide)
+    local pkg_dir=$1
+    shift
+
+    # Figure out the package name from package.json
+    local pkg_name
+    pkg_name=$(jq -r .name <"$pkg_dir/package.json")
+
+    # If it’s already linked globally → unlink first
+    if pnpm ls -g --depth -1 | grep -q " $pkg_name@"; then
+      echo "Unlinking previously linked $pkg_name"
+      pnpm unlink --global "$pkg_name" || true
+    fi
+
+    echo "Linking $pkg_name globally"
+    (cd "$pkg_dir" && pnpm link --global "$@")
+  }
+
+  # ---- Step 1 - link everything globally --------------------------------
+  for dir in "${FRONTEND_DIR[@]}"; do
+    safe_global_link "$dir"
   done
 
-  for name in "${FROIDE_PEERS[@]}"; do
-    pushd $name
-    pnpm link --global "froide"
-    popd
+  for dir in "${FROIDE_PEERS[@]}"; do
+    safe_global_link "$dir" "froide"
   done
 
-  for name in "${FRONTEND_DIR[@]}"; do
-    pushd $name
-    pnpm install
-    popd
+  # ---- Step 2 - install local deps ---------------------------------------
+  for dir in "${FRONTEND_DIR[@]}"; do
+    (cd "$dir" && pnpm install)
   done
 
-  pushd $MAIN
-  pnpm install
+  # ---- Step 3 - install root deps and re-link into the main workspace ----
+  (cd "$MAIN" && pnpm install)
   for name in "${FRONTEND[@]}"; do
     pnpm link --global "$name"
   done
-  popd
 }
 
 upgrade_frontend_repos() {
