@@ -3853,6 +3853,10 @@ msgstr "Zurück"
 msgid "Enter search term"
 msgstr "Suchbegriff"
 
+#: fragdenstaat_de/fds_blog/admin.py
+msgid "Remove category to articles..."
+msgstr "Kategorien von Artikeln entfernen…"
+
 #~ msgid "See recipients"
 #~ msgstr "Empfänger:innen anzeigen"
 
@@ -7859,9 +7863,6 @@ msgstr "Suchbegriff"
 
 #~ msgid "Sending to all newsletter subscribers"
 #~ msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
-
-#~ msgid "Remove category to articles..."
-#~ msgstr "Kategorien von Artikeln entfernen…"
 
 #~ msgid "request"
 #~ msgstr "anfrage"
