@@ -86,6 +86,8 @@ class Newsletter(models.Model):
     title = models.CharField(max_length=200, verbose_name=_("newsletter title"))
     slug = models.SlugField(db_index=True, unique=True)
     url = models.URLField(blank=True)
+    subscribed_url = models.URLField(blank=True)
+    unsubscribed_url = models.URLField(blank=True)
 
     description = models.TextField(blank=True)
 
@@ -445,8 +447,10 @@ UNSUBSCRIBE_REASONS = [
 
 
 class UnsubscribeFeedback(models.Model):
-    reason = models.CharField(max_length=50, choices=UNSUBSCRIBE_REASONS)
-    comment = models.TextField(blank=True)
+    reason = models.CharField(
+        verbose_name=_("Reason"), max_length=50, choices=UNSUBSCRIBE_REASONS
+    )
+    comment = models.TextField(verbose_name=_("Comment"), blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE)
