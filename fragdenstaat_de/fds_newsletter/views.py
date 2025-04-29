@@ -113,7 +113,7 @@ def confirm_subscribe(request, newsletter_slug=None, pk=None, activation_code=No
         request, messages.INFO, _("You now receive the %s." % newsletter.title)
     )
 
-    return redirect(newsletter.url or "/")
+    return redirect(newsletter.subscribed_url or "/")
 
 
 def confirm_unsubscribe(request, newsletter_slug=None, pk=None, activation_code=None):
@@ -180,7 +180,7 @@ def unsubscribe_feedback(request, newsletter_slug=None):
                 request, messages.SUCCESS, _("Thank you for your feedback!")
             )
 
-            return redirect(newsletter.url or "/")
+            return redirect(newsletter.unsubscribed_url or "/")
     else:
         form = UnsubscribeFeedbackForm()
 
