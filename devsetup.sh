@@ -1,5 +1,40 @@
 #!/bin/bash
+# Exit on errors
 set -e
+
+# On macOS with Homebrew, auto-detect GeoDjango libraries (GDAL, GEOS)
+if [ "$(uname)" = "Darwin" ] && command -v brew >/dev/null 2>&1; then
+  for pkg in gdal geos imagemagick; do
+    prefix=$(brew --prefix "$pkg" 2>/dev/null || true)
+    if [ -n "$prefix" ] && [ -d "$prefix/lib" ]; then
+      # Append this lib dir to DYLD path container
+      if [ -z "${FRAGDENSTAAT_DYLD_LIBRARY_PATH:-}" ]; then
+        export FRAGDENSTAAT_DYLD_LIBRARY_PATH="$prefix/lib"
+      else
+        export FRAGDENSTAAT_DYLD_LIBRARY_PATH="$FRAGDENSTAAT_DYLD_LIBRARY_PATH:$prefix/lib"
+      fi
+      echo "Auto-added $prefix/lib to FRAGDENSTAAT_DYLD_LIBRARY_PATH"
+      # Export direct Django env var so ctypes can find the right dylib
+      case "$pkg" in
+        gdal)
+          libfile="$prefix/lib/libgdal.dylib"
+          export GDAL_LIBRARY_PATH="$libfile"
+          echo "Auto-set GDAL_LIBRARY_PATH=$libfile"
+          ;;
+        geos)
+          libfile="$prefix/lib/libgeos_c.dylib"
+          export GEOS_LIBRARY_PATH="$libfile"
+          echo "Auto-set GEOS_LIBRARY_PATH=$libfile"
+          ;;
+        imagemagick)
+          # Set MAGICK_HOME so wand.api can locate its libraries
+          export MAGICK_HOME="$prefix"
+          echo "Auto-set MAGICK_HOME=$prefix"
+          ;;
+      esac
+    fi
+  done
+fi
 
 # macOS's System Integrity Protection purges the environment variables controlling
 # `dyld` when launching protected processes (https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/RuntimeProtections/RuntimeProtections.html#//apple_ref/doc/uid/TP40016462-CH3-SW1)
@@ -67,6 +102,23 @@ venv() {
   python3 --version
   pnpm --version
   uv --version
+  # Check for GDAL system library (needed for GIS support)
+  if ! command -v gdalinfo >/dev/null 2>&1; then
+    echo "Error: GDAL not found. Please install GDAL (e.g. 'brew install gdal' or 'sudo apt-get install libgdal-dev gdal-bin')."
+    exit 1
+  fi
+  # If installed via Homebrew, point Django at the dylib
+  if command -v brew >/dev/null 2>&1; then
+    # brew --prefix gdal may return Cellar path; lib is in lib/
+    _prefix=$(brew --prefix gdal 2>/dev/null || true)
+    if [ -n "$_prefix" ]; then
+      _lib="$_prefix/lib/libgdal.dylib"
+      if [ -f "$_lib" ]; then
+        export GDAL_LIBRARY_PATH="$_lib"
+        echo "Using GDAL_LIBRARY_PATH=$_lib"
+      fi
+    fi
+  fi
 
   if [ ! -d fds-env ]; then
     if ask "Do you want to create a virtual environment using $(python3 --version)?" Y; then
