@@ -288,7 +288,7 @@ class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
     )
 
     remove_category = make_choose_object_action(
-        Category, remove_category_on_articles, _("Remove category to articles...")
+        Category, remove_category_on_articles, _("Remove category from articles...")
     )
 
     # def __init__(self, model, admin_site):
