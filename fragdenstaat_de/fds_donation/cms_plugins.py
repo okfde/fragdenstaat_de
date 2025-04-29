@@ -13,6 +13,7 @@ from fragdenstaat_de.fds_mailing.cms_plugins import EmailRenderMixin, EmailTempl
 from .models import (
     DefaultDonation,
     DonationFormCMSPlugin,
+    DonationFormViewCount,
     DonationGiftFormCMSPlugin,
     DonationProgressBarCMSPlugin,
     Donor,
@@ -67,6 +68,7 @@ class DonationFormPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         request = context["request"]
+        DonationFormViewCount.objects.handle_request(request)
         context["object"] = instance
         context["form"] = instance.make_form(
             user=request.user,

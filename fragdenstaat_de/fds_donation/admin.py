@@ -44,6 +44,7 @@ from .models import (
     DeferredDonation,
     Donation,
     DonationFormCMSPlugin,
+    DonationFormViewCount,
     DonationGift,
     DonationGiftOrder,
     Donor,
@@ -1283,3 +1284,18 @@ class DonationFormAdmin(admin.ModelAdmin):
             return obj.placeholder.page.get_absolute_url()
         except AttributeError:
             return False
+
+
+@admin.register(DonationFormViewCount)
+class DonationFormViewCountAdmin(admin.ModelAdmin):
+    list_display = (
+        "path",
+        "reference",
+        "count",
+        "last_updated",
+    )
+    search_fields = (
+        "path",
+        "reference",
+    )
+    date_hierarchy = "last_updated"

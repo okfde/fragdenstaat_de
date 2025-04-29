@@ -5,7 +5,7 @@ from urllib.parse import urlencode
 from django.conf import settings
 from django.contrib.postgres.fields import HStoreField
 from django.core.exceptions import ValidationError
-from django.db import models
+from django.db import connection, models
 from django.db.models.functions import RowNumber
 from django.urls import reverse
 from django.utils import timezone
@@ -20,6 +20,8 @@ from djangocms_frontend.fields import AttributesField
 from froide_payment.models import Order, Payment, PaymentStatus, Subscription
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
+
+from froide.helper.spam import suspicious_ip
 
 from fragdenstaat_de.fds_newsletter.models import Subscriber
 
@@ -684,3 +686,53 @@ class EmailDonationButtonCMSPlugin(CMSPlugin):
             "action_label": self.action_label,
             "action_url": action_url,
         }
+
+
+class DonationFormViewCountManager(models.Manager):
+    def handle_request(self, request):
+        if request.user.is_staff:
+            return
+        reference = request.GET.get("pk_campaign", "")
+        if suspicious_ip(request) is not None:
+            return
+        self.increment(request.path, reference)
+
+    def increment(self, path, reference):
+        """
+        Uses raw SQL to increment the view count for a given path and reference.
+        Django update_or_create does not support incrementing a field in the same way and would require two queries.
+        https://code.djangoproject.com/ticket/25195
+        """
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                INSERT INTO fds_donation_donationformviewcount(path, reference, count, last_updated) VALUES (%s, %s, 1, now())
+                ON CONFLICT (path, reference) DO UPDATE SET count = fds_donation_donationformviewcount.count + 1, last_updated = now();
+            """,
+                [path, reference],
+            )
+
+
+class DonationFormViewCount(models.Model):
+    path = models.CharField(max_length=255)
+    reference = models.CharField(max_length=255, blank=True)
+    count = models.PositiveBigIntegerField(default=0)
+    last_updated = models.DateTimeField(default=timezone.now)
+
+    objects = DonationFormViewCountManager()
+
+    def __str__(self):
+        return f"{self.reference}: {self.count} ({self.last_updated})"
+
+    class Meta:
+        verbose_name = _("Donation Form View Count")
+        verbose_name_plural = _("Donation Form View Counts")
+        ordering = ("-last_updated",)
+        indexes = [
+            models.Index(fields=["path", "reference"]),
+        ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["path", "reference"], name="unique_path_ref"
+            )
+        ]
