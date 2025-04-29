@@ -415,6 +415,10 @@ class NewsletterSubscriberTest(TestCase):
         unsub_url = subscriber.get_unsubscribe_url()
         unsub_path = urlparse(unsub_url).path
         response = self.client.get(unsub_path)
+        self.assertEqual(response.status_code, 200)
+
+        # Should auto-post
+        response = self.client.post(unsub_path)
         self.assertEqual(response.status_code, 302)
 
         subscriber.refresh_from_db()
@@ -422,6 +426,25 @@ class NewsletterSubscriberTest(TestCase):
         self.assertIsNone(subscriber.subscribed)
         self.assertIsNotNone(subscriber.unsubscribed)
         self.assertIsNotNone(subscriber.unsubscribe_method, "unsubscribe-link")
+
+    def test_newsletter_unsubscribe_link_reference(self):
+        subscriber = Subscriber.objects.create(
+            newsletter=self.nl, email=self.email_1, subscribed=timezone.now()
+        )
+        unsub_url = subscriber.get_unsubscribe_url(reference="unsubref")
+        response = self.client.get(unsub_url)
+        self.assertEqual(response.status_code, 200)
+
+        post_url = response.context["form_action"]
+        response = self.client.post(post_url)
+        self.assertEqual(response.status_code, 302)
+
+        subscriber.refresh_from_db()
+
+        self.assertIsNone(subscriber.subscribed)
+        self.assertIsNotNone(subscriber.unsubscribed)
+        self.assertIsNotNone(subscriber.unsubscribe_method, "unsubscribe-link")
+        self.assertIsNotNone(subscriber.unsubscribe_reference, "unsubref")
 
     def test_subscribe_from_follow(self):
         class FakeFollower:
