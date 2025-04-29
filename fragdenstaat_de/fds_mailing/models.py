@@ -609,6 +609,9 @@ class MailingMessage(models.Model):
         if not self.email:
             self.delete()
             return
+        if not self.mailing.sending:
+            logger.error("Mailing %s not sending, not sending message", self.mailing)
+            return
 
         context = self.get_email_context()
         if mailing_context is not None:
