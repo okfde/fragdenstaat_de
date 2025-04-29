@@ -121,17 +121,23 @@ def confirm_unsubscribe(request, newsletter_slug=None, pk=None, activation_code=
     subscriber = get_object_or_404(
         Subscriber, newsletter=newsletter, pk=pk, activation_code=activation_code
     )
-    subscriber.unsubscribe(
-        method="unsubscribe-link", reference=request.GET.get("pk_campaign", "")
-    )
-
-    return redirect(
-        reverse(
-            "newsletter_unsubscribe_feedback",
-            kwargs={"newsletter_slug": newsletter.slug},
+    if request.method == "POST":
+        subscriber.unsubscribe(
+            method="unsubscribe-link", reference=request.GET.get("pk_campaign", "")
         )
-        + "?activation_code="
-        + activation_code
+
+        return redirect(
+            reverse(
+                "newsletter_unsubscribe_feedback",
+                kwargs={"newsletter_slug": newsletter.slug},
+            )
+            + "?activation_code="
+            + activation_code
+        )
+    return render(
+        request,
+        "fds_newsletter/unsubscribe.html",
+        {"form_action": request.get_full_path()},
     )
 
 
