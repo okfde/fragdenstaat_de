@@ -129,10 +129,16 @@ frontend() {
     local pkg_name
     pkg_name=$(jq -r .name <"$pkg_dir/package.json")
 
-    # If it’s already linked globally → unlink first
+    # If it's already linked globally - unlink first
     if pnpm ls -g --depth -1 | grep -q " $pkg_name@"; then
       echo "Unlinking previously linked $pkg_name"
       pnpm unlink --global "$pkg_name" || true
+    fi
+
+    # Skip linking if the peer target is the same as this package directory
+    if [ "$#" -gt 0 ] && [ "$(cd \"$pkg_dir\" && pwd -P)" = "$(cd \"$1\" && pwd -P)" ]; then
+      echo "  $pkg_name already provides peer \"$1\" - skipping"
+      return 0
     fi
 
     echo "Linking $pkg_name globally"
@@ -153,11 +159,16 @@ frontend() {
     (cd "$dir" && pnpm install)
   done
 
-  # ---- Step 3 - install root deps and re-link into the main workspace ----
-  (cd "$MAIN" && pnpm install)
-  for name in "${FRONTEND[@]}"; do
-    pnpm link --global "$name"
-  done
+  # ---- Step 3 - install root deps and link frontend packages into main workspace ----
+  (cd "$MAIN" && pnpm install && \
+    for name in "${FRONTEND[@]}"; do \
+      if [ -L node_modules/"$name" ]; then \
+        echo "  $name already linked - skipping"; \
+      else \
+        pnpm link "$name"; \
+      fi; \
+    done \
+  )
 }
 
 upgrade_frontend_repos() {
