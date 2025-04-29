@@ -3,7 +3,7 @@ import io
 
 from django.contrib import admin, messages
 from django.core.exceptions import PermissionDenied
-from django.db import models, transaction
+from django.db import models
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse
@@ -25,7 +25,7 @@ from fragdenstaat_de.theme.admin import PublicBodyAdmin
 
 from .forms import RandomSplitForm
 from .models import EmailTemplate, Mailing, MailingMessage
-from .tasks import continue_sending, send_mailing
+from .tasks import continue_sending
 from .utils import add_fake_context
 
 
@@ -358,19 +358,7 @@ class MailingAdmin(admin.ModelAdmin):
             messages.error(request, _("Mailing sending date in the past."))
             return redirect(change_url)
 
-        mailing.submitted = True
-        if not mailing.sending_date:
-            mailing.sending_date = timezone.now()
-        mailing.sender_user = request.user
-        mailing.save()
-
-        transaction.on_commit(
-            lambda: send_mailing.apply_async(
-                (mailing.id, mailing.sending_date),
-                eta=mailing.sending_date,
-                retry=False,
-            )
-        )
+        mailing.submit(request.user)
 
         messages.info(request, _("Your mailing is being sent."))
 

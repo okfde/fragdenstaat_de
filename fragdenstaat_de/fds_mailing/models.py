@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import EmailMultiAlternatives, mail_managers
-from django.db import models
+from django.db import models, transaction
 from django.db.models.query import QuerySet
 from django.template import Context, Template
 from django.template.loader import render_to_string
@@ -28,6 +28,7 @@ from fragdenstaat_de.fds_donation.models import Donor
 from fragdenstaat_de.fds_newsletter.models import Newsletter, Segment, Subscriber
 from fragdenstaat_de.fds_newsletter.utils import get_subscribers
 
+from . import mailing_submitted
 from .pixel_log import generate_random_unique_pixel_url
 from .utils import get_url_tagger, render_text
 
@@ -469,6 +470,24 @@ class Mailing(models.Model):
             html = url_tagger(html)
 
         return EmailContent(email_content.subject, text, html)
+
+    def submit(self, user):
+        from .tasks import send_mailing
+
+        self.submitted = True
+        if not self.sending_date:
+            self.sending_date = timezone.now()
+        self.sender_user = user
+        self.save()
+
+        transaction.on_commit(
+            lambda: send_mailing.apply_async(
+                (self.id, self.sending_date),
+                eta=self.sending_date,
+                retry=False,
+            )
+        )
+        mailing_submitted.send(sender=self, mailing=self)
 
     def send(self):
         if self.sending or self.sent or not self.submitted:
