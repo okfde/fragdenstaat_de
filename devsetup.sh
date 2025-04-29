@@ -1,6 +1,32 @@
 #!/bin/bash
 set -e
 
+# Guard against unsupported Python versions for PyTorch (only Python 3.12 and below)
+PY_MAJOR=$(python3 -c 'import sys; print(sys.version_info.major)')
+PY_MINOR=$(python3 -c 'import sys; print(sys.version_info.minor)')
+if [ "$PY_MAJOR" -eq 3 ] && [ "$PY_MINOR" -gt 12 ]; then
+  cat <<EOF
+
+ERROR: Python $PY_MAJOR.$PY_MINOR detected. This project requires Python <=3.12 due to PyTorch compatibility.
+Please install and activate Python 3.12.x (e.g., 3.12.10). For example:
+
+  # Using pyenv
+  brew install pyenv
+  pyenv install 3.12.10
+  pyenv local 3.12.10
+
+  # Or via Homebrew only
+  brew install python@3.12
+  export PATH="/usr/local/opt/python@3.12/bin:$PATH"
+
+  # Or use your preferred tool (conda, apt, etc.) to get Python 3.12 and ensure `python3` in your PATH points to it.
+
+Then re-run devsetup.sh.
+
+EOF
+  exit 1
+fi
+
 # macOS's System Integrity Protection purges the environment variables controlling
 # `dyld` when launching protected processes (https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/RuntimeProtections/RuntimeProtections.html#//apple_ref/doc/uid/TP40016462-CH3-SW1)
 # This causes macOS to remove the DYLD_ env variables when running this script, so we have to set them again
@@ -62,7 +88,7 @@ install_precommit() {
 }
 
 venv() {
-  echo "You need python >= 3.10, uv and pnpm installed."
+  echo "You need python >=3.10,<3.13 (3.10, 3.11 or 3.12), uv and pnpm installed."
 
   python3 --version
   pnpm --version
