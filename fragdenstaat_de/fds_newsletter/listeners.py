@@ -87,12 +87,17 @@ def cancel_user(sender, user=None, **kwargs):
     ).delete()
 
 
-def subscribe_follower(sender, **kwargs):
+def subscribe_follower(sender, request=None, **kwargs):
     if not sender.confirmed:
         return
-    if not sender.context:
-        return
-    if not sender.context.get("newsletter"):
+
+    newsletter_reference = None
+    if sender.context and sender.context.get("newsletter"):
+        newsletter_reference = "follow_extra"
+    elif request is not None and request.GET.get("newsletter"):
+        newsletter_reference = "follow_extra_emaillink"
+
+    if newsletter_reference is None:
         return
 
     email = sender.email
@@ -103,7 +108,7 @@ def subscribe_follower(sender, **kwargs):
         email,
         user=sender.user,
         email_confirmed=True,
-        reference="follow_extra",
+        reference=newsletter_reference,
         keyword="{}:{}".format(sender._meta.label_lower, sender.content_object_id),
     )
 
