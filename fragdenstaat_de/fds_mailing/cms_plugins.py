@@ -71,7 +71,13 @@ class EmailButtonPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     allow_children = False
     render_template_template = "email/{name}/button_plugin.html"
 
+    def render(self, context, instance, placeholder):
+        instance.attributes.setdefault("color", "#ffffff")
+        instance.attributes.setdefault("background-color", "#3676ff")
+        return super().render(context, instance, placeholder)
+
     def render_text(self, context, instance):
+        context = instance.get_context()
         return """
 {action_label}
 
