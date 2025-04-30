@@ -1291,6 +1291,7 @@ class DonationFormViewCountAdmin(admin.ModelAdmin):
     list_display = (
         "path",
         "reference",
+        "date",
         "count",
         "last_updated",
     )
@@ -1298,4 +1299,4 @@ class DonationFormViewCountAdmin(admin.ModelAdmin):
         "path",
         "reference",
     )
-    date_hierarchy = "last_updated"
+    date_hierarchy = "date"
