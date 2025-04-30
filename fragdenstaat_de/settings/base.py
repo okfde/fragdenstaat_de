@@ -262,7 +262,7 @@ class FragDenStaatBase(German, Base):
         ("cms/pub_base.html", "Book Publication template"),
         ("froide_govplan/base.html", "Govplan base template"),
     ]
-    DONATION_LOGIC_PLUGINS = [
+    EMAIL_BODY_PLUGINS = [
         "IsDonorPlugin",
         "IsNotDonorPlugin",
         "IsRecurringDonorPlugin",
@@ -274,19 +274,21 @@ class FragDenStaatBase(German, Base):
         "IsNewsletterSubscriberPlugin",
         "IsNotNewsletterSubscriberPlugin",
         "EmailDonationButtonPlugin",
+        "TextPlugin",
+        "EmailActionPlugin",
+        "EmailSectionPlugin",
+        "EmailStoryPlugin",
+        "EmailHeaderPlugin",
+        "PicturePlugin",
+        "EmailButtonPlugin",
+        "ConditionPlugin",
     ]
     CMS_PLACEHOLDER_CONF = {
         "email_body": {
             "plugins": [
-                "TextPlugin",
-                "EmailActionPlugin",
-                "EmailSectionPlugin",
-                "EmailStoryPlugin",
                 "EmailBodyPlugin",
-                "EmailHeaderPlugin",
-                "PicturePlugin",
             ]
-            + DONATION_LOGIC_PLUGINS,
+            + EMAIL_BODY_PLUGINS,
             "text_only_plugins": [],
             "name": _("E-Mail Body"),
             "language_fallback": True,

@@ -1,0 +1,12 @@
+{% load cms_tags %}
+{% if should_render %}
+    {% for plugin in instance.child_plugin_instances %}
+        {% if object.template == "mjml" and plugin.plugin_type == "TextPlugin" %}
+            <mj-text>
+            {% render_plugin plugin %}
+            </mj-text>
+        {% else %}
+            {% render_plugin plugin %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
