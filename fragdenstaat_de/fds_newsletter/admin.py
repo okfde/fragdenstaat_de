@@ -259,7 +259,8 @@ class SubscriberTagAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         qs = qs.annotate(
             subscriber_count=Count(
-                "subscribers", filter=Q(subscribers__subscribed__isnull=False)
+                "subscribers",
+                filter=Q(subscribers__content_object__subscribed__isnull=False),
             )
         )
         return qs
