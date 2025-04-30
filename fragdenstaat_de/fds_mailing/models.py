@@ -704,3 +704,27 @@ class NewsletterArchiveCMSPlugin(CMSPlugin):
         default=6,
         help_text=_("0 means all the mailings. Should be devisible by 3."),
     )
+
+
+class ConditionCMSPlugin(CMSPlugin):
+    context_key = models.CharField(
+        max_length=255,
+        help_text=_("Key to check in the context."),
+    )
+    context_value = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text=_("Optional value to check on key. Checks for presence if empty."),
+    )
+    negate = models.BooleanField(
+        default=False,
+        help_text=_("Negate the condition."),
+    )
+
+    def __str__(self):
+        return "%s%s%s%s" % (
+            "not " if self.negate else "",
+            self.context_key,
+            " == " if self.context_value else "",
+            self.context_value,
+        )

@@ -8,6 +8,7 @@ from cms.plugin_pool import plugin_pool
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
 
 from .models import (
+    ConditionCMSPlugin,
     EmailActionCMSPlugin,
     EmailButtonCMSPlugin,
     EmailHeaderCMSPlugin,
@@ -26,7 +27,7 @@ class EmailTemplateMixin:
         if obj is not None:
             template_base = obj.template
         template_name = self.render_template_template.format(name=template_base)
-        if template_base == "mjml":
+        if "{name}" in self.render_template_template and template_base == "mjml":
             template_name = template_name.replace(".html", ".mjml")
         try:
             get_template(template_name)
@@ -204,3 +205,58 @@ class NewsletterArchivePlugin(CMSPluginBase):
         context["latest"] = latest_mailings
 
         return context
+
+
+@plugin_pool.register_plugin
+class ConditionPlugin(CMSPluginBase):
+    model = ConditionCMSPlugin
+    module = _("Email")
+    name = _("Condition")
+    allow_children = True
+    render_template_template = "email/condition.html"
+
+    def get_render_template(self, context, instance, placeholder):
+        return self.render_template_template
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context["should_render"] = self.should_render(instance, context)
+        return context
+
+    def should_render(self, instance, context):
+        value = self.get_context_value(instance, context)
+        if instance.context_value:
+            result = self.compare_context_value(instance, context, value)
+        else:
+            result = value is not None
+        if instance.negate:
+            result = not result
+        return result
+
+    def compare_context_value(self, instance, context, value):
+        if instance.context_value == "True":
+            return value is True
+        elif instance.context_value == "False":
+            return value is False
+        elif instance.context_value == "None":
+            return value is None
+        else:
+            return str(value) == str(instance.context_value)
+
+    def get_context_value(self, instance, context):
+        key_list = instance.context_key.split(".")
+        for key in key_list:
+            try:
+                context = context[key]
+            except (KeyError, TypeError):
+                try:
+                    context = getattr(context, key)
+                except AttributeError:
+                    return None
+        return context
+
+    def render_text(self, context, instance):
+        if self.should_render(instance, context):
+            children = get_plugin_children(instance)
+            return "\n\n".join(render_plugin_text(context, c) for c in children).strip()
+        return ""
