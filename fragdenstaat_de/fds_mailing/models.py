@@ -17,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 from cms.models.fields import PlaceholderRelationField
 from cms.models.pluginmodel import CMSPlugin
 from cms.utils.placeholder import get_placeholder_from_slot
+from djangocms_frontend.fields import AttributesField
 from filer.fields.image import FilerImageField
 from mjml import mjml2html
 
@@ -254,6 +255,19 @@ class EmailActionCMSPlugin(VariableTemplateMixin, CMSPlugin):
 
     def __str__(self):
         return str(self.heading)
+
+
+class EmailButtonCMSPlugin(VariableTemplateMixin, CMSPlugin):
+    action_url = models.CharField(max_length=255, blank=True)
+    action_label = models.CharField(max_length=255, blank=True)
+
+    attributes = AttributesField()
+
+    context_vars = ["action_url", "action_label"]
+    empty_vars = {}
+
+    def __str__(self):
+        return str(self.action_label)
 
 
 class EmailSectionCMSPlugin(VariableTemplateMixin, CMSPlugin):
