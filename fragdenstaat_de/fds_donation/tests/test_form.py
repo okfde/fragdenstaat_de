@@ -5,11 +5,14 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.template.loader import render_to_string
 from django.test import RequestFactory
+from django.urls import reverse
+from django.utils import timezone
 
 import pytest
 
+from .. import models as donation_models
 from ..forms import DonationFormFactory, DonationSettingsForm
-from ..models import ONCE, RECURRING, DonationGift
+from ..models import ONCE, RECURRING, DonationFormViewCount, DonationGift
 from .factories import DonationGiftOrderFactory
 
 User = get_user_model()
@@ -234,3 +237,44 @@ def test_donation_form_hide_purpose():
     settings_form = DonationSettingsForm(data=form_settings)
     form = settings_form.make_donation_form(request=request, user=request.user)
     assert form.fields["purpose"].widget.is_hidden
+
+
+@pytest.mark.django_db
+def test_form_view_counting(client, monkeypatch):
+    monkeypatch.setattr(donation_models, "suspicious_ip", lambda *args, **kwargs: None)
+
+    assert DonationFormViewCount.objects.count() == 0
+
+    path = reverse("fds_donation:donate")
+    response = client.get(path)
+    assert response.status_code == 200
+    view_count = DonationFormViewCount.objects.all().first()
+
+    assert view_count is not None
+    assert view_count.count == 1
+    assert view_count.path == path
+    assert view_count.reference == ""
+    assert view_count.date == timezone.now().date()
+
+    response = client.get(path)
+    assert response.status_code == 200
+
+    assert DonationFormViewCount.objects.count() == 1
+    view_count = DonationFormViewCount.objects.all().first()
+    assert view_count.count == 2
+    assert view_count.path == path
+
+
+@pytest.mark.django_db
+def test_form_view_counting_reference(client, monkeypatch):
+    monkeypatch.setattr(donation_models, "suspicious_ip", lambda *args, **kwargs: None)
+
+    path = reverse("fds_donation:donate")
+    response = client.get(path + "?pk_campaign=mailing-1")
+    assert response.status_code == 200
+    view_count = DonationFormViewCount.objects.all().first()
+    assert view_count is not None
+    assert view_count.count == 1
+    assert view_count.path == path
+    assert view_count.reference == "mailing-1"
+    assert view_count.date == timezone.now().date()

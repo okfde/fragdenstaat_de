@@ -15,7 +15,7 @@ from .forms import (
     DonorDetailsForm,
     SimpleDonationForm,
 )
-from .models import Donor
+from .models import DonationFormViewCount, Donor
 from .services import confirm_donor_email, merge_donor_list
 
 
@@ -36,6 +36,10 @@ class DonationView(FormView):
 
     def get_form_action(self):
         return reverse("fds_donation:donate")
+
+    def get(self, request, *args, **kwargs):
+        DonationFormViewCount.objects.handle_request(request)
+        return super().get(request, *args, **kwargs)
 
     def get_form(self, form_class=None):
         """Return an instance of the form to be used in this view."""
