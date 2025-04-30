@@ -3848,6 +3848,11 @@ msgstr "kampagne/"
 msgid "zurück"
 msgstr "Zurück"
 
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+#, fuzzy
+msgid "Enter search term"
+msgstr "Suchbegriff"
+
 #~ msgid "See recipients"
 #~ msgstr "Empfänger:innen anzeigen"
 
