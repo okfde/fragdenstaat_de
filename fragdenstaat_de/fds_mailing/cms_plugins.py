@@ -9,6 +9,7 @@ from fragdenstaat_de.fds_cms.utils import get_plugin_children
 
 from .models import (
     EmailActionCMSPlugin,
+    EmailButtonCMSPlugin,
     EmailHeaderCMSPlugin,
     EmailSectionCMSPlugin,
     EmailStoryCMSPlugin,
@@ -49,13 +50,7 @@ class EmailBodyPlugin(EmailTemplateMixin, CMSPluginBase):
     name = _("Email Body")
     render_template_template = "email/{name}/body.html"
     allow_children = True
-    child_classes = [
-        "TextPlugin",
-        "EmailActionPlugin",
-        "EmailSectionPlugin",
-        "EmailStoryPlugin",
-        "PicturePlugin",
-    ] + settings.DONATION_LOGIC_PLUGINS
+    child_classes = settings.EMAIL_BODY_PLUGINS
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
@@ -65,6 +60,22 @@ class EmailBodyPlugin(EmailTemplateMixin, CMSPluginBase):
     def render_text(self, context, instance):
         children = get_plugin_children(instance)
         return "\n\n".join(render_plugin_text(context, c) for c in children).strip()
+
+
+@plugin_pool.register_plugin
+class EmailButtonPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
+    model = EmailButtonCMSPlugin
+    module = _("Email")
+    name = _("Email Button")
+    allow_children = False
+    render_template_template = "email/{name}/button_plugin.html"
+
+    def render_text(self, context, instance):
+        return """
+{action_label}
+
+{action_url}
+""".format(**context)
 
 
 @plugin_pool.register_plugin
