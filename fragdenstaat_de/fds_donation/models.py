@@ -706,8 +706,8 @@ class DonationFormViewCountManager(models.Manager):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                INSERT INTO fds_donation_donationformviewcount(path, reference, count, last_updated) VALUES (%s, %s, 1, now())
-                ON CONFLICT (path, reference) DO UPDATE SET count = fds_donation_donationformviewcount.count + 1, last_updated = now();
+                INSERT INTO fds_donation_donationformviewcount(path, reference, date, count, last_updated) VALUES (%s, %s, now(), 1, now())
+                ON CONFLICT (path, reference, date) DO UPDATE SET count = fds_donation_donationformviewcount.count + 1, last_updated = now();
             """,
                 [path, reference],
             )
@@ -716,6 +716,7 @@ class DonationFormViewCountManager(models.Manager):
 class DonationFormViewCount(models.Model):
     path = models.CharField(max_length=255)
     reference = models.CharField(max_length=255, blank=True)
+    date = models.DateField(default=timezone.now)
     count = models.PositiveBigIntegerField(default=0)
     last_updated = models.DateTimeField(default=timezone.now)
 
@@ -729,10 +730,10 @@ class DonationFormViewCount(models.Model):
         verbose_name_plural = _("Donation Form View Counts")
         ordering = ("-last_updated",)
         indexes = [
-            models.Index(fields=["path", "reference"]),
+            models.Index(fields=["path", "reference", "date"]),
         ]
         constraints = [
             models.UniqueConstraint(
-                fields=["path", "reference"], name="unique_path_ref"
+                fields=["path", "reference", "date"], name="unique_path_ref"
             )
         ]
