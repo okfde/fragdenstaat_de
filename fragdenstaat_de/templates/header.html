@@ -129,7 +129,8 @@
                                     <a class="dropdown-item" href="https://gegenrechtsschutz.de">Gegenrechtsschutz</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/aktionen/climate-helpdesk/">Climate Helpdesk</a>
+                                    {% page_url "climate-helpdesk" as climate_url %}
+                                    <a class="dropdown-item" href="{{ climate_url|default:"/aktionen/climate-helpdesk/" }}">{% translate "Climate Helpdesk" %}</a>
                                 </li>
                             </ul>
                         </li>
