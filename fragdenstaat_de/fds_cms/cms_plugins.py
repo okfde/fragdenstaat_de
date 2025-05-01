@@ -804,7 +804,6 @@ class OpenSearchPlugin(CMSPluginBase):
         context["i18n"] = json.dumps(
             {
                 "noResults": gettext("No results"),
-                "enterTerm": gettext("Enter search term"),
                 "search": gettext("Search"),
             }
         )

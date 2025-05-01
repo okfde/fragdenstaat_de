@@ -50,7 +50,6 @@
         </ul>
       </nav>
     </template>
-    <template v-else>{{ i18n.enterTerm }}</template>
   </div>
 </template>
 
