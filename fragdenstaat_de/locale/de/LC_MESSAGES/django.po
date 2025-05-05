@@ -3844,6 +3844,10 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
+msgid "zurück"
+msgstr "Zurück"
+
 #~ msgid "See recipients"
 #~ msgstr "Empfänger:innen anzeigen"
 
@@ -3853,9 +3857,6 @@ msgstr "kampagne/"
 
 #~ msgid "Send now"
 #~ msgstr "Jetzt versenden"
-
-#~ msgid "zurück"
-#~ msgstr "Zurück"
 
 #~ msgid "You are already subscribed to our newsletter."
 #~ msgstr "Sie sind schon in unserem Newsletter."
