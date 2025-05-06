@@ -10,6 +10,7 @@ from django.db import models, transaction
 from django.db.models.query import QuerySet
 from django.template import Context, Template
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
@@ -31,7 +32,7 @@ from fragdenstaat_de.fds_newsletter.utils import get_subscribers
 
 from . import mailing_submitted
 from .pixel_log import generate_random_unique_pixel_url
-from .utils import get_url_tagger, render_text
+from .utils import get_url_tagger, render_text, render_web_html
 
 User = get_user_model()
 logger = logging.getLogger()
@@ -156,6 +157,19 @@ class EmailTemplate(models.Model):
             if placeholder:
                 text = "{}\r\n\r\n{}".format(text, render_text(placeholder, context))
         return COLLAPSE_NEWLINES.sub("\r\n\r\n", text)
+
+    def render_email_web_html(self, context=None):
+        if context is None:
+            context = {}
+        return render_web_html(self.email_body, context)
+
+    def get_body_web_html(self):
+        context = {}
+        self.update_context(context)
+        template_str = self.render_email_web_html(context=context)
+        template = Template(template_str)
+        html = template.render(Context(context))
+        return html
 
     def get_body_text(self, context=None, preview=False):
         template_str = self.render_email_text(context)
@@ -328,8 +342,8 @@ class PublishedMailingManager(MailingManager):
                 publish=True,
                 ready=True,
                 submitted=True,
-                sent=True,
             )
+            .filter(models.Q(sending=True) | models.Q(sent=True))
         )
 
 
@@ -414,6 +428,20 @@ class Mailing(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        if self.newsletter and self.publish and self.sending_date:
+            return reverse(
+                "newsletter_archive_detail",
+                kwargs={
+                    "newsletter_slug": self.newsletter.slug,
+                    "year": self.sending_date.year,
+                    "month": self.sending_date.month,
+                    "day": self.sending_date.day,
+                    "pk": self.pk,
+                },
+            )
+        return ""
 
     def get_sender(self):
         return make_address(self.sender_email, name=self.sender_name)

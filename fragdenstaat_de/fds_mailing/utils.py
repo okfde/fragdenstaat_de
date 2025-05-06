@@ -11,11 +11,14 @@ from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.crypto import salted_hmac
+from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from froide.helper.email_sending import send_mail
 from froide.helper.forms import get_fake_fk_form_class
 from froide.helper.text_utils import convert_html_to_text
+
+EMPTY_PARAGRAPH = re.compile(r"<p>(\s|&nbsp;)*</p>")
 
 
 def add_style(instance, placeholder, context):
@@ -27,6 +30,26 @@ def render_text(placeholder, context):
     return "\n".join(
         render_plugin_text(context, plugin) for plugin in plugins if not plugin.parent
     )
+
+
+def render_web_html(placeholder, context):
+    plugins = placeholder.get_plugins()
+    return "\n".join(
+        render_plugin_web_html(context, plugin)
+        for plugin in plugins
+        if not plugin.parent
+    )
+
+
+def render_plugin_web_html(context, base_plugin):
+    instance, plugin = base_plugin.get_plugin_instance()
+    if instance is None:
+        return ""
+    if hasattr(plugin, "render_web_html"):
+        return plugin.render_web_html(context, instance)
+    if base_plugin.plugin_type == "TextPlugin":
+        return mark_safe(EMPTY_PARAGRAPH.sub("", instance.body))
+    return ""
 
 
 def render_plugin_text(context, base_plugin):
