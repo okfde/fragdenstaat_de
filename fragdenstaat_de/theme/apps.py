@@ -14,6 +14,7 @@ class ThemeConfig(AppConfig):
         from froide.account import account_future_canceled
         from froide.account.registries import user_extra_registry
 
+        from fragdenstaat_de.fds_mailing import gather_mailing_preview_context
         from fragdenstaat_de.fds_newsletter import tag_subscriber
 
         from .forms import SignupUserCheckExtra
@@ -21,6 +22,7 @@ class ThemeConfig(AppConfig):
         user_extra_registry.register("registration", SignupUserCheckExtra())
         account_future_canceled.connect(start_legal_backup)
         tag_subscriber.connect(tag_subscriber_froide_user)
+        gather_mailing_preview_context.connect(provide_foirequest_mailing_context)
 
 
 def start_legal_backup(sender, **kwargs):
@@ -66,3 +68,32 @@ def tag_subscriber_froide_user(sender, email=None, **kwargs):
     )
     add_tags |= {f"campaign:{slug}" for slug in campaigns}
     return add_tags, remove_tags
+
+
+def provide_foirequest_mailing_context(sender, **kwargs):
+    from froide.foirequest.models import FoiRequest
+    from froide.publicbody.models import PublicBody
+
+    from fragdenstaat_de.fds_mailing import MailingPreviewContextProvider
+
+    def get_foirequest_info(value, request):
+        if value == "no_foirequest":
+            return
+        foirequest = FoiRequest(
+            title=_("Example foirequest title"),
+            description=_("Example foirequest description"),
+            public_body=PublicBody.objects.first(),
+            user=request.user,
+        )
+        return {
+            "foirequest": foirequest,
+        }
+
+    return MailingPreviewContextProvider(
+        "foirequest",
+        {
+            "no_foirequest": _("---"),
+            "foirequest": _("Foirequest"),
+        },
+        get_foirequest_info,
+    )
