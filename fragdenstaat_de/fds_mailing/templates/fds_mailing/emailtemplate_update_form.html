@@ -11,12 +11,6 @@
     <a class="btn btn-outline-secondary mt-2"
        href="{% url 'admin:fds_mailing_emailtemplate_change' object_id=object.pk %}">{% trans "back" %}</a>
     <h3 class="mt-3">{{ object.name }} ({{ object.category }})</h3>
-    {% if preview_mailing_form.fields %}
-        <form action="." method="get">
-            {% render_form preview_mailing_form %}
-            <button type="submit" class="btn btn-primary mt-3">{% translate "Preview" %}</button>
-        </form>
-    {% endif %}
     <details open class="mt-5">
         <summary>{% translate "Email Template" %}</summary>
         <div class="card">
@@ -35,6 +29,14 @@
             {% endwith %}
         </div>
     </details>
+    <hr class="mt-5" />
+    <h2 class="mt-2">{% trans "Preview" %}</h2>
+    {% if preview_mailing_form.fields %}
+        <form action="." method="get">
+            {% render_form preview_mailing_form %}
+            <button type="submit" class="btn btn-primary mt-3">{% translate "Preview" %}</button>
+        </form>
+    {% endif %}
     <h4 class="mt-5">{% trans "Subject Preview" %}</h4>
     <div class="p-2 mb-2">
         <strong>{% translate "Subject:" %}</strong> {{ email_content.subject }}
