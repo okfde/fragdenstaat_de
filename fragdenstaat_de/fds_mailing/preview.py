@@ -16,6 +16,7 @@ def provide_user_context(sender, **kwargs):
         if value == "no_user":
             return
         return {
+            "user": request.user,
             "first_name": request.user.first_name,
             "last_name": request.user.last_name,
         }

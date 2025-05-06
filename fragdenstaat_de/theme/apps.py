@@ -87,6 +87,7 @@ def provide_foirequest_mailing_context(sender, **kwargs):
         )
         return {
             "foirequest": foirequest,
+            "publicbody": foirequest.public_body,
         }
 
     return MailingPreviewContextProvider(
