@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.template import Context, Variable, VariableDoesNotExist
 from django.template.loader import TemplateDoesNotExist, get_template
 from django.utils.html import format_html, mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -313,7 +314,7 @@ class NewsletterArchivePlugin(CMSPluginBase):
 @plugin_pool.register_plugin
 class ConditionPlugin(CMSPluginBase):
     model = ConditionCMSPlugin
-    module = _("Email")
+    module = _("Context")
     name = _("Condition")
     allow_children = True
     render_template_template = "email/condition.html"
@@ -327,36 +328,19 @@ class ConditionPlugin(CMSPluginBase):
         return context
 
     def should_render(self, instance, context):
-        value = self.get_context_value(instance, context)
-        if instance.context_value:
-            result = self.compare_context_value(instance, context, value)
-        else:
-            result = value is not None
+        context = Context(context)
+        try:
+            value = Variable(instance.context_key).resolve(context)
+            if instance.context_value:
+                comp_value = Variable(instance.context_value).resolve(context)
+                result = value == comp_value
+            else:
+                result = bool(value)
+        except VariableDoesNotExist:
+            result = False
         if instance.negate:
             result = not result
         return result
-
-    def compare_context_value(self, instance, context, value):
-        if instance.context_value == "True":
-            return value is True
-        elif instance.context_value == "False":
-            return value is False
-        elif instance.context_value == "None":
-            return value is None
-        else:
-            return str(value) == str(instance.context_value)
-
-    def get_context_value(self, instance, context):
-        key_list = instance.context_key.split(".")
-        for key in key_list:
-            try:
-                context = context[key]
-            except (KeyError, TypeError):
-                try:
-                    context = getattr(context, key)
-                except AttributeError:
-                    return None
-        return context
 
     def render_text(self, context, instance):
         if self.should_render(instance, context):
