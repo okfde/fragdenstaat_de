@@ -5,7 +5,67 @@ from django.utils.translation import gettext_lazy as _
 from fragdenstaat_de.fds_newsletter.models import Newsletter, Segment
 from fragdenstaat_de.fds_newsletter.utils import generate_random_split
 
+from . import MailingPreviewContextProvider, gather_mailing_preview_context
 from .models import Mailing
+
+
+class PreviewMailingForm(forms.Form):
+    via_form = forms.BooleanField(
+        label=_("Send via form"),
+        initial=True,
+        required=False,
+        widget=forms.HiddenInput,
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.emailtemplate = kwargs.pop("emailtemplate", None)
+        self.request = kwargs.pop("request", None)
+        super().__init__(*args, **kwargs)
+        self.providers: list[MailingPreviewContextProvider] = [
+            provider
+            for _receiver, provider in gather_mailing_preview_context.send(
+                sender=self.emailtemplate
+            )
+        ]
+        for provider in self.providers:
+            if provider.options:
+                self.fields[provider.name] = forms.ChoiceField(
+                    label=provider.name.replace("_", " ").capitalize(),
+                    required=False,
+                    initial=self.request.GET.get(provider.name, ""),
+                    choices=list(provider.options.items()),
+                )
+
+    @classmethod
+    def from_request(cls, emailtemplate, request):
+        if request.method != "GET":
+            return cls(emailtemplate=emailtemplate, request=request)
+        if "via_form" in request.GET:
+            form = cls(emailtemplate=emailtemplate, request=request, data=request.GET)
+            form.store(request)
+            return form
+        return cls(
+            emailtemplate=emailtemplate,
+            request=request,
+            data=request.session.get("preview_mailing", None),
+        )
+
+    def store(self, request):
+        if self.is_valid():
+            data = self.cleaned_data.copy()
+            if "via_form" in data:
+                data.pop("via_form")
+                request.session["preview_mailing"] = data
+
+    def get_context(self):
+        context = {}
+        for provider in self.providers:
+            value = self.cleaned_data.get(provider.name)
+            if value or not provider.options:
+                ctx = provider.provide_context(value, self.request)
+                if ctx:
+                    context.update(ctx)
+        return context
 
 
 class RandomSplitForm(forms.Form):

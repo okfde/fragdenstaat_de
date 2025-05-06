@@ -2,14 +2,22 @@ from django.template.response import TemplateResponse
 
 from cms.app_base import CMSAppConfig
 
+from .forms import PreviewMailingForm
 from .models import EmailTemplate
 
 
-def render_emailtemplate(request, emailtemplate):
+def render_emailtemplate(request, emailtemplate: EmailTemplate):
     template = "fds_mailing/emailtemplate_update_form.html"
+    preview_form = PreviewMailingForm.from_request(emailtemplate, request)
+    email_context = {}
+    if preview_form.is_valid():
+        email_context = preview_form.get_context()
+    email_content = emailtemplate.get_email_content(email_context, preview=True)
     context = {
         "object": emailtemplate,
         "force_cms_render": True,
+        "preview_mailing_form": preview_form,
+        "email_content": email_content,
     }
     return TemplateResponse(request, template, context)
 
