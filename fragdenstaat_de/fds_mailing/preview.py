@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.conf import settings
+from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -9,7 +10,7 @@ from fragdenstaat_de.fds_newsletter.models import Subscriber
 from . import MailingPreviewContextProvider, gather_mailing_preview_context
 
 
-@gather_mailing_preview_context.connect
+@receiver(gather_mailing_preview_context)
 def provide_user_context(sender, **kwargs):
     def get_info(value, request):
         if value == "no_user":
@@ -29,7 +30,7 @@ def provide_user_context(sender, **kwargs):
     )
 
 
-@gather_mailing_preview_context.connect
+@receiver(gather_mailing_preview_context)
 def provide_subscriber_context(sender, **kwargs):
     def get_subscriber_info(value, request):
         from fragdenstaat_de.fds_newsletter.models import Newsletter, get_email_context
@@ -60,7 +61,7 @@ def provide_subscriber_context(sender, **kwargs):
     )
 
 
-@gather_mailing_preview_context.connect
+@receiver(gather_mailing_preview_context)
 def provide_action_context(sender, **kwargs):
     def get_action_info(value, request):
         if value == "no_action":
