@@ -1,12 +1,14 @@
 {% load cms_tags %}
-{% if should_render %}
-    {% for plugin in instance.child_plugin_instances %}
-        {% if object.template == "mjml" and plugin.plugin_type == "TextPlugin" %}
-            <mj-text>
-            {% render_plugin plugin %}
-            </mj-text>
-        {% else %}
-            {% render_plugin plugin %}
-        {% endif %}
-    {% endfor %}
+{% if should_render or request.toolbar.edit_mode_active %}
+    {% if not should_render %}<div style="outline: 1px solid red">{% endif %}
+        {% for plugin in instance.child_plugin_instances %}
+            {% if object.template == "mjml" and plugin.plugin_type == "TextPlugin" %}
+                <mj-text>
+                {% render_plugin plugin %}
+                </mj-text>
+            {% else %}
+                {% render_plugin plugin %}
+            {% endif %}
+        {% endfor %}
+        {% if not should_render %}</div>{% endif %}
 {% endif %}
