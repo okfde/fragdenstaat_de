@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.db.models import Sum
 from django.urls import reverse
+from django.utils.html import format_html, mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
@@ -114,6 +115,18 @@ class DonorLogicMixin:
         if self.should_render(context):
             children = get_plugin_children(instance)
             return "\n\n".join(render_plugin_text(context, c) for c in children).strip()
+        return ""
+
+    def render_web_html(self, context, instance):
+        from fragdenstaat_de.fds_mailing.utils import render_plugin_web_html
+
+        context = self.add_to_context(context)
+
+        if self.should_render(context):
+            children = get_plugin_children(instance)
+            return mark_safe(
+                "\n".join(render_plugin_web_html(context, c) for c in children).strip()
+            )
         return ""
 
 
@@ -264,3 +277,17 @@ class EmailDonationButtonPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginB
 {action_label}
 {action_url}
 """.format(**context)
+
+    def render_web_html(self, context, instance):
+        context = instance.get_context()
+        style_keys = ["color", "background-color", "border"]
+        styles = []
+        for key in style_keys:
+            if key in instance.attributes:
+                styles.append(f"{key}: {instance.attributes[key]}")
+        return format_html(
+            '<p><a class="btn btn-lg" style="{style}" href="{action_url}">{action_label}</a></p>',
+            action_url=context["action_url"],
+            action_label=context["action_label"],
+            style="; ".join(styles),
+        )

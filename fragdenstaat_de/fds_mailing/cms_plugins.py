@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.template.loader import TemplateDoesNotExist, get_template
+from django.utils.html import format_html, mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
@@ -17,7 +18,7 @@ from .models import (
     Mailing,
     NewsletterArchiveCMSPlugin,
 )
-from .utils import render_plugin_text
+from .utils import render_plugin_text, render_plugin_web_html
 
 
 class EmailTemplateMixin:
@@ -62,6 +63,12 @@ class EmailBodyPlugin(EmailTemplateMixin, CMSPluginBase):
         children = get_plugin_children(instance)
         return "\n\n".join(render_plugin_text(context, c) for c in children).strip()
 
+    def render_web_html(self, context, instance):
+        children = get_plugin_children(instance)
+        return mark_safe(
+            "\n\n".join(render_plugin_web_html(context, c) for c in children).strip()
+        )
+
 
 @plugin_pool.register_plugin
 class EmailButtonPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
@@ -83,6 +90,20 @@ class EmailButtonPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
 
 {action_url}
 """.format(**context)
+
+    def render_web_html(self, context, instance):
+        context = instance.get_context()
+        style_keys = ["color", "background-color", "border"]
+        styles = []
+        for key in style_keys:
+            if key in instance.attributes:
+                styles.append(f"{key}: {instance.attributes[key]}")
+        return format_html(
+            '<a class="btn btn-lg" style="{style}" href="{action_url}">{action_label}</a>',
+            action_url=context["action_url"],
+            action_label=context["action_label"],
+            style="; ".join(styles),
+        )
 
 
 @plugin_pool.register_plugin
@@ -130,6 +151,35 @@ class EmailActionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
 {text2}
 """.format(**context)
 
+    def render_web_html(self, context, instance):
+        text1_children, text2_children = self.get_context(instance)
+        html1 = mark_safe(
+            "\n\n".join(
+                render_plugin_web_html(context, c) for c in text1_children
+            ).strip()
+        )
+        html2 = mark_safe(
+            "\n\n".join(
+                render_plugin_web_html(context, c) for c in text2_children
+            ).strip()
+        )
+        context = instance.get_context()
+        return format_html(
+            "\n".join(
+                [
+                    "<h3>{heading}</h3>" if context["heading"] else "",
+                    "<div>{html1}</div>" if html1 else "",
+                    '<p><a class="btn btn-primary btn-lg" href="{action_url}">{action_label}</a><p>',
+                    "<div>{html2}</div>" if html2 else "",
+                ]
+            ),
+            heading=context["heading"],
+            html1=html1,
+            html2=html2,
+            action_url=context["action_url"],
+            action_label=context["action_label"],
+        )
+
 
 @plugin_pool.register_plugin
 class EmailSectionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
@@ -152,6 +202,25 @@ class EmailSectionPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
         return """## {title}
 {text}
 """.format(**context)
+
+    def render_web_html(self, context, instance):
+        children = get_plugin_children(instance)
+        children_html = mark_safe(
+            "\n\n".join(render_plugin_web_html(context, c) for c in children).strip()
+        )
+
+        context = instance.get_context()
+
+        return format_html(
+            "\n".join(
+                [
+                    "<h3>{title}</h3>" if context["title"] else "",
+                    "<div>{children_html}</div>" if children_html else "",
+                ]
+            ),
+            title=context["title"],
+            children_html=children_html,
+        )
 
 
 @plugin_pool.register_plugin
@@ -176,6 +245,30 @@ class EmailStoryPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
 
 """.format(**context)
 
+    def render_web_html(self, context, instance):
+        children = get_plugin_children(instance)
+        children_html = mark_safe(
+            "\n\n".join(render_plugin_web_html(context, c) for c in children).strip()
+        )
+
+        context = instance.get_context()
+
+        return format_html(
+            "\n".join(
+                [
+                    "<h3>{heading}</h3>" if context["heading"] else "",
+                    "<div>{children_html}</div>" if children_html else "",
+                    '<p><a class="btn btn-secondary" href="{url}">{label}</a></p>'
+                    if context["url"]
+                    else "",
+                ]
+            ),
+            heading=context["heading"],
+            children_html=children_html,
+            url=context["url"],
+            label=context["label"],
+        )
+
 
 @plugin_pool.register_plugin
 class EmailHeaderPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
@@ -186,6 +279,10 @@ class EmailHeaderPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     render_template_template = "email/{name}/header.html"
 
     def render_text(self, context, instance):
+        return ""
+
+    def render_web_html(self, context, instance):
+        # TODO: Add support for header?
         return ""
 
 
@@ -265,4 +362,14 @@ class ConditionPlugin(CMSPluginBase):
         if self.should_render(instance, context):
             children = get_plugin_children(instance)
             return "\n\n".join(render_plugin_text(context, c) for c in children).strip()
+        return ""
+
+    def render_web_html(self, context, instance):
+        if self.should_render(instance, context):
+            children = get_plugin_children(instance)
+            return mark_safe(
+                "\n\n".join(
+                    render_plugin_web_html(context, c) for c in children
+                ).strip()
+            )
         return ""

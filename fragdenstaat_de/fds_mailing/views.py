@@ -2,7 +2,6 @@ import re
 
 from django.shortcuts import get_object_or_404
 from django.utils.formats import date_format
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DateDetailView
 
@@ -58,12 +57,11 @@ class MailingArchiveDetailView(NewsletterEditionMixin, DateDetailView, Breadcrum
         """
         context = super().get_context_data(**kwargs)
 
-        message = self.object.email_template
-        content = message.get_body_html(template="fds_mailing/render_browser.html")
-        content = mark_safe(HEADING_RE.sub("", content, 1))
+        email_template = self.object.email_template
+        content = email_template.get_body_web_html()
         context.update(
             {
-                "message": message,
+                "message": email_template,
                 "content": content,
                 "date": self.object.sending_date,
                 "has_newsletter": has_newsletter(
