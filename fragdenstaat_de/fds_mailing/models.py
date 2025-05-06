@@ -509,7 +509,7 @@ class Mailing(models.Model):
             text = url_tagger(text)
         html = email_content.html
         if html:
-            html = url_tagger(html)
+            html = url_tagger(html, html_entities=True)
 
         return EmailContent(email_content.subject, text, html)
 
