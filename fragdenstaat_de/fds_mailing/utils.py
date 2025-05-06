@@ -197,14 +197,19 @@ class LowerCaseSigner(signing.Signer):
 def get_url_tagger(mailing_campaign: str, query_param: str = "pk_campaign") -> str:
     url_regex = re.compile('(%s[^\\s"]+)' % re.escape(settings.SITE_URL))
 
-    def tag_urls(text):
+    def tag_urls(text, html_entities=False):
         def replace_match(match):
-            url = urlparse(match.group(1))
+            url_match = match.group(1)
+            if html_entities:
+                url_match = url_match.replace("&amp;", "&")
+            url = urlparse(url_match)
             qs = parse_qs(url.query)
             if query_param in qs:
                 return match.group(0)
             qs[query_param] = [mailing_campaign]
             url_str = url._replace(query=urlencode(qs, doseq=True)).geturl()
+            if html_entities:
+                url_str = url_str.replace("&", "&amp;")
             return url_str
 
         return url_regex.sub(replace_match, text)
