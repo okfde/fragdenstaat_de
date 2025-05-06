@@ -81,6 +81,9 @@ class NewsletterManager(models.Manager):
     def get_visible(self):
         return self.filter(visible=True)
 
+    def get_default(self):
+        return self.get_queryset().filter(slug=settings.DEFAULT_NEWSLETTER).first()
+
 
 class Newsletter(models.Model):
     title = models.CharField(max_length=200, verbose_name=_("newsletter title"))
