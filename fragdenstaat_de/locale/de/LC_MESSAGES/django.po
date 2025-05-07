@@ -2465,15 +2465,13 @@ msgstr ""
 "Beste Grüße\n"
 "%(site_name)s"
 
-#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
-msgid ""
-"\n"
-"  Import Message from Frontex\n"
-"  "
-msgstr ""
-"\n"
-"  Nachricht von Frontex importieren\n"
-"  "
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html:6
+msgid "This message has already been imported from Frontex."
+msgstr "Diese Nachricht wurde bereits von Frontex importiert."
+
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html:12
+msgid "Import Message from Frontex"
+msgstr "Nachricht von Frontex importieren"
 
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
 msgid "Message from Frontex"

@@ -21,6 +21,9 @@ def needs_glyphosat_attachment(message):
 
 @register.filter
 def needs_frontex_import(message, user):
-    if IMPORTED_TAG in message.tag_set:
-        return False
     return is_frontex_msg(message)
+
+
+@register.filter
+def is_frontex_imported(message):
+    return IMPORTED_TAG in message.tag_set
