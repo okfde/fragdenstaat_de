@@ -9,7 +9,7 @@
   >
     <div class="d-grid gap-2 d-md-flex">
       <select
-        class="form-select w-auto mw-md-25"
+        class="form-select w-md-auto mw-md-25"
         name="site"
         :value="props.site"
       >
