@@ -1,13 +1,13 @@
 {% load i18n %}
 {% load static %}
 <div class="btn-group btn-group-sm mb-1 ms-sm-auto">
-    <button class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#frontex-pad-import-modal-{{ message.id }}">
-        {% blocktrans %}
-  Import Message from Frontex
-  {% endblocktrans %}
-    </button>
+    <span class="btn-group btn-group-sm"
+          {% if is_imported %} title="{% translate 'This message has already been imported from Frontex.' %}" {% endif %}>
+        <button class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#frontex-pad-import-modal-{{ message.id }}"
+                {% if is_imported %}disabled{% endif %}>{% translate 'Import Message from Frontex' %}</button>
+    </span>
 </div>
 <div data-teleport="body"
      class="modal fade modal-lg"
@@ -24,7 +24,7 @@
                 <button type="button"
                         class="btn-close"
                         data-dismiss="modal"
-                        aria-label="{% translate "Close" %}"></button>
+                        aria-label="{% translate 'Close' %}"></button>
             </div>
             <div class="modal-body">
                 <form id="frontex-import-form"
@@ -44,7 +44,7 @@
                     </p>
                     <p class="text-center show-while-submitting">
                         <img id="workingGif"
-                             alt="{% trans "Gif of a cat furiously typing on a keyboard" %}"
+                             alt="{% trans 'Gif of a cat furiously typing on a keyboard' %}"
                              src="{% static 'fds_fximport/keyboard-cat.gif' %}" />
                     </p>
                 </form>
