@@ -775,3 +775,4 @@ class PagePreviewCMSPlugin(CMSPlugin):
 class OpenSearchCMSPlugin(CMSPlugin):
     search_endpoint = models.URLField()
     urltemplate = models.URLField()
+    filterconfig = models.JSONField(default=dict)
