@@ -807,4 +807,5 @@ class OpenSearchPlugin(CMSPluginBase):
                 "search": gettext("Search"),
             }
         )
+        context["filterconfig"] = json.dumps(instance.filterconfig)
         return super().render(context, instance, placeholder)
