@@ -24,7 +24,7 @@
         {% endif %}
     {% endif %}
     {% if message|needs_frontex_import:request.user %}
-        {% include "fds_fximport/import_frag.html" with request=object message=message %}
+        {% include "fds_fximport/import_frag.html" with request=object message=message is_imported=message|is_frontex_imported %}
     {% endif %}
     {% if message|needs_glyphosat_attachment %}
         <button class="btn btn-primary btn-sm mb-1 mx-sm-1"
