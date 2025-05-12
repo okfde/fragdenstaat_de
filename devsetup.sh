@@ -121,28 +121,51 @@ frontend() {
   echo "Installing frontend dependencies..."
 
   # we need to link globally since local linking adjusts the lockfile
+  global_root=$(pnpm root -g)
+
+  # 1. Link all frontend packages globally
   for name in "${FRONTEND_DIR[@]}"; do
-    pushd $name
-    pnpm link --global
+    pushd "$name"
+    if [[ ! -e "$global_root/$(basename "$name")" ]]; then
+      echo "Linking $(basename "$name") globally"
+      pnpm link --global
+    else
+      echo "$(basename "$name") already globally linked"
+    fi
     popd
   done
 
+  # 2. Link "froide" into all peers, avoiding self-link
   for name in "${FROIDE_PEERS[@]}"; do
-    pushd $name
-    pnpm link --global "froide"
+    pushd "$name"
+    if [[ "$(basename "$PWD")" != "froide" && ! -e node_modules/froide ]]; then
+      echo "Linking froide in $name"
+      pnpm link --global "froide"
+    else
+      echo "Skipping link in $name – already present or self-link"
+    fi
     popd
   done
 
+  # 3. Install frontend package dependencies
   for name in "${FRONTEND_DIR[@]}"; do
-    pushd $name
+    pushd "$name"
+    echo "Installing dependencies in $(basename "$name")"
     pnpm install
     popd
   done
 
-  pushd $MAIN
+  # 4. Install and link dependencies in main project
+  pushd "$MAIN"
+  echo "Installing dependencies in main project"
   pnpm install
   for name in "${FRONTEND[@]}"; do
-    pnpm link --global "$name"
+    if [[ ! -e "$global_root/$name" ]]; then
+      echo "Linking $name globally"
+      pnpm link --global "$name"
+    else
+      echo "$name already globally linked"
+    fi
   done
   popd
 }
