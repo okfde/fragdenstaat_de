@@ -1,16 +1,17 @@
-import * as Sentry from '@sentry/browser'
-import { Integrations as TracingIntegrations } from '@sentry/tracing'
-import { CaptureConsole as CaptureConsoleIntegration } from '@sentry/integrations'
+import {
+  captureConsoleIntegration,
+  browserTracingIntegration,
+  init as initSentry
+} from '@sentry/browser'
 
 export function init(dsn: string): void {
-  Sentry.init({
+  initSentry({
     dsn,
     integrations: [
-      new TracingIntegrations.BrowserTracing(),
-      new CaptureConsoleIntegration({
+      browserTracingIntegration(),
+      captureConsoleIntegration({
         levels: ['error']
       })
-    ],
-    tracesSampleRate: 1.0
+    ]
   })
 }
