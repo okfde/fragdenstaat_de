@@ -149,7 +149,7 @@
                         {% page_url "donate" as donate_url %}
                         {% page_attribute "menu_title" "donate" as donate_title %}
                         <li class="nav-sm order-lg-last">
-                            <a class="btn btn-sm btn-outline-danger"
+                            <a class="btn btn-sm btn-danger"
                                href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                 {{ donate_title|default:"Spenden" }}
