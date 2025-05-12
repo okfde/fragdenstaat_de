@@ -1973,19 +1973,19 @@ msgstr "Nur mehrfach"
 msgid "Both"
 msgstr "Beides"
 
-#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/forms.py
 msgid "once"
 msgstr "einmalig"
 
-#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/forms.py
 msgid "monthly"
 msgstr "monatlich"
 
-#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/forms.py
 msgid "quarterly"
 msgstr "vierteljährlich"
 
-#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/forms.py
 msgid "yearly"
 msgstr "jährlich"
 
@@ -2712,6 +2712,7 @@ msgstr "E-Mail-Einleitung"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py
+#: fragdenstaat_de/fds_mailing/views.py
 msgid "Newsletter"
 msgstr "Newsletter"
 
@@ -3916,6 +3917,49 @@ msgstr ""
 "  Nachricht von Frontex importieren\n"
 "  "
 
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
+msgid "zurück"
+msgstr "Zurück"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Enter search term"
+msgstr "Suchbegriff eingeben"
+
+#: fragdenstaat_de/fds_blog/admin.py
+msgid "Remove category to articles..."
+msgstr "Kategorien von Artikeln entfernen…"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Slide banner with animation"
+msgstr "Banner mit Slide-Animation ausblenden"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+msgid "See recipients"
+msgstr "Empfänger:innen anzeigen"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+#, python-format
+msgid "Send on %(date)s"
+msgstr "Versende am %(date)s"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+msgid "Send now"
+msgstr "Jetzt versenden"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+#, python-format
+msgid "Sending to newsletter subscribers of %(segment_count)s segments"
+msgstr "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+msgid "Sending to all newsletter subscribers"
+msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
+
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/archive/mailing_detail.html
+#, python-format
+msgid "Newsletter from %(date)s"
+msgstr "Newsletter vom %(date)s"
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
@@ -3927,40 +3971,6 @@ msgstr ""
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#~ msgid "zurück"
-#~ msgstr "Zurück"
-
-#~ msgid "Enter search term"
-#~ msgstr "Suchbegriff eingeben"
-
-#~ msgid "Remove category to articles..."
-#~ msgstr "Kategorien von Artikeln entfernen…"
-
-#~ msgid "Slide banner with animation"
-#~ msgstr "Banner mit Slide-Animation ausblenden"
-
-#~ msgid "See recipients"
-#~ msgstr "Empfänger:innen anzeigen"
-
-#, python-format
-#~ msgid "Send on %(date)s"
-#~ msgstr "Versende am %(date)s"
-
-#~ msgid "Send now"
-#~ msgstr "Jetzt versenden"
-
-#, python-format
-#~ msgid "Sending to newsletter subscribers of %(segment_count)s segments"
-#~ msgstr ""
-#~ "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
-
-#~ msgid "Sending to all newsletter subscribers"
-#~ msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
-
-#, python-format
-#~ msgid "Newsletter from %(date)s"
-#~ msgstr "Newsletter vom %(date)s"
 
 #~ msgid "Campaigns"
 #~ msgstr "Kampagnen"
