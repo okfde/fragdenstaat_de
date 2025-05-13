@@ -3954,6 +3954,16 @@ msgstr ""
 msgid "Details about our cookies"
 msgstr ""
 
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
+msgid ""
+"\n"
+"  Import Message from Frontex\n"
+"  "
+msgstr ""
+"\n"
+"  Nachricht von Frontex importieren\n"
+"  "
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
