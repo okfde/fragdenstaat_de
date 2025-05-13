@@ -2,7 +2,7 @@
 {% load static %}
 <div class="btn-group btn-group-sm mb-1 ms-sm-auto">
     <span class="btn-group btn-group-sm"
-          {% if is_imported %} title="{% translate 'This message has already been imported from Frontex.' %}" {% endif %}>
+          {% if is_imported %} title="{% translate 'This message has already been imported from Frontex.' %}" data-bs-toggle="tooltip"{% endif %}>
         <button class="btn btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#frontex-pad-import-modal-{{ message.id }}"
