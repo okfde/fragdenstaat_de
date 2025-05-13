@@ -23,7 +23,7 @@
             {% include "froide_fax/_show_report_link.html" %}
         {% endif %}
     {% endif %}
-    {% if message|needs_frontex_import:request.user %}
+    {% if message|is_frontex_message:request.user %}
         {% include "fds_fximport/import_frag.html" with request=object message=message is_imported=message|is_frontex_imported %}
     {% endif %}
     {% if message|needs_glyphosat_attachment %}

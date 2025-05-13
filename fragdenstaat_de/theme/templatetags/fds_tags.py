@@ -20,7 +20,7 @@ def needs_glyphosat_attachment(message):
 
 
 @register.filter
-def needs_frontex_import(message, user):
+def is_frontex_message(message, user):
     return is_frontex_msg(message)
 
 
