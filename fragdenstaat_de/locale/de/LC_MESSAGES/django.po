@@ -3825,6 +3825,16 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
+msgid ""
+"\n"
+"  Import Message from Frontex\n"
+"  "
+msgstr ""
+"\n"
+"  Nachricht von Frontex importieren\n"
+"  "
+
 #~ msgid "zurück"
 #~ msgstr "Zurück"
 
