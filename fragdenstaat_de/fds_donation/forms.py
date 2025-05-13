@@ -53,6 +53,7 @@ PAYMENT_METHOD_LIST = (
     # "sofort",
 )
 MIN_AMOUNT = 5
+MAX_AMOUNT = 10000
 PAYMENT_METHOD_MAX_AMOUNT = {"sepa": decimal.Decimal(5000)}
 
 PAYMENT_METHODS = [
@@ -84,9 +85,11 @@ class DonationSettingsForm(forms.Form):
     keyword = forms.CharField(required=False)
     purpose = forms.CharField(required=False)
     initial_amount = forms.IntegerField(
-        required=False,
+        required=False, min_value=MIN_AMOUNT, max_value=MAX_AMOUNT
     )
-    min_amount = forms.IntegerField(initial=0, required=False)
+    min_amount = forms.IntegerField(
+        min_value=MIN_AMOUNT, max_value=MAX_AMOUNT, initial=0, required=False
+    )
     initial_interval = forms.IntegerField(
         required=False,
     )
@@ -223,7 +226,8 @@ class DonationFormFactory:
         kwargs.setdefault("initial", {})
         kwargs["initial"]["form_settings"] = self.serialize()
         for k, v in self.initials.items():
-            kwargs["initial"][v] = self.settings[k]
+            if self.settings[k] is not None:
+                kwargs["initial"][v] = self.settings[k]
 
         kwargs["form_settings"] = self.settings
         return kwargs

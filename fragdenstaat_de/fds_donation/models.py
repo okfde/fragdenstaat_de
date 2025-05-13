@@ -611,8 +611,8 @@ class DonationFormCMSPlugin(CMSPlugin):
             "interval": self.interval,
             "interval_choices": self.interval_choices,
             "amount_presets": self.amount_presets,
-            "initial_amount": self.initial_amount,
-            "initial_interval": self.initial_interval,
+            "initial_amount": self.initial_amount or "",
+            "initial_interval": self.initial_interval or "",
             "min_amount": self.min_amount,
             "reference": self.reference or reference,
             "keyword": self.keyword or keyword,
@@ -675,8 +675,8 @@ class EmailDonationButtonCMSPlugin(CMSPlugin):
         action_url += urlencode(
             {
                 "amount_presets": self.amount_presets,
-                "initial_amount": self.initial_amount,
-                "initial_interval": str(self.initial_interval),
+                "initial_amount": str(self.initial_amount or ""),
+                "initial_interval": str(self.initial_interval or ""),
                 "interval": str(self.interval),
                 "min_amount": str(self.min_amount),
                 "pk_placement": f"donationbutton-{self.pk}",
