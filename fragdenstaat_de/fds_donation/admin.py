@@ -545,8 +545,8 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         count = queryset.count()
         MailingMessage.objects.bulk_create(
             [
-                MailingMessage(mailing_id=mailing.id, donor_id=donor_id)
-                for donor_id in queryset.values_list("id", flat=True)
+                MailingMessage(mailing_id=mailing.id, donor_id=donor_id, email=email)
+                for donor_id, email in queryset.values_list("id", "email")
             ]
         )
 
