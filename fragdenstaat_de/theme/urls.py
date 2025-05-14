@@ -92,6 +92,7 @@ urlpatterns = [
         name="fragdenstaat-scannerapp_postupload",
     ),
     path("fcdocs_annotate/", FDSAnnotationView.as_view(), name="annotate-view"),
+    path("cookies/", include("cookie_consent.urls")),
     path(
         "api/v1/feature/", FeatureViewSet.as_view({"get": "list"}), name="api-features"
     ),

@@ -104,6 +104,7 @@ class FragDenStaatBase(German, Base):
                 "legal_advice_builder.apps.LegalAdviceBuilderConfig",
                 "fcdocs_annotate.annotation.apps.AnnotationConfig",
                 "tinymce",
+                "cookie_consent",
             ]
         )
         return installed.default
