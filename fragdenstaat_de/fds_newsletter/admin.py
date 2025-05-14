@@ -240,8 +240,13 @@ class SubscriberAdmin(SetupMailingMixin, admin.ModelAdmin):
         count = queryset.count()
         MailingMessage.objects.bulk_create(
             [
-                MailingMessage(mailing_id=mailing.id, subscriber_id=subscriber_id)
-                for subscriber_id in queryset.values_list("id", flat=True)
+                MailingMessage(
+                    mailing_id=mailing.id,
+                    subscriber=subscriber,
+                    email=subscriber.get_email(),
+                    name=subscriber.get_name(),
+                )
+                for subscriber in queryset
             ]
         )
 
