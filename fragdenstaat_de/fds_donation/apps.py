@@ -83,7 +83,7 @@ def get_donation_context(value, request):
 
     donor = Donor(
         first_name=request.user.first_name,
-        last_name=request.user.first_name,
+        last_name=request.user.last_name,
         address="Example Street 1",
         city="Example City",
         postcode="12345",
