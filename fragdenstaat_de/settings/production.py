@@ -293,6 +293,7 @@ class FragDenStaat(FragDenStaatBase):
     NEWSLETTER_PIXEL_ORIGIN = env(
         "NEWSLETTER_PIXEL_ORIGIN", "https://pixel.fragdenstaat.de"
     )
+    COOKIE_CONSENT_SECURE = True
 
 
 class FragDenStaatDebug(FragDenStaat):

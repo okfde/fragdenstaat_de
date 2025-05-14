@@ -915,3 +915,6 @@ class FragDenStaatBase(German, Base):
     FROIDE_EVIDENCECOLLECTION_GSHEET_IMPORT_CONFIG = values.DictValue()
 
     DATASHOW_STORAGE_BACKEND = "overwrite"
+
+    COOKIE_CONSENT_LOG_ENABLED = False
+    COOKIE_CONSENT_SECURE = False
