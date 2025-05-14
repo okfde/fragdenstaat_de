@@ -130,6 +130,7 @@ django==4.2.16
     #   django-cms
     #   django-configurations
     #   django-contrib-comments
+    #   django-cookie-consent
     #   django-crossdomainmedia
     #   django-datashow
     #   django-entangled
@@ -176,7 +177,9 @@ django-amenities @ git+https://github.com/okfde/django-amenities.git@c351c2d571d
     #   fragdenstaat-de (pyproject.toml)
     #   froide-food
 django-appconf==1.0.6
-    # via django-celery-email
+    # via
+    #   django-celery-email
+    #   django-cookie-consent
 django-celery-beat==2.7.0
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -216,6 +219,8 @@ django-contrib-comments==2.2.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
+django-cookie-consent==0.6.0
+    # via fragdenstaat-de (pyproject.toml)
 django-countries==7.6.1
     # via froide-payment
 django-crossdomainmedia==0.0.4

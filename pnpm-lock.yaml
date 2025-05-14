@@ -23,6 +23,9 @@ importers:
       bootstrap:
         specifier: ^5.3.6
         version: 5.3.6(@popperjs/core@2.11.8)
+      django-cookie-consent:
+        specifier: ^0.6.0
+        version: 0.6.0
       dompurify:
         specifier: ^3.2.5
         version: 3.2.5
@@ -1367,6 +1370,9 @@ packages:
     resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
     engines: {node: '>=0.10'}
     hasBin: true
+
+  django-cookie-consent@0.6.0:
+    resolution: {integrity: sha512-ryxaGQ3LiSg8fc2TOMQ+s0AoKS2mRah20Lnah+DLnHpURjV1BIkCLyqB1Io1t4BUf1Ex5BPqMyeAba0YlNFHPw==}
 
   dom-serializer@2.0.0:
     resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
@@ -4160,6 +4166,8 @@ snapshots:
 
   detect-libc@1.0.3:
     optional: true
+
+  django-cookie-consent@0.6.0: {}
 
   dom-serializer@2.0.0:
     dependencies:
