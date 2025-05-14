@@ -32,6 +32,7 @@ from .models import (
     DocumentPagesCMSPlugin,
     DocumentPortalEmbedCMSPlugin,
     DropdownBannerCMSPlugin,
+    ExternalPixelCMSPlugin,
     FoiRequestListCMSPlugin,
     ModalCMSPlugin,
     OneClickFoiRequestCMSPlugin,
@@ -808,4 +809,18 @@ class OpenSearchPlugin(CMSPluginBase):
             }
         )
         context["filterconfig"] = json.dumps(instance.filterconfig)
+        return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class ExternalPixelPlugin(CMSPluginBase):
+    model = ExternalPixelCMSPlugin
+    module = _("Social Media")
+    name = _("External Pixel")
+    render_template = "fds_cms/external_pixel.html"
+
+    def render(self, context, instance, placeholder):
+        context["pixel_urls"] = instance.get_pixel_urls()
+        context["cookie_group"] = instance.cookie_group
+        context["cookie_group_data"] = [instance.cookie_group.for_json()]
         return super().render(context, instance, placeholder)

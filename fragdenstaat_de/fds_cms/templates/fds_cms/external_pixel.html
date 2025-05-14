@@ -1,0 +1,41 @@
+{% load static i18n cookie_consent_tags sekizai_tags %}
+{% load markup %}
+{% addtoblock "js" %}
+{% url 'cookie_consent_status' as status_url %}
+{% url "cookie_consent_cookie_group_list" as url_cookies %}
+<template id="cookie-consent__cookie-bar" data-cookiestatus="{{ status_url }}">
+    <div class="modal"
+         tabindex="-1"
+         id="cookie-consent__modal"
+         role="dialog"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         aria-labelledby="cookie-consent__modal-label"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="cookie-consent__modal-label" class="modal-title">{% translate "We need your consent" %}</h5>
+                </div>
+                <div class="modal-body">
+                    {{ cookie_group.description|markdown }}
+                    <small><a href="{{ url_cookies }}">{% translate "Details about our cookies" %}</a></small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cookie-consent__decline" class="btn btn-secondary">{% translate "Decline" %}</button>
+                    <button type="button" id="cookie-consent__accept" class="btn btn-primary">{% translate "Accept" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+{% endaddtoblock %}
+{% addtoblock "js" %}
+{{ cookie_group_data|json_script:"cookie-consent__cookie-groups" }}
+{% endaddtoblock %}
+{% addtoblock "js" %}
+{{ pixel_urls|json_script:"cookie-consent__pixelurls" }}
+{% endaddtoblock %}
+{% addtoblock "js" %}
+{% include "_frontend.html" with entry_point="consentbanner.js" %}
+{% endaddtoblock %}
