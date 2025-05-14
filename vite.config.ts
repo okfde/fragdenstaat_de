@@ -11,7 +11,7 @@ const outputDir = resolve(__dirname, 'build')
 
 // helper function to resolve scripts from froide projects
 // (froide_campaign, list.js) => node_modules/froide_campaign/frontend/javascript/list.js
-const r = (project, file) =>
+const r = (project: string, file: string) =>
   resolve(__dirname, 'node_modules', project, 'frontend', 'javascript', file)
 
 // https://vitejs.dev/config/
@@ -37,6 +37,7 @@ export default defineConfig(({ mode }) => ({
         campaign_list: r('froide_campaign', 'list.js'),
         campaign_map: r('froide_campaign', 'map.js'),
         campaign_questionaire: r('froide_campaign', 'questionaire.js'),
+        consentbanner: './frontend/javascript/consentbanner.ts',
         document: r('froide', 'document.js'),
         docupload: r('froide', 'docupload.js'),
         exam_curriculum: r('froide_exam', 'curriculum.js'),
