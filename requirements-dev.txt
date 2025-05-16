@@ -562,7 +562,7 @@ iniconfig==2.0.0
     # via pytest
 ipdb==0.13.13
     # via fragdenstaat-de (pyproject.toml)
-ipython==7.34.0
+ipython==8.36.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   ipdb
