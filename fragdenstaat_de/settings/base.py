@@ -687,6 +687,7 @@ class FragDenStaatBase(German, Base):
                     # Important: always needs to capture name to be removed
                     rec(r"^\s*Name des Absenders\s+(.*)"),
                     rec(r"^\s*Hallo\s+(.*)"),
+                    rec(r"^\s*Moin\s+(.*)"),
                     rec(r"^\s*Lieber?\s+(.*)"),
                     rec(r"^\s*Grü(?:ß|ss)\s+Gott\s+((?:Herr|Frau|Fr\.|Hr\.)\s+.*)"),
                     rec(r"^\s*Sehr ((?:Herr|Frau|Fr\.|Hr\.)\s+.*)"),
