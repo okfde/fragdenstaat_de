@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-12 16:03+0200\n"
+"POT-Creation-Date: 2025-05-16 15:45+0200\n"
 "PO-Revision-Date: 2025-05-12 14:35+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -2465,11 +2465,11 @@ msgstr ""
 "Beste Grüße\n"
 "%(site_name)s"
 
-#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html:6
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
 msgid "This message has already been imported from Frontex."
 msgstr "Diese Nachricht wurde bereits von Frontex importiert."
 
-#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html:12
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
 msgid "Import Message from Frontex"
 msgstr "Nachricht von Frontex importieren"
 
@@ -2514,6 +2514,10 @@ msgstr "Bearbeiten"
 #, fuzzy
 msgid "Mailing"
 msgstr "Mailing"
+
+#: fragdenstaat_de/fds_mailing/admin.py
+msgid "Status"
+msgstr "Status"
 
 #: fragdenstaat_de/fds_mailing/admin.py fragdenstaat_de/fds_mailing/preview.py
 msgid "User"
@@ -3822,6 +3826,16 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
+msgid ""
+"\n"
+"  Import Message from Frontex\n"
+"  "
+msgstr ""
+"\n"
+"  Nachricht von Frontex importieren\n"
+"  "
+
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
 msgid "zurück"
 msgstr "Zurück"
@@ -3864,9 +3878,6 @@ msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
 #, python-format
 msgid "Newsletter from %(date)s"
 msgstr "Newsletter vom %(date)s"
-
-#~ msgid "Status"
-#~ msgstr "Status"
 
 #~ msgid "You are already subscribed to our newsletter."
 #~ msgstr "Sie sind schon in unserem Newsletter."
