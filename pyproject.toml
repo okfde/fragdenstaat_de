@@ -131,7 +131,7 @@ dev = [
   "time-machine",
   "honcho",
   "ipdb",
-  "ipython>=7.31.1,<8",
+  "ipython>=7.31.1,<9",
   "pywatchman",
 ]
 production = [
