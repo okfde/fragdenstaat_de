@@ -776,3 +776,15 @@ class OpenSearchCMSPlugin(CMSPlugin):
     search_endpoint = models.URLField()
     urltemplate = models.URLField()
     filterconfig = models.JSONField(default=dict)
+
+
+class ExternalPixelCMSPlugin(CMSPlugin):
+    cookie_group = models.ForeignKey(
+        "cookie_consent.CookieGroup",
+        on_delete=models.CASCADE,
+        help_text=_("Cookie groups to which this pixel belongs."),
+    )
+    pixel_urls = models.TextField(help_text=_("URLs to the external pixels."))
+
+    def get_pixel_urls(self):
+        return [s.strip() for s in self.pixel_urls.splitlines()]
