@@ -1,0 +1,5 @@
+<div class="vstack gap-3">
+    {% for article in article_list %}
+        {% include "fds_blog/includes/blog_item_simple.html" with article=article %}
+    {% endfor %}
+</div>

@@ -1,5 +1,3 @@
-{% spaceless %}
-    {% for article in article_list %}
-        {% include "fds_blog/includes/blog_item_featured_top.html" with article=article size="xl" %}
-    {% endfor %}
-{% endspaceless %}
+{% for article in article_list %}
+    {% include "fds_blog/includes/blog_item_featured_top.html" with article=article size="xl" %}
+{% endfor %}
