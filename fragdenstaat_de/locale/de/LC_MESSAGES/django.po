@@ -2599,9 +2599,8 @@ msgid "Not sent"
 msgstr "Nicht gesendet"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, fuzzy
 msgid "Sending...\\u202f{}"
-msgstr "Gesendet\\u202f{}"
+msgstr "Sende...\\u202f{}"
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Sent\\u202f{}"
