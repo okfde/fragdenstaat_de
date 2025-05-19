@@ -1,0 +1,28 @@
+{% load i18n %}
+<div class="position-relative">
+    <h3 class="h6 mb-2">
+        {% if article.kicker %}
+            <span class="d-block mb-1 text-body-secondary fw-normal small">{{ article.kicker }}<span class="visually-hidden">:</span></span>
+        {% endif %}
+        <a href="{{ article.get_absolute_url }}" class="stretched-link">{{ article.title }}</a>
+    </h3>
+    <div class="small text-secondary">
+        {% with authors=article.authors.all %}
+            {% if authors %}
+                {% if authors|length >= 2 %}
+                    {% blocktrans with author=authors.0.get_full_name count count=authors|length|add:-1 %}
+          {{author}} and {{count}} other
+          {% plural %}
+          {{author}} and {{count}} others
+          {% endblocktrans %}
+                {% else %}
+                    {{ authors.0.get_full_name }}
+                {% endif %}
+                –
+            {% endif %}
+        {% endwith %}
+        <time datetime="{{ article.start_publication|date:'c' }}">
+            {{ article.start_publication|date:"DATE_FORMAT" }}
+        </time>
+    </div>
+</div>

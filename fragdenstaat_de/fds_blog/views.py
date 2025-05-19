@@ -356,7 +356,7 @@ class CategoryArticleView(BaseBlogListView, ListView, BreadcrumbView):
 class ArticleSearchView(BaseSearchView, BreadcrumbView):
     search_name = "blog"
     template_name = "fds_blog/search.html"
-    object_template = "fds_blog/result_item.html"
+    object_template = "fds_blog/blog_item_list.html"
     model = Article
     document = ArticleDocument
     filterset = ArticleFilterset
