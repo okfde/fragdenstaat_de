@@ -10,13 +10,13 @@ alabaster==1.0.0
     # via sphinx
 amqp==5.2.0
     # via kombu
-appnope==0.1.4 ; sys_platform == 'darwin'
-    # via ipython
 asgiref==3.8.1
     # via
     #   channels
     #   django
     #   django-countries
+asttokens==3.0.0
+    # via stack-data
 async-timeout==4.0.3
     # via fragdenstaat-de (pyproject.toml)
 attrs==24.2.0
@@ -30,8 +30,6 @@ babel==2.16.0
     #   enmerkar
     #   prices
     #   sphinx
-backcall==0.2.0
-    # via ipython
 beautifulsoup4==4.12.3
     # via htmldocx
 billiard==4.2.0
@@ -442,6 +440,8 @@ enmerkar==0.7.1
     # via django-prices
 et-xmlfile==1.1.0
     # via openpyxl
+executing==2.2.0
+    # via stack-data
 factory-boy==3.3.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -465,7 +465,7 @@ filelock==3.16.0
     #   virtualenv
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@0b4974bba63e4c246bbead2a080f7626e9bb5167
+froide @ git+https://github.com/okfde/froide.git@1f7bab05608c6f819e343badbaee289fe1935aaa
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@7220cb806354e021de37aff731c5266fe7054b5e
     # via fragdenstaat-de (pyproject.toml)
@@ -638,7 +638,9 @@ multidict==6.1.0
 networkx==3.3
     # via torch
 nh3==0.2.21
-    # via django-filingcabinet
+    # via
+    #   django-filingcabinet
+    #   froide
 nodeenv==1.9.1
     # via pre-commit
 num2words==0.5.13
@@ -704,7 +706,7 @@ pathspec==0.12.1
     # via djlint
 pbr==6.1.0
     # via fragdenstaat-de (pyproject.toml)
-pexpect==4.9.0 ; sys_platform != 'win32'
+pexpect==4.9.0 ; sys_platform != 'emscripten' and sys_platform != 'win32'
     # via ipython
 pgpy==0.6.0
     # via fragdenstaat-de (pyproject.toml)
@@ -715,8 +717,6 @@ phonenumbers==8.13.45
     #   froide-fax
 phonenumberslite==8.13.45
     # via django-phonenumber-field
-pickleshare==0.7.5
-    # via ipython
 pikepdf==9.5.2
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -764,8 +764,10 @@ psycopg==3.2.6
     #   froide-govplan
 psycopg-binary==3.2.6 ; implementation_name != 'pypy'
     # via psycopg
-ptyprocess==0.7.0 ; sys_platform != 'win32'
+ptyprocess==0.7.0 ; sys_platform != 'emscripten' and sys_platform != 'win32'
     # via pexpect
+pure-eval==0.2.3
+    # via stack-data
 pyasn1==0.6.0
     # via
     #   pgpy
@@ -916,7 +918,6 @@ setuptools==74.1.2
     # via
     #   django-cms
     #   geoip2
-    #   ipython
     #   torch
 six==1.16.0
     # via
@@ -951,6 +952,8 @@ sqlparse==0.5.1
     # via
     #   django
     #   django-debug-toolbar
+stack-data==0.6.3
+    # via ipython
 stripe==5.5.0
     # via
     #   django-payments

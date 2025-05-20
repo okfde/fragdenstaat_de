@@ -416,7 +416,7 @@ filelock==3.16.0
     #   triton
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@0b4974bba63e4c246bbead2a080f7626e9bb5167
+froide @ git+https://github.com/okfde/froide.git@1f7bab05608c6f819e343badbaee289fe1935aaa
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@7220cb806354e021de37aff731c5266fe7054b5e
     # via fragdenstaat-de (pyproject.toml)
@@ -554,7 +554,9 @@ multidict==6.1.0
 networkx==3.3
     # via torch
 nh3==0.2.21
-    # via django-filingcabinet
+    # via
+    #   django-filingcabinet
+    #   froide
 num2words==0.5.13
     # via fragdenstaat-de (pyproject.toml)
 numpy==2.1.1
