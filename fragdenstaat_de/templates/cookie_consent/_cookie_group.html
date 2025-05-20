@@ -1,9 +1,10 @@
 {% load i18n %}
+{% load markup %}
 {% load cookie_consent_tags %}
 <div class="cookie-group">
     <div class="cookie-group-title">
         <h3>{{ cookie_group.name }}</h3>
-        <p>{{ cookie_group.description }}</p>
+        <p>{{ cookie_group.description|markdown }}</p>
         {% if not cookie_group.is_required %}
             <div class="cookie-group-form">
                 {% if request|cookie_group_accepted:cookie_group.varname %}
