@@ -1,3 +1,5 @@
+from urllib.parse import quote
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -786,5 +788,9 @@ class ExternalPixelCMSPlugin(CMSPlugin):
     )
     pixel_urls = models.TextField(help_text=_("URLs to the external pixels."))
 
-    def get_pixel_urls(self):
-        return [s.strip() for s in self.pixel_urls.splitlines()]
+    def get_pixel_urls(self, request=None):
+        urls = [s.strip() for s in self.pixel_urls.splitlines()]
+        if request and request.GET.get("amount"):
+            amount = quote(request.GET.get("amount"))
+            return [url.replace("{amount}", amount) for url in urls]
+        return urls
