@@ -12,14 +12,16 @@
          data-bs-keyboard="false"
          aria-labelledby="cookie-consent__modal-label"
          aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="cookie-consent__modal-label" class="modal-title">{{ cookie_group.name }}</h5>
                 </div>
                 <div class="modal-body">{{ cookie_group.description|markdown }}</div>
                 <div class="modal-footer">
-                    <button type="button" id="cookie-consent__decline" class="btn btn-secondary">{% translate "Decline" %}</button>
+                    <button type="button"
+                            id="cookie-consent__decline"
+                            class="btn btn-outline-secondary">{% translate "Decline" %}</button>
                     <button type="button" id="cookie-consent__accept" class="btn btn-primary">{% translate "Accept" %}</button>
                 </div>
             </div>
