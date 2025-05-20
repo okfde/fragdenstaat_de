@@ -52,7 +52,7 @@
                             {% else %}
                                 {% if donation.received_timestamp %}Bestätigt{% endif %}
                             {% endif %}
-                            {% if donation.extra_action_url %}
+                            {% if donation.extra_action_url and donation.extra_action_label %}
                                 <div class="alert alert-info text-center">
                                     <a class="btn btn-primary btn-lg"
                                        target="_blank"

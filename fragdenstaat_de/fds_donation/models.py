@@ -398,26 +398,34 @@ class Donation(models.Model):
 
         return ret
 
+    def get_success_url_query(self):
+        query = {
+            "email": self.donor.email.encode("utf-8"),
+            "amount": str(self.amount).encode("utf-8"),
+        }
+        if self.donor.receipt:
+            query.update({"receipt": "1"})
+        if self.order:
+            query.update(
+                {
+                    "order": self.order.get_absolute_url().encode("utf-8"),
+                }
+            )
+            if self.order.subscription:
+                sub_url = self.order.subscription.get_absolute_url()
+                query.update({"subscription": sub_url.encode("utf-8")})
+        return urlencode(query)
+
     def get_success_url(self):
+        if self.extra_action_url and not self.extra_action_label:
+            url = self.extra_action_url
+            query = self.get_success_url_query()
+            return "%s?%s" % (url, query)
         if self.donor and self.donor.user:
             return self.donor.get_absolute_url() + "?complete"
         if self.donor:
             url = reverse("fds_donation:donate-complete")
-            query = {
-                "email": self.donor.email.encode("utf-8"),
-            }
-            if self.donor.receipt:
-                query.update({"receipt": "1"})
-            if self.order:
-                query.update(
-                    {
-                        "order": self.order.get_absolute_url().encode("utf-8"),
-                    }
-                )
-                if self.order.subscription:
-                    sub_url = self.order.subscription.get_absolute_url()
-                    query.update({"subscription": sub_url.encode("utf-8")})
-            query = urlencode(query)
+            query = self.get_success_url_query()
             return "%s?%s" % (url, query)
         if self.order:
             return self.order.get_absolute_url()
