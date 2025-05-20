@@ -944,7 +944,7 @@ msgstr ""
 msgid "Small"
 msgstr "Klein"
 
-#: fragdenstaat_de/fds_cms/models.py
+#: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_blog/models.py
 msgid "Normal"
 msgstr "Normal"
 
@@ -3943,6 +3943,10 @@ msgstr "Teilweise erfolgreich"
 msgid "Asleep"
 msgstr "Eingeschlafen"
 
+#: fragdenstaat_de/fds_blog/models.py
+msgid "Simple"
+msgstr "Einfach"
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
@@ -3954,9 +3958,6 @@ msgstr "Eingeschlafen"
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#~ msgid "Simple"
-#~ msgstr "Einfach"
 
 #~ msgid "zurück"
 #~ msgstr "Zurück"
