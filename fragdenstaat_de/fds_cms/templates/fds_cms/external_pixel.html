@@ -15,12 +15,9 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 id="cookie-consent__modal-label" class="modal-title">{% translate "We need your consent" %}</h5>
+                    <h5 id="cookie-consent__modal-label" class="modal-title">{{ cookie_group.name }}</h5>
                 </div>
-                <div class="modal-body">
-                    {{ cookie_group.description|markdown }}
-                    <small><a href="{{ url_cookies }}">{% translate "Details about our cookies" %}</a></small>
-                </div>
+                <div class="modal-body">{{ cookie_group.description|markdown }}</div>
                 <div class="modal-footer">
                     <button type="button" id="cookie-consent__decline" class="btn btn-secondary">{% translate "Decline" %}</button>
                     <button type="button" id="cookie-consent__accept" class="btn btn-primary">{% translate "Accept" %}</button>
