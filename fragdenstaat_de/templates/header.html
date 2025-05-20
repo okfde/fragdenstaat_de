@@ -65,7 +65,8 @@
                         </div>
                     </li>
                 {% else %}
-                    <li class="nav-sm d-lg-none">
+                    <li class="nav-sm d-lg-none"
+                        {% if reduced %}data-donationlink="true"{% endif %}>
                         {% page_url "donate" as donate_url %}
                         <a class="btn link-danger"
                            href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">

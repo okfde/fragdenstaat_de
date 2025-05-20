@@ -320,4 +320,10 @@ function setupAmountGroup(amountGroup: Element): void {
 const donationForm = document.querySelector('.donation-form')
 if (donationForm !== null) {
   setupDonationForm(donationForm as HTMLFormElement)
+
+  // Hide tagged donation links in header when there's a donation form on the page
+  const donationLinks = document.querySelectorAll<HTMLElement>("[data-donationlink]")
+  donationLinks.forEach((link) => {
+    link.style.display = "none"
+  })
 }
