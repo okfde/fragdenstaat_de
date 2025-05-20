@@ -3899,6 +3899,14 @@ msgstr "kampagne/"
 msgid "Simple"
 msgstr "Einfach"
 
+#: fragdenstaat_de/fds_cms/templates/fds_cms/external_pixel.html
+msgid "We need your consent"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/external_pixel.html
+msgid "Details about our cookies"
+msgstr ""
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
