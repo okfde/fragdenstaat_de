@@ -274,10 +274,7 @@ class ArticleAdmin(SortableAdminBase, admin.ModelAdmin):
     search_fields = ("title", "excerpt", "content", "tags__name")
 
     raw_id_fields = ("related",)
-    filter_horizontal = (
-        "categories",
-        "authors",
-    )
+    filter_horizontal = ("categories",)
     save_on_top = True
 
     actions = ["set_language", "add_category", "remove_category"]
