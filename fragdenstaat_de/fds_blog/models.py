@@ -409,9 +409,9 @@ class Article(
                 ),
             ),
         ]
-        index_together = [
-            ["slug", "start_publication"],
-            ["status", "start_publication", "end_publication"],
+        indexes = [
+            models.Index(fields=["slug", "start_publication"]),
+            models.Index(fields=["status", "start_publication", "end_publication"]),
         ]
 
     def __str__(self):
