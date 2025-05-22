@@ -67,6 +67,7 @@ class FragDenStaatBase(German, Base):
                 "djangocms_video",
                 "djangocms_audio",
                 "djangocms_icon",
+                "djangocms_link",
                 "djangocms_frontend",
                 "djangocms_frontend.contrib.accordion",
                 "djangocms_frontend.contrib.alert",
