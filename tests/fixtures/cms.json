@@ -1,6 +1,6 @@
 [
     {
-        "model": "cms.treenode",
+        "model": "cms.page",
         "pk": 1,
         "fields": {
             "path": "0001",
@@ -9,38 +9,47 @@
             "parent": null,
             "site": [
                 "example.com"
-            ]
+            ],
+            "created_by": "stefan.wehrmeyer@okfn.de",
+            "changed_by": "stefan.wehrmeyer@okfn.de",
+            "creation_date": "2025-05-22T14:17:02.480Z",
+            "changed_date": "2025-05-22T14:17:02.601Z",
+            "reverse_id": null,
+            "navigation_extenders": null,
+            "login_required": false,
+            "is_home": true,
+            "application_urls": null,
+            "application_namespace": null,
+            "is_page_type": false
         }
     },
     {
-        "model": "cms.treenode",
+        "model": "cms.page",
         "pk": 2,
         "fields": {
             "path": "0002",
             "depth": 1,
-            "numchild": 1,
+            "numchild": 0,
             "parent": null,
             "site": [
                 "example.com"
-            ]
+            ],
+            "created_by": "stefan.wehrmeyer@okfn.de",
+            "changed_by": "stefan.wehrmeyer@okfn.de",
+            "creation_date": "2025-05-22T14:20:16.796Z",
+            "changed_date": "2025-05-22T14:20:41.279Z",
+            "reverse_id": "campaigns",
+            "navigation_extenders": null,
+            "login_required": false,
+            "is_home": false,
+            "application_urls": "",
+            "application_namespace": null,
+            "is_page_type": false
         }
     },
     {
-        "model": "cms.treenode",
+        "model": "cms.page",
         "pk": 3,
-        "fields": {
-            "path": "00020001",
-            "depth": 2,
-            "numchild": 0,
-            "parent": 2,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 4,
         "fields": {
             "path": "0003",
             "depth": 1,
@@ -48,25 +57,47 @@
             "parent": null,
             "site": [
                 "example.com"
-            ]
+            ],
+            "created_by": "stefan.wehrmeyer@okfn.de",
+            "changed_by": "stefan.wehrmeyer@okfn.de",
+            "creation_date": "2025-05-22T14:20:53.297Z",
+            "changed_date": "2025-05-22T14:21:02.124Z",
+            "reverse_id": "investigations",
+            "navigation_extenders": null,
+            "login_required": false,
+            "is_home": false,
+            "application_urls": "",
+            "application_namespace": null,
+            "is_page_type": false
         }
     },
     {
-        "model": "cms.treenode",
-        "pk": 5,
+        "model": "cms.page",
+        "pk": 4,
         "fields": {
-            "path": "0004",
-            "depth": 1,
+            "path": "000B0001",
+            "depth": 2,
             "numchild": 0,
-            "parent": null,
+            "parent": 11,
             "site": [
                 "example.com"
-            ]
+            ],
+            "created_by": "stefan.wehrmeyer@okfn.de",
+            "changed_by": "stefan.wehrmeyer@okfn.de",
+            "creation_date": "2025-05-22T14:21:07.604Z",
+            "changed_date": "2025-05-22T14:21:47.752Z",
+            "reverse_id": "fds_donation",
+            "navigation_extenders": null,
+            "login_required": false,
+            "is_home": false,
+            "application_urls": "FdsDonationApp",
+            "application_namespace": "fds_donation",
+            "is_page_type": false
         }
     },
     {
-        "model": "cms.treenode",
-        "pk": 6,
+        "model": "cms.page",
+        "pk": 5,
         "fields": {
             "path": "0005",
             "depth": 1,
@@ -74,505 +105,186 @@
             "parent": null,
             "site": [
                 "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 7,
-        "fields": {
-            "path": "0006",
-            "depth": 1,
-            "numchild": 1,
-            "parent": null,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 8,
-        "fields": {
-            "path": "00060001",
-            "depth": 2,
-            "numchild": 0,
-            "parent": 7,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 9,
-        "fields": {
-            "path": "0007",
-            "depth": 1,
-            "numchild": 1,
-            "parent": null,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 10,
-        "fields": {
-            "path": "00070001",
-            "depth": 2,
-            "numchild": 0,
-            "parent": 9,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 11,
-        "fields": {
-            "path": "00090001",
-            "depth": 2,
-            "numchild": 1,
-            "parent": 12,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 12,
-        "fields": {
-            "path": "0009",
-            "depth": 1,
-            "numchild": 1,
-            "parent": null,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 13,
-        "fields": {
-            "path": "000900010001",
-            "depth": 3,
-            "numchild": 0,
-            "parent": 11,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 14,
-        "fields": {
-            "path": "000A",
-            "depth": 1,
-            "numchild": 2,
-            "parent": null,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 15,
-        "fields": {
-            "path": "000A0001",
-            "depth": 2,
-            "numchild": 1,
-            "parent": 14,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 16,
-        "fields": {
-            "path": "000A00010001",
-            "depth": 3,
-            "numchild": 0,
-            "parent": 15,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 17,
-        "fields": {
-            "path": "000A0002",
-            "depth": 2,
-            "numchild": 1,
-            "parent": 14,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.treenode",
-        "pk": 18,
-        "fields": {
-            "path": "000A00020001",
-            "depth": 3,
-            "numchild": 0,
-            "parent": 17,
-            "site": [
-                "example.com"
-            ]
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 1,
-        "fields": {
+            ],
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:05:46.032Z",
-            "changed_date": "2024-04-22T14:05:46.098Z",
-            "reverse_id": null,
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": true,
-            "application_urls": null,
-            "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 1
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 2,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:06:04.088Z",
-            "changed_date": "2024-04-22T14:40:28.492Z",
-            "reverse_id": "donate",
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": "",
-            "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 2
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 3,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:08:10.483Z",
-            "changed_date": "2024-04-22T14:08:42.365Z",
-            "reverse_id": null,
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": "FdsDonationApp",
-            "application_namespace": "fds_donation",
-            "languages": "de",
-            "is_page_type": false,
-            "node": 3
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 4,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:19:43.062Z",
-            "changed_date": "2024-04-22T14:19:54.014Z",
-            "reverse_id": null,
+            "creation_date": "2025-05-22T14:22:18.585Z",
+            "changed_date": "2025-05-22T14:22:36.603Z",
+            "reverse_id": "blog",
             "navigation_extenders": null,
             "login_required": false,
             "is_home": false,
             "application_urls": "FdsBlogApp",
             "application_namespace": "blog",
-            "languages": "de",
-            "is_page_type": false,
-            "node": 4
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 5,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:20:14.513Z",
-            "changed_date": "2024-04-22T14:20:22.919Z",
-            "reverse_id": null,
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": "CrowdfundingCMSApp",
-            "application_namespace": "crowdfunding",
-            "languages": "de",
-            "is_page_type": false,
-            "node": 5
+            "is_page_type": false
         }
     },
     {
         "model": "cms.page",
         "pk": 6,
         "fields": {
+            "path": "0006",
+            "depth": 1,
+            "numchild": 0,
+            "parent": null,
+            "site": [
+                "example.com"
+            ],
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:20:37.700Z",
-            "changed_date": "2024-04-22T14:20:46.036Z",
-            "reverse_id": null,
+            "creation_date": "2025-05-22T14:22:49.418Z",
+            "changed_date": "2025-05-22T14:23:02.912Z",
+            "reverse_id": "crowdfunding",
             "navigation_extenders": null,
             "login_required": false,
             "is_home": false,
-            "application_urls": "GovPlanCMSApp",
-            "application_namespace": "govplan",
-            "languages": "de",
-            "is_page_type": false,
-            "node": 6
+            "application_urls": "CrowdfundingCMSApp",
+            "application_namespace": "crowdfunding",
+            "is_page_type": false
         }
     },
     {
         "model": "cms.page",
         "pk": 7,
         "fields": {
+            "path": "0007",
+            "depth": 1,
+            "numchild": 0,
+            "parent": null,
+            "site": [
+                "example.com"
+            ],
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:21:10.609Z",
-            "changed_date": "2024-04-22T14:21:10.609Z",
-            "reverse_id": null,
+            "creation_date": "2025-05-22T14:23:29.112Z",
+            "changed_date": "2025-05-22T14:23:44.212Z",
+            "reverse_id": "fds_cms_contact",
             "navigation_extenders": null,
             "login_required": false,
             "is_home": false,
-            "application_urls": null,
-            "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 7
+            "application_urls": "FdsCmsContactApp",
+            "application_namespace": "fds_cms_contact",
+            "is_page_type": false
         }
     },
     {
         "model": "cms.page",
         "pk": 8,
         "fields": {
+            "path": "000C0001",
+            "depth": 2,
+            "numchild": 0,
+            "parent": 12,
+            "site": [
+                "example.com"
+            ],
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:21:24.613Z",
-            "changed_date": "2024-04-22T14:21:36.451Z",
-            "reverse_id": null,
+            "creation_date": "2025-05-22T14:23:53.890Z",
+            "changed_date": "2025-05-22T14:24:10.652Z",
+            "reverse_id": "fds_cms",
             "navigation_extenders": null,
             "login_required": false,
             "is_home": false,
-            "application_urls": "FdsCmsContactApp",
-            "application_namespace": "fds_cms_contact",
-            "languages": "de",
-            "is_page_type": false,
-            "node": 8
+            "application_urls": "FdsCmsSearchApp",
+            "application_namespace": "fds_cms",
+            "is_page_type": false
         }
     },
     {
         "model": "cms.page",
         "pk": 9,
         "fields": {
+            "path": "0009",
+            "depth": 1,
+            "numchild": 0,
+            "parent": null,
+            "site": [
+                "example.com"
+            ],
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:22:15.047Z",
-            "changed_date": "2024-04-22T14:22:15.047Z",
-            "reverse_id": null,
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": null,
-            "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 9
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 10,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:23:06.680Z",
-            "changed_date": "2024-04-22T14:23:41.126Z",
-            "reverse_id": "help-search",
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": "FdsCmsSearchApp",
-            "application_namespace": "fds_cms",
-            "languages": "de",
-            "is_page_type": false,
-            "node": 10
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 11,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:32:25.457Z",
-            "changed_date": "2024-04-22T14:32:25.457Z",
-            "reverse_id": null,
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": null,
-            "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 11
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 12,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:32:34.636Z",
-            "changed_date": "2024-04-22T14:32:34.636Z",
-            "reverse_id": null,
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": null,
-            "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 12
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 13,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:33:13.277Z",
-            "changed_date": "2024-04-22T14:33:13.277Z",
-            "reverse_id": null,
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": null,
-            "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 13
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 14,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:39:07.740Z",
-            "changed_date": "2024-04-22T14:39:07.740Z",
-            "reverse_id": null,
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": null,
-            "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 14
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 15,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:39:25.664Z",
-            "changed_date": "2024-04-22T14:39:25.664Z",
-            "reverse_id": null,
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": null,
-            "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 15
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 16,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:39:31.829Z",
-            "changed_date": "2024-04-22T14:39:51.127Z",
+            "creation_date": "2025-05-22T14:24:39.445Z",
+            "changed_date": "2025-05-22T14:24:47.148Z",
             "reverse_id": null,
             "navigation_extenders": null,
             "login_required": false,
             "is_home": false,
             "application_urls": "FoodCMSApp",
             "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 16
+            "is_page_type": false
         }
     },
     {
         "model": "cms.page",
-        "pk": 17,
+        "pk": 10,
         "fields": {
+            "path": "000A",
+            "depth": 1,
+            "numchild": 0,
+            "parent": null,
+            "site": [
+                "example.com"
+            ],
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:53:19.237Z",
-            "changed_date": "2024-04-22T14:53:19.237Z",
-            "reverse_id": null,
-            "navigation_extenders": null,
-            "login_required": false,
-            "is_home": false,
-            "application_urls": null,
-            "application_namespace": null,
-            "languages": "de",
-            "is_page_type": false,
-            "node": 17
-        }
-    },
-    {
-        "model": "cms.page",
-        "pk": 18,
-        "fields": {
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "creation_date": "2024-04-22T14:53:35.383Z",
-            "changed_date": "2024-04-22T14:53:45.367Z",
+            "creation_date": "2025-05-22T14:24:51.599Z",
+            "changed_date": "2025-05-22T14:25:04.656Z",
             "reverse_id": null,
             "navigation_extenders": null,
             "login_required": false,
             "is_home": false,
             "application_urls": "ExamCMSApp",
             "application_namespace": "froide_exam",
-            "languages": "de",
-            "is_page_type": false,
-            "node": 18
+            "is_page_type": false
+        }
+    },
+    {
+        "model": "cms.page",
+        "pk": 11,
+        "fields": {
+            "path": "000B",
+            "depth": 1,
+            "numchild": 1,
+            "parent": null,
+            "site": [
+                "example.com"
+            ],
+            "created_by": "stefan.wehrmeyer@okfn.de",
+            "changed_by": "stefan.wehrmeyer@okfn.de",
+            "creation_date": "2025-05-22T14:25:38.419Z",
+            "changed_date": "2025-05-22T14:25:38.432Z",
+            "reverse_id": null,
+            "navigation_extenders": null,
+            "login_required": false,
+            "is_home": false,
+            "application_urls": null,
+            "application_namespace": null,
+            "is_page_type": false
+        }
+    },
+    {
+        "model": "cms.page",
+        "pk": 12,
+        "fields": {
+            "path": "000C",
+            "depth": 1,
+            "numchild": 1,
+            "parent": null,
+            "site": [
+                "example.com"
+            ],
+            "created_by": "stefan.wehrmeyer@okfn.de",
+            "changed_by": "stefan.wehrmeyer@okfn.de",
+            "creation_date": "2025-05-22T14:29:58.227Z",
+            "changed_date": "2025-05-22T14:30:12.205Z",
+            "reverse_id": "help",
+            "navigation_extenders": null,
+            "login_required": false,
+            "is_home": false,
+            "application_urls": "",
+            "application_namespace": null,
+            "is_page_type": false
         }
     },
     {
@@ -590,8 +302,8 @@
         "model": "cms.pageurl",
         "pk": 2,
         "fields": {
-            "slug": "spenden",
-            "path": "spenden",
+            "slug": "aktionen",
+            "path": "aktionen",
             "language": "de",
             "page": 2,
             "managed": true
@@ -601,8 +313,8 @@
         "model": "cms.pageurl",
         "pk": 3,
         "fields": {
-            "slug": "spende",
-            "path": "spenden/spende",
+            "slug": "recherchen",
+            "path": "recherchen",
             "language": "de",
             "page": 3,
             "managed": true
@@ -612,8 +324,8 @@
         "model": "cms.pageurl",
         "pk": 4,
         "fields": {
-            "slug": "blog",
-            "path": "blog",
+            "slug": "spenden",
+            "path": "spenden/spenden",
             "language": "de",
             "page": 4,
             "managed": true
@@ -623,8 +335,8 @@
         "model": "cms.pageurl",
         "pk": 5,
         "fields": {
-            "slug": "crowdfunding",
-            "path": "crowdfunding",
+            "slug": "artikel",
+            "path": "artikel",
             "language": "de",
             "page": 5,
             "managed": true
@@ -634,8 +346,8 @@
         "model": "cms.pageurl",
         "pk": 6,
         "fields": {
-            "slug": "koalitionstracker",
-            "path": "koalitionstracker",
+            "slug": "crowdfunding",
+            "path": "crowdfunding",
             "language": "de",
             "page": 6,
             "managed": true
@@ -656,8 +368,8 @@
         "model": "cms.pageurl",
         "pk": 8,
         "fields": {
-            "slug": "kontakt",
-            "path": "kontakt/kontakt",
+            "slug": "suche",
+            "path": "hilfe/suche",
             "language": "de",
             "page": 8,
             "managed": true
@@ -667,8 +379,8 @@
         "model": "cms.pageurl",
         "pk": 9,
         "fields": {
-            "slug": "hilfe",
-            "path": "hilfe",
+            "slug": "food",
+            "path": "food",
             "language": "de",
             "page": 9,
             "managed": true
@@ -678,8 +390,8 @@
         "model": "cms.pageurl",
         "pk": 10,
         "fields": {
-            "slug": "suche",
-            "path": "hilfe/suche",
+            "slug": "exam",
+            "path": "exam",
             "language": "de",
             "page": 10,
             "managed": true
@@ -689,8 +401,8 @@
         "model": "cms.pageurl",
         "pk": 11,
         "fields": {
-            "slug": "handbuch",
-            "path": "recht/handbuch",
+            "slug": "spenden",
+            "path": "spenden",
             "language": "de",
             "page": 11,
             "managed": true
@@ -700,76 +412,10 @@
         "model": "cms.pageurl",
         "pk": 12,
         "fields": {
-            "slug": "recht",
-            "path": "recht",
+            "slug": "hilfe",
+            "path": "hilfe",
             "language": "de",
             "page": 12,
-            "managed": true
-        }
-    },
-    {
-        "model": "cms.pageurl",
-        "pk": 13,
-        "fields": {
-            "slug": "kapitel-1",
-            "path": "recht/handbuch/kapitel-1",
-            "language": "de",
-            "page": 13,
-            "managed": true
-        }
-    },
-    {
-        "model": "cms.pageurl",
-        "pk": 14,
-        "fields": {
-            "slug": "kampagnen",
-            "path": "kampagnen",
-            "language": "de",
-            "page": 14,
-            "managed": true
-        }
-    },
-    {
-        "model": "cms.pageurl",
-        "pk": 15,
-        "fields": {
-            "slug": "lebensmittelkontrolle",
-            "path": "kampagnen/lebensmittelkontrolle",
-            "language": "de",
-            "page": 15,
-            "managed": true
-        }
-    },
-    {
-        "model": "cms.pageurl",
-        "pk": 16,
-        "fields": {
-            "slug": "app",
-            "path": "kampagnen/lebensmittelkontrolle/app",
-            "language": "de",
-            "page": 16,
-            "managed": true
-        }
-    },
-    {
-        "model": "cms.pageurl",
-        "pk": 17,
-        "fields": {
-            "slug": "verschlusssache-pruefung",
-            "path": "kampagnen/verschlusssache-pruefung",
-            "language": "de",
-            "page": 17,
-            "managed": true
-        }
-    },
-    {
-        "model": "cms.pageurl",
-        "pk": 18,
-        "fields": {
-            "slug": "verschlusssache-pruefung",
-            "path": "kampagnen/verschlusssache-pruefung/verschlusssache-pruefung",
-            "language": "de",
-            "page": 18,
             "managed": true
         }
     },
@@ -779,8 +425,11 @@
         "fields": {
             "slot": "clipboard",
             "default_width": null,
-            "content_type": null,
-            "object_id": null
+            "content_type": [
+                "cms",
+                "usersettings"
+            ],
+            "object_id": 1
         }
     },
     {
@@ -816,8 +465,8 @@
             "slot": "content",
             "default_width": null,
             "content_type": [
-                "cms",
-                "pagecontent"
+                "djangocms_alias",
+                "aliascontent"
             ],
             "object_id": 2
         }
@@ -829,8 +478,8 @@
             "slot": "content",
             "default_width": null,
             "content_type": [
-                "cms",
-                "pagecontent"
+                "djangocms_alias",
+                "aliascontent"
             ],
             "object_id": 3
         }
@@ -842,8 +491,8 @@
             "slot": "content",
             "default_width": null,
             "content_type": [
-                "djangocms_alias",
-                "aliascontent"
+                "cms",
+                "pagecontent"
             ],
             "object_id": 2
         }
@@ -858,7 +507,7 @@
                 "cms",
                 "pagecontent"
             ],
-            "object_id": 4
+            "object_id": 3
         }
     },
     {
@@ -871,7 +520,7 @@
                 "cms",
                 "pagecontent"
             ],
-            "object_id": 5
+            "object_id": 4
         }
     },
     {
@@ -884,7 +533,7 @@
                 "cms",
                 "pagecontent"
             ],
-            "object_id": 6
+            "object_id": 5
         }
     },
     {
@@ -897,7 +546,7 @@
                 "cms",
                 "pagecontent"
             ],
-            "object_id": 7
+            "object_id": 6
         }
     },
     {
@@ -910,7 +559,7 @@
                 "cms",
                 "pagecontent"
             ],
-            "object_id": 8
+            "object_id": 7
         }
     },
     {
@@ -923,155 +572,12 @@
                 "cms",
                 "pagecontent"
             ],
-            "object_id": 9
+            "object_id": 8
         }
     },
     {
         "model": "cms.placeholder",
         "pk": 13,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 10
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 14,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 11
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 15,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 12
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 16,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 13
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 17,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 14
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 18,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "djangocms_alias",
-                "aliascontent"
-            ],
-            "object_id": 3
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 19,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 15
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 20,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 16
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 21,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 17
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 22,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 18
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 23,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 19
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 24,
         "fields": {
             "slot": "content",
             "default_width": null,
@@ -1084,60 +590,7 @@
     },
     {
         "model": "cms.placeholder",
-        "pk": 25,
-        "fields": {
-            "slot": "content",
-            "default_width": null,
-            "content_type": [
-                "djangocms_alias",
-                "aliascontent"
-            ],
-            "object_id": 5
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 26,
-        "fields": {
-            "slot": "froide_food_header",
-            "default_width": null,
-            "content_type": null,
-            "object_id": null
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 27,
-        "fields": {
-            "slot": "froide_food_header",
-            "default_width": null,
-            "content_type": null,
-            "object_id": null
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 28,
-        "fields": {
-            "slot": "froide_food_footer",
-            "default_width": null,
-            "content_type": null,
-            "object_id": null
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 29,
-        "fields": {
-            "slot": "froide_food_footer",
-            "default_width": null,
-            "content_type": null,
-            "object_id": null
-        }
-    },
-    {
-        "model": "cms.placeholder",
-        "pk": 30,
+        "pk": 14,
         "fields": {
             "slot": "content",
             "default_width": null,
@@ -1145,12 +598,12 @@
                 "cms",
                 "pagecontent"
             ],
-            "object_id": 20
+            "object_id": 9
         }
     },
     {
         "model": "cms.placeholder",
-        "pk": 31,
+        "pk": 15,
         "fields": {
             "slot": "content",
             "default_width": null,
@@ -1158,20 +611,33 @@
                 "cms",
                 "pagecontent"
             ],
-            "object_id": 21
+            "object_id": 10
         }
     },
     {
-        "model": "cms.cmsplugin",
-        "pk": 1,
+        "model": "cms.placeholder",
+        "pk": 16,
         "fields": {
-            "placeholder": 19,
-            "parent": null,
-            "position": 1,
-            "language": "de",
-            "plugin_type": "TextPlugin",
-            "creation_date": "2024-04-22T14:34:31.461Z",
-            "changed_date": "2024-04-22T14:34:43.608Z"
+            "slot": "content",
+            "default_width": null,
+            "content_type": [
+                "cms",
+                "pagecontent"
+            ],
+            "object_id": 11
+        }
+    },
+    {
+        "model": "cms.placeholder",
+        "pk": 17,
+        "fields": {
+            "slot": "content",
+            "default_width": null,
+            "content_type": [
+                "cms",
+                "pagecontent"
+            ],
+            "object_id": 12
         }
     },
     {
@@ -1185,10 +651,10 @@
             "meta_description": null,
             "redirect": null,
             "page": 1,
-            "creation_date": "2024-04-22T14:05:46.042Z",
+            "creation_date": "2025-05-22T14:17:02.547Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:05:46.042Z",
+            "changed_date": "2025-05-22T14:17:02.547Z",
             "in_navigation": true,
             "soft_root": false,
             "template": "INHERIT",
@@ -1201,16 +667,16 @@
         "pk": 2,
         "fields": {
             "language": "de",
-            "title": "Spenden",
+            "title": "Aktionen",
             "page_title": "",
             "menu_title": "",
             "meta_description": "",
             "redirect": null,
             "page": 2,
-            "creation_date": "2024-04-22T14:06:04.091Z",
+            "creation_date": "2025-05-22T14:20:16.861Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:06:04.127Z",
+            "changed_date": "2025-05-22T14:20:16.920Z",
             "in_navigation": true,
             "soft_root": false,
             "template": "INHERIT",
@@ -1223,16 +689,16 @@
         "pk": 3,
         "fields": {
             "language": "de",
-            "title": "Jetzt spenden",
+            "title": "Recherchen",
             "page_title": "",
             "menu_title": "",
             "meta_description": "",
             "redirect": null,
             "page": 3,
-            "creation_date": "2024-04-22T14:08:10.489Z",
+            "creation_date": "2025-05-22T14:20:53.355Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:08:10.565Z",
+            "changed_date": "2025-05-22T14:20:53.413Z",
             "in_navigation": true,
             "soft_root": false,
             "template": "INHERIT",
@@ -1245,19 +711,19 @@
         "pk": 4,
         "fields": {
             "language": "de",
-            "title": "Blog",
+            "title": "Spenden",
             "page_title": "",
             "menu_title": "",
             "meta_description": "",
             "redirect": null,
             "page": 4,
-            "creation_date": "2024-04-22T14:19:43.073Z",
+            "creation_date": "2025-05-22T14:21:07.667Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:19:43.145Z",
+            "changed_date": "2025-05-22T14:21:07.806Z",
             "in_navigation": true,
             "soft_root": false,
-            "template": "cms/blog_base.html",
+            "template": "INHERIT",
             "limit_visibility_in_menu": null,
             "xframe_options": 0
         }
@@ -1267,16 +733,16 @@
         "pk": 5,
         "fields": {
             "language": "de",
-            "title": "Crowdfunding",
+            "title": "Artikel",
             "page_title": "",
             "menu_title": "",
             "meta_description": "",
             "redirect": null,
             "page": 5,
-            "creation_date": "2024-04-22T14:20:14.522Z",
+            "creation_date": "2025-05-22T14:22:18.626Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:20:14.585Z",
+            "changed_date": "2025-05-22T14:22:18.658Z",
             "in_navigation": true,
             "soft_root": false,
             "template": "INHERIT",
@@ -1289,19 +755,19 @@
         "pk": 6,
         "fields": {
             "language": "de",
-            "title": "Koalitionstracker",
+            "title": "Crowdfunding",
             "page_title": "",
             "menu_title": "",
             "meta_description": "",
             "redirect": null,
             "page": 6,
-            "creation_date": "2024-04-22T14:20:37.707Z",
+            "creation_date": "2025-05-22T14:22:49.476Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:20:37.764Z",
+            "changed_date": "2025-05-22T14:22:49.540Z",
             "in_navigation": true,
             "soft_root": false,
-            "template": "froide_govplan/base.html",
+            "template": "INHERIT",
             "limit_visibility_in_menu": null,
             "xframe_options": 0
         }
@@ -1317,10 +783,10 @@
             "meta_description": "",
             "redirect": null,
             "page": 7,
-            "creation_date": "2024-04-22T14:21:10.621Z",
+            "creation_date": "2025-05-22T14:23:29.170Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:21:10.685Z",
+            "changed_date": "2025-05-22T14:23:29.230Z",
             "in_navigation": true,
             "soft_root": false,
             "template": "INHERIT",
@@ -1333,16 +799,16 @@
         "pk": 8,
         "fields": {
             "language": "de",
-            "title": "Kontakt",
+            "title": "Suche",
             "page_title": "",
             "menu_title": "",
             "meta_description": "",
             "redirect": null,
             "page": 8,
-            "creation_date": "2024-04-22T14:21:24.620Z",
+            "creation_date": "2025-05-22T14:23:53.945Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:21:24.688Z",
+            "changed_date": "2025-05-22T14:23:54.003Z",
             "in_navigation": true,
             "soft_root": false,
             "template": "INHERIT",
@@ -1355,19 +821,19 @@
         "pk": 9,
         "fields": {
             "language": "de",
-            "title": "Hilfe",
+            "title": "Food",
             "page_title": "",
             "menu_title": "",
             "meta_description": "",
             "redirect": null,
             "page": 9,
-            "creation_date": "2024-04-22T14:22:15.054Z",
+            "creation_date": "2025-05-22T14:24:39.510Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:22:15.109Z",
+            "changed_date": "2025-05-22T14:24:39.568Z",
             "in_navigation": true,
             "soft_root": false,
-            "template": "cms/help_base.html",
+            "template": "INHERIT",
             "limit_visibility_in_menu": null,
             "xframe_options": 0
         }
@@ -1377,16 +843,38 @@
         "pk": 10,
         "fields": {
             "language": "de",
-            "title": "Suche",
+            "title": "Exam",
             "page_title": "",
             "menu_title": "",
             "meta_description": "",
             "redirect": null,
             "page": 10,
-            "creation_date": "2024-04-22T14:23:06.684Z",
+            "creation_date": "2025-05-22T14:24:51.636Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:23:06.727Z",
+            "changed_date": "2025-05-22T14:24:51.667Z",
+            "in_navigation": true,
+            "soft_root": false,
+            "template": "INHERIT",
+            "limit_visibility_in_menu": null,
+            "xframe_options": 0
+        }
+    },
+    {
+        "model": "cms.pagecontent",
+        "pk": 11,
+        "fields": {
+            "language": "de",
+            "title": "Spenden",
+            "page_title": "",
+            "menu_title": "",
+            "meta_description": "",
+            "redirect": "",
+            "page": 11,
+            "creation_date": "2025-05-22T14:25:38.481Z",
+            "created_by": "stefan.wehrmeyer@okfn.de",
+            "changed_by": "stefan.wehrmeyer@okfn.de",
+            "changed_date": "2025-05-22T14:25:53.721Z",
             "in_navigation": true,
             "soft_root": false,
             "template": "INHERIT",
@@ -1399,215 +887,35 @@
         "pk": 12,
         "fields": {
             "language": "de",
-            "title": "Recht",
+            "title": "Hilfe",
             "page_title": "",
             "menu_title": "",
             "meta_description": "",
             "redirect": null,
             "page": 12,
-            "creation_date": "2024-04-22T14:32:34.640Z",
+            "creation_date": "2025-05-22T14:29:58.285Z",
             "created_by": "stefan.wehrmeyer@okfn.de",
             "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:32:34.969Z",
+            "changed_date": "2025-05-22T14:29:58.342Z",
             "in_navigation": true,
             "soft_root": false,
             "template": "INHERIT",
             "limit_visibility_in_menu": null,
             "xframe_options": 0
-        }
-    },
-    {
-        "model": "cms.pagecontent",
-        "pk": 14,
-        "fields": {
-            "language": "de",
-            "title": "Handbuch",
-            "page_title": "",
-            "menu_title": "",
-            "meta_description": "",
-            "redirect": null,
-            "page": 11,
-            "creation_date": "2024-04-22T14:33:45.551Z",
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:33:50.009Z",
-            "in_navigation": true,
-            "soft_root": false,
-            "template": "cms/pub_base.html",
-            "limit_visibility_in_menu": null,
-            "xframe_options": 0
-        }
-    },
-    {
-        "model": "cms.pagecontent",
-        "pk": 15,
-        "fields": {
-            "language": "de",
-            "title": "Kapitel 1",
-            "page_title": "",
-            "menu_title": "",
-            "meta_description": "",
-            "redirect": null,
-            "page": 13,
-            "creation_date": "2024-04-22T14:34:23.749Z",
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:34:23.750Z",
-            "in_navigation": true,
-            "soft_root": false,
-            "template": "INHERIT",
-            "limit_visibility_in_menu": null,
-            "xframe_options": 0
-        }
-    },
-    {
-        "model": "cms.pagecontent",
-        "pk": 16,
-        "fields": {
-            "language": "de",
-            "title": "Kampagnen",
-            "page_title": "",
-            "menu_title": "",
-            "meta_description": "",
-            "redirect": null,
-            "page": 14,
-            "creation_date": "2024-04-22T14:39:07.747Z",
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:39:07.809Z",
-            "in_navigation": true,
-            "soft_root": false,
-            "template": "INHERIT",
-            "limit_visibility_in_menu": null,
-            "xframe_options": 0
-        }
-    },
-    {
-        "model": "cms.pagecontent",
-        "pk": 17,
-        "fields": {
-            "language": "de",
-            "title": "Lebensmittelkontrolle",
-            "page_title": "",
-            "menu_title": "",
-            "meta_description": "",
-            "redirect": null,
-            "page": 15,
-            "creation_date": "2024-04-22T14:39:25.671Z",
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:39:25.735Z",
-            "in_navigation": true,
-            "soft_root": false,
-            "template": "INHERIT",
-            "limit_visibility_in_menu": null,
-            "xframe_options": 0
-        }
-    },
-    {
-        "model": "cms.pagecontent",
-        "pk": 19,
-        "fields": {
-            "language": "de",
-            "title": "App",
-            "page_title": "",
-            "menu_title": "",
-            "meta_description": "",
-            "redirect": null,
-            "page": 16,
-            "creation_date": "2024-04-22T14:41:10.833Z",
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:43:51.066Z",
-            "in_navigation": true,
-            "soft_root": false,
-            "template": "cms/page.html",
-            "limit_visibility_in_menu": null,
-            "xframe_options": 0
-        }
-    },
-    {
-        "model": "cms.pagecontent",
-        "pk": 20,
-        "fields": {
-            "language": "de",
-            "title": "Verschlusssache Prüfung",
-            "page_title": "",
-            "menu_title": "",
-            "meta_description": "",
-            "redirect": null,
-            "page": 17,
-            "creation_date": "2024-04-22T14:53:19.250Z",
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:53:19.325Z",
-            "in_navigation": true,
-            "soft_root": false,
-            "template": "INHERIT",
-            "limit_visibility_in_menu": null,
-            "xframe_options": 0
-        }
-    },
-    {
-        "model": "cms.pagecontent",
-        "pk": 21,
-        "fields": {
-            "language": "de",
-            "title": "Verschlusssache Prüfung",
-            "page_title": "",
-            "menu_title": "",
-            "meta_description": "",
-            "redirect": null,
-            "page": 18,
-            "creation_date": "2024-04-22T14:53:35.390Z",
-            "created_by": "stefan.wehrmeyer@okfn.de",
-            "changed_by": "stefan.wehrmeyer@okfn.de",
-            "changed_date": "2024-04-22T14:53:35.458Z",
-            "in_navigation": true,
-            "soft_root": false,
-            "template": "INHERIT",
-            "limit_visibility_in_menu": null,
-            "xframe_options": 0
-        }
-    },
-    {
-        "model": "cms.staticplaceholder",
-        "pk": 1,
-        "fields": {
-            "name": "",
-            "code": "froide_food_header",
-            "draft": 26,
-            "public": 27,
-            "dirty": false,
-            "creation_method": "template",
-            "site": null
-        }
-    },
-    {
-        "model": "cms.staticplaceholder",
-        "pk": 2,
-        "fields": {
-            "name": "",
-            "code": "froide_food_footer",
-            "draft": 28,
-            "public": 29,
-            "dirty": false,
-            "creation_method": "template",
-            "site": null
         }
     },
     {
         "model": "cms.urlconfrevision",
         "pk": 1,
         "fields": {
-            "revision": "58b7efd1-0d17-44b8-96b9-5ba175f32137"
+            "revision": "6d704488-f5a5-4250-8e3a-756e4ad65647"
         }
     },
     {
         "model": "account.user",
         "fields": {
-            "password": "pbkdf2_sha256$600000$DIvWTtTZXhQ0ZXU7dW3a7N$h+MJgXJ2+gVeavZ3h6oaeYB5+/M98RDdWpyBOg1RZH4=",
-            "last_login": "2024-04-22T14:05:16.413Z",
+            "password": "pbkdf2_sha256$1000000$ikDaxCdvAHBXIQ3uPnYXJc$CNY1kR2oymFU4TKh3Sn6+G/48Dr7L7y2eDxiz4hxESw=",
+            "last_login": "2025-05-22T14:16:40.578Z",
             "is_superuser": true,
             "username": "sw",
             "first_name": "",
@@ -1615,7 +923,7 @@
             "email": "stefan.wehrmeyer@okfn.de",
             "is_staff": true,
             "is_active": true,
-            "date_joined": "2024-04-22T14:04:57.194Z",
+            "date_joined": "2025-05-22T14:14:02.346Z",
             "organization_name": "",
             "organization_url": "",
             "language": "de",
@@ -1638,8 +946,8 @@
         "model": "djangocms_versioning.version",
         "pk": 1,
         "fields": {
-            "created": "2024-04-22T14:05:46.057Z",
-            "modified": "2024-04-22T14:18:50.656Z",
+            "created": "2025-05-22T14:17:02.557Z",
+            "modified": "2025-05-22T14:21:52.187Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -1658,8 +966,8 @@
         "model": "djangocms_versioning.version",
         "pk": 2,
         "fields": {
-            "created": "2024-04-22T14:05:46.421Z",
-            "modified": "2024-04-22T14:05:46.416Z",
+            "created": "2025-05-22T14:17:02.948Z",
+            "modified": "2025-05-22T14:17:02.946Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -1678,48 +986,8 @@
         "model": "djangocms_versioning.version",
         "pk": 3,
         "fields": {
-            "created": "2024-04-22T14:06:04.098Z",
-            "modified": "2024-04-22T14:08:54.470Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 2,
-            "state": "published",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 4,
-        "fields": {
-            "created": "2024-04-22T14:08:10.502Z",
-            "modified": "2024-04-22T14:13:44.601Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 3,
-            "state": "published",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 5,
-        "fields": {
-            "created": "2024-04-22T14:11:01.602Z",
-            "modified": "2024-04-22T14:11:01.599Z",
+            "created": "2025-05-22T14:19:14.861Z",
+            "modified": "2025-05-22T14:19:14.859Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -1736,10 +1004,70 @@
     },
     {
         "model": "djangocms_versioning.version",
+        "pk": 4,
+        "fields": {
+            "created": "2025-05-22T14:19:14.875Z",
+            "modified": "2025-05-22T14:19:14.874Z",
+            "created_by": [
+                "stefan.wehrmeyer@okfn.de"
+            ],
+            "number": "1",
+            "content_type": [
+                "djangocms_alias",
+                "aliascontent"
+            ],
+            "object_id": 3,
+            "state": "draft",
+            "locked_by": null,
+            "source": null
+        }
+    },
+    {
+        "model": "djangocms_versioning.version",
+        "pk": 5,
+        "fields": {
+            "created": "2025-05-22T14:20:16.870Z",
+            "modified": "2025-05-22T14:21:56.399Z",
+            "created_by": [
+                "stefan.wehrmeyer@okfn.de"
+            ],
+            "number": "1",
+            "content_type": [
+                "cms",
+                "pagecontent"
+            ],
+            "object_id": 2,
+            "state": "published",
+            "locked_by": null,
+            "source": null
+        }
+    },
+    {
+        "model": "djangocms_versioning.version",
         "pk": 6,
         "fields": {
-            "created": "2024-04-22T14:19:43.089Z",
-            "modified": "2024-04-22T14:19:57.348Z",
+            "created": "2025-05-22T14:20:53.363Z",
+            "modified": "2025-05-22T14:23:08.368Z",
+            "created_by": [
+                "stefan.wehrmeyer@okfn.de"
+            ],
+            "number": "1",
+            "content_type": [
+                "cms",
+                "pagecontent"
+            ],
+            "object_id": 3,
+            "state": "published",
+            "locked_by": null,
+            "source": null
+        }
+    },
+    {
+        "model": "djangocms_versioning.version",
+        "pk": 7,
+        "fields": {
+            "created": "2025-05-22T14:21:07.677Z",
+            "modified": "2025-05-22T14:25:44.987Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -1756,10 +1084,10 @@
     },
     {
         "model": "djangocms_versioning.version",
-        "pk": 7,
+        "pk": 8,
         "fields": {
-            "created": "2024-04-22T14:20:14.534Z",
-            "modified": "2024-04-22T14:20:52.227Z",
+            "created": "2025-05-22T14:22:18.630Z",
+            "modified": "2025-05-22T14:23:14.048Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -1776,10 +1104,10 @@
     },
     {
         "model": "djangocms_versioning.version",
-        "pk": 8,
+        "pk": 9,
         "fields": {
-            "created": "2024-04-22T14:20:37.719Z",
-            "modified": "2024-04-22T14:20:55.119Z",
+            "created": "2025-05-22T14:22:49.486Z",
+            "modified": "2025-05-22T14:23:17.389Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -1796,10 +1124,10 @@
     },
     {
         "model": "djangocms_versioning.version",
-        "pk": 9,
+        "pk": 10,
         "fields": {
-            "created": "2024-04-22T14:21:10.633Z",
-            "modified": "2024-04-22T14:21:15.664Z",
+            "created": "2025-05-22T14:23:29.179Z",
+            "modified": "2025-05-22T14:24:14.658Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -1816,10 +1144,10 @@
     },
     {
         "model": "djangocms_versioning.version",
-        "pk": 10,
+        "pk": 11,
         "fields": {
-            "created": "2024-04-22T14:21:24.630Z",
-            "modified": "2024-04-22T14:21:40.395Z",
+            "created": "2025-05-22T14:23:53.953Z",
+            "modified": "2025-05-22T14:30:04.624Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -1836,250 +1164,10 @@
     },
     {
         "model": "djangocms_versioning.version",
-        "pk": 11,
-        "fields": {
-            "created": "2024-04-22T14:22:15.066Z",
-            "modified": "2024-04-22T14:22:24.166Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 9,
-            "state": "published",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
         "pk": 12,
         "fields": {
-            "created": "2024-04-22T14:23:06.692Z",
-            "modified": "2024-04-22T14:33:04.734Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 10,
-            "state": "published",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 13,
-        "fields": {
-            "created": "2024-04-22T14:32:25.468Z",
-            "modified": "2024-04-22T14:34:10.426Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 11,
-            "state": "unpublished",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 14,
-        "fields": {
-            "created": "2024-04-22T14:32:34.647Z",
-            "modified": "2024-04-22T14:33:26.534Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 12,
-            "state": "published",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 15,
-        "fields": {
-            "created": "2024-04-22T14:33:13.295Z",
-            "modified": "2024-04-22T14:34:49.005Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 13,
-            "state": "unpublished",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 16,
-        "fields": {
-            "created": "2024-04-22T14:33:45.598Z",
-            "modified": "2024-04-22T14:34:10.391Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "2",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 14,
-            "state": "published",
-            "locked_by": null,
-            "source": 13
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 17,
-        "fields": {
-            "created": "2024-04-22T14:33:50.453Z",
-            "modified": "2024-04-22T14:33:50.449Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "djangocms_alias",
-                "aliascontent"
-            ],
-            "object_id": 3,
-            "state": "draft",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 18,
-        "fields": {
-            "created": "2024-04-22T14:34:23.798Z",
-            "modified": "2024-04-22T14:34:48.972Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "2",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 15,
-            "state": "published",
-            "locked_by": null,
-            "source": 15
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 19,
-        "fields": {
-            "created": "2024-04-22T14:39:07.757Z",
-            "modified": "2024-04-22T14:40:36.696Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 16,
-            "state": "published",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 20,
-        "fields": {
-            "created": "2024-04-22T14:39:25.681Z",
-            "modified": "2024-04-22T14:40:45.789Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 17,
-            "state": "published",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 21,
-        "fields": {
-            "created": "2024-04-22T14:39:31.840Z",
-            "modified": "2024-04-22T14:44:05.032Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 18,
-            "state": "unpublished",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 22,
-        "fields": {
-            "created": "2024-04-22T14:41:10.874Z",
-            "modified": "2024-04-22T14:44:04.996Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "2",
-            "content_type": [
-                "cms",
-                "pagecontent"
-            ],
-            "object_id": 19,
-            "state": "published",
-            "locked_by": null,
-            "source": 21
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 23,
-        "fields": {
-            "created": "2024-04-22T14:48:05.319Z",
-            "modified": "2024-04-22T14:48:05.300Z",
+            "created": "2025-05-22T14:24:18.343Z",
+            "modified": "2025-05-22T14:24:18.339Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -2096,30 +1184,10 @@
     },
     {
         "model": "djangocms_versioning.version",
-        "pk": 24,
+        "pk": 13,
         "fields": {
-            "created": "2024-04-22T14:48:05.433Z",
-            "modified": "2024-04-22T14:48:05.422Z",
-            "created_by": [
-                "stefan.wehrmeyer@okfn.de"
-            ],
-            "number": "1",
-            "content_type": [
-                "djangocms_alias",
-                "aliascontent"
-            ],
-            "object_id": 5,
-            "state": "draft",
-            "locked_by": null,
-            "source": null
-        }
-    },
-    {
-        "model": "djangocms_versioning.version",
-        "pk": 25,
-        "fields": {
-            "created": "2024-04-22T14:53:19.265Z",
-            "modified": "2024-04-22T14:53:50.109Z",
+            "created": "2025-05-22T14:24:39.518Z",
+            "modified": "2025-05-22T14:25:08.267Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -2128,7 +1196,7 @@
                 "cms",
                 "pagecontent"
             ],
-            "object_id": 20,
+            "object_id": 9,
             "state": "published",
             "locked_by": null,
             "source": null
@@ -2136,10 +1204,10 @@
     },
     {
         "model": "djangocms_versioning.version",
-        "pk": 26,
+        "pk": 14,
         "fields": {
-            "created": "2024-04-22T14:53:35.402Z",
-            "modified": "2024-04-22T14:53:55.131Z",
+            "created": "2025-05-22T14:24:51.639Z",
+            "modified": "2025-05-22T14:25:11.688Z",
             "created_by": [
                 "stefan.wehrmeyer@okfn.de"
             ],
@@ -2148,7 +1216,47 @@
                 "cms",
                 "pagecontent"
             ],
-            "object_id": 21,
+            "object_id": 10,
+            "state": "published",
+            "locked_by": null,
+            "source": null
+        }
+    },
+    {
+        "model": "djangocms_versioning.version",
+        "pk": 15,
+        "fields": {
+            "created": "2025-05-22T14:25:38.489Z",
+            "modified": "2025-05-22T14:25:57.517Z",
+            "created_by": [
+                "stefan.wehrmeyer@okfn.de"
+            ],
+            "number": "1",
+            "content_type": [
+                "cms",
+                "pagecontent"
+            ],
+            "object_id": 11,
+            "state": "published",
+            "locked_by": null,
+            "source": null
+        }
+    },
+    {
+        "model": "djangocms_versioning.version",
+        "pk": 16,
+        "fields": {
+            "created": "2025-05-22T14:29:58.292Z",
+            "modified": "2025-05-22T14:30:15.330Z",
+            "created_by": [
+                "stefan.wehrmeyer@okfn.de"
+            ],
+            "number": "1",
+            "content_type": [
+                "cms",
+                "pagecontent"
+            ],
+            "object_id": 12,
             "state": "published",
             "locked_by": null,
             "source": null
@@ -2158,8 +1266,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 1,
         "fields": {
-            "version": 3,
-            "date": "2024-04-22T14:08:54.482Z",
+            "version": 1,
+            "date": "2025-05-22T14:21:52.198Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2171,8 +1279,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 2,
         "fields": {
-            "version": 4,
-            "date": "2024-04-22T14:13:44.613Z",
+            "version": 5,
+            "date": "2025-05-22T14:21:56.415Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2184,8 +1292,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 3,
         "fields": {
-            "version": 1,
-            "date": "2024-04-22T14:18:50.669Z",
+            "version": 6,
+            "date": "2025-05-22T14:23:08.382Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2197,8 +1305,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 4,
         "fields": {
-            "version": 6,
-            "date": "2024-04-22T14:19:57.359Z",
+            "version": 7,
+            "date": "2025-05-22T14:23:11.612Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2210,8 +1318,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 5,
         "fields": {
-            "version": 7,
-            "date": "2024-04-22T14:20:52.238Z",
+            "version": 8,
+            "date": "2025-05-22T14:23:14.061Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2223,8 +1331,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 6,
         "fields": {
-            "version": 8,
-            "date": "2024-04-22T14:20:55.131Z",
+            "version": 9,
+            "date": "2025-05-22T14:23:17.403Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2236,8 +1344,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 7,
         "fields": {
-            "version": 9,
-            "date": "2024-04-22T14:21:15.675Z",
+            "version": 10,
+            "date": "2025-05-22T14:24:14.671Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2249,8 +1357,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 8,
         "fields": {
-            "version": 10,
-            "date": "2024-04-22T14:21:40.407Z",
+            "version": 11,
+            "date": "2025-05-22T14:24:17.808Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2262,8 +1370,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 9,
         "fields": {
-            "version": 11,
-            "date": "2024-04-22T14:22:24.176Z",
+            "version": 13,
+            "date": "2025-05-22T14:25:08.284Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2275,8 +1383,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 10,
         "fields": {
-            "version": 12,
-            "date": "2024-04-22T14:33:04.747Z",
+            "version": 14,
+            "date": "2025-05-22T14:25:11.700Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2289,7 +1397,7 @@
         "pk": 11,
         "fields": {
             "version": 15,
-            "date": "2024-04-22T14:33:18.911Z",
+            "date": "2025-05-22T14:25:57.531Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2301,164 +1409,8 @@
         "model": "djangocms_versioning.statetracking",
         "pk": 12,
         "fields": {
-            "version": 13,
-            "date": "2024-04-22T14:33:22.896Z",
-            "old_state": "draft",
-            "new_state": "published",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 13,
-        "fields": {
-            "version": 14,
-            "date": "2024-04-22T14:33:26.547Z",
-            "old_state": "draft",
-            "new_state": "published",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 14,
-        "fields": {
             "version": 16,
-            "date": "2024-04-22T14:34:10.404Z",
-            "old_state": "draft",
-            "new_state": "published",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 15,
-        "fields": {
-            "version": 13,
-            "date": "2024-04-22T14:34:10.427Z",
-            "old_state": "published",
-            "new_state": "unpublished",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 16,
-        "fields": {
-            "version": 18,
-            "date": "2024-04-22T14:34:48.982Z",
-            "old_state": "draft",
-            "new_state": "published",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 17,
-        "fields": {
-            "version": 15,
-            "date": "2024-04-22T14:34:49.006Z",
-            "old_state": "published",
-            "new_state": "unpublished",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 18,
-        "fields": {
-            "version": 19,
-            "date": "2024-04-22T14:40:36.717Z",
-            "old_state": "draft",
-            "new_state": "published",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 19,
-        "fields": {
-            "version": 20,
-            "date": "2024-04-22T14:40:45.802Z",
-            "old_state": "draft",
-            "new_state": "published",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 20,
-        "fields": {
-            "version": 21,
-            "date": "2024-04-22T14:40:51.009Z",
-            "old_state": "draft",
-            "new_state": "published",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 21,
-        "fields": {
-            "version": 22,
-            "date": "2024-04-22T14:44:05.006Z",
-            "old_state": "draft",
-            "new_state": "published",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 22,
-        "fields": {
-            "version": 21,
-            "date": "2024-04-22T14:44:05.034Z",
-            "old_state": "published",
-            "new_state": "unpublished",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 23,
-        "fields": {
-            "version": 25,
-            "date": "2024-04-22T14:53:50.120Z",
-            "old_state": "draft",
-            "new_state": "published",
-            "user": [
-                "stefan.wehrmeyer@okfn.de"
-            ]
-        }
-    },
-    {
-        "model": "djangocms_versioning.statetracking",
-        "pk": 24,
-        "fields": {
-            "version": 26,
-            "date": "2024-04-22T14:53:55.140Z",
+            "date": "2025-05-22T14:30:15.344Z",
             "old_state": "draft",
             "new_state": "published",
             "user": [
@@ -2498,7 +1450,7 @@
             "creation_method": "template",
             "category": 1,
             "position": 1,
-            "static_code": "footer",
+            "static_code": "bottom_banner",
             "site": null
         }
     },
@@ -2509,7 +1461,7 @@
             "creation_method": "template",
             "category": 1,
             "position": 2,
-            "static_code": "book_pub_footer",
+            "static_code": "footer",
             "site": null
         }
     },
@@ -2520,27 +1472,8 @@
             "creation_method": "template",
             "category": 1,
             "position": 3,
-            "static_code": "froide_food_header",
+            "static_code": "dropdown_banner",
             "site": null
-        }
-    },
-    {
-        "model": "djangocms_alias.alias",
-        "pk": 5,
-        "fields": {
-            "creation_method": "template",
-            "category": 1,
-            "position": 4,
-            "static_code": "froide_food_footer",
-            "site": null
-        }
-    },
-    {
-        "model": "djangocms_text_ckeditor.text",
-        "pk": 1,
-        "fields": {
-            "cmsplugin_ptr": 1,
-            "body": "<h2 data-auto-id=\"kapitel-1\" id=\"kapitel-1\">Kapitel 1</h2>\n\n<p>Lorem ipsum.</p>"
         }
     },
     {
