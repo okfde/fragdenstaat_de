@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from django.urls import reverse_lazy
+from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -50,12 +50,16 @@ class FdsDonationConfig(AppConfig):
         from froide.account.menu import MenuItem, menu_registry
 
         def get_donation_menu_item(request):
-            return MenuItem(
-                section="before_settings",
-                order=999,
-                url=reverse_lazy("fds_donation:donor-user"),
-                label=_("My donations"),
-            )
+            try:
+                return MenuItem(
+                    section="before_settings",
+                    order=999,
+                    url=reverse("fds_donation:donor-user"),
+                    label=_("My donations"),
+                )
+            except NoReverseMatch:
+                # If the URL is not found, return None to avoid errors
+                return None
 
         menu_registry.register(get_donation_menu_item)
 
