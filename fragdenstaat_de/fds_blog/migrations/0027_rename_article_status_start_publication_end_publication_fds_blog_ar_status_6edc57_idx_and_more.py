@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fds_blog', '0025_detailsboxcmsplugin_inline_and_more'),
+        ('fds_blog', '0026_alter_articlepreviewplugin_template_and_more'),
     ]
 
     operations = [
