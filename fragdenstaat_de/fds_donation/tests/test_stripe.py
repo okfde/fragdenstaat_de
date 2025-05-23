@@ -143,6 +143,9 @@ def fill_donation_page(page: Page, donor_email):
     page.get_by_label("Was ist drei plus vier?").fill("7")
 
 
+DONATION_DONE_URL = re.compile(r".*spenden/spende/spenden/abgeschlossen/.*")
+
+
 @pytest.mark.django_db
 @pytest.mark.stripe
 def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_setup):
@@ -162,7 +165,7 @@ def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_se
         page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success"])
         page.get_by_role("button", name="Jetzt spenden").click()
 
-        page.wait_for_url("**spenden/spende/spenden/abgeschlossen/**")
+        page.wait_for_url(DONATION_DONE_URL)
 
         assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
@@ -205,7 +208,7 @@ def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_se
         )
     )
     page.locator("#id_amount").fill("10")
-    page.locator("#id_interval").select_option(label="vierteljährlich")
+    page.locator("#id_interval_1").click()
     mail.outbox = []
     page.get_by_role("button", name="Dauerspende ändern").click()
     page.wait_for_load_state("networkidle")
@@ -254,7 +257,7 @@ def test_sepa_once_donation_additional_fields(
 
         page.get_by_role("button", name="Jetzt spenden").click()
 
-        page.wait_for_url("**spenden/spende/spenden/abgeschlossen/**")
+        page.wait_for_url(DONATION_DONE_URL)
 
         assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
@@ -303,12 +306,12 @@ def test_sepa_recurring_donation_failed(page: Page, live_server, stripe_sepa_set
     fill_donation_page(page, donor_email)
     page.get_by_role("button", name="Jetzt spenden").click()
 
-    stripe_sepa_setup.set_final_event("customer.subscription.updated", 2)
+    stripe_sepa_setup.set_final_event("customer.subscription.deleted")
     with stripe_sepa_setup:
         page.locator("#id_iban").fill(STRIPE_TEST_IBANS["failed"])
         page.get_by_role("button", name="Jetzt spenden").click()
 
-        page.wait_for_url("**spenden/spende/spenden/abgeschlossen/**")
+        page.wait_for_url(DONATION_DONE_URL)
 
         assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
@@ -354,7 +357,7 @@ def test_sepa_once_donation_disputed(page: Page, live_server, stripe_sepa_setup)
         page.locator("#id_iban").fill(STRIPE_TEST_IBANS["disputed"])
         page.get_by_role("button", name="Jetzt spenden").click()
 
-        page.wait_for_url("**spenden/spende/spenden/abgeschlossen/**")
+        page.wait_for_url(DONATION_DONE_URL)
 
         assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
@@ -392,29 +395,18 @@ def test_creditcard_recurring_donation_success(
     stripe_sepa_setup.final_event = "invoice.payment_succeeded"
 
     with stripe_sepa_setup:
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').locator(
-            ".CardField-restWrapper"
-        ).click()
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').get_by_placeholder(
-            "Kartennummer"
-        ).fill(STRIPE_TEST_CARDS["success"])
+        frame = page.frame_locator('iframe[name^="__privateStripeFrame"]').first
+        frame.locator(".CardField-restWrapper").click()
+        frame.get_by_placeholder("Kartennummer").fill(STRIPE_TEST_CARDS["success"])
         next_year = datetime.now().year + 1
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').get_by_placeholder(
-            "MM/JJ"
-        ).fill("12 / {}".format(next_year))
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').get_by_placeholder(
-            "Prüfziffer"
-        ).fill("123")
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').get_by_placeholder(
-            "PLZ"
-        ).click()
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').get_by_placeholder(
-            "PLZ"
-        ).fill("12345")
+        frame.get_by_placeholder("MM/JJ").fill("12 / {}".format(next_year))
+        frame.get_by_placeholder("Prüfziffer").fill("123")
+        frame.get_by_placeholder("PLZ").click()
+        frame.get_by_placeholder("PLZ").fill("12345")
 
         page.get_by_role("button").click()
 
-        page.wait_for_url("**spenden/spende/spenden/abgeschlossen/**")
+        page.wait_for_url(DONATION_DONE_URL)
 
         assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
@@ -449,29 +441,18 @@ def test_creditcard_once_donation_success(page: Page, live_server, stripe_sepa_s
     stripe_sepa_setup.final_event = "charge.succeeded"
 
     with stripe_sepa_setup:
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').locator(
-            ".CardField-restWrapper"
-        ).click()
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').get_by_placeholder(
-            "Kartennummer"
-        ).fill(STRIPE_TEST_CARDS["success"])
+        frame = page.frame_locator('iframe[name^="__privateStripeFrame"]').first
+        frame.locator(".CardField-restWrapper").click()
+        frame.get_by_placeholder("Kartennummer").fill(STRIPE_TEST_CARDS["success"])
         next_year = datetime.now().year + 1
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').get_by_placeholder(
-            "MM/JJ"
-        ).fill("12 / {}".format(next_year))
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').get_by_placeholder(
-            "Prüfziffer"
-        ).fill("123")
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').get_by_placeholder(
-            "PLZ"
-        ).click()
-        page.frame_locator('iframe[name^="__privateStripeFrame"]').get_by_placeholder(
-            "PLZ"
-        ).fill("12345")
+        frame.get_by_placeholder("MM/JJ").fill("12 / {}".format(next_year))
+        frame.get_by_placeholder("Prüfziffer").fill("123")
+        frame.get_by_placeholder("PLZ").click()
+        frame.get_by_placeholder("PLZ").fill("12345")
 
         page.get_by_role("button").click()
 
-        page.wait_for_url("**spenden/spende/spenden/abgeschlossen/**")
+        page.wait_for_url(DONATION_DONE_URL)
 
         assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
