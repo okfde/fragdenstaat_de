@@ -58,7 +58,13 @@ class Test(FragDenStaatBase):
         ),
         "paypal": (
             "froide_payment.provider.PaypalProvider",
-            {},
+            {
+                "client_id": env("PAYPAL_TEST_CLIENT_ID"),
+                "secret": env("PAYPAL_TEST_SECRET"),
+                "endpoint": "https://api.sandbox.paypal.com",
+                "capture": True,
+                "webhook_id": None,
+            },
         ),
         "lastschrift": ("froide_payment.provider.LastschriftProvider", {}),
         "banktransfer": ("froide_payment.provider.BanktransferProvider", {}),
