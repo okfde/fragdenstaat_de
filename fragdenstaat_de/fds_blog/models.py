@@ -189,7 +189,7 @@ class Category(TranslatableModel):
         meta={
             "constraints": [
                 models.CheckConstraint(
-                    check=~Q(slug__regex=r"^\d+$"),
+                    condition=~Q(slug__regex=r"^\d+$"),
                     name="not_just_digits_slug",
                     violation_error_message="The slug may not only consist of digits.",
                 )

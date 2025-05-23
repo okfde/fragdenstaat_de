@@ -203,7 +203,7 @@ class Subscriber(models.Model):
                 name="unique_email_newsletter",
             ),
             models.CheckConstraint(
-                check=models.Q(user__isnull=True, email__isnull=False)
+                condition=models.Q(user__isnull=True, email__isnull=False)
                 | models.Q(user__isnull=False, email__isnull=True)
                 | models.Q(
                     user__isnull=True, email__isnull=True, unsubscribed__isnull=False
@@ -211,7 +211,9 @@ class Subscriber(models.Model):
                 name="newsletter_subscription_user_email",
             ),
             models.CheckConstraint(
-                check=~models.Q(subscribed__isnull=False, unsubscribed__isnull=False),
+                condition=~models.Q(
+                    subscribed__isnull=False, unsubscribed__isnull=False
+                ),
                 name="newsletter_subscription_state",
             ),
         ]
