@@ -199,5 +199,8 @@ DJANGO_CONFIGURATION = "Test"
 DJANGO_SETTINGS_MODULE = "fragdenstaat_de.settings.test"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
 testpaths = ["fragdenstaat_de", "tests"]
-addopts = ["--reuse-db", "-m", "not stripe"]
-markers = ["stripe: Run donation tests with stripe test keys"]
+addopts = ["--reuse-db", "-m", "not stripe", "-m", "not paypal"]
+markers = [
+  "stripe: Run donation tests with stripe test keys",
+  "paypal: Run donation tests with paypal sandbox keys",
+]
