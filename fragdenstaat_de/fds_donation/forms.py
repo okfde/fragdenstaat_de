@@ -369,7 +369,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         else:
             self.fields["purpose"].widget = forms.HiddenInput()
 
-    def get_interval_choices(self):
+    def get_interval_choices(self) -> list[tuple[int, str]]:
         if self.settings["interval"] == ONCE:
             interval_choices = [INTERVAL_CHOICES[0]]
         elif not self.settings["interval_choices"]:
@@ -377,7 +377,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
             if self.settings["interval"] in (ONCE, ONCE_RECURRING):
                 interval_choices.append(INTERVAL_CHOICES[0])
             if self.settings["interval"] in (ONCE_RECURRING, RECURRING):
-                interval_choices.append(INTERVAL_CHOICES[1:])
+                interval_choices.extend(INTERVAL_CHOICES[1:])
         else:
             interval_choices = self.settings["interval_choices"]
             if self.settings["interval"] == RECURRING:
