@@ -390,6 +390,7 @@ class FragDenStaatBase(German, Base):
         "entities": False,
         "stylesSet": "default:/static/js/cms/ckeditor.wysiwyg.js",
         "contentsCss": "/static/css/main.css",
+        "height": "500px",
     }
 
     DJANGOCMS_PICTURE_TEMPLATES = [("hero", _("Hero")), ("email", _("Email"))]
