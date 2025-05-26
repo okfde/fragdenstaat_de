@@ -203,7 +203,6 @@ django-cms==5.0.1
     #   djangocms-icon
     #   djangocms-link
     #   djangocms-picture
-    #   djangocms-text-ckeditor
     #   djangocms-transfer
     #   djangocms-versioning
     #   djangocms-video
@@ -349,7 +348,7 @@ djangocms-link==5.0.1
     #   djangocms-frontend
 djangocms-picture==4.1.1
     # via fragdenstaat-de (pyproject.toml)
-djangocms-text-ckeditor==5.1.5
+djangocms-text==0.8.6
     # via fragdenstaat-de (pyproject.toml)
 djangocms-transfer==2.0.0a0
     # via fragdenstaat-de (pyproject.toml)
@@ -510,8 +509,6 @@ html-text==0.7.0
     # via fragdenstaat-de (pyproject.toml)
 html-void-elements==0.1.0
     # via djlint
-html5lib==1.1
-    # via djangocms-text-ckeditor
 htmldocx==0.0.6
     # via django-legal-advice-builder
 httplib2==0.22.0
@@ -569,6 +566,7 @@ lxml==5.3.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-amenities
+    #   djangocms-text
     #   feedgen
     #   froide
     #   html-text
@@ -610,6 +608,7 @@ nh3==0.2.21
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
     #   django-legal-advice-builder
+    #   djangocms-text
     #   froide
     #   froide-govplan
 nodeenv==1.9.1
@@ -664,7 +663,7 @@ openpyxl==3.1.5
 packaging==24.1
     # via
     #   django-cms
-    #   djangocms-text-ckeditor
+    #   djangocms-text
     #   djangocms-versioning
     #   pikepdf
     #   pytest
@@ -698,7 +697,7 @@ pillow==11.2.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
-    #   djangocms-text-ckeditor
+    #   djangocms-text
     #   easy-thumbnails
     #   froide
     #   pikepdf
@@ -888,7 +887,6 @@ six==1.16.0
     #   cssbeautifier
     #   django-elasticsearch-dsl
     #   geocoder
-    #   html5lib
     #   jsbeautifier
     #   python-dateutil
 snowballstemmer==2.2.0
@@ -1005,7 +1003,6 @@ weasyprint==65.1
 webencodings==0.5.1
     # via
     #   cssselect2
-    #   html5lib
     #   tinycss2
     #   tinyhtml5
 webp==0.4.0
