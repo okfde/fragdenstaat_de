@@ -41,6 +41,12 @@ urlpatterns = [
                 path(
                     _("search/"),
                     SearchRedirectView.as_view(),
+                    name="legacy-article-search-i18n",
+                ),
+                # some legacy URLs are not translated
+                path(
+                    "search/",
+                    SearchRedirectView.as_view(),
                     name="legacy-article-search",
                 ),
                 path(
