@@ -324,19 +324,6 @@ class FragDenStaatBase(German, Base):
         "*": {"style"},
     }
 
-    # WARNING: We are monkey patching to not sanitize CSS
-    # The used html5lib CSS Sanitizer is deprecated, outdated
-    def _monkey_patch_css_sanitizer():
-        # Do not sanitize CSS
-        def sanitize_css(self, style):
-            return style
-
-        from djangocms_text_ckeditor.sanitizer import TextSanitizer
-
-        TextSanitizer.sanitize_css = sanitize_css
-
-    _monkey_patch_css_sanitizer()
-
     TEXT_EDITOR = "fragdenstaat_de.theme.editor.ckeditor4"
 
     CKEDITOR_SETTINGS = {
