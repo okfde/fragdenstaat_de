@@ -12,12 +12,18 @@ def render_emailtemplate(request, emailtemplate: EmailTemplate):
     email_context = {}
     if preview_form.is_valid():
         email_context = preview_form.get_context()
-    email_content = emailtemplate.get_email_content(email_context, preview=True)
+    render_error = None
+    try:
+        email_content = emailtemplate.get_email_content(email_context, preview=True)
+    except Exception as e:
+        render_error = str(e)
+        email_content = None
     context = {
         "object": emailtemplate,
         "force_cms_render": True,
         "preview_mailing_form": preview_form,
         "email_content": email_content,
+        "render_error": render_error,
     }
     return TemplateResponse(request, template, context)
 

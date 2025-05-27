@@ -30,26 +30,30 @@
         </div>
     </details>
     <hr class="mt-5" />
-    <h2 class="mt-2">{% trans "Preview" %}</h2>
-    {% if preview_mailing_form.fields %}
-        <form action="." method="get">
-            {% render_form preview_mailing_form %}
-            <button type="submit" class="btn btn-primary mt-3">{% translate "Preview" %}</button>
-        </form>
+    {% if render_error %}
+        <div class="alert alert-danger">{{ render_error }}</div>
+    {% else %}
+        <h2 class="mt-2">{% trans "Preview" %}</h2>
+        {% if preview_mailing_form.fields %}
+            <form action="." method="get">
+                {% render_form preview_mailing_form %}
+                <button type="submit" class="btn btn-primary mt-3">{% translate "Preview" %}</button>
+            </form>
+        {% endif %}
+        <h4 class="mt-5">{% trans "Subject Preview" %}</h4>
+        <div class="p-2 mb-2">
+            <strong>{% translate "Subject:" %}</strong> {{ email_content.subject }}
+        </div>
+        <h4 class="mt-5">{% trans "HTML Preview" %}</h4>
+        <iframe class="w-100"
+                height="680"
+                frameborder="0"
+                srcdoc="{{ email_content.html|force_escape }}"></iframe>
+        <h4 class="mt-5 ">{% trans "Text Preview" %}</h4>
+        <div class="border border-dark p-2 mb-5">
+            <pre>{{ email_content.text|urlize }}</pre>
+        </div>
     {% endif %}
-    <h4 class="mt-5">{% trans "Subject Preview" %}</h4>
-    <div class="p-2 mb-2">
-        <strong>{% translate "Subject:" %}</strong> {{ email_content.subject }}
-    </div>
-    <h4 class="mt-5">{% trans "HTML Preview" %}</h4>
-    <iframe class="w-100"
-            height="680"
-            frameborder="0"
-            srcdoc="{{ email_content.html|force_escape }}"></iframe>
-    <h4 class="mt-5 ">{% trans "Text Preview" %}</h4>
-    <div class="border border-dark p-2 mb-5">
-        <pre>{{ email_content.text|urlize }}</pre>
-    </div>
     {% with extra_placeholder=object.get_extra_placeholder_name %}
         {% if extra_placeholder %}
             <hr />
@@ -60,4 +64,5 @@
         {% endif %}
     {% endwith %}
 {% endblock %}
-{% block footer_container %}{% endblock %}
+{% block footer_container %}
+{% endblock %}
