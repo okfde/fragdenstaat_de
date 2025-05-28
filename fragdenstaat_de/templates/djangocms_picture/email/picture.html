@@ -4,6 +4,8 @@
 {% if object.template == "mjml" %}
     {% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location as img %}
         <mj-image src="{{ img.url }}"
+        {% if not instance.attributes.alt %}alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %}
+        {{ instance.attributes_str }}
         {% if picture_link %}href="{{ picture_link }}"{% endif %}
         ></mj-image>
     {% else %}
