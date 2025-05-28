@@ -3,6 +3,8 @@ import re
 from datetime import timedelta
 from pathlib import Path
 
+from django.templatetags.static import static
+from django.utils.functional import lazy
 from django.utils.translation import gettext_lazy as _
 
 from configurations import values
@@ -375,8 +377,8 @@ class FragDenStaatBase(German, Base):
         "autocorrect_doubleQuotes": "„“",
         "disableNativeSpellChecker": False,
         "entities": False,
-        "stylesSet": "default:/static/js/cms/ckeditor.wysiwyg.js",
-        "contentsCss": "/static/css/main.css",
+        # "stylesSet": "default:/static/js/cms/ckeditor.wysiwyg.js",
+        "contentsCss": lazy(static, str)("css/main.css"),
         "height": "500px",
     }
 
