@@ -1,6 +1,6 @@
 import decimal
 import uuid
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -10,12 +10,14 @@ from django.db import connection, models
 from django.db.models.functions import RowNumber
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.formats import date_format, number_format
 from django.utils.functional import cached_property
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext
 
 from cms.models.pluginmodel import CMSPlugin
+from dateutil.relativedelta import relativedelta
 from django_countries.fields import CountryField
 from djangocms_frontend.fields import AttributesField
 from froide_payment.models import (
@@ -58,7 +60,7 @@ INTERVAL_CHOICES = [
     (3, _("quarterly")),
     (12, _("yearly")),
 ]
-
+RECURRING_INTERVAL_CHOICES = INTERVAL_CHOICES[1:]
 
 SALUTATION_CHOICES = (
     ("", pgettext("salutation neutral", "Hello")),
@@ -300,6 +302,94 @@ def update_donation_numbers(donor_id):
             Donation.objects.filter(id=d.id).update(number=d.new_number)
 
 
+class CancelReason(models.TextChoices):
+    NO_REASON = "", _("No reason given")
+    FINANCIAL = "financial", _("Financial reasons")
+    UNINTENDED = "unintended", _("Mistakenly set up, do not remember doing so")
+    LOST = "lost", _("I do not want to support this project anymore")
+    OTHER = "other", _("Other")
+
+
+class Recurrence(models.Model):
+    donor = models.ForeignKey(
+        Donor,
+        null=True,
+        blank=True,
+        related_name="recurrences",
+        on_delete=models.CASCADE,
+    )
+    subscription = models.OneToOneField(
+        Subscription,
+        null=True,
+        blank=True,
+        related_name="+",
+        on_delete=models.SET_NULL,
+    )
+    method = models.CharField(max_length=256, blank=True)
+    start_date = models.DateTimeField()
+    interval = models.IntegerField(choices=RECURRING_INTERVAL_CHOICES)
+    amount = models.DecimalField(
+        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
+    )
+    cancel_date = models.DateTimeField(null=True, blank=True)
+    cancel_reason = models.CharField(
+        max_length=255,
+        blank=True,
+        default="",
+        help_text=_("Reason for cancellation"),
+        choices=CancelReason,
+    )
+    cancel_feedback = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = _("recurring pattern")
+        verbose_name_plural = _("recurring pattern")
+
+    def __str__(self):
+        return "{donor}: {desc}".format(donor=self.donor, desc=self.get_description())
+
+    def get_description(self):
+        return _(
+            "{amount} EUR every {interval} month(s) via {method} since {start}"
+        ).format(
+            donor=self.donor,
+            amount=number_format(self.amount),
+            interval=self.interval,
+            method=self.method,
+            start=date_format(self.start_date, "SHORT_DATE_FORMAT"),
+        ) + (
+            " ({})".format(
+                _("canceled on {}").format(
+                    date_format(self.cancel_date, "SHORT_DATE_FORMAT")
+                )
+            )
+            if self.cancel_date
+            else ""
+        )
+
+    def next_expected_date(self) -> datetime | None:
+        """
+        Returns the next expected date for this recurring pattern.
+        If canceled, returns None.
+        """
+        if self.canceled:
+            return None
+
+        interval = relativedelta(months=self.interval)
+
+        last_received_donation = (
+            self.donations.filter(received_timestamp__isnull=False)
+            .order_by("-received_timestamp")
+            .first()
+        )
+        if last_received_donation:
+            last_received_timestamp = last_received_donation.received_timestamp
+        else:
+            # must be coming in any time now
+            last_received_timestamp = timezone.now()
+        return last_received_timestamp + interval
+
+
 class DonationManager(models.Manager):
     def estimate_received_donations(self, start_date: date):
         today = timezone.now().date()
@@ -390,6 +480,14 @@ class Donation(models.Model):
     )
     first_recurring = models.BooleanField(default=False)
     recurring = models.BooleanField(default=False)
+    recurrence = models.ForeignKey(
+        Recurrence,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="donations",
+    )
+
     project = models.CharField(
         max_length=40,
         default=DEFAULT_DONATION_PROJECT,
