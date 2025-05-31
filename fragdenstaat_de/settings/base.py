@@ -3,6 +3,8 @@ import re
 from datetime import timedelta
 from pathlib import Path
 
+from django.templatetags.static import static
+from django.utils.functional import lazy
 from django.utils.translation import gettext_lazy as _
 
 from configurations import values
@@ -62,7 +64,8 @@ class FragDenStaatBase(German, Base):
                 "fragdenstaat_de.fds_paperless",
                 "fragdenstaat_de.fds_events",
                 # Additional CMS plugins
-                "djangocms_text_ckeditor",
+                "djangocms_text",
+                "djangocms_text.contrib.text_ckeditor4",
                 "djangocms_picture",
                 "djangocms_video",
                 "djangocms_audio",
@@ -155,7 +158,6 @@ class FragDenStaatBase(German, Base):
         return [THEME_ROOT / "static"] + super().STATICFILES_DIRS
 
     # Newsletter
-    NEWSLETTER_RICHTEXT_WIDGET = "djangocms_text_ckeditor.widgets.TextEditorWidget"
     DEFAULT_NEWSLETTER = "fragdenstaat"
     DONOR_NEWSLETTER = "spenden"
 
@@ -309,36 +311,22 @@ class FragDenStaatBase(German, Base):
     # not found https://github.com/django-cms/django-cms/pull/7509/files
     CMS_REDIRECT_TO_LOWERCASE_SLUG = True
 
-    TEXT_ADDITIONAL_TAGS = (
-        "iframe",
-        "embed",
-        "summary",
-        "details",
-    )
-    TEXT_ADDITIONAL_ATTRIBUTES = (
-        "scrolling",
-        "frameborder",
-        "webkitallowfullscreen",
-        "mozallowfullscreen",
-        "allowfullscreen",
-        "sandbox",
-        "style",
-    )
+    TEXT_ADDITIONAL_ATTRIBUTES = {
+        "iframe": {
+            "scrolling",
+            "frameborder",
+            "webkitallowfullscreen",
+            "mozallowfullscreen",
+            "allowfullscreen",
+            "sandbox",
+        },
+        "embed": {"type", "src", "width", "height"},
+        "summary": {"class"},
+        "details": {"class", "open"},
+        "*": {"style"},
+    }
 
-    # WARNING: We are monkey patching to not sanitize CSS
-    # The used html5lib CSS Sanitizer is deprecated, outdated
-    def _monkey_patch_css_sanitizer():
-        # Do not sanitize CSS
-        def sanitize_css(self, style):
-            return style
-
-        from djangocms_text_ckeditor.sanitizer import TextSanitizer
-
-        TextSanitizer.sanitize_css = sanitize_css
-
-    _monkey_patch_css_sanitizer()
-
-    TEXT_ADDITIONAL_PROTOCOLS = ("bank",)
+    TEXT_EDITOR = "fragdenstaat_de.theme.editor.ckeditor4"
 
     CKEDITOR_SETTINGS = {
         "language": "{{ language }}",
@@ -346,7 +334,7 @@ class FragDenStaatBase(German, Base):
         "toolbar": "CMS",
         "toolbar_CMS": [
             ["Undo", "Redo"],
-            ["cmsplugins", "-"],
+            ["CMSPlugins", "-"],
             ["Format", "Styles"],
             ["TextColor", "BGColor", "-", "PasteText", "PasteFromWord"],
             # ['Scayt'],
@@ -389,8 +377,9 @@ class FragDenStaatBase(German, Base):
         "autocorrect_doubleQuotes": "„“",
         "disableNativeSpellChecker": False,
         "entities": False,
-        "stylesSet": "default:/static/js/cms/ckeditor.wysiwyg.js",
-        "contentsCss": "/static/css/main.css",
+        # "stylesSet": "default:/static/js/cms/ckeditor.wysiwyg.js",
+        "contentsCss": lazy(static, str)("css/main.css"),
+        "height": "500px",
     }
 
     DJANGOCMS_PICTURE_TEMPLATES = [("hero", _("Hero")), ("email", _("Email"))]

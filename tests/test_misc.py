@@ -3,7 +3,7 @@ import unittest
 from cms import api
 from cms.api import add_plugin
 from cms.test_utils.testcases import CMSTestCase
-from djangocms_text_ckeditor.cms_plugins import TextPlugin
+from djangocms_text.cms_plugins import TextPlugin
 
 MARKER_BEFORE = "MAGIC_MARKER_BEFORE"
 MARKER_AFTER = "MAGIC_MARKER_AFTER"
