@@ -13,6 +13,7 @@ from datashow.table import RowQueryset
 from djangocms_picture.cms_plugins import PicturePlugin as BasePicturePlugin
 
 from froide.foirequest.models import FoiRequest
+from froide.helper.auth import is_crew
 from froide.helper.utils import get_redirect_url
 
 from .contact import ContactForm
@@ -235,7 +236,11 @@ class FoiRequestListPlugin(CMSPluginBase):
         """
         Update the context with plugin's data
         """
-        foirequests = FoiRequest.published.all()
+        request = context.get("request")
+        if request is not None and is_crew(request.user):
+            foirequests = FoiRequest.objects.all()
+        else:
+            foirequests = FoiRequest.published.all()
 
         FILTER_KEYS = (
             "user",
