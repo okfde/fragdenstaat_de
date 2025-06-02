@@ -272,6 +272,7 @@ class FoiRequestListCMSPlugin(CMSPlugin):
     TEMPLATES = [
         ("", _("Default template")),
         ("foirequest/cms_plugins/list_follow.html", _("Follow template")),
+        ("foirequest/cms_plugins/map.html", _("Map template")),
     ]
 
     resolution = models.CharField(

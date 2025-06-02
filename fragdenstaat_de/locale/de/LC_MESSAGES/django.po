@@ -7528,3 +7528,43 @@ msgstr ""
 
 #~ msgid "Updated Date"
 #~ msgstr "Änderungsdatum"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:14
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:173
+msgid "Pending"
+msgstr "Ausstehend"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:15
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:174
+msgid "Resolved"
+msgstr "Erledigt"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:16
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:175
+
+msgid "Refused"
+msgstr "Abgelehnt"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:17
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:176
+
+msgid "Partially successful"
+msgstr "Teilweise erfolgreich"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:18
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:177
+
+msgid "Overdue"
+msgstr "Überfällig"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:19
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:178
+msgid "Asleep"
+msgstr "Eingeschlafen"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:23
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:182
+msgid "%(counter)s request without geo data"
+msgid_plural "%(counter)s requests without geo data"
+msgstr[0] "%(counter)s Anfrage ohne Geodaten"
+msgstr[1] "%(counter)s Anfragen ohne Geodaten"

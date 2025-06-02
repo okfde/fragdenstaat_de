@@ -1,0 +1,311 @@
+{% load i18n %}
+{% load static %}
+{% load leaflet_tags %}
+{% leaflet_js %}
+{% leaflet_css %}
+<div class="foirequest-map-container">
+    <div id="map" style="height: 600px;"></div>
+</div>
+<div id="map-legend" class="foirequest-legend" style="display: none;">
+    <b>{% trans "Status" %}</b>
+    <br>
+    <i style="background:#ffc107"></i> {% trans "Pending" %}
+    <br>
+    <i style="background:#28a745"></i> {% trans "Resolved" %}
+    <br>
+    <i style="background:#dc3545"></i> {% trans "Refused" %}
+    <br>
+    <i style="background:#17a2b8"></i> {% trans "Partially successful" %}
+    <br>
+    <i style="background:#fd7e14"></i> {% trans "Overdue" %}
+    <br>
+    <i style="background:#6c757d"></i> {% trans "Asleep" %}
+    <br>
+    {% if requests_without_geo > 0 %}
+        <hr class="legend-divider">
+        <div class="legend-note">
+            <i class="fas fa-info-circle"></i> {% blocktrans count counter=requests_without_geo %}{{ counter }} request without geo data{% plural %}{{ counter }} requests without geo data{% endblocktrans %}
+        </div>
+    {% endif %}
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initMap();
+    });
+
+    // Cache for status icons
+    const statusIconCache = {};
+
+    function getStatusIcon(status) {
+        if (statusIconCache[status]) {
+            return statusIconCache[status];
+        }
+
+        const statusColors = {
+            'pending': '#ffc107',
+            'resolved': '#28a745',
+            'refused': '#dc3545',
+            'partially_successful': '#17a2b8',
+            'overdue': '#fd7e14',
+            'asleep': '#6c757d'
+        };
+
+        const color = statusColors[status] || '#6c757d';
+        const icon = L.divIcon({
+            className: 'custom-div-icon',
+            html: `<div style="background-color: ${color}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.3);"></div>`,
+            iconSize: [16, 16],
+            iconAnchor: [8, 8]
+        });
+
+        statusIconCache[status] = icon;
+        return icon;
+    }
+
+    function isValidCoordinates(coords) {
+        return coords && 
+               Array.isArray(coords) && 
+               coords.length === 2 && 
+               !isNaN(coords[0]) && 
+               !isNaN(coords[1]) &&
+               coords[0] >= -90 && 
+               coords[0] <= 90 &&
+               coords[1] >= -180 && 
+               coords[1] <= 180;
+    }
+
+    function createPopupContent(requests) {
+        let popupHtml = '<div class="foirequest-popup">';
+        requests.forEach((request, index) => {
+            popupHtml += `
+                <h4><a href="${request.url}">${request.title}</a></h4>
+                <p>${request.public_body_name}</p>
+                <p class="text-muted">${request.status_display}</p>
+                ${index < requests.length - 1 ? '<hr>' : ''}
+            `;
+        });
+        popupHtml += '</div>';
+        return popupHtml;
+    }
+
+    function initMap() {
+        // Initialize map with zoom controls
+        var map = L.map('map', {
+            zoomControl: true,
+            scrollWheelZoom: true
+        }).setView([51.1657, 10.4515], 6);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        var bounds = L.latLngBounds();
+        var markers = [];
+        var polygons = [];
+
+        // Add markers for grouped coordinates
+        {% for coords_key, group in geo_groups.items %}
+            var coords = {{ group.coords|safe }};
+            if (isValidCoordinates(coords)) {
+                var popupHtml = createPopupContent([
+                    {% for foirequest in group.requests %}
+                        {
+                            url: "{{ foirequest.get_absolute_url }}",
+                            title: "{{ foirequest.title|escapejs }}",
+                            public_body_name: "{{ foirequest.public_body.name|escapejs }}",
+                            status_display: "{{ foirequest.get_status_display|escapejs }}"
+                        }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ]);
+
+                var marker = L.marker(coords, {
+                    icon: getStatusIcon('{{ group.requests.0.status }}')
+                }).addTo(map);
+                marker.bindPopup(popupHtml);
+                bounds.extend(coords);
+                markers.push(marker);
+            }
+        {% endfor %}
+
+        // Add polygons for grouped regions
+        {% for region_key, group in region_groups.items %}
+            var regionCoords = {{ group.region.geom.geojson|safe }};
+            if (regionCoords && regionCoords.coordinates) {
+                try {
+                    var popupHtml = createPopupContent([
+                        {% for foirequest in group.requests %}
+                            {
+                                url: "{{ foirequest.get_absolute_url }}",
+                                title: "{{ foirequest.title|escapejs }}",
+                                public_body_name: "{{ foirequest.public_body.name|escapejs }}",
+                                status_display: "{{ foirequest.get_status_display|escapejs }}"
+                            }{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    ]);
+
+                    var polygon = L.geoJSON(regionCoords, {
+                        style: {
+                            color: getStatusIcon('{{ group.requests.0.status }}').options.html.match(/background-color: ([^;]+)/)[1],
+                            weight: 2,
+                            opacity: 0.8,
+                            fillOpacity: 0.2
+                        }
+                    }).addTo(map);
+                    polygon.bindPopup(popupHtml);
+                    bounds.extend(polygon.getBounds());
+                    polygons.push(polygon);
+                } catch (e) {
+                    console.error('Error creating polygon:', e);
+                }
+            }
+        {% endfor %}
+
+        // Fit map to bounds if we have any markers or polygons
+        if (markers.length > 0 || polygons.length > 0) {
+            var group = new L.featureGroup(markers.concat(polygons));
+            map.fitBounds(bounds);
+        }
+
+        // Add legend
+        var legend = L.control({position: 'bottomright'});
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'foirequest-legend');
+            div.innerHTML += '<b>{% trans "Status" %}</b><br>';
+            div.innerHTML += '<i style="background:#ffc107"></i> {% trans "Pending" %}<br>';
+            div.innerHTML += '<i style="background:#28a745"></i> {% trans "Resolved" %}<br>';
+            div.innerHTML += '<i style="background:#dc3545"></i> {% trans "Refused" %}<br>';
+            div.innerHTML += '<i style="background:#17a2b8"></i> {% trans "Partially successful" %}<br>';
+            div.innerHTML += '<i style="background:#fd7e14"></i> {% trans "Overdue" %}<br>';
+            div.innerHTML += '<i style="background:#6c757d"></i> {% trans "Asleep" %}<br>';
+            {% if requests_without_geo > 0 %}
+            div.innerHTML += '<hr class="legend-divider">';
+            div.innerHTML += '<div class="legend-note">';
+            div.innerHTML += '&#9432; {% blocktrans count counter=requests_without_geo %}{{ counter }} request without geo data{% plural %}{{ counter }} requests without geo data{% endblocktrans %}';
+            div.innerHTML += '</div>';
+            {% endif %}
+            return div;
+        };
+        legend.addTo(map);
+    }
+</script>
+<style>
+.foirequest-map-container {
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.foirequest-popup {
+    padding: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.foirequest-popup h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+
+.foirequest-popup p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.foirequest-popup .text-muted {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.foirequest-popup hr {
+    margin: 8px 0;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+/* Customize scrollbar for webkit browsers */
+.foirequest-popup::-webkit-scrollbar {
+    width: 8px;
+}
+
+.foirequest-popup::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.foirequest-popup::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.foirequest-popup::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.custom-div-icon {
+    background: none;
+    border: none;
+}
+
+.foirequest-legend {
+    background: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.foirequest-legend i {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.85;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    display: inline-block;
+}
+
+.legend-divider {
+    margin: 8px 0;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+.legend-note {
+    color: #666;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.legend-note i {
+    color: #17a2b8;
+    font-size: 14px;
+    width: auto;
+    height: auto;
+    border: none;
+    box-shadow: none;
+    margin-right: 5px;
+}
+
+/* Share button styles */
+.leaflet-control a {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+.leaflet-control a:hover {
+    background-color: #f4f4f4;
+}
+</style>
