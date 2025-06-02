@@ -2,7 +2,6 @@ import json
 import urllib.parse
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
@@ -260,21 +259,6 @@ class FoiRequestListPlugin(CMSPluginBase):
         if instance.publicbody_id:
             filters["public_body_id"] = instance.publicbody_id
 
-        # Only include requests with public bodies that have geometry for map view
-        if instance.template == "foirequest/cms_plugins/map.html":
-            foirequests = (
-                foirequests.filter(public_body__isnull=False)
-                .filter(
-                    Q(public_body__geo__isnull=False)  # Has point geometry
-                    | Q(
-                        public_body__regions__geom__isnull=False
-                    )  # Has region with geometry
-                )
-                .select_related("public_body")
-                .prefetch_related("public_body__regions")
-                .distinct()
-            )
-
         foirequests = foirequests.filter(**filters).distinct()
 
         offset = instance.offset
@@ -284,57 +268,7 @@ class FoiRequestListPlugin(CMSPluginBase):
             foirequests = foirequests[offset:]
 
         context = super().render(context, instance, placeholder)
-
-        # For map template, group requests by coordinates and regions
-        if instance.template == "foirequest/cms_plugins/map.html":
-            # Group by coordinates
-            geo_groups = {}
-            # Group by regions
-            region_groups = {}
-
-            # Count requests without geo data
-            requests_without_geo = 0
-
-            for foirequest in foirequests:
-                has_geo = False
-
-                # Check for point geometry
-                if foirequest.public_body and foirequest.public_body.geo:
-                    has_geo = True
-                    coords_key = (
-                        f"{foirequest.public_body.geo.y},{foirequest.public_body.geo.x}"
-                    )
-                    if coords_key not in geo_groups:
-                        geo_groups[coords_key] = {
-                            "coords": [
-                                foirequest.public_body.geo.y,
-                                foirequest.public_body.geo.x,
-                            ],
-                            "requests": [],
-                        }
-                    geo_groups[coords_key]["requests"].append(foirequest)
-
-                # Check for region geometry
-                for region in foirequest.public_body.regions.all():
-                    if region.geom:
-                        has_geo = True
-                        region_key = str(region.id)
-                        if region_key not in region_groups:
-                            region_groups[region_key] = {
-                                "region": region,
-                                "requests": [],
-                            }
-                        region_groups[region_key]["requests"].append(foirequest)
-
-                if not has_geo:
-                    requests_without_geo += 1
-
-            context["geo_groups"] = geo_groups
-            context["region_groups"] = region_groups
-            context["requests_without_geo"] = requests_without_geo
-        else:
-            context["object_list"] = foirequests
-
+        context["object_list"] = foirequests
         return context
 
 

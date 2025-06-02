@@ -1,3 +1,6 @@
+import json
+from functools import reduce
+
 from django import template
 from django.conf import settings
 
@@ -98,3 +101,98 @@ def get_breadcrumb_ancestor(context, navigation_node):
     url = ancestor.get_absolute_url(language=request.LANGUAGE_CODE)
 
     return {"title": title, "url": url}
+
+
+def get_foirequest_features(foirequests, key_func, geometry_func):
+    geo_groups = {}
+    for foirequest in foirequests:
+        coords_key = key_func(foirequest)
+        if coords_key not in geo_groups:
+            geo_groups[coords_key] = {
+                "type": "Feature",
+                "geometry": geometry_func(foirequest),
+                "properties": {
+                    "requests": [],
+                },
+            }
+        geo_groups[coords_key]["properties"]["requests"].append(
+            {
+                "url": foirequest.get_absolute_url(),
+                "title": foirequest.title,
+                "public_body_name": foirequest.public_body.name,
+                "status_display": foirequest.get_status_display(),
+            }
+        )
+    return list(geo_groups.values())
+
+
+@register.filter
+def foirequest_geo_points(foirequests):
+    all_count = foirequests.count()
+    # Only include requests with public bodies that have geometry for map view
+    foirequests = (
+        foirequests.filter(public_body__isnull=False)
+        .filter(public_body__geo__isnull=False)  # Has point geometry
+        .select_related("public_body")
+    )
+
+    with_geo_count = foirequests.count()
+
+    def geometry_func(foirequest):
+        return {
+            "type": "Point",
+            "coordinates": [foirequest.public_body.geo.x, foirequest.public_body.geo.y],
+        }
+
+    features = get_foirequest_features(
+        foirequests,
+        key_func=lambda fr: fr.public_body.geo,
+        geometry_func=geometry_func,
+    )
+
+    return {
+        "all_count": all_count,
+        "geo_count": with_geo_count,
+        "missing_count": all_count - with_geo_count,
+        "geojson": {
+            "type": "FeatureCollection",
+            "features": features,
+        },
+    }
+
+
+@register.filter
+def foirequest_geo_regions(foirequests):
+    all_count = foirequests.count()
+    # Only include requests with public bodies that have geometry for map view
+    foirequests = (
+        foirequests.filter(public_body__isnull=False)
+        .filter(public_body__regions__geom__isnull=False)  # Has region with geometry
+        .select_related("public_body")
+        .prefetch_related("public_body__regions")
+    )
+
+    with_geo_count = foirequests.count()
+
+    def geometry_func(foirequest):
+        multi_polygon = reduce(
+            lambda a, b: a | b,
+            foirequest.public_body.regions.all().values_list("geom", flat=True),
+        )
+        return json.loads(multi_polygon.geojson)
+
+    features = get_foirequest_features(
+        foirequests,
+        key_func=lambda fr: fr.public_body.id,
+        geometry_func=geometry_func,
+    )
+
+    return {
+        "all_count": all_count,
+        "geo_count": with_geo_count,
+        "missing_count": all_count - with_geo_count,
+        "geojson": {
+            "type": "FeatureCollection",
+            "features": features,
+        },
+    }

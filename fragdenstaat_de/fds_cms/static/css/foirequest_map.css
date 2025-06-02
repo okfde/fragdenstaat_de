@@ -1,0 +1,100 @@
+.foirequest-map-container {
+    margin: 20px 0;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.foirequest-popup {
+    padding: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.foirequest-popup h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+
+.foirequest-popup p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.foirequest-popup .text-muted {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.foirequest-popup hr {
+    margin: 8px 0;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+/* Customize scrollbar for webkit browsers */
+.foirequest-popup::-webkit-scrollbar {
+    width: 8px;
+}
+
+.foirequest-popup::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.foirequest-popup::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.foirequest-popup::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.custom-div-icon {
+    background: none;
+    border: none;
+}
+
+.foirequest-legend {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-fg);
+    padding: 10px 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.foirequest-legend i {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.85;
+    border-radius: 50%;
+    border: 2px solid var(--bs-body-bg);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.legend-divider {
+    margin: 8px 0;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+.legend-note {
+    color: var(--bs-body-secondary);
+    ;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.legend-note i {
+    color: #17a2b8;
+    font-size: 14px;
+    width: auto;
+    height: auto;
+    border: none;
+    box-shadow: none;
+    margin-right: 5px;
+}
