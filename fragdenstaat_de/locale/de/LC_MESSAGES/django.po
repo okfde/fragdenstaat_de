@@ -3927,6 +3927,22 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Pending"
+msgstr "Ausstehend"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Resolved"
+msgstr "Erledigt"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Partially successful"
+msgstr "Teilweise erfolgreich"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Asleep"
+msgstr "Eingeschlafen"
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
@@ -7959,18 +7975,6 @@ msgstr "kampagne/"
 
 #~ msgid "Updated Date"
 #~ msgstr "Änderungsdatum"
-
-#~ msgid "Pending"
-#~ msgstr "Ausstehend"
-
-#~ msgid "Resolved"
-#~ msgstr "Erledigt"
-
-#~ msgid "Partially successful"
-#~ msgstr "Teilweise erfolgreich"
-
-#~ msgid "Asleep"
-#~ msgstr "Eingeschlafen"
 
 #, python-format
 #~ msgid ""
