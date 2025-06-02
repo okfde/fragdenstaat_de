@@ -264,6 +264,10 @@ class PrimaryLinkCMSPlugin(CMSPlugin):
         return link
 
 
+def get_foirequest_list_template_choices():
+    return FoiRequestListCMSPlugin.TEMPLATES
+
+
 class FoiRequestListCMSPlugin(CMSPlugin):
     """
     CMS Plugin for displaying FoiRequests
@@ -318,7 +322,7 @@ class FoiRequestListCMSPlugin(CMSPlugin):
         _("template"),
         blank=True,
         max_length=250,
-        choices=TEMPLATES,
+        choices=get_foirequest_list_template_choices,
         help_text=_("template used to display the plugin"),
     )
 
