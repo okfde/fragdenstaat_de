@@ -33,17 +33,17 @@ importers:
         specifier: ^4.7.0
         version: 4.7.0
       froide:
-        specifier: github:okfde/froide
-        version: https://codeload.github.com/okfde/froide/tar.gz/d5c8c2145607ec93ab9ddc28ee0c88637d98eba5(fuse.js@7.1.0)(typescript@5.8.3)
+        specifier: github:okfde/froide#bikubi/postupload-attachmentmgmt-use-api-and-fixes
+        version: https://codeload.github.com/okfde/froide/tar.gz/29dc3efed5f9028e0b0cacfde77f458f2844f110(fuse.js@7.1.0)(typescript@5.8.3)
       froide_campaign:
         specifier: github:okfde/froide-campaign
-        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/7220cb806354e021de37aff731c5266fe7054b5e(froide@https://codeload.github.com/okfde/froide/tar.gz/d5c8c2145607ec93ab9ddc28ee0c88637d98eba5(fuse.js@7.1.0)(typescript@5.8.3))(typescript@5.8.3)
+        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/7220cb806354e021de37aff731c5266fe7054b5e(froide@https://codeload.github.com/okfde/froide/tar.gz/29dc3efed5f9028e0b0cacfde77f458f2844f110(fuse.js@7.1.0)(typescript@5.8.3))(typescript@5.8.3)
       froide_exam:
         specifier: github:okfde/froide-exam
         version: https://codeload.github.com/okfde/froide-exam/tar.gz/779005ccfc21a3e75aeb57eb486c91b670739a3c
       froide_food:
         specifier: github:okfde/froide-food
-        version: https://codeload.github.com/okfde/froide-food/tar.gz/8398709d7719206ef8f26d245b6b573475fd6792(froide@https://codeload.github.com/okfde/froide/tar.gz/d5c8c2145607ec93ab9ddc28ee0c88637d98eba5(fuse.js@7.1.0)(typescript@5.8.3))(typescript@5.8.3)
+        version: https://codeload.github.com/okfde/froide-food/tar.gz/8398709d7719206ef8f26d245b6b573475fd6792(froide@https://codeload.github.com/okfde/froide/tar.gz/29dc3efed5f9028e0b0cacfde77f458f2844f110(fuse.js@7.1.0)(typescript@5.8.3))(typescript@5.8.3)
       froide_legalaction:
         specifier: github:okfde/froide-legalaction
         version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/64fe3e4856947dfca35f6c97c2ccc8166e00a151
@@ -375,17 +375,17 @@ packages:
   '@glidejs/glide@3.7.1':
     resolution: {integrity: sha512-8he0pZpLSqTesSFYiuWdhBmtdlYSPWxfPUCKtkkiX6ZmT8UdMdmoFPtJaOwLBXv4p2JiGxqbuPdiRGGo2e/htQ==}
 
-  '@hey-api/client-fetch@0.10.0':
-    resolution: {integrity: sha512-C7vzj4t52qPiHCqjn1l8cRTI2p4pZCd7ViLtJDTHr5ZwI4sWOYC1tmv6bd529qqY6HFFbhGCz4TAZSwKAMJncg==}
+  '@hey-api/client-fetch@0.10.2':
+    resolution: {integrity: sha512-AGiFYDx+y8VT1wlQ3EbzzZtfU8EfV+hLLRTtr8Y/tjYZaxIECwJagVZf24YzNbtEBXONFV50bwcU1wLVGXe1ow==}
     peerDependencies:
       '@hey-api/openapi-ts': < 2
 
-  '@hey-api/json-schema-ref-parser@1.0.5':
-    resolution: {integrity: sha512-bWUV9ICwvU5I3YKVZqWIUXFC2SIXznUi/u+LqurJx6ILiyImfZD5+g/lj3w4EiyXxmjqyaxptzUz/1IgK3vVtw==}
+  '@hey-api/json-schema-ref-parser@1.0.6':
+    resolution: {integrity: sha512-yktiFZoWPtEW8QKS65eqKwA5MTKp88CyiL8q72WynrBs/73SAaxlSWlA2zW/DZlywZ5hX1OYzrCC0wFdvO9c2w==}
     engines: {node: '>= 16'}
 
-  '@hey-api/openapi-ts@0.67.3':
-    resolution: {integrity: sha512-hoLis1YOPBw3+JjwjX+lU6mJZ69PekJ7fYY0qFTFmVuCMhlHk7lbU69SnJk/3GqeUGLL6cXS1s0OtvJJD5mZbg==}
+  '@hey-api/openapi-ts@0.67.6':
+    resolution: {integrity: sha512-ywZggKKYieVjM6O6T60/Bl+QBRvhcKAov8dAIQor7reyKpFbEn3Ws+9WKoXR8QUuXN8AR8nMFjOuYPer5db/dg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=22.10.0}
     hasBin: true
     peerDependencies:
@@ -773,8 +773,8 @@ packages:
   '@types/lodash.throttle@4.1.9':
     resolution: {integrity: sha512-PCPVfpfueguWZQB7pJQK890F2scYKoDUL3iM522AptHWn7d5NQmeS/LTEHIcLr5PaTzl3dK2Z0xSUHHTHwaL5g==}
 
-  '@types/lodash@4.17.16':
-    resolution: {integrity: sha512-HX7Em5NYQAXKW+1T+FiuG27NGwzJfCX3s1GjOa7ujxZa52kjJLOr4FUxT+giF6Tgxv1e+/czV/iTtBw27WTU9g==}
+  '@types/lodash@4.17.17':
+    resolution: {integrity: sha512-RRVJ+J3J+WmyOTqnz3PiBLA501eKwXl2noseKOrNo/6+XEHjTAxO4xHvxQB6QuNm+s4WRbn6rSiap8+EA+ykFQ==}
 
   '@types/node@22.5.4':
     resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
@@ -835,28 +835,28 @@ packages:
     resolution: {integrity: sha512-ar0tjQfObzhSaW3C3QNmTc5ofj0hDoNQ5XWrCy6zDyabdr0TWhCkClp+rywGNj/odAFBVzzJrK4tEq5M4Hmu4w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@uppy/companion-client@4.4.1':
-    resolution: {integrity: sha512-ardMacShsfzaIbqHEH48YlpzWZkBj1qhAj0Dvn3r31p9d0HA5xFUvAdLYrZ6ezKvZ0RcDbf0SB5qCrQMkjscXQ==}
+  '@uppy/companion-client@4.4.2':
+    resolution: {integrity: sha512-UZlHWItCGlZMlHxH4RgytUg43UZyuUX1JuvborNW1OzlLeZTvxL1dhjaq8pgjx3TlClkfpKLRRF8II0XPJgxzA==}
     peerDependencies:
-      '@uppy/core': ^4.4.1
+      '@uppy/core': ^4.4.5
 
-  '@uppy/core@4.4.4':
-    resolution: {integrity: sha512-etaG6uSrShnS8x/CGI9ME/XP23jw8FTkujzKbaag4lDTtdlvcs6PxcObtH3I5MxxJXUEWwcfVGTdAUvd/tGCaA==}
+  '@uppy/core@4.4.6':
+    resolution: {integrity: sha512-EH5C5TSwY3tXp/gl4SPTpcxzEjBz8Ntt1o1s/v03bw8AUTl7X0lGUWRepbCh/XIUJyBTMJ1O+4Uv4/164WQSLg==}
 
-  '@uppy/dashboard@4.3.3':
-    resolution: {integrity: sha512-bZzzyzWzyoCsXxLUKsjT+X6AWNlFjRU1Ui+28Hp0C7A43zm8y0pb8BbwECl8a3NJH10tKNOHwT8IiVwbiGwXPQ==}
+  '@uppy/dashboard@4.3.4':
+    resolution: {integrity: sha512-SMPa5K3jZ2qNf110Hf8adN/cEAQLdpvXGjgl+R9c8AnUdpKE5f4XxaWSukdW6N7YYWmoBrLGesFvwRSPKZzCOw==}
     peerDependencies:
-      '@uppy/core': ^4.4.4
+      '@uppy/core': ^4.4.5
 
   '@uppy/informer@4.2.1':
     resolution: {integrity: sha512-0en8Py47pl6RMDrgUfqFoF807W5kK5AKVJNT1SkTsLiGg5anmTIMuvmNG3k6LN4cn9P/rKyEHSdGcoBBUj9u7Q==}
     peerDependencies:
       '@uppy/core': ^4.4.1
 
-  '@uppy/provider-views@4.4.3':
-    resolution: {integrity: sha512-5Ymeuqin+OwIGiiJnEiWguHwLImHmKURf/xDl8bPY5mh5KNXPuFXqQZJvirxwj+sU700usrPSXEmCZYfP7RMpw==}
+  '@uppy/provider-views@4.4.4':
+    resolution: {integrity: sha512-smqtb/HP0jd0PzLjpVfkGZ82z1ztHHB94qcGMTTaDlsTLGdG/bWdN+f+KOvHHeskXs8NUXJsqx5ISrVD6KORxA==}
     peerDependencies:
-      '@uppy/core': ^4.4.4
+      '@uppy/core': ^4.4.6
 
   '@uppy/status-bar@4.1.3':
     resolution: {integrity: sha512-1YlbsoA9lTNL2b7nhehDri15XslVzGLG+J7HFAsxbE2cMHnOusuLCkm03oE9c72pOU9nG2qZV6yqdWBTwdxbNA==}
@@ -876,8 +876,8 @@ packages:
     peerDependencies:
       '@uppy/core': ^4.4.1
 
-  '@uppy/utils@6.1.3':
-    resolution: {integrity: sha512-7WuTtMf0k1g962sE76mKy8aDV/kLeDrF8Wv1oTxaXQzUpmHBAoKd3FXLrQXu7TgM0XNHHRZXAckBttbVOWkKCw==}
+  '@uppy/utils@6.1.5':
+    resolution: {integrity: sha512-R+3l4ir01I6MzZ80t5CSBoOGvV9mCqLZC9FoNYVTp/lsanQ3yMAZFGLN/x7JVGO7oi/m/ykmNR1jAH+JTtXdFg==}
 
   '@vitejs/plugin-vue@5.2.4':
     resolution: {integrity: sha512-7Yx/SXSOcQq5HiiV3orevHUFn+pmMB4cgbEkDYgnkUWb0WfeQ/wa2yFv6D5ICiCQOVpjA7vYDXrC7AGO8yjDHA==}
@@ -944,13 +944,13 @@ packages:
   '@vue/shared@3.5.13':
     resolution: {integrity: sha512-/hnE/qP5ZoGpol0a5mDi45bOd7t3tjYJBjsgCsivow7D48cJeV5l05RD82lPqi7gRiphZM37rnhW1l6ZoCNNnQ==}
 
-  '@vueuse/core@13.1.0':
-    resolution: {integrity: sha512-PAauvdRXZvTWXtGLg8cPUFjiZEddTqmogdwYpnn60t08AA5a8Q4hZokBnpTOnVNqySlFlTcRYIC8OqreV4hv3Q==}
+  '@vueuse/core@13.3.0':
+    resolution: {integrity: sha512-uYRz5oEfebHCoRhK4moXFM3NSCd5vu2XMLOq/Riz5FdqZMy2RvBtazdtL3gEcmDyqkztDe9ZP/zymObMIbiYSg==}
     peerDependencies:
       vue: ^3.5.0
 
-  '@vueuse/integrations@13.1.0':
-    resolution: {integrity: sha512-wJ6aANdUs4SOpVabChQK+uLIwxRTUAEmn1DJnflGG7Wq6yaipiRmp6as/Md201FjJnquQt8MecIPbFv8HSBeDA==}
+  '@vueuse/integrations@13.3.0':
+    resolution: {integrity: sha512-h5mGRYPbiTZTFP/AKELLPGnUDBly7z7Qd1pgEQlT3ItQ0NlZM0vB+8SOQycpSBOBlgg72Zgw+mi2r+4O/G8RuQ==}
     peerDependencies:
       async-validator: ^4
       axios: ^1
@@ -991,11 +991,11 @@ packages:
       universal-cookie:
         optional: true
 
-  '@vueuse/metadata@13.1.0':
-    resolution: {integrity: sha512-+TDd7/a78jale5YbHX9KHW3cEDav1lz1JptwDvep2zSG8XjCsVE+9mHIzjTOaPbHUAk5XiE4jXLz51/tS+aKQw==}
+  '@vueuse/metadata@13.3.0':
+    resolution: {integrity: sha512-42IzJIOYCKIb0Yjv1JfaKpx8JlCiTmtCWrPxt7Ja6Wzoq0h79+YVXmBV03N966KEmDEESTbp5R/qO3AB5BDnGw==}
 
-  '@vueuse/shared@13.1.0':
-    resolution: {integrity: sha512-IVS/qRRjhPTZ6C2/AM3jieqXACGwFZwWTdw5sNTSKk2m/ZpkuuN+ri+WCVUP8TqaKwJYt/KuMwmXspMAw8E6ew==}
+  '@vueuse/shared@13.3.0':
+    resolution: {integrity: sha512-L1QKsF0Eg9tiZSFXTgodYnu0Rsa2P0En2LuLrIs/jgrkyiDuJSsPZK+tx+wU0mMsYHUYEjNsuE41uqqkuR8VhA==}
     peerDependencies:
       vue: ^3.5.0
 
@@ -1533,8 +1533,8 @@ packages:
   exifr@7.1.3:
     resolution: {integrity: sha512-g/aje2noHivrRSLbAUtBPWFbxKdKhgj/xr1vATDdUXPOFYJlQ62Ft0oy+72V6XLIpDJfHs6gXLbBLAolqOXYRw==}
 
-  exifreader@4.30.1:
-    resolution: {integrity: sha512-XoEKKQ0FmJwCKHnuErceFAM+MSfZ+px7Nci5BhBP1cgEHi/fHSBvQySsdfd0MaFHzNh8ITsRNwpnvkMuIPicrg==}
+  exifreader@4.31.0:
+    resolution: {integrity: sha512-nwtWnoheEI0IuPQ9mascB105aMtj/Gg4GMP0Tbks2vw6UXrK2Bhab4Ogo9MKYW1KoyGj/FV6KVIhVbNCoj0WQA==}
 
   express-rate-limit@7.5.0:
     resolution: {integrity: sha512-eB5zbQh5h+VenMPM3fh+nw1YExi5nMr6HUCR62ELSP11huvxm/Uir1H1QEyTkk5QX6A58pX6NmaTMceKZ0Eodg==}
@@ -1628,8 +1628,8 @@ packages:
     resolution: {integrity: sha512-Rx/WycZ60HOaqLKAi6cHRKKI7zxWbJ31MhntmtwMoaTeF7XFH9hhBp8vITaMidfljRQ6eYWCKkaTK+ykVJHP2A==}
     engines: {node: '>= 0.8'}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/d5c8c2145607ec93ab9ddc28ee0c88637d98eba5:
-    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/d5c8c2145607ec93ab9ddc28ee0c88637d98eba5}
+  froide@https://codeload.github.com/okfde/froide/tar.gz/29dc3efed5f9028e0b0cacfde77f458f2844f110:
+    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/29dc3efed5f9028e0b0cacfde77f458f2844f110}
     version: 1.0.0
 
   froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/7220cb806354e021de37aff731c5266fe7054b5e:
@@ -2264,8 +2264,8 @@ packages:
     resolution: {integrity: sha512-dle9A3yYxlBSrt8Fu+IpjGT8SY8hN0mlaA6GY8t0P5PjIOZemULz/E2Bnm/2dcUOena75OTNkHI76uZBNUUq3A==}
     engines: {node: ^10 || ^12 || >=14}
 
-  preact@10.26.6:
-    resolution: {integrity: sha512-5SRRBinwpwkaD+OqlBDeITlRgvd8I8QlxHJw9AxSdMNV6O+LodN9nUyYGpSF7sadHjs6RzeFShMexC6DbtWr9g==}
+  preact@10.26.8:
+    resolution: {integrity: sha512-1nMfdFjucm5hKvq0IClqZwK4FJkGXhRrQstOQ3P4vp8HxKrJEMFcY6RdBRVTdfQS/UlnX6gfbPuTvaqx/bDoeQ==}
 
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
@@ -3125,20 +3125,20 @@ snapshots:
 
   '@glidejs/glide@3.7.1': {}
 
-  '@hey-api/client-fetch@0.10.0(@hey-api/openapi-ts@0.67.3(typescript@5.8.3))':
+  '@hey-api/client-fetch@0.10.2(@hey-api/openapi-ts@0.67.6(typescript@5.8.3))':
     dependencies:
-      '@hey-api/openapi-ts': 0.67.3(typescript@5.8.3)
+      '@hey-api/openapi-ts': 0.67.6(typescript@5.8.3)
 
-  '@hey-api/json-schema-ref-parser@1.0.5':
+  '@hey-api/json-schema-ref-parser@1.0.6':
     dependencies:
       '@jsdevtools/ono': 7.1.3
       '@types/json-schema': 7.0.15
       js-yaml: 4.1.0
       lodash: 4.17.21
 
-  '@hey-api/openapi-ts@0.67.3(typescript@5.8.3)':
+  '@hey-api/openapi-ts@0.67.6(typescript@5.8.3)':
     dependencies:
-      '@hey-api/json-schema-ref-parser': 1.0.5
+      '@hey-api/json-schema-ref-parser': 1.0.6
       c12: 2.0.1
       commander: 13.0.0
       handlebars: 4.7.8
@@ -3493,9 +3493,9 @@ snapshots:
 
   '@types/lodash.throttle@4.1.9':
     dependencies:
-      '@types/lodash': 4.17.16
+      '@types/lodash': 4.17.17
 
-  '@types/lodash@4.17.16': {}
+  '@types/lodash@4.17.17': {}
 
   '@types/node@22.5.4':
     dependencies:
@@ -3586,82 +3586,82 @@ snapshots:
       '@typescript-eslint/types': 8.32.1
       eslint-visitor-keys: 4.2.0
 
-  '@uppy/companion-client@4.4.1(@uppy/core@4.4.4)':
+  '@uppy/companion-client@4.4.2(@uppy/core@4.4.6)':
     dependencies:
-      '@uppy/core': 4.4.4
-      '@uppy/utils': 6.1.3
+      '@uppy/core': 4.4.6
+      '@uppy/utils': 6.1.5
       namespace-emitter: 2.0.1
       p-retry: 6.2.1
 
-  '@uppy/core@4.4.4':
+  '@uppy/core@4.4.6':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.5
       '@uppy/store-default': 4.2.0
-      '@uppy/utils': 6.1.3
+      '@uppy/utils': 6.1.5
       lodash: 4.17.21
       mime-match: 1.0.2
       namespace-emitter: 2.0.1
       nanoid: 5.1.5
-      preact: 10.26.6
+      preact: 10.26.8
 
-  '@uppy/dashboard@4.3.3(@uppy/core@4.4.4)':
+  '@uppy/dashboard@4.3.4(@uppy/core@4.4.6)':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.5
-      '@uppy/core': 4.4.4
-      '@uppy/informer': 4.2.1(@uppy/core@4.4.4)
-      '@uppy/provider-views': 4.4.3(@uppy/core@4.4.4)
-      '@uppy/status-bar': 4.1.3(@uppy/core@4.4.4)
-      '@uppy/thumbnail-generator': 4.1.1(@uppy/core@4.4.4)
-      '@uppy/utils': 6.1.3
+      '@uppy/core': 4.4.6
+      '@uppy/informer': 4.2.1(@uppy/core@4.4.6)
+      '@uppy/provider-views': 4.4.4(@uppy/core@4.4.6)
+      '@uppy/status-bar': 4.1.3(@uppy/core@4.4.6)
+      '@uppy/thumbnail-generator': 4.1.1(@uppy/core@4.4.6)
+      '@uppy/utils': 6.1.5
       classnames: 2.5.1
       lodash: 4.17.21
       memoize-one: 6.0.0
       nanoid: 5.1.5
-      preact: 10.26.6
+      preact: 10.26.8
       shallow-equal: 3.1.0
 
-  '@uppy/informer@4.2.1(@uppy/core@4.4.4)':
+  '@uppy/informer@4.2.1(@uppy/core@4.4.6)':
     dependencies:
-      '@uppy/core': 4.4.4
-      '@uppy/utils': 6.1.3
-      preact: 10.26.6
+      '@uppy/core': 4.4.6
+      '@uppy/utils': 6.1.5
+      preact: 10.26.8
 
-  '@uppy/provider-views@4.4.3(@uppy/core@4.4.4)':
+  '@uppy/provider-views@4.4.4(@uppy/core@4.4.6)':
     dependencies:
-      '@uppy/core': 4.4.4
-      '@uppy/utils': 6.1.3
+      '@uppy/core': 4.4.6
+      '@uppy/utils': 6.1.5
       classnames: 2.5.1
       nanoid: 5.1.5
       p-queue: 8.1.0
-      preact: 10.26.6
+      preact: 10.26.8
 
-  '@uppy/status-bar@4.1.3(@uppy/core@4.4.4)':
+  '@uppy/status-bar@4.1.3(@uppy/core@4.4.6)':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.5
-      '@uppy/core': 4.4.4
-      '@uppy/utils': 6.1.3
+      '@uppy/core': 4.4.6
+      '@uppy/utils': 6.1.5
       classnames: 2.5.1
-      preact: 10.26.6
+      preact: 10.26.8
 
   '@uppy/store-default@4.2.0': {}
 
-  '@uppy/thumbnail-generator@4.1.1(@uppy/core@4.4.4)':
+  '@uppy/thumbnail-generator@4.1.1(@uppy/core@4.4.6)':
     dependencies:
-      '@uppy/core': 4.4.4
-      '@uppy/utils': 6.1.3
+      '@uppy/core': 4.4.6
+      '@uppy/utils': 6.1.5
       exifr: 7.1.3
 
-  '@uppy/tus@4.2.2(@uppy/core@4.4.4)':
+  '@uppy/tus@4.2.2(@uppy/core@4.4.6)':
     dependencies:
-      '@uppy/companion-client': 4.4.1(@uppy/core@4.4.4)
-      '@uppy/core': 4.4.4
-      '@uppy/utils': 6.1.3
+      '@uppy/companion-client': 4.4.2(@uppy/core@4.4.6)
+      '@uppy/core': 4.4.6
+      '@uppy/utils': 6.1.5
       tus-js-client: 4.3.1
 
-  '@uppy/utils@6.1.3':
+  '@uppy/utils@6.1.5':
     dependencies:
       lodash: 4.17.21
-      preact: 10.26.6
+      preact: 10.26.8
 
   '@vitejs/plugin-vue@5.2.4(vite@6.3.5(@types/node@22.5.4)(jiti@2.4.2)(sass@1.88.0)(terser@5.32.0))(vue@3.5.13(typescript@5.8.3))':
     dependencies:
@@ -3760,25 +3760,25 @@ snapshots:
 
   '@vue/shared@3.5.13': {}
 
-  '@vueuse/core@13.1.0(vue@3.5.13(typescript@5.8.3))':
+  '@vueuse/core@13.3.0(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       '@types/web-bluetooth': 0.0.21
-      '@vueuse/metadata': 13.1.0
-      '@vueuse/shared': 13.1.0(vue@3.5.13(typescript@5.8.3))
+      '@vueuse/metadata': 13.3.0
+      '@vueuse/shared': 13.3.0(vue@3.5.13(typescript@5.8.3))
       vue: 3.5.13(typescript@5.8.3)
 
-  '@vueuse/integrations@13.1.0(fuse.js@7.1.0)(sortablejs@1.15.6)(vue@3.5.13(typescript@5.8.3))':
+  '@vueuse/integrations@13.3.0(fuse.js@7.1.0)(sortablejs@1.15.6)(vue@3.5.13(typescript@5.8.3))':
     dependencies:
-      '@vueuse/core': 13.1.0(vue@3.5.13(typescript@5.8.3))
-      '@vueuse/shared': 13.1.0(vue@3.5.13(typescript@5.8.3))
+      '@vueuse/core': 13.3.0(vue@3.5.13(typescript@5.8.3))
+      '@vueuse/shared': 13.3.0(vue@3.5.13(typescript@5.8.3))
       vue: 3.5.13(typescript@5.8.3)
     optionalDependencies:
       fuse.js: 7.1.0
       sortablejs: 1.15.6
 
-  '@vueuse/metadata@13.1.0': {}
+  '@vueuse/metadata@13.3.0': {}
 
-  '@vueuse/shared@13.1.0(vue@3.5.13(typescript@5.8.3))':
+  '@vueuse/shared@13.3.0(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       vue: 3.5.13(typescript@5.8.3)
 
@@ -4362,7 +4362,7 @@ snapshots:
 
   exifr@7.1.3: {}
 
-  exifreader@4.30.1:
+  exifreader@4.31.0:
     optionalDependencies:
       '@xmldom/xmldom': 0.9.8
 
@@ -4476,23 +4476,23 @@ snapshots:
 
   fresh@2.0.0: {}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/d5c8c2145607ec93ab9ddc28ee0c88637d98eba5(fuse.js@7.1.0)(typescript@5.8.3):
+  froide@https://codeload.github.com/okfde/froide/tar.gz/29dc3efed5f9028e0b0cacfde77f458f2844f110(fuse.js@7.1.0)(typescript@5.8.3):
     dependencies:
-      '@hey-api/client-fetch': 0.10.0(@hey-api/openapi-ts@0.67.3(typescript@5.8.3))
-      '@hey-api/openapi-ts': 0.67.3(typescript@5.8.3)
+      '@hey-api/client-fetch': 0.10.2(@hey-api/openapi-ts@0.67.6(typescript@5.8.3))
+      '@hey-api/openapi-ts': 0.67.6(typescript@5.8.3)
       '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/d70b5d3ab00f2262d18bfb381fab95473b73ac1a(typescript@5.8.3)
       '@panzoom/panzoom': 4.6.0
       '@popperjs/core': 2.11.8
       '@types/lodash.throttle': 4.1.9
-      '@uppy/core': 4.4.4
-      '@uppy/dashboard': 4.3.3(@uppy/core@4.4.4)
-      '@uppy/tus': 4.2.2(@uppy/core@4.4.4)
-      '@vueuse/core': 13.1.0(vue@3.5.13(typescript@5.8.3))
-      '@vueuse/integrations': 13.1.0(fuse.js@7.1.0)(sortablejs@1.15.6)(vue@3.5.13(typescript@5.8.3))
+      '@uppy/core': 4.4.6
+      '@uppy/dashboard': 4.3.4(@uppy/core@4.4.6)
+      '@uppy/tus': 4.2.2(@uppy/core@4.4.6)
+      '@vueuse/core': 13.3.0(vue@3.5.13(typescript@5.8.3))
+      '@vueuse/integrations': 13.3.0(fuse.js@7.1.0)(sortablejs@1.15.6)(vue@3.5.13(typescript@5.8.3))
       bootstrap: 5.3.6(@popperjs/core@2.11.8)
       choices.js: 11.1.0
       driver.js: 1.3.6
-      exifreader: 4.30.1
+      exifreader: 4.31.0
       font-awesome: 4.7.0
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.3.0
@@ -4522,13 +4522,13 @@ snapshots:
       - universal-cookie
       - worker-loader
 
-  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/7220cb806354e021de37aff731c5266fe7054b5e(froide@https://codeload.github.com/okfde/froide/tar.gz/d5c8c2145607ec93ab9ddc28ee0c88637d98eba5(fuse.js@7.1.0)(typescript@5.8.3))(typescript@5.8.3):
+  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/7220cb806354e021de37aff731c5266fe7054b5e(froide@https://codeload.github.com/okfde/froide/tar.gz/29dc3efed5f9028e0b0cacfde77f458f2844f110(fuse.js@7.1.0)(typescript@5.8.3))(typescript@5.8.3):
     dependencies:
       '@turf/bbox': 6.5.0
       '@types/leaflet': 1.9.17
       '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.13(typescript@5.8.3))
       deepmerge: 4.3.1
-      froide: https://codeload.github.com/okfde/froide/tar.gz/d5c8c2145607ec93ab9ddc28ee0c88637d98eba5(fuse.js@7.1.0)(typescript@5.8.3)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/29dc3efed5f9028e0b0cacfde77f458f2844f110(fuse.js@7.1.0)(typescript@5.8.3)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.2.1
       lodash.debounce: 4.0.8
@@ -4539,11 +4539,11 @@ snapshots:
 
   froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/779005ccfc21a3e75aeb57eb486c91b670739a3c: {}
 
-  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/8398709d7719206ef8f26d245b6b573475fd6792(froide@https://codeload.github.com/okfde/froide/tar.gz/d5c8c2145607ec93ab9ddc28ee0c88637d98eba5(fuse.js@7.1.0)(typescript@5.8.3))(typescript@5.8.3):
+  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/8398709d7719206ef8f26d245b6b573475fd6792(froide@https://codeload.github.com/okfde/froide/tar.gz/29dc3efed5f9028e0b0cacfde77f458f2844f110(fuse.js@7.1.0)(typescript@5.8.3))(typescript@5.8.3):
     dependencies:
       '@turf/bbox': 6.5.0
       '@vue-leaflet/vue-leaflet': 0.8.4(leaflet@1.9.4)(vue@3.5.13(typescript@5.8.3))
-      froide: https://codeload.github.com/okfde/froide/tar.gz/d5c8c2145607ec93ab9ddc28ee0c88637d98eba5(fuse.js@7.1.0)(typescript@5.8.3)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/29dc3efed5f9028e0b0cacfde77f458f2844f110(fuse.js@7.1.0)(typescript@5.8.3)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.3.0
       vue: 3.5.13(typescript@5.8.3)
@@ -5106,7 +5106,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  preact@10.26.6: {}
+  preact@10.26.8: {}
 
   prelude-ls@1.2.1: {}
 
