@@ -1,0 +1,30 @@
+{% load i18n %}
+{% with plugin_id=instance.id|stringformat:"i" %}
+    {% with data_id="foirequest_map_plugin_data_"|add:plugin_id %}
+        {{ mapdata|json_script:data_id }}
+        <template id="foirequest_map_plugin_template_{{ instance.id }}">
+            <div class="foirequest-legend">
+                <b>{% trans "Status" %}</b>
+                <br>
+                <i style="background-color:#ffc107"></i> {% trans "Pending" %}
+                <br>
+                <i style="background-color:#28a745"></i> {% trans "Resolved" %}
+                <br>
+                <i style="background-color:#dc3545"></i> {% trans "Refused" %}
+                <br>
+                <i style="background-color:#17a2b8"></i> {% trans "Partially successful" %}
+                <br>
+                <i style="background-color:#fd7e14"></i> {% trans "Overdue" %}
+                <br>
+                <i style="background-color:#6c757d"></i> {% trans "Asleep" %}
+                <br>
+                {% if mapdata.missing_count > 0 %}
+                    <hr class="legend-divider">
+                    <div class="legend-note">
+                        <i class="fa fa-info-circle"></i> {% blocktrans count counter=mapdata.missing_count %}{{ counter }} request without geo data{% plural %}{{ counter }} requests without geo data{% endblocktrans %}
+                    </div>
+                {% endif %}
+            </div>
+        </template>
+    {% endwith %}
+{% endwith %}

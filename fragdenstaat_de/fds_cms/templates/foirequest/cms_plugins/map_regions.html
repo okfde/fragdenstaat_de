@@ -1,0 +1,7 @@
+{% extends "foirequest/cms_plugins/map.html" %}
+{% load fds_cms_tags %}
+{% block map_data %}
+    {% with mapdata=object_list|foirequest_geo_regions %}
+        {% include "foirequest/cms_plugins/_map.html" %}
+    {% endwith %}
+{% endblock map_data %}
