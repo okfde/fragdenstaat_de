@@ -2,6 +2,8 @@
 
 from django.db import migrations, models
 
+import fragdenstaat_de.fds_cms.models
+
 
 class Migration(migrations.Migration):
     dependencies = [
@@ -14,10 +16,7 @@ class Migration(migrations.Migration):
             name="template",
             field=models.CharField(
                 blank=True,
-                choices=[
-                    ("", "Default template"),
-                    ("foirequest/cms_plugins/list_follow.html", "Follow template"),
-                ],
+                choices=fragdenstaat_de.fds_cms.models.get_foirequest_list_template_choices,
                 help_text="template used to display the plugin",
                 max_length=250,
                 verbose_name="template",
