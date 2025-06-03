@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-14 12:19+0200\n"
-"PO-Revision-Date: 2025-05-14 12:26+0200\n"
+"POT-Creation-Date: 2025-06-03 12:05+0200\n"
+"PO-Revision-Date: 2025-06-03 12:09+0200\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -19,6 +19,698 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Poedit 3.6\n"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Document"
+msgstr "Dokument"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Page Annotation"
+msgstr "Seitenannotation"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Document pages"
+msgstr "Dokumentenseiten"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Document embed"
+msgstr "Dokument-Embed"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Document collection embed"
+msgstr "Dokumentensammlungs-Embed"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Document portal embed"
+msgstr "Dokumentenportal-Embed"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Elements"
+msgstr "Elemente"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Primary Link"
+msgstr "Primär-Link"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Continue Link"
+msgstr "Weiter-Link"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Back to your request"
+msgstr "Zurück zu Ihrer Anfrage"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Ads"
+msgstr "Werbung"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Dropdown Banner"
+msgstr "Dropdown Banner"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Latest FOI requests"
+msgstr "Neueste IFG-Anfragen"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "One click FoiRequest form"
+msgstr "Ein-Klick-Anfrage-Formular"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Account"
+msgstr "Konto"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Set Password Form"
+msgstr "Passwort-Setzen-Fomular"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py fragdenstaat_de/fds_donation/admin.py
+msgid "Contact"
+msgstr "Kontakt"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Contact Form"
+msgstr "Kontaktformular"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Vega Chart"
+msgstr "Vega-Graphik"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "SVG Image"
+msgstr "SVG-Bild"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Structure"
+msgstr "Struktur"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Design Container"
+msgstr "Design-Container"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Share Links"
+msgstr "Teilen-Links"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Collapsible"
+msgstr "Collapsible"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Slider"
+msgstr "Slider"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Modal"
+msgstr "Modal"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "FDS Card"
+msgstr "FDS Card"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "FDS Card Inner"
+msgstr "FDS Card Innen"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "FDS Card Header"
+msgstr "FDS Card Header"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "FDS Card Image"
+msgstr "FDS Card Bild"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "FDS Card Icon"
+msgstr "FDS Card Icon"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "FDS Card Link"
+msgstr "FDS Card Link"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Reveal more"
+msgstr "Weiterlesen"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Bordered section"
+msgstr "Sektion mit Rahmen"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Pretix Shop-Embed"
+msgstr "Pretix Shop-Einbindung"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Datashow"
+msgstr "Datashow"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+#: fragdenstaat_de/templates/datashow/base.html
+msgid "Datasets"
+msgstr "Datensätze"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Table"
+msgstr "Tabelle"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Page Preview"
+msgstr "Seitenvorschau"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "OpenSearch Searchbox"
+msgstr "OpenSearch Suchfeld"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "No results"
+msgstr "Keine Ergebnisse gefunden"
+
+#. Translators: Search as noun
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+#: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
+msgid "Search"
+msgstr "Suchen"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Social Media"
+msgstr "Soziale Medien"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "External Pixel"
+msgstr "Externer Pixel"
+
+#: fragdenstaat_de/fds_cms/cms_toolbars.py
+msgid "FdS Page Settings"
+msgstr "FdS Seiteneinstellungen"
+
+#: fragdenstaat_de/fds_cms/contact.py fragdenstaat_de/fds_mailing/forms.py
+msgid "Name"
+msgstr "Name"
+
+#: fragdenstaat_de/fds_cms/contact.py
+msgid "Message"
+msgstr "Nachricht"
+
+#: fragdenstaat_de/fds_cms/contact.py
+msgid "Optional contact"
+msgstr "Optionale Kontaktmöglichkeit"
+
+#: fragdenstaat_de/fds_cms/contact.py
+msgid "For example a private email address"
+msgstr "Zum Beispiel eine private E-Mail-Adresse"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Show in search results and search engines"
+msgstr "In Suchergebnissen und Suchmaschinen anzeigen"
+
+#: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_events/models.py
+#: fragdenstaat_de/fds_mailing/models.py
+msgid "image"
+msgstr "Bild"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid ""
+"If present, this page will be displayed as the ancestor in the breadcrumbs."
+msgstr ""
+"Wenn angegeben, wird diese Seite als Vorgänger in den Breadcrumbs angezeigt."
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Ancestor"
+msgstr "Vorgänger"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Only show the breadcrumb ancestor on this page, but not its children"
+msgstr ""
+"Zeige den Breadcrumb-Vorgänger nur auf dieser Seite, nicht auf Unterseiten"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Breadcrumbs background"
+msgstr "Breadcrumb-Hintergrund"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid ""
+"Lay the breadcrumbs over the page content. Works well with hero image headers."
+msgstr ""
+"Die Breadcrumbs über den Seiteninhalt legen. Funktioniert gut mit Herobild-"
+"Headern."
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Space separated list of allowed frame ancestor URLs."
+msgstr "Mit Leerzeichen getrennte Liste von erlaubten Frame Ancestor URLs."
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid ""
+"The embed will use deep URLs to link to the document pages and directories. "
+"Only enable this when no other embeds are on the same page."
+msgstr ""
+"Das Embed wird eigene URLs zu den Dokumentenseiten und -ordnern verwenden. "
+"Nur anschalten, wenn es das einzige Embed auf der Seite ist."
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Small"
+msgstr "Klein"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Normal"
+msgstr "Normal"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Large"
+msgstr "Groß"
+
+#: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_mailing/models.py
+msgid "Default template"
+msgstr "Standard-Vorlage"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Social tile template"
+msgstr "Social-Kacheln Template"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Featured template"
+msgstr "Feature-Vorlage"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Campaign template"
+msgstr "Kampagnen-Vorlage"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "link"
+msgstr "Link"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "if present image will be clickable"
+msgstr "Bild ist anklickbar, falls angegeben"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "page link"
+msgstr "Seiten-Link"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "anchor"
+msgstr "Anker"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Page anchor."
+msgstr "Seitenanker."
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Template"
+msgstr "Vorlage"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Follow template"
+msgstr "Follow Template"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Map region template"
+msgstr "Karten-Fläche-Vorlage"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Map points template"
+msgstr "Karten-Punkte-Vorlage"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "tags"
+msgstr "Tags"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "number of entries"
+msgstr "Anzahl der anzuzeigenden Anfragen"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "0 means all the entries"
+msgstr "0 bedeutet alle Anfragen"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "offset"
+msgstr "Versatz"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "number of entries to skip from top of list"
+msgstr "Anzahl der ersten Anfragen, die übersprungen werden sollen"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "template"
+msgstr "Template"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "template used to display the plugin"
+msgstr "Template, mit dem das Plugin angezeigt wird"
+
+#: fragdenstaat_de/fds_cms/models.py
+#, python-format
+msgid "%s FOI requests"
+msgstr "%s Anfragen"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "One click form for {}"
+msgstr "Ein-Klick Formular für {}"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Formatting with Markdown is supported."
+msgstr "Markdown-Formattierung wird unterstützt."
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Background"
+msgstr "Hintergrund"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Backdrop"
+msgstr "Backdrop"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Defaults to the current page's URL."
+msgstr "URL der aktuellen Seite, wenn leergelassen."
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Only show icons"
+msgstr "Nur Icons anzeigen"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid ""
+"Only available with the Native Share API. If sharing doesn't work, the image "
+"will be downloaded instead."
+msgstr ""
+"Nur bei der Native Share API verfügbar. Falls natives Teilen nicht klappt, "
+"wird das Bild stattdessen heruntergeladen."
+
+#: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_donation/cms_plugins.py
+#: fragdenstaat_de/fds_donation/forms.py
+#: fragdenstaat_de/fds_mailing/cms_plugins.py
+#: fragdenstaat_de/fds_newsletter/forms.py fragdenstaat_de/settings/base.py
+msgid "Email"
+msgstr "E-Mail"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Copy to clipboard"
+msgstr "In Zwischenablage kopieren"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Native share"
+msgstr "Natives Teilen"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Great on mobile devices."
+msgstr "Funktioniert gut bei mobilen Geräten."
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Native share button label"
+msgstr "Native Share Buttontext"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Link instead of button"
+msgstr "Link statt Button"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Border"
+msgstr "Rahmen"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "None"
+msgstr "Nichts"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Blue"
+msgstr "Blau"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Gray"
+msgstr "Grau"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Yellow"
+msgstr "Gelb"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Shadow"
+msgstr "Schatten"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "No"
+msgstr "Nein"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Auto"
+msgstr "Auto"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Always"
+msgstr "Immer"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Spacing"
+msgstr "Abstand"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Medium"
+msgstr "Mittel"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "if present card will be clickable"
+msgstr "wenn angegeben, ist Card anklickbar"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Icon"
+msgstr "Icon"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid ""
+"Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
+"target=\"_blank\">FontAwesome 4 icon set</a>"
+msgstr ""
+"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
+"target=\"_blank\">Font Awesome 4 Icon Liste</a>"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Background image"
+msgstr "Hintergrundbild"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Overlap"
+msgstr "Überlappung"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Left"
+msgstr "Links"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Right"
+msgstr "Rechts"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Center"
+msgstr "Zentriert"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Size"
+msgstr "Größe"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Large (wide)"
+msgstr "Groß (breit)"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Cutoff after"
+msgstr "Abschnitt nach"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Unit"
+msgstr "Einheit"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "grid rows"
+msgstr "Grid-Zeilen"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Line heights"
+msgstr "Textzeilen"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "percent"
+msgstr "Prozent"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Overlay color"
+msgstr "Overlay-Farbe"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Reveal text"
+msgstr "Text zum Aufklappen"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Show more..."
+msgstr "Mehr anzeigen…"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Heading level"
+msgstr "Überschrift"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Headline 1"
+msgstr "Überschrift 1"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Headline 2"
+msgstr "Überschrift 2"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Headline 3"
+msgstr "Überschrift 3"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Headline 4"
+msgstr "Überschrift 4"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Headline 5"
+msgstr "Überschrift 5"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Headline 6"
+msgstr "Überschrift 6"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Up"
+msgstr "Oben"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Down"
+msgstr "Unten"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Animation when closing banner"
+msgstr "Schließanimation"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Banner is dark-themed, button should therefore be light"
+msgstr "Banner ist dunkel, daher sollte der Button hell sein"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "banner image"
+msgstr "Banner-Bild"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Cookie groups to which this pixel belongs."
+msgstr "Cookie-Gruppen, zu denen dieser Pixel gehört."
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "URLs to the external pixels."
+msgstr "URLs zu den externen Pixeln."
+
+#: fragdenstaat_de/fds_cms/templates/cms/breadcrumbs.html
+#: fragdenstaat_de/templates/datashow/base.html
+msgid "Home Page"
+msgstr "Startseite"
+
+#: fragdenstaat_de/fds_cms/templates/cms/help_base.html
+msgid "Topics"
+msgstr "Themen"
+
+#: fragdenstaat_de/fds_cms/templates/cms/plugins/dropdown_banner.html
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
+msgid "Close"
+msgstr "Schließen"
+
+#: fragdenstaat_de/fds_cms/templates/cms/plugins/primarylink/campaign.html
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/plugins/archive.html
+msgid "Read more"
+msgstr "Weiterlesen"
+
+#: fragdenstaat_de/fds_cms/templates/cms/pub_base.html
+msgid "Table of contents"
+msgstr "Inhaltsverzeichnis"
+
+#: fragdenstaat_de/fds_cms/templates/cms/pub_base.html
+msgid "In this chapter:"
+msgstr "In diesem Kapitel:"
+
+#: fragdenstaat_de/fds_cms/templates/cms/pub_base.html
+msgid "Chapter overview:"
+msgstr "Kapitelübersicht:"
+
+#: fragdenstaat_de/fds_cms/templates/djangocms_alias/base.html
+msgid "Aliases"
+msgstr "Aliase"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/external_pixel.html
+#: fragdenstaat_de/templates/cookie_consent/_cookie_group.html
+msgid "Decline"
+msgstr "Ablehnen"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/external_pixel.html
+#: fragdenstaat_de/templates/cookie_consent/_cookie_group.html
+msgid "Accept"
+msgstr "Akzeptieren"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/feedback.html
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
+msgid "Submit"
+msgstr "Abschicken"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/pagination.html
+#: fragdenstaat_de/fds_cms/templates/fds_cms/slider.html
+msgid "Previous"
+msgstr "Zurück"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/pagination.html
+#: fragdenstaat_de/fds_cms/templates/fds_cms/slider.html
+msgid "Next"
+msgstr "Weiter"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
+#, python-format
+msgid "Search in %(title)s"
+msgstr "Suche in %(title)s"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
+#, python-format
+msgid "Results for “%(q)s”"
+msgstr "Ergebnisse für „%(q)s“"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
+msgid "No results found."
+msgstr "Keine Ergebnisse gefunden."
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
+msgid "Please enter a search term."
+msgstr "Bitte geben Sie einen Suchbegriff ein."
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/social_meta.html
+#, python-format
+msgid ""
+"%(site)s helps you to make freedom of information requests to public bodies"
+msgstr ""
+"%(site)s hilft Ihnen, Informationsfreiheitsanfragen an Behörden zu stellen"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+#: fragdenstaat_de/fds_mailing/admin.py
+msgid "Status"
+msgstr "Status"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Successful"
+msgstr "Erfolgreich"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Refused"
+msgstr "Abgelehnt"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Overdue"
+msgstr "Überfällig"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Awaiting response / Other"
+msgstr "Warte auf Antwort / Sonstiges"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+#, python-format
+msgid "%(counter)s request without geo data"
+msgid_plural "%(counter)s requests without geo data"
+msgstr[0] "%(counter)s Anfrage ohne Geodaten"
+msgstr[1] "%(counter)s Anfragen ohne Geodaten"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Dauerspende"
@@ -51,10 +743,6 @@ msgstr "hat Nutzerkonto"
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Donor"
 msgstr "Spender"
-
-#: fragdenstaat_de/fds_donation/admin.py
-msgid "Contact"
-msgstr "Kontakt"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Stats"
@@ -398,13 +1086,6 @@ msgstr "Spender:in darf nicht kontaktiert werden"
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Donation Progress Bar"
 msgstr "Fortschrittsbalken für Spenden"
-
-#: fragdenstaat_de/fds_donation/cms_plugins.py
-#: fragdenstaat_de/fds_donation/forms.py
-#: fragdenstaat_de/fds_mailing/cms_plugins.py
-#: fragdenstaat_de/fds_newsletter/forms.py fragdenstaat_de/settings/base.py
-msgid "Email"
-msgstr "E-Mail"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Donation Button"
@@ -1157,10 +1838,6 @@ msgstr "Ende"
 msgid "Location"
 msgstr "Ort"
 
-#: fragdenstaat_de/fds_events/models.py fragdenstaat_de/fds_mailing/models.py
-msgid "image"
-msgstr "Bild"
-
 #: fragdenstaat_de/fds_events/models.py
 msgctxt "physical event"
 msgid "Event"
@@ -1257,10 +1934,6 @@ msgid "Message from Frontex"
 msgstr "Nachricht von Frontex"
 
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
-msgid "Close"
-msgstr "Schließen"
-
-#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
 msgid ""
 "\n"
 "              We automatically import the message from frontex for you and "
@@ -1296,10 +1969,6 @@ msgstr "Bearbeiten"
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Mailing"
 msgstr "Mailing"
-
-#: fragdenstaat_de/fds_mailing/admin.py
-msgid "Status"
-msgstr "Status"
 
 #: fragdenstaat_de/fds_mailing/admin.py fragdenstaat_de/fds_mailing/preview.py
 msgid "User"
@@ -1459,10 +2128,6 @@ msgid "Send via form"
 msgstr "Via Form gesendet"
 
 #: fragdenstaat_de/fds_mailing/forms.py
-msgid "Name"
-msgstr "Name"
-
-#: fragdenstaat_de/fds_mailing/forms.py
 msgid "Unique name name for this split test"
 msgstr "Eindeutiger Name für diesen A/B-Test"
 
@@ -1482,10 +2147,6 @@ msgstr "Bitte geben Sie eine komma-separierte Liste von Ganzzahlen an."
 msgid "The sum of the groups must not be greater than 100. You entered {}."
 msgstr ""
 "Die Summe der Gruppen darf nicht größer als 100 sein. Du hast {} eingegeben."
-
-#: fragdenstaat_de/fds_mailing/models.py
-msgid "Default template"
-msgstr "Standard-Vorlage"
 
 #: fragdenstaat_de/fds_mailing/models.py
 msgid "Newsletter template"
@@ -1722,10 +2383,6 @@ msgstr "Text-Vorschau"
 #, python-format
 msgid "'%(extra_placeholder)s' static placeholder"
 msgstr "„%(extra_placeholder)s” statischer Platzhalter"
-
-#: fragdenstaat_de/fds_mailing/templates/fds_mailing/plugins/archive.html
-msgid "Read more"
-msgstr "Weiterlesen"
 
 #: fragdenstaat_de/fds_mailing/utils.py
 msgid "Prepare mailing to selected recipients..."
@@ -2054,10 +2711,6 @@ msgstr ""
 msgid "We'd love to know why you chose to unsubscribe."
 msgstr "Wir wären dankbar, wenn Sie mit uns den Grund dafür teilen."
 
-#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
-msgid "Submit"
-msgstr "Abschicken"
-
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/user_settings.html
 msgid "Update subscriptions"
 msgstr "Abos anpassen"
@@ -2165,10 +2818,6 @@ msgid "Search for a matching request"
 msgstr "Nach der zugehörigen Anfrage suchen"
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
-msgid "Search"
-msgstr "Suchen"
-
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
 msgid "No requests with these filters."
 msgstr "Noch keine Anfragen mit diesen Filtereinstellungen."
 
@@ -2228,16 +2877,8 @@ msgid "Accepted"
 msgstr "Akzeptiert"
 
 #: fragdenstaat_de/templates/cookie_consent/_cookie_group.html
-msgid "Accept"
-msgstr "Akzeptieren"
-
-#: fragdenstaat_de/templates/cookie_consent/_cookie_group.html
 msgid "Declined"
 msgstr "Abgelehnt"
-
-#: fragdenstaat_de/templates/cookie_consent/_cookie_group.html
-msgid "Decline"
-msgstr "Ablehnen"
 
 #: fragdenstaat_de/templates/cookie_consent/cookiegroup_list.html
 msgid "Cookies"
@@ -2250,14 +2891,6 @@ msgid ""
 msgstr ""
 "Dies ist eine Liste von Kategorien von Cookies, die unsere Webseite verwenden "
 "kann und warum."
-
-#: fragdenstaat_de/templates/datashow/base.html
-msgid "Home Page"
-msgstr "Startseite"
-
-#: fragdenstaat_de/templates/datashow/base.html
-msgid "Datasets"
-msgstr "Datensätze"
 
 #: fragdenstaat_de/templates/djangocms_audio/default/audio_player.html
 msgid "No audio file available."
@@ -2686,9 +3319,6 @@ msgstr ""
 #~ msgid "Article \"%s\""
 #~ msgstr "Artikel \"%s\""
 
-#~ msgid "Normal"
-#~ msgstr "Normal"
-
 #~ msgid "Featured"
 #~ msgstr "Prominent"
 
@@ -2713,26 +3343,14 @@ msgstr ""
 #~ msgid "language"
 #~ msgstr "Sprache"
 
-#~ msgid "tags"
-#~ msgstr "Tags"
-
 #~ msgid "number of articles"
 #~ msgstr "Anzahl Artikel"
 
 #~ msgid "0 means all the articles"
 #~ msgstr "0 bedeutet alle Artikel"
 
-#~ msgid "offset"
-#~ msgstr "Versatz"
-
 #~ msgid "number of articles to skip from top of list"
 #~ msgstr "Anzahl der Artikel auslassen vom Listenanfang"
-
-#~ msgid "template"
-#~ msgstr "Template"
-
-#~ msgid "template used to display the plugin"
-#~ msgstr "Template, mit dem das Plugin angezeigt wird"
 
 #~ msgid "All articles"
 #~ msgstr "Alle Artikel"
@@ -2886,12 +3504,6 @@ msgstr ""
 #~ msgid "Search results for “%(q)s”"
 #~ msgstr "Suchergebnisse für „%(q)s“"
 
-#~ msgid "No results found."
-#~ msgstr "Keine Ergebnisse gefunden."
-
-#~ msgid "Please enter a search term."
-#~ msgstr "Bitte geben Sie einen Suchbegriff ein."
-
 #~ msgid "Articles"
 #~ msgstr "Artikel"
 
@@ -2904,415 +3516,6 @@ msgstr ""
 
 #~ msgid "Authors"
 #~ msgstr "Autor:innen"
-
-#~ msgid "Document"
-#~ msgstr "Dokument"
-
-#~ msgid "Page Annotation"
-#~ msgstr "Seitenannotation"
-
-#~ msgid "Document pages"
-#~ msgstr "Dokumentenseiten"
-
-#~ msgid "Document embed"
-#~ msgstr "Dokument-Embed"
-
-#~ msgid "Document collection embed"
-#~ msgstr "Dokumentensammlungs-Embed"
-
-#~ msgid "Document portal embed"
-#~ msgstr "Dokumentenportal-Embed"
-
-#~ msgid "Elements"
-#~ msgstr "Elemente"
-
-#~ msgid "Primary Link"
-#~ msgstr "Primär-Link"
-
-#~ msgid "Continue Link"
-#~ msgstr "Weiter-Link"
-
-#~ msgid "Back to your request"
-#~ msgstr "Zurück zu Ihrer Anfrage"
-
-#~ msgid "Ads"
-#~ msgstr "Werbung"
-
-#~ msgid "Dropdown Banner"
-#~ msgstr "Dropdown Banner"
-
-#~ msgid "Latest FOI requests"
-#~ msgstr "Neueste IFG-Anfragen"
-
-#~ msgid "One click FoiRequest form"
-#~ msgstr "Ein-Klick-Anfrage-Formular"
-
-#~ msgid "Account"
-#~ msgstr "Konto"
-
-#~ msgid "Set Password Form"
-#~ msgstr "Passwort-Setzen-Fomular"
-
-#~ msgid "Contact Form"
-#~ msgstr "Kontaktformular"
-
-#~ msgid "Vega Chart"
-#~ msgstr "Vega-Graphik"
-
-#~ msgid "SVG Image"
-#~ msgstr "SVG-Bild"
-
-#~ msgid "Structure"
-#~ msgstr "Struktur"
-
-#~ msgid "Design Container"
-#~ msgstr "Design-Container"
-
-#~ msgid "Share Links"
-#~ msgstr "Teilen-Links"
-
-#~ msgid "Collapsible"
-#~ msgstr "Collapsible"
-
-#~ msgid "Slider"
-#~ msgstr "Slider"
-
-#~ msgid "Modal"
-#~ msgstr "Modal"
-
-#~ msgid "FDS Card"
-#~ msgstr "FDS Card"
-
-#~ msgid "FDS Card Inner"
-#~ msgstr "FDS Card Innen"
-
-#~ msgid "FDS Card Header"
-#~ msgstr "FDS Card Header"
-
-#~ msgid "FDS Card Image"
-#~ msgstr "FDS Card Bild"
-
-#~ msgid "FDS Card Icon"
-#~ msgstr "FDS Card Icon"
-
-#~ msgid "FDS Card Link"
-#~ msgstr "FDS Card Link"
-
-#~ msgid "Reveal more"
-#~ msgstr "Weiterlesen"
-
-#~ msgid "Bordered section"
-#~ msgstr "Sektion mit Rahmen"
-
-#~ msgid "Pretix Shop-Embed"
-#~ msgstr "Pretix Shop-Einbindung"
-
-#~ msgid "Datashow"
-#~ msgstr "Datashow"
-
-#~ msgid "Table"
-#~ msgstr "Tabelle"
-
-#~ msgid "Page Preview"
-#~ msgstr "Seitenvorschau"
-
-#~ msgid "OpenSearch Searchbox"
-#~ msgstr "OpenSearch Suchfeld"
-
-#~ msgid "No results"
-#~ msgstr "Keine Ergebnisse gefunden"
-
-#~ msgid "FdS Page Settings"
-#~ msgstr "FdS Seiteneinstellungen"
-
-#~ msgid "Message"
-#~ msgstr "Nachricht"
-
-#~ msgid "Optional contact"
-#~ msgstr "Optionale Kontaktmöglichkeit"
-
-#~ msgid "For example a private email address"
-#~ msgstr "Zum Beispiel eine private E-Mail-Adresse"
-
-#~ msgid "Show in search results and search engines"
-#~ msgstr "In Suchergebnissen und Suchmaschinen anzeigen"
-
-#~ msgid ""
-#~ "If present, this page will be displayed as the ancestor in the breadcrumbs."
-#~ msgstr ""
-#~ "Wenn angegeben, wird diese Seite als Vorgänger in den Breadcrumbs "
-#~ "angezeigt."
-
-#~ msgid "Ancestor"
-#~ msgstr "Vorgänger"
-
-#~ msgid "Only show the breadcrumb ancestor on this page, but not its children"
-#~ msgstr ""
-#~ "Zeige den Breadcrumb-Vorgänger nur auf dieser Seite, nicht auf Unterseiten"
-
-#~ msgid "Breadcrumbs background"
-#~ msgstr "Breadcrumb-Hintergrund"
-
-#~ msgid ""
-#~ "Lay the breadcrumbs over the page content. Works well with hero image "
-#~ "headers."
-#~ msgstr ""
-#~ "Die Breadcrumbs über den Seiteninhalt legen. Funktioniert gut mit Herobild-"
-#~ "Headern."
-
-#~ msgid "Space separated list of allowed frame ancestor URLs."
-#~ msgstr "Mit Leerzeichen getrennte Liste von erlaubten Frame Ancestor URLs."
-
-#~ msgid "Small"
-#~ msgstr "Klein"
-
-#~ msgid "Large"
-#~ msgstr "Groß"
-
-#~ msgid "Social tile template"
-#~ msgstr "Social-Kacheln Template"
-
-#~ msgid "Featured template"
-#~ msgstr "Feature-Vorlage"
-
-#~ msgid "Campaign template"
-#~ msgstr "Kampagnen-Vorlage"
-
-#~ msgid "link"
-#~ msgstr "Link"
-
-#~ msgid "if present image will be clickable"
-#~ msgstr "Bild ist anklickbar, falls angegeben"
-
-#~ msgid "page link"
-#~ msgstr "Seiten-Link"
-
-#~ msgid "anchor"
-#~ msgstr "Anker"
-
-#~ msgid "Page anchor."
-#~ msgstr "Seitenanker"
-
-#~ msgid "Template"
-#~ msgstr "Vorlage"
-
-#~ msgid "Follow template"
-#~ msgstr "Follow Template"
-
-#~ msgid "number of entries"
-#~ msgstr "Anzahl der anzuzeigenden Anfragen"
-
-#~ msgid "0 means all the entries"
-#~ msgstr "0 bedeutet alle Anfragen"
-
-#~ msgid "number of entries to skip from top of list"
-#~ msgstr "Anzahl der ersten Anfragen, die übersprungen werden sollen"
-
-#, python-format
-#~ msgid "%s FOI requests"
-#~ msgstr "%s Anfragen"
-
-#~ msgid "One click form for {}"
-#~ msgstr "Ein-Klick Formular für {}"
-
-#~ msgid "Formatting with Markdown is supported."
-#~ msgstr "Markdown-Formattierung wird unterstützt."
-
-#~ msgid "Background"
-#~ msgstr "Hintergrund"
-
-#~ msgid "Backdrop"
-#~ msgstr "Backdrop"
-
-#~ msgid "Defaults to the current page's URL."
-#~ msgstr "URL der aktuellen Seite, wenn leergelassen."
-
-#~ msgid "Only show icons"
-#~ msgstr "Nur Icons anzeigen"
-
-#~ msgid ""
-#~ "Only available with the Native Share API. If sharing doesn't work, the "
-#~ "image will be downloaded instead."
-#~ msgstr ""
-#~ "Nur bei der Native Share API verfügbar. Falls natives Teilen nicht klappt, "
-#~ "wird das Bild stattdessen heruntergeladen."
-
-#~ msgid "Copy to clipboard"
-#~ msgstr "In Zwischenablage kopieren"
-
-#~ msgid "Native share"
-#~ msgstr "Natives Teilen"
-
-#~ msgid "Great on mobile devices."
-#~ msgstr "Funktioniert gut bei mobilen Geräten."
-
-#~ msgid "Native share button label"
-#~ msgstr "Native Share Buttontext"
-
-#~ msgid "Link instead of button"
-#~ msgstr "Link statt Button"
-
-#~ msgid "Border"
-#~ msgstr "Rahmen"
-
-#~ msgid "None"
-#~ msgstr "Nichts"
-
-#~ msgid "Blue"
-#~ msgstr "Blau"
-
-#~ msgid "Gray"
-#~ msgstr "Grau"
-
-#~ msgid "Yellow"
-#~ msgstr "Gelb"
-
-#~ msgid "Shadow"
-#~ msgstr "Schatten"
-
-#~ msgid "No"
-#~ msgstr "Nein"
-
-#~ msgid "Auto"
-#~ msgstr "Auto"
-
-#~ msgid "Always"
-#~ msgstr "Immer"
-
-#~ msgid "Spacing"
-#~ msgstr "Abstand"
-
-#~ msgid "Medium"
-#~ msgstr "Mittel"
-
-#~ msgid "if present card will be clickable"
-#~ msgstr "wenn angegeben, ist Card anklickbar"
-
-#~ msgid "Icon"
-#~ msgstr "Icon"
-
-#~ msgid ""
-#~ "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
-#~ "\" target=\"_blank\">FontAwesome 4 icon set</a>"
-#~ msgstr ""
-#~ "Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
-#~ "target=\"_blank\">Font Awesome 4 Icon Liste</a>"
-
-#~ msgid "Background image"
-#~ msgstr "Hintergrundbild"
-
-#~ msgid "Overlap"
-#~ msgstr "Überlappung"
-
-#~ msgid "Left"
-#~ msgstr "Links"
-
-#~ msgid "Right"
-#~ msgstr "Rechts"
-
-#~ msgid "Center"
-#~ msgstr "Zentriert"
-
-#~ msgid "Size"
-#~ msgstr "Größe"
-
-#~ msgid "Large (wide)"
-#~ msgstr "Groß (breit)"
-
-#~ msgid "Cutoff after"
-#~ msgstr "Abschnitt nach"
-
-#~ msgid "Unit"
-#~ msgstr "Einheit"
-
-#~ msgid "grid rows"
-#~ msgstr "Grid-Zeilen"
-
-#~ msgid "Line heights"
-#~ msgstr "Textzeilen"
-
-#~ msgid "percent"
-#~ msgstr "Prozent"
-
-#~ msgid "Overlay color"
-#~ msgstr "Overlay-Farbe"
-
-#~ msgid "Reveal text"
-#~ msgstr "Text zum Aufklappen"
-
-#~ msgid "Show more..."
-#~ msgstr "Mehr anzeigen…"
-
-#~ msgid "Heading level"
-#~ msgstr "Überschrift"
-
-#~ msgid "Headline 1"
-#~ msgstr "Überschrift 1"
-
-#~ msgid "Headline 2"
-#~ msgstr "Überschrift 2"
-
-#~ msgid "Headline 3"
-#~ msgstr "Überschrift 3"
-
-#~ msgid "Headline 4"
-#~ msgstr "Überschrift 4"
-
-#~ msgid "Headline 5"
-#~ msgstr "Überschrift 5"
-
-#~ msgid "Headline 6"
-#~ msgstr "Überschrift 6"
-
-#~ msgid "Up"
-#~ msgstr "hoch"
-
-#~ msgid "Down"
-#~ msgstr "herunter"
-
-#~ msgid "Animation when closing banner"
-#~ msgstr "Schließanimation"
-
-#~ msgid "Banner is dark-themed, button should therefore be light"
-#~ msgstr "Banner ist dunkel, daher sollte der Button hell sein"
-
-#~ msgid "banner image"
-#~ msgstr "Banner-Bild"
-
-#~ msgid "Topics"
-#~ msgstr "Themen"
-
-#~ msgid "Table of contents"
-#~ msgstr "Inhaltsverzeichnis"
-
-#~ msgid "In this chapter:"
-#~ msgstr "In diesem Kapitel:"
-
-#~ msgid "Chapter overview:"
-#~ msgstr "Kapitelübersicht:"
-
-#~ msgid "Aliases"
-#~ msgstr "Aliase"
-
-#~ msgid "Previous"
-#~ msgstr "Zurück"
-
-#~ msgid "Next"
-#~ msgstr "Weiter"
-
-#, python-format
-#~ msgid "Search in %(title)s"
-#~ msgstr "Suche in %(title)s"
-
-#, python-format
-#~ msgid "Results for “%(q)s”"
-#~ msgstr "Ergebnisse für „%(q)s“"
-
-#, python-format
-#~ msgid ""
-#~ "%(site)s helps you to make freedom of information requests to public bodies"
-#~ msgstr ""
-#~ "%(site)s hilft Ihnen, Informationsfreiheitsanfragen an Behörden zu stellen"
 
 #~ msgid "Sent\\u202f{}"
 #~ msgstr "Gesendet\\u202f{}"
@@ -3601,9 +3804,6 @@ msgstr ""
 
 #~ msgid "Only applies to the native share button."
 #~ msgstr "Trifft nur auf den Native Share Button zu."
-
-#~ msgid "Share on social media"
-#~ msgstr "Auf sozialen Netzwerken teilen"
 
 #~ msgid "Share on Mastodon"
 #~ msgstr "Auf Mastodon teilen"
@@ -4634,9 +4834,6 @@ msgstr ""
 #~ "Die Anfrage ist unbeantwortet und seit geraumer Zeit nicht mehr aktiv "
 #~ "gewesen."
 
-#~ msgid "Awaiting response"
-#~ msgstr "Warte auf Antwort"
-
 #~ msgid "This request is still waiting for a response from the Public Body."
 #~ msgstr "Diese Anfrage wartet noch auf eine Antwort von der Behörde."
 
@@ -4687,9 +4884,6 @@ msgstr ""
 
 #~ msgid "User withdrew the request for other reasons."
 #~ msgstr "Nutzer hat die Anfrage aus anderen Gründen zurückgezogen."
-
-#~ msgid "successful"
-#~ msgstr "erfolgreich"
 
 #~ msgid "partially-successful"
 #~ msgstr "teilweise-erfolgreich"
@@ -7344,9 +7538,6 @@ msgstr ""
 #~ msgid "Please specify an url"
 #~ msgstr "Bitte geben Sie eine URL an"
 
-#~ msgid "Internal Review"
-#~ msgstr "Interne Überprüfung"
-
 #~ msgid "Error"
 #~ msgstr "Fehler"
 
@@ -7529,42 +7720,14 @@ msgstr ""
 #~ msgid "Updated Date"
 #~ msgstr "Änderungsdatum"
 
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:14
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:173
-msgid "Pending"
-msgstr "Ausstehend"
+#~ msgid "Pending"
+#~ msgstr "Ausstehend"
 
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:15
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:174
-msgid "Resolved"
-msgstr "Erledigt"
+#~ msgid "Resolved"
+#~ msgstr "Erledigt"
 
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:16
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:175
+#~ msgid "Partially successful"
+#~ msgstr "Teilweise erfolgreich"
 
-msgid "Refused"
-msgstr "Abgelehnt"
-
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:17
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:176
-
-msgid "Partially successful"
-msgstr "Teilweise erfolgreich"
-
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:18
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:177
-
-msgid "Overdue"
-msgstr "Überfällig"
-
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:19
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:178
-msgid "Asleep"
-msgstr "Eingeschlafen"
-
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:23
-#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/map.html:182
-msgid "%(counter)s request without geo data"
-msgid_plural "%(counter)s requests without geo data"
-msgstr[0] "%(counter)s Anfrage ohne Geodaten"
-msgstr[1] "%(counter)s Anfragen ohne Geodaten"
+#~ msgid "Asleep"
+#~ msgstr "Eingeschlafen"
