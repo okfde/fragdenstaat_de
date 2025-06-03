@@ -131,13 +131,12 @@ def get_foirequest_features(foirequests, key_func, geometry_func):
 def foirequest_geo_points(foirequests):
     all_count = foirequests.count()
     # Only include requests with public bodies that have geometry for map view
-    foirequests = (
-        foirequests.filter(public_body__isnull=False)
-        .filter(public_body__geo__isnull=False)  # Has point geometry
-        .select_related("public_body")
-    )
+    foirequests = foirequests.select_related("public_body")
 
-    with_geo_count = foirequests.count()
+    # Need to filter in Python as slice may already be applied
+    foirequests = [f for f in foirequests if f.public_body and f.public_body.geo]
+
+    with_geo_count = len(foirequests)
 
     def geometry_func(foirequest):
         return {
@@ -166,20 +165,21 @@ def foirequest_geo_points(foirequests):
 def foirequest_geo_regions(foirequests):
     all_count = foirequests.count()
     # Only include requests with public bodies that have geometry for map view
-    foirequests = (
-        foirequests.filter(public_body__isnull=False)
-        .filter(public_body__regions__geom__isnull=False)  # Has region with geometry
-        .select_related("public_body")
-        .prefetch_related("public_body__regions")
-    )
+    foirequests.select_related("public_body").prefetch_related("public_body__regions")
 
-    with_geo_count = foirequests.count()
+    foirequests = [
+        f for f in foirequests if f.public_body and f.public_body.regions.exists()
+    ]
+
+    with_geo_count = len(foirequests)
 
     def geometry_func(foirequest):
         multi_polygon = reduce(
             lambda a, b: a | b,
             foirequest.public_body.regions.all().values_list("geom", flat=True),
         )
+        # FIXME: This is serializing, deserializing, and later re-serializing.
+        # Not efficient, but possibly difficult to avoid without getting messy.
         return json.loads(multi_polygon.geojson)
 
     features = get_foirequest_features(
