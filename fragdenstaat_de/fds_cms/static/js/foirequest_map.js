@@ -53,6 +53,10 @@ function getColorMode() {
   return document.documentElement.getAttribute('data-bs-theme') || 'light'
 }
 
+function getTileLayerUrl() {
+    return `//cartodb-basemaps-{s}.global.ssl.fastly.net/${getColorMode()}_all/{z}/{x}/{y}${window.L.Browser.retina ? '@2x' : ''}.png`
+}
+
 
 function initMap(mapId) {
     const mapData = JSON.parse(document.getElementById(`foirequest_map_plugin_data_${mapId}`).textContent);
@@ -64,13 +68,11 @@ function initMap(mapId) {
     }).setView([51.1657, 10.4515], 6);
     map.attributionControl.setPrefix('')
 
-    // Add OpenStreetMap tiles
-    const tileLayerUrl = `//cartodb-basemaps-{s}.global.ssl.fastly.net/${getColorMode()}_all/{z}/{x}/{y}${window.L.Browser.retina ? '@2x' : ''}.png`
-
-    L.tileLayer(tileLayerUrl, {
+    const tileLayer = L.tileLayer(getTileLayerUrl(), {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-    }).addTo(map);
+    })
+    tileLayer.addTo(map);
 
     function onEachFeature(feature, layer) {
         if (feature.properties && feature.properties.requests) {
@@ -98,6 +100,17 @@ function initMap(mapId) {
         return template.content.cloneNode(true).children[0]
     };
     legend.addTo(map);
+
+    // Set tile layer URL on color mode changes
+    const observer = new MutationObserver(
+      () => {
+        tileLayer.setUrl(getTileLayerUrl())
+      }
+    )
+    observer.observe(document.documentElement, {
+      attributeFilter: ['data-bs-theme'],
+      attributeOldValue: true
+    })
 }
 
 
