@@ -120,7 +120,8 @@ def get_foirequest_features(foirequests, key_func, geometry_func):
                 "url": foirequest.get_absolute_url(),
                 "title": foirequest.title,
                 "public_body_name": foirequest.public_body.name,
-                "status_display": foirequest.get_status_display(),
+                "status_display": foirequest.readable_status,
+                "status": foirequest.status_representation,
             }
         )
     return list(geo_groups.values())

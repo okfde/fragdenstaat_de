@@ -8,18 +8,17 @@ function getStatusIcon(status) {
     }
 
     const statusColors = {
-        'pending': '#ffc107',
-        'resolved': '#28a745',
-        'refused': '#dc3545',
-        'partially_successful': '#17a2b8',
-        'overdue': '#fd7e14',
-        'asleep': '#6c757d'
+        'awaiting_response': 'bg-secondary',
+        'successful': 'bg-success',
+        'partially_successful': 'bg-success',
+        'refused': 'bg-danger',
+        'overdue': 'bg-warning',
     };
 
-    const color = statusColors[status] || '#6c757d';
+    const statusClass = statusColors[status] || 'bg-secondary';
     const icon = L.divIcon({
-        className: 'custom-div-icon',
-        html: `<div style="background-color: ${color}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.3);"></div>`,
+        className: 'foirequest-map-custom-icon',
+        html: `<div class="${statusClass}"></div>`,
         iconSize: [16, 16],
         iconAnchor: [8, 8]
     });
@@ -37,12 +36,12 @@ function htmlEscape(str) {
 }
 
 function createPopupContent(requests) {
-    let popupHtml = '<div class="foirequest-popup">';
+    let popupHtml = '<div class="foirequest-map-popup">';
     requests.forEach((request, index) => {
         popupHtml += `
-            <h4><a href="${request.url}">${htmlEscape(request.title)}</a></h4>
-            <p>${htmlEscape(request.public_body_name)}</p>
-            <p class="text-muted">${htmlEscape(request.status_display)}</p>
+            <h4 class="fs-5"><a href="${request.url}">${htmlEscape(request.title)}</a></h4>
+            <p class="mt-0">${htmlEscape(request.public_body_name)}</p>
+            <p class="text-body-secondary">${htmlEscape(request.status_display)}</p>
             ${index < requests.length - 1 ? '<hr>' : ''}
         `;
     });
