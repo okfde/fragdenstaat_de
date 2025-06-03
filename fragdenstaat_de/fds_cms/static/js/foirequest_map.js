@@ -2,20 +2,36 @@
 // Cache for status icons
 const statusIconCache = {};
 
+const statusThemeMap = {
+    'awaiting_response': 'secondary',
+    'successful': 'success',
+    'partially_successful': 'success',
+    'refused': 'danger',
+    'overdue': 'warning',
+};
+
+function getThemeForStatus(status) {
+    return statusThemeMap[status] || 'secondary'
+}
+
+const colorCache = {};
+
+function getColorForTheme(theme) {
+    if (colorCache[theme]) {
+        return colorCache[theme];
+    }
+    const color = getComputedStyle(document.documentElement,null).getPropertyValue(`--bs-${theme}`);
+    colorCache[theme] = color;
+    return color
+}
+
 function getStatusIcon(status) {
     if (statusIconCache[status]) {
         return statusIconCache[status];
     }
 
-    const statusColors = {
-        'awaiting_response': 'bg-secondary',
-        'successful': 'bg-success',
-        'partially_successful': 'bg-success',
-        'refused': 'bg-danger',
-        'overdue': 'bg-warning',
-    };
-
-    const statusClass = statusColors[status] || 'bg-secondary';
+    const theme = getThemeForStatus(status);
+    const statusClass = `bg-${theme}`;
     const icon = L.divIcon({
         className: 'foirequest-map-custom-icon',
         html: `<div class="${statusClass}"></div>`,
@@ -64,7 +80,7 @@ function initMap(mapId) {
     // Initialize map with zoom controls
     const map = L.map(`foirequest_map_plugin_${mapId}`, {
         zoomControl: true,
-        scrollWheelZoom: true
+        scrollWheelZoom: false
     }).setView([51.1657, 10.4515], 6);
     map.attributionControl.setPrefix('')
 
@@ -81,9 +97,12 @@ function initMap(mapId) {
     }
 
     const geoLayer = L.geoJSON(mapData.geojson, {
-        // style: function (feature) {},
+        style: function (feature) {
+            const theme = getThemeForStatus(feature.properties.requests[0].status);
+            const color = getColorForTheme(theme);
+            return {fillColor: color, color: color};
+        },
         pointToLayer: function (feature, latlng) {
-            // return L.circleMarker(latlng, geojsonMarkerOptions);
             return L.marker(latlng, {
                 icon: getStatusIcon(feature.properties.requests[0].status)
             })
