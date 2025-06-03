@@ -7984,3 +7984,15 @@ msgstr "kampagne/"
 
 #~ msgid "Text"
 #~ msgstr "Text"
+
+#~ msgid "Share on social media"
+#~ msgstr "Auf sozialen Netzwerken teilen"
+
+#~ msgid "Awaiting response"
+#~ msgstr "Warte auf Antwort"
+
+#~ msgid "successful"
+#~ msgstr "erfolgreich"
+
+#~ msgid "Internal Review"
+#~ msgstr "Interne Überprüfung"
