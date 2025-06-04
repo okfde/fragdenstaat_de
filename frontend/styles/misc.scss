@@ -126,9 +126,11 @@
 .privacy-blur img {
   filter: blur(20px);
 }
+.privacy-blur:focus img,
 .privacy-blur:hover img {
   filter: none;
 }
+.privacy-blur:focus > div,
 .privacy-blur:hover > div {
   display: none;
 }

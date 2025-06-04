@@ -1,12 +1,13 @@
 {% load i18n djangocms_alias_tags %}
 {% static_alias "scannerapp_postupload" %}
 <div class="d-none d-md-block text-center">
-    <div class="position-relative privacy-blur">
+    <div class="position-relative privacy-blur" tabindex="0">
         <img src="{{ qrcode }}" alt="QR-Code" class="w-100 d-block mx-auto">
         <div class="position-absolute ratio ratio-1x1 top-0 start-50 translate-middle-x p-2 text-white">
             <div class="row justify-content-center">
                 <div class="col my-auto">
-                    <div class="text-center display-3">{% translate "Hover to show QR Code" %}</div>
+                    <!-- TODO: mention keyboard focus, or turn into button anyway -->
+                    <div class="text-center">{% translate "Hover to show QR Code" %}</div>
                 </div>
             </div>
         </div>
