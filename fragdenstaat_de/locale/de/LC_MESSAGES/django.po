@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-05 14:25+0200\n"
-"PO-Revision-Date: 2025-06-05 14:46+0200\n"
+"POT-Creation-Date: 2025-06-05 17:02+0200\n"
+"PO-Revision-Date: 2025-06-05 17:02+0200\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -1149,6 +1149,11 @@ msgid "Payment method"
 msgstr "Zahlungsweise"
 
 #: fragdenstaat_de/fds_donation/forms.py
+#, python-brace-format
+msgid "You are paying with {method}."
+msgstr "Du nutzt zur Zahlung {method}."
+
+#: fragdenstaat_de/fds_donation/forms.py
 msgid "One time donation amount"
 msgstr "Einmaliger Spendenbetrag"
 
@@ -1670,15 +1675,6 @@ msgid "Receive our newsletter about freedom of information in German."
 msgstr ""
 "Erhalte Neuigkeiten zur Informationsfreiheit und erfahre, was Deine Spende "
 "bewirkt."
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
-msgid "FragDenStaat Account"
-msgstr "FragDenStaat-Konto"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
-msgid "You can manage your donation in your FragDenStaat account."
-msgstr ""
-"Du kannst Deine Spenden in Deinem FragDenStaat-Konto einsehen und verwalten."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Get an account"
@@ -3048,6 +3044,14 @@ msgid ""
 msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
+
+#~ msgid "FragDenStaat Account"
+#~ msgstr "FragDenStaat-Konto"
+
+#~ msgid "You can manage your donation in your FragDenStaat account."
+#~ msgstr ""
+#~ "Du kannst Deine Spenden in Deinem FragDenStaat-Konto einsehen und "
+#~ "verwalten."
 
 #~ msgid "Stay up to date"
 #~ msgstr "Auf dem Laufenden bleiben"
