@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-03 12:05+0200\n"
-"PO-Revision-Date: 2025-06-03 12:09+0200\n"
+"POT-Creation-Date: 2025-06-05 14:25+0200\n"
+"PO-Revision-Date: 2025-06-05 14:46+0200\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -742,7 +742,7 @@ msgstr "hat Nutzerkonto"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Donor"
-msgstr "Spender"
+msgstr "Spender*innen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Stats"
@@ -780,7 +780,7 @@ msgstr "Duplikate-Flags entfernen"
 #: fragdenstaat_de/fds_donation/admin.py
 #, python-brace-format
 msgid "Detected {dup} duplicate sets with {donors} donors"
-msgstr "{dup} Duplikate gefunden bei {donors} Spender:innen"
+msgstr "{dup} Duplikate gefunden bei {donors} Spender*innen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Detect duplicate donors"
@@ -801,12 +801,12 @@ msgstr "Mehr als einer muss ausgewählt werden!"
 #: fragdenstaat_de/fds_donation/admin.py
 #, python-brace-format
 msgid "Merged {count} donors into {donor}"
-msgstr "{count} Spenderinnen wurden vereinigt zu {donor}"
+msgstr "{count} Spender*innen wurden vereinigt zu {donor}"
 
 #: fragdenstaat_de/fds_donation/admin.py
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
 msgid "Merge donors"
-msgstr "Spender:innen zusammenführen"
+msgstr "Spender*innen zusammenführen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Export JZWB..."
@@ -814,7 +814,7 @@ msgstr "JZWB exportieren…"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Sending JZWB email to {} donors."
-msgstr "Sende JZWB-E-Mail an {} Spender."
+msgstr "Sende JZWB-E-Mail an {} Spender*innen."
 
 #: fragdenstaat_de/fds_donation/admin.py
 #, python-brace-format
@@ -884,7 +884,7 @@ msgstr "Exportiere als CSV"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Need two banktransfer donations from same donor."
-msgstr "Brauche zwei Überweisungsspenden von gleicher Spender:in."
+msgstr "Brauche zwei Überweisungsspenden von gleicher Spender*in."
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Donations matched."
@@ -1016,11 +1016,11 @@ msgstr "Meine Spenden"
 
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "No donor"
-msgstr "Keine Spender:in"
+msgstr "Keine Spender*in"
 
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "One-time donor"
-msgstr "Einmal-Spender:in"
+msgstr "Einmal-Spender*in"
 
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "User donor"
@@ -1032,7 +1032,7 @@ msgstr "Kürzlich gespendet"
 
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "Recurring donor"
-msgstr "Dauerspender:in"
+msgstr "Dauerspender*in"
 
 #: fragdenstaat_de/fds_donation/cms_apps.py
 msgid "FragDenStaat Donation Gift App"
@@ -1053,19 +1053,19 @@ msgstr "Spendenform"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Is donor"
-msgstr "Ist Spender:in"
+msgstr "Ist Spender*in"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Is not donor"
-msgstr "Ist kein/e Spender/in"
+msgstr "Ist kein*e Spender*in"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Is recurring donor"
-msgstr "Ist Dauerspender:in"
+msgstr "Ist Dauerspender*in"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Is not recurring donor"
-msgstr "Ist nicht Dauerspender:in"
+msgstr "Ist nicht Dauerspender*in"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Is recent donor"
@@ -1077,11 +1077,11 @@ msgstr "Hat nicht vor kurzem gespendet"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Is contact allowed donor"
-msgstr "Spender:in darf kontaktiert werden"
+msgstr "Spender*in darf kontaktiert werden"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Is contact not allowed donor"
-msgstr "Spender:in darf nicht kontaktiert werden"
+msgstr "Spender*in darf nicht kontaktiert werden"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Donation Progress Bar"
@@ -1172,8 +1172,8 @@ msgid ""
 "Your amount is too large for the chosen payment method. Please choose a "
 "different method or contact us."
 msgstr ""
-"Ihr Betrag ist zu groß für diese Zahlungsmethode. Bitte wählen Sie eine "
-"andere Zahlungsmethode oder kontaktieren Sie uns direkt."
+"Dein Betrag ist zu groß für diese Zahlungsmethode. Bitte wähle eine andere "
+"Zahlungsmethode oder kontaktiere uns direkt."
 
 #: fragdenstaat_de/fds_donation/forms.py
 #, python-format
@@ -1295,11 +1295,11 @@ msgstr "Ja, einmal im Jahr per E-Mail."
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Do you want a donation receipt?"
-msgstr "Möchten Sie eine Spendenbescheinigung?"
+msgstr "Möchtest Du eine Spendenbescheinigung?"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "You have to decide."
-msgstr "Sie müssen sich entscheiden."
+msgstr "Du musst dich entscheiden."
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "e.g. name@example.org"
@@ -1317,13 +1317,11 @@ msgstr "Neuigkeiten"
 msgid ""
 "With your donation you can also create a FragDenStaat account where you can "
 "manage your details, donations and requests."
-msgstr ""
-"In Ihrem FragDenStaat-Konto können Sie Ihre Daten pflegen, Ihre Spenden "
-"einsehen sowie Ihre Anfragen verwalten."
+msgstr "Verwalte Deine Spenden im FragDenStaat-Konto."
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Donation gift"
-msgstr "Ihr Dankeschön"
+msgstr "Dein Dankeschön"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "The chosen donation gift is no longer available, sorry!"
@@ -1335,15 +1333,15 @@ msgstr "Leider sind alle verfügbaren Spendengeschenke schon weg."
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Please complete your shipping address."
-msgstr "Bitte geben Sie eine Versandadresse an."
+msgstr "Bitte gib eine Versandadresse an."
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Your name"
-msgstr "Ihr Name"
+msgstr "Dein Name"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Your email address"
-msgstr "Ihre E-Mail-Adresse"
+msgstr "Deine E-Mail-Adresse"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Shipping address"
@@ -1351,7 +1349,7 @@ msgstr "Versandadresse"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Please choose your donation gift"
-msgstr "Wählen Sie Ihr Dankeschön aus"
+msgstr "Wähle Dein Dankeschön aus"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Only once"
@@ -1422,27 +1420,27 @@ msgstr "Standard"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Donor Tag"
-msgstr "Spender:in-Tag"
+msgstr "Spender*in-Tag"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Donor Tags"
-msgstr "Spender:innen Tags"
+msgstr "Spender*innen Tags"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Tagged Donor"
-msgstr "Getaggte/r Spender:in"
+msgstr "Getaggte*r Spender*in"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Tagged Donors"
-msgstr "Getaggte Spender:innen"
+msgstr "Getaggte Spender*innen"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "donor"
-msgstr "SpenderIn"
+msgstr "Spender*in"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "donors"
-msgstr "SpenderInnen"
+msgstr "Spender*innen"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "donation"
@@ -1526,7 +1524,7 @@ msgstr "Ausführen"
 
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
 msgid "Merge Donors"
-msgstr "Spender:innen zusammenführen"
+msgstr "Spender*innen zusammenführen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donation_progress_bar.html
 msgid "Donation progress"
@@ -1545,19 +1543,19 @@ msgstr ""
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
 msgid "Thank you for your donation!"
-msgstr "Vielen Dank für Ihre Spende!"
+msgstr "Vielen Dank für Deine Spende!"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
 msgid "You got mail"
-msgstr "Sie haben Post"
+msgstr "Du hast Post"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
 msgid "Please confirm your email address!"
-msgstr "Bitte bestätigen Sie Ihre E-Mail-Adresse!"
+msgstr "Bitte bestätige Deine E-Mail-Adresse!"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
 msgid "Check your emails for your account"
-msgstr "Rufen Sie Ihre E-Mails ab"
+msgstr "Rufe Deine E-Mails ab"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
 #, python-format
@@ -1568,7 +1566,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"              Klicken Sie <strong class=\"highlight\">den Bestätigungs-Link</"
+"              Klicke <strong class=\"highlight\">den Bestätigungs-Link</"
 "strong> in der E-Mail von %(SITE_NAME)s.\n"
 "            "
 
@@ -1577,8 +1575,8 @@ msgid ""
 "Please go to your email account and <strong>click the confirmation link.</"
 "strong>"
 msgstr ""
-"Bitte gehen Sie zu Ihrem E-Mail-Konto und <strong>klicken Sie den "
-"Bestätigungs-Link.</strong>"
+"Bitte gehe zu Deinem E-Mail-Konto und <strong>klicke auf den Bestätigungs-"
+"Link.</strong>"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
 msgid ""
@@ -1590,7 +1588,7 @@ msgid ""
 msgstr ""
 "\n"
 "          Die <strong>Spendenbescheinigung</strong>, die wir zu Beginn des "
-"kommenden Jahres versenden, können wir Ihnen nur an eine <strong>bestätigte E-"
+"kommenden Jahres versenden, können wir Dir nur an eine <strong>bestätigte E-"
 "Mail-Adresse</strong> zukommen lassen!\n"
 "          "
 
@@ -1606,8 +1604,8 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Ihre Spende konnte durch den von Ihnen gewählten Zahlungsanbieter nicht "
-"erfolgreich abgeschlossen werden.\n"
+"    Deine Spende konnte durch den von Dir gewählten Zahlungsanbieter leider "
+"nicht erfolgreich abgeschlossen werden.\n"
 "    "
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_failed.html
@@ -1620,7 +1618,7 @@ msgstr "Bearbeitung läuft"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/email/donation_gift_order_shipped_subject.txt
 msgid "Your donation gift shipped"
-msgstr "Ihr Spendengeschenk wurde versandt"
+msgstr "Dein Spendengeschenk wurde versandt"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Your donation frees information"
@@ -1640,7 +1638,7 @@ msgstr "Persönliche Daten"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "&rarr; Do you want to donate as a company?"
-msgstr "&rarr; Möchten Sie als Firma spenden?"
+msgstr "&rarr; Möchtest Du als Firma spenden?"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Shipping details"
@@ -1660,18 +1658,18 @@ msgstr ""
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Your payment details will be transmitted securely in the next step."
 msgstr ""
-"Die Eingabe Ihrer Zahlungsinformationen erfolgt sicher verschlüsselt im "
+"Die Eingabe Deiner Zahlungsinformationen erfolgt sicher verschlüsselt im "
 "nächsten Schritt."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
-msgid "Stay up to date"
-msgstr "Auf dem Laufenden bleiben"
+msgid "Stay informed"
+msgstr "Informiert bleiben"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Receive our newsletter about freedom of information in German."
 msgstr ""
-"Erhalten Sie Neuigkeiten zum Thema Informationsfreiheit direkt in Ihr "
-"Postfach und erfahren Sie mehr über die Wirkung Ihrer Spende."
+"Erhalte Neuigkeiten zur Informationsfreiheit und erfahre, was Deine Spende "
+"bewirkt."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "FragDenStaat Account"
@@ -1680,7 +1678,7 @@ msgstr "FragDenStaat-Konto"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "You can manage your donation in your FragDenStaat account."
 msgstr ""
-"Sie können Ihre Spenden in Ihrem FragDenStaat-Konto einsehen und verwalten."
+"Du kannst Deine Spenden in Deinem FragDenStaat-Konto einsehen und verwalten."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Get an account"
@@ -1759,13 +1757,13 @@ msgid ""
 "We have no associated donations with your account. If you have donated, let "
 "us know! Otherwise feel free to donate below."
 msgstr ""
-"Wir haben keine mit Ihrem Konto verknüpften Spenden gefunden. Falls Sie "
-"gespendet haben, lassen Sie es uns wissen! Ansonsten haben Sie weiter unten "
-"die Gelegenheit zu spenden."
+"Wir haben keine mit Deinem Konto verknüpften Spenden gefunden. Falls Du "
+"gespendet hast, lasse es uns wissen! Ansonsten hast Du weiter unten die "
+"Gelegenheit zu spenden."
 
 #: fragdenstaat_de/fds_donation/views.py
 msgid "Your donor info has been updated!"
-msgstr "Ihre Spender-Informationen wurden aktualisiert!"
+msgstr "Deine Spenden-Angaben wurden aktualisiert!"
 
 #: fragdenstaat_de/fds_events/admin.py
 msgid "Edit Content"
@@ -1880,9 +1878,9 @@ msgid ""
 msgstr ""
 "Hallo %(name)s,\n"
 "\n"
-"beim Importieren der Nachrichten zu Ihrer Anfrage \"%(title)s\" ist ein "
-"Fehler aufgetreten. Bitte probieren Sie es erneut und kontaktieren Sie uns, "
-"falls der Fehler weiterhin besteht.\n"
+"beim Importieren der Nachrichten zu Ihrer Anfrage „%(title)s“ ist ein Fehler "
+"aufgetreten. Bitte probieren Sie es erneut und kontaktieren Sie uns, falls "
+"der Fehler weiterhin besteht.\n"
 "\n"
 "Um es erneut zu versuchen, klicken Sie bitte den folgenden Link:\n"
 "\n"
@@ -1909,7 +1907,7 @@ msgid ""
 msgstr ""
 "Hallo %(name)s,\n"
 "\n"
-"die Nachrichten zu Ihrer Anfrage \"%(title)s\" wurden erfolgreich importiert. "
+"die Nachrichten zu Ihrer Anfrage „%(title)s“ wurden erfolgreich importiert. "
 "Bitte lesen Sie die Antwort und ändern Sie den Status Ihrer Anfrage falls "
 "nötig. Sie können auch eine weitere Nachricht senden.\n"
 "\n"
@@ -2048,7 +2046,7 @@ msgstr "Lege Mailing für diese User an..."
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "You can only send to one user at a time."
-msgstr "Sie können mit dieser Aktion nur ein:e Nutzer:in adressieren."
+msgstr "Sie können mit dieser Aktion nur ein:e Nutzer*in adressieren."
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Email was sent."
@@ -2348,8 +2346,7 @@ msgstr "an diese Empfänger:innen:"
 
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/archive/mailing_detail.html
 msgid "Don't miss out on any future updates by subscribing to this newsletter!"
-msgstr ""
-"Verpassen Sie keine Neuigkeiten mehr, indem Sie den Newsletter abonnieren!"
+msgstr "Verpasse keine Neuigkeiten mehr, indem Du den Newsletter abonnierst!"
 
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
 msgid "back"
@@ -2485,7 +2482,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_newsletter/forms.py
 msgid "Anything else you want to tell us?"
-msgstr "Gibt es sonst etwas, dass Sie uns mitteilen möchten?"
+msgstr "Gibt es sonst etwas, dass Du uns mitteilen möchtest?"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "newsletter title"
@@ -2704,12 +2701,12 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"        Sie haben Sich erfolgreich vom %(newsletter)s abgemeldet.\n"
+"        Du hast Dich erfolgreich vom %(newsletter)s abgemeldet.\n"
 "        "
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
 msgid "We'd love to know why you chose to unsubscribe."
-msgstr "Wir wären dankbar, wenn Sie mit uns den Grund dafür teilen."
+msgstr "Wir wären dankbar, wenn Du uns den Grund dafür mitteilst."
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/user_settings.html
 msgid "Update subscriptions"
@@ -2721,7 +2718,7 @@ msgstr "<slug:newsletter_slug>/feedback/"
 
 #: fragdenstaat_de/fds_newsletter/views.py
 msgid "You are already subscribed to our newsletter."
-msgstr "Sie sind schon in unserem Newsletter."
+msgstr "Du bist schon in unserem Newsletter."
 
 #: fragdenstaat_de/fds_newsletter/views.py
 msgid "You have been subscribed to our newsletter."
@@ -2729,24 +2726,24 @@ msgstr "Willkommen zu unserem Newsletter!"
 
 #: fragdenstaat_de/fds_newsletter/views.py
 msgid "You have received an email to confirm your subscription."
-msgstr "Sie haben eine E-Mail erhalten, um Ihr Abonnement zu bestätigen."
+msgstr "Du hast eine E-Mail erhalten, um Dein Abonnement zu bestätigen."
 
 #: fragdenstaat_de/fds_newsletter/views.py
 msgid "Please correct the errors below."
-msgstr "Bitte korrigieren Sie die unten stehenden Fehler."
+msgstr "Bitte korrigiere die unten stehenden Fehler."
 
 #: fragdenstaat_de/fds_newsletter/views.py
 #, python-format
 msgid "You now receive the %s."
-msgstr "Sie erhalten den %s."
+msgstr "Du erhältst den %s."
 
 #: fragdenstaat_de/fds_newsletter/views.py
 msgid "Thank you for your feedback!"
-msgstr "Vielen Dank für Ihr Feedback!"
+msgstr "Vielen Dank für Dein Feedback!"
 
 #: fragdenstaat_de/fds_newsletter/views.py
 msgid "Your newsletter subscriptions have been updated."
-msgstr "Ihre Newsletter-Abonnements wurden aktualisiert."
+msgstr "Deine Newsletter-Abonnements wurden aktualisiert."
 
 #: fragdenstaat_de/fds_ogimage/apps.py
 msgid "FragDenStaat OG Image"
@@ -3051,6 +3048,9 @@ msgid ""
 msgstr ""
 "Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
 "Behördeninformationen"
+
+#~ msgid "Stay up to date"
+#~ msgstr "Auf dem Laufenden bleiben"
 
 #, python-format
 #~ msgid "%(item)s (%(count)i entry)"
