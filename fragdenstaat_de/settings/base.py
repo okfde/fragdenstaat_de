@@ -697,6 +697,7 @@ class FragDenStaatBase(German, Base):
                     rec(
                         r"^\s*Guten\s+(?:Tag|Morgen|Mittag|Abend),?[ \t\f\v]+([^\r\n]+)"
                     ),
+                    rec(r"^\s*(.*) möchte die Nachricht .* zurückrufen\."),
                 ],
                 "custom_replacements": [
                     rec(r"[Bb][Gg]-[Nn][Rr]\.?\s*\:?\s*([a-zA-Z0-9\s/]+)"),
