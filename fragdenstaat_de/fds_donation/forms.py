@@ -1,5 +1,4 @@
 import base64
-import decimal
 import json
 import logging
 from urllib.parse import parse_qsl
@@ -14,7 +13,6 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 
 from froide_payment.forms import StartPaymentMixin
-from froide_payment.models import CHECKOUT_PAYMENT_CHOICES_DICT
 from froide_payment.utils import interval_description
 
 from froide.account.utils import parse_address
@@ -27,10 +25,15 @@ from froide.helper.widgets import (
 )
 
 from .models import (
+    CHECKOUT_PAYMENT_CHOICES_DICT,
     INTERVAL_CHOICES,
     INTERVAL_SETTINGS_CHOICES,
+    MAX_AMOUNT,
+    MIN_AMOUNT,
     ONCE,
     ONCE_RECURRING,
+    PAYMENT_METHOD_MAX_AMOUNT,
+    PAYMENT_METHODS,
     RECURRING,
     SALUTATION_CHOICES,
     Donation,
@@ -44,21 +47,6 @@ from .validators import validate_not_too_many_uppercase
 from .widgets import AmountInput
 
 logger = logging.getLogger(__name__)
-
-PAYMENT_METHOD_LIST = (
-    "sepa",
-    "paypal",
-    "banktransfer",
-    "creditcard",
-    # "sofort",
-)
-MIN_AMOUNT = 5
-MAX_AMOUNT = 10000
-PAYMENT_METHOD_MAX_AMOUNT = {"sepa": decimal.Decimal(5000)}
-
-PAYMENT_METHODS = [
-    (method, CHECKOUT_PAYMENT_CHOICES_DICT[method]) for method in PAYMENT_METHOD_LIST
-]
 
 
 class DonationSettingsForm(forms.Form):
@@ -95,7 +83,12 @@ class DonationSettingsForm(forms.Form):
     )
     prefilled_amount = forms.BooleanField(required=False)
     initial_receipt = forms.BooleanField(required=False)
+    hide_contact = forms.BooleanField(required=False, initial=False)
+    hide_account = forms.BooleanField(required=False, initial=False)
     collapsed = forms.BooleanField(required=False)
+    payment_methods = forms.CharField(
+        required=False,
+    )
 
     next_url = forms.CharField(required=False)
     next_label = forms.CharField(required=False)
@@ -104,8 +97,6 @@ class DonationSettingsForm(forms.Form):
         presets = self.cleaned_data["interval_choices"]
         if not presets:
             return DonationFormFactory.default["interval_choices"]
-        if "[" in presets:
-            presets = presets.replace("[", "").replace("]", "")
         try:
             values = [int(x.strip()) for x in presets.split(",") if x.strip()]
             values = [
@@ -123,19 +114,28 @@ class DonationSettingsForm(forms.Form):
             return []
         if not presets:
             return DonationFormFactory.default["amount_presets"]
-        if "[" in presets:
-            presets = presets.replace("[", "").replace("]", "")
         try:
             return [int(x.strip()) for x in presets.split(",") if x.strip()]
         except ValueError:
             return []
 
+    def clean_payment_methods(self):
+        presets = self.cleaned_data["payment_methods"]
+        if not presets:
+            return DonationFormFactory.default["payment_methods"]
+
+        values = [x.strip() for x in presets.split(",") if x.strip()]
+        values = [
+            x for x in values if x in DonationFormFactory.default["payment_methods"]
+        ]
+        if not values:
+            return DonationFormFactory.default["payment_methods"]
+        return values
+
     def clean_gift_options(self):
         gift_options = self.cleaned_data["gift_options"]
         if not gift_options or gift_options == "-":
             return []
-        if "[" in gift_options:
-            gift_options = gift_options.replace("[", "").replace("]", "")
         try:
             return [int(x.strip()) for x in gift_options.split(",") if x.strip()]
         except ValueError:
@@ -181,6 +181,9 @@ class DonationFormFactory:
         "collapsed": False,
         "next_url": "",
         "next_label": "",
+        "payment_methods": [x[0] for x in PAYMENT_METHODS],
+        "hide_contact": False,
+        "hide_account": False,
     }
     initials = {
         "initial_amount": "amount",
@@ -256,7 +259,10 @@ class DonationFormFactory:
             raw_data = json.loads(unicode_str)
         except ValueError:
             return self.default
-        return raw_data
+        return {
+            k: ",".join(str(x) for x in v) if isinstance(v, list) else v
+            for k, v in raw_data.items()
+        }
 
 
 class SimpleDonationForm(StartPaymentMixin, forms.Form):
@@ -299,7 +305,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
     query_params = forms.CharField(required=False, widget=forms.HiddenInput())
     payment_method = forms.ChoiceField(
         label=_("Payment method"),
-        choices=PAYMENT_METHODS,
+        choices=None,
         widget=BootstrapRadioSelect,
         initial=PAYMENT_METHODS[0][0],
     )
@@ -318,6 +324,20 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         kwargs.pop("request", None)
 
         super().__init__(*args, **kwargs)
+
+        # Payment method choices
+        self.fields["payment_method"].choices = [
+            (x, CHECKOUT_PAYMENT_CHOICES_DICT.get(x, x))
+            for x in self.settings["payment_methods"]
+        ]
+        if len(self.fields["payment_method"].choices) == 1:
+            self.fields["payment_method"].initial = self.fields[
+                "payment_method"
+            ].choices[0][0]
+            self.fields["payment_method"].widget = forms.HiddenInput()
+            self.payment_method_label = _("You are paying with {method}.").format(
+                method=self.fields["payment_method"].choices[0][1]
+            )
 
         if hasattr(self, "request"):
             self.fields["form_url"].initial = self.request.path
@@ -646,6 +666,7 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         if self.user is not None:
             self.fields["email"].initial = self.user.email
             self.fields["first_name"].initial = self.user.first_name
@@ -668,6 +689,12 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
                 ),
                 (0, _("No, thank you.")),
             )
+        if self.settings["hide_account"] and "account" in self.fields:
+            self.fields.pop("account")
+
+        if self.settings["hide_contact"] and "contact" in self.fields:
+            self.fields.pop("contact")
+
         if self.settings["gift_options"]:
             gift_options = DonationGift.objects.available().filter(
                 id__in=self.settings["gift_options"]
