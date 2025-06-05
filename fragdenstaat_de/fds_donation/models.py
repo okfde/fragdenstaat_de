@@ -97,9 +97,10 @@ class Donor(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     email_confirmation_sent = models.DateTimeField(null=True, blank=True)
     email_confirmed = models.DateTimeField(null=True, blank=True)
-    contact_allowed = models.BooleanField(default=False)
-    become_user = models.BooleanField(default=False)
-    receipt = models.BooleanField(default=False)
+
+    contact_allowed = models.BooleanField(null=True, default=None)
+    become_user = models.BooleanField(null=True, default=None)
+    receipt = models.BooleanField(null=True, default=None)
 
     subscriber = models.ForeignKey(
         Subscriber, null=True, blank=True, on_delete=models.SET_NULL
@@ -572,11 +573,14 @@ class DonationFormCMSPlugin(CMSPlugin):
     initial_amount = models.IntegerField(null=True, blank=True)
     initial_interval = models.IntegerField(null=True, blank=True)
     min_amount = models.IntegerField(null=True, blank=True)
+    payment_methods = models.CharField(blank=True)
 
     reference = models.CharField(blank=True, max_length=255)
     keyword = models.CharField(blank=True, max_length=255)
     purpose = models.CharField(blank=True, max_length=255)
     collapsed = models.BooleanField(default=False)
+    hide_contact = models.BooleanField(default=True)
+    hide_account = models.BooleanField(default=True)
     extra_classes = models.CharField(max_length=255, blank=True)
 
     gift_options = models.ManyToManyField(DonationGift, blank=True)
