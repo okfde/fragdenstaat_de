@@ -1,3 +1,4 @@
+import decimal
 import uuid
 from datetime import date, timedelta
 from urllib.parse import urlencode
@@ -17,13 +18,34 @@ from django.utils.translation import pgettext
 from cms.models.pluginmodel import CMSPlugin
 from django_countries.fields import CountryField
 from djangocms_frontend.fields import AttributesField
-from froide_payment.models import Order, Payment, PaymentStatus, Subscription
+from froide_payment.models import (
+    CHECKOUT_PAYMENT_CHOICES_DICT,
+    Order,
+    Payment,
+    PaymentStatus,
+    Subscription,
+)
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
 
 from froide.helper.spam import suspicious_ip
 
 from fragdenstaat_de.fds_newsletter.models import Subscriber
+
+PAYMENT_METHOD_LIST = (
+    "sepa",
+    "paypal",
+    "banktransfer",
+    "creditcard",
+)
+MIN_AMOUNT = 5
+MAX_AMOUNT = 10000
+PAYMENT_METHOD_MAX_AMOUNT = {"sepa": decimal.Decimal(5000)}
+
+PAYMENT_METHODS = [
+    (method, CHECKOUT_PAYMENT_CHOICES_DICT[method]) for method in PAYMENT_METHOD_LIST
+]
+
 
 ONCE = "once"
 RECURRING = "recurring"
@@ -629,6 +651,9 @@ class DonationFormCMSPlugin(CMSPlugin):
             "reference": self.reference or reference,
             "keyword": self.keyword or keyword,
             "purpose": self.purpose,
+            "payment_methods": self.payment_methods or "",
+            "hide_contact": self.hide_contact,
+            "hide_account": self.hide_account,
             "collapsed": self.collapsed,
             "gift_options": [gift.id for gift in self.gift_options.all()],
             "default_gift": self.default_gift_id,

@@ -153,9 +153,9 @@ def create_donor(data, user=None, subscription=None):
         user=user,
         email_confirmed=email_confirmed,
         recurring_amount=recurring_amount,
-        contact_allowed=data.get("contact", False),
-        become_user=data.get("account", False),
-        receipt=data.get("receipt", False),
+        contact_allowed=data.get("contact", None),
+        become_user=data.get("account", None),
+        receipt=data.get("receipt", None),
     )
     if subscription:
         donor.subscriptions.add(subscription)
