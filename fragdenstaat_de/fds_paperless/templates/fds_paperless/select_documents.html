@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load frontendbuild %}
+{% load form_helper %}
+{% block title %}
+    Paperless Import
+{% endblock title %}
+{% block app_body %}
+    <h1>{% trans "Import documents" %}</h1>
+    <p>
+        {% blocktrans with title=foirequest.title url=foirequest.get_absolute_url %}The documents will be imported to the request <a href="{{ url }}" target="_blank">“{{ title }}”</a>.{% endblocktrans %}
+    </p>
+    {% if form.errors %}{% endif %}
+    {{ form.errors }}
+    <div class="row">
+        <div class="col col-md-4 d-flex">
+            <form action="" method="post" class="w-100">
+                {% csrf_token %}
+                <ul class="list-group mb-3" id="paperless-documents">
+                    {% for document in documents %}
+                        <li class="list-group-item d-flex">
+                            <input class="form-check-input me-1"
+                                   type="checkbox"
+                                   value="{{ document.id }}"
+                                   data-date="{{ document.created_date }}"
+                                   name="paperless_ids"
+                                   id="doc-{{ document.id }}">
+                            <label class="form-check-label" for="doc-{{ document.id }}">{{ document.title }}</label>
+                            <a href="{% url "paperless_pdf" document.id %}"
+                               target="_blank"
+                               title="{% trans "Preview document" %}"
+                               data-bs-toggle="tooltip"
+                               class="ms-auto paperless-preview-btn">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% render_form form horizontal=False %}
+                <button type="submit" class="btn btn-primary">{% trans "Import documents" %}</button>
+            </form>
+        </div>
+        <div class="col-md-8 d-flex position-relative justify-content-center">
+            <em>{% trans "Select a document for preview to see it here" %}</em>
+            <iframe id="paperless-preview"
+                    class="border-0 w-100 vh-100 d-none sticky-top"></iframe>
+        </div>
+    </div>
+    {% include "_frontend.html" with entry_point="paperless.js" %}
+{% endblock app_body %}
+{% block scripts %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock scripts %}

@@ -3,39 +3,50 @@ from django.conf import ImproperlyConfigured, settings
 import dateutil.parser
 import requests
 
+_session = None
+
 
 def get_paperless_client():
+    global _session
+
+    if _session:
+        return _session
+
     if not settings.PAPERLESS_API_URL:
         raise ImproperlyConfigured("PAPERLESS_API_URL not set")
 
-    session = requests.Session()
-    session.headers.update({"Authorization": settings.PAPERLESS_API_TOKEN})
-    return session
+    _session = requests.Session()
+    _session.headers.update({"Authorization": settings.PAPERLESS_API_TOKEN})
+    return _session
 
 
 def get_document_data(paperless_document_id):
-    API_URL = settings.PAPERLESS_API_URL + "/documents/{}/".format(
-        paperless_document_id
-    )
     client = get_paperless_client()
-    meta_data = client.get(API_URL).json()
 
     DOCUMENT_URL = settings.PAPERLESS_API_URL + "/documents/{}/download/".format(
         paperless_document_id
     )
-    file_data = client.get(DOCUMENT_URL).content
-
-    return meta_data, file_data
+    return client.get(DOCUMENT_URL).content
 
 
-def list_documents(page=1):
+def get_preview_link(paperless_document_id):
+    return settings.PAPERLESS_API_URL + f"/documents/{paperless_document_id}/preview/"
+
+
+def get_documents_by_correspondent(user_name):
     client = get_paperless_client()
+
+    correspondents = get_correspondents()
+    correspondent_id = next(
+        (c["id"] for c in correspondents if c["name"] == user_name), None
+    )
+
+    if correspondent_id is None:
+        return []
 
     API_URL = (
         settings.PAPERLESS_API_URL
-        + "/documents/?page={}&page_size=12&ordering=-created&truncate_content=true".format(
-            page
-        )
+        + f"/documents/?ordering=-added&correspondent__id={correspondent_id}"
     )
 
     data = client.get(API_URL).json()
@@ -45,23 +56,20 @@ def list_documents(page=1):
         document["url"] = get_preview_link(document["id"])
         return document
 
-    return [map_doc(doc) for doc in data["results"]]
+    return [
+        map_doc(doc)
+        for doc in data["results"]
+        if doc["document_type"] != settings.PAPERLESS_UPLOADED_TYPE
+    ]
 
 
-def get_documents(paperless_document_ids: list[int]):
+def get_correspondents():
     client = get_paperless_client()
 
-    docs = []
-    for paperless_document_id in paperless_document_ids:
-        API_URL = settings.PAPERLESS_API_URL + "/documents/{}/".format(
-            paperless_document_id
-        )
-        docs.append(client.get(API_URL).json())
-    return docs
+    API_URL = settings.PAPERLESS_API_URL + "/correspondents/"
+    data = client.get(API_URL).json()
 
-
-def get_preview_link(paperless_document_id):
-    return settings.PAPERLESS_API_URL + f"/documents/{paperless_document_id}/preview/"
+    return data["results"]
 
 
 def get_thumbnail(paperless_document_id: int) -> tuple[str, bytes]:
