@@ -3,7 +3,7 @@
         <mj-title>{{ subject }}</mj-title>
         {% if preheader %}<mj-preview>{{ preheader }}</mj-preview>{% endif %}
         <mj-attributes>
-            <mj-text font-family="Arial, Helvetica, sans-serif" font-size="15px" color="#333333" line-height="22px"></mj-text>
+            <mj-text font-family="Arial, Helvetica, sans-serif" font-size="15px" color="#333333" line-height="1.25"></mj-text>
             <mj-button font-family="Arial, Helvetica, sans-serif" font-size="16px"></mj-button>
         </mj-attributes>
         <mj-style>
