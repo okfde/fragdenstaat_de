@@ -215,19 +215,47 @@ def get_onboarding_subscribers(date: datetime.date, schedule_item):
     )
 
 
+def check_csv_format(csv_data):
+    csv_format = {}
+    headers = csv_data.fieldnames
+
+    # TODO: find better place for csv format definitions
+    pretix = ["Bestellnummer", "E-Mail", "Anfragedatum", "Name", "Vorname", "Nachname"]
+
+    if headers == pretix:
+        csv_format = {
+            "name": "Name",
+            "email": "E-Mail",
+        }
+    elif "first_name" in headers and "last_name" in headers:
+        csv_format = {
+            "name": "combine",
+            "email": "email",
+        }
+    else:
+        csv_format = {
+            "name": "name",
+            "email": "email",
+        }
+
+    return csv_format
+
+
 def import_csv(csv_file, newsletter, reference="", email_confirmed=False):
     reader = csv.DictReader(csv_file)
+    csv_format = check_csv_format(reader)
+
     for row in reader:
-        email = row["email"]
-        if "name" in row:
-            name = row.get("name", "")
-        elif "first_name" in row and "last_name" in row:
+        email = row[csv_format["email"]]
+
+        if csv_format["name"] == "combine":
             name = "{} {}".format(row["first_name"], row["last_name"])
         else:
-            name = ""
+            name = row.get(csv_format["name"], "")
+
         subscribe_email(
             newsletter,
-            email,
+            email=email,
             name=name,
             email_confirmed=email_confirmed,
             reference=reference,
