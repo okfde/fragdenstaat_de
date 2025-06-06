@@ -1,8 +1,8 @@
 {% if not payment.is_confirmed %}
     {% if order.is_recurring %}
-        <h3>Bitte richten Sie einen Dauerauftrag ein</h3>
+        <h3>Bitte richte einen Dauerauftrag ein</h3>
     {% else %}
-        <h3>Bitte überweisen Sie {{ order.total_gross }}&nbsp;EUR an</h3>
+        <h3>Bitte überweise {{ order.total_gross }}&nbsp;EUR an</h3>
     {% endif %}
     <p>
         <strong>Kontoinhaber:&nbsp;</strong>Open Knowledge Foundation Deutschland e.V.
