@@ -601,8 +601,8 @@ class DonationFormCMSPlugin(CMSPlugin):
     keyword = models.CharField(blank=True, max_length=255)
     purpose = models.CharField(blank=True, max_length=255)
     collapsed = models.BooleanField(default=False)
-    hide_contact = models.BooleanField(default=True)
-    hide_account = models.BooleanField(default=True)
+    hide_contact = models.BooleanField(default=False)
+    hide_account = models.BooleanField(default=False)
     extra_classes = models.CharField(max_length=255, blank=True)
 
     gift_options = models.ManyToManyField(DonationGift, blank=True)
