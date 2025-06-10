@@ -475,10 +475,10 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         donation = Donation.objects.create(
             donor=donor,
             amount=order.total_gross,
-            reference=data.get("reference", ""),
-            keyword=keyword,
+            reference=data.get("reference", "")[:1024],
+            keyword=keyword[:1024],
             purpose=data.get("purpose", "") or order.description,
-            form_url=data.get("form_url", ""),
+            form_url=data.get("form_url", "")[:1024],
             order=order,
             recurring=order.is_recurring,
             first_recurring=order.is_recurring,
