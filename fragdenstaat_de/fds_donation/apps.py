@@ -157,6 +157,7 @@ def get_payment_context(value, request):
         **data,
     )
     payment = Payment(
+        total=amount,
         variant=variant,
         currency="EUR",
         order=order,
