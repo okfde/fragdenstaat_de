@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.apps import AppConfig
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
@@ -45,7 +47,10 @@ class FdsDonationConfig(AppConfig):
         unsubscribed.connect(remove_newsletter_subscriber)
         registry.register(export_user_data)
         tag_subscriber.connect(tag_subscriber_donor)
-        gather_mailing_preview_context.connect(mailing_preview_context_listener)
+        gather_mailing_preview_context.connect(
+            mailing_donation_preview_context_listener
+        )
+        gather_mailing_preview_context.connect(mailing_payment_preview_context_listener)
 
         from froide.account.menu import MenuItem, menu_registry
 
@@ -64,7 +69,7 @@ class FdsDonationConfig(AppConfig):
         menu_registry.register(get_donation_menu_item)
 
 
-def mailing_preview_context_listener(sender, **kwargs):
+def mailing_donation_preview_context_listener(sender, **kwargs):
     from fragdenstaat_de.fds_mailing import MailingPreviewContextProvider
 
     """Add the donation context to the mailing preview context."""
@@ -78,6 +83,21 @@ def mailing_preview_context_listener(sender, **kwargs):
             "recurring_donor": _("Recurring donor"),
         },
         provide_context=get_donation_context,
+    )
+
+
+def mailing_payment_preview_context_listener(sender, **kwargs):
+    from fragdenstaat_de.fds_mailing import MailingPreviewContextProvider
+
+    """Add the donation context to the mailing preview context."""
+    return MailingPreviewContextProvider(
+        name="payment",
+        options={
+            "no_payment": "---",
+            "payment": _("One-time payment/order"),
+            "recurring_payment": _("Recurring payment/order/subscription"),
+        },
+        provide_context=get_payment_context,
     )
 
 
@@ -106,4 +126,62 @@ def get_donation_context(value, request):
         donor.last_donation = timezone.now()
     return {
         "donor": donor,
+    }
+
+
+def get_payment_context(value, request):
+    """Get payment context for the mailing preview."""
+    from froide_payment.models import Customer, Order, Payment, Plan, Subscription
+
+    data = {
+        "first_name": request.user.first_name,
+        "last_name": request.user.last_name,
+        "street_address_1": "Example Street 1",
+        "street_address_2": "",
+        "city": "Example City",
+        "postcode": "12345",
+        "country": "DE",
+    }
+
+    amount = Decimal("10.00")
+    variant = "banktransfer"
+
+    order = Order(
+        user_email=request.user.email,
+        total_net=amount,
+        total_gross=amount,
+        is_donation=True,
+        description="",
+        kind="",
+        remote_reference="FDS 12345",
+        **data,
+    )
+    payment = Payment(
+        variant=variant,
+        currency="EUR",
+        order=order,
+    )
+    if value == "payment":
+        return {
+            "order": order,
+            "payment": payment,
+        }
+
+    customer = Customer(user_email=request.user.email, provider="creditcard", **data)
+    plan = Plan(
+        name="Some Plan",
+        slug="some-plan",
+        category="donation",
+        amount=amount,
+        interval=1,
+        amount_year=amount * Decimal(12),
+        provider="creditcard",
+        remote_reference="",
+    )
+    subscription = Subscription(active=False, customer=customer, plan=plan)
+
+    return {
+        "order": order,
+        "payment": payment,
+        "subscription": subscription,
     }
