@@ -179,6 +179,7 @@ def get_payment_context(value, request):
         remote_reference="",
     )
     subscription = Subscription(active=False, customer=customer, plan=plan)
+    order.subscription = subscription
 
     return {
         "order": order,
