@@ -1,57 +1,53 @@
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import cache_control
 
-from froide.foirequest.decorators import allow_write_foirequest
+from froide.foirequest.auth import can_write_foirequest
 from froide.foirequest.models import FoiRequest
-from froide.foirequest.views.list_requests import BaseListRequestView
-from froide.helper.auth import is_crew, require_crew
+from froide.helper.auth import require_crew
 from froide.helper.utils import render_403
 
-from .filters import SelectRequestFilterSet
 from .forms import PaperlessPostalReplyForm
 from .paperless import (
     add_tag_to_documents,
-    get_documents,
+    get_document_data,
+    get_documents_by_correspondent,
     get_thumbnail,
-    list_documents,
 )
+
+User = get_user_model()
 
 
 @require_crew
 def list_view(request):
-    try:
-        page = max(int(request.GET.get("page", 1)), 1)
-    except ValueError:
-        page = 1
-    paperless_docs = list_documents(page=page)
+    users = User.objects.filter(groups__in=[settings.CREW_GROUP]).order_by("first_name")
     return render(
         request,
-        "fds_paperless/list_documents.html",
-        {
-            "documents": paperless_docs,
-            "page": page,
-            "next_page": page + 1,
-            "prev_page": page - 1,
-        },
+        "fds_paperless/list_users.html",
+        {"users": users},
     )
 
 
-@allow_write_foirequest
-def add_postal_message(request, foirequest):
-    if not is_crew(request.user) or not request.user.has_perm(
-        "foirequest.change_foimessage"
-    ):
+@require_crew
+def select_documents_view(request, foirequest):
+    foirequest = get_object_or_404(
+        FoiRequest.objects.select_related("user"), pk=foirequest
+    )
+
+    if not can_write_foirequest(foirequest, request):
         return render_403(request)
 
-    context = {"object": foirequest}
+    paperless_docs = get_documents_by_correspondent(foirequest.user.get_full_name())
 
-    selected_documents = request.GET.getlist("paperless_ids")
-    paperless_docs = get_documents(selected_documents)
     if request.method == "POST":
         form = PaperlessPostalReplyForm(
-            request.POST, foirequest=foirequest, paperless_docs=paperless_docs
+            data=request.POST,
+            foirequest=foirequest,
+            paperless_docs=paperless_docs,
         )
+
         if form.is_valid():
             message = form.save(request.user)
             FoiRequest.message_received.send(
@@ -64,18 +60,12 @@ def add_postal_message(request, foirequest):
         form = PaperlessPostalReplyForm(
             foirequest=foirequest,
             paperless_docs=paperless_docs,
-            initial={"paperless_ids": selected_documents},
         )
-        context["documents"] = filter(
-            lambda doc: str(doc["id"]) in selected_documents, paperless_docs
-        )
-
-    context["form"] = form
 
     return render(
         request,
-        "fds_paperless/add_postal_message.html",
-        context,
+        "fds_paperless/select_documents.html",
+        {"foirequest": foirequest, "documents": paperless_docs, "form": form},
     )
 
 
@@ -86,18 +76,8 @@ def get_thumbnail_view(request, paperless_document: int):
     return HttpResponse(content, content_type=content_type)
 
 
-class SelectRequestView(BaseListRequestView):
-    template_name = "fds_paperless/select_request.html"
-    search_url_name = "paperless_select_request"
-    default_sort = "-last_message"
-    select_related = ("public_body", "jurisdiction")
-
-    filterset = SelectRequestFilterSet
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        documents = self.request.GET.getlist("paperless_ids")
-        context["documents"] = documents
-
-        return context
+@require_crew
+@cache_control(max_age=86400)
+def get_pdf_view(request, paperless_document: int):
+    content = get_document_data(paperless_document_id=paperless_document)
+    return HttpResponse(content, content_type="application/pdf")
