@@ -913,7 +913,141 @@ class FragDenStaatBase(German, Base):
         ]
     }
 
-    FROIDE_EVIDENCECOLLECTION_GSHEET_IMPORT_CONFIG = values.DictValue()
+    FROIDE_EVIDENCECOLLECTION_NOCODB_IMPORT_CONFIG = values.DictValue(
+        {
+            "api_url": os.environ.get("FROIDE_EVIDENCECOLLECTION_NOCODB_API_URL", ""),
+            "api_token": os.environ.get(
+                "FROIDE_EVIDENCECOLLECTION_NOCODB_API_TOKEN", ""
+            ),
+            "tables": {
+                "PersonOrOrganization": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_PERSON_TABLE", "m4pptqmxmmk4krc"
+                ),
+                "Source": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_SOURCE_TABLE", "mjnylfguyb4sjv9"
+                ),
+                "Evidence": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_EVIDENCE_TABLE", "mt3yzvk2ncxzovj"
+                ),
+                "Group": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_GROUP_TABLE", "mhxqcg166lw59lk"
+                ),
+            },
+            "field_map": {
+                "PersonOrOrganization": {
+                    "external_id": "id",
+                    "name": "Name/Bezeichnung",
+                    "regions": "Region(en)",
+                    "is_active": "Aktiv",
+                    "review_comment": "Kommentar/Notiz (Review)",
+                },
+                "Source": {
+                    "external_id": "id",
+                    "reference_value": "Referenzwert",
+                    "persons_or_organizations": "Name/Bezeichnung (from Personen und Organisationen)",
+                    "url": "Quelle",
+                    "attribution_bases": "Mitgliedzurechnung",
+                    "file_reference": "Aktenzeichen",
+                    "document_number": "Dokumentennummer",
+                    "review_comment": "Kommentar/Notiz (Review)",
+                    "is_on_record": "Aktenkundig?",
+                    "recorded_by": "_nc_m2m_Quellen und Nac_publicbodies",
+                },
+                "Evidence": {
+                    "external_id": "id",
+                    "description": "Zusammenfassung",
+                    "date": "Datum der Aussage/Aktion",
+                    "type": "Art des Belegs",
+                    "fdgo_features": "Zuordnung zu FDGO-Merkmalen",
+                    "spread_level": "Verbreitungsgrad",
+                    "distribution_channels": "Verbreitungswege",
+                    "sources": "Referenzwert (from Quellen und Nachweise)",
+                    "is_verified": "Geprüft?",
+                    "requires_additional_review": "Zusätzliche Prüfung notwendig?",
+                    "submission_comment": "Kommentar/Notiz (Einreichung)",
+                    "review_comment": "Kommentar/Notiz (Review)",
+                },
+                "Group": {
+                    "external_id": "id",
+                    "name": "title",
+                    "members": "_nc_m2m_Personen und Or_Gruppen und Orgs",
+                },
+            },
+            "relations": {
+                "PersonOrOrganization": {
+                    "regions": {
+                        "type": "m2m",
+                        "model": "georegion.GeoRegion",
+                        "lookup_field": "id",
+                    }
+                },
+                "Source": {
+                    "persons_or_organizations": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.PersonOrOrganization",
+                        "lookup_field": "name",
+                    },
+                    "attribution_bases": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.AttributionBasis",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                    "recorded_by": {
+                        "type": "fk",
+                        "model": "publicbody.PublicBody",
+                        "lookup_field": "id",
+                    },
+                },
+                "Evidence": {
+                    "type": {
+                        "type": "fk",
+                        "model": "froide_evidencecollection.EvidenceType",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                    "spread_level": {
+                        "type": "fk",
+                        "model": "froide_evidencecollection.SpreadLevel",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                    "fdgo_features": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.FDGOFeature",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                    "distribution_channels": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.DistributionChannel",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                    "sources": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.Source",
+                        "lookup_field": "reference_value",
+                    },
+                },
+                "Group": {
+                    "members": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.PersonOrOrganization",
+                        "lookup_field": "external_id",
+                    }
+                },
+            },
+            "institution_role_map": {
+                "AfD-Bundespartei": "Bundespartei Funktion(en)",
+                "AfD-Länderparteien": "Landesparteien Funktion(en)",
+                "Funktionär(in)": "Funktionäre Funktion(en)",
+                "Umfeld": "Umfeld Funktion(en)",
+            },
+            "special_regions": ["Ausland"],
+            "null_label": "Keine Angabe",
+        }
+    )
 
     DATASHOW_STORAGE_BACKEND = "overwrite"
 
