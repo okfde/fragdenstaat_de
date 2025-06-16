@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from djangocms_text_ckeditor.widgets import TextEditorWidget
+from djangocms_text.widgets import TextEditorWidget
 
 from .models import (
     TEMPLATES,
