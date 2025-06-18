@@ -26,6 +26,7 @@
   z-index: -1;
   object-fit: cover;
   object-position: top;
+  inset: 0;
 }
 .hero-image-heading {
   text-shadow: 2px 2px 2px rgba(var(--#{$prefix}body-bg-rgb), 0.5);
