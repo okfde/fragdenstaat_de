@@ -4,10 +4,10 @@ import 'froide/frontend/javascript/snippets/bootstrap'
 import 'froide/frontend/javascript/snippets/copy-text'
 import 'froide/frontend/javascript/snippets/form-ajax'
 import 'froide/frontend/javascript/snippets/misc'
-import 'froide/frontend/javascript/snippets/search'
 import 'froide/frontend/javascript/snippets/share-links'
 import 'froide/frontend/javascript/snippets/inline-edit-forms'
 import 'froide/frontend/javascript/snippets/color-mode'
+import { initSearch } from 'froide/frontend/javascript/snippets/search'
 
 import './donation-form'
 import './magnifier'
@@ -24,3 +24,7 @@ if (document.body.dataset.sentry !== undefined) {
     }
   })
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  initSearch([['recherchen', '/artikel/suche/']])
+})
