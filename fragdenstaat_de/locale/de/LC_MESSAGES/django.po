@@ -676,6 +676,7 @@ msgstr "Suchergebnisse für „%(q)s“"
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
 #: fragdenstaat_de/fds_blog/views.py fragdenstaat_de/fds_cms/cms_plugins.py
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
 msgid "Search"
 msgstr "Suchen"
 
@@ -4170,6 +4171,47 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
+msgid "Add the documents to the request"
+msgstr "Dokumente zur Anfrage hinzufügen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
+msgid "The following documents will be added to the request:"
+msgstr "Die folgenden Dokumente werden zur Anfrage hinzugefügt:"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
+msgid "Add letter"
+msgstr "Brief hinzufügen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
+msgid "Choose documents to import"
+msgstr "Dokumente zum Importieren auswählen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
+msgid "Import"
+msgstr "Importieren"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
+msgid "Open document in new tab"
+msgstr "Dokument in neuem Tab öffnen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
+msgid "Search for a matching request"
+msgstr "Nach der zugehörigen Anfrage suchen"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
+msgid "No requests with these filters."
+msgstr "Noch keine Anfragen mit diesen Filtereinstellungen."
+
+#: fragdenstaat_de/fds_paperless/urls.py
+msgid "select-request/"
+msgstr "anfrage-waehlen/"
+
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
+msgid "Select document"
+msgstr "Dokument auswählen"
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
@@ -4181,33 +4223,6 @@ msgstr "kampagne/"
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#~ msgid "Add the documents to the request"
-#~ msgstr "Dokumente zur Anfrage hinzufügen"
-
-#~ msgid "The following documents will be added to the request:"
-#~ msgstr "Die folgenden Dokumente werden zur Anfrage hinzugefügt:"
-
-#~ msgid "Add letter"
-#~ msgstr "Brief hinzufügen"
-
-#~ msgid "Choose documents to import"
-#~ msgstr "Dokumente zum Importieren auswählen"
-
-#~ msgid "Import"
-#~ msgstr "Importieren"
-
-#~ msgid "Open document in new tab"
-#~ msgstr "Dokument in neuem Tab öffnen"
-
-#~ msgid "Search for a matching request"
-#~ msgstr "Nach der zugehörigen Anfrage suchen"
-
-#~ msgid "No requests with these filters."
-#~ msgstr "Noch keine Anfragen mit diesen Filtereinstellungen."
-
-#~ msgid "select-request/"
-#~ msgstr "anfrage-waehlen/"
 
 #~ msgid "FragDenStaat Account"
 #~ msgstr "FragDenStaat-Konto"
@@ -8265,9 +8280,6 @@ msgstr "kampagne/"
 
 #~ msgid "No or other reason given"
 #~ msgstr "Kein oder anderer Grund"
-
-#~ msgid "Select document"
-#~ msgstr "Dokument auswählen"
 
 #~ msgid "Toggle chapter navigation"
 #~ msgstr "Kapitel-Navigation umschalten"
