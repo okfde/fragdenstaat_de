@@ -948,7 +948,7 @@ msgstr ""
 msgid "Small"
 msgstr "Klein"
 
-#: fragdenstaat_de/fds_cms/models.py
+#: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_blog/models.py
 msgid "Normal"
 msgstr "Normal"
 
@@ -2027,19 +2027,19 @@ msgstr "Nur mehrfach"
 msgid "Both"
 msgstr "Beides"
 
-#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/forms.py
 msgid "once"
 msgstr "einmalig"
 
-#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/forms.py
 msgid "monthly"
 msgstr "monatlich"
 
-#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/forms.py
 msgid "quarterly"
 msgstr "vierteljährlich"
 
-#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/forms.py
 msgid "yearly"
 msgstr "jährlich"
 
@@ -2952,6 +2952,7 @@ msgstr "E-Mail-Einleitung"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py
+#: fragdenstaat_de/fds_mailing/views.py
 msgid "Newsletter"
 msgstr "Newsletter"
 
@@ -4152,6 +4153,100 @@ msgstr "anfrage-waehlen/"
 msgid "Select document"
 msgstr "Dokument auswählen"
 
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
+msgid "FragDenStaat Account"
+msgstr "FragDenStaat-Konto"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
+msgid "You can manage your donation in your FragDenStaat account."
+msgstr ""
+"Du kannst Deine Spenden in Deinem FragDenStaat-Konto einsehen und verwalten."
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
+msgid "Stay up to date"
+msgstr "Auf dem Laufenden bleiben"
+
+#: fragdenstaat_de/fds_blog/models.py
+msgid "Simple"
+msgstr "Einfach"
+
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
+msgid "zurück"
+msgstr "Zurück"
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Enter search term"
+msgstr "Suchbegriff eingeben"
+
+#: fragdenstaat_de/fds_blog/admin.py
+msgid "Remove category to articles..."
+msgstr "Kategorien von Artikeln entfernen…"
+
+#: fragdenstaat_de/fds_cms/models.py
+msgid "Slide banner with animation"
+msgstr "Banner mit Slide-Animation ausblenden"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+msgid "See recipients"
+msgstr "Empfänger:innen anzeigen"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+#, python-format
+msgid "Send on %(date)s"
+msgstr "Versende am %(date)s"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+msgid "Send now"
+msgstr "Jetzt versenden"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+#, python-format
+msgid "Sending to newsletter subscribers of %(segment_count)s segments"
+msgstr "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
+
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+msgid "Sending to all newsletter subscribers"
+msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
+
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/archive/mailing_detail.html
+#, python-format
+msgid "Newsletter from %(date)s"
+msgstr "Newsletter vom %(date)s"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Pending"
+msgstr "Ausstehend"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Resolved"
+msgstr "Erledigt"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Partially successful"
+msgstr "Teilweise erfolgreich"
+
+#: fragdenstaat_de/fds_cms/templates/foirequest/cms_plugins/_map.html
+msgid "Asleep"
+msgstr "Eingeschlafen"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/external_pixel.html
+msgid "We need your consent"
+msgstr "Wir benötigen Ihre Einwilligung"
+
+#: fragdenstaat_de/fds_cms/templates/fds_cms/external_pixel.html
+msgid "Details about our cookies"
+msgstr "Details zu unseren Cookies"
+
+#: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
+msgid ""
+"\n"
+"  Import Message from Frontex\n"
+"  "
+msgstr ""
+"\n"
+"  Nachricht von Frontex importieren\n"
+"  "
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
@@ -4163,81 +4258,6 @@ msgstr "Dokument auswählen"
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#~ msgid "FragDenStaat Account"
-#~ msgstr "FragDenStaat-Konto"
-
-#~ msgid "You can manage your donation in your FragDenStaat account."
-#~ msgstr ""
-#~ "Du kannst Deine Spenden in Deinem FragDenStaat-Konto einsehen und "
-#~ "verwalten."
-
-#~ msgid "Stay up to date"
-#~ msgstr "Auf dem Laufenden bleiben"
-
-#~ msgid "Simple"
-#~ msgstr "Einfach"
-
-#~ msgid "zurück"
-#~ msgstr "Zurück"
-
-#~ msgid "Enter search term"
-#~ msgstr "Suchbegriff eingeben"
-
-#~ msgid "Remove category to articles..."
-#~ msgstr "Kategorien von Artikeln entfernen…"
-
-#~ msgid "Slide banner with animation"
-#~ msgstr "Banner mit Slide-Animation ausblenden"
-
-#~ msgid "See recipients"
-#~ msgstr "Empfänger:innen anzeigen"
-
-#, python-format
-#~ msgid "Send on %(date)s"
-#~ msgstr "Versende am %(date)s"
-
-#~ msgid "Send now"
-#~ msgstr "Jetzt versenden"
-
-#, python-format
-#~ msgid "Sending to newsletter subscribers of %(segment_count)s segments"
-#~ msgstr ""
-#~ "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
-
-#~ msgid "Sending to all newsletter subscribers"
-#~ msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
-
-#, python-format
-#~ msgid "Newsletter from %(date)s"
-#~ msgstr "Newsletter vom %(date)s"
-
-#~ msgid "Pending"
-#~ msgstr "Ausstehend"
-
-#~ msgid "Resolved"
-#~ msgstr "Erledigt"
-
-#~ msgid "Partially successful"
-#~ msgstr "Teilweise erfolgreich"
-
-#~ msgid "Asleep"
-#~ msgstr "Eingeschlafen"
-
-#~ msgid "We need your consent"
-#~ msgstr "Wir benötigen Ihre Einwilligung"
-
-#~ msgid "Details about our cookies"
-#~ msgstr "Details zu unseren Cookies"
-
-#~ msgid ""
-#~ "\n"
-#~ "  Import Message from Frontex\n"
-#~ "  "
-#~ msgstr ""
-#~ "\n"
-#~ "  Nachricht von Frontex importieren\n"
-#~ "  "
 
 #~ msgid "Campaigns"
 #~ msgstr "Kampagnen"
