@@ -298,7 +298,7 @@ django-treebeard==4.7.1
     #   froide
 djangocms-admin-style==3.3.1
     # via django-cms
-djangocms-alias==2.0.3
+djangocms-alias==2.0.4
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide-govplan
