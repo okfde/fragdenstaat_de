@@ -1,5 +1,3 @@
-import base64
-import json
 import logging
 from urllib.parse import parse_qsl
 
@@ -9,7 +7,6 @@ from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.core.mail import mail_managers
 from django.core.validators import MinValueValidator
 from django.utils.html import format_html
-from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 
 from froide_payment.forms import StartPaymentMixin
@@ -24,16 +21,16 @@ from froide.helper.widgets import (
     InlineBootstrapRadioSelect,
 )
 
+from .form_settings import DonationFormFactory
 from .models import (
     CHECKOUT_PAYMENT_CHOICES_DICT,
     INTERVAL_CHOICES,
-    INTERVAL_SETTINGS_CHOICES,
-    MAX_AMOUNT,
     MIN_AMOUNT,
     ONCE,
     ONCE_RECURRING,
     PAYMENT_METHOD_MAX_AMOUNT,
     PAYMENT_METHODS,
+    QUICKPAYMENT_METHOD,
     RECURRING,
     SALUTATION_CHOICES,
     Donation,
@@ -49,223 +46,7 @@ from .widgets import AmountInput
 logger = logging.getLogger(__name__)
 
 
-class DonationSettingsForm(forms.Form):
-    title = forms.CharField(required=False)
-    interval = forms.ChoiceField(
-        choices=INTERVAL_SETTINGS_CHOICES,
-        required=False,
-        initial=ONCE_RECURRING,
-    )
-    interval_choices = forms.RegexField(
-        regex=r"(\d+(?:,\d+)*|\-)",
-        required=False,
-    )
-    amount_presets = forms.RegexField(
-        regex=r"(\d+(?:,\d+)*|\-)",
-        required=False,
-    )
-    gift_options = forms.RegexField(
-        regex=r"(\d+(?:,\d+)*|\-)",
-        required=False,
-    )
-    default_gift = forms.IntegerField(required=False)
-    reference = forms.CharField(required=False)
-    keyword = forms.CharField(required=False)
-    purpose = forms.CharField(required=False)
-    initial_amount = forms.IntegerField(
-        required=False, min_value=MIN_AMOUNT, max_value=MAX_AMOUNT
-    )
-    min_amount = forms.IntegerField(
-        min_value=MIN_AMOUNT, max_value=MAX_AMOUNT, initial=0, required=False
-    )
-    initial_interval = forms.IntegerField(
-        required=False,
-    )
-    prefilled_amount = forms.BooleanField(required=False)
-    initial_receipt = forms.BooleanField(required=False)
-    hide_contact = forms.BooleanField(required=False, initial=False)
-    hide_account = forms.BooleanField(required=False, initial=False)
-    collapsed = forms.BooleanField(required=False)
-    payment_methods = forms.CharField(
-        required=False,
-    )
-
-    next_url = forms.CharField(required=False)
-    next_label = forms.CharField(required=False)
-
-    def clean_interval_choices(self):
-        presets = self.cleaned_data["interval_choices"]
-        if not presets:
-            return DonationFormFactory.default["interval_choices"]
-        try:
-            values = [int(x.strip()) for x in presets.split(",") if x.strip()]
-            values = [
-                x
-                for x in values
-                if x in DonationFormFactory.default["interval_choices"]
-            ]
-            return values
-        except ValueError:
-            return []
-
-    def clean_amount_presets(self):
-        presets = self.cleaned_data["amount_presets"]
-        if presets == "-":
-            return []
-        if not presets:
-            return DonationFormFactory.default["amount_presets"]
-        try:
-            return [int(x.strip()) for x in presets.split(",") if x.strip()]
-        except ValueError:
-            return []
-
-    def clean_payment_methods(self):
-        presets = self.cleaned_data["payment_methods"]
-        if not presets:
-            return DonationFormFactory.default["payment_methods"]
-
-        values = [x.strip() for x in presets.split(",") if x.strip()]
-        values = [
-            x for x in values if x in DonationFormFactory.default["payment_methods"]
-        ]
-        if not values:
-            return DonationFormFactory.default["payment_methods"]
-        return values
-
-    def clean_gift_options(self):
-        gift_options = self.cleaned_data["gift_options"]
-        if not gift_options or gift_options == "-":
-            return []
-        try:
-            return [int(x.strip()) for x in gift_options.split(",") if x.strip()]
-        except ValueError:
-            return []
-
-    def clean_initial_receipt(self):
-        receipt = self.cleaned_data["initial_receipt"]
-        return int(receipt)
-
-    def clean_next_url(self):
-        next_url = self.cleaned_data["next_url"]
-        if url_has_allowed_host_and_scheme(
-            next_url, allowed_hosts=settings.ALLOWED_REDIRECT_HOSTS
-        ):
-            return next_url
-        return ""
-
-    def make_donation_form(self, **kwargs):
-        d = {}
-        if self.is_valid():
-            d = self.cleaned_data
-        else:
-            logger.warning(("Donation settings form not valid: %s", self.errors))
-        return DonationFormFactory(**d).make_form(**kwargs)
-
-
-class DonationFormFactory:
-    default = {
-        "title": "",
-        "interval": ONCE_RECURRING,
-        "interval_choices": [x[0] for x in INTERVAL_CHOICES],
-        "reference": "",
-        "keyword": "",
-        "purpose": "",
-        "amount_presets": [5, 20, 50],
-        "initial_amount": None,
-        "min_amount": MIN_AMOUNT,
-        "gift_options": [],
-        "prefilled_amount": False,
-        "default_gift": None,
-        "initial_interval": 0,
-        "initial_receipt": "0",
-        "collapsed": False,
-        "next_url": "",
-        "next_label": "",
-        "payment_methods": [x[0] for x in PAYMENT_METHODS],
-        "hide_contact": False,
-        "hide_account": False,
-    }
-    initials = {
-        "initial_amount": "amount",
-        "initial_interval": "interval",
-        "initial_receipt": "receipt",
-    }
-    request_configurable = {
-        "amount_presets",
-        "initial_amount",
-        "initial_interval",
-        "interval",
-        "min_amount",
-        "purpose",
-    }
-
-    def __init__(self, **kwargs):
-        self.settings = {}
-        for key in self.default:
-            self.settings[key] = kwargs.get(key, self.default[key])
-
-    @classmethod
-    def from_request(cls, request):
-        data = {}
-        for key in cls.request_configurable:
-            value = request.GET.get(key)
-            if value is not None:
-                data[key] = value
-        return data
-
-    def get_form_kwargs(self, **kwargs):
-        if "data" in kwargs:
-            form_settings = kwargs["data"].get("form_settings")
-            raw_data = self.deserialize(form_settings)
-            settings_form = DonationSettingsForm(data=raw_data)
-            if settings_form.is_valid():
-                self.settings.update(settings_form.cleaned_data)
-            else:
-                logger.warning(
-                    "Donation settings form via data not valid: %s",
-                    settings_form.errors,
-                )
-
-        kwargs.setdefault("initial", {})
-        kwargs["initial"]["form_settings"] = self.serialize()
-        for k, v in self.initials.items():
-            if self.settings[k] is not None:
-                kwargs["initial"][v] = self.settings[k]
-
-        kwargs["form_settings"] = self.settings
-        return kwargs
-
-    def make_form(self, **kwargs):
-        kwargs = self.get_form_kwargs(**kwargs)
-        return DonationForm(**kwargs)
-
-    def serialize(self):
-        return base64.b64encode(json.dumps(self.settings).encode("utf-8")).decode(
-            "utf-8"
-        )
-
-    def deserialize(self, encoded):
-        if encoded is None:
-            return self.default
-        try:
-            decoded_bytes = base64.b64decode(encoded)
-        except ValueError:
-            return self.default
-        try:
-            unicode_str = decoded_bytes.decode("utf-8")
-        except UnicodeDecodeError:
-            return self.default
-        try:
-            raw_data = json.loads(unicode_str)
-        except ValueError:
-            return self.default
-        return {
-            k: ",".join(str(x) for x in v) if isinstance(v, list) else v
-            for k, v in raw_data.items()
-        }
-
-
-class SimpleDonationForm(StartPaymentMixin, forms.Form):
+class BasicDonationForm(StartPaymentMixin, forms.Form):
     amount = forms.DecimalField(
         localize=True,
         required=True,
@@ -303,12 +84,6 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
     keyword = forms.CharField(required=False, widget=forms.HiddenInput())
     form_url = forms.CharField(required=False, widget=forms.HiddenInput())
     query_params = forms.CharField(required=False, widget=forms.HiddenInput())
-    payment_method = forms.ChoiceField(
-        label=_("Payment method"),
-        choices=None,
-        widget=BootstrapRadioSelect,
-        initial=PAYMENT_METHODS[0][0],
-    )
 
     def __init__(self, *args, **kwargs):
         self.action = kwargs.pop("action", None)
@@ -325,19 +100,12 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
 
         super().__init__(*args, **kwargs)
 
-        # Payment method choices
-        self.fields["payment_method"].choices = [
-            (x, CHECKOUT_PAYMENT_CHOICES_DICT.get(x, x))
-            for x in self.settings["payment_methods"]
-        ]
-        if len(self.fields["payment_method"].choices) == 1:
-            self.fields["payment_method"].initial = self.fields[
-                "payment_method"
-            ].choices[0][0]
-            self.fields["payment_method"].widget = forms.HiddenInput()
-            self.payment_method_label = _("You are paying with {method}.").format(
-                method=self.fields["payment_method"].choices[0][1]
-            )
+        self.quick_payment = False
+        self.quick_payment_only = False
+        if self.settings["quick_payment"] == "show":
+            self.quick_payment = True
+        elif self.settings["quick_payment"] == "only":
+            self.quick_payment_only = True
 
         if hasattr(self, "request"):
             self.fields["form_url"].initial = self.request.path
@@ -423,7 +191,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
 
     def clean(self):
         amount = self.cleaned_data.get("amount")
-        payment_method = self.cleaned_data.get("payment_method")
+        payment_method = self.cleaned_data.get("payment_method", QUICKPAYMENT_METHOD)
         if amount is not None and payment_method is not None:
             max_amount = PAYMENT_METHOD_MAX_AMOUNT.get(payment_method)
             if max_amount is not None and amount >= max_amount:
@@ -482,7 +250,7 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
             order=order,
             recurring=order.is_recurring,
             first_recurring=order.is_recurring,
-            method=data.get("payment_method", ""),
+            method=data.get("payment_method", QUICKPAYMENT_METHOD),
             extra_action_url=self.settings.get("next_url", ""),
             extra_action_label=self.settings.get("next_label", ""),
             data={
@@ -501,6 +269,32 @@ class SimpleDonationForm(StartPaymentMixin, forms.Form):
         related_obj = self.create_related_object(order, data)
 
         return order, related_obj
+
+
+class SimpleDonationForm(BasicDonationForm):
+    payment_method = forms.ChoiceField(
+        label=_("Payment method"),
+        choices=None,
+        widget=BootstrapRadioSelect,
+        initial=PAYMENT_METHODS[0][0],
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Payment method choices
+        self.fields["payment_method"].choices = [
+            (x, CHECKOUT_PAYMENT_CHOICES_DICT.get(x, x))
+            for x in self.settings["payment_methods"]
+        ]
+        if len(self.fields["payment_method"].choices) == 1:
+            self.fields["payment_method"].initial = self.fields[
+                "payment_method"
+            ].choices[0][0]
+            self.fields["payment_method"].widget = forms.HiddenInput()
+            self.payment_method_label = _("You are paying with {method}.").format(
+                method=self.fields["payment_method"].choices[0][1]
+            )
 
 
 COUNTRY_CHOICES = (
@@ -592,7 +386,17 @@ def get_basic_info_form(**kwargs):
     return type("BasicInfoForm", (forms.Form,), fields)
 
 
-class DonorForm(get_basic_info_form(), forms.Form):
+class BasicDonorForm(get_basic_info_form(), forms.Form):
+    email = forms.EmailField(
+        label=_("Email"),
+        required=True,
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": _("e.g. name@example.org")}
+        ),
+    )
+
+
+class DonorForm(BasicDonorForm):
     salutation = forms.ChoiceField(
         label=_("Salutation"),
         required=False,
@@ -625,13 +429,76 @@ class DonorForm(get_basic_info_form(), forms.Form):
         error_messages={"required": _("You have to decide.")},
     )
 
-    email = forms.EmailField(
-        label=_("Email"),
-        required=True,
-        widget=forms.EmailInput(
-            attrs={"class": "form-control", "placeholder": _("e.g. name@example.org")}
-        ),
-    )
+
+class DonationGiftLogic:
+    @staticmethod
+    def init(form: BasicDonationForm):
+        if not form.settings["gift_options"]:
+            return
+        gift_options = DonationGift.objects.available().filter(
+            id__in=form.settings["gift_options"]
+        )
+        if gift_options:
+            form.fields["chosen_gift"] = forms.ModelChoiceField(
+                widget=BootstrapSelect,
+                queryset=gift_options,
+                label=_("Donation gift"),
+                error_messages={
+                    "invalid_choice": _(
+                        "The chosen donation gift is no longer available, sorry!"
+                    )
+                },
+            )
+            form.fields.update(
+                get_basic_info_fields(prefix="shipping", name_required=False)
+            )
+            if len(gift_options) == 1:
+                form.fields["chosen_gift"].widget = forms.HiddenInput()
+                form.fields["chosen_gift"].initial = gift_options[0].id
+            elif form.settings["default_gift"]:
+                form.fields["chosen_gift"].initial = form.settings["default_gift"]
+        else:
+            form.gift_error_message = _(
+                "Unfortunately, all available donation gifts have been reserved."
+            )
+
+    @staticmethod
+    def clean(form: BasicDonationForm):
+        if not form.settings["gift_options"]:
+            return
+
+        chosen_gift = form.cleaned_data.get("chosen_gift")
+        if chosen_gift is None:
+            return
+        if not chosen_gift.has_remaining_available_to_order():
+            form.add_error(
+                "chosen_gift",
+                _("The chosen donation gift is no longer available, sorry!"),
+            )
+
+        # Check if any address is given
+        address_fields = ("address", "postcode", "city", "country")
+        for address_field in address_fields:
+            shipping_field = "shipping_{}".format(address_field)
+            if not form.cleaned_data.get(address_field) and not form.cleaned_data.get(
+                shipping_field
+            ):
+                form.add_error(
+                    shipping_field, _("Please complete your shipping address.")
+                )
+
+
+class QuickDonationForm(BasicDonationForm, BasicDonorForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        DonationGiftLogic.init(self)
+
+    def clean(self):
+        super().clean()
+
+        DonationGiftLogic.clean(self)
+
+        return self.cleaned_data
 
 
 class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
@@ -695,57 +562,15 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
         if self.settings["hide_contact"] and "contact" in self.fields:
             self.fields.pop("contact")
 
-        if self.settings["gift_options"]:
-            gift_options = DonationGift.objects.available().filter(
-                id__in=self.settings["gift_options"]
-            )
-            if gift_options:
-                self.fields["chosen_gift"] = forms.ModelChoiceField(
-                    widget=BootstrapSelect,
-                    queryset=gift_options,
-                    label=_("Donation gift"),
-                    error_messages={
-                        "invalid_choice": _(
-                            "The chosen donation gift is no longer available, sorry!"
-                        )
-                    },
-                )
-                self.fields.update(
-                    get_basic_info_fields(prefix="shipping", name_required=False)
-                )
-                if len(gift_options) == 1:
-                    self.fields["chosen_gift"].widget = forms.HiddenInput()
-                    self.fields["chosen_gift"].initial = gift_options[0].id
-                elif self.settings["default_gift"]:
-                    self.fields["chosen_gift"].initial = self.settings["default_gift"]
-            else:
-                self.gift_error_message = _(
-                    "Unfortunately, all available donation gifts have been reserved."
-                )
+        DonationGiftLogic.init(self)
 
     def clean(self):
-        if not self.settings["gift_options"]:
-            return
+        super().clean()
 
-        chosen_gift = self.cleaned_data.get("chosen_gift")
-        if chosen_gift is None:
-            return
-        if not chosen_gift.has_remaining_available_to_order():
-            self.add_error(
-                "chosen_gift",
-                _("The chosen donation gift is no longer available, sorry!"),
-            )
+        # Check if gift options are valid
+        DonationGiftLogic.clean(self)
 
-        # Check if any address is given
-        address_fields = ("address", "postcode", "city", "country")
-        for address_field in address_fields:
-            shipping_field = "shipping_{}".format(address_field)
-            if not self.cleaned_data.get(address_field) and not self.cleaned_data.get(
-                shipping_field
-            ):
-                self.add_error(
-                    shipping_field, _("Please complete your shipping address.")
-                )
+        return self.cleaned_data
 
     def save(self, **kwargs):
         order, donation = super().save(**kwargs)

@@ -9,8 +9,8 @@ from django.views.generic.edit import FormView
 
 from froide.helper.utils import get_redirect
 
+from .form_settings import DonationFormFactory
 from .forms import (
-    DonationFormFactory,
     DonationGiftForm,
     DonorDetailsForm,
     SimpleDonationForm,

@@ -11,7 +11,7 @@ from django.utils import timezone
 import pytest
 
 from .. import models as donation_models
-from ..forms import DonationFormFactory, DonationSettingsForm
+from ..form_settings import DonationFormFactory, DonationSettingsForm
 from ..models import ONCE, RECURRING, DonationFormViewCount, DonationGift
 from .factories import DonationGiftOrderFactory
 
