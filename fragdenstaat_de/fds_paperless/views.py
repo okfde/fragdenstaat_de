@@ -14,7 +14,6 @@ from .paperless import (
     add_tag_to_documents,
     get_document_data,
     get_documents_by_correspondent,
-    get_thumbnail,
 )
 
 User = get_user_model()
@@ -67,13 +66,6 @@ def select_documents_view(request, foirequest):
         "fds_paperless/select_documents.html",
         {"foirequest": foirequest, "documents": paperless_docs, "form": form},
     )
-
-
-@require_crew
-@cache_control(max_age=86400)
-def get_thumbnail_view(request, paperless_document: int):
-    content_type, content = get_thumbnail(paperless_document_id=paperless_document)
-    return HttpResponse(content, content_type=content_type)
 
 
 @require_crew
