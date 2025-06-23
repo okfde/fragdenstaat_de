@@ -32,12 +32,8 @@ from froide.helper.spam import suspicious_ip
 
 from fragdenstaat_de.fds_newsletter.models import Subscriber
 
-PAYMENT_METHOD_LIST = (
-    "sepa",
-    "paypal",
-    "banktransfer",
-    "creditcard",
-)
+QUICKPAYMENT_METHOD = "creditcard"
+PAYMENT_METHOD_LIST = ("sepa", "paypal", "banktransfer", QUICKPAYMENT_METHOD)
 MIN_AMOUNT = 5
 MAX_AMOUNT = 10000
 PAYMENT_METHOD_MAX_AMOUNT = {"sepa": decimal.Decimal(5000)}
@@ -634,7 +630,7 @@ class DonationFormCMSPlugin(CMSPlugin):
         self.gift_options.set(old_instance.gift_options.all())
 
     def make_form(self, **kwargs):
-        from .forms import DonationFormFactory, DonationSettingsForm
+        from .form_settings import DonationFormFactory, DonationSettingsForm
 
         request = kwargs["request"]
         reference = kwargs.pop("reference", "")
