@@ -901,7 +901,12 @@ class FragDenStaatBase(German, Base):
 
     PAPERLESS_API_URL = os.environ.get("PAPERLESS_API_URL", "")
     PAPERLESS_API_TOKEN = os.environ.get("PAPERLESS_API_TOKEN", "")
-    PAPERLESS_UPLOADED_TYPE = 5  # Tag for successfully uploaded documents
+    PAPERLESS_UPLOADED_TYPE = os.environ.get(
+        "PAPERLESS_UPLOADED_TYPE", ""
+    )  # Tag for successfully uploaded documents
+    PAPERLESS_REQUEST_FIELD = os.environ.get(
+        "PAPERLESS_REQUEST_FIELD", ""
+    )  # custom_field id for foirequest reference
 
     LEAFLET_CONFIG = {
         "TILES": [
