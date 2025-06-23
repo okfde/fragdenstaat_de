@@ -489,6 +489,8 @@ class DonationGiftLogic:
 
 
 class QuickDonationForm(BasicDonationForm, BasicDonorForm):
+    payment_method = QUICKPAYMENT_METHOD
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         DonationGiftLogic.init(self)

@@ -349,8 +349,8 @@ class DonationForm {
 
       const data = {
         first_name: nameParts[0] || '',
-        last_name: nameParts.slice(1).join(' ') || '',
-        email: quickPaymentdata.email || '',
+        last_name: nameParts.slice(1).join(' ') || nameParts[0],
+        email: quickPaymentdata.email,
         city: quickPaymentdata.city || '',
         postcode: quickPaymentdata.postcode || '',
         country: quickPaymentdata.country || '',
@@ -371,6 +371,7 @@ class DonationForm {
         body: formData,
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json',
           'X-CSRFToken': csrfTokenInput.value
         }
       }
