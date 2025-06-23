@@ -3,6 +3,7 @@
 <form action="{{ form.action }}"
       method="POST"
       class="donation-form {% if object.extra_classes %}{{ object.extra_classes }}{% else %}text-bg-body text-body px-3 pt-3 pb-1{% endif %}"
+      {% if form.quick_payment_only %}hidden{% endif %}
       {% if object.open_in_new_tab %}target="_blank"{% endif %}>
     {% csrf_token %}
     {{ form.form_settings }}
@@ -20,8 +21,10 @@
         </legend>
         {% if form.settings.prefilled_amount %}
             <p class="mt-1 mb-3">
-                <i class="fa fa-check-circle" aria-hidden="true"></i>
-                {{ form.prefilled_amount_label }}
+                <span class="fs-4">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    {{ form.prefilled_amount_label }}
+                </span>
                 <button type="button"
                         class="btn btn-link p-0 float-end hideparent"
                         data-bs-toggle="collapse"
@@ -29,183 +32,29 @@
                         aria-expanded="false"
                         aria-controls="donation-form-amount">{% translate "Change" %}</button>
             </p>
-            <div class="collapse" id="donation-form-amount">
-            {% endif %}
-            {% if form.chosen_gift %}
-                {% if form.chosen_gift.is_hidden %}
-                    {{ form.chosen_gift }}
-                {% else %}
-                    <div class="row">
-                        <div class="col-12">{% render_field form.chosen_gift %}</div>
-                    </div>
-                {% endif %}
-            {% endif %}
-            {% if form.gift_error_message %}<div class="alert alert-warning">{{ form.gift_error_message }}</div>{% endif %}
-            <div class="row">
-                <div class="col-12">{% render_field form.amount stacked=True %}</div>
-            </div>
-            {% if form.interval.is_hidden %}
-                {{ form.interval }}
-            {% else %}
-                <div class="row">
-                    <div class="col-12" data-group="interval">{% render_field form.interval inline=True %}</div>
-                </div>
-            {% endif %}
-            {% if form.purpose.is_hidden %}
-                {{ form.purpose }}
-            {% else %}
-                <div class="row">
-                    <div class="col-12">{% render_field form.purpose stacked=True %}</div>
-                </div>
-            {% endif %}
-            {% if form.settings.collapsed %}
+            <div class="collapse" id="donation-form-amount">{% include "fds_donation/forms/_donation_form_step1.html" %}</div>
+        {% else %}
+            {% include "fds_donation/forms/_donation_form_step1.html" %}
+        {% endif %}
+        {% if form.quick_payment or form.quick_payment_only %}
+            {% include "fds_donation/forms/_donation_quick.html" %}
+        {% endif %}
+        {% if form.settings.collapsed and not form.quick_payment_only %}
+            <div class="d-grid gap-2 mx-auto col-8">
                 <button type="button"
-                        class="btn btn-primary btn-lg mb-3"
+                        class="btn btn-primary btn-lg mb-3 hideparent"
                         data-bs-toggle="collapse"
                         data-bs-target="#donation-form-detail"
                         aria-expanded="false"
-                        aria-controls="donation-form-detail">
-                    <span class="hideparent">{% trans "Continue" %}</span>
-                </button>
-            {% endif %}
-            {% if form.settings.prefilled_amount %}</div>{% endif %}
+                        aria-controls="donation-form-detail">{% trans "Continue" %}</button>
+            </div>
+        {% endif %}
     </fieldset>
-    {% if form.settings.collapsed %}<div class="collapse" id="donation-form-detail">{% endif %}
-        <fieldset>
-            <legend class="bg-primary text-white px-2 py-0 fw-bold float-none ">{% trans "Your details" %}</legend>
-            <div class="row">
-                <div class="col-12 col-md-3">{% render_field form.salutation stacked=True %}</div>
-                <div class="col-12 col-md-9">
-                    <div class="row">
-                        <div class="col-sm-6">{% render_field form.first_name stacked=True %}</div>
-                        <div class="col-sm-6">{% render_field form.last_name stacked=True %}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-12">
-                    {% render_field form.email stacked=True %}
-                    <small class="mt-5">
-                        <a href="#company-field" data-bs-toggle="collapse">{% trans "&rarr; Do you want to donate as a company?" %}</a>
-                    </small>
-                </div>
-            </div>
-            <div class="row mt-3 collapse" id="company-field">
-                <div class="col-12">{% render_field form.company_name stacked=True %}</div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-12">{% render_field form.receipt inline=True %}</div>
-            </div>
-            <div class="collapse" id="address-fields">
-                <div class="row">
-                    <div class="col-12">{% render_field form.address stacked=True %}</div>
-                </div>
-                <div class="row">
-                    <div class="col-4">{% render_field form.postcode stacked=True %}</div>
-                    <div class="col-8">{% render_field form.city stacked=True %}</div>
-                </div>
-                <div class="row">
-                    <div class="col-12">{% render_field form.country stacked=True %}</div>
-                </div>
-            </div>
-        </fieldset>
-        {% if form.chosen_gift %}
-            <fieldset>
-                <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">{% trans "Shipping details" %}</legend>
-                <div class="row">
-                    <div class="col-12">
-                        <button type="button"
-                                class="btn btn-light mb-2 ms-auto"
-                                data-fillfields="shipping">{% trans "Use receipt address" %}</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-9">
-                        <div class="row">
-                            <div class="col-sm-6">{% render_field form.shipping_first_name stacked=True %}</div>
-                            <div class="col-sm-6">{% render_field form.shipping_last_name stacked=True %}</div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="row">
-                        <div class="col-12">{% render_field form.shipping_address stacked=True %}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">{% render_field form.shipping_postcode stacked=True %}</div>
-                        <div class="col-8">{% render_field form.shipping_city stacked=True %}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">{% render_field form.shipping_country stacked=True %}</div>
-                    </div>
-                </div>
-            </fieldset>
+    {% if not form.quick_payment_only %}
+        {% if form.settings.collapsed %}
+            <div class="collapse" id="donation-form-detail">{% include "fds_donation/forms/_donation_form_step2.html" %}</div>
+        {% else %}
+            {% include "fds_donation/forms/_donation_form_step2.html" %}
         {% endif %}
-        <fieldset>
-            <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">{% trans "Payment method" %}</legend>
-            <div class="row">
-                <div class="col-12">
-                    <div class="d-none onion-show alert alert-danger">
-                        {% trans "Donations via credit card, SEPA or Paypal do not work via our .onion-site." %}
-                    </div>
-                    {% if form.payment_method.is_hidden %}
-                        {{ form.payment_method }}
-                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                        {{ form.payment_method_label }}
-                    {% else %}
-                        <div class="mb-3">{% render_field form.payment_method stacked=True %}</div>
-                    {% endif %}
-                    <p class="text-body-secondary">
-                        <i class="fa fa-lock"></i>
-                        {% trans "Your payment details will be transmitted securely in the next step." %}
-                    </p>
-                </div>
-            </div>
-        </fieldset>
-        {% if not request.user.is_authenticated and form.account or form.contact %}
-            <fieldset>
-                <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">{% trans "Stay informed" %}</legend>
-                <div class="row">
-                    {% if form.contact %}
-                        <div class="col mt-2">
-                            <div class="card border-primary">
-                                <div class="card-header">
-                                    <h4>{{ form.contact.label }}</h4>
-                                </div>
-                                <div class="card-body">
-                                    <p>{% trans "Receive our newsletter about freedom of information in German." %}</p>
-                                    {% render_field form.contact stacked=True show_label=False %}
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% if not request.user.is_authenticated and form.account %}
-                        <div class="col mt-2">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>{% trans "Get an account" %}</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label>{{ form.account.label }}</label>
-                                        {% render_field form.account stacked=True show_label=False %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-            </fieldset>
-        {% endif %}
-        <div class="row mt-3">
-            <div class="col-12 col-md-6 text-end ms-auto d-grid gap-2">
-                {% if form.test %}
-                    {% render_field form.test %}
-                {% endif %}
-                <button id="donate-now"
-                        type="submit"
-                        class="btn btn-lg btn-primary btn-threed mb-3">{% trans "Donate now" %}</button>
-            </div>
-        </div>
-        {% if form.settings.collapsed %}</div>{% endif %}
+    {% endif %}
 </form>
