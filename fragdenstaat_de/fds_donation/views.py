@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -7,12 +9,13 @@ from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, TemplateView, UpdateView
 from django.views.generic.edit import FormView
 
-from froide.helper.utils import get_redirect
+from froide.helper.utils import get_redirect, is_ajax
 
 from .form_settings import DonationFormFactory
 from .forms import (
     DonationGiftForm,
     DonorDetailsForm,
+    QuickDonationForm,
     SimpleDonationForm,
 )
 from .models import DonationFormViewCount, Donor
@@ -41,6 +44,11 @@ class DonationView(FormView):
         DonationFormViewCount.objects.handle_request(request)
         return super().get(request, *args, **kwargs)
 
+    def post(self, request, *args, **kwargs):
+        if is_ajax(request):
+            return quick_donation(request)
+        return super().post(request, *args, **kwargs)
+
     def get_form(self, form_class=None):
         """Return an instance of the form to be used in this view."""
 
@@ -61,6 +69,30 @@ class DonationView(FormView):
         order, related_obj = form.save()
         method = form.cleaned_data["payment_method"]
         return redirect(order.get_absolute_payment_url(method))
+
+
+def quick_donation(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Invalid request method"}, status=405)
+    form = QuickDonationForm(
+        data=request.POST,
+        user=request.user,
+        request=request,
+    )
+    if form.is_valid():
+        order, related_obj = form.save()
+
+        payment = order.get_or_create_payment(form.payment_method, request=request)
+        provider = payment.get_provider()
+        result = provider.start_quick_payment(payment)
+        result["successurl"] = settings.SITE_URL + payment.get_success_url()
+
+        return JsonResponse(result)
+    return JsonResponse(
+        {
+            "error": form.errors.as_text(),
+        }
+    )
 
 
 class DonationCompleteView(TemplateView):
