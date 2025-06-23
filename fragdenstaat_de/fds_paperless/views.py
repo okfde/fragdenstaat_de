@@ -2,7 +2,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.decorators.cache import cache_control
 
 from froide.foirequest.auth import can_write_foirequest
 from froide.foirequest.models import FoiRequest
@@ -69,7 +68,6 @@ def select_documents_view(request, foirequest):
 
 
 @require_crew
-@cache_control(max_age=86400)
 def get_pdf_view(request, paperless_document: int):
     content = get_document_data(paperless_document_id=paperless_document)
     return HttpResponse(content, content_type="application/pdf")
