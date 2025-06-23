@@ -1,7 +1,7 @@
 <article class="blog-article-item w-100 p-3 text-bg-body border-gray">
     <h3 class="h5 mt-0 mb-1">
         {% if article.kicker %}
-            <span class="d-block mb-1 text-body-secondary fw-normal fs-base">{{ article.kicker }}</span>
+            <span class="d-block mb-1 text-body-secondary fw-normal fs-base hyphens-auto">{{ article.kicker }}</span>
         {% endif %}
         <a class="text-body" href="{{ article.get_absolute_url }}">{{ article.title }}</a>
     </h3>
