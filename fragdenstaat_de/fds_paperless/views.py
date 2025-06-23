@@ -54,7 +54,7 @@ def select_documents_view(request, foirequest):
                 sender=foirequest, message=message, user=request.user
             )
 
-            add_tag_to_documents(form.cleaned_data["paperless_ids"])
+            add_tag_to_documents(form.cleaned_data["paperless_ids"], foirequest)
             return redirect(message)
     else:
         form = PaperlessPostalReplyForm(

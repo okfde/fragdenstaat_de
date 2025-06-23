@@ -81,7 +81,7 @@ def get_thumbnail(paperless_document_id: int) -> tuple[str, bytes]:
     return thumbnail.headers.get("Content-Type", ""), thumbnail.content
 
 
-def add_tag_to_documents(paperless_document_ids: list[int]):
+def add_tag_to_documents(paperless_document_ids: list[int], foirequest):
     client = get_paperless_client()
 
     API_URL = settings.PAPERLESS_API_URL + "/documents/bulk_edit/"
@@ -90,6 +90,16 @@ def add_tag_to_documents(paperless_document_ids: list[int]):
         "documents": paperless_document_ids,
         "method": "set_document_type",
         "parameters": {"document_type": settings.PAPERLESS_UPLOADED_TYPE},
+    }
+
+    client.post(API_URL, json=data)
+
+    data = {
+        "documents": paperless_document_ids,
+        "method": "modify_custom_fields",
+        "parameters": {
+            "add_custom_fields": {settings.PAPERLESS_REQUEST_FIELD: foirequest.pk}
+        },
     }
 
     client.post(API_URL, json=data)
