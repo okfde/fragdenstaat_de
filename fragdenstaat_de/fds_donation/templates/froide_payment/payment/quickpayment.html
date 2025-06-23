@@ -1,0 +1,7 @@
+{% extends "froide_payment/payment/quickpayment.html" %}
+{% load sekizai_tags %}
+{% block scripts %}
+    {% addtoblock "js" %}
+    {% include "_frontend.html" with entry_point="payment.js" %}
+{% endaddtoblock "js" %}
+{% endblock scripts %}

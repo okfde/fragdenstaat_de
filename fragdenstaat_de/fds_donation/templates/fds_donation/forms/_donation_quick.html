@@ -1,0 +1,16 @@
+{% load i18n %}
+<div class="quick-payment-container mb-3" hidden>
+    {% if not form.quick_payment_only %}
+        <div class="border rounded p-3 mb-3">
+            <h4>{% translate "No time? Donate with one click!" %}</h4>
+            {% include "froide_payment/payment/quickpayment.html" with amount=form.amount.value interval=form.interval.value %}
+        </div>
+    {% else %}
+        {% include "froide_payment/payment/quickpayment.html" with amount=form.amount.value interval=form.interval.value %}
+    {% endif %}
+    {% if form.settings.collapsed and form.quick_payment %}
+        <div class="text-center">
+            <small class="text-bg-body px-2">{% translate "or continue below with more options" %}</small>
+        </div>
+    {% endif %}
+</div>
