@@ -3,6 +3,8 @@ from django.conf import ImproperlyConfigured, settings
 import dateutil.parser
 import requests
 
+from froide.foirequest.models import FoiRequest
+
 _session = None
 
 
@@ -72,7 +74,7 @@ def get_correspondents():
     return data["results"]
 
 
-def add_tag_to_documents(paperless_document_ids: list[int], foirequest):
+def add_tag_to_documents(paperless_document_ids: list[int], foirequest: FoiRequest):
     client = get_paperless_client()
 
     API_URL = settings.PAPERLESS_API_URL + "/documents/bulk_edit/"
@@ -83,14 +85,15 @@ def add_tag_to_documents(paperless_document_ids: list[int], foirequest):
         "parameters": {"document_type": settings.PAPERLESS_UPLOADED_TYPE},
     }
 
-    client.post(API_URL, json=data)
+    client.post(API_URL, json=data).raise_for_status()
 
     data = {
         "documents": paperless_document_ids,
         "method": "modify_custom_fields",
         "parameters": {
-            "add_custom_fields": {settings.PAPERLESS_REQUEST_FIELD: foirequest.pk}
+            "add_custom_fields": {settings.PAPERLESS_REQUEST_FIELD: foirequest.pk},
+            "remove_custom_fields": [],
         },
     }
 
-    client.post(API_URL, json=data)
+    client.post(API_URL, json=data).raise_for_status()
