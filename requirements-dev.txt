@@ -415,7 +415,7 @@ elasticsearch-dsl==8.15.2
     #   fragdenstaat-de (pyproject.toml)
     #   django-elasticsearch-dsl
     #   froide
-et-xmlfile==1.1.0
+et-xmlfile==2.0.0
     # via openpyxl
 executing==2.2.0
     # via stack-data

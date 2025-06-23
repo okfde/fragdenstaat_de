@@ -376,7 +376,7 @@ elasticsearch-dsl==8.15.2
     #   fragdenstaat-de (pyproject.toml)
     #   django-elasticsearch-dsl
     #   froide
-et-xmlfile==1.1.0
+et-xmlfile==2.0.0
     # via openpyxl
 fcdocs-annotate @ git+https://github.com/okfde/fcdocs-annotate.git@0e017562c0a3da4d2340bc882523b3630f35f4c0
     # via fragdenstaat-de (pyproject.toml)
