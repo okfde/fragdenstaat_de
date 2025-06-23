@@ -72,15 +72,6 @@ def get_correspondents():
     return data["results"]
 
 
-def get_thumbnail(paperless_document_id: int) -> tuple[str, bytes]:
-    client = get_paperless_client()
-    THUMBNAIL_URL = (
-        settings.PAPERLESS_API_URL + f"/documents/{paperless_document_id}/thumb/"
-    )
-    thumbnail = client.get(THUMBNAIL_URL)
-    return thumbnail.headers.get("Content-Type", ""), thumbnail.content
-
-
 def add_tag_to_documents(paperless_document_ids: list[int], foirequest):
     client = get_paperless_client()
 
