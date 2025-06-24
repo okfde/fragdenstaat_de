@@ -583,6 +583,13 @@ def validate_allowed_host_and_scheme(value):
         raise ValidationError("Not a valid url")
 
 
+QUICKPAYMENT_CHOICES = [
+    ("", _("No quick payment")),
+    ("show", _("Show quick payment options")),
+    ("only", _("Only quick payment options")),
+]
+
+
 class DonationFormCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=255, blank=True)
     interval = models.CharField(max_length=20, choices=INTERVAL_SETTINGS_CHOICES)
@@ -599,6 +606,9 @@ class DonationFormCMSPlugin(CMSPlugin):
     collapsed = models.BooleanField(default=False)
     hide_contact = models.BooleanField(default=False)
     hide_account = models.BooleanField(default=False)
+    quick_payment = models.CharField(
+        blank=True, max_length=20, choices=QUICKPAYMENT_CHOICES
+    )
     extra_classes = models.CharField(max_length=255, blank=True)
 
     gift_options = models.ManyToManyField(DonationGift, blank=True)
@@ -655,6 +665,7 @@ class DonationFormCMSPlugin(CMSPlugin):
             "default_gift": self.default_gift_id,
             "next_url": self.next_url,
             "next_label": self.next_label,
+            "quick_payment": self.quick_payment,
         }
         request_data = DonationFormFactory.from_request(request)
         plugin_data.update(request_data)
