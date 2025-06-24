@@ -26,7 +26,7 @@
         {% endfor %}
         <hr />
     {% endif %}
-    <p>{% translate "Here you can find an overview of your donations." %}</p>
+    <p>{% translate "Here you can find an overview of your individual donations." %}</p>
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -34,6 +34,7 @@
                     <th>{% translate "Date" %}</th>
                     <th>{% translate "Amount" %}</th>
                     <th>{% translate "Purpose" %}</th>
+                    <th>{% translate "Payment method" %}</th>
                     <th>{% translate "Details" %}</th>
                 </tr>
             </thead>
@@ -43,12 +44,29 @@
                         <td>{{ donation.timestamp|date:"DATE_FORMAT" }}</td>
                         <td>{{ donation.amount }}&nbsp;{% translate "Euro" %}</td>
                         <td>{{ donation.purpose }}</td>
+                        <td>{{ donation.get_method_display }}</td>
                         <td>
                             {% if donation.payment %}
                                 {% if donation.payment.is_deferred %}
                                     {% translate "Confirmation pending" %}
                                 {% else %}
-                                    {{ donation.payment.get_status_display }}
+                                    {% if donation.payment.variant == 'banktransfer' and not donation.received_timestamp %}
+                                        {% if donation.order.is_recurring %}
+                                            <span data-bs-toggle="tooltip"
+                                                  title="{% translate "In order to complete this donation you need to create a standing order with your bank. We will update this entry at the beginning of the following month." %}">
+                                                {% translate "Awaiting bank transfer" %}
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                            </span>
+                                        {% else %}
+                                            <span data-bs-toggle="tooltip"
+                                                  title="{% translate "In order to complete this donation you need to initiate a banktransfer. We will update this entry at the beginning of the following month." %}">
+                                                {% translate "Awaiting bank transfer" %}
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                            </span>
+                                        {% endif %}
+                                    {% else %}
+                                        {{ donation.payment.get_status_display }}
+                                    {% endif %}
                                     <a href="{{ donation.order.get_absolute_url }}">{% translate "Details" %}</a>
                                 {% endif %}
                             {% else %}

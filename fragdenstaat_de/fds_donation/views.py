@@ -159,7 +159,7 @@ class DonorMixin:
 class DonorView(DonorMixin, DetailView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        donations = self.object.donations.all()
+        donations = self.object.donations.filter(completed=True)
         try:
             last_donation = donations[0]
         except IndexError:
