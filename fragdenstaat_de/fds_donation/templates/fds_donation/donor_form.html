@@ -1,16 +1,17 @@
 {% extends "fds_donation/base.html" %}
 {% load form_helper %}
+{% load i18n %}
 {% block app_body %}
     <div class="row justify-content-center">
         <div class="col-8">
-            <h3>Aktualisieren Sie hier Ihre Spenderdaten.</h3>
-            <p>Auf Basis dieser Informationen lassen wir Ihnen Ihre Spendenbescheinigung zukommen.</p>
+            <h3>{% translate "Update your donor details" %}</h3>
+            <p>{% translate "This is the basis for the donation receipts." %}</p>
             <form method="post" action="">
                 {% csrf_token %}
                 {% render_form form %}
-                <button type="submit" class="btn btn-primary">Spenderdaten aktualisieren</button>
+                <button type="submit" class="btn btn-primary">{% translate "Update donor details" %}</button>
                 <a href="{{ object.get_absolute_url }}"
-                   class="btn btn-secondary text-end">Abbrechen</a>
+                   class="btn btn-secondary text-end">{% translate "Cancel" %}</a>
             </form>
         </div>
     </div>

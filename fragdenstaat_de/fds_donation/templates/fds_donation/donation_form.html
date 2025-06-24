@@ -1,23 +1,25 @@
 {% extends "fds_donation/base.html" %}
-{% load form_helper %}
-{% block title %}Ihre Spende aktualisieren{% endblock %}
+{% load i18n form_helper %}
+{% block title %}
+    {% translate "Update your donation" %}
+{% endblock %}
 {% block app_body %}
     <div class="row justify-content-center">
         <div class="col-8">
-            <h3>Legen Sie eine neue Spende an</h3>
+            <h3>{% translate "Create a new donation" %}</h3>
             {% if subscriptions %}
                 <div class="alert alert-warning">
-                    <p>Bitte beachten Sie, dass momentan folgende Dauerspenden für Sie aktiv sind:</p>
+                    <p>{% translate "Please note that you currently have the following recurring donations active:" %}</p>
                     <ul>
                         {% for subscription in subscriptions %}
                             <li>
-                                {{ subscription.plan }} (<a href="{{ subscription.get_absolute_url }}">Details / Kündigung</a>)
+                                {{ subscription.plan }} (<a href="{{ subscription.get_absolute_url }}">{% translate "Details / Cancel" %}</a>)
                             </li>
                         {% endfor %}
                     </ul>
                     <p>
-                        <a href="{{ subscription.get_absolute_url }}" class="alert-link">Sie können den Betrag oder den Rhythmus Ihrer Dauerspende auf der Detailseite anpassen.</a>
-                        Wenn Sie die Zahlungsart ändern wollen, kündigen Sie Ihre Dauerspende bitte und legen Sie hier eine neue an.
+                        <a href="{{ subscription.get_absolute_url }}" class="alert-link">{% translate "You can adjust the amount or frequency of your recurring donation on the detail page." %}</a>
+                        {% translate "If you want to change the payment method, please cancel your recurring donation and create a new one here." %}
                     </p>
                 </div>
             {% endif %}
@@ -37,9 +39,9 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <button type="submit" class="btn btn-primary">Spenden</button>
+                <button type="submit" class="btn btn-primary">{% translate "Donate" %}</button>
                 <a href="{{ object.get_absolute_url }}"
-                   class="btn btn-secondary text-end">Abbrechen</a>
+                   class="btn btn-secondary text-end">{% translate "Cancel" %}</a>
             </form>
         </div>
     </div>
