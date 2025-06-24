@@ -262,15 +262,20 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
             data={
                 "query_params": query_params,
                 "form_settings": self.settings,
+                "is_quick_payment": data.get("is_quick_payment", False),
             },
         )
         return donation
+
+    def augment_donation_data(self, data):
+        data["is_donation"] = True
+        return data
 
     def save(self, extra_data=None):
         data = self.cleaned_data.copy()
         if extra_data is not None:
             data.update(extra_data)
-        data["is_donation"] = True
+        data = self.augment_donation_data(data)
         order = self.create_order(data)
         related_obj = self.create_related_object(order, data)
 
@@ -507,6 +512,12 @@ class QuickDonationForm(BasicDonationForm, BasicDonorForm):
         DonationGiftLogic.clean(self)
 
         return self.cleaned_data
+
+    def augment_donation_data(self, data):
+        data = super().augment_donation_data(data)
+        data["payment_method"] = QUICKPAYMENT_METHOD
+        data["is_quick_payment"] = True
+        return data
 
 
 class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
