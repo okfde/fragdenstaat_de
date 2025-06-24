@@ -5,7 +5,6 @@ import logging
 from django import forms
 from django.conf import settings
 from django.utils.http import url_has_allowed_host_and_scheme
-from django.utils.translation import gettext_lazy as _
 
 from .models import (
     INTERVAL_CHOICES,
@@ -14,6 +13,7 @@ from .models import (
     MIN_AMOUNT,
     ONCE_RECURRING,
     PAYMENT_METHODS,
+    QUICKPAYMENT_CHOICES,
 )
 
 logger = logging.getLogger(__name__)
@@ -60,11 +60,7 @@ class DonationSettingsForm(forms.Form):
         required=False,
     )
     quick_payment = forms.ChoiceField(
-        choices=[
-            ("", _("No quick payment")),
-            ("show", _("Show quick payment options")),
-            ("only", _("Only quick payment options")),
-        ],
+        choices=QUICKPAYMENT_CHOICES,
         required=False,
         initial="",
     )
