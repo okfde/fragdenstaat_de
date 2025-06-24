@@ -14,12 +14,16 @@ from .utils import ProcessReader
 
 
 class PaypalWebhookForwarder:
-    WEBHOOK_URL_RE = re.compile(r"https://\w+.serveo.net")
+    # WEBHOOK_URL_RE = re.compile(r"https://\w+.serveo.net")
+    # HTTP_RE = re.compile(r"HTTP request from")
+    WEBHOOK_URL_RE = re.compile(r"https://[-\w]+.loca.lt")
+    HTTP_RE = re.compile(r"(?:GET|POST) /")
 
     def __init__(self, forward_url: str):
         forward_url = forward_url.replace("http://", "")
         host, path = forward_url.split("/", 1)
         self.forward_host = host
+        self.forward_port = host.split(":")[-1]
         self.forward_path = "/" + path
         self.webhook_url = None
         self.paypal_webhook_id = None
@@ -29,17 +33,18 @@ class PaypalWebhookForwarder:
         self.webhook_data = []
 
     def setup_webhook(self):
-        process_args = [
-            "ssh",
-            "-o",
-            "StrictHostKeyChecking=no",
-            "-n",  # Redirect stdin from /dev/null
-            "-T",  # Disable pseudo-tty allocation
-            "-R",
-            "80:{}".format(self.forward_host),
-            # Some guys forwarding service because Paypal doesn't have a cli like stripe
-            "serveo.net",
-        ]
+        # process_args = [
+        #     "ssh",
+        #     "-o",
+        #     "StrictHostKeyChecking=no",
+        #     "-n",  # Redirect stdin from /dev/null
+        #     "-T",  # Disable pseudo-tty allocation
+        #     "-R",
+        #     "80:{}".format(self.forward_host),
+        #     # Some guys forwarding service because Paypal doesn't have a cli like stripe
+        #     "serveo.net",
+        # ]
+        process_args = ["lt", "--port", self.forward_port, "--print-requests"]
         self.proc = ProcessReader(process_args)
         self.proc.start()
         line = self.proc.readline()
@@ -47,7 +52,7 @@ class PaypalWebhookForwarder:
         if match:
             self.webhook_url = match.group(0)
         if self.webhook_url is None:
-            raise Exception("Could not find webhook URL")
+            raise Exception(f"Could not find webhook URL in output: {line!r}")
         return self.set_webhook_on_paypal(self.webhook_url)
 
     def _verify_webhook(self, request, data):
@@ -96,14 +101,13 @@ class PaypalWebhookForwarder:
         self.setup_webhook()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        HTTP_RE = re.compile(r"HTTP request from")
         http_request_count = 0
         try:
             if exc_val is None:
                 while True:
                     line = self.proc.readline()
                     print("Forwarder Log", repr(line.encode("utf-8")))
-                    if HTTP_RE.search(line):
+                    if self.HTTP_RE.search(line):
                         http_request_count += 1
                     if http_request_count >= self.max_request_count:
                         break
