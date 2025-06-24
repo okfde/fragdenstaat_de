@@ -453,6 +453,13 @@ class Donation(models.Model):
     def get_failure_url(self):
         return reverse("fds_donation:donate-failed")
 
+    def get_method_display(self):
+        """
+        Returns a human-readable display of the payment method.
+        If the method is not recognized, it returns the method itself.
+        """
+        return CHECKOUT_PAYMENT_CHOICES_DICT.get(self.method, self.method)
+
 
 class DefaultDonationManager(DonationManager):
     def get_queryset(self):
