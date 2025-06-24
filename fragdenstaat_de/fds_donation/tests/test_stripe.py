@@ -167,7 +167,7 @@ def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_se
 
         page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
+        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
@@ -259,7 +259,7 @@ def test_sepa_once_donation_additional_fields(
 
         page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
+        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
@@ -313,7 +313,7 @@ def test_sepa_recurring_donation_failed(page: Page, live_server, stripe_sepa_set
 
         page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
+        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
@@ -359,7 +359,7 @@ def test_sepa_once_donation_disputed(page: Page, live_server, stripe_sepa_setup)
 
         page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
+        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
@@ -408,7 +408,7 @@ def test_creditcard_recurring_donation_success(
 
         page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
+        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
@@ -454,7 +454,7 @@ def test_creditcard_once_donation_success(page: Page, live_server, stripe_sepa_s
 
         page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
+        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
