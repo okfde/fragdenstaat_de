@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-24 13:15+0200\n"
-"PO-Revision-Date: 2025-06-24 13:27+0200\n"
+"POT-Creation-Date: 2025-06-24 14:40+0200\n"
+"PO-Revision-Date: 2025-06-24 14:41+0200\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -1769,18 +1769,6 @@ msgstr "Empfangsdatum setzen"
 msgid "The donations will be marked as receipted."
 msgstr "Die Spenden werden als erhalten markiert."
 
-#: fragdenstaat_de/fds_donation/form_settings.py
-msgid "No quick payment"
-msgstr "Keine Schnellspende"
-
-#: fragdenstaat_de/fds_donation/form_settings.py
-msgid "Show quick payment options"
-msgstr "Zeige Schnellspende-Möglichkeit"
-
-#: fragdenstaat_de/fds_donation/form_settings.py
-msgid "Only quick payment options"
-msgstr "Nur Schnellspende-Möglichkeit"
-
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Donation amount:"
 msgstr "Spendenbetrag:"
@@ -1839,6 +1827,7 @@ msgid "{amount} EUR donation {str_interval} to {site_name}"
 msgstr "{amount} EUR Spende {str_interval} an {site_name}"
 
 #: fragdenstaat_de/fds_donation/forms.py
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
 msgid "Payment method"
 msgstr "Zahlungsweise"
@@ -2130,6 +2119,18 @@ msgid "donation gift orders"
 msgstr "Spendengeschenk-Bestellungen"
 
 #: fragdenstaat_de/fds_donation/models.py
+msgid "No quick payment"
+msgstr "Keine Schnellspende"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "Show quick payment options"
+msgstr "Zeige Schnellspende-Möglichkeit"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "Only quick payment options"
+msgstr "Nur Schnellspende-Möglichkeit"
+
+#: fragdenstaat_de/fds_donation/models.py
 msgid "Donation Form View Count"
 msgstr "Anzahl der Spendenformularansichten"
 
@@ -2345,14 +2346,16 @@ msgid "Details"
 msgstr "Details"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
-msgid "Here you can find an overview of your donations."
-msgstr "Hier findest Du eine Übersicht über Deine Spenden"
+msgid "Here you can find an overview of your individual donations."
+msgstr "Hier findest Du eine Übersicht über Deine einzelnen Spenden."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Date"
 msgstr "Datum"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 msgid "Amount"
 msgstr "Betrag"
 
@@ -2367,6 +2370,26 @@ msgstr "Euro"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Confirmation pending"
 msgstr "Bearbeitung läuft"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid ""
+"In order to complete this donation you need to create a standing order with "
+"your bank. We will update this entry at the beginning of the following month."
+msgstr ""
+"Um diese Spende abzuschließen, musst du einen Dauerauftrag bei deiner Bank "
+"anlegen. Wir aktualisieren diesen Eintrag zu Beginn des Folgemonats."
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid "Awaiting bank transfer"
+msgstr "Warte auf Banküberweisung"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid ""
+"In order to complete this donation you need to initiate a banktransfer. We "
+"will update this entry at the beginning of the following month."
+msgstr ""
+"Um diese Spende abzuschließen, musst du eine Überweisung über deine Bank "
+"tätigen. Wir aktualisieren diesen Eintrag zu Beginn des Folgemonats."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Confirmed"
@@ -2456,6 +2479,49 @@ msgstr "oder fahre unten fort mit mehr Auswahl"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/widgets/amount_input.html
 msgid "Other amount"
 msgstr "Anderer Betrag"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+msgid ""
+"The status of donations made by bank transfer is updated at the beginning of "
+"the following month, as account statements are only reconciled then."
+msgstr ""
+"Der Status von Spenden per Überweisung aktualisiert sich erst zu Beginn des "
+"Folgemonats, da erst dann die Kontoauszüge abgeglichen werden."
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
+msgid "Please set up a standing order"
+msgstr "Bitte richte einen Dauerauftrag ein"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
+#, python-format
+msgid "Please transfer %(amount)s&nbsp;Euro an"
+msgstr "Bitte überweise %(amount)s&nbsp;Euro an"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
+msgid "Account holder"
+msgstr "Kontoinhaber"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
+msgid "Interval"
+msgstr "Turnus"
+
+#. Translators: This is the reference for the bank transfer
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
+msgid "Reference"
+msgstr "Verwendungszweck"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+msgid "Bank code"
+msgstr "BLZ"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+msgid "Thank you!"
+msgstr "Vielen Dank!"
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"
@@ -4215,9 +4281,6 @@ msgstr "kampagne/"
 #~ msgid "Toggle account menu"
 #~ msgstr "Kontomenü anzeigen"
 
-#~ msgid "Account Menu"
-#~ msgstr "Kontomenü"
-
 #~ msgid "You like our work? Support us with a donation!"
 #~ msgstr "Ihnen gefällt unsere Arbeit? Unterstützen Sie uns mit einer Spende!"
 
@@ -4235,9 +4298,6 @@ msgstr "kampagne/"
 
 #~ msgid "Information"
 #~ msgstr "Informationen"
-
-#~ msgid "reference"
-#~ msgstr "Aktenzeichen"
 
 #~ msgid "date"
 #~ msgstr "Datum"
@@ -8097,11 +8157,5 @@ msgstr "kampagne/"
 #~ msgid "Share on social media"
 #~ msgstr "Auf sozialen Netzwerken teilen"
 
-#~ msgid "Awaiting response"
-#~ msgstr "Warte auf Antwort"
-
 #~ msgid "successful"
 #~ msgstr "erfolgreich"
-
-#~ msgid "Internal Review"
-#~ msgstr "Interne Überprüfung"
