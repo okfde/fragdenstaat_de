@@ -1,44 +1,38 @@
+{% load i18n %}
 {% if not payment.is_confirmed %}
     <div class="alert alert-info">
-        Der Status von Spenden per Überweisung aktualisiert sich erst zu Beginn des Folgemonats, da erst dann die Kontoauszüge abgeglichen werden.
+        {% translate "The status of donations made by bank transfer is updated at the beginning of the following month, as account statements are only reconciled then." %}
     </div>
     <div class="card border-danger">
         <div class="card-header">
             {% if order.is_recurring %}
-                <h3>Bitte richten Sie einen Dauerauftrag ein</h3>
+                <h3>{% translate "Please set up a standing order" %}</h3>
             {% else %}
-                <h3>Bitte überweisen Sie {{ order.total_gross }}&nbsp;EUR an</h3>
+                <h3>
+                    {% blocktranslate with amount=order.total_gross %}Please transfer {{ amount }}&nbsp;Euro an{% endblocktranslate %}
+                </h3>
             {% endif %}
         </div>
         <div class="card-body">
             <p>
-                <strong>Kontoinhaber:</strong>&nbsp;Open Knowledge Foundation Deutschland e.V.
+                <strong>{% translate "Account holder" %}:</strong>&nbsp;Open Knowledge Foundation Deutschland e.V.
                 <br>
                 <strong>IBAN:&nbsp;</strong>DE36 4306 0967 1173 8932 00
                 <br>
                 <strong>BIC:</strong>&nbsp;GENODEM1GLS
                 <br>
-                <strong>Betrag:&nbsp;</strong>{{ order.total_gross }}&nbsp;EUR
+                <strong>{% translate "Amount" %}:&nbsp;</strong>{{ order.total_gross }}&nbsp;EUR
                 <br />
                 {% if order.is_recurring %}
-                    <strong>Turnus:&nbsp;</strong> {{ order.subscription.plan.get_interval_description }}
+                    <strong>{% translate "Interval" %}:&nbsp;</strong> {{ order.subscription.plan.get_interval_description }}
                     <br />
                 {% endif %}
-                <strong>Verwendungszweck:&nbsp;</strong>{{ order.remote_reference }}
+                {# Translators: This is the reference for the bank transfer #}
+                <strong>{% translate "Reference" %}:&nbsp;</strong>{{ order.remote_reference }}
                 <br>
-                <strong>BLZ:</strong>&nbsp;430 609 67 (GLS Bank)
+                <strong>{% translate "Bank code" %}:</strong>&nbsp;430 609 67 (GLS Bank)
             </p>
-            {% comment %} <p>
-        Falls Sie eine Banking-App verwenden, die Direktaufrufe unterstützt, können Sie diesen Link verwenden:<br />
-        {% if order.is_recurring %}
-          <a class="btn btn-secondary" href="bank://periodicsinglepaymentsepa?name={{ 'Open Knowledge Foundation Deutschland e.V.'|urlencode }}&amp;iban=DE36430609671173893200&amp;bic=GENODEM1GLS&amp;amount={{ order.subscription.plan.amount }}&amp;reason={{ order.remote_reference }}&amp;periodictimeunit=M&amp;periodictimeunitrotation={{ order.subscription.plan.interval }}">
-        {% else %}
-          <a class="btn btn-secondary" href="bank://singlepaymentsepa?name={{ 'Open Knowledge Foundation Deutschland e.V.'|urlencode }}&amp;iban=DE36430609671173893200&amp;bic=GENODEM1GLS&amp;amount={{ order.total_gross }}&amp;reason={{ order.remote_reference }}">
-        {% endif %}
-          Direktlink für Banking-App
-        </a>
-            </p> {% endcomment %}
-            <p>Vielen Dank!</p>
+            <p>{% translate "Thank you!" %}</p>
         </div>
     </div>
 {% endif %}
