@@ -46,6 +46,9 @@ from .widgets import AmountInput
 logger = logging.getLogger(__name__)
 
 
+DEFAULT_PURPOSE = _("General donation")
+
+
 class BasicDonationForm(StartPaymentMixin, forms.Form):
     amount = forms.DecimalField(
         localize=True,
@@ -74,7 +77,7 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
         required=False,
         label=_("Donation purpose"),
         choices=[
-            (_("General donation"), _("General donation")),
+            (DEFAULT_PURPOSE, DEFAULT_PURPOSE),
         ],
         widget=BootstrapSelect(
             attrs={"data-toggle": "nonrecurring"},
@@ -219,7 +222,10 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
         else:
             return {
                 "category": _("Donation for %s") % settings.SITE_NAME,
-                "description": "{} ({})".format(data["purpose"], settings.SITE_NAME),
+                "description": "{} ({})".format(
+                    data.get("purpose", DEFAULT_PURPOSE) or DEFAULT_PURPOSE,
+                    settings.SITE_NAME,
+                ),
                 "kind": "fds_donation.Donation",
             }
 
@@ -245,7 +251,7 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
             amount=order.total_gross,
             reference=data.get("reference", "")[:1024],
             keyword=keyword[:1024],
-            purpose=data.get("purpose", "") or order.description,
+            purpose=data.get("purpose", DEFAULT_PURPOSE) or order.description,
             form_url=data.get("form_url", "")[:1024],
             order=order,
             recurring=order.is_recurring,
