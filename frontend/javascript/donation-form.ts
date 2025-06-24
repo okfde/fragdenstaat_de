@@ -88,12 +88,12 @@ class DonationForm {
         const container = document.createElement('small')
         container.classList.add('bg-warning')
         container.classList.add('ms-2')
-        container.innerHTML = `Ihre Spende wird ggf. erst ${nextYear} eingezogen.
+        container.innerHTML = `Deine Spende wird ggf. erst ${nextYear} eingezogen.
         <a href="#" class="text-dark"
           data-bs-toggle="tooltip"
           data-bs-placement="top"
-          title="Wenn Sie diesen Zahlungsweg wählen, kann es sein, dass Ihre Spende durch Banklaufzeiten
-          erst ${nextYear} abgebucht wird. Damit wird sie ggf. auf Ihrer Spendenbescheinigung
+          title="Wenn Du diesen Zahlungsweg wählst, kann es sein, dass Deine Spende durch Banklaufzeiten
+          erst ${nextYear} abgebucht wird. Damit wird sie ggf. auf Deiner Spendenbescheinigung
           ${d.getFullYear()} nicht erscheinen.">
           <span class="fa fa-info-circle"></span>
         </a>

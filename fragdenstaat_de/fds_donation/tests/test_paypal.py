@@ -184,7 +184,7 @@ def test_paypal_once(page: Page, live_server, paypal_setup):
         page.get_by_test_id("submit-button-initial").click()
         page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
+        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
 
         print("Waiting for webhooks...")
@@ -230,7 +230,7 @@ def test_paypal_recurring(page: Page, live_server, paypal_setup):
 
         page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Ihre Spende!").is_visible()
+        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
         assert page.get_by_text(donor_email).is_visible()
 
         print("Waiting for webhooks...")
