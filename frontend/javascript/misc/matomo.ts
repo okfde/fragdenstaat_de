@@ -9,7 +9,7 @@ window._paq.push(['disableCookies'])
 window._paq.push(['disableBrowserFeatureDetection'])
 
 const matomoId = document.body.dataset.matomoid
-if (matomoId) {
+if (matomoId && !document.body.dataset.dnt) {
   window._paq.push(['setSiteId', matomoId])
   const script = document.createElement('script')
   script.type = 'text/javascript'
