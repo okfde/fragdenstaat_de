@@ -521,6 +521,7 @@ networkx==3.3
     # via torch
 nh3==0.2.21
     # via
+    #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
     #   django-legal-advice-builder
     #   froide
