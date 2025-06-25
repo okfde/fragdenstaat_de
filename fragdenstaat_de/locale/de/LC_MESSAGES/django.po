@@ -1375,6 +1375,10 @@ msgid "Last donation"
 msgstr "Letzte Spende"
 
 #: fragdenstaat_de/fds_donation/admin.py
+msgid "has company name"
+msgstr "hat Firmenname"
+
+#: fragdenstaat_de/fds_donation/admin.py
 msgid "has email"
 msgstr "hat E-Mail-Adresse"
 
