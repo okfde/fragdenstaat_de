@@ -1,0 +1,10 @@
+{% extends "page.html" %}
+{% block meta %}
+    {# Removed social meta snippets #}
+    {% include "snippets/meta.html" %}
+{% endblock %}
+{# Signal to not load matomo script #}
+{% block body_extra_attributes %}data-dnt="1"{% endblock %}
+{# Do not embed matomo image fallback #}
+{% block tracking_code %}
+{% endblock tracking_code %}

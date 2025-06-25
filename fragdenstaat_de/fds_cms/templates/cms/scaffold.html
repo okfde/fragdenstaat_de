@@ -22,7 +22,6 @@
         {% endblock %}
         {% render_block "css" %}
         {% block meta %}
-            {# Translators: meta description #}
             {% include "snippets/meta.html" %}
             {% include "fds_cms/social_meta.html" with object=request.current_page %}
         {% endblock %}
