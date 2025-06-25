@@ -12,7 +12,6 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from filer.models.foldermodels import Folder
-from num2words import num2words
 
 from froide.foirequest.pdf_generator import PDFGenerator
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
@@ -314,6 +313,8 @@ def get_donation_data(donations, ignore_receipt_date: Optional[datetime] = None)
 
 
 def amount_to_words(amount: Decimal) -> str:
+    from num2words import num2words
+
     euro, cents = [int(x) for x in str(amount).split(".")]
     euro_word = num2words(euro, lang="de")
     if cents:
