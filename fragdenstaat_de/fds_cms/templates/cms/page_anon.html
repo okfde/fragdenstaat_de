@@ -1,0 +1,10 @@
+{% extends "cms/page.html" %}
+{% block meta %}
+    {% include "snippets/meta.html" %}
+    {% include "fds_cms/social_meta.html" with object=request.current_page %}
+{% endblock %}
+{# Signal to not load matomo script #}
+{% block body_extra_attributes %}data-dnt="1"{% endblock %}
+{# Do not embed matomo image fallback #}
+{% block tracking_code %}
+{% endblock tracking_code %}
