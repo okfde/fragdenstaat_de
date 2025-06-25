@@ -187,6 +187,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "receipt",
         "invalid",
         DonorProjectFilter,
+        make_emptyfilter("company_name", _("has company name")),
         make_emptyfilter("email", _("has email")),
         make_nullfilter("duplicate", _("has duplicate")),
         make_nullfilter("user_id", _("has user")),
