@@ -210,7 +210,7 @@ class LatestAudioFeed(LatestArticlesFeed):
     @clean_feed_output
     def item_description(self, item):
         content = item.get_full_html_content()
-        content = nh3.clean(content, tags=["p", "ol", "ul", "li", "a"])
+        content = nh3.clean(content, tags={"p", "ol", "ul", "li", "a"})
         return mark_safe(content)
 
     def item_enclosures(self, item):
