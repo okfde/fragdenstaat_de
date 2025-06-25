@@ -4,11 +4,6 @@ from django.core.mail import mail_managers
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
-try:
-    import pgpy
-except ImportError:
-    pgpy = None
-
 from froide.helper.spam import SpamProtectionMixin
 from froide.helper.utils import get_redirect
 
@@ -290,6 +285,11 @@ class ContactForm(SpamProtectionMixin, forms.Form):
         return self.cleaned_data["message"]
 
     def send_mail(self):
+        try:
+            import pgpy
+        except ImportError:
+            pgpy = None
+
         text = """
 {name}
 
