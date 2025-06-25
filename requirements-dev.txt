@@ -455,7 +455,7 @@ froide-govplan @ git+https://github.com/okfde/froide-govplan.git@9c325e70a84f26f
     # via fragdenstaat-de (pyproject.toml)
 froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@64fe3e4856947dfca35f6c97c2ccc8166e00a151
     # via fragdenstaat-de (pyproject.toml)
-froide-payment @ git+https://github.com/okfde/froide-payment.git@49681083b54fec2e545ab73d0fc26fa12290962d
+froide-payment @ git+https://github.com/okfde/froide-payment.git@8e5343e510149da8680c17975df12ad19f39b39d
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide-crowdfunding
@@ -915,7 +915,7 @@ sqlparse==0.5.1
     #   django-debug-toolbar
 stack-data==0.6.3
     # via ipython
-stripe==5.5.0
+stripe==7.14.0
     # via
     #   django-payments
     #   froide-payment
@@ -960,6 +960,7 @@ typing-extensions==4.12.2
     #   pyee
     #   pytest-factoryboy
     #   python-docx
+    #   stripe
     #   torch
 tzdata==2025.2
     # via
