@@ -3,6 +3,7 @@
 import re
 
 from django.db import migrations
+from django.conf import settings
 
 REGEX_LIST = (
     (r"^([mp])l(-[mdslgx]+)?(-[0-5])$", r"\1s\2\3"),
@@ -89,9 +90,13 @@ def convert_bootstrap_classes(apps, schema_editor):
 class Migration(migrations.Migration):
     dependencies = [
         ("fds_cms", "0051_auto_20220826_1234"),
-        ("fds_donation", "0037_donationprogressbarcmsplugin_white_text"),
-        ("froide_govplan", "0011_governmentplan_properties"),
     ]
+
+    if "fragdenstaat_de.fds_donation.apps.FdsDonationConfig" in settings.INSTALLED_APPS:
+        dependencies += [   
+            ("fds_donation", "0037_donationprogressbarcmsplugin_white_text"),
+            ("froide_govplan", "0011_governmentplan_properties"),
+        ]
 
     operations = [
         migrations.RunPython(convert_bootstrap_classes),

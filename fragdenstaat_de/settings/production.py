@@ -6,6 +6,8 @@ from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 
+from fragdenstaat_de.settings.cms import CMSSiteBase, GegenrechtsschutzMixin
+
 from .base import FragDenStaatBase, env
 
 
@@ -313,3 +315,43 @@ sentry_sdk.init(
     integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()],
     traces_sample_rate=0.2,
 )
+
+
+class CMSSiteProduction(CMSSiteBase):
+    DEBUG = False
+    TEMPLATE_DEBUG = False
+    ALLOWED_HOSTS = [x for x in env("ALLOWED_HOSTS", "").split(",") if x]
+    SECRET_KEY = env("DJANGO_SECRET_KEY")
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "overwrite": {
+            # Replace in Django 5.1 with allow_overwrite Option
+            "BACKEND": "froide.helper.storage.OverwriteStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+        },
+    }
+
+    MEDIA_URL = env("MEDIA_URL", "https://media.frag-den-staat.de/files/")
+    STATIC_URL = env("STATIC_URL", "https://static.frag-den-staat.de/static/")
+
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.contrib.gis.db.backends.postgis",
+            "NAME": env("DATABASE_NAME"),
+            "OPTIONS": {},
+            "HOST": env("DATABASE_HOST"),
+            "USER": env("DATABASE_USER_READONLY"),
+            "PASSWORD": env("DATABASE_PASSWORD_READONLY"),
+            "CONN_MAX_AGE": 0,
+            "PORT": "",
+        }
+    }
+
+
+class Gegenrechtsschutz(GegenrechtsschutzMixin, CMSSiteProduction):
+    pass
