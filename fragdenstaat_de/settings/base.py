@@ -262,6 +262,7 @@ class FragDenStaatBase(German, Base):
         ("cms/help_base.html", "Help base template"),
         ("cms/pub_base.html", "Book Publication template"),
         ("froide_govplan/base.html", "Govplan base template"),
+        ("cms/page_anon.html", "Page without tracking"),
     ]
     EMAIL_BODY_PLUGINS = [
         "IsDonorPlugin",

@@ -9,7 +9,7 @@ window._paq.push(['disableCookies'])
 window._paq.push(['disableBrowserFeatureDetection'])
 window._paq.push(['setSiteId', '25'])
 
-if (document.location.hostname.includes('fragdenstaat.de')) {
+if (document.location.hostname.includes('fragdenstaat.de') && !document.body.dataset.dnt) {
   const script = document.createElement('script')
   script.type = 'text/javascript'
   script.async = true
