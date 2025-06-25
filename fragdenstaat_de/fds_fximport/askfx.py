@@ -1,6 +1,4 @@
-import dataclasses
 import datetime
-import enum
 import io
 import locale
 import re
@@ -23,6 +21,15 @@ from PIL import Image
 if TYPE_CHECKING:
     from . import captcha
 
+from .data import (
+    Direction,
+    FrontexCredentials,
+    PadCase,
+    PadDocument,
+    PadMessage,
+    PadMetadata,
+)
+
 TOKEN_RE = r"^Token: (?P<token>.+)$"
 EMAIL_RE = r"^Email: (?P<email>.+)$"
 CASE_ID_REGEX = r"^Case Id: (?P<caseid>.+)$"
@@ -40,25 +47,17 @@ def search_re_or_none(regex: str, group: str, text: str) -> Optional[str]:
     return match.group(group).strip()
 
 
-@dataclasses.dataclass
-class FrontexCredentials:
-    token: str
-    email: str
-    case_id: str
-    valid_until: datetime.date
+def get_frontex_credentials_from_email(text: str) -> Optional[FrontexCredentials]:
+    token = search_re_or_none(TOKEN_RE, "token", text)
+    email = search_re_or_none(EMAIL_RE, "email", text)
+    case_id = search_re_or_none(CASE_ID_REGEX, "caseid", text)
+    valid_until_str = search_re_or_none(VALID_UNTIL_REGEX, "date", text)
 
-    @classmethod
-    def from_email(cls, text: str) -> Optional["FrontexCredentials"]:
-        token = search_re_or_none(TOKEN_RE, "token", text)
-        email = search_re_or_none(EMAIL_RE, "email", text)
-        case_id = search_re_or_none(CASE_ID_REGEX, "caseid", text)
-        valid_until_str = search_re_or_none(VALID_UNTIL_REGEX, "date", text)
+    if token is None or email is None or case_id is None or valid_until_str is None:
+        return None
 
-        if token is None or email is None or case_id is None or valid_until_str is None:
-            return None
-
-        valid_until = parse_frontex_mail_date(valid_until_str)
-        return cls(token, email, case_id, valid_until)
+    valid_until = parse_frontex_mail_date(valid_until_str)
+    return FrontexCredentials(token, email, case_id, valid_until)
 
 
 def parse_frontex_mail_date(datestr: str) -> datetime.date:
@@ -68,54 +67,19 @@ def parse_frontex_mail_date(datestr: str) -> datetime.date:
     return date
 
 
-@dataclass
-class PadCase:
-    metadata: "PadMetadata"
-    messages: List["PadMessage"]
-    raw: str
+def get_padcase_from_source(text: str) -> PadCase:
+    soup = BeautifulSoup(text, features="html.parser")
+    metadata = None
+    messages = []
+    for item in soup.find_all(class_="askFX_Item"):
+        if "askFX_Header" in item.get("class"):
+            metadata = parse_header(item)
+        elif item.find("textarea", id="NewEntry"):
+            pass
+        else:
+            messages.append(parse_message(item))
 
-    @classmethod
-    def from_source(cls, text: str) -> "PadCase":
-        soup = BeautifulSoup(text, features="html.parser")
-        metadata = None
-        messages = []
-        for item in soup.find_all(class_="askFX_Item"):
-            if "askFX_Header" in item.get("class"):
-                metadata = parse_header(item)
-            elif item.find("textarea", id="NewEntry"):
-                pass
-            else:
-                messages.append(parse_message(item))
-
-        return cls(metadata=metadata, messages=messages, raw=text)
-
-
-@dataclass
-class PadMetadata:
-    created_on: datetime.datetime
-    documents: List["PadDocument"]
-    subject: str
-    created_by: str
-    case_id: str
-
-
-@dataclass
-class PadDocument:
-    name: str
-    link: str
-
-
-class Direction(enum.Enum):
-    IN = "IN"
-    OUT = "OUT"
-
-
-@dataclass
-class PadMessage:
-    direction: Direction
-    date: datetime.datetime
-    author: str
-    message: str
+    return PadCase(metadata=metadata, messages=messages, raw=text)
 
 
 def is_hidden_input(tag: bs4.element.Tag) -> bool:
@@ -298,7 +262,7 @@ class FrontexPadClient:
 
     def load_pad_case(self) -> PadCase:
         text = self._login()
-        case = PadCase.from_source(text)
+        case = get_padcase_from_source(text)
         return case
 
     def download_document(self, document: PadDocument):

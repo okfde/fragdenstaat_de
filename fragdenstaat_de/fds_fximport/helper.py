@@ -7,24 +7,25 @@ from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
-import magic
-
 from froide.account.services import AccountService
 from froide.foirequest.models import FoiAttachment, FoiMessage, FoiRequest
 from froide.foirequest.models.message import MessageKind
 from froide.helper.storage import make_unique_filename
 from froide.helper.text_utils import redact_subject
 
-from .askfx import Direction, FrontexCredentials, FrontexPadClient, PadCase, PadMessage
+from .data import Direction, FrontexCredentials, PadCase, PadMessage
 
 if TYPE_CHECKING:
     from . import captcha
+    from .askfx import FrontexPadClient
 
 MARKER = "https://pad.frontex.europa.eu"
 IMPORTED_TAG = "frontex_imported"
 
 
 def get_content_type(data: bytes) -> str:
+    import magic
+
     content_type = magic.from_buffer(data[:2048], mime=True)
     content_type = force_str(content_type)
     return content_type
@@ -32,13 +33,15 @@ def get_content_type(data: bytes) -> str:
 
 def is_frontex_msg(message: FoiMessage) -> bool:
     text = message.plaintext
-    credentials = FrontexCredentials.from_email(text)
+    # Make sure we short-circuit if the marker is not present
+    return MARKER in text and has_valid_credentials(text)
 
-    return (
-        credentials is not None
-        and MARKER in text
-        and credentials.valid_until >= datetime.date.today()
-    )
+
+def has_valid_credentials(text: str) -> bool:
+    from .askfx import get_frontex_credentials_from_email
+
+    credentials = get_frontex_credentials_from_email(text)
+    return credentials is not None and credentials.valid_until >= datetime.date.today()
 
 
 def add_msg_ids(
@@ -123,7 +126,7 @@ def import_messages_from_case(foirequest: FoiRequest, case: PadCase):
 
 
 def import_attachments_from_case(
-    foirequest: FoiRequest, case: PadCase, client: FrontexPadClient
+    foirequest: FoiRequest, case: PadCase, client: "FrontexPadClient"
 ):
     names = set()
     account_service = AccountService(foirequest.user)
@@ -166,6 +169,8 @@ def import_attachments_from_case(
 
 
 def import_frontex_case(source_message: FoiMessage):
+    from .askfx import FrontexPadClient
+
     text = source_message.plaintext
     foirequest = source_message.request
     credentials = FrontexCredentials.from_email(text)
