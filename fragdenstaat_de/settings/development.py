@@ -1,3 +1,5 @@
+from fragdenstaat_de.settings.cms import CMSSiteBase, GegenrechtsschutzMixin
+
 from .base import FragDenStaatBase, env
 
 
@@ -25,7 +27,21 @@ class Dev(FragDenStaatBase):
         return TEMP
 
 
+class Gegenrechtsschutz(GegenrechtsschutzMixin, CMSSiteBase):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.contrib.gis.db.backends.postgis",
+            "NAME": env("DATABASE_NAME", "fragdenstaat_de"),
+            "OPTIONS": {},
+            "HOST": "localhost",
+            "USER": env("DATABASE_USER", "fragdenstaat_de_readonly"),
+            "PASSWORD": env("DATABASE_PASSWORD", "fragdenstaat_de"),
+            "PORT": "5432",
+        }
+    }
+
+
 try:
-    from .local_settings import Dev  # noqa
+    from .local_settings import Dev, Gegenrechtsschutz  # noqa
 except ImportError:
     pass

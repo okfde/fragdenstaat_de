@@ -4,6 +4,11 @@ from easy_thumbnails.optimize import thumbnail_created_callback
 from easy_thumbnails.signals import thumbnail_created
 
 
+class FdsCmsNoConfig(AppConfig):
+    name = "fragdenstaat_de.fds_cms"
+    verbose_name = "FragDenStaat CMS (no config)"
+
+
 class FdsCmsConfig(AppConfig):
     name = "fragdenstaat_de.fds_cms"
     verbose_name = "FragDenStaat CMS"
