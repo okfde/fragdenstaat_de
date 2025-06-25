@@ -239,7 +239,7 @@ django-json-widget==2.0.1
     #   froide
 django-leaflet==0.32.0
     # via froide
-django-legal-advice-builder @ git+https://github.com/fragdenstaat/django-legal-advice-builder.git@b07700e4c9425c19d3aa2cc1aafd20eca3aa1d36
+django-legal-advice-builder @ git+https://github.com/fragdenstaat/django-legal-advice-builder.git@4ad6862f46c8439efa6ac0cbece60b4e40f657fc
     # via fragdenstaat-de (pyproject.toml)
 django-localflavor==4.0
     # via froide-payment
