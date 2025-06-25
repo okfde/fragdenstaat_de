@@ -1860,6 +1860,7 @@ msgstr "{amount} EUR Spende {str_interval} an {site_name}"
 #: fragdenstaat_de/fds_donation/forms.py
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Payment method"
 msgstr "Zahlungsweise"
 
@@ -2504,22 +2505,27 @@ msgid "Continue"
 msgstr "Weiter"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Your details"
 msgstr "Persönliche Daten"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "&rarr; Do you want to donate as a company?"
 msgstr "&rarr; Möchtest Du als Firma spenden?"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Shipping details"
 msgstr "Versandadresse"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Use receipt address"
 msgstr "Adresse der Spendenbescheinigung verwenden"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid ""
 "Donations via credit card, SEPA or Paypal do not work via our .onion-site."
 msgstr ""
@@ -2527,26 +2533,31 @@ msgstr ""
 "nicht über unsere .onion-Seite."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Your payment details will be transmitted securely in the next step."
 msgstr ""
 "Die Eingabe Deiner Zahlungsinformationen erfolgt sicher verschlüsselt im "
 "nächsten Schritt."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Stay informed"
 msgstr "Informiert bleiben"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Receive our newsletter about freedom of information in German."
 msgstr ""
 "Erhalte Neuigkeiten zur Informationsfreiheit und erfahre, was Deine Spende "
 "bewirkt."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Get an account"
 msgstr "Account bekommen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form.html
 msgid "Donate now"
 msgstr "Jetzt spenden"
 
@@ -8274,3 +8285,18 @@ msgstr "kampagne/"
 
 #~ msgid "Toggle chapter navigation"
 #~ msgstr "Kapitel-Navigation umschalten"
+
+#~ msgid "Account Menu"
+#~ msgstr "Kontomenü"
+
+#~ msgid "reference"
+#~ msgstr "Aktenzeichen"
+
+#~ msgid "requires-payment"
+#~ msgstr "bezahlung-benoetigt"
+
+#~ msgid "Awaiting response"
+#~ msgstr "Warte auf Antwort"
+
+#~ msgid "Internal Review"
+#~ msgstr "Interne Überprüfung"
