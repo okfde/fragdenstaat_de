@@ -13,7 +13,7 @@ from froide.foirequest.models.message import MessageKind
 from froide.helper.storage import make_unique_filename
 from froide.helper.text_utils import redact_subject
 
-from .data import Direction, FrontexCredentials, PadCase, PadMessage
+from .data import Direction, PadCase, PadMessage
 
 if TYPE_CHECKING:
     from . import captcha
@@ -169,11 +169,11 @@ def import_attachments_from_case(
 
 
 def import_frontex_case(source_message: FoiMessage):
-    from .askfx import FrontexPadClient
+    from .askfx import FrontexPadClient, get_frontex_credentials_from_email
 
     text = source_message.plaintext
     foirequest = source_message.request
-    credentials = FrontexCredentials.from_email(text)
+    credentials = get_frontex_credentials_from_email(text)
     if credentials is None:
         return
 
