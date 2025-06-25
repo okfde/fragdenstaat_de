@@ -245,7 +245,7 @@ django-json-widget==2.0.1
     #   froide
 django-leaflet==0.32.0
     # via froide
-django-legal-advice-builder @ git+https://github.com/fragdenstaat/django-legal-advice-builder.git@e6acedc43f675ccd78c61aa671860cedff2a6fe0
+django-legal-advice-builder @ git+https://github.com/fragdenstaat/django-legal-advice-builder.git@b07700e4c9425c19d3aa2cc1aafd20eca3aa1d36
     # via fragdenstaat-de (pyproject.toml)
 django-localflavor==4.0
     # via froide-payment
@@ -407,7 +407,7 @@ froide-fax @ git+https://github.com/okfde/froide-fax.git@876bd0fd70ed707df283259
     # via fragdenstaat-de (pyproject.toml)
 froide-food @ git+https://github.com/okfde/froide-food.git@e44f8c8b2a2c4e52ac6d15b39ae642c1a5eef824
     # via fragdenstaat-de (pyproject.toml)
-froide-govplan @ git+https://github.com/okfde/froide-govplan.git@3ca4fc247dd0b4e6a5ec1653b5e10b167a08b9c7
+froide-govplan @ git+https://github.com/okfde/froide-govplan.git@9c325e70a84f26fea37b5a34f24d19fd82ea62ff
     # via fragdenstaat-de (pyproject.toml)
 froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@64fe3e4856947dfca35f6c97c2ccc8166e00a151
     # via fragdenstaat-de (pyproject.toml)
