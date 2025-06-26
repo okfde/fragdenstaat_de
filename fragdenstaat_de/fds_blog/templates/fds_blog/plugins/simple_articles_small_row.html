@@ -1,0 +1,5 @@
+<div class="row gap-4 row-cols-1 row-cols-md-2">
+    {% for article in article_list %}
+        <div class="col">{% include "fds_blog/includes/blog_item_list_small.html" with article=article image="true" %}</div>
+    {% endfor %}
+</div>

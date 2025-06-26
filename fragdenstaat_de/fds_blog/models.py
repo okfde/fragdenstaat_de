@@ -528,6 +528,7 @@ TEMPLATES = [
     ("fds_blog/plugins/latest_articles.html", _("Grid")),
     ("fds_blog/plugins/simple_articles.html", _("List")),
     ("fds_blog/plugins/simple_articles_small.html", _("List (compact)")),
+    ("fds_blog/plugins/simple_articles_small_row.html", _("List (compact, rows)")),
     ("fds_blog/plugins/simple_articles_text.html", _("Text-only")),
     ("fds_blog/plugins/featured_articles.html", _("Featured")),
     ("fds_blog/plugins/top_featured_articles.html", _("Top Featured")),
