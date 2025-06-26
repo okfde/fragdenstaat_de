@@ -182,7 +182,7 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
     def prefilled_amount_label(self):
         amount = self.initial.get("amount", self.settings["initial_amount"])
         interval = self.initial.get("interval", self.settings["initial_interval"])
-        if interval > 0:
+        if interval and interval > 0:
             str_interval = interval_description(interval)
             return _("{amount} EUR {str_interval}.").format(
                 amount=amount,
