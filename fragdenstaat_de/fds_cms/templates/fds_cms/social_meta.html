@@ -14,7 +14,7 @@
 <meta itemprop="name" content="{{ title }}">
 {% if description and description != "None" %}<meta itemprop="description" content="{{ description }}">{% endif %}
 <meta name="description"
-      content="{% if description %}{{ description }}{% else %}{% blocktrans with site=SITE_NAME %}{{ site }} helps you to make freedom of information requests to public bodies{% endblocktrans %}{% endif %}" />
+      content="{% if description and description != "None" %}{{ description }}{% else %}{% blocktrans with site=SITE_NAME %}{{ site }} helps you to make freedom of information requests to public bodies{% endblocktrans %}{% endif %}" />
 {# Twitter Card data #}
 <meta name="twitter:site" content="@fragdenstaat">
 <meta name="twitter:title" content="{{ title }}">

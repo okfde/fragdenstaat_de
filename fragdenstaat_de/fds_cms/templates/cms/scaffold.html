@@ -28,7 +28,8 @@
         {% endblock %}
         {% block extra_head %}{% endblock %}
     </head>
-    <body {% if request.user.is_authenticated %}data-user="{{ request.user.id }}" data-useremail="{{ request.user.email }}"{% endif %}
+    <body {% if MATOMO_SITE_ID %}data-matomoid="{{ MATOMO_SITE_ID }}"{% endif %}
+          {% if request.user.is_authenticated %}data-user="{{ request.user.id }}" data-useremail="{{ request.user.email }}"{% endif %}
           {% block body_extra_attributes %}{% endblock %}>
         {% cms_toolbar %}
         {% block body_tag %}{% endblock %}

@@ -280,6 +280,7 @@ class FragDenStaat(FragDenStaatBase):
 
     _base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     SENTRY_JS_URL = env("DJANGO_SENTRY_PUBLIC_DSN")
+    MATOMO_SITE_ID = env("DJANGO_MATOMO_SITE_ID", "")
 
     SERVER_EMAIL = env("SERVER_EMAIL", "info@fragdenstaat.de")
 
