@@ -881,6 +881,7 @@ class FragDenStaatBase(German, Base):
     MATOMO_GOAL_ID = os.environ.get("MATOMO_GOAL_ID", "7")
 
     SENTRY_JS_URL = ""
+    MATOMO_SITE_ID = ""
 
     FRONTEX_CAPTCHA_MODEL_PATH = os.environ.get("FRONTEX_CAPTCHA_MODEL_PATH", None)
 
