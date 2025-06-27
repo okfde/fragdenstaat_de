@@ -334,9 +334,55 @@ class CMSSiteProduction(CMSSiteBase):
             "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
         },
     }
-
+    MEDIA_ROOT = env("DJANGO_MEDIA_ROOT")
     MEDIA_URL = env("MEDIA_URL", "https://media.frag-den-staat.de/files/")
+    STATIC_ROOT = env("DJANGO_STATIC_ROOT")
     STATIC_URL = env("STATIC_URL", "https://static.frag-den-staat.de/static/")
+
+    LOGGING = {
+        "loggers": {
+            "": {"handlers": ["console"], "level": "WARNING"},
+            "froide": {"level": "INFO", "propagate": True, "handlers": ["console"]},
+            "fragdenstaat_de": {
+                "level": "INFO",
+                "propagate": True,
+                "handlers": ["console"],
+            },
+            "froide_payment": {
+                "level": "INFO",
+                "propagate": True,
+                "handlers": ["console"],
+            },
+            "sentry.errors": {
+                "handlers": ["console"],
+                "propagate": False,
+                "level": "DEBUG",
+            },
+            "django.request": {
+                "level": "ERROR",
+                "propagate": True,
+                "handlers": ["console"],
+            },
+        },
+        "disable_existing_loggers": True,
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "verbose",
+            },
+        },
+        "formatters": {
+            "verbose": {
+                "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
+            }
+        },
+        "version": 1,
+        "filters": {
+            "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
+            "ignore_501": {"()": "fragdenstaat_de.theme.utils.Ignore501Errors"},
+        },
+        "root": {"handlers": ["console"], "level": "WARNING"},
+    }
 
     DATABASES = {
         "default": {
