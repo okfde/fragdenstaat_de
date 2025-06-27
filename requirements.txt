@@ -387,7 +387,7 @@ filelock==3.16.0
     #   triton
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@f0f4273b264aed2adc210dc511ef67cf78923e7d
+froide @ git+https://github.com/okfde/froide.git@f20d483c3ae16e282b5e697f9584f1ab3cc0dadb
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@c281e1f6b158be67c4bac8573e540fea77ee76d2
     # via fragdenstaat-de (pyproject.toml)
