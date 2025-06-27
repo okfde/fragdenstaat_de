@@ -334,6 +334,33 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
         "cms.middleware.toolbar.ToolbarMiddleware",
     ]
 
+    @property
+    def FILER_STORAGES(self):
+        MEDIA_ROOT = self.MEDIA_ROOT
+        return {
+            "public": {
+                "main": {
+                    "ENGINE": "filer.storage.PublicFileSystemStorage",
+                    "OPTIONS": {
+                        "location": os.path.join(MEDIA_ROOT, "media/main"),
+                        "base_url": self.MEDIA_URL + "media/main/",
+                    },
+                    "UPLOAD_TO": "filer.utils.generate_filename.randomized",
+                    "UPLOAD_TO_PREFIX": "",
+                },
+                "thumbnails": {
+                    "ENGINE": "filer.storage.PublicFileSystemStorage",
+                    "OPTIONS": {
+                        "location": os.path.join(MEDIA_ROOT, "media/thumbnails"),
+                        "base_url": self.MEDIA_URL + "media/thumbnails/",
+                    },
+                    "THUMBNAIL_OPTIONS": {
+                        "base_dir": "",
+                    },
+                },
+            },
+        }
+
     GDAL_LIBRARY_PATH = os.environ.get("GDAL_LIBRARY_PATH")
     GEOS_LIBRARY_PATH = os.environ.get("GEOS_LIBRARY_PATH")
 
