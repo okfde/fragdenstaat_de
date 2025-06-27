@@ -292,7 +292,6 @@ class FragDenStaat(FragDenStaatBase):
     SITE_URL = env("SITE_URL", "https://fragdenstaat.de") or "https://fragdenstaat.de"
     META_SITE_PROTOCOL = "https"
 
-    TASTYPIE_DEFAULT_FORMATS = ["json"]
     NEWSLETTER_PIXEL_ORIGIN = env(
         "NEWSLETTER_PIXEL_ORIGIN", "https://pixel.fragdenstaat.de"
     )
