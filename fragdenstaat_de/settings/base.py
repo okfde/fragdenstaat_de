@@ -320,11 +320,15 @@ class FragDenStaatBase(German, Base):
             "mozallowfullscreen",
             "allowfullscreen",
             "sandbox",
+            "src",
+            "style",
+            "class",
+            "id",
         },
         "embed": {"type", "src", "width", "height"},
         "summary": {"class"},
         "details": {"class", "open"},
-        "*": {"style"},
+        "*": {"style", "class", "id"},
     }
 
     TEXT_EDITOR = "fragdenstaat_de.theme.editor.ckeditor4"
