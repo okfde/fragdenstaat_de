@@ -36,22 +36,18 @@
                     {% if not instance.external_picture and not instance.use_no_cropping %}</picture>{% endif %}
                 {% if picture_link %}</a>{% endif %}
                 {# start render figure/figcaption #}
-                {% if instance.caption_text or instance.picture.author or instance.picture.description %}
+                {% if instance.caption_text or instance.picture.author %}
                     <figcaption class="text-end picture-description">
-                        {% if instance.caption_text or instance.picture.description %}
-                            {% if instance.caption_text %}
-                                {{ instance.caption_text|markdown }}
-                            {% elif instance.picture.description %}
-                                {{ instance.picture.description|markdown }}
-                            {% endif %}
-                            {% if instance.picture.author %}–{% endif %}
-                            {% endif %}
-                            {% if instance.picture.author %}{{ instance.picture.author|markdown }}{% endif %}
-                            </figcaption>
-                        </figure>
-                    {% endif %}
-                    {# end render figure/figcaption #}
-                    {% comment %}
+                        {% if instance.caption_text %}
+                            {% if instance.caption_text %}{{ instance.caption_text|markdown }}{% endif %}
+                                {% if instance.picture.author %}–{% endif %}
+                                {% endif %}
+                                {% if instance.picture.author %}{{ instance.picture.author|markdown }}{% endif %}
+                                </figcaption>
+                            </figure>
+                        {% endif %}
+                        {# end render figure/figcaption #}
+                        {% comment %}
     # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
     # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure
     # https://github.com/divio/django-filer/blob/master/filer/models/imagemodels.py
@@ -82,4 +78,4 @@
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% endfor %}
-                    {% endcomment %}
+                        {% endcomment %}
