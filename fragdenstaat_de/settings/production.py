@@ -310,6 +310,7 @@ class CMSSiteProduction(CMSSiteBase):
     FRONTEND_DEBUG = False
     ALLOWED_HOSTS = [x for x in env("ALLOWED_HOSTS", "").split(",") if x]
     SECRET_KEY = env("DJANGO_SECRET_KEY")
+    FDS_THUMBNAIL_ENABLE_AVIF = True
 
     STORAGES = {
         "default": {

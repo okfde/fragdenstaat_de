@@ -366,6 +366,8 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
     GDAL_LIBRARY_PATH = os.environ.get("GDAL_LIBRARY_PATH")
     GEOS_LIBRARY_PATH = os.environ.get("GEOS_LIBRARY_PATH")
 
+    FDS_THUMBNAIL_ENABLE_AVIF = False
+
     # FIXME: Make these dummy values unnecessary
     FROIDE_CONFIG = {
         "bounce_format": "",
