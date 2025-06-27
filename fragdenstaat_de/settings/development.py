@@ -3,7 +3,11 @@ from fragdenstaat_de.settings.cms import CMSSiteBase, GegenrechtsschutzMixin
 from .base import FragDenStaatBase, env
 
 
-class Dev(FragDenStaatBase):
+class DevMixin:
+    FRONTEND_DEBUG = True
+
+
+class Dev(DevMixin, FragDenStaatBase):
     GEOIP_PATH = None
 
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
@@ -27,7 +31,7 @@ class Dev(FragDenStaatBase):
         return TEMP
 
 
-class Gegenrechtsschutz(GegenrechtsschutzMixin, CMSSiteBase):
+class Gegenrechtsschutz(GegenrechtsschutzMixin, DevMixin, CMSSiteBase):
     DATABASES = {
         "default": {
             "ENGINE": "django.contrib.gis.db.backends.postgis",
@@ -42,6 +46,12 @@ class Gegenrechtsschutz(GegenrechtsschutzMixin, CMSSiteBase):
 
 
 try:
-    from .local_settings import Dev, Gegenrechtsschutz  # noqa
+    from .local_settings import Dev  # noqa
+except ImportError:
+    pass
+
+
+try:
+    from .local_settings import Gegenrechtsschutz  # noqa
 except ImportError:
     pass

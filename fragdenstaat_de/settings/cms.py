@@ -240,7 +240,6 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
     DEBUG = True
     ROOT_URLCONF = "fragdenstaat_de.theme.cms_urls"
 
-    FRONTEND_DEBUG = True
     BASE_DIR = PROJECT_ROOT.parent
     FRONTEND_BUILD_DIR = BASE_DIR / "build"
     FRONTEND_SERVER_URL = "http://localhost:5173/static/"

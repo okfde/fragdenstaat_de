@@ -304,21 +304,10 @@ class FragDenStaatDebug(FragDenStaat):
     LOGGING["loggers"][""] = {"handlers": ["console"], "level": "DEBUG"}
 
 
-sentry_logging = LoggingIntegration(
-    level=logging.INFO,  # Capture info and above as breadcrumbs
-    event_level=logging.ERROR,  # Send errors as events
-)
-sentry_sdk.init(
-    dsn=env("DJANGO_SENTRY_DSN"),
-    release=env("RELEASE_VERSION"),
-    integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()],
-    traces_sample_rate=0.2,
-)
-
-
 class CMSSiteProduction(CMSSiteBase):
     DEBUG = False
     TEMPLATE_DEBUG = False
+    FRONTEND_DEBUG = False
     ALLOWED_HOSTS = [x for x in env("ALLOWED_HOSTS", "").split(",") if x]
     SECRET_KEY = env("DJANGO_SECRET_KEY")
 
@@ -416,3 +405,15 @@ class CMSSiteProduction(CMSSiteBase):
 
 class Gegenrechtsschutz(GegenrechtsschutzMixin, CMSSiteProduction):
     pass
+
+
+sentry_logging = LoggingIntegration(
+    level=logging.INFO,  # Capture info and above as breadcrumbs
+    event_level=logging.ERROR,  # Send errors as events
+)
+sentry_sdk.init(
+    dsn=env("DJANGO_SENTRY_DSN"),
+    release=env("RELEASE_VERSION"),
+    integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()],
+    traces_sample_rate=0.2,
+)
