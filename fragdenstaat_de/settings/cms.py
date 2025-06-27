@@ -261,6 +261,8 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                 "django.contrib.sites",
                 "django.contrib.messages",
                 "django.contrib.staticfiles",
+                "django.contrib.sitemaps",
+                "django.contrib.humanize",
                 "django.contrib.admin.apps.SimpleAdminConfig",
             ]
             + [
