@@ -264,7 +264,7 @@ class FragDenStaatBase(German, Base):
         ("cms/help_base.html", "Help base template"),
         ("cms/pub_base.html", "Book Publication template"),
         ("froide_govplan/base.html", "Govplan base template"),
-        ("cms/sites/gegenrechtsschutz.html", "Gegenrechtsschutz Template"),
+        ("cmssites/cmssite/gegenrechtsschutz.html", "Gegenrechtsschutz Template"),
     ]
     EMAIL_BODY_PLUGINS = [
         "IsDonorPlugin",

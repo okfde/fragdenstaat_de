@@ -296,6 +296,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
         {
             "BACKEND": "django.template.backends.django.DjangoTemplates",
             "DIRS": [
+                PROJECT_ROOT / "templates/cmssites",
                 PROJECT_ROOT / "templates",
                 Path(froide.__file__).parent / "templates",
             ],
@@ -380,5 +381,5 @@ class GegenrechtsschutzMixin:
     SENTRY_JS_URL = ""
 
     CMS_TEMPLATES = [
-        ("cms/sites/gegenrechtsschutz.html", "Gegenrechtsschutz Template"),
+        ("cmssites/cmssite/gegenrechtsschutz.html", "Gegenrechtsschutz Template"),
     ]
