@@ -1,7 +1,7 @@
 {% if not debug and not request.user.is_superuser %}
     <noscript>
         <p>
-            <img src="https://traffic.okfn.de/matomo.php?idsite=25&amp;rec=1"
+            <img src="https://traffic.okfn.de/matomo.php?idsite={{ MATOMO_SITE_ID }}&amp;rec=1"
                  class="border-0"
                  alt="" />
         </p>
