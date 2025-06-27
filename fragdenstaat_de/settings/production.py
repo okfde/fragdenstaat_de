@@ -350,6 +350,22 @@ class CMSSiteProduction(CMSSiteBase):
             "PORT": "",
         }
     }
+    CACHE_KEY_PREFIX = env("CACHE_KEY_PREFIX")
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+            "LOCATION": env("MEMCACHED_LOCATION", "127.0.0.1:11211"),
+            "KEY_PREFIX": CACHE_KEY_PREFIX,
+            "TIMEOUT": "3600",
+            "OPTIONS": {
+                "no_delay": True,
+                "ignore_exc": True,
+                "default_noreply": True,
+                "max_pool_size": 4,
+                "use_pooling": True,
+            },
+        }
+    }
 
 
 class Gegenrechtsschutz(GegenrechtsschutzMixin, CMSSiteProduction):
