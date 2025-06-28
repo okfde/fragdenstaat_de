@@ -81,14 +81,14 @@ class BlogArticlePreviewPlugin(CMSPluginBase):
     module = "Blog"
     model = ArticlePreviewPlugin
     cache = True
-    raw_id_fields = ("article",)
+    raw_id_fields = ("articles",)
 
     def get_render_template(self, context, instance, placeholder):
         return instance.template or TEMPLATES[0][0]
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        context["article_list"] = [instance.article] if instance.article else []
+        context["article_list"] = instance.articles.all()
         return context
 
 
