@@ -232,6 +232,10 @@ class FragDenStaat(FragDenStaatBase):
                 "propagate": True,
                 "handlers": ["console"],
             },
+            "froide_evidencecollection": {
+                "level": "INFO",
+                "propagate": True,
+            },
             "sentry.errors": {
                 "handlers": ["console"],
                 "propagate": False,

@@ -913,7 +913,139 @@ class FragDenStaatBase(German, Base):
         ]
     }
 
-    FROIDE_EVIDENCECOLLECTION_GSHEET_IMPORT_CONFIG = values.DictValue()
+    FROIDE_EVIDENCECOLLECTION_NOCODB_IMPORT_CONFIG = values.DictValue(
+        {
+            "api_url": os.environ.get("FROIDE_EVIDENCECOLLECTION_NOCODB_API_URL", ""),
+            "api_token": os.environ.get(
+                "FROIDE_EVIDENCECOLLECTION_NOCODB_API_TOKEN", ""
+            ),
+            "tables": {
+                "PersonOrOrganization": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_PERSON_TABLE"
+                ),
+                "Source": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_SOURCE_TABLE"
+                ),
+                "Evidence": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_EVIDENCE_TABLE"
+                ),
+                "Group": os.environ.get("FROIDE_EVIDENCECOLLECTION_NOCODB_GROUP_TABLE"),
+            },
+            "field_map": {
+                "PersonOrOrganization": {
+                    "external_id": "id",
+                    "name": "Name/Bezeichnung",
+                    "regions": "Region(en)",
+                    "is_active": "Aktiv",
+                },
+                "Source": {
+                    "external_id": "id",
+                    "reference_value": "Referenzwert",
+                    "persons_or_organizations": "_nc_m2m_Quellen und Nac_Personen und Ors",
+                    "url": "Quelle",
+                    "attribution_bases": "Mitgliedzurechnung",
+                    "file_reference": "Aktenzeichen",
+                    "document_number": "Dokumentennummer",
+                    "is_on_record": "Aktenkundig?",
+                    "recorded_by": "_nc_m2m_Quellen und Nac_publicbodies",
+                },
+                "Evidence": {
+                    "external_id": "id",
+                    "description": "Zusammenfassung",
+                    "date": "Datum der Aussage/Aktion",
+                    "type": "Art des Belegs",
+                    "categories": "Zuordnung zu FDGO-Merkmalen",
+                    "spread_level": "Verbreitungsgrad",
+                    "distribution_channels": "Verbreitungswege",
+                    "sources": "_nc_m2m_Quellen und Nac_Belege und Ausses",
+                    "is_verified": "Geprüft?",
+                    "requires_additional_review": "Zusätzliche Prüfung notwendig?",
+                },
+                "Group": {
+                    "external_id": "id",
+                    "name": "Name",
+                    "members": "_nc_m2m_Personen und Or_Gruppen und Orgs",
+                },
+            },
+            "relations": {
+                "PersonOrOrganization": {
+                    "regions": {
+                        "type": "m2m",
+                        "model": "georegion.GeoRegion",
+                        "lookup_field": "id",
+                    }
+                },
+                "Source": {
+                    "persons_or_organizations": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.PersonOrOrganization",
+                        "lookup_field": "external_id",
+                    },
+                    "attribution_bases": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.AttributionBasis",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                    "recorded_by": {
+                        "type": "fk",
+                        "model": "publicbody.PublicBody",
+                        "lookup_field": "id",
+                    },
+                },
+                "Evidence": {
+                    "type": {
+                        "type": "fk",
+                        "model": "froide_evidencecollection.EvidenceType",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                    "spread_level": {
+                        "type": "fk",
+                        "model": "froide_evidencecollection.SpreadLevel",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                    "categories": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.EvidenceCategory",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                    "distribution_channels": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.DistributionChannel",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                    "sources": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.Source",
+                        "lookup_field": "external_id",
+                    },
+                },
+                "Group": {
+                    "members": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.PersonOrOrganization",
+                        "lookup_field": "external_id",
+                    }
+                },
+            },
+            "institution_role_map": {
+                "AfD-Bundespartei": "Bundespartei Funktion(en)",
+                "AfD-Länderparteien": "Landesparteien Funktion(en)",
+                "Funktionär(in)": "Funktionäre Funktion(en)",
+                "Umfeld": "Umfeld Funktion(en)",
+            },
+            "selectable_regions": {
+                # Germany and its federal states
+                "ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+            },
+            "special_regions": ["Ausland"],
+            "null_label": "Keine Angabe",
+        }
+    )
 
     DATASHOW_STORAGE_BACKEND = "overwrite"
 
