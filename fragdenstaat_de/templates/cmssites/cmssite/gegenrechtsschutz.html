@@ -22,3 +22,6 @@
 {% block footer_container %}
     {% static_alias "grs_footer" %}
 {% endblock %}
+{% block scripts %}
+    {% include "_frontend.html" with entry_point="gegenrechtsschutz.js" %}
+{% endblock %}
