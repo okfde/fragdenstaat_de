@@ -44,3 +44,8 @@ urlpatterns += i18n_patterns(
     path("", include("cms.urls")),
     prefix_default_language=False,
 )
+
+if settings.DEBUG:
+    from debug_toolbar.toolbar import debug_toolbar_urls
+
+    urlpatterns += debug_toolbar_urls()
