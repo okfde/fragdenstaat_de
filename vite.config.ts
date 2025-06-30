@@ -47,6 +47,7 @@ export default defineConfig(({ mode }) => ({
         fcdownloader: r('@okfde/filingcabinet', 'fcdownloader.js'),
         food: r('froide_food', 'food.js'),
         foodreport: r('froide_food', 'report.js'),
+        gegenrechtsschutz: './frontend/javascript/gegenrechtsschutz.ts',
         geomatch: r('froide', 'geomatch.js'),
         lawsuits_table: r('froide_legalaction', 'table.js'),
         legal_decisions_listfilter: r('froide_legalaction', 'listFilter.js'),
