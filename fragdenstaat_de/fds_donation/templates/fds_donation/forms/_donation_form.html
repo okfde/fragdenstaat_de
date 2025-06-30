@@ -1,5 +1,13 @@
 {% load i18n %}
 {% load form_helper %}
+{% load sekizai_tags %}
+{% if form.quick_payment or form.quick_payment_only %}
+    {% addtoblock "css" %}
+    <link rel="preload"
+          href="https://js.stripe.com/basil/stripe.js"
+          as="script">
+{% endaddtoblock %}
+{% endif %}
 <form action="{{ form.action }}"
       method="POST"
       class="donation-form {% if object.extra_classes %}{{ object.extra_classes }}{% else %}text-bg-body text-body px-3 pt-3 pb-1{% endif %}"
