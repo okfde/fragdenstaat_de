@@ -785,7 +785,7 @@ pytz==2024.1
     # via
     #   froide-fax
     #   pandas
-pywatchman==2.0.0
+pywatchman==3.0.0
     # via fragdenstaat-de (pyproject.toml)
 pyyaml==6.0.2
     # via
