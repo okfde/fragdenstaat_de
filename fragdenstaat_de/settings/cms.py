@@ -252,6 +252,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
     SECRET_KEY = "change-me"
     SECRET_URLS = {}
 
+    @property
     def INSTALLED_APPS(self):
         return (
             [
