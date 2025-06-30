@@ -103,7 +103,7 @@ dependencies = [
   "sortabletable @ git+https://github.com/stefanw/djangocms-sortabletable.git@main",
   "django-legal-advice-builder @ git+https://github.com/fragdenstaat/django-legal-advice-builder.git@main",
   "fcdocs-annotate @ git+https://github.com/okfde/fcdocs-annotate.git@main",
-  "froide-evidencecollection[gsheets] @ git+https://github.com/okfde/froide-evidencecollection.git@main",
+  "froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@main",
   "qrcode>=7.3.1",
 ]
 

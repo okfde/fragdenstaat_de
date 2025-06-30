@@ -32,8 +32,6 @@ brotli==1.1.0 ; platform_python_implementation == 'CPython'
     # via fonttools
 brotlicffi==1.1.0.0 ; platform_python_implementation != 'CPython'
     # via fonttools
-cachetools==5.5.0
-    # via google-auth
 celery==5.5.2
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -443,7 +441,7 @@ froide-campaign @ git+https://github.com/okfde/froide-campaign.git@c281e1f6b158b
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@5d45c091cbf481cd91cca5ca4505818a8f3bb446
     # via fragdenstaat-de (pyproject.toml)
-froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@29e707b1d19621d3216509a4f3c547f5d98244da
+froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@17d37b7541394f02216037ca6055c512da0a1242
     # via fragdenstaat-de (pyproject.toml)
 froide-exam @ git+https://github.com/okfde/froide-exam.git@779005ccfc21a3e75aeb57eb486c91b670739a3c
     # via fragdenstaat-de (pyproject.toml)
@@ -481,24 +479,6 @@ geopy==2.4.1
     # via
     #   django-amenities
     #   froide-food
-google-api-core==2.20.0
-    # via google-api-python-client
-google-api-python-client==2.146.0
-    # via froide-evidencecollection
-google-auth==2.35.0
-    # via
-    #   google-api-core
-    #   google-api-python-client
-    #   google-auth-httplib2
-    #   google-auth-oauthlib
-google-auth-httplib2==0.2.0
-    # via
-    #   froide-evidencecollection
-    #   google-api-python-client
-google-auth-oauthlib==1.2.1
-    # via froide-evidencecollection
-googleapis-common-protos==1.65.0
-    # via google-api-core
 greenlet==3.0.3
     # via playwright
 honcho==1.1.0
@@ -511,10 +491,6 @@ html-void-elements==0.1.0
     # via djlint
 htmldocx==0.0.6
     # via django-legal-advice-builder
-httplib2==0.22.0
-    # via
-    #   google-api-python-client
-    #   google-auth-httplib2
 icalendar==6.3.1
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -655,9 +631,7 @@ nvidia-nvjitlink-cu12==12.4.127 ; platform_machine == 'x86_64' and sys_platform 
 nvidia-nvtx-cu12==12.4.127 ; platform_machine == 'x86_64' and sys_platform == 'linux'
     # via torch
 oauthlib==3.2.2
-    # via
-    #   django-oauth-toolkit
-    #   requests-oauthlib
+    # via django-oauth-toolkit
 openpyxl==3.1.5
     # via fragdenstaat-de (pyproject.toml)
 packaging==24.1
@@ -717,13 +691,6 @@ prompt-toolkit==3.0.47
     # via
     #   click-repl
     #   ipython
-proto-plus==1.24.0
-    # via google-api-core
-protobuf==5.28.2
-    # via
-    #   google-api-core
-    #   googleapis-common-protos
-    #   proto-plus
 psycopg==3.2.9
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -736,12 +703,7 @@ ptyprocess==0.7.0 ; sys_platform != 'emscripten' and sys_platform != 'win32'
 pure-eval==0.2.3
     # via stack-data
 pyasn1==0.6.0
-    # via
-    #   pgpy
-    #   pyasn1-modules
-    #   rsa
-pyasn1-modules==0.4.1
-    # via google-auth
+    # via pgpy
 pycodestyle==2.12.1
     # via fragdenstaat-de (pyproject.toml)
 pycparser==2.22
@@ -768,8 +730,6 @@ pyopenssl==24.2.1
     # via fragdenstaat-de (pyproject.toml)
 pyotp==2.9.0
     # via django-mfa3
-pyparsing==3.1.4
-    # via httplib2
 pypdf==5.5.0
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -862,19 +822,13 @@ requests==2.32.3
     #   froide-payment
     #   geocoder
     #   geoip2
-    #   google-api-core
     #   pytest-base-url
-    #   requests-oauthlib
     #   sphinx
     #   stripe
-requests-oauthlib==2.0.0
-    # via google-auth-oauthlib
 rpds-py==0.20.0
     # via
     #   jsonschema
     #   referencing
-rsa==4.9
-    # via google-auth
 sentry-sdk==2.29.1
     # via fragdenstaat-de (pyproject.toml)
 setuptools==74.1.2
@@ -973,9 +927,7 @@ tzdata==2025.2
 unidecode==1.3.8
     # via fragdenstaat-de (pyproject.toml)
 uritemplate==4.1.1
-    # via
-    #   drf-spectacular
-    #   google-api-python-client
+    # via drf-spectacular
 urllib3==2.2.2
     # via
     #   elastic-transport
