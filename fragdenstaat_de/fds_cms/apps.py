@@ -35,8 +35,8 @@ class FdsCmsConfig(AppConfig):
             url = original_absolute_url(self, language=language, fallback=fallback)
             current_site = Site.objects.get_current()
 
-            if self.node.site_id != current_site.id:
-                return f"//{self.node.site.domain}{url}"
+            if self.site_id != current_site.id:
+                return f"//{self.site.domain}{url}"
             return url
 
         Page.get_absolute_url = page_absolute_url
