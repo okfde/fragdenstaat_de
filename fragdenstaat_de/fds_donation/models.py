@@ -342,8 +342,8 @@ class Recurrence(models.Model):
     cancel_feedback = models.TextField(blank=True)
 
     class Meta:
-        verbose_name = _("recurring pattern")
-        verbose_name_plural = _("recurring pattern")
+        verbose_name = _("Recurring donation")
+        verbose_name_plural = _("Recurring donations")
 
     def __str__(self):
         return "{donor}: {desc}".format(donor=self.donor, desc=self.get_description())
@@ -366,6 +366,17 @@ class Recurrence(models.Model):
             if self.cancel_date
             else ""
         )
+
+    def sum_amount(self):
+        return Donation.objects.filter(recurrence=self).aggregate(
+            total_amount=models.Sum("amount")
+        )["total_amount"] or decimal.Decimal("0.00")
+
+    def days(self):
+        last_date = timezone.now()
+        if self.cancel_date:
+            last_date = self.cancel_date
+        return (last_date - self.start_date).days
 
     def next_expected_date(self) -> datetime | None:
         """

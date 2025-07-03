@@ -5,6 +5,9 @@
         <li>
             <a href="{% url 'admin:fds_donation_donation_changelist' %}?donor={{ original.pk }}">{% trans "Donations" %}</a>
         </li>
+        <li>
+            <a href="{% url 'admin:fds_donation_recurrence_changelist' %}?donor={{ original.pk }}">{% trans "Recurrences" %}</a>
+        </li>
     {% endif %}
     {{ block.super }}
 {% endblock %}

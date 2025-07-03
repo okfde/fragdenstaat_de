@@ -16,6 +16,7 @@ from django.template.response import TemplateResponse
 from django.urls import path, reverse, reverse_lazy
 from django.utils import formats, timezone
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from adminsortable2.admin import SortableAdminMixin
@@ -49,6 +50,7 @@ from .models import (
     DonationGiftOrder,
     Donor,
     DonorTag,
+    Recurrence,
     TaggedDonor,
 )
 from .services import send_donation_gift_order_shipped
@@ -213,6 +215,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "amount_last_year",
         "donation_count",
         "last_donation",
+        "render_recurrences",
     )
 
     fieldsets = (
@@ -256,11 +259,11 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             {
                 "fields": (
                     "first_donation",
-                    "recurring_amount",
                     "amount_total",
                     "amount_last_year",
                     "donation_count",
                     "last_donation",
+                    "render_recurrences",
                 )
             },
         ),
@@ -364,6 +367,31 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         )
 
     admin_link_donations.short_description = _("donations")
+
+    @admin.display(description=_("Recurrences"))
+    def render_recurrences(self, obj):
+        recurrences = obj.recurrences.all()
+        if not recurrences:
+            return mark_safe("<em>-</em>")
+
+        def render_recurrence(recurrence):
+            if recurrence.subscription_id:
+                return format_html(
+                    '<a href="{}">{}</a>',
+                    reverse(
+                        "admin:froide_payment_subscription_change",
+                        args=(recurrence.subscription_id,),
+                    ),
+                    recurrence.get_description(),
+                )
+            return format_html("{}", recurrence.get_description())
+
+        items = mark_safe(
+            "</li><li>".join(
+                render_recurrence(recurrence) for recurrence in recurrences
+            )
+        )
+        return format_html("<ul>{}</ul>", items)
 
     def send_donor_optin_email(self, request, queryset):
         from .services import send_donor_optin_email
@@ -657,6 +685,7 @@ class DonationAdmin(admin.ModelAdmin):
         make_nullfilter("export_date", _("Receipt exported")),
         make_nullfilter("receipt_date", _("Receipt sent")),
         ("donor", ForeignKeyFilter),
+        ("recurrence", ForeignKeyFilter),
         make_nullfilter("payment", _("Has payment record")),
         "payment__status",
     )
@@ -681,6 +710,7 @@ class DonationAdmin(admin.ModelAdmin):
         "method",
         "recurring",
         "first_recurring",
+        "recurrence",
         "form_url",
     )
 
@@ -1300,3 +1330,86 @@ class DonationFormViewCountAdmin(admin.ModelAdmin):
         "reference",
     )
     date_hierarchy = "date"
+
+
+@admin.register(Recurrence)
+class RecurrenceAdmin(admin.ModelAdmin):
+    list_display = (
+        "donor",
+        "method",
+        "start_date",
+        "interval",
+        "amount",
+        "cancel_date",
+        "days",
+        "sum_amount",
+    )
+    date_hierarchy = "start_date"
+    list_filter = (
+        "cancel_date",
+        "method",
+        "interval",
+        ("donor", ForeignKeyFilter),
+    )
+    search_fields = ("donor__email",)
+    raw_id_fields = (
+        "subscription",
+        "donor",
+    )
+    readonly_fields = (
+        "donor",
+        "subscription",
+        "method",
+        "start_date",
+        "interval",
+        "amount",
+        "cancel_date",
+        "sum_amount",
+        "days",
+    )
+    fieldsets = (
+        (
+            _("Recurrence"),
+            {
+                "fields": (
+                    "donor",
+                    "subscription",
+                    "method",
+                    "start_date",
+                    "interval",
+                    "amount",
+                    "sum_amount",
+                    "days",
+                )
+            },
+        ),
+        (
+            _("Cancellation"),
+            {
+                "fields": (
+                    "cancel_date",
+                    "cancel_reason",
+                    "cancel_feedback",
+                )
+            },
+        ),
+    )
+
+    def get_queryset(self, request):
+        return (
+            super()
+            .get_queryset(request)
+            .select_related("subscription", "donor")
+            .prefetch_related("donations")
+        )
+
+    def get_readonly_fields(self, request, obj):
+        if obj.cancel_date:
+            return self.readonly_fields
+        return self.readonly_fields + ("cancel_reason", "cancel_feedback")
+
+    def sum_amount(self, obj):
+        return obj.sum_amount()
+
+    def days(self, obj):
+        return obj.days()
