@@ -1,5 +1,4 @@
 import logging
-from collections import Counter
 from datetime import timedelta
 from decimal import Decimal
 from typing import Optional, Tuple
@@ -16,6 +15,7 @@ from froide.helper.email_sending import mail_registry
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
 from .models import Donation, Donor
+from .tasks import process_recurrence_task
 from .utils import merge_donors, propose_donor_merge, subscribe_donor_newsletter
 
 logger = logging.getLogger(__name__)
@@ -419,51 +419,7 @@ def get_bucket(days: int) -> Optional[Tuple[int, int]]:
 
 
 def detect_recurring_on_donor(donor):
-    monthly_amount = detect_recurring_monthly_amount(donor)
-    if monthly_amount:
-        donor.recurring_amount = monthly_amount
-        donor.save()
-        return True
-    return False
-
-
-def detect_recurring_monthly_amount(donor):
-    subs = donor.subscriptions.filter(canceled=None)
-    if subs:
-        return sum([s.plan.amount_year for s in subs]) / 12
-    donations = donor.donations.filter(received_timestamp__isnull=False)
-    donation_count = donations.count()
-    if donation_count < 2:
-        return Decimal(0)
-    donations = donations.order_by("-timestamp")
-    time_diffs = Counter()
-    amounts = Counter()
-    prev_donation = None
-    for donation in donations:
-        amounts[donation.amount] += 1
-        if prev_donation is None:
-            prev_donation = donation
-            continue
-        days_diff = (prev_donation.timestamp - donation.timestamp).days
-        bucket = get_bucket(days_diff)
-        if bucket is not None:
-            time_diffs[bucket] += 1
-        prev_donation = donation
-
-    if time_diffs:
-        most_common_period = time_diffs.most_common(1)[0]
-        most_common_period_count = most_common_period[1]
-        most_common_period_month = most_common_period[0][2]
-        fraction = most_common_period_count / donation_count
-        if fraction < 0.5:
-            # recurring donation fraction is too low (?)
-            return Decimal(0)
-        one_period_ago = timezone.now() - timedelta(days=31) * most_common_period_month
-        if donor.last_donation is None or donor.last_donation < one_period_ago:
-            # last donation is too long ago
-            return Decimal(0)
-        return amounts.most_common(1)[0][0] / most_common_period_month
-    return Decimal(0)
+    process_recurrence_task.delay(donor.id)
 
 
 def send_donation_reminder_email(donation):
