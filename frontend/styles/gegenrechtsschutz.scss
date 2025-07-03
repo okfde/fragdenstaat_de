@@ -1,7 +1,7 @@
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/mixins';
 
-$primary: #271C66;
+$primary: #271c66;
 $secondary: #6cb2b3;
 
 @import 'bootstrap/scss/variables';
@@ -9,9 +9,11 @@ $secondary: #6cb2b3;
 @import 'froide/frontend/styles/variables';
 @import 'variables';
 
+$font-family-sans-serif: 'Jost Variable', sans-serif;
+
 @import 'froide/frontend/styles/color-contrast';
 
 @import 'froide/frontend/styles/maps';
 
 @import 'base';
-
+@import '@fontsource-variable/jost/index.css';

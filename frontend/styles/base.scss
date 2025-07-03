@@ -29,7 +29,7 @@
 @import 'bootstrap/scss/progress';
 @import 'bootstrap/scss/list-group';
 @import 'bootstrap/scss/close';
-@import "bootstrap/scss/toasts";
+@import 'bootstrap/scss/toasts';
 @import 'bootstrap/scss/modal';
 @import 'bootstrap/scss/tooltip';
 // @import "bootstrap/scss/popover";
@@ -108,7 +108,6 @@ $fa-font-path: 'font-awesome/fonts';
 @import 'froide/frontend/styles/components/share-buttons';
 @import 'froide/frontend/styles/components/print';
 
-@import 'type';
 @import 'homepage';
 @import 'misc';
 @import 'banner';
