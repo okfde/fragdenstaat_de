@@ -1,6 +1,7 @@
 {% extends "cms/page.html" %}
 {% load djangocms_alias_tags %}
 {% load cms_tags %}
+{% load menu_tags %}
 {% load i18n %}
 {% load static %}
 {% block meta %}
@@ -11,7 +12,26 @@
 {% endblock %}
 {% block top_block %}{% endblock %}
 {% block navbar %}
-    {% static_alias "grs_header" %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            {% page_url "home" as home_url %}
+            <a class="navbar-brand" href="{{ home_url|default:"/" }}">{{ SITE_NAME }}</a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown"
+                    aria-expanded="false"
+                    aria-label="{% trans "Toggle navigation" %}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
+                </ul>
+            </div>
+        </div>
+    </nav>
 {% endblock %}
 {% block messages %}{% endblock %}
 {% block body %}

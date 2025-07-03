@@ -319,6 +319,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                     "sekizai.context_processors.sekizai",
                     "cms.context_processors.cms_settings",
                     "fragdenstaat_de.theme.context_processors.theme_settings",
+                    "froide.helper.context_processors.site_settings",
                 ],
             },
         }
@@ -408,6 +409,7 @@ class GegenrechtsschutzMixin:
     SITE_URL = "https://gegenrechtsschutz.de"
     SITE_NAME = "Gegenrechtsschutz"
     SITE_EMAIL = "info@gegenrechtsschutz.de"
+    SITE_LOGO = ""
     MATOMO_SITE_ID = "57"
     SENTRY_JS_URL = ""
 
