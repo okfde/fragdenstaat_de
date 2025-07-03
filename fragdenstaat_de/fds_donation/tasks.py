@@ -167,7 +167,7 @@ def import_paypal_task(filepath, user_id=None):
         )
 
 
-@celery_app.task(name="fragdenstaat_de.fds_donation.import_banktransfers")
+@celery_app.task(name="fragdenstaat_de.fds_donation.process_recurrence_task")
 def process_recurrence_task(donor_id):
     from .models import Donor
     from .recurrence import process_recurrence_on_donor
