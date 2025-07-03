@@ -13,8 +13,8 @@ jobs:
           version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'pnpm'
+          node-version: 22
+          cache: pnpm
       - name: Install dependencies
         run: pnpm install
       - uses: pre-commit/action@v3.0.1
@@ -26,32 +26,27 @@ jobs:
         python-version: ['3.12']
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
       - name: Setup uv
-        uses: astral-sh/setup-uv@v2
+        uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
           cache-dependency-glob: |
             requirements*.txt
             pyproject.toml
+          python-version: ${{ matrix.python-version }}
+          activate-environment: true
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'pnpm'
+          node-version: 22
+          cache: pnpm
       - name: Install system-level dependencies
         run: sudo apt-get update && sudo apt-get install libxml2-dev libxslt1-dev python3-dev libgdal-dev gdal-bin libmagic-dev libmagickwand-dev gettext libpoppler-cpp-dev
-      - name: Setup venv
-        run: uv venv --python ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          source .venv/bin/activate
           uv pip install -r requirements-dev.txt
           uv pip install -e . --no-deps
           playwright install --with-deps chromium
@@ -60,11 +55,9 @@ jobs:
         run: pnpm run build
       - name: Compile translations
         run: |
-          source .venv/bin/activate
           python manage.py compilemessages -i node_modules
       - name: Run tests
         run: |
-          source .venv/bin/activate
           coverage run --branch -m pytest --reuse-db
           coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
         env:
