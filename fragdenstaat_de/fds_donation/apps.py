@@ -13,7 +13,11 @@ class FdsDonationConfig(AppConfig):
     verbose_name = _("FragDenStaat Donations")
 
     def ready(self):
-        from froide_payment.signals import sepa_notification, subscription_canceled
+        from froide_payment.signals import (
+            sepa_notification,
+            subscription_cancel_feedback,
+            subscription_canceled,
+        )
         from payments.signals import status_changed
 
         from froide.account import (
@@ -32,6 +36,7 @@ class FdsDonationConfig(AppConfig):
             merge_user,
             payment_status_changed,
             remove_newsletter_subscriber,
+            save_subscription_cancel_feedback,
             sepa_payment_processing,
             subscription_was_canceled,
             tag_subscriber_donor,
@@ -40,6 +45,7 @@ class FdsDonationConfig(AppConfig):
 
         status_changed.connect(payment_status_changed)
         subscription_canceled.connect(subscription_was_canceled)
+        subscription_cancel_feedback.connect(save_subscription_cancel_feedback)
         sepa_notification.connect(sepa_payment_processing)
         account_canceled.connect(cancel_user)
         account_email_changed.connect(user_email_changed)

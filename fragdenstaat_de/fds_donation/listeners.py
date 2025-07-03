@@ -10,6 +10,7 @@ from froide_payment.models import PaymentStatus
 
 from fragdenstaat_de.fds_newsletter.models import Subscriber
 
+from .forms import SubscriptionCancelFeedbackForm
 from .models import Donation, Donor
 from .services import (
     create_donation_from_payment,
@@ -229,3 +230,11 @@ def tag_subscriber_donor(sender: Subscriber, email=None, **kwargs):
         remove_tags.add("donor:active")
 
     return add_tags, remove_tags
+
+
+def save_subscription_cancel_feedback(sender, data=None, **kwargs):
+    if data is None:
+        return
+    form = SubscriptionCancelFeedbackForm(data=data)
+    if form.is_valid():
+        form.save(subscription=sender)
