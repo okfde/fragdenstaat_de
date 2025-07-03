@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-24 14:40+0200\n"
-"PO-Revision-Date: 2025-06-24 14:41+0200\n"
+"POT-Creation-Date: 2025-07-03 16:44+0200\n"
+"PO-Revision-Date: 2025-07-03 16:49+0200\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -407,6 +407,10 @@ msgid "List (compact)"
 msgstr "Liste (kompakt)"
 
 #: fragdenstaat_de/fds_blog/models.py
+msgid "List (compact, rows)"
+msgstr "Liste (kompakt, Zeilen)"
+
+#: fragdenstaat_de/fds_blog/models.py
 msgid "Text-only"
 msgstr "Nur Text"
 
@@ -671,7 +675,6 @@ msgstr "Suchergebnisse für „%(q)s“"
 #: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
 #: fragdenstaat_de/fds_blog/views.py fragdenstaat_de/fds_cms/cms_plugins.py
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
 msgid "Search"
 msgstr "Suchen"
 
@@ -1050,6 +1053,7 @@ msgstr ""
 #: fragdenstaat_de/fds_donation/forms.py
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/forms.py fragdenstaat_de/settings/base.py
+#: fragdenstaat_de/settings/cms.py
 msgid "Email"
 msgstr "E-Mail"
 
@@ -1399,6 +1403,11 @@ msgid "donations"
 msgstr "Spenden"
 
 #: fragdenstaat_de/fds_donation/admin.py
+#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/change_form.html
+msgid "Recurrences"
+msgstr "Dauerspenden"
+
+#: fragdenstaat_de/fds_donation/admin.py
 #, python-brace-format
 msgid "Send {count} optin mails."
 msgstr "Sende {count} Opt-In-E-Mails."
@@ -1644,6 +1653,14 @@ msgstr "❌ Spende abbrechen"
 msgid "Not available"
 msgstr "Nicht verfügbar"
 
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Recurrence"
+msgstr "Dauerspende"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Cancellation"
+msgstr "Kündigung"
+
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "FragDenStaat Donations"
 msgstr "FragDenStaat-Spenden"
@@ -1686,6 +1703,7 @@ msgstr "FragDenStaat-Spenden-Geschenk-App"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/change_form.html
+#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/recurrence/change_form.html
 msgid "Donations"
 msgstr "Spenden"
 
@@ -1770,6 +1788,10 @@ msgid "The donations will be marked as receipted."
 msgstr "Die Spenden werden als erhalten markiert."
 
 #: fragdenstaat_de/fds_donation/forms.py
+msgid "General donation"
+msgstr "Allgemeine Spende"
+
+#: fragdenstaat_de/fds_donation/forms.py
 msgid "Donation amount:"
 msgstr "Spendenbetrag:"
 
@@ -1784,10 +1806,6 @@ msgstr "Spendenrhythmus"
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Donation purpose"
 msgstr "Verwendungszweck"
-
-#: fragdenstaat_de/fds_donation/forms.py
-msgid "General donation"
-msgstr "Allgemeine Spende"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "One time donation amount"
@@ -2003,6 +2021,18 @@ msgstr "Versandadresse"
 msgid "Please choose your donation gift"
 msgstr "Wähle Dein Dankeschön aus"
 
+#: fragdenstaat_de/fds_donation/forms.py fragdenstaat_de/fds_donation/models.py
+msgid "Reason for cancellation"
+msgstr "Grund für die Kündigung"
+
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "Feedback"
+msgstr "Feedback"
+
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "How are you feeling about canceling?"
+msgstr "Was sollten wir noch wissen?"
+
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Only once"
 msgstr "Nur einmalig"
@@ -2093,6 +2123,46 @@ msgstr "Spender*in"
 #: fragdenstaat_de/fds_donation/models.py
 msgid "donors"
 msgstr "Spender*innen"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "No reason given"
+msgstr "Kein Grund angegeben"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "Financial reasons"
+msgstr "Finanzielle Gründe"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "Mistakenly set up, do not remember doing so"
+msgstr "Aus Versehen angefangen, kann mich nicht erinnern"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "I do not want to support this project anymore"
+msgstr "Ich möchte diese Projekt nicht mehr unterstützen"
+
+#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "Other"
+msgstr "Sonstiges"
+
+#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid "Recurring donation"
+msgstr "Dauerspende"
+
+#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid "Recurring donations"
+msgstr "Dauerspenden"
+
+#: fragdenstaat_de/fds_donation/models.py
+#, python-brace-format
+msgid "{amount} EUR every {interval} month(s) via {method} since {start}"
+msgstr "{amount} EUR jede {interval} Monat(e) via {method} seit {start}"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "canceled on {}"
+msgstr "gekündigt am {}"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "donation"
@@ -2334,14 +2404,6 @@ msgid "Create new donation"
 msgstr "Neue Spende anlegen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
-msgid "Recurring donations"
-msgstr "Dauerspenden"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
-msgid "Recurring donation"
-msgstr "Dauerspende"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Details"
 msgstr "Details"
 
@@ -2522,6 +2584,10 @@ msgstr "BLZ"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 msgid "Thank you!"
 msgstr "Vielen Dank!"
+
+#: fragdenstaat_de/fds_donation/templates/froide_payment/subscription/_cancel_form.html
+msgid "Are you sure you want to cancel your subscription?"
+msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"
@@ -3432,10 +3498,6 @@ msgid "I don't like your work anymore"
 msgstr "Mir gefällt Ihre Arbeit nicht mehr"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-msgid "Other"
-msgstr "Sonstiges"
-
-#: fragdenstaat_de/fds_newsletter/models.py
 msgid "Reason"
 msgstr "Begründung"
 
@@ -3604,52 +3666,36 @@ msgstr "Organisation"
 msgid "Paperless Documents"
 msgstr "Paperless Dokumente"
 
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
-msgid "Add the documents to the request"
-msgstr "Dokumente zur Anfrage hinzufügen"
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_users.html
+msgid "Choose the recipient"
+msgstr "Wähle die Empfänger*in"
 
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
-msgid "The following documents will be added to the request:"
-msgstr "Die folgenden Dokumente werden zur Anfrage hinzugefügt:"
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
+msgid "Import documents"
+msgstr "Dokumente importieren"
 
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/add_postal_message.html
-msgid "Add letter"
-msgstr "Brief hinzufügen"
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
+#, python-format
+msgid ""
+"The documents will be imported to the request <a href=\"%(url)s\" "
+"target=\"_blank\">“%(title)s”</a>."
+msgstr ""
+"Die Dokumente werden in die Anfrage <a href=\"%(url)s\" "
+"target=\"_blank”>„%(title)s“</a> importiert."
 
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
-msgid "Choose documents to import"
-msgstr "Dokumente zum Importieren auswählen"
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
+msgid "Preview document"
+msgstr "Dokumentenvorschau"
 
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
-msgid "Import"
-msgstr "Importieren"
+#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
+msgid "Select a document for preview to see it here"
+msgstr "Wähle ein Dokument um hier eine Vorschau zu sehen"
 
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
-msgid "Select document"
-msgstr "Dokument auswählen"
-
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_documents.html
-msgid "Open document in new tab"
-msgstr "Dokument in neuem Tab öffnen"
-
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
-msgid "Search for a matching request"
-msgstr "Nach der zugehörigen Anfrage suchen"
-
-#: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_request.html
-msgid "No requests with these filters."
-msgstr "Noch keine Anfragen mit diesen Filtereinstellungen."
-
-#: fragdenstaat_de/fds_paperless/urls.py
-msgid "select-request/"
-msgstr "anfrage-waehlen/"
-
-#: fragdenstaat_de/settings/base.py
+#: fragdenstaat_de/settings/base.py fragdenstaat_de/settings/cms.py
 msgid "German"
 msgstr "Deutsch"
 
-#: fragdenstaat_de/settings/base.py
+#: fragdenstaat_de/settings/base.py fragdenstaat_de/settings/cms.py
 msgid "English"
 msgstr "Englisch"
 
@@ -3661,11 +3707,11 @@ msgstr "Kein Bild im Artikel"
 msgid "Video header"
 msgstr "Video Header"
 
-#: fragdenstaat_de/settings/base.py
+#: fragdenstaat_de/settings/base.py fragdenstaat_de/settings/cms.py
 msgid "E-Mail Body"
 msgstr "E-Mail-Body"
 
-#: fragdenstaat_de/settings/base.py
+#: fragdenstaat_de/settings/base.py fragdenstaat_de/settings/cms.py
 msgid "Hero"
 msgstr "Held"
 
@@ -3691,6 +3737,10 @@ msgid "Setup mailing to one user"
 msgid_plural "Setup mailing to %(count)s users"
 msgstr[0] "Mailing für an ein:e Nutzer:in anlegen"
 msgstr[1] "Mailing an %(count)s Nutzer:innen anlegen"
+
+#: fragdenstaat_de/templates/cmssites/cmssite/gegenrechtsschutz.html
+msgid "Toggle navigation"
+msgstr "Navigation umschalten"
 
 #: fragdenstaat_de/templates/cookie_consent/_cookie_group.html
 msgid "Accepted"
@@ -4111,6 +4161,33 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#~ msgid "Add the documents to the request"
+#~ msgstr "Dokumente zur Anfrage hinzufügen"
+
+#~ msgid "The following documents will be added to the request:"
+#~ msgstr "Die folgenden Dokumente werden zur Anfrage hinzugefügt:"
+
+#~ msgid "Add letter"
+#~ msgstr "Brief hinzufügen"
+
+#~ msgid "Choose documents to import"
+#~ msgstr "Dokumente zum Importieren auswählen"
+
+#~ msgid "Import"
+#~ msgstr "Importieren"
+
+#~ msgid "Open document in new tab"
+#~ msgstr "Dokument in neuem Tab öffnen"
+
+#~ msgid "Search for a matching request"
+#~ msgstr "Nach der zugehörigen Anfrage suchen"
+
+#~ msgid "No requests with these filters."
+#~ msgstr "Noch keine Anfragen mit diesen Filtereinstellungen."
+
+#~ msgid "select-request/"
+#~ msgstr "anfrage-waehlen/"
+
 #~ msgid "Sending...\\u202f{}"
 #~ msgstr "Sende...\\u202f{}"
 
@@ -4376,9 +4453,6 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Hilfebereich: FragDenStaat und <abbr "
 #~ "title=\"Informationsfreiheitsgesetz\">IFG</abbr>"
-
-#~ msgid "Toggle chapter navigation"
-#~ msgstr "Kapitel-Navigation umschalten"
 
 #~ msgid "Chapters"
 #~ msgstr "Kapitel"
@@ -5111,9 +5185,6 @@ msgstr "kampagne/"
 
 #~ msgid "Refusal Reason"
 #~ msgstr "Verweigerungsgrund"
-
-#~ msgid "No or other reason given"
-#~ msgstr "Kein oder anderer Grund"
 
 #~ msgid ""
 #~ "When you are (partially) denied access to information, the Public Body "
