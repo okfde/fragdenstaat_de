@@ -11,9 +11,10 @@ from froide_payment.models import PaymentStatus
 from fragdenstaat_de.fds_newsletter.models import Subscriber
 
 from .forms import SubscriptionCancelFeedbackForm
-from .models import Donation, Donor
+from .models import Donation, Donor, Recurrence
 from .services import (
     create_donation_from_payment,
+    detect_recurring_on_donor,
     send_donation_email,
     send_sepa_notification,
 )
@@ -69,6 +70,7 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
     else:
         received_now = False
 
+    detect_recurring_on_donor(obj.donor)
     process_new_donation(obj, received_now=received_now, domain_obj=domain_obj)
 
 
@@ -95,11 +97,7 @@ def subscription_was_canceled(sender, **kwargs):
     if sender is None:
         return
 
-    from .services import detect_recurring_on_donor
-
-    donors = Donor.objects.filter(subscriptions=sender)
-    for donor in donors:
-        detect_recurring_on_donor(donor)
+    Recurrence.objects.filter(subscription=sender).update(cancel_date=sender.canceled)
 
 
 def user_email_changed(sender, old_email=None, **kwargs):

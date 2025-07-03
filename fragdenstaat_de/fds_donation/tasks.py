@@ -167,6 +167,19 @@ def import_paypal_task(filepath, user_id=None):
         )
 
 
+@celery_app.task(name="fragdenstaat_de.fds_donation.import_banktransfers")
+def process_recurrence_task(donor_id):
+    from .models import Donor
+    from .recurrence import process_recurrence_on_donor
+
+    try:
+        donor = Donor.objects.get(id=donor_id)
+    except Donor.DoesNotExist:
+        return
+
+    process_recurrence_on_donor(donor)
+
+
 @celery_app.task(name="fragdenstaat_de.fds_donation.send_donation_tasks_update_mail")
 def send_donation_tasks_update_mail():
     from froide_payment.models import PaymentStatus
