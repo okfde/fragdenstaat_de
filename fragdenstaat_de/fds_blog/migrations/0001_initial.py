@@ -508,13 +508,18 @@ class Migration(migrations.Migration):
             name="article",
             unique_together=set([("slug", "start_publication")]),
         ),
-        migrations.AlterIndexTogether(
-            name="article",
-            index_together=set(
-                [
-                    ("status", "start_publication", "end_publication"),
-                    ("slug", "start_publication"),
-                ]
-            ),
+        migrations.AddIndex(
+            "article",
+            models.Index(
+                fields=["status", "start_publication", "end_publication"],
+                name="fds_blog_ar_status_6edc57_idx",
+            )
+        ),
+        migrations.AddIndex(
+            "article",
+            models.Index(
+                fields=["slug", "start_publication"],
+                name="fds_blog_ar_slug_ded495_idx",
+            )
         ),
     ]
