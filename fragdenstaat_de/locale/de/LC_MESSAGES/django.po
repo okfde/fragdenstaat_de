@@ -8265,3 +8265,12 @@ msgstr "kampagne/"
 
 #~ msgid "successful"
 #~ msgstr "erfolgreich"
+
+#~ msgid "No or other reason given"
+#~ msgstr "Kein oder anderer Grund"
+
+#~ msgid "Select document"
+#~ msgstr "Dokument auswählen"
+
+#~ msgid "Toggle chapter navigation"
+#~ msgstr "Kapitel-Navigation umschalten"
