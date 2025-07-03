@@ -33,10 +33,12 @@ from .models import (
     QUICKPAYMENT_METHOD,
     RECURRING,
     SALUTATION_CHOICES,
+    CancelReason,
     Donation,
     DonationGift,
     DonationGiftOrder,
     Donor,
+    Recurrence,
 )
 from .services import get_or_create_donor
 from .utils import MERGE_DONOR_FIELDS
@@ -709,3 +711,31 @@ class DonorDetailsForm(forms.ModelForm, DonorForm):
             )
             kwargs["initial"] = initial
         super().__init__(*args, **kwargs)
+
+
+class SubscriptionCancelFeedbackForm(forms.Form):
+    reason = forms.ChoiceField(
+        label=_("Reason for cancellation"),
+        required=False,
+        choices=CancelReason.choices,
+        widget=BootstrapSelect,
+    )
+    feedback = forms.CharField(
+        label=_("Feedback"),
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "placeholder": _("How are you feeling about canceling?"),
+            }
+        ),
+    )
+
+    def save(self, subscription):
+        try:
+            recurrence = Recurrence.objects.get(subscription=subscription)
+        except Recurrence.DoesNotExist:
+            return
+        recurrence.cancel_reason = self.cleaned_data.get("reason")
+        recurrence.cancel_feedback = self.cleaned_data.get("feedback")
+        recurrence.save(update_fields=["cancel_reason", "cancel_feedback"])
