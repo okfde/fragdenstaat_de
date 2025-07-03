@@ -667,7 +667,7 @@ class ArticlePreviewPlugin(CMSPlugin):
     CMS plugin to display one article preview
     """
 
-    article = models.ForeignKey("Article", on_delete=models.CASCADE)
+    articles = models.ManyToManyField(Article)
     template = models.CharField(
         _("template"),
         blank=True,
@@ -683,12 +683,6 @@ class ArticlePreviewPlugin(CMSPlugin):
         the template_to_render attribute
         """
         return self.template_to_render
-
-    def __str__(self):
-        if self.article:
-            return self.article.title
-
-        return ""
 
 
 class DetailsBoxCMSPlugin(CMSPlugin):
