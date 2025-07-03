@@ -380,8 +380,9 @@ class CMSSiteProduction(CMSSiteBase):
             "NAME": env("DATABASE_NAME"),
             "OPTIONS": {},
             "HOST": env("DATABASE_HOST"),
-            "USER": env("DATABASE_USER_READONLY"),
-            "PASSWORD": env("DATABASE_PASSWORD_READONLY"),
+            # FIXME: this should be a different user with less permissions!
+            "USER": env("DATABASE_USER"),
+            "PASSWORD": env("DATABASE_PASSWORD"),
             "CONN_MAX_AGE": 0,
             "PORT": "",
         }
