@@ -246,6 +246,18 @@ class Donor(models.Model):
     def is_eligible_for_gift(self):
         return self.recurring_amount >= 10
 
+    def incomplete_donations(self):
+        """
+        Returns donations that are not completed yet.
+        """
+        return self.donations.filter(completed=False)
+
+    def last_incomplete_donation(self):
+        """
+        Returns donations that are not completed yet.
+        """
+        return self.incomplete_donations().order_by("-timestamp").first()
+
     def get_email_context(self):
         context = {
             "first_name": self.first_name,
