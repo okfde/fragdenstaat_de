@@ -704,11 +704,12 @@ class DonorDetailsForm(forms.ModelForm, DonorForm):
         instance = kwargs.get("instance")
         if instance:
             initial = kwargs.pop("initial", {})
-            initial.update(
-                {
-                    "receipt": int(instance.receipt),
-                }
-            )
+            if instance.receipt is not None:
+                initial.update(
+                    {
+                        "receipt": int(instance.receipt),
+                    }
+                )
             kwargs["initial"] = initial
         super().__init__(*args, **kwargs)
 
