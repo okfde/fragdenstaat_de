@@ -904,6 +904,7 @@ class FragDenStaatBase(German, Base):
     PAPERLESS_REQUEST_FIELD = os.environ.get(
         "PAPERLESS_REQUEST_FIELD", ""
     )  # custom_field id for foirequest reference
+    PAPERLESS_RECIPIENT_GROUP = 57
 
     LEAFLET_CONFIG = {
         "TILES": [
