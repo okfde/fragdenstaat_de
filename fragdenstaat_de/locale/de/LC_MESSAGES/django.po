@@ -1402,6 +1402,27 @@ msgstr "Statistik"
 msgid "Donation count"
 msgstr "Spendenanzahl"
 
+#: fragdenstaat_de/fds_donation/admin_utils.py:47
+msgid "total donation amount in year"
+msgstr "Spendensumme im Jahr"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py:108
+#: fragdenstaat_de/fds_donation/admin_utils.py:120
+msgid "Invalid amount format: '{}'. Please enter a valid number."
+msgstr "Ungültiger Betrag: '{}'. Bitte geben Sie eine gültige Zahl ein."
+
+#: fragdenstaat_de/fds_donation/admin_utils.py:156
+msgid "Amount from - to:"
+msgstr "Betrag von - bis:"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py:160
+msgid "e.g. 100-500, 1000-, -2000"
+msgstr "z.B. 100-500, 1000-, -2000"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py:169
+msgid "In year:"
+msgstr "Im Jahr:"
+
 #: fragdenstaat_de/fds_donation/admin.py fragdenstaat_de/fds_donation/models.py
 msgid "donations"
 msgstr "Spenden"
@@ -1472,15 +1493,15 @@ msgstr "Sende JZWB-E-Mail an {} Spender*innen."
 msgid "Prepared mailing of emailable donors with {count} recipients"
 msgstr "Mailing wurde an {count} Empfänger vorbereitet"
 
-#: fragdenstaat_de/fds_donation/admin.py
+#: fragdenstaat_de/fds_donation/admin_utils.py:186
 msgid "Passive donation"
 msgstr "Passive Spende"
 
-#: fragdenstaat_de/fds_donation/admin.py
+#: fragdenstaat_de/fds_donation/admin_utils.py:191
 msgid "active"
 msgstr "aktiv"
 
-#: fragdenstaat_de/fds_donation/admin.py
+#: fragdenstaat_de/fds_donation/admin_utils.py:192
 msgid "passive"
 msgstr "passiv"
 
