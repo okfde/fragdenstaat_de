@@ -749,6 +749,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                     "email": donor.email,
                     "first_name": donor.first_name,
                     "last_name": donor.last_name,
+                    "company_name": donor.company_name,
                     "address": donor.address,
                     "postcode": donor.postcode,
                     "location": donor.city,
