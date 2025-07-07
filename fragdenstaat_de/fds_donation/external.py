@@ -34,11 +34,18 @@ def find_donation(transfer_ident, row):
 
     donor = donation.donor
     if donor:
-        if not donor.attributes or "iban" not in donor.attributes:
+        if not donor.attributes:
             donor.attributes = donor.attributes or {}
-            donor.attributes["iban"] = row["iban"]
-            donor.attributes["banktransfer_reference"] = row["reference"]
-            donor.save()
+        if "ibans" not in donor.attributes:
+            donor.attributes["ibans"] = []
+        if "iban" in donor.attributes:
+            if donor.attributes["iban"] not in donor.attributes["ibans"]:
+                donor.attributes["ibans"].append(donor.attributes["iban"])
+        if row["iban"] not in donor.attributes["ibans"]:
+            donor.attributes["ibans"].append(row["iban"])
+        donor.attributes["iban"] = row["iban"]
+        donor.attributes["banktransfer_reference"] = row["reference"]
+        donor.save()
     return donation
 
 
