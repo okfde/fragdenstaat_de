@@ -306,7 +306,13 @@ def create_recurrence_for_subscription(
     donor: Donor, subscription: Subscription, donations: list[Donation]
 ):
     active = donations[0].received_timestamp is not None
-    cancel_date = get_cancel_date(donations, subscription.plan.interval, timezone.now())
+    method = donations[0].method
+    cancel_date = None
+    if method in ("paypal", "banktransfer"):
+        # Detect cancel date for uncontrolled subscription methods
+        cancel_date = get_cancel_date(
+            donations, subscription.plan.interval, timezone.now()
+        )
 
     recurrence, _updated = Recurrence.objects.update_or_create(
         subscription=subscription,
@@ -316,7 +322,7 @@ def create_recurrence_for_subscription(
             "start_date": subscription.created,
             "interval": subscription.plan.interval,
             "amount": subscription.plan.amount,
-            "method": donations[0].method,
+            "method": method,
             "project": donations[0].project,
             "cancel_date": subscription.canceled or cancel_date,
         },
