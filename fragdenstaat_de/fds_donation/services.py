@@ -3,7 +3,7 @@ from datetime import timedelta
 from decimal import Decimal
 from typing import Optional, Tuple
 
-from django.db import models
+from django.db import models, transaction
 from django.utils import timezone
 
 from froide.account.auth import try_login_user_without_mfa
@@ -419,7 +419,7 @@ def get_bucket(days: int) -> Optional[Tuple[int, int]]:
 
 
 def detect_recurring_on_donor(donor):
-    process_recurrence_task.delay(donor.id)
+    transaction.on_commit(lambda: process_recurrence_task.delay(donor.id))
 
 
 def send_donation_reminder_email(donation):
