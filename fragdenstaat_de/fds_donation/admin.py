@@ -289,6 +289,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "detect_duplicates",
         "clear_duplicates",
         "export_jzwb",
+        "detect_recurring_on_donor",
         "tag_all",
         "mark_invalid_addresses",
         "send_mailing",
@@ -561,6 +562,22 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
         return TemplateResponse(
             request, "admin/fds_donation/donor/export_jzwb.html", context
+        )
+
+    @admin.action(description=_("Detect recurring donations"))
+    def detect_recurring_on_donor(self, request, queryset):
+        """
+        Detect recurrences in donations of donors.
+        """
+        from .services import detect_recurring_on_donor
+
+        for donor in queryset:
+            detect_recurring_on_donor(donor)
+
+        self.message_user(
+            request,
+            _("Detecting recurrences on donors..."),
+            level=messages.INFO,
         )
 
     def setup_mailing_messages(self, mailing, queryset):
