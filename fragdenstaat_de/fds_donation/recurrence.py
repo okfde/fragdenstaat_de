@@ -199,7 +199,7 @@ def process_recurrence_on_donor(donor: Donor):
     # Includes completed but pending donations
     donations = Donation.objects.filter(
         donor=donor, completed=True, order__subscription__isnull=False
-    )
+    ).order_by("received_timestamp", "timestamp")
     if donations:
         process_subscription_donations(donor, donations)
 
