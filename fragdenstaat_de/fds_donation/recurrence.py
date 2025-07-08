@@ -1,15 +1,16 @@
 from collections import defaultdict
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timedelta
+from functools import reduce
 from typing import Optional
 
-from django.db.models import Count
+from django.db.models import Count, Max, Q
 from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta
 from froide_payment.models import Subscription
 
-from .models import Donation, Donor, Recurrence
+from .models import RECURRING_INTERVAL_CHOICES, Donation, Donor, Recurrence
 
 
 @dataclass
@@ -102,9 +103,11 @@ def get_cancel_date(
 
     last_date = donations[-1].received_timestamp
     if last_date is None:
-        return None
+        # If last is not received, pretend it's coming
+        last_date = donations[-1].timestamp
 
-    next_expected = last_date + relativedelta(months=interval)
+    buffer = relativedelta(days=10)
+    next_expected = last_date + relativedelta(months=interval) + buffer
     if next_expected < now:
         return last_date
     return None
@@ -193,17 +196,18 @@ def find_streaks_for_pattern(
 
 
 def process_recurrence_on_donor(donor: Donor):
+    # Includes completed but pending donations
     donations = Donation.objects.filter(
-        donor=donor, received_timestamp__isnull=False, order__subscription__isnull=False
+        donor=donor, completed=True, order__subscription__isnull=False
     )
     if donations:
         process_subscription_donations(donor, donations)
 
     donations = Donation.objects.filter(
         donor=donor,
+        completed=True,
         received_timestamp__isnull=False,
-        order__subscription__isnull=True,
-    )
+    ).filter(Q(method="banktransfer") | Q(method="paypal", order__isnull=True))
     if donations:
         process_donations(donor, donations)
 
@@ -214,7 +218,9 @@ def process_subscription_donations(donor: Donor, donations):
         subscriptions[donation.order.subscription].append(donation)
 
     for subscription, subscription_donations in subscriptions.items():
-        recurrence = create_recurrence_for_subscription(donor, subscription)
+        recurrence = create_recurrence_for_subscription(
+            donor, subscription, subscription_donations
+        )
         Donation.objects.filter(
             id__in=[donation.id for donation in subscription_donations]
         ).update(recurrence=recurrence)
@@ -238,7 +244,8 @@ def process_donations(donor: Donor, donations):
         if not existing_recurrences:
             recurrence = create_recurrence_for_streak(streak)
         elif len(existing_recurrences) == 1:
-            recurrence = existing_recurrences.pop()
+            # Get the single element from set
+            recurrence = next(iter(existing_recurrences))
         else:
             # Multiple recurrences found, we need to create a new one
             recurrence, other_recurrences = combine_existing_recurrences(
@@ -256,10 +263,12 @@ def process_donations(donor: Donor, donations):
                 id__in=[donation.id for donation in streak.donations]
             ).update(recurrence=recurrence)
 
-    # Remove recurrence from selected donations not detected as streaks
-    donations.filter(recurrence__isnull=False).exclude(
-        id__in=[donation.id for donation in streak_donations]
-    ).update(recurrence=None)
+    # Remove recurrence from selected donations not detected as streaks if they don't have a subscription
+    donations.filter(
+        recurrence__isnull=False, order__subscription__isnull=True
+    ).exclude(id__in=[donation.id for donation in streak_donations]).update(
+        recurrence=None
+    )
     # Remove recurrences that have no donations associated
     Recurrence.objects.filter(donor=donor).annotate(
         donation_count=Count("donations", distinct=True)
@@ -345,3 +354,35 @@ def combine_existing_recurrences(
     other_recurrences = recurrences[1:]
 
     return first_recurrence, other_recurrences
+
+
+def get_late_recurrences(now=None):
+    if now is None:
+        now = timezone.now()
+
+    buffer = timedelta(days=10)
+    queries = [
+        Q(last_date__lt=now - relativedelta(months=interval) + buffer)
+        & Q(interval=interval)
+        for interval, _ in RECURRING_INTERVAL_CHOICES
+    ]
+    query = reduce(lambda a, b: a | b, queries)
+
+    return (
+        Recurrence.objects.filter(cancel_date__isnull=True)
+        .annotate(
+            last_date=Max(
+                "donations__timestamp",
+                filter=Q(donations__received_timestamp__isnull=False),
+            )
+        )
+        .filter(query)
+    )
+
+
+def check_late_recurring_donors():
+    late_donors = Donor.objects.filter(
+        recurrences__in=get_late_recurrences()
+    ).distinct()
+    for donor in late_donors:
+        process_recurrence_on_donor(donor)
