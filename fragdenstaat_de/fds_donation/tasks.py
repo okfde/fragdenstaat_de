@@ -80,7 +80,7 @@ def remind_unreceived_banktransfers():
 
 @celery_app.task(name="fragdenstaat_de.fds_donation.remove_old_donations")
 def remove_old_donations():
-    from .models import Donation, Donor
+    from .models import Donation, Donor, Recurrence
 
     today = timezone.localtime(timezone.now())
     today = today.replace(**TIME_ZERO)
@@ -99,6 +99,7 @@ def remove_old_donations():
 
     # Remove donors without donations
     Donor.objects.filter(donations=None).delete()
+    Recurrence.objects.cleanup()
 
 
 @celery_app.task(name="fragdenstaat_de.fds_donation.send_jzwb")
@@ -165,6 +166,13 @@ def import_paypal_task(filepath, user_id=None):
             _("Paypal imported"),
             _("Count: {count}\nNew: {new}").format(count=count, new=new_count),
         )
+
+
+@celery_app.task(name="fragdenstaat_de.fds_donation.check_late_recurring_donors_task")
+def check_late_recurring_donors_task():
+    from .recurrence import check_late_recurring_donors
+
+    check_late_recurring_donors()
 
 
 @celery_app.task(name="fragdenstaat_de.fds_donation.process_recurrence_task")
