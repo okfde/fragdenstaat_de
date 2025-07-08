@@ -16,6 +16,7 @@ from .models import Donation, Donor, Recurrence
 class DonationStreak:
     donations: list[Donation]
     interval: int
+    project: str
     method: str
     canceled: Optional[datetime] = None
 
@@ -33,15 +34,7 @@ def find_donation_streaks(
         current_date: The current date as a datetime object
 
     Returns:
-        list of dictionaries containing streak information with:
-        - 'first_transaction': The first transaction in the streak
-        - 'last_transaction': The last transaction in the streak
-        - 'count': Number of transactions in the streak
-        - 'total_amount': Sum of all transaction amounts in the streak
-        - 'avg_interval': Average interval between transactions (in days)
-        - 'interval_type': Identified recurrence pattern (e.g., "weekly", "monthly")
-        - 'days_since_last': Days since the last transaction in the streak
-        - 'next_expected': Estimated date of next transaction in streak
+        list of DonationStreak
     """
     if not donations:
         return []
@@ -57,7 +50,7 @@ def find_donation_streaks(
     keyed_groups = defaultdict(list)
 
     def make_key(tx):
-        return (tx.amount, tx.method)
+        return (tx.amount, tx.method, tx.project)
 
     for tx in sorted_transactions:
         # Find a matching amount group or create a new one
@@ -90,6 +83,7 @@ def find_donation_streaks(
                     DonationStreak(
                         donations=streak,
                         interval=pattern_type,
+                        project=example.project,
                         method=example.method,
                         canceled=cancel_date,
                     )
@@ -277,9 +271,15 @@ def update_recurrence(recurrence: Recurrence, streak: DonationStreak):
     if recurrence.start_date != streak.donations[0].received_timestamp:
         recurrence.start_date = streak.donations[0].received_timestamp
         changed.append("start_date")
+    if not recurrence.active:
+        recurrence.active = True
+        changed.append("active")
     if recurrence.amount != streak.donations[-1].amount:
         recurrence.amount = streak.donations[-1].amount
         changed.append("amount")
+    if recurrence.project != streak.project:
+        recurrence.project = streak.project
+        changed.append("project")
     if recurrence.interval != streak.interval:
         recurrence.interval = streak.interval
         changed.append("interval")
@@ -293,16 +293,23 @@ def update_recurrence(recurrence: Recurrence, streak: DonationStreak):
         recurrence.save(update_fields=changed)
 
 
-def create_recurrence_for_subscription(donor: Donor, subscription: Subscription):
+def create_recurrence_for_subscription(
+    donor: Donor, subscription: Subscription, donations: list[Donation]
+):
+    active = donations[0].received_timestamp is not None
+    cancel_date = get_cancel_date(donations, subscription.plan.interval, timezone.now())
+
     recurrence, _updated = Recurrence.objects.update_or_create(
         subscription=subscription,
         defaults={
             "donor": donor,
+            "active": active,
             "start_date": subscription.created,
             "interval": subscription.plan.interval,
             "amount": subscription.plan.amount,
-            "method": subscription.plan.provider,
-            "cancel_date": subscription.canceled,
+            "method": donations[0].method,
+            "project": donations[0].project,
+            "cancel_date": subscription.canceled or cancel_date,
         },
     )
     return recurrence
@@ -315,8 +322,10 @@ def create_recurrence_for_streak(streak: DonationStreak):
     """
     first_donation = streak.donations[0]
     last_donation = streak.donations[-1]
-    Recurrence.objects.create(
+    return Recurrence.objects.create(
         donor=first_donation.donor,
+        method=streak.method,
+        project=streak.project,
         start_date=first_donation.received_timestamp,
         interval=streak.interval,
         amount=last_donation.amount,

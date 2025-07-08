@@ -314,6 +314,20 @@ def update_donation_numbers(donor_id):
             Donation.objects.filter(id=d.id).update(number=d.new_number)
 
 
+def get_project_choices():
+    return DONATION_PROJECTS
+
+
+class RecurrenceManager(models.Manager):
+    def cleanup(self):
+        return (
+            self.get_queryset()
+            .annotate(donation_count=models.Count("donations", distinct=True))
+            .filter(donation_count=0)
+            .delete()
+        )
+
+
 class CancelReason(models.TextChoices):
     NO_REASON = "", _("No reason given")
     FINANCIAL = "financial", _("Financial reasons")
@@ -337,6 +351,12 @@ class Recurrence(models.Model):
         related_name="+",
         on_delete=models.SET_NULL,
     )
+    active = models.BooleanField(default=True)
+    project = models.CharField(
+        max_length=40,
+        default=DEFAULT_DONATION_PROJECT,
+        choices=get_project_choices,
+    )
     method = models.CharField(max_length=256, blank=True)
     start_date = models.DateTimeField()
     interval = models.IntegerField(choices=RECURRING_INTERVAL_CHOICES)
@@ -352,6 +372,8 @@ class Recurrence(models.Model):
         choices=CancelReason,
     )
     cancel_feedback = models.TextField(blank=True)
+
+    objects = RecurrenceManager()
 
     class Meta:
         verbose_name = _("Recurring donation")
@@ -514,7 +536,7 @@ class Donation(models.Model):
     project = models.CharField(
         max_length=40,
         default=DEFAULT_DONATION_PROJECT,
-        choices=DONATION_PROJECTS,
+        choices=get_project_choices,
     )
 
     extra_action_url = models.CharField(max_length=255, blank=True)
