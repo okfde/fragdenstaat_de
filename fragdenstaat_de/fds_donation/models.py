@@ -60,7 +60,9 @@ INTERVAL_CHOICES = [
     (3, _("quarterly")),
     (12, _("yearly")),
 ]
-RECURRING_INTERVAL_CHOICES = INTERVAL_CHOICES[1:]
+RECURRING_INTERVAL_CHOICES = INTERVAL_CHOICES[1:] + [
+    (6, _("every six months")),
+]
 
 SALUTATION_CHOICES = (
     ("", pgettext("salutation neutral", "Hello")),
