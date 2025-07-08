@@ -393,6 +393,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         )
         return format_html("<ul>{}</ul>", items)
 
+    @admin.action(description=_("Send opt-in mail"))
     def send_donor_optin_email(self, request, queryset):
         from .services import send_donor_optin_email
 
@@ -407,15 +408,13 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             level=messages.INFO,
         )
 
-    send_donor_optin_email.short_description = _("Send opt-in mail")
-
+    @admin.action(description=_("Clear duplicate flag on donors"))
     def clear_duplicates(self, request, queryset):
         # Clear order of queryset to avoid ordering on non-existing annotation columns
         queryset.order_by().update(duplicate=None)
         self.message_user(request, _("Duplicate flags cleared."))
 
-    clear_duplicates.short_description = _("Clear duplicate flag on donors")
-
+    @admin.action(description=_("Detect duplicate donors"))
     def detect_duplicates(self, request, queryset):
         emails = defaultdict(list)
         full_names = defaultdict(list)
@@ -450,8 +449,6 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             ),
         )
 
-    detect_duplicates.short_description = _("Detect duplicate donors")
-
     @admin.action(description=_("Mark invalid addresses"))
     def mark_invalid_addresses(self, request, queryset):
         qs = queryset.filter(
@@ -464,6 +461,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         # Clear order of queryset to avoid ordering on non-existing annotation columns
         qs.order_by().update(invalid=True)
 
+    @admin.action(description=_("Merge donors"))
     def merge_donors(self, request, queryset):
         """
         Send mail to users
@@ -522,8 +520,6 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         return TemplateResponse(
             request, "admin/fds_donation/donor/merge_donors.html", context
         )
-
-    merge_donors.short_description = _("Merge donors")
 
     @admin.action(
         description=_("Export JZWB..."),
