@@ -754,6 +754,7 @@ class DonationAdmin(admin.ModelAdmin):
                     "form_url",
                     "recurring",
                     "first_recurring",
+                    "recurrence",
                 )
             },
         ),
@@ -1349,6 +1350,7 @@ class DonationFormViewCountAdmin(admin.ModelAdmin):
 class RecurrenceAdmin(admin.ModelAdmin):
     list_display = (
         "donor",
+        "project",
         "method",
         "start_date",
         "interval",
@@ -1372,11 +1374,12 @@ class RecurrenceAdmin(admin.ModelAdmin):
     readonly_fields = (
         "donor",
         "subscription",
+        "active",
+        "project",
         "method",
         "start_date",
         "interval",
         "amount",
-        "cancel_date",
         "sum_amount",
         "days",
     )
@@ -1387,6 +1390,7 @@ class RecurrenceAdmin(admin.ModelAdmin):
                 "fields": (
                     "donor",
                     "subscription",
+                    "project",
                     "method",
                     "start_date",
                     "interval",
@@ -1418,8 +1422,14 @@ class RecurrenceAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj):
         if obj.cancel_date:
+            return self.readonly_fields + ("cancel_date",)
+        if obj.method == "banktransfer":
             return self.readonly_fields
-        return self.readonly_fields + ("cancel_reason", "cancel_feedback")
+        return self.readonly_fields + (
+            "cancel_date",
+            "cancel_reason",
+            "cancel_feedback",
+        )
 
     def sum_amount(self, obj):
         return obj.sum_amount()
