@@ -1361,6 +1361,7 @@ class RecurrenceAdmin(admin.ModelAdmin):
     )
     date_hierarchy = "start_date"
     list_filter = (
+        "project",
         "cancel_date",
         "method",
         "interval",
