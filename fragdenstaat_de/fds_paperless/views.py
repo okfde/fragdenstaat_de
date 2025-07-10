@@ -20,7 +20,9 @@ User = get_user_model()
 
 @require_crew
 def list_view(request):
-    users = User.objects.filter(groups__in=[settings.CREW_GROUP]).order_by("first_name")
+    users = User.objects.filter(
+        groups__in=[settings.CREW_GROUP, settings.PAPERLESS_RECIPIENT_GROUP]
+    ).order_by("first_name")
     return render(
         request,
         "fds_paperless/list_users.html",
