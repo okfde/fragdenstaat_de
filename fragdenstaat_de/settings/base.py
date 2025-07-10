@@ -334,7 +334,7 @@ class FragDenStaatBase(German, Base):
 
     TEXT_EDITOR = "fragdenstaat_de.theme.editor.ckeditor4"
 
-    CKEDITOR_SETTINGS = {
+    TEXT_EDITOR_SETTINGS = {
         "language": "{{ language }}",
         "skin": "moono-lisa",
         "toolbar": "CMS",
@@ -383,7 +383,7 @@ class FragDenStaatBase(German, Base):
         "autocorrect_doubleQuotes": "„“",
         "disableNativeSpellChecker": False,
         "entities": False,
-        # "stylesSet": "default:/static/js/cms/ckeditor.wysiwyg.js",
+        "stylesSet": "default:/static/js/cms/ckeditor.wysiwyg.js",
         "contentsCss": lazy(static, str)("css/main.css"),
         "height": "500px",
     }

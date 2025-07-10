@@ -145,7 +145,7 @@ class CMSSettingsMixin:
     }
     TEXT_EDITOR = "fragdenstaat_de.theme.editor.ckeditor4"
 
-    CKEDITOR_SETTINGS = {
+    TEXT_EDITOR_SETTINGS = {
         "language": "{{ language }}",
         "skin": "moono-lisa",
         "toolbar": "CMS",
