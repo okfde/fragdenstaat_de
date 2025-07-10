@@ -14,8 +14,6 @@
 {% block navbar %}
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            {% page_url "home" as home_url %}
-            {% static_alias "grs_navbar_logo" %}
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -25,6 +23,13 @@
                     aria-label="{% trans "Toggle navigation" %}">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            {% static_alias "grs_navbar_logo" %}
+            <a href="{% page_url "donate" %}"
+               class="btn btn-outline-danger order-md-last ms-md-2">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+                <span class="visually-hidden">{% trans "Donate" %}</span>
+                <span class="d-none d-md-inline" aria-hidden="true">{% trans "Donate" %}</span>
+            </a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
                     {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
