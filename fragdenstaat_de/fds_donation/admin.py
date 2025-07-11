@@ -5,7 +5,6 @@ from collections import defaultdict
 from django import forms
 from django.contrib import admin, messages
 from django.contrib.admin import helpers
-from django.contrib.admin.filters import SimpleListFilter
 from django.contrib.admin.views.main import ChangeList
 from django.core.exceptions import PermissionDenied
 from django.db.models import Aggregate, Avg, Count, F, Max, Q, Sum, Value
@@ -24,8 +23,6 @@ from froide_payment.models import PaymentStatus
 
 from froide.helper.admin_utils import (
     ForeignKeyFilter,
-    MultiFilterMixin,
-    TaggitListFilter,
     make_batch_tag_action,
     make_daterangefilter,
     make_emptyfilter,
@@ -38,6 +35,12 @@ from froide.helper.widgets import TagAutocompleteWidget
 from fragdenstaat_de.fds_mailing.models import MailingMessage
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
+from .admin_utils import (
+    DonorProjectFilter,
+    DonorTagListFilter,
+    DonorTotalAmountPerYearFilter,
+    PassiveDonationListFilter,
+)
 from .export import JZWBExportForm
 from .models import (
     DONATION_PROJECTS,
@@ -51,7 +54,6 @@ from .models import (
     Donor,
     DonorTag,
     Recurrence,
-    TaggedDonor,
 )
 from .services import send_donation_gift_order_shipped
 
@@ -94,31 +96,6 @@ class DonorTagAdmin(admin.ModelAdmin):
         return JsonResponse(
             {"objects": [{"value": t, "label": t} for t in tags]}, safe=False
         )
-
-
-class DonorProjectFilter(MultiFilterMixin, SimpleListFilter):
-    title = "Project"
-    parameter_name = "donations__project"
-    lookup_name = "__in"
-
-    def queryset(self, request, queryset):
-        """
-        don't filter donors on donation projects here,
-        but in Admin.get_queryset().
-        This avoids double counting donations that are
-        annotated in get_queryset()
-        """
-        return queryset
-
-    def lookups(self, request, model_admin):
-        return DONATION_PROJECTS
-
-
-class DonorTagListFilter(MultiFilterMixin, TaggitListFilter):
-    tag_class = TaggedDonor
-    title = "Tags"
-    parameter_name = "tags__slug"
-    lookup_name = "__in"
 
 
 class DonorAdminForm(forms.ModelForm):
@@ -178,7 +155,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     list_filter = (
         "active",
         make_nullfilter("subscriptions", _("Dauerspende")),
-        make_rangefilter("amount_last_year", _("amount last year")),
+        DonorTotalAmountPerYearFilter,
         make_rangefilter("recurring_amount", _("recurring monthly amount")),
         make_daterangefilter("last_donation", _("Last donation")),
         "subscriber__subscribed",
@@ -187,6 +164,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "receipt",
         "invalid",
         DonorProjectFilter,
+        make_emptyfilter("company_name", _("has company name")),
         make_emptyfilter("email", _("has email")),
         make_nullfilter("duplicate", _("has duplicate")),
         make_nullfilter("user_id", _("has user")),
@@ -603,6 +581,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                     "email": donor.email,
                     "first_name": donor.first_name,
                     "last_name": donor.last_name,
+                    "company_name": donor.company_name,
                     "address": donor.address,
                     "postcode": donor.postcode,
                     "location": donor.city,
@@ -612,25 +591,6 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
         donor_data = list(get_donor_row(queryset))
         return export_csv_response(dict_to_csv_stream(donor_data))
-
-
-class PassiveDonationListFilter(admin.SimpleListFilter):
-    title = _("Passive donation")
-    parameter_name = "is_passive"
-
-    def lookups(self, request, model_admin):
-        return (
-            ("0", _("active")),
-            ("1", _("passive")),
-        )
-
-    def queryset(self, request, queryset):
-        active_condition = Q(recurring=False) | Q(first_recurring=True)
-        if self.value() == "0":
-            return queryset.filter(active_condition)
-        elif self.value() == "1":
-            return queryset.filter(~active_condition)
-        return queryset
 
 
 class DonationChangeList(ChangeList):
