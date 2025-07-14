@@ -683,11 +683,7 @@ class BorderedSectionCMSPlugin(CMSPlugin):
         _("Border"),
         max_length=50,
         default="gray",
-        choices=(
-            ("blue", _("Blue")),
-            ("gray", _("Gray")),
-            ("yellow", _("Yellow")),
-        ),
+        choices=BORDER_COLORS,
     )
     spacing = models.CharField(
         _("Spacing"),
