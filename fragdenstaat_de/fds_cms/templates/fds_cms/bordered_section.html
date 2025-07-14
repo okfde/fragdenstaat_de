@@ -1,6 +1,6 @@
 {% load cms_tags %}
-<section class="bordered-section border-{{ instance.border }} {{ instance.attributes.class }}" {{ instance.attributes_str }}>
-    <{{ instance.heading }} class="bordered-section-headline text-{{ color }}">
+<section class="bordered-section{% if instance.border %} border border-4 border-{{ instance.border }}{% endif %} {{ instance.attributes.class }}" {{ instance.attributes_str }}>
+    <{{ instance.heading }} class="bordered-section-headline">
     <div class="d-inline-block px-4 text-bg-body">{{ instance.title }}</div>
     </{{ instance.heading }}>
     <div class="{{ padding }}">

@@ -684,14 +684,8 @@ class BorderedSectionPlugin(CMSPluginBase):
     cache = True
 
     def render(self, context, instance, placeholder):
-        context["color"] = self.color(instance)
         context["padding"] = self.padding(instance)
         return super().render(context, instance, placeholder)
-
-    def color(self, instance):
-        colormap = {"yellow": "yellow-300", "blue": "blue-700", "gray": "gray-900"}
-
-        return colormap[instance.border]
 
     def padding(self, instance):
         if instance.spacing == "lg":
