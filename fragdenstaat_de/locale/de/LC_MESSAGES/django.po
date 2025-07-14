@@ -1667,14 +1667,17 @@ msgid "In year:"
 msgstr "Im Jahr:"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
+#: fragdenstaat_de/fds_donation/admin.py
 msgid "Passive donation"
 msgstr "Passive Spende"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
+#: fragdenstaat_de/fds_donation/admin.py
 msgid "active"
 msgstr "aktiv"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
+#: fragdenstaat_de/fds_donation/admin.py
 msgid "passive"
 msgstr "passiv"
 
@@ -4229,8 +4232,9 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
-#~ msgid "amount last year"
-#~ msgstr "Betrag letztes Jahr"
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "amount last year"
+msgstr "Betrag letztes Jahr"
 
 #~ msgid "Blue"
 #~ msgstr "Blau"
