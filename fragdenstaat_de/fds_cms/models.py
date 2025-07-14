@@ -23,7 +23,12 @@ from froide.document.models import Document, DocumentCollection
 from froide.foirequest.models import FoiProject, FoiRequest
 from froide.publicbody.models import Category, Classification, Jurisdiction, PublicBody
 
-from fragdenstaat_de.theme.colors import BACKDROP, BACKGROUND, get_css_color_variable
+from fragdenstaat_de.theme.colors import (
+    BACKDROP,
+    BACKGROUND,
+    BORDER_COLORS,
+    get_css_color_variable,
+)
 
 
 def monkey_patch_cms_cache():
@@ -481,12 +486,7 @@ class CardCMSPlugin(CMSPlugin):
         _("Border"),
         max_length=50,
         default="gray",
-        choices=(
-            ("none", _("None")),
-            ("blue", _("Blue")),
-            ("gray", _("Gray")),
-            ("yellow", _("Yellow")),
-        ),
+        choices=BORDER_COLORS,
     )
     shadow = models.CharField(
         _("Shadow"),
