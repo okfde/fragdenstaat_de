@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/okfde/fragdenstaat_de#readme",
   "devDependencies": {
-    "@okfde/eslint-config-froide": "^1.2.1",
+    "@okfde/eslint-config-froide": "^1.2.2",
     "@sentry/vite-plugin": "^3.4.0",
     "@types/bootstrap": "^5.2.10",
     "@types/dompurify": "^3.2.0",
