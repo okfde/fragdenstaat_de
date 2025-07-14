@@ -30,8 +30,8 @@ importers:
         specifier: ^0.6.0
         version: 0.6.0
       dompurify:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.2.6
+        version: 3.2.6
       font-awesome:
         specifier: ^4.7.0
         version: 4.7.0
@@ -1386,8 +1386,8 @@ packages:
     resolution: {integrity: sha512-l32Xp/TLgWb8ReqbVJAFIvXmY7go4nTxxlWiAFyhoQw9RKEOHBZNnyGvJWqDVSPmq3Y9HlM4npqF/T6VMOXhww==}
     deprecated: dommatrix is no longer maintained. Please use @thednp/dommatrix.
 
-  dompurify@3.2.5:
-    resolution: {integrity: sha512-mLPd29uoRe9HpvwP2TxClGQBzGXeEC/we/q+bFlmPPmj2p2Ugl3r6ATu/UU1v77DXNcehiBg9zsr1dREyA/dJQ==}
+  dompurify@3.2.6:
+    resolution: {integrity: sha512-/2GogDQlohXPZe6D6NOgQvXLPSYBqIWMnZ8zzOhn09REE4eyAzb+Hed3jhoM9OkuaJ8P6ZGTTVWQKAi8ieIzfQ==}
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
@@ -3271,7 +3271,7 @@ snapshots:
 
   '@types/dompurify@3.2.0':
     dependencies:
-      dompurify: 3.2.5
+      dompurify: 3.2.6
 
   '@types/estree@1.0.7': {}
 
@@ -3942,7 +3942,7 @@ snapshots:
 
   dommatrix@1.0.3: {}
 
-  dompurify@3.2.5:
+  dompurify@3.2.6:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 

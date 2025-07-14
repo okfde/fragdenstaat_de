@@ -39,7 +39,7 @@
     "@sentry/browser": "^9.18.0",
     "bootstrap": "^5.3.6",
     "django-cookie-consent": "^0.6.0",
-    "dompurify": "^3.2.5",
+    "dompurify": "^3.2.6",
     "font-awesome": "^4.7.0",
     "froide": "github:okfde/froide",
     "froide_campaign": "github:okfde/froide-campaign",
