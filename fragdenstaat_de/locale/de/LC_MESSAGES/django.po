@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-03 16:44+0200\n"
+"POT-Creation-Date: 2025-07-14 17:36+0200\n"
 "PO-Revision-Date: 2025-07-03 16:49+0200\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -116,7 +116,8 @@ msgstr "Übersetzt"
 
 #: fragdenstaat_de/fds_blog/admin.py
 msgid "The selected articles are now marked as translations of each other."
-msgstr "Die markierten Artikel sind jetzt als Übersetzung voneinander markiert."
+msgstr ""
+"Die markierten Artikel sind jetzt als Übersetzung voneinander markiert."
 
 #: fragdenstaat_de/fds_blog/admin.py
 msgid "Set articles as translations of each other"
@@ -923,7 +924,8 @@ msgstr "Breadcrumb-Hintergrund"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid ""
-"Lay the breadcrumbs over the page content. Works well with hero image headers."
+"Lay the breadcrumbs over the page content. Works well with hero image "
+"headers."
 msgstr ""
 "Die Breadcrumbs über den Seiteninhalt legen. Funktioniert gut mit Herobild-"
 "Headern."
@@ -1049,7 +1051,8 @@ msgstr ""
 "Nur bei der Native Share API verfügbar. Falls natives Teilen nicht klappt, "
 "wird das Bild stattdessen heruntergeladen."
 
-#: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_donation/cms_plugins.py
+#: fragdenstaat_de/fds_cms/models.py
+#: fragdenstaat_de/fds_donation/cms_plugins.py
 #: fragdenstaat_de/fds_donation/forms.py
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/forms.py fragdenstaat_de/settings/base.py
@@ -1080,22 +1083,6 @@ msgstr "Link statt Button"
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Border"
 msgstr "Rahmen"
-
-#: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/theme/colors.py
-msgid "None"
-msgstr "Nichts"
-
-#: fragdenstaat_de/fds_cms/models.py
-msgid "Blue"
-msgstr "Blau"
-
-#: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/theme/colors.py
-msgid "Gray"
-msgstr "Grau"
-
-#: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/theme/colors.py
-msgid "Yellow"
-msgstr "Gelb"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Shadow"
@@ -1131,8 +1118,8 @@ msgstr "Icon"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid ""
-"Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
-"target=\"_blank\">FontAwesome 4 icon set</a>"
+"Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
+"\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr ""
 "Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
 "target=\"_blank\">Font Awesome 4 Icon Liste</a>"
@@ -1408,21 +1395,25 @@ msgid "Recurrences"
 msgstr "Dauerspenden"
 
 #: fragdenstaat_de/fds_donation/admin.py
+msgid "Send opt-in mail"
+msgstr "Opt-in-E-Mail senden"
+
+#: fragdenstaat_de/fds_donation/admin.py
 #, python-brace-format
 msgid "Send {count} optin mails."
 msgstr "Sende {count} Opt-In-E-Mails."
 
 #: fragdenstaat_de/fds_donation/admin.py
-msgid "Send opt-in mail"
-msgstr "Opt-in-E-Mail senden"
+msgid "Clear duplicate flag on donors"
+msgstr "Duplikate-Flags entfernen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Duplicate flags cleared."
 msgstr "Duplikat-Flag entfernt."
 
 #: fragdenstaat_de/fds_donation/admin.py
-msgid "Clear duplicate flag on donors"
-msgstr "Duplikate-Flags entfernen"
+msgid "Detect duplicate donors"
+msgstr "Duplikate erkennen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 #, python-brace-format
@@ -1430,12 +1421,13 @@ msgid "Detected {dup} duplicate sets with {donors} donors"
 msgstr "{dup} Duplikate gefunden bei {donors} Spender*innen"
 
 #: fragdenstaat_de/fds_donation/admin.py
-msgid "Detect duplicate donors"
-msgstr "Duplikate erkennen"
-
-#: fragdenstaat_de/fds_donation/admin.py
 msgid "Mark invalid addresses"
 msgstr "Ungültige Adressen markieren"
+
+#: fragdenstaat_de/fds_donation/admin.py
+#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
+msgid "Merge donors"
+msgstr "Spender*innen zusammenführen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Select across not allowed!"
@@ -1451,17 +1443,22 @@ msgid "Merged {count} donors into {donor}"
 msgstr "{count} Spender*innen wurden vereinigt zu {donor}"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
-msgid "Merge donors"
-msgstr "Spender*innen zusammenführen"
-
-#: fragdenstaat_de/fds_donation/admin.py
 msgid "Export JZWB..."
 msgstr "JZWB exportieren…"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Sending JZWB email to {} donors."
 msgstr "Sende JZWB-E-Mail an {} Spender*innen."
+
+#: fragdenstaat_de/fds_donation/admin.py
+#, fuzzy
+#| msgid "Recurring donations"
+msgid "Detect recurring donations"
+msgstr "Dauerspenden"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Detecting recurrences on donors..."
+msgstr ""
 
 #: fragdenstaat_de/fds_donation/admin.py
 #, python-brace-format
@@ -1525,7 +1522,8 @@ msgstr "Admin"
 msgid "Payment"
 msgstr "Zahlung"
 
-#: fragdenstaat_de/fds_donation/admin.py fragdenstaat_de/fds_newsletter/admin.py
+#: fragdenstaat_de/fds_donation/admin.py
+#: fragdenstaat_de/fds_newsletter/admin.py
 msgid "Export to CSV"
 msgstr "Exportiere als CSV"
 
@@ -1981,7 +1979,8 @@ msgstr "Dein Dankeschön"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "The chosen donation gift is no longer available, sorry!"
-msgstr "Das ausgewählte Spendengeschenk ist leider nicht mehr verfügbar, sorry!"
+msgstr ""
+"Das ausgewählte Spendengeschenk ist leider nicht mehr verfügbar, sorry!"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Unfortunately, all available donation gifts have been reserved."
@@ -2060,6 +2059,10 @@ msgstr "vierteljährlich"
 #: fragdenstaat_de/fds_donation/models.py
 msgid "yearly"
 msgstr "jährlich"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "every six months"
+msgstr ""
 
 #: fragdenstaat_de/fds_donation/models.py
 msgctxt "salutation neutral"
@@ -2358,7 +2361,8 @@ msgstr "Neue Spende anlegen"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 msgid ""
 "Please note that you currently have the following recurring donations active:"
-msgstr "Bitte beachte, dass momentan folgende Dauerspenden für Dich aktiv sind:"
+msgstr ""
+"Bitte beachte, dass momentan folgende Dauerspenden für Dich aktiv sind:"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 msgid "Details / Cancel"
@@ -2369,8 +2373,8 @@ msgid ""
 "You can adjust the amount or frequency of your recurring donation on the "
 "detail page."
 msgstr ""
-"Du kannst den Betrag oder den Rhythmus Deiner Dauerspende auf der Detailseite "
-"anpassen."
+"Du kannst den Betrag oder den Rhythmus Deiner Dauerspende auf der "
+"Detailseite anpassen."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 msgid ""
@@ -2381,6 +2385,7 @@ msgstr ""
 "lege hier eine neue an."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
+#: fragdenstaat_de/templates/cmssites/cmssite/gegenrechtsschutz.html
 #: fragdenstaat_de/templates/header.html
 msgid "Donate"
 msgstr "Spenden"
@@ -2616,8 +2621,8 @@ msgid ""
 "^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
 "[0-9a-z]{12})/$"
 msgstr ""
-"^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-"
-"z]{12})/$"
+"^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
+"[0-9a-z]{12})/$"
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"
@@ -2631,8 +2636,8 @@ msgid ""
 "^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
 "[0-9a-z]{12})/change/$"
 msgstr ""
-"^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-"
-"z]{12})/change/$"
+"^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
+"[0-9a-z]{12})/change/$"
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"
@@ -2646,8 +2651,8 @@ msgid ""
 "^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
 "[0-9a-z]{12})/donate/$"
 msgstr ""
-"^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-"
-"z]{12})/spenden/$"
+"^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
+"[0-9a-z]{12})/spenden/$"
 
 #: fragdenstaat_de/fds_donation/views.py
 msgid ""
@@ -2882,12 +2887,12 @@ msgid "Not sent"
 msgstr "Nicht gesendet"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-msgid "Sending... {}"
-msgstr "Sende… {}"
+msgid "Sending...\\u202f{}"
+msgstr "Sende...\\u202f{}"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-msgid "Sent {}"
-msgstr "Gesendet {}"
+msgid "Sent\\u202f{}"
+msgstr "Gesendet\\u202f{}"
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Recipients"
@@ -3602,14 +3607,6 @@ msgid "<slug:newsletter_slug>/feedback/"
 msgstr "<slug:newsletter_slug>/feedback/"
 
 #: fragdenstaat_de/fds_newsletter/views.py
-msgid "You are already subscribed to our newsletter."
-msgstr "Du bist schon in unserem Newsletter."
-
-#: fragdenstaat_de/fds_newsletter/views.py
-msgid "You have been subscribed to our newsletter."
-msgstr "Willkommen zu unserem Newsletter!"
-
-#: fragdenstaat_de/fds_newsletter/views.py
 msgid "You have received an email to confirm your subscription."
 msgstr "Du hast eine E-Mail erhalten, um Dein Abonnement zu bestätigen."
 
@@ -3759,8 +3756,8 @@ msgid ""
 "This is a list of the categories of cookies used in our website and why we "
 "use them."
 msgstr ""
-"Dies ist eine Liste von Kategorien von Cookies, die unsere Webseite verwenden "
-"kann und warum."
+"Dies ist eine Liste von Kategorien von Cookies, die unsere Webseite "
+"verwenden kann und warum."
 
 #: fragdenstaat_de/templates/djangocms_audio/default/audio_player.html
 msgid "No audio file available."
@@ -4033,34 +4030,6 @@ msgid "Page Sub Menu"
 msgstr "Seiten-Untermenü"
 
 #: fragdenstaat_de/theme/colors.py
-msgid "Callout"
-msgstr "Callout"
-
-#: fragdenstaat_de/theme/colors.py
-msgid "Highlight"
-msgstr "Highlight"
-
-#: fragdenstaat_de/theme/colors.py
-msgid "Default Body"
-msgstr "Standard Body"
-
-#: fragdenstaat_de/theme/colors.py
-msgid "Body Secondary"
-msgstr "Body Sekundär"
-
-#: fragdenstaat_de/theme/colors.py
-msgid "Body Tertiary"
-msgstr "Body Tertiär"
-
-#: fragdenstaat_de/theme/colors.py
-msgid "Dark Subtle"
-msgstr "Dunkel Subtil"
-
-#: fragdenstaat_de/theme/colors.py
-msgid "Light Subtle"
-msgstr "Hell Subtil"
-
-#: fragdenstaat_de/theme/colors.py
 msgid "Primary"
 msgstr "Primär"
 
@@ -4109,22 +4078,6 @@ msgid "Danger Subtle"
 msgstr "Gefahr Subtil"
 
 #: fragdenstaat_de/theme/colors.py
-msgid "Purple"
-msgstr "Lila"
-
-#: fragdenstaat_de/theme/colors.py
-msgid "Pink"
-msgstr "Pink"
-
-#: fragdenstaat_de/theme/colors.py
-msgid "Cyan"
-msgstr "Cyan"
-
-#: fragdenstaat_de/theme/colors.py
-msgid "Gray Dark"
-msgstr "Grau Dunkel"
-
-#: fragdenstaat_de/theme/colors.py
 msgid "White"
 msgstr "Weiß"
 
@@ -4133,12 +4086,16 @@ msgid "Light"
 msgstr "Hell"
 
 #: fragdenstaat_de/theme/colors.py
+msgid "Light Subtle"
+msgstr "Hell Subtil"
+
+#: fragdenstaat_de/theme/colors.py
 msgid "Dark"
 msgstr "Dunkel"
 
 #: fragdenstaat_de/theme/colors.py
-msgid "Transparent"
-msgstr "Transparent"
+msgid "Dark Subtle"
+msgstr "Dunkel Subtil"
 
 #: fragdenstaat_de/theme/colors.py
 msgid "Blue 10"
@@ -4152,6 +4109,58 @@ msgstr "Blau 20"
 msgid "Blue 30"
 msgstr "Blau 30"
 
+#: fragdenstaat_de/theme/colors.py
+msgid "None"
+msgstr "Nichts"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Callout"
+msgstr "Callout"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Highlight"
+msgstr "Highlight"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Default Body"
+msgstr "Standard Body"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Body Secondary"
+msgstr "Body Sekundär"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Body Tertiary"
+msgstr "Body Tertiär"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Purple"
+msgstr "Lila"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Pink"
+msgstr "Pink"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Yellow"
+msgstr "Gelb"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Cyan"
+msgstr "Cyan"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Gray"
+msgstr "Grau"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Gray Dark"
+msgstr "Grau Dunkel"
+
+#: fragdenstaat_de/theme/colors.py
+msgid "Transparent"
+msgstr "Transparent"
+
 #: fragdenstaat_de/theme/models.py
 msgid "User auto blocked"
 msgstr "User automatisch blockiert"
@@ -4160,6 +4169,21 @@ msgstr "User automatisch blockiert"
 msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
+
+#~ msgid "Blue"
+#~ msgstr "Blau"
+
+#~ msgid "Sending... {}"
+#~ msgstr "Sende… {}"
+
+#~ msgid "Sent {}"
+#~ msgstr "Gesendet {}"
+
+#~ msgid "You are already subscribed to our newsletter."
+#~ msgstr "Du bist schon in unserem Newsletter."
+
+#~ msgid "You have been subscribed to our newsletter."
+#~ msgstr "Willkommen zu unserem Newsletter!"
 
 #~ msgid "Add the documents to the request"
 #~ msgstr "Dokumente zur Anfrage hinzufügen"
@@ -4187,12 +4211,6 @@ msgstr "kampagne/"
 
 #~ msgid "select-request/"
 #~ msgstr "anfrage-waehlen/"
-
-#~ msgid "Sending...\\u202f{}"
-#~ msgstr "Sende...\\u202f{}"
-
-#~ msgid "Sent\\u202f{}"
-#~ msgstr "Gesendet\\u202f{}"
 
 #~ msgid "FragDenStaat Account"
 #~ msgstr "FragDenStaat-Konto"
@@ -4232,7 +4250,8 @@ msgstr "kampagne/"
 
 #, python-format
 #~ msgid "Sending to newsletter subscribers of %(segment_count)s segments"
-#~ msgstr "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
+#~ msgstr ""
+#~ "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
 
 #~ msgid "Sending to all newsletter subscribers"
 #~ msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
@@ -4448,8 +4467,8 @@ msgstr "kampagne/"
 #~ msgstr "Hilfebereich: FragDenStaat und Informationsfreiheit"
 
 #~ msgid ""
-#~ "Support area: FragDenStaat and <abbr title=\"Freedom of Information\">FOI</"
-#~ "abbr>"
+#~ "Support area: FragDenStaat and <abbr title=\"Freedom of "
+#~ "Information\">FOI</abbr>"
 #~ msgstr ""
 #~ "Hilfebereich: FragDenStaat und <abbr "
 #~ "title=\"Informationsfreiheitsgesetz\">IFG</abbr>"
@@ -4510,8 +4529,8 @@ msgstr "kampagne/"
 #~ "          "
 #~ msgstr ""
 #~ "\n"
-#~ "            Wir haben Ihren Klagevorschlag am %(date)s erhalten und er ist "
-#~ "in Bearbeitung.\n"
+#~ "            Wir haben Ihren Klagevorschlag am %(date)s erhalten und er "
+#~ "ist in Bearbeitung.\n"
 #~ "          "
 
 #~ msgid "Click here to propose a law suit"
@@ -4557,16 +4576,16 @@ msgstr "kampagne/"
 #~ msgstr "Stellen Sie jetzt eine Anfrage!"
 
 #~ msgid ""
-#~ "Froide is a free and Open Source Project by <a href=\"http://"
-#~ "www.okfn.org\">the Open Knowledge Foundation</a>. If you want to support "
-#~ "Froide, please visit the <a href=\"%(url)s\">repository on GitHub</a>."
+#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn."
+#~ "org\">the Open Knowledge Foundation</a>. If you want to support Froide, "
+#~ "please visit the <a href=\"%(url)s\">repository on GitHub</a>."
 #~ msgstr ""
-#~ "Über FragDenStaat.de können Sie Behörden in Deutschland nach Informationen "
-#~ "und Dokumenten fragen. Die Basis dafür ist das Informationsfreiheitsgesetz."
-#~ "<br/>Die Plattform ist ein gemeinnütziges Projekt des <a href=\"http://"
-#~ "okfn.de\">Open Knowledge Foundation Deutschland e.V.</a><br/>Wenn Sie "
-#~ "FragDenStaat.de unterstützen möchten, <a href=\"%(url)s\">freuen wir uns "
-#~ "über Ihre Spende!</a>"
+#~ "Über FragDenStaat.de können Sie Behörden in Deutschland nach "
+#~ "Informationen und Dokumenten fragen. Die Basis dafür ist das "
+#~ "Informationsfreiheitsgesetz.<br/>Die Plattform ist ein gemeinnütziges "
+#~ "Projekt des <a href=\"http://okfn.de\">Open Knowledge Foundation "
+#~ "Deutschland e.V.</a><br/>Wenn Sie FragDenStaat.de unterstützen möchten, "
+#~ "<a href=\"%(url)s\">freuen wir uns über Ihre Spende!</a>"
 
 #~ msgid "Like this? Consider supporting us!"
 #~ msgstr "FragDenStaat.de braucht Ihre Unterstützung!"
@@ -4724,7 +4743,8 @@ msgstr "kampagne/"
 
 #~ msgid "You are logged in and cannot use a confirmation link."
 #~ msgstr ""
-#~ "Sie sind gerade eingeloggt und können daher Bestätigungslinks nicht nutzen."
+#~ "Sie sind gerade eingeloggt und können daher Bestätigungslinks nicht "
+#~ "nutzen."
 
 #~ msgid ""
 #~ "Your email address is now confirmed and you are logged in. You should "
@@ -4741,8 +4761,8 @@ msgstr "kampagne/"
 #~ "You can only use the confirmation link once, please login with your "
 #~ "password."
 #~ msgstr ""
-#~ "Sie können den Bestätigungslink nur einmal benutzen, bitte loggen Sie sich "
-#~ "mit Ihrem Passwort ein."
+#~ "Sie können den Bestätigungslink nur einmal benutzen, bitte loggen Sie "
+#~ "sich mit Ihrem Passwort ein."
 
 #~ msgid ""
 #~ "You are logged in with a different user account. Please logout first "
@@ -4775,7 +4795,8 @@ msgstr "kampagne/"
 #~ msgid "You are currently logged in, you cannot signup."
 #~ msgstr "Sie sind gerade eingeloggt, Sie können sich nicht registrieren."
 
-#~ msgid "Please check your emails for a mail from us with a confirmation link."
+#~ msgid ""
+#~ "Please check your emails for a mail from us with a confirmation link."
 #~ msgstr ""
 #~ "Bitte überprüfen Sie Ihre E-Mails. Sie haben eine Mail mit einem "
 #~ "Bestätigungslink von uns erhalten."
@@ -4810,14 +4831,14 @@ msgstr "kampagne/"
 #~ msgstr "Ihre Adresse wurde geändert."
 
 #~ msgid ""
-#~ "You probably do not have cookies enabled, but you need cookies to use this "
-#~ "site! Cookies are only ever sent securely. The technical reason is: %"
-#~ "(reason)s"
+#~ "You probably do not have cookies enabled, but you need cookies to use "
+#~ "this site! Cookies are only ever sent securely. The technical reason is: "
+#~ "%(reason)s"
 #~ msgstr ""
 #~ "Sie haben vermutlich Ihre Browser-Cookies deaktivert, allerdings brauchen "
-#~ "Sie Cookies für diese Seite! Cookies werden auf dieser Seite nur über eine "
-#~ "sichere Verbindung gesendet. Der technische Grund für diesen Fehler ist: %"
-#~ "(reason)s"
+#~ "Sie Cookies für diese Seite! Cookies werden auf dieser Seite nur über "
+#~ "eine sichere Verbindung gesendet. Der technische Grund für diesen Fehler "
+#~ "ist: %(reason)s"
 
 #~ msgid ""
 #~ "Hello %(name)s,\n"
@@ -4838,13 +4859,13 @@ msgstr "kampagne/"
 #~ "\n"
 
 #~ msgid ""
-#~ "We have also generated a random password for you. You can use it to login, "
-#~ "but you can also change it, if you want to.\n"
+#~ "We have also generated a random password for you. You can use it to "
+#~ "login, but you can also change it, if you want to.\n"
 #~ "\n"
 #~ "Your password is: %(password)s\n"
 #~ msgstr ""
-#~ "Wir haben für Sie ein zufälliges Passwort generiert. Sie können sich damit "
-#~ "einloggen, aber Sie können es auch ändern, wenn Sie wünschen.\n"
+#~ "Wir haben für Sie ein zufälliges Passwort generiert. Sie können sich "
+#~ "damit einloggen, aber Sie können es auch ändern, wenn Sie wünschen.\n"
 #~ "\n"
 #~ "Ihr Passwort lautet: %(password)s\n"
 
@@ -4866,7 +4887,8 @@ msgstr "kampagne/"
 
 #~ msgid "... we can send you a reset link to your email address."
 #~ msgstr ""
-#~ "...können wir Ihnen einen Zurücksetzen-Link an Ihre E-Mailadresse schicken."
+#~ "...können wir Ihnen einen Zurücksetzen-Link an Ihre E-Mailadresse "
+#~ "schicken."
 
 #~ msgid "Send reset link"
 #~ msgstr "Sende Zurücksetzen-Link"
@@ -4903,8 +4925,8 @@ msgstr "kampagne/"
 #~ "The password reset link was invalid, possibly because it has already been "
 #~ "used.  Please request a new password reset."
 #~ msgstr ""
-#~ "Der Passwort-Zurücksetzen-Link war ungültig, möglicherweise wurde er schon "
-#~ "einmal benutzt. Bitte lassen Sie sich noch einen Link schicken."
+#~ "Der Passwort-Zurücksetzen-Link war ungültig, möglicherweise wurde er "
+#~ "schon einmal benutzt. Bitte lassen Sie sich noch einen Link schicken."
 
 #~ msgid ""
 #~ "You're receiving this e-mail because you requested a password reset for "
@@ -4914,7 +4936,8 @@ msgstr "kampagne/"
 #~ "Account zurücksetzen wollen."
 
 #~ msgid "Please go to the following page and choose a new password:"
-#~ msgstr "Bitte besuchen Sie folgende Seite und wählen Sie ein neues Passwort:"
+#~ msgstr ""
+#~ "Bitte besuchen Sie folgende Seite und wählen Sie ein neues Passwort:"
 
 #~ msgid "Requests and activities of %(name)s"
 #~ msgstr "Anfragen und Aktionen von %(name)s"
@@ -5099,8 +5122,8 @@ msgstr "kampagne/"
 #~ "This feed contains the Freedom of Information requests %(by)s that have "
 #~ "been made through %(sitename)s."
 #~ msgstr ""
-#~ "Dieser Feed enthält die neuesten Informationsfreiheitsanfragen %(by)s, die "
-#~ "mit Hilfe von %(sitename)s gestellt wurden."
+#~ "Dieser Feed enthält die neuesten Informationsfreiheitsanfragen %(by)s, "
+#~ "die mit Hilfe von %(sitename)s gestellt wurden."
 
 #~ msgid ""
 #~ "This feed contains the latest Freedom of Information requests that have "
@@ -5165,8 +5188,8 @@ msgstr "kampagne/"
 #~ msgstr "Adresse mitsenden"
 
 #~ msgid ""
-#~ "If the public body is asking for your post address, check this and we will "
-#~ "append it to your message."
+#~ "If the public body is asking for your post address, check this and we "
+#~ "will append it to your message."
 #~ msgstr ""
 #~ "Falls die Behörde Ihre Postanschrift benötigt, setzen Sie einen Haken und "
 #~ "wir werden Ihre Anschrift an die Nachricht anhängen."
@@ -5249,7 +5272,8 @@ msgstr "kampagne/"
 #~ msgid "Letter text you have received"
 #~ msgstr "Der Textinhalt des Briefes, den Sie erhalten haben"
 
-#~ msgid "The text can be left empty, instead you can upload scanned documents."
+#~ msgid ""
+#~ "The text can be left empty, instead you can upload scanned documents."
 #~ msgstr ""
 #~ "Der Text kann leer bleiben, wenn Sie stattdessen den gescannten Brief "
 #~ "hochladen."
@@ -5261,12 +5285,12 @@ msgstr "kampagne/"
 #~ msgstr "Sie dürfen einige der erhaltenen Dokumente nicht veröffentlichen"
 
 #~ msgid ""
-#~ "If the reply explicitly states that you are not allowed to publish some of "
-#~ "the documents (e.g. due to copyright), check this."
+#~ "If the reply explicitly states that you are not allowed to publish some "
+#~ "of the documents (e.g. due to copyright), check this."
 #~ msgstr ""
-#~ "Falls die erhaltene Antwort ausdrücklich eine Veröffentlichung von einigen "
-#~ "Dokumenten untersagt (z.B. wegen des Urheberrechts), machen Sie hier einen "
-#~ "Haken."
+#~ "Falls die erhaltene Antwort ausdrücklich eine Veröffentlichung von "
+#~ "einigen Dokumenten untersagt (z.B. wegen des Urheberrechts), machen Sie "
+#~ "hier einen Haken."
 
 #~ msgid "Your reply date is in the future, that is not possible."
 #~ msgstr "Ihr Sendedatum ist in der Zukunft, das ist nicht möglich."
@@ -5350,7 +5374,8 @@ msgstr "kampagne/"
 #~ msgid ""
 #~ "The current Public Body redirected the request to another Public Body."
 #~ msgstr ""
-#~ "Die aktuelle Behörde hat die Anfrage an eine andere Behörde weitergeleitet."
+#~ "Die aktuelle Behörde hat die Anfrage an eine andere Behörde "
+#~ "weitergeleitet."
 
 #~ msgid "Request Successful"
 #~ msgstr "Anfrage erfolgreich"
@@ -5530,8 +5555,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Sehr geehrte Damen und Herren,\n"
 #~ "\n"
-#~ "ich bitte um Vermittlung bei einer Anfrage nach dem %(law)s. Die bisherige "
-#~ "Korrespondenz finden Sie hier:\n"
+#~ "ich bitte um Vermittlung bei einer Anfrage nach dem %(law)s. Die "
+#~ "bisherige Korrespondenz finden Sie hier:\n"
 #~ "\n"
 #~ "%(link)s\n"
 #~ "\n"
@@ -5703,11 +5728,11 @@ msgstr "kampagne/"
 #~ msgstr "%(user)s hat die Anfrage '%(request)s' öffentlich geschaltet."
 
 #~ msgid ""
-#~ "%(public_body)s refused to provide information on the grounds of %"
-#~ "(reason)s."
+#~ "%(public_body)s refused to provide information on the grounds of "
+#~ "%(reason)s."
 #~ msgstr ""
-#~ "%(public_body)s weigert sich, die Information zur Verfügung zu stellen aus "
-#~ "folgendem Grund: %(reason)s."
+#~ "%(public_body)s weigert sich, die Information zur Verfügung zu stellen "
+#~ "aus folgendem Grund: %(reason)s."
 
 #~ msgid ""
 #~ "%(public_body)s answered partially, but denied access to all information "
@@ -5720,7 +5745,8 @@ msgstr "kampagne/"
 #~ msgstr "Die Frist für diese Anfrage ist abgelaufen"
 
 #~ msgid ""
-#~ "%(user)s set '%(name)s' as the information law for the request %(request)s."
+#~ "%(user)s set '%(name)s' as the information law for the request "
+#~ "%(request)s."
 #~ msgstr ""
 #~ "%(user)s legte %(name)s als zutreffendes Informationsgesetz für die "
 #~ "Anfrage %(request)s fest."
@@ -5733,7 +5759,8 @@ msgstr "kampagne/"
 #~ "%(user)s filed a complaint to the %(public_body)s about the handling of "
 #~ "this request %(request)s."
 #~ msgstr ""
-#~ "%(user)s bittet %(public_body)s um Vermittlung bei der Anfrage %(request)s."
+#~ "%(user)s bittet %(public_body)s um Vermittlung bei der Anfrage "
+#~ "%(request)s."
 
 #~ msgid "The deadline of request %(request)s has been extended."
 #~ msgstr "Die Frist der Anfrage %(request)s wurde verlängert."
@@ -5941,8 +5968,8 @@ msgstr "kampagne/"
 #~ "\n"
 #~ "Your request \"%(title)s\" was not answered in the required time and "
 #~ "became overdue.\n"
-#~ "We recommend that you send another message to the public body to check the "
-#~ "status of the request and if they received it.\n"
+#~ "We recommend that you send another message to the public body to check "
+#~ "the status of the request and if they received it.\n"
 #~ "\n"
 #~ "If you received a postal answer, please add it to the request.\n"
 #~ "\n"
@@ -5959,8 +5986,8 @@ msgstr "kampagne/"
 #~ "Wir empfehlen Ihnen eine weitere Nachricht an die Behörde zu senden und "
 #~ "den Status der Anfrage zu erfragen.\n"
 #~ "\n"
-#~ "Falls Sie zwischenzeitlich eine Antwort per Post erhalten haben, fügen Sie "
-#~ "diese Antwort bitte Ihrer Anfrage hinzu.\n"
+#~ "Falls Sie zwischenzeitlich eine Antwort per Post erhalten haben, fügen "
+#~ "Sie diese Antwort bitte Ihrer Anfrage hinzu.\n"
 #~ "Hier ist ein Link zu Ihrer Anfrage:\n"
 #~ "%(url)s\n"
 #~ "\n"
@@ -5996,8 +6023,8 @@ msgstr "kampagne/"
 #~ msgid ""
 #~ "Hello %(name)s,\n"
 #~ "\n"
-#~ "your message for the Freedom of Information request \"%(title)s\" has been "
-#~ "sent. We will notify you when you get a response.\n"
+#~ "your message for the Freedom of Information request \"%(title)s\" has "
+#~ "been sent. We will notify you when you get a response.\n"
 #~ "\n"
 #~ "Cheers,\n"
 #~ "%(site_name)s\n"
@@ -6021,8 +6048,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Hallo %(name)s,\n"
 #~ "\n"
-#~ "Ihre Anfrage \"%(title)s\" wurde gesendet. Wir werden Sie benachrichtigen, "
-#~ "sobald Sie eine Antwort erhalten.\n"
+#~ "Ihre Anfrage \"%(title)s\" wurde gesendet. Wir werden Sie "
+#~ "benachrichtigen, sobald Sie eine Antwort erhalten.\n"
 #~ "\n"
 #~ "Beste Grüße\n"
 #~ "%(site_name)s\n"
@@ -6156,8 +6183,8 @@ msgstr "kampagne/"
 #~ "Sehr geehrter Damen und Herren,\n"
 #~ "\n"
 #~ "meine Informationsfreiheitsanfrage \"%(title)s\" vom %(date)s wurde von "
-#~ "Ihnen nicht in der gesetzlich vorgeschriebenen Zeit beantwortet. Sie haben "
-#~ "die Frist mittlerweile um %(due)s überschritten.\n"
+#~ "Ihnen nicht in der gesetzlich vorgeschriebenen Zeit beantwortet. Sie "
+#~ "haben die Frist mittlerweile um %(due)s überschritten.\n"
 #~ "Bitte informieren Sie mich umgehend über den Stand meiner Anfrage.\n"
 #~ "\n"
 #~ "Mit freundlichen Grüßen\n"
@@ -6170,8 +6197,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Hallo %(name)s,\n"
 #~ "\n"
-#~ "Sie haben einen neuen Vorschlag für eine Behörde für Ihre Anfrage '%"
-#~ "(title)s' erhalten."
+#~ "Sie haben einen neuen Vorschlag für eine Behörde für Ihre Anfrage "
+#~ "'%(title)s' erhalten."
 
 #~ msgid "The suggestion is:"
 #~ msgstr "Der Vorschlag lautet:"
@@ -6184,8 +6211,8 @@ msgstr "kampagne/"
 #~ "Public Body from the list. Here is a link to your request:"
 #~ msgstr ""
 #~ "Wenn Sie Ihre Anfrage an diese Behörde richten wollen, rufen Sie Ihre "
-#~ "Anfrage auf und wählen Sie die Behörde aus der Liste. Hier ist ein Link zu "
-#~ "Ihrer Anfrage:"
+#~ "Anfrage auf und wählen Sie die Behörde aus der Liste. Hier ist ein Link "
+#~ "zu Ihrer Anfrage:"
 
 #~ msgid "Redact \"%(name)s\""
 #~ msgstr "\"%(name)s\" schwärzen"
@@ -6198,16 +6225,18 @@ msgstr "kampagne/"
 #~ "><strong>Name, Adresse und Emailadresse</strong>."
 
 #~ msgid ""
-#~ "Please remove the following personally identifying information of %(name)s:"
-#~ "<br/><strong>address and email address</strong>. You can leave the name."
+#~ "Please remove the following personally identifying information of "
+#~ "%(name)s:<br/><strong>address and email address</strong>. You can leave "
+#~ "the name."
 #~ msgstr ""
-#~ "Bitte entfernen Sie die folgenden personenbezogenen Daten von %(name)s:<br/"
-#~ "><strong>Adresse und Emailadresse</strong>. Sie können den Namen stehen "
-#~ "lassen."
+#~ "Bitte entfernen Sie die folgenden personenbezogenen Daten von %(name)s:"
+#~ "<br/><strong>Adresse und Emailadresse</strong>. Sie können den Namen "
+#~ "stehen lassen."
 
 #~ msgid "To redact draw black rectangles over information"
 #~ msgstr ""
-#~ "Ziehen Sie ein schwarzes Rechteck über das Dokument um Stellen zu schwärzen"
+#~ "Ziehen Sie ein schwarzes Rechteck über das Dokument um Stellen zu "
+#~ "schwärzen"
 
 #~ msgid "Reset"
 #~ msgstr "Zurücksetzen"
@@ -6317,8 +6346,8 @@ msgstr "kampagne/"
 #~ msgstr "Eine Anfrage, die Sie persönlich betrifft"
 
 #~ msgid ""
-#~ "If you want to ask a question that relates to you personally, like how you "
-#~ "can achieve something or who you have to contact, you need publicly "
+#~ "If you want to ask a question that relates to you personally, like how "
+#~ "you can achieve something or who you have to contact, you need publicly "
 #~ "available information from that public body:"
 #~ msgstr ""
 #~ "Wenn Sie eine Frage stellen wollen, die sich auf Sie selbst bezieht, wie "
@@ -6362,8 +6391,8 @@ msgstr "kampagne/"
 #~ "Please have a look if the information you are looking for is already "
 #~ "available online."
 #~ msgstr ""
-#~ "Bitte vergewissern Sie sich, dass die Informationen, die Sie suchen, nicht "
-#~ "schon online verfügbar sind."
+#~ "Bitte vergewissern Sie sich, dass die Informationen, die Sie suchen, "
+#~ "nicht schon online verfügbar sind."
 
 #~ msgid "Search this site for %(topic)s"
 #~ msgstr "Durchsuchen Sie die Seite nach %(topic)s"
@@ -6375,8 +6404,8 @@ msgstr "kampagne/"
 #~ msgstr "Probieren Sie eine Google Suche nach diesem Thema"
 
 #~ msgid ""
-#~ "If you could not find the information you are looking for, write a request "
-#~ "below."
+#~ "If you could not find the information you are looking for, write a "
+#~ "request below."
 #~ msgstr ""
 #~ "Falls Sie die gewünschten Informationen nicht finden konnten, stellen Sie "
 #~ "unten eine Anfrage."
@@ -6404,7 +6433,8 @@ msgstr "kampagne/"
 
 #~ msgid "Write your request in <strong>simple, precise language</strong>."
 #~ msgstr ""
-#~ "Schreiben Sie Ihre Anfrage in <strong>einfacher, präziser Sprache</strong>."
+#~ "Schreiben Sie Ihre Anfrage in <strong>einfacher, präziser Sprache</"
+#~ "strong>."
 
 #~ msgid "Ask for <strong>specific</strong> documents or information."
 #~ msgstr ""
@@ -6415,13 +6445,14 @@ msgstr "kampagne/"
 #~ msgstr "Halten Sie es <strong>kurz und bündig</strong>."
 
 #~ msgid ""
-#~ "This site is <strong>public</strong>. Everything you type and any response "
-#~ "will be published."
+#~ "This site is <strong>public</strong>. Everything you type and any "
+#~ "response will be published."
 #~ msgstr ""
 #~ "Diese Seite ist <strong>öffentlich</strong>. Alles, was Sie eingeben und "
 #~ "die Antworten werden veröffentlicht."
 
-#~ msgid "Do <strong>not include</strong> personal information in your request."
+#~ msgid ""
+#~ "Do <strong>not include</strong> personal information in your request."
 #~ msgstr ""
 #~ "Schließen Sie <strong>keine</strong> persönlichen Daten in Ihre Anfrage "
 #~ "ein."
@@ -6487,8 +6518,8 @@ msgstr "kampagne/"
 #~ "Prüfung der Anfragen findet nicht statt. Die Korrespondenz mit Ihnen als "
 #~ "Behörde wird nach dem Willen des/r Antragstellenden veröffentlicht. Eine "
 #~ "elektronische Antwort ist ausdrücklich erwünscht und fällt nicht unter § "
-#~ "41 VwVfG.  Falls Sie noch Fragen haben, besuchen Sie https://"
-#~ "fragdenstaat.de/hilfe/fuer-behoerden/\n"
+#~ "41 VwVfG.  Falls Sie noch Fragen haben, besuchen Sie https://fragdenstaat."
+#~ "de/hilfe/fuer-behoerden/\n"
 
 #~ msgid ""
 #~ "Hello %(name)s,\n"
@@ -6504,8 +6535,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Hallo %(name)s,\n"
 #~ "\n"
-#~ "folgendes ist in den letzten 24 Stunden bei Ihre Anfrage \"%(title)s\" auf "
-#~ "%(site_name)s passiert:\n"
+#~ "folgendes ist in den letzten 24 Stunden bei Ihre Anfrage \"%(title)s\" "
+#~ "auf %(site_name)s passiert:\n"
 #~ "%(message)s\n"
 #~ "\n"
 #~ "Klicken Sie diesen Link um zu Ihrer Anfrage zu gelangen:\n"
@@ -6530,8 +6561,9 @@ msgstr "kampagne/"
 #~ "status."
 #~ msgstr ""
 #~ "Diese Anfrage hat eine Antwort erhalten und ist in einem unbekannten "
-#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a href=\"%"
-#~ "(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen Status."
+#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a "
+#~ "href=\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
+#~ "Status."
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, please read the latest response and <a href=\"#set-"
@@ -6545,8 +6577,8 @@ msgstr "kampagne/"
 #~ "<b>Hey %(name)s</b>, your request is <b>overdue</b>!<br/>\n"
 #~ "    Please act now:"
 #~ msgstr ""
-#~ "<b>Hallo %(name)s</b>, eine Antwort auf Ihre Anfrage ist <b>überfällig</b>!"
-#~ "<br/>\n"
+#~ "<b>Hallo %(name)s</b>, eine Antwort auf Ihre Anfrage ist <b>überfällig</"
+#~ "b>!<br/>\n"
 #~ " Bitte handeln Sie jetzt:"
 
 #~ msgid ""
@@ -6554,8 +6586,8 @@ msgstr "kampagne/"
 #~ "tabgo=\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
 #~ msgstr ""
 #~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-"
-#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort unbedingt "
-#~ "hinzu!</a>"
+#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort "
+#~ "unbedingt hinzu!</a>"
 
 #~ msgid ""
 #~ "Have you not gotten any reply? &rarr; <a data-tabgo=\"tab\" href=\"#write-"
@@ -6575,8 +6607,8 @@ msgstr "kampagne/"
 #~ "specific information from public bodies."
 #~ msgstr ""
 #~ "Diese Anfrage ist <strong>keine</strong> Anfrage im Sinne des "
-#~ "Informationsfreiheitsgesetzes!<br/>Sie müssen nach spezifischen Dokumenten "
-#~ "in Behörden fragen."
+#~ "Informationsfreiheitsgesetzes!<br/>Sie müssen nach spezifischen "
+#~ "Dokumenten in Behörden fragen."
 
 #~ msgid "Request"
 #~ msgstr "Anfrage"
@@ -6606,11 +6638,11 @@ msgstr "kampagne/"
 #~ "neuen Status"
 
 #~ msgid ""
-#~ "As the author of this request, please choose a public body from one of the "
-#~ "suggestions:"
+#~ "As the author of this request, please choose a public body from one of "
+#~ "the suggestions:"
 #~ msgstr ""
-#~ "Als Autor dieser Anfrage wählen Sie bitte eine Behörde aus den Vorschlägen "
-#~ "aus:"
+#~ "Als Autor dieser Anfrage wählen Sie bitte eine Behörde aus den "
+#~ "Vorschlägen aus:"
 
 #~ msgid "Send this request to the selected Public Body"
 #~ msgstr "Senden Sie diese Anfrage an die gewählte Behörde"
@@ -6647,7 +6679,8 @@ msgstr "kampagne/"
 
 #~ msgid "You can send another message to this Public Body if you want to."
 #~ msgstr ""
-#~ "Wenn Sie wollen, können Sie eine weitere Nachricht an diese Behörde senden."
+#~ "Wenn Sie wollen, können Sie eine weitere Nachricht an diese Behörde "
+#~ "senden."
 
 #~ msgid "Set Law"
 #~ msgstr "Gesetz festlegen"
@@ -6817,8 +6850,8 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "Please check this attachment and if it doesn't contain personally "
-#~ "identifying information and if you are not explicitly forbidden to publish "
-#~ "it, click the button below."
+#~ "identifying information and if you are not explicitly forbidden to "
+#~ "publish it, click the button below."
 #~ msgstr ""
 #~ "Bitte überprüfen Sie diesen Anhang und falls er keine personenbezogenen "
 #~ "Informationen enthält und Ihnen die Veröffentlichung nicht ausdrücklich "
@@ -6845,9 +6878,9 @@ msgstr "kampagne/"
 #~ "moderators (info@fragdenstaat.de) and they will redact the document and "
 #~ "then publish it for you."
 #~ msgstr ""
-#~ "Falls der Anhang personenbezogene Informationen enthält, bitte informieren "
-#~ "Sie Moderatoren (info@fragdenstaat.de) und diese werden das Dokument für "
-#~ "Sie schwärzen und dann veröffentlichen."
+#~ "Falls der Anhang personenbezogene Informationen enthält, bitte "
+#~ "informieren Sie Moderatoren (info@fragdenstaat.de) und diese werden das "
+#~ "Dokument für Sie schwärzen und dann veröffentlichen."
 
 #~ msgid "Update this redacted version"
 #~ msgstr "Bearbeiten Sie diese geschwärzte Version"
@@ -6905,13 +6938,13 @@ msgstr "kampagne/"
 #~ "So far <strong>%(counter)s people</strong> requested this document."
 #~ msgstr[0] "Bisher hat eine weitere Person dieses Dokument angefragt."
 #~ msgstr[1] ""
-#~ "Bisher haben <strong>%(counter)s weitere Personen</strong> dieses Dokument "
-#~ "angefragt."
+#~ "Bisher haben <strong>%(counter)s weitere Personen</strong> dieses "
+#~ "Dokument angefragt."
 
 #~ msgid ""
 #~ "This message may contain information that you may wish to not publish "
-#~ "until after the whole request finished. The following message is therefore "
-#~ "currently only visible to you."
+#~ "until after the whole request finished. The following message is "
+#~ "therefore currently only visible to you."
 #~ msgstr ""
 #~ "Diese Nachricht enthält ggf. Informationen, die Sie erst nach Abschluss "
 #~ "Ihrer Anfrage veröffentlichen sollten. Daher ist der Inhalt der Nachricht "
@@ -6981,8 +7014,8 @@ msgstr "kampagne/"
 
 #~ msgid "%(site_name)s: Please confirm that you want to follow this request"
 #~ msgstr ""
-#~ "%(site_name)s: Bitte bestätigen Sie, dass Sie Benachrichtigungen für diese "
-#~ "Anfrage erhalten möchten"
+#~ "%(site_name)s: Bitte bestätigen Sie, dass Sie Benachrichtigungen für "
+#~ "diese Anfrage erhalten möchten"
 
 #~ msgid "The request '%(request)s' received a reply."
 #~ msgstr "Die Anfrage \"%(request)s\" hat eine Antwort erhalten."
@@ -7024,8 +7057,8 @@ msgstr "kampagne/"
 #~ msgstr "Sie erhalten keine Benachrichtigungen mehr für diese Anfrage."
 
 #~ msgid ""
-#~ "You have not yet confirmed that you want to follow this request. Click the "
-#~ "link in the mail that was sent to you."
+#~ "You have not yet confirmed that you want to follow this request. Click "
+#~ "the link in the mail that was sent to you."
 #~ msgstr ""
 #~ "Sie haben noch nicht bestätigt, dass Sie Benachrichtigungen für diese "
 #~ "Anfrage wünschen. Klicken Sie den Link in der E-Mail an, den wir Ihnen "
@@ -7052,8 +7085,8 @@ msgstr "kampagne/"
 #~ msgid ""
 #~ "Hi,\n"
 #~ "\n"
-#~ "please confirm that you want to follow the request \"%(title)s\" on %"
-#~ "(site_name)s by clicking this link:"
+#~ "please confirm that you want to follow the request \"%(title)s\" on "
+#~ "%(site_name)s by clicking this link:"
 #~ msgstr ""
 #~ "Hallo,\n"
 #~ "\n"
@@ -7069,8 +7102,8 @@ msgstr "kampagne/"
 #~ "Click this link to go to the request:\n"
 #~ "%(link)s\n"
 #~ "\n"
-#~ "If you don't want to receive any email updates for this request, click the "
-#~ "link below:\n"
+#~ "If you don't want to receive any email updates for this request, click "
+#~ "the link below:\n"
 #~ "%(unfollow_link)s\n"
 #~ "\n"
 #~ "Cheers,\n"
@@ -7078,8 +7111,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Hallo %(name)s,\n"
 #~ "\n"
-#~ "es gab eine neue Nachricht in der Anfrage \"%(title)s\" auf %"
-#~ "(site_name)s.\n"
+#~ "es gab eine neue Nachricht in der Anfrage \"%(title)s\" auf "
+#~ "%(site_name)s.\n"
 #~ "%(message)s\n"
 #~ "\n"
 #~ "Klicken Sie diesen Link um zur Anfrage zu gelangen:\n"
@@ -7154,7 +7187,8 @@ msgstr "kampagne/"
 
 #~ msgid "Possible Refusal Reasons, one per line, e.g §X.Y: Privacy Concerns"
 #~ msgstr ""
-#~ "Mögliche Verweigerungsgründe, einer pro Zeile, z.B. §X.Y: Datenschutzgründe"
+#~ "Mögliche Verweigerungsgründe, einer pro Zeile, z.B. §X.Y: "
+#~ "Datenschutzgründe"
 
 #~ msgid "Mediator"
 #~ msgstr "Vermittelnde Stelle"
@@ -7245,7 +7279,8 @@ msgstr "kampagne/"
 
 #~ msgid "Ask Public Bodies for administrative information — it's your right."
 #~ msgstr ""
-#~ "Fragen Sie Behörden nach Verwaltungsinformationen – es ist Ihr gutes Recht."
+#~ "Fragen Sie Behörden nach Verwaltungsinformationen – es ist Ihr gutes "
+#~ "Recht."
 
 #~ msgid "Which Public Bodies?"
 #~ msgstr "Welche Behörden?"
@@ -7405,8 +7440,8 @@ msgstr "kampagne/"
 #~ "This site is currently in dry run mode. All Public Body mail will go to "
 #~ "this mail server:"
 #~ msgstr ""
-#~ "Diese Seite läuft momentan im Probebetrieb. Alle E-Mails an Behörden gehen "
-#~ "momentan an folgenden Mail-Server: "
+#~ "Diese Seite läuft momentan im Probebetrieb. Alle E-Mails an Behörden "
+#~ "gehen momentan an folgenden Mail-Server: "
 
 #~ msgid "Public Profile"
 #~ msgstr "Profilseite"
@@ -7447,8 +7482,8 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "Every citizen has the right under the Freedom of Information Laws to ask "
-#~ "for and receive access to information from Public Bodies concerning public "
-#~ "affairs."
+#~ "for and receive access to information from Public Bodies concerning "
+#~ "public affairs."
 #~ msgstr ""
 #~ "Jeder Bürger hat nach den Informations&shy;gesetzen das Recht, Zugang zu "
 #~ "Informationen der öffentlichen Hand zu erhalten."
@@ -7665,13 +7700,14 @@ msgstr "kampagne/"
 #~ msgstr "Was kann ich tun?"
 
 #~ msgid ""
-#~ "You can start by browsing <a href=\"%(foirequests_url)s\">existing Freedom "
-#~ "of Information requests</a> to get a feeling for what Freedom of "
+#~ "You can start by browsing <a href=\"%(foirequests_url)s\">existing "
+#~ "Freedom of Information requests</a> to get a feeling for what Freedom of "
 #~ "Information is all about."
 #~ msgstr ""
-#~ "Sie können sich zum Beispiel die <a href=\"%"
-#~ "(foirequests_url)s\">existierende Informations&shy;freiheits&shy;anfragen</"
-#~ "a> ansehen, um zu verstehen wie Informations&shy;freiheit funktioniert."
+#~ "Sie können sich zum Beispiel die <a "
+#~ "href=\"%(foirequests_url)s\">existierende Informations&shy;freiheits&shy;"
+#~ "anfragen</a> ansehen, um zu verstehen wie Informations&shy;freiheit "
+#~ "funktioniert."
 
 #~ msgid "Write to them here"
 #~ msgstr "Schreiben Sie hier an sie"
@@ -7693,14 +7729,14 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "If you login, you can make an identical request in your name with one "
-#~ "click to gain individual access to the information that we are not allowed "
-#~ "to publish here. <a href=\"%(url)s?next=%(next)s\">You can login or sign "
-#~ "up here.</a>"
+#~ "click to gain individual access to the information that we are not "
+#~ "allowed to publish here. <a href=\"%(url)s?next=%(next)s\">You can login "
+#~ "or sign up here.</a>"
 #~ msgstr ""
 #~ "Wenn Sie sich einloggen, können Sie mit einem Klick eine identische "
 #~ "Anfrage in Ihrem Namen stellen, um Zugang zu diesen Dokumenten zu "
-#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?next=%"
-#~ "(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
+#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?"
+#~ "next=%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
 
 #~ msgid "No Public Bodies found in this jurisdiction for this query."
 #~ msgstr "Es wurden keine Behörden mit diesem Zuständigkeitsbereich gefunden."
@@ -7827,24 +7863,24 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "\n"
-#~ "Rechtshinweis: Diese Anfrage wurde über den Webservice www.fragdenstaat.de "
-#~ "gestellt. Auf www.fragdenstaat.de kann  jedermann Anfragen nach den "
+#~ "Rechtshinweis: Diese Anfrage wurde über den Webservice www.fragdenstaat."
+#~ "de gestellt. Auf www.fragdenstaat.de kann  jedermann Anfragen nach den "
 #~ "Informationsfreiheitsgesetzen automatisiert an deutsche Behörden stellen. "
 #~ "Alle Anfragen wie auch alle Antworten werden im Internet veröffentlicht. "
 #~ "Dadurch wird der Bedarf (Anfragen) und das Angebot (Antworten) "
 #~ "nachvollziehbar und transparent im Internet dokumentiert. Wir weisen "
-#~ "ausdrücklich auf die automatisierte Veröffentlichung im Internet hin. Eine "
-#~ "redaktionelle Prüfung findet nicht statt.\n"
+#~ "ausdrücklich auf die automatisierte Veröffentlichung im Internet hin. "
+#~ "Eine redaktionelle Prüfung findet nicht statt.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Rechtshinweis: Diese Anfrage wurde über den Webservice www.fragdenstaat.de "
-#~ "gestellt. Auf www.fragdenstaat.de kann  jedermann Anfragen nach den "
+#~ "Rechtshinweis: Diese Anfrage wurde über den Webservice www.fragdenstaat."
+#~ "de gestellt. Auf www.fragdenstaat.de kann  jedermann Anfragen nach den "
 #~ "Informationsfreiheitsgesetzen automatisiert an deutsche Behörden stellen. "
 #~ "Alle Anfragen wie auch alle Antworten werden im Internet veröffentlicht. "
 #~ "Dadurch wird der Bedarf (Anfragen) und das Angebot (Antworten) "
 #~ "nachvollziehbar und transparent im Internet dokumentiert. Wir weisen "
-#~ "ausdrücklich auf die automatisierte Veröffentlichung im Internet hin. Eine "
-#~ "redaktionelle Prüfung findet nicht statt.\n"
+#~ "ausdrücklich auf die automatisierte Veröffentlichung im Internet hin. "
+#~ "Eine redaktionelle Prüfung findet nicht statt.\n"
 
 #~ msgid "FOI Law"
 #~ msgstr "IFG"
@@ -7853,8 +7889,8 @@ msgstr "kampagne/"
 #~ "\n"
 #~ "This mail was sent using a FroIde platform. That means that this message "
 #~ "and any reply to it will be made public. This fact does not limit the "
-#~ "requesters legal right to an answer in accordance with the related freedom "
-#~ "of information law.\n"
+#~ "requesters legal right to an answer in accordance with the related "
+#~ "freedom of information law.\n"
 #~ "You can find more information about FroIde at http://\n"
 #~ msgstr ""
 #~ "\n"
@@ -7883,22 +7919,22 @@ msgstr "kampagne/"
 #~ "We help you <strong>search and find</strong> the right entity for your "
 #~ "request."
 #~ msgstr ""
-#~ "Wir helfen Ihnen die <strong>richtige</strong> Behörde für Ihre Anfrage zu "
-#~ "finden."
+#~ "Wir helfen Ihnen die <strong>richtige</strong> Behörde für Ihre Anfrage "
+#~ "zu finden."
 
 #~ msgid ""
 #~ "We help you <strong>write and send</strong> a proper request to the right "
 #~ "address."
 #~ msgstr ""
-#~ "Wir helfen Ihnen eine Anfrage zu <strong>schreiben und senden</strong> sie "
-#~ "an die richtige Adresse."
+#~ "Wir helfen Ihnen eine Anfrage zu <strong>schreiben und senden</strong> "
+#~ "sie an die richtige Adresse."
 
 #~ msgid "Receive a Reply"
 #~ msgstr "Erhalten Sie eine Antwort"
 
 #~ msgid ""
-#~ "We <strong>publish all requests</strong> along with the replies for others "
-#~ "to explore."
+#~ "We <strong>publish all requests</strong> along with the replies for "
+#~ "others to explore."
 #~ msgstr ""
 #~ "Wir <strong>veröffentlichen alle Anfragen</strong> und Antworten, damit "
 #~ "andere sie lesen können."
@@ -7933,7 +7969,8 @@ msgstr "kampagne/"
 #~ msgstr[0] ""
 #~ "Diese Anfrage wird automatisch einen Tag nach Fristende veröffentlicht."
 #~ msgstr[1] ""
-#~ "Diese Anfrage wird automatisch %(days)s Tage nach Fristende veröffentlicht."
+#~ "Diese Anfrage wird automatisch %(days)s Tage nach Fristende "
+#~ "veröffentlicht."
 
 #~ msgid "Top Public Bodies"
 #~ msgstr "Top-Behörden"
@@ -7960,8 +7997,8 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "If you don't want your request to be immediately public, uncheck this. We "
-#~ "will automatically publish the request some time after the last message or "
-#~ "you can decide to publish the request yourself before that."
+#~ "will automatically publish the request some time after the last message "
+#~ "or you can decide to publish the request yourself before that."
 #~ msgstr ""
 #~ "Wenn Sie nicht wollen, dass Ihre Anfrage sofort öffentlich ist, entfernen "
 #~ "Sie den Haken. Wir werden die Anfrage automatisch einige Zeit nach der "
@@ -8143,8 +8180,8 @@ msgstr "kampagne/"
 #~ "Hello %(name)s,\n"
 #~ "\n"
 #~ "You received a response to your request \"%(title)s\". Please read the "
-#~ "response and change the status of the request if needed. You can also send "
-#~ "another message.\n"
+#~ "response and change the status of the request if needed. You can also "
+#~ "send another message.\n"
 #~ "\n"
 #~ "To read your response and set the right status, click the link below:\n"
 #~ "\n"
@@ -8156,8 +8193,8 @@ msgstr "kampagne/"
 #~ "Hallo %(name)s,\n"
 #~ "\n"
 #~ "Sie haben eine Antwort auf Ihre Anfrage \"%(title)s\" erhalten. Bitte "
-#~ "lesen Sie die Antwort und ändern Sie den Status Ihrer Anfrage falls nötig. "
-#~ "Sie können auch eine weitere Nachricht senden.\n"
+#~ "lesen Sie die Antwort und ändern Sie den Status Ihrer Anfrage falls "
+#~ "nötig. Sie können auch eine weitere Nachricht senden.\n"
 #~ "\n"
 #~ "Um die Antwort zu lesen und den richtigen Zustand anzugeben, klicken Sie "
 #~ "auf diesen Link:\n"
