@@ -21,7 +21,7 @@
                 {% if instance.external_picture %}src="{{ instance.external_picture }}"
                 {% elif instance.use_no_cropping or instance.picture.mime_type == "image/svg+xml" %}src="{{ instance.picture.url }}"
                 {% else %}src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}"{% endif %}
-                    {% if not instance.attributes.alt %}alt="{{ instance.picture.default_alt_text|default:instance.picture.description }}"{% endif %}
+                    {% if not instance.attributes.alt %}alt="{{ instance.picture.default_alt_text|default:instance.picture.description|default:"" }}"{% endif %}
                     {% if instance.width or instance.height %}
                         {# We are cropping #}
                         {% if instance.width %}width="{{ instance.width|floatformat:"0u" }}"{% endif %}
