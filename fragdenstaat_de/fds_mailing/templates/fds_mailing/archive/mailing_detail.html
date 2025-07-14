@@ -18,7 +18,7 @@
             {% if newsletter.visible and not has_newsletter %}
                 <div class="row">
                     <div class="col col-md-8">
-                        <div class="border-yellow text-bg-body shadow-md-yellow p-3 mt-3">
+                        <div class="border border-2 border-yellow-200 text-bg-body shadow-md-yellow p-3 mt-3">
                             <p class="lead mt-0">{% trans "Don't miss out on any future updates by subscribing to this newsletter!" %}</p>
                             {% include "fds_newsletter/plugins/newsletter_form.html" %}
                         </div>
@@ -30,9 +30,9 @@
     <div class="container pb-5">
         <div class="row">
             <div class="col col-md-10 col-lg-8">
-                <div class="border-gray shadow-md-gray mt-n3 mt-n6 p-3 text-bg-body">{{ content }}</div>
+                <div class="border border-2 border-gray-300 shadow-md-gray mt-n3 mt-n6 p-3 text-bg-body">{{ content }}</div>
                 {% if newsletter.visible and not has_newsletter %}
-                    <div class="border-yellow shadow-md-yellow p-3 mt-5">
+                    <div class="border border-2 border-yellow-200 shadow-md-yellow p-3 mt-5">
                         <p class="lead mt-0">{% trans "Don't miss out on any future updates by subscribing to this newsletter!" %}</p>
                         {% include "fds_newsletter/plugins/newsletter_form.html" %}
                     </div>

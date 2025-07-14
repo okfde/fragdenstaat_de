@@ -2,7 +2,7 @@
 {% load fds_cms_tags %}
 {% load static %}
 {% load markup %}
-<div class="slider-card text-bg-body md:shadow-yellow border-yellow d-flex flex-column p-4 mx-auto">
+<div class="slider-card text-bg-body md:shadow-yellow border border-2 border-yellow-200 d-flex flex-column p-4 mx-auto">
     {% if "campaign-card__done" in object.extra_classes %}
         <img src="{% static 'img/campaign-check.svg' %}"
              alt="Kampagne abgeschlossen"

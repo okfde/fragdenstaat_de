@@ -1,6 +1,6 @@
 {% load i18n easy_thumbnails_tags cms_tags %}
 <article id="organization-{{ object.slug }}"
-         class="md:shadow-gray border-gray p-3 mx-auto h-100 d-flex flex-column">
+         class="md:shadow-gray border border-2 border-gray-300 p-3 mx-auto h-100 d-flex flex-column">
     <h4 class="mb-4">
         <a href="{{ object.get_absolute_url }}">
             {% if object.logo %}
