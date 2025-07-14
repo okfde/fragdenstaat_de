@@ -1,7 +1,6 @@
 import json
 import urllib.parse
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
@@ -504,7 +503,7 @@ class FdsCardPlugin(CMSPluginBase):
         classes = []
 
         if instance.border != "none":
-            classes.append(f"border-{instance.border}")
+            classes.append(f"border border-2 border-{instance.border}")
 
         if instance.shadow == "always":
             classes.append(f"shadow-{instance.border}")
@@ -553,12 +552,9 @@ class FdsCardPlugin(CMSPluginBase):
         return "p-3"
 
     def color(self, instance):
-        if instance.border == "blue":
-            return "text-bg-blue-20"
-        elif instance.border == "gray":
-            return "text-bg-gray-300"
-        elif instance.border == "yellow":
-            return "text-bg-yellow-200"
+        if instance.border:
+            return f"text-bg-{instance.border}"
+        return ""
 
 
 @plugin_pool.register_plugin
@@ -573,10 +569,7 @@ class FdsCardInnerPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         classes = []
-        try:
-            parent_model, parent_instance = instance.parent.get_plugin_instance()
-        except ObjectDoesNotExist:
-            return super().render(context, instance, placeholder)
+        parent_model, parent_instance = instance.parent.get_plugin_instance()
 
         if parent_model is not None:
             classes.append(parent_instance.padding(parent_model))
