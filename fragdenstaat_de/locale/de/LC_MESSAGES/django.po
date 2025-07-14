@@ -1674,14 +1674,17 @@ msgid "In year:"
 msgstr "Im Jahr:"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
+#: fragdenstaat_de/fds_donation/admin.py
 msgid "Passive donation"
 msgstr "Passive Spende"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
+#: fragdenstaat_de/fds_donation/admin.py
 msgid "active"
 msgstr "aktiv"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
+#: fragdenstaat_de/fds_donation/admin.py
 msgid "passive"
 msgstr "passiv"
 
@@ -4424,6 +4427,10 @@ msgstr ""
 "Benötigt eine \"email\" Spalte. Optional kann auch die Spalte name (oder "
 "first_name, last_name) angegeben werden."
 
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "amount last year"
+msgstr "Betrag letztes Jahr"
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
@@ -4435,9 +4442,6 @@ msgstr ""
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#~ msgid "amount last year"
-#~ msgstr "Betrag letztes Jahr"
 
 #~ msgid "Blue"
 #~ msgstr "Blau"
