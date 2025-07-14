@@ -37,20 +37,6 @@
   --shadow-color: var(--shadow-yellow);
 }
 
-@mixin border($color) {
-  border: 2px solid $color;
-}
-
-.border-blue {
-  @include border($blue-20);
-}
-.border-gray {
-  @include border($gray-300);
-}
-.border-yellow {
-  @include border($yellow-200);
-}
-
 /*
   Backdrop with 50% height
 */

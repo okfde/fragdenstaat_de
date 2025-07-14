@@ -2,7 +2,7 @@
 <ul class="row list-unstyled row-gap-2">
     {% for mailing in latest %}
         <li class="col col-12 col-md-6 col-lg-4 d-flex">
-            <article class="box-card position-relative border-gray p-3 text-bg-body">
+            <article class="box-card position-relative border border-2 border-gray-300 p-3 text-bg-body">
                 <h3 class="h5">{{ mailing.email_template.subject }}</h3>
                 <p class="text-body-secondary">{{ mailing.sending_date|date:"DATE_FORMAT" }}</p>
                 <a class="stretched-link mt-auto"

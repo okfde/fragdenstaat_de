@@ -1,5 +1,5 @@
 {% load i18n cms_tags %}
-<div class="audio-player bg-body-tertiary border-gray p-3">
+<div class="audio-player bg-body-tertiary border border-2 border-gray-300 p-3">
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% empty %}

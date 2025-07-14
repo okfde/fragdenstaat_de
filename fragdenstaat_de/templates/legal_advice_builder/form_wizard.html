@@ -36,7 +36,7 @@
         <div class="row justify-content-center mt-2">
             <div class="col-md-8">
                 {% if form %}
-                    <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
+                    <div class="clearfix mt-3 text-bg-body border border-2 border-gray-300 shadow-sm p-3">
                         <form method="post">
                             <div class="pb-2 mb-3">
                                 {% if step_count > 1 %}<div class="fw-bold mb-3">{{ question.questionaire }}</div>{% endif %}
@@ -68,7 +68,7 @@
                     </div>
                 {% endif %}
                 {% if success %}
-                    <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
+                    <div class="clearfix mt-3 text-bg-body border border-2 border-gray-300 shadow-sm p-3">
                         <div class="pb-2 mb-3">
                             {% if step_count > 1 %}<div class="fw-bold mb-3">{{ question.questionaire }}</div>{% endif %}
                             <div class="progress">
@@ -104,7 +104,7 @@
                     </div>
                 {% endif %}
                 {% if failure %}
-                    <div class="clearfix mt-3 text-bg-body border-gray shadow-sm p-3">
+                    <div class="clearfix mt-3 text-bg-body border border-2 border-gray-300 shadow-sm p-3">
                         <div class="pb-2 mb-3">
                             {% if step_count > 1 %}<div class="fw-bold mb-3">{{ question.questionaire }}</div>{% endif %}
                             <div class="progress">
@@ -146,7 +146,8 @@
                         <p>Ein Klageentwurf wurde für Sie erstellt.</p>
                     </div>
                     {{ answer_form.media }}
-                    <form method="post" class="clearfix mt-3 border-gray shadow-sm p-3">
+                    <form method="post"
+                          class="clearfix mt-3 border border-2 border-gray-300 shadow-sm p-3">
                         {% csrf_token %}
                         {{ answer_form }}
                         <div class="row mt-2">
