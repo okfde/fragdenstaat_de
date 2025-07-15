@@ -333,7 +333,10 @@ class SegmentAdmin(TreeAdmin):
         return qs
 
     def tag_list(self, obj):
-        return ", ".join([str(tag) for tag in obj.tags.all()])
+        tags = ", ".join([str(tag) for tag in obj.tags.all()])
+        if tags and obj.negate:
+            tags = f"NOT ({tags})"
+        return tags
 
     def get_default_newsletter(self):
         if not hasattr(self, "_newsletter"):
