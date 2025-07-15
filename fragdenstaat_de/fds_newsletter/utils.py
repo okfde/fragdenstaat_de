@@ -4,7 +4,7 @@ import hashlib
 import string
 from datetime import timedelta
 from enum import Enum
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from django.conf import settings
 from django.db import connection
@@ -235,7 +235,7 @@ def import_csv(csv_file, newsletter, reference="", email_confirmed=False):
         )
 
 
-def get_subscribers(newsletter, segments=None):
+def get_subscribers(newsletter: Newsletter, segments: Optional[list[Segment]] = None):
     if not newsletter:
         return Subscriber.objects.none()
     qs = Subscriber.objects.filter(newsletter=newsletter, subscribed__isnull=False)

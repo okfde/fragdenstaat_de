@@ -1,4 +1,5 @@
 import logging
+from functools import reduce
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -433,14 +434,13 @@ class Segment(MP_Node):
             else:
                 qs = qs.filter(taggedsubscriber__tag=tag)
 
-        # OR-Filter by children
+        # AND-Filter by children
         children = self.get_children()
         if children:
-            first_child = children[0]
-            out_qs = first_child.filter_subscribers(qs).order_by()
-            out_qs = out_qs.union(
-                *[child.filter_subscribers(qs).order_by() for child in children[1:]]
-            )
+            children_qs = [
+                child.filter_subscribers(qs).order_by() for child in children
+            ]
+            out_qs = reduce(lambda x, y: x & y, children_qs)
             return out_qs
         return qs
 

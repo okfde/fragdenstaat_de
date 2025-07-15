@@ -32,11 +32,17 @@ def subscriber_factory():
 
 @pytest.fixture
 def segment_factory():
-    def factory(parent=None, tags=None):
+    def factory(parent=None, tags=None, negate=False):
         if parent is None:
-            segment = Segment.add_root(name="Test Root Segment")
+            segment = Segment.add_root(
+                name="Test Root Segment [{}]".format(", ".join(tags if tags else [])),
+                negate=negate,
+            )
         else:
-            segment = parent.add_child(name="Test Child Segment")
+            segment = parent.add_child(
+                name="Test Child Segment [{}]".format(", ".join(tags if tags else [])),
+                negate=negate,
+            )
 
         if tags:
             segment.tags.set(tags)
@@ -117,6 +123,9 @@ def test_segment_filter_subscribers_with_children(
     assert {subscriber3} == set(result)
 
     result = get_subscribers(newsletter, segments=[parent_segment])
+    assert set() == set(result)
+
+    result = get_subscribers(newsletter, segments=[child_segment1, child_segment3])
     assert {subscriber2, subscriber3} == set(result)
 
 
@@ -128,7 +137,7 @@ def test_segment_filter_subscribers_with_parent_tag(
 
     _subscriber1 = subscriber_factory(newsletter, tags={"tag1"})
     subscriber2 = subscriber_factory(newsletter, tags={"tag1", "tag2"})
-    subscriber3 = subscriber_factory(newsletter, tags={"tag3"})
+    subscriber3 = subscriber_factory(newsletter, tags={"tag3", "tag1"})
     _subscriber4 = subscriber_factory(newsletter, tags={"tag4"})
 
     parent_segment = segment_factory(tags=["tag1"])
@@ -146,4 +155,54 @@ def test_segment_filter_subscribers_with_parent_tag(
     assert {subscriber3} == set(result)
 
     result = get_subscribers(newsletter, segments=[parent_segment])
-    assert {subscriber2} == set(result)
+    assert set() == set(result)
+
+
+@pytest.mark.django_db
+def test_segment_filter_subscribers_with_parent_tag_intersection(
+    newsletter, subscriber_factory, segment_factory
+):
+    """Test Segment parent with tag and with child segments."""
+
+    _subscriber1 = subscriber_factory(newsletter, tags={"tag1"})
+    _subscriber2 = subscriber_factory(newsletter, tags={"tag1", "tag2"})
+    subscriber3 = subscriber_factory(newsletter, tags={"tag3", "tag1"})
+    _subscriber4 = subscriber_factory(newsletter, tags={"tag4"})
+
+    parent_segment = segment_factory(tags=["tag1"])
+    child_segment = segment_factory(tags=["tag3"], parent=parent_segment)
+
+    result = get_subscribers(newsletter, segments=[child_segment])
+    assert {subscriber3} == set(result)
+
+    result = get_subscribers(newsletter, segments=[parent_segment])
+    assert {subscriber3} == set(result)
+
+
+@pytest.mark.django_db
+def test_segment_negated_tags(newsletter, subscriber_factory, segment_factory):
+    """Test Segment parent with tag and with child segments."""
+
+    subscriber1 = subscriber_factory(newsletter, tags={"tag1"})
+    subscriber2 = subscriber_factory(newsletter, tags={"tag1", "tag2"})
+    subscriber3 = subscriber_factory(newsletter, tags={"tag3"})
+    subscriber4 = subscriber_factory(newsletter, tags={"tag4"})
+
+    parent_segment = segment_factory(tags=["tag1"], negate=True)
+    child_segment1 = segment_factory(tags=["tag2"], parent=parent_segment, negate=True)
+    child_segment2 = segment_factory(
+        tags=["tag2", "tag_bad"], parent=parent_segment, negate=True
+    )
+    child_segment3 = segment_factory(tags=["tag3"], parent=parent_segment, negate=True)
+
+    result = get_subscribers(newsletter, segments=[child_segment1])
+    assert {subscriber1, subscriber3, subscriber4} == set(result)
+
+    result = get_subscribers(newsletter, segments=[child_segment2])
+    assert {subscriber1, subscriber3, subscriber4} == set(result)
+
+    result = get_subscribers(newsletter, segments=[child_segment3])
+    assert {subscriber1, subscriber2, subscriber4} == set(result)
+
+    result = get_subscribers(newsletter, segments=[parent_segment])
+    assert {subscriber4} == set(result)
