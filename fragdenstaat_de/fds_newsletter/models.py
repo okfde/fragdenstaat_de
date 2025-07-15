@@ -408,6 +408,7 @@ class Segment(MP_Node):
         through=TaggedSegment,
         verbose_name=_("contains subscribers with all of these"),
     )
+    negate = models.BooleanField(default=False, verbose_name=_("negate tags"))
 
     node_order_by = ["name"]
 
@@ -427,7 +428,10 @@ class Segment(MP_Node):
     def filter_subscribers(self, qs):
         # AND-Filter by tags
         for tag in self.tags.all():
-            qs = qs.filter(taggedsubscriber__tag=tag)
+            if self.negate:
+                qs = qs.exclude(taggedsubscriber__tag=tag)
+            else:
+                qs = qs.filter(taggedsubscriber__tag=tag)
 
         # OR-Filter by children
         children = self.get_children()
