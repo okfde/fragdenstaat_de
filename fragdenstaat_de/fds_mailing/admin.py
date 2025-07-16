@@ -21,6 +21,8 @@ from froide.helper.admin_utils import (
     make_nullfilter,
 )
 
+from fragdenstaat_de.fds_newsletter.admin_utils import make_subscriber_tagger
+from fragdenstaat_de.fds_newsletter.models import Subscriber
 from fragdenstaat_de.theme.admin import PublicBodyAdmin
 
 from .forms import RandomSplitForm
@@ -191,7 +193,14 @@ class MailingAdmin(admin.ModelAdmin):
         ),
     )
     search_fields = ("name",)
-    actions = ["trigger_continue_sending"]
+    actions = ["trigger_continue_sending", "tag_subscribers"]
+
+    tag_subscribers = make_subscriber_tagger(
+        None,
+        convert_queryset_function=lambda qs: Subscriber.objects.filter(
+            mailingmessage__mailing__in=qs
+        ).distinct(),
+    )
 
     def get_urls(self):
         urls = super().get_urls()
