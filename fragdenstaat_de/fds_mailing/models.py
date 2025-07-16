@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.core.mail import EmailMultiAlternatives, mail_managers
 from django.db import models, transaction
 from django.db.models.query import QuerySet
@@ -322,6 +323,9 @@ class EmailHeaderCMSPlugin(VariableTemplateMixin, CMSPlugin):
 
 
 class MailingManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_continuous=False)
+
     def get_tracked(self):
         return (
             self.get_queryset()
@@ -349,6 +353,13 @@ class PublishedMailingManager(MailingManager):
 
 class Mailing(models.Model):
     name = models.CharField(max_length=255)
+    is_continuous = models.BooleanField(
+        default=False,
+        verbose_name=_("is continuous"),
+        help_text=_(
+            "This mailing is a continuous mailing that tracks transactional messages."
+        ),
+    )
     email_template = models.ForeignKey(
         EmailTemplate, null=True, on_delete=models.SET_NULL
     )
@@ -428,6 +439,13 @@ class Mailing(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if self.is_continuous:
+            if self.publish:
+                raise ValidationError(
+                    _("Continuous mailings cannot be published in the archive.")
+                )
 
     def get_absolute_url(self):
         if self.newsletter and self.publish and self.sending_date:
@@ -569,6 +587,23 @@ class Mailing(models.Model):
             self.save()
 
 
+class ContinuousMailingManager(MailingManager):
+    def get_queryset(self):
+        return ContinuousMailing.objects.filter(is_continuous=True)
+
+
+class ContinuousMailing(Mailing):
+    objects = ContinuousMailingManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = _("continuous mailing")
+        verbose_name_plural = _("continuous mailings")
+
+    def send(self):
+        raise ValueError("Cannot send a continuous mailing directly.")
+
+
 class MailingMessage(models.Model):
     mailing = models.ForeignKey(
         Mailing, on_delete=models.CASCADE, related_name="recipients"
@@ -587,6 +622,13 @@ class MailingMessage(models.Model):
     )
     donor = models.ForeignKey(Donor, null=True, blank=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    is_continuous = models.BooleanField(
+        default=False,
+        verbose_name=_("is continuous"),
+        help_text=_(
+            "This message is part of a continuous mailing that tracks transactional messages."
+        ),
+    )
 
     class Meta:
         ordering = ("-sent",)
@@ -595,6 +637,7 @@ class MailingMessage(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=["mailing", "email"],
+                condition=models.Q(is_continuous=False),
                 name="unique_mailing_email",
             ),
             models.UniqueConstraint(
@@ -604,7 +647,7 @@ class MailingMessage(models.Model):
             ),
             models.UniqueConstraint(
                 fields=["mailing", "user"],
-                condition=models.Q(user__isnull=False),
+                condition=models.Q(user__isnull=False, is_continuous=False),
                 name="unique_mailing_user",
             ),
         ]
