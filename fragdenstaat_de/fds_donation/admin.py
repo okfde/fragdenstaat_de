@@ -34,6 +34,7 @@ from froide.helper.widgets import TagAutocompleteWidget
 
 from fragdenstaat_de.fds_mailing.models import MailingMessage
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
+from fragdenstaat_de.fds_newsletter.admin_utils import make_subscriber_tagger
 
 from .admin_utils import (
     DonorProjectFilter,
@@ -270,12 +271,14 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "detect_recurring_on_donor",
         "tag_all",
         "mark_invalid_addresses",
-        "send_mailing",
-        "update_newsletter_tag",
         "export_donor_csv",
+        "tag_subscribers",
     ] + SetupMailingMixin.actions
 
     tag_all = make_batch_tag_action(autocomplete_url=DONOR_TAG_AUTOCOMPLETE)
+    tag_subscribers = make_subscriber_tagger(
+        lambda qs: qs.exclude(email="").values_list("email", flat=True)
+    )
 
     def get_changelist(self, request):
         return DonorChangeList
@@ -759,6 +762,7 @@ class DonationAdmin(admin.ModelAdmin):
         "tag_donors",
         "match_banktransfer",
         "clear_receipt_date",
+        "tag_subscribers",
     ]
 
     tag_donors = make_batch_tag_action(
@@ -766,6 +770,12 @@ class DonationAdmin(admin.ModelAdmin):
         autocomplete_url=DONOR_TAG_AUTOCOMPLETE,
         field=lambda obj, tags: obj.donor.tags.add(*tags),
         short_description="Füge Tag zu zugehörigen Spender:innen hinzu",
+    )
+    tag_subscribers = make_subscriber_tagger(
+        lambda qs: Donor.objects.exclude(email="")
+        .filter(donations__in=qs)
+        .distinct()
+        .values_list("email", flat=True)
     )
 
     def get_urls(self):
