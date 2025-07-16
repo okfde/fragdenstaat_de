@@ -82,11 +82,18 @@ class DonorTotalAmountPerYearFilter(SimpleListFilter):
         qs = queryset
 
         if amount_str and year:
+            donations_filter = Q(donations__received_timestamp__year=year)
+            donation_projects = self.request.GET.get(DonorProjectFilter.parameter_name)
+            if donation_projects:
+                values = donation_projects.split(",")
+                project_q = DonorProjectFilter.get_q(values, "donations__project__in")
+                donations_filter &= project_q
+
             # Annotate donors with total donation amount for specified year
             qs = queryset.annotate(
                 amount_in_year=Sum(
                     "donations__amount",
-                    filter=Q(donations__received_timestamp__year=year),
+                    filter=donations_filter,
                 ),
             )
 
