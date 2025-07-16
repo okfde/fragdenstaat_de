@@ -108,7 +108,29 @@ class EmailTemplateAdmin(admin.ModelAdmin):
         return HttpResponse(content=content, content_type="message/rfc822")
 
 
-class MailingAdmin(admin.ModelAdmin):
+class MailingAdminMixin:
+    @admin.display(description=_("Open rate"))
+    def open_rate(self, obj):
+        if not obj.tracking:
+            return "n/a"
+        if not (obj.sending or obj.sent):
+            return "..."
+        if obj.total_recipients == 0:
+            return "-"
+        return "{}%".format(
+            formats.number_format(
+                obj.open_count / obj.total_recipients * 100, decimal_pos=3
+            )
+        )
+
+    @admin.display(description=_("Recipients"))
+    def recipients(self, obj):
+        if obj.total_recipients == 0:
+            return obj.get_recipient_count()
+        return obj.total_recipients
+
+
+class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
     raw_id_fields = ("email_template",)
     filter_horizontal = ("segments",)
     list_display = (
@@ -374,9 +396,85 @@ class MailingAdmin(admin.ModelAdmin):
         return redirect(change_url)
 
 
+class ContinuousMailingAdmin(MailingAdminMixin, admin.ModelAdmin):
+    raw_id_fields = ("email_template",)
+    list_display = (
+        "name",
+        "email_template",
+        "created",
+        "ready",
+        "recipients",
+        "open_rate",
+    )
+    list_filter = ("ready",)
+    readonly_fields = (
+        "created",
+        "creator_user",
+        "sender_user",
+        "open_count",
+        "open_log_timestamp",
+    )
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "name",
+                    "created",
+                )
+            },
+        ),
+        (
+            _("Mailing"),
+            {
+                "fields": (
+                    "email_template",
+                    "sender_name",
+                    "sender_email",
+                    "tracking",
+                    "ready",
+                )
+            },
+        ),
+        (
+            _("Status"),
+            {
+                "fields": (
+                    "open_count",
+                    "open_log_timestamp",
+                )
+            },
+        ),
+        (
+            _("User"),
+            {"fields": ("creator_user",)},
+        ),
+    )
+    search_fields = ("name",)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+
+        qs = qs.annotate(
+            total_recipients=models.Count("recipients"),
+            sent_recipients=models.Count(
+                "recipients", filter=models.Q(recipients__sent__isnull=False)
+            ),
+        )
+
+
 class MailingMessageAdmin(admin.ModelAdmin):
     raw_id_fields = ("mailing", "subscriber", "donor", "user")
-    list_display = ("mailing", "email", "name", "donor", "user", "sent", "bounced")
+    list_display = (
+        "mailing",
+        "is_continuous",
+        "email",
+        "name",
+        "donor",
+        "user",
+        "sent",
+        "bounced",
+    )
     date_hierarchy = "sent"
     list_filter = (
         "sent",
@@ -389,7 +487,7 @@ class MailingMessageAdmin(admin.ModelAdmin):
     search_fields = ("email", "name")
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
+        qs = super().get_queryset(request).select_related("mailing")
         qs = qs.prefetch_related("donor", "subscriber", "user")
         return qs
 
