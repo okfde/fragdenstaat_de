@@ -5,8 +5,6 @@
 {% block body %}
     {% render_placeholder placeholder %}
     {% if extra_email_placeholder %}
-        <tr>
-            <td class="text-cell">{% static_alias extra_email_placeholder %}</td>
-        </tr>
+        {% static_alias extra_email_placeholder %}
     {% endif %}
 {% endblock %}
