@@ -130,6 +130,12 @@ class TaggedSubscriber(TaggedItemBase):
     class Meta:
         verbose_name = _("Tagged Subscriber")
         verbose_name_plural = _("Tagged Subscribers")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["tag", "content_object"],
+                name="unique_tagged_subscriber",
+            )
+        ]
 
 
 def make_activation_code():
