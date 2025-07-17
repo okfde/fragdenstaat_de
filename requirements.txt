@@ -164,7 +164,7 @@ django-classy-tags==4.1.0
     # via
     #   django-cms
     #   django-sekizai
-django-cms==5.0.1
+django-cms==5.0.2
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   djangocms-alias
