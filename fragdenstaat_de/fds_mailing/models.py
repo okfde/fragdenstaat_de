@@ -322,10 +322,7 @@ class EmailHeaderCMSPlugin(VariableTemplateMixin, CMSPlugin):
         return self.label
 
 
-class MailingManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(is_continuous=False)
-
+class MailingBaseManager(models.Manager):
     def get_tracked(self):
         return (
             self.get_queryset()
@@ -335,6 +332,11 @@ class MailingManager(models.Manager):
             )
             .filter(models.Q(sending=True) | models.Q(sent=True))
         )
+
+
+class MailingManager(MailingBaseManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_continuous=False)
 
 
 class PublishedMailingManager(MailingManager):
@@ -429,6 +431,7 @@ class Mailing(models.Model):
         blank=True,
     )
 
+    all_mailings = MailingBaseManager()
     objects = MailingManager()
     published = PublishedMailingManager()
 
@@ -587,9 +590,9 @@ class Mailing(models.Model):
             self.save()
 
 
-class ContinuousMailingManager(MailingManager):
+class ContinuousMailingManager(MailingBaseManager):
     def get_queryset(self):
-        return ContinuousMailing.objects.filter(is_continuous=True)
+        return super().get_queryset().filter(is_continuous=True)
 
 
 class ContinuousMailing(Mailing):

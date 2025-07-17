@@ -219,7 +219,7 @@ class PixelProcessor:
         if pixel.mailing_id in self.mailings:
             return self.mailings[pixel.mailing_id]
         try:
-            mailing = Mailing.objects.get_tracked().get(id=pixel.mailing_id)
+            mailing = Mailing._default_manager.get_tracked().get(id=pixel.mailing_id)
         except Mailing.DoesNotExist:
             mailing = None
         self.mailings[pixel.mailing_id] = mailing
