@@ -5,7 +5,6 @@ from django.utils import timezone
 
 import pytest
 from dateutil import relativedelta
-from froide_payment.models import Customer, Order, Plan, Subscription
 
 from ..models import Donation, Donor, Recurrence
 from ..recurrence import (
@@ -14,39 +13,7 @@ from ..recurrence import (
     process_recurrence_on_donor,
 )
 from ..services import merge_donor_list
-from .factories import DonationFactory, DonorFactory
-
-
-def make_banktransfer_donation(donor, amount, date):
-    plan = Plan.objects.create(
-        name="Monthly Donation",
-        slug="monthly-donation",
-        interval=1,
-        amount=amount,
-    )
-    customer = Customer.objects.create(user_email=donor.email)
-    subscription = Subscription.objects.create(
-        plan=plan,
-        customer=customer,
-        created=date - timedelta(minutes=1),
-    )
-    order = Order.objects.create(
-        user_email=donor.email,
-        total_net=amount,
-        total_gross=amount,
-        is_donation=True,
-        description="Monthly donation",
-        subscription=subscription,
-    )
-    donation = DonationFactory.create(
-        donor=donor,
-        method="banktransfer",
-        timestamp=date,
-        order=order,
-        completed=True,
-        amount=amount,
-    )
-    return donation
+from .factories import DonorFactory, make_banktransfer_donation
 
 
 @pytest.mark.django_db

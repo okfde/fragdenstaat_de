@@ -122,8 +122,7 @@ def import_banktransfer(transfer_ident, row, project):
             payment.captured_amount = donation.amount
             payment.received_amount = donation.amount
             payment.received_timestamp = donation.received_timestamp
-            payment.change_status(PaymentStatus.CONFIRMED)
-            payment.save()
+            payment.change_status_and_save(PaymentStatus.CONFIRMED)
     return is_new
 
 
@@ -141,8 +140,7 @@ def update_direct_debit(row):
     payment.captured_amount = amount
     payment.received_amount = amount
     payment.received_timestamp = row["date_received"]
-    payment.change_status(PaymentStatus.CONFIRMED)
-    payment.save()
+    payment.change_status_and_save(PaymentStatus.CONFIRMED)
 
 
 def import_banktransfers(xls_file, project):
