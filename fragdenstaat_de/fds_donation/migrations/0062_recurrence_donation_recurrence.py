@@ -3,6 +3,7 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
+import fragdenstaat_de.fds_donation.models
 
 class Migration(migrations.Migration):
 
@@ -18,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('method', models.CharField(blank=True, max_length=256)),
                 ('start_date', models.DateTimeField()),
-                ('interval', models.IntegerField(choices=[(1, 'monthly'), (3, 'quarterly'), (12, 'yearly')])),
+                ('interval', models.IntegerField(choices=fragdenstaat_de.fds_donation.models.get_recurring_interval_choices)),
                 ('amount', models.DecimalField(decimal_places=2, default=0, max_digits=12)),
                 ('cancel_date', models.DateTimeField(blank=True, null=True)),
                 ('cancel_reason', models.CharField(blank=True, choices=[('', 'No reason given'), ('financial', 'Financial reasons'), ('unintended', 'Mistakenly set up, do not remember doing so'), ('lost', 'I do not want to support this project anymore'), ('other', 'Other')], default='', help_text='Reason for cancellation', max_length=255)),

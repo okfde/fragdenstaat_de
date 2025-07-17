@@ -338,6 +338,10 @@ class CancelReason(models.TextChoices):
     OTHER = "other", _("Other")
 
 
+def get_recurring_interval_choices():
+    return RECURRING_INTERVAL_CHOICES
+
+
 class Recurrence(models.Model):
     donor = models.ForeignKey(
         Donor,
@@ -361,7 +365,7 @@ class Recurrence(models.Model):
     )
     method = models.CharField(max_length=256, blank=True)
     start_date = models.DateTimeField()
-    interval = models.IntegerField(choices=RECURRING_INTERVAL_CHOICES)
+    interval = models.IntegerField(choices=get_recurring_interval_choices)
     amount = models.DecimalField(
         max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
     )
