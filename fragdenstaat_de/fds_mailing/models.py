@@ -710,7 +710,7 @@ class MailingMessage(models.Model):
             self.email = self.subscriber.get_email()
             self.name = self.subscriber.get_name()
 
-    def send_message(self, mailing_context=None):
+    def send_message(self, mailing_context=None, extra_kwargs=None):
         assert self.sent is None
 
         if not self.email:
@@ -726,7 +726,12 @@ class MailingMessage(models.Model):
 
         email_content = self.mailing.get_email_content(context)
 
-        extra_kwargs = {"queue": settings.EMAIL_BULK_QUEUE}
+        if extra_kwargs is None:
+            extra_kwargs = {}
+
+        if not self.mailing.is_continuous:
+            extra_kwargs.update({"queue": settings.EMAIL_BULK_QUEUE})
+
         if email_content.html:
             extra_kwargs["html"] = email_content.html
 
@@ -748,6 +753,19 @@ class MailingMessage(models.Model):
 
         except Exception as e:
             logger.error("Mailing message %s failed with error: %s" % (self, e))
+            return False
+        return True
+
+
+class MailingMessageReferenceManager(models.Manager):
+    def create_with_object(self, mailing_message, content_object, content_type=None):
+        if content_type is None:
+            content_type = ContentType.objects.get_for_model(content_object)
+        return self.create(
+            mailing_message=mailing_message,
+            content_type=content_type,
+            object_id=content_object.pk,
+        )
 
 
 class MailingMessageReference(models.Model):
