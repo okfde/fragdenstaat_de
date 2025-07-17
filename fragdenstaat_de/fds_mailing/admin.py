@@ -26,7 +26,7 @@ from fragdenstaat_de.fds_newsletter.models import Subscriber
 from fragdenstaat_de.theme.admin import PublicBodyAdmin
 
 from .forms import RandomSplitForm
-from .models import EmailTemplate, Mailing, MailingMessage
+from .models import ContinuousMailing, EmailTemplate, Mailing, MailingMessage
 from .tasks import continue_sending
 from .utils import add_fake_context
 
@@ -461,6 +461,14 @@ class ContinuousMailingAdmin(MailingAdminMixin, admin.ModelAdmin):
                 "recipients", filter=models.Q(recipients__sent__isnull=False)
             ),
         )
+        return qs.prefetch_related("email_template")
+
+    def save_model(self, request, obj, form, change):
+        obj.is_continuous = True
+        obj.sending = obj.ready
+        if obj.ready and not obj.sending_date:
+            obj.sending_date = timezone.now()
+        return super().save_model(request, obj, form, change)
 
 
 class MailingMessageAdmin(admin.ModelAdmin):
@@ -620,4 +628,5 @@ FollowerAdmin.actions += ["setup_mailing"]
 
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
 admin.site.register(Mailing, MailingAdmin)
+admin.site.register(ContinuousMailing, ContinuousMailingAdmin)
 admin.site.register(MailingMessage, MailingMessageAdmin)

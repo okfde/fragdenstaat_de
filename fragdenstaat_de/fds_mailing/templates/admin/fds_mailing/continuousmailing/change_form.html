@@ -1,0 +1,12 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+{% block object-tools-items %}
+    {% if original.pk and original.ready %}
+        <li>
+            <a href="{% url 'admin:fds_mailing_mailingmessage_changelist' %}?mailing={{ original.pk }}">
+                {% blocktrans with recipient_count=recipient_count %}See {{ recipient_count }} recipients{% endblocktrans %}
+            </a>
+        </li>
+    {% endif %}
+    {{ block.super }}
+{% endblock %}
