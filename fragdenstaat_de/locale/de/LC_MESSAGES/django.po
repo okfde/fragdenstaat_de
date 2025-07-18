@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-14 17:36+0200\n"
+"POT-Creation-Date: 2025-07-18 17:30+0200\n"
 "PO-Revision-Date: 2025-07-14 15:52+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -1351,10 +1351,6 @@ msgid "Dauerspende"
 msgstr "Dauerspende"
 
 #: fragdenstaat_de/fds_donation/admin.py
-msgid "amount last year"
-msgstr "Betrag letztes Jahr"
-
-#: fragdenstaat_de/fds_donation/admin.py
 msgid "recurring monthly amount"
 msgstr "wiederkehrender monatlicher Betrag"
 
@@ -1389,27 +1385,6 @@ msgstr "Statistik"
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Donation count"
 msgstr "Spendenanzahl"
-
-#: fragdenstaat_de/fds_donation/admin_utils.py:47
-msgid "total donation amount in year"
-msgstr "Spendensumme im Jahr"
-
-#: fragdenstaat_de/fds_donation/admin_utils.py:108
-#: fragdenstaat_de/fds_donation/admin_utils.py:120
-msgid "Invalid amount format: '{}'. Please enter a valid number."
-msgstr "Ungültiger Betrag: '{}'. Bitte geben Sie eine gültige Zahl ein."
-
-#: fragdenstaat_de/fds_donation/admin_utils.py:156
-msgid "Amount from - to:"
-msgstr "Betrag von - bis:"
-
-#: fragdenstaat_de/fds_donation/admin_utils.py:160
-msgid "e.g. 100-500, 1000-, -2000"
-msgstr "z.B. 100-500, 1000-, -2000"
-
-#: fragdenstaat_de/fds_donation/admin_utils.py:169
-msgid "In year:"
-msgstr "Im Jahr:"
 
 #: fragdenstaat_de/fds_donation/admin.py fragdenstaat_de/fds_donation/models.py
 msgid "donations"
@@ -1489,18 +1464,6 @@ msgstr ""
 #, python-brace-format
 msgid "Prepared mailing of emailable donors with {count} recipients"
 msgstr "Mailing wurde an {count} Empfänger vorbereitet"
-
-#: fragdenstaat_de/fds_donation/admin_utils.py:186
-msgid "Passive donation"
-msgstr "Passive Spende"
-
-#: fragdenstaat_de/fds_donation/admin_utils.py:191
-msgid "active"
-msgstr "aktiv"
-
-#: fragdenstaat_de/fds_donation/admin_utils.py:192
-msgid "passive"
-msgstr "passiv"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Received"
@@ -1683,6 +1646,41 @@ msgstr "Dauerspende"
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Cancellation"
 msgstr "Kündigung"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+msgid "total donation amount in year"
+msgstr "Spendensumme im Jahr"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+msgid "Invalid amount format: '{}'. Please enter a valid number."
+msgstr "Ungültiger Betrag: '{}'. Bitte geben Sie eine gültige Zahl ein."
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+msgid "Amount from - to:"
+msgstr "Betrag von - bis:"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+msgid "e.g. 100-500, 1000-, -2000"
+msgstr "z.B. 100-500, 1000-, -2000"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+msgid "In year:"
+msgstr "Im Jahr:"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Passive donation"
+msgstr "Passive Spende"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "active"
+msgstr "aktiv"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "passive"
+msgstr "passiv"
 
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "FragDenStaat Donations"
@@ -2895,6 +2893,14 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: fragdenstaat_de/fds_mailing/admin.py
+msgid "Open rate"
+msgstr "Öffnungsrate"
+
+#: fragdenstaat_de/fds_mailing/admin.py
+msgid "Recipients"
+msgstr "Empfänger:innen"
+
+#: fragdenstaat_de/fds_mailing/admin.py
 msgid "Mailing"
 msgstr "Mailing"
 
@@ -2929,14 +2935,6 @@ msgstr "Sende...\\u202f{}"
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Sent\\u202f{}"
 msgstr "Gesendet\\u202f{}"
-
-#: fragdenstaat_de/fds_mailing/admin.py
-msgid "Recipients"
-msgstr "Empfänger:innen"
-
-#: fragdenstaat_de/fds_mailing/admin.py
-msgid "Open rate"
-msgstr "Öffnungsrate"
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Continue sending selected mailings."
@@ -3098,6 +3096,15 @@ msgid "email templates"
 msgstr "E-Mail-Vorlagen"
 
 #: fragdenstaat_de/fds_mailing/models.py
+msgid "is continuous"
+msgstr ""
+
+#: fragdenstaat_de/fds_mailing/models.py
+msgid ""
+"This mailing is a continuous mailing that tracks transactional messages."
+msgstr ""
+
+#: fragdenstaat_de/fds_mailing/models.py
 msgid "publish"
 msgstr "veröffentlichen"
 
@@ -3154,9 +3161,29 @@ msgid "mailings"
 msgstr "Mailings"
 
 #: fragdenstaat_de/fds_mailing/models.py
+msgid "Continuous mailings cannot be published in the archive."
+msgstr ""
+
+#: fragdenstaat_de/fds_mailing/models.py
 #, python-format
 msgid "Sending %(mailing)s to %(count)d people"
 msgstr "%(mailing)s werden an %(count)d Menschen versendet"
+
+#: fragdenstaat_de/fds_mailing/models.py
+#, fuzzy
+msgid "continuous mailing"
+msgstr "Mailing weiter versenden"
+
+#: fragdenstaat_de/fds_mailing/models.py
+#, fuzzy
+msgid "continuous mailings"
+msgstr "Mailing weiter versenden"
+
+#: fragdenstaat_de/fds_mailing/models.py
+msgid ""
+"This message is part of a continuous mailing that tracks transactional "
+"messages."
+msgstr ""
 
 #: fragdenstaat_de/fds_mailing/models.py
 msgid "mailing message"
@@ -3212,6 +3239,12 @@ msgstr "Beispiel Aktions-Label!"
 msgid "Has action"
 msgstr "Hat Aktion"
 
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/continuousmailing/change_form.html
+#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
+#, python-format
+msgid "See %(recipient_count)s recipients"
+msgstr "%(recipient_count)s Empfänger*innen ansehen"
+
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/emailtemplate/change_form.html
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailingmessage/change_form.html
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
@@ -3239,11 +3272,6 @@ msgstr ""
 #, python-format
 msgid "Sending to %(recipient_count)s newsletter subscribers"
 msgstr "Sendet an %(recipient_count)s Newsletter-Abonnierende"
-
-#: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
-#, python-format
-msgid "See %(recipient_count)s recipients"
-msgstr "%(recipient_count)s Empfänger*innen ansehen"
 
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
 #, python-format
@@ -3358,6 +3386,11 @@ msgstr "Tags aktualisieren"
 #, python-brace-format
 msgid "Prepared mailing to subscribers with {count} recipients"
 msgstr "Mailing an Abonnent:innen für {count} Empfänger:innen vorbereitet"
+
+#: fragdenstaat_de/fds_newsletter/admin_utils.py
+#, fuzzy
+msgid "Tag newsletter subscribers"
+msgstr "Newsletter-Abonennt:innen"
 
 #: fragdenstaat_de/fds_newsletter/apps.py
 msgid "Newsletter FragDenStaat"
@@ -3510,6 +3543,11 @@ msgstr "Getaggte Segmente"
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "contains subscribers with all of these"
 msgstr "enthält Abonnenties mit all diesen"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+#, fuzzy
+msgid "negate tags"
+msgstr "Tags aktualisieren"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "segment"
@@ -3714,8 +3752,8 @@ msgid ""
 "The documents will be imported to the request <a href=\"%(url)s\" target="
 "\"_blank\">“%(title)s”</a>."
 msgstr ""
-"Die Dokumente werden in die Anfrage <a href=\"%(url)s\" target=\"_blank\""
-">„%(title)s“</a> importiert."
+"Die Dokumente werden in die Anfrage <a href=\"%(url)s\" target=\"_blank"
+"\">„%(title)s“</a> importiert."
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
 msgid "Preview document"
@@ -4206,6 +4244,10 @@ msgstr "User automatisch blockiert"
 msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "amount last year"
+msgstr "Betrag letztes Jahr"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Blue"
