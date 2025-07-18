@@ -16,7 +16,7 @@ importers:
         version: 3.7.1
       '@okfde/filingcabinet':
         specifier: github:okfde/django-filingcabinet
-        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/ff39722209acf70bc73fa7074c16ed8a787fceea(typescript@5.8.3)
+        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/1351ff3d8aaf42f1d7ab69cd69b2a6eb29de2858(typescript@5.8.3)
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -483,8 +483,8 @@ packages:
       prettier: ^3.5.3
       prettier-config-standard: ^7.0.0
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/ff39722209acf70bc73fa7074c16ed8a787fceea':
-    resolution: {tarball: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/ff39722209acf70bc73fa7074c16ed8a787fceea}
+  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/1351ff3d8aaf42f1d7ab69cd69b2a6eb29de2858':
+    resolution: {tarball: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/1351ff3d8aaf42f1d7ab69cd69b2a6eb29de2858}
     version: 0.0.4
 
   '@panzoom/panzoom@4.6.0':
@@ -3016,7 +3016,7 @@ snapshots:
       - typescript
       - vue-eslint-parser
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/ff39722209acf70bc73fa7074c16ed8a787fceea(typescript@5.8.3)':
+  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/1351ff3d8aaf42f1d7ab69cd69b2a6eb29de2858(typescript@5.8.3)':
     dependencies:
       '@popperjs/core': 2.11.8
       bootstrap: 5.3.6(@popperjs/core@2.11.8)
@@ -4154,7 +4154,7 @@ snapshots:
     dependencies:
       '@hey-api/client-fetch': 0.10.0(@hey-api/openapi-ts@0.67.3(typescript@5.8.3))
       '@hey-api/openapi-ts': 0.67.3(typescript@5.8.3)
-      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/ff39722209acf70bc73fa7074c16ed8a787fceea(typescript@5.8.3)
+      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/1351ff3d8aaf42f1d7ab69cd69b2a6eb29de2858(typescript@5.8.3)
       '@panzoom/panzoom': 4.6.0
       '@popperjs/core': 2.11.8
       '@types/lodash.throttle': 4.1.9
