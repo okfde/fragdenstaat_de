@@ -561,7 +561,7 @@ markdown==3.8
     #   django-filingcabinet
     #   django-legal-advice-builder
     #   froide
-markupsafe==2.1.5
+markupsafe==3.0.2
     # via jinja2
 matplotlib-inline==0.1.7
     # via ipython

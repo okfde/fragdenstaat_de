@@ -479,7 +479,7 @@ markdown==3.8
     #   django-filingcabinet
     #   django-legal-advice-builder
     #   froide
-markupsafe==2.1.5
+markupsafe==3.0.2
     # via jinja2
 maxminddb==2.6.2
     # via geoip2
