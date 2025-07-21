@@ -4,7 +4,7 @@ from decimal import Decimal
 from django.utils import timezone
 
 import pytest
-from dateutil import relativedelta
+from dateutil.relativedelta import relativedelta
 
 from ..models import Donation, Donor, Recurrence
 from ..recurrence import (
@@ -40,7 +40,8 @@ def test_banktransfer_just_created():
 def test_banktransfer_first_never_received_after_a_month_and_a_bit():
     donor = DonorFactory.create()
     now = timezone.now()
-    first_date = now - relativedelta.relativedelta(months=1) - timedelta(days=12)
+    # Known until date + generous buffer before
+    first_date = now - timedelta(days=14) - relativedelta(day=1) - timedelta(days=15)
     amount = Decimal("10.00")
     donation = make_banktransfer_donation(donor, amount, first_date)
 
@@ -61,7 +62,7 @@ def test_banktransfer_first_never_received_after_a_month_and_a_bit():
 def test_banktransfer_first_received():
     donor = DonorFactory.create()
     now = timezone.now()
-    first_date = now - relativedelta.relativedelta(months=1) - timedelta(days=5)
+    first_date = now - relativedelta(months=1) - timedelta(days=5)
     amount = Decimal("10.00")
     donation = make_banktransfer_donation(donor, amount, first_date)
     donation.received_timestamp = donation.timestamp + timedelta(days=2)
@@ -83,7 +84,7 @@ def test_banktransfer_first_received():
 def test_banktransfer_first_received_next_missed():
     donor = DonorFactory.create()
     now = timezone.now()
-    first_date = now - relativedelta.relativedelta(months=2) - timedelta(days=5)
+    first_date = now - relativedelta(months=2) - timedelta(days=5)
     amount = Decimal("10.00")
     donation = make_banktransfer_donation(donor, amount, first_date)
     donation.received_timestamp = donation.timestamp + timedelta(days=2)
@@ -107,7 +108,7 @@ def test_banktransfer_first_received_next_missed():
 def test_banktransfer_imported():
     donor = DonorFactory.create()
     now = timezone.now()
-    first_date = now - relativedelta.relativedelta(months=2)
+    first_date = now - relativedelta(months=2)
     amount = Decimal("10.00")
     first_donation = Donation.objects.create(
         donor=donor,
@@ -117,7 +118,7 @@ def test_banktransfer_imported():
         received_timestamp=first_date,
         completed=True,
     )
-    second_date = now - relativedelta.relativedelta(months=1)
+    second_date = now - relativedelta(months=1)
     second_donation = Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -145,7 +146,7 @@ def test_banktransfer_imported():
 def test_banktransfer_imported_canceled():
     donor = DonorFactory.create()
     now = timezone.now()
-    first_date = now - relativedelta.relativedelta(months=3)
+    first_date = now - relativedelta(months=3)
     amount = Decimal("10.00")
     first_donation = Donation.objects.create(
         donor=donor,
@@ -155,7 +156,7 @@ def test_banktransfer_imported_canceled():
         received_timestamp=first_date,
         completed=True,
     )
-    second_date = now - relativedelta.relativedelta(months=2)
+    second_date = now - relativedelta(months=2)
     second_donation = Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -185,7 +186,7 @@ def test_banktransfer_imported_canceled():
 def test_banktransfer_add_existing_recurrence():
     donor = DonorFactory.create()
     now = timezone.now()
-    first_date = now - relativedelta.relativedelta(months=3)
+    first_date = now - relativedelta(months=3)
     amount = Decimal("10.00")
     first_donation = Donation.objects.create(
         donor=donor,
@@ -195,7 +196,7 @@ def test_banktransfer_add_existing_recurrence():
         received_timestamp=first_date,
         completed=True,
     )
-    second_date = now - relativedelta.relativedelta(months=2)
+    second_date = now - relativedelta(months=2)
     second_donation = Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -212,7 +213,7 @@ def test_banktransfer_add_existing_recurrence():
     assert recurrence is not None
     assert recurrence.cancel_date is not None
 
-    last_date = now - relativedelta.relativedelta(months=1)
+    last_date = now - relativedelta(months=1)
     last_donation = Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -233,7 +234,7 @@ def test_banktransfer_add_existing_recurrence():
 @pytest.mark.django_db(transaction=True)
 def test_donor_merge():
     now = timezone.now()
-    first_date = now - relativedelta.relativedelta(months=4)
+    first_date = now - relativedelta(months=4)
     amount = Decimal("10.00")
     donor_1 = DonorFactory.create()
     Donation.objects.create(
@@ -244,7 +245,7 @@ def test_donor_merge():
         received_timestamp=first_date,
         completed=True,
     )
-    second_date = now - relativedelta.relativedelta(months=3)
+    second_date = now - relativedelta(months=3)
     second_donation = Donation.objects.create(
         donor=donor_1,
         method="banktransfer",
@@ -259,7 +260,7 @@ def test_donor_merge():
     assert second_donation.recurrence is not None
     assert second_donation.recurrence.cancel_date is not None
 
-    first_date_2 = now - relativedelta.relativedelta(months=2)
+    first_date_2 = now - relativedelta(months=2)
     donor_2 = DonorFactory.create()
     Donation.objects.create(
         donor=donor_2,
@@ -269,7 +270,7 @@ def test_donor_merge():
         received_timestamp=first_date_2,
         completed=True,
     )
-    second_date_2 = now - relativedelta.relativedelta(months=1)
+    second_date_2 = now - relativedelta(months=1)
     second_donation_2 = Donation.objects.create(
         donor=donor_2,
         method="banktransfer",
@@ -305,11 +306,7 @@ def test_donor_merge():
 def test_late_recurrence_check():
     now = timezone.now()
     amount = Decimal("10.00")
-    first_date = (
-        now
-        + relativedelta.relativedelta(day=31)
-        - relativedelta.relativedelta(months=4)
-    )
+    first_date = now + relativedelta(day=31) - relativedelta(months=4)
     donor = DonorFactory.create()
     recurrence = Recurrence.objects.create(
         donor=donor,
@@ -328,7 +325,7 @@ def test_late_recurrence_check():
         completed=True,
         recurrence=recurrence,
     )
-    second_date = first_date + relativedelta.relativedelta(months=1)
+    second_date = first_date + relativedelta(months=1)
     Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -354,7 +351,7 @@ def test_late_recurrence_check():
 def test_breaking_recurrence():
     now = timezone.now()
     amount = Decimal("10.00")
-    first_date = now - relativedelta.relativedelta(months=3)
+    first_date = now - relativedelta(months=3)
     donor = DonorFactory.create()
     Donation.objects.create(
         donor=donor,
@@ -364,7 +361,7 @@ def test_breaking_recurrence():
         received_timestamp=first_date,
         completed=True,
     )
-    second_date = now - relativedelta.relativedelta(months=2)
+    second_date = now - relativedelta(months=2)
     Donation.objects.create(
         donor=donor,
         method="banktransfer",
