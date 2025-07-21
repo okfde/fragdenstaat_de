@@ -337,6 +337,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
         "cms.middleware.user.CurrentUserMiddleware",
         "cms.middleware.page.CurrentPageMiddleware",
         "cms.middleware.toolbar.ToolbarMiddleware",
+        "fragdenstaat_de.theme.redirects.PathRedirectFallbackMiddleware",
     ]
 
     @property
