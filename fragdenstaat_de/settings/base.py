@@ -320,6 +320,7 @@ class FragDenStaatBase(German, Base):
             "webkitallowfullscreen",
             "mozallowfullscreen",
             "allowfullscreen",
+            "allow",
             "sandbox",
             "src",
             "style",
@@ -329,7 +330,8 @@ class FragDenStaatBase(German, Base):
         "embed": {"type", "src", "width", "height"},
         "summary": {"class"},
         "details": {"class", "open"},
-        "*": {"style", "class", "id"},
+        "textarea": {"class", "id", "name", "rows", "cols", "readonly"},
+        "*": {"style", "class", "id", "hidden", "disabled"},
     }
 
     TEXT_EDITOR = "fragdenstaat_de.theme.editor.ckeditor4"
