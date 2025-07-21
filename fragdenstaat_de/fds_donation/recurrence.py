@@ -366,9 +366,13 @@ def get_late_recurrences(now=None):
     if now is None:
         now = timezone.now()
 
-    buffer = timedelta(days=10)
+    # Two weeks after the first of the month
+    # upload should have happened by then
+    known_until = now - timedelta(days=14) - relativedelta(day=1)
+    # Check if last donation was before the known until date
+    # minus the interval.
     queries = [
-        Q(last_date__lt=now - relativedelta(months=interval) + buffer)
+        Q(last_date__lt=known_until - relativedelta(months=interval))
         & Q(interval=interval)
         for interval, _ in RECURRING_INTERVAL_CHOICES
     ]
