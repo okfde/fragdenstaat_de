@@ -1,6 +1,6 @@
 from collections import defaultdict
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from functools import reduce
 from typing import Optional
 
@@ -100,15 +100,18 @@ def get_cancel_date(
     """
     Check if a streak is canceled based on the last donation's cancel date.
     """
-
+    buffer = relativedelta(days=10)
     last_date = donations[-1].received_timestamp
     if last_date is None:
-        # If last is not received, pretend it's coming
         last_date = donations[-1].timestamp
+        next_expected = last_date + buffer
+    else:
+        next_expected = last_date + relativedelta(months=interval) + buffer
 
-    buffer = relativedelta(days=10)
-    next_expected = last_date + relativedelta(months=interval) + buffer
     if next_expected < now:
+        known_until = get_known_until_date(now)
+        if known_until < next_expected.date():
+            return None
         return last_date
     return None
 
@@ -362,13 +365,18 @@ def combine_existing_recurrences(
     return first_recurrence, other_recurrences
 
 
-def get_late_recurrences(now=None):
+def get_known_until_date(now=None) -> date:
     if now is None:
         now = timezone.now()
 
     # Two weeks after the first of the month
-    # upload should have happened by then
-    known_until = now - timedelta(days=14) - relativedelta(day=1)
+    return now.date() - timedelta(days=14) - relativedelta(day=1)
+
+
+def get_late_recurrences(now=None):
+    if now is None:
+        now = timezone.now()
+    known_until = get_known_until_date(now)
     # Check if last donation was before the known until date
     # minus the interval.
     queries = [
