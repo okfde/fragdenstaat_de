@@ -404,6 +404,13 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
     def MFA_SITE_TITLE(self):
         return self.SITE_NAME
 
+    @property
+    def LOCALE_PATHS(self):
+        locales = list(super().LOCALE_PATHS)
+        return [
+            self.PROJECT_ROOT / "locale",
+        ] + locales
+
 
 class GegenrechtsschutzMixin:
     SITE_ID = 2
