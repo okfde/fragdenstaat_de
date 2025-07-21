@@ -310,7 +310,7 @@ djangocms-attributes-field==4.0.0
     #   djangocms-video
 djangocms-audio==2.1.1
     # via fragdenstaat-de (pyproject.toml)
-djangocms-frontend==2.1.2
+djangocms-frontend==2.1.3
     # via fragdenstaat-de (pyproject.toml)
 djangocms-icon==2.1.0
     # via fragdenstaat-de (pyproject.toml)
