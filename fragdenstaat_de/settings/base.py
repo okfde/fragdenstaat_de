@@ -306,6 +306,8 @@ class FragDenStaatBase(German, Base):
 
     DJANGOCMS_PICTURE_NESTING = True
 
+    DJANGOCMS_VIDEO_YOUTUBE_EMBED_URL = "https://www.youtube-nocookie.com/embed/{}"
+
     CMS_PAGE_CACHE = True  # Workaround in fds_cms/models.py
     CMS_COLOR_SCHEME_TOGGLE = True
     CMS_COLOR_SCHEME = "auto"
