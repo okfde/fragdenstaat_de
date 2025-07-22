@@ -34,19 +34,24 @@ def find_donation(transfer_ident, row):
 
     donor = donation.donor
     if donor:
-        if not donor.attributes:
-            donor.attributes = donor.attributes or {}
-        if "ibans" not in donor.attributes:
-            donor.attributes["ibans"] = []
-        if "iban" in donor.attributes:
-            if donor.attributes["iban"] not in donor.attributes["ibans"]:
-                donor.attributes["ibans"].append(donor.attributes["iban"])
-        if row["iban"] not in donor.attributes["ibans"]:
-            donor.attributes["ibans"].append(row["iban"])
-        donor.attributes["iban"] = row["iban"]
-        donor.attributes["banktransfer_reference"] = row["reference"]
-        donor.save()
+        update_iban_on_donor(donor, row["iban"], row["reference"])
     return donation
+
+
+def update_iban_on_donor(donor, iban, reference):
+    if not donor.attributes:
+        donor.attributes = donor.attributes or {}
+    if "ibans" not in donor.attributes:
+        donor.attributes["ibans"] = []
+    if "iban" in donor.attributes:
+        if donor.attributes["iban"] not in donor.attributes["ibans"]:
+            donor.attributes["ibans"].append(donor.attributes["iban"])
+    if pd.notnull(iban):
+        if iban not in donor.attributes["ibans"]:
+            donor.attributes["ibans"].append(iban)
+        donor.attributes["iban"] = iban
+    donor.attributes["banktransfer_reference"] = reference
+    donor.save()
 
 
 def get_or_create_bank_transfer_donor(row):
@@ -54,6 +59,16 @@ def get_or_create_bank_transfer_donor(row):
         donors = Donor.objects.filter(attributes__iban=row["iban"])
         if len(donors) > 0:
             return donors[0]
+
+    transfer_code = find_transfer_code(row["reference"])
+    if transfer_code is not None:
+        payment = Payment.objects.filter(transaction_id=transfer_code).first()
+        if payment is not None:
+            donation = Donation.objects.get(payment=payment)
+            donor = donation.donor
+            if donor:
+                update_iban_on_donor(donor, row["iban"], row["reference"])
+                return donor
 
     name = row["name"]
     names = name.strip().rsplit(" ", 1)
