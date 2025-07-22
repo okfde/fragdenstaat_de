@@ -21,6 +21,7 @@ from cms.models.pluginmodel import CMSPlugin
 from cms.utils.placeholder import get_placeholder_from_slot
 from djangocms_frontend.fields import AttributesField
 from filer.fields.image import FilerImageField
+from flowcontrol.models import ActionBase
 from mjml import mjml2html
 
 from froide.helper.email_sending import EmailContent, mail_registry, send_mail
@@ -218,23 +219,49 @@ class EmailTemplate(models.Model):
         html = self.get_body_html(context, preview=preview)
         return EmailContent(subject, text, html)
 
-    def send_to_user(self, user, bulk=False):
-        context = {"user": user}
+    def send_to_user(self, user):
+        context = {"user": user, "name": user.get_full_name()}
+        return self.send(user.email, context=context)
+
+    def send(self, email_address, context=None):
+        if not self.active:
+            return
+        if context is None:
+            context = {}
+
+        sent_via_continuous = self.send_via_continuous_mailing(
+            email_address, context=context
+        )
+        if sent_via_continuous:
+            return sent_via_continuous
+
         email_content = self.get_email_content(context)
 
         extra_kwargs = {}
-        if bulk:
-            extra_kwargs["queue"] = settings.EMAIL_BULK_QUEUE
         if email_content.html:
             extra_kwargs["html"] = email_content.html
 
         send_mail(
             email_content.subject,
             email_content.text,
-            make_address(user.email, name=user.get_full_name()),
+            make_address(email_address),
             from_email=settings.DEFAULT_FROM_EMAIL,
             **extra_kwargs,
         )
+
+    def send_via_continuous_mailing(self, email_address, context=None):
+        if not self.active:
+            return False
+
+        try:
+            mailing = ContinuousMailing.objects.get(
+                email_template=self,
+                ready=True,
+            )
+        except ContinuousMailing.DoesNotExist:
+            return False
+        message = mailing.create_message(email_address, context=context)
+        return message.send(mailing_context=context)
 
     def get_email_bytes(self, context, recipients=None):
         if recipients is None:
@@ -440,6 +467,14 @@ class Mailing(models.Model):
         verbose_name = _("mailing")
         verbose_name_plural = _("mailings")
 
+        constraints = [
+            models.UniqueConstraint(
+                fields=["email_template"],
+                condition=models.Q(is_continuous=True, ready=True),
+                name="unique_continuous_mailing_emailtemplate",
+            ),
+        ]
+
     def __str__(self):
         return self.name
 
@@ -576,7 +611,7 @@ class Mailing(models.Model):
 
         try:
             for recipient in recipients:
-                recipient.send_message(context)
+                recipient.send(context)
 
             self.sent = True
             self.sent_date = timezone.now()
@@ -605,6 +640,22 @@ class ContinuousMailing(Mailing):
 
     def send(self):
         raise ValueError("Cannot send a continuous mailing directly.")
+
+    def create_message(self, email_address, context=None):
+        if context is None:
+            context = {}
+
+        message = MailingMessage.objects.create(
+            mailing=self,
+            email=email_address,
+            user=context.get("user"),
+            name=context.get("name", ""),
+            is_continuous=True,
+        )
+        if context.get("user"):
+            MailingMessageReference.objects.create_with_object(message, context["user"])
+
+        return message
 
 
 class MailingMessage(models.Model):
@@ -710,7 +761,7 @@ class MailingMessage(models.Model):
             self.email = self.subscriber.get_email()
             self.name = self.subscriber.get_name()
 
-    def send_message(self, mailing_context=None, extra_kwargs=None):
+    def send(self, mailing_context=None, extra_kwargs=None):
         assert self.sent is None
 
         if not self.email:
@@ -820,3 +871,30 @@ class ConditionCMSPlugin(CMSPlugin):
             " == " if self.context_value else "",
             self.context_value,
         )
+
+
+class DelayMailActionConfig(ActionBase):
+    delay_days = models.PositiveIntegerField(
+        default=0,
+        help_text=_("Number of days to wait between emails."),
+    )
+    max_delay_days = models.PositiveIntegerField(
+        default=0,
+        help_text=_("Maximum number of days to wait between emails. 0 means no limit."),
+    )
+
+    def __str__(self):
+        return _("Delay by {delay_days} days, max {max_delay_days} days total").format(
+            delay_days=self.delay_days, max_delay_days=self.max_delay_days
+        )
+
+
+class SendMailActionConfig(ActionBase):
+    email_template = models.ForeignKey(
+        EmailTemplate,
+        on_delete=models.CASCADE,
+        help_text=_("Email template to use for this action."),
+    )
+
+    def __str__(self):
+        return _("Template: {template}").format(template=self.email_template)

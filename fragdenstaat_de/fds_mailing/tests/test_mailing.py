@@ -144,7 +144,7 @@ def test_mailing_unsubscribe(mailing):
 
     mail.outbox = []
     mailing.sending = True
-    mailing_message.send_message()
+    mailing_message.send()
 
     assert len(mail.outbox) == 1
     email = mail.outbox[0]

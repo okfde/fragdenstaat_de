@@ -46,7 +46,7 @@ def continue_sending(mailing_id):
 
     try:
         for recipient in missing_recipients:
-            recipient.send_message(context)
+            recipient.send(context)
         mailing.sent = True
         mailing.sent_date = timezone.now()
     finally:

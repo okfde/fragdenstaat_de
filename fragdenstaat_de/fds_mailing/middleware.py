@@ -2,12 +2,7 @@ from froide.helper.email_sending import EmailContent
 
 from fragdenstaat_de.fds_newsletter.utils import has_newsletter
 
-from .models import (
-    ContinuousMailing,
-    EmailTemplate,
-    MailingMessage,
-    MailingMessageReference,
-)
+from .models import ContinuousMailing, EmailTemplate
 
 
 class EmailTemplateMiddleware:
@@ -55,16 +50,8 @@ class EmailTemplateMiddleware:
         except ContinuousMailing.DoesNotExist:
             return
 
-        message = MailingMessage.objects.create(
-            mailing=mailing,
-            email=email_address,
-            user=context.get("user"),
-            name=context.get("name", ""),
-            is_continuous=True,
-        )
-        if context.get("user"):
-            MailingMessageReference.objects.create_with_object(message, context["user"])
+        message = mailing.create_message(email_address, context=context)
 
         # this generates email content a second time but with a different context
         # FIXME: don't generate email content twice
-        return message.send_message(mailing_context=context)
+        return message.send(mailing_context=context)

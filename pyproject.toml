@@ -34,6 +34,7 @@ dependencies = [
   "django-filer>=3.0.0",
   "django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@main",
   "django-filter>=25.1",
+  "django-flowcontrol>=0.0.2",
   "django-logentry-admin>=1.1.0",
   "django-mfa3>=1.0.0",
   "django-parler>=2.3",
