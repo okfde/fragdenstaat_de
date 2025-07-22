@@ -57,7 +57,7 @@ dependencies = [
   "djangorestframework-jsonp>=1.0.2",
   "dogtail @ git+https://github.com/okfde/dogtail.git@d2f341cab0f05ef4e193f0158fe5a64aadc5bae6",
   "elasticsearch-dsl>=8.0.0,<9.0.0",
-  "elasticsearch<9.0.0,>=8.0.0",
+  "elasticsearch>=8.0.0,<10.0.0",
   "geoip2>=4.8.0",
   "html-text>=0.7.0",
   "icalendar>=6.3.1",
@@ -135,7 +135,7 @@ dev = [
 production = [
   "gunicorn",
   "pymemcache",
-  "channels_redis==4.1.0",
+  "channels_redis==4.2.1",
   "uvicorn",
   "sentry-sdk",
   "pillow-avif-plugin",
