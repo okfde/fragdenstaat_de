@@ -16,7 +16,10 @@ class FdsMailingConfig(AppConfig):
         from froide.bounce.signals import email_bounced
         from froide.helper.email_sending import mail_middleware_registry
 
-        from . import preview  # noqa: F401
+        from . import (
+            actions,  # noqa: F401
+            preview,  # noqa: F401
+        )
         from .middleware import EmailTemplateMiddleware
         from .utils import handle_bounce
 

@@ -92,6 +92,7 @@ class FragDenStaatBase(German, Base):
                 "sortabletable",
                 "contractor",
                 "datashow",
+                "flowcontrol",
                 "djcelery_email",
                 "django.contrib.redirects",
                 "froide_campaign.apps.FroideCampaignConfig",
