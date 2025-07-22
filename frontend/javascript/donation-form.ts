@@ -403,5 +403,10 @@ if (donationForm !== null) {
   const donationLinks = document.querySelectorAll<HTMLElement>("[data-donationlink]")
   donationLinks.forEach((link) => {
     link.style.display = "none"
+    link.classList.add('d-none')
+    link.classList.add('d-sm-none')
+    link.classList.add('d-md-none')
+    link.classList.add('d-lg-none')
+    link.classList.add('d-xl-none')
   })
 }
