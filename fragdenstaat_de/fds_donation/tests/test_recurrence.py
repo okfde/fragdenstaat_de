@@ -146,7 +146,7 @@ def test_banktransfer_imported():
 def test_banktransfer_imported_canceled():
     donor = DonorFactory.create()
     now = timezone.now()
-    first_date = now - relativedelta(months=3)
+    first_date = now - relativedelta(months=4)
     amount = Decimal("10.00")
     first_donation = Donation.objects.create(
         donor=donor,
@@ -156,7 +156,7 @@ def test_banktransfer_imported_canceled():
         received_timestamp=first_date,
         completed=True,
     )
-    second_date = now - relativedelta(months=2)
+    second_date = now - relativedelta(months=3)
     second_donation = Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -186,7 +186,7 @@ def test_banktransfer_imported_canceled():
 def test_banktransfer_add_existing_recurrence():
     donor = DonorFactory.create()
     now = timezone.now()
-    first_date = now - relativedelta(months=3)
+    first_date = now - relativedelta(months=4)
     amount = Decimal("10.00")
     first_donation = Donation.objects.create(
         donor=donor,
@@ -196,7 +196,7 @@ def test_banktransfer_add_existing_recurrence():
         received_timestamp=first_date,
         completed=True,
     )
-    second_date = now - relativedelta(months=2)
+    second_date = now - relativedelta(months=3)
     second_donation = Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -213,7 +213,7 @@ def test_banktransfer_add_existing_recurrence():
     assert recurrence is not None
     assert recurrence.cancel_date is not None
 
-    last_date = now - relativedelta(months=1)
+    last_date = now - relativedelta(months=2)
     last_donation = Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -351,7 +351,7 @@ def test_late_recurrence_check():
 def test_breaking_recurrence():
     now = timezone.now()
     amount = Decimal("10.00")
-    first_date = now - relativedelta(months=3)
+    first_date = now - relativedelta(months=4)
     donor = DonorFactory.create()
     Donation.objects.create(
         donor=donor,
@@ -361,7 +361,7 @@ def test_breaking_recurrence():
         received_timestamp=first_date,
         completed=True,
     )
-    second_date = now - relativedelta(months=2)
+    second_date = now - relativedelta(months=3)
     Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -371,7 +371,7 @@ def test_breaking_recurrence():
         completed=True,
     )
 
-    last_date = now
+    last_date = now - relativedelta(months=1)
     last_donation = Donation.objects.create(
         donor=donor,
         method="banktransfer",
