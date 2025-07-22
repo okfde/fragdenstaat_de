@@ -283,6 +283,17 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     def get_changelist(self, request):
         return DonorChangeList
 
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path(
+                "merge-donors/",
+                self.admin_site.admin_view(self.merge_donor_view),
+                name="fds_donation-donation-merge_donor",
+            ),
+        ]
+        return my_urls + urls
+
     def get_queryset(self, request):
         qs = super().get_queryset(request).select_related("subscriber")
         donations_filter = Q(donations__received_timestamp__isnull=False)
@@ -444,6 +455,24 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         qs.order_by().update(invalid=True)
 
     @admin.action(description=_("Merge donors"))
+    def merge_donor_view(self, request):
+        """
+        Render the merge donor view.
+        """
+        if not self.has_change_permission(request):
+            raise PermissionDenied
+
+        donor_ids = request.GET.get("donor_id", "")
+        donor_ids = [donor_id for donor_id in donor_ids.split(",") if donor_id]
+        if not donor_ids:
+            self.message_user(request, _("No donors selected!"))
+            return redirect(reverse("admin:fds_donation_donor_changelist"))
+
+        queryset = Donor.objects.filter(id__in=donor_ids)
+
+        return self.merge_donors(request, queryset)
+
+    @admin.action(description=_("Merge donors"))
     def merge_donors(self, request, queryset):
         """
         Send mail to users
@@ -452,10 +481,11 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         from .forms import get_merge_donor_form
         from .utils import merge_donors, propose_donor_merge
 
-        select_across = request.POST.get("select_across", "0") == "1"
-        if select_across:
-            self.message_user(request, _("Select across not allowed!"))
-            return
+        if request.POST:
+            select_across = request.POST.get("select_across", "0") == "1"
+            if select_across:
+                self.message_user(request, _("Select across not allowed!"))
+                return
 
         candidates = queryset.order_by("-id")
         candidate_ids = [x.id for x in candidates]
@@ -466,7 +496,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         MergeDonorForm = get_merge_donor_form(self.admin_site)
 
         donor_form = None
-        if "salutation" in request.POST:
+        if request.POST and "salutation" in request.POST:
             donor_form = MergeDonorForm(data=request.POST)
             if donor_form.is_valid():
                 primary_id = None
