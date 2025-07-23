@@ -84,27 +84,44 @@
         </section>
         <section>
             {% block article_author_bios %}
-                <div class="container-lg">
-                    <h3 class="small text-secondary">
-                        {% blocktrans count counter=article.get_authors|length %}
-                        About the author
-                    {% plural %}
-                        About the authors
-                    {% endblocktrans %}
-                    </h3>
-                    <div class="row">
-                        {% for author in article.get_authors %}
-                            <div class="col-12 col-md-6 tight-margin mb-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">{{ author.get_full_name }}</h4>
-                                        {{ author.user.profile_text | markdown }}
+                {# Separate authors into two groups: authors_with_profiles & authors_without_profiles #}
+                {% if authors_with_profiles %}
+                    <div class="container-lg">
+                        <h3 class="small text-secondary">
+                            {% if authors_with_profiles|length == 1 %}
+                                {% trans "About the author" %}
+                            {% else %}
+                                {% trans "About the authors" %}
+                            {% endif %}
+                        </h3>
+                        <div class="row">
+                            {% for author in authors_with_profiles %}
+                                <div class="col-12 col-md-6 tight-margin mb-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{ author.get_full_name }}</h4>
+                                            {{ author.user.profile_text | markdown }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
+                    {% if authors_without_profiles %}
+                        <div class="container-lg mt-4">
+                            <h3 class="small text-secondary">
+                                {% if authors_without_profiles|length == 1 %}
+                                    {% trans "Further author" %}
+                                {% else %}
+                                    {% trans "Further authors" %}
+                                {% endif %}
+                            </h3>
+                            <ul class="list-unstyled d-md-flex flex-wrap gap-3">
+                                {% for author in authors_without_profiles %}<li class="mb-1">{{ author.get_full_name }}</li>{% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endif %}
             {% endblock article_author_bios %}
             {% block article_tags %}
                 {% if article.tags.count > 0 %}

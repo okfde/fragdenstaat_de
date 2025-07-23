@@ -18,6 +18,7 @@ from django.views.generic import DetailView, ListView
 from froide.helper.breadcrumbs import Breadcrumbs, BreadcrumbView
 from froide.helper.search.views import BaseSearchView
 
+from .cms_config import get_author_groups
 from .documents import ArticleDocument
 from .filters import ArticleFilterset
 from .managers import articles_visible
@@ -143,6 +144,10 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
         ]
 
         context["category"] = self.object.first_category
+
+        authors_with_profiles, authors_without_profiles = get_author_groups(object)
+        context["authors_with_profiles"] = authors_with_profiles
+        context["authors_without_profiles"] = authors_without_profiles
 
         return context
 
