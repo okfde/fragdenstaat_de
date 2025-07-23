@@ -388,3 +388,53 @@ def test_breaking_recurrence():
     assert recurrence.donations.all().count() == 2
     last_donation.refresh_from_db()
     assert last_donation.recurrence is None
+
+
+def setup_recurrences(
+    streaks: list[tuple[int, int | None]],
+) -> Donor:
+    donor = DonorFactory.create()
+    now = timezone.now()
+    amount = Decimal("10.00")
+    for start, end in streaks:
+        start_date = now - relativedelta(months=24) + relativedelta(months=start)
+        end_date = None
+        if end is not None:
+            end_date = now - relativedelta(months=24) + relativedelta(months=end)
+        Recurrence.objects.create(
+            donor=donor,
+            method="banktransfer",
+            interval=1,
+            amount=amount,
+            start_date=start_date,
+            cancel_date=end_date,
+            active=True,
+        )
+    return donor
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "streaks, expected",
+    [
+        ([(0, None)], 0),
+        ([(0, 1)], None),
+        ([(0, 2), (1, None)], 0),
+        ([(0, 2), (2, None)], 0),
+        ([(0, 2), (3, None)], 0),
+        ([(0, 2), (3, 5)], None),
+        ([(0, 2), (4, None)], 1),
+        ([(0, 2), (4, 6), (6, 8)], None),
+        ([(0, 2), (4, 6), (6, None)], 1),
+    ],
+)
+def test_recurrence_streak_date(streaks, expected):
+    donor = setup_recurrences(streaks)
+    date = donor.get_recurrence_streak_start_date()
+    if expected is None:
+        expected_date = None
+    else:
+        expected_date = (
+            donor.recurrences.all().order_by("start_date")[expected].start_date
+        )
+    assert date == expected_date

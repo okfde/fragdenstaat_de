@@ -254,6 +254,36 @@ class Donor(models.Model):
             total=models.Sum(models.F("amount") / models.F("interval"))
         )["total"] or decimal.Decimal("0.00")
 
+    def get_recurrence_streak_start_date(self):
+        """
+        Returns the start date of the current recurrence streak.
+        If there are no recurrences, returns None.
+        """
+        recurrences = self.recurrences.all().order_by("start_date")
+        if not recurrences:
+            return None
+        first_recurrence = recurrences[0]
+        if first_recurrence.cancel_date is None:
+            # If the first recurrence is still active, we can use its start date
+            return first_recurrence.start_date
+        if len(recurrences) == 1:
+            return None
+
+        start_date = first_recurrence.start_date
+        last_date = first_recurrence.cancel_date
+        last_interval = first_recurrence.interval
+
+        for recurrence in recurrences[1:]:
+            delta = recurrence.start_date - last_date
+            if delta > timedelta(days=int(31 * (last_interval * 1.5))):
+                start_date = recurrence.start_date
+            if recurrence.cancel_date is None:
+                return start_date
+            last_date = recurrence.cancel_date
+            last_interval = recurrence.interval
+
+        return None
+
     @cached_property
     def recently_donated(self):
         recently_donated = False
