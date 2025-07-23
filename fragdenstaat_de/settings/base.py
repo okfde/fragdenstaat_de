@@ -774,7 +774,7 @@ class FragDenStaatBase(German, Base):
                     "about": "/hilfe/ueber/",
                     "help": "/hilfe/",
                     "throttled": "/hilfe/erste-anfrage/wie-viele-anfragen-kann-ich-stellen/",
-                    "help_postupload_redaction": "/hilfe/plain/funktionen-der-plattform/schwaerzungen-durchfuehren/",
+                    "help_editmessageflow_redaction": "/hilfe/plain/funktionen-der-plattform/schwaerzungen-durchfuehren/",
                     "help_attachments_management": "/hilfe/plain/funktionen-der-plattform/anhange-verwalten/",
                 },
                 "mobile_app_install_url": "TODO",  # TODO
