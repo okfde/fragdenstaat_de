@@ -466,11 +466,14 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         donor_ids = [donor_id for donor_id in donor_ids.split(",") if donor_id]
         if not donor_ids:
             self.message_user(request, _("No donors selected!"))
-            return redirect(reverse("admin:fds_donation_donor_changelist"))
+            return redirect("admin:fds_donation_donor_changelist")
 
         queryset = Donor.objects.filter(id__in=donor_ids)
 
-        return self.merge_donors(request, queryset)
+        response = self.merge_donors(request, queryset)
+        if response:
+            return response
+        return redirect("admin:fds_donation_donor_changelist")
 
     @admin.action(description=_("Merge donors"))
     def merge_donors(self, request, queryset):
