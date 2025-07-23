@@ -19,11 +19,14 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from adminsortable2.admin import SortableAdminMixin
+from flowcontrol.engine import start_flowrun
+from flowcontrol.models import Flow
 from froide_payment.models import PaymentStatus
 
 from froide.helper.admin_utils import (
     ForeignKeyFilter,
     make_batch_tag_action,
+    make_choose_object_action,
     make_daterangefilter,
     make_emptyfilter,
     make_nullfilter,
@@ -273,11 +276,17 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "mark_invalid_addresses",
         "export_donor_csv",
         "tag_subscribers",
+        "start_flow_on_donor",
     ] + SetupMailingMixin.actions
 
     tag_all = make_batch_tag_action(autocomplete_url=DONOR_TAG_AUTOCOMPLETE)
     tag_subscribers = make_subscriber_tagger(
         lambda qs: qs.exclude(email="").values_list("email", flat=True)
+    )
+    start_flow_on_donor = make_choose_object_action(
+        Flow.objects.get_active(),
+        lambda admin, request, qs, obj: [start_flowrun(obj, donor) for donor in qs],
+        _("Start workflow for donors..."),
     )
 
     def get_changelist(self, request):
