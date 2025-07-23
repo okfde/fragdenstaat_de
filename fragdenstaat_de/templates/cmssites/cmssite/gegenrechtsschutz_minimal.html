@@ -1,0 +1,7 @@
+{% extends "cmssites/cmssite/gegenrechtsschutz.html" %}
+{% load djangocms_alias_tags %}
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">{% static_alias "grs_navbar_logo" %}</div>
+    </nav>
+{% endblock navbar %}

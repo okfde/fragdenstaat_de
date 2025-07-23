@@ -266,6 +266,10 @@ class FragDenStaatBase(German, Base):
         ("froide_govplan/base.html", "Govplan base template"),
         ("cms/page_anon.html", "Page without tracking"),
         ("cmssites/cmssite/gegenrechtsschutz.html", "Gegenrechtsschutz Template"),
+        (
+            "cmssites/cmssite/gegenrechtsschutz_minimal.html",
+            "Gegenrechtsschutz Minimal Template",
+        ),
     ]
     EMAIL_BODY_PLUGINS = [
         "IsDonorPlugin",
