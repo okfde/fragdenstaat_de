@@ -57,7 +57,7 @@ export default defineConfig(({ mode }) => ({
         moderation: r('froide', 'moderation.js'),
         paperless: './frontend/javascript/paperless.ts',
         payment: r('froide_payment', 'payment.ts'),
-        postupload: r('froide', 'postupload.js'),
+        editmessageflow: r('froide', 'editmessageflow.js'),
         proofupload: r('froide', 'proofupload.js'),
         publicbody: r('froide', 'publicbody.js'),
         publicbodyupload: r('froide', 'publicbodyupload.js'),
