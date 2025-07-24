@@ -514,23 +514,21 @@ msgstr[1] ""
 msgid "Share article"
 msgstr "Artikel teilen"
 
-#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
-msgid ""
-"\n"
-"                        About the author\n"
-"                    "
-msgid_plural ""
-"\n"
-"                        About the authors\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                        Über den:die Autor:in\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                        Über die Autor:innen\n"
-"                    "
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html:94
+msgid "About the author"
+msgstr "Über den*die Autor*in"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html:96
+msgid "About the authors"
+msgstr "Über die Autor*innen"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html:117
+msgid "Further author"
+msgstr "Weitere*r Autor*in"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html:119
+msgid "Further authors"
+msgstr "Weitere Autor*innen"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid "Tags"

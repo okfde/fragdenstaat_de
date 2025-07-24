@@ -1,18 +1,14 @@
-from django.template.response import TemplateResponse
-
 from cms.app_base import CMSAppConfig
+
+from fragdenstaat_de.fds_blog.views import ArticleDetailView
 
 from .models import Article
 
+view = ArticleDetailView.as_view()
+
 
 def render_article_content(request, article):
-    template = "fds_blog/article_detail.html"
-    context = {
-        "article": article,
-        "force_cms_render": True,
-        "CMS_TEMPLATE": "cms/blog_base.html",
-    }
-    return TemplateResponse(request, template, context)
+    return view(request, article=article)
 
 
 class ArticleCMSConfig(CMSAppConfig):
