@@ -214,6 +214,11 @@ def process_recurrence_on_donor(donor: Donor):
     if donations:
         process_donations(donor, donations)
 
+    recurring_amount = donor.calculate_recurring_amount()
+    if recurring_amount != donor.recurring_amount:
+        donor.recurring_amount = recurring_amount
+        donor.save(update_fields=["recurring_amount"])
+
 
 def process_subscription_donations(donor: Donor, donations):
     subscriptions = defaultdict(list)
