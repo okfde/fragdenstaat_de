@@ -565,7 +565,7 @@ class FragDenStaatBase(German, Base):
         "cms.middleware.user.CurrentUserMiddleware",
         "cms.middleware.page.CurrentPageMiddleware",
         "cms.middleware.toolbar.ToolbarMiddleware",
-        "fragdenstaat_de.theme.cms_utils.HostLanguageCookieMiddleware",
+        "fragdenstaat_de.theme.cms_utils.LanguageUtilsMiddleware",
     ]
 
     CACHES = {
