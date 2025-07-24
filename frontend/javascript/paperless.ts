@@ -16,7 +16,7 @@ document
   .forEach((el) => {
     el.addEventListener('click', (e) => {
       e.preventDefault()
-      window.open(el.href, 'picker', 'width:500,height=500')
+      window.open(el.href, 'picker', 'height=900')
     })
   })
 
