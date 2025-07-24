@@ -3554,7 +3554,7 @@ msgstr "Newsletter Kündigungs-Feedback"
 #: fragdenstaat_de/fds_newsletter/templates/admin/fds_newsletter/newsletter/change_form.html
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/admin/import_csv.html
 msgid "Import CSV"
-msgstr "CSV imporieren"
+msgstr "CSV importieren"
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/email/subscriber_already.txt
 #, python-format
