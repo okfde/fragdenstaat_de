@@ -393,6 +393,9 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
     PAYMENT_VARIANTS = {}
     DEFAULT_CURRENCY = "EUR"
     DEFAULT_DECIMAL_PLACES = 2
+    DONATION_PROJECTS = [
+        ("FDS", "FragDenStaat"),  # First project becomes default project
+    ]
 
     CACHES = {
         "default": {
