@@ -5,6 +5,7 @@
   width: 100%;
   flex-direction: column;
   position: relative;
+  border-radius: $fds-card-border-radius;
 
   /* important required to override icon margin, if both image and icon present */
   &.box-card-has-image-sm {
@@ -24,7 +25,9 @@ a > .box-card,
 .box-card:has(a.stretched-link) {
   box-shadow: 0 0 0 var(--shadow-color, var(--shadow-gray));
   transform: translate(0, 0);
-  transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
+  transition:
+    box-shadow 0.15s ease-in-out,
+    transform 0.15s ease-in-out;
 
   &:hover {
     box-shadow: 4px 4px 0 var(--shadow-color, var(--shadow-gray));
@@ -66,6 +69,7 @@ a > .box-card,
 
     img {
       shape-outside: margin-box;
+      border-radius: $fds-card-border-radius;
 
       &.img-lg {
         margin: 1rem;

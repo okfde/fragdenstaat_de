@@ -11,7 +11,15 @@ $link-color: #5d4acd;
 @import 'variables';
 
 $font-family-sans-serif: 'Jost Variable', sans-serif;
-$nav-link-font-weight: 500;
+$navbar-light-color: $link-color;
+$navbar-light-active-color: $link-color;
+$navbar-light-hover-color: darken($link-color, 25%);
+$link-decoration: underline;
+$fds-card-border-radius: $border-radius-lg;
+
+.navbar .nav-item .nav-link.active {
+  font-weight: 600;
+}
 
 @import 'froide/frontend/styles/color-contrast';
 
