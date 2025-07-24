@@ -56,7 +56,7 @@ class FragDenStaatBase(German, Base):
                 "fragdenstaat_de.fds_blog",
                 "adminsortable2",
                 # Customisations
-                "fragdenstaat_de.fds_newsletter",
+                "fragdenstaat_de.fds_newsletter.apps.NewsletterConfig",
                 "fragdenstaat_de.fds_donation.apps.FdsDonationConfig",
                 "fragdenstaat_de.fds_mailing.apps.FdsMailingConfig",
                 "fragdenstaat_de.fds_ogimage.apps.FdsOgImageConfig",

@@ -286,6 +286,10 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                 "froide.publicbody.apps.PublicBodyNoConfig",
                 "froide.campaign",
                 "froide.foirequest.apps.FoiRequestNoConfig",
+                "fragdenstaat_de.fds_newsletter.apps.NewsletterNoConfig",
+                "fragdenstaat_de.fds_mailing.apps.FdsMailingNoConfig",
+                "fragdenstaat_de.fds_donation.apps.FdsDonationNoConfig",
+                "fragdenstaat_de.fds_donation.apps.FroidePaymentNoConfig",
             ]
             + ["oauth2_provider", "mfa", "taggit", "cookie_consent"]
         )
@@ -385,6 +389,10 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
     MIN_PASSWORD_LENGTH = 9
 
     DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+    PAYMENT_VARIANTS = {}
+    DEFAULT_CURRENCY = "EUR"
+    DEFAULT_DECIMAL_PLACES = 2
 
     CACHES = {
         "default": {

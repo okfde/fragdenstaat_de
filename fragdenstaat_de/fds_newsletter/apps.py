@@ -7,9 +7,15 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
+class NewsletterNoConfig(AppConfig):
+    name = "fragdenstaat_de.fds_newsletter"
+    verbose_name = _("Newsletter FragDenStaat (no config)")
+
+
 class NewsletterConfig(AppConfig):
     name = "fragdenstaat_de.fds_newsletter"
     verbose_name = _("Newsletter FragDenStaat")
+    default = True
 
     def ready(self):
         from froide.account import (
