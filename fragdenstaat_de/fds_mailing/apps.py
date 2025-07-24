@@ -2,9 +2,15 @@ from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
+class FdsMailingNoConfig(AppConfig):
+    name = "fragdenstaat_de.fds_mailing"
+    verbose_name = _("FragDenStaat Mailings")
+
+
 class FdsMailingConfig(AppConfig):
     name = "fragdenstaat_de.fds_mailing"
     verbose_name = _("FragDenStaat Mailings")
+    default = True
 
     def ready(self):
         from froide.bounce.signals import email_bounced

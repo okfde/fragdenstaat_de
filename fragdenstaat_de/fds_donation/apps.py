@@ -8,9 +8,20 @@ from django.utils.translation import gettext_lazy as _
 from fragdenstaat_de.fds_newsletter import unsubscribed
 
 
+class FdsDonationNoConfig(AppConfig):
+    name = "fragdenstaat_de.fds_donation"
+    verbose_name = "FragDenStaat Donations (no config)"
+
+
+class FroidePaymentNoConfig(AppConfig):
+    name = "froide_payment"
+    verbose_name = _("Froide Payment App (no config)")
+
+
 class FdsDonationConfig(AppConfig):
     name = "fragdenstaat_de.fds_donation"
     verbose_name = _("FragDenStaat Donations")
+    default = True
 
     def ready(self):
         from froide_payment.signals import (
