@@ -236,6 +236,14 @@ class Donor(models.Model):
             last_donation=models.Max("timestamp")
         )["last_donation"]
 
+    def calculate_recurring_amount(self):
+        """
+        Calculate the total recurring amount for this donor.
+        """
+        return self.recurrences.filter(cancel_date__isnull=True).aggregate(
+            total=models.Sum(models.F("amount") / models.F("interval"))
+        )["total"] or decimal.Decimal("0.00")
+
     @cached_property
     def recently_donated(self):
         recently_donated = False
