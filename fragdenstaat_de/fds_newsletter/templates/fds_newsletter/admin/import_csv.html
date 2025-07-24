@@ -7,6 +7,23 @@
     {% translate 'Import CSV' %}
 {% endblock %}
 {% block action_content %}
+    <div>
+        <h3>{% translate "Read these instructions" %}</h3>
+        <ul>
+            <li>
+                <strong>{% translate "If email addresses are not confirmed, they will receive a confirmation email that may need to be adjusted!" %}</strong>
+            </li>
+            <li>{% translate "Upload a CSV file with one column named 'email'." %}</li>
+            <li>
+                {# djlint:off #}
+                {% translate "Optionally, you can also have a column 'name' with the subscriber's name or columns named 'first_name' and 'last_name'." %}
+                {# djlint:on #}
+            </li>
+            <li>
+                {% translate "Optionally, you can also have a column 'tags' with comma-separated tags that will be added to the subscriber." %}
+            </li>
+        </ul>
+    </div>
     <form method="post"
           action="{% url 'admin:fds_newsletter-import_csv' pk=object.pk %}"
           enctype="multipart/form-data">
@@ -17,3 +34,7 @@
         </p>
     </form>
 {% endblock %}
+{% block extrabody %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock extrabody %}
