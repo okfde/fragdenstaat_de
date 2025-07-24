@@ -200,7 +200,7 @@ class DonationProgressBarPlugin(CMSPluginBase):
     module = _("Donations")
     name = _("Donation Progress Bar")
     text_enabled = True
-    cache = False
+    cache = True
     render_template = "fds_donation/cms_plugins/donation_progress_bar.html"
 
     def get_percentage(self, amount, max):
