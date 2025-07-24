@@ -4433,6 +4433,14 @@ msgstr[1] ""
 "                        Über die Autor:innen\n"
 "                    "
 
+#: fragdenstaat_de/fds_newsletter/forms.py
+msgid ""
+"Requires an email column. Optionally, name (or first_name, last_name) can be "
+"provided."
+msgstr ""
+"Benötigt eine \"email\" Spalte. Optional kann auch die Spalte name (oder "
+"first_name, last_name) angegeben werden."
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
@@ -4447,13 +4455,6 @@ msgstr[1] ""
 
 #~ msgid "amount last year"
 #~ msgstr "Betrag letztes Jahr"
-
-#~ msgid ""
-#~ "Requires an email column. Optionally, name (or first_name, last_name) can "
-#~ "be provided."
-#~ msgstr ""
-#~ "Benötigt eine \"email\" Spalte. Optional kann auch die Spalte name (oder "
-#~ "first_name, last_name) angegeben werden."
 
 #~ msgid "Blue"
 #~ msgstr "Blau"
