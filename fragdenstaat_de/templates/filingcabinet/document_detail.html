@@ -11,7 +11,7 @@
         <meta property="og:url"
               content="{{ SITE_URL }}{{ object.get_absolute_url }}" />
         <meta property="og:image"
-              content="{% thumbnail object.get_cover_image_file 1200x630 crop %}" />
+              content="{% thumbnail object.get_cover_image_file "ogimage" %}" />
         {% if description %}<meta property="og:description" content="{{ object.description }}" />{% endif %}
         <meta property="og:site_name" content="{{ SITE_NAME }}" />
     {% endif %}
