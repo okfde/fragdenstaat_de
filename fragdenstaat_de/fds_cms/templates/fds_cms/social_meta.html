@@ -15,6 +15,22 @@
 {% if description and description != "None" %}<meta itemprop="description" content="{{ description }}">{% endif %}
 <meta name="description"
       content="{% if description and description != "None" %}{{ description }}{% else %}{% blocktrans with site=SITE_NAME %}{{ site }} helps you to make freedom of information requests to public bodies{% endblocktrans %}{% endif %}" />
+{# Twitter Card data #}
+<meta name="twitter:site" content="@fragdenstaat">
+<meta name="twitter:title" content="{{ title }}">
+{% if description and description != "None" %}<meta name="twitter:description" content="{{ description }}">{% endif %}
+<meta name="twitter:creator" content="@fragdenstaat">
+{% if image_url %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="{{ image_url }}">
+{% elif object.fdspageextension.image %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src"
+          content="{% thumbnail object.fdspageextension.image 1120x600 crop subject_location=object.fdspageextension.image.subject_location %}">
+{% else %}
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image:src" content="{{ SITE_LOGO }}">
+{% endif %}
 {# Open Graph data #}
 <meta property="og:title" content="{{ title }}" />
 <meta property="og:type" content="article" />
