@@ -90,6 +90,7 @@ def subscribe_email(
     name="",
     reference="",
     keyword="",
+    tags=None,
     batch=False,
 ) -> SubscriptionReturn:
     try:
@@ -106,6 +107,10 @@ def subscribe_email(
             newsletter=newsletter,
             defaults={"name": name, "reference": reference, "keyword": keyword},
         )
+
+    if tags:
+        for tag in tags:
+            subscriber.tags.add(tag)
 
     if subscriber.subscribed:
         return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
@@ -215,7 +220,11 @@ def get_onboarding_subscribers(date: datetime.date, schedule_item):
     )
 
 
-def import_csv(csv_file, newsletter, reference="", email_confirmed=False):
+def import_csv(csv_file, newsletter, reference="", email_confirmed=False, tags=None):
+    if tags is None:
+        tags = set()
+    else:
+        tags = set(tags)
     reader = csv.DictReader(csv_file)
     for row in reader:
         email = row["email"]
@@ -225,12 +234,15 @@ def import_csv(csv_file, newsletter, reference="", email_confirmed=False):
             name = "{} {}".format(row["first_name"], row["last_name"])
         else:
             name = ""
+        row_tags = {t.strip() for t in row.get("tags", "").split(",") if t.strip()}
+        row_tags |= tags
         subscribe_email(
             newsletter,
             email,
             name=name,
             email_confirmed=email_confirmed,
             reference=reference,
+            tags=row_tags,
             batch=True,
         )
 

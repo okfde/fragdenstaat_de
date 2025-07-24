@@ -5,12 +5,23 @@ from django.conf import settings
 from django.forms import ModelForm, ValidationError
 from django.utils.translation import gettext_lazy as _
 
+from taggit.forms import TagField
+
 from froide.helper.spam import SpamProtectionMixin
-from froide.helper.widgets import BootstrapCheckboxSelectMultiple, BootstrapRadioSelect
+from froide.helper.widgets import (
+    BootstrapCheckboxSelectMultiple,
+    BootstrapRadioSelect,
+    TagAutocompleteWidget,
+)
 
 from fragdenstaat_de.fds_mailing.models import EmailTemplate
 
-from .models import Newsletter, Subscriber, UnsubscribeFeedback
+from .models import (
+    SUBSCRIBER_TAG_AUTOCOMPLETE_URL,
+    Newsletter,
+    Subscriber,
+    UnsubscribeFeedback,
+)
 from .utils import import_csv, subscribe, subscribed_newsletters
 
 
@@ -145,15 +156,19 @@ class NewsletterFollowExtra(NewsletterUserExtra):
 
 
 class SubscriberImportForm(forms.Form):
-    csv_file = forms.FileField(
-        label=_("CSV file"),
-        help_text=_(
-            "Requires an email column. Optionally, name (or first_name, last_name) can be provided."
-        ),
-    )
+    csv_file = forms.FileField(label=_("CSV file"))
     reference = forms.CharField(label=_("Import reference label"), required=True)
     email_confirmed = forms.BooleanField(
         label=_("Email addresses are confirmed"), required=False
+    )
+    tags = TagField(
+        label=_("Tags"),
+        widget=TagAutocompleteWidget(
+            attrs={"placeholder": _("Tags")},
+            autocomplete_url=SUBSCRIBER_TAG_AUTOCOMPLETE_URL,
+        ),
+        required=False,
+        help_text=_("Comma separated and quoted"),
     )
 
     def clean_email_confirmed(self):
@@ -181,6 +196,7 @@ class SubscriberImportForm(forms.Form):
             csv_file,
             newsletter,
             reference=self.cleaned_data["reference"],
+            tags=self.cleaned_data["tags"],
             email_confirmed=self.cleaned_data["email_confirmed"],
         )
 

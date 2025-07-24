@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
@@ -38,6 +38,10 @@ subscriber_batch_confirm_email = mail_registry.register(
 
 subscriber_already_email = mail_registry.register(
     "fds_newsletter/email/subscriber_already", ("name", "newsletter", "unsubscribe_url")
+)
+
+SUBSCRIBER_TAG_AUTOCOMPLETE_URL = reverse_lazy(
+    "admin:fds_newsletter-subscribertag-autocomplete"
 )
 
 
