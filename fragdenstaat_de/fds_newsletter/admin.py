@@ -27,6 +27,7 @@ from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
 from .forms import SubscriberImportForm
 from .models import (
+    SUBSCRIBER_TAG_AUTOCOMPLETE_URL,
     Newsletter,
     Segment,
     Subscriber,
@@ -109,11 +110,6 @@ class SubscriberTagListFilter(MultiFilterMixin, TaggitListFilter):
     title = "Tags"
     parameter_name = "tags__slug"
     lookup_name = "__in"
-
-
-SUBSCRIBER_TAG_AUTOCOMPLETE_URL = reverse_lazy(
-    "admin:fds_newsletter-subscribertag-autocomplete"
-)
 
 
 class SubscriberAdminForm(forms.ModelForm):
