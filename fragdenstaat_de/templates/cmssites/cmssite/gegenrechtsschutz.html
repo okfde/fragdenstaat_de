@@ -31,8 +31,14 @@
                 <span class="d-none d-md-inline" aria-hidden="true">{% trans "Donate" %}</span>
             </a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto py-3">
                     {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
+                    <li class="nav-item d-md-none">
+                        <a href="{% page_url "donate" %}" class="nav-link link-danger">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                            {% trans "Donate" %}
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
