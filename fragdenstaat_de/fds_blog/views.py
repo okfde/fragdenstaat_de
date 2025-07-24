@@ -18,7 +18,6 @@ from django.views.generic import DetailView, ListView
 from froide.helper.breadcrumbs import Breadcrumbs, BreadcrumbView
 from froide.helper.search.views import BaseSearchView
 
-from .cms_config import get_author_groups
 from .documents import ArticleDocument
 from .filters import ArticleFilterset
 from .managers import articles_visible
@@ -119,6 +118,11 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
 
         return self.optimize(qs)
 
+    def get_object(self, queryset=None):
+        if "article" in self.kwargs:
+            return self.kwargs["article"]
+        return super().get_object(queryset)
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.request.article = self.object
@@ -145,28 +149,50 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
 
         context["category"] = self.object.first_category
 
-        authors_with_profiles, authors_without_profiles = get_author_groups(object)
+        # group authors by profile availability
+        authors_with_profiles = []
+        authors_without_profiles = []
+
+        for author in object.get_authors():
+            if (
+                author.user
+                and getattr(author.user, "profile_text", None)
+                and author.user.profile_text.strip()
+            ):
+                authors_with_profiles.append(author)
+            else:
+                authors_without_profiles.append(author)
+
         context["authors_with_profiles"] = authors_with_profiles
         context["authors_without_profiles"] = authors_without_profiles
+
+        if self.request.toolbar.edit_mode_active:
+            context["force_cms_render"] = True
+            context["CMS_TEMPLATE"] = "cms/blog_base.html"
 
         return context
 
     def get_breadcrumbs(self, context):
         breadcrumbs = get_base_breadcrumb()
+        obj = self.get_object()
 
-        if (
-            self.object.content_template
-            == "fds_blog/content/_article_video_header.html"
-        ):
+        if obj.content_template == "fds_blog/content/_article_video_header.html":
             breadcrumbs.overlay = True
 
-        category = self.object.first_category
+        category = obj.first_category
         if category:
             breadcrumbs.items += [(category.title, category.get_absolute_url())]
             if category.color:
                 breadcrumbs.color = category.color
 
-        breadcrumbs.items += [(self.object.title, self.get_view_url())]
+        breadcrumbs.items += [
+            (
+                obj.title,
+                self.request.path
+                if self.request.toolbar.edit_mode_active
+                else self.get_view_url(),
+            )
+        ]
 
         return breadcrumbs
 
