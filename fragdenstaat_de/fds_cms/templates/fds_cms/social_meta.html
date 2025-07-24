@@ -24,7 +24,7 @@
     <meta property="og:image" content="{{ image_url }}" />
 {% elif object.fdspageextension.image %}
     <meta property="og:image"
-          content="{% thumbnail object.fdspageextension.image 1200x630 crop subject_location=object.fdspageextension.image.subject_location %}" />
+          content="{% thumbnail object.fdspageextension.image "ogimage" subject_location=object.fdspageextension.image.subject_location %}" />
 {% else %}
     <meta property="og:image" content="{{ SITE_LOGO }}">
 {% endif %}
