@@ -1,0 +1,1 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with title=newsletter.title %}Please confirm subscription to {{ title }}{% endblocktrans %}{% endautoescape %}
