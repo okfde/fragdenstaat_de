@@ -29,6 +29,7 @@ class FragDenStaatBase(German, Base):
 
     LANGUAGES = (
         ("de", _("German")),
+        ("de-ls", _("German (Easy Language)")),
         ("en", _("English")),
     )
 
@@ -247,6 +248,13 @@ class FragDenStaatBase(German, Base):
                 "name": _("English"),
                 "redirect_on_fallback": True,
                 "fallbacks": ["de"],
+            },
+            {
+                "public": True,
+                "code": "de-ls",
+                "hide_untranslated": True,
+                "name": _("German (Easy Language)"),
+                "redirect_on_fallback": True,
             },
         ],
     }
