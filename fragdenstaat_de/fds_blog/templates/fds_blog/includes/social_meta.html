@@ -3,6 +3,18 @@
 {# Schema.org markup for Google+ #}
 <meta itemprop="name" content="{{ article.meta_title }}">
 {% if article.abstract %}<meta itemprop="description" content="{{ article.abstract|striptags }}">{% endif %}
+{# Twitter Card data #}
+<meta name="twitter:site" content="@fragdenstaat">
+<meta name="twitter:title" content="{{ article.meta_title }}">
+{% if article.teaser %}<meta name="twitter:description" content="{{ article.teaser|striptags }}">{% endif %}
+<meta name="twitter:creator" content="@fragdenstaat">
+{% if article.image %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src"
+          content="{% thumbnail article.image 1120x600 crop subject_location=article.image.subject_location %}">
+{% else %}
+    <meta name="twitter:card" content="summary">
+{% endif %}
 {# Open Graph data #}
 <meta property="og:title" content="{{ article.meta_title }}" />
 <meta property="og:type" content="article" />
