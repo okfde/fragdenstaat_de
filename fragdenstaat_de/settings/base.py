@@ -527,13 +527,6 @@ class FragDenStaatBase(German, Base):
             "xxlcontainer@2x": {"size": (2592, 0)},
             "xxxl": {"size": (3840, 0)},
         },
-        "": {
-            "ogimage": {
-                "size": (1200, 630),
-                "crop": True,
-                "replace_alpha": "#ffffff",
-            },
-        },
     }
     FDS_THUMBNAIL_ENABLE_AVIF = False
 

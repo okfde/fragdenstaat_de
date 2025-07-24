@@ -10,7 +10,7 @@
       content="{{ SITE_URL }}{{ article.get_absolute_url }}" />
 {% if article.image %}
     <meta property="og:image"
-          content="{% thumbnail article.image "ogimage" subject_location=article.image.subject_location %}" />
+          content="{% thumbnail article.image 1200x630 crop subject_location=article.image.subject_location %}" />
 {% endif %}
 {% if article.teaser %}<meta property="og:description" content="{{ article.teaser|striptags }}" />{% endif %}
 <meta property="og:site_name" content="{{ SITE_NAME }}" />
