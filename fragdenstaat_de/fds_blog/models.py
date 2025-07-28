@@ -684,6 +684,12 @@ class ArticlePreviewPlugin(CMSPlugin):
         """
         return self.template_to_render
 
+    def copy_relations(self, old_instance):
+        """
+        Duplicate ManyToMany relations on plugin copy
+        """
+        self.articles.set(old_instance.articles.all())
+
 
 class DetailsBoxCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=100, blank=True)
