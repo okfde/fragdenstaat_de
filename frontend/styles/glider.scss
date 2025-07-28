@@ -107,15 +107,15 @@ $glide-modifier-separator: '--' !default;
       outline: none;
     }
     &:hover {
-      background-color: $blue-600;
-      // border-color: $blue-600;
+      background-color: $primary;
+      // border-color: $primary;
       svg path {
         fill: white;
       }
     }
 
     svg path {
-      fill: $blue-600;
+      fill: $primary;
     }
 
     &#{$sm}left {
@@ -146,7 +146,7 @@ $glide-modifier-separator: '--' !default;
   }
 
   &#{$se}bullet {
-    background-color: $blue-600;
+    background-color: $primary;
     width: 15px;
     height: 15px;
     padding: 0;
@@ -170,7 +170,7 @@ $glide-modifier-separator: '--' !default;
 
     &#{$sm}active {
       background-color: white;
-      border-color: $blue-600;
+      border-color: $primary;
     }
   }
 
