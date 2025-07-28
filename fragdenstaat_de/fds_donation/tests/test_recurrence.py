@@ -84,7 +84,7 @@ def test_banktransfer_first_received():
 def test_banktransfer_first_received_next_missed():
     donor = DonorFactory.create()
     now = timezone.now()
-    first_date = now - relativedelta(months=2) - timedelta(days=5)
+    first_date = now - relativedelta(months=3) - timedelta(days=5)
     amount = Decimal("10.00")
     donation = make_banktransfer_donation(donor, amount, first_date)
     donation.received_timestamp = donation.timestamp + timedelta(days=2)
