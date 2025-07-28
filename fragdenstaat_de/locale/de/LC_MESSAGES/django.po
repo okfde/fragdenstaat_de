@@ -2183,6 +2183,7 @@ msgid "Other"
 msgstr "Sonstiges"
 
 #: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/views.py
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Recurring donation"
 msgstr "Dauerspende"
 
@@ -4408,6 +4409,11 @@ msgstr ""
 #, python-brace-format
 msgid "Recurrence with ID {id} does not exist."
 msgstr "Dauerspende mit ID {id} existiert nicht."
+
+#: fragdenstaat_de/fds_donation/models.py
+#, python-brace-format
+msgid "{amount} EUR every {interval} month(s) via {method} since {start}"
+msgstr "{amount} EUR jede {interval} Monat(e) via {method} seit {start}"
 
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
@@ -8526,3 +8532,6 @@ msgstr "Dauerspende mit ID {id} existiert nicht."
 
 #~ msgid "Internal Review"
 #~ msgstr "Interne Überprüfung"
+
+#~ msgid "Change your address"
+#~ msgstr "Ändern Sie Ihre Adresse"
