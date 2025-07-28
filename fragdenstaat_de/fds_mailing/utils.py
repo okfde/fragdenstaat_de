@@ -8,6 +8,7 @@ from django.contrib.admin import helpers
 from django.core import signing
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
+from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.crypto import salted_hmac
@@ -49,6 +50,13 @@ def render_plugin_web_html(context, base_plugin):
         return plugin.render_web_html(context, instance)
     if base_plugin.plugin_type == "TextPlugin":
         return mark_safe(EMPTY_PARAGRAPH.sub("", instance.body))
+    elif base_plugin.plugin_type == "PicturePlugin":
+        # TODO
+        context = plugin.render(context, instance, None)
+        return render_to_string(
+            "djangocms_picture/default/picture.html",
+            context,
+        )
     return ""
 
 

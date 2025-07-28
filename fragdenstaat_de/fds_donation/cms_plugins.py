@@ -286,7 +286,7 @@ class EmailDonationButtonPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginB
             if key in instance.attributes:
                 styles.append(f"{key}: {instance.attributes[key]}")
         return format_html(
-            '<p><a class="btn btn-lg" style="{style}" href="{action_url}">{action_label}</a></p>',
+            '<p><a class="btn btn-primary btn-lg" style="{style}" href="{action_url}">{action_label}</a></p>',
             action_url=context["action_url"],
             action_label=context["action_label"],
             style="; ".join(styles),
