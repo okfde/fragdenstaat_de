@@ -117,6 +117,7 @@ django==5.2.1
     #   django-filer
     #   django-filingcabinet
     #   django-filter
+    #   django-flowcontrol
     #   django-formtools
     #   django-leaflet
     #   django-legal-advice-builder
@@ -230,6 +231,8 @@ django-filter==25.1
     #   django-filingcabinet
     #   froide
     #   froide-campaign
+django-flowcontrol==0.0.2
+    # via fragdenstaat-de (pyproject.toml)
 django-formtools==2.5.1
     # via django-cms
 django-fsm==2.8.2
@@ -292,6 +295,7 @@ django-treebeard==4.7.1
     #   fragdenstaat-de (pyproject.toml)
     #   django-cms
     #   django-filingcabinet
+    #   django-flowcontrol
     #   django-legal-advice-builder
     #   froide
 djangocms-admin-style==3.3.1
@@ -636,6 +640,7 @@ python-dateutil==2.9.0.post0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   celery
+    #   django-flowcontrol
     #   elasticsearch-dsl
     #   feedgen
     #   froide-payment
