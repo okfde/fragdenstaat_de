@@ -155,7 +155,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     )
     list_filter = (
         "active",
-        make_nullfilter("subscriptions", _("Dauerspende")),
+        make_nullfilter("recurrences", _("Dauerspende")),
         DonorTotalAmountPerYearFilter,
         make_rangefilter("recurring_amount", _("recurring monthly amount")),
         make_daterangefilter("last_donation", _("Last donation")),
