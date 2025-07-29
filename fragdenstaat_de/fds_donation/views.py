@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -9,6 +9,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, TemplateView, UpdateView
 from django.views.generic.edit import FormView
 
+from froide.helper.breadcrumbs import Breadcrumbs, BreadcrumbView
 from froide.helper.utils import get_redirect, is_ajax
 
 from .form_settings import DonationFormFactory
@@ -95,6 +96,12 @@ def quick_donation(request):
     )
 
 
+def get_base_breadcrumb(donor):
+    return Breadcrumbs(
+        items=[(_("Your donations"), donor.get_absolute_url())], color="success"
+    )
+
+
 class DonationCompleteView(TemplateView):
     template_name = "fds_donation/donation_complete.html"
 
@@ -156,22 +163,28 @@ class DonorMixin:
         return obj
 
 
-class DonorView(DonorMixin, DetailView):
+class DonorView(DonorMixin, DetailView, BreadcrumbView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        donations = self.object.donations.filter(completed=True)
+        donations = self.object.donations.filter(completed=True).select_related(
+            "recurrence"
+        )
         try:
             last_donation = donations[0]
         except IndexError:
             last_donation = None
+
         ctx.update(
             {
-                "subscriptions": self.object.subscriptions.filter(canceled=None),
+                "recurrences": self.object.recurrences.filter(cancel_date=None),
                 "donations": donations,
                 "last_donation": last_donation,
             }
         )
         return ctx
+
+    def get_breadcrumbs(self, context):
+        return get_base_breadcrumb(context["object"])
 
 
 class DonorUserMixin:
@@ -215,7 +228,7 @@ class DonorUserView(LoginRequiredMixin, DonorUserMixin, DonorView):
     pass
 
 
-class DonorChangeView(DonorMixin, UpdateView):
+class DonorChangeView(DonorMixin, UpdateView, BreadcrumbView):
     form_class = DonorDetailsForm
 
     def form_valid(self, form):
@@ -227,12 +240,66 @@ class DonorChangeView(DonorMixin, UpdateView):
     def get_user_url(self):
         return reverse("fds_donation:donor-user-change")
 
+    def get_breadcrumbs(self, context):
+        return get_base_breadcrumb(context["object"]) + [
+            (_("Change your details"), context["object"].get_absolute_change_url())
+        ]
+
 
 class DonorChangeUserView(LoginRequiredMixin, DonorUserMixin, DonorChangeView):
     pass
 
 
-class DonorDonationActionView(DonorMixin, UpdateView):
+class DonorRecurrenceView(DonorMixin, DetailView, BreadcrumbView):
+    template_name = "fds_donation/recurrence.html"
+
+    def get_user_url(self):
+        return reverse(
+            "fds_donation:donor-user-recurrence",
+            kwargs={"recurrence_id": self.get_recurrence().id},
+        )
+
+    def get_recurrence(self):
+        if hasattr(self, "_recurrence"):
+            return self._recurrence
+        recurrence_id = self.kwargs.get("recurrence_id")
+        try:
+            self._recurrence = self.object.recurrences.get(id=recurrence_id)
+            return self._recurrence
+        except self.object.recurrences.model.DoesNotExist as e:
+            raise Http404(
+                _("Recurrence with ID {id} does not exist.").format(id=recurrence_id)
+            ) from e
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        recurrence = self.get_recurrence()
+        ctx.update({"recurrence": recurrence, "donations": recurrence.donations.all()})
+        if recurrence.method != "banktransfer":
+            ctx["subscription"] = recurrence.subscription
+        ctx["is_banktransfer"] = recurrence.method == "banktransfer"
+        ctx["is_paypal"] = recurrence.method == "paypal"
+        return ctx
+
+    def get_breadcrumbs(self, context):
+        return get_base_breadcrumb(context["object"]) + [
+            (
+                _("Recurring donation"),
+                context["recurrence"].get_absolute_url(),
+            )
+        ]
+
+
+class DonorRecurrenceUserView(LoginRequiredMixin, DonorUserMixin, DonorRecurrenceView):
+    def get_object(self, queryset=None):
+        donor = super().get_object(queryset=queryset)
+        if not donor:
+            return None
+        recurrence_id = self.kwargs.get("recurrence_id")
+        return donor.recurrences.filter(id=recurrence_id).first()
+
+
+class DonorDonationActionView(DonorMixin, UpdateView, BreadcrumbView):
     form_class = SimpleDonationForm
     template_name = "fds_donation/donation_form.html"
 
@@ -266,7 +333,7 @@ class DonorDonationActionView(DonorMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "subscriptions": self.object.subscriptions.filter(canceled=None),
+                "recurrences": self.object.recurrences.filter(cancel_date=None),
             }
         )
         return context
@@ -280,6 +347,11 @@ class DonorDonationActionView(DonorMixin, UpdateView):
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR, "Form-Fehler!")
         return super().form_invalid(form)
+
+    def get_breadcrumbs(self, context):
+        return get_base_breadcrumb(context["object"]) + [
+            (_("Donate"), context["object"].get_absolute_donate_url())
+        ]
 
 
 class DonorDonationActionUserView(

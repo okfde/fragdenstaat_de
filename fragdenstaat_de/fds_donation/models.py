@@ -14,7 +14,7 @@ from django.utils.formats import date_format, number_format
 from django.utils.functional import cached_property
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import pgettext
+from django.utils.translation import ngettext_lazy, pgettext
 
 from cms.models.pluginmodel import CMSPlugin
 from dateutil.relativedelta import relativedelta
@@ -43,6 +43,7 @@ PAYMENT_METHOD_MAX_AMOUNT = {"sepa": decimal.Decimal(5000)}
 PAYMENT_METHODS = [
     (method, CHECKOUT_PAYMENT_CHOICES_DICT[method]) for method in PAYMENT_METHOD_LIST
 ]
+PAYMENT_METHODS_DICT = dict(PAYMENT_METHODS)
 
 
 ONCE = "once"
@@ -207,6 +208,15 @@ class Donor(models.Model):
 
     def get_absolute_donate_url(self):
         return reverse("fds_donation:donor-donate", kwargs={"token": str(self.uuid)})
+
+    def get_absolute_recurrence_url(self, recurrence):
+        return reverse(
+            "fds_donation:donor-recurrence",
+            kwargs={
+                "token": str(self.uuid),
+                "recurrence_id": recurrence.id,
+            },
+        )
 
     def get_url(self):
         return settings.SITE_URL + self.get_absolute_url()
@@ -395,14 +405,21 @@ class Recurrence(models.Model):
     def __str__(self):
         return "{donor}: {desc}".format(donor=self.donor, desc=self.get_description())
 
+    def get_absolute_url(self):
+        if self.donor:
+            return self.donor.get_absolute_recurrence_url(self)
+        return ""
+
     def get_description(self):
-        return _(
-            "{amount} EUR every {interval} month(s) via {method} since {start}"
+        return ngettext_lazy(
+            "{amount} EUR every month via {method} since {start}.",
+            "{amount} EUR every {interval} months via {method} since {start}.",
+            self.interval,
         ).format(
             donor=self.donor,
             amount=number_format(self.amount),
             interval=self.interval,
-            method=self.method,
+            method=PAYMENT_METHODS_DICT.get(self.method, self.method),
             start=date_format(self.start_date, "SHORT_DATE_FORMAT"),
         ) + (
             " ({})".format(
@@ -446,6 +463,13 @@ class Recurrence(models.Model):
             # must be coming in any time now
             last_received_timestamp = timezone.now()
         return last_received_timestamp + interval
+
+    def first_donation(self):
+        """
+        Returns the first donation for this recurrence.
+        If no donations exist, returns None.
+        """
+        return self.donations.order_by("timestamp").first()
 
 
 class DonationManager(models.Manager):

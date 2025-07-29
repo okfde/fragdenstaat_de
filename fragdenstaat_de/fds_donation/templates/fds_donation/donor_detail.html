@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "fds_donation/base.html" %}
 {% load i18n %}
 {% block title %}
     {% translate "Your donation" %}
@@ -17,11 +17,12 @@
         <a href="{{ object.get_absolute_donate_url }}"
            class="btn btn-secondary mb-2">{% translate "Create new donation" %}</a>
     </p>
-    {% if subscriptions %}
+    {% if recurrences %}
         <h2>{% translate "Recurring donations" %}</h2>
-        {% for subscription in subscriptions %}
+        {% for recurrence in recurrences %}
             <p>
-                {% translate "Recurring donation" %} {{ subscription.plan }} (<a href="{{ subscription.get_absolute_url }}">{% translate "Details" %}</a>)
+                {{ recurrence.get_description }}
+                (<a href="{{ recurrence.get_absolute_url }}">{% translate "Details" %}</a>)
             </p>
         {% endfor %}
         <hr />
@@ -31,8 +32,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>{% translate "Date" %}</th>
-                    <th>{% translate "Amount" %}</th>
+                    <th class="text-end">{% translate "Date" %}</th>
+                    <th class="text-end">{% translate "Amount" %}</th>
                     <th>{% translate "Purpose" %}</th>
                     <th>{% translate "Payment method" %}</th>
                     <th>{% translate "Details" %}</th>
@@ -41,8 +42,8 @@
             <tbody>
                 {% for donation in donations %}
                     <tr>
-                        <td>{{ donation.timestamp|date:"DATE_FORMAT" }}</td>
-                        <td>{{ donation.amount }}&nbsp;{% translate "Euro" %}</td>
+                        <td class="text-end">{{ donation.timestamp|date:"DATE_FORMAT" }}</td>
+                        <td class="text-end">{{ donation.amount }}&nbsp;{% translate "Euro" %}</td>
                         <td>{{ donation.purpose }}</td>
                         <td>{{ donation.get_method_display }}</td>
                         <td>
@@ -67,7 +68,6 @@
                                     {% else %}
                                         {{ donation.payment.get_status_display }}
                                     {% endif %}
-                                    <a href="{{ donation.order.get_absolute_url }}">{% translate "Details" %}</a>
                                 {% endif %}
                             {% else %}
                                 {% if donation.received_timestamp %}
