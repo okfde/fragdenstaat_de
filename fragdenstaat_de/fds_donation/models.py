@@ -362,7 +362,6 @@ class Recurrence(models.Model):
         Subscription,
         null=True,
         blank=True,
-        related_name="+",
         on_delete=models.SET_NULL,
     )
     active = models.BooleanField(default=True)

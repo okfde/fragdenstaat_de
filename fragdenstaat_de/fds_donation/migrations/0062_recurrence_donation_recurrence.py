@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('cancel_reason', models.CharField(blank=True, choices=[('', 'No reason given'), ('financial', 'Financial reasons'), ('unintended', 'Mistakenly set up, do not remember doing so'), ('lost', 'I do not want to support this project anymore'), ('other', 'Other')], default='', help_text='Reason for cancellation', max_length=255)),
                 ('cancel_feedback', models.TextField(blank=True)),
                 ('donor', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='recurrences', to='fds_donation.donor')),
-                ('subscription', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='froide_payment.subscription')),
+                ('subscription', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='froide_payment.subscription')),
             ],
             options={
                 'verbose_name': 'recurring pattern',
