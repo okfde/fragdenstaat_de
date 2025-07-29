@@ -9,6 +9,8 @@ from .views import (
     DonorChangeView,
     DonorDonationActionUserView,
     DonorDonationActionView,
+    DonorRecurrenceUserView,
+    DonorRecurrenceView,
     DonorUserView,
     DonorView,
     make_order,
@@ -64,6 +66,11 @@ urlpatterns = [
         DonorDonationActionUserView.as_view(),
         name="donor-user-donate",
     ),
+    path(
+        pgettext_lazy("url pattern", "your-donation/recurrence/<int:recurrence_id>/"),
+        DonorRecurrenceUserView.as_view(),
+        name="donor-user-recurrence",
+    ),
     re_path(
         pgettext_lazy(
             "url pattern",
@@ -72,5 +79,14 @@ urlpatterns = [
         ),
         DonorDonationActionView.as_view(),
         name="donor-donate",
+    ),
+    re_path(
+        pgettext_lazy(
+            "url pattern",
+            r"^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-"
+            r"[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})/recurrence/(?P<recurrence_id>\d+)/$",
+        ),
+        DonorRecurrenceView.as_view(),
+        name="donor-recurrence",
     ),
 ]

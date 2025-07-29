@@ -7,13 +7,14 @@
     <div class="row justify-content-center">
         <div class="col-8">
             <h3>{% translate "Create a new donation" %}</h3>
-            {% if subscriptions %}
+            {% if recurrences %}
                 <div class="alert alert-warning">
                     <p>{% translate "Please note that you currently have the following recurring donations active:" %}</p>
                     <ul>
-                        {% for subscription in subscriptions %}
+                        {% for recurrence in recurrences %}
                             <li>
-                                {{ subscription.plan }} (<a href="{{ subscription.get_absolute_url }}">{% translate "Details / Cancel" %}</a>)
+                                {{ recurrence.get_description }}
+                                (<a href="{{ recurrence.get_absolute_url }}">{% translate "Details / Cancel" %}</a>)
                             </li>
                         {% endfor %}
                     </ul>
