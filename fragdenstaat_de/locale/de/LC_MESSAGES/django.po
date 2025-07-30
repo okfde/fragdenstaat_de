@@ -1482,6 +1482,7 @@ msgid "Received timestamp"
 msgstr "Zeitpunkt des Erhalts"
 
 #: fragdenstaat_de/fds_donation/admin.py
+#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
 msgid "amount"
 msgstr "Betrag"
 
@@ -2181,7 +2182,7 @@ msgstr "Ich möchte diese Projekt nicht mehr unterstützen"
 msgid "Other"
 msgstr "Sonstiges"
 
-#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/views.py
 msgid "Recurring donation"
 msgstr "Dauerspende"
 
@@ -2298,6 +2299,7 @@ msgid "Merge Donors"
 msgstr "Spender*innen zusammenführen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/_recurrence.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
 msgid ""
 "Use your online banking or contact your bank to change your standing order."
 msgstr ""
@@ -2305,11 +2307,13 @@ msgstr ""
 "zu ändern."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/_recurrence.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
 msgid "Change or cancel your subscription"
 msgstr "Dauerspende ändern oder kündigen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/_recurrence.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
 msgid ""
 "This Paypal subscription is not managed by us. You can change or cancel your "
 "PayPal subscription in your PayPal account."
@@ -2495,6 +2499,7 @@ msgid "Details"
 msgstr "Details"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
 msgid "Euro"
 msgstr "Euro"
 
@@ -4360,6 +4365,50 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
+msgid ""
+"You can adjust the amount or frequency of your recurring donation on the "
+"detail page."
+msgstr ""
+"Du kannst den Betrag oder den Rhythmus Deiner Dauerspende auf der "
+"Detailseite anpassen."
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
+msgid "Your recurring donation"
+msgstr "Deine Dauerspende"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
+msgid "Payments on this recurring donation"
+msgstr "Zahlungen dieser Dauerspende"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
+msgid "date"
+msgstr "Datum"
+
+#: fragdenstaat_de/fds_donation/templates/froide_payment/subscription/default.html
+msgid "back to recurring donation"
+msgstr "zurück zur Dauerspende"
+
+#: fragdenstaat_de/fds_donation/urls.py
+msgctxt "url pattern"
+msgid "your-donation/recurrence/<int:recurrence_id>/"
+msgstr "ihre-spenden/dauerpsende/<int:recurrence_id>/"
+
+#: fragdenstaat_de/fds_donation/urls.py
+#, python-brace-format
+msgctxt "url pattern"
+msgid ""
+"^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
+"[0-9a-z]{12})/recurrence/(?P<recurrence_id>\\d+)/$"
+msgstr ""
+"^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
+"[0-9a-z]{12})/dauerspende/(?P<recurrence_id>\\d+)/$"
+
+#: fragdenstaat_de/fds_donation/views.py
+#, python-brace-format
+msgid "Recurrence with ID {id} does not exist."
+msgstr "Dauerspende mit ID {id} existiert nicht."
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
@@ -4371,42 +4420,6 @@ msgstr "kampagne/"
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#~ msgid ""
-#~ "You can adjust the amount or frequency of your recurring donation on the "
-#~ "detail page."
-#~ msgstr ""
-#~ "Du kannst den Betrag oder den Rhythmus Deiner Dauerspende auf der "
-#~ "Detailseite anpassen."
-
-#~ msgid "Your recurring donation"
-#~ msgstr "Deine Dauerspende"
-
-#~ msgid "Payments on this recurring donation"
-#~ msgstr "Zahlungen dieser Dauerspende"
-
-#~ msgid "date"
-#~ msgstr "Datum"
-
-#~ msgid "back to recurring donation"
-#~ msgstr "zurück zur Dauerspende"
-
-#~ msgctxt "url pattern"
-#~ msgid "your-donation/recurrence/<int:recurrence_id>/"
-#~ msgstr "ihre-spenden/dauerpsende/<int:recurrence_id>/"
-
-#, python-brace-format
-#~ msgctxt "url pattern"
-#~ msgid ""
-#~ "^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
-#~ "[0-9a-z]{12})/recurrence/(?P<recurrence_id>\\d+)/$"
-#~ msgstr ""
-#~ "^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
-#~ "[0-9a-z]{12})/dauerspende/(?P<recurrence_id>\\d+)/$"
-
-#, python-brace-format
-#~ msgid "Recurrence with ID {id} does not exist."
-#~ msgstr "Dauerspende mit ID {id} existiert nicht."
 
 #~ msgid "amount last year"
 #~ msgstr "Betrag letztes Jahr"
