@@ -280,6 +280,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
             + self.CMS_EXTRA_APPS
             + [
                 "datashow",
+                "flowcontrol",
                 "filingcabinet",
                 "froide.document.apps.DocumentNoConfig",
                 "froide.georegion",
