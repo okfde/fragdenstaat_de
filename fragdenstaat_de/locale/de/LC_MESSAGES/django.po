@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-29 14:10+0200\n"
-"PO-Revision-Date: 2025-07-29 14:11+0200\n"
+"POT-Creation-Date: 2025-07-30 13:27+0200\n"
+"PO-Revision-Date: 2025-07-30 13:30+0200\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -1378,6 +1378,10 @@ msgid "Stats"
 msgstr "Statistik"
 
 #: fragdenstaat_de/fds_donation/admin.py
+msgid "Start workflow for donors..."
+msgstr "Starte Workflow für Spender*innen…"
+
+#: fragdenstaat_de/fds_donation/admin.py
 msgid "Donation count"
 msgstr "Spendenanzahl"
 
@@ -1472,7 +1476,6 @@ msgid "Received timestamp"
 msgstr "Zeitpunkt des Erhalts"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
 msgid "amount"
 msgstr "Betrag"
 
@@ -2169,7 +2172,7 @@ msgstr "Ich möchte diese Projekt nicht mehr unterstützen"
 msgid "Other"
 msgstr "Sonstiges"
 
-#: fragdenstaat_de/fds_donation/models.py fragdenstaat_de/fds_donation/views.py
+#: fragdenstaat_de/fds_donation/models.py
 msgid "Recurring donation"
 msgstr "Dauerspende"
 
@@ -2285,6 +2288,26 @@ msgstr "Ausführen"
 msgid "Merge Donors"
 msgstr "Spender*innen zusammenführen"
 
+#: fragdenstaat_de/fds_donation/templates/fds_donation/_recurrence.html
+msgid ""
+"Use your online banking or contact your bank to change your standing order."
+msgstr ""
+"Benutze dein Online Banking oder kontaktiere deine Bank, um den Dauerauftrag "
+"zu ändern."
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/_recurrence.html
+msgid "Change or cancel your subscription"
+msgstr "Dauerspende ändern oder kündigen"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/_recurrence.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
+msgid ""
+"This Paypal subscription is not managed by us. You can change or cancel your "
+"PayPal subscription in your PayPal account."
+msgstr ""
+"Dieses Paypal-Abo wurde nicht von uns ausgelöst. Du kannst es in deinem "
+"Paypal-Konto ändern oder kündigen."
+
 #: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donation_progress_bar.html
 msgid "Donation progress"
 msgstr "Spendenfortschritt"
@@ -2386,16 +2409,12 @@ msgid ""
 msgstr "Bitte beachte, dass momentan folgende Dauerspenden für Dich aktiv sind:"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
-msgid "Details / Cancel"
-msgstr "Details / Kündigen"
+msgid "Change this or cancel with your bank."
+msgstr "Ändern oder kündigen über deine Bank."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
-msgid ""
-"You can adjust the amount or frequency of your recurring donation on the "
-"detail page."
-msgstr ""
-"Du kannst den Betrag oder den Rhythmus Deiner Dauerspende auf der Detailseite "
-"anpassen."
+msgid "Details / Cancel"
+msgstr "Details / Kündigen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 msgid ""
@@ -2431,10 +2450,6 @@ msgid "Create new donation"
 msgstr "Neue Spende anlegen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
-msgid "Details"
-msgstr "Details"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Here you can find an overview of your individual donations."
 msgstr "Hier findest Du eine Übersicht über Deine einzelnen Spenden."
 
@@ -2453,7 +2468,10 @@ msgid "Purpose"
 msgstr "Verwendungszweck"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
-#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
+msgid "Details"
+msgstr "Details"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Euro"
 msgstr "Euro"
 
@@ -2617,44 +2635,14 @@ msgstr "BLZ"
 msgid "Thank you!"
 msgstr "Vielen Dank!"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
-msgid "Your recurring donation"
-msgstr "Deine Dauerspende"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
-msgid "Change or cancel your subscription"
-msgstr "Dauerspende ändern oder kündigen"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
-msgid ""
-"Use your online banking or contact your bank to change your standing order."
-msgstr ""
-"Benutze dein Online Banking oder kontaktiere deine Bank, um den Dauerauftrag "
-"zu ändern."
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
-msgid ""
-"This Paypal subscription is not managed by us. You can change or cancel your "
-"PayPal subscription in your PayPal account."
-msgstr ""
-"Dieses Paypal-Abo wurde nicht von uns ausgelöst. Du kannst es in deinem "
-"Paypal-Konto ändern oder kündigen."
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
-msgid "Payments on this recurring donation"
-msgstr "Zahlungen dieser Dauerspende"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/recurrence.html
-msgid "date"
-msgstr "Datum"
-
 #: fragdenstaat_de/fds_donation/templates/froide_payment/subscription/_cancel_form.html
 msgid "Are you sure you want to cancel your subscription?"
 msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
 
 #: fragdenstaat_de/fds_donation/templates/froide_payment/subscription/default.html
-msgid "back to recurring donation"
-msgstr "zurück zur Dauerspende"
+#: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
+msgid "back"
+msgstr "zurück"
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"
@@ -2707,11 +2695,6 @@ msgid "your-donation/donate/"
 msgstr "ihre-spenden/spenden/"
 
 #: fragdenstaat_de/fds_donation/urls.py
-msgctxt "url pattern"
-msgid "your-donation/recurrence/<int:recurrence_id>/"
-msgstr "ihre-spenden/dauerpsende/<int:recurrence_id>/"
-
-#: fragdenstaat_de/fds_donation/urls.py
 #, python-brace-format
 msgctxt "url pattern"
 msgid ""
@@ -2720,16 +2703,6 @@ msgid ""
 msgstr ""
 "^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-"
 "z]{12})/spenden/$"
-
-#: fragdenstaat_de/fds_donation/urls.py
-#, python-brace-format
-msgctxt "url pattern"
-msgid ""
-"^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
-"[0-9a-z]{12})/recurrence/(?P<recurrence_id>\\d+)/$"
-msgstr ""
-"^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-"
-"z]{12})/dauerspende/(?P<recurrence_id>\\d+)/$"
 
 #: fragdenstaat_de/fds_donation/views.py
 msgid "Your donations"
@@ -2751,11 +2724,6 @@ msgstr "Deine Spenden-Angaben wurden aktualisiert!"
 #: fragdenstaat_de/fds_donation/views.py
 msgid "Change your details"
 msgstr "Ändere Deine Angaben"
-
-#: fragdenstaat_de/fds_donation/views.py
-#, python-brace-format
-msgid "Recurrence with ID {id} does not exist."
-msgstr "Dauerspende mit ID {id} existiert nicht."
 
 #: fragdenstaat_de/fds_events/apps.py fragdenstaat_de/fds_events/utils.py
 msgid "FragDenStaat Events"
@@ -2944,6 +2912,26 @@ msgid "Import stated. You will receive an email once it finishes."
 msgstr ""
 "Import gestartet. Sie erhalten eine E-Mail, sobald dieser abgeschlossen ist."
 
+#: fragdenstaat_de/fds_mailing/actions.py
+msgid "Delay if mail sent recently"
+msgstr "Pausieren, falls gerade angemailt"
+
+#: fragdenstaat_de/fds_mailing/actions.py
+msgid "Delays next action if an email was sent recently."
+msgstr "Pausiert, falls eine E-Mail kürzlich gesendet wurde."
+
+#: fragdenstaat_de/fds_mailing/actions.py fragdenstaat_de/fds_mailing/admin.py
+msgid "Mailing"
+msgstr "Mailing"
+
+#: fragdenstaat_de/fds_mailing/actions.py
+msgid "Send email"
+msgstr "Sende E-Mail"
+
+#: fragdenstaat_de/fds_mailing/actions.py
+msgid "Send an email"
+msgstr "Sende eine E-Mail"
+
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -2955,10 +2943,6 @@ msgstr "Öffnungsrate"
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Recipients"
 msgstr "Empfänger:innen"
-
-#: fragdenstaat_de/fds_mailing/admin.py
-msgid "Mailing"
-msgstr "Mailing"
 
 #: fragdenstaat_de/fds_mailing/admin.py fragdenstaat_de/fds_mailing/preview.py
 msgid "User"
@@ -3271,6 +3255,29 @@ msgstr ""
 msgid "Negate the condition."
 msgstr "Bedingung umkehren."
 
+#: fragdenstaat_de/fds_mailing/models.py
+msgid "Number of days to wait between emails."
+msgstr "Anzahl Tage Pause seit der letzten E-Mail."
+
+#: fragdenstaat_de/fds_mailing/models.py
+msgid "Maximum number of days to wait between emails. 0 means no limit."
+msgstr "Maximale Anzahl Tage Pause. 0 heißt keine Obergrenze."
+
+#: fragdenstaat_de/fds_mailing/models.py
+#, python-brace-format
+msgid "Delay by {delay_days} days, max {max_delay_days} days total"
+msgstr ""
+"Pausieren für {delay_days} Tage, maximal {max_delay_days} Tage insgesamt"
+
+#: fragdenstaat_de/fds_mailing/models.py
+msgid "Email template to use for this action."
+msgstr "E-Mail-Vorlage für diese Aktion."
+
+#: fragdenstaat_de/fds_mailing/models.py
+#, python-brace-format
+msgid "Template: {template}"
+msgstr "Vorlage: {template}"
+
 #: fragdenstaat_de/fds_mailing/preview.py fragdenstaat_de/theme/apps.py
 msgid "---"
 msgstr "---"
@@ -3362,10 +3369,6 @@ msgstr "an diese Empfänger:innen:"
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/archive/mailing_detail.html
 msgid "Don't miss out on any future updates by subscribing to this newsletter!"
 msgstr "Verpasse keine Neuigkeiten mehr, indem Du den Newsletter abonnierst!"
-
-#: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
-msgid "back"
-msgstr "zurück"
 
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/emailtemplate_update_form.html
 msgid "Email Template"
@@ -4340,6 +4343,42 @@ msgstr "User automatisch blockiert"
 msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
+
+#~ msgid ""
+#~ "You can adjust the amount or frequency of your recurring donation on the "
+#~ "detail page."
+#~ msgstr ""
+#~ "Du kannst den Betrag oder den Rhythmus Deiner Dauerspende auf der "
+#~ "Detailseite anpassen."
+
+#~ msgid "Your recurring donation"
+#~ msgstr "Deine Dauerspende"
+
+#~ msgid "Payments on this recurring donation"
+#~ msgstr "Zahlungen dieser Dauerspende"
+
+#~ msgid "date"
+#~ msgstr "Datum"
+
+#~ msgid "back to recurring donation"
+#~ msgstr "zurück zur Dauerspende"
+
+#~ msgctxt "url pattern"
+#~ msgid "your-donation/recurrence/<int:recurrence_id>/"
+#~ msgstr "ihre-spenden/dauerpsende/<int:recurrence_id>/"
+
+#, python-brace-format
+#~ msgctxt "url pattern"
+#~ msgid ""
+#~ "^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
+#~ "[0-9a-z]{12})/recurrence/(?P<recurrence_id>\\d+)/$"
+#~ msgstr ""
+#~ "^ihre-spenden/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-"
+#~ "[0-9a-z]{12})/dauerspende/(?P<recurrence_id>\\d+)/$"
+
+#, python-brace-format
+#~ msgid "Recurrence with ID {id} does not exist."
+#~ msgstr "Dauerspende mit ID {id} existiert nicht."
 
 #~ msgid "amount last year"
 #~ msgstr "Betrag letztes Jahr"
