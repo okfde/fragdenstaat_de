@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{ recurrence.get_description }}</h5>
+        {% if recurrence.is_banktransfer %}
+            {% if not recurrence.active %}
+                {% with donation=recurrence.donations.all.0 %}
+                    {% include "fds_donation/includes/banktransfer.html" with payment=donation.payment order=donation.order %}
+                {% endwith %}
+            {% else %}
+                <p class="card-text">{% translate "Use your online banking or contact your bank to change your standing order." %}</p>
+            {% endif %}
+        {% elif recurrence.subscription %}
+            <a class="btn btn-secondary"
+               href="{{ recurrence.subscription.get_absolute_url }}">{% translate "Change or cancel your subscription" %}</a>
+        {% elif recurrence.is_paypal %}
+            <p class="card-text">
+                {% translate "This Paypal subscription is not managed by us. You can change or cancel your PayPal subscription in your PayPal account." %}
+            </p>
+        {% endif %}
+    </div>
+</div>
