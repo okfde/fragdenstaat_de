@@ -20,10 +20,7 @@
     {% if recurrences %}
         <h2>{% translate "Recurring donations" %}</h2>
         {% for recurrence in recurrences %}
-            <p>
-                {{ recurrence.get_description }}
-                (<a href="{{ recurrence.get_absolute_url }}">{% translate "Details" %}</a>)
-            </p>
+            {% include "fds_donation/_recurrence.html" with recurrence=recurrence is_banktransfer=is_banktransfer subscription=recurrence.subscription is_paypal=is_paypal %}
         {% endfor %}
         <hr />
     {% endif %}
@@ -87,7 +84,7 @@
             </tbody>
         </table>
     </div>
-    {% if donor.user %}
+    {% if donor.user and request.user.is_authenticated and not request.user.password %}
         <hr class="mt-5" />
         {% include "account/includes/set_password_now.html" %}
     {% endif %}

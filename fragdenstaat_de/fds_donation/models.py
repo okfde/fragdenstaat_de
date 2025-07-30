@@ -209,15 +209,6 @@ class Donor(models.Model):
     def get_absolute_donate_url(self):
         return reverse("fds_donation:donor-donate", kwargs={"token": str(self.uuid)})
 
-    def get_absolute_recurrence_url(self, recurrence):
-        return reverse(
-            "fds_donation:donor-recurrence",
-            kwargs={
-                "token": str(self.uuid),
-                "recurrence_id": recurrence.id,
-            },
-        )
-
     def get_url(self):
         return settings.SITE_URL + self.get_absolute_url()
 
@@ -435,11 +426,6 @@ class Recurrence(models.Model):
     def __str__(self):
         return "{donor}: {desc}".format(donor=self.donor, desc=self.get_description())
 
-    def get_absolute_url(self):
-        if self.donor:
-            return self.donor.get_absolute_recurrence_url(self)
-        return ""
-
     def get_description(self):
         return ngettext_lazy(
             "{amount} EUR every month via {method} since {start}.",
@@ -460,6 +446,14 @@ class Recurrence(models.Model):
             if self.cancel_date
             else ""
         )
+
+    @property
+    def is_banktransfer(self):
+        return self.method == "banktransfer"
+
+    @property
+    def is_paypal(self):
+        return self.method == "paypal"
 
     def sum_amount(self):
         return Donation.objects.filter(recurrence=self).aggregate(
