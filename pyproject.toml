@@ -93,7 +93,7 @@ dependencies = [
   "webp>=0.4.0",
   "websockets>=13.0.1",
   "django-amenities @ git+https://github.com/okfde/django-amenities.git@main",
-  "froide @ git+https://github.com/okfde/froide.git@main",
+  "froide @ git+https://github.com/okfde/froide.git@1e35cb683cbf4020b5bf89b28bd40dd9c975fa8e",
   "froide-campaign @ git+https://github.com/okfde/froide-campaign.git@main",
   "froide-food @ git+https://github.com/okfde/froide-food.git@main",
   "froide-fax @ git+https://github.com/okfde/froide-fax.git@main",
