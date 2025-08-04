@@ -306,7 +306,7 @@ def test_donor_merge():
 def test_late_recurrence_check():
     now = timezone.now()
     amount = Decimal("10.00")
-    first_date = now + relativedelta(day=31) - relativedelta(months=4)
+    first_date = now + relativedelta(day=31) - relativedelta(months=5)
     donor = DonorFactory.create()
     recurrence = Recurrence.objects.create(
         donor=donor,
