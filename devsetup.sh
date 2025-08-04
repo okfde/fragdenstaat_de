@@ -116,55 +116,36 @@ dependencies() {
     install_precommit "$name"
   done
 }
-
 frontend() {
   echo "Installing frontend dependencies..."
 
   # we need to link globally since local linking adjusts the lockfile
-  global_root=$(pnpm root -g)
 
-  # 1. Link all frontend packages globally
+  # Install and link all frontend packages
   for name in "${FRONTEND_DIR[@]}"; do
     pushd "$name"
-    if [[ ! -e "$global_root/$(basename "$name")" ]]; then
-      echo "Linking $(basename "$name") globally"
-      pnpm link --global
-    else
-      echo "$(basename "$name") already globally linked"
+    if ! pnpm list -g --depth=0 | grep -q "$name"; then
+        pnpm link --global
     fi
-    popd
-  done
-
-  # 2. Link "froide" into all peers, avoiding self-link
-  for name in "${FROIDE_PEERS[@]}"; do
-    pushd "$name"
-    if [[ "$(basename "$PWD")" != "froide" && ! -e node_modules/froide ]]; then
-      echo "Linking froide in $name"
-      pnpm link --global "froide"
-    else
-      echo "Skipping link in $name – already present or self-link"
-    fi
-    popd
-  done
-
-  # 3. Install frontend package dependencies
-  for name in "${FRONTEND_DIR[@]}"; do
-    pushd "$name"
-    echo "Installing dependencies in $(basename "$name")"
     pnpm install
     popd
   done
 
-  # 4. Install and link dependencies in main project
+ # Link froide peer dependencies
+  for name in "${FROIDE_PEERS[@]}"; do
+    pushd "$name"
+    if ! pnpm list -g --depth=0 | grep -q "$name"; then
+        pnpm link --global "froide"
+    fi
+    popd
+  done
+
+  # Setup main project and link dependencies
   pushd "$MAIN"
-  echo "Installing dependencies in main project"
   pnpm install
   for name in "${FRONTEND[@]}"; do
-    if [[ ! -e "$global_root/$name" ]]; then
-      echo "Linking $name globally"
-      pnpm link --global "$name"
-    else
-      echo "$name already globally linked"
+    if ! pnpm list -g --depth=0 | grep -q "$name"; then
+        pnpm link --global "$name"
     fi
   done
   popd
