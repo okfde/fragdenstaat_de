@@ -43,6 +43,8 @@ def update_iban_on_donor(donor, iban, reference):
         donor.attributes = donor.attributes or {}
     if "ibans" not in donor.attributes:
         donor.attributes["ibans"] = []
+    elif not isinstance(donor.attributes["ibans"], list):
+        donor.attributes["ibans"] = [donor.attributes["ibans"]]
     if "iban" in donor.attributes:
         if donor.attributes["iban"] not in donor.attributes["ibans"]:
             donor.attributes["ibans"].append(donor.attributes["iban"])
