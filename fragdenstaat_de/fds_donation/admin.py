@@ -683,6 +683,7 @@ class DonationAdmin(admin.ModelAdmin):
         "project",
         "purpose",
         "method",
+        "form_url",
         "reference",
         "keyword",
     )
