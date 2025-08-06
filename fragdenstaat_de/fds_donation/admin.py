@@ -663,6 +663,25 @@ class DonationChangeList(ChangeList):
         self.amount_received_sum = agg["amount_received_sum"]
         self.donor_count = agg["donor_count"]
         self.recurring_donor_amount = donor_agg["recurring_donor_amount"]
+        recurrence_agg = (
+            Recurrence.objects.filter(donations__in=self.queryset)
+            .distinct()
+            .aggregate(
+                recurring_count=Count("id"),
+                cancel_count=Count("id", filter=Q(cancel_date__isnull=False)),
+                monthly_amount=Sum(F("amount") / F("interval")),
+                monthly_active_amount=Sum(
+                    F("amount") / F("interval"), filter=Q(cancel_date__isnull=True)
+                ),
+            )
+        )
+        self.recurring_count = recurrence_agg["recurring_count"]
+        self.cancel_count = recurrence_agg["cancel_count"]
+        self.recurring_monthly_amount = round(recurrence_agg["monthly_amount"])
+        self.recurring_monthly_active_amount = round(
+            recurrence_agg["monthly_active_amount"]
+        )
+        return ret
 
         self.DONATION_PROJECTS = DONATION_PROJECTS
         return ret

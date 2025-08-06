@@ -21,6 +21,14 @@
         Anzahl Spender: {{ cl.donor_count }}
         <br />
         Wiederkehrend Monatssumme der Spendenden: {{ cl.recurring_donor_amount }}&nbsp;EUR
+        <br />
+        Anzahl Dauerspenden: {{ cl.recurring_count }}
+        <br />
+        Anzahl gekündigte Dauerspenden: {{ cl.cancel_count }}
+        <br />
+        Monatssumme der Dauerspenden: {{ cl.recurring_monthly_amount }}&nbsp;EUR
+        <br />
+        Nicht gekündigte Monatssumme der Dauerspenden: {{ cl.recurring_monthly_active_amount }}&nbsp;EUR
     </p>
     {{ block.super }}
 {% endblock %}
