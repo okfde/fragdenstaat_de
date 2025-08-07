@@ -2,11 +2,14 @@ import os
 import subprocess
 import tempfile
 from datetime import datetime
+from typing import Optional
 
 from django.conf import settings
 
 import requests
 from django_amenities.updater import AmenityUpdater
+
+from froide.georegion.osm import import_osm_pbf
 
 
 def get_osmosis_arguments(input_filename, output_filename):
@@ -77,6 +80,8 @@ def update_osm_amenities(delete_obsolete=False):
         # Download latest germany OSM file
         download_file_to_temp_dir(LATEST_OSM_URL, filepath)
 
+        import_osm_pbf(filepath, get_region_key)
+
         # Convert to nodes only
         run_command(
             [
@@ -132,3 +137,34 @@ def download_file_to_temp_dir(url, filepath):
         with open(filepath, "wb") as f:
             for chunk in r.iter_content(chunk_size=8192):
                 f.write(chunk)
+
+
+ARS = "de:regionalschluessel"
+AGS = "de:amtlicher_gemeindeschluessel"
+
+
+def get_region_key(tags: dict[str, str]) -> Optional[str]:
+    """Extract ARS region key from tags for admin boundaries"""
+    key = tags.get(ARS)
+    if not key:
+        ags = tags.get(AGS)
+        if not ags:
+            return
+        key = guess_ars_from_ags(ags)
+        if not key:
+            return
+    return key.ljust(12, "0")
+
+
+def guess_ars_from_ags(ags: str) -> Optional[str]:
+    """
+    https://de.wikipedia.org/wiki/Amtlicher_Gemeindeschl%C3%BCssel#Regionalschl%C3%BCssel
+    """
+    ags = ags.replace(" ", "")
+    if not len(ags) == 8:
+        return
+    if ags.endswith("000"):
+        # district or higher
+        return ags.ljust(12, "0")
+    # Guess it's verbandsfrei
+    return "{}0{}{}".format(ags[:-3], ags[-3:], ags[-3:])
