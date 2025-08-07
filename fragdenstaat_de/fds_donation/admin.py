@@ -677,9 +677,15 @@ class DonationChangeList(ChangeList):
         )
         self.recurring_count = recurrence_agg["recurring_count"]
         self.cancel_count = recurrence_agg["cancel_count"]
-        self.recurring_monthly_amount = round(recurrence_agg["monthly_amount"])
-        self.recurring_monthly_active_amount = round(
-            recurrence_agg["monthly_active_amount"]
+        self.recurring_monthly_amount = (
+            round(recurrence_agg["monthly_amount"])
+            if recurrence_agg["monthly_amount"] is not None
+            else "-"
+        )
+        self.recurring_monthly_active_amount = (
+            round(recurrence_agg["monthly_active_amount"])
+            if recurrence_agg["monthly_active_amount"] is not None
+            else "-"
         )
         return ret
 
