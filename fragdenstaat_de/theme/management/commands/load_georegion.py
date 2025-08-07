@@ -30,14 +30,17 @@ class Command(BaseCommand):
         path = options["path"]
         if command == "de":
             self.load(path)
-        elif command == "berlin":
-            self.load_boroughs(
-                path, parent="Berlin", name_col="BEZIRK", ident_col="spatial_na"
-            )
-        elif command == "hamburg":
-            self.load_boroughs(
-                path, parent="Hamburg", name_col="Bezirk_Nam", ident_col="Bezirk"
-            )
+        # TODO: these are a bit broken
+        # - Berlin boroughs get the state region identifier, that is bad
+        # - Hamburg boroughs get the state region identifier, but they dont' even have one!
+        # elif command == "berlin":
+        #     self.load_boroughs(
+        #         path, parent="Berlin", name_col="BEZIRK", ident_col="spatial_na"
+        #     )
+        # elif command == "hamburg":
+        #     self.load_boroughs(
+        #         path, parent="Hamburg", name_col="Bezirk_Nam", ident_col="Bezirk"
+        #     )
         elif command == "plz":
             self.load_zip(path)
         else:
@@ -157,7 +160,7 @@ class Command(BaseCommand):
                     "kind": kind,
                     "kind_detail": kind_detail,
                     "level": level,
-                    "region_identifier": feature["RS"].as_string(),
+                    "region_identifier": feature["RS"].as_string().ljust(12, "0"),
                     "global_identifier": nuts,
                     "population": population,
                     "geom": geom,
