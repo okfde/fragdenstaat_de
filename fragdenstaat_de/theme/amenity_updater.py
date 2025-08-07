@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import Optional
 
 from django.conf import settings
+from django.db.models import Q
 
 import requests
 from django_amenities.updater import AmenityUpdater
@@ -141,6 +142,27 @@ def download_file_to_temp_dir(url, filepath):
 
 ARS = "de:regionalschluessel"
 AGS = "de:amtlicher_gemeindeschluessel"
+
+
+def get_region_query(tags: dict[str, str]) -> Optional[Q]:
+    region_key = get_region_key(tags)
+    try:
+        admin_level = int(tags["admin_level"])
+    except (KeyError, ValueError):
+        return
+
+    if not region_key:
+        if "name" not in tags:
+            return
+        if admin_level >= 9:
+            # Try to find boroughs without ARS, e.g. Altona
+            return Q(region_identifier="", name=tags["name"], kind="borough")
+        return None
+
+    if admin_level > 4 and region_key.endswith("0" * 10):
+        # Sanity check, can't have a state region key with admin level > 4
+        return
+    return Q(region_identifier=region_key)
 
 
 def get_region_key(tags: dict[str, str]) -> Optional[str]:
