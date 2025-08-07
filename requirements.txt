@@ -401,7 +401,7 @@ froide-exam @ git+https://github.com/okfde/froide-exam.git@779005ccfc21a3e75aeb5
     # via fragdenstaat-de (pyproject.toml)
 froide-fax @ git+https://github.com/okfde/froide-fax.git@876bd0fd70ed707df28325965dc293cca30a2529
     # via fragdenstaat-de (pyproject.toml)
-froide-food @ git+https://github.com/okfde/froide-food.git@301758bd511aa9e4e49e358f28b27e6121afb7f8
+froide-food @ git+https://github.com/okfde/froide-food.git@35981e7b15f9db8776769f4a8b519f948aed2a62
     # via fragdenstaat-de (pyproject.toml)
 froide-govplan @ git+https://github.com/okfde/froide-govplan.git@7d304ae0e34e44f3bc34dce2b7e5f3c62bd64299
     # via fragdenstaat-de (pyproject.toml)
