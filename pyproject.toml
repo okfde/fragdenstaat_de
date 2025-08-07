@@ -70,6 +70,7 @@ dependencies = [
   "num2words>=0.5.14",
   "numpy>=1.21",
   "openpyxl>=3.1.5",
+  "osmium>=4.0.2",
   "pandas>=2.2.2",
   "pgpy>=0.6.0",
   "phonenumbers>=8.13.45",
