@@ -187,6 +187,8 @@ class DonationFormFactory:
             value = request.GET.get(key)
             if value is not None:
                 data[key] = value
+        if request.GET.get("initial_amount"):
+            data["prefilled_amount"] = True
         return data
 
     def get_form_kwargs(self, **kwargs):
@@ -214,8 +216,10 @@ class DonationFormFactory:
     def make_form(self, **kwargs):
         from .forms import DonationForm
 
+        form_class = kwargs.pop("form_class", DonationForm)
+
         kwargs = self.get_form_kwargs(**kwargs)
-        return DonationForm(**kwargs)
+        return form_class(**kwargs)
 
     def serialize(self):
         return base64.b64encode(json.dumps(self.settings).encode("utf-8")).decode(

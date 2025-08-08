@@ -12,7 +12,7 @@ from django.views.generic.edit import FormView
 from froide.helper.breadcrumbs import Breadcrumbs, BreadcrumbView
 from froide.helper.utils import get_redirect, is_ajax
 
-from .form_settings import DonationFormFactory
+from .form_settings import DonationFormFactory, DonationSettingsForm
 from .forms import (
     DonationGiftForm,
     DonorDetailsForm,
@@ -258,6 +258,11 @@ class DonorDonationActionView(DonorMixin, UpdateView, BreadcrumbView):
         return reverse("fds_donation:donor-user-donate")
 
     def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        del form_kwargs["instance"]
+        return form_kwargs
+
+    def get_form(self, form_class=...):
         donor = self.object
         self.has_subscription = donor.has_active_subscription()
         if self.has_subscription:
@@ -265,26 +270,23 @@ class DonorDonationActionView(DonorMixin, UpdateView, BreadcrumbView):
         else:
             form_settings = {"interval": "once_recurring"}
 
-        form_factory = DonationFormFactory(
-            reference="donation-update",
+        request_data = DonationFormFactory.from_request(self.request)
+        form_settings.update(request_data)
+        form = DonationSettingsForm(data=form_settings)
+        return form.make_donation_form(
+            form_class=self.form_class,
+            request=self.request,
+            user=self.request.user,
+            action=self.request.path,
+            **self.get_form_kwargs(),
         )
-        form_kwargs = super().get_form_kwargs()
-        del form_kwargs["instance"]
-        form_kwargs.update(
-            form_factory.get_form_kwargs(
-                form_settings=form_settings,
-                request=self.request,
-                user=self.request.user,
-                action=self.request.path,
-            )
-        )
-        return form_kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(
             {
                 "recurrences": self.object.recurrences.filter(cancel_date=None),
+                "has_donation": self.object.donations.filter(completed=True).exists(),
             }
         )
         return context
