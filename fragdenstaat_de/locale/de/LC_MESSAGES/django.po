@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-30 13:27+0200\n"
-"PO-Revision-Date: 2025-07-30 13:30+0200\n"
+"POT-Creation-Date: 2025-08-08 13:46+0200\n"
+"PO-Revision-Date: 2025-08-08 12:46+0100\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -881,7 +881,9 @@ msgstr "Externer Pixel"
 msgid "FdS Page Settings"
 msgstr "FdS Seiteneinstellungen"
 
-#: fragdenstaat_de/fds_cms/contact.py fragdenstaat_de/fds_mailing/forms.py
+#: fragdenstaat_de/fds_cms/contact.py
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
+#: fragdenstaat_de/fds_mailing/forms.py
 msgid "Name"
 msgstr "Name"
 
@@ -1050,6 +1052,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_cms/models.py fragdenstaat_de/fds_donation/cms_plugins.py
 #: fragdenstaat_de/fds_donation/forms.py
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/forms.py fragdenstaat_de/settings/base.py
 #: fragdenstaat_de/settings/cms.py
@@ -1975,6 +1978,7 @@ msgid "Salutation"
 msgstr "Anrede"
 
 #: fragdenstaat_de/fds_donation/forms.py
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 msgid "Company"
 msgstr "Firma"
 
@@ -2404,6 +2408,11 @@ msgid "Create a new donation"
 msgstr "Neue Spende anlegen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
+msgid "Donate now"
+msgstr "Jetzt spenden"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 msgid ""
 "Please note that you currently have the following recurring donations active:"
 msgstr "Bitte beachte, dass momentan folgende Dauerspenden für Dich aktiv sind:"
@@ -2423,6 +2432,14 @@ msgid ""
 msgstr ""
 "Wenn Du die Zahlungsart ändern willst, kündige bitte Deine Dauerspende und "
 "lege hier eine neue an."
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
+msgid "Address"
+msgstr "Adresse"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
+msgid "Update these details"
+msgstr "Angaben aktualisieren"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 #: fragdenstaat_de/fds_donation/views.py
@@ -2575,10 +2592,6 @@ msgstr ""
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
 msgid "Get an account"
 msgstr "Account bekommen"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
-msgid "Donate now"
-msgstr "Jetzt spenden"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_quick.html
 msgid "No time? Donate with one click!"
@@ -2935,6 +2948,10 @@ msgstr "Sende eine E-Mail"
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Edit"
 msgstr "Bearbeiten"
+
+#: fragdenstaat_de/fds_mailing/admin.py
+msgid " (copy)"
+msgstr " (Kopie)"
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Open rate"
@@ -7408,9 +7425,6 @@ msgstr "kampagne/"
 
 #~ msgid "Classification Slug"
 #~ msgstr "Klassifikations-URL-Kürzel"
-
-#~ msgid "Address"
-#~ msgstr "Adresse"
 
 #~ msgid "Website Dump"
 #~ msgstr "Webseiten-Dump"
