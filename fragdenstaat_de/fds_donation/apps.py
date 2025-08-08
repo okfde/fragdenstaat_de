@@ -120,7 +120,7 @@ def mailing_payment_preview_context_listener(sender, **kwargs):
 
 def get_donation_context(value, request):
     """Get the donation context for the mailing preview."""
-    from fragdenstaat_de.fds_donation.models import Donor
+    from fragdenstaat_de.fds_donation.models import Donation, Donor
 
     donor = Donor(
         first_name=request.user.first_name,
@@ -141,9 +141,12 @@ def get_donation_context(value, request):
     elif value == "recurring_donor":
         donor.recurring_amount = 10
         donor.last_donation = timezone.now()
-    return {
-        "donor": donor,
-    }
+
+    donation = Donation(
+        amount=Decimal("10.00"),
+        method="sepa",
+    )
+    return {"donor": donor, "donation": donation}
 
 
 def get_payment_context(value, request):
