@@ -212,6 +212,12 @@ class Donor(models.Model):
     def get_url(self):
         return settings.SITE_URL + self.get_absolute_url()
 
+    def get_donate_url(self):
+        return settings.SITE_URL + self.get_absolute_donate_url()
+
+    def get_change_url(self):
+        return settings.SITE_URL + self.get_absolute_donate_url()
+
     @property
     def tag_list(self):
         return ", ".join(o.name for o in self.tags.all())
