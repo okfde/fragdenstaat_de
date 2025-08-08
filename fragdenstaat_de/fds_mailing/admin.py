@@ -12,6 +12,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
 from cms.toolbar.utils import get_object_edit_url
+from cms.utils.plugins import copy_plugins_to_placeholder
 
 from froide.account.admin import UserAdmin
 from froide.follow.admin import FollowerAdmin
@@ -48,6 +49,8 @@ class EmailTemplateAdmin(admin.ModelAdmin):
     )
     search_fields = ("name", "subject", "mail_intent")
     date_hierarchy = "updated"
+
+    actions = ["duplicate"]
 
     @admin.display(description=_("Edit"))
     def edit_link(self, obj):
@@ -106,6 +109,20 @@ class EmailTemplateAdmin(admin.ModelAdmin):
 
         content = email_template.get_email_bytes(context)
         return HttpResponse(content=content, content_type="message/rfc822")
+
+    @admin.action(description="Duplicate email template")
+    def duplicate(self, request, queryset):
+        for original in queryset:
+            copied = EmailTemplate.objects.create(
+                name="{} {}".format(original.name, _(" (copy)")),
+                category=original.category,
+                subject=original.subject,
+                preheader=original.preheader,
+                text=original.text,
+                template=original.template,
+            )
+            plugins = original.email_body.get_plugins()
+            copy_plugins_to_placeholder(plugins, copied.email_body)
 
 
 class MailingAdminMixin:
