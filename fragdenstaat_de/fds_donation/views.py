@@ -183,6 +183,11 @@ class DonorView(DonorMixin, DetailView, BreadcrumbView):
         )
         return ctx
 
+    def render_to_response(self, context, **response_kwargs):
+        if not context["last_donation"]:
+            return redirect(self.object.get_absolute_donate_url())
+        return super().render_to_response(context, **response_kwargs)
+
     def get_breadcrumbs(self, context):
         return get_base_breadcrumb(context["object"])
 
