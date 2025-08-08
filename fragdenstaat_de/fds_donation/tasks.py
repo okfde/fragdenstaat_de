@@ -225,3 +225,10 @@ def send_donation_tasks_update_mail():
 
     if messages:
         mail_managers(_("Donation Admin Tasks"), "\n\n".join(messages))
+
+
+@celery_app.task(name="fragdenstaat_de.fds_donation.remind_incomplete_donations")
+def remind_incomplete_donations_task():
+    from .services import remind_incomplete_donations
+
+    remind_incomplete_donations()

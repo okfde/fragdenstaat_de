@@ -6,6 +6,8 @@ from typing import Optional, Tuple
 from django.db import models, transaction
 from django.utils import timezone
 
+from dateutil.relativedelta import relativedelta
+
 from froide.account.auth import try_login_user_without_mfa
 from froide.account.models import User
 from froide.account.services import AccountService
@@ -85,6 +87,23 @@ donation_reminder_email = mail_registry.register(
         "donation",
         "payment",
         "order",
+    ),
+)
+
+
+incomplete_donation_reminder_email = mail_registry.register(
+    "fds_donation/email/incomplete_donation_reminder",
+    (
+        "name",
+        "first_name",
+        "last_name",
+        "salutation",
+        "donor",
+        "donation",
+        "payment",
+        "order",
+        "donate_url",
+        "payment_url",
     ),
 )
 
@@ -504,3 +523,111 @@ def send_donation_gift_order_shipped(gift_order):
         ignore_active=True,
         priority=True,
     )
+
+
+REMIND_INCOMPLETE_AFTER_DAYS = 2
+DONATION_SPAM_COUNT = 6
+
+
+def day_start(dt):
+    return dt.replace(hour=0, minute=0, second=0, microsecond=0)
+
+
+def get_incomplete_donations_to_remind(base_date=None):
+    if base_date is None:
+        base_date = timezone.now()
+    base_date = timezone.localtime(base_date)
+
+    start_date = day_start(base_date) - relativedelta(days=REMIND_INCOMPLETE_AFTER_DAYS)
+    end_date = start_date + relativedelta(days=1)
+
+    lookback_buffer = start_date - relativedelta(days=3)
+
+    donations = (
+        Donation.objects.filter(
+            completed=False,
+            received_timestamp__isnull=True,
+            timestamp__gte=start_date,
+            timestamp__lt=end_date,
+        )
+        .exclude(donation__donor__email="")
+        .order_by("timestamp")
+        .select_related("donor", "payment")
+    )
+
+    donor_already = set()
+
+    for donation in donations:
+        if donation.donor_id in donor_already:
+            continue
+        donor_already.add(donation.donor.email.lower())
+
+        donor_q = models.Q(donor_id=donation.donor_id) | models.Q(
+            donor__email__iexact=donation.donor.email
+        )
+
+        donor_donation_count = (
+            Donation.objects.filter(timestamp__gte=lookback_buffer)
+            .filter(donor_q)
+            .count()
+        )
+        if donor_donation_count >= DONATION_SPAM_COUNT:
+            continue
+
+        # Have we received any donations from this donor since?
+        donation_from_donor_exists = (
+            Donation.objects.filter(
+                completed=True,
+                timestamp__gte=lookback_buffer,
+            )
+            .filter(donor_q)
+            .exists()
+        )
+        if donation_from_donor_exists:
+            continue
+        yield donation
+
+
+INCOMPLETE_DONATION_NOTE = "IncompleteDonationReminder:"
+
+
+def send_incomplete_donation_reminder(donation):
+    if INCOMPLETE_DONATION_NOTE in donation.note:
+        return
+    donor = donation.donor
+    if not donor.email:
+        return
+
+    context = {
+        "name": donor.get_full_name(),
+        "first_name": donor.first_name,
+        "last_name": donor.last_name,
+        "salutation": donor.get_salutation(),
+        "payment": donation.payment,
+        "order": donation.payment.order if donation.payment else None,
+        "donor": donor,
+        "donation": donation,
+        "donate_url": donor.get_donate_url(),
+        "payment_url": donation.payment.get_absolute_payment_url(),
+    }
+
+    incomplete_donation_reminder_email.send(
+        user=donor.user,
+        email=donor.email,
+        context=context,
+        ignore_active=True,
+        priority=True,
+    )
+    donation.email_sent = timezone.now()
+    donation.note += "{}: {}\n\n".format(
+        INCOMPLETE_DONATION_NOTE, donation.email_sent.isoformat()
+    )
+    donation.save(update_fields=["email_sent", "note"])
+    donor.email_confirmation_sent = donation.email_sent
+    donor.save()
+    return True
+
+
+def remind_incomplete_donations():
+    for donation in get_incomplete_donations_to_remind():
+        send_incomplete_donation_reminder(donation)
