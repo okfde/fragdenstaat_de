@@ -307,9 +307,11 @@ class DonorDonationActionView(DonorMixin, UpdateView, BreadcrumbView):
         return super().form_invalid(form)
 
     def get_breadcrumbs(self, context):
-        return get_base_breadcrumb(context["object"]) + [
-            (_("Donate"), context["object"].get_absolute_donate_url())
-        ]
+        if context.get("has_donation", True):
+            return get_base_breadcrumb(context["object"]) + [
+                (_("Donate"), context["object"].get_absolute_donate_url())
+            ]
+        return []
 
 
 class DonorDonationActionUserView(

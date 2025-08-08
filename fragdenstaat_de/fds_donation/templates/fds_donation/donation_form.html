@@ -1,4 +1,4 @@
-{% extends "fds_donation/base.html" %}
+{% extends "fds_donation/base_minimal.html" %}
 {% load i18n form_helper %}
 {% block title %}
     {% translate "Update your donation" %}
@@ -6,7 +6,11 @@
 {% block app_body %}
     <div class="row justify-content-center">
         <div class="col-8">
-            <h3>{% translate "Create a new donation" %}</h3>
+            {% if has_donation %}
+                <h3>{% translate "Create a new donation" %}</h3>
+            {% else %}
+                <h3>{% translate "Donate now" %}</h3>
+            {% endif %}
             {% if recurrences %}
                 <div class="alert alert-warning">
                     <p>{% translate "Please note that you currently have the following recurring donations active:" %}</p>
@@ -32,6 +36,31 @@
                     </p>
                 </div>
             {% endif %}
+            <dl class="mb-0">
+                <dt>{% translate "Name" %}:</dt>
+                <dd>
+                    {{ donor.get_full_name }}
+                </dd>
+                <dt>{% translate "Email" %}:</dt>
+                <dd>
+                    {{ donor.email }}
+                </dd>
+                {% if donor.company_name %}
+                    <dt>{% translate "Company" %}:</dt>
+                    <dd>
+                        {{ donor.company_name }}
+                    </dd>
+                {% endif %}
+                {% if donor.address %}
+                    <dt>{% translate "Address" %}:</dt>
+                    <dd>
+                        <pre>{{ donor.get_full_address }}</pre>
+                    </dd>
+                {% endif %}
+            </dl>
+            <p class="mt-n2">
+                <a href="{{ donor.get_absolute_change_url }}">{% translate "Update these details" %}</a>
+            </p>
             <form action="{{ form.action }}" method="POST" class="donation-form">
                 {% csrf_token %}
                 {{ form.form_settings }}
@@ -49,8 +78,10 @@
                     {% endif %}
                 {% endfor %}
                 <button type="submit" class="btn btn-primary">{% translate "Donate" %}</button>
-                <a href="{{ object.get_absolute_url }}"
-                   class="btn btn-secondary text-end">{% translate "Cancel" %}</a>
+                {% if has_donation %}
+                    <a href="{{ object.get_absolute_url }}"
+                       class="btn btn-secondary text-end">{% translate "Cancel" %}</a>
+                {% endif %}
             </form>
         </div>
     </div>
