@@ -321,6 +321,8 @@ def create_recurrence_for_subscription(
         cancel_date = get_cancel_date(
             donations, subscription.plan.interval, timezone.now()
         )
+        if cancel_date and cancel_date < subscription.created:
+            cancel_date = subscription.created
 
     recurrence, _updated = Recurrence.objects.update_or_create(
         subscription=subscription,
@@ -345,6 +347,11 @@ def create_recurrence_for_streak(streak: DonationStreak):
     """
     first_donation = streak.donations[0]
     last_donation = streak.donations[-1]
+    cancel_date = (
+        max(streak.canceled, first_donation.received_timestamp)
+        if streak.canceled
+        else None
+    )
     return Recurrence.objects.create(
         donor=first_donation.donor,
         method=streak.method,
@@ -352,7 +359,7 @@ def create_recurrence_for_streak(streak: DonationStreak):
         start_date=first_donation.received_timestamp,
         interval=streak.interval,
         amount=last_donation.amount,
-        cancel_date=streak.canceled,
+        cancel_date=cancel_date,
     )
 
 
