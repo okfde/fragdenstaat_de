@@ -1,0 +1,11 @@
+{% load thumbnail %}
+{% if picture %}
+    {% thumbnail picture "720x0" crop=smart subject_location=picture.subject_location as thumb %}
+    <picture>
+        <source srcset="{{ thumb.url }}.avif" type="image/avif" />
+        <img class="position-absolute top-0 left-0 w-100 h-100 object-fit-cover"
+             loading="lazy"
+             src="{{ thumb.url }}"
+             alt="{{ picture.default_alt_text|default:"" }}" />
+    </picture>
+{% endif %}
