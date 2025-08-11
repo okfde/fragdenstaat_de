@@ -1,40 +1,46 @@
 {% load static i18n cookie_consent_tags sekizai_tags %}
 {% load markup %}
-{% addtoblock "js" %}
 {% url 'cookie_consent_status' as status_url %}
-{% url "cookie_consent_cookie_group_list" as url_cookies %}
-<template id="cookie-consent__cookie-bar" data-cookiestatus="{{ status_url }}">
-    <div class="modal"
-         tabindex="-1"
-         id="cookie-consent__modal"
-         role="dialog"
-         data-bs-backdrop="static"
-         data-bs-keyboard="false"
-         aria-labelledby="cookie-consent__modal-label"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="cookie-consent__modal-label" class="modal-title">{{ cookie_group.name }}</h5>
-                </div>
-                <div class="modal-body">{{ cookie_group.description|markdown }}</div>
-                <div class="modal-footer">
-                    <button type="button"
-                            id="cookie-consent__decline"
-                            class="btn btn-outline-secondary">{% translate "Decline" %}</button>
-                    <button type="button" id="cookie-consent__accept" class="btn btn-primary">{% translate "Accept" %}</button>
+<div class="cookie-consent"
+     data-cookie-group="{{ cookie_group.varname }}"
+     data-status-url="{{ status_url }}"
+     data-accept-url="{% cookie_consent_accept_url cookie_groups %}"
+     data-decline-url="{% cookie_consent_decline_url cookie_groups %}">
+    <template class="cookie-consent__message">
+        <div class="modal"
+             tabindex="-1"
+             role="dialog"
+             data-bs-backdrop="static"
+             data-bs-keyboard="false"
+             aria-labelledby="consent-label-{{ instance.pk }}"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="consent-label-{{ instance.pk }}" class="modal-title">{{ cookie_group.name }}</h5>
+                    </div>
+                    <div class="modal-body">{{ cookie_group.description|markdown }}</div>
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-outline-secondary cookie-consent__decline">
+                            {% translate "Decline" %}
+                        </button>
+                        <button type="button" class="btn btn-primary cookie-consent__accept">{% translate "Accept" %}</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</template>
-{% endaddtoblock %}
-{% addtoblock "js" %}
-{{ cookie_group_data|json_script:"cookie-consent__cookie-groups" }}
-{% endaddtoblock %}
-{% addtoblock "js" %}
-{{ pixel_urls|json_script:"cookie-consent__pixelurls" }}
-{% endaddtoblock %}
+    </template>
+    <template class="cookie-consent__content">
+        {% for url in pixel_urls %}
+            <img data-consent-src="{{ url }}"
+                 class="visually-hidden"
+                 alt=""
+                 width="1"
+                 height="1" />
+        {% endfor %}
+    </template>
+</div>
 {% addtoblock "js" %}
 {% include "_frontend.html" with entry_point="consentbanner.js" %}
-{% endaddtoblock %}
+{% endaddtoblock "js" %}

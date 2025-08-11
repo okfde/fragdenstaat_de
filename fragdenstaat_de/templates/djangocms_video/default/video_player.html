@@ -1,13 +1,40 @@
-{% load i18n cms_tags %}
+{% load i18n %}
+{% load cms_tags %}
+{% load sekizai_tags %}
+{% load frontendbuild %}
+{% load cookie_consent_tags %}
+{% url 'cookie_consent_status' as status_url %}
+{% url "cookie_consent_cookie_group_list" as manage_cookies %}
+{% url "cookie_consent_accept" varname="youtube" as accept_url %}
+{% url "cookie_consent_decline" varname="youtube" as decline_url %}
 {% if instance.embed_link %}
     {# show iframe if embed_link is provided #}
-    <div class="aspect-ratio aspect-ratio-{% if instance.attributes.ratio %}{{ instance.attributes.ratio }}{% else %}16x9{% endif %}">
-        <iframe src="{{ instance.embed_link }}" {{ instance.attributes_str }} frameborder="0" allowfullscreen="true"></iframe>
-        {% with disabled=instance.embed_link %}
-            {% for plugin in instance.child_plugin_instances %}
-                {% render_plugin plugin %}
-            {% endfor %}
-        {% endwith %}
+    <div class="cookie-consent"
+         data-status-url="{{ status_url }}"
+         data-cookie-group="youtube"
+         data-accept-url="{{ accept_url }}"
+         data-decline-url="{{ decline_url }}">
+        <template class="cookie-consent__content">
+            <div class="ratio ratio-{{ instance.attributes.ratio|default:"16x9" }}">
+                <iframe data-consent-src="{{ instance.embed_link }}" {{ instance.attributes_str }} frameborder="0" allowfullscreen="true" allow="encrypted-media; picture-in-picture"></iframe>
+            </div>
+        </template>
+        <template class="cookie-consent__message">
+            <div class="ratio ratio-{{ instance.attributes.ratio|default:"16x9" }}">
+                <div class="d-flex flex-column align-items-center justify-content-center text-bg-body-tertiary">
+                    {% page_url "privacy-policy" as privacy %}
+                    <p class="text-center">
+                        {% blocktrans with privacy=privacy %}By playing this video, you agree to YouTube's privacy policy. <a href="{{ privacy }}">Learn more</a>{% endblocktrans %}
+                    </p>
+                    <button type="button" class="btn btn-primary cookie-consent__accept">{% translate "Accept" %}</button>
+                </div>
+            </div>
+        </template>
+        <template class="cookie-consent__declined">
+            <p class="text-body-tertiary">
+                {% blocktrans with manage_cookies=manage_cookies %}You have chosen to not show YouTube videos on our site. <a href="{{ manage_cookies }}">Change cookie preferences</a>{% endblocktrans %}
+            </p>
+        </template>
     </div>
 {% else %}
     {# render <source> or <track> plugins #}
@@ -26,3 +53,8 @@
     {{ instance.poster }}
     {{ instance.attributes_str }}
 {% endcomment %}
+{% addtoblock "js" %}
+{% if instance.embed_link %}
+    {% include "_frontend.html" with entry_point="consentbanner.js" %}
+{% endif %}
+{% endaddtoblock %}

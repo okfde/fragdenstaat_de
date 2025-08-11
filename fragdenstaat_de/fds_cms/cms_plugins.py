@@ -815,5 +815,5 @@ class ExternalPixelPlugin(CMSPluginBase):
         request = context["request"]
         context["pixel_urls"] = instance.get_pixel_urls(request)
         context["cookie_group"] = instance.cookie_group
-        context["cookie_group_data"] = [instance.cookie_group.for_json()]
+        context["cookie_groups"] = [instance.cookie_group]
         return super().render(context, instance, placeholder)
