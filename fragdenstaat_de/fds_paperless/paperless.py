@@ -48,7 +48,7 @@ def get_documents_by_correspondent(user_name):
 
     API_URL = (
         settings.PAPERLESS_API_URL
-        + f"/documents/?ordering=-added&correspondent__id={correspondent_id}"
+        + f"/documents/?ordering=-added&correspondent__id={correspondent_id}&document_type__id__none={settings.PAPERLESS_UPLOADED_TYPE}"
     )
 
     data = client.get(API_URL).json()
@@ -58,11 +58,7 @@ def get_documents_by_correspondent(user_name):
         document["url"] = get_preview_link(document["id"])
         return document
 
-    return [
-        map_doc(doc)
-        for doc in data["results"]
-        if doc["document_type"] != settings.PAPERLESS_UPLOADED_TYPE
-    ]
+    return [map_doc(doc) for doc in data["results"]]
 
 
 def get_correspondents():
