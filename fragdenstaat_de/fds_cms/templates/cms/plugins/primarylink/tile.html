@@ -10,6 +10,6 @@
                         type="{{ source.mime_type }}" />
             {% endfor %}
             <img class="img-fluid {{ object.attributes.class }}" loading="lazy" width="{{ picture.width|floatformat:"0u" }}" height="{{ picture.height|floatformat:"0u" }}" src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}" {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:"" }}"{% endif %} {{ instance.attributes_str }}>
-        </picture>
-    {% endwith %}
+        {% endwith %}
+    </picture>
 </a>

@@ -197,6 +197,7 @@ exclude_lines = ["pragma: no cover"]
 
 [tool.djlint]
 ignore = "T002,T003,H005,H006,H021,H023,H029,H030,H031"
+ignore_blocks = "thumbnail"
 
 [tool.pytest.ini_options]
 DJANGO_CONFIGURATION = "Test"

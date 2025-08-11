@@ -24,50 +24,50 @@
             <div class="ratio ratio-{{ instance.attributes.ratio|default:"16x9" }} position-relative">
                 {% if instance.poster %}
                     {% thumbnail instance.poster "720x0" crop=smart subject_location=instance.poster.subject_location as thumb %}
-                        <picture>
-                            <source srcset="{{ thumb.url }}.avif" type="image/avif" />
-                            <img class="position-absolute top-0 left-0 w-100 h-100 object-fit-cover"
-                                 loading="lazy"
-                                 src="{{ thumb.url }}"
-                                 alt="{{ picture.default_alt_text|default:"" }}" />
-                        </picture>
-                    {% endif %}
-                    <div class="d-flex flex-column align-items-center justify-content-center text-md-center p-3 {% if instance.poster %}text-bg-gray-900 bg-opacity-90{% else %}text-bg-body-tertiary{% endif %}">
-                        {% page_url "privacy-policy" as privacy %}
-                        <h3>{% trans "We need your consent to show you a YouTube video" %}</h3>
-                        <p>{% blocktrans %}By playing this video, you agree to YouTube's privacy policy.{% endblocktrans %}</p>
-                        <div class="hstack gap-2 justify-content-center">
-                            <button type="button" class="btn btn-primary cookie-consent__accept">{% translate "Accept" %}</button>
-                            <a href="{{ privacy }}" class="btn btn-light">{% trans "Learn more" %}</a>
-                        </div>
+                    <picture>
+                        <source srcset="{{ thumb.url }}.avif" type="image/avif" />
+                        <img class="position-absolute top-0 left-0 w-100 h-100 object-fit-cover"
+                             loading="lazy"
+                             src="{{ thumb.url }}"
+                             alt="{{ picture.default_alt_text|default:"" }}" />
+                    </picture>
+                {% endif %}
+                <div class="d-flex flex-column align-items-center justify-content-center text-md-center p-3 {% if instance.poster %}text-bg-gray-900 bg-opacity-90{% else %}text-bg-body-tertiary{% endif %}">
+                    {% page_url "privacy-policy" as privacy %}
+                    <h3>{% trans "We need your consent to show you a YouTube video" %}</h3>
+                    <p>{% blocktrans %}By playing this video, you agree to YouTube's privacy policy.{% endblocktrans %}</p>
+                    <div class="hstack gap-2 justify-content-center">
+                        <button type="button" class="btn btn-primary cookie-consent__accept">{% translate "Accept" %}</button>
+                        <a href="{{ privacy }}" class="btn btn-light">{% trans "Learn more" %}</a>
                     </div>
                 </div>
-            </template>
-            <template class="cookie-consent__declined">
-                <p class="text-body-tertiary">
-                    {% blocktrans with manage_cookies=manage_cookies %}You have chosen to not show YouTube videos on our site. <a href="{{ manage_cookies }}">Change cookie preferences</a>{% endblocktrans %}
-                </p>
-            </template>
-        </div>
-    {% else %}
-        {# render <source> or <track> plugins #}
-        <video {{ instance.attributes_str }} {% if instance.poster %}poster="{{ instance.poster.url }}"{% endif %}>
-            {% for plugin in instance.child_plugin_instances %}
-                {% render_plugin plugin %}
-            {% endfor %}
-            {% trans "Your browser doesn't support this video format." %}
-        </video>
-    {% endif %}
-    {% comment %}
+            </div>
+        </template>
+        <template class="cookie-consent__declined">
+            <p class="text-body-tertiary">
+                {% blocktrans with manage_cookies=manage_cookies %}You have chosen to not show YouTube videos on our site. <a href="{{ manage_cookies }}">Change cookie preferences</a>{% endblocktrans %}
+            </p>
+        </template>
+    </div>
+{% else %}
+    {# render <source> or <track> plugins #}
+    <video {{ instance.attributes_str }} {% if instance.poster %}poster="{{ instance.poster.url }}"{% endif %}>
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+        {% trans "Your browser doesn't support this video format." %}
+    </video>
+{% endif %}
+{% comment %}
     # Available variables:
     {{ instance.template }}
     {{ instance.label }}
     {{ instance.embed_link }}
     {{ instance.poster }}
     {{ instance.attributes_str }}
-    {% endcomment %}
-    {% addtoblock "js" %}
-    {% if instance.embed_link %}
-        {% include "_frontend.html" with entry_point="consentbanner.js" %}
-    {% endif %}
+{% endcomment %}
+{% addtoblock "js" %}
+{% if instance.embed_link %}
+    {% include "_frontend.html" with entry_point="consentbanner.js" %}
+{% endif %}
 {% endaddtoblock %}
