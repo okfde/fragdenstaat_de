@@ -5,34 +5,34 @@
         <picture>
             {% if not ".svg" in instance.picture.url %}
                 {% thumbnail instance.picture 2000x400 crop subject_location=instance.picture.subject_location as thumb1 %}
-                    {% if thumb1.url %}
-                        <source media="(min-width: 1200px)"
-                                srcset="{{ thumb1.url }}.avif"
-                                type="image/avif" />
-                        <source media="(min-width: 1200px)" srcset="{{ thumb1.url }}" />
-                    {% endif %}
-                    {% thumbnail instance.picture 1200x400 crop subject_location=instance.picture.subject_location as thumb2 %}
-                        {% if thumb2.url %}
-                            <source media="(min-width: 576px)"
-                                    srcset="{{ thumb2.url }}.avif"
-                                    type="image/avif" />
-                            <source media="(min-width: 576px)" srcset="{{ thumb2.url }}" />
-                        {% endif %}
-                        {% thumbnail instance.picture 600x600 crop subject_location=instance.picture.subject_location as thumb3 %}
-                            {% if thumb3.url %}
-                                <source srcset="{{ thumb3.url }}.avif" type="image/avif" />
-                                <source srcset="{{ thumb3.url }}" />
-                            {% endif %}
-                        {% endif %}
-                        <img class="hero-image-img"
-                             {% if instance.attributes.loading %}loading="{{ instance.attributes.loading }}"{% endif %}
-                             width="{{ picture.width|floatformat:"0u" }}"
-                             height="{{ picture.height|floatformat:"0u" }}"
-                             src="{% if thumb1.url %}{{ thumb1.url }}{% else %}{{ instance.picture.url }}{% endif %}"
-                             alt="">
-                    </picture>
-                {% endwith %}
-                {% for plugin in instance.child_plugin_instances %}
-                    {% render_plugin plugin %}
-                {% endfor %}
-            </div>
+                {% if thumb1.url %}
+                    <source media="(min-width: 1200px)"
+                            srcset="{{ thumb1.url }}.avif"
+                            type="image/avif" />
+                    <source media="(min-width: 1200px)" srcset="{{ thumb1.url }}" />
+                {% endif %}
+                {% thumbnail instance.picture 1200x400 crop subject_location=instance.picture.subject_location as thumb2 %}
+                {% if thumb2.url %}
+                    <source media="(min-width: 576px)"
+                            srcset="{{ thumb2.url }}.avif"
+                            type="image/avif" />
+                    <source media="(min-width: 576px)" srcset="{{ thumb2.url }}" />
+                {% endif %}
+                {% thumbnail instance.picture 600x600 crop subject_location=instance.picture.subject_location as thumb3 %}
+                {% if thumb3.url %}
+                    <source srcset="{{ thumb3.url }}.avif" type="image/avif" />
+                    <source srcset="{{ thumb3.url }}" />
+                {% endif %}
+            {% endif %}
+            <img class="hero-image-img"
+                 {% if instance.attributes.loading %}loading="{{ instance.attributes.loading }}"{% endif %}
+                 width="{{ picture.width|floatformat:"0u" }}"
+                 height="{{ picture.height|floatformat:"0u" }}"
+                 src="{% if thumb1.url %}{{ thumb1.url }}{% else %}{{ instance.picture.url }}{% endif %}"
+                 alt="">
+        </picture>
+    {% endwith %}
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+</div>

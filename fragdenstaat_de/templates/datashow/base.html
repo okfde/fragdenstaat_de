@@ -12,62 +12,62 @@
         {% with title=row_label|default:table.label description=row_description|default:table.description|striptags|truncatewords:40 %}
             {% if dataset.theme.image %}
                 {% thumbnail dataset.theme.image 1120x600 crop subject_location=dataset.theme.image.subject_location as image %}
-                {% endif %}
-                {% include "fds_cms/social_meta.html" with title=title description=description image_url=image.url %}
-            {% endwith %}
-        {% else %}
-            {% with title=dataset.name description=dataset.description|striptags|truncatewords:40 %}
-                {% if dataset.theme.image %}
-                    {% thumbnail dataset.theme.image 1120x600 crop subject_location=dataset.theme.image.subject_location as image %}
-                    {% endif %}
-                    {% include "fds_cms/social_meta.html" with title=title description=description image_url=image.url %}
-                {% endwith %}
             {% endif %}
-        {% endblock meta %}
-        {% block body %}
-            <div class="text-bg-secondary">
-                <nav class="container-md" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            {# djlint:off D018 #}
-                            <a href="/"> {# djlint:on #}
-                                <i class="fa fa-home"></i>
-                                <span class="visually-hidden">{% trans "Home Page" %}</span>
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            {% if dataset %}
-                                {% page_url "datasets" as datasets_url %}
-                                <a href="{{ datasets_url|default:'/daten/' }}">{% translate "Datasets" %}</a>
-                            {% else %}
-                                {% translate "Datasets" %}
-                            {% endif %}
-                        </li>
-                        <li class="breadcrumb-item">
-                            {% if table %}
-                                <a href="{{ dataset.get_absolute_url }}">{{ dataset.name }}</a>
-                            {% else %}
-                                {{ dataset.name }}
-                            {% endif %}
-                        </li>
-                        {% if table and dataset.default_table != table %}
-                            <li class="breadcrumb-item">
-                                {% if row %}
-                                    <a href="{{ table.get_absolute_url }}">{{ table.label }}</a>
-                                {% else %}
-                                    {{ table.label }}
-                                {% endif %}
-                            </li>
+            {% include "fds_cms/social_meta.html" with title=title description=description image_url=image.url %}
+        {% endwith %}
+    {% else %}
+        {% with title=dataset.name description=dataset.description|striptags|truncatewords:40 %}
+            {% if dataset.theme.image %}
+                {% thumbnail dataset.theme.image 1120x600 crop subject_location=dataset.theme.image.subject_location as image %}
+            {% endif %}
+            {% include "fds_cms/social_meta.html" with title=title description=description image_url=image.url %}
+        {% endwith %}
+    {% endif %}
+{% endblock meta %}
+{% block body %}
+    <div class="text-bg-secondary">
+        <nav class="container-md" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    {# djlint:off D018 #}
+                    <a href="/"> {# djlint:on #}
+                        <i class="fa fa-home"></i>
+                        <span class="visually-hidden">{% trans "Home Page" %}</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    {% if dataset %}
+                        {% page_url "datasets" as datasets_url %}
+                        <a href="{{ datasets_url|default:'/daten/' }}">{% translate "Datasets" %}</a>
+                    {% else %}
+                        {% translate "Datasets" %}
+                    {% endif %}
+                </li>
+                <li class="breadcrumb-item">
+                    {% if table %}
+                        <a href="{{ dataset.get_absolute_url }}">{{ dataset.name }}</a>
+                    {% else %}
+                        {{ dataset.name }}
+                    {% endif %}
+                </li>
+                {% if table and dataset.default_table != table %}
+                    <li class="breadcrumb-item">
+                        {% if row %}
+                            <a href="{{ table.get_absolute_url }}">{{ table.label }}</a>
+                        {% else %}
+                            {{ table.label }}
                         {% endif %}
-                        {% if row %}<li class="breadcrumb-item">{{ row_label|truncatewords:5 }}</li>{% endif %}
-                    </ol>
-                </nav>
-            </div>
-            {% block app_body %}
-                {% block content %}{% endblock %}
-            {% endblock %}
-        {% endblock %}
-        {% block scripts %}
-            {{ block.super }}
-            <script type="text/javascript" src="{% static 'datashow/js/htmx.min.js' %}"></script>
-        {% endblock %}
+                    </li>
+                {% endif %}
+                {% if row %}<li class="breadcrumb-item">{{ row_label|truncatewords:5 }}</li>{% endif %}
+            </ol>
+        </nav>
+    </div>
+    {% block app_body %}
+        {% block content %}{% endblock %}
+    {% endblock %}
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'datashow/js/htmx.min.js' %}"></script>
+{% endblock %}

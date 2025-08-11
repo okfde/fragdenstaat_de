@@ -3,36 +3,36 @@
 {% load markup %}
 {% if object.template == "mjml" %}
     {% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location as img %}
-        <mj-image src="{{ img.url }}"
-        {% if not instance.attributes.alt %}alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %}
-        {{ instance.attributes_str }}
-        {% if picture_link %}href="{{ picture_link }}"{% endif %}
-        ></mj-image>
-    {% else %}
-        <!--[if gte MSO 9]>
+    <mj-image src="{{ img.url }}"
+    {% if not instance.attributes.alt %}alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %}
+    {{ instance.attributes_str }}
+    {% if picture_link %}href="{{ picture_link }}"{% endif %}
+    ></mj-image>
+{% else %}
+    <!--[if gte MSO 9]>
   <table width="640">
      <tr>
         <td>
 <![endif]-->
-        <table width="100%" style="max-width:600px;">
+    <table width="100%" style="max-width:600px;">
+        <tr>
+            <td height="60" valign="top">
+                {% if picture_link %}
+                    <a href="{{ picture_link }}" {% if instance.link_target %}target="{{ instance.link_target }}"{% endif %} {{ instance.link_attributes_str }}>
+                    {% endif %}
+                    <img class="emailImage {% if instance.attributes.class %}{{ instance.attributes.class }}{% endif %}" src="{% spaceless %} {% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location %}{% endspaceless %}"{% if not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %} width="100%" height="" {{ instance.attributes_str }} />
+                    {% if picture_link %}</a>{% endif %}
+            </td>
+        </tr>
+        {% if instance.picture.author %}
             <tr>
-                <td height="60" valign="top">
-                    {% if picture_link %}
-                        <a href="{{ picture_link }}" {% if instance.link_target %}target="{{ instance.link_target }}"{% endif %} {{ instance.link_attributes_str }}>
-                        {% endif %}
-                        <img class="emailImage {% if instance.attributes.class %}{{ instance.attributes.class }}{% endif %}" src="{% spaceless %} {% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location %}{% endspaceless %}"{% if not instance.attributes.alt %} alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %} width="100%" height="" {{ instance.attributes_str }} />
-                        {% if picture_link %}</a>{% endif %}
-                </td>
+                <td style="text-align: right; font-size: 8px">{{ instance.picture.author|markdown }}</td>
             </tr>
-            {% if instance.picture.author %}
-                <tr>
-                    <td style="text-align: right; font-size: 8px">{{ instance.picture.author|markdown }}</td>
-                </tr>
-            {% endif %}
-        </table>
-        <!--[if gte MSO 9]>
+        {% endif %}
+    </table>
+    <!--[if gte MSO 9]>
       </td>
     </tr>
   </table>
 <![endif]-->
-    {% endif %}
+{% endif %}
