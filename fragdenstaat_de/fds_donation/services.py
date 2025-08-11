@@ -3,6 +3,7 @@ from datetime import timedelta
 from decimal import Decimal
 from typing import Optional, Tuple
 
+from django.conf import settings
 from django.db import models, transaction
 from django.utils import timezone
 
@@ -550,7 +551,7 @@ def get_incomplete_donations_to_remind(base_date=None):
             timestamp__gte=start_date,
             timestamp__lt=end_date,
         )
-        .exclude(donation__donor__email="")
+        .exclude(donor__email="")
         .order_by("timestamp")
         .select_related("donor", "payment")
     )
@@ -608,7 +609,7 @@ def send_incomplete_donation_reminder(donation):
         "donor": donor,
         "donation": donation,
         "donate_url": donor.get_donate_url(),
-        "payment_url": donation.payment.get_absolute_payment_url(),
+        "payment_url": settings.SITE_URL + donation.payment.get_absolute_payment_url(),
     }
 
     incomplete_donation_reminder_email.send(

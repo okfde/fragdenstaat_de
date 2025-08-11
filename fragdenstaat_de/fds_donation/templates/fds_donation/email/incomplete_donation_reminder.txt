@@ -1,0 +1,13 @@
+{% autoescape off %}{{ salutation }},
+
+bitte schließ Deine Spende ab:
+
+{{ payment_url }}
+
+Oder starte eine neue Spende:
+
+{{ donate_url }}
+
+Beste Grüße
+{{ site_name }}
+{% endautoescape off %}
