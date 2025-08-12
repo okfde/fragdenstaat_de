@@ -262,6 +262,7 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
+        qs = qs.filter(is_continuous=False)
 
         qs = qs.annotate(
             total_recipients=models.Count("recipients"),
