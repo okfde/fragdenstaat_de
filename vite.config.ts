@@ -68,7 +68,6 @@ export default defineConfig(({ mode }) => ({
         opensearch: './frontend/javascript/opensearch.ts'
       },
       output: {
-        sourcemap: true,
         entryFileNames: '[name].js',
         chunkFileNames: 'js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
