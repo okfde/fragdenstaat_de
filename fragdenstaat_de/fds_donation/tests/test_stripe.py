@@ -22,6 +22,7 @@ WebhookEvent = namedtuple("WebhookEvent", ["timestamp", "name", "event_id"])
 
 STRIPE_TEST_IBANS = {
     "success": "DE89370400440532013000",
+    "success_delayed": "DE08370400440532013003",
     "failed": "DE62370400440532013001",
     "disputed": "DE35370400440532013002",
     "additional_fields": "CH9300762011623852957",
@@ -230,6 +231,25 @@ def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_se
     assert stripe_sub.plan.interval_count == 3
     assert stripe_sub.plan.id == subscription.plan.remote_reference
     assert stripe_sub.trial_end is not None
+
+    # Change IBAN
+    page.goto(
+        live_server.url
+        + reverse(
+            "froide_payment:subscription-detail", kwargs={"token": subscription.token}
+        )
+    )
+    page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success_delayed"])
+    page.get_by_role("button", name="IBAN ändern").click()
+    page.wait_for_selector(".show.alert-dismissible")
+    assert page.get_by_text("wurde aktualisiert")
+
+    stripe_sub = stripe.Subscription.retrieve(subscription.remote_reference)
+    stripe_pm_id = stripe_sub.default_payment_method
+    stripe_pm = stripe.PaymentMethod.retrieve(stripe_pm_id)
+    assert stripe_pm["sepa_debit"]["last4"] == STRIPE_TEST_IBANS["success_delayed"][-4:]
+    stripe_customer = stripe.Customer.retrieve(stripe_sub.customer)
+    assert stripe_customer.invoice_settings.default_payment_method == stripe_pm_id
 
 
 @pytest.mark.django_db
