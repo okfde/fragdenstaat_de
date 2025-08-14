@@ -4440,6 +4440,20 @@ msgstr "kampagne/"
 msgid "Are you sure you want to cancel your subscription?"
 msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
 
+#: fragdenstaat_de/templates/djangocms_video/default/video_player.html
+msgid "We need your consent to show you a YouTube video"
+msgstr "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung"
+
+#: fragdenstaat_de/templates/djangocms_video/default/video_player.html
+#, python-format
+msgid ""
+"By playing <a href=\"%(direct_url)s\" target=\"_blank\">this video</a>, you "
+"agree to YouTube's privacy policy."
+msgstr ""
+"Indem Sie <a href=\"%(direct_url)s\" target=\"_blank\">das Video</a> "
+"abspielen, erklären Sie sich mit der Datenschutzerklärung von YouTube "
+"einverstanden."
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
@@ -4451,19 +4465,6 @@ msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#~ msgid "We need your consent to show you a YouTube video"
-#~ msgstr ""
-#~ "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung"
-
-#, python-format
-#~ msgid ""
-#~ "By playing <a href=\"%(direct_url)s\" target=\"_blank\">this video</a>, "
-#~ "you agree to YouTube's privacy policy."
-#~ msgstr ""
-#~ "Indem Sie <a href=\"%(direct_url)s\" target=\"_blank\">das Video</a> "
-#~ "abspielen, erklären Sie sich mit der Datenschutzerklärung von YouTube "
-#~ "einverstanden."
 
 #~ msgid ""
 #~ "You can adjust the amount or frequency of your recurring donation on the "
