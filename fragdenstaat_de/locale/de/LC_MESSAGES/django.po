@@ -4398,18 +4398,19 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
-#~ msgid "We need your consent to show you a YouTube video"
-#~ msgstr ""
-#~ "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung"
+#: fragdenstaat_de/templates/djangocms_video/default/video_player.html
+msgid "We need your consent to show you a YouTube video"
+msgstr "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung"
 
+#: fragdenstaat_de/templates/djangocms_video/default/video_player.html
 #, python-format
-#~ msgid ""
-#~ "By playing <a href=\"%(direct_url)s\" target=\"_blank\">this video</a>, "
-#~ "you agree to YouTube's privacy policy."
-#~ msgstr ""
-#~ "Indem Sie <a href=\"%(direct_url)s\" target=\"_blank\">das Video</a> "
-#~ "abspielen, erklären Sie sich mit der Datenschutzerklärung von YouTube "
-#~ "einverstanden."
+msgid ""
+"By playing <a href=\"%(direct_url)s\" target=\"_blank\">this video</a>, you "
+"agree to YouTube's privacy policy."
+msgstr ""
+"Indem Sie <a href=\"%(direct_url)s\" target=\"_blank\">das Video</a> "
+"abspielen, erklären Sie sich mit der Datenschutzerklärung von YouTube "
+"einverstanden."
 
 #~ msgid ""
 #~ "You can adjust the amount or frequency of your recurring donation on the "
