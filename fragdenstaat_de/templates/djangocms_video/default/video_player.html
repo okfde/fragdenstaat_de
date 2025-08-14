@@ -23,12 +23,12 @@
         <template class="cookie-consent__message">
             <div class="ratio ratio-{{ instance.attributes.ratio|default:"16x9" }} position-relative">
                 {% include "djangocms_video/default/_embed_thumbnail.html" with picture=instance.poster %}
-                <div class="d-flex flex-column align-items-center justify-content-center text-md-center p-3 {% if instance.poster %}text-bg-gray-900 bg-opacity-90{% else %}text-bg-body-tertiary{% endif %}">
+                <div class="d-flex flex-column align-items-center justify-content-center text-md-center p-3 p-md-5 {% if instance.poster %}text-bg-gray-900 bg-opacity-90{% else %}text-bg-body-tertiary{% endif %}">
                     {% page_url "privacy-policy" as privacy %}
-                    <h3>{% trans "We need your consent to show you a YouTube video" %}</h3>
+                    <h3 class="visually-hidden">{% trans "Consent for YouTube video embed" %}</h3>
                     <p>
                         {% with direct_url=instance.embed_link|youtube_url %}
-                            {% blocktrans with direct_url=direct_url %}By playing <a href="{{ direct_url }}" target="_blank">this video</a>, you agree to YouTube's privacy policy.{% endblocktrans %}
+                            {% blocktrans with direct_url=direct_url %}To show you a YouTube video, we need your consent. By clicking on “Accept”, <a href="{{ direct_url }}" target="_blank">the video</a> will be loaded and played, resulting in a data transfer to YouTube.{% endblocktrans %}
                         {% endwith %}
                     </p>
                     <div class="hstack gap-2 justify-content-center">
@@ -41,7 +41,7 @@
         <template class="cookie-consent__declined">
             <div class="ratio ratio-{{ instance.attributes.ratio|default:"16x9" }} position-relative">
                 {% include "djangocms_video/default/_embed_thumbnail.html" with picture=instance.poster %}
-                <div class="d-flex flex-column align-items-center justify-content-center text-md-center p-3 {% if instance.poster %}text-bg-gray-900 bg-opacity-90{% else %}text-bg-body-tertiary{% endif %}">
+                <div class="d-flex flex-column align-items-center justify-content-center text-md-center p-3 p-md-5 {% if instance.poster %}text-bg-gray-900 bg-opacity-90{% else %}text-bg-body-tertiary{% endif %}">
                     <p>
                         {% blocktrans with manage_cookies=manage_cookies %}You have chosen to not show YouTube videos on our site. <a href="{{ manage_cookies }}">Change cookie preferences</a>{% endblocktrans %}
                     </p>
