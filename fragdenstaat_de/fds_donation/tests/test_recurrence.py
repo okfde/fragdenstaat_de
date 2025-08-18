@@ -185,8 +185,8 @@ def test_banktransfer_imported_canceled():
 @pytest.mark.django_db
 def test_banktransfer_add_existing_recurrence():
     donor = DonorFactory.create()
-    now = timezone.now()
-    first_date = now - relativedelta(months=4)
+    now = timezone.now().replace(day=15)
+    first_date = now - relativedelta(months=3)
     amount = Decimal("10.00")
     first_donation = Donation.objects.create(
         donor=donor,
@@ -196,7 +196,7 @@ def test_banktransfer_add_existing_recurrence():
         received_timestamp=first_date,
         completed=True,
     )
-    second_date = now - relativedelta(months=3)
+    second_date = now - relativedelta(months=2)
     second_donation = Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -205,15 +205,14 @@ def test_banktransfer_add_existing_recurrence():
         received_timestamp=second_date,
         completed=True,
     )
-
-    process_recurrence_on_donor(donor)
+    process_recurrence_on_donor(donor, current_date=now)
     first_donation.refresh_from_db()
     second_donation.refresh_from_db()
     recurrence = second_donation.recurrence
     assert recurrence is not None
     assert recurrence.cancel_date is not None
 
-    last_date = now - relativedelta(months=2)
+    last_date = now - relativedelta(months=1)
     last_donation = Donation.objects.create(
         donor=donor,
         method="banktransfer",
@@ -223,7 +222,7 @@ def test_banktransfer_add_existing_recurrence():
         completed=True,
     )
 
-    process_recurrence_on_donor(donor)
+    process_recurrence_on_donor(donor, current_date=now)
     last_donation.refresh_from_db()
     recurrence.refresh_from_db()
     assert recurrence == last_donation.recurrence

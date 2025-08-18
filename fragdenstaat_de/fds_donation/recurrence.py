@@ -198,13 +198,13 @@ def find_streaks_for_pattern(
     return streaks
 
 
-def process_recurrence_on_donor(donor: Donor):
+def process_recurrence_on_donor(donor: Donor, current_date: datetime | None = None):
     # Includes completed but pending donations
     donations = Donation.objects.filter(
         donor=donor, completed=True, order__subscription__isnull=False
     ).order_by("received_timestamp", "timestamp")
     if donations:
-        process_subscription_donations(donor, donations)
+        process_subscription_donations(donor, donations, current_date)
 
     donations = Donation.objects.filter(
         donor=donor,
@@ -212,7 +212,7 @@ def process_recurrence_on_donor(donor: Donor):
         received_timestamp__isnull=False,
     ).filter(Q(method="banktransfer") | Q(method="paypal", order__isnull=True))
     if donations:
-        process_donations(donor, donations)
+        process_donations(donor, donations, current_date)
 
     recurring_amount = donor.calculate_recurring_amount()
     if recurring_amount != donor.recurring_amount:
@@ -220,22 +220,24 @@ def process_recurrence_on_donor(donor: Donor):
         donor.save(update_fields=["recurring_amount"])
 
 
-def process_subscription_donations(donor: Donor, donations):
+def process_subscription_donations(
+    donor: Donor, donations, current_date: datetime | None = None
+):
     subscriptions = defaultdict(list)
     for donation in donations:
         subscriptions[donation.order.subscription].append(donation)
 
     for subscription, subscription_donations in subscriptions.items():
         recurrence = create_recurrence_for_subscription(
-            donor, subscription, subscription_donations
+            donor, subscription, subscription_donations, current_date
         )
         Donation.objects.filter(
             id__in=[donation.id for donation in subscription_donations]
         ).update(recurrence=recurrence)
 
 
-def process_donations(donor: Donor, donations):
-    streaks = find_donation_streaks(donations)
+def process_donations(donor: Donor, donations, current_date: datetime | None = None):
+    streaks = find_donation_streaks(donations, current_date)
 
     streak_donations = set()
 
@@ -311,15 +313,20 @@ def update_recurrence(recurrence: Recurrence, streak: DonationStreak):
 
 
 def create_recurrence_for_subscription(
-    donor: Donor, subscription: Subscription, donations: list[Donation]
+    donor: Donor,
+    subscription: Subscription,
+    donations: list[Donation],
+    current_date: datetime | None = None,
 ):
+    if current_date is None:
+        current_date = timezone.now()
     active = donations[0].received_timestamp is not None
     method = donations[0].method
     cancel_date = None
     if method in ("paypal", "banktransfer"):
         # Detect cancel date for uncontrolled subscription methods
         cancel_date = get_cancel_date(
-            donations, subscription.plan.interval, timezone.now()
+            donations, subscription.plan.interval, current_date
         )
         if cancel_date and cancel_date < subscription.created:
             cancel_date = subscription.created
@@ -410,9 +417,11 @@ def get_late_recurrences(now=None):
     )
 
 
-def check_late_recurring_donors():
+def check_late_recurring_donors(now=None):
+    if now is None:
+        now = timezone.now()
     late_donors = Donor.objects.filter(
-        recurrences__in=get_late_recurrences()
+        recurrences__in=get_late_recurrences(now)
     ).distinct()
     for donor in late_donors:
-        process_recurrence_on_donor(donor)
+        process_recurrence_on_donor(donor, current_date=now)
