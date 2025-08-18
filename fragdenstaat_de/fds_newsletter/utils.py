@@ -274,7 +274,7 @@ def generate_random_split(
     subscriber_query = str(subscribers.values_list("id", flat=True).query)
     with connection.cursor() as cursor:
         cursor.execute(
-            "WITH selection AS ({query}) SELECT col1 AS id FROM selection ORDER BY RANDOM() LIMIT {limit}".format(
+            "WITH selection AS ({query}) SELECT id FROM selection ORDER BY RANDOM() LIMIT {limit}".format(
                 query=subscriber_query, limit=group_total
             )
         )
