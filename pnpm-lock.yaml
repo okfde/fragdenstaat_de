@@ -52,7 +52,7 @@ importers:
         version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/fdcfec87724c7388d22d6377bcce9feb7de88662
       froide_payment:
         specifier: github:okfde/froide-payment
-        version: https://codeload.github.com/okfde/froide-payment/tar.gz/410429ade48dc23a66587f3fbdace2563b3c2271
+        version: https://codeload.github.com/okfde/froide-payment/tar.gz/764d9bc194369a04d9d2029382278297f7bfe142
       vega:
         specifier: ^6.1.2
         version: 6.1.2
@@ -1590,8 +1590,8 @@ packages:
     resolution: {tarball: https://codeload.github.com/okfde/froide-legalaction/tar.gz/fdcfec87724c7388d22d6377bcce9feb7de88662}
     version: 1.0.0
 
-  froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/410429ade48dc23a66587f3fbdace2563b3c2271:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-payment/tar.gz/410429ade48dc23a66587f3fbdace2563b3c2271}
+  froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/764d9bc194369a04d9d2029382278297f7bfe142:
+    resolution: {tarball: https://codeload.github.com/okfde/froide-payment/tar.gz/764d9bc194369a04d9d2029382278297f7bfe142}
     version: 1.0.0
 
   fs-minipass@2.1.0:
@@ -4227,7 +4227,7 @@ snapshots:
 
   froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/fdcfec87724c7388d22d6377bcce9feb7de88662: {}
 
-  froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/410429ade48dc23a66587f3fbdace2563b3c2271:
+  froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/764d9bc194369a04d9d2029382278297f7bfe142:
     dependencies:
       '@stripe/stripe-js': 7.4.0
 
