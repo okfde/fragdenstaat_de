@@ -825,6 +825,8 @@ class MailingMessageReference(models.Model):
     object_id = models.PositiveBigIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
 
+    objects = MailingMessageReferenceManager()
+
     def __str__(self):
         return "%s - %s" % (self.mailing_message, self.content_type)
 
