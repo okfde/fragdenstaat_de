@@ -394,7 +394,7 @@ filelock==3.16.0
     #   triton
 fonttools==4.53.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@ce6b4293d1d8b623a5e5a27c6b05e1ed2bbadaf9
+froide @ git+https://github.com/okfde/froide.git@363119a699273168a78ba3434b9385e51e337d4a
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@c281e1f6b158be67c4bac8573e540fea77ee76d2
     # via fragdenstaat-de (pyproject.toml)
@@ -412,7 +412,7 @@ froide-govplan @ git+https://github.com/okfde/froide-govplan.git@7d304ae0e34e44f
     # via fragdenstaat-de (pyproject.toml)
 froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@fdcfec87724c7388d22d6377bcce9feb7de88662
     # via fragdenstaat-de (pyproject.toml)
-froide-payment @ git+https://github.com/okfde/froide-payment.git@764d9bc194369a04d9d2029382278297f7bfe142
+froide-payment @ git+https://github.com/okfde/froide-payment.git@871d07ee96e1166123cfeb35bfac61eb2b3aaa7e
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide-crowdfunding
