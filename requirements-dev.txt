@@ -445,7 +445,7 @@ froide-campaign @ git+https://github.com/okfde/froide-campaign.git@c281e1f6b158b
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@5d45c091cbf481cd91cca5ca4505818a8f3bb446
     # via fragdenstaat-de (pyproject.toml)
-froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@271057a35249bab0f8bde965203473c156adab24
+froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@bbca1ce2dbb082eda7c18a642745145232c85991
     # via fragdenstaat-de (pyproject.toml)
 froide-exam @ git+https://github.com/okfde/froide-exam.git@779005ccfc21a3e75aeb57eb486c91b670739a3c
     # via fragdenstaat-de (pyproject.toml)
