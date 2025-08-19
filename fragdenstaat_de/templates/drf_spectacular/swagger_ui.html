@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            <title>{{ title|default:"Swagger" }}</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            {% if favicon_href %}<link rel="icon" href="{{ favicon_href }}">{% endif %}
+            <link rel="stylesheet" href="{{ swagger_ui_css }}">
+            <link rel="stylesheet" href="{% static 'drf_spectacular/swagger-ui.css' %}">
+        {% endblock head %}
+    </head>
+    <body>
+        {% block body %}
+            <div id="swagger-ui"></div>
+            <script src="{{ swagger_ui_bundle }}"></script>
+            <script src="{{ swagger_ui_standalone }}"></script>
+            {% if script_url %}
+                <script src="{{ script_url }}"></script>
+            {% else %}
+                {% comment %} {{ settings|json_script:"settings" }}
+                {{ schema_auth_names|json_script:"schema_auth_names" }}
+                {% if oauth2_config %}{{ oauth2_config|json_script:"oauth2_config" }}{% endif %} {% endcomment %}
+                <script id="settings" type="application/json">{{ settings|safe }}</script>
+                <script id="schema_auth_names" type="application/json">{{ schema_auth_names|safe }}</script>
+                <script id="oauth2_config" type="application/json">{{ oauth2_config|safe }}</script>
+                <script src="{% static 'drf_spectacular/swagger-ui.js' %}"
+                        data-csrfheadername="{{ csrf_header_name }}"
+                        data-csrftoken="{{ csrf_token }}"
+                        data-schemaurl="{{ schema_url }}"></script>
+            {% endif %}
+        {% endblock %}
+    </body>
+</html>
