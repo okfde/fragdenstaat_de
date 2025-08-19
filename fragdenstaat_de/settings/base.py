@@ -930,123 +930,153 @@ class FragDenStaatBase(German, Base):
                 "FROIDE_EVIDENCECOLLECTION_NOCODB_API_TOKEN", ""
             ),
             "tables": {
-                "PersonOrOrganization": os.environ.get(
-                    "FROIDE_EVIDENCECOLLECTION_NOCODB_PERSON_TABLE"
-                ),
-                "Source": os.environ.get(
-                    "FROIDE_EVIDENCECOLLECTION_NOCODB_SOURCE_TABLE"
+                "Actor": os.environ.get("FROIDE_EVIDENCECOLLECTION_NOCODB_TABLE_ACTOR"),
+                "Affiliation": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_TABLE_AFFILIATION"
                 ),
                 "Evidence": os.environ.get(
-                    "FROIDE_EVIDENCECOLLECTION_NOCODB_EVIDENCE_TABLE"
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_TABLE_EVIDENCE"
                 ),
-                "Group": os.environ.get("FROIDE_EVIDENCECOLLECTION_NOCODB_GROUP_TABLE"),
+            },
+            "views": {
+                "Actor_Person": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_VIEW_ACTOR_PERSON"
+                ),
+                "Actor_Organization": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_VIEW_ACTOR_ORGANIZATION"
+                ),
             },
             "field_map": {
-                "PersonOrOrganization": {
-                    "external_id": "id",
-                    "name": "Name/Bezeichnung",
-                    "regions": "Region(en)",
-                    "is_active": "Aktiv",
+                "Person": {
+                    "external_id": "Id",
+                    "wikidata_id": "Wikidata-ID",
+                    "aw_politician_id": "abgeordnetenwatch.de Politiker-ID",
+                    "first_name": "Vorname(n)",
+                    "last_name": "Nachname",
+                    "title": "Titel",
+                    "also_known_as": "Spitzname",
+                    "status": "Status (Person)",
                 },
-                "Source": {
-                    "external_id": "id",
-                    "reference_value": "Referenzwert",
-                    "persons_or_organizations": "_nc_m2m_Quellen und Nac_Personen und Ors",
-                    "url": "Quelle",
-                    "attribution_bases": "Mitgliedzurechnung",
-                    "file_reference": "Aktenzeichen",
-                    "document_number": "Dokumentennummer",
-                    "is_on_record": "Aktenkundig?",
-                    "recorded_by": "_nc_m2m_Quellen und Nac_publicbodies",
+                "Organization": {
+                    "external_id": "Id",
+                    "wikidata_id": "Wikidata-ID",
+                    "organization_name": "Organisationsname",
+                    "institutional_level": "Institutionsebene",
+                    "regions": "Region(en)",
+                    "also_known_as": "Abkürzung",
+                    "status": "Status (Organisation)",
+                },
+                "Affiliation": {
+                    "external_id": "Id",
+                    "person": "Personen und Organisationen_id",
+                    "organization": "Personen und Organisationen_id1",
+                    "role": "Funktion",
+                    "start_date_string": "Begonnen am",
+                    "end_date_string": "Ausgeübt bis",
                 },
                 "Evidence": {
-                    "external_id": "id",
+                    "external_id": "Id",
+                    "citation": "Zitat/Beschreibung",
                     "description": "Zusammenfassung",
-                    "date": "Datum der Aussage/Aktion",
-                    "type": "Art des Belegs",
-                    "categories": "Zuordnung zu FDGO-Merkmalen",
-                    "spread_level": "Verbreitungsgrad",
-                    "distribution_channels": "Verbreitungswege",
-                    "sources": "_nc_m2m_Quellen und Nac_Belege und Ausses",
-                    "is_verified": "Geprüft?",
-                    "requires_additional_review": "Zusätzliche Prüfung notwendig?",
-                },
-                "Group": {
-                    "external_id": "id",
-                    "name": "Name",
-                    "members": "_nc_m2m_Personen und Or_Gruppen und Orgs",
+                    "evidence_type": "Art des Belegs",
+                    "collections": "Sammlung(en)",
+                    "originators": "_nc_m2m_Quellen und Bel_Personen und Ors",
+                    "related_actors": "_nc_m2m_Quellen und Bel_Personen und Or1s",
+                    "event_date": "Datum der Originaläußerung",
+                    "publishing_date": "Datum der Veröffentlichung",
+                    "documentation_date": "Datum der Dokumentation",
+                    "reference_url": "Fundstelle (URL)",
+                    "reference_info": "Fundstelle (zusätzliche Informationen)",
+                    "primary_source_url": "Primärquelle (URL)",
+                    "primary_source_info": "Primärquelle (zusätzliche Informationen)",
+                    "attribution_justification": "Zurechnungs - Begründung",
+                    "attribution_evidence": "_nc_m2m_Quellen und Bel_Quellen und Bels",
+                    "attribution_problems": "Zurechnungsprobleme",
+                    "comment": "Kommentar/Notiz",
+                    "legal_assessment": "Juristische Bewertung",
                 },
             },
             "relations": {
-                "PersonOrOrganization": {
+                "Person": {
+                    "status": {
+                        "type": "fk",
+                        "model": "froide_evidencecollection.PersonStatus",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
+                },
+                "Organization": {
+                    "institutional_level": {
+                        "type": "fk",
+                        "model": "froide_evidencecollection.InstitutionalLevel",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
                     "regions": {
                         "type": "m2m",
                         "model": "georegion.GeoRegion",
                         "lookup_field": "id",
-                    }
-                },
-                "Source": {
-                    "persons_or_organizations": {
-                        "type": "m2m",
-                        "model": "froide_evidencecollection.PersonOrOrganization",
-                        "lookup_field": "external_id",
                     },
-                    "attribution_bases": {
-                        "type": "m2m",
-                        "model": "froide_evidencecollection.AttributionBasis",
+                    "status": {
+                        "type": "fk",
+                        "model": "froide_evidencecollection.OrganizationStatus",
                         "lookup_field": "name",
                         "create_if_missing": True,
                     },
-                    "recorded_by": {
+                },
+                "Affiliation": {
+                    "person": {
                         "type": "fk",
-                        "model": "publicbody.PublicBody",
-                        "lookup_field": "id",
+                        "model": "froide_evidencecollection.Person",
+                        "lookup_field": "external_id",
+                    },
+                    "organization": {
+                        "type": "fk",
+                        "model": "froide_evidencecollection.Organization",
+                        "lookup_field": "external_id",
+                    },
+                    "role": {
+                        "type": "fk",
+                        "model": "froide_evidencecollection.Role",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
                     },
                 },
                 "Evidence": {
-                    "type": {
+                    "evidence_type": {
                         "type": "fk",
                         "model": "froide_evidencecollection.EvidenceType",
                         "lookup_field": "name",
                         "create_if_missing": True,
                     },
-                    "spread_level": {
-                        "type": "fk",
-                        "model": "froide_evidencecollection.SpreadLevel",
+                    "collections": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.Collection",
                         "lookup_field": "name",
                         "create_if_missing": True,
                     },
-                    "categories": {
+                    "originators": {
                         "type": "m2m",
-                        "model": "froide_evidencecollection.EvidenceCategory",
-                        "lookup_field": "name",
-                        "create_if_missing": True,
-                    },
-                    "distribution_channels": {
-                        "type": "m2m",
-                        "model": "froide_evidencecollection.DistributionChannel",
-                        "lookup_field": "name",
-                        "create_if_missing": True,
-                    },
-                    "sources": {
-                        "type": "m2m",
-                        "model": "froide_evidencecollection.Source",
+                        "model": "froide_evidencecollection.Actor",
                         "lookup_field": "external_id",
                     },
-                },
-                "Group": {
-                    "members": {
+                    "related_actors": {
                         "type": "m2m",
-                        "model": "froide_evidencecollection.PersonOrOrganization",
+                        "model": "froide_evidencecollection.Actor",
                         "lookup_field": "external_id",
-                    }
+                    },
+                    "attribution_evidence": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.Evidence",
+                        "lookup_field": "external_id",
+                    },
+                    "attribution_problems": {
+                        "type": "m2m",
+                        "model": "froide_evidencecollection.AttributionProblem",
+                        "lookup_field": "name",
+                        "create_if_missing": True,
+                    },
                 },
-            },
-            "institution_role_map": {
-                "AfD-Bundespartei": "Bundespartei Funktion(en)",
-                "AfD-Länderparteien": "Landesparteien Funktion(en)",
-                "Funktionär(in)": "Funktionäre Funktion(en)",
-                "Umfeld": "Umfeld Funktion(en)",
             },
             "selectable_regions": {
                 # Germany and its federal states
