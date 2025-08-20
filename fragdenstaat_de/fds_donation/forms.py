@@ -24,6 +24,7 @@ from froide.helper.widgets import (
 from .form_settings import DonationFormFactory
 from .models import (
     CHECKOUT_PAYMENT_CHOICES_DICT,
+    DEFAULT_DONATION_PROJECT,
     INTERVAL_CHOICES,
     MIN_AMOUNT,
     ONCE,
@@ -248,6 +249,22 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
             parse_qsl(data.get("query_params", ""), keep_blank_values=True)
         )
 
+        method = data.get("payment_method", QUICKPAYMENT_METHOD)
+        recurrence = None
+        if order.subscription:
+            subscription = order.subscription
+            recurrence = Recurrence.objects.create(
+                subscription=subscription,
+                donor=donor,
+                active=False,
+                start_date=subscription.created,
+                interval=subscription.plan.interval,
+                amount=subscription.plan.amount,
+                method=method,
+                project=DEFAULT_DONATION_PROJECT,
+                cancel_date=None,
+            )
+
         donation = Donation.objects.create(
             donor=donor,
             amount=order.total_gross,
@@ -258,7 +275,8 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
             order=order,
             recurring=order.is_recurring,
             first_recurring=order.is_recurring,
-            method=data.get("payment_method", QUICKPAYMENT_METHOD),
+            recurrence=recurrence,
+            method=method,
             extra_action_url=self.settings.get("next_url", ""),
             extra_action_label=self.settings.get("next_label", ""),
             data={
