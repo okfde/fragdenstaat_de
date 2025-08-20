@@ -219,28 +219,25 @@ class FragDenStaat(FragDenStaatBase):
     ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = "froide.helper.search.CelerySignalProcessor"
 
     LOGGING = {
+        "root": {"handlers": ["console"], "level": "WARNING"},
         "loggers": {
-            "": {"handlers": ["console"], "level": "WARNING"},
-            "froide": {"level": "INFO", "propagate": True, "handlers": ["console"]},
+            "froide": {
+                "level": "INFO",
+            },
             "fragdenstaat_de": {
                 "level": "INFO",
-                "propagate": True,
-                "handlers": ["console"],
             },
             "froide_payment": {
                 "level": "INFO",
-                "propagate": True,
-                "handlers": ["console"],
+            },
+            "froide_evidencecollection": {
+                "level": "INFO",
             },
             "sentry.errors": {
-                "handlers": ["console"],
-                "propagate": False,
                 "level": "DEBUG",
             },
             "django.request": {
                 "level": "ERROR",
-                "propagate": True,
-                "handlers": ["console"],
             },
         },
         "disable_existing_loggers": True,
@@ -260,7 +257,6 @@ class FragDenStaat(FragDenStaatBase):
             "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
             "ignore_501": {"()": "fragdenstaat_de.theme.utils.Ignore501Errors"},
         },
-        "root": {"handlers": ["console"], "level": "WARNING"},
     }
     MANAGERS = (("FragDenStaat.de", "mail@fragdenstaat.de"),)
     MEDIA_ROOT = env("DJANGO_MEDIA_ROOT")
@@ -301,7 +297,7 @@ class FragDenStaat(FragDenStaatBase):
 class FragDenStaatDebug(FragDenStaat):
     LOGGING = dict(FragDenStaat.LOGGING)
     LOGGING["disable_existing_loggers"] = False
-    LOGGING["loggers"][""] = {"handlers": ["console"], "level": "DEBUG"}
+    LOGGING["root"] = {"handlers": ["console"], "level": "DEBUG"}
 
 
 class CMSSiteProduction(CMSSiteBase):
@@ -329,50 +325,7 @@ class CMSSiteProduction(CMSSiteBase):
     STATIC_ROOT = env("DJANGO_STATIC_ROOT")
     STATIC_URL = env("STATIC_URL", "https://static.frag-den-staat.de/static/")
 
-    LOGGING = {
-        "loggers": {
-            "": {"handlers": ["console"], "level": "WARNING"},
-            "froide": {"level": "INFO", "propagate": True, "handlers": ["console"]},
-            "fragdenstaat_de": {
-                "level": "INFO",
-                "propagate": True,
-                "handlers": ["console"],
-            },
-            "froide_payment": {
-                "level": "INFO",
-                "propagate": True,
-                "handlers": ["console"],
-            },
-            "sentry.errors": {
-                "handlers": ["console"],
-                "propagate": False,
-                "level": "DEBUG",
-            },
-            "django.request": {
-                "level": "ERROR",
-                "propagate": True,
-                "handlers": ["console"],
-            },
-        },
-        "disable_existing_loggers": True,
-        "handlers": {
-            "console": {
-                "class": "logging.StreamHandler",
-                "formatter": "verbose",
-            },
-        },
-        "formatters": {
-            "verbose": {
-                "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
-            }
-        },
-        "version": 1,
-        "filters": {
-            "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
-            "ignore_501": {"()": "fragdenstaat_de.theme.utils.Ignore501Errors"},
-        },
-        "root": {"handlers": ["console"], "level": "WARNING"},
-    }
+    LOGGING = dict(FragDenStaat.LOGGING)
 
     DATABASES = {
         "default": {
