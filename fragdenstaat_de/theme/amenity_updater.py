@@ -81,7 +81,7 @@ def update_osm_amenities(delete_obsolete=False):
         # Download latest germany OSM file
         download_file_to_temp_dir(LATEST_OSM_URL, filepath)
 
-        import_osm_pbf(filepath, get_region_key)
+        import_osm_pbf(filepath, get_region_query)
 
         # Convert to nodes only
         run_command(
