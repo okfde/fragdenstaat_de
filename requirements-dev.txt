@@ -2,7 +2,7 @@
 #    uv pip compile -o requirements-dev.txt --extra dev pyproject.toml -p 3.12
 aiohappyeyeballs==2.4.0
     # via aiohttp
-aiohttp==3.10.5
+aiohttp==3.12.14
     # via geoip2
 aiosignal==1.3.1
     # via aiohttp
@@ -91,7 +91,7 @@ coverage==7.6.1
     #   django-coverage-plugin
 cron-descriptor==1.4.5
     # via django-celery-beat
-cryptography==43.0.1
+cryptography==44.0.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fido2
@@ -521,7 +521,7 @@ ipython==8.36.0
     #   ipdb
 jedi==0.19.1
     # via ipython
-jinja2==3.1.4
+jinja2==3.1.6
     # via
     #   sphinx
     #   torch
@@ -554,7 +554,7 @@ lxml==5.3.0
     #   pikepdf
     #   python-docx
     #   svglib
-lxml-html-clean==0.2.2
+lxml-html-clean==0.4.0
     # via
     #   html-text
     #   lxml
@@ -673,7 +673,7 @@ pikepdf==9.7.0
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
     #   froide
-pillow==11.2.1
+pillow==11.3.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
@@ -819,7 +819,7 @@ reportlab==4.4.1
     #   easy-thumbnails
     #   froide
     #   svglib
-requests==2.32.3
+requests==2.32.4
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-oauth-toolkit
@@ -840,7 +840,7 @@ rpds-py==0.20.0
     #   referencing
 sentry-sdk==2.29.1
     # via fragdenstaat-de (pyproject.toml)
-setuptools==74.1.2
+setuptools==78.1.1
     # via
     #   django-cms
     #   geoip2
@@ -899,7 +899,7 @@ tinycss2==1.4.0
     #   weasyprint
 tinyhtml5==2.0.0
     # via weasyprint
-torch==2.5.1
+torch==2.8.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   torchvision
@@ -937,7 +937,7 @@ unidecode==1.3.8
     # via fragdenstaat-de (pyproject.toml)
 uritemplate==4.1.1
     # via drf-spectacular
-urllib3==2.2.2
+urllib3==2.5.0
     # via
     #   elastic-transport
     #   requests
@@ -947,7 +947,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-virtualenv==20.26.4
+virtualenv==20.26.6
     # via pre-commit
 wand==0.6.13
     # via
