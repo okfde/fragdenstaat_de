@@ -69,7 +69,8 @@
                         {% if reduced %}data-donationlink="true"{% endif %}>
                         {% page_url "donate" as donate_url %}
                         <a class="btn link-danger"
-                           href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+                           data-reference="site-header"
+                           href="{{ donate_url|default:'/spenden/' }}">
                             <i class="fa fa-heart" aria-hidden="true"></i>
                             <span class="d-none d-sm-inline">
                                 <span>{% blocktrans %}Donate{% endblocktrans %}</span>
@@ -157,6 +158,7 @@
                         {% endif %}
                         <li class="nav-sm order-lg-last">
                             <a href="{{ newsletter_url }}"
+                               data-reference="site-header"
                                {% if request.path|startswith:newsletter_url %}class="active" aria-current="page"{% endif %}>{{ newsletter_title }}</a>
                         </li>
                         {% page_url "donate" as donate_url %}
@@ -165,7 +167,8 @@
                         {% endif %}
                         <li class="nav-sm order-lg-last">
                             <a class="btn btn-sm btn-danger"
-                               href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+                               data-reference="site-header"
+                               href="{{ donate_url|default:'/spenden/' }}">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                 {{ donate_title|default:"Spenden" }}
                             </a>
@@ -195,7 +198,8 @@
                     {% page_url "donate" as donate_url %}
                     <li class="ms-auto d-none d-lg-block" data-donationlink="true">
                         <a class="link-danger"
-                           href="{{ donate_url|default:'/spenden/' }}?pk_campaign=site-header&pk_keyword={{ request.path | urlencode }}">
+                           data-reference="site-header"
+                           href="{{ donate_url|default:'/spenden/' }}">
                             <i class="fa fa-heart" aria-hidden="true"></i>
                             <span class="visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
                             <span class="d-none d-lg-inline" aria-hidden="true">{% blocktrans %}Donate{% endblocktrans %}</span>

@@ -1,7 +1,7 @@
 import './misc/highlight-anchor'
 import './misc/iframe-height'
 import './misc/matomo'
-import './misc/reference-forms'
+import './misc/reference'
 import './misc/reveal-more'
 import './misc/secpol-violation'
 import './misc/shuffle-items'
