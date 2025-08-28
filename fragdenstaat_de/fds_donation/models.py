@@ -935,8 +935,12 @@ class EmailDonationButtonCMSPlugin(CMSPlugin):
         action_url += urlencode(
             {
                 "amount_presets": self.amount_presets,
-                "initial_amount": str(self.initial_amount or ""),
-                "initial_interval": str(self.initial_interval or ""),
+                "initial_amount": str(self.initial_amount)
+                if self.initial_amount is not None
+                else "",
+                "initial_interval": str(self.initial_interval)
+                if self.initial_interval is not None
+                else "",
                 "interval": str(self.interval),
                 "min_amount": str(self.min_amount),
                 "pk_placement": f"donationbutton-{self.pk}",
