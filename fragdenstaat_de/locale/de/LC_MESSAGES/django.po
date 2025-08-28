@@ -4411,6 +4411,10 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#: fragdenstaat_de/fds_donation/templates/froide_payment/subscription/_cancel_form.html
+msgid "Are you sure you want to cancel your subscription?"
+msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
+
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
@@ -4422,9 +4426,6 @@ msgstr "kampagne/"
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#~ msgid "Are you sure you want to cancel your subscription?"
-#~ msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
 
 #~ msgid "We need your consent to show you a YouTube video"
 #~ msgstr ""
