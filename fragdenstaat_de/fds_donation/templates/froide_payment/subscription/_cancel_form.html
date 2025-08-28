@@ -1,6 +1,11 @@
 {% load i18n %}
 {% load form_helper %}
 {% load donation_tags %}
-<p>{% trans "Are you sure you want to cancel your subscription?" %}</p>
+<p>
+    {% blocktrans %}
+    We are sorry that you want to cancel your support. If you are sorry as well you can pause your donation or reduce the amount.
+    {% endblocktrans %}
+</p>
+<p>{% trans "Otherwise, we welcome your feedback:" %}</p>
 {% get_subscription_cancel_feedback_form as form %}
 {% render_form form horizontal=False %}
