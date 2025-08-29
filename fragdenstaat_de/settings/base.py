@@ -930,27 +930,31 @@ class FragDenStaatBase(German, Base):
                 "FROIDE_EVIDENCECOLLECTION_NOCODB_API_TOKEN", ""
             ),
             "tables": {
-                "Actor": os.environ.get("FROIDE_EVIDENCECOLLECTION_NOCODB_TABLE_ACTOR"),
+                "AbstractActor": os.environ.get(
+                    "FROIDE_EVIDENCECOLLECTION_NOCODB_TABLE_ACTOR"
+                ),
                 "Affiliation": os.environ.get(
                     "FROIDE_EVIDENCECOLLECTION_NOCODB_TABLE_AFFILIATION"
                 ),
                 "Evidence": os.environ.get(
                     "FROIDE_EVIDENCECOLLECTION_NOCODB_TABLE_EVIDENCE"
                 ),
+                "Role": os.environ.get("FROIDE_EVIDENCECOLLECTION_NOCODB_TABLE_ROLE"),
             },
             "views": {
-                "Actor_Person": os.environ.get(
+                "AbstractActor_Person": os.environ.get(
                     "FROIDE_EVIDENCECOLLECTION_NOCODB_VIEW_ACTOR_PERSON"
                 ),
-                "Actor_Organization": os.environ.get(
+                "AbstractActor_Organization": os.environ.get(
                     "FROIDE_EVIDENCECOLLECTION_NOCODB_VIEW_ACTOR_ORGANIZATION"
                 ),
             },
             "field_map": {
                 "Person": {
                     "external_id": "Id",
+                    "sync_uuid": "Sync-UUID",
                     "wikidata_id": "Wikidata-ID",
-                    "aw_politician_id": "abgeordnetenwatch.de Politiker-ID",
+                    "aw_id": "abgeordnetenwatch.de Politiker-ID",
                     "first_name": "Vorname(n)",
                     "last_name": "Nachname",
                     "title": "Titel",
@@ -959,6 +963,7 @@ class FragDenStaatBase(German, Base):
                 },
                 "Organization": {
                     "external_id": "Id",
+                    "sync_uuid": "Sync-UUID",
                     "wikidata_id": "Wikidata-ID",
                     "organization_name": "Organisationsname",
                     "institutional_level": "Institutionsebene",
@@ -966,13 +971,22 @@ class FragDenStaatBase(German, Base):
                     "also_known_as": "Abkürzung",
                     "status": "Status (Organisation)",
                 },
+                "Role": {
+                    "external_id": "Id",
+                    "sync_uuid": "Sync-UUID",
+                    "name": "Bezeichnung",
+                },
                 "Affiliation": {
                     "external_id": "Id",
+                    "sync_uuid": "Sync-UUID",
+                    "aw_id": "abgeordnetenwatch.de-ID",
                     "person": "Personen und Organisationen_id",
                     "organization": "Personen und Organisationen_id1",
                     "role": "Funktion",
                     "start_date_string": "Begonnen am",
                     "end_date_string": "Ausgeübt bis",
+                    "reference_url": "Referenz-URL",
+                    "comment": "Kommentar/Notiz",
                 },
                 "Evidence": {
                     "external_id": "Id",
@@ -1024,6 +1038,7 @@ class FragDenStaatBase(German, Base):
                         "create_if_missing": True,
                     },
                 },
+                "Role": {},
                 "Affiliation": {
                     "person": {
                         "type": "fk",
@@ -1038,8 +1053,7 @@ class FragDenStaatBase(German, Base):
                     "role": {
                         "type": "fk",
                         "model": "froide_evidencecollection.Role",
-                        "lookup_field": "name",
-                        "create_if_missing": True,
+                        "lookup_field": "external_id",
                     },
                 },
                 "Evidence": {
