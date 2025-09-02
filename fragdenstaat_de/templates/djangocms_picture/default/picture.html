@@ -1,7 +1,7 @@
 {% load fds_cms_tags %}
 {% load markup %}
 {# start render figure/figcaption #}
-{% if instance.caption_text or instance.picture.author or instance.picture.description %}<figure>{% endif %}
+{% if instance.caption_text or instance.picture.author %}<figure>{% endif %}
     {# end render figure/figcaption #}
     {% if picture_link %}
         <a href="{{ picture_link }}" {% if instance.link_target %}target="{{ instance.link_target }}" rel="noopener"{% endif %} {{ instance.link_attributes_str }}>
