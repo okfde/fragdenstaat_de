@@ -2679,6 +2679,7 @@ msgid "Please transfer %(amount)s Euro to"
 msgstr "Bitte überweise %(amount)s Euro an"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 #, python-format
 msgid "Please transfer %(amount)s&nbsp;Euro an"
 msgstr "Bitte überweise %(amount)s&nbsp;Euro an"
