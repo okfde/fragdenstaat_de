@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-28 21:51+0200\n"
-"PO-Revision-Date: 2025-08-28 20:52+0100\n"
+"POT-Creation-Date: 2025-09-08 21:00+0200\n"
+"PO-Revision-Date: 2025-09-08 21:02+0200\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -2477,6 +2477,7 @@ msgstr "Datum"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 msgid "Amount"
 msgstr "Betrag"
@@ -2619,39 +2620,54 @@ msgstr ""
 "Folgemonats, da erst dann die Kontoauszüge abgeglichen werden."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 msgid "Please set up a standing order"
 msgstr "Bitte richte einen Dauerauftrag ein"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
-#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 #, python-format
-msgid "Please transfer %(amount)s&nbsp;Euro an"
+msgid "Please transfer %(amount)s&nbsp;Euro to"
 msgstr "Bitte überweise %(amount)s&nbsp;Euro an"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 msgid "Account holder"
 msgstr "Kontoinhaber"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 msgid "Interval"
 msgstr "Turnus"
 
 #. Translators: This is the reference for the bank transfer
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 msgid "Reference"
 msgstr "Verwendungszweck"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 msgid "Bank code"
 msgstr "BLZ"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 msgid "Thank you!"
 msgstr "Vielen Dank!"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
+#, python-format
+msgid "Please transfer %(amount)s Euro to"
+msgstr "Bitte überweise %(amount)s Euro an"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
+#, python-format
+msgid "Please transfer %(amount)s&nbsp;Euro an"
+msgstr "Bitte überweise %(amount)s&nbsp;Euro an"
 
 #: fragdenstaat_de/fds_donation/templates/froide_payment/subscription/_cancel_form.html
 msgid ""
