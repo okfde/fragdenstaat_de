@@ -8625,3 +8625,6 @@ msgstr "kampagne/"
 
 #~ msgid "Change your address"
 #~ msgstr "Ändern Sie Ihre Adresse"
+
+#~ msgid "amount last year"
+#~ msgstr "Betrag letztes Jahr"
