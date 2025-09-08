@@ -687,8 +687,6 @@ class DonationChangeList(ChangeList):
             if recurrence_agg["monthly_active_amount"] is not None
             else "-"
         )
-        return ret
-
         self.DONATION_PROJECTS = DONATION_PROJECTS
         return ret
 
