@@ -9,7 +9,7 @@
                 <h3>{% translate "Please set up a standing order" %}</h3>
             {% else %}
                 <h3>
-                    {% blocktranslate with amount=order.total_gross %}Please transfer {{ amount }}&nbsp;Euro an{% endblocktranslate %}
+                    {% blocktranslate with amount=order.total_gross %}Please transfer {{ amount }}&nbsp;Euro to{% endblocktranslate %}
                 </h3>
             {% endif %}
         </div>
