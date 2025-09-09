@@ -518,7 +518,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                         count=len(candidates), donor=donor
                     ),
                 )
-                return None
+                return redirect("admin:fds_donation_donor_change", donor.id)
 
         if donor_form is None:
             merged_donor = propose_donor_merge(candidates, MergeDonorForm.Meta.fields)
