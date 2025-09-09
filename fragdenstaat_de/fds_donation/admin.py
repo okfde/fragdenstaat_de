@@ -331,44 +331,35 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             qs = qs.filter(any_donation__gt=0)
         return qs
 
+    @admin.display(ordering="donation_count", description=_("Donation count"))
     def donation_count(self, obj):
         return obj.donation_count
 
-    donation_count.admin_order_field = "donation_count"
-    donation_count.short_description = _("Donation count")
-
+    @admin.display(ordering="amount_total", description=_("Amount total"))
     def amount_total(self, obj):
         return formats.number_format(obj.amount_total or 0, decimal_pos=2)
 
-    amount_total.admin_order_field = "amount_total"
-
+    @admin.display(ordering="amount_last_year", description=_("Amount last year"))
     def amount_last_year(self, obj):
         return formats.number_format(obj.amount_last_year or 0, decimal_pos=2)
 
-    amount_last_year.admin_order_field = "amount_last_year"
-
+    @admin.display(ordering="last_donation", description=_("Last donation"))
     def last_donation(self, obj):
-        if obj.last_donation:
-            return formats.date_format(obj.last_donation, "DATETIME_FORMAT")
-        return "-"
+        return obj.last_donation
 
-    last_donation.admin_order_field = "last_donation"
-    last_donation.short_description = _("Last donation")
-
+    @admin.display(
+        ordering=Concat("first_name", Value(" "), "last_name"), description=_("Name")
+    )
     def get_name(self, obj):
         return str(obj)
 
-    get_name.short_description = "Name"
-    get_name.admin_order_field = Concat("first_name", Value(" "), "last_name")
-
+    @admin.display(description=_("donations"))
     def admin_link_donations(self, obj):
         return format_html(
             '<a href="{}">{}</a>',
             reverse("admin:fds_donation_donation_changelist") + ("?donor=%s" % obj.pk),
             _("donations"),
         )
-
-    admin_link_donations.short_description = _("donations")
 
     @admin.display(description=_("Recurrences"))
     def render_recurrences(self, obj):
