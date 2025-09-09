@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-08 21:00+0200\n"
-"PO-Revision-Date: 2025-09-08 21:02+0200\n"
+"POT-Creation-Date: 2025-09-09 11:46+0200\n"
+"PO-Revision-Date: 2025-09-09 11:47+0200\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -881,7 +881,7 @@ msgstr "Externer Pixel"
 msgid "FdS Page Settings"
 msgstr "FdS Seiteneinstellungen"
 
-#: fragdenstaat_de/fds_cms/contact.py
+#: fragdenstaat_de/fds_cms/contact.py fragdenstaat_de/fds_donation/admin.py
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 #: fragdenstaat_de/fds_mailing/forms.py
 msgid "Name"
@@ -1388,6 +1388,14 @@ msgstr "Starte Workflow für Spender*innen…"
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Donation count"
 msgstr "Spendenanzahl"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Amount total"
+msgstr "Betrag insgesamt"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Amount last year"
+msgstr "Betrag letztes Jahr"
 
 #: fragdenstaat_de/fds_donation/admin.py fragdenstaat_de/fds_donation/models.py
 msgid "donations"
@@ -4513,9 +4521,6 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Benötigt eine \"email\" Spalte. Optional kann auch die Spalte name (oder "
 #~ "first_name, last_name) angegeben werden."
-
-#~ msgid "amount last year"
-#~ msgstr "Betrag letztes Jahr"
 
 #~ msgid "Blue"
 #~ msgstr "Blau"
