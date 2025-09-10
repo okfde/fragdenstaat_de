@@ -692,6 +692,7 @@ class FragDenStaatBase(German, Base):
                 "text_analyzer": "fragdenstaat_de.theme.search.get_text_analyzer",
                 "search_analyzer": "fragdenstaat_de.theme.search.get_search_analyzer",
                 "search_quote_analyzer": "fragdenstaat_de.theme.search.get_search_quote_analyzer",
+                "query_preprocessor": "fragdenstaat_de.theme.search.QueryPreprocessor",
                 "dryrun_domain": "test.fragdenstaat.de",
                 "allow_pseudonym": True,
                 "api_activated": True,
