@@ -1,7 +1,9 @@
+{% if heading %}
 <mj-text>
-    <h3>{{ heading }}</h3>
-    {% block content %}{% endblock %}
-    <p>
-        <a href="{{ url }}" style="color:{{ style.primary }};">{{ label }}</a>
-    </p>
+  <h3>{{ heading }}</h3>
 </mj-text>
+{% endif %} {% block content %}{% endblock %}
+<mj-text padding-top="0">
+  <a href="{{ url }}" style="color:{{ style.primary }};">{{ label }}</a>
+</mj-text>
+<mj-divider border-width="2px" border-color="#999999" />

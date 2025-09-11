@@ -1,10 +1,16 @@
+{% if heading %}
 <mj-text>
-    {% if heading %}
-    <h1>{{ heading }}</h1>
-    {% endif %}
-    {% block top_text %}{% endblock %}
+  <h1>{{ heading }}</h1>
 </mj-text>
+{% endif %} {% block top_text %}{% endblock %}
 
-<mj-button href="{{ action_url }}" background-color="{{ style.primary }}" padding="10px 25px" border-radius="3px" font-size="16px" align="left">
-    {{ action_label }}
+<mj-button
+  href="{{ action_url }}"
+  background-color="{{ style.primary }}"
+  padding="10px 25px"
+  border-radius="3px"
+  font-size="16px"
+  align="left"
+>
+  {{ action_label }}
 </mj-button>

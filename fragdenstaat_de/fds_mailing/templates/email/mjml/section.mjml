@@ -1,6 +1,6 @@
 {# djlint:off H021 #}
 <mj-text>
-    <h1>{{ title }}</h1>
-
-    {% block content %}{% endblock %}
+  <h1>{{ title }}</h1>
 </mj-text>
+
+{% block content %}{% endblock %}
