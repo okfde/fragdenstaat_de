@@ -99,7 +99,7 @@ const LOCALE = {
   }
 }
 
-const bootstrapTooltipHandler = (handler, event, item, value) => {
+const bootstrapTooltipHandler = (handler, _event, item, value) => {
   let tooltip = Tooltip.getInstance(item._svg)
   let created = false
   if (!tooltip && value) {
