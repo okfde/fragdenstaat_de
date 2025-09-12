@@ -211,7 +211,7 @@ def get_url_tagger(mailing_campaign: str, query_param: str = "pk_campaign") -> s
             if html_entities:
                 url_match = url_match.replace("&amp;", "&")
             url = urlparse(url_match)
-            qs = parse_qs(url.query)
+            qs = parse_qs(url.query, keep_blank_values=True)
             if query_param in qs:
                 return match.group(0)
             qs[query_param] = [mailing_campaign]

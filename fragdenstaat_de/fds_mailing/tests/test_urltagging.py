@@ -16,8 +16,8 @@ from ..utils import get_url_tagger
             "Visit https://example.com/page?pk_campaign=campaign123 for more info.",
         ),
         (
-            "Check https://example.com/page?existing_param=value",
-            "Check https://example.com/page?existing_param=value&pk_campaign=campaign123",
+            "Check https://example.com/page?existing_param=value&empty_param=",
+            "Check https://example.com/page?existing_param=value&empty_param=&pk_campaign=campaign123",
         ),
         (
             "Multiple links: https://example.com/page1 and https://example.com/page2 .",
