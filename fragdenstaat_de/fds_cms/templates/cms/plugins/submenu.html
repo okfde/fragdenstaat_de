@@ -2,7 +2,7 @@
 <div class="submenu">
     <div class="container">
         <ul class="mb-3">
-            {% show_menu request.current_page.node.depth|add:"-1" 100 0 1 "cms/plugins/submenu_child.html" %}
+            {% show_menu request.current_page.depth|add:"-1" 100 0 1 "cms/plugins/submenu_child.html" %}
         </ul>
     </div>
 </div>

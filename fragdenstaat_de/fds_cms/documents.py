@@ -67,7 +67,6 @@ class CMSDocument(Document):
             Q(redirect__exact="") | Q(redirect__isnull=True),
         ).select_related("page")
 
-        queryset = queryset.select_related("page__node")
         return queryset.distinct()
 
     def prepare_content(self, obj):
