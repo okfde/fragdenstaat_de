@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load cms_pagination %}
 {% get_previous_next_pages request.current_page as pagination %}
-{% if request.current_page.node.get_depth >= min_level|default:3 %}
+{% if request.current_page.depth >= min_level|default:3 %}
     {% if pagination.next or pagination.previous %}
         <nav>
             <ul class="list-unstyled d-flex flex-column flex-md-row">
