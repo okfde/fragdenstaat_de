@@ -121,7 +121,12 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
     def get_object(self, queryset=None):
         if "article" in self.kwargs:
             return self.kwargs["article"]
-        return super().get_object(queryset)
+
+        try:
+            return super().get_object(queryset)
+        except OverflowError as e:
+            # this can occur if year/month are out of range for date fields
+            raise Http404 from e
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
