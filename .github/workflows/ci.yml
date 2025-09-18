@@ -55,7 +55,7 @@ jobs:
         run: pnpm run build
       - name: Compile translations
         run: |
-          python manage.py compilemessages -i node_modules
+          python manage.py compilemessages -i node_modules -l de
       - name: Run tests
         run: |
           coverage run --branch -m pytest --reuse-db
