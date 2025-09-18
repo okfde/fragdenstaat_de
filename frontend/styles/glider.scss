@@ -107,15 +107,15 @@ $glide-modifier-separator: '--' !default;
       outline: none;
     }
     &:hover {
-      background-color: $primary;
-      // border-color: $primary;
+      background-color: var(--#{$prefix}primary);
+      // border-color: var(--#{$prefix}primary);
       svg path {
         fill: white;
       }
     }
 
     svg path {
-      fill: $primary;
+      fill: var(--#{$prefix}primary);
     }
 
     &#{$sm}left {
@@ -146,7 +146,7 @@ $glide-modifier-separator: '--' !default;
   }
 
   &#{$se}bullet {
-    background-color: $primary;
+    background-color: var(--#{$prefix}primary);
     width: 15px;
     height: 15px;
     padding: 0;
@@ -170,7 +170,7 @@ $glide-modifier-separator: '--' !default;
 
     &#{$sm}active {
       background-color: white;
-      border-color: $primary;
+      border-color: var(--#{$prefix}primary);
     }
   }
 
