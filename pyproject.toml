@@ -94,7 +94,7 @@ dependencies = [
   "webp>=0.4.0",
   "websockets>=13.0.1",
   "django-amenities @ git+https://github.com/okfde/django-amenities.git@main",
-  "froide @ git+https://github.com/okfde/froide.git@main",
+  "froide @ git+https://github.com/okfde/froide.git@bikubi/fix-pdf-redaction-vs-pagezoom-2nd-try",
   "froide-campaign @ git+https://github.com/okfde/froide-campaign.git@main",
   "froide-food @ git+https://github.com/okfde/froide-food.git@main",
   "froide-fax @ git+https://github.com/okfde/froide-fax.git@main",

@@ -40,7 +40,7 @@
     "django-cookie-consent": "^0.8.0",
     "dompurify": "^3.2.7",
     "font-awesome": "^4.7.0",
-    "froide": "github:okfde/froide",
+    "froide": "github:okfde/froide#bikubi/fix-pdf-redaction-vs-pagezoom-2nd-try",
     "froide_campaign": "github:okfde/froide-campaign",
     "froide_exam": "github:okfde/froide-exam",
     "froide_food": "github:okfde/froide-food",
