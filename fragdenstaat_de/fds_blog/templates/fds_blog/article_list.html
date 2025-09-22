@@ -10,8 +10,8 @@
         {% elif archive_date %}
             {% if month %}{{ archive_date|date:'F' }}{% endif %}
             {{ year }} –
-        {% elif article_tag %}
-            {% blocktrans with tag=article_tag|capfirst %}Articles with tag “{{ tag }}”{% endblocktrans %} –
+        {% elif article_tags %}
+            {% blocktrans count n=article_tags|length with tags=article_tags|join:", " %}Articles with tag {{ tags }}{% plural %}Articles with tags {{ tags }}{% endblocktrans %} –
         {% elif category %}
             {% blocktrans with category=category %}Category {{ category }}{% endblocktrans %} –
         {% endif %}
@@ -29,19 +29,25 @@
                             {{ year }}
                         </h1>
                         <p class="text-secondary">{% blocktrans with n=article_count %}{{ n }} articles{% endblocktrans %}</p>
-                    {% elif article_tag %}
+                    {% elif article_tags %}
                         <h1>
-                            <div class="fs-5 fw-normal mb-1">{% trans "Tag" %}</div>
-                            {{ article_tag.name }}
+                            <div class="fs-5 fw-normal mb-1">
+                                {% blocktrans count n=article_tags|length %}Tag{% plural%}Tags{% endblocktrans %}
+                            </div>
+                            {{ article_tags|join:", " }}
                         </h1>
-                        <p class="text-secondary">{% blocktrans with n=article_count %}{{ n }} articles{% endblocktrans %}</p>
+                        <p class="text-secondary">
+                            {% blocktrans count n=article_count %}{{ n }} article{% plural%}{{ n }} articles{% endblocktrans %}
+                        </p>
                     {% elif category %}
                         <h1>
                             <div class="fs-5 fw-normal mb-1">{% trans "Category" %}</div>
                             {{ category }}
                         </h1>
                         {{ category.description|markdown }}
-                        <p class="text-secondary">{% blocktrans with n=article_count %}{{ n }} articles{% endblocktrans %}</p>
+                        <p class="text-secondary">
+                            {% blocktrans count n=article_count %}{{ n }} article{% plural%}{{ n }} articles{% endblocktrans %}
+                        </p>
                     {% elif author %}
                         <div class="row">
                             <div class="col col-12 col-md-4 order-md-2 text-center text-md-end mb-3 mb-md-0">
@@ -58,7 +64,9 @@
                                     {{ author.get_full_name }}
                                 </h1>
                                 <div>{{ author.profile_text | markdown }}</div>
-                                <p class="text-secondary">{% blocktrans with n=article_count %}{{ n }} articles{% endblocktrans %}</p>
+                                <p class="text-secondary">
+                                    {% blocktrans count n=article_count %}{{ n }} article{% plural%}{{ n }} articles{% endblocktrans %}
+                                </p>
                             </div>
                         </div>
                     {% else %}
