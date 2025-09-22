@@ -26,6 +26,7 @@ from .models import (
     CardLinkCMSPlugin,
     CollapsibleCMSPlugin,
     DatashowTableCMSPlugin,
+    DatawrapperCMSPlugin,
     DesignContainerCMSPlugin,
     DocumentCollectionEmbedCMSPlugin,
     DocumentEmbedCMSPlugin,
@@ -817,3 +818,11 @@ class ExternalPixelPlugin(CMSPluginBase):
         context["cookie_group"] = instance.cookie_group
         context["cookie_groups"] = [instance.cookie_group]
         return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class DatawrapperPlugin(CMSPluginBase):
+    model = DatawrapperCMSPlugin
+    module = _("Elements")
+    name = _("Datawrapper Embed")
+    render_template = "fds_cms/datawrapper.html"
