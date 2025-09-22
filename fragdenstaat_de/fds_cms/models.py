@@ -1,6 +1,7 @@
 from urllib.parse import quote
 
 from django.conf import settings
+from django.core import validators
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import NoReverseMatch
@@ -796,3 +797,14 @@ class ExternalPixelCMSPlugin(CMSPlugin):
             amount = quote(request.GET.get("amount"))
             return [url.replace("{amount}", amount) for url in urls]
         return urls
+
+
+class DatawrapperCMSPlugin(CMSPlugin):
+    title = models.CharField(max_length=255)
+    dw_url = models.URLField(
+        validators=[
+            validators.URLValidator(regex=r"https:\/\/datawrapper\.dwcdn\.net\/.*")
+        ],
+        help_text=_("Enter the “Visualization only” link from Datawrapper."),
+        verbose_name=_("Datawrapper URL"),
+    )

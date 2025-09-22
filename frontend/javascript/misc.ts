@@ -1,5 +1,5 @@
 import './misc/highlight-anchor'
-import './misc/iframe-height'
+import './misc/datawrapper'
 import './misc/matomo'
 import './misc/reference'
 import './misc/reveal-more'
