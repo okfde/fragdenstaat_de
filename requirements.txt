@@ -226,7 +226,7 @@ django-flowcontrol==0.0.2
     # via fragdenstaat-de (pyproject.toml)
 django-formtools==2.5.1
     # via django-cms
-django-fsm==2.8.2
+django-fsm==3.0.0
     # via
     #   djangocms-versioning
     #   froide-legalaction
