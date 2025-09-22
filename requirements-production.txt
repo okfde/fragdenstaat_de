@@ -362,7 +362,7 @@ easy-thumbnails==2.10.1
     #   djangocms-frontend
     #   djangocms-picture
     #   froide
-elastic-transport==8.17.1
+elastic-transport==9.1.0
     # via
     #   elasticsearch
     #   elasticsearch-dsl
