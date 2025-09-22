@@ -30,7 +30,7 @@ urlpatterns = [
         AuthorArticleView.as_view(),
         name="article-author",
     ),
-    path("tag/<slug:tag>/", TaggedListView.as_view(), name="article-tagged"),
+    path("tag/<str:tags>/", TaggedListView.as_view(), name="article-tagged"),
     path(_("search/"), ArticleSearchView.as_view(), name="article-search"),
     path("feed/", LatestArticlesFeed(), name="article-latest-feed"),
     path("feed/audio/", LatestAudioFeed(), name="article-latest-feed-audio"),

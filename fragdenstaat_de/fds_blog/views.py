@@ -6,12 +6,13 @@ from calendar import month_name
 from typing import Any
 
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import BadRequest, ImproperlyConfigured
+from django.db.models import Case, When
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_list_or_404, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.timezone import now
-from django.utils.translation import get_language
+from django.utils.translation import get_language, ngettext
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, ListView
 
@@ -283,19 +284,52 @@ class ArticleArchiveView(BaseBlogListView, ListView, BreadcrumbView):
 class TaggedListView(BaseBlogListView, ListView, BreadcrumbView):
     view_url_name = "blog:article-tagged"
 
+    def get(self, request, *args, **kwargs):
+        self.tag_slugs = kwargs["tags"].split("+")
+
+        if len(self.tag_slugs) != len(set(self.tag_slugs)):
+            # don't allow duplicates
+            raise BadRequest(_("Found duplicate tags."))
+
+        if len(self.tag_slugs) > 3:
+            # only allow combining three tags at most
+            raise BadRequest(_("You can combine up to three tags."))
+
+        return super().get(request, *args, **kwargs)
+
     def get_queryset(self):
-        self.tag = get_object_or_404(ArticleTag, slug=self.kwargs["tag"])
+        # make sure that the tags are in the same order as in the url
+        # https://stackoverflow.com/a/37648265
+        ordered = ArticleTag.objects.order_by(
+            Case(
+                *[When(slug=slug, then=pos) for pos, slug in enumerate(self.tag_slugs)]
+            )
+        )
+
+        self.tags = get_list_or_404(
+            ordered,
+            slug__in=self.tag_slugs,
+        )
+
+        if len(self.tags) != len(self.tag_slugs):
+            raise Http404
+
         qs = super().get_queryset()
-        return self.optimize(qs.filter(tags=self.tag))
+        return self.optimize(qs.filter(tags__in=self.tags))
 
     def get_context_data(self, **kwargs):
-        kwargs["article_tag"] = self.tag
+        kwargs["article_tags"] = self.tags
         context = super().get_context_data(**kwargs)
         return context
 
     def get_breadcrumbs(self, context):
+        joined_tags = ", ".join([tag.name for tag in self.tags])
+
         return get_base_breadcrumb() + [
-            (_("Tag “%s”") % self.tag.name, self.get_view_url())
+            (
+                ngettext("Tag %s", "Tags %s", len(self.tags)) % joined_tags,
+                self.get_view_url(),
+            )
         ]
 
 
