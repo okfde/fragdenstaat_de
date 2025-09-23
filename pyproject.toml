@@ -209,3 +209,7 @@ markers = [
   "stripe: Run donation tests with stripe test keys",
   "paypal: Run donation tests with paypal sandbox keys",
 ]
+filterwarnings = [
+    "ignore::DeprecationWarning:(?!fragdenstaat_de).*",
+    "ignore::PendingDeprecationWarning:(?!fragdenstaat_de)*",
+]
