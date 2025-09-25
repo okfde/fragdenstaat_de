@@ -85,7 +85,7 @@ urlpatterns = [
                     name="legacy-article-category",
                 ),
                 path(
-                    "tag/<slug:tag>/",
+                    "tag/<slug:tags>/",
                     TagRedirectView.as_view(),
                     name="legacy-article-tagged",
                 ),
