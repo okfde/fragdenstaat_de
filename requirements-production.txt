@@ -668,7 +668,7 @@ pytz==2025.2
     #   pandas
 pyyaml==6.0.2
     # via drf-spectacular
-qrcode==7.3.1
+qrcode==8.2
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-mfa3
