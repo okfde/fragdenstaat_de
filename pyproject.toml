@@ -112,7 +112,6 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-  "Sphinx",
   "django-debug-toolbar>=3.2.1",
   "coverage",
   "factory-boy",
