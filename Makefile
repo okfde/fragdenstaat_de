@@ -26,3 +26,4 @@ commitdependencies: dependencies
 
 messagesde:
 	python manage.py makemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file
+	python manage.py makemessages -l de_LS --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file
