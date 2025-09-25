@@ -718,7 +718,7 @@ soupsieve==2.8
     # via beautifulsoup4
 sqlparse==0.5.3
     # via django
-stripe==7.14.0
+stripe==12.5.1
     # via
     #   django-payments
     #   froide-payment
