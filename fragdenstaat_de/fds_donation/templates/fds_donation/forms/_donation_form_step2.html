@@ -96,7 +96,7 @@
         <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">{% trans "Stay informed" %}</legend>
         <div class="row">
             {% if form.contact %}
-                <div class="col mt-2">
+                <div class="col-auto col-md-6 flex-fill mt-2">
                     <div class="card border-primary">
                         <div class="card-header">
                             <h4>{{ form.contact.label }}</h4>
@@ -109,7 +109,7 @@
                 </div>
             {% endif %}
             {% if not request.user.is_authenticated and form.account %}
-                <div class="col mt-2">
+                <div class="col-auto col-md-6 flex-fill mt-2">
                     <div class="card">
                         <div class="card-header">
                             <h4>{% trans "Get an account" %}</h4>
