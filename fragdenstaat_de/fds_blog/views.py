@@ -317,7 +317,7 @@ class TaggedListView(BaseBlogListView, ListView, BreadcrumbView):
             raise Http404
 
         qs = super().get_queryset()
-        return self.optimize(qs.filter(tags__in=self.tags))
+        return self.optimize(qs.filter(tags__in=self.tags).distinct())
 
     def get_context_data(self, **kwargs):
         kwargs["article_tags"] = self.tags
