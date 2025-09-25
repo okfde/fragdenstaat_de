@@ -55,7 +55,7 @@ CMS.$(window).on('cms-modal-close', function () {
   renderList([])
   if (room) {
     room.send({ type: 'left' })
-    room.close()
+    room.closeSocket()
     room = null
   }
 })
