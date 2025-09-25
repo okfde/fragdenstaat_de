@@ -287,13 +287,15 @@ class TaggedListView(BaseBlogListView, ListView, BreadcrumbView):
     def get(self, request, *args, **kwargs):
         self.tag_slugs = kwargs["tags"].split("+")
 
-        if len(self.tag_slugs) != len(set(self.tag_slugs)):
-            # don't allow duplicates
-            raise BadRequest(_("Found duplicate tags."))
-
         if len(self.tag_slugs) > 3:
             # only allow combining three tags at most
             raise BadRequest(_("You can combine up to three tags."))
+
+        if len(self.tag_slugs) != len(set(self.tag_slugs)):
+            # don't allow duplicates
+            return redirect(
+                self.get_view_url(kwargs={"tags": "+".join(set(self.tag_slugs))})
+            )
 
         return super().get(request, *args, **kwargs)
 
