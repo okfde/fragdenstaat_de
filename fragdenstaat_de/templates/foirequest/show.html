@@ -4,5 +4,4 @@
     {% url 'foirequest-show-og' slug=object.slug as foirequest_path %}
     {% ogimage_url path=foirequest_path as og_image_url %}
     <meta property="og:image" content="{{ og_image_url }}" />
-    <meta name="twitter:card" content="summary_large_image">
 {% endblock %}
