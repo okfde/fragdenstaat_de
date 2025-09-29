@@ -20,24 +20,24 @@
     "@vitejs/plugin-vue": "^6.0.1",
     "autoprefixer": "^10.4.21",
     "cli-real-favicon": "0.0.9",
-    "eslint": "^9.35.0",
+    "eslint": "^9.36.0",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "prettier-config-standard": "^7.0.0",
-    "sass": "^1.92.1",
+    "sass": "^1.93.2",
     "typescript": "^5.9.2",
-    "vite": "^7.1.6",
+    "vite": "^7.1.7",
     "vite-plugin-dev-manifest": "^1.4.1",
-    "vue": "^3.5.21"
+    "vue": "^3.5.22"
   },
   "dependencies": {
     "@fontsource-variable/jost": "^5.2.8",
     "@glidejs/glide": "^3.7.1",
     "@okfde/filingcabinet": "github:okfde/django-filingcabinet",
     "@popperjs/core": "^2.11.8",
-    "@sentry/browser": "^10.12.0",
+    "@sentry/browser": "^10.16.0",
     "bootstrap": "^5.3.8",
-    "django-cookie-consent": "^0.8.0",
+    "django-cookie-consent": "^0.9.0",
     "dompurify": "^3.2.7",
     "font-awesome": "^4.7.0",
     "froide": "github:okfde/froide",
@@ -48,8 +48,8 @@
     "froide_payment": "github:okfde/froide-payment",
     "vega": "^6.2.0",
     "vega-embed": "7.0.2",
-    "vega-interpreter": "^2.1.0",
-    "vega-lite": "^6.4.0"
+    "vega-interpreter": "^2.2.1",
+    "vega-lite": "^6.4.1"
   },
   "prettier": "prettier-config-standard"
 }
