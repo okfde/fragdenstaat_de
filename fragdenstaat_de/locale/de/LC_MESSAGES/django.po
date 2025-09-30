@@ -2220,7 +2220,7 @@ msgstr "Aus Versehen angefangen, kann mich nicht erinnern"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "I do not want to support this project anymore"
-msgstr "Ich möchte diese Projekt nicht mehr unterstützen"
+msgstr "Ich möchte dieses Projekt nicht mehr unterstützen"
 
 #: fragdenstaat_de/fds_donation/models.py
 #: fragdenstaat_de/fds_newsletter/models.py
@@ -2716,6 +2716,7 @@ msgid "Please transfer %(amount)s Euro to"
 msgstr "Bitte überweise %(amount)s Euro an"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 #, python-format
 msgid "Please transfer %(amount)s&nbsp;Euro an"
 msgstr "Bitte überweise %(amount)s&nbsp;Euro an"
@@ -4472,6 +4473,34 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
+#, python-format
+msgid "Articles with tag “%(tag)s”"
+msgstr "Artikel mit dem Schlagwort „%(tag)s“"
+
+#: fragdenstaat_de/fds_blog/views.py
+#, python-format
+msgid "Tag “%s”"
+msgstr "Schlagwort „%s“"
+
+#: fragdenstaat_de/fds_donation/templates/froide_payment/subscription/_cancel_form.html
+msgid "Are you sure you want to cancel your subscription?"
+msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
+
+#: fragdenstaat_de/templates/djangocms_video/default/video_player.html
+msgid "We need your consent to show you a YouTube video"
+msgstr "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung"
+
+#: fragdenstaat_de/templates/djangocms_video/default/video_player.html
+#, python-format
+msgid ""
+"By playing <a href=\"%(direct_url)s\" target=\"_blank\">this video</a>, you "
+"agree to YouTube's privacy policy."
+msgstr ""
+"Indem Sie <a href=\"%(direct_url)s\" target=\"_blank\">das Video</a> "
+"abspielen, erklären Sie sich mit der Datenschutzerklärung von YouTube "
+"einverstanden."
+
 #, python-brace-format
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
@@ -4485,30 +4514,6 @@ msgstr "kampagne/"
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#, python-format
-#~ msgid "Articles with tag “%(tag)s”"
-#~ msgstr "Artikel mit dem Schlagwort „%(tag)s“"
-
-#, python-format
-#~ msgid "Tag “%s”"
-#~ msgstr "Schlagwort „%s“"
-
-#~ msgid "Are you sure you want to cancel your subscription?"
-#~ msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
-
-#~ msgid "We need your consent to show you a YouTube video"
-#~ msgstr ""
-#~ "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung"
-
-#, python-format
-#~ msgid ""
-#~ "By playing <a href=\"%(direct_url)s\" target=\"_blank\">this video</a>, "
-#~ "you agree to YouTube's privacy policy."
-#~ msgstr ""
-#~ "Indem Sie <a href=\"%(direct_url)s\" target=\"_blank\">das Video</a> "
-#~ "abspielen, erklären Sie sich mit der Datenschutzerklärung von YouTube "
-#~ "einverstanden."
 
 #~ msgid "Found duplicate tags."
 #~ msgstr "Doppelte Schlagworte gefunden."
