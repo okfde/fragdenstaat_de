@@ -110,7 +110,7 @@ dj-database-url==3.0.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
-django==5.2.6
+django==5.2.7
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   channels
