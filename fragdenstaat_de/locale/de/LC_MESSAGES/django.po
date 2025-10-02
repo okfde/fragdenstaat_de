@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-25 15:40+0200\n"
+"POT-Creation-Date: 2025-10-02 10:53+0200\n"
 "PO-Revision-Date: 2025-09-25 13:56+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -2212,7 +2212,7 @@ msgstr "Aus Versehen angefangen, kann mich nicht erinnern"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "I do not want to support this project anymore"
-msgstr "Ich möchte diese Projekt nicht mehr unterstützen"
+msgstr "Ich möchte dieses Projekt nicht mehr unterstützen"
 
 #: fragdenstaat_de/fds_donation/models.py
 #: fragdenstaat_de/fds_newsletter/models.py
