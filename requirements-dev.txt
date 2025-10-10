@@ -428,13 +428,13 @@ filelock==3.19.1
     #   virtualenv
 fonttools==4.60.0
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@3df1f5eb91324efe1007508b0a4b12041c1a86e4
+froide @ git+https://github.com/okfde/froide.git@2c821bcf3d50b6cbd35a10e0226364f2c3bdf0a6
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@cabe34f4f6436ac761173b72810c73fa17de6aeb
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@5d45c091cbf481cd91cca5ca4505818a8f3bb446
     # via fragdenstaat-de (pyproject.toml)
-froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@13eecd0a44e0476ef09d545496f95d95ffd81fa7
+froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@e875ac6073b36f1b493dee8d91a77dbd87bfd4da
     # via fragdenstaat-de (pyproject.toml)
 froide-exam @ git+https://github.com/okfde/froide-exam.git@779005ccfc21a3e75aeb57eb486c91b670739a3c
     # via fragdenstaat-de (pyproject.toml)
@@ -446,7 +446,7 @@ froide-govplan @ git+https://github.com/okfde/froide-govplan.git@7d304ae0e34e44f
     # via fragdenstaat-de (pyproject.toml)
 froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@fdcfec87724c7388d22d6377bcce9feb7de88662
     # via fragdenstaat-de (pyproject.toml)
-froide-payment @ git+https://github.com/okfde/froide-payment.git@6cc657a498c5613ffa107e48e35b9f6c4c62818b
+froide-payment @ git+https://github.com/okfde/froide-payment.git@07703aff8b1ac52ce2e5bccf2b6b19c5e238c7e3
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide-crowdfunding
