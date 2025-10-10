@@ -241,7 +241,9 @@ def test_donation_form_hide_purpose():
 
 @pytest.mark.django_db
 def test_form_view_counting(client, monkeypatch):
-    monkeypatch.setattr(donation_models, "suspicious_ip", lambda *args, **kwargs: None)
+    monkeypatch.setattr(
+        donation_models, "check_suspicious_request", lambda *args, **kwargs: None
+    )
 
     assert DonationFormViewCount.objects.count() == 0
 
@@ -267,7 +269,9 @@ def test_form_view_counting(client, monkeypatch):
 
 @pytest.mark.django_db
 def test_form_view_counting_reference(client, monkeypatch):
-    monkeypatch.setattr(donation_models, "suspicious_ip", lambda *args, **kwargs: None)
+    monkeypatch.setattr(
+        donation_models, "check_suspicious_request", lambda *args, **kwargs: None
+    )
 
     path = reverse("fds_donation:donate")
     response = client.get(path + "?pk_campaign=mailing-1")

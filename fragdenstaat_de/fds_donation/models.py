@@ -30,7 +30,7 @@ from froide_payment.models import (
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
 
-from froide.helper.spam import suspicious_ip
+from froide.helper.spam import check_suspicious_request
 
 from fragdenstaat_de.fds_newsletter.models import Subscriber
 
@@ -957,7 +957,7 @@ class DonationFormViewCountManager(models.Manager):
         if request.user.is_staff:
             return
         reference = request.GET.get("pk_campaign", "")
-        if suspicious_ip(request) is not None:
+        if check_suspicious_request(request) is not None:
             return
         self.increment(request.path, reference)
 
