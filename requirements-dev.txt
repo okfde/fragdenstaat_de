@@ -428,7 +428,7 @@ filelock==3.19.1
     #   virtualenv
 fonttools==4.60.0
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@2c821bcf3d50b6cbd35a10e0226364f2c3bdf0a6
+froide @ git+https://github.com/okfde/froide.git@e023249a42a52704ef12bd6115646383b897cc2d
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@cabe34f4f6436ac761173b72810c73fa17de6aeb
     # via fragdenstaat-de (pyproject.toml)
