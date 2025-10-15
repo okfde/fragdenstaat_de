@@ -1044,16 +1044,19 @@ class FragDenStaatBase(German, Base):
                         "type": "fk",
                         "model": "froide_evidencecollection.Person",
                         "lookup_field": "external_id",
+                        "field_id": "cqb7jf1101312zu",
                     },
                     "organization": {
                         "type": "fk",
                         "model": "froide_evidencecollection.Organization",
                         "lookup_field": "external_id",
+                        "field_id": "c19l7yx0nlq3wjz",
                     },
                     "role": {
                         "type": "fk",
                         "model": "froide_evidencecollection.Role",
                         "lookup_field": "external_id",
+                        "field_id": "cw2bl2rohrhm0hf",
                     },
                 },
                 "Evidence": {
@@ -1103,6 +1106,8 @@ class FragDenStaatBase(German, Base):
 
     FROIDE_EVIDENCECOLLECTION_ABGEORDNETENWATCH_CONFIG = values.DictValue(
         {
+            "mandate_role_uuid": "25d593c2-6a45-42cc-8cd4-ba07140f1768",  # "Abgeordnete*r"
+            "candidate_role_uuid": "2a910ac0-d669-44bb-bb2f-a3ef5e17f472",  # "Kandidatur"
             "party_id": 9,  # AfD
             "fractions": [
                 "AfD",
