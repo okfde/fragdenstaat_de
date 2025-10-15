@@ -1101,6 +1101,20 @@ class FragDenStaatBase(German, Base):
         }
     )
 
+    FROIDE_EVIDENCECOLLECTION_ABGEORDNETENWATCH_CONFIG = values.DictValue(
+        {
+            "party_id": 9,  # AfD
+            "fractions": [
+                "AfD",
+                "ESN",
+                "ID",
+                "AfD (EFDD)",
+                "AfD (ENF)",
+                "ALFA/FAMILIEN-PARTEI (EKR)",
+            ],
+        }
+    )
+
     DATASHOW_STORAGE_BACKEND = "overwrite"
 
     COOKIE_CONSENT_LOG_ENABLED = False
