@@ -4472,9 +4472,11 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#, python-brace-format
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
+#, python-brace-format
 #~ msgid "Sent {}"
 #~ msgstr "Gesendet {}"
 
