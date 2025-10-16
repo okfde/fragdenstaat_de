@@ -27,8 +27,6 @@ document
           el.removeAttribute('data-consent-src')
         })
 
-      console.log(content)
-
       container.replaceChildren()
       container.appendChild(content.cloneNode(true))
     }
