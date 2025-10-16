@@ -19,6 +19,7 @@ def fixed_redirect(pattern_name):
 ARTICLE_URLS = [
     r"^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>\w[-\w]*)/$",
     r"^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>\w[-\w]*)/$",
+    r"^(?P<year>\d{4})/(?P<slug>\w[-\w]*)/$",
     r"^(?P<category>\w[-\w]*)/(?P<slug>\w[-\w]*)/$",
     r"^(?P<slug>\w[-\w]*)/$",
 ]
