@@ -27,11 +27,10 @@
                         <span itemscope="" itemtype="http://schema.org/Person">
                             {# needs to be like this so that there's no space before the comma #}
                             {# djlint:off #}
-                            {% if author.get_absolute_url %}<a href="{{ author.get_absolute_url }}" rel="author" itemprop="url">{{ author.get_full_name }}</a>{% else %}{{ author.get_full_name }}{% endif %}{% if article.credits or not forloop.last %},{% endif %}
+                            {% if author.get_absolute_url %}<a href="{{ author.get_absolute_url }}" rel="author" itemprop="url">{{ author.get_full_name }}</a>{% else %}{{ author.get_full_name }}{% endif %}{% if not forloop.last %},{% endif %}
                             {# djlint:on #}
                         </span>
                     {% endfor %}
-                    {{ article.credits }}
                 {% endspaceless %}
             </p>
             <span class="d-none d-md-inline">&nbsp;–&nbsp;</span>

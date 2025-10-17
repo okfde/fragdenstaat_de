@@ -83,6 +83,14 @@
             </div>
         </section>
         <section>
+            {% if article.credits %}
+                <div class="container-lg mb-3">
+                    <h3 class="small text-secondary">{% translate "Credits" %}</h3>
+                    <div class="card">
+                        <div class="card-body">{{ article.credits | linebreaksbr | markdown }}</div>
+                    </div>
+                </div>
+            {% endif %}
             {% block article_author_bios %}
                 {# Separate authors into two groups: authors_with_profiles & authors_without_profiles #}
                 {% if authors_with_profiles %}
@@ -94,10 +102,10 @@
                                 {% trans "About the authors" %}
                             {% endif %}
                         </h3>
-                        <div class="row">
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
                             {% for author in authors_with_profiles %}
-                                <div class="col-12 col-md-6 tight-margin mb-3">
-                                    <div class="card">
+                                <div class="col">
+                                    <div class="card h-100">
                                         <div class="card-body">
                                             <h4 class="card-title">{{ author.get_full_name }}</h4>
                                             {{ author.user.profile_text | markdown }}
@@ -123,9 +131,11 @@
                     {% endif %}
                 {% endif %}
             {% endblock article_author_bios %}
-            {% block article_tags %}
-                {% if article.tags.count > 0 %}
-                    <div class="container-lg d-flex flex-wrap mt-3">
+        </section>
+        {% block article_tags %}
+            {% if article.tags.count > 0 %}
+                <section>
+                    <div class="container-lg d-flex flex-wrap">
                         {% trans "Tags" %}:
                         <ul class="list-unstyled d-contents">
                             {% for tag in article.tags.all %}
@@ -136,9 +146,28 @@
                             {% endfor %}
                         </ul>
                     </div>
+                </section>
+            {% endif %}
+        {% endblock article_tags %}
+        {% block article_languages %}
+            {% with other_langs=article.other_languages %}
+                {% if other_langs %}
+                    <section>
+                        <div class="container-lg">
+                            <p>{% trans "This article is available in other languages." %}</p>
+                            <ul class="list-unstyled">
+                                {% for lang_article in other_langs %}
+                                    <li>
+                                        {{ lang_article.language|language_name }}:
+                                        <a href="{{ lang_article.get_absolute_url }}">{{ lang_article.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </section>
                 {% endif %}
-            {% endblock article_tags %}
-        </section>
+            {% endwith %}
+        {% endblock article_languages %}
         {% block article_suggestions %}
             {% with next_read=article|get_next_read %}
                 {% if next_read %}
@@ -166,24 +195,5 @@
                 </section>
             {% endif %}
         {% endblock %}
-        {% block article_languages %}
-            {% with other_langs=article.other_languages %}
-                {% if other_langs %}
-                    <section>
-                        <div class="container-lg">
-                            <p>{% trans "This article is available in other languages." %}</p>
-                            <ul class="list-unstyled">
-                                {% for lang_article in other_langs %}
-                                    <li>
-                                        {{ lang_article.language|language_name }}:
-                                        <a href="{{ lang_article.get_absolute_url }}">{{ lang_article.title }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </section>
-                {% endif %}
-            {% endwith %}
-        {% endblock article_languages %}
     </footer>
 {% endblock article_footer %}
