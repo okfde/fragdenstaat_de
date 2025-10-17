@@ -1,4 +1,5 @@
 {% load thumbnail %}
+{% load i18n %}
 <div class="cms-page-annotation">
     {% if object.title %}<h4>{{ object.title }}</h4>{% endif %}
     {% if object.description or object.highlight %}<figure>{% endif %}
@@ -21,7 +22,7 @@
                 {{ object.description }}
                 {% if object.highlight %}
                     {% if object.description %}<br />{% endif %}
-                    <small class="text-body-secondary text-end">Hervorhebung von uns</small>
+                    <small class="text-body-secondary text-end">{% translate "With highlights added" %}</small>
                 {% endif %}
             </figcaption>
         </figure>
