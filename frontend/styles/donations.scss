@@ -1,26 +1,9 @@
-.popin-side {
-  padding: 10px 5px;
-  position: fixed;
-  left: 0;
-  top: 65px;
-  z-index: 1008;
-  animation: slideIn 2s forwards;
-
-  a,
-  a:hover {
-    color: #fff;
-  }
-
-  .close {
-    margin-left: 5px;
-  }
-}
-
-@keyframes slideIn {
-  0% {
-    transform: translateX(-900px);
-  }
-  100% {
-    transform: translateX(0);
-  }
+.payment-icon {
+  background: $white;
+  padding: 0.25rem;
+  border-radius: $border-radius;
+  border: 1px $gray-300 solid;
+  width: 3rem;
+  height: 2rem;
+  object-fit: contain;
 }
