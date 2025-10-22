@@ -1117,6 +1117,7 @@ class FragDenStaatBase(German, Base):
                 "AfD (ENF)",
                 "ALFA/FAMILIEN-PARTEI (EKR)",
             ],
+            "exclude_politician_ids": [29013, 176912],
         }
     )
 
