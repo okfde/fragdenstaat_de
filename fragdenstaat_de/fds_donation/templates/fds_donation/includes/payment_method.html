@@ -1,0 +1,19 @@
+{% load static %}
+{% load i18n %}
+<div class="hstack gap-2">
+    {% if donation.icon %}
+        <img src=" {% static "img/"|add:donation.icon %} " alt="" class="payment-icon">
+    {% endif %}
+    <div>
+        <span>{{ donation.get_method_display }}</span>
+        {% if donation.last4 %}
+            {% spaceless %}
+                <span>
+                    (<span aria-hidden="true" class="user-select-none">⋅⋅⋅⋅ ⋅⋅⋅⋅ ⋅⋅⋅⋅</span>
+                    <span class="visually-hidden">{% translate "Last four digits" %}:</span>
+                    {{ donation.last4 }})
+                </span>
+            {% endspaceless %}
+        {% endif %}
+    </div>
+</div>
