@@ -460,6 +460,22 @@ class DonorForm(BasicDonorForm):
         error_messages={"required": _("You have to decide.")},
     )
 
+    def clean(self):
+        # TODO: why is this not called?!
+        cleaned_data = super().clean()
+        if cleaned_data.get("receipt"):
+            fields = BasicDonationForm.base_fields.keys()
+            missing_fields = [field for field in fields if not cleaned_data.get(field)]
+            for field in missing_fields:
+                self.add_error(
+                    field,
+                    _(
+                        "In order to receive donation receipts, please fill out this field."
+                    ),
+                )
+
+        return cleaned_data
+
 
 class DonationGiftLogic:
     @staticmethod

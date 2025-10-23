@@ -13,7 +13,13 @@
     </div>
     <div class="container">
         <div class="border border-2 border-yellow-300 text-bg-body p-3 mt-n3 col-md-6 d-flex flex-column">
-            <a href="{{ object.get_absolute_change_url }}" class="action-link arrow">{% trans "Update personal data for receipts" %}</a>
+            {% if object.can_receive_receipts %}
+                <p>{% translate "You will receive a donation receipt at the start of each year via e-mail." %}</p>
+                <a href="{{ object.get_absolute_change_url }}" class="action-link arrow">{% trans "Update personal data for receipts" %}</a>
+            {% else %}
+                <p>{% trans "You currently do not receive donation receipts." %}</p>
+                <a href="{{ object.get_absolute_change_url }}" class="action-link arrow">{% trans "Enter personal data for donation receipts" %}</a>
+            {% endif %}
             <a href="{% page_url "help:donations" %}" class="action-link arrow">{% trans "Frequent questions & contact" %}</a>
         </div>
     </div>
