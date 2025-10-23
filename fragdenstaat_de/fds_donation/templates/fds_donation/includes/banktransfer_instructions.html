@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load donation_tags %}
+<div class="row">
+    <div class="col col-12 col-md-8">
+        <p>
+            <strong>{% translate "Account holder" %}:</strong>&nbsp;Open Knowledge Foundation Deutschland e.V.
+            <button class="btn btn-link p-0 copy-text"
+                    data-copy-text="Open Knowledge Foundation Deutschland e.V.">
+                <i class="fa fa-clipboard" aria-hidden="true"></i><span class="visually-hidden">{% trans "Copy to clipboard" %}</span>
+            </button>
+            <br>
+            <strong>IBAN:</strong>
+            <span class="user-select-all">DE36<span class="user-select-none">&nbsp;</span>4306<span class="user-select-none">&nbsp;</span>0967<span class="user-select-none">&nbsp;</span>1173<span class="user-select-none">&nbsp;</span>8932<span class="user-select-none">&nbsp;</span>00</span>
+            <button class="btn btn-link p-0 copy-text"
+                    data-copy-text="DE36430609671173893200">
+                <i class="fa fa-clipboard" aria-hidden="true"></i><span class="visually-hidden">{% trans "Copy to clipboard" %}</span>
+            </button>
+            <br>
+            <strong>BIC:</strong>&nbsp;GENODEM1GLS
+            <button class="btn btn-link p-0 copy-text" data-copy-text="GENODEM1GLS">
+                <i class="fa fa-clipboard" aria-hidden="true"></i><span class="visually-hidden">{% trans "Copy to clipboard" %}</span>
+            </button>
+            <br>
+            <strong>{% translate "Amount" %}:&nbsp;</strong>{{ order.total_gross }}&nbsp;EUR
+            <br />
+            {% if order.is_recurring %}
+                <strong>{% translate "Interval" %}:&nbsp;</strong> {{ order.subscription.plan.get_interval_description }}
+                <br />
+            {% endif %}
+            {# Translators: This is the reference for the bank transfer #}
+            <strong>{% translate "Reference" %}:&nbsp;</strong>{{ order.remote_reference }}
+            <button class="btn btn-link p-0 copy-text"
+                    data-copy-text="{{ order.remote_reference }}">
+                <i class="fa fa-clipboard" aria-hidden="true"></i><span class="visually-hidden">{% trans "Copy to clipboard" %}</span>
+            </button>
+            <br>
+            <strong>{% translate "Bank code" %}:</strong>&nbsp;430 609 67 (GLS Bank)
+            <button class="btn btn-link p-0 copy-text" data-copy-text="43060967">
+                <i class="fa fa-clipboard" aria-hidden="true"></i><span class="visually-hidden">{% trans "Copy to clipboard" %}</span>
+            </button>
+        </p>
+        <p>{% translate "Thank you!" %}</p>
+    </div>
+    <div class="col col-md-4 d-none d-md-flex align-items-end flex-column">
+        {% sepa_qrcode "Open Knowledge Foundation Deutschland e.V." "DE36430609671173893200" "GENODEM1GLS" order.total_gross order.remote_reference %}
+        <p class="text-subtle mt-3 text-end">{% trans "Scan this QR code using your banking app." %}</p>
+    </div>
+</div>
