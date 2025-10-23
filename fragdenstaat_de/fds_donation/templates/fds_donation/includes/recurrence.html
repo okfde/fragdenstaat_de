@@ -1,43 +1,13 @@
 {% load i18n %}
 {% load humanize %}
-{% load static %}
 {% with last_donation=recurrence.last_donation %}
     <div class="border border-2 border-callout p-3 tight-margin vstack gap-2">
-        <div>
-            <strong>
-                {% if recurrence.amount.as_integer_ratio.1 == 1 %}
-                    {{ recurrence.amount|floatformat:0|intcomma }}
-                {% else %}
-                    {{ recurrence.amount|intcomma }}
-                {% endif %}
-                Euro {{ recurrence.interval_label }}
-            </strong>
-        </div>
-        <div class="hstack gap-2">
-            {% if last_donation.icon %}
-                <img src=" {% static "img/"|add:last_donation.icon %} " alt="" class="payment-icon">
-            {% endif %}
-            <div>
-                <span>{{ recurrence.get_method_display }}</span>
-                {% if last_donation.last4 %}
-                    {% spaceless %}
-                        <span>
-                            (<span aria-hidden="true" class="user-select-none">⋅⋅⋅⋅ ⋅⋅⋅⋅ ⋅⋅⋅⋅</span>
-                            <span class="visually-hidden">{% translate "Last four digits" %}:</span>
-                            {{ last_donation.last4 }})
-                        </span>
-                    {% endspaceless %}
-                {% endif %}
-            </div>
-        </div>
+        {% include "fds_donation/includes/payment_amount.html" with amount=recurrence.amount recurrence=recurrence.get_interval_display %}
+        {% include "fds_donation/includes/payment_method.html" with donation=last_donation %}
         {% if recurrence.is_banktransfer %}
             <p>{% translate "You can adjust your donation by changing your standing order." %}</p>
             {% with order=recurrence.last_donation.order %}
                 {% if order %}
-                    <a class="action-link arrow"
-                       href="#!"
-                       data-bs-toggle="modal"
-                       data-bs-target="#donation-transfer-{{ order.id }}"> {% translate "Show transfer instructions" %} </a>
                     {% include "fds_donation/includes/banktransfer_modal.html" with order=order %}
                 {% endif %}
             {% endwith %}
