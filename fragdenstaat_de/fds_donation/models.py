@@ -67,6 +67,8 @@ RECURRING_INTERVAL_CHOICES = INTERVAL_CHOICES[1:] + [
     (6, _("every six months")),
 ]
 
+RECURRING_INTERVAL_CHOICES_DICT = dict(RECURRING_INTERVAL_CHOICES)
+
 SALUTATION_CHOICES = (
     ("", pgettext("salutation neutral", "Hello")),
     ("formal", pgettext("salutation formal", "Good day")),
@@ -465,9 +467,8 @@ class Recurrence(models.Model):
             else ""
         )
 
-    @property
-    def interval_label(self):
-        return RECURRING_INTERVAL_CHOICES[self.interval][1]
+    def get_interval_display(self):
+        return RECURRING_INTERVAL_CHOICES_DICT[self.interval]
 
     def get_method_display(self):
         """
