@@ -1,4 +1,8 @@
 {% load i18n %}
+<a class="action-link arrow"
+   href="#!"
+   data-bs-toggle="modal"
+   data-bs-target="#donation-transfer-{{ order.id }}">{% translate "Show transfer instructions" %}</a>
 <div class="modal modal-lg fade"
      id="donation-transfer-{{ order.id }}"
      tabindex="-1"

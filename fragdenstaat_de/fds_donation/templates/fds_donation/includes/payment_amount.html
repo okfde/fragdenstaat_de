@@ -1,0 +1,11 @@
+{% load humanize %}
+<div>
+    <strong>
+        {% if amount.as_integer_ratio.1 == 1 %}
+            {{ amount|floatformat:0|intcomma }}
+        {% else %}
+            {{ amount|intcomma }}
+        {% endif %}
+        Euro {{ recurrence }}
+    </strong>
+</div>

@@ -1,35 +1,22 @@
 {% load i18n %}
-{% load humanize %}
-{% load static %}
 {% with last_donation=recurrence.last_donation %}
     <div class="border border-2 border-callout p-3 tight-margin vstack gap-2">
-        <div>
-            <strong>
-                {% if donation.amount.as_integer_ratio.1 == 1 %}
-                    {{ donation.amount|floatformat:0|intcomma }}
-                {% else %}
-                    {{ donation.amount|intcomma }}
-                {% endif %}
-                Euro
-            </strong>
-        </div>
+        {% include "fds_donation/includes/payment_amount.html" with amount=donation.amount %}
         {% if donation.payment %}
             <div {% if donation.payment.status_color %}class="text-{{ donation.payment.status_color }}"{% endif %}>
                 <i class="fa fa-{{ donation.payment.status_icon }}" aria-hidden="true"></i>
                 {{ donation.payment.get_status_display }}
             </div>
+        {% elif donation.received_timestamp %}
+            <div class="text-success">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                {% trans "Confirmed" %}
+            </div>
         {% else %}
-            {% if donation.received_timestamp %}
-                <div class="text-success">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    {% trans "Confirmed" %}
-                </div>
-            {% else %}
-                <div class="text-warning">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    {% trans "Pending" %}
-                </div>
-            {% endif %}
+            <div class="text-warning">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                {% trans "Pending" %}
+            </div>
         {% endif %}
         {% if donation.purpose %}
             <div>
@@ -41,31 +28,9 @@
             <i class="fa fa-calendar" aria-hidden="true"></i>
             {{ donation.timestamp|date:"DATE_FORMAT" }}
         </div>
-        <div class="hstack gap-2">
-            {% if donation.icon %}
-                <img src=" {% static "img/"|add:donation.icon %} " alt="" class="payment-icon">
-            {% endif %}
-            <div>
-                <span>{{ donation.get_method_display }}</span>
-                {% if donation.last4 %}
-                    {% spaceless %}
-                        <span>
-                            (<span aria-hidden="true" class="user-select-none">⋅⋅⋅⋅ ⋅⋅⋅⋅ ⋅⋅⋅⋅</span>
-                            <span class="visually-hidden">{% translate "Last four digits" %}:</span>
-                            {{ donation.last4 }})
-                        </span>
-                    {% endspaceless %}
-                {% endif %}
-            </div>
-        </div>
-        {% if donation.method == "banktransfer" and not donation.received_timestamp %}
-            {% if donation.order %}
-                <a class="action-link arrow"
-                   href="#!"
-                   data-bs-toggle="modal"
-                   data-bs-target="#donation-transfer-{{ donation.order.id }}"> {% translate "Show transfer instructions" %} </a>
-                {% include "fds_donation/includes/banktransfer_modal.html" with order=donation.order %}
-            {% endif %}
+        {% include "fds_donation/includes/payment_method.html" %}
+        {% if donation.method == "banktransfer" and not donation.received_timestamp and donation.order %}
+            {% include "fds_donation/includes/banktransfer_modal.html" with order=donation.order %}
         {% endif %}
     </div>
 {% endwith %}
