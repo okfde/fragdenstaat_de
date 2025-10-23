@@ -13,26 +13,6 @@
                 </h3>
             {% endif %}
         </div>
-        <div class="card-body">
-            <p>
-                <strong>{% translate "Account holder" %}:</strong>&nbsp;Open Knowledge Foundation Deutschland e.V.
-                <br>
-                <strong>IBAN:&nbsp;</strong>DE36 4306 0967 1173 8932 00
-                <br>
-                <strong>BIC:</strong>&nbsp;GENODEM1GLS
-                <br>
-                <strong>{% translate "Amount" %}:&nbsp;</strong>{{ order.total_gross }}&nbsp;EUR
-                <br />
-                {% if order.is_recurring %}
-                    <strong>{% translate "Interval" %}:&nbsp;</strong> {{ order.subscription.plan.get_interval_description }}
-                    <br />
-                {% endif %}
-                {# Translators: This is the reference for the bank transfer #}
-                <strong>{% translate "Reference" %}:&nbsp;</strong>{{ order.remote_reference }}
-                <br>
-                <strong>{% translate "Bank code" %}:</strong>&nbsp;430 609 67 (GLS Bank)
-            </p>
-            <p>{% translate "Thank you!" %}</p>
-        </div>
+        <div class="card-body">{% include "fds_donation/includes/banktransfer_instructions.html" %}</div>
     </div>
 {% endif %}

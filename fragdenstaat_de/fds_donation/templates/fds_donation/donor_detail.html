@@ -13,15 +13,10 @@
     </div>
     <div class="container">
         <div class="border border-2 border-yellow-300 text-bg-body p-3 mt-n3 col-md-6 d-flex flex-column">
-            <a href="{{ object.get_absolute_change_url }}" class="action-link arrow">{% trans "Update personal data" %}</a>
+            <a href="{{ object.get_absolute_change_url }}" class="action-link arrow">{% trans "Update personal data for receipts" %}</a>
             <a href="{% page_url "help:donations" %}" class="action-link arrow">{% trans "Frequent questions & contact" %}</a>
         </div>
     </div>
-    {% comment %} {% if last_donation and last_donation.payment.variant == 'banktransfer' %}
-        <div class="mt-5 mb-5">
-            {% include "fds_donation/includes/banktransfer.html" with payment=last_donation.payment order=last_donation.payment.order %}
-        </div>
-    {% endif %} {% endcomment %}
     {% if recurrences %}
         <section class="container mt-5">
             <h2>
@@ -29,7 +24,7 @@
             </h2>
             <div class="row row-cols-md-2 g-3">
                 {% for recurrence in recurrences %}
-                    <div class="col d-flex">{% include "fds_donation/_recurrence.html" with recurrence=recurrence %}</div>
+                    <div class="col d-flex">{% include "fds_donation/includes/recurrence.html" with recurrence=recurrence %}</div>
                 {% endfor %}
             </div>
         </section>
@@ -43,7 +38,7 @@
         {% endif %}
         <div class="row row-cols-md-2 g-3">
             {% for donation in donations %}
-                <div class="col d-flex">{% include "fds_donation/_transaction.html" with donation=donation %}</div>
+                <div class="col d-flex">{% include "fds_donation/includes/transaction.html" with donation=donation %}</div>
             {% endfor %}
         </div>
     </section>

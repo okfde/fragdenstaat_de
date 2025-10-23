@@ -20,16 +20,27 @@
             <div>
                 <span>{{ recurrence.get_method_display }}</span>
                 {% if last_donation.last4 %}
-                    <span>
-                        (<span aria-hidden="true" class="user-select-none">⋅⋅⋅⋅ ⋅⋅⋅⋅ ⋅⋅⋅⋅</span>
-                        <span class="visually-hidden">{% translate "Last four digits" %}:</span>
-                        {{ last_donation.last4 }})
-                    </span>
+                    {% spaceless %}
+                        <span>
+                            (<span aria-hidden="true" class="user-select-none">⋅⋅⋅⋅ ⋅⋅⋅⋅ ⋅⋅⋅⋅</span>
+                            <span class="visually-hidden">{% translate "Last four digits" %}:</span>
+                            {{ last_donation.last4 }})
+                        </span>
+                    {% endspaceless %}
                 {% endif %}
             </div>
         </div>
         {% if recurrence.is_banktransfer %}
             <p>{% translate "You can adjust your donation by changing your standing order." %}</p>
+            {% with order=recurrence.last_donation.order %}
+                {% if order %}
+                    <a class="action-link arrow"
+                       href="#!"
+                       data-bs-toggle="modal"
+                       data-bs-target="#donation-transfer-{{ order.id }}"> {% translate "Show transfer instructions" %} </a>
+                    {% include "fds_donation/includes/banktransfer_modal.html" with order=order %}
+                {% endif %}
+            {% endwith %}
         {% elif recurrence.subscription %}
             <ul class="list-unstyled">
                 <li>
