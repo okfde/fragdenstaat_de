@@ -5,22 +5,36 @@
         {% include "fds_donation/includes/payment_amount.html" with amount=recurrence.amount recurrence=recurrence.get_interval_display %}
         {% include "fds_donation/includes/payment_method.html" with donation=last_donation %}
         {% if recurrence.is_banktransfer %}
-            <p>{% translate "You can adjust your donation by changing your standing order." %}</p>
+            <p>{% translate "You can adjust or cancel your donation by changing the standing order with your bank." %}</p>
             {% with order=recurrence.last_donation.order %}
                 {% if order %}
                     {% include "fds_donation/includes/banktransfer_modal.html" with order=order %}
                 {% endif %}
             {% endwith %}
         {% elif recurrence.subscription %}
-            <ul class="list-unstyled">
-                <li>
-                    <a class="action-link arrow"
-                       href="{{ recurrence.subscription.get_absolute_url }}">{% translate "Adjust amount or interval" %}</a>
-                </li>
-                <li>
-                    <a class="action-link arrow"
-                       href="{{ recurrence.subscription.get_absolute_url }}">{% translate "Pause or cancel your subscription" %}</a>
-                </li>
+            {% with modify_info=recurrence.subscription.get_modify_info cancel_info=recurrence.subscription.get_cancel_info %}
+                <ul class="list-unstyled mt-auto">
+                    {% if modify_info.can_modify %}
+                        <li>
+                            <a class="action-link arrow"
+                               href="{{ recurrence.subscription.get_absolute_url }}">{% translate "Adjust amount or interval" %}</a>
+                        </li>
+                    {% endif %}
+                    {% if cancel_info.can_cancel %}
+                        <li>
+                            <a class="action-link arrow"
+                               href="{{ recurrence.subscription.get_absolute_url }}">
+                                {% if modify_info.can_schedule %}
+                                    {% translate "Pause or cancel your subscription" %}
+                                {% else %}
+                                    {% translate "Cancel your subscription" %}
+                                {% endif %}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li>{{ cancel_info.message }}</li>
+                    {% endif %}
+                {% endwith %}
             </ul>
         {% elif recurrence.is_paypal %}
             <p>{% translate "You can change or cancel your PayPal subscription in your PayPal account." %}</p>
