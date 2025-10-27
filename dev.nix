@@ -52,8 +52,8 @@ pkgs.mkShell {
     pythonPackages.tkinter
     pythonPackages.magic
     # pythonPackages.ocrmypdf
-    pythonPackages.weasyprint
-    pnpm
+    # pythonPackages.weasyprint
+    pnpm_9
 
     pkg-config
     geos
