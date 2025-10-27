@@ -1,0 +1,7 @@
+{% extends "cms/base.html" %}
+{% load i18n %}
+{% block title %}{{ alias_content.name }}{% endblock %}
+{% block body_tag %}
+    {% block aliases_content %}
+    {% endblock aliases_content %}
+{% endblock body_tag %}
