@@ -86,9 +86,7 @@
             {% if article.credits %}
                 <div class="container-lg mb-3">
                     <h3 class="small text-secondary">{% translate "Credits" %}</h3>
-                    <div class="card">
-                        <div class="card-body">{{ article.credits | linebreaksbr | markdown }}</div>
-                    </div>
+                    <div class="border border-2 border-gray-300 p-3 tight-margin">{{ article.credits | linebreaksbr | markdown }}</div>
                 </div>
             {% endif %}
             {% block article_author_bios %}
@@ -102,14 +100,12 @@
                                 {% trans "About the authors" %}
                             {% endif %}
                         </h3>
-                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                        <div class="row row-cols-1 row-cols-md-2 g-3">
                             {% for author in authors_with_profiles %}
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                            <h4 class="card-title">{{ author.get_full_name }}</h4>
-                                            {{ author.user.profile_text | markdown }}
-                                        </div>
+                                <div class="col d-flex">
+                                    <div class="border border-2 border-gray-300 p-3 tight-margin">
+                                        <h4 class="fs-6">{{ author.get_full_name }}</h4>
+                                        {{ author.user.profile_text | markdown }}
                                     </div>
                                 </div>
                             {% endfor %}
