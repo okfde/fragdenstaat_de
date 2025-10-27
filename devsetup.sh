@@ -87,7 +87,7 @@ pull() {
     git clone git@github.com:okfde/$MAIN.git
   else
     pushd $MAIN
-      git pull origin "$(git branch --show-current)"
+      git pull origin --autostash "$(git branch --show-current)"
     popd
   fi
 
@@ -96,7 +96,7 @@ pull() {
       git clone git@github.com:okfde/$name.git
     else
       pushd $name
-        git pull origin "$(git branch --show-current)"
+        git pull origin --autostash "$(git branch --show-current)"
       popd
     fi
   done
