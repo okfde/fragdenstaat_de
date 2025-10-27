@@ -3,22 +3,9 @@ from typing import List, Tuple
 
 from django import template
 
-from ..managers import articles_published
 from ..models import Article, Author
 
 register = template.Library()
-
-
-@register.filter
-def get_next_read(article):
-    qs = articles_published(
-        Article.objects.filter(
-            language=article.language, categories=article.first_category
-        )
-    )
-    if article.start_publication:
-        return qs.filter(start_publication__lt=article.start_publication).first()
-    return qs.exclude(pk=article.pk).first()
 
 
 @register.filter

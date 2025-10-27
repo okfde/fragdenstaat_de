@@ -523,6 +523,14 @@ class Article(
     def get_authors_string(self):
         return ", ".join(str(author) for author in self.get_authors())
 
+    def get_similar_articles(self):
+        return (
+            Article.published.filter(tags__in=self.all_tags)
+            .distinct()
+            .exclude(pk=self.pk)
+            .order_by("-start_publication")
+        )
+
 
 TEMPLATES = [
     ("fds_blog/plugins/latest_articles.html", _("Grid")),

@@ -169,28 +169,31 @@
             {% endwith %}
         {% endblock article_languages %}
         {% block article_suggestions %}
-            {% with next_read=article|get_next_read %}
-                {% if next_read %}
+            {% with similar_articles=article.get_similar_articles|slice:":3" %}
+                {% if similar_articles %}
                     <section>
-                        <div class="container-lg">{% include "fds_blog/includes/blog_item_list.html" with article=next_read %}</div>
+                        <div class="container-lg">
+                            <h3 class="small text-secondary">{% trans "Similar articles" %}</h3>
+                            <div class="row g-3 g-lg-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
+                                {% for article in similar_articles %}
+                                    {% include "fds_blog/includes/blog_item_short.html" with article=article %}
+                                {% endfor %}
+                            </div>
+                        </div>
                     </section>
                 {% endif %}
             {% endwith %}
-        {% endblock article_suggestions %}
-        {% block article_previous %}
             {% if previous_articles %}
                 <section>
                     <div class="container-lg">
                         <h3 class="small text-secondary">
-                            {% blocktranslate count counter=previous_articles|length %}
-                            Previous article:
-                        {% plural %}
-                            Previous articles:
-                        {% endblocktranslate %}
+                            {% blocktranslate count counter=previous_articles|length %}Previous article{% plural %}Previous articles{% endblocktranslate %}
                         </h3>
-                        {% for related_article in previous_articles %}
-                            {% include "fds_blog/includes/blog_item_list.html" with article=related_article %}
-                        {% endfor %}
+                        <div class="row g-3 g-lg-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
+                            {% for related_article in previous_articles %}
+                                {% include "fds_blog/includes/blog_item_short.html" with article=related_article %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </section>
             {% endif %}
