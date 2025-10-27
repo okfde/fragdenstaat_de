@@ -384,11 +384,7 @@ def send_jzwb_mailing(
     store_backup: bool = True,
     set_receipt_date: bool = True,
 ):
-    if not donor.email:
-        return
-    if not donor.email_confirmed:
-        return
-    if not donor.postcode:
+    if not donor.can_receive_receipt:
         return
 
     pdf_generator = PostcodeEncryptedZWBPDFGenerator(donor, year=year)
