@@ -307,6 +307,10 @@ class Donor(models.Model):
     def is_eligible_for_gift(self):
         return self.recurring_amount >= 10
 
+    @property
+    def can_receive_receipt(self):
+        return self.receipt and self.email and self.email_confirmed and self.postcode
+
     def incomplete_donations(self):
         """
         Returns donations that are not completed yet.
