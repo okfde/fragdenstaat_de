@@ -1,4 +1,5 @@
 import logging
+from typing import cast, override
 from urllib.parse import parse_qsl
 
 from django import forms
@@ -516,6 +517,22 @@ class DonorForm(BasicDonorForm):
         error_messages={"required": _("You have to decide.")},
     )
 
+    @override
+    def clean(self):
+        cleaned_data = cast(dict, super().clean())
+        if cleaned_data.get("receipt"):
+            fields = get_basic_info_fields().keys()
+            missing_fields = [field for field in fields if not cleaned_data.get(field)]
+            for field in missing_fields:
+                self.add_error(
+                    field,
+                    _(
+                        "In order to receive donation receipts, please fill out this field."
+                    ),
+                )
+
+        return cleaned_data
+
 
 class DonationGiftLogic:
     @staticmethod
@@ -756,7 +773,7 @@ def get_merge_donor_form(admin_site):
     return MergeDonorForm
 
 
-class DonorDetailsForm(forms.ModelForm, DonorForm):
+class DonorDetailsForm(DonorForm, forms.ModelForm):
     class Meta:
         model = Donor
         fields = [
