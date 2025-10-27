@@ -184,7 +184,7 @@ django-classy-tags==4.1.0
     # via
     #   django-cms
     #   django-sekizai
-django-cms==5.0.3
+django-cms==5.0.4
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   djangocms-alias
@@ -428,7 +428,7 @@ filelock==3.19.1
     #   virtualenv
 fonttools==4.60.0
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@314c5b226622fa01c9f11f6f410dadbe0830b109
+froide @ git+https://github.com/okfde/froide.git@7dd65eb638611363ef8a0adae8edf84b8561e5b2
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@cabe34f4f6436ac761173b72810c73fa17de6aeb
     # via fragdenstaat-de (pyproject.toml)
