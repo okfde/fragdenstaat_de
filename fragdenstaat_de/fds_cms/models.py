@@ -129,6 +129,8 @@ class PageAnnotationCMSPlugin(CMSPlugin):
     page_annotation = models.ForeignKey(
         PageAnnotation, related_name="+", on_delete=models.CASCADE
     )
+    title = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
     zoom = models.BooleanField(default=True)
 
     def __str__(self):

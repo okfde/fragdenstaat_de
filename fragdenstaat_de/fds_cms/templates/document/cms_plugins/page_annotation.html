@@ -1,8 +1,8 @@
 {% load thumbnail %}
 {% load i18n %}
 <div class="cms-page-annotation">
-    {% if object.title %}<h4>{{ object.title }}</h4>{% endif %}
-    {% if object.description or object.highlight %}<figure>{% endif %}
+    {% if title %}<h4>{{ title }}</h4>{% endif %}
+    {% if description or object.highlight %}<figure>{% endif %}
         {% if object.image %}
             <picture>
                 <source media="(min-width: 1200px)"
@@ -11,18 +11,18 @@
                         srcset="{% thumbnail object.image 940x0 %}">
                 <img class="img-fluid mx-auto d-block"
                      src="{% thumbnail object.image 768x0 crop=scale %}"
-                     alt="{{ object.title }}"
+                     alt="{{ title }}"
                      loading="lazy"
                      {% if instance.zoom %}data-zoomwidth="{{ object.width }}" data-zoom="{{ object.image.url }}"{% endif %}>
             </picture>
         {% else %}
             <div class="spinner-grow" role="status"></div>
         {% endif %}
-        {% if object.description or object.highlight %}
+        {% if description or object.highlight %}
             <figcaption>
-                {{ object.description }}
+                {{ description }}
                 {% if object.highlight %}
-                    {% if object.description %}<br />{% endif %}
+                    {% if description %}<br />{% endif %}
                     <small class="text-body-secondary text-end">{% translate "With highlights added" %}</small>
                 {% endif %}
             </figcaption>
