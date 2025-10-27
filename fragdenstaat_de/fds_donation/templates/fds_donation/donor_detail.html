@@ -23,8 +23,28 @@
             <a href="{% page_url "help:donations" %}" class="action-link arrow">{% trans "Frequent questions & contact" %}</a>
         </div>
     </div>
+    {% if pending_banktransfers %}
+        <section class="container my-5">
+            <h2>{% trans "Pending banktransfers" %}</h2>
+            <div class="alert alert-info" role="alert">
+                {% translate "The status of donations made by bank transfer is updated at the beginning of the following month, as account statements are only reconciled then." %}
+            </div>
+            <ul class="list-unstyled vstack gap-3">
+                {% for donation in pending_banktransfers %}
+                    <li class="border border-2 border-callout p-3">
+                        {% if donation.order.is_recurring %}
+                            <p>
+                                <strong>{% translate "Please set up a standing order" %}</strong>
+                            </p>
+                        {% endif %}
+                        {% include "fds_donation/includes/banktransfer_instructions.html" with order=donation.order %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
     {% if recurrences %}
-        <section class="container mt-5">
+        <section class="container my-5">
             <h2>
                 {% blocktrans count n=recurrences|length  %}Your recurring donation{% plural %}Your recurring donations{% endblocktrans %}
             </h2>
@@ -37,15 +57,46 @@
     {% endif %}
     <section class="container my-5">
         <h2>{% translate "All transactions" %}</h2>
-        {% if has_pending %}
-            <div class="alert alert-info" role="alert">
-                {% translate "The status of donations made by bank transfer is updated at the beginning of the following month, as account statements are only reconciled then." %}
-            </div>
-        {% endif %}
-        <div class="row row-cols-1 row-cols-md-2 g-3">
-            {% for donation in donations %}
-                <div class="col d-flex">{% include "fds_donation/includes/transaction.html" with donation=donation %}</div>
-            {% endfor %}
+        <div class="table-responsive">
+            <table class="table table-hover no-hyphens">
+                <thead>
+                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "Amount" %}</th>
+                    <th>{% trans "Purpose" %}</th>
+                    <th>{% trans "Payment method" %}</th>
+                    <th>{% trans "Status" %}</th>
+                </thead>
+                <tbody class="align-middle">
+                    {% for donation in donations %}
+                        <tr>
+                            {% with last_donation=recurrence.last_donation %}
+                                <td>{{ donation.timestamp|date:"DATE_FORMAT" }}</td>
+                                <td class="text-end">{{ donation.amount }} Euro</td>
+                                <td>{{ donation.purpose }}</td>
+                                <td>{% include "fds_donation/includes/payment_method.html" with donation=donation %}</td>
+                                <td>
+                                    {% if donation.payment %}
+                                        <div {% if donation.payment.status_color %}class="text-{{ donation.payment.status_color }}"{% endif %}>
+                                            <i class="fa fa-{{ donation.payment.status_icon }}" aria-hidden="true"></i>
+                                            {{ donation.payment.get_status_display }}
+                                        </div>
+                                    {% elif donation.received_timestamp %}
+                                        <div class="text-success">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            {% trans "Confirmed" %}
+                                        </div>
+                                    {% else %}
+                                        <div class="text-warning">
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            {% trans "Pending" %}
+                                        </div>
+                                    {% endif %}
+                                </td>
+                            {% endwith %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </section>
     {% if donor.user and request.user.is_authenticated and not request.user.password %}

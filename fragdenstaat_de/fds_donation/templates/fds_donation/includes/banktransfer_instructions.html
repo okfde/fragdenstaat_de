@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load donation_tags %}
 <div class="row">
-    <div class="col col-12 col-md-8">
+    <div class="col col-12 tight-margin{% if not order.is_recurring %} col-md-8{% endif %}">
         <p>
             <strong>{% translate "Account holder" %}:</strong>&nbsp;Open Knowledge Foundation Deutschland e.V.
             <button class="btn btn-link p-0 copy-text"
@@ -41,8 +41,10 @@
         </p>
         <p>{% translate "Thank you!" %}</p>
     </div>
-    <div class="col col-md-4 d-none d-md-flex align-items-end flex-column">
-        {% sepa_qrcode "Open Knowledge Foundation Deutschland e.V." "DE36430609671173893200" "GENODEM1GLS" order.total_gross order.remote_reference %}
-        <p class="text-subtle mt-3 text-end">{% trans "Scan this QR code using your banking app." %}</p>
-    </div>
+    {% if not order.is_recurring %}
+        <div class="col col-md-4 d-none d-md-flex align-items-end flex-column">
+            {% sepa_qrcode "Open Knowledge Foundation Deutschland e.V." "DE36430609671173893200" "GENODEM1GLS" order.total_gross order.remote_reference %}
+            <p class="text-subtle mt-3 text-end">{% trans "Scan this QR code using your banking app." %}</p>
+        </div>
+    {% endif %}
 </div>
