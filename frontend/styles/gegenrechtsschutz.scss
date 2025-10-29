@@ -21,6 +21,10 @@ $fds-card-border-radius: $border-radius-lg;
   font-weight: 600;
 }
 
+#footer h3 {
+  @extend h6;
+}
+
 @import 'froide/frontend/styles/color-contrast';
 
 @import 'froide/frontend/styles/maps';

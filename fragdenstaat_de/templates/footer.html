@@ -1,0 +1,9 @@
+{% load djangocms_alias_tags %}
+{% load i18n %}
+<div class="fds-banner" data-banner="bottomBanner" hidden>{% static_alias "bottom_banner" %}</div>
+<footer class="footer" id="footer">
+    <div class="container">
+        <h2 class="visually-hidden">{% trans "Quick links" %}</h2>
+        {% static_alias "footer" %}
+    </div>
+</footer>

@@ -72,6 +72,7 @@
     {% endif %}
 {% endblock %}
 {% block article_content %}
+    <h2 class="visually-hidden">{% trans "Article content" %}</h2>
     {% comment %}
         if the article is in edit mode, or the article has manually inserted ads (via cms),
         don't automatically insert ads
@@ -93,6 +94,7 @@
 {% block article_footer %}
     <footer class="mb-3">
         {% if not hide_share_links and article.tags.count > 0 %}
+            <h2 class="visually-hidden">{% trans "Further information" %}</h2>
             <section>
                 {% if not hide_share_links %}
                     <div class="container-lg">
