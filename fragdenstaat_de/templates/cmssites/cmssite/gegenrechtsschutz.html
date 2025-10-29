@@ -52,7 +52,10 @@
     {% endblock %}
 {% endblock %}
 {% block footer_container %}
-    {% static_alias "grs_footer" %}
+    <footer id="footer">
+        <h2 class="visually-hidden">{% trans "Quick links" %}</h2>
+        {% static_alias "grs_footer" %}
+    </footer>
 {% endblock %}
 {% block scripts %}
     {% include "_frontend.html" with entry_point="gegenrechtsschutz.js" %}

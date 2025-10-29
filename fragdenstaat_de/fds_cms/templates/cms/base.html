@@ -33,10 +33,7 @@
         </main>
     {% endblock body_wrapper %}
     {% block footer_container %}
-        <div class="fds-banner" data-banner="bottomBanner" hidden>{% static_alias "bottom_banner" %}</div>
-        <footer class="footer" id="footer">
-            <div class="container">{% static_alias "footer" %}</div>
-        </footer>
+        {% include "footer.html" %}
     {% endblock footer_container %}
 {% endblock body_tag %}
 {% block scripts %}
