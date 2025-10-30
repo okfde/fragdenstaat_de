@@ -1,0 +1,25 @@
+{% load i18n %}
+{% load cache %}
+{% load fds_translation_tags %}
+{% cache 300 language_switcher request.get_full_path %}
+    {% get_languages request view as languages %}
+    {% get_current_language as LANGUAGE_CODE %}
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+            <i class="fa fa-language" aria-hidden="true"></i>
+            {% trans "Change language" %}
+        </button>
+        <ul class="dropdown-menu">
+            {% for language, url in languages %}
+                <li>
+                    <a class="dropdown-item{% if LANGUAGE_CODE == language %} active{% endif %}"
+                       href="{{ url }}"
+                       {% if LANGUAGE_CODE == language %}aria-current="true"{% endif %}>{{ language|language_name_local }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endcache %}
