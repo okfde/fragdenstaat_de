@@ -72,6 +72,13 @@ $blog-standout-width: 72rem;
     margin-bottom: 0.75rem;
   }
 
+  @include media-breakpoint-down(lg) {
+    > ul,
+    > ol {
+      list-style-position: inside;
+    }
+  }
+
   > p,
   > ul,
   > ol,
