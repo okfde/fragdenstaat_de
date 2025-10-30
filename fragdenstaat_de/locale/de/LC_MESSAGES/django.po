@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-30 17:19+0100\n"
-"PO-Revision-Date: 2025-10-17 14:50+0200\n"
+"PO-Revision-Date: 2025-10-30 16:39+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: fragdenstaat_de/fds_blog/admin.py
 #, python-format
@@ -274,7 +274,7 @@ msgstr "verwandte Artikel"
 
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "You can link articles here that are part of a series."
-msgstr ""
+msgstr "Hier können Artikel, die zu einer Serie gehören, verknüpft werden."
 
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "lead"
@@ -667,9 +667,9 @@ msgid ""
 msgstr ""
 "\n"
 "                                Durchsuchen Sie unsere aktuellen oder "
-"verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a "
-"href=\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-"
-"Feed</a> abonnieren.\n"
+"verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a href="
+"\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-Feed</a> "
+"abonnieren.\n"
 "                            "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
@@ -948,11 +948,11 @@ msgstr "Datawrapper-Einbettung"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Language Switcher"
-msgstr ""
+msgstr "Sprachen-Menü"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Dark Mode Toggle"
-msgstr ""
+msgstr "Dunklen Modus umschalten"
 
 #: fragdenstaat_de/fds_cms/cms_toolbars.py
 msgid "FdS Page Settings"
@@ -1199,8 +1199,8 @@ msgid ""
 "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
 "\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr ""
-"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
-"target=\"_blank\">Font Awesome 4 Icon Liste</a>"
+"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target="
+"\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background image"
@@ -1437,10 +1437,8 @@ msgstr[0] "%(counter)s Anfrage ohne Geodaten"
 msgstr[1] "%(counter)s Anfragen ohne Geodaten"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, fuzzy
-#| msgid "Recurring donations"
 msgid "Has recurring donations"
-msgstr "Dauerspenden"
+msgstr "Hat Dauerspenden"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "recurring monthly amount"
@@ -1787,10 +1785,8 @@ msgid "passive"
 msgstr "passiv"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
-#, fuzzy
-#| msgid "Recurrences"
 msgid "Has active recurrences"
-msgstr "Dauerspenden"
+msgstr "Hat aktive Dauerspenden"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py fragdenstaat_de/theme/colors.py
 msgid "None"
@@ -2287,7 +2283,7 @@ msgstr "Aus Versehen angefangen, kann mich nicht erinnern"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "I do not want to support this project anymore"
-msgstr "Ich möchte diese Projekt nicht mehr unterstützen"
+msgstr "Ich möchte dieses Projekt nicht mehr unterstützen"
 
 #: fragdenstaat_de/fds_donation/models.py
 #: fragdenstaat_de/fds_newsletter/models.py
@@ -2783,6 +2779,7 @@ msgid "Please transfer %(amount)s Euro to"
 msgstr "Bitte überweise %(amount)s Euro an"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 #, python-format
 msgid "Please transfer %(amount)s&nbsp;Euro an"
 msgstr "Bitte überweise %(amount)s&nbsp;Euro an"
@@ -4010,11 +4007,11 @@ msgstr "Dokumente importieren"
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
 #, python-format
 msgid ""
-"The documents will be imported to the request <a href=\"%(url)s\" "
-"target=\"_blank\">“%(title)s”</a>."
+"The documents will be imported to the request <a href=\"%(url)s\" target="
+"\"_blank\">“%(title)s”</a>."
 msgstr ""
-"Die Dokumente werden in die Anfrage <a href=\"%(url)s\" "
-"target=\"_blank\">„%(title)s“</a> importiert."
+"Die Dokumente werden in die Anfrage <a href=\"%(url)s\" target=\"_blank"
+"\">„%(title)s“</a> importiert."
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
 msgid "Preview document"
@@ -4131,8 +4128,8 @@ msgid ""
 "and played, resulting in a data transfer to YouTube."
 msgstr ""
 "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung. Wenn "
-"Sie auf Akzeptieren klicken, wird <a href=\"%(direct_url)s\" "
-"target=\"_blank\">das Video</a> geladen und abgespielt. Dadurch findet eine "
+"Sie auf Akzeptieren klicken, wird <a href=\"%(direct_url)s\" target=\"_blank"
+"\">das Video</a> geladen und abgespielt. Dadurch findet eine "
 "Datenübermittlung an YouTube statt."
 
 #: fragdenstaat_de/templates/djangocms_video/default/video_player.html
@@ -4142,8 +4139,8 @@ msgstr "Mehr erfahren"
 #: fragdenstaat_de/templates/djangocms_video/default/video_player.html
 #, python-format
 msgid ""
-"You have chosen to not show YouTube videos on our site. <a "
-"href=\"%(manage_cookies)s\">Change cookie preferences</a>"
+"You have chosen to not show YouTube videos on our site. <a href="
+"\"%(manage_cookies)s\">Change cookie preferences</a>"
 msgstr ""
 "Sie haben entschieden, keine YouTube-Videos auf unserer Seite anzuzeigen. <a "
 "href=\"%(manage_cookies)s\">Cookie-Präferenzen bearbeiten</a>"
@@ -4277,16 +4274,12 @@ msgid "Open FragDenStaat Scanner App"
 msgstr "FragDenStaat Scanner App öffnen"
 
 #: fragdenstaat_de/templates/snippets/darkmode_toggle.html
-#, fuzzy
-#| msgid "Toggle main menu"
 msgid "Toggle dark mode"
-msgstr "Hauptmenü anzeigen"
+msgstr "Nachtmodus umschalten"
 
 #: fragdenstaat_de/templates/snippets/language_switcher.html
-#, fuzzy
-#| msgid "language"
 msgid "Change language"
-msgstr "Sprache"
+msgstr "Sprache ändern"
 
 #: fragdenstaat_de/templates/snippets/meta.html
 msgid ""
@@ -4547,8 +4540,89 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
-#~ msgid "Dauerspende"
-#~ msgstr "Dauerspende"
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Dauerspende"
+msgstr "Dauerspende"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid ""
+"\n"
+"        Updated article:\n"
+"      "
+msgid_plural ""
+"\n"
+"        Updated articles:\n"
+"      "
+msgstr[0] ""
+"\n"
+"        Neuerer Artikel:\n"
+"      "
+msgstr[1] ""
+"\n"
+"        Neuere Artikel:\n"
+"      "
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid "About the author"
+msgstr "Über den*die Autor*in"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid "About the authors"
+msgstr "Über die Autor*innen"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid "Further author"
+msgstr "Weitere*r Autor*in"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid "Further authors"
+msgstr "Weitere Autor*innen"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
+#, python-format
+msgid "Articles with tag “%(tag)s”"
+msgstr "Artikel mit dem Schlagwort „%(tag)s“"
+
+#: fragdenstaat_de/fds_blog/views.py
+#, python-format
+msgid "Tag “%s”"
+msgstr "Schlagwort „%s“"
+
+#: fragdenstaat_de/fds_donation/templates/froide_payment/subscription/_cancel_form.html
+msgid "Are you sure you want to cancel your subscription?"
+msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
+
+#: fragdenstaat_de/templates/djangocms_video/default/video_player.html
+msgid "We need your consent to show you a YouTube video"
+msgstr "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung"
+
+#: fragdenstaat_de/templates/djangocms_video/default/video_player.html
+#, python-format
+msgid ""
+"By playing <a href=\"%(direct_url)s\" target=\"_blank\">this video</a>, you "
+"agree to YouTube's privacy policy."
+msgstr ""
+"Indem Sie <a href=\"%(direct_url)s\" target=\"_blank\">das Video</a> "
+"abspielen, erklären Sie sich mit der Datenschutzerklärung von YouTube "
+"einverstanden."
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid ""
+"\n"
+"                            Previous article:\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            Previous articles:\n"
+"                        "
+msgstr[0] ""
+"\n"
+"                            Vorheriger Artikel:\n"
+"                        "
+msgstr[1] ""
+"\n"
+"                            Vorherige Artikel:\n"
+"                        "
 
 #, python-brace-format
 #~ msgid "Sending... {}"
@@ -4566,59 +4640,6 @@ msgstr "kampagne/"
 
 #~ msgid "Similar articles"
 #~ msgstr "Ähnliche Artikel"
-
-#~ msgid ""
-#~ "\n"
-#~ "        Updated article:\n"
-#~ "      "
-#~ msgid_plural ""
-#~ "\n"
-#~ "        Updated articles:\n"
-#~ "      "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "        Neuerer Artikel:\n"
-#~ "      "
-#~ msgstr[1] ""
-#~ "\n"
-#~ "        Neuere Artikel:\n"
-#~ "      "
-
-#~ msgid "About the author"
-#~ msgstr "Über den*die Autor*in"
-
-#~ msgid "About the authors"
-#~ msgstr "Über die Autor*innen"
-
-#~ msgid "Further author"
-#~ msgstr "Weitere*r Autor*in"
-
-#~ msgid "Further authors"
-#~ msgstr "Weitere Autor*innen"
-
-#, python-format
-#~ msgid "Articles with tag “%(tag)s”"
-#~ msgstr "Artikel mit dem Schlagwort „%(tag)s“"
-
-#, python-format
-#~ msgid "Tag “%s”"
-#~ msgstr "Schlagwort „%s“"
-
-#~ msgid "Are you sure you want to cancel your subscription?"
-#~ msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
-
-#~ msgid "We need your consent to show you a YouTube video"
-#~ msgstr ""
-#~ "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung"
-
-#, python-format
-#~ msgid ""
-#~ "By playing <a href=\"%(direct_url)s\" target=\"_blank\">this video</a>, "
-#~ "you agree to YouTube's privacy policy."
-#~ msgstr ""
-#~ "Indem Sie <a href=\"%(direct_url)s\" target=\"_blank\">das Video</a> "
-#~ "abspielen, erklären Sie sich mit der Datenschutzerklärung von YouTube "
-#~ "einverstanden."
 
 #~ msgid "Found duplicate tags."
 #~ msgstr "Doppelte Schlagworte gefunden."
@@ -4955,11 +4976,11 @@ msgstr "kampagne/"
 #~ msgstr "Hilfebereich: FragDenStaat und Informationsfreiheit"
 
 #~ msgid ""
-#~ "Support area: FragDenStaat and <abbr title=\"Freedom of "
-#~ "Information\">FOI</abbr>"
+#~ "Support area: FragDenStaat and <abbr title=\"Freedom of Information"
+#~ "\">FOI</abbr>"
 #~ msgstr ""
-#~ "Hilfebereich: FragDenStaat und <abbr "
-#~ "title=\"Informationsfreiheitsgesetz\">IFG</abbr>"
+#~ "Hilfebereich: FragDenStaat und <abbr title=\"Informationsfreiheitsgesetz"
+#~ "\">IFG</abbr>"
 
 #~ msgid "Chapters"
 #~ msgstr "Kapitel"
@@ -5064,8 +5085,8 @@ msgstr "kampagne/"
 #~ msgstr "Stellen Sie jetzt eine Anfrage!"
 
 #~ msgid ""
-#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn."
-#~ "org\">the Open Knowledge Foundation</a>. If you want to support Froide, "
+#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn.org"
+#~ "\">the Open Knowledge Foundation</a>. If you want to support Froide, "
 #~ "please visit the <a href=\"%(url)s\">repository on GitHub</a>."
 #~ msgstr ""
 #~ "Über FragDenStaat.de können Sie Behörden in Deutschland nach "
@@ -5174,20 +5195,19 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "You agree to our <a href=\"%(url_terms)s\" class=\"target-new\">Terms and "
-#~ "Conditions</a> and <a href=\"%(url_privacy)s\" class=\"target-"
-#~ "new\">Privacy Statement</a>"
+#~ "Conditions</a> and <a href=\"%(url_privacy)s\" class=\"target-new"
+#~ "\">Privacy Statement</a>"
 #~ msgstr ""
-#~ "Sie stimmen unseren <a href=\"%(url_terms)s\" class=\"target-"
-#~ "new\">Nutzungsbedingungen</a> und <a href=\"%(url_privacy)s\" "
-#~ "class=\"target-new\">Datenschutzbedingungen</a> zu."
+#~ "Sie stimmen unseren <a href=\"%(url_terms)s\" class=\"target-new"
+#~ "\">Nutzungsbedingungen</a> und <a href=\"%(url_privacy)s\" class=\"target-"
+#~ "new\">Datenschutzbedingungen</a> zu."
 
 #~ msgid ""
-#~ "This email address already has an account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Please login using that email address.</a>"
+#~ "This email address already has an account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Please login using that email address.</a>"
 #~ msgstr ""
-#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein."
-#~ "</a>"
+#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein.</a>"
 
 #~ msgid ""
 #~ "This email address is already registered, but not yet confirmed! Please "
@@ -7043,17 +7063,17 @@ msgstr "kampagne/"
 #~ "status."
 #~ msgstr ""
 #~ "Diese Anfrage hat eine Antwort erhalten und ist in einem unbekannten "
-#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a "
-#~ "href=\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
+#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a href="
+#~ "\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
 #~ "Status."
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, please read the latest response and <a href=\"#set-"
 #~ "status\" data-tabgo=\"tab\">set a new status for this request</a>!"
 #~ msgstr ""
-#~ "<b>Hallo %(name)s</b>, bitte lesen Sie die letzte Antwort und <a "
-#~ "href=\"#set-status\" data-tabgo=\"tab\">geben Sie einen neuen Status für "
-#~ "diese Anfrage an!</a>"
+#~ "<b>Hallo %(name)s</b>, bitte lesen Sie die letzte Antwort und <a href="
+#~ "\"#set-status\" data-tabgo=\"tab\">geben Sie einen neuen Status für diese "
+#~ "Anfrage an!</a>"
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, your request is <b>overdue</b>!<br/>\n"
@@ -7064,19 +7084,19 @@ msgstr "kampagne/"
 #~ " Bitte handeln Sie jetzt:"
 
 #~ msgid ""
-#~ "Have you received a reply by <b>postal mail</b>? &rarr; <a data-"
-#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
+#~ "Have you received a reply by <b>postal mail</b>? &rarr; <a data-tabgo="
+#~ "\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
 #~ msgstr ""
-#~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-"
-#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort "
-#~ "unbedingt hinzu!</a>"
+#~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-tabgo="
+#~ "\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort unbedingt "
+#~ "hinzu!</a>"
 
 #~ msgid ""
 #~ "Have you not gotten any reply? &rarr; <a data-tabgo=\"tab\" href=\"#write-"
 #~ "message\">Write a reminder to the public body!</a>"
 #~ msgstr ""
-#~ "Haben Sie keine Antwort erhalten? &rarr; <a data-tabgo=\"tab\" "
-#~ "href=\"#write-message\">Fragen Sie bei der Behörde nach!</a>"
+#~ "Haben Sie keine Antwort erhalten? &rarr; <a data-tabgo=\"tab\" href="
+#~ "\"#write-message\">Fragen Sie bei der Behörde nach!</a>"
 
 #~ msgid "You request has been refused."
 #~ msgstr "Ihre Anfrage wurde abgelehnt."
@@ -7471,13 +7491,13 @@ msgstr "kampagne/"
 #~ msgstr "Sie können auf diese Anfrage nicht zugreifen!"
 
 #~ msgid ""
-#~ "This email address already has an account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Please login using that email address in order to "
-#~ "follow this account.</a>"
+#~ "This email address already has an account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Please login using that email address in order to follow "
+#~ "this account.</a>"
 #~ msgstr ""
-#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein "
-#~ "um Benachrichtigungen zu erhalten.</a>"
+#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein um "
+#~ "Benachrichtigungen zu erhalten.</a>"
 
 #~ msgid "You cannot follow your own requests."
 #~ msgstr "Sie erhalten schon Benachrichtigungen für Ihre Anfragen."
@@ -8183,10 +8203,9 @@ msgstr "kampagne/"
 #~ "Freedom of Information requests</a> to get a feeling for what Freedom of "
 #~ "Information is all about."
 #~ msgstr ""
-#~ "Sie können sich zum Beispiel die <a "
-#~ "href=\"%(foirequests_url)s\">existierende Informations&shy;freiheits&shy;"
-#~ "anfragen</a> ansehen, um zu verstehen wie Informations&shy;freiheit "
-#~ "funktioniert."
+#~ "Sie können sich zum Beispiel die <a href=\"%(foirequests_url)s"
+#~ "\">existierende Informations&shy;freiheits&shy;anfragen</a> ansehen, um "
+#~ "zu verstehen wie Informations&shy;freiheit funktioniert."
 
 #~ msgid "Write to them here"
 #~ msgstr "Schreiben Sie hier an sie"
@@ -8214,8 +8233,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Wenn Sie sich einloggen, können Sie mit einem Klick eine identische "
 #~ "Anfrage in Ihrem Namen stellen, um Zugang zu diesen Dokumenten zu "
-#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?"
-#~ "next=%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
+#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?next="
+#~ "%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
 
 #~ msgid "No Public Bodies found in this jurisdiction for this query."
 #~ msgstr "Es wurden keine Behörden mit diesem Zuständigkeitsbereich gefunden."
@@ -8466,8 +8485,8 @@ msgstr "kampagne/"
 #~ "You agree to our <a href=\"%(url)s\" class=\"target-new\">Privacy "
 #~ "Statement</a>"
 #~ msgstr ""
-#~ "Sie stimmen unserer <a href=\"%(url)s\" class=\"target-"
-#~ "new\">Datenschutzerklärung</a> zu"
+#~ "Sie stimmen unserer <a href=\"%(url)s\" class=\"target-new"
+#~ "\">Datenschutzerklärung</a> zu"
 
 #~ msgid ""
 #~ "This request will be public\n"
@@ -8773,3 +8792,23 @@ msgstr "kampagne/"
 
 #~ msgid "amount last year"
 #~ msgstr "Betrag letztes Jahr"
+
+#~ msgid "Toggle main menu"
+#~ msgstr "Hauptmenü anzeigen"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        About the author\n"
+#~ "                    "
+#~ msgid_plural ""
+#~ "\n"
+#~ "                        About the authors\n"
+#~ "                    "
+#~ msgstr[0] ""
+#~ "\n"
+#~ "                        Über den:die Autor:in\n"
+#~ "                    "
+#~ msgstr[1] ""
+#~ "\n"
+#~ "                        Über die Autor:innen\n"
+#~ "                    "
