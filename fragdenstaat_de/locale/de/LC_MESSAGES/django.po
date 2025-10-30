@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 14:10+0100\n"
+"POT-Creation-Date: 2025-10-30 17:19+0100\n"
 "PO-Revision-Date: 2025-10-17 14:50+0200\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -271,6 +271,10 @@ msgstr "Inhalt"
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "related articles"
 msgstr "verwandte Artikel"
+
+#: fragdenstaat_de/fds_blog/model_bases.py
+msgid "You can link articles here that are part of a series."
+msgstr ""
 
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "lead"
@@ -942,6 +946,14 @@ msgstr "Externer Pixel"
 msgid "Datawrapper Embed"
 msgstr "Datawrapper-Einbettung"
 
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Language Switcher"
+msgstr ""
+
+#: fragdenstaat_de/fds_cms/cms_plugins.py
+msgid "Dark Mode Toggle"
+msgstr ""
+
 #: fragdenstaat_de/fds_cms/cms_toolbars.py
 msgid "FdS Page Settings"
 msgstr "FdS Seiteneinstellungen"
@@ -1085,7 +1097,6 @@ msgid "%s FOI requests"
 msgstr "%s Anfragen"
 
 #: fragdenstaat_de/fds_cms/models.py
-#, python-brace-format
 msgid "One click form for {}"
 msgstr "Ein-Klick Formular für {}"
 
@@ -1426,8 +1437,10 @@ msgstr[0] "%(counter)s Anfrage ohne Geodaten"
 msgstr[1] "%(counter)s Anfragen ohne Geodaten"
 
 #: fragdenstaat_de/fds_donation/admin.py
-msgid "Dauerspende"
-msgstr "Dauerspende"
+#, fuzzy
+#| msgid "Recurring donations"
+msgid "Has recurring donations"
+msgstr "Dauerspenden"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "recurring monthly amount"
@@ -1543,7 +1556,6 @@ msgid "Export JZWB..."
 msgstr "JZWB exportieren…"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, python-brace-format
 msgid "Sending JZWB email to {} donors."
 msgstr "Sende JZWB-E-Mail an {} Spender*innen."
 
@@ -1747,7 +1759,6 @@ msgid "total donation amount in year"
 msgstr "Spendensumme im Jahr"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
-#, python-brace-format
 msgid "Invalid amount format: '{}'. Please enter a valid number."
 msgstr "Ungültiger Betrag: '{}'. Bitte geben Sie eine gültige Zahl ein."
 
@@ -1774,6 +1785,20 @@ msgstr "aktiv"
 #: fragdenstaat_de/fds_donation/admin_utils.py
 msgid "passive"
 msgstr "passiv"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+#, fuzzy
+#| msgid "Recurrences"
+msgid "Has active recurrences"
+msgstr "Dauerspenden"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py fragdenstaat_de/theme/colors.py
+msgid "None"
+msgstr "Nichts"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+msgid "Has some"
+msgstr ""
 
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "Froide Payment App (no config)"
@@ -2286,7 +2311,6 @@ msgstr[0] "{amount} EUR jeden Monat via {method} seit {start}."
 msgstr[1] "{amount} EUR alle {interval} Monate via {method} seit {start}"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, python-brace-format
 msgid "canceled on {}"
 msgstr "gekündigt am {}"
 
@@ -3114,14 +3138,12 @@ msgid "Not sent"
 msgstr "Nicht gesendet"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, python-brace-format
-msgid "Sending... {}"
-msgstr "Sende… {}"
+msgid "Sending...\\u202f{}"
+msgstr "Sende...\\u202f{}"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, python-brace-format
-msgid "Sent {}"
-msgstr "Gesendet {}"
+msgid "Sent\\u202f{}"
+msgstr "Gesendet\\u202f{}"
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Continue sending selected mailings."
@@ -3136,7 +3158,6 @@ msgid "Random split mailings created."
 msgstr "Zufällige Split-Mailings erstellt."
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, python-brace-format
 msgid "Invalid form: {}"
 msgstr "Ungültiges Formular: {}"
 
@@ -3258,7 +3279,6 @@ msgid "Please enter a comma separated list of integers."
 msgstr "Bitte geben Sie eine komma-separierte Liste von Ganzzahlen an."
 
 #: fragdenstaat_de/fds_mailing/forms.py
-#, python-brace-format
 msgid "The sum of the groups must not be greater than 100. You entered {}."
 msgstr ""
 "Die Summe der Gruppen darf nicht größer als 100 sein. Du hast {} eingegeben."
@@ -3923,14 +3943,6 @@ msgid "<slug:newsletter_slug>/feedback/"
 msgstr "<slug:newsletter_slug>/feedback/"
 
 #: fragdenstaat_de/fds_newsletter/views.py
-msgid "You are already subscribed to our newsletter."
-msgstr "Du bist schon in unserem Newsletter."
-
-#: fragdenstaat_de/fds_newsletter/views.py
-msgid "You have been subscribed to our newsletter."
-msgstr "Willkommen zu unserem Newsletter!"
-
-#: fragdenstaat_de/fds_newsletter/views.py
 msgid "You have received an email to confirm your subscription."
 msgstr "Du hast eine E-Mail erhalten, um Dein Abonnement zu bestätigen."
 
@@ -4264,6 +4276,18 @@ msgstr "Maus hierhin bewegen, um QR-Code anzuzeigen"
 msgid "Open FragDenStaat Scanner App"
 msgstr "FragDenStaat Scanner App öffnen"
 
+#: fragdenstaat_de/templates/snippets/darkmode_toggle.html
+#, fuzzy
+#| msgid "Toggle main menu"
+msgid "Toggle dark mode"
+msgstr "Hauptmenü anzeigen"
+
+#: fragdenstaat_de/templates/snippets/language_switcher.html
+#, fuzzy
+#| msgid "language"
+msgid "Change language"
+msgstr "Sprache"
+
 #: fragdenstaat_de/templates/snippets/meta.html
 msgid ""
 "Freedom of Information Requests, Freedom of Information Law, Public Body "
@@ -4467,10 +4491,6 @@ msgid "Blue 30"
 msgstr "Blau 30"
 
 #: fragdenstaat_de/theme/colors.py
-msgid "None"
-msgstr "Nichts"
-
-#: fragdenstaat_de/theme/colors.py
 msgid "Callout"
 msgstr "Callout"
 
@@ -4527,6 +4547,23 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#~ msgid "Dauerspende"
+#~ msgstr "Dauerspende"
+
+#, python-brace-format
+#~ msgid "Sending... {}"
+#~ msgstr "Sende… {}"
+
+#, python-brace-format
+#~ msgid "Sent {}"
+#~ msgstr "Gesendet {}"
+
+#~ msgid "You are already subscribed to our newsletter."
+#~ msgstr "Du bist schon in unserem Newsletter."
+
+#~ msgid "You have been subscribed to our newsletter."
+#~ msgstr "Willkommen zu unserem Newsletter!"
+
 #~ msgid "Similar articles"
 #~ msgstr "Ähnliche Artikel"
 
@@ -4558,12 +4595,6 @@ msgstr "kampagne/"
 
 #~ msgid "Further authors"
 #~ msgstr "Weitere Autor*innen"
-
-#~ msgid "Sending...\\u202f{}"
-#~ msgstr "Sende...\\u202f{}"
-
-#~ msgid "Sent\\u202f{}"
-#~ msgstr "Gesendet\\u202f{}"
 
 #, python-format
 #~ msgid "Articles with tag “%(tag)s”"
@@ -4828,9 +4859,6 @@ msgstr "kampagne/"
 #~ msgid "Share"
 #~ msgstr "Teilen"
 
-#~ msgid "Toggle main menu"
-#~ msgstr "Hauptmenü anzeigen"
-
 #~ msgid "Main Menu"
 #~ msgstr "Hauptmenü"
 
@@ -5036,9 +5064,9 @@ msgstr "kampagne/"
 #~ msgstr "Stellen Sie jetzt eine Anfrage!"
 
 #~ msgid ""
-#~ "Froide is a free and Open Source Project by <a href=\"http://"
-#~ "www.okfn.org\">the Open Knowledge Foundation</a>. If you want to support "
-#~ "Froide, please visit the <a href=\"%(url)s\">repository on GitHub</a>."
+#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn."
+#~ "org\">the Open Knowledge Foundation</a>. If you want to support Froide, "
+#~ "please visit the <a href=\"%(url)s\">repository on GitHub</a>."
 #~ msgstr ""
 #~ "Über FragDenStaat.de können Sie Behörden in Deutschland nach "
 #~ "Informationen und Dokumenten fragen. Die Basis dafür ist das "
@@ -5292,8 +5320,8 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "You probably do not have cookies enabled, but you need cookies to use "
-#~ "this site! Cookies are only ever sent securely. The technical reason is: %"
-#~ "(reason)s"
+#~ "this site! Cookies are only ever sent securely. The technical reason is: "
+#~ "%(reason)s"
 #~ msgstr ""
 #~ "Sie haben vermutlich Ihre Browser-Cookies deaktivert, allerdings brauchen "
 #~ "Sie Cookies für diese Seite! Cookies werden auf dieser Seite nur über "
@@ -6182,8 +6210,8 @@ msgstr "kampagne/"
 #~ msgstr "%(user)s hat die Anfrage '%(request)s' öffentlich geschaltet."
 
 #~ msgid ""
-#~ "%(public_body)s refused to provide information on the grounds of %"
-#~ "(reason)s."
+#~ "%(public_body)s refused to provide information on the grounds of "
+#~ "%(reason)s."
 #~ msgstr ""
 #~ "%(public_body)s weigert sich, die Information zur Verfügung zu stellen "
 #~ "aus folgendem Grund: %(reason)s."
@@ -6199,8 +6227,8 @@ msgstr "kampagne/"
 #~ msgstr "Die Frist für diese Anfrage ist abgelaufen"
 
 #~ msgid ""
-#~ "%(user)s set '%(name)s' as the information law for the request %"
-#~ "(request)s."
+#~ "%(user)s set '%(name)s' as the information law for the request "
+#~ "%(request)s."
 #~ msgstr ""
 #~ "%(user)s legte %(name)s als zutreffendes Informationsgesetz für die "
 #~ "Anfrage %(request)s fest."
@@ -6213,8 +6241,8 @@ msgstr "kampagne/"
 #~ "%(user)s filed a complaint to the %(public_body)s about the handling of "
 #~ "this request %(request)s."
 #~ msgstr ""
-#~ "%(user)s bittet %(public_body)s um Vermittlung bei der Anfrage %"
-#~ "(request)s."
+#~ "%(user)s bittet %(public_body)s um Vermittlung bei der Anfrage "
+#~ "%(request)s."
 
 #~ msgid "The deadline of request %(request)s has been extended."
 #~ msgstr "Die Frist der Anfrage %(request)s wurde verlängert."
@@ -6651,8 +6679,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Hallo %(name)s,\n"
 #~ "\n"
-#~ "Sie haben einen neuen Vorschlag für eine Behörde für Ihre Anfrage '%"
-#~ "(title)s' erhalten."
+#~ "Sie haben einen neuen Vorschlag für eine Behörde für Ihre Anfrage "
+#~ "'%(title)s' erhalten."
 
 #~ msgid "The suggestion is:"
 #~ msgstr "Der Vorschlag lautet:"
@@ -6679,8 +6707,8 @@ msgstr "kampagne/"
 #~ "><strong>Name, Adresse und Emailadresse</strong>."
 
 #~ msgid ""
-#~ "Please remove the following personally identifying information of %"
-#~ "(name)s:<br/><strong>address and email address</strong>. You can leave "
+#~ "Please remove the following personally identifying information of "
+#~ "%(name)s:<br/><strong>address and email address</strong>. You can leave "
 #~ "the name."
 #~ msgstr ""
 #~ "Bitte entfernen Sie die folgenden personenbezogenen Daten von %(name)s:"
@@ -6972,8 +7000,8 @@ msgstr "kampagne/"
 #~ "Prüfung der Anfragen findet nicht statt. Die Korrespondenz mit Ihnen als "
 #~ "Behörde wird nach dem Willen des/r Antragstellenden veröffentlicht. Eine "
 #~ "elektronische Antwort ist ausdrücklich erwünscht und fällt nicht unter § "
-#~ "41 VwVfG.  Falls Sie noch Fragen haben, besuchen Sie https://"
-#~ "fragdenstaat.de/hilfe/fuer-behoerden/\n"
+#~ "41 VwVfG.  Falls Sie noch Fragen haben, besuchen Sie https://fragdenstaat."
+#~ "de/hilfe/fuer-behoerden/\n"
 
 #~ msgid ""
 #~ "Hello %(name)s,\n"
@@ -7015,8 +7043,9 @@ msgstr "kampagne/"
 #~ "status."
 #~ msgstr ""
 #~ "Diese Anfrage hat eine Antwort erhalten und ist in einem unbekannten "
-#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a href=\"%"
-#~ "(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen Status."
+#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a "
+#~ "href=\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
+#~ "Status."
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, please read the latest response and <a href=\"#set-"
@@ -7538,8 +7567,8 @@ msgstr "kampagne/"
 #~ msgid ""
 #~ "Hi,\n"
 #~ "\n"
-#~ "please confirm that you want to follow the request \"%(title)s\" on %"
-#~ "(site_name)s by clicking this link:"
+#~ "please confirm that you want to follow the request \"%(title)s\" on "
+#~ "%(site_name)s by clicking this link:"
 #~ msgstr ""
 #~ "Hallo,\n"
 #~ "\n"
@@ -7564,8 +7593,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Hallo %(name)s,\n"
 #~ "\n"
-#~ "es gab eine neue Nachricht in der Anfrage \"%(title)s\" auf %"
-#~ "(site_name)s.\n"
+#~ "es gab eine neue Nachricht in der Anfrage \"%(title)s\" auf "
+#~ "%(site_name)s.\n"
 #~ "%(message)s\n"
 #~ "\n"
 #~ "Klicken Sie diesen Link um zur Anfrage zu gelangen:\n"
@@ -8154,10 +8183,10 @@ msgstr "kampagne/"
 #~ "Freedom of Information requests</a> to get a feeling for what Freedom of "
 #~ "Information is all about."
 #~ msgstr ""
-#~ "Sie können sich zum Beispiel die <a href=\"%"
-#~ "(foirequests_url)s\">existierende "
-#~ "Informations&shy;freiheits&shy;anfragen</a> ansehen, um zu verstehen wie "
-#~ "Informations&shy;freiheit funktioniert."
+#~ "Sie können sich zum Beispiel die <a "
+#~ "href=\"%(foirequests_url)s\">existierende Informations&shy;freiheits&shy;"
+#~ "anfragen</a> ansehen, um zu verstehen wie Informations&shy;freiheit "
+#~ "funktioniert."
 
 #~ msgid "Write to them here"
 #~ msgstr "Schreiben Sie hier an sie"
@@ -8185,8 +8214,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Wenn Sie sich einloggen, können Sie mit einem Klick eine identische "
 #~ "Anfrage in Ihrem Namen stellen, um Zugang zu diesen Dokumenten zu "
-#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?next=%"
-#~ "(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
+#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?"
+#~ "next=%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
 
 #~ msgid "No Public Bodies found in this jurisdiction for this query."
 #~ msgstr "Es wurden keine Behörden mit diesem Zuständigkeitsbereich gefunden."
@@ -8313,26 +8342,24 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "\n"
-#~ "Rechtshinweis: Diese Anfrage wurde über den Webservice "
-#~ "www.fragdenstaat.de gestellt. Auf www.fragdenstaat.de kann  jedermann "
-#~ "Anfragen nach den Informationsfreiheitsgesetzen automatisiert an deutsche "
-#~ "Behörden stellen. Alle Anfragen wie auch alle Antworten werden im "
-#~ "Internet veröffentlicht. Dadurch wird der Bedarf (Anfragen) und das "
-#~ "Angebot (Antworten) nachvollziehbar und transparent im Internet "
-#~ "dokumentiert. Wir weisen ausdrücklich auf die automatisierte "
-#~ "Veröffentlichung im Internet hin. Eine redaktionelle Prüfung findet nicht "
-#~ "statt.\n"
+#~ "Rechtshinweis: Diese Anfrage wurde über den Webservice www.fragdenstaat."
+#~ "de gestellt. Auf www.fragdenstaat.de kann  jedermann Anfragen nach den "
+#~ "Informationsfreiheitsgesetzen automatisiert an deutsche Behörden stellen. "
+#~ "Alle Anfragen wie auch alle Antworten werden im Internet veröffentlicht. "
+#~ "Dadurch wird der Bedarf (Anfragen) und das Angebot (Antworten) "
+#~ "nachvollziehbar und transparent im Internet dokumentiert. Wir weisen "
+#~ "ausdrücklich auf die automatisierte Veröffentlichung im Internet hin. "
+#~ "Eine redaktionelle Prüfung findet nicht statt.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Rechtshinweis: Diese Anfrage wurde über den Webservice "
-#~ "www.fragdenstaat.de gestellt. Auf www.fragdenstaat.de kann  jedermann "
-#~ "Anfragen nach den Informationsfreiheitsgesetzen automatisiert an deutsche "
-#~ "Behörden stellen. Alle Anfragen wie auch alle Antworten werden im "
-#~ "Internet veröffentlicht. Dadurch wird der Bedarf (Anfragen) und das "
-#~ "Angebot (Antworten) nachvollziehbar und transparent im Internet "
-#~ "dokumentiert. Wir weisen ausdrücklich auf die automatisierte "
-#~ "Veröffentlichung im Internet hin. Eine redaktionelle Prüfung findet nicht "
-#~ "statt.\n"
+#~ "Rechtshinweis: Diese Anfrage wurde über den Webservice www.fragdenstaat."
+#~ "de gestellt. Auf www.fragdenstaat.de kann  jedermann Anfragen nach den "
+#~ "Informationsfreiheitsgesetzen automatisiert an deutsche Behörden stellen. "
+#~ "Alle Anfragen wie auch alle Antworten werden im Internet veröffentlicht. "
+#~ "Dadurch wird der Bedarf (Anfragen) und das Angebot (Antworten) "
+#~ "nachvollziehbar und transparent im Internet dokumentiert. Wir weisen "
+#~ "ausdrücklich auf die automatisierte Veröffentlichung im Internet hin. "
+#~ "Eine redaktionelle Prüfung findet nicht statt.\n"
 
 #~ msgid "FOI Law"
 #~ msgstr "IFG"
