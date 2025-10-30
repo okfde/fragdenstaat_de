@@ -837,3 +837,10 @@ class LanguageSwitcherPlugin(CMSPluginBase):
     module = _("Elements")
     name = _("Language Switcher")
     render_template = "snippets/language_switcher.html"
+
+
+@plugin_pool.register_plugin
+class DarkModeToggle(CMSPluginBase):
+    module = _("Elements")
+    name = _("Dark Mode Toggle")
+    render_template = "snippets/darkmode_toggle.html"
