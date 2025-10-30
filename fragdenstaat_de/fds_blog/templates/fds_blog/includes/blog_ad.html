@@ -1,9 +1,10 @@
 {% load djangocms_alias_tags %}
+{% load fds_tags %}
 {% with banner=article.first_category.donation_banner %}
     {% if banner %}
         {% render_alias banner as banner_content %}
         {# this allows for conditional banners, i.e. hide the banner for donors using the corresponding cms plugin #}
-        {% if banner_content %}
+        {% if banner_content.strip %}
             <aside class="article-banner">
                 {{ banner_content }}
             </aside>
