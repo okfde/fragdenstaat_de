@@ -83,11 +83,16 @@ $backdrops: (
 */
 
 .action-link {
+  font-weight: 500;
   transition: font-weight 0.3s ease;
 
   &:hover {
     text-decoration: none;
     font-weight: 600;
+  }
+
+  &.arrow::before {
+    content: '→ ';
   }
 }
 
