@@ -19,6 +19,8 @@ from django.views.generic import DetailView, ListView
 from froide.helper.breadcrumbs import Breadcrumbs, BreadcrumbView
 from froide.helper.search.views import BaseSearchView
 
+from fragdenstaat_de.theme.translation import TranslatedPage, TranslatedView
+
 from .documents import ArticleDocument
 from .filters import ArticleFilterset
 from .managers import articles_visible
@@ -92,7 +94,7 @@ class BaseBlogListView(BaseBlogView):
         return 12
 
 
-class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
+class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView):
     base_template_name = "article_detail.html"
     slug_field = "slug"
     view_url_name = "blog:article-detail"
@@ -201,6 +203,14 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView):
         ]
 
         return breadcrumbs
+
+    def get_languages(self):
+        object = self.get_object()
+        other_languages = object.other_languages()
+
+        return [
+            TranslatedPage(object.language, object.get_absolute_url()),
+        ] + [TranslatedPage(a.language, a.get_absolute_url()) for a in other_languages]
 
 
 class ArticleListView(BaseBlogListView, ListView, BreadcrumbView):

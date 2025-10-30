@@ -830,3 +830,10 @@ class DatawrapperPlugin(CMSPluginBase):
     module = _("Elements")
     name = _("Datawrapper Embed")
     render_template = "fds_cms/datawrapper.html"
+
+
+@plugin_pool.register_plugin
+class LanguageSwitcherPlugin(CMSPluginBase):
+    module = _("Elements")
+    name = _("Language Switcher")
+    render_template = "fds_cms/language_switcher.html"
