@@ -111,20 +111,20 @@
                             {% endfor %}
                         </div>
                     </div>
-                    {% if authors_without_profiles %}
-                        <div class="container-lg mt-4">
-                            <h3 class="small text-secondary">
-                                {% blocktranslate count counter=authors_without_profiles|length %}
+                {% endif %}
+                {% if authors_without_profiles %}
+                    <div class="container-lg mt-4">
+                        <h3 class="small text-secondary">
+                            {% blocktranslate count counter=authors_without_profiles|length %}
                                     Further author
                                 {% plural %}
                                     Further authors
                                 {% endblocktranslate %}
-                            </h3>
-                            <ul class="list-unstyled d-md-flex flex-wrap gap-3">
-                                {% for author in authors_without_profiles %}<li class="mb-1">{{ author.get_full_name }}</li>{% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
+                        </h3>
+                        <ul class="list-unstyled d-md-flex flex-wrap gap-3">
+                            {% for author in authors_without_profiles %}<li class="mb-1">{{ author.get_full_name }}</li>{% endfor %}
+                        </ul>
+                    </div>
                 {% endif %}
             </section>
         {% endif %}
