@@ -14,6 +14,8 @@
             {% blocktrans count n=article_tags|length with tags=article_tags|join:", " %}Articles with tag {{ tags }}{% plural %}Articles with tags {{ tags }}{% endblocktrans %} –
         {% elif category %}
             {% blocktrans with category=category %}Category {{ category }}{% endblocktrans %} –
+        {% else %}
+            {% trans "All articles" %} –
         {% endif %}
         {{ SITE_NAME }}
     {% endblock %}
