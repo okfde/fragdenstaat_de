@@ -40,6 +40,7 @@ from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 from fragdenstaat_de.fds_newsletter.admin_utils import make_subscriber_tagger
 
 from .admin_utils import (
+    ActiveRecurrencesListFilter,
     DonorProjectFilter,
     DonorTagListFilter,
     DonorTotalAmountPerYearFilter,
@@ -158,7 +159,8 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     )
     list_filter = (
         "active",
-        make_nullfilter("recurrences", _("Dauerspende")),
+        make_nullfilter("recurrences", _("Has recurring donations")),
+        ActiveRecurrencesListFilter,
         DonorTotalAmountPerYearFilter,
         make_rangefilter("recurring_amount", _("recurring monthly amount")),
         make_daterangefilter("last_donation", _("Last donation")),

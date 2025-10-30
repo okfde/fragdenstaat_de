@@ -3,13 +3,13 @@ from collections import OrderedDict
 from django import forms
 from django.contrib import admin, messages
 from django.contrib.admin.filters import SimpleListFilter
-from django.db.models import Q, Sum
+from django.db.models import Exists, OuterRef, Q, Sum
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from froide.helper.admin_utils import MultiFilterMixin, TaggitListFilter
 
-from .models import DONATION_PROJECTS, TaggedDonor
+from .models import DONATION_PROJECTS, Recurrence, TaggedDonor
 
 
 class DonorProjectFilter(MultiFilterMixin, SimpleListFilter):
@@ -205,4 +205,27 @@ class PassiveDonationListFilter(admin.SimpleListFilter):
             return queryset.filter(active_condition)
         elif self.value() == "1":
             return queryset.filter(~active_condition)
+        return queryset
+
+
+class ActiveRecurrencesListFilter(admin.SimpleListFilter):
+    title = _("Has active recurrences")
+    parameter_name = "active_recurrences"
+
+    def lookups(self, request, model_admin):
+        return (
+            ("0", _("None")),
+            ("1", _("Has some")),
+        )
+
+    def queryset(self, request, queryset):
+        condition = Exists(
+            Recurrence.objects.filter(
+                cancel_date__isnull=True, active=True, donor_id=OuterRef("pk")
+            )
+        )
+        if self.value() == "0":
+            return queryset.exclude(condition)
+        elif self.value() == "1":
+            return queryset.filter(condition)
         return queryset
