@@ -144,7 +144,10 @@ class RelatedEntry(models.Model):
     """
 
     related = models.ManyToManyField(
-        "self", blank=True, verbose_name=_("related articles")
+        "self",
+        blank=True,
+        verbose_name=_("related articles"),
+        help_text=_("You can link articles here that are part of a series."),
     )
 
     class Meta:
