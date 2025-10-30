@@ -836,4 +836,4 @@ class DatawrapperPlugin(CMSPluginBase):
 class LanguageSwitcherPlugin(CMSPluginBase):
     module = _("Elements")
     name = _("Language Switcher")
-    render_template = "fds_cms/language_switcher.html"
+    render_template = "snippets/language_switcher.html"
