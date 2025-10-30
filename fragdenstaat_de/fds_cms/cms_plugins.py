@@ -837,6 +837,7 @@ class LanguageSwitcherPlugin(CMSPluginBase):
     module = _("Elements")
     name = _("Language Switcher")
     render_template = "snippets/language_switcher.html"
+    cache = False  # the language switcher handles caching itself
 
 
 @plugin_pool.register_plugin
