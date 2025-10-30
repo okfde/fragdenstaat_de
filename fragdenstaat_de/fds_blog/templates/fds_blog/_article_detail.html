@@ -41,10 +41,10 @@
         <div class="blog-content">
             <p>
                 {% blocktranslate count counter=updated_articles|length %}
-        Updated article:
-      {% plural %}
-        Updated articles:
-      {% endblocktranslate %}
+                    Updated article:
+                {% plural %}
+                    Updated articles:
+                {% endblocktranslate %}
                 {% for related_article in updated_articles %}
                     {{ related_article.publication_date|date:"SHORT_DATE_FORMAT" }} – <a href="{{ related_article.get_absolute_url }}">{{ related_article.title }}</a>
                     {% if not forloop.last %},{% endif %}
@@ -94,11 +94,11 @@
                 {% if authors_with_profiles %}
                     <div class="container-lg">
                         <h3 class="small text-secondary">
-                            {% if authors_with_profiles|length == 1 %}
-                                {% trans "About the author" %}
-                            {% else %}
-                                {% trans "About the authors" %}
-                            {% endif %}
+                            {% blocktranslate count counter=authors_with_profiles|length %}
+                                About the author
+                            {% plural %}
+                                About the authors
+                            {% endblocktranslate %}
                         </h3>
                         <div class="row row-cols-1 row-cols-md-2 g-3">
                             {% for author in authors_with_profiles %}
@@ -111,23 +111,23 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% if authors_without_profiles %}
+                        <div class="container-lg mt-4">
+                            <h3 class="small text-secondary">
+                                {% blocktranslate count counter=authors_without_profiles|length %}
+                                    Further author
+                                {% plural %}
+                                    Further authors
+                                {% endblocktranslate %}
+                            </h3>
+                            <ul class="list-unstyled d-md-flex flex-wrap gap-3">
+                                {% for author in authors_without_profiles %}<li class="mb-1">{{ author.get_full_name }}</li>{% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                 {% endif %}
-                {% if authors_without_profiles %}
-                    <div class="container-lg">
-                        <h3 class="small text-secondary">
-                            {% if authors_without_profiles|length == 1 %}
-                                {% trans "Further author" %}
-                            {% else %}
-                                {% trans "Further authors" %}
-                            {% endif %}
-                        </h3>
-                        <ul class="list-unstyled d-md-flex flex-wrap gap-3">
-                            {% for author in authors_without_profiles %}<li class="mb-1">{{ author.get_full_name }}</li>{% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-            </section>
-        {% endif %}
+            {% endblock article_author_bios %}
+        </section>
         {% block article_tags %}
             {% if article.tags.count > 0 %}
                 <section>
@@ -169,7 +169,13 @@
                 {% if similar_articles %}
                     <section>
                         <div class="container-lg">
-                            <h3 class="small text-secondary">{% trans "Similar articles" %}</h3>
+                            <h3 class="small text-secondary">
+                                {% blocktranslate count counter=similar_articles|length %}
+                                    Similar article:
+                                {% plural %}
+                                    Similar articles:
+                                {% endblocktranslate %}
+                            </h3>
                             <div class="row g-3 g-lg-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
                                 {% for article in similar_articles %}
                                     {% include "fds_blog/includes/blog_item_short.html" with article=article %}
@@ -183,7 +189,11 @@
                 <section>
                     <div class="container-lg">
                         <h3 class="small text-secondary">
-                            {% blocktranslate count counter=previous_articles|length %}Previous article{% plural %}Previous articles{% endblocktranslate %}
+                            {% blocktranslate count counter=previous_articles|length %}
+                                Previous article:
+                            {% plural %}
+                                Previous articles:
+                            {% endblocktranslate %}
                         </h3>
                         <div class="row g-3 g-lg-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
                             {% for related_article in previous_articles %}
