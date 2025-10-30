@@ -17,7 +17,9 @@
                 <li>
                     <a class="dropdown-item{% if LANGUAGE_CODE == language %} active{% endif %}"
                        href="{{ url }}"
-                       {% if LANGUAGE_CODE == language %}aria-current="true"{% endif %}>{{ language|language_name_local }}</a>
+                       {% if LANGUAGE_CODE == language %}aria-current="true"{% endif %}>{{ language|language_name_local }}
+                        {% if LANGUAGE_CODE == language %}<i class="fa fa-check" aria-hidden="true"></i>{% endif %}
+                    </a>
                 </li>
             {% endfor %}
         </ul>
