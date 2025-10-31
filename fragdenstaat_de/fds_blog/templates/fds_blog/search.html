@@ -5,13 +5,13 @@
     {{ block.super }}
 {% endblock title %}
 {% block blog_list_header %}
-    <h2>
+    <h1 class="h2">
         {% if form.q.value %}
             {% blocktranslate with q=form.q.value %}Search results for “{{ q }}”{% endblocktranslate %}
         {% else %}
             {% translate "Search articles" %}
         {% endif %}
-    </h2>
+    </h1>
     <form class="row froide-auto-submit row-gap-2"
           role="search"
           method="get"

@@ -24,7 +24,7 @@
                     {% endwith %}
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{ dataset.name }}</h5>
+                    <h2 class="h5 card-title">{{ dataset.name }}</h2>
                     <p class="card-text">{{ dataset.description|striptags|truncatewords:15 }}</p>
                     <a href="{{ dataset.get_absolute_url }}"
                        class="float-end btn btn-primary">{{ dataset.name }}</a>

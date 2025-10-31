@@ -10,7 +10,8 @@
 {% endblock %}
 {% block app_body %}
     {% page_attribute "page_title" request.current_page|get_soft_root as base_title %}
-    <h2>{% blocktranslate with title=base_title %}Search in {{ title }}{% endblocktranslate %}</h2>
+    <h1 class="h2">{% blocktranslate with title=base_title %}Search in {{ title }}{% endblocktranslate %}</h1>
+    <h2 class="visually-hidden">{% translate "Search form" %}</h2>
     <form class="mb-3" role="search" method="get" action=".">
         <div class="input-group">
             {{ form.q }}
@@ -20,14 +21,17 @@
             </button>
         </div>
     </form>
+    {% if object_list and form.cleaned_data.q or form.q.value %}
+        <h2 class="visually-hidden">{% translate "Search results" %}</h2>
+    {% endif %}
     {% if object_list and form.cleaned_data.q %}
         <p>{% blocktranslate with q=form.q.value %}Results for “{{ q }}”{% endblocktranslate %}</p>
         <ol class="list-unstyled">
             {% for object in object_list %}
                 <li>
-                    <h5 class="mt-0 mb-1">
+                    <h3 class="h5 mt-0 mb-1">
                         <a href="{{ object.page.get_absolute_url }}">{{ object.title }}</a>
-                    </h5>
+                    </h3>
                     {% if object.meta_description %}<small>{{ object.meta_description }}</small>{% endif %}
                     {% if object.query_highlight %}<p class="search-highlight">{{ object.query_highlight }}</p>{% endif %}
                 </li>
