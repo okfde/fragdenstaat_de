@@ -12,14 +12,17 @@ from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.timezone import now
-from django.utils.translation import get_language, ngettext
+from django.utils.translation import get_language, ngettext, override
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, ListView
 
 from froide.helper.breadcrumbs import Breadcrumbs, BreadcrumbView
 from froide.helper.search.views import BaseSearchView
 
-from fragdenstaat_de.theme.translation import TranslatedPage, TranslatedView
+from fragdenstaat_de.theme.translation import (
+    TranslatedPage,
+    TranslatedView,
+)
 
 from .documents import ArticleDocument
 from .filters import ArticleFilterset
@@ -209,8 +212,8 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
         other_languages = object.other_languages()
 
         return [
-            TranslatedPage(object.language, object.get_absolute_url()),
-        ] + [TranslatedPage(a.language, a.get_absolute_url()) for a in other_languages]
+            TranslatedPage(a.language, a.get_absolute_url()) for a in other_languages
+        ]
 
 
 class ArticleListView(BaseBlogListView, ListView, BreadcrumbView):
@@ -382,7 +385,7 @@ def root_slug_view(request, slug):
     return redirect(ArticleRedirectView().get_redirect_url(slug=slug))
 
 
-class CategoryArticleView(BaseBlogListView, ListView, BreadcrumbView):
+class CategoryArticleView(BaseBlogListView, ListView, BreadcrumbView, TranslatedView):
     _category = None
     view_url_name = "blog:article-category"
 
@@ -433,6 +436,20 @@ class CategoryArticleView(BaseBlogListView, ListView, BreadcrumbView):
             breadcrumbs.color = self.category.color
 
         return breadcrumbs
+
+    def get_languages(self):
+        languages = []
+
+        for category in self.category.translations.all():
+            with override(category.language_code):
+                languages.append(
+                    TranslatedPage(
+                        category.language_code,
+                        self.get_view_url(kwargs={"slug": category.slug}),
+                    ),
+                )
+
+        return languages
 
 
 class ArticleSearchView(BaseSearchView, BreadcrumbView):
