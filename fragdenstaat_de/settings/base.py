@@ -119,8 +119,8 @@ class FragDenStaatBase(German, Base):
             "BACKEND": "django.core.files.storage.FileSystemStorage",
         },
         "overwrite": {
-            # Replace in Django 5.1 with allow_overwrite Option
-            "BACKEND": "froide.helper.storage.OverwriteStorage",
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+            "OPTIONS": {"allow_overwrite": True},
         },
         "staticfiles": {
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
