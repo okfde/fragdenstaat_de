@@ -151,9 +151,17 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
         context["updated_articles"] = [
             a for a in related_articles if a.publication_date > object.publication_date
         ]
-        context["previous_articles"] = [
+        context["previous_articles"] = previous_articles = [
             a for a in related_articles if a.publication_date < object.publication_date
         ]
+
+        # max. 3 article suggestions, composed of previous articles (preferred),
+        # filled up with similar articles (based on tags, see model)
+        article_suggestions = previous_articles.copy()
+        article_suggestions += list(
+            self.object.get_similar_articles()[: max(0, 3 - len(article_suggestions))]
+        )
+        context["article_suggestions"] = article_suggestions
 
         context["category"] = self.object.first_category
 

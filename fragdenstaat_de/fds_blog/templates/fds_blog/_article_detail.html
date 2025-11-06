@@ -81,6 +81,19 @@
                     {% include "fds_blog/includes/share_article.html" with id="article-footer" %}
                 </div>
             </div>
+            {% if article.tags.count > 0 %}
+                <div class="container-lg d-flex flex-wrap align-items-center mt-3">
+                    <h3 class="small text-secondary m-0">{% trans "Tags" %}</h3>
+                    <ul class="list-unstyled d-contents">
+                        {% for tag in article.tags.all %}
+                            <li class="ms-2">
+                                <span aria-hidden="true" class="text-secondary">#</span>
+                                <a href="{% url 'blog:article-tagged' tag.slug %}">{{ tag.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </section>
         {% if article.credits or authors_with_profiles or authors_without_profiles %}
             <section class="vstack gap-4">
@@ -122,29 +135,14 @@
                                 {% endblocktranslate %}
                         </h3>
                         <ul class="list-unstyled d-md-flex flex-wrap gap-3">
-                            {% for author in authors_without_profiles %}<li class="mb-1">{{ author.get_full_name }}</li>{% endfor %}
+                            {% for author in authors_without_profiles %}
+                                <li class="mb-1">{{ author.get_full_name }}</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 {% endif %}
             </section>
         {% endif %}
-        {% block article_tags %}
-            {% if article.tags.count > 0 %}
-                <section>
-                    <div class="container-lg d-flex flex-wrap">
-                        {% trans "Tags" %}:
-                        <ul class="list-unstyled d-contents">
-                            {% for tag in article.tags.all %}
-                                <li class="ms-2">
-                                    <span aria-hidden="true" class="text-secondary">#</span>
-                                    <a href="{% url 'blog:article-tagged' tag.slug %}">{{ tag.name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </section>
-            {% endif %}
-        {% endblock article_tags %}
         {% block article_languages %}
             {% with other_langs=article.other_languages %}
                 {% if other_langs %}
@@ -165,39 +163,19 @@
             {% endwith %}
         {% endblock article_languages %}
         {% block article_suggestions %}
-            {% with similar_articles=article.get_similar_articles|slice:":3" %}
-                {% if similar_articles %}
-                    <section>
-                        <div class="container-lg">
-                            <h3 class="small text-secondary">
-                                {% blocktranslate count counter=similar_articles|length %}
-                                    Similar article:
-                                {% plural %}
-                                    Similar articles:
-                                {% endblocktranslate %}
-                            </h3>
-                            <div class="row g-3 g-lg-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
-                                {% for article in similar_articles %}
-                                    {% include "fds_blog/includes/blog_item_short.html" with article=article %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </section>
-                {% endif %}
-            {% endwith %}
-            {% if previous_articles %}
+            {% if article_suggestions %}
                 <section>
                     <div class="container-lg">
                         <h3 class="small text-secondary">
-                            {% blocktranslate count counter=previous_articles|length %}
-                                Previous article:
+                            {% blocktranslate count counter=article_suggestions|length %}
+                                Related article
                             {% plural %}
-                                Previous articles:
+                                Related articles
                             {% endblocktranslate %}
                         </h3>
                         <div class="row g-3 g-lg-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
-                            {% for related_article in previous_articles %}
-                                {% include "fds_blog/includes/blog_item_short.html" with article=related_article %}
+                            {% for article in article_suggestions %}
+                                {% include "fds_blog/includes/blog_item_short.html" with article=article %}
                             {% endfor %}
                         </div>
                     </div>
