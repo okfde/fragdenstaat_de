@@ -26,6 +26,29 @@ jobs:
         python-version: ['3.12', '3.13']
     steps:
       - uses: actions/checkout@v4
+      - name: Build custom Elasticsearch image
+        run: docker build -t elasticsearch-german:ci ./deps/elasticsearch/
+      - name: Start Elasticsearch container
+        run: >
+          docker run -d --rm --name elasticsearch -p 9200:9200
+          -e discovery.type=single-node
+          -e xpack.security.enabled=false
+          -e ES_JAVA_OPTS="-Xms512m -Xmx512m"
+          elasticsearch-german:ci
+      - name: Wait for Elasticsearch
+        run: |
+          echo "Waiting for Elasticsearch ..."
+          for i in {1..60}; do
+            if curl -s http://localhost:9200/_cluster/health \
+              | grep -q '"status":"green"\|"status":"yellow"'; then
+              echo "Elasticsearch is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Elasticsearch did not become ready in time"
+          docker logs elasticsearch
+          exit 1
       - name: Setup uv
         uses: astral-sh/setup-uv@v6
         with:
@@ -71,7 +94,3 @@ jobs:
           POSTGRES_DB: fragdenstaat_de
         ports:
           - 5432:5432
-      elasticsearch:
-        image: elasticsearch:8.14.3
-        ports:
-          - 9200:9200
