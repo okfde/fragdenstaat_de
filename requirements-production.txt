@@ -388,7 +388,7 @@ filelock==3.19.1
     # via torch
 fonttools==4.60.0
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@fec96a8082ac238c7f1c588f4b529dbde799be43
+froide @ git+https://github.com/okfde/froide.git@65e8602a9738fe5ed0ea2def18393dfcd7f8ae04
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@cabe34f4f6436ac761173b72810c73fa17de6aeb
     # via fragdenstaat-de (pyproject.toml)
