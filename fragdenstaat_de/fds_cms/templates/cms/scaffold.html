@@ -4,7 +4,7 @@
 {% load sekizai_tags %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}"
-      {% if request.user.is_staff %}data-bs-theme="light"{% endif %}>
+      {% block html_attrs %}data-bs-theme="light"{% endblock %}>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

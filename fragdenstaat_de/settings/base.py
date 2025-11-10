@@ -259,6 +259,7 @@ class FragDenStaatBase(German, Base):
         ("cms/page.html", "Page template"),
         ("cms/page_headerless.html", "Page without header"),
         ("cms/page_reduced.html", "Page reduced"),
+        ("cms/page_reduced_dark.html", "Page reduced (dark)"),
         ("cms/page_minimal.html", "Page minimal"),
         ("cms/page_breadcrumb.html", "Page with breadcrumbs"),
         ("cms/blog_base.html", "Blog base template"),
