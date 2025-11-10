@@ -64,6 +64,7 @@ export default defineConfig(({ mode }) => ({
         redact: r('froide', 'redact.js'),
         request: r('froide', 'request.ts'),
         tagautocomplete: r('froide', 'tagautocomplete.ts'),
+        ubf: './frontend/javascript/ubf.ts',
         vegacharts: './frontend/javascript/vegacharts.js',
         opensearch: './frontend/javascript/opensearch.ts'
       },

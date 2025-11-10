@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@fontsource-variable/jost": "^5.2.8",
+    "@fontsource/geist": "^5.2.8",
     "@glidejs/glide": "^3.7.1",
     "@okfde/filingcabinet": "github:okfde/django-filingcabinet",
     "@popperjs/core": "^2.11.8",

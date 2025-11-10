@@ -1,0 +1,22 @@
+{% extends "cms/page.html" %}
+{% load djangocms_alias_tags %}
+{% load cms_tags %}
+{% load menu_tags %}
+{% load i18n %}
+{% load static %}
+{% block meta %}
+    {# TODO: meta tags, favicon #}
+    {% include "fds_cms/social_meta.html" with object=request.current_page %}
+{% endblock %}
+{% block top_block %}{% endblock %}
+{% block navbar %}{# TODO: navbar #}{% endblock %}
+{% block messages %}{% endblock %}
+{% block body %}
+    {% block app_body %}
+        {% placeholder "content" %}
+    {% endblock %}
+{% endblock %}
+{% block footer_container %}{# TODO: footer #}{% endblock %}
+{% block scripts %}
+    {% include "_frontend.html" with entry_point="ubf.js" %}
+{% endblock %}
