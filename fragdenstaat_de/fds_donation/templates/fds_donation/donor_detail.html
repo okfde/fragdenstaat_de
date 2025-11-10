@@ -1,91 +1,107 @@
 {% extends "fds_donation/base.html" %}
 {% load i18n %}
+{% load cms_tags %}
 {% block title %}
     {% translate "Your donation" %}
 {% endblock %}
 {% block extra_head %}<meta name="robots" content="noindex" />{% endblock %}
-{% block app_body %}
-    <h1>{% translate "Thank you for your donation!" %}</h1>
-    {% if last_donation and last_donation.payment.variant == 'banktransfer' %}
-        <div class="mt-5 mb-5">
-            {% include "fds_donation/includes/banktransfer.html" with payment=last_donation.payment order=last_donation.payment.order %}
+{% block body %}
+    <div class="text-bg-yellow-200">
+        <div class="container py-3">
+            <h1>{% translate "Thank you for your support!" %}</h1>
         </div>
-    {% endif %}
-    <p class="text-end">
-        <a href="{{ object.get_absolute_change_url }}"
-           class="btn btn-secondary mb-2">{% translate "Update donor details" %}</a>
-        <a href="{{ object.get_absolute_donate_url }}"
-           class="btn btn-secondary mb-2">{% translate "Create new donation" %}</a>
-    </p>
-    {% if recurrences %}
-        <h2>{% translate "Recurring donations" %}</h2>
-        {% for recurrence in recurrences %}
-            {% include "fds_donation/_recurrence.html" with recurrence=recurrence is_banktransfer=is_banktransfer subscription=recurrence.subscription is_paypal=is_paypal %}
-        {% endfor %}
-        <hr />
-    {% endif %}
-    <p>{% translate "Here you can find an overview of your individual donations." %}</p>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="text-end">{% translate "Date" %}</th>
-                    <th class="text-end">{% translate "Amount" %}</th>
-                    <th>{% translate "Purpose" %}</th>
-                    <th>{% translate "Payment method" %}</th>
-                    <th>{% translate "Details" %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for donation in donations %}
-                    <tr>
-                        <td class="text-end">{{ donation.timestamp|date:"DATE_FORMAT" }}</td>
-                        <td class="text-end">{{ donation.amount }}&nbsp;{% translate "Euro" %}</td>
-                        <td>{{ donation.purpose }}</td>
-                        <td>{{ donation.get_method_display }}</td>
-                        <td>
-                            {% if donation.payment %}
-                                {% if donation.payment.is_deferred %}
-                                    {% translate "Confirmation pending" %}
-                                {% else %}
-                                    {% if donation.payment.variant == 'banktransfer' and not donation.received_timestamp %}
-                                        {% if donation.order.is_recurring %}
-                                            <span data-bs-toggle="tooltip"
-                                                  title="{% translate "In order to complete this donation you need to create a standing order with your bank. We will update this entry at the beginning of the following month." %}">
-                                                {% translate "Awaiting bank transfer" %}
-                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                            </span>
-                                        {% else %}
-                                            <span data-bs-toggle="tooltip"
-                                                  title="{% translate "In order to complete this donation you need to initiate a banktransfer. We will update this entry at the beginning of the following month." %}">
-                                                {% translate "Awaiting bank transfer" %}
-                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                            </span>
-                                        {% endif %}
-                                    {% else %}
-                                        {{ donation.payment.get_status_display }}
-                                    {% endif %}
-                                {% endif %}
-                            {% else %}
-                                {% if donation.received_timestamp %}
-                                    {% translate "Confirmed" %}
-                                {% endif %}
-                            {% endif %}
-                            {% if donation.extra_action_url and donation.extra_action_label %}
-                                <div class="alert alert-info text-center">
-                                    <a class="btn btn-primary btn-lg"
-                                       target="_blank"
-                                       href="{{ donation.extra_action_url }}">{{ donation.extra_action_label }}</a>
-                                </div>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
     </div>
-    {% if donor.user and request.user.is_authenticated and not request.user.password %}
-        <hr class="mt-5" />
-        {% include "account/includes/set_password_now.html" %}
+    <div class="container">
+        <div class="border border-2 border-yellow-300 text-bg-body p-3 mt-n3 col-md-6 d-flex flex-column">
+            {% if object.can_receive_receipt %}
+                <p>{% translate "You will receive a donation receipt at the start of each year via e-mail." %}</p>
+                <a href="{{ object.get_absolute_change_url }}" class="action-link arrow">{% trans "Update personal data for receipts" %}</a>
+            {% else %}
+                <p>{% trans "You currently do not receive donation receipts." %}</p>
+                <a href="{{ object.get_absolute_change_url }}" class="action-link arrow">{% trans "Enter personal data for donation receipts" %}</a>
+            {% endif %}
+            <a href="{% page_url "help:donations" %}" class="action-link arrow">{% trans "Frequent questions & contact" %}</a>
+        </div>
+    </div>
+    {% if pending_banktransfers %}
+        <section class="container my-5">
+            <h2>{% trans "Pending banktransfers" %}</h2>
+            <div class="alert alert-info" role="alert">
+                {% translate "The status of donations made by bank transfer is updated at the beginning of the following month, as account statements are only reconciled then." %}
+            </div>
+            <ul class="list-unstyled vstack gap-3">
+                {% for donation in pending_banktransfers %}
+                    <li class="border border-2 border-callout p-3">
+                        {% if donation.order.is_recurring %}
+                            <p>
+                                <strong>{% translate "Please set up a standing order" %}</strong>
+                            </p>
+                        {% endif %}
+                        {% include "fds_donation/includes/banktransfer_instructions.html" with order=donation.order %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
     {% endif %}
-{% endblock %}
+    {% if recurrences %}
+        <section class="container my-5">
+            <h2>
+                {% blocktrans count n=recurrences|length  %}Your recurring donation{% plural %}Your recurring donations{% endblocktrans %}
+            </h2>
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+                {% for recurrence in recurrences %}
+                    <div class="col d-flex">{% include "fds_donation/includes/recurrence.html" with recurrence=recurrence %}</div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+    <section class="container my-5">
+        <h2>{% translate "All transactions" %}</h2>
+        <div class="table-responsive">
+            <table class="table table-hover no-hyphens">
+                <thead>
+                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "Amount" %}</th>
+                    <th>{% trans "Purpose" %}</th>
+                    <th>{% trans "Payment method" %}</th>
+                    <th>{% trans "Status" %}</th>
+                </thead>
+                <tbody class="align-middle">
+                    {% for donation in donations %}
+                        <tr>
+                            {% with last_donation=recurrence.last_donation %}
+                                <td>{{ donation.timestamp|date:"DATE_FORMAT" }}</td>
+                                <td class="text-end">{{ donation.amount }} Euro</td>
+                                <td>{{ donation.purpose }}</td>
+                                <td>{% include "fds_donation/includes/payment_method.html" with donation=donation %}</td>
+                                <td>
+                                    {% if donation.payment %}
+                                        <div {% if donation.payment.status_color %}class="text-{{ donation.payment.status_color }}"{% endif %}>
+                                            <i class="fa fa-{{ donation.payment.status_icon }}" aria-hidden="true"></i>
+                                            {{ donation.payment.get_status_display }}
+                                        </div>
+                                    {% elif donation.received_timestamp %}
+                                        <div class="text-success">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            {% trans "Confirmed" %}
+                                        </div>
+                                    {% else %}
+                                        <div class="text-warning">
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            {% trans "Pending" %}
+                                        </div>
+                                    {% endif %}
+                                </td>
+                            {% endwith %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    {% if donor.user and request.user.is_authenticated and not request.user.password %}
+        <section>
+            {% include "account/includes/set_password_now.html" %}
+        </section>
+    {% endif %}
+{% endblock body %}

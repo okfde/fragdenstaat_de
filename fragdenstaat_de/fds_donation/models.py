@@ -1,6 +1,8 @@
 import decimal
+import json
 import uuid
 from datetime import date, datetime, timedelta
+from typing import Any
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -65,6 +67,8 @@ RECURRING_INTERVAL_CHOICES = INTERVAL_CHOICES[1:] + [
     (6, _("every six months")),
 ]
 
+RECURRING_INTERVAL_CHOICES_DICT = dict(RECURRING_INTERVAL_CHOICES)
+
 SALUTATION_CHOICES = (
     ("", pgettext("salutation neutral", "Hello")),
     ("formal", pgettext("salutation formal", "Good day")),
@@ -79,6 +83,16 @@ SALUTATION_DICT = dict(SALUTATION_CHOICES)
 
 DONATION_PROJECTS = getattr(settings, "DONATION_PROJECTS", [("", _("Default"))])
 DEFAULT_DONATION_PROJECT = DONATION_PROJECTS[0][0]
+
+PAYMENT_METHOD_ICONS = {
+    "creditcard": "creditcard.svg",
+    "sepa": "sepa.svg",
+    "lastschrift": "sepa.svg",
+    "paypal": "paypal.svg",
+    "banktransfer": "sepa.svg",
+}
+
+CARD_PAYMENT_METHOD_ICONS = {"visa": "visa.svg", "mastercard": "mastercard.svg"}
 
 
 class DonorTag(TagBase):
@@ -293,6 +307,10 @@ class Donor(models.Model):
     def is_eligible_for_gift(self):
         return self.recurring_amount >= 10
 
+    @property
+    def can_receive_receipt(self):
+        return self.receipt and self.email and self.email_confirmed and self.postcode
+
     def incomplete_donations(self):
         """
         Returns donations that are not completed yet.
@@ -441,7 +459,7 @@ class Recurrence(models.Model):
             donor=self.donor,
             amount=number_format(self.amount),
             interval=self.interval,
-            method=PAYMENT_METHODS_DICT.get(self.method, self.method),
+            method=self.get_method_display(),
             start=date_format(self.start_date, "SHORT_DATE_FORMAT"),
         ) + (
             " ({})".format(
@@ -452,6 +470,16 @@ class Recurrence(models.Model):
             if self.cancel_date
             else ""
         )
+
+    def get_interval_display(self):
+        return RECURRING_INTERVAL_CHOICES_DICT[self.interval]
+
+    def get_method_display(self):
+        """
+        Returns a human-readable display of the payment method.
+        If the method is not recognized, it returns the method itself.
+        """
+        return CHECKOUT_PAYMENT_CHOICES_DICT.get(self.method, self.method)
 
     @property
     def is_banktransfer(self):
@@ -500,6 +528,13 @@ class Recurrence(models.Model):
         If no donations exist, returns None.
         """
         return self.donations.order_by("timestamp").first()
+
+    def last_donation(self):
+        """
+        Returns the last donation for this recurrence.
+        If no donations exist, returns None.
+        """
+        return self.donations.order_by("timestamp").last()
 
 
 class DonationManager(models.Manager):
@@ -669,6 +704,44 @@ class Donation(models.Model):
         If the method is not recognized, it returns the method itself.
         """
         return CHECKOUT_PAYMENT_CHOICES_DICT.get(self.method, self.method)
+
+    @cached_property
+    def payment_method_details(self) -> Any | None:
+        if self.payment and self.payment.extra_data:
+            data = json.loads(self.payment.extra_data)
+            try:
+                return data["charges"][0]["payment_method_details"][
+                    "sepa_debit" if self.method == "sepa" else "card"
+                ]
+            except KeyError:
+                return
+
+    @cached_property
+    def last4(self) -> str | None:
+        if (
+            self.method == "creditcard" or self.method == "sepa"
+        ) and self.payment_method_details:
+            try:
+                return self.payment_method_details["last4"]
+            except KeyError:
+                return
+
+    @cached_property
+    def icon(self):
+        if self.method == "creditcard" and self.payment_method_details:
+            try:
+                brand = self.payment_method_details["brand"]
+
+                if (
+                    self.payment_method_details.get("wallet")
+                    and "apple_pay" in self.payment_method_details["wallet"]
+                ):
+                    return "apple-pay.svg"
+                return CARD_PAYMENT_METHOD_ICONS[brand]
+            except KeyError:
+                pass
+
+        return PAYMENT_METHOD_ICONS.get(self.method)
 
 
 class DefaultDonationManager(DonationManager):
