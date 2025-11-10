@@ -439,3 +439,18 @@ class GegenrechtsschutzMixin:
     CMS_TEMPLATES = [
         ("cmssites/cmssite/gegenrechtsschutz.html", "Gegenrechtsschutz Template"),
     ]
+
+
+class UbfMixin:
+    SITE_ID = 3
+    SITE_KEY = "ubf"
+    SITE_URL = "https://ubf.de"
+    SITE_NAME = "Ubf"
+    SITE_EMAIL = "info@ubf.de"
+    SITE_LOGO = ""
+    MATOMO_SITE_ID = ""
+    SENTRY_JS_URL = ""
+
+    CMS_TEMPLATES = [
+        ("cmssites/cmssite/ubf.html", "Ubf Template"),
+    ]
