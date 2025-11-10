@@ -9,7 +9,20 @@
     {% include "fds_cms/social_meta.html" with object=request.current_page %}
 {% endblock %}
 {% block top_block %}{% endblock %}
-{% block navbar %}{# TODO: navbar #}{% endblock %}
+{% block navbar %}
+    {# TODO: navbar #}
+    <nav class="navbar text-bg-primary border-bottom border-merlot-75">
+        <span class="visually-hidden">{{ SITE_NAME }}</span>
+        <div class="container-xxl d-md-flex flex-wrap flex-md-nowrap text-uppercase">
+            <div aria-hidden="true">
+                <span class="h3">{{ SITE_NAME }}</span>
+            </div>
+            <ul class="navbar-nav ms-md-auto h3 flex flex-row gap-4 flex-wrap">
+                {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
 {% block messages %}{% endblock %}
 {% block body %}
     {% block app_body %}
