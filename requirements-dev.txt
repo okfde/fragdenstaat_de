@@ -390,7 +390,7 @@ editorconfig==0.17.1
     # via
     #   cssbeautifier
     #   jsbeautifier
-elastic-transport==8.17.1
+elastic-transport==9.1.0
     # via
     #   elasticsearch
     #   elasticsearch-dsl
