@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 17:19+0100\n"
-"PO-Revision-Date: 2025-10-30 16:39+0000\n"
+"POT-Creation-Date: 2025-11-10 15:53+0100\n"
+"PO-Revision-Date: 2025-11-10 14:56+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -520,6 +520,11 @@ msgid "Share article"
 msgstr "Artikel teilen"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+#: fragdenstaat_de/fds_newsletter/forms.py
+msgid "Tags"
+msgstr "Schlagwörter"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid "Credits"
 msgstr "Mitarbeit"
 
@@ -560,48 +565,25 @@ msgstr[1] ""
 "                    "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
-#: fragdenstaat_de/fds_newsletter/forms.py
-msgid "Tags"
-msgstr "Schlagwörter"
-
-#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid "This article is available in other languages."
 msgstr "Dieser Artikel ist in anderen Sprachen verfügbar."
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid ""
 "\n"
-"                                    Similar article:\n"
-"                                "
-msgid_plural ""
-"\n"
-"                                    Similar articles:\n"
-"                                "
-msgstr[0] ""
-"\n"
-"                                    Ähnlicher Artikel:\n"
-"                                "
-msgstr[1] ""
-"\n"
-"                                    Ähnliche Artikel:\n"
-"                                "
-
-#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
-msgid ""
-"\n"
-"                                Previous article:\n"
+"                                Related article\n"
 "                            "
 msgid_plural ""
 "\n"
-"                                Previous articles:\n"
+"                                Related articles\n"
 "                            "
 msgstr[0] ""
 "\n"
-"                                Vorheriger Artikel:\n"
+"                                Verwandter Artikel\n"
 "                            "
 msgstr[1] ""
 "\n"
-"                                Vorherige Artikel:\n"
+"                                Verwandte Artikel\n"
 "                            "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
@@ -1794,7 +1776,7 @@ msgstr "Nichts"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
 msgid "Has some"
-msgstr ""
+msgstr "Hat manche"
 
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "Froide Payment App (no config)"
@@ -4539,6 +4521,42 @@ msgstr "User automatisch blockiert"
 msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid ""
+"\n"
+"                                    Similar article:\n"
+"                                "
+msgid_plural ""
+"\n"
+"                                    Similar articles:\n"
+"                                "
+msgstr[0] ""
+"\n"
+"                                    Ähnlicher Artikel:\n"
+"                                "
+msgstr[1] ""
+"\n"
+"                                    Ähnliche Artikel:\n"
+"                                "
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid ""
+"\n"
+"                                Previous article:\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                Previous articles:\n"
+"                            "
+msgstr[0] ""
+"\n"
+"                                Vorheriger Artikel:\n"
+"                            "
+msgstr[1] ""
+"\n"
+"                                Vorherige Artikel:\n"
+"                            "
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Dauerspende"
