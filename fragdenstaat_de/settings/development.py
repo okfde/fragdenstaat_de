@@ -1,4 +1,4 @@
-from fragdenstaat_de.settings.cms import CMSSiteBase, GegenrechtsschutzMixin
+from fragdenstaat_de.settings.cms import CMSSiteBase, GegenrechtsschutzMixin, UbfMixin
 
 from .base import FragDenStaatBase, env
 
@@ -45,6 +45,20 @@ class Gegenrechtsschutz(GegenrechtsschutzMixin, DevMixin, CMSSiteBase):
     }
 
 
+class Ubf(UbfMixin, DevMixin, CMSSiteBase):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.contrib.gis.db.backends.postgis",
+            "NAME": env("DATABASE_NAME", "fragdenstaat_de"),
+            "OPTIONS": {},
+            "HOST": "localhost",
+            "USER": env("DATABASE_USER", "fragdenstaat_de"),
+            "PASSWORD": env("DATABASE_PASSWORD", "fragdenstaat_de"),
+            "PORT": "5432",
+        }
+    }
+
+
 try:
     from .local_settings import Dev  # noqa
 except ImportError:
@@ -53,5 +67,10 @@ except ImportError:
 
 try:
     from .local_settings import Gegenrechtsschutz  # noqa
+except ImportError:
+    pass
+
+try:
+    from .local_settings import Ubf  # noqa
 except ImportError:
     pass
