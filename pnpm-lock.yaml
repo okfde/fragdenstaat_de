@@ -11,6 +11,9 @@ importers:
       '@fontsource-variable/jost':
         specifier: ^5.2.8
         version: 5.2.8
+      '@fontsource/geist':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@glidejs/glide':
         specifier: ^3.7.1
         version: 3.7.1
@@ -380,6 +383,9 @@ packages:
 
   '@fontsource-variable/jost@5.2.8':
     resolution: {integrity: sha512-+VDDHpbhgZ9A8KeHb7/LUMRR1LILVKIscNhVRSDzn3tFXoi1mFA/OhO8CZL/u2OujoGjZANjOdUZIgaxclxyjw==}
+
+  '@fontsource/geist@5.2.8':
+    resolution: {integrity: sha512-pI54klK6vz8fVpAVyV+iODGLEzw73cs1XJqV9PIXgW8MYMmBcwK6lKKaWqJrNHwEx8ppz9cuhussb6arXQ/PVQ==}
 
   '@glidejs/glide@3.7.1':
     resolution: {integrity: sha512-8he0pZpLSqTesSFYiuWdhBmtdlYSPWxfPUCKtkkiX6ZmT8UdMdmoFPtJaOwLBXv4p2JiGxqbuPdiRGGo2e/htQ==}
@@ -2900,6 +2906,8 @@ snapshots:
       levn: 0.4.1
 
   '@fontsource-variable/jost@5.2.8': {}
+
+  '@fontsource/geist@5.2.8': {}
 
   '@glidejs/glide@3.7.1': {}
 
