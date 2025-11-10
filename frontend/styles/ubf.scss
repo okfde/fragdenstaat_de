@@ -1,0 +1,118 @@
+@import 'bootstrap/scss/functions';
+
+$lavender-100: #b69fff;
+$lavender-25: #e6e0f8;
+$lavender-50: #d5cafa;
+$lavender-75: #c5b4fc;
+$merlot-100: #38182f;
+$merlot-25: #c6bec4;
+$merlot-50: #968692;
+$merlot-75: #674f60;
+$teal-100: #006f59;
+$teal-25: #b8d4ce;
+$teal-50: #7ab2a7;
+$teal-75: #3d9080;
+$white: #ffffff;
+$pearl-100: #f4eeee;
+$pearl-25: #fcfbfb;
+$pearl-50: #f9f7f7;
+$pearl-75: #f7f2f2;
+$sunburst-100: #f8de01;
+$sunburst-25: #fdf7bf;
+$sunburst-50: #fbef80;
+$sunburst-75: #fae641;
+$tangerine-100: #ff6c03;
+$tangerine-25: #ffdac0;
+$tangerine-50: #ffb581;
+$tangerine-75: #ffb581;
+
+$gradient-mist: linear-gradient(to right, $lavender-100, $teal-100);
+$gradient-fire: linear-gradient(to right, $tangerine-100, $sunburst-100);
+$gradient-glow: linear-gradient(to right, $lavender-100, $tangerine-100);
+
+$primary: $merlot-100;
+
+$font-family-sans-serif: 'Geist', system-ui, sans-serif;
+$headings-font-family: 'Gregory Grotesk Condensed', system-ui, sans-serif;
+$headings-font-weight: 800;
+
+$type-body-sans-body-sans-micro: 0.75rem;
+$type-body-sans-body-sans-small: 0.875rem;
+$type-body-sans-body-sans-default: 1.25rem;
+$type-body-sans-body-sans-lead: 1.625rem;
+
+$h1-font-size: 4rem;
+$h2-font-size: 3.5rem;
+$h3-font-size: 2rem;
+$h4-font-size: 1.625rem;
+$font-size-sm: 0.875rem;
+$type-ui-ui-default: 1.125rem;
+
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+
+@import 'froide/frontend/styles/color-contrast';
+
+$display-font-sizes: (
+  1: 7rem,
+  2: 5rem,
+  3: 4rem
+);
+
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/root';
+
+// Layout & components
+@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/type';
+@import 'bootstrap/scss/images';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/tables';
+@import 'bootstrap/scss/forms';
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/dropdown';
+@import 'bootstrap/scss/button-group';
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/card';
+@import 'bootstrap/scss/accordion';
+@import 'bootstrap/scss/breadcrumb';
+@import 'bootstrap/scss/pagination';
+@import 'bootstrap/scss/badge';
+@import 'bootstrap/scss/alert';
+@import 'bootstrap/scss/progress';
+@import 'bootstrap/scss/list-group';
+@import 'bootstrap/scss/close';
+@import 'bootstrap/scss/toasts';
+@import 'bootstrap/scss/modal';
+@import 'bootstrap/scss/tooltip';
+// @import "bootstrap/scss/popover";
+// @import "bootstrap/scss/carousel";
+@import 'bootstrap/scss/spinners';
+@import 'bootstrap/scss/offcanvas';
+@import 'bootstrap/scss/placeholders';
+
+// Helpers
+@import 'bootstrap/scss/helpers';
+
+// Utilities
+@import 'bootstrap/scss/utilities/api';
+
+// @import 'froide/frontend/styles/root';
+// @import 'froide/frontend/styles/utilities';
+
+@import '@fontsource/geist/400.css';
+@import '@fontsource/geist/700.css';
+
+@font-face {
+  font-family: 'Gregory Grotesk Condensed';
+  src: url('../fonts/gregory-grotesk/gregory-grotesk-condensed-bold.woff2')
+    format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
