@@ -1,5 +1,7 @@
+@use 'sass:list';
 @import 'bootstrap/scss/functions';
 
+// colors
 $lavender-100: #b69fff;
 $lavender-25: #e6e0f8;
 $lavender-50: #d5cafa;
@@ -31,32 +33,72 @@ $gradient-fire: linear-gradient(to right, $tangerine-100, $sunburst-100);
 $gradient-glow: linear-gradient(to right, $lavender-100, $tangerine-100);
 
 $primary: $merlot-100;
+$secondary: $lavender-100;
 
+// typography
 $font-family-sans-serif: 'Geist', system-ui, sans-serif;
 $headings-font-family: 'Gregory Grotesk Condensed', system-ui, sans-serif;
 $headings-font-weight: 800;
-
-$type-body-sans-body-sans-micro: 0.75rem;
-$type-body-sans-body-sans-small: 0.875rem;
-$type-body-sans-body-sans-default: 1.25rem;
-$type-body-sans-body-sans-lead: 1.625rem;
-
+$headings-line-height: 100%;
 $h1-font-size: 4rem;
 $h2-font-size: 3.5rem;
 $h3-font-size: 2rem;
 $h4-font-size: 1.625rem;
 $font-size-sm: 0.875rem;
-$type-ui-ui-default: 1.125rem;
+$lead-font-weight: 400;
+$lead-font-size: 1.5rem;
+
+$chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='26' fill='none' viewBox='0 0 18 26'%3E%3Cpath stroke='%23fff' stroke-width='2' d='m1 1 15 12L1 25'/%3E%3C/svg%3E");
+
+// inputs + buttons
+$input-btn-padding-y: 0.5rem;
+$input-btn-padding-x: 1rem;
+$input-btn-font-weight: 700;
+$btn-font-weight: 700;
+$btn-border-radius: 50rem;
+
+// navbar
+
+$navbar-light-color: $lavender-100;
+$navbar-light-hover-color: $lavender-75;
+$navbar-light-active-color: $sunburst-100;
 
 @import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/variables-dark';
-
 @import 'froide/frontend/styles/color-contrast';
 
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'lavender-100': $lavender-100,
+  'lavender-25': $lavender-25,
+  'lavender-50': $lavender-50,
+  'lavender-75': $lavender-75,
+  'merlot-100': $merlot-100,
+  'merlot-25': $merlot-25,
+  'merlot-50': $merlot-50,
+  'merlot-75': $merlot-75,
+  'teal-100': $teal-100,
+  'teal-25': $teal-25,
+  'teal-50': $teal-50,
+  'teal-75': $teal-75,
+  'pearl-100': $pearl-100,
+  'pearl-25': $pearl-25,
+  'pearl-50': $pearl-50,
+  'pearl-75': $pearl-75,
+  'sunburst-100': $sunburst-100,
+  'sunburst-25': $sunburst-25,
+  'sunburst-50': $sunburst-50,
+  'sunburst-75': $sunburst-75,
+  'tangerine-100': $tangerine-100,
+  'tangerine-25': $tangerine-25,
+  'tangerine-50': $tangerine-50,
+  'tangerine-75': $tangerine-75
+);
+
 $display-font-sizes: (
-  1: 7rem,
-  2: 5rem,
-  3: 4rem
+  1: 5rem,
+  2: 4rem,
+  3: 3.5rem
 );
 
 @import 'bootstrap/scss/maps';
@@ -72,29 +114,75 @@ $display-font-sizes: (
 @import 'bootstrap/scss/grid';
 @import 'bootstrap/scss/tables';
 @import 'bootstrap/scss/forms';
+
+// hack to use custom text + hover colors
+$original-theme-colors: $theme-colors;
+$theme-colors: ();
 @import 'bootstrap/scss/buttons';
+$theme-colors: $original-theme-colors;
+
+.btn {
+  &::after {
+    display: inline-block;
+    content: '→'; // TODO: swap with proper icon
+    padding-left: 0.5em;
+  }
+}
+
+$buttons: (
+  // background, color, hover-background
+  'primary': ($merlot-100, $white, $teal-100),
+  'secondary': ($lavender-100, $merlot-100, $pearl-100)
+);
+
+@each $name, $value in $buttons {
+  .btn-#{$name} {
+    @include button-variant(
+      $background: list.nth($value, 1),
+      $border: list.nth($value, 1),
+      $color: list.nth($value, 2),
+      $hover-background: list.nth($value, 3),
+      $hover-border: list.nth($value, 3)
+    );
+  }
+}
+
+// unlike bootstrap outline buttons, ours don't fill when hovered
+@each $name, $value in $buttons {
+  .btn-outline-#{$name} {
+    $color: list.nth($value, 1);
+    $hover: list.nth($value, 3);
+
+    --#{$prefix}btn-color: #{$color};
+    --#{$prefix}btn-border-color: #{$color};
+    --#{$prefix}btn-hover-color: #{$hover};
+    --#{$prefix}btn-hover-border-color: #{$hover};
+    --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($color)};
+  }
+}
+
 @import 'bootstrap/scss/transitions';
 @import 'bootstrap/scss/dropdown';
 @import 'bootstrap/scss/button-group';
 @import 'bootstrap/scss/nav';
 @import 'bootstrap/scss/navbar';
-@import 'bootstrap/scss/card';
+// @import 'bootstrap/scss/card';
 @import 'bootstrap/scss/accordion';
-@import 'bootstrap/scss/breadcrumb';
-@import 'bootstrap/scss/pagination';
-@import 'bootstrap/scss/badge';
-@import 'bootstrap/scss/alert';
-@import 'bootstrap/scss/progress';
-@import 'bootstrap/scss/list-group';
-@import 'bootstrap/scss/close';
-@import 'bootstrap/scss/toasts';
-@import 'bootstrap/scss/modal';
+// @import 'bootstrap/scss/breadcrumb';
+// @import 'bootstrap/scss/pagination';
+// @import 'bootstrap/scss/badge';
+// @import 'bootstrap/scss/alert';
+// @import 'bootstrap/scss/progress';
+// @import 'bootstrap/scss/list-group';
+// @import 'bootstrap/scss/close';
+// @import 'bootstrap/scss/toasts';
+// @import 'bootstrap/scss/modal';
 @import 'bootstrap/scss/tooltip';
 // @import "bootstrap/scss/popover";
 // @import "bootstrap/scss/carousel";
-@import 'bootstrap/scss/spinners';
-@import 'bootstrap/scss/offcanvas';
-@import 'bootstrap/scss/placeholders';
+// @import 'bootstrap/scss/spinners';
+// @import 'bootstrap/scss/offcanvas';
+// @import 'bootstrap/scss/placeholders';
 
 // Helpers
 @import 'bootstrap/scss/helpers';
