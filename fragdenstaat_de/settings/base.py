@@ -205,7 +205,9 @@ class FragDenStaatBase(German, Base):
         ("fds_blog/content/_article_no_image.html", _("No image in article")),
         ("fds_blog/content/_article_video_header.html", _("Video header")),
     ]
-    ARTICLE_DETAIL_TEMPLATES = []
+    ARTICLE_DETAIL_TEMPLATES = [
+        ("fds_blog/article_detail_dark.html", _("Dark mode template"))
+    ]
 
     PARLER_LANGUAGES = {
         1: (
