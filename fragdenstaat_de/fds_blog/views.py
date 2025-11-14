@@ -147,6 +147,9 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
+    def get_template_names(self):
+        return [self.object.detail_template]
+
     def get_context_data(self, object=None):
         context = super().get_context_data(object=object)
         related_articles = list(object.related.all())
