@@ -2,6 +2,15 @@ from .base import FragDenStaatBase
 
 
 class Dev(FragDenStaatBase):
+    # uncomment to support exposing to local network
+    # def __init__(self):
+    #     # check for argument after: manage.py runserver ...
+    #     if len(sys.argv) > 2:
+    #         # grab host after runserver ...
+    #         host = sys.argv[2]
+    #         self.SITE_URL = 'http://' + host
+    #         self.FRONTEND_SERVER_URL = 'http://' + host.replace('8000', '5173') +'/'
+
     DEBUG = True
     ALLOWED_HOSTS = ('*',)
     # CELERY_TASK_ALWAYS_EAGER = False
