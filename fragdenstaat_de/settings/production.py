@@ -208,16 +208,6 @@ class FragDenStaat(FragDenStaatBase):
 
     GEOIP_PATH = env("DJANGO_GEOIP_PATH")
 
-    ELASTICSEARCH_INDEX_PREFIX = "fragdenstaat_de"
-    ELASTICSEARCH_DSL = {
-        "default": {
-            "hosts": env("DJANGO_ELASTICSEARCH_HOSTS", "http://localhost:9200").split(
-                ","
-            )
-        },
-    }
-    ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = "froide.helper.search.CelerySignalProcessor"
-
     LOGGING = {
         "root": {"handlers": ["console"], "level": "WARNING"},
         "loggers": {
