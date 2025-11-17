@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load djangocms_alias_tags %}
+{# TODO shrink for medium viewports #}
+<div class="ratio ratio-4x3 mb-3">
+    {# TODO src/sizes #}
+    <img class="object-fit-contain"
+         src="https://media.frag-den-staat.de/files/media/thumbnails/56/25/56256ffd-6ede-458e-a214-b5d3531da7a9/jump_building_startseitegross.png__622x598_subject_location-312%2C300_subsampling-2.png"
+         srcset="https://media.frag-den-staat.de/files/media/thumbnails/56/25/56256ffd-6ede-458e-a214-b5d3531da7a9/jump_building_startseitegross.png__260x0_subject_location-312%2C300_subsampling-2.png 260w,
+                 https://media.frag-den-staat.de/files/media/thumbnails/56/25/56256ffd-6ede-458e-a214-b5d3531da7a9/jump_building_startseitegross.png__380x0_subject_location-312%2C300_subsampling-2.png 380w,
+                 https://media.frag-den-staat.de/files/media/thumbnails/56/25/56256ffd-6ede-458e-a214-b5d3531da7a9/jump_building_startseitegross.png__520x0_subject_location-312%2C300_subsampling-2.png 520w,
+                 https://media.frag-den-staat.de/files/media/thumbnails/56/25/56256ffd-6ede-458e-a214-b5d3531da7a9/jump_building_startseitegross.png__622x598_subject_location-312%2C300_subsampling-2.png 622w"
+         sizes=""
+         alt=""
+         width="622"
+         height="598"
+         loading="eager">
+</div>
+<h2 class="fs-4">{% trans "Write a request" %}</h2>
+<div>
+    {% static_alias "request_campaign_main_description" %}
+    <a :href="config.url.helpRequestWhat"
+       @click.prevent="emit('onlinehelpClick', config.url.helpRequestWhat)">{{ i18n.whatCanIRequest }}</a>
+    <br />
+    <a :href="config.url.helpRequestWhatNot"
+       @click.prevent="emit('onlinehelpClick', config.url.helpRequestWhatNot)">{{ i18n.whatCanINotRequest }}</a>
+    <br />
+</div>
