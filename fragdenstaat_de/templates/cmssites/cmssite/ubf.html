@@ -12,15 +12,8 @@
 {% block top_block %}{% endblock %}
 {% block navbar %}
     <nav class="navbar text-bg-primary border-bottom border-merlot-75 py-0">
-        <div class="py-3 border-bottom border-merlot-75 w-100">
-            <div class="container-xxl">
-                <a href="https://fragdenstaat.de"
-                   target="_blank"
-                   class="link-white logo-fds">{% render_svg "img/header_logo.svg" %}</a>
-            </div>
-        </div>
-        <span class="visually-hidden">{{ SITE_NAME }}</span>
         <div class="container-xxl d-md-flex flex-wrap flex-md-nowrap text-uppercase py-3">
+            <span class="visually-hidden">{{ SITE_NAME }}</span>
             <div aria-hidden="true" class="d-flex flex-grow-1 h3 m-0 pe-md-3">
                 {% spaceless %}
                     {# TODO: sneaky for now #}
@@ -32,6 +25,16 @@
             <ul class="navbar-nav h3 flex flex-row gap-4 flex-wrap">
                 {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
             </ul>
+        </div>
+        <div class="py-3 border-bottom border-merlot-75 w-100 order-first">
+            <div class="container-xxl">
+                <a href="https://fragdenstaat.de"
+                   target="_blank"
+                   class="link-white logo-fds">
+                    {% render_svg "img/header_logo.svg" %}
+                    <span class="visually-hidden">Ein Projekt von FragDenStaat</span>
+                </a>
+            </div>
         </div>
     </nav>
 {% endblock %}
