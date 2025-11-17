@@ -48,7 +48,7 @@ $font-size-sm: 0.875rem;
 $lead-font-weight: 400;
 $lead-font-size: 1.5rem;
 
-$chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='26' fill='none' viewBox='0 0 18 26'%3E%3Cpath stroke='%23fff' stroke-width='2' d='m1 1 15 12L1 25'/%3E%3C/svg%3E");
+$chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='30' viewBox='0 0 20 30' fill='none'%3E%3Cpath d='M0.635681 0.771973L17.6357 14.772L0.635681 28.772' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
 
 // inputs + buttons
 $input-btn-padding-y: 0.5rem;
@@ -92,7 +92,8 @@ $theme-colors: (
   'tangerine-100': $tangerine-100,
   'tangerine-25': $tangerine-25,
   'tangerine-50': $tangerine-50,
-  'tangerine-75': $tangerine-75
+  'tangerine-75': $tangerine-75,
+  'white': $white
 );
 
 $display-font-sizes: (
@@ -192,6 +193,40 @@ $buttons: (
 
 // @import 'froide/frontend/styles/root';
 // @import 'froide/frontend/styles/utilities';
+
+// custom styles
+
+.logo-arrow {
+  display: flex;
+  flex-grow: 1;
+  margin: 0 $spacer;
+  height: 0.5em;
+  border-bottom: 2px solid $white;
+  position: relative;
+
+  &::after {
+    // not exactly the right arrow angle, but will do for now
+    content: '';
+    position: absolute;
+    right: 1px;
+    top: calc(0.25em - 1px);
+    bottom: 0;
+    width: 0.5em;
+    height: 0.5em;
+    border: solid $white;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+  }
+}
+
+.logo-fds svg {
+  height: 1.5rem;
+  width: auto;
+}
+
+// fonts
 
 @import '@fontsource/geist/400.css';
 @import '@fontsource/geist/700.css';
