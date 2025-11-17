@@ -7,7 +7,7 @@ from configurations import Configuration, importer, values
 
 import froide
 
-from fragdenstaat_de.settings.base import THEME_ROOT
+from fragdenstaat_de.settings.base import THEME_ROOT, env
 
 importer.install(check_options=True)
 
@@ -435,7 +435,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
 
 
 class GegenrechtsschutzMixin:
-    SITE_ID = 2
+    SITE_ID = env("DJANGO_SITE_ID", 2)
     SITE_KEY = "grs"
     SITE_URL = "https://gegenrechtsschutz.de"
     SITE_NAME = "Gegenrechtsschutz"
@@ -450,7 +450,7 @@ class GegenrechtsschutzMixin:
 
 
 class UbfMixin:
-    SITE_ID = 3
+    SITE_ID = env("DJANGO_SITE_ID", 3)
     SITE_KEY = "ubf"
     SITE_URL = "https://ubf.de"
     SITE_NAME = "Ubf"
