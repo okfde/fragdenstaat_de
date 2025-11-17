@@ -322,7 +322,7 @@ djangocms-picture==4.1.1
     # via fragdenstaat-de (pyproject.toml)
 djangocms-text==0.9.3
     # via fragdenstaat-de (pyproject.toml)
-djangocms-transfer==2.0.0
+djangocms-transfer==2.0.1
     # via fragdenstaat-de (pyproject.toml)
 djangocms-versioning==2.4.0
     # via fragdenstaat-de (pyproject.toml)
