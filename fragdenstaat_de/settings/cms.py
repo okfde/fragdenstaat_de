@@ -7,6 +7,8 @@ from configurations import Configuration, importer, values
 
 import froide
 
+from fragdenstaat_de.settings.base import THEME_ROOT
+
 importer.install(check_options=True)
 
 
@@ -302,6 +304,12 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
     FILINGCABINET_MEDIA_PRIVATE_PREFIX = "docs-private"
 
     STATIC_URL = values.Value("/static/")
+    STATIC_ROOT = THEME_ROOT.parent / "public"
+
+    @property
+    def STATICFILES_DIRS(self):
+        return [THEME_ROOT / "static"] + super().STATICFILES_DIRS
+
     TEMPLATES = [
         {
             "BACKEND": "django.template.backends.django.DjangoTemplates",
