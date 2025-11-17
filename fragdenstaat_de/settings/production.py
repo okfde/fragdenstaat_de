@@ -6,7 +6,7 @@ from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 
-from fragdenstaat_de.settings.cms import CMSSiteBase, GegenrechtsschutzMixin
+from fragdenstaat_de.settings.cms import CMSSiteBase, GegenrechtsschutzMixin, UbfMixin
 
 from .base import FragDenStaatBase, env
 
@@ -349,6 +349,10 @@ class CMSSiteProduction(CMSSiteBase):
 
 
 class Gegenrechtsschutz(GegenrechtsschutzMixin, CMSSiteProduction):
+    pass
+
+
+class Ubf(UbfMixin, CMSSiteProduction):
     pass
 
 
