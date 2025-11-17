@@ -50,18 +50,14 @@ $lead-font-size: 1.5rem;
 
 $chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='30' viewBox='0 0 20 30' fill='none'%3E%3Cpath d='M0.635681 0.771973L17.6357 14.772L0.635681 28.772' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
 
-// inputs + buttons
-$input-btn-padding-y: 0.5rem;
-$input-btn-padding-x: 1rem;
-$input-btn-font-weight: 700;
-$btn-font-weight: 700;
-$btn-border-radius: 50rem;
-
 // navbar
 
 $navbar-light-color: $lavender-100;
 $navbar-light-hover-color: $lavender-75;
 $navbar-light-active-color: $sunburst-100;
+
+$input-btn-padding-y: 0.5rem;
+$input-btn-padding-x: 1rem;
 
 @import 'bootstrap/scss/variables';
 @import 'froide/frontend/styles/color-contrast';
@@ -101,6 +97,32 @@ $display-font-sizes: (
   2: 4rem,
   3: 3.5rem
 );
+
+// inputs + buttons
+$btn-padding-y: 0.5rem;
+$btn-padding-x: 1rem;
+
+$input-btn-font-weight: 700;
+$btn-font-weight: 700;
+$btn-border-radius: $border-radius-pill;
+
+$border-color: $merlot-75;
+$input-border-radius: $border-radius-pill;
+$input-border-radius-sm: $border-radius-pill;
+$input-border-radius-lg: $border-radius-pill;
+$input-color: $merlot-75;
+
+$input-group-addon-color: $merlot-75;
+$input-group-addon-bg: transparent;
+$form-check-input-width: 1.5em;
+
+$form-check-input-checked-bg-color: $white;
+
+$form-check-input-checked-color: $merlot-100;
+$form-check-input-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$merlot-100}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/></svg>");
+$form-check-radio-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$white}'/><circle r='2.8' fill='#{$form-check-input-checked-color}'/></svg>");
+
+$form-select-border-radius: $border-radius-pill;
 
 @import 'bootstrap/scss/maps';
 @import 'bootstrap/scss/mixins';
