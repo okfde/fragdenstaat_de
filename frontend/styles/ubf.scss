@@ -248,6 +248,84 @@ $buttons: (
   width: auto;
 }
 
+.ubf-section {
+  // Remove existing margins from textual elements.
+  p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+  }
+
+  display: flex;
+  flex-direction: column;
+  padding: $spacer * 3 $spacer * 1.25;
+
+  @include media-breakpoint-up(md) {
+    padding: $spacer * 3.5 $spacer * 2.5;
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding: $spacer * 5 $spacer * 4;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    padding: $spacer * 7 $spacer * 4;
+  }
+}
+
+.faq-section {
+  @extend .ubf-section;
+  color: $primary;
+  background-color: $pearl-100;
+  gap: $spacer * 1.5;
+
+  @include media-breakpoint-up(md) {
+    gap: $spacer * 2;
+  }
+
+  @include media-breakpoint-up(xl) {
+    gap: $spacer * 2.5;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    gap: $spacer * 3;
+  }
+
+  // FAQ item (row)
+  .faq-item {
+    border-bottom: 1px solid $merlot-25;
+    padding-bottom: $spacer * 1.5;
+
+    @include media-breakpoint-up(md) {
+      padding-bottom: $spacer * 2;
+    }
+
+    @include media-breakpoint-up(xl) {
+      border-bottom: 1px solid $merlot-50;
+    }
+
+    // First column: FAQ question
+    > .col:first-child{
+      font-size: 1.125rem;
+      font-weight: 700;
+      padding-right: 0;
+      padding-bottom: $spacer * 1.25;
+
+      @include media-breakpoint-up(md) {
+        padding-right: $spacer * 0.75;
+        padding-bottom: 0;
+      }
+    }
+
+    // Second column: FAQ answer
+    > .col:last-child{
+      padding-left: 0;
+
+      @include media-breakpoint-up(md) {
+        padding-left: $spacer * 0.75;
+      }
+    }
+  }
+}
+
 // fonts
 
 @import '@fontsource/geist/400.css';
