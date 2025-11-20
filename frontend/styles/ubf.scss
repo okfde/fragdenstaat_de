@@ -2,6 +2,8 @@
 @import 'bootstrap/scss/functions';
 
 // colors
+$enable-dark-mode: false;
+
 $lavender-100: #b69fff;
 $lavender-25: #e6e0f8;
 $lavender-50: #d5cafa;
@@ -46,7 +48,7 @@ $h3-font-size: 2rem;
 $h4-font-size: 1.625rem;
 $font-size-sm: 0.875rem;
 $lead-font-weight: 400;
-$lead-font-size: 1.125rem;
+$lead-font-size: 1.5rem;
 
 $chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='30' viewBox='0 0 20 30' fill='none'%3E%3Cpath d='M0.635681 0.771973L17.6357 14.772L0.635681 28.772' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
 
@@ -89,13 +91,32 @@ $theme-colors: (
   'tangerine-25': $tangerine-25,
   'tangerine-50': $tangerine-50,
   'tangerine-75': $tangerine-75,
-  'white': $white
+  'white': $white,
+  'body-secondary': $teal-100,
+  'body-tertiary': $pearl-100
 );
 
 $display-font-sizes: (
   1: 5rem,
   2: 4rem,
   3: 3.5rem
+);
+
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 2.5,
+  5: $spacer * 3.5
+);
+
+$container-max-widths: (
+  sm: 100%,
+  md: 100%,
+  lg: 100%,
+  xl: 100%,
+  xxl: 1320px
 );
 
 // inputs + buttons
@@ -285,8 +306,9 @@ $buttons: (
   }
 }
 
-.design-container > .container {
-  max-width: none;
+.design-container > .container,
+.ubf-section {
+  max-width: 96rem;
   padding: 3rem 1.25rem;
 
   @include media-breakpoint-up(md) {
@@ -303,6 +325,12 @@ $buttons: (
 }
 
 // fonts
+
+@include media-breakpoint-up(xl) {
+  :root {
+    --#{$prefix}body-font-size: 1.125rem;
+  }
+}
 
 @import '@fontsource/geist/400.css';
 @import '@fontsource/geist/700.css';
