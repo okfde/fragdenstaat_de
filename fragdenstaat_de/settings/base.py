@@ -552,6 +552,7 @@ class FragDenStaatBase(German, Base):
         "froide.helper.middleware.XForwardedForMiddleware",
         "django.middleware.locale.LocaleMiddleware",  # needs to be before CommonMiddleware
         "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.contrib.sites.middleware.CurrentSiteMiddleware",
         "django.middleware.common.CommonMiddleware",
         FROIDE_CSRF_MIDDLEWARE,
         "django.contrib.auth.middleware.AuthenticationMiddleware",
