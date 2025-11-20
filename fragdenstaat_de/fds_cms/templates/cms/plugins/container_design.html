@@ -1,5 +1,5 @@
 {% load cms_tags %}
-<div class="{% if object.has_backdrop %}position-relative{% else %}text-bg-{{ object.background }}{% endif %}{% if "body" in object.background %} text-body{% endif %} {% block extraclass %}{{ object.extra_classes }}{% endblock %}{% if object.padding %} p-3{% endif %}">
+<div class="design-container {% if object.has_backdrop %}position-relative{% else %}text-bg-{{ object.background }}{% endif %}{% if "body" in object.background %} text-body{% endif %} {% block extraclass %}{{ object.extra_classes }}{% endblock %}{% if object.padding %} p-3{% endif %}">
     {% if object.has_backdrop %}
         <div class="text-bg-{{ object.background }} h-{{ object.backdrop }} position-absolute top-0 bottom-0 start-0 end-0">
         </div>
