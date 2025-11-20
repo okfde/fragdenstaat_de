@@ -300,7 +300,7 @@ djangocms-alias==3.0.2
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide-govplan
-djangocms-attributes-field==4.1.1
+djangocms-attributes-field==4.1.2
     # via
     #   djangocms-audio
     #   djangocms-frontend
