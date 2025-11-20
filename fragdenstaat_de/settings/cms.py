@@ -343,6 +343,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
 
     MIDDLEWARE = [
         "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.contrib.sites.middleware.CurrentSiteMiddleware",
         "django.middleware.locale.LocaleMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",

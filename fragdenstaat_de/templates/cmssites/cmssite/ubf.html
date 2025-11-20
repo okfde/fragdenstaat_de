@@ -12,22 +12,21 @@
 {% block top_block %}{% endblock %}
 {% block navbar %}
     <nav class="navbar text-bg-primary border-bottom border-merlot-75 py-0">
-        <div class="container-xxl d-md-flex flex-wrap flex-md-nowrap text-uppercase py-3">
-            <span class="visually-hidden">{{ SITE_NAME }}</span>
+        <div class="container d-md-flex flex-wrap flex-md-nowrap text-uppercase py-3">
+            <span class="visually-hidden">{{ request.site.name }}</span>
             <div aria-hidden="true" class="d-flex flex-grow-1 h3 m-0 pe-md-3">
                 {% spaceless %}
-                    {# TODO: sneaky for now #}
-                    {{ SITE_NAME|slice:"13" }}
+                    {{ request.site.name|slice:"13" }}
                     <div class="logo-arrow" aria-hidden="true"></div>
-                    {{ SITE_NAME|slice:"13:" }}:
+                    {{ request.site.name|slice:"13:" }}:
                 {% endspaceless %}
             </div>
             <ul class="navbar-nav h3 flex flex-row gap-4 flex-wrap">
                 {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
             </ul>
         </div>
-        <div class="py-3 border-bottom border-merlot-75 w-100 order-first">
-            <div class="container-xxl">
+        <div class="border-bottom border-merlot-75 w-100 order-first">
+            <div class="container py-3 ">
                 <a href="https://fragdenstaat.de"
                    target="_blank"
                    class="link-white logo-fds">
