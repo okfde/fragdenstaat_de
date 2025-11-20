@@ -150,7 +150,6 @@ django==5.2.7
     #   django-timezone-field
     #   django-tinymce
     #   django-treebeard
-    #   djangocms-admin-style
     #   djangocms-versioning
     #   djangorestframework
     #   drf-spectacular
@@ -184,7 +183,7 @@ django-classy-tags==4.1.0
     # via
     #   django-cms
     #   django-sekizai
-django-cms==5.0.4
+django-cms @ git+https://github.com/stefanw/django-cms.git@0f2d34415459bdf418fd7c026051880b2bb86eeb
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   djangocms-alias
@@ -316,8 +315,6 @@ django-treebeard==4.7.1
     #   django-flowcontrol
     #   django-legal-advice-builder
     #   froide
-djangocms-admin-style==3.3.1
-    # via django-cms
 djangocms-alias==3.0.2
     # via
     #   fragdenstaat-de (pyproject.toml)
@@ -621,7 +618,6 @@ osmium==4.1.1
     # via fragdenstaat-de (pyproject.toml)
 packaging==25.0
     # via
-    #   django-cms
     #   djangocms-text
     #   djangocms-versioning
     #   kombu
@@ -820,7 +816,6 @@ sentry-sdk==2.38.0
     # via fragdenstaat-de (pyproject.toml)
 setuptools==80.9.0
     # via
-    #   django-cms
     #   pbr
     #   torch
     #   triton

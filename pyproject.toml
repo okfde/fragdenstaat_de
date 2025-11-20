@@ -23,7 +23,7 @@ dependencies = [
   "django-admin-sortable2>=2.2.8",
   "django-celery-beat>=2.8.1",
   "django-celery-email>=3.0.0",
-  "django-cms>=5.0.4",
+  "django-cms @ git+https://github.com/stefanw/django-cms.git@fix/issue-8276-pageadmin-site",
   "django-configurations>=2.5.1",
   "django-contractor>=0.0.8",
   "django-contrib-comments>=2.2.0",
