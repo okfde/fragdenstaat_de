@@ -1,4 +1,5 @@
 @use 'sass:list';
+@use 'sass:color';
 @import 'bootstrap/scss/functions';
 
 // colors
@@ -44,7 +45,7 @@ $headings-font-weight: 800;
 $headings-line-height: 100%;
 $h1-font-size: 4rem;
 $h2-font-size: 3.5rem;
-$h3-font-size: 2rem;
+$h3-font-size: 1.5rem;
 $h4-font-size: 1.625rem;
 $font-size-sm: 0.875rem;
 $lead-font-weight: 400;
@@ -119,7 +120,10 @@ $container-max-widths: (
   xxl: 1320px
 );
 
+$border-radius-xl: 1.5rem;
+
 // inputs + buttons
+$btn-border-width: 2px;
 $btn-padding-y: 0.5rem;
 $btn-padding-x: 1rem;
 
@@ -145,6 +149,20 @@ $form-check-radio-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://w
 
 $form-select-border-radius: $border-radius-pill;
 
+// tooltips
+$tooltip-color: $white;
+$tooltip-bg: transparentize($merlot-100, 0.2);
+$tooltip-border-radius: $border-radius-pill;
+$tooltip-opacity: 1;
+$tooltip-padding-y: $spacer * 0.25;
+$tooltip-padding-x: $spacer * 0.5;
+
+$tooltip-arrow-width: 0.5rem;
+$tooltip-arrow-height: 0.3rem;
+
+// badges
+$badge-font-weight: $font-weight-normal;
+
 @import 'bootstrap/scss/maps';
 @import 'bootstrap/scss/mixins';
 @import 'bootstrap/scss/root';
@@ -166,10 +184,18 @@ $theme-colors: ();
 $theme-colors: $original-theme-colors;
 
 .btn {
-  &::after {
-    display: inline-block;
-    content: '→'; // TODO: swap with proper icon
-    padding-left: 0.5em;
+  &.arrow {
+    &::after {
+      display: inline-block;
+      content: '→'; // TODO: swap with proper icon
+      padding-left: 0.5em;
+    }
+  }
+
+  &:has(svg) {
+    padding: 0;
+    width: 3rem;
+    height: 3rem;
   }
 }
 
@@ -214,7 +240,7 @@ $buttons: (
 @import 'bootstrap/scss/accordion';
 // @import 'bootstrap/scss/breadcrumb';
 // @import 'bootstrap/scss/pagination';
-// @import 'bootstrap/scss/badge';
+@import 'bootstrap/scss/badge';
 // @import 'bootstrap/scss/alert';
 // @import 'bootstrap/scss/progress';
 // @import 'bootstrap/scss/list-group';
@@ -321,6 +347,37 @@ $buttons: (
 
   @include media-breakpoint-up(xxl) {
     padding: 7rem 4rem;
+  }
+}
+
+.hero-image img {
+  height: 20rem;
+  width: 100%;
+
+  @include media-breakpoint-up(lg) {
+    height: 36rem;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    height: 42rem;
+  }
+}
+
+.pattern-grid {
+  background-image: url('../img/ubf/grid-pattern.svg');
+  background-size: 3.5rem 3.5rem;
+}
+
+.map-pin {
+  cursor: pointer;
+
+  circle {
+    transition: transform 0.3s ease;
+    transform-origin: 10.5px 10.5px;
+  }
+
+  &:hover circle {
+    transform: scale(1.1);
   }
 }
 
