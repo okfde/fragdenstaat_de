@@ -46,7 +46,7 @@ $h3-font-size: 2rem;
 $h4-font-size: 1.625rem;
 $font-size-sm: 0.875rem;
 $lead-font-weight: 400;
-$lead-font-size: 1.5rem;
+$lead-font-size: 1.125rem;
 
 $chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='30' viewBox='0 0 20 30' fill='none'%3E%3Cpath d='M0.635681 0.771973L17.6357 14.772L0.635681 28.772' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
 
@@ -246,6 +246,23 @@ $buttons: (
 .logo-fds svg {
   height: 1.5rem;
   width: auto;
+}
+
+.divider-vertical > * {
+  border-bottom: 1px solid $merlot-50;
+  padding-bottom: var(--#{$prefix}gutter-y);
+}
+
+@include media-breakpoint-up(md) {
+  .divider-md-horizontal > * {
+    border-bottom: none;
+    padding-bottom: initial;
+
+    &:not(:last-child) {
+      border-right: 1px solid $merlot-50;
+      padding-right: calc(var(--#{$prefix}gutter-x) * 0.5);
+    }
+  }
 }
 
 // fonts
