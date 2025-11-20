@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-10 15:53+0100\n"
+"POT-Creation-Date: 2025-11-20 14:01+0100\n"
 "PO-Revision-Date: 2025-11-10 14:56+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -4018,6 +4018,11 @@ msgstr "Kein Bild im Artikel"
 #: fragdenstaat_de/settings/base.py
 msgid "Video header"
 msgstr "Video Header"
+
+#: fragdenstaat_de/settings/base.py
+#, fuzzy
+msgid "Dark mode template"
+msgstr "Feature-Vorlage"
 
 #: fragdenstaat_de/settings/base.py fragdenstaat_de/settings/cms.py
 msgid "E-Mail Body"
