@@ -296,17 +296,21 @@ $buttons: (
 }
 
 .divider-vertical > * {
-  border-bottom: 1px solid $merlot-50;
+  border-bottom: 1px solid $merlot-25;
   padding-bottom: var(--#{$prefix}gutter-y);
+
+  @include media-breakpoint-up(xl) {
+    border-bottom: 1px solid $merlot-50;
+  }
 }
 
-@include media-breakpoint-up(md) {
-  .divider-md-horizontal > * {
+@include media-breakpoint-up(xl) {
+  .divider-xl-horizontal > * {
     border-bottom: none;
     padding-bottom: initial;
 
     &:not(:last-child) {
-      border-right: 1px solid $merlot-50;
+      border-right: 1px solid $merlot-25;
       padding-right: calc(var(--#{$prefix}gutter-x) * 0.5);
     }
   }
