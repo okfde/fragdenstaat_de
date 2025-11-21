@@ -382,6 +382,37 @@ $buttons: (
   }
 }
 
+.circled-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9.375rem;
+  aspect-ratio: 1/1;
+
+  font-family: 'Gregory Grotesk Condensed';
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0;
+
+  @include media-breakpoint-up(md) {
+    width: 5rem;
+    height: 5rem;
+    font-size: 2.5rem;
+  }
+
+  @include media-breakpoint-up(xl) {
+    width: 6.25rem;
+    height: 6.25rem;
+    font-size: 3.5rem;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    font-size: 4rem;
+  }
+}
+
 // fonts
 
 @include media-breakpoint-up(xl) {
