@@ -15,6 +15,8 @@ from froide.foirequest.models import FoiRequest
 from froide.helper.auth import is_crew
 from froide.helper.utils import get_redirect_url
 
+from fragdenstaat_de.fds_cms.forms import DesignContainerForm
+
 from .contact import ContactForm
 from .models import (
     BorderedSectionCMSPlugin,
@@ -394,6 +396,7 @@ class DesignContainerPlugin(CMSPluginBase):
     name = _("Design Container")
     allow_children = True
     render_template = "cms/plugins/container_design.html"
+    form = DesignContainerForm
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)

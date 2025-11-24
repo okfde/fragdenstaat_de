@@ -15,6 +15,7 @@ from cms.models.fields import PageField
 from cms.models.pluginmodel import CMSPlugin
 from datashow.models import Dataset, Table
 from djangocms_frontend.fields import AttributesField, TagTypeField
+from djangocms_frontend.settings import TAG_CHOICES
 from filer.fields.file import FilerFileField
 from filer.fields.image import FilerImageField
 from filingcabinet.models import DocumentPortal, PageAnnotation
@@ -411,6 +412,8 @@ class DesignContainerCMSPlugin(CMSPlugin):
     extra_classes = models.CharField(max_length=255, blank=True)
     container = models.BooleanField(default=True)
     padding = models.BooleanField(default=True)
+
+    tag_type = TagTypeField(choices=TAG_CHOICES)
 
     def has_backdrop(self):
         return self.backdrop != ""
