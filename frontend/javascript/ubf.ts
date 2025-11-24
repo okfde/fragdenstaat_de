@@ -28,22 +28,22 @@ class MapOrganization extends HTMLElement {
 
   constructor(public item: Organization) {
     super()
-    this.container.classList.add('text-bg-white', 'rounded-4', 'p-3', 'p-md-4')
+    this.container.classList.add('text-bg-white', 'rounded-4', 'p-2', 'p-md-3')
     this.tagList.classList.add(
       'list-unstyled',
       'd-flex',
       'flex-wrap',
-      'gap-2',
-      'mt-3'
+      'gap-1',
+      'mt-2'
     )
     this.url.classList.add('link-underline-merlot-25', 'link-offset-2')
     this.url.target = '_blank'
 
     this.navigation.classList.add(
       'hstack',
-      'gap-3',
+      'gap-2',
       'justify-content-end',
-      'mt-3'
+      'mt-2'
     )
 
     const previous = document.createElement('button')
@@ -70,12 +70,12 @@ class MapOrganization extends HTMLElement {
     this.container.appendChild(this.headline)
 
     const byline = document.createElement('div')
-    byline.classList.add('d-flex', 'flex-wrap', 'mb-3', 'small')
+    byline.classList.add('d-flex', 'flex-wrap', 'mb-2', 'small')
 
     const divider = document.createElement('span')
     divider.innerText = '⋅'
     divider.ariaHidden = 'true'
-    divider.classList.add('mx-2')
+    divider.classList.add('mx-1')
 
     byline.appendChild(this.location)
     byline.append(divider)
