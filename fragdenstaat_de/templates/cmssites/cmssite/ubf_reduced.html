@@ -1,0 +1,27 @@
+{% extends "cmssites/cmssite/ubf.html" %}
+{% load icons %}
+{% block navbar %}
+    <nav class="navbar text-bg-primary border-bottom border-merlot-75 py-0">
+        <a class="container ubf-section text-reset text-decoration-none d-md-flex flex-wrap flex-md-nowrap text-uppercase py-3"
+           href="https://ueberbrueckungsfonds.de">
+            <span class="visually-hidden">Überbrückungsfonds</span>
+            <div aria-hidden="true" class="d-flex flex-grow-1 h3 m-0 pe-md-3">
+                {% spaceless %}
+                    Überbrückungs
+                    <div class="logo-arrow" aria-hidden="true"></div>
+                    fonds
+                {% endspaceless %}
+            </div>
+        </a>
+        <div class="border-bottom border-merlot-75 w-100 order-first">
+            <div class="container ubf-section py-3">
+                <a href="https://fragdenstaat.de"
+                   target="_blank"
+                   class="link-white logo-fds">
+                    {% render_svg "img/header_logo.svg" %}
+                    <span class="visually-hidden">Ein Projekt von FragDenStaat</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
