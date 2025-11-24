@@ -462,4 +462,5 @@ class UbfMixin:
 
     CMS_TEMPLATES = [
         ("cmssites/cmssite/ubf.html", "Ubf Template"),
+        ("cmssites/cmssite/ubf_reduced.html", "Ubf Reduced Template"),
     ]
