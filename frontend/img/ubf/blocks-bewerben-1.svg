@@ -12,15 +12,15 @@
 <rect x="1150" width="400" height="150" rx="75" fill="url(#paint2_linear_568_8819)"/>
 <path d="M1550 75C1550 33.5786 1583.58 0 1625 0H1925C1966.42 0 2000 33.5786 2000 75C2000 116.421 1966.42 150 1925 150H1625C1583.58 150 1550 116.421 1550 75Z" fill="#FF6C03"/>
 <rect y="150" width="450" height="150" rx="75" fill="white"/>
-<rect width="700" height="150" rx="75" transform="matrix(-1 0 0 1 1150 150)" fill="#FF6C03"/>
-<rect width="700" height="150" rx="75" transform="matrix(-1 0 0 1 1150 150)" fill="url(#paint3_linear_568_8819)"/>
-<rect x="1150" y="150" width="550" height="150" rx="75" fill="#A99BF3"/>
-<path d="M1700 225C1700 183.579 1733.58 150 1775 150H1925C1966.42 150 2000 183.579 2000 225C2000 266.421 1966.42 300 1925 300H1775C1733.58 300 1700 266.421 1700 225Z" fill="#FF6C03"/>
-<path d="M1700 225C1700 183.579 1733.58 150 1775 150H1925C1966.42 150 2000 183.579 2000 225C2000 266.421 1966.42 300 1925 300H1775C1733.58 300 1700 266.421 1700 225Z" fill="url(#paint4_linear_568_8819)"/>
+<rect width="600" height="150" rx="75" transform="matrix(-1 0 0 1 1050 150)" fill="#FF6C03"/>
+<rect width="600" height="150" rx="75" transform="matrix(-1 0 0 1 1050 150)" fill="url(#paint3_linear_568_8819)"/>
+<path d="M1050 225C1050 183.579 1083.58 150 1125 150H1375C1416.42 150 1450 183.579 1450 225C1450 266.421 1416.42 300 1375 300H1125C1083.58 300 1050 266.421 1050 225Z" fill="#FF6C03"/>
+<path d="M1050 225C1050 183.579 1083.58 150 1125 150H1375C1416.42 150 1450 183.579 1450 225C1450 266.421 1416.42 300 1375 300H1125C1083.58 300 1050 266.421 1050 225Z" fill="url(#paint4_linear_568_8819)"/>
+<path d="M1450 225C1450 183.579 1483.58 150 1525 150H1925C1966.42 150 2000 183.579 2000 225C2000 266.421 1966.42 300 1925 300H1525C1483.58 300 1450 266.421 1450 225Z" fill="#006F59"/>
 </g>
 <defs>
-<linearGradient id="paint0_linear_568_8819" x1="1000" y1="0" x2="1000" y2="300" gradientUnits="userSpaceOnUse">
-<stop offset="0.25" stop-color="#F4EEEE"/>
+<linearGradient id="paint0_linear_568_8819" x1="1000" y1="300" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
+<stop offset="0.25" stop-color="#A99BF3"/>
 <stop offset="0.25" stop-color="#38182F"/>
 </linearGradient>
 <linearGradient id="paint1_linear_568_8819" x1="250" y1="75" x2="600" y2="75" gradientUnits="userSpaceOnUse">
@@ -31,11 +31,11 @@
 <stop stop-color="#B69FFF"/>
 <stop offset="1" stop-color="#006F59"/>
 </linearGradient>
-<linearGradient id="paint3_linear_568_8819" x1="0" y1="75" x2="700" y2="75" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint3_linear_568_8819" x1="0" y1="75" x2="600" y2="75" gradientUnits="userSpaceOnUse">
 <stop stop-color="#FF6C03"/>
 <stop offset="1" stop-color="#F8DE01"/>
 </linearGradient>
-<linearGradient id="paint4_linear_568_8819" x1="1700" y1="225" x2="2000" y2="225" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint4_linear_568_8819" x1="1050" y1="225" x2="1450" y2="225" gradientUnits="userSpaceOnUse">
 <stop stop-color="#B69FFF"/>
 <stop offset="1" stop-color="#FF6C03"/>
 </linearGradient>
