@@ -302,6 +302,60 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
         return order, related_obj
 
 
+class RemoteDonationForm(forms.Form):
+    amount = forms.DecimalField(
+        localize=True,
+        required=True,
+        initial=None,
+        min_value=MIN_AMOUNT,
+        max_digits=19,
+        decimal_places=2,
+        label=_("Donation amount:"),
+        widget=AmountInput(
+            attrs={
+                "title": _("Amount in Euro, comma as decimal separator"),
+            },
+            presets=[],
+        ),
+    )
+    interval = forms.TypedChoiceField(
+        choices=[],
+        coerce=int,
+        empty_value=None,
+        required=True,
+        label=_("Frequency"),
+        widget=InlineBootstrapRadioSelect,
+    )
+    pk_campaign = forms.CharField(required=False, widget=forms.HiddenInput())
+    pk_keyword = forms.CharField(required=False, widget=forms.HiddenInput())
+
+    def __init__(self, *args, **kwargs):
+        self.settings = kwargs.pop("form_settings", DonationFormFactory.default)
+        super().__init__(*args, **kwargs)
+
+        interval_choices = self.get_interval_choices()
+        self.fields["interval"].choices = interval_choices
+        self.fields["interval"].initial = (
+            self.settings.get("initial_interval", None) or interval_choices[0][0]
+        )
+        self.fields["amount"].widget.presets = self.settings["amount_presets"]
+        self.fields["amount"].initial = self.settings["initial_amount"]
+        self.fields["pk_campaign"].initial = self.settings["reference"]
+        self.fields["pk_keyword"].initial = self.settings["keyword"]
+
+        if len(interval_choices) == 1:
+            self.fields["interval"].initial = interval_choices[0][0]
+            self.fields["interval"].widget = forms.HiddenInput()
+            if interval_choices[0][0] == 0:
+                self.fields["amount"].label = _("One time donation amount")
+            else:
+                self.fields["amount"].label = _(
+                    "Your {recurring} donation amount"
+                ).format(recurring=interval_choices[0][1])
+
+    get_interval_choices = BasicDonationForm.get_interval_choices
+
+
 class SimpleDonationForm(BasicDonationForm):
     payment_method = forms.ChoiceField(
         label=_("Payment method"),

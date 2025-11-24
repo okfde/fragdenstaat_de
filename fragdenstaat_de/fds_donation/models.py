@@ -935,12 +935,14 @@ class EmailDonationButtonCMSPlugin(CMSPlugin):
         action_url += urlencode(
             {
                 "amount_presets": self.amount_presets,
-                "initial_amount": str(self.initial_amount)
-                if self.initial_amount is not None
-                else "",
-                "initial_interval": str(self.initial_interval)
-                if self.initial_interval is not None
-                else "",
+                "initial_amount": (
+                    str(self.initial_amount) if self.initial_amount is not None else ""
+                ),
+                "initial_interval": (
+                    str(self.initial_interval)
+                    if self.initial_interval is not None
+                    else ""
+                ),
                 "interval": str(self.interval),
                 "min_amount": str(self.min_amount),
                 "pk_placement": f"donationbutton-{self.pk}",
@@ -1001,3 +1003,39 @@ class DonationFormViewCount(models.Model):
                 fields=["path", "reference", "date"], name="unique_path_ref"
             )
         ]
+
+
+class RemoteDonationFormCMSPlugin(CMSPlugin):
+    remote_url = models.URLField()
+    title = models.CharField(max_length=255, blank=True)
+    interval = models.CharField(max_length=20, choices=INTERVAL_SETTINGS_CHOICES)
+    interval_choices = models.CharField(max_length=255, blank=True)
+    amount_presets = models.CharField(max_length=255, blank=True)
+    initial_amount = models.IntegerField(null=True, blank=True)
+    initial_interval = models.IntegerField(null=True, blank=True)
+    reference = models.CharField(max_length=255, blank=True)
+    keyword = models.CharField(max_length=255, blank=True)
+    open_in_new_tab = models.BooleanField(default=True)
+
+    def make_form(self, **kwargs):
+        from .form_settings import DonationFormFactory
+        from .forms import RemoteDonationForm
+
+        request = kwargs["request"]
+        reference = kwargs.pop("reference", "")
+        keyword = kwargs.pop("keyword", "")
+
+        plugin_data = {
+            "title": self.title,
+            "interval": self.interval,
+            "interval_choices": [int(x) for x in self.interval_choices.split(",")],
+            "amount_presets": self.amount_presets.split(","),
+            "initial_amount": self.initial_amount or "",
+            "initial_interval": self.initial_interval or "",
+            "reference": self.reference or reference,
+            "keyword": self.keyword or keyword,
+        }
+        request_data = DonationFormFactory.from_request(request)
+        plugin_data.update(request_data)
+
+        return RemoteDonationForm(form_settings=plugin_data)

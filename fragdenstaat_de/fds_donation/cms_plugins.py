@@ -19,6 +19,7 @@ from .models import (
     DonationProgressBarCMSPlugin,
     Donor,
     EmailDonationButtonCMSPlugin,
+    RemoteDonationFormCMSPlugin,
 )
 
 
@@ -66,7 +67,7 @@ class DonationFormPlugin(CMSPluginBase):
     cache = False
     render_template = "fds_donation/forms/_form_wrapper.html"
 
-    def render(self, context, instance, placeholder):
+    def render(self, context, instance: DonationFormCMSPlugin, placeholder):
         context = super().render(context, instance, placeholder)
         request = context["request"]
         DonationFormViewCount.objects.handle_request(request)
@@ -77,6 +78,29 @@ class DonationFormPlugin(CMSPluginBase):
             reference=request.GET.get("pk_campaign", ""),
             keyword=request.GET.get("pk_keyword", request.META.get("HTTP_REFERER", "")),
             action=instance.form_action or reverse("fds_donation:donate"),
+        )
+        return context
+
+
+@plugin_pool.register_plugin
+class RemoteDonationFormPlugin(CMSPluginBase):
+    model = RemoteDonationFormCMSPlugin
+    module = _("Donations")
+    name = _("Remote Donation Form")
+    text_enabled = True
+    cache = False
+    render_template = "fds_donation/forms/remote_form.html"
+
+    def render(self, context, instance: RemoteDonationFormCMSPlugin, placeholder):
+        context = super().render(context, instance, placeholder)
+        request = context["request"]
+        context["object"] = instance
+        context["form"] = instance.make_form(
+            user=request.user,
+            request=request,
+            reference=request.GET.get("pk_campaign", ""),
+            keyword=request.GET.get("pk_keyword", ""),
+            action=instance.remote_url,
         )
         return context
 
