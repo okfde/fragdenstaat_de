@@ -1,14 +1,15 @@
 {% load cms_tags %}
-<div class="design-container {% if object.has_backdrop %}position-relative{% else %}text-bg-{{ object.background }}{% endif %}{% if "body" in object.background %} text-body{% endif %} {% block extraclass %}{{ object.extra_classes }}{% endblock %}{% if object.padding %} p-3{% endif %}">
+{# djlint:off #}
+<{{object.tag_type}} class="design-container {% if object.has_backdrop %}position-relative{% else %}text-bg-{{ object.background }}{% endif %}{% if "body" in object.background %} text-body{% endif %} {% block extraclass %}{{ object.extra_classes }}{% endblock %}{% if object.padding %} p-3{% endif %}">
     {% if object.has_backdrop %}
         <div class="text-bg-{{ object.background }} h-{{ object.backdrop }} position-absolute top-0 bottom-0 start-0 end-0">
         </div>
     {% endif %}
     {% if object.container %}
         <div class="container{% if object.has_backdrop %} position-relative{% endif %}">
-        {% endif %}
+    {% endif %}
         {% for plugin in instance.child_plugin_instances %}
             {% render_plugin plugin %}
         {% endfor %}
-        {% if object.container %}</div>{% endif %}
-</div>
+    {% if object.container %}</div>{% endif %}
+</{{object.tag_type}}>
