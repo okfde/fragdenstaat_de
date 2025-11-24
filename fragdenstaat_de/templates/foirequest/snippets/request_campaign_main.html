@@ -1,24 +1,22 @@
 {% load i18n %}
 {% load djangocms_alias_tags %}
-{# TODO src/sizes #}
-<img class="campaign-logo d-block object-fit-contain w-100 mb-3 h-auto"
-     src="https://media.frag-den-staat.de/files/media/thumbnails/56/25/56256ffd-6ede-458e-a214-b5d3531da7a9/jump_building_startseitegross.png__622x598_subject_location-312%2C300_subsampling-2.png"
-     srcset="https://media.frag-den-staat.de/files/media/thumbnails/56/25/56256ffd-6ede-458e-a214-b5d3531da7a9/jump_building_startseitegross.png__260x0_subject_location-312%2C300_subsampling-2.png 260w,
-             https://media.frag-den-staat.de/files/media/thumbnails/56/25/56256ffd-6ede-458e-a214-b5d3531da7a9/jump_building_startseitegross.png__380x0_subject_location-312%2C300_subsampling-2.png 380w,
-             https://media.frag-den-staat.de/files/media/thumbnails/56/25/56256ffd-6ede-458e-a214-b5d3531da7a9/jump_building_startseitegross.png__520x0_subject_location-312%2C300_subsampling-2.png 520w,
-             https://media.frag-den-staat.de/files/media/thumbnails/56/25/56256ffd-6ede-458e-a214-b5d3531da7a9/jump_building_startseitegross.png__622x598_subject_location-312%2C300_subsampling-2.png 622w"
-     sizes=""
-     alt=""
-     width="622"
-     height="598"
-     loading="eager" />
-<h2 class="fs-4">{% trans "Write a request" %}</h2>
-<div>
-    {% static_alias "request_campaign_main_description" %}
-    <a :href="config.url.helpRequestWhat"
-       @click.prevent="emit('onlinehelpClick', config.url.helpRequestWhat)">{{ i18n.whatCanIRequest }}</a>
-    <br />
-    <a :href="config.url.helpRequestWhatNot"
-       @click.prevent="emit('onlinehelpClick', config.url.helpRequestWhatNot)">{{ i18n.whatCanINotRequest }}</a>
-    <br />
-</div>
+{% static_alias "request_campaign_main" %}
+{% comment %}
+
+to match froide's layout, in CMS, build:
+
+- Bild, with Attribute
+  class=campaign-logo d-block object-fit-contain w-100 mb-3
+- Überschrift, h2, with Attribute
+  class=fs-4
+- Text, containg an <ul>
+
+or, FIXME: replace the alias with markup:
+
+<img src="todo" alt="" class="class=campaign-logo d-block object-fit-contain w-100 mb-3">
+<h2 class="fs-4">Eigene Anfrage schreiben</h2>
+<ul>
+  <li>And so on</li>
+</ul>
+
+{% endcomment %}
