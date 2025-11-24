@@ -667,6 +667,7 @@ class FragDenStaatBase(German, Base):
                 "create_new_publicbody": False,
                 "publicbody_empty": True,
                 "user_can_hide_web": True,
+                "user_can_claim_vip": True,
                 "public_body_officials_public": False,
                 "public_body_officials_email_public": False,
                 "default_law": 2,
