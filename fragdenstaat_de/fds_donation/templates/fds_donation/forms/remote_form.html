@@ -1,0 +1,26 @@
+{% load i18n %}
+{% load form_helper %}
+<form action="{{ instance.remote_url }}"
+      method="GET"
+      class="donation-form"
+      {% if object.open_in_new_tab %}target="_blank"{% endif %}>
+    <fieldset>
+        <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">
+            {% if form.settings.title %}
+                {{ form.settings.title }}
+            {% else %}
+                {% trans "Your donation frees information" %}
+            {% endif %}
+        </legend>
+        <div class="row">
+            <div class="col-12">{% render_field form.amount stacked=True %}</div>
+        </div>
+        <div class="row">
+            <div class="col-12" data-group="interval">{% render_field form.interval inline=True %}</div>
+        </div>
+        {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+        <div class="d-grid gap-2 mx-auto col-8">
+            <button type="submit" class="btn btn-primary btn-lg mb-3 hideparent">{% trans "Continue" %}</button>
+        </div>
+    </fieldset>
+</form>
