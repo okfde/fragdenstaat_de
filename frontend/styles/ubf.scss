@@ -377,7 +377,7 @@ $section-dividers: (
     background-repeat: repeat-x;
     background-position: center;
     background-size: auto 100%;
-    background-image: url('../img/ubf/blocks-#{$name}.svg');
+    background-image: url('../img/ubf/blocks-#{$name}.svg?no-inline');
   }
 }
 
