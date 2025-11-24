@@ -459,6 +459,10 @@ $section-dividers: (
   }
 }
 
+.section-divider-reverse {
+  animation-direction: reverse;
+}
+
 @keyframes section-divider {
   0% {
     --divider-offset: 0;
