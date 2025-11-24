@@ -39,17 +39,18 @@ $primary: $merlot-100;
 $secondary: $lavender-100;
 
 // typography
+$enable-rfs: false;
 $font-family-sans-serif: 'Geist', system-ui, sans-serif;
 $headings-font-family: 'Gregory Grotesk Condensed', system-ui, sans-serif;
 $headings-font-weight: 800;
 $headings-line-height: 100%;
-$h1-font-size: 4rem;
-$h2-font-size: 3.5rem;
-$h3-font-size: 1.5rem;
-$h4-font-size: 1.625rem;
+$h1-font-size: 1.625rem;
+$h2-font-size: 1.5rem;
+$h3-font-size: 1.375rem;
+$h4-font-size: 1rem;
 $font-size-sm: 0.875rem;
 $lead-font-weight: 400;
-$lead-font-size: 1.5rem;
+$lead-font-size: 1.125rem;
 
 $chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='30' viewBox='0 0 20 30' fill='none'%3E%3Cpath d='M0.635681 0.771973L17.6357 14.772L0.635681 28.772' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
 
@@ -98,9 +99,9 @@ $theme-colors: (
 );
 
 $display-font-sizes: (
-  1: 5rem,
-  2: 4rem,
-  3: 3.5rem
+  1: 3rem,
+  2: 1.5rem,
+  3: 1.375rem
 );
 
 $spacers: (
@@ -263,6 +264,65 @@ $buttons: (
 
 // @import 'froide/frontend/styles/root';
 // @import 'froide/frontend/styles/utilities';
+
+// hard-coded font sizes for each breakpoint, instead of bootstrap's responsive font sizing
+$font-sizes-md: (
+  '.display-1': 4rem,
+  '.display-2': 3rem,
+  '.display-3': 2.5rem,
+  'h1': 2.5rem,
+  'h2': 2rem,
+  'h3': 1.5rem,
+  'h4': 1.25rem,
+  '.lead': 1.25rem,
+  'default': 1rem
+);
+
+$font-sizes-xl: (
+  '.display-1': 5rem,
+  '.display-2': 4rem,
+  '.display-3': 3.5rem,
+  'h1': 3rem,
+  'h2': 2.5rem,
+  'h3': 1.5rem,
+  'h4': 1.5rem,
+  '.lead': 1.5rem,
+  'default': 1rem
+);
+
+$font-sizes-xxl: (
+  '.display-1': 112px,
+  '.display-2': 80px,
+  '.display-3': 64px,
+  'h1': 64px,
+  'h2': 56px,
+  'h3': 32px,
+  'h4': 26px,
+  '.lead': 26px,
+  'default': 18px
+);
+
+$font-sizes-by-breakpoint: (
+  'md': $font-sizes-md,
+  'xl': $font-sizes-xl,
+  'xxl': $font-sizes-xxl
+);
+
+@each $breakpoint, $font-sizes in $font-sizes-by-breakpoint {
+  @include media-breakpoint-up($breakpoint) {
+    @each $selector, $size in $font-sizes {
+      @if $selector == 'default' {
+        :root {
+          --#{$prefix}body-font-size: $size;
+        }
+      } @else {
+        #{$selector} {
+          font-size: $size;
+        }
+      }
+    }
+  }
+}
 
 // custom styles
 
@@ -450,12 +510,6 @@ $section-dividers: (
 }
 
 // fonts
-
-@include media-breakpoint-up(xl) {
-  :root {
-    --#{$prefix}body-font-size: 1.125rem;
-  }
-}
 
 @import '@fontsource/geist/400.css';
 @import '@fontsource/geist/700.css';
