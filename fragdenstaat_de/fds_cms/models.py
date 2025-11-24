@@ -14,7 +14,8 @@ from cms.extensions.extension_pool import extension_pool
 from cms.models.fields import PageField
 from cms.models.pluginmodel import CMSPlugin
 from datashow.models import Dataset, Table
-from djangocms_frontend.fields import AttributesField, TagTypeField
+from djangocms_attributes_field.fields import AttributesField
+from djangocms_frontend.fields import TagTypeField
 from djangocms_frontend.settings import TAG_CHOICES
 from filer.fields.file import FilerFileField
 from filer.fields.image import FilerImageField
