@@ -276,6 +276,7 @@ class FragDenStaatBase(German, Base):
             "Gegenrechtsschutz Minimal Template",
         ),
         ("cmssites/cmssite/ubf.html", "Ubf Template"),
+        ("cmssites/cmssite/ubf_reduced.html", "Ubf Reduced"),
     ]
     EMAIL_BODY_PLUGINS = [
         "IsDonorPlugin",
