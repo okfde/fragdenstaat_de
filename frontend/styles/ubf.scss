@@ -315,6 +315,9 @@ $font-sizes-by-breakpoint: (
         :root {
           --#{$prefix}body-font-size: $size;
         }
+        body {
+          font-size: $size;
+        }
       } @else {
         #{$selector} {
           font-size: $size;
