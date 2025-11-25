@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load form_helper %}
+{% load i18n form_helper %}
 {% block title %}
     {{ newsletter.title }}
 {% endblock title %}
@@ -7,10 +7,13 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <h2>{{ newsletter.title }}</h2>
-            <form method="post" action=".">
+            <form method="post"
+                  action="."
+                  class="disable-submit"
+                  {% if request.GET.email %}data-autosubmit{% endif %}>
                 {% csrf_token %}
                 {% render_form form %}
-                <button class="btn btn-primary" type="submit">Abonnieren</button>
+                <button class="btn btn-primary" type="submit">{% translate "Subscribe" %}</button>
             </form>
         </div>
     </div>
