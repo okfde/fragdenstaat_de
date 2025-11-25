@@ -114,7 +114,7 @@ def confirm_subscribe(request, newsletter_slug=None, pk=None, activation_code=No
     )
     subscriber.subscribe()
     messages.add_message(
-        request, messages.INFO, _("You now receive the %s." % newsletter.title)
+        request, messages.INFO, _("You now receive the %s.") % newsletter.title
     )
 
     return redirect(newsletter.subscribed_url or "/")
