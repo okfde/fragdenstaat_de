@@ -12,8 +12,6 @@ from froide.urls import (
     admin_urls,
     api_urlpatterns,
     froide_urlpatterns,
-    # Import handler500 to this URL conf to add request context
-    handler500,  # noqa
     jurisdiction_urls,
     sitemaps,
 )
@@ -23,6 +21,8 @@ from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from fragdenstaat_de.fds_cms.views import scannerapp_postupload
 from fragdenstaat_de.fds_newsletter.views import legacy_unsubscribe
 
+# Import handler500 to this URL conf to add request context
+from .utils import handler500  # noqa
 from .views import (
     FDSAnnotationView,
     glyphosat_download,

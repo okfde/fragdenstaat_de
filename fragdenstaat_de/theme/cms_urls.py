@@ -5,9 +5,10 @@ from django.contrib.sitemaps import views as sitemaps_views
 from django.urls import include, path
 
 from froide.account.views import bad_login_view_redirect
-from froide.urls import handler500  # noqa
 
 from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
+
+from .utils import handler500  # noqa
 
 sitemaps = {"cmspages": FdsCMSSitemap}
 
