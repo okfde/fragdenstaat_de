@@ -12,6 +12,8 @@ from froide.urls import (
     admin_urls,
     api_urlpatterns,
     froide_urlpatterns,
+    # Import handler500 to this URL conf to add request context
+    handler500,  # noqa
     jurisdiction_urls,
     sitemaps,
 )
