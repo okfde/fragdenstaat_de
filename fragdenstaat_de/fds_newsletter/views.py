@@ -110,8 +110,19 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
 def confirm_subscribe(request, newsletter_slug=None, pk=None, activation_code=None):
     newsletter = get_object_or_404(Newsletter, slug=newsletter_slug)
     subscriber = get_object_or_404(
-        Subscriber, newsletter=newsletter, pk=pk, activation_code=activation_code
+        Subscriber,
+        newsletter=newsletter,
+        pk=pk,
+        activation_code=activation_code,
     )
+    if subscriber.unsubscribed:
+        messages.add_message(
+            request,
+            messages.WARNING,
+            _("You need to re-subscribe below to receive this newsletter."),
+        )
+        return redirect(newsletter.url or "/")
+
     subscriber.subscribe()
     messages.add_message(
         request, messages.INFO, _("You now receive the %s.") % newsletter.title
