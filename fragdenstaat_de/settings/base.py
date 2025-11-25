@@ -342,6 +342,10 @@ class FragDenStaatBase(German, Base):
         "summary": {"class"},
         "details": {"class", "open"},
         "textarea": {"class", "id", "name", "rows", "cols", "readonly"},
+        "form": {"method", "action", "target"},
+        "label": {"for"},
+        "input": {"placeholder", "type", "name", "value", "required"},
+        "button": {"type", "name", "value"},
         "*": {"style", "class", "id", "hidden", "disabled"},
     }
 
