@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("cms", "0042_remove_placeholderreference_placeholder_ref_and_more"),
+        ("cms", "0041_alter_pageurl_unique_together_pageurl_site_and_more"),
         ("fds_donation", "0063_alter_recurrence_options_recurrence_active"),
     ]
 
