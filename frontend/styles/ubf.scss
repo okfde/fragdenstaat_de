@@ -100,8 +100,8 @@ $theme-colors: (
 
 $display-font-sizes: (
   1: 3rem,
-  2: 1.5rem,
-  3: 1.375rem
+  2: 2.5rem,
+  3: 2rem
 );
 
 $spacers: (
@@ -287,7 +287,7 @@ $font-sizes-xl: (
   'h3': 1.5rem,
   'h4': 1.5rem,
   '.lead': 1.5rem,
-  'default': 1rem
+  'default': 1.125rem
 );
 
 $font-sizes-xxl: (
@@ -299,7 +299,7 @@ $font-sizes-xxl: (
   'h3': 32px,
   'h4': 26px,
   '.lead': 26px,
-  'default': 18px
+  'default': 20px
 );
 
 $font-sizes-by-breakpoint: (
