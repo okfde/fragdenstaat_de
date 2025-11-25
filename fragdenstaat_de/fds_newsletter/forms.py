@@ -44,6 +44,7 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
     )
     reference = forms.CharField(required=False, widget=forms.HiddenInput())
     keyword = forms.CharField(required=False, widget=forms.HiddenInput())
+    next = forms.CharField(required=False, widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

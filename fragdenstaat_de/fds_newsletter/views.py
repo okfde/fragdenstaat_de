@@ -84,7 +84,11 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
             )
     else:
         form = NewsletterForm(
-            request=request, initial={"email": request.GET.get("email", "")}
+            request=request,
+            initial={
+                "email": request.GET.get("email", ""),
+                "next": request.GET.get("next", ""),
+            },
         )
 
     if is_ajax(request):
