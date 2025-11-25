@@ -43,7 +43,9 @@
         {% placeholder "content" %}
     {% endblock %}
 {% endblock %}
-{% block footer_container %}{# TODO: footer #}{% endblock %}
+{% block footer_container %}
+    {% static_alias "ubf_footer" %}
+{% endblock %}
 {% block scripts %}
     {% include "_frontend.html" with entry_point="ubf.js" %}
 {% endblock %}
