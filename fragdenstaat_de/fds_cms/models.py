@@ -410,11 +410,13 @@ class DesignContainerCMSPlugin(CMSPlugin):
     backdrop = models.CharField(
         _("Backdrop"), choices=BACKDROP, max_length=5, default="", blank=True
     )
-    extra_classes = models.CharField(max_length=255, blank=True)
+
     container = models.BooleanField(default=True)
     padding = models.BooleanField(default=True)
 
     tag_type = TagTypeField(choices=TAG_CHOICES)
+    root_attributes = AttributesField(excluded_keys=["class"])
+    container_attributes = AttributesField(excluded_keys=["class"])
 
     def has_backdrop(self):
         return self.backdrop != ""

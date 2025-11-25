@@ -11,10 +11,11 @@ class DesignContainerForm(ModelForm):
         fields = [
             "background",
             "backdrop",
-            "extra_classes",
             "container",
             "padding",
             "tag_type",
+            "root_attributes",
+            "container_attributes",
         ]
 
     tag_type = TagTypeFormField()
