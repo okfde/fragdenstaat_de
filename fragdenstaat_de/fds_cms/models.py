@@ -529,7 +529,7 @@ class CardCMSPlugin(CMSPlugin):
         verbose_name=_("page link"),
     )
 
-    attributes = AttributesField()
+    attributes = AttributesField(excluded_keys=["class"])
 
     def link(self):
         if self.url:
@@ -542,7 +542,7 @@ class CardCMSPlugin(CMSPlugin):
 
 
 class CardInnerCMSPlugin(CMSPlugin):
-    attributes = AttributesField()
+    attributes = AttributesField(excluded_keys=["class"])
 
 
 class CardHeaderCMSPlugin(CMSPlugin):
@@ -562,7 +562,7 @@ class CardHeaderCMSPlugin(CMSPlugin):
         verbose_name=_("Background image"),
         on_delete=models.SET_NULL,
     )
-    attributes = AttributesField()
+    attributes = AttributesField(excluded_keys=["class"])
 
     def __str__(self):
         return self.title
@@ -605,7 +605,7 @@ class CardImageCMSPlugin(CMSPlugin):
         max_length=10,
         default="lg",
     )
-    attributes = AttributesField()
+    attributes = AttributesField(excluded_keys=["class"])
 
     def link(self):
         if self.url:
@@ -625,7 +625,7 @@ class CardIconCMSPlugin(CMSPlugin):
             """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
         ),
     )
-    attributes = AttributesField()
+    attributes = AttributesField(excluded_keys=["class"])
 
     def __str__(self):
         return self.icon
@@ -644,7 +644,7 @@ class CardLinkCMSPlugin(CMSPlugin):
             """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
         ),
     )
-    attributes = AttributesField()
+    attributes = AttributesField(excluded_keys=["class"])
 
     def link(self):
         if self.url:
@@ -672,7 +672,7 @@ class RevealMoreCMSPlugin(CMSPlugin):
     )
     color = models.CharField(_("Overlay color"), max_length=50, choices=BACKGROUND)
     reveal_text = models.CharField(_("Reveal text"), max_length=50, blank=True)
-    attributes = AttributesField()
+    attributes = AttributesField(excluded_keys=["class"])
 
     def text(self):
         return self.reveal_text or str(_("Show more..."))
@@ -715,7 +715,7 @@ class BorderedSectionCMSPlugin(CMSPlugin):
             ("h6", _("Headline 6")),
         ),
     )
-    attributes = AttributesField()
+    attributes = AttributesField(excluded_keys=["class"])
 
     def __str__(self):
         return self.title
