@@ -454,7 +454,7 @@ $section-dividers: (
       height: 9rem * $rows;
     }
 
-    background-size: contain;
+    background-size: auto 100%;
     background-position: center;
     background-image: url('../img/ubf/blocks-#{$name}.svg?no-inline');
   }
