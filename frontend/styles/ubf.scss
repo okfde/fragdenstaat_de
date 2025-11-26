@@ -443,37 +443,17 @@ $section-dividers: (
   'bewerben-3': 2
 );
 
-@property --divider-offset {
-  syntax: '<number>';
-  initial-value: 0;
-  inherits: false;
-}
-
 @each $name, $rows in $section-dividers {
   .section-divider-#{$name} {
-    --divider-height: #{5rem * $rows};
     width: 100%;
-    height: var(--divider-height);
+    height: 5rem * $rows;
 
     @include media-breakpoint-up(lg) {
-      --divider-height: #{9rem * $rows};
+      height: 9rem * $rows;
     }
 
     background-size: auto 100%;
     background-image: url('../img/ubf/blocks-#{$name}.svg?no-inline');
-  }
-}
-
-.section-divider-reverse {
-  animation-direction: reverse;
-}
-
-@keyframes section-divider {
-  0% {
-    --divider-offset: 0;
-  }
-  100% {
-    --divider-offset: 1;
   }
 }
 
