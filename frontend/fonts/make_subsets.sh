@@ -41,5 +41,17 @@ pyftsubset "stixtwo-italic.woff2" \
     --flavor="woff2" \
     --output-file="stixtwo/stixtwo-italic-$subset_name.woff2"
 
+# überbrückungsfonds fonts. make sure to place ttf files in folder!
+
+pyftsubset "Gregory-Grotesk-Condensed-xBold.ttf" \
+    --unicodes="$subset" \
+    --flavor="woff2" \
+    --output-file="gregory-grotesk/gregory-grotesk-condensed-xbold-$subset_name.woff2"
+
+pyftsubset "Gregory-Grotesk-Compressed-xBold.ttf" \
+    --unicodes="$subset" \
+    --flavor="woff2" \
+    --output-file="gregory-grotesk/gregory-grotesk-compressed-xbold-$subset_name.woff2"
+
 done
 
