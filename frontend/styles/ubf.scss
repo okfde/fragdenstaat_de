@@ -474,7 +474,7 @@ $section-dividers: (
   height: 20rem;
   width: 100%;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     height: 36rem;
   }
 
