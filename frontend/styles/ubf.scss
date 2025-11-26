@@ -496,13 +496,12 @@ $section-dividers: (
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4rem;
-  height: 4rem;
   border-radius: 9.375rem;
   aspect-ratio: 1/1;
 
   font-family: $headings-font-family;
   font-size: 2rem;
+  font-size: 7vw;
   font-weight: 800;
   margin: 0;
 
