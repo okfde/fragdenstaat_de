@@ -33,6 +33,10 @@ formsWithReference.forEach((form) => {
   const referenceData: ReferenceData = getReferenceData()
   let key: keyof typeof referenceData
   for (key in referenceData) {
+    const exists = form.querySelector<HTMLInputElement>(`input[name="${key}"]`)
+    if (exists !== null && exists.value) {
+      continue
+    }
     const input = document.createElement('input')
     input.type = 'hidden'
     input.name = key
