@@ -5,13 +5,15 @@
       class="donation-form"
       {% if object.open_in_new_tab %}target="_blank"{% endif %}>
     <fieldset>
-        <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">
-            {% if form.settings.title %}
-                {{ form.settings.title }}
-            {% else %}
-                {% trans "Your donation frees information" %}
-            {% endif %}
-        </legend>
+        {% if instance.show_title %}
+            <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">
+                {% if form.settings.title %}
+                    {{ form.settings.title }}
+                {% else %}
+                    {% trans "Your donation frees information" %}
+                {% endif %}
+            </legend>
+        {% endif %}
         <div class="row">
             <div class="col-12">{% render_field form.amount stacked=True %}</div>
         </div>
