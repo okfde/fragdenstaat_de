@@ -170,6 +170,7 @@ class DonationFormFactory:
         "amount_presets",
         "initial_amount",
         "initial_interval",
+        "interval",
         "min_amount",
         "purpose",
     }
@@ -186,12 +187,7 @@ class DonationFormFactory:
             value = request.GET.get(key)
             if value is not None:
                 data[key] = value
-            elif key in cls.initials:
-                non_initial_key = cls.initials[key]
-                value = request.GET.get(non_initial_key)
-                if value is not None:
-                    data[key] = value
-        if request.GET.get("initial_amount") or request.GET.get("amount"):
+        if request.GET.get("initial_amount"):
             data["prefilled_amount"] = True
         return data
 
