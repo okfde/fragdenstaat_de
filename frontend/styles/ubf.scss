@@ -500,7 +500,7 @@ $section-dividers: (
   border-radius: 9.375rem;
   aspect-ratio: 1/1;
 
-  font-family: 'Gregory Grotesk Condensed';
+  font-family: $headings-font-family;
   font-size: 2rem;
   font-weight: 800;
   margin: 0;
@@ -526,12 +526,23 @@ $section-dividers: (
 
 @import '@fontsource/geist/400.css';
 @import '@fontsource/geist/700.css';
+@import 'mixins';
 
-@font-face {
-  font-family: 'Gregory Grotesk Condensed';
-  src: url('../fonts/gregory-grotesk/gregory-grotesk-condensed-bold.woff2')
-    format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
+@include make-font(
+  'Gregory Grotesk Condensed',
+  800,
+  normal,
+  'gregory-grotesk-condensed-xbold',
+  'gregory-grotesk'
+);
+@include make-font(
+  'Gregory Grotesk Compressed',
+  800,
+  normal,
+  'gregory-grotesk-compressed-xbold',
+  'gregory-grotesk'
+);
+
+nav.navbar {
+  font-family: 'Gregory Grotesk Compressed', system-ui, sans-serif;
 }
