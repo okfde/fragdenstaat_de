@@ -336,6 +336,7 @@ $font-sizes-by-breakpoint: (
   height: 0.5em;
   border-bottom: 2px solid $white;
   position: relative;
+  min-width: 20px;
 
   &::after {
     // not exactly the right arrow angle, but will do for now
