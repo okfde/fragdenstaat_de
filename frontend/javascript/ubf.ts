@@ -47,7 +47,7 @@ class MapOrganization extends HTMLElement {
       'hstack',
       'gap-2',
       'justify-content-end',
-      'mt-2'
+      'mb-2'
     )
 
     const previous = document.createElement('button')
@@ -120,8 +120,8 @@ class MapOrganization extends HTMLElement {
   }
 
   connectedCallback() {
-    this.appendChild(this.container)
     this.appendChild(this.navigation)
+    this.appendChild(this.container)
   }
 }
 customElements.define('map-organization', MapOrganization)
