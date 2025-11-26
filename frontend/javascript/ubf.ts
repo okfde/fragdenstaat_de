@@ -4,7 +4,9 @@ import './donation-form'
 import { Tooltip } from 'bootstrap'
 import arrowLeft from '../img/ubf/arrow-left.svg?raw'
 import arrowRight from '../img/ubf/arrow-right.svg?raw'
+import './misc/reference'
 import './misc/matomo'
+
 
 // map element
 const svg = document.querySelector<SVGElement>('#map-container svg')

@@ -44,7 +44,7 @@ formsWithReference.forEach((form) => {
 const linksWithReference = document.querySelectorAll('a[data-reference]');
 ([...linksWithReference] as HTMLLinkElement[]).forEach((link) => {
   const referenceData: ReferenceData = getReferenceData()
-  const href= link.getAttribute('href')
+  const href = link.getAttribute('href')
   if (!href) return
   const url = new URL(href, document.location.href)
   if (referenceData.reference) {
