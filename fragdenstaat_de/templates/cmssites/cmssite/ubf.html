@@ -15,16 +15,20 @@
 {% block top_block %}{% endblock %}
 {% block navbar %}
     <nav class="navbar text-bg-primary border-bottom border-merlot-75 py-0">
-        <div class="container ubf-section d-md-flex flex-wrap flex-md-nowrap text-uppercase py-2">
-            <span class="visually-hidden">{{ request.site.name }}</span>
-            <div aria-hidden="true" class="d-flex flex-grow-1 h3 m-0 pe-sm-2">
-                {% spaceless %}
-                    {{ request.site.name|slice:"13" }}
-                    <div class="logo-arrow" aria-hidden="true"></div>
-                    {{ request.site.name|slice:"13:" }}:
-                {% endspaceless %}
-            </div>
-            <ul class="navbar-nav h3 flex flex-row gap-2 flex-wrap">
+        <div class="container ubf-section d-md-flex flex-wrap flex-md-nowrap text-uppercase py-3">
+            <a class="text-reset text-decoration-none flex-grow-1 "
+               href="https://ueberbrueckungsfonds.de">
+                <span class="visually-hidden">Überbrückungsfonds</span>
+                <div aria-hidden="true" class="d-flex h3 m-0 pe-md-3">
+                    {% spaceless %}
+                        Überbrückungs
+                        <div class="logo-arrow" aria-hidden="true"></div>
+                        fonds:
+                    {% endspaceless %}
+                </div>
+            </a>
+            <ul class="navbar-nav h3 flex flex-row column-gap-1 column-gap-sm-2 flex-wrap">
+                {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
                 {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
             </ul>
         </div>
