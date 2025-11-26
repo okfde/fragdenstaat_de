@@ -1008,6 +1008,7 @@ class DonationFormViewCount(models.Model):
 class RemoteDonationFormCMSPlugin(CMSPlugin):
     remote_url = models.URLField()
     title = models.CharField(max_length=255, blank=True)
+    show_title = models.BooleanField(default=True)
     interval = models.CharField(max_length=20, choices=INTERVAL_SETTINGS_CHOICES)
     interval_choices = models.CharField(max_length=255, blank=True)
     amount_presets = models.CharField(max_length=255, blank=True)
