@@ -446,13 +446,15 @@ $section-dividers: (
 @each $name, $rows in $section-dividers {
   .section-divider-#{$name} {
     width: 100%;
+    max-width: none; // fixes problems with cols on large viewports
     height: 5rem * $rows;
 
     @include media-breakpoint-up(lg) {
       height: 9rem * $rows;
     }
 
-    background-size: auto 100%;
+    background-size: contain;
+    background-position: center;
     background-image: url('../img/ubf/blocks-#{$name}.svg?no-inline');
   }
 }
