@@ -527,6 +527,13 @@ $section-dividers: (
   }
 }
 
+.footer-socials {
+  @include media-breakpoint-down(lg) {
+    border-top: 1px solid $merlot-75 !important;
+    padding-top: 3rem;
+  }
+}
+
 // fonts
 
 @import '@fontsource/geist/400.css';
