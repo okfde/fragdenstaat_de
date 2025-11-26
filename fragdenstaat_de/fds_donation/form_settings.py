@@ -185,7 +185,7 @@ class DonationFormFactory:
         data = {}
         for key in cls.request_configurable:
             value = request.GET.get(key)
-            if value is not None:
+            if value:
                 data[key] = value
         if request.GET.get("initial_amount"):
             data["prefilled_amount"] = True
