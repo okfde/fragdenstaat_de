@@ -141,7 +141,7 @@ $input-color: $merlot-75;
 
 $input-group-addon-color: $merlot-75;
 $input-group-addon-bg: transparent;
-$form-check-input-width: 1.5em;
+$form-check-input-width: 2em;
 
 $form-check-input-checked-bg-color: $white;
 
@@ -150,6 +150,10 @@ $form-check-input-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://w
 $form-check-radio-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$white}'/><circle r='2.8' fill='#{$form-check-input-checked-color}'/></svg>");
 
 $form-select-border-radius: $border-radius-pill;
+
+.form-check-input {
+  margin-right: 0.5em;
+}
 
 // tooltips
 $tooltip-color: $white;
