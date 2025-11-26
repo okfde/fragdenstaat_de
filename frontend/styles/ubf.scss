@@ -290,15 +290,15 @@ $font-sizes-md: (
 );
 
 $font-sizes-xl: (
-  '.display-1': 5rem,
-  '.display-2': 4rem,
-  '.display-3': 3.5rem,
-  'h1': 3rem,
-  'h2': 2.5rem,
-  'h3': 1.5rem,
-  'h4': 1.5rem,
-  '.lead': 1.5rem,
-  'default': 1.125rem
+  '.display-1': 80px,
+  '.display-2': 64px,
+  '.display-3': 56px,
+  'h1': 48px,
+  'h2': 40px,
+  'h3': 24px,
+  'h4': 24px,
+  '.lead': 24px,
+  'default': 18px
 );
 
 $font-sizes-xxl: (
@@ -310,7 +310,7 @@ $font-sizes-xxl: (
   'h3': 32px,
   'h4': 26px,
   '.lead': 26px,
-  'default': 20px
+  'default': 18px
 );
 
 $font-sizes-by-breakpoint: (
@@ -324,10 +324,7 @@ $font-sizes-by-breakpoint: (
     @each $selector, $size in $font-sizes {
       @if $selector == 'default' {
         :root {
-          --#{$prefix}body-font-size: $size;
-        }
-        body {
-          font-size: $size;
+          --#{$prefix}body-font-size: #{$size};
         }
       } @else {
         #{$selector} {
