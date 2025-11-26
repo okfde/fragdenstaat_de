@@ -395,6 +395,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
         "bounce_max_age": 0,
         "bounce_enabled": False,
         "max_attachment_size": 0,
+        "currency": "EUR",
     }
     MIN_PASSWORD_LENGTH = 9
 
