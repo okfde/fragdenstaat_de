@@ -457,7 +457,7 @@ class UbfMixin:
     SITE_NAME = "Ubf"
     SITE_EMAIL = "info@ubf.de"
     SITE_LOGO = ""
-    MATOMO_SITE_ID = ""
+    MATOMO_SITE_ID = "60"
     SENTRY_JS_URL = ""
 
     CMS_TEMPLATES = [
