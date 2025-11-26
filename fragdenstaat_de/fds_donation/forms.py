@@ -64,6 +64,7 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
         widget=AmountInput(
             attrs={
                 "title": _("Amount in Euro, comma as decimal separator"),
+                "class": "text-end",
             },
             presets=[],
         ),
@@ -303,7 +304,7 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
 
 
 class RemoteDonationForm(forms.Form):
-    amount = forms.DecimalField(
+    initial_amount = forms.DecimalField(
         localize=True,
         required=True,
         initial=None,
@@ -319,7 +320,7 @@ class RemoteDonationForm(forms.Form):
             presets=[],
         ),
     )
-    interval = forms.TypedChoiceField(
+    initial_interval = forms.TypedChoiceField(
         choices=[],
         coerce=int,
         empty_value=None,
@@ -335,22 +336,22 @@ class RemoteDonationForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         interval_choices = self.get_interval_choices()
-        self.fields["interval"].choices = interval_choices
-        self.fields["interval"].initial = (
+        self.fields["initial_interval"].choices = interval_choices
+        self.fields["initial_interval"].initial = (
             self.settings.get("initial_interval", None) or interval_choices[0][0]
         )
-        self.fields["amount"].widget.presets = self.settings["amount_presets"]
-        self.fields["amount"].initial = self.settings["initial_amount"]
+        self.fields["initial_amount"].widget.presets = self.settings["amount_presets"]
+        self.fields["initial_amount"].initial = self.settings["initial_amount"]
         self.fields["pk_campaign"].initial = self.settings["reference"]
         self.fields["pk_keyword"].initial = self.settings["keyword"]
 
         if len(interval_choices) == 1:
-            self.fields["interval"].initial = interval_choices[0][0]
-            self.fields["interval"].widget = forms.HiddenInput()
+            self.fields["initial_interval"].initial = interval_choices[0][0]
+            self.fields["initial_interval"].widget = forms.HiddenInput()
             if interval_choices[0][0] == 0:
-                self.fields["amount"].label = _("One time donation amount")
+                self.fields["initial_amount"].label = _("One time donation amount")
             else:
-                self.fields["amount"].label = _(
+                self.fields["initial_amount"].label = _(
                     "Your {recurring} donation amount"
                 ).format(recurring=interval_choices[0][1])
 

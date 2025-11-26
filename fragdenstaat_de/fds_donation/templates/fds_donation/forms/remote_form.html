@@ -15,10 +15,10 @@
             </legend>
         {% endif %}
         <div class="row">
-            <div class="col-12">{% render_field form.amount stacked=True %}</div>
+            <div class="col-12">{% render_field form.initial_amount stacked=True %}</div>
         </div>
         <div class="row">
-            <div class="col-12" data-group="interval">{% render_field form.interval inline=True %}</div>
+            <div class="col-12" data-group="interval">{% render_field form.initial_interval inline=True %}</div>
         </div>
         {% for field in form.hidden_fields %}{{ field }}{% endfor %}
         <div class="d-grid gap-2 mx-auto col-8">
