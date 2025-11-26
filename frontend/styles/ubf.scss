@@ -234,7 +234,7 @@ $buttons: (
     --#{$prefix}btn-border-color: #{$color};
     --#{$prefix}btn-hover-color: #{$hover};
     --#{$prefix}btn-hover-border-color: #{$hover};
-    --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($color)};
+    --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($hover)};
   }
   .text-bg-white {
     .btn-outline-#{$name} {
