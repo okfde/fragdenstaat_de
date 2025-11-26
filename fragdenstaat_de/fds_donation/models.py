@@ -911,6 +911,7 @@ class EmailDonationButtonCMSPlugin(CMSPlugin):
     initial_amount = models.IntegerField(null=True, blank=True)
     initial_interval = models.IntegerField(null=True, blank=True)
     min_amount = models.IntegerField(default=0)
+    prefilled_amount = models.BooleanField(default=True)
 
     action_url = models.CharField(max_length=255, blank=True)
     action_label = models.CharField(max_length=255, blank=True)
@@ -945,6 +946,7 @@ class EmailDonationButtonCMSPlugin(CMSPlugin):
                 ),
                 "interval": str(self.interval),
                 "min_amount": str(self.min_amount),
+                "prefilled_amount": self.prefilled_amount,
                 "pk_placement": f"donationbutton-{self.pk}",
             }
         )
