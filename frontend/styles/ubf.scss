@@ -228,6 +228,7 @@ $buttons: (
 // unlike bootstrap outline buttons, ours don't fill when hovered
 @each $name, $value in $buttons {
   $color: list.nth($value, 1);
+  $text-active: list.nth($value, 2);
   $hover: list.nth($value, 3);
   $white-hover: list.nth($value, 4);
 
@@ -237,6 +238,9 @@ $buttons: (
     --#{$prefix}btn-hover-color: #{$hover};
     --#{$prefix}btn-hover-border-color: #{$hover};
     --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($hover)};
+    --#{$prefix}btn-active-border-color: #{$color};
+    --#{$prefix}btn-active-color: #{$text-active};
+    --#{$prefix}btn-active-bg: #{$color};
   }
   .text-bg-white {
     .btn-outline-#{$name} {
