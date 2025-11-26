@@ -8,15 +8,14 @@
                         data-value="{{ preset }}"
                         data-target="{{ widget.attrs.id }}">{{ preset }} {{ currency }}</button>
             {% endfor %}
-            <button type="button"
-                    class="btn btn-outline-secondary btn-other-amount"
-                    data-focus="{{ widget.attrs.id }}">{% trans "Other amount" %}</button>
+            {# djlint:off H021 #}
+            <div class="input-group" style="max-width: 20rem;">
+                <button type="button"
+                        class="btn btn-outline-secondary btn-other-amount"
+                        data-focus="{{ widget.attrs.id }}">{% trans "Other amount" %}</button>
+                {% include "django/forms/widgets/text.html" %}
+                <span class="input-group-text">{{ currency }}</span>
+            </div>
         </div>
     {% endif %}
-    {# djlint:off H021 #}
-    <div class="input-group mt-2" style="max-width: 12rem;">
-        {# djlint:on #}
-        {% include "django/forms/widgets/text.html" %}
-        <span class="input-group-text">{{ currency }}</span>
-    </div>
 </div>

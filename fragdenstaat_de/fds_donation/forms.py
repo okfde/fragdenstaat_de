@@ -314,6 +314,7 @@ class RemoteDonationForm(forms.Form):
         widget=AmountInput(
             attrs={
                 "title": _("Amount in Euro, comma as decimal separator"),
+                "class": "text-end",
             },
             presets=[],
         ),
