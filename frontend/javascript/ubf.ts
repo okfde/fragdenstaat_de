@@ -7,7 +7,6 @@ import arrowRight from '../img/ubf/arrow-right.svg?raw'
 import './misc/reference'
 import './misc/matomo'
 
-
 // map element
 const svg = document.querySelector<SVGElement>('#map-container svg')
 const infoContainer = document.querySelector('#map-info-container')
@@ -148,23 +147,31 @@ if (svg) {
   })
   infoContainer?.appendChild(infoBox)
 
+  const groups: SVGGElement[] = []
+
   organizations
     .filter((i) => i.x && i.y)
     .forEach((i) => {
-      const g = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'g'
-      ) as SVGGElement
-      g.innerHTML = `<line opacity="0.5" x1="21.3536" y1="21.3536" x2="10.3536" y2="32.3536" stroke="url(#gradient)"/><line x1="10.5" y1="10" x2="10.5" y2="33" stroke="white"/><circle cx="10.5" cy="10.5" r="10.5" fill="#FF6C03"/>`
-      g.setAttribute('transform', `translate(${i.x - 11} ${i.y - 24})`) // offset for circle/line
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+      g.innerHTML = `<line x1="10.5" y1="10" x2="10.5" y2="33" stroke="white"/><circle cx="10.5" cy="10.5" r="10.5" fill="#FF6C03" stroke="#006f59" stroke-width="0.5" />`
+      const transform = `translate(${i.x - 11} ${i.y - 24})` // offset for circle/line
+      g.setAttribute('transform', transform)
       g.setAttribute('class', 'map-pin')
       g.addEventListener('click', () => infoBox.update(i))
 
-      svg?.appendChild(g)
+      const shadow = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+      shadow.innerHTML =
+        '<line opacity="0.5" x1="21.3536" y1="21.3536" x2="10.3536" y2="32.3536" stroke="url(#gradient)"/>'
+      shadow.setAttribute('transform', transform)
+
+      svg.appendChild(shadow)
+      groups.push(g)
       new Tooltip(g, {
         placement: 'top',
         offset: [0, 10],
         title: i.name
       })
     })
+
+  groups.forEach((g) => svg.appendChild(g))
 }
