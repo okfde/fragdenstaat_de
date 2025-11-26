@@ -173,6 +173,7 @@ class DonationFormFactory:
         "interval",
         "min_amount",
         "purpose",
+        "prefilled_amount",
     }
 
     def __init__(self, **kwargs):
@@ -183,12 +184,13 @@ class DonationFormFactory:
     @classmethod
     def from_request(cls, request):
         data = {}
+        if request.GET.get("initial_amount"):
+            data["prefilled_amount"] = True
+
         for key in cls.request_configurable:
             value = request.GET.get(key)
             if value:
                 data[key] = value
-        if request.GET.get("initial_amount"):
-            data["prefilled_amount"] = True
         return data
 
     def get_form_kwargs(self, **kwargs):
