@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" href="{% static 'ubf/favicon.png' %}">
     {% include "fds_cms/social_meta.html" with object=request.current_page %}
 {% endblock %}
+{% block body_extra_attributes %}{{ block.super }} class="text-bg-primary"{% endblock %}
 {% block top_block %}{% endblock %}
 {% block navbar %}
     <nav class="navbar text-bg-primary border-bottom border-merlot-75 py-0">
