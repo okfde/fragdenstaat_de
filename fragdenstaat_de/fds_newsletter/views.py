@@ -87,6 +87,8 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
             request=request,
             initial={
                 "email": request.GET.get("email", ""),
+                "reference": request.GET.get("reference", ""),
+                "keyword": request.GET.get("keyword", ""),
                 "next": request.GET.get("next", ""),
             },
         )
