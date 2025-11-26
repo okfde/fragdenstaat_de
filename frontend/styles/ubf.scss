@@ -202,9 +202,9 @@ $theme-colors: $original-theme-colors;
 }
 
 $buttons: (
-  // background, color, hover-background
-  'primary': ($merlot-100, $white, $teal-100),
-  'secondary': ($lavender-100, $merlot-100, $pearl-100)
+  // background, color, hover-background, white-hover-color
+  'primary': ($merlot-100, $white, $teal-100, $teal-100),
+  'secondary': ($lavender-100, $merlot-100, $pearl-100, $teal-100)
 );
 
 @each $name, $value in $buttons {
@@ -221,15 +221,22 @@ $buttons: (
 
 // unlike bootstrap outline buttons, ours don't fill when hovered
 @each $name, $value in $buttons {
-  .btn-outline-#{$name} {
-    $color: list.nth($value, 1);
-    $hover: list.nth($value, 3);
+  $color: list.nth($value, 1);
+  $hover: list.nth($value, 3);
+  $white-hover: list.nth($value, 4);
 
+  .btn-outline-#{$name} {
     --#{$prefix}btn-color: #{$color};
     --#{$prefix}btn-border-color: #{$color};
     --#{$prefix}btn-hover-color: #{$hover};
     --#{$prefix}btn-hover-border-color: #{$hover};
     --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($color)};
+  }
+  .text-bg-white {
+    .btn-outline-#{$name} {
+      --#{$prefix}btn-hover-color: #{$white-hover};
+      --#{$prefix}btn-hover-border-color: #{$white-hover};
+    }
   }
 }
 
