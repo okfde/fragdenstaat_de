@@ -454,9 +454,9 @@ class GegenrechtsschutzMixin:
 class UbfMixin:
     SITE_ID = int(env("DJANGO_SITE_ID", 3))
     SITE_KEY = "ubf"
-    SITE_URL = "https://ubf.de"
-    SITE_NAME = "Ubf"
-    SITE_EMAIL = "info@ubf.de"
+    SITE_URL = "https://ueberbrueckungsfonds.de"
+    SITE_NAME = "Überbrückungsfonds"
+    SITE_EMAIL = "fonds@fragdenstaat.de"
     SITE_LOGO = ""
     MATOMO_SITE_ID = "60"
     SENTRY_JS_URL = ""
