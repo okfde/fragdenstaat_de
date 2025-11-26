@@ -7,6 +7,8 @@
 {% load icons %}
 {% block meta %}
     {# TODO: meta tags, favicon #}
+    <meta name="keywords" content="Überbrückungsfonds" />
+    <link rel="icon" type="image/png" href="{% static 'ubf/favicon.png' %}">
     {% include "fds_cms/social_meta.html" with object=request.current_page %}
 {% endblock %}
 {% block top_block %}{% endblock %}
