@@ -543,7 +543,7 @@ footer#footer .col:nth-child(2) {
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
