@@ -530,10 +530,31 @@ $section-dividers: (
   }
 }
 
+footer#footer .col:nth-child(2) {
+  border-top: 1px solid $merlot-75;
+
+  @include media-breakpoint-up(lg) {
+    border-top: none;
+  }
+}
+
 .footer-socials {
-  @include media-breakpoint-down(lg) {
-    border-top: 1px solid $merlot-75 !important;
-    padding-top: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @include media-breakpoint-up(lg) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacer;
+  }
+}
+
+.footer-link {
+  color: $pearl-100;
+
+  &:hover,
+  &:focus {
+    color: $lavender-100;
   }
 }
 
