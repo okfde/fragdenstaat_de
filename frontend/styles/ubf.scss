@@ -477,6 +477,31 @@ $section-dividers: (
   }
 }
 
+$background-images: (
+  'spenden': (
+    'md',
+    'xl'
+  )
+);
+
+@each $name, $sizes in $background-images {
+  .section-bg-#{$name} {
+    width: 100%;
+    max-width: none;
+
+    background-size: auto 50%;
+    background-position: center bottom 15%;
+    background-repeat: repeat-x;
+    background-image: url('../img/ubf/blocks-#{$name}-bg.svg?no-inline');
+
+    @each $size in $sizes {
+      @include media-breakpoint-up($size) {
+        background-image: url('../img/ubf/blocks-#{$name}-bg-#{$size}.svg?no-inline');
+      }
+    }
+  }
+}
+
 .hero-image img,
 .hero-image svg {
   height: 20rem;
