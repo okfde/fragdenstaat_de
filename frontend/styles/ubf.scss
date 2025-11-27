@@ -541,15 +541,19 @@ footer#footer .col:nth-child(2) {
 .footer-socials {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 
   @include media-breakpoint-up(lg) {
     display: flex;
     flex-wrap: wrap;
-    gap: $spacer;
+    gap: 2rem;
   }
 }
 
 .footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: $pearl-100;
   text-decoration: none;
 
