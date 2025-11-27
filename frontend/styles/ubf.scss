@@ -471,6 +471,12 @@ $section-dividers: (
   }
 }
 
+.section-divider-home-1 {
+  @include media-breakpoint-up(lg) {
+    height: 100%;
+  }
+}
+
 .hero-image img,
 .hero-image svg {
   height: 20rem;
@@ -529,6 +535,22 @@ $section-dividers: (
 
   @include media-breakpoint-up(xxl) {
     font-size: 4rem;
+  }
+}
+
+.circled-number-steps .circled-number {
+  position: relative;
+
+  &::after {
+    content: '';
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="21" height="30" fill="none" viewBox="0 0 21 30"><path stroke="%23f4eeee" stroke-width="1.5" d="m19.588 16-9.5 12-9.5-12"/><path fill="%23f4eeee" d="M10.838 0v28h-1.5V0z"/></svg>');
+    width: 2rem;
+    height: 1.5rem;
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: -2rem;
+    background-size: contain;
+    background-position: center;
   }
 }
 
