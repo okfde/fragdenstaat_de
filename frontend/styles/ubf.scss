@@ -225,6 +225,7 @@ $buttons: (
       $hover-background: list.nth($value, 3),
       $hover-border: list.nth($value, 3)
     );
+    --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($hover)};
   }
 }
 
