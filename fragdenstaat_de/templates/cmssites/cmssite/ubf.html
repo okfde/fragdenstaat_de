@@ -54,7 +54,9 @@
             <div class="col col-12 col-lg-7">
                 <nav class="navbar py-0">
                     <ul class="navbar-nav h3 flex flex-row gap-2 gap-lg-3 flex-wrap text-uppercase">
-                        {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
+                        {% block footer_nav %}
+                            {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
+                        {% endblock footer_nav %}
                     </ul>
                 </nav>
             </div>
