@@ -130,7 +130,7 @@ if (svg) {
   let currentIndex = 0
   const organizations: Organization[] = await (
     await fetch(
-      'https://media.frag-den-staat.de/files/media/main/43/24/432480e1-1eb3-45b4-ae9a-a4fc34d8b0ad/orgas.json'
+      'https://media.frag-den-staat.de/files/media/main/ba/a0/baa073d7-536b-4b91-9f8a-b59fc5f5843f/orgas.json'
     )
   ).json()
 
