@@ -100,7 +100,7 @@ djangocms_frontend_frontenduiitem
 djangocms_icon_icon
 djangocms_link_link
 djangocms_picture_picture
-djangocms_text_ckeditor_text
+djangocms_text_text
 djangocms_versioning_statetracking
 djangocms_versioning_version
 djangocms_video_videoplayer
