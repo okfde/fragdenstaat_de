@@ -50,7 +50,18 @@
     {% endblock %}
 {% endblock %}
 {% block footer_container %}
-    {% static_alias "ubf_footer" %}
+    <footer id="footer" class="ubf-section">
+        <div class="row">
+            <div class="col col-12 col-lg-8">
+                <nav class="navbar ">
+                    <ul class="navbar-nav h3 flex flex-row column-gap-1 column-gap-sm-2 flex-wrap text-uppercase">
+                        {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
+                    </ul>
+                </nav>
+            </div>
+            <div class="col col-12 col-lg-4">{% static_alias "ubf_footer" %}</div>
+        </div>
+    </footer>
 {% endblock %}
 {% block scripts %}
     {% include "_frontend.html" with entry_point="ubf.js" %}
