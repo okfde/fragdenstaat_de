@@ -1,11 +1,11 @@
 import '../styles/ubf.scss'
 import './donation-form'
+import './misc/reference'
+import './misc/matomo'
 
 import { Tooltip } from 'bootstrap'
 import arrowLeft from '../img/ubf/arrow-left.svg?raw'
 import arrowRight from '../img/ubf/arrow-right.svg?raw'
-import './misc/reference'
-import './misc/matomo'
 
 // map element
 const svg = document.querySelector<SVGElement>('#map-container svg')
@@ -175,3 +175,35 @@ if (svg) {
 
   groups.forEach((g) => svg.appendChild(g))
 }
+
+// ticker
+function setupTickers() {
+  // no animation when editing
+  if (window.CMS?.config?.mode === 'draft') return
+
+  document.querySelectorAll('.ubf-ticker').forEach((ticker) => {
+    const ul = ticker.querySelector('ul')
+    const existingClones = ticker.querySelectorAll('ul').length - 1
+
+    if (ul) {
+      ticker.classList.remove('playing')
+
+      const nClones = Math.max(
+        Math.ceil(ticker.clientWidth / ul.clientWidth) - existingClones,
+        0
+      )
+
+      for (let i = 0; i < nClones; i++) {
+        const clone = ul.cloneNode(true) as HTMLUListElement
+
+        clone.ariaHidden = 'true'
+        ticker.appendChild(clone)
+      }
+
+      window.requestAnimationFrame(() => ticker.classList.add('playing'))
+    }
+  })
+}
+
+window.addEventListener('DOMContentLoaded', () => setupTickers())
+window.addEventListener('resize', () => setupTickers())
