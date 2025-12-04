@@ -98,7 +98,7 @@ def quick_donation(request):
 
 def get_base_breadcrumb(donor):
     return Breadcrumbs(
-        items=[(_("Your donations"), donor.get_absolute_url())], color="success"
+        items=[(_("My donations"), donor.get_absolute_url())], color="yellow-200"
     )
 
 
@@ -174,11 +174,16 @@ class DonorView(DonorMixin, DetailView, BreadcrumbView):
         except IndexError:
             last_donation = None
 
+        has_pending = any(
+            not d.received_timestamp and d.method == "banktransfer" for d in donations
+        )
+
         ctx.update(
             {
                 "recurrences": self.object.recurrences.filter(cancel_date=None),
                 "donations": donations,
                 "last_donation": last_donation,
+                "has_pending": has_pending,
             }
         )
         return ctx
