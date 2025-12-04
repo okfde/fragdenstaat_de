@@ -1,11 +1,11 @@
 import '../styles/ubf.scss'
 import './donation-form'
+import './misc/reference'
+import './misc/matomo'
 
 import { Tooltip } from 'bootstrap'
 import arrowLeft from '../img/ubf/arrow-left.svg?raw'
 import arrowRight from '../img/ubf/arrow-right.svg?raw'
-import './misc/reference'
-import './misc/matomo'
 
 // map element
 const svg = document.querySelector<SVGElement>('#map-container svg')
@@ -175,3 +175,45 @@ if (svg) {
 
   groups.forEach((g) => svg.appendChild(g))
 }
+
+// ticker
+function setupTickers() {
+  // no animation when editing
+  if (window.CMS?.config?.mode === 'draft') return
+
+  document.querySelectorAll<HTMLElement>('.ubf-ticker').forEach((ticker) => {
+    const ul = ticker.querySelector('ul')
+    const uls = ticker.querySelectorAll('ul')
+
+    if (ul) {
+      // in case ul is hidden or not yet rendered, prevents infinite loop
+      if (ul.clientWidth === 0) return
+
+      const targetClones =
+        Math.max(Math.ceil(ticker.clientWidth / ul.clientWidth), 0) + 1
+
+      if (targetClones == uls.length) return
+
+      ticker.classList.remove('playing')
+      void ticker.offsetHeight // forces reflow, without animations get out of sync
+
+      // remove clones
+      uls.forEach((e) => {
+        if (e !== ul) e.remove()
+      })
+
+      // starting at 1, since we already have one original ul
+      for (let i = 1; i < targetClones; i++) {
+        const clone = ul.cloneNode(true) as HTMLUListElement
+        clone.ariaHidden = 'true'
+        ticker.appendChild(clone)
+      }
+
+      // make sure animation starts at the same time for all elements
+      ticker.classList.add('playing')
+    }
+  })
+}
+
+window.addEventListener('DOMContentLoaded', () => setupTickers())
+window.addEventListener('resize', () => setupTickers())

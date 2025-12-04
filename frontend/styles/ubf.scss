@@ -612,6 +612,120 @@ footer#footer .col:nth-child(2) {
   }
 }
 
+// ticker
+.ubf-ticker-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 1rem 0;
+  margin: -1rem 0;
+  --angle: -2deg;
+
+  @include media-breakpoint-up(md) {
+    margin: -2rem 0;
+    padding: 2rem 0;
+  }
+
+  @include media-breakpoint-up(lg) {
+    --angle: -1deg;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    margin: -3rem 0;
+    padding: 3rem 0;
+  }
+
+  .ubf-ticker-before,
+  .ubf-ticker-after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  // this breaks at viewports over 5000px wide
+  // (ticker gets cut off), but whatever imho
+  .ubf-ticker-before {
+    clip-path: polygon(0 0, 100% 0, 100% 40%, 0 60%);
+  }
+
+  .ubf-ticker-after {
+    clip-path: polygon(0 100%, 100% 100%, 100% 40%, 0 60%);
+  }
+}
+
+.ubf-ticker {
+  --gap: 1rem;
+
+  position: relative;
+  width: calc(100% + 2rem);
+  background-color: $tangerine-100;
+  color: $black;
+  text-wrap: nowrap;
+  font-weight: 800;
+  display: flex;
+  gap: var(--gap);
+  rotate: var(--angle);
+  z-index: 100;
+  margin: 0;
+
+  ul {
+    display: flex;
+    gap: var(--gap);
+    padding: 0.5rem 0;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+
+  @extend h4;
+
+  @include media-breakpoint-up(lg) {
+    --gap: 1.5rem;
+
+    ul {
+      padding: 1rem 0;
+    }
+  }
+
+  li::after {
+    content: '';
+    display: inline-block;
+    margin-left: var(--gap);
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="73" height="26" fill="none" viewBox="0 0 73 26"><path stroke="%23fff" stroke-linejoin="round" stroke-width="2" d="m12.086 6.047.244 13.998M5.209 13.168l13.998-.244M36.082 5.628l.244 13.998M29.205 12.749l13.998-.244M60.078 5.209l.244 13.998M53.201 12.33l13.998-.244"/></svg>');
+    width: 3em;
+    height: 0.85em;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    translate: 0 2px;
+  }
+
+  &.playing ul {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: ticker 60s linear infinite;
+    }
+  }
+
+  &:hover ul {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes ticker {
+  0% {
+    translate: 0 0;
+  }
+
+  100% {
+    translate: calc(-100% - var(--gap)) 0;
+  }
+}
+
 // fonts
 
 @import '@fontsource/geist/400.css';
