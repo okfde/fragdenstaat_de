@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load djangocms_alias_tags %}
+{% static_alias "request_campaign_main" %}
+{% comment %}
+
+to match froide's layout, in CMS, build:
+
+- Bild, with Attribute
+  class=campaign-logo d-block object-fit-contain w-100 mb-3
+- Überschrift, h2, with Attribute
+  class=fs-4
+- Text, containg an <ul>
+
+or, FIXME: replace the alias with markup:
+
+<img src="todo" alt="" class="class=campaign-logo d-block object-fit-contain w-100 mb-3">
+<h2 class="fs-4">Eigene Anfrage schreiben</h2>
+<ul>
+  <li>And so on</li>
+</ul>
+
+{% endcomment %}
