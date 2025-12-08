@@ -64,3 +64,36 @@ def test_import_banktransfer_subscription_active():
     subscription = payment.order.subscription
     subscription.refresh_from_db()
     assert subscription.active is True
+
+
+@pytest.mark.django_db
+def test_import_banktransfer_purpose(donor):
+    now = timezone.now()
+    first_date = now
+    amount = Decimal("10.00")
+    donation = make_banktransfer_donation(donor, amount, first_date)
+    transfer_code = donation.payment.transaction_id
+
+    assert donation.purpose == ""
+
+    iban = "DE1"
+    row = {
+        "reference": transfer_code,
+        "iban": iban,
+        "amount": amount,
+        "date": first_date,
+        "date_received": first_date,
+        "purpose": "TEST-PURP",
+    }
+    import_banktransfer(transfer_code, row, settings.DONATION_PROJECTS[0][0])
+
+    payment = donation.payment
+    payment.refresh_from_db()
+    assert payment.status == PaymentStatus.CONFIRMED
+
+    donation.refresh_from_db()
+    assert donation.purpose == "TEST-PURP"
+
+    subscription = payment.order.subscription
+    subscription.refresh_from_db()
+    assert subscription.active is True
