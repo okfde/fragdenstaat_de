@@ -122,6 +122,8 @@ def import_banktransfer(transfer_ident, row, project):
     donation.amount = Decimal(str(row["amount"]))
     donation.amount_received = Decimal(str(row["amount"]))
     donation.received_timestamp = row["date_received"]
+    if row.get("purpose"):
+        donation.purpose = row["purpose"]
     if is_new:
         if pd.notnull(row["date"]) and row["date"]:
             donation.timestamp = row["date"]
@@ -171,10 +173,14 @@ def import_banktransfers(xls_file, project):
             "Verwendungszweck": "reference",
             "Konto": "iban",
             "Bank": "bic",
+            "Purpose": "purpose",
         }
     )
+
     df = df.dropna(subset=["date_received"])
     df["reference"] = df["reference"].fillna("")
+    if "purpose" in df.columns:
+        df["purpose"] = df["purpose"].fillna("")
     df["date_received"] = df["date_received"].dt.tz_localize(settings.TIME_ZONE)
     if "date" in df.columns:
         df["date"] = df["date"].dt.tz_localize(settings.TIME_ZONE)
