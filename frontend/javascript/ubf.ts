@@ -215,5 +215,5 @@ function setupTickers() {
   })
 }
 
-window.addEventListener('DOMContentLoaded', () => setupTickers())
+setupTickers()
 window.addEventListener('resize', () => setupTickers())
