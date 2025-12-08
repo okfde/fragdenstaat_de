@@ -134,6 +134,7 @@ django==5.2.7
     #   drf-spectacular-sidecar
     #   easy-thumbnails
     #   froide
+    #   froide-campaign
     #   sortabletable
 django-admin-sortable2==2.2.8
     # via
@@ -211,7 +212,7 @@ django-filer==3.3.2
     #   djangocms-picture
     #   djangocms-video
     #   froide-govplan
-django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@db850a991235880e4a533d9d0781a04c607c7488
+django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@a7951d051fc155104bfe07ff43573762abafb1ec
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fcdocs-annotate
@@ -383,9 +384,9 @@ filelock==3.19.1
     # via torch
 fonttools==4.60.0
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@486041dc433896c40bb68a3b380c19024463ff9b
+froide @ git+https://github.com/okfde/froide.git@d2e97d80711fcb7c2414245ff930b2b232f54f3d
     # via fragdenstaat-de (pyproject.toml)
-froide-campaign @ git+https://github.com/okfde/froide-campaign.git@cabe34f4f6436ac761173b72810c73fa17de6aeb
+froide-campaign @ git+https://github.com/okfde/froide-campaign.git@caede728d94fe7b08437e4ae3229d7222b6a104b
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@5d45c091cbf481cd91cca5ca4505818a8f3bb446
     # via fragdenstaat-de (pyproject.toml)
@@ -401,7 +402,7 @@ froide-govplan @ git+https://github.com/okfde/froide-govplan.git@7d304ae0e34e44f
     # via fragdenstaat-de (pyproject.toml)
 froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@fdcfec87724c7388d22d6377bcce9feb7de88662
     # via fragdenstaat-de (pyproject.toml)
-froide-payment @ git+https://github.com/okfde/froide-payment.git@fcb66852cb5991cabdfc3196dbec8f8bed3ca687
+froide-payment @ git+https://github.com/okfde/froide-payment.git@5573c076f87f5a26ad8cd561623ff42bb35a4ce6
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide-crowdfunding
