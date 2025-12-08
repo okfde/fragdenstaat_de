@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-08 11:00+0100\n"
-"PO-Revision-Date: 2025-11-25 21:35+0100\n"
+"PO-Revision-Date: 2025-12-08 10:23+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: fragdenstaat_de/fds_blog/admin.py
 #, python-format
@@ -649,9 +649,9 @@ msgid ""
 msgstr ""
 "\n"
 "                                Durchsuchen Sie unsere aktuellen oder "
-"verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a "
-"href=\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-"
-"Feed</a> abonnieren.\n"
+"verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a href="
+"\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-Feed</a> "
+"abonnieren.\n"
 "                            "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
@@ -1182,8 +1182,8 @@ msgid ""
 "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
 "\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr ""
-"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
-"target=\"_blank\">Font Awesome 4 Icon Liste</a>"
+"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target="
+"\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background image"
@@ -2106,7 +2106,7 @@ msgstr "Du musst dich entscheiden."
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "In order to receive donation receipts, please fill out this field."
-msgstr ""
+msgstr "Um Spendenbescheinigungen zu erhalten, fülle bitte dieses Feld aus."
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Donation gift"
@@ -2288,6 +2288,7 @@ msgid "Recurring donation"
 msgstr "Dauerspende"
 
 #: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Recurring donations"
 msgstr "Dauerspenden"
 
@@ -2414,6 +2415,7 @@ msgstr ""
 "          "
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Thank you for your donation!"
 msgstr "Vielen Dank für Deine Spende!"
 
@@ -2512,6 +2514,7 @@ msgid "Details / Cancel"
 msgstr "Details / Kündigen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/_recurrence.html
 msgid ""
 "This Paypal subscription is not managed by us. You can change or cancel your "
 "PayPal subscription in your PayPal account."
@@ -2553,7 +2556,6 @@ msgstr "Deine Spende"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 #, fuzzy
-#| msgid "Thank you for your donation!"
 msgid "Thank you for your support!"
 msgstr "Vielen Dank für Deine Spende!"
 
@@ -2561,32 +2563,27 @@ msgstr "Vielen Dank für Deine Spende!"
 msgid ""
 "You will receive a donation receipt at the start of each year via e-mail."
 msgstr ""
+"Du wirst zum Jahresbeginn eine Spendenbescheinigung per E-Mail erhalten."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Update personal data for receipts"
-msgstr ""
+msgstr "Daten für Spendenbescheinigungen ändern"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
-#, fuzzy
-#| msgid "Do you want a donation receipt?"
 msgid "You currently do not receive donation receipts."
-msgstr "Möchtest Du eine Spendenbescheinigung?"
+msgstr "Du erhältst derzeit keine Spendenbescheinigung."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
-#, fuzzy
-#| msgid "Do you want a donation receipt?"
 msgid "Enter personal data for donation receipts"
-msgstr "Möchtest Du eine Spendenbescheinigung?"
+msgstr "Persönliche Daten für Spendenbescheinigung angeben"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Frequent questions & contact"
-msgstr ""
+msgstr "Häufige Fragen & Kontakt"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
-#, fuzzy
-#| msgid "Awaiting bank transfer"
 msgid "Pending banktransfers"
-msgstr "Warte auf Banküberweisung"
+msgstr "Ausstehende Überweisungen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
@@ -2605,18 +2602,8 @@ msgid "Please set up a standing order"
 msgstr "Bitte richte einen Dauerauftrag ein"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
-#, fuzzy
-#| msgid "Your recurring donation"
-msgid "Your recurring donation"
-msgid_plural "Your recurring donations"
-msgstr[0] "Deine Dauerspende"
-msgstr[1] "Deine Dauerspende"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
-#, fuzzy
-#| msgid "Organizations"
 msgid "All transactions"
-msgstr "Organisationen"
+msgstr "Alle Transaktionen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Date"
@@ -2626,6 +2613,7 @@ msgstr "Datum"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_instructions.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 msgid "Amount"
 msgstr "Betrag"
 
@@ -2656,6 +2644,7 @@ msgstr ""
 "zukommen."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_form.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Update donor details"
 msgstr "Daten aktualisieren"
 
@@ -2749,12 +2738,14 @@ msgstr "Bitte überweise %(amount)s Euro an"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_instructions.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 msgid "Account holder"
 msgstr "Kontoinhaber"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_instructions.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 msgid "Interval"
 msgstr "Turnus"
 
@@ -2762,75 +2753,65 @@ msgstr "Turnus"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_instructions.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 msgid "Reference"
 msgstr "Verwendungszweck"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_instructions.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 msgid "Bank code"
 msgstr "BLZ"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_instructions.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 msgid "Thank you!"
 msgstr "Vielen Dank!"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 #, python-format
 msgid "Please transfer %(amount)s&nbsp;Euro an"
 msgstr "Bitte überweise %(amount)s&nbsp;Euro an"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_instructions.html
-#, fuzzy
-#| msgid "Change this or cancel with your bank."
 msgid "Scan this QR code using your banking app."
-msgstr "Ändern oder kündigen über deine Bank."
+msgstr "Scanne diesen QR-Code mit Deiner Banking-App."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_modal.html
-#, fuzzy
-#| msgid "Read these instructions"
 msgid "Show transfer instructions"
-msgstr "Lies diese Anweisungen"
+msgstr "Überweisungsdaten anzeigen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_modal.html
-#, fuzzy
-#| msgid "Change your details"
 msgid "Transfer details"
-msgstr "Ändere Deine Angaben"
+msgstr "Überweisungsangaben"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/payment_method.html
 msgid "Last four digits"
-msgstr ""
+msgstr "Letzte vier Ziffern"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
 msgid ""
 "You can adjust or cancel your donation by changing the standing order with "
 "your bank."
 msgstr ""
+"Du kannst deine Spende ändern oder kündigen, indem du den Dauerauftrag bei "
+"Deiner Bank anpasst."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
-#, fuzzy
-#| msgid "{amount} EUR {str_interval}."
 msgid "Adjust amount or interval"
-msgstr "{amount} EUR {str_interval}."
+msgstr "Betrag oder Rhythmus anpassen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
-#, fuzzy
-#| msgid "Change or cancel your subscription"
 msgid "Pause or cancel your subscription"
-msgstr "Dauerspende ändern oder kündigen"
+msgstr "Spende pausieren oder kündigen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
-#, fuzzy
-#| msgid "Change or cancel your subscription"
 msgid "Cancel your subscription"
-msgstr "Dauerspende ändern oder kündigen"
+msgstr "Dauerspende kündigen"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
-#, fuzzy
-#| msgid ""
-#| "This Paypal subscription is not managed by us. You can change or cancel "
-#| "your PayPal subscription in your PayPal account."
 msgid ""
 "You can change or cancel your PayPal subscription in your PayPal account."
 msgstr ""
@@ -2838,10 +2819,8 @@ msgstr ""
 "Paypal-Konto ändern oder kündigen."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
-#, fuzzy
-#| msgid "Change or cancel your subscription"
 msgid "Manage your PayPal subscriptions"
-msgstr "Dauerspende ändern oder kündigen"
+msgstr "Paypal-Zahlungen verwalten"
 
 #: fragdenstaat_de/fds_donation/templates/froide_payment/subscription/_cancel_form.html
 msgid ""
@@ -4068,11 +4047,11 @@ msgstr "Dokumente importieren"
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
 #, python-format
 msgid ""
-"The documents will be imported to the request <a href=\"%(url)s\" "
-"target=\"_blank\">“%(title)s”</a>."
+"The documents will be imported to the request <a href=\"%(url)s\" target="
+"\"_blank\">“%(title)s”</a>."
 msgstr ""
-"Die Dokumente werden in die Anfrage <a href=\"%(url)s\" "
-"target=\"_blank\">„%(title)s“</a> importiert."
+"Die Dokumente werden in die Anfrage <a href=\"%(url)s\" target=\"_blank"
+"\">„%(title)s“</a> importiert."
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
 msgid "Preview document"
@@ -4193,8 +4172,8 @@ msgid ""
 "and played, resulting in a data transfer to YouTube."
 msgstr ""
 "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung. Wenn "
-"Sie auf Akzeptieren klicken, wird <a href=\"%(direct_url)s\" "
-"target=\"_blank\">das Video</a> geladen und abgespielt. Dadurch findet eine "
+"Sie auf Akzeptieren klicken, wird <a href=\"%(direct_url)s\" target=\"_blank"
+"\">das Video</a> geladen und abgespielt. Dadurch findet eine "
 "Datenübermittlung an YouTube statt."
 
 #: fragdenstaat_de/templates/djangocms_video/default/video_player.html
@@ -4204,8 +4183,8 @@ msgstr "Mehr erfahren"
 #: fragdenstaat_de/templates/djangocms_video/default/video_player.html
 #, python-format
 msgid ""
-"You have chosen to not show YouTube videos on our site. <a "
-"href=\"%(manage_cookies)s\">Change cookie preferences</a>"
+"You have chosen to not show YouTube videos on our site. <a href="
+"\"%(manage_cookies)s\">Change cookie preferences</a>"
 msgstr ""
 "Sie haben entschieden, keine YouTube-Videos auf unserer Seite anzuzeigen. <a "
 "href=\"%(manage_cookies)s\">Cookie-Präferenzen bearbeiten</a>"
@@ -4605,45 +4584,186 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
-#~ msgid ""
-#~ "Use your online banking or contact your bank to change your standing "
-#~ "order."
-#~ msgstr ""
-#~ "Benutze dein Online Banking oder kontaktiere deine Bank, um den "
-#~ "Dauerauftrag zu ändern."
+#: fragdenstaat_de/fds_donation/templates/fds_donation/_recurrence.html
+msgid ""
+"Use your online banking or contact your bank to change your standing order."
+msgstr ""
+"Benutze dein Online Banking oder kontaktiere deine Bank, um den Dauerauftrag "
+"zu ändern."
 
-#~ msgid "Create new donation"
-#~ msgstr "Neue Spende anlegen"
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid "Create new donation"
+msgstr "Neue Spende anlegen"
 
-#~ msgid "Here you can find an overview of your individual donations."
-#~ msgstr "Hier findest Du eine Übersicht über Deine einzelnen Spenden."
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid "Here you can find an overview of your individual donations."
+msgstr "Hier findest Du eine Übersicht über Deine einzelnen Spenden."
 
-#~ msgid "Details"
-#~ msgstr "Details"
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid "Details"
+msgstr "Details"
 
-#~ msgid "Euro"
-#~ msgstr "Euro"
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid "Euro"
+msgstr "Euro"
 
-#~ msgid "Confirmation pending"
-#~ msgstr "Bearbeitung läuft"
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid "Confirmation pending"
+msgstr "Bearbeitung läuft"
 
-#~ msgid ""
-#~ "In order to complete this donation you need to create a standing order "
-#~ "with your bank. We will update this entry at the beginning of the "
-#~ "following month."
-#~ msgstr ""
-#~ "Um diese Spende abzuschließen, musst du einen Dauerauftrag bei deiner "
-#~ "Bank anlegen. Wir aktualisieren diesen Eintrag zu Beginn des Folgemonats."
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid ""
+"In order to complete this donation you need to create a standing order with "
+"your bank. We will update this entry at the beginning of the following month."
+msgstr ""
+"Um diese Spende abzuschließen, musst du einen Dauerauftrag bei deiner Bank "
+"anlegen. Wir aktualisieren diesen Eintrag zu Beginn des Folgemonats."
 
-#~ msgid ""
-#~ "In order to complete this donation you need to initiate a banktransfer. "
-#~ "We will update this entry at the beginning of the following month."
-#~ msgstr ""
-#~ "Um diese Spende abzuschließen, musst du eine Überweisung über deine Bank "
-#~ "tätigen. Wir aktualisieren diesen Eintrag zu Beginn des Folgemonats."
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid ""
+"In order to complete this donation you need to initiate a banktransfer. We "
+"will update this entry at the beginning of the following month."
+msgstr ""
+"Um diese Spende abzuschließen, musst du eine Überweisung über deine Bank "
+"tätigen. Wir aktualisieren diesen Eintrag zu Beginn des Folgemonats."
 
-#~ msgid "Your donations"
-#~ msgstr "Deine Spenden"
+#: fragdenstaat_de/fds_donation/views.py
+msgid "Your donations"
+msgstr "Deine Spenden"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/_recurrence.html
+msgid "Change or cancel your subscription"
+msgstr "Dauerspende ändern oder kündigen"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid "Awaiting bank transfer"
+msgstr "Warte auf Banküberweisung"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid ""
+"\n"
+"                                    Similar article:\n"
+"                                "
+msgid_plural ""
+"\n"
+"                                    Similar articles:\n"
+"                                "
+msgstr[0] ""
+"\n"
+"                                    Ähnlicher Artikel:\n"
+"                                "
+msgstr[1] ""
+"\n"
+"                                    Ähnliche Artikel:\n"
+"                                "
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid ""
+"\n"
+"                                Previous article:\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                Previous articles:\n"
+"                            "
+msgstr[0] ""
+"\n"
+"                                Vorheriger Artikel:\n"
+"                            "
+msgstr[1] ""
+"\n"
+"                                Vorherige Artikel:\n"
+"                            "
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Dauerspende"
+msgstr "Dauerspende"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid ""
+"\n"
+"        Updated article:\n"
+"      "
+msgid_plural ""
+"\n"
+"        Updated articles:\n"
+"      "
+msgstr[0] ""
+"\n"
+"        Neuerer Artikel:\n"
+"      "
+msgstr[1] ""
+"\n"
+"        Neuere Artikel:\n"
+"      "
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid "About the author"
+msgstr "Über den*die Autor*in"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid "About the authors"
+msgstr "Über die Autor*innen"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid "Further author"
+msgstr "Weitere*r Autor*in"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid "Further authors"
+msgstr "Weitere Autor*innen"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
+#, python-format
+msgid "Articles with tag “%(tag)s”"
+msgstr "Artikel mit dem Schlagwort „%(tag)s“"
+
+#: fragdenstaat_de/fds_blog/views.py
+#, python-format
+msgid "Tag “%s”"
+msgstr "Schlagwort „%s“"
+
+#: fragdenstaat_de/fds_donation/templates/froide_payment/subscription/_cancel_form.html
+msgid "Are you sure you want to cancel your subscription?"
+msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
+
+#: fragdenstaat_de/templates/djangocms_video/default/video_player.html
+msgid "We need your consent to show you a YouTube video"
+msgstr "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung"
+
+#: fragdenstaat_de/templates/djangocms_video/default/video_player.html
+#, python-format
+msgid ""
+"By playing <a href=\"%(direct_url)s\" target=\"_blank\">this video</a>, you "
+"agree to YouTube's privacy policy."
+msgstr ""
+"Indem Sie <a href=\"%(direct_url)s\" target=\"_blank\">das Video</a> "
+"abspielen, erklären Sie sich mit der Datenschutzerklärung von YouTube "
+"einverstanden."
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid ""
+"\n"
+"                            Previous article:\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            Previous articles:\n"
+"                        "
+msgstr[0] ""
+"\n"
+"                            Vorheriger Artikel:\n"
+"                        "
+msgstr[1] ""
+"\n"
+"                            Vorherige Artikel:\n"
+"                        "
+
+#, fuzzy
+#~ msgid "Your recurring donation"
+#~ msgid_plural "Your recurring donations"
+#~ msgstr[0] "Deine Dauerspende"
+#~ msgstr[1] "Deine Dauerspende"
 
 #, python-brace-format
 #~ msgid "Sending... {}"
@@ -4658,113 +4778,6 @@ msgstr "kampagne/"
 
 #~ msgid "You have been subscribed to our newsletter."
 #~ msgstr "Willkommen zu unserem Newsletter!"
-
-#~ msgid ""
-#~ "\n"
-#~ "                                    Similar article:\n"
-#~ "                                "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                                    Similar articles:\n"
-#~ "                                "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "                                    Ähnlicher Artikel:\n"
-#~ "                                "
-#~ msgstr[1] ""
-#~ "\n"
-#~ "                                    Ähnliche Artikel:\n"
-#~ "                                "
-
-#~ msgid ""
-#~ "\n"
-#~ "                                Previous article:\n"
-#~ "                            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                                Previous articles:\n"
-#~ "                            "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "                                Vorheriger Artikel:\n"
-#~ "                            "
-#~ msgstr[1] ""
-#~ "\n"
-#~ "                                Vorherige Artikel:\n"
-#~ "                            "
-
-#~ msgid "Dauerspende"
-#~ msgstr "Dauerspende"
-
-#~ msgid ""
-#~ "\n"
-#~ "        Updated article:\n"
-#~ "      "
-#~ msgid_plural ""
-#~ "\n"
-#~ "        Updated articles:\n"
-#~ "      "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "        Neuerer Artikel:\n"
-#~ "      "
-#~ msgstr[1] ""
-#~ "\n"
-#~ "        Neuere Artikel:\n"
-#~ "      "
-
-#~ msgid "About the author"
-#~ msgstr "Über den*die Autor*in"
-
-#~ msgid "About the authors"
-#~ msgstr "Über die Autor*innen"
-
-#~ msgid "Further author"
-#~ msgstr "Weitere*r Autor*in"
-
-#~ msgid "Further authors"
-#~ msgstr "Weitere Autor*innen"
-
-#, python-format
-#~ msgid "Articles with tag “%(tag)s”"
-#~ msgstr "Artikel mit dem Schlagwort „%(tag)s“"
-
-#, python-format
-#~ msgid "Tag “%s”"
-#~ msgstr "Schlagwort „%s“"
-
-#~ msgid "Are you sure you want to cancel your subscription?"
-#~ msgstr "Bist du sicher, dass Du Deine Dauerspende kündigen willst?"
-
-#~ msgid "We need your consent to show you a YouTube video"
-#~ msgstr ""
-#~ "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung"
-
-#, python-format
-#~ msgid ""
-#~ "By playing <a href=\"%(direct_url)s\" target=\"_blank\">this video</a>, "
-#~ "you agree to YouTube's privacy policy."
-#~ msgstr ""
-#~ "Indem Sie <a href=\"%(direct_url)s\" target=\"_blank\">das Video</a> "
-#~ "abspielen, erklären Sie sich mit der Datenschutzerklärung von YouTube "
-#~ "einverstanden."
-
-#~ msgid ""
-#~ "\n"
-#~ "                            Previous article:\n"
-#~ "                        "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                            Previous articles:\n"
-#~ "                        "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "                            Vorheriger Artikel:\n"
-#~ "                        "
-#~ msgstr[1] ""
-#~ "\n"
-#~ "                            Vorherige Artikel:\n"
-#~ "                        "
 
 #~ msgid "Similar articles"
 #~ msgstr "Ähnliche Artikel"
@@ -5098,11 +5111,11 @@ msgstr "kampagne/"
 #~ msgstr "Hilfebereich: FragDenStaat und Informationsfreiheit"
 
 #~ msgid ""
-#~ "Support area: FragDenStaat and <abbr title=\"Freedom of "
-#~ "Information\">FOI</abbr>"
+#~ "Support area: FragDenStaat and <abbr title=\"Freedom of Information"
+#~ "\">FOI</abbr>"
 #~ msgstr ""
-#~ "Hilfebereich: FragDenStaat und <abbr "
-#~ "title=\"Informationsfreiheitsgesetz\">IFG</abbr>"
+#~ "Hilfebereich: FragDenStaat und <abbr title=\"Informationsfreiheitsgesetz"
+#~ "\">IFG</abbr>"
 
 #~ msgid "Chapters"
 #~ msgstr "Kapitel"
@@ -5207,8 +5220,8 @@ msgstr "kampagne/"
 #~ msgstr "Stellen Sie jetzt eine Anfrage!"
 
 #~ msgid ""
-#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn."
-#~ "org\">the Open Knowledge Foundation</a>. If you want to support Froide, "
+#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn.org"
+#~ "\">the Open Knowledge Foundation</a>. If you want to support Froide, "
 #~ "please visit the <a href=\"%(url)s\">repository on GitHub</a>."
 #~ msgstr ""
 #~ "Über FragDenStaat.de können Sie Behörden in Deutschland nach "
@@ -5317,20 +5330,19 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "You agree to our <a href=\"%(url_terms)s\" class=\"target-new\">Terms and "
-#~ "Conditions</a> and <a href=\"%(url_privacy)s\" class=\"target-"
-#~ "new\">Privacy Statement</a>"
+#~ "Conditions</a> and <a href=\"%(url_privacy)s\" class=\"target-new"
+#~ "\">Privacy Statement</a>"
 #~ msgstr ""
-#~ "Sie stimmen unseren <a href=\"%(url_terms)s\" class=\"target-"
-#~ "new\">Nutzungsbedingungen</a> und <a href=\"%(url_privacy)s\" "
-#~ "class=\"target-new\">Datenschutzbedingungen</a> zu."
+#~ "Sie stimmen unseren <a href=\"%(url_terms)s\" class=\"target-new"
+#~ "\">Nutzungsbedingungen</a> und <a href=\"%(url_privacy)s\" class=\"target-"
+#~ "new\">Datenschutzbedingungen</a> zu."
 
 #~ msgid ""
-#~ "This email address already has an account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Please login using that email address.</a>"
+#~ "This email address already has an account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Please login using that email address.</a>"
 #~ msgstr ""
-#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein."
-#~ "</a>"
+#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein.</a>"
 
 #~ msgid ""
 #~ "This email address is already registered, but not yet confirmed! Please "
@@ -7186,17 +7198,17 @@ msgstr "kampagne/"
 #~ "status."
 #~ msgstr ""
 #~ "Diese Anfrage hat eine Antwort erhalten und ist in einem unbekannten "
-#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a "
-#~ "href=\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
+#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a href="
+#~ "\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
 #~ "Status."
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, please read the latest response and <a href=\"#set-"
 #~ "status\" data-tabgo=\"tab\">set a new status for this request</a>!"
 #~ msgstr ""
-#~ "<b>Hallo %(name)s</b>, bitte lesen Sie die letzte Antwort und <a "
-#~ "href=\"#set-status\" data-tabgo=\"tab\">geben Sie einen neuen Status für "
-#~ "diese Anfrage an!</a>"
+#~ "<b>Hallo %(name)s</b>, bitte lesen Sie die letzte Antwort und <a href="
+#~ "\"#set-status\" data-tabgo=\"tab\">geben Sie einen neuen Status für diese "
+#~ "Anfrage an!</a>"
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, your request is <b>overdue</b>!<br/>\n"
@@ -7207,19 +7219,19 @@ msgstr "kampagne/"
 #~ " Bitte handeln Sie jetzt:"
 
 #~ msgid ""
-#~ "Have you received a reply by <b>postal mail</b>? &rarr; <a data-"
-#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
+#~ "Have you received a reply by <b>postal mail</b>? &rarr; <a data-tabgo="
+#~ "\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
 #~ msgstr ""
-#~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-"
-#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort "
-#~ "unbedingt hinzu!</a>"
+#~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-tabgo="
+#~ "\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort unbedingt "
+#~ "hinzu!</a>"
 
 #~ msgid ""
 #~ "Have you not gotten any reply? &rarr; <a data-tabgo=\"tab\" href=\"#write-"
 #~ "message\">Write a reminder to the public body!</a>"
 #~ msgstr ""
-#~ "Haben Sie keine Antwort erhalten? &rarr; <a data-tabgo=\"tab\" "
-#~ "href=\"#write-message\">Fragen Sie bei der Behörde nach!</a>"
+#~ "Haben Sie keine Antwort erhalten? &rarr; <a data-tabgo=\"tab\" href="
+#~ "\"#write-message\">Fragen Sie bei der Behörde nach!</a>"
 
 #~ msgid "You request has been refused."
 #~ msgstr "Ihre Anfrage wurde abgelehnt."
@@ -7614,13 +7626,13 @@ msgstr "kampagne/"
 #~ msgstr "Sie können auf diese Anfrage nicht zugreifen!"
 
 #~ msgid ""
-#~ "This email address already has an account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Please login using that email address in order to "
-#~ "follow this account.</a>"
+#~ "This email address already has an account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Please login using that email address in order to follow "
+#~ "this account.</a>"
 #~ msgstr ""
-#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein "
-#~ "um Benachrichtigungen zu erhalten.</a>"
+#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein um "
+#~ "Benachrichtigungen zu erhalten.</a>"
 
 #~ msgid "You cannot follow your own requests."
 #~ msgstr "Sie erhalten schon Benachrichtigungen für Ihre Anfragen."
@@ -8326,10 +8338,9 @@ msgstr "kampagne/"
 #~ "Freedom of Information requests</a> to get a feeling for what Freedom of "
 #~ "Information is all about."
 #~ msgstr ""
-#~ "Sie können sich zum Beispiel die <a "
-#~ "href=\"%(foirequests_url)s\">existierende Informations&shy;freiheits&shy;"
-#~ "anfragen</a> ansehen, um zu verstehen wie Informations&shy;freiheit "
-#~ "funktioniert."
+#~ "Sie können sich zum Beispiel die <a href=\"%(foirequests_url)s"
+#~ "\">existierende Informations&shy;freiheits&shy;anfragen</a> ansehen, um "
+#~ "zu verstehen wie Informations&shy;freiheit funktioniert."
 
 #~ msgid "Write to them here"
 #~ msgstr "Schreiben Sie hier an sie"
@@ -8357,8 +8368,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Wenn Sie sich einloggen, können Sie mit einem Klick eine identische "
 #~ "Anfrage in Ihrem Namen stellen, um Zugang zu diesen Dokumenten zu "
-#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?"
-#~ "next=%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
+#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?next="
+#~ "%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
 
 #~ msgid "No Public Bodies found in this jurisdiction for this query."
 #~ msgstr "Es wurden keine Behörden mit diesem Zuständigkeitsbereich gefunden."
@@ -8609,8 +8620,8 @@ msgstr "kampagne/"
 #~ "You agree to our <a href=\"%(url)s\" class=\"target-new\">Privacy "
 #~ "Statement</a>"
 #~ msgstr ""
-#~ "Sie stimmen unserer <a href=\"%(url)s\" class=\"target-"
-#~ "new\">Datenschutzerklärung</a> zu"
+#~ "Sie stimmen unserer <a href=\"%(url)s\" class=\"target-new"
+#~ "\">Datenschutzerklärung</a> zu"
 
 #~ msgid ""
 #~ "This request will be public\n"
