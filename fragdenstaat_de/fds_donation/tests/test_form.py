@@ -12,7 +12,7 @@ import pytest
 
 from .. import models as donation_models
 from ..form_settings import DonationFormFactory, DonationSettingsForm
-from ..models import ONCE, RECURRING, DonationFormViewCount, DonationGift
+from ..models import ONCE, RECURRING, Donation, DonationFormViewCount, DonationGift
 from .factories import DonationGiftOrderFactory
 
 User = get_user_model()
@@ -239,12 +239,15 @@ def test_donation_form_hide_purpose():
     assert form.fields["purpose"].widget.is_hidden
 
 
-@pytest.mark.django_db
-def test_form_view_counting(client, monkeypatch):
+@pytest.fixture
+def unsuspicious(monkeypatch):
     monkeypatch.setattr(
         donation_models, "check_suspicious_request", lambda *args, **kwargs: None
     )
 
+
+@pytest.mark.django_db
+def test_form_view_counting(client, unsuspicious):
     assert DonationFormViewCount.objects.count() == 0
 
     path = reverse("fds_donation:donate")
@@ -268,11 +271,7 @@ def test_form_view_counting(client, monkeypatch):
 
 
 @pytest.mark.django_db
-def test_form_view_counting_reference(client, monkeypatch):
-    monkeypatch.setattr(
-        donation_models, "check_suspicious_request", lambda *args, **kwargs: None
-    )
-
+def test_form_view_counting_reference(client, unsuspicious):
     path = reverse("fds_donation:donate")
     response = client.get(path + "?pk_campaign=mailing-1")
     assert response.status_code == 200
@@ -282,3 +281,36 @@ def test_form_view_counting_reference(client, monkeypatch):
     assert view_count.path == path
     assert view_count.reference == "mailing-1"
     assert view_count.date == timezone.now().date()
+
+
+@pytest.mark.django_db
+def test_quick_donation(client, unsuspicious):
+    path = reverse("fds_donation:donate")
+    email = "testing@example.com"
+
+    def post():
+        return client.post(
+            path,
+            headers={
+                "X-Requested-With": "XMLHttpRequest",
+                "Accept": "application/json",
+            },
+            data={
+                "amount": "15.00",
+                "interval": "0",
+                "first_name": "John",
+                "last_name": "Doe",
+                "email": email,
+            },
+        )
+
+    response = post()
+    donation = Donation.objects.get(donor__email=email)
+    assert donation.amount == 15.00
+    assert donation.completed is False
+    for _ in range(3):
+        response = post()
+        assert response.status_code == 200
+    # Spam protection kicks in
+    response = post()
+    assert response.status_code == 400

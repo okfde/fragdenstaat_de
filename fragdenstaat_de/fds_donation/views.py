@@ -92,7 +92,8 @@ def quick_donation(request):
     return JsonResponse(
         {
             "error": form.errors.as_text(),
-        }
+        },
+        status=400,
     )
 
 
