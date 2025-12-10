@@ -7,14 +7,14 @@ interface PaymentConfirmData {
 }
 
 interface CustomEventMap {
-    "paymentConfirm": CustomEvent<PaymentConfirmData>;
+  "paymentConfirm": CustomEvent<PaymentConfirmData>;
 }
 declare global {
-    interface HTMLFormElement { //adds definition to Document, but you can do the same with HTMLElement
-        addEventListener<K extends keyof CustomEventMap>(type: K,
-            listener: (this: Document, ev: CustomEventMap[K]) => void): void;
+  interface HTMLFormElement { //adds definition to Document, but you can do the same with HTMLElement
+    addEventListener<K extends keyof CustomEventMap>(type: K,
+      listener: (this: Document, ev: CustomEventMap[K]) => void): void;
 
-    }
+  }
 }
 
 interface IApplePaySession {
@@ -208,9 +208,7 @@ class DonationForm {
         }
       }
     }
-    this.updateQuickpayment({
-      amount: Math.floor(amount * 100) // quick payment expects amount in cents
-    })
+    this.updateQuickpayment()
   }
 
   private setupIntervalGroup(intervalInputs: NodeListOf<HTMLFormElement>): void {
@@ -233,9 +231,7 @@ class DonationForm {
         }
       })
 
-      this.updateQuickpayment({
-        interval: parseInt(input.value, 10),
-      })
+      this.updateQuickpayment()
     }
 
     intervalInputs.forEach((input) => {
@@ -337,6 +333,7 @@ class DonationForm {
   private setupQuickpayment(): void {
     this.quickpayment = this.form.querySelector("[data-quickpayment]")
     this.quickpayment?.addEventListener('quickpaymentAvailable', () => {
+      this.updateQuickpayment()
       this.form.removeAttribute('hidden')
     })
     this.quickpayment?.addEventListener('paymentConfirm', async (event: CustomEvent<PaymentConfirmData>) => {
@@ -356,7 +353,7 @@ class DonationForm {
         country: quickPaymentdata.country || '',
         address: (quickPaymentdata.street_address_1 || '') + (quickPaymentdata.street_address_2 ? `, ${quickPaymentdata.street_address_2}` : ''),
       }
-      
+
       for (const [key, value] of Object.entries(data)) {
         formData.set(key, value)
       }
@@ -384,13 +381,31 @@ class DonationForm {
     })
   }
 
-  private updateQuickpayment(items: Record<string, any>): void {
+  private updateQuickpayment(): void {
     if (this.quickpayment === null) {
       return
     }
-
-    const event = new CustomEvent("donationchange", { detail: items });
-    this.quickpayment.dispatchEvent(event);
+    const formData = new FormData(this.form)
+    let amount, interval;
+    if (formData.get('amount')) {
+      // amount in eurocents
+      amount = Math.floor(parseFloat((formData.get('amount') as string).replace(',', '.')) * 100)
+      if (isNaN(amount)) {
+        amount = undefined
+      }
+    }
+    if (formData.get('interval')) {
+      interval = parseInt(formData.get('interval') as string, 10)
+    }
+    if (amount !== undefined && interval !== undefined) {
+      const event = new CustomEvent("donationchange", {
+        detail: {
+          amount,
+          interval
+        }
+      });
+      this.quickpayment.dispatchEvent(event);
+    }
   }
 }
 
