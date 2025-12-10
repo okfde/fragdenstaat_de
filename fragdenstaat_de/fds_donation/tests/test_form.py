@@ -10,6 +10,8 @@ from django.utils import timezone
 
 import pytest
 
+from fragdenstaat_de.fds_donation.forms import QuickDonationForm
+
 from .. import models as donation_models
 from ..form_settings import DonationFormFactory, DonationSettingsForm
 from ..models import ONCE, RECURRING, Donation, DonationFormViewCount, DonationGift
@@ -304,13 +306,13 @@ def test_quick_donation(client, unsuspicious):
             },
         )
 
-    response = post()
-    donation = Donation.objects.get(donor__email=email)
-    assert donation.amount == 15.00
-    assert donation.completed is False
-    for _ in range(3):
+    for _ in range(QuickDonationForm.SPAM_PROTECTION["action_limit"] + 1):
         response = post()
         assert response.status_code == 200
+    donation = Donation.objects.filter(donor__email=email).last()
+    assert donation.amount == 15.00
+    assert donation.completed is False
+
     # Spam protection kicks in
     response = post()
     assert response.status_code == 400
