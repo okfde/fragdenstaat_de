@@ -14,6 +14,7 @@ import pytest
 import stripe
 from playwright.sync_api import Page
 
+from fragdenstaat_de.fds_donation.forms import QuickDonationForm
 from fragdenstaat_de.fds_donation.models import Donation
 
 from .utils import ProcessReader
@@ -490,3 +491,37 @@ def test_creditcard_once_donation_success(page: Page, live_server, stripe_sepa_s
     payment = donation.payment
     assert payment.status == "confirmed"
     assert donation.order.subscription is None
+
+
+@pytest.mark.django_db
+@pytest.mark.stripe
+def test_quick_donation(client, unsuspicious):
+    path = reverse("fds_donation:donate")
+    email = "testing@example.com"
+
+    def post():
+        return client.post(
+            path,
+            headers={
+                "X-Requested-With": "XMLHttpRequest",
+                "Accept": "application/json",
+            },
+            data={
+                "amount": "15.00",
+                "interval": "0",
+                "first_name": "John",
+                "last_name": "Doe",
+                "email": email,
+            },
+        )
+
+    for _ in range(QuickDonationForm.SPAM_PROTECTION["action_limit"] + 1):
+        response = post()
+        assert response.status_code == 200
+    donation = Donation.objects.filter(donor__email=email).last()
+    assert donation.amount == 15.00
+    assert donation.completed is False
+
+    # Spam protection kicks in
+    response = post()
+    assert response.status_code == 400
