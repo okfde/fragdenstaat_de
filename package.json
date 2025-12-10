@@ -46,7 +46,7 @@
     "froide_exam": "github:okfde/froide-exam",
     "froide_food": "github:okfde/froide-food",
     "froide_legalaction": "github:okfde/froide-legalaction",
-    "froide_payment": "github:okfde/froide-payment#quick-donation-fix",
+    "froide_payment": "github:okfde/froide-payment",
     "vega": "^6.2.0",
     "vega-embed": "7.0.2",
     "vega-interpreter": "^2.2.1",
