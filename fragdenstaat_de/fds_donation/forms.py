@@ -592,7 +592,12 @@ class DonationGiftLogic:
                 )
 
 
-class QuickDonationForm(BasicDonationForm, BasicDonorForm):
+class QuickDonationForm(SpamProtectionMixin, BasicDonationForm, BasicDonorForm):
+    SPAM_PROTECTION = {
+        "action": "donation_quick",
+        "action_block": True,
+        "action_limit": 3,
+    }
     payment_method = QUICKPAYMENT_METHOD
 
     def __init__(self, *args, **kwargs):
