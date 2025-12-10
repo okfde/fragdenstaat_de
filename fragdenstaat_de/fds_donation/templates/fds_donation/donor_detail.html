@@ -23,6 +23,18 @@
             <a href="{% page_url "help:donations" %}" class="action-link arrow">{% trans "Frequent questions & contact" %}</a>
         </div>
     </div>
+    {% if donation_downloads %}
+        <section class="container mt-5">
+            <h2>{% trans "Downloads" %}</h2>
+            <ul class="list-unstyled vstack gap-3">
+                {% for title, url in donation_downloads %}
+                    <li>
+                        <a class="btn btn-primary" target="_blank" href="{{ url }}"><i class="fa fa-download" aria-hidden="true"></i> {{ title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
     {% if pending_banktransfers %}
         <section class="container my-5">
             <h2>{% trans "Pending banktransfers" %}</h2>

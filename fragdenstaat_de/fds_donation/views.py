@@ -168,7 +168,7 @@ class DonorView(DonorMixin, DetailView, BreadcrumbView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         donations = self.object.donations.filter(completed=True).select_related(
-            "recurrence"
+            "recurrence", "donationgiftorder__donation_gift"
         )
         try:
             last_donation = donations[0]
@@ -179,12 +179,22 @@ class DonorView(DonorMixin, DetailView, BreadcrumbView):
             not d.received_timestamp and d.method == "banktransfer" for d in donations
         )
 
+        donation_downloads = sorted(
+            {
+                dl
+                for d in donations
+                if hasattr(d, "donationgiftorder")
+                and (dl := d.donationgiftorder.get_donation_download())
+            }
+        )
+
         ctx.update(
             {
                 "recurrences": self.object.recurrences.filter(cancel_date=None),
                 "donations": donations,
                 "last_donation": last_donation,
                 "has_pending": has_pending,
+                "donation_downloads": donation_downloads,
             }
         )
         return ctx

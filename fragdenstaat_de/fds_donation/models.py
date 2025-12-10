@@ -778,13 +778,19 @@ class DonationGiftManager(models.Manager):
         )
 
 
+class GiftType(models.IntegerChoices):
+    PHYSICAL = 1
+    VIRTUAL = 2
+
+
 class DonationGift(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     category_slug = models.SlugField(max_length=255, blank=True)
     inventory = models.PositiveIntegerField(blank=True, default=None, null=True)
-
+    gift_type = models.IntegerField(choices=GiftType.choices, default=GiftType.PHYSICAL)
     order = models.PositiveIntegerField(default=0)
+    download_url = models.TextField(blank=False, default="")
 
     objects = DonationGiftManager()
 
@@ -806,6 +812,10 @@ class DonationGift(models.Model):
             self.inventory
             - DonationGiftOrder.objects.filter(donation_gift=self).count()
         ) > 0
+
+    @property
+    def needs_address(self):
+        return self.gift_type == GiftType.PHYSICAL
 
 
 class DonationGiftOrder(models.Model):
@@ -856,6 +866,14 @@ class DonationGiftOrder(models.Model):
             city=self.city,
             country=self.country,
         )
+
+    def get_donation_download(self):
+        if (
+            self.donation_gift
+            and self.donation_gift.gift_type == GiftType.VIRTUAL
+            and self.donation_gift.download_url
+        ):
+            return (self.donation_gift.name, self.donation_gift.download_url)
 
 
 class DonationGiftFormCMSPlugin(CMSPlugin):
@@ -951,7 +969,9 @@ class DonationFormCMSPlugin(CMSPlugin):
             "hide_contact": self.hide_contact,
             "hide_account": self.hide_account,
             "collapsed": self.collapsed,
-            "gift_options": [gift.id for gift in self.gift_options.all()],
+            "gift_options": ",".join(
+                [str(gift.id) for gift in self.gift_options.all()]
+            ),
             "default_gift": self.default_gift_id,
             "next_url": self.next_url,
             "next_label": self.next_label,

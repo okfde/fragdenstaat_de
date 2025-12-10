@@ -155,6 +155,23 @@ class DonationForm {
     receiptRadios.forEach((el) => {
       el.addEventListener('change', setFillShippingButton)
     })
+
+    const giftField: HTMLSelectElement | null = this.form.querySelector('#id_chosen_gift');
+    const needsAddressText = giftField?.dataset.needsAddress;
+    const shippingFieldset: HTMLFieldSetElement | null = this.form.querySelector('#shipping_fieldset');
+    if (!needsAddressText || !giftField || !shippingFieldset) return;
+    const needsAddress = JSON.parse(needsAddressText);
+
+    const updateShippingVisibility = () => {
+      const selected_gift = giftField.value;
+      if (needsAddress[selected_gift]) {
+        shippingFieldset.style.display = 'block';
+      } else {
+        shippingFieldset.style.display = 'none';
+      }
+    }
+    updateShippingVisibility();
+    giftField.addEventListener('change', updateShippingVisibility)
   }
 
   private setupAdditionalCC(): void {
