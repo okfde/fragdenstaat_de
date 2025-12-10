@@ -100,7 +100,7 @@ dependencies = [
   "froide-fax @ git+https://github.com/okfde/froide-fax.git@main",
   "froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@main",
   "froide-exam @ git+https://github.com/okfde/froide-exam.git@main",
-  "froide-payment @ git+https://github.com/okfde/froide-payment.git@main",
+  "froide-payment @ git+https://github.com/okfde/froide-payment.git@quick-donation-fix",
   "froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@main",
   "froide-govplan @ git+https://github.com/okfde/froide-govplan.git@main",
   "sortabletable @ git+https://github.com/stefanw/djangocms-sortabletable.git@main",
@@ -204,7 +204,7 @@ DJANGO_CONFIGURATION = "Test"
 DJANGO_SETTINGS_MODULE = "fragdenstaat_de.settings.test"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
 testpaths = ["fragdenstaat_de", "tests"]
-addopts = ["--reuse-db", "-m", "not stripe and not paypal"]
+addopts = ["--reuse-db"] #, "-m", "not stripe and not paypal"]
 markers = [
   "stripe: Run donation tests with stripe test keys",
   "paypal: Run donation tests with paypal sandbox keys",
