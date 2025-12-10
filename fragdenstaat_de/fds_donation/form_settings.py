@@ -4,6 +4,7 @@ import logging
 
 from django import forms
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.utils.http import url_has_allowed_host_and_scheme
 
 from .models import (
@@ -186,11 +187,18 @@ class DonationFormFactory:
         data = {}
         if request.GET.get("initial_amount"):
             data["prefilled_amount"] = True
-
+        dummy_form = DonationSettingsForm()
         for key in cls.request_configurable:
             value = request.GET.get(key)
             if value:
-                data[key] = value
+                try:
+                    dummy_form.fields[key].clean(value)
+                    data[key] = value
+                except ValidationError as exc:
+                    logging.warning(
+                        f"Donation form settings query paramters invalid {key=} {value=} {exc=}"
+                    )
+                    pass
         return data
 
     def get_form_kwargs(self, **kwargs):
