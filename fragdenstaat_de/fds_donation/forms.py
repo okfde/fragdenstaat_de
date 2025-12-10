@@ -1,3 +1,4 @@
+import json
 import logging
 from typing import cast, override
 from urllib.parse import parse_qsl
@@ -554,13 +555,20 @@ class DonationGiftLogic:
                 },
             )
             form.fields.update(
-                get_basic_info_fields(prefix="shipping", name_required=False)
+                get_basic_info_fields(
+                    prefix="shipping",
+                    name_required=all(opt.needs_address for opt in gift_options),
+                )
             )
             if len(gift_options) == 1:
                 form.fields["chosen_gift"].widget = forms.HiddenInput()
                 form.fields["chosen_gift"].initial = gift_options[0].id
             elif form.settings["default_gift"]:
                 form.fields["chosen_gift"].initial = form.settings["default_gift"]
+
+            form.fields["chosen_gift"].widget.attrs["data-needs-address"] = json.dumps(
+                {gift.id: gift.needs_address for gift in gift_options}
+            )
         else:
             form.gift_error_message = _(
                 "Unfortunately, all available donation gifts have been reserved."
@@ -580,16 +588,24 @@ class DonationGiftLogic:
                 _("The chosen donation gift is no longer available, sorry!"),
             )
 
-        # Check if any address is given
-        address_fields = ("address", "postcode", "city", "country")
-        for address_field in address_fields:
-            shipping_field = "shipping_{}".format(address_field)
-            if not form.cleaned_data.get(address_field) and not form.cleaned_data.get(
-                shipping_field
-            ):
-                form.add_error(
-                    shipping_field, _("Please complete your shipping address.")
-                )
+        if chosen_gift.needs_address:
+            # Check if any address is given
+            address_fields = (
+                "first_name",
+                "last_name",
+                "address",
+                "postcode",
+                "city",
+                "country",
+            )
+            for address_field in address_fields:
+                shipping_field = "shipping_{}".format(address_field)
+                if not form.cleaned_data.get(
+                    address_field
+                ) and not form.cleaned_data.get(shipping_field):
+                    form.add_error(
+                        shipping_field, _("Please complete your shipping address.")
+                    )
 
 
 class QuickDonationForm(SpamProtectionMixin, BasicDonationForm, BasicDonorForm):
