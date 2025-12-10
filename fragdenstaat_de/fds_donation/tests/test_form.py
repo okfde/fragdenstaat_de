@@ -12,7 +12,7 @@ import pytest
 
 from .. import models as donation_models
 from ..form_settings import DonationFormFactory, DonationSettingsForm
-from ..models import ONCE, RECURRING, DonationFormViewCount, DonationGift
+from ..models import MIN_AMOUNT, ONCE, RECURRING, DonationFormViewCount, DonationGift
 from .factories import DonationGiftOrderFactory
 
 User = get_user_model()
@@ -281,3 +281,53 @@ def test_form_view_counting_reference(client, unsuspicious):
     assert view_count.path == path
     assert view_count.reference == "mailing-1"
     assert view_count.date == timezone.now().date()
+
+
+@pytest.mark.django_db
+def test_form_prefill(client, monkeypatch):
+    request = RequestFactory().get("/donation/")
+    request.user = AnonymousUser()
+
+    settings_form = DonationSettingsForm(data={})
+    form = settings_form.make_donation_form(request=request, user=request.user)
+    assert form.initial.get("interval") is None
+
+    request = RequestFactory().get(
+        "/donation/",
+        query_params={
+            "initial_interval": "1",
+        },
+    )
+    request.user = AnonymousUser()
+    request_data = DonationFormFactory.from_request(request)
+    settings_form = DonationSettingsForm(data=request_data)
+    assert settings_form.is_valid()
+    form = settings_form.make_donation_form(request=request, user=request.user)
+    assert form.initial["interval"] == 1
+    assert form.fields["amount"].min_value == MIN_AMOUNT
+
+    # multiple params
+    request = RequestFactory().get(
+        "/donation/",
+        query_params={"initial_interval": "1", "min_amount": 10},
+    )
+    request.user = AnonymousUser()
+    request_data = DonationFormFactory.from_request(request)
+    settings_form = DonationSettingsForm(data=request_data)
+    assert settings_form.is_valid()
+    form = settings_form.make_donation_form(request=request, user=request.user)
+    assert form.initial["interval"] == 1
+    assert form.fields["amount"].min_value == 10
+
+    # multiple params even if some are invalid
+    request = RequestFactory().get(
+        "/donation/",
+        query_params={"initial_interval": "1", "min_amount": 0},
+    )
+    request.user = AnonymousUser()
+    request_data = DonationFormFactory.from_request(request)
+    settings_form = DonationSettingsForm(data=request_data)
+    assert settings_form.is_valid()
+    form = settings_form.make_donation_form(request=request, user=request.user)
+    assert form.initial["interval"] == 1
+    assert form.fields["amount"].min_value == MIN_AMOUNT
