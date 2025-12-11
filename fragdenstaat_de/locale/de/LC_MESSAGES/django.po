@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 11:00+0100\n"
+"POT-Creation-Date: 2025-12-11 15:47+0100\n"
 "PO-Revision-Date: 2025-12-08 10:23+0000\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
@@ -2602,6 +2602,13 @@ msgid "Please set up a standing order"
 msgstr "Bitte richte einen Dauerauftrag ein"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+#, fuzzy
+msgid "Your recurring donation"
+msgid_plural "Your recurring donations"
+msgstr[0] "Deine Dauerspende"
+msgstr[1] "Deine Dauerspende"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "All transactions"
 msgstr "Alle Transaktionen"
 
@@ -4758,12 +4765,6 @@ msgstr[1] ""
 "\n"
 "                            Vorherige Artikel:\n"
 "                        "
-
-#, fuzzy
-#~ msgid "Your recurring donation"
-#~ msgid_plural "Your recurring donations"
-#~ msgstr[0] "Deine Dauerspende"
-#~ msgstr[1] "Deine Dauerspende"
 
 #, python-brace-format
 #~ msgid "Sending... {}"
