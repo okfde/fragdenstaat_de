@@ -134,6 +134,7 @@ class Donor(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     email_confirmation_sent = models.DateTimeField(null=True, blank=True)
     email_confirmed = models.DateTimeField(null=True, blank=True)
+    last_login = models.DateTimeField(null=True, blank=True)
 
     contact_allowed = models.BooleanField(null=True, default=None)
     become_user = models.BooleanField(null=True, default=None)
