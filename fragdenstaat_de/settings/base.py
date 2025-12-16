@@ -665,6 +665,7 @@ class FragDenStaatBase(German, Base):
                 "create_new_publicbody": False,
                 "publicbody_empty": True,
                 "user_can_hide_web": True,
+                "user_can_claim_vip": True,
                 "public_body_officials_public": False,
                 "public_body_officials_email_public": False,
                 "default_law": 2,
@@ -792,6 +793,8 @@ class FragDenStaatBase(German, Base):
                     "throttled": "/hilfe/erste-anfrage/wie-viele-anfragen-kann-ich-stellen/",
                     "help_postupload_redaction": "/hilfe/plain/funktionen-der-plattform/schwaerzungen-durchfuehren/",
                     "help_attachments_management": "/hilfe/plain/funktionen-der-plattform/anhange-verwalten/",
+                    "help_request_public": "/hilfe/plain/funktionen-der-plattform/anfrage-nicht-oeffentlich-stellen/",
+                    "help_request_privacy": "/hilfe/datenschutz-und-privatsphare/",  # not /plain/, regular link
                 },
                 "mobile_app_install_url": "TODO",  # TODO
                 "mobile_app_content_url": "/app/scanner/postupload/message/{}/",
