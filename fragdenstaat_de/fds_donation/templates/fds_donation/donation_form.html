@@ -59,7 +59,7 @@
                 {% endif %}
             </dl>
             <p class="mt-n2">
-                <a href="{{ donor.get_absolute_change_url }}">{% translate "Update these details" %}</a>
+                <a href="{% url "fds_donation:donor-change" %}">{% translate "Update these details" %}</a>
             </p>
             <form action="{{ form.action }}" method="POST" class="donation-form">
                 {% csrf_token %}
@@ -79,7 +79,7 @@
                 {% endfor %}
                 <button type="submit" class="btn btn-primary">{% translate "Donate" %}</button>
                 {% if has_donation %}
-                    <a href="{{ object.get_absolute_url }}"
+                    <a href="{% url "fds_donation:donor" %}"
                        class="btn btn-secondary text-end">{% translate "Cancel" %}</a>
                 {% endif %}
             </form>

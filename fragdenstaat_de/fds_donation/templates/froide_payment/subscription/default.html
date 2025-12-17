@@ -2,8 +2,7 @@
 {% load i18n %}
 {% block custom_content %}
     {% if subscription.recurrence.donor %}
-        <a href="{{ subscription.recurrence.donor.get_absolute_url }}"
-           class="btn btn-secondary mb-3">{% translate "back" %}</a>
+        <a href="{% url "fds_donation:donor" %}" class="btn btn-secondary mb-3">{% translate "back" %}</a>
     {% endif %}
     {{ block.super }}
 {% endblock custom_content %}

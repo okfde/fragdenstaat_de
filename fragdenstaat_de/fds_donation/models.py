@@ -216,13 +216,17 @@ class Donor(models.Model):
         )
 
     def get_absolute_url(self):
-        return reverse("fds_donation:donor", kwargs={"token": str(self.uuid)})
+        return self.get_absolute_login_url(next_path=reverse("fds_donation:donor"))
 
     def get_absolute_change_url(self):
-        return reverse("fds_donation:donor-change", kwargs={"token": str(self.uuid)})
+        return self.get_absolute_login_url(
+            next_path=reverse("fds_donation:donor-change")
+        )
 
     def get_absolute_donate_url(self):
-        return reverse("fds_donation:donor-donate", kwargs={"token": str(self.uuid)})
+        return self.get_absolute_login_url(
+            next_path=reverse("fds_donation:donor-donate")
+        )
 
     def get_url(self):
         return settings.SITE_URL + self.get_absolute_url()
@@ -231,7 +235,22 @@ class Donor(models.Model):
         return settings.SITE_URL + self.get_absolute_donate_url()
 
     def get_change_url(self):
-        return settings.SITE_URL + self.get_absolute_donate_url()
+        return settings.SITE_URL + self.get_absolute_change_url()
+
+    def get_absolute_login_url(self, next_path=None):
+        from .utils import get_donor_login_token
+
+        if next_path is None:
+            next_path = reverse("fds_donation:donor")
+
+        token = get_donor_login_token(self)
+        return reverse(
+            "fds_donation:donor-login",
+            kwargs={"donor_id": self.id, "token": token, "next_path": next_path},
+        )
+
+    def get_login_url(self, next_path=None):
+        return settings.SITE_URL + self.get_absolute_login_url(next_path=next_path)
 
     @property
     def tag_list(self):
@@ -257,6 +276,10 @@ class Donor(models.Model):
         return self.donations.filter(received_timestamp__isnull=False).aggregate(
             last_donation=models.Max("timestamp")
         )["last_donation"]
+
+    def update_last_login(self):
+        self.last_login = timezone.now()
+        self.save(update_fields=["last_login"])
 
     def calculate_recurring_amount(self):
         """
@@ -338,7 +361,7 @@ class Donor(models.Model):
 
         if self.user:
             context["donor_url"] = settings.SITE_URL + self.user.get_autologin_url(
-                reverse("fds_donation:donor-user")
+                reverse("fds_donation:donor")
             )
         else:
             context["donor_url"] = self.get_url()
