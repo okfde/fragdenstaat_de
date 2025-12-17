@@ -19,7 +19,10 @@ from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
 from .models import Donation, Donor
 from .tasks import process_recurrence_task
-from .utils import merge_donors, propose_donor_merge, subscribe_donor_newsletter
+from .utils import (
+    merge_donor_list,
+    subscribe_donor_newsletter,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -131,6 +134,20 @@ donation_gift_order_shipped_email = mail_registry.register(
         "first_name",
         "last_name",
     ),
+)
+
+
+donor_login_link_email = mail_registry.register(
+    "fds_donation/email/donor_login_link",
+    (
+        "donor",
+        "action_url",
+    ),
+)
+
+
+no_donor_with_email_email = mail_registry.register(
+    "fds_donation/email/no_donor_with_email",
 )
 
 
@@ -321,16 +338,9 @@ def assign_and_merge_donors(donor, user):
     return merge_donor_list([donor, other_donor])
 
 
-def merge_donor_list(donors):
-    merged_donor = propose_donor_merge(donors)
-    merged_donor.id = donors[0].id
-    # Set uuid of first donor on merged donor to keep it
-    merged_donor.uuid = donors[0].uuid
-    candidates = [merged_donor, *donors[1:]]
-    return merge_donors(candidates, merged_donor.id)
-
-
 def confirm_donor_email(donor, request=None):
+    if donor.email_confirmed:
+        return
     if request and is_crew(request.user) and request.user != donor.user:
         # Don't trigger things as staff for different user
         return
@@ -632,3 +642,23 @@ def send_incomplete_donation_reminder(donation):
 def remind_incomplete_donations():
     for donation in get_incomplete_donations_to_remind():
         send_incomplete_donation_reminder(donation)
+
+
+def send_donor_login_link(donor: Donor | None, email: str, next_path=None):
+    if donor is not None:
+        donor_login_link_email.send(
+            user=donor.user,
+            email=email,
+            context={
+                "donor": donor,
+                "action_url": donor.get_login_url(next_path=next_path),
+            },
+            ignore_active=True,
+            priority=True,
+        )
+    else:
+        no_donor_with_email_email.send(
+            email=email,
+            ignore_active=True,
+            priority=True,
+        )

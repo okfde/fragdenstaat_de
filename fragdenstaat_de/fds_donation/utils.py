@@ -1,6 +1,7 @@
 import re
 
 from django.conf import settings
+from django.core.signing import BadSignature, SignatureExpired, TimestampSigner
 from django.db.models import Min
 
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_newsletter
@@ -28,6 +29,7 @@ MERGE_DONOR_FIELDS = [
     "user",
     "subscriber",
 ]
+DONOR_SESSION_KEY = "donor_id"
 
 
 def subscribe_donor_newsletter(donor, email_confirmed=False):
@@ -65,6 +67,15 @@ def propose_donor_merge(candidates, fields=None):
 
     merged_donor = Donor(**merged_donor_data)
     return merged_donor
+
+
+def merge_donor_list(donors):
+    merged_donor = propose_donor_merge(donors)
+    merged_donor.id = donors[0].id
+    # Set uuid of first donor on merged donor to keep it
+    merged_donor.uuid = donors[0].uuid
+    candidates = [merged_donor, *donors[1:]]
+    return merge_donors(candidates, merged_donor.id)
 
 
 def merge_donors(candidates, primary_id, validated_data=None):
@@ -196,3 +207,60 @@ def apply_donor_fixes(donor):
     if updated_fields:
         donor.save(update_fields=updated_fields)
         donor.tags.add("info-auto-fixed")
+
+
+SIGN_SEP = "~"
+DONOR_TOKEN_MAX_AGE = 60 * 60 * 24 * 3  # 3 days
+
+
+def get_signer():
+    return TimestampSigner(sep=SIGN_SEP, salt="donor-login-token")
+
+
+def get_str_to_sign(donor) -> str:
+    return f"{donor.uuid}|{donor.last_login.isoformat() if donor.last_login else ''}"
+
+
+def get_donor_login_token(donor):
+    signer = get_signer()
+    value = signer.sign(get_str_to_sign(donor)).split(SIGN_SEP, 1)[1]
+    return value
+
+
+def validate_donor_token(donor_id, token) -> tuple[Donor | None, bool]:
+    try:
+        donor = Donor.objects.get(id=donor_id)
+        sign_this = get_str_to_sign(donor)
+    except Donor.DoesNotExist:
+        # Bad donor id, we go through the signature check anyway to mitigate timing attacks
+        sign_this = "-"
+        donor = None
+
+    signer = get_signer()
+    signed_value = f"{sign_this}{SIGN_SEP}{token}"
+    try:
+        signer.unsign(signed_value, max_age=DONOR_TOKEN_MAX_AGE)
+    except SignatureExpired:
+        return donor, False
+    except BadSignature:
+        return donor, False
+    if donor is None:
+        return None, False
+    return donor, True
+
+
+def get_donor_from_request(request) -> Donor | None:
+    if donor_id := request.session.get(DONOR_SESSION_KEY):
+        try:
+            return Donor.objects.get(id=donor_id)
+        except Donor.DoesNotExist:
+            pass
+
+    if not request.user.is_authenticated:
+        return None
+    donors = Donor.objects.filter(user=request.user, email_confirmed__isnull=False)
+    if not donors:
+        return None
+    if len(donors) == 1:
+        return donors[0]
+    return merge_donor_list(donors)

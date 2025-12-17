@@ -1,8 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
@@ -10,17 +9,26 @@ from django.views.generic import DetailView, TemplateView, UpdateView
 from django.views.generic.edit import FormView
 
 from froide.helper.breadcrumbs import Breadcrumbs, BreadcrumbView
-from froide.helper.utils import get_redirect, is_ajax
+from froide.helper.utils import (
+    get_redirect,
+    get_redirect_url,
+    is_ajax,
+    update_query_params,
+)
+
+from fragdenstaat_de.fds_donation.utils import validate_donor_token
 
 from .form_settings import DonationFormFactory, DonationSettingsForm
 from .forms import (
     DonationGiftForm,
     DonorDetailsForm,
+    DonorEmailLinkForm,
     QuickDonationForm,
     SimpleDonationForm,
 )
 from .models import DonationFormViewCount, Donor
-from .services import confirm_donor_email, merge_donor_list
+from .services import confirm_donor_email
+from .utils import DONOR_SESSION_KEY, get_donor_from_request
 
 
 @require_POST
@@ -126,42 +134,49 @@ class DonationFailedView(TemplateView):
 
 class DonorMixin:
     model = Donor
-    slug_field = "uuid"
-    slug_url_kwarg = "token"
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        response = self.should_redirect_user()
-        if response:
-            return response
-        context = self.get_context_data(object=self.object)
-        return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        response = self.should_redirect_user()
-        if response:
-            return response
+        if self.object is None:
+            return self.no_donor_found(request)
         return super().post(request, *args, **kwargs)
 
-    def should_redirect_user(self):
-        is_auth = self.request.user.is_authenticated
-        has_token = "token" in self.kwargs
-        is_same_user = self.object.user == self.request.user
-        if is_auth and has_token and is_same_user:
-            # User is logged in and donor user, redirect to user view
-            return redirect(self.get_user_url())
-        return None
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object is None:
+            return self.no_donor_found(request)
+        confirm_donor_email(self.object, request=self.request)
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
-    def get_user_url(self):
-        return reverse("fds_donation:donor-user")
+    def no_donor_found(self, request):
+        if self.request.user.is_authenticated:
+            messages.add_message(
+                request,
+                messages.INFO,
+                _(
+                    "We have no associated donations with your account. "
+                    "If you have donated, let us know! "
+                    "Otherwise feel free to donate below."
+                ),
+            )
+            return redirect("/spenden/")
+        else:
+            return redirect("fds_donation:donor-send-login-link")
 
     def get_object(self, queryset=None):
-        obj = super().get_object(queryset=queryset)
-        if not obj.email_confirmed:
-            confirm_donor_email(obj, request=self.request)
+        donor = get_donor_from_request(self.request)
+        if self.request.user.is_authenticated and donor is not None:
+            if donor.user and donor.user != self.request.user:
+                messages.add_message(
+                    self.request,
+                    messages.WARNING,
+                    _(
+                        "You are logged in with a different account than the one associated with this donor."
+                    ),
+                )
 
-        return obj
+        return donor
 
 
 class DonorView(DonorMixin, DetailView, BreadcrumbView):
@@ -201,52 +216,11 @@ class DonorView(DonorMixin, DetailView, BreadcrumbView):
 
     def render_to_response(self, context, **response_kwargs):
         if not context["last_donation"]:
-            return redirect(self.object.get_absolute_donate_url())
+            return redirect("fds_donation:donor-donate")
         return super().render_to_response(context, **response_kwargs)
 
     def get_breadcrumbs(self, context):
         return get_base_breadcrumb(context["object"])
-
-
-class DonorUserMixin:
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if self.object is None:
-            return self.no_donor_found(request)
-        return super().post(request, *args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if self.object is None:
-            return self.no_donor_found(request)
-        context = self.get_context_data(object=self.object)
-        return self.render_to_response(context)
-
-    def no_donor_found(self, request):
-        messages.add_message(
-            request,
-            messages.INFO,
-            _(
-                "We have no associated donations with your account. "
-                "If you have donated, let us know! "
-                "Otherwise feel free to donate below."
-            ),
-        )
-        return redirect("/spenden/")
-
-    def get_object(self, queryset=None):
-        donors = Donor.objects.filter(
-            user=self.request.user, email_confirmed__isnull=False
-        )
-        if len(donors) == 0:
-            return None
-        if len(donors) == 1:
-            return donors[0]
-        return merge_donor_list(donors)
-
-
-class DonorUserView(LoginRequiredMixin, DonorUserMixin, DonorView):
-    pass
 
 
 class DonorChangeView(DonorMixin, UpdateView, BreadcrumbView):
@@ -258,25 +232,15 @@ class DonorChangeView(DonorMixin, UpdateView, BreadcrumbView):
         )
         return super().form_valid(form)
 
-    def get_user_url(self):
-        return reverse("fds_donation:donor-user-change")
-
     def get_breadcrumbs(self, context):
         return get_base_breadcrumb(context["object"]) + [
             (_("Change your details"), context["object"].get_absolute_change_url())
         ]
 
 
-class DonorChangeUserView(LoginRequiredMixin, DonorUserMixin, DonorChangeView):
-    pass
-
-
 class DonorDonationActionView(DonorMixin, UpdateView, BreadcrumbView):
     form_class = SimpleDonationForm
     template_name = "fds_donation/donation_form.html"
-
-    def get_user_url(self):
-        return reverse("fds_donation:donor-user-donate")
 
     def get_form_kwargs(self):
         form_kwargs = super().get_form_kwargs()
@@ -330,7 +294,75 @@ class DonorDonationActionView(DonorMixin, UpdateView, BreadcrumbView):
         return []
 
 
-class DonorDonationActionUserView(
-    LoginRequiredMixin, DonorUserMixin, DonorDonationActionView
-):
-    pass
+def donor_login(request, donor_id, token, next_path):
+    if next_path == "/":
+        # If no further path is given, try extracting next parameter
+        next_path = get_redirect_url(request, default=next_path)
+    # TODO: carry query params to next?
+    if request.method == "POST":
+        donor, valid = validate_donor_token(donor_id, token)
+        if not valid:
+            # Token expired or invalid
+            messages.add_message(
+                request,
+                messages.WARNING,
+                _("Your link has expired, please request a new one."),
+            )
+            return redirect("fds_donation:donor-send-login-link")
+        if donor.user and request.user.is_authenticated:
+            if donor.user != request.user:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    _("You cannot access this donor with the current account."),
+                )
+            return redirect(next_path)
+
+        donor.update_last_login()
+        request.session[DONOR_SESSION_KEY] = donor.id
+
+        return redirect(next_path)
+
+    return render(
+        request,
+        "account/go.html",
+        {
+            "form_action": request.get_full_path(),
+            "next": next_path,
+        },
+    )
+
+
+def get_legacy_redirect(url_name):
+    def redirect_legacy_donor_view(request, token):
+        path = reverse(url_name)
+        return redirect(
+            update_query_params(
+                reverse("fds_donation:donor-send-login-link"), {"next": path}
+            )
+        )
+
+    return redirect_legacy_donor_view
+
+
+def send_donor_login_link(request):
+    if request.method == "POST":
+        form = DonorEmailLinkForm(request.POST)
+        if form.is_valid():
+            form.send_login_link()
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                _("We have sent you a link to access your donations."),
+            )
+            return redirect("/")
+    else:
+        form = DonorEmailLinkForm(initial={"next_path": get_redirect_url(request)})
+
+    return render(request, "fds_donation/donor_login_link_form.html", {"form": form})
+
+
+def donor_logout(request):
+    if request.method == "POST":
+        del request.session[DONOR_SESSION_KEY]
+    return redirect("/")
