@@ -43,7 +43,7 @@ from .models import (
     Donor,
     Recurrence,
 )
-from .services import get_or_create_donor
+from .services import get_or_create_donor, send_donor_login_link
 from .utils import MERGE_DONOR_FIELDS
 from .validators import validate_not_too_many_uppercase
 from .widgets import AmountInput
@@ -853,3 +853,41 @@ class SubscriptionCancelFeedbackForm(forms.Form):
         recurrence.cancel_reason = self.cleaned_data.get("reason")
         recurrence.cancel_feedback = self.cleaned_data.get("feedback")
         recurrence.save(update_fields=["cancel_reason", "cancel_feedback"])
+
+
+class DonorEmailLinkForm(SpamProtectionMixin, forms.Form):
+    SPAM_PROTECTION = {
+        "action": "donor_login_link",
+        "action_block": True,
+        "captcha": "ip",
+    }
+    email = forms.EmailField(
+        label=_("Email"),
+        required=True,
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": _("e.g. name@example.org")}
+        ),
+    )
+    next_path = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput(),
+    )
+
+    def clean_next_path(self):
+        next_path = self.cleaned_data["next_path"]
+        if not next_path or not next_path.startswith("/"):
+            next_path = None
+        return next_path
+
+    def send_login_link(self):
+        if not self.is_valid():
+            return
+        email = self.cleaned_data["email"].lower()
+        next_path = self.cleaned_data["next_path"]
+        try:
+            donor = Donor.objects.filter(
+                email__iexact=email, email_confirmed__isnull=False
+            ).latest()
+        except Donor.DoesNotExist:
+            donor = None
+        send_donor_login_link(donor, email, next_path=next_path)

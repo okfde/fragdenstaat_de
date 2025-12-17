@@ -76,7 +76,7 @@ class FdsDonationConfig(AppConfig):
                 return MenuItem(
                     section="before_settings",
                     order=999,
-                    url=reverse("fds_donation:donor-user"),
+                    url=reverse("fds_donation:donor"),
                     label=_("My donations"),
                 )
             except NoReverseMatch:

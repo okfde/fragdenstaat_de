@@ -1,0 +1,9 @@
+{% autoescape off %}Hallo,
+
+Du hast versucht, deine Spenden bei FragDenStaat.de abzurufen, aber wir konnten kein Spendenprofil mit der angegebenen E-Mail-Adresse finden.
+
+Bitte antworte auf diese E-Mail, falls du Hilfe benötigst oder weitere Fragen hast.
+
+Beste Grüße,
+{{ site_name }}
+{% endautoescape off %}

@@ -1,0 +1,17 @@
+{% extends "fds_donation/base.html" %}
+{% load i18n form_helper %}
+{% block app_body %}
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h2 class="text-center">{% translate "Get a link to your donor profile!" %}</h2>
+            <p>{% translate "Please enter your email address to receive a link to access your donations." %}</p>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% render_form form %}
+                <p class="text-end">
+                    <button type="submit" class="btn btn-primary">{% translate "Receive link" %}</button>
+                </p>
+            </form>
+        </div>
+    </div>
+{% endblock %}
