@@ -70,6 +70,12 @@
             </div>
         </section>
     {% endif %}
+    <div class="container">
+        <div class="border border-2 border-yellow-300 text-bg-body p-3 mt-3 col-lg-6 col-md-8 d-flex flex-column">
+            <a class="btn btn-primary action-link arrow"
+               href="{% url 'fds_donation:donor-donate' %}">{% translate "Add another donation" %}</a>
+        </div>
+    </div>
     <section class="container my-5">
         <h2>{% translate "All transactions" %}</h2>
         <div class="table-responsive">
