@@ -33,13 +33,29 @@ from .utils import DONOR_SESSION_KEY, get_donor_from_request
 
 @require_POST
 def make_order(request, category):
-    form = DonationGiftForm(data=request.POST, category=category, request=request)
+    donor = get_donor_from_request(request)
+    if donor is None:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            _(
+                "You need to be logged in as a donor to order a donation gift. "
+                "Please request a login link first."
+            ),
+        )
+        return redirect("fds_donation:donor-send-login-link")
+    form = DonationGiftForm(
+        data=request.POST, category=category, request=request, donor=donor
+    )
     if form.is_valid():
-        messages.add_message(request, messages.SUCCESS, "Danke für Deine Bestellung!")
-        form.save(request)
+        messages.add_message(
+            request, messages.SUCCESS, _("Your order has been created!")
+        )
+        form.save()
         return get_redirect(request)
-
-    messages.add_message(request, messages.ERROR, "Form-Fehler!")
+    messages.add_message(
+        request, messages.ERROR, _("Please review your form submission.")
+    )
     return get_redirect(request, next=request.META.get("HTTP_REFERER", "/"))
 
 

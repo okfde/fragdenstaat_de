@@ -1,10 +1,25 @@
+{% load i18n %}
 {% load form_helper %}
-<form action="{% url 'fds_donation:make_order' category=category %}"
-      method="post">
-    {% csrf_token %}
-    {% render_form form %}
-    <input type="hidden" name="next" value="{{ next_url }}" />
-    <p class="text-end">
-        <button type="submit" class="btn btn-primary">Abschicken</button>
+{% if form %}
+    {% if form.chosen_gift %}
+        <form action="{% url 'fds_donation:make_order' category=category %}"
+              method="post">
+            {% csrf_token %}
+            {% include "fds_donation/forms/_donation_form_chosen_gift.html" %}
+            {% include "fds_donation/forms/_donation_form_shipping.html" with form=form %}
+            <input type="hidden" name="next" value="{{ next_url }}" />
+            <p class="text-end">
+                <button type="submit" class="btn btn-primary">{% translate "Abschicken" %}</button>
+            </p>
+        </form>
+    {% else %}
+        <div class="alert alert-warning">{% translate "No donation gifts are available for you at the moment." %}</div>
+    {% endif %}
+{% else %}
+    <p>
+        <a class="btn btn-primary btn-lg action-link arrow"
+           href="{% url "fds_donation:donor-send-login-link" %}?next={{ request.get_full_path|urlencode }}">
+            {% translate "Log in to your donor profile to select a donation gift." %}
+        </a>
     </p>
-</form>
+{% endif %}
