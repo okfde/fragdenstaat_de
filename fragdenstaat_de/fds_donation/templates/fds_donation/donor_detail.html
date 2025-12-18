@@ -121,7 +121,7 @@
         </div>
     </section class="container my-5">
     {% if donor.user and request.user.is_authenticated and not request.user.password %}
-        <section>
+        <section class="container my-5">
             {% include "account/includes/set_password_now.html" %}
         </section>
     {% endif %}
