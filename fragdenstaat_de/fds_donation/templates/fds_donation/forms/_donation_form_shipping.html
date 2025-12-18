@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load form_helper %}
+<fieldset id="shipping_fieldset">
+    <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">{% translate "Shipping details" %}</legend>
+    {% if form.address %}
+        <div class="row">
+            <div class="col-12">
+                <button type="button"
+                        class="btn btn-light mb-2 ms-auto"
+                        data-fillfields="shipping">{% translate "Use receipt address" %}</button>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12 col-md-9">
+            <div class="row">
+                <div class="col-sm-6">{% render_field form.shipping_first_name stacked=True %}</div>
+                <div class="col-sm-6">{% render_field form.shipping_last_name stacked=True %}</div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row">
+            <div class="col-12">{% render_field form.shipping_address stacked=True %}</div>
+        </div>
+        <div class="row">
+            <div class="col-4">{% render_field form.shipping_postcode stacked=True %}</div>
+            <div class="col-8">{% render_field form.shipping_city stacked=True %}</div>
+        </div>
+        <div class="row">
+            <div class="col-12">{% render_field form.shipping_country stacked=True %}</div>
+        </div>
+    </div>
+</fieldset>
