@@ -39,36 +39,7 @@
     </div>
 </fieldset>
 {% if form.chosen_gift %}
-    <fieldset id="shipping_fieldset">
-        <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">{% trans "Shipping details" %}</legend>
-        <div class="row">
-            <div class="col-12">
-                <button type="button"
-                        class="btn btn-light mb-2 ms-auto"
-                        data-fillfields="shipping">{% trans "Use receipt address" %}</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-9">
-                <div class="row">
-                    <div class="col-sm-6">{% render_field form.shipping_first_name stacked=True %}</div>
-                    <div class="col-sm-6">{% render_field form.shipping_last_name stacked=True %}</div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="row">
-                <div class="col-12">{% render_field form.shipping_address stacked=True %}</div>
-            </div>
-            <div class="row">
-                <div class="col-4">{% render_field form.shipping_postcode stacked=True %}</div>
-                <div class="col-8">{% render_field form.shipping_city stacked=True %}</div>
-            </div>
-            <div class="row">
-                <div class="col-12">{% render_field form.shipping_country stacked=True %}</div>
-            </div>
-        </div>
-    </fieldset>
+    {% include "fds_donation/forms/_donation_form_shipping.html" %}
 {% endif %}
 <fieldset>
     <legend class="bg-primary text-white px-2 py-0 fw-bold float-none">{% trans "Payment method" %}</legend>
