@@ -56,15 +56,8 @@ def donor_client(client, donor):
     client.post(reverse("fds_donation:donor-logout"))
 
 
-@pytest.fixture
-def nospam(settings):
-    SPAM_DISABLED_CONFIG = dict(settings.FROIDE_CONFIG)
-    SPAM_DISABLED_CONFIG["spam_protection"] = False
-    settings.FROIDE_CONFIG = SPAM_DISABLED_CONFIG
-
-
 @pytest.mark.django_db
-def test_order_no_donor(nospam, client, donor, donation_gift):
+def test_order_no_donor(client, donor, donation_gift):
     response = client.post(
         reverse("fds_donation:make_order", kwargs={"category": "test"}),
     )
@@ -73,7 +66,7 @@ def test_order_no_donor(nospam, client, donor, donation_gift):
 
 
 @pytest.mark.django_db
-def test_order(nospam, donor_client, donor, donation_gift):
+def test_order(donor_client, donor, donation_gift):
     response = donor_client.post(
         reverse(
             "fds_donation:make_order",
@@ -104,7 +97,7 @@ def test_order(nospam, donor_client, donor, donation_gift):
 
 
 @pytest.mark.django_db
-def test_order_ineligible_amount(nospam, donor_client, donor, donation_gift):
+def test_order_ineligible_amount(donor_client, donor, donation_gift):
     donation_gift.min_recurring_amount = 20.0
     donation_gift.save()
     response = donor_client.post(
@@ -152,7 +145,7 @@ def test_order_ineligible_amount(nospam, donor_client, donor, donation_gift):
 
 
 @pytest.mark.django_db
-def test_order_ineligible_streak(nospam, donor_client, donor, donation_gift):
+def test_order_ineligible_streak(donor_client, donor, donation_gift):
     donation_gift.min_streak_months = 11
     donation_gift.save()
     response = donor_client.post(
@@ -204,7 +197,7 @@ def test_order_ineligible_streak(nospam, donor_client, donor, donation_gift):
 
 
 @pytest.mark.django_db
-def test_order_no_inventory_left(nospam, donor_client, donor, donation_gift):
+def test_order_no_inventory_left(donor_client, donor, donation_gift):
     donation_gift.inventory = 1
     donation_gift.save()
 
