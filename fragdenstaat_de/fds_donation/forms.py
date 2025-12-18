@@ -725,7 +725,7 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
         return order, donation
 
 
-class DonationGiftForm(SpamProtectionMixin, forms.Form):
+class DonationGiftForm(forms.Form):
     chosen_gift = forms.ModelChoiceField(
         widget=BootstrapSelect,
         queryset=None,
@@ -736,10 +736,6 @@ class DonationGiftForm(SpamProtectionMixin, forms.Form):
             )
         },
     )
-
-    SPAM_PROTECTION = {
-        "captcha": "ip",
-    }
 
     def __init__(self, *args, **kwargs):
         self.category = kwargs.pop("category")
