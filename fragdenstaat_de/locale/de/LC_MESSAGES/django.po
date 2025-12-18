@@ -4,13 +4,14 @@
 # krmax44 <hi@krmax44.de>, 2024.
 # krmax44 <github@krmax44.de>, 2024, 2025.
 # Kara Engelhardt <kara.engelhardt@okfn.de>, 2024.
+# Anett Seeker <anett.seeker@okfn.de>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 11:00+0100\n"
-"PO-Revision-Date: 2025-12-08 10:23+0000\n"
-"Last-Translator: krmax44 <github@krmax44.de>\n"
+"POT-Creation-Date: 2025-12-16 15:30+0100\n"
+"PO-Revision-Date: 2025-12-18 14:23+0000\n"
+"Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -649,9 +650,9 @@ msgid ""
 msgstr ""
 "\n"
 "                                Durchsuchen Sie unsere aktuellen oder "
-"verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a href="
-"\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-Feed</a> "
-"abonnieren.\n"
+"vergangenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a "
+"href=\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-"
+"Feed</a> abonnieren.\n"
 "                            "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
@@ -2582,6 +2583,11 @@ msgid "Frequent questions & contact"
 msgstr "Häufige Fragen & Kontakt"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+#, fuzzy
+msgid "Downloads"
+msgstr "Herunterladen"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Pending banktransfers"
 msgstr "Ausstehende Überweisungen"
 
@@ -2600,6 +2606,13 @@ msgstr ""
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_email.html
 msgid "Please set up a standing order"
 msgstr "Bitte richte einen Dauerauftrag ein"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+#, fuzzy
+msgid "Your recurring donation"
+msgid_plural "Your recurring donations"
+msgstr[0] "Deine Dauerspende"
+msgstr[1] "Deine Dauerspende"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "All transactions"
@@ -4758,12 +4771,6 @@ msgstr[1] ""
 "\n"
 "                            Vorherige Artikel:\n"
 "                        "
-
-#, fuzzy
-#~ msgid "Your recurring donation"
-#~ msgid_plural "Your recurring donations"
-#~ msgstr[0] "Deine Dauerspende"
-#~ msgstr[1] "Deine Dauerspende"
 
 #, python-brace-format
 #~ msgid "Sending... {}"
