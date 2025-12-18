@@ -6,7 +6,6 @@ from urllib.parse import parse_qsl
 from django import forms
 from django.conf import settings
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
-from django.core.mail import mail_managers
 from django.core.validators import MinValueValidator
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -411,7 +410,10 @@ COUNTRY_CHOICES = (
 
 
 def get_basic_info_fields(
-    prefix=None, name_required=True, country_choices=COUNTRY_CHOICES
+    prefix=None,
+    name_required=True,
+    address_required=False,
+    country_choices=COUNTRY_CHOICES,
 ):
     fields = {
         "first_name": forms.CharField(
@@ -434,7 +436,7 @@ def get_basic_info_fields(
         "address": forms.CharField(
             max_length=255,
             label=_("Street, house number"),
-            required=False,
+            required=address_required,
             widget=forms.TextInput(
                 attrs={
                     "placeholder": _("Street, house number"),
@@ -445,7 +447,7 @@ def get_basic_info_fields(
         "postcode": forms.CharField(
             max_length=20,
             label=_("Postcode"),
-            required=False,
+            required=address_required,
             widget=forms.TextInput(
                 attrs={"placeholder": _("Postcode"), "class": "form-control"}
             ),
@@ -453,14 +455,14 @@ def get_basic_info_fields(
         "city": forms.CharField(
             max_length=255,
             label=_("City"),
-            required=False,
+            required=address_required,
             widget=forms.TextInput(
                 attrs={"placeholder": _("City"), "class": "form-control"}
             ),
         ),
         "country": forms.ChoiceField(
             label=_("Country"),
-            required=False,
+            required=address_required,
             choices=country_choices,
             widget=BootstrapSelect,
         ),
@@ -577,9 +579,6 @@ class DonationGiftLogic:
 
     @staticmethod
     def clean(form: BasicDonationForm):
-        if not form.settings["gift_options"]:
-            return
-
         chosen_gift = form.cleaned_data.get("chosen_gift")
         if chosen_gift is None:
             return
@@ -727,55 +726,77 @@ class DonationForm(SpamProtectionMixin, SimpleDonationForm, DonorForm):
 
 
 class DonationGiftForm(SpamProtectionMixin, forms.Form):
-    name = forms.CharField(
-        max_length=255,
-        label=_("Your name"),
-        widget=forms.TextInput(attrs={"class": "form-control"}),
-    )
-    email = forms.EmailField(
-        max_length=255,
-        label=_("Your email address"),
-        widget=forms.EmailInput(attrs={"class": "form-control"}),
-    )
-    address = forms.CharField(
-        label=_("Shipping address"),
-        widget=forms.Textarea(attrs={"class": "form-control", "rows": "3"}),
-    )
-    gift = forms.ModelChoiceField(
-        label=_("Please choose your donation gift"), queryset=None
+    chosen_gift = forms.ModelChoiceField(
+        widget=BootstrapSelect,
+        queryset=None,
+        label=_("Donation gift"),
+        error_messages={
+            "invalid_choice": _(
+                "The chosen donation gift is no longer available, sorry!"
+            )
+        },
     )
 
     SPAM_PROTECTION = {
-        "captcha": "always",
+        "captcha": "ip",
     }
 
     def __init__(self, *args, **kwargs):
         self.category = kwargs.pop("category")
-        super().__init__(*args, **kwargs)
-        gifts = DonationGift.objects.filter(category_slug=self.category)
-        self.fields["gift"].queryset = gifts
-        if len(gifts) == 1:
-            self.fields["gift"].initial = gifts[0].id
-            self.fields["gift"].widget = forms.HiddenInput()
+        self.request = kwargs.pop("request")
+        self.donor = kwargs.pop("donor")
 
-    def save(self, request=None):
-        text = [
-            "Name",
-            self.cleaned_data["name"],
-            "E-Mail",
-            self.cleaned_data["email"],
-            "Auswahl",
-            self.cleaned_data["gift"],
-            "Adresse",
-            self.cleaned_data["address"],
-        ]
-        if request and request.user:
-            text.extend(["User", request.user.id])
-
-        mail_managers(
-            "Neue Bestellung von %s" % self.category,
-            str("\n".join(str(t) for t in text)),
+        self.gift_options = DonationGift.objects.available(
+            category=self.category, donor=self.donor
         )
+        super().__init__(*args, **kwargs)
+        if self.gift_options:
+            self.fields["chosen_gift"].queryset = self.gift_options
+            self.fields["chosen_gift"].widget.attrs["data-needs-address"] = json.dumps(
+                {gift.id: gift.needs_address for gift in self.gift_options}
+            )
+        else:
+            del self.fields["chosen_gift"]
+            self.gift_error_message = _(
+                "Unfortunately, there are no donation gifts available."
+            )
+
+        self.fields.update(
+            get_basic_info_fields(
+                prefix="shipping",
+                address_required=all(opt.needs_address for opt in self.gift_options),
+                name_required=all(opt.needs_address for opt in self.gift_options),
+            )
+        )
+        if self.donor:
+            self.fields["shipping_first_name"].initial = self.donor.first_name
+            self.fields["shipping_last_name"].initial = self.donor.last_name
+            self.fields["shipping_address"].initial = self.donor.address
+            self.fields["shipping_postcode"].initial = self.donor.postcode
+            self.fields["shipping_city"].initial = self.donor.city
+            self.fields["shipping_country"].initial = self.donor.country or "DE"
+
+    def clean(self):
+        if not self.gift_options:
+            raise forms.ValidationError(
+                _("No donation gifts are available for you at the moment.")
+            )
+
+    def save(self):
+        order = DonationGiftOrder.objects.create(
+            donation=self.donor.donations.all()
+            .filter(completed=True)
+            .latest("timestamp"),
+            donation_gift=self.cleaned_data["chosen_gift"],
+            first_name=self.cleaned_data["shipping_first_name"],
+            last_name=self.cleaned_data["shipping_last_name"],
+            address=self.cleaned_data["shipping_address"],
+            postcode=self.cleaned_data["shipping_postcode"],
+            city=self.cleaned_data["shipping_city"],
+            country=self.cleaned_data["shipping_country"],
+            email=self.donor.email,
+        )
+        return order
 
 
 def get_merge_donor_form(admin_site):

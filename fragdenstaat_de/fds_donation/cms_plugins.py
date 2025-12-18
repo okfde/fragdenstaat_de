@@ -21,6 +21,7 @@ from .models import (
     EmailDonationButtonCMSPlugin,
     RemoteDonationFormCMSPlugin,
 )
+from .utils import get_donor_from_request
 
 
 @plugin_pool.register_plugin
@@ -37,23 +38,20 @@ class DonationGiftFormPlugin(CMSPluginBase):
 
         context = super().render(context, instance, placeholder)
 
+        context["donor"] = get_donor_from_request(context["request"])
+
         context["category"] = instance.category
         context["next_url"] = instance.next_url
 
         if not instance.next_url and context.get("request"):
             context["next_url"] = context["request"].get_full_path()
 
-        initial = {}
-        if context.get("request") and context["request"].user.is_authenticated:
-            user = context["request"].user
-            initial = {
-                "name": user.get_full_name(),
-                "email": user.email,
-                "address": user.address,
-            }
-        context["form"] = DonationGiftForm(
-            request=context.get("request"), category=instance.category, initial=initial
-        )
+        if context["donor"]:
+            context["form"] = DonationGiftForm(
+                request=context["request"],
+                donor=context["donor"],
+                category=instance.category,
+            )
 
         return context
 
