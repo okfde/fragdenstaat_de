@@ -760,8 +760,8 @@ class DonationGiftForm(forms.Form):
         self.fields.update(
             get_basic_info_fields(
                 prefix="shipping",
-                address_required=all(opt.needs_address for opt in self.gift_options),
-                name_required=all(opt.needs_address for opt in self.gift_options),
+                address_required=any(opt.needs_address for opt in self.gift_options),
+                name_required=any(opt.needs_address for opt in self.gift_options),
             )
         )
         if self.donor:
