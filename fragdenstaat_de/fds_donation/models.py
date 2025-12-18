@@ -790,16 +790,33 @@ class DeferredDonation(Donation):
 
 
 class DonationGiftManager(models.Manager):
-    def available(self):
-        return (
-            super()
-            .get_queryset()
-            .annotate(order_count=models.Count("donationgiftorder"))
-            .filter(
-                models.Q(inventory__isnull=True)
-                | models.Q(inventory__gt=models.F("order_count"))
-            )
+    def available(self, category: str = "", donor: Donor | None = None):
+        gifts = super().get_queryset()
+        if category:
+            gifts = gifts.filter(category_slug=category)
+        gifts = gifts.annotate(order_count=models.Count("donationgiftorder")).filter(
+            models.Q(inventory__isnull=True)
+            | models.Q(inventory__gt=models.F("order_count"))
         )
+        if donor:
+            streak_start = donor.get_recurrence_streak_start_date()
+            if streak_start:
+                delta = relativedelta(streak_start, timezone.now())
+                gifts = gifts.filter(
+                    models.Q(min_streak_months=0)
+                    | models.Q(min_streak_months__lte=delta.months)
+                )
+            else:
+                gifts = gifts.filter(min_streak_months=0)
+            if donor.recurring_amount:
+                gifts = gifts.filter(
+                    models.Q(min_recurring_amount__lte=donor.recurring_amount)
+                )
+            else:
+                gifts = gifts.filter(min_recurring_amount=0)
+        else:
+            gifts = gifts.filter(min_streak_months=0, min_recurring_amount=0)
+        return gifts
 
 
 class GiftType(models.IntegerChoices):
