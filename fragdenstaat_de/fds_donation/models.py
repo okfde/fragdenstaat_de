@@ -814,7 +814,11 @@ class DonationGift(models.Model):
     inventory = models.PositiveIntegerField(blank=True, default=None, null=True)
     gift_type = models.IntegerField(choices=GiftType.choices, default=GiftType.PHYSICAL)
     order = models.PositiveIntegerField(default=0)
-    download_url = models.TextField(blank=False, default="")
+    download_url = models.TextField(blank=True)
+    min_recurring_amount = models.DecimalField(
+        max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
+    )
+    min_streak_months = models.PositiveIntegerField(default=0)
 
     objects = DonationGiftManager()
 
