@@ -32,6 +32,7 @@ from froide.helper.admin_utils import (
     make_nullfilter,
     make_rangefilter,
 )
+from froide.helper.auth import is_crew
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 from froide.helper.widgets import TagAutocompleteWidget
 
@@ -193,7 +194,6 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "first_donation",
         "email_confirmation_sent",
         "become_user",
-        "recurring_amount",
         "subscriber",
         "amount_total",
         "amount_last_year",
@@ -245,6 +245,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                     "first_donation",
                     "amount_total",
                     "amount_last_year",
+                    "recurring_amount",
                     "donation_count",
                     "last_donation",
                     "render_recurrences",
@@ -332,6 +333,12 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         if donation_projects:
             qs = qs.filter(any_donation__gt=0)
         return qs
+
+    def get_readonly_fields(self, request, obj):
+        if obj.user and is_crew(obj.user):
+            # Allow recurring amount change on crew donors for testing
+            return self.readonly_fields
+        return self.readonly_fields + ("recurring_amount",)
 
     @admin.display(ordering="donation_count", description=_("Donation count"))
     def donation_count(self, obj):
