@@ -1,0 +1,11 @@
+{% load form_helper %}
+{% if form.chosen_gift %}
+    {% if form.chosen_gift.is_hidden %}
+        {{ form.chosen_gift }}
+    {% else %}
+        <div class="row">
+            <div class="col-12">{% render_field form.chosen_gift %}</div>
+        </div>
+    {% endif %}
+{% endif %}
+{% if form.gift_error_message %}<div class="alert alert-warning">{{ form.gift_error_message }}</div>{% endif %}
