@@ -1,0 +1,9 @@
+{% autoescape off %}{{ donor.get_salutation }},
+
+hier ist dein persönlicher Login-Link, mit dem du deine Spenden verwalten kannst:
+
+{{ action_url }}
+
+Beste Grüße
+{{ site_name }}
+{% endautoescape off %}
