@@ -133,6 +133,7 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
         if len(interval_choices) == 1:
             show_purpose = interval_choices[0][0] == 0
             self.fields["interval"].initial = interval_choices[0][0]
+            self.initial["interval"] = interval_choices[0][0]
             self.fields["interval"].widget = forms.HiddenInput()
             if interval_choices[0][0] == 0:
                 self.fields["amount"].label = _("One time donation amount")
