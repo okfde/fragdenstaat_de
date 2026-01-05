@@ -339,6 +339,8 @@ class FragDenStaatBase(German, Base):
             "style",
             "class",
             "id",
+            "height",
+            "width",
         },
         "embed": {"type", "src", "width", "height"},
         "summary": {"class"},
