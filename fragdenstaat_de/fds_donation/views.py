@@ -107,7 +107,7 @@ def quick_donation(request):
 
 def get_base_breadcrumb(donor):
     return Breadcrumbs(
-        items=[(_("My donations"), donor.get_absolute_url())], color="yellow-200"
+        items=[(_("My donations"), reverse("fds_donation:donor"))], color="yellow-200"
     )
 
 
