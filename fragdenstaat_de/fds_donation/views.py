@@ -357,7 +357,13 @@ def send_donor_login_link(request):
             )
             return redirect("/")
     else:
-        form = DonorEmailLinkForm(initial={"next_path": get_redirect_url(request)})
+        form = DonorEmailLinkForm(
+            initial={
+                "next_path": get_redirect_url(
+                    request, default=reverse("fds_donation:donor")
+                )
+            }
+        )
 
     return render(request, "fds_donation/donor_login_link_form.html", {"form": form})
 
