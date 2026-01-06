@@ -1,7 +1,9 @@
+import logging
 import re
 import subprocess
 import time
 from collections import namedtuple
+from contextlib import contextmanager
 from datetime import datetime
 from decimal import Decimal
 
@@ -20,6 +22,7 @@ from fragdenstaat_de.fds_donation.models import Donation
 from .utils import ProcessReader
 
 WebhookEvent = namedtuple("WebhookEvent", ["timestamp", "name", "event_id"])
+WebhookDelivered = namedtuple("WebhookDelivered", ["status_code", "event_id"])
 
 STRIPE_TEST_IBANS = {
     "success": "DE89370400440532013000",
@@ -34,15 +37,18 @@ STRIPE_TEST_CARDS = {
 }
 
 
-class StripeWebhookForwarder:
-    WH_EVENT_RE = re.compile(
-        r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\s+-->\s+([\w\.]+)\s+\[(\w+)\]"
-    )
+WH_EVENT_RE = re.compile(
+    r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\s+-->\s+([\w\.]+)\s+\[(\w+)\]"
+)
+WH_DELIVERED_RE = re.compile(r"<--\s+\[([\d]+)\]\s+POST\s+[^ ]+\s+\[([^\]]+)\]")
 
+
+class StripeWebhookForwarder:
     def __init__(self, secret_key: str, forward_url: str):
         self.secret_key = secret_key
         self.forward_url = forward_url.replace("http://", "")
         self.webhooks_called = None
+        self.webhooks_delivered = None
         self.final_event = None
         self.final_event_max = 1
 
@@ -56,11 +62,9 @@ class StripeWebhookForwarder:
         assert re.match(r"^whsec_\w{32,}$", webhook_secret), webhook_secret
         return webhook_secret
 
-    def set_final_event(self, final_event: str, final_event_max: int = 1):
-        self.final_event = final_event
-        self.final_event_max = final_event_max
-
-    def __enter__(self):
+    @contextmanager
+    def wait_for_events(self, events: list[str]):
+        event_set = set(events)
         process_args = [
             "stripe",
             "listen",
@@ -73,35 +77,49 @@ class StripeWebhookForwarder:
         ]
         self.proc = ProcessReader(process_args)
         self.proc.start()
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
         self.webhooks_called = []
-        final_event_count = 0
-        found_final_event = False
-        if exc_val is not None:
+        self.webhooks_delivered = []
+
+        try:
+            yield
+        except Exception as e:
             self.proc.stop()
-            return
+            raise e
+
         try:
             while True:
                 line = self.proc.readline()
-                if found_final_event:
-                    if "] POST" in line:
-                        break
-                else:
-                    events = self.make_webhook_events(line)
-                    if not events:
-                        continue
-                self.webhooks_called.extend(events)
-                final_event_count += len(
-                    [ev for ev in events if ev.name == self.final_event]
+                webhook_events = self.make_webhook_events(line)
+                webhook_deliveries = self.make_webhook_deliveries(line)
+                logging.debug(
+                    "line: %s, events: %s, deliveries: %s",
+                    line,
+                    webhook_events,
+                    webhook_deliveries,
                 )
-                if final_event_count >= self.final_event_max:
-                    found_final_event = True
+                self.webhooks_called.extend(webhook_events)
+                self.webhooks_delivered.extend(webhook_deliveries)
+
+                event_names = {ev.event_id: ev.name for ev in self.webhooks_called}
+                called_event_names = {ev.name for ev in self.webhooks_called}
+                delivered_event_names = {
+                    event_names[dl.event_id] for dl in self.webhooks_delivered
+                }
+                logging.info(
+                    f"{event_set=} {called_event_names=} {delivered_event_names=}"
+                )
+
+                delivered_all_events = len(event_set - delivered_event_names) == 0
+                if delivered_all_events:
+                    break
         finally:
             self.proc.stop()
 
+    def make_webhook_deliveries(self, log):
+        return [WebhookDelivered(*m.groups()) for m in WH_DELIVERED_RE.finditer(log)]
+
     def make_webhook_events(self, log: str):
-        return [WebhookEvent(*m.groups()) for m in self.WH_EVENT_RE.finditer(log)]
+        return [WebhookEvent(*m.groups()) for m in WH_EVENT_RE.finditer(log)]
 
 
 @pytest.fixture(autouse=True)
@@ -173,9 +191,7 @@ def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_se
     with page.expect_navigation():
         page.get_by_role("button", name="Jetzt spenden").click()
 
-    stripe_sepa_setup.final_event = "invoice.payment_succeeded"
-
-    with stripe_sepa_setup:
+    with stripe_sepa_setup.wait_for_events(["invoice.payment_succeeded"]):
         page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success"])
         page.get_by_role("button", name="Jetzt spenden").click()
 
@@ -278,9 +294,7 @@ def test_sepa_once_donation_additional_fields(
     fill_donation_page(page, donor_email)
     page.get_by_role("button", name="Jetzt spenden").click()
 
-    stripe_sepa_setup.final_event = "charge.succeeded"
-
-    with stripe_sepa_setup:
+    with stripe_sepa_setup.wait_for_events(["charge.succeeded"]):
         page.locator("#id_iban").fill(STRIPE_TEST_IBANS["additional_fields"])
         page.get_by_role("button", name="Jetzt spenden").click()
 
@@ -339,8 +353,7 @@ def test_sepa_recurring_donation_failed(page: Page, live_server, stripe_sepa_set
     fill_donation_page(page, donor_email)
     page.get_by_role("button", name="Jetzt spenden").click()
 
-    stripe_sepa_setup.set_final_event("customer.subscription.deleted")
-    with stripe_sepa_setup:
+    with stripe_sepa_setup.wait_for_events(["customer.subscription.deleted"]):
         page.locator("#id_iban").fill(STRIPE_TEST_IBANS["failed"])
         page.get_by_role("button", name="Jetzt spenden").click()
 
@@ -384,9 +397,7 @@ def test_sepa_once_donation_disputed(page: Page, live_server, stripe_sepa_setup)
     fill_donation_page(page, donor_email)
     page.get_by_role("button", name="Jetzt spenden").click()
 
-    stripe_sepa_setup.final_event = "charge.dispute.closed"
-
-    with stripe_sepa_setup:
+    with stripe_sepa_setup.wait_for_events(["charge.dispute.closed"]):
         page.locator("#id_iban").fill(STRIPE_TEST_IBANS["disputed"])
         page.get_by_role("button", name="Jetzt spenden").click()
 
@@ -425,9 +436,7 @@ def test_creditcard_recurring_donation_success(
     fill_donation_page(page, donor_email)
     page.get_by_role("button", name="Jetzt spenden").click()
 
-    stripe_sepa_setup.final_event = "invoice.payment_succeeded"
-
-    with stripe_sepa_setup:
+    with stripe_sepa_setup.wait_for_events(["invoice.payment_succeeded"]):
         frame = page.frame_locator('iframe[name^="__privateStripeFrame"]').first
         frame.locator(".CardField-restWrapper").click()
         frame.get_by_placeholder("Kartennummer").fill(STRIPE_TEST_CARDS["success"])
@@ -471,9 +480,7 @@ def test_creditcard_once_donation_success(page: Page, live_server, stripe_sepa_s
     fill_donation_page(page, donor_email)
     page.get_by_role("button", name="Jetzt spenden").click()
 
-    stripe_sepa_setup.final_event = "charge.succeeded"
-
-    with stripe_sepa_setup:
+    with stripe_sepa_setup.wait_for_events(["charge.succeeded"]):
         frame = page.frame_locator('iframe[name^="__privateStripeFrame"]').first
         frame.locator(".CardField-restWrapper").click()
         frame.get_by_placeholder("Kartennummer").fill(STRIPE_TEST_CARDS["success"])

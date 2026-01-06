@@ -38,7 +38,7 @@ class ProcessReader:
     def __init__(self, process_args):
         self.process_args = process_args
         self.thread = None
-        self.queue = Queue()
+        self.queue = Queue[str]()
         self.stop_event = threading.Event()
 
     def start(self):
