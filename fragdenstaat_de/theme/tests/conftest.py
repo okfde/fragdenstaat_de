@@ -29,18 +29,20 @@ def elasticsearch_client():
 
 @pytest.fixture(scope="session")
 def test_index(elasticsearch_client):
-    index_name = "test_index"
+    index_name = "test_analyzer_index"
     index = Index(index_name, using=elasticsearch_client)
 
     index.analyzer(get_text_analyzer())
     index.analyzer(get_search_analyzer())
     index.analyzer(get_search_quote_analyzer())
 
-    index.create()
+    # Ignore errors if the index already exists.
+    index.create(ignore=400)
 
     yield index_name
 
-    index.delete()
+    # Ignore errors if the index does not exist.
+    index.delete(ignore=[400, 404])
 
 
 @pytest.fixture(scope="session")
@@ -57,7 +59,8 @@ def analyze(elasticsearch_client, test_index):
 
 @pytest.fixture(scope="session")
 def test_document_class(elasticsearch_client):
-    index = get_index("test_index")
+    index_name = "test_document_index"
+    index = get_index(index_name)
     analyzer = get_text_analyzer()
     search_analyzer = get_search_analyzer()
     search_quote_analyzer = get_search_quote_analyzer()
@@ -75,11 +78,13 @@ def test_document_class(elasticsearch_client):
         class Django:
             model = Article
 
-    index.create()
+    # Ignore errors if the index already exists.
+    index.create(ignore=400)
 
     yield TestDocument
 
-    index.delete()
+    # Ignore errors if the index does not exist.
+    index.delete(ignore=[400, 404])
 
 
 @pytest.fixture(scope="session")
