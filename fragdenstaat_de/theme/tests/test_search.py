@@ -13,6 +13,7 @@ from fragdenstaat_de.theme.tests.testdata.search_tokens import (
 )
 
 
+@pytest.mark.elasticsearch
 class TestSearchFilterSet:
     """
     Tests for a realistic search scenario using the BaseSearchFilterSet with preprocessing.
@@ -43,6 +44,7 @@ class TestSearchFilterSet:
         assert res_highlights == highlights
 
 
+@pytest.mark.elasticsearch
 class TestElasticsearchAnalyzers:
     """
     Tests for directly testing the output of the analyzers (tokens) in Elasticsearch.
@@ -126,6 +128,7 @@ test_cases = [
 ]
 
 
+@pytest.mark.elasticsearch
 class TestQueryPreprocessor:
     @pytest.mark.parametrize(
         "input_text, expected_output", test_cases, ids=[t[0] for t in test_cases]
