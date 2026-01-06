@@ -31,10 +31,29 @@ jobs:
       - name: Start Elasticsearch container
         run: >
           docker run -d --rm --name elasticsearch -p 9200:9200
-          --health-cmd="curl http://localhost:9200/_cluster/health"
           -e discovery.type=single-node
           -e xpack.security.enabled=false
           elasticsearch-german:ci
+      - name: Wait for Elasticsearch
+        run: |
+          echo "Waiting for Elasticsearch to be ready ..."
+          for i in {1..30}; do
+            if curl -s http://localhost:9200/_cluster/health | grep -q '"status":"green"'; then
+              # Try a real operation to ensure ES is truly ready.
+              if curl -s -X POST "http://localhost:9200/_analyze" \
+                -H 'Content-Type: application/json' \
+                -d '{"analyzer":"standard","text":"test"}' | grep -q '"tokens"'; then
+                echo "Elasticsearch is ready!"
+                curl -s http://localhost:9200/_cluster/health?pretty
+                exit 0
+              fi
+            fi
+            echo "Attempt $i: Elasticsearch not ready yet ..."
+            sleep 2
+          done
+          echo "Elasticsearch failed to become ready"
+          curl -s http://localhost:9200/_cluster/health?pretty
+          exit 1
       - name: Setup uv
         uses: astral-sh/setup-uv@v6
         with:
