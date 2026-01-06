@@ -1,7 +1,5 @@
 import re
 
-from django.conf import settings
-
 import pytest
 from django_elasticsearch_dsl.registries import registry
 from elasticsearch import Elasticsearch
@@ -19,12 +17,14 @@ from froide.helper.search.filters import BaseSearchFilterSet
 from fragdenstaat_de.fds_blog.models import Article
 from fragdenstaat_de.theme.tests.testdata.search_docs import search_docs
 
-ES_CONFIG = settings.ELASTICSEARCH_DSL["default"]
-
 
 @pytest.fixture(scope="session")
 def elasticsearch_client():
-    return Elasticsearch(hosts=ES_CONFIG["hosts"])
+    return Elasticsearch(
+        hosts="http://localhost:9200",
+        timeout=30,
+        retry_on_timeout=True,
+    )
 
 
 @pytest.fixture(scope="session")
