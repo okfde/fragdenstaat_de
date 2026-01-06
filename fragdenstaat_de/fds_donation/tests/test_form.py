@@ -10,7 +10,6 @@ from django.utils import timezone
 
 import pytest
 
-from .. import models as donation_models
 from ..form_settings import DonationFormFactory, DonationSettingsForm
 from ..models import MIN_AMOUNT, ONCE, RECURRING, DonationFormViewCount, DonationGift
 from .factories import DonationGiftOrderFactory
@@ -237,13 +236,6 @@ def test_donation_form_hide_purpose():
     settings_form = DonationSettingsForm(data=form_settings)
     form = settings_form.make_donation_form(request=request, user=request.user)
     assert form.fields["purpose"].widget.is_hidden
-
-
-@pytest.fixture
-def unsuspicious(monkeypatch):
-    monkeypatch.setattr(
-        donation_models, "check_suspicious_request", lambda *args, **kwargs: None
-    )
 
 
 @pytest.mark.django_db
