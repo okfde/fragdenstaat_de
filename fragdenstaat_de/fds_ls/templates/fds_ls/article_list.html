@@ -1,0 +1,156 @@
+{% extends "fds_blog/base.html" %}
+{% load i18n easy_thumbnails_tags cms_tags markup %}
+{% spaceless %}
+    {% block canonical_url %}
+        <link rel="canonical" href="{{ view.get_view_url }}" />
+    {% endblock canonical_url %}
+    {% block title %}
+        {% if author %}
+            {% blocktrans with name=author.get_full_name %}Articles by {{ name }}{% endblocktrans %} –
+        {% elif archive_date %}
+            {% if month %}{{ archive_date|date:'F' }}{% endif %}
+            {{ year }} –
+        {% elif article_tags %}
+            {% blocktrans count n=article_tags|length with tags=article_tags|join:", " %}Articles with tag {{ tags }}{% plural %}Articles with tags {{ tags }}{% endblocktrans %} –
+        {% elif category %}
+            {% blocktrans with category=category %}Category {{ category }}{% endblocktrans %} –
+        {% else %}
+            {% trans "All articles" %} –
+        {% endif %}
+        {{ SITE_NAME }}
+    {% endblock %}
+    {% block content_blog %}
+        <header class="blog-header blog-header-meta"
+                {% if category.color %}style="--article-color: var(--bs-{{ category.color }}-rgb)"{% endif %}>
+            <div class="container-lg py-3 py-md-5">
+                {% block blog_list_header %}
+                    {% if archive_date %}
+                        <h1>
+                            <div class="fs-5 fw-normal mb-1">{% trans "Archive" context "noun" %}</div>
+                            {% if month %}{{ archive_date|date:'F' }}{% endif %}
+                            {{ year }}
+                        </h1>
+                        <p class="text-secondary">{% blocktrans with n=article_count %}{{ n }} articles{% endblocktrans %}</p>
+                    {% elif article_tags %}
+                        <h1>
+                            <div class="fs-5 fw-normal mb-1">
+                                {% blocktrans count n=article_tags|length %}Tag{% plural%}Tags{% endblocktrans %}
+                            </div>
+                            {{ article_tags|join:", " }}
+                        </h1>
+                        <p class="text-secondary">
+                            {% blocktrans count n=article_count %}{{ n }} article{% plural%}{{ n }} articles{% endblocktrans %}
+                        </p>
+                    {% elif category %}
+                        <h1>
+                            <div class="fs-5 fw-normal mb-1">{% trans "Category" %}</div>
+                            {{ category }}
+                        </h1>
+                        {{ category.description|markdown }}
+                        <p class="text-secondary">
+                            {% blocktrans count n=article_count %}{{ n }} article{% plural%}{{ n }} articles{% endblocktrans %}
+                        </p>
+                    {% elif author %}
+                        <div class="row">
+                            <div class="col col-12 col-md-4 order-md-2 text-center text-md-end mb-3 mb-md-0">
+                                {% if author.profile_photo %}
+                                    <img class="img-fluid shadow"
+                                         src="{{ author.profile_photo.url }}"
+                                         alt=""
+                                         loading="lazy">
+                                {% endif %}
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <h1>
+                                    <div class="fs-5 fw-normal mb-1">{% trans "Articles by" %}</div>
+                                    {{ author.get_full_name }}
+                                </h1>
+                                <div>{{ author.profile_text | markdown }}</div>
+                                <p class="text-secondary">
+                                    {% blocktrans count n=article_count %}{{ n }} article{% plural%}{{ n }} articles{% endblocktrans %}
+                                </p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <h1>{% trans "Article archive" %}</h1>
+                        <p>
+                            {% page_url "newsletter" as newsletter_url %}
+                            {% url "blog:article-latest-feed" as feed_url %}
+                            {% blocktrans with newsletter=newsletter_url feed=feed_url %}
+                                Browse our recent or historical articles. Stay up to date by subscribing to our <a href="{{ newsletter }}">newsletter</a> or the <a href="{{ feed }}">RSS feed</a>.
+                            {% endblocktrans %}
+                        </p>
+                    {% endif %}
+                    {% if category_filter or month_filter or year_filter %}
+                        <nav class="hstack gap-2">
+                            {% if category_filter %}
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-secondary dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">{% trans "Categories…" %}</button>
+                                    <ul class="dropdown-menu">
+                                        {% for category in category_filter %}
+                                            <li>
+                                                <a href="{% url 'blog:article-category' slug=category.slug %}"
+                                                   class="dropdown-item">{{ category }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            {% if month_filter %}
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-secondary dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">{% trans "Months…" %}</button>
+                                    <ul class="dropdown-menu">
+                                        {% for date in month_filter %}
+                                            <li class="d-contents">
+                                                <a href="{% url 'blog:article-archive' year=date.year month=date.month %}"
+                                                   class="dropdown-item">{{ date|date:"F" }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            {% if category_filter %}
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-secondary dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">{% trans "Years…" %}</button>
+                                    <ul class="dropdown-menu">
+                                        {% for date in year_filter %}
+                                            <li class="d-contents">
+                                                <a href="{% url 'blog:article-archive' year=date.year %}"
+                                                   class="dropdown-item">{{ date|date:"Y" }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </nav>
+                    {% endif %}
+                {% endblock blog_list_header %}
+            </div>
+        </header>
+        <div class="container">
+            <section class="blog-list my-3">
+                <div class="vstack gap-3">
+                    {% block blog_list_items %}
+                        {% for article in article_list %}
+                            {% include "fds_blog/includes/blog_item_list.html" with article=article counter=forloop.counter %}
+                        {% endfor %}
+                    {% endblock blog_list_items %}
+                    {% block blog_pagination %}
+                        {% if is_paginated %}
+                            {% include "pagination/pagination.html" with page_obj=page_obj %}
+                        {% endif %}
+                    {% endblock blog_pagination %}
+                </section>
+            </div>
+        </div>
+    {% endblock %}
+{% endspaceless %}

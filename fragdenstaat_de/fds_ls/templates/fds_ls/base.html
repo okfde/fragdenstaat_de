@@ -1,0 +1,11 @@
+{% extends "cms/base.html" %}
+{% load cms_tags %}
+{% load static %}
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/ls.css' %}">
+{% endblock %}
+{% block body_extra_attributes %}class="ls"{% endblock %}
+{% block navbar %}
+    {% include "fds_ls/header.html" %}
+{% endblock %}
