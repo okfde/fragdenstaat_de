@@ -2,9 +2,10 @@ import logging
 import re
 import subprocess
 import time
+import zoneinfo
 from collections import namedtuple
 from contextlib import contextmanager
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from decimal import Decimal
 
 from django.core import mail
@@ -279,6 +280,178 @@ def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_se
     assert stripe_pm["sepa_debit"]["last4"] == STRIPE_TEST_IBANS["success_delayed"][-4:]
     stripe_customer = stripe.Customer.retrieve(stripe_sub.customer)
     assert stripe_customer.invoice_settings.default_payment_method == stripe_pm_id
+
+
+class StripeTimeMover:
+    def __init__(self, time_machine):
+        self.time_machine = time_machine
+        self.time_machine.move_to(datetime(2025, 1, 1))
+        self.test_clock = stripe.test_helpers.TestClock.create(
+            frozen_time=int(time.time()),
+        ).id
+
+    def move_days(self, days: float):
+        logging.info(f"shifting time by {days} days")
+        self.time_machine.shift(timedelta(days=days))
+        _ = stripe.test_helpers.TestClock.advance(
+            self.test_clock,
+            frozen_time=int(time.time()),
+        )
+
+
+@pytest.fixture
+def stripe_mocked_time(time_machine, monkeypatch):
+    time_mover = StripeTimeMover(time_machine)
+
+    # monkey-patch stripe customer creation to use test-clock
+    old_customer_create = stripe.Customer.create
+
+    def customer_create_with_test_clock(*args, **kwargs):
+        return old_customer_create(*args, **kwargs, test_clock=time_mover.test_clock)
+
+    with monkeypatch.context() as m:
+        m.setattr(stripe.Customer, "create", customer_create_with_test_clock)
+        yield time_mover
+
+    stripe.test_helpers.TestClock.delete(time_mover.test_clock)
+
+
+@pytest.mark.django_db
+@pytest.mark.stripe
+def test_sepa_shorten_recurring_interval(
+    page: Page, live_server, stripe_sepa_setup, stripe_mocked_time
+):
+    donor_email = "peter.parker@example.com"
+
+    page.goto(live_server.url + reverse("fds_donation:donate"))
+    page.get_by_role("button", name="5 Euro").click()
+    page.get_by_text("jährlich", exact=True).click()
+    page.get_by_text("SEPA-Lastschrift", exact=True).click()
+    fill_donation_page(page, donor_email)
+    with page.expect_navigation():
+        page.get_by_role("button", name="Jetzt spenden").click()
+
+    with stripe_sepa_setup.wait_for_events(["invoice.payment_succeeded"]):
+        page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success"])
+        page.get_by_role("button", name="Jetzt spenden").click()
+
+        page.wait_for_url(DONATION_DONE_URL)
+
+        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
+        assert page.get_by_text(donor_email).is_visible()
+
+    stripe_event_id = [
+        event.event_id
+        for event in stripe_sepa_setup.webhooks_called
+        if event.name == "payment_intent.succeeded"
+    ][0]
+    event = stripe.Event.retrieve(stripe_event_id)
+    mandate_id = event.data.object.charges.data[
+        0
+    ].payment_method_details.sepa_debit.mandate
+    mandate = stripe.Mandate.retrieve(mandate_id)
+    assert mandate.status == "active"
+    assert mandate.type == "multi_use"
+    assert mandate.payment_method_details.type == "sepa_debit"
+
+    time.sleep(2)
+    donation = Donation.objects.filter(
+        donor__email=donor_email, amount=5, recurring=True
+    ).latest("timestamp")
+    payment = donation.payment
+    assert payment.status == "confirmed"
+
+    # Advance time a bit more than a month
+    with stripe_sepa_setup.wait_for_events(["test_helpers.test_clock.ready"]):
+        stripe_mocked_time.move_days(32)
+
+    with stripe_sepa_setup.wait_for_events(["invoice.payment_succeeded"]):
+        # Modify subscription (now monthly, 10€, changes 5 days in the future)
+        subscription = donation.order.subscription
+        old_plan = subscription.plan
+        last_order = subscription.get_last_order()
+
+        assert old_plan.interval == 12
+
+        next_date = date.today() + timedelta(days=5)
+        assert last_order.service_end.date() > next_date
+
+        page.goto(
+            live_server.url
+            + reverse(
+                "froide_payment:subscription-detail",
+                kwargs={"token": subscription.token},
+            )
+        )
+        page.locator("#id_amount").fill("10")
+        page.get_by_text("monatlich").click()
+        page.locator("#id_next_date").fill(next_date.strftime("%Y-%m-%d"))
+        mail.outbox = []
+        page.get_by_role("button", name="Dauerspende ändern").click()
+        page.wait_for_load_state("networkidle")
+
+        # Open confirmation link in email
+        assert mail.outbox[-1].to[0] == subscription.customer.user_email
+        message = mail.outbox[-1]
+        match = re.search(r"http://\S+", message.body)
+        assert match
+        page.goto(match.group(0))
+        page.wait_for_load_state("networkidle")
+
+        logging.info("waiting for webhooks to complete")
+
+    # Check subscription change
+    subscription.refresh_from_db()
+    assert subscription.plan.interval == 1
+    stripe_sub = stripe.Subscription.retrieve(subscription.remote_reference)
+    assert stripe_sub.plan.interval_count == 1
+    assert stripe_sub.plan.id == subscription.plan.remote_reference
+    assert stripe_sub.trial_start is not None
+    assert stripe_sub.trial_end is not None
+    trial_end_date = datetime.fromtimestamp(
+        stripe_sub.trial_end, tz=zoneinfo.ZoneInfo("UTC")
+    ).date()
+    assert trial_end_date == next_date
+    last_order.refresh_from_db()
+    assert last_order.service_end.date() <= trial_end_date
+
+    # Advance time until after the payment
+    stripe_sepa_setup.final_event = "test_helpers.test_clock.ready"
+    with stripe_sepa_setup.wait_for_events(
+        [
+            "test_helpers.test_clock.ready",
+            "invoice.payment_succeeded",
+            "payment_intent.succeeded",
+        ]
+    ):
+        logging.info("advance time until after the payment")
+        stripe_mocked_time.move_days(10)
+
+    assert subscription.orders.count() == 2
+    order = subscription.get_last_order()
+    assert order.service_start.date() == trial_end_date
+    assert order.payments.count() == 1
+    payment = order.payments.first()
+    assert payment.captured_amount == 10
+
+    # Advance time by a month
+    with stripe_sepa_setup.wait_for_events(
+        [
+            "test_helpers.test_clock.ready",
+            "invoice.payment_succeeded",
+            "payment_intent.succeeded",
+        ]
+    ):
+        logging.info("advance time by a month")
+        stripe_mocked_time.move_days(31)
+
+    assert subscription.orders.count() == 3
+    order = subscription.get_last_order()
+    assert order.service_start.date() > trial_end_date
+    assert order.payments.count() == 1
+
+    payment = order.payments.first()
+    assert payment.captured_amount == 10
 
 
 @pytest.mark.django_db
