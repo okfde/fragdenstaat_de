@@ -20,6 +20,9 @@ def donor():
     return donor
 
 
+other_donor = donor
+
+
 @pytest.mark.django_db
 def test_donor_access(client, donor):
     url = donor.get_login_url()
@@ -163,3 +166,24 @@ def test_legacy_donor_redirect(client, view_name):
     next_path = urlencode({"next": reverse(f"fds_donation:donor{view_name}")})
     assert next_path in response.url
     assert response.url.startswith(reverse("fds_donation:donor-send-login-link"))
+
+
+@pytest.mark.django_db
+def test_deduplicate_donor_user(client, donor, other_donor):
+    user = UserFactory(username="user")
+    donor.user = user
+    donor.save()
+    other_donor.user = user
+    other_donor.save()
+
+    url = reverse("fds_donation:donor")
+
+    client.force_login(user)
+    response = client.get(url)
+    assert response.status_code == 200
+    assert client.session.get("donor_id") is None
+    assert response.context["donations"].count() == 2
+    assert response.context["donor"] == other_donor
+
+    with pytest.raises(Donor.DoesNotExist):
+        donor.refresh_from_db()
