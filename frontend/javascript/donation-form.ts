@@ -68,7 +68,7 @@ class DonationForm {
 
     const hasShipping: boolean = this.form.querySelector('#id_chosen_gift') !== null
     if (hasShipping) {
-      this.setupShipping()
+      setupShipping(this.form)
     }
 
     ;['creditcard', 'paypal', 'sepa'].forEach((p) => {
@@ -107,71 +107,6 @@ class DonationForm {
         }
       }
     }
-  }
-
-  private setupShipping(): void {
-    const fillShippingFields = this.form.querySelector(
-      '[data-fillfields="shipping"]'
-    )
-    const shippingFields = this.form.querySelectorAll<HTMLFormElement>(
-      "input[name*='shipping'], select[name*='shipping']"
-    )
-
-    const addressFields: AddressFields = {}
-    shippingFields.forEach((e) => {
-      const key = e.name.replace('shipping_', '')
-      addressFields[key] = this.form.querySelector(`[name="${key}"]`)
-    })
-
-    const setShippingFields = (): void => {
-      shippingFields.forEach((el) => {
-        const key = el.name.replace('shipping_', '')
-        el.value = addressFields[key]?.value ?? ''
-      })
-    }
-
-    setShippingFields()
-
-    if (fillShippingFields != null) {
-      fillShippingFields.addEventListener('click', setShippingFields)
-    }
-
-    const receiptRadios = this.form.querySelectorAll('input[name="receipt"]')
-
-    const setFillShippingButton = () => {
-      const state =
-        this.form
-          .querySelector('input[name="receipt"]:checked')
-          ?.getAttribute('value') ?? '0'
-
-      if (state === '1') {
-        fillShippingFields?.removeAttribute('disabled')
-      } else {
-        fillShippingFields?.setAttribute('disabled', '')
-      }
-    }
-
-    setFillShippingButton()
-    receiptRadios.forEach((el) => {
-      el.addEventListener('change', setFillShippingButton)
-    })
-
-    const giftField: HTMLSelectElement | null = this.form.querySelector('#id_chosen_gift');
-    const needsAddressText = giftField?.dataset.needsAddress;
-    const shippingFieldset: HTMLFieldSetElement | null = this.form.querySelector('#shipping_fieldset');
-    if (!needsAddressText || !giftField || !shippingFieldset) return;
-    const needsAddress = JSON.parse(needsAddressText);
-
-    const updateShippingVisibility = () => {
-      const selected_gift = giftField.value;
-      if (needsAddress[selected_gift]) {
-        shippingFieldset.style.display = 'block';
-      } else {
-        shippingFieldset.style.display = 'none';
-      }
-    }
-    updateShippingVisibility();
-    giftField.addEventListener('change', updateShippingVisibility)
   }
 
   private setupAdditionalCC(): void {
@@ -426,6 +361,75 @@ class DonationForm {
   }
 }
 
+const setupShipping = (form: HTMLFormElement) => {
+  const fillShippingFields = form.querySelector(
+    '[data-fillfields="shipping"]'
+  )
+  const shippingFields = form.querySelectorAll<HTMLFormElement>(
+    "input[name*='shipping'], select[name*='shipping']"
+  )
+
+  const addressFields: AddressFields = {}
+  shippingFields.forEach((e) => {
+    const key = e.name.replace('shipping_', '')
+    addressFields[key] = form.querySelector(`[name="${key}"]`)
+  })
+
+  const setShippingFields = (): void => {
+    shippingFields.forEach((el) => {
+      const key = el.name.replace('shipping_', '')
+      el.value = addressFields[key]?.value ?? ''
+    })
+  }
+
+  setShippingFields()
+
+  if (fillShippingFields != null) {
+    fillShippingFields.addEventListener('click', setShippingFields)
+  }
+
+  const receiptRadios = form.querySelectorAll('input[name="receipt"]')
+
+  const setFillShippingButton = () => {
+    const state =
+      form
+        .querySelector('input[name="receipt"]:checked')
+        ?.getAttribute('value') ?? '0'
+
+    if (state === '1') {
+      fillShippingFields?.removeAttribute('disabled')
+    } else {
+      fillShippingFields?.setAttribute('disabled', '')
+    }
+  }
+
+  setFillShippingButton()
+  receiptRadios.forEach((el) => {
+    el.addEventListener('change', setFillShippingButton)
+  })
+
+  const giftField: HTMLSelectElement | null = form.querySelector('#id_chosen_gift');
+  const needsAddressText = giftField?.dataset.needsAddress;
+  const shippingFieldset: HTMLFieldSetElement | null = form.querySelector('#shipping_fieldset');
+  if (!needsAddressText || !giftField || !shippingFieldset) return;
+  const needsAddress = JSON.parse(needsAddressText);
+
+  const updateShippingVisibility = () => {
+    const selected_gift = giftField.value;
+    const giftNeedsAddress = needsAddress[selected_gift];
+    if (giftNeedsAddress) {
+      shippingFieldset.style.display = 'block';
+    } else {
+      shippingFieldset.style.display = 'none';
+    }
+    shippingFields.forEach((el) => {
+      el.required = giftNeedsAddress
+    });
+  }
+  updateShippingVisibility();
+  giftField.addEventListener('change', updateShippingVisibility)
+}
+
 // Bootstrap logic
 const donationForm = document.querySelector('.donation-form')
 if (donationForm !== null) {
@@ -442,3 +446,8 @@ if (donationForm !== null) {
     link.classList.add('d-xl-none')
   })
 }
+
+const shippingForm = document.querySelectorAll('.shipping-form')
+shippingForm.forEach((form) => {
+  setupShipping(form as HTMLFormElement)
+})
