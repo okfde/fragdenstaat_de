@@ -730,6 +730,7 @@ class DonationGiftForm(forms.Form):
         widget=BootstrapSelect,
         queryset=None,
         label=_("Donation gift"),
+        empty_label=None,
         error_messages={
             "invalid_choice": _(
                 "The chosen donation gift is no longer available, sorry!"
@@ -748,6 +749,7 @@ class DonationGiftForm(forms.Form):
         super().__init__(*args, **kwargs)
         if self.gift_options:
             self.fields["chosen_gift"].queryset = self.gift_options
+            self.fields["chosen_gift"].initial = self.gift_options[0].id
             self.fields["chosen_gift"].widget.attrs["data-needs-address"] = json.dumps(
                 {gift.id: gift.needs_address for gift in self.gift_options}
             )
@@ -760,8 +762,8 @@ class DonationGiftForm(forms.Form):
         self.fields.update(
             get_basic_info_fields(
                 prefix="shipping",
-                address_required=any(opt.needs_address for opt in self.gift_options),
-                name_required=any(opt.needs_address for opt in self.gift_options),
+                address_required=all(opt.needs_address for opt in self.gift_options),
+                name_required=all(opt.needs_address for opt in self.gift_options),
             )
         )
         if self.donor:
@@ -777,6 +779,7 @@ class DonationGiftForm(forms.Form):
             raise forms.ValidationError(
                 _("No donation gifts are available for you at the moment.")
             )
+        DonationGiftLogic.clean(self)
 
     def save(self):
         order = DonationGiftOrder.objects.create(
