@@ -9,6 +9,7 @@
             {% include "fds_donation/forms/_donation_form_chosen_gift.html" %}
             {% include "fds_donation/forms/_donation_form_shipping.html" with form=form %}
             <input type="hidden" name="next" value="{{ next_url }}" />
+            <input type="hidden" name="form_path" value="{{ request.get_full_path }}" />
             <p class="text-end">
                 <button type="submit" class="btn btn-primary">{% translate "Submit" %}</button>
             </p>

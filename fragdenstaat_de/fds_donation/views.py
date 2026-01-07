@@ -56,7 +56,7 @@ def make_order(request, category):
     messages.add_message(
         request, messages.ERROR, _("Please review your form submission.")
     )
-    return get_redirect(request, next=request.META.get("HTTP_REFERER", "/"))
+    return redirect(request.POST.get("form_path", "/"))
 
 
 class DonationView(FormView):
