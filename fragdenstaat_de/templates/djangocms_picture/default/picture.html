@@ -1,53 +1,64 @@
 {% load fds_cms_tags %}
 {% load markup %}
 {# start render figure/figcaption #}
-{% if instance.caption_text or instance.picture.author %}<figure>{% endif %}
-    {# end render figure/figcaption #}
-    {% if picture_link %}
-        <a href="{{ picture_link }}" {% if instance.link_target %}target="{{ instance.link_target }}" rel="noopener"{% endif %} {{ instance.link_attributes_str }}>
+{% if instance.caption_text or instance.picture.author %}
+    {# djlint:off #}
+    <figure>
+    {# djlint:on #}
+{% endif %}
+{% if picture_link %}
+    {# djlint:off #}
+    <a href="{{ picture_link }}" {% if instance.link_target %}target="{{ instance.link_target }}" rel="noopener"{% endif %} {{ instance.link_attributes_str }}>
+    {# djlint:on #}
+{% endif %}
+{% if not instance.external_picture and not instance.use_no_cropping %}
+    {# djlint:off #}
+        <picture>
+    {# djlint:on #}
+    {% if instance.picture.mime_type != "image/svg+xml" %}
+        {% get_responsive_plugin_image instance as respimg %}
+        {% for source in respimg.sources %}
+            <source srcset="{{ source.srcset }}"
+                    sizes="{{ respimg.sizes }}"
+                    type="{{ source.mime_type }}" />
+        {% endfor %}
+    {% endif %}
+{% endif %}
+<img class="{% if instance.width or instance.height %}{% else %}img-fluid{% endif %}{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}"
+    {% if instance.external_picture %}src="{{ instance.external_picture }}"
+    {% elif instance.use_no_cropping or instance.picture.mime_type == "image/svg+xml" %}src="{{ instance.picture.url }}"
+    {% else %}src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}"{% endif %}
+        {% if not instance.attributes.alt %}alt="{% if instance.picture %}{{ instance.picture.default_alt_text|default:instance.picture.description|default:"" }}{% endif %}"{% endif %}
+        {% if instance.width or instance.height %}
+            {# We are cropping #}
+            {% if instance.width %}width="{{ instance.width|floatformat:"0u" }}"{% endif %}
+            {% if instance.height %}height="{{ instance.height|floatformat:"0u" }}"{% endif %}
+        {% elif instance.picture %}
+            {% if instance.picture.width %}width="{{ instance.picture.width|floatformat:"0u" }}"{% endif %}
+            {% if instance.picture.height %}height="{{ instance.picture.height|floatformat:"0u" }}"{% endif %}
         {% endif %}
-        {% if not instance.external_picture and not instance.use_no_cropping %}
-            <picture>
-                {% if instance.picture.mime_type != "image/svg+xml" %}
-                    {% get_responsive_plugin_image instance as respimg %}
-                    {% for source in respimg.sources %}
-                        <source srcset="{{ source.srcset }}"
-                                sizes="{{ respimg.sizes }}"
-                                type="{{ source.mime_type }}" />
-                    {% endfor %}
-                {% endif %}
-            {% endif %}
-            <img class="{% if instance.width or instance.height %}{% else %}img-fluid{% endif %}{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}"
-                {% if instance.external_picture %}src="{{ instance.external_picture }}"
-                {% elif instance.use_no_cropping or instance.picture.mime_type == "image/svg+xml" %}src="{{ instance.picture.url }}"
-                {% else %}src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}"{% endif %}
-                    {% if not instance.attributes.alt %}alt="{{ instance.picture.default_alt_text|default:instance.picture.description|default:"" }}"{% endif %}
-                    {% if instance.width or instance.height %}
-                        {# We are cropping #}
-                        {% if instance.width %}width="{{ instance.width|floatformat:"0u" }}"{% endif %}
-                        {% if instance.height %}height="{{ instance.height|floatformat:"0u" }}"{% endif %}
-                    {% else %}
-                        {% if instance.picture.width %}width="{{ instance.picture.width|floatformat:"0u" }}"{% endif %}
-                        {% if instance.picture.height %}height="{{ instance.picture.height|floatformat:"0u" }}"{% endif %}
+        {% if instance.attributes.loading %}loading="{{ instance.attributes.loading }}"{% else %}loading="lazy"{% endif %}
+        {{ instance.attributes_str }}
+        />
+        {# djlint:off #}
+{% if not instance.external_picture and not instance.use_no_cropping %}</picture>{% endif %}
+{% if picture_link %}</a>{% endif %}
+        {# djlint:on #}
+        {# start render figure/figcaption #}
+        {% if instance.caption_text or instance.picture.author %}
+            <figcaption class="text-end picture-description">
+                {% if instance.caption_text %}
+                    {{ instance.caption_text|markdown }}
+                    {% if instance.picture.author %}–{% endif %}
                     {% endif %}
-                    {% if instance.attributes.loading %}loading="{{ instance.attributes.loading }}"{% else %}loading="lazy"{% endif %}
-                    {{ instance.attributes_str }}
-                    />
-                    {% if not instance.external_picture and not instance.use_no_cropping %}</picture>{% endif %}
-                {% if picture_link %}</a>{% endif %}
-                {# start render figure/figcaption #}
-                {% if instance.caption_text or instance.picture.author %}
-                    <figcaption class="text-end picture-description">
-                        {% if instance.caption_text %}
-                            {% if instance.caption_text %}{{ instance.caption_text|markdown }}{% endif %}
-                                {% if instance.picture.author %}–{% endif %}
-                                {% endif %}
-                                {% if instance.picture.author %}{{ instance.picture.author|markdown }}{% endif %}
-                                </figcaption>
-                            </figure>
-                        {% endif %}
-                        {# end render figure/figcaption #}
-                        {% comment %}
+                    {% if instance.picture.author %}{{ instance.picture.author|markdown }}{% endif %}
+                        {# djlint:off #}
+                    </figcaption>
+                        {# djlint:on #}
+                    </figure>
+                {% endif %}
+                {# end render figure/figcaption #}
+                {% comment %}
     # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
     # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure
     # https://github.com/divio/django-filer/blob/master/filer/models/imagemodels.py
@@ -78,4 +89,4 @@
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% endfor %}
-                        {% endcomment %}
+                {% endcomment %}
