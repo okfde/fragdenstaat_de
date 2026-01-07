@@ -112,6 +112,18 @@ def skip_stripe_if_no_key(request, settings):
             pytest.skip("skipped stripe test because stripe key is not set")
 
 
+@pytest.fixture(autouse=True)
+def skip_stripe_if_no_cli(request):
+    if request.node.get_closest_marker("stripe"):
+        import shutil
+
+        if not shutil.which("stripe"):
+            raise RuntimeError(
+                "Stripe CLI is not installed. "
+                "Please install the Stripe CLI: https://stripe.com/docs/stripe-cli"
+            )
+
+
 @pytest.fixture
 def stripe_sepa_setup(settings, live_server, monkeypatch):
     settings.SITE_URL = live_server.url
