@@ -3,7 +3,8 @@
 {% if form %}
     {% if form.chosen_gift %}
         <form action="{% url 'fds_donation:make_order' category=category %}"
-              method="post">
+              method="post"
+              class="shipping-form">
             {% csrf_token %}
             {% include "fds_donation/forms/_donation_form_chosen_gift.html" %}
             {% include "fds_donation/forms/_donation_form_shipping.html" with form=form %}
