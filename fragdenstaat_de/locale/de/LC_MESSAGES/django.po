@@ -2656,10 +2656,12 @@ msgid "Continue"
 msgstr "Weiter"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_shipping.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
 msgid "Shipping details"
 msgstr "Versandadresse"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_shipping.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
 msgid "Use receipt address"
 msgstr "Adresse der Spendenbescheinigung verwenden"
 
@@ -4687,17 +4689,21 @@ msgstr[1] ""
 "                                Verwandte Artikel\n"
 "                            "
 
-#~ msgid "Your name"
-#~ msgstr "Dein Name"
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "Your name"
+msgstr "Dein Name"
 
-#~ msgid "Your email address"
-#~ msgstr "Deine E-Mail-Adresse"
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "Your email address"
+msgstr "Deine E-Mail-Adresse"
 
-#~ msgid "Shipping address"
-#~ msgstr "Versandadresse"
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "Shipping address"
+msgstr "Versandadresse"
 
-#~ msgid "Please choose your donation gift"
-#~ msgstr "Wähle Dein Dankeschön aus"
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "Please choose your donation gift"
+msgstr "Wähle Dein Dankeschön aus"
 
 #, python-brace-format
 #~ msgid "Sending... {}"
