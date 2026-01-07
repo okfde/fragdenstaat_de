@@ -107,6 +107,7 @@ def test_order_ineligible_amount(donor_client, donor, donation_gift):
         ),
         {
             "next": "/spenden/danke/",
+            "form_path": "/spenden/geschenk/",
             "chosen_gift": donation_gift.id,
             "shipping_first_name": "Test",
             "shipping_last_name": "User",
@@ -115,10 +116,9 @@ def test_order_ineligible_amount(donor_client, donor, donation_gift):
             "shipping_postcode": "12345",
             "shipping_country": "DE",
         },
-        headers={"Referer": "/foo/"},
     )
     assert response.status_code == 302
-    assert response.url.startswith("/foo/")
+    assert response.url.startswith("/spenden/geschenk/")
 
     # Fix it
     donor.recurring_amount = 20
@@ -130,6 +130,7 @@ def test_order_ineligible_amount(donor_client, donor, donation_gift):
         ),
         {
             "next": "/spenden/danke/",
+            "form_path": "/spenden/geschenk/",
             "chosen_gift": donation_gift.id,
             "shipping_first_name": "Test",
             "shipping_last_name": "User",
@@ -138,7 +139,6 @@ def test_order_ineligible_amount(donor_client, donor, donation_gift):
             "shipping_postcode": "12345",
             "shipping_country": "DE",
         },
-        headers={"Referer": "/foo/"},
     )
     assert response.status_code == 302
     assert response.url.startswith("/spenden/danke/")
@@ -155,6 +155,7 @@ def test_order_ineligible_streak(donor_client, donor, donation_gift):
         ),
         {
             "next": "/spenden/danke/",
+            "form_path": "/spenden/geschenk/",
             "chosen_gift": donation_gift.id,
             "shipping_first_name": "Test",
             "shipping_last_name": "User",
@@ -163,10 +164,9 @@ def test_order_ineligible_streak(donor_client, donor, donation_gift):
             "shipping_postcode": "12345",
             "shipping_country": "DE",
         },
-        headers={"Referer": "/foo/"},
     )
     assert response.status_code == 302
-    assert response.url.startswith("/foo/")
+    assert response.url.startswith("/spenden/geschenk/")
 
     # Fix it
     Recurrence.objects.create(
@@ -182,6 +182,7 @@ def test_order_ineligible_streak(donor_client, donor, donation_gift):
         ),
         {
             "next": "/spenden/danke/",
+            "form_path": "/spenden/geschenk/",
             "chosen_gift": donation_gift.id,
             "shipping_first_name": "Test",
             "shipping_last_name": "User",
@@ -190,10 +191,9 @@ def test_order_ineligible_streak(donor_client, donor, donation_gift):
             "shipping_postcode": "12345",
             "shipping_country": "DE",
         },
-        headers={"Referer": "/foo/"},
     )
     assert response.status_code == 302
-    assert response.url.startswith("/foo/")
+    assert response.url.startswith("/spenden/geschenk/")
 
 
 @pytest.mark.django_db
@@ -210,6 +210,7 @@ def test_order_no_inventory_left(donor_client, donor, donation_gift):
         ),
         {
             "next": "/spenden/danke/",
+            "form_path": "/spenden/geschenk/",
             "chosen_gift": donation_gift.id,
             "shipping_first_name": "Test",
             "shipping_last_name": "User",
@@ -218,10 +219,9 @@ def test_order_no_inventory_left(donor_client, donor, donation_gift):
             "shipping_postcode": "12345",
             "shipping_country": "DE",
         },
-        headers={"Referer": "/foo/"},
     )
     assert response.status_code == 302
-    assert response.url.startswith("/foo/")
+    assert response.url.startswith("/spenden/geschenk/")
 
     # Fix it:
     DonationGiftOrder.objects.all().delete()
@@ -233,6 +233,7 @@ def test_order_no_inventory_left(donor_client, donor, donation_gift):
         ),
         {
             "next": "/spenden/danke/",
+            "form_path": "/spenden/geschenk/",
             "chosen_gift": donation_gift.id,
             "shipping_first_name": "Test",
             "shipping_last_name": "User",
@@ -241,7 +242,6 @@ def test_order_no_inventory_left(donor_client, donor, donation_gift):
             "shipping_postcode": "12345",
             "shipping_country": "DE",
         },
-        headers={"Referer": "/foo/"},
     )
     assert response.status_code == 302
     assert response.url.startswith("/spenden/danke/")
