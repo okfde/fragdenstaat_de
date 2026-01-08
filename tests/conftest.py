@@ -1,10 +1,6 @@
-import os
-
 import pytest
 
 from froide.account.factories import UserFactory
-
-os.environ.setdefault("DJANGO_ALLOW_ASYNC_UNSAFE", "true")
 
 
 @pytest.fixture
