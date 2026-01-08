@@ -6,7 +6,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from froide_legalaction.models import Lawsuit
 
-from .models import Event
+from .models import Event, NextEventsCMSPlugin
 
 
 def sort_event(event: Event | Lawsuit) -> datetime.date:
@@ -20,15 +20,22 @@ class NextEventsPlugin(CMSPluginBase):
     module = pgettext_lazy("physical event", "Events")
     name = pgettext_lazy("physical event", "Next events")
     render_template = "fds_events/event_list.html"
+    model = NextEventsCMSPlugin
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
 
-        # include the entirety of today
         events = Event.objects.get_upcoming()
-        lawsuits = Lawsuit.upcoming.all()
 
-        objects = sorted([*events, *lawsuits], key=sort_event, reverse=True)
+        if instance.tags.exists():
+            events = events.filter(tags__in=instance.tags.all())
+
+        if instance.include_trials:
+            lawsuits = Lawsuit.upcoming.all()
+
+            objects = sorted([*events, *lawsuits], key=sort_event, reverse=True)
+        else:
+            objects = events
 
         context.update({"events": objects})
         return context
