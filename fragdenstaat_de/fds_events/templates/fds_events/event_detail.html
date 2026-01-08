@@ -14,8 +14,11 @@
     {% endif %}
 {% endblock meta %}
 {% block title %}{{ event.title }} – {{ SITE_NAME }}{% endblock %}
-{% block body %}
+{% block navbar %}
+    {{ block.super }}
     {% include "snippets/breadcrumbs.html" %}
+{% endblock navbar %}
+{% block body %}
     <div class="text-bg-blue-10 py-3 py-md-5">
         <div class="container">
             <div class="row">
