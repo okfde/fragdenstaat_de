@@ -2,6 +2,8 @@ import os
 
 from configurations import values
 
+os.environ.setdefault("DJANGO_ALLOW_ASYNC_UNSAFE", "true")
+
 from .base import THEME_ROOT, FragDenStaatBase, env
 
 
