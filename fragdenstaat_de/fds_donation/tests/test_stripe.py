@@ -128,7 +128,7 @@ def skip_stripe_if_no_key(request, settings):
     if request.node.get_closest_marker("stripe"):
         secret_key = settings.PAYMENT_VARIANTS["sepa"][1]["secret_key"]
         if not secret_key:
-            pytest.skip("skipped stripe test because stripe key is not set")
+            raise RuntimeError("skipped stripe test because stripe key is not set")
 
 
 @pytest.fixture(autouse=True)
