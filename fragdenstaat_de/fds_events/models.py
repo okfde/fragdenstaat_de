@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 
+from cms.models import CMSPlugin
 from cms.models.fields import PlaceholderRelationField
 from cms.utils.placeholder import get_placeholder_from_slot
 from filer.fields.image import FilerImageField
@@ -96,3 +97,16 @@ class Event(models.Model):
 
     def get_template(self):
         return "fds_events/placeholder.html"
+
+
+class NextEventsCMSPlugin(CMSPlugin):
+    tags = models.ManyToManyField(
+        EventTag,
+        help_text=_(
+            "Only show events with these tags",
+        ),
+        blank=True,
+    )
+    include_trials = models.BooleanField(
+        default=False, help_text=_("Include trials from lawsuits.")
+    )
