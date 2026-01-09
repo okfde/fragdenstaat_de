@@ -1,4 +1,5 @@
 import re
+import uuid
 
 import pytest
 from django_elasticsearch_dsl.registries import registry
@@ -20,29 +21,40 @@ from fragdenstaat_de.theme.tests.testdata.search_docs import search_docs
 
 @pytest.fixture(scope="session")
 def elasticsearch_client():
-    return Elasticsearch(
+    client = Elasticsearch(
         hosts="http://localhost:9200",
         timeout=30,
         retry_on_timeout=True,
     )
 
+    client.cluster.health(
+        wait_for_status="yellow",
+        timeout="30s",
+    )
+
+    return client
+
 
 @pytest.fixture(scope="session")
 def test_index(elasticsearch_client):
-    index_name = "test_analyzer_index"
+    index_name = f"test_index_{uuid.uuid4().hex}"
     index = Index(index_name, using=elasticsearch_client)
 
     index.analyzer(get_text_analyzer())
     index.analyzer(get_search_analyzer())
     index.analyzer(get_search_quote_analyzer())
 
-    # Ignore errors if the index already exists.
-    index.create(ignore=400)
+    index.create()
+
+    elasticsearch_client.cluster.health(
+        index=index_name,
+        wait_for_status="yellow",
+        timeout="30s",
+    )
 
     yield index_name
 
-    # Ignore errors if the index does not exist.
-    index.delete(ignore=[400, 404])
+    index.delete(ignore=404)
 
 
 @pytest.fixture(scope="session")
@@ -59,7 +71,7 @@ def analyze(elasticsearch_client, test_index):
 
 @pytest.fixture(scope="session")
 def test_document_class(elasticsearch_client):
-    index_name = "test_document_index"
+    index_name = f"test_index_{uuid.uuid4().hex}"
     index = get_index(index_name)
     analyzer = get_text_analyzer()
     search_analyzer = get_search_analyzer()
@@ -78,13 +90,11 @@ def test_document_class(elasticsearch_client):
         class Django:
             model = Article
 
-    # Ignore errors if the index already exists.
-    index.create(ignore=400)
+    index.create()
 
     yield TestDocument
 
-    # Ignore errors if the index does not exist.
-    index.delete(ignore=[400, 404])
+    index.delete(ignore=404)
 
 
 @pytest.fixture(scope="session")
