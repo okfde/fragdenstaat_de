@@ -1,19 +1,21 @@
 import { Tooltip, Collapse } from 'bootstrap'
 
 interface PaymentConfirmData {
-  resolve: (data: Record<string, any>) => void;
-  reject: (error: Error) => void;
-  data: Record<string, string>;
+  resolve: (data: Record<string, any>) => void
+  reject: (error: Error) => void
+  data: Record<string, string>
 }
 
 interface CustomEventMap {
-  "paymentConfirm": CustomEvent<PaymentConfirmData>;
+  paymentConfirm: CustomEvent<PaymentConfirmData>
 }
 declare global {
-  interface HTMLFormElement { //adds definition to Document, but you can do the same with HTMLElement
-    addEventListener<K extends keyof CustomEventMap>(type: K,
-      listener: (this: Document, ev: CustomEventMap[K]) => void): void;
-
+  interface HTMLFormElement {
+    //adds definition to Document, but you can do the same with HTMLElement
+    addEventListener<K extends keyof CustomEventMap>(
+      type: K,
+      listener: (this: Document, ev: CustomEventMap[K]) => void
+    ): void
   }
 }
 
@@ -33,7 +35,7 @@ type AddressFields = Record<string, HTMLFormElement | null>
 const fees: FeeMap = {
   creditcard: (a: number) => Math.round((a * 0.014 + 0.25) * 100) / 100,
   paypal: (a: number) => Math.round((a * 0.015 + 0.35) * 100) / 100,
-  sepa: () => 0.35,
+  sepa: () => 0.35
 }
 
 class DonationForm {
@@ -66,7 +68,8 @@ class DonationForm {
       this.setupIntervalGroup(intervalInputs)
     }
 
-    const hasShipping: boolean = this.form.querySelector('#id_chosen_gift') !== null
+    const hasShipping: boolean =
+      this.form.querySelector('#id_chosen_gift') !== null
     if (hasShipping) {
       setupShipping(this.form)
     }
@@ -163,7 +166,9 @@ class DonationForm {
     this.updateQuickpayment()
   }
 
-  private setupIntervalGroup(intervalInputs: NodeListOf<HTMLFormElement>): void {
+  private setupIntervalGroup(
+    intervalInputs: NodeListOf<HTMLFormElement>
+  ): void {
     const oneTimeFields = document.querySelectorAll<HTMLInputElement>(
       '[data-toggle="nonrecurring"]'
     )
@@ -283,54 +288,63 @@ class DonationForm {
   }
 
   private setupQuickpayment(): void {
-    this.quickpayment = this.form.querySelector("[data-quickpayment]")
+    this.quickpayment = this.form.querySelector('[data-quickpayment]')
     this.quickpayment?.addEventListener('quickpaymentAvailable', () => {
       this.updateQuickpayment()
       this.form.removeAttribute('hidden')
     })
-    this.quickpayment?.addEventListener('paymentConfirm', async (event: CustomEvent<PaymentConfirmData>) => {
-      //take form data, update with quickpayment data and send via fetch
-      const quickPaymentdata: Record<string, string> = event.detail.data
-      const formData = new FormData(this.form)
+    this.quickpayment?.addEventListener(
+      'paymentConfirm',
+      async (event: CustomEvent<PaymentConfirmData>) => {
+        //take form data, update with quickpayment data and send via fetch
+        const quickPaymentdata: Record<string, string> = event.detail.data
+        const formData = new FormData(this.form)
 
-      const name = quickPaymentdata.name || ''
-      const nameParts = name.split(' ')
+        const name = quickPaymentdata.name || ''
+        const nameParts = name.split(' ')
 
-      const data = {
-        first_name: nameParts[0] || '',
-        last_name: nameParts.slice(1).join(' ') || nameParts[0],
-        email: quickPaymentdata.email,
-        city: quickPaymentdata.city || '',
-        postcode: quickPaymentdata.postcode || '',
-        country: quickPaymentdata.country || '',
-        address: (quickPaymentdata.street_address_1 || '') + (quickPaymentdata.street_address_2 ? `, ${quickPaymentdata.street_address_2}` : ''),
-      }
-
-      for (const [key, value] of Object.entries(data)) {
-        formData.set(key, value)
-      }
-
-      const csrfTokenInput = this.form.querySelector('input[name="csrfmiddlewaretoken"]') as HTMLInputElement
-      if (!csrfTokenInput) {
-        event.detail.reject(new Error('CSRF token not found'))
-        return
-      }
-      const fetchOptions: RequestInit = {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Accept': 'application/json',
-          'X-CSRFToken': csrfTokenInput.value
+        const data = {
+          first_name: nameParts[0] || '',
+          last_name: nameParts.slice(1).join(' ') || nameParts[0],
+          email: quickPaymentdata.email,
+          city: quickPaymentdata.city || '',
+          postcode: quickPaymentdata.postcode || '',
+          country: quickPaymentdata.country || '',
+          address:
+            (quickPaymentdata.street_address_1 || '') +
+            (quickPaymentdata.street_address_2
+              ? `, ${quickPaymentdata.street_address_2}`
+              : '')
         }
+
+        for (const [key, value] of Object.entries(data)) {
+          formData.set(key, value)
+        }
+
+        const csrfTokenInput = this.form.querySelector(
+          'input[name="csrfmiddlewaretoken"]'
+        ) as HTMLInputElement
+        if (!csrfTokenInput) {
+          event.detail.reject(new Error('CSRF token not found'))
+          return
+        }
+        const fetchOptions: RequestInit = {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            Accept: 'application/json',
+            'X-CSRFToken': csrfTokenInput.value
+          }
+        }
+        const response = await fetch(this.form.action, fetchOptions)
+        if (!response.ok) {
+          event.detail.reject(new Error('Network response was not ok'))
+        }
+        const responseData = await response.json()
+        event.detail.resolve(responseData)
       }
-      const response = await fetch(this.form.action, fetchOptions)
-      if (!response.ok) {
-        event.detail.reject(new Error('Network response was not ok'))
-      }
-      const responseData = await response.json()
-      event.detail.resolve(responseData)
-    })
+    )
   }
 
   private updateQuickpayment(): void {
@@ -338,10 +352,12 @@ class DonationForm {
       return
     }
     const formData = new FormData(this.form)
-    let amount, interval;
+    let amount, interval
     if (formData.get('amount')) {
       // amount in eurocents
-      amount = Math.floor(parseFloat((formData.get('amount') as string).replace(',', '.')) * 100)
+      amount = Math.floor(
+        parseFloat((formData.get('amount') as string).replace(',', '.')) * 100
+      )
       if (isNaN(amount)) {
         amount = undefined
       }
@@ -350,21 +366,19 @@ class DonationForm {
       interval = parseInt(formData.get('interval') as string, 10)
     }
     if (amount !== undefined && interval !== undefined) {
-      const event = new CustomEvent("donationchange", {
+      const event = new CustomEvent('donationchange', {
         detail: {
           amount,
           interval
         }
-      });
-      this.quickpayment.dispatchEvent(event);
+      })
+      this.quickpayment.dispatchEvent(event)
     }
   }
 }
 
 const setupShipping = (form: HTMLFormElement) => {
-  const fillShippingFields = form.querySelector(
-    '[data-fillfields="shipping"]'
-  )
+  const fillShippingFields = form.querySelector('[data-fillfields="shipping"]')
   const shippingFields = form.querySelectorAll<HTMLFormElement>(
     "input[name*='shipping'], select[name*='shipping']"
   )
@@ -408,25 +422,27 @@ const setupShipping = (form: HTMLFormElement) => {
     el.addEventListener('change', setFillShippingButton)
   })
 
-  const giftField: HTMLSelectElement | null = form.querySelector('#id_chosen_gift');
-  const needsAddressText = giftField?.dataset.needsAddress;
-  const shippingFieldset: HTMLFieldSetElement | null = form.querySelector('#shipping_fieldset');
-  if (!needsAddressText || !giftField || !shippingFieldset) return;
-  const needsAddress = JSON.parse(needsAddressText);
+  const giftField: HTMLSelectElement | null =
+    form.querySelector('#id_chosen_gift')
+  const needsAddressText = giftField?.dataset.needsAddress
+  const shippingFieldset: HTMLFieldSetElement | null =
+    form.querySelector('#shipping_fieldset')
+  if (!needsAddressText || !giftField || !shippingFieldset) return
+  const needsAddress = JSON.parse(needsAddressText)
 
   const updateShippingVisibility = () => {
-    const selected_gift = giftField.value;
-    const giftNeedsAddress = needsAddress[selected_gift];
+    const selected_gift = giftField.value
+    const giftNeedsAddress = needsAddress[selected_gift]
     if (giftNeedsAddress) {
-      shippingFieldset.style.display = 'block';
+      shippingFieldset.style.display = 'block'
     } else {
-      shippingFieldset.style.display = 'none';
+      shippingFieldset.style.display = 'none'
     }
     shippingFields.forEach((el) => {
       el.required = giftNeedsAddress
-    });
+    })
   }
-  updateShippingVisibility();
+  updateShippingVisibility()
   giftField.addEventListener('change', updateShippingVisibility)
 }
 
@@ -436,9 +452,11 @@ if (donationForm !== null) {
   new DonationForm(donationForm as HTMLFormElement)
 
   // Hide tagged donation links in header when there's a donation form on the page
-  const donationLinks = document.querySelectorAll<HTMLElement>("[data-donationlink]")
+  const donationLinks = document.querySelectorAll<HTMLElement>(
+    '[data-donationlink]'
+  )
   donationLinks.forEach((link) => {
-    link.style.display = "none"
+    link.style.display = 'none'
     link.classList.add('d-none')
     link.classList.add('d-sm-none')
     link.classList.add('d-md-none')

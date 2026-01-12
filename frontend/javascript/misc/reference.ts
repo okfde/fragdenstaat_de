@@ -10,12 +10,15 @@ function getReferenceData(): ReferenceData {
   if (URLSearchParams === undefined) return {}
 
   const urlParams = new URLSearchParams(window.location.search)
-  const reference = urlParams.get('pk_campaign') ?? document.location.pathname.split("/")[1] ?? 'homepage'
+  const reference =
+    urlParams.get('pk_campaign') ??
+    document.location.pathname.split('/')[1] ??
+    'homepage'
   const content = urlParams.get('pk_content') || ''
   const urlKeyword = urlParams.get('pk_keyword')
   let keyword = `${document.location.href}#${content} @ ${document.referrer}`
   if (urlKeyword !== null) {
-    if (urlKeyword.indexOf("#") === -1) {
+    if (urlKeyword.indexOf('#') === -1) {
       keyword = `${urlKeyword}#${content}`
     } else {
       keyword = urlKeyword
@@ -45,8 +48,8 @@ formsWithReference.forEach((form) => {
   }
 })
 
-const linksWithReference = document.querySelectorAll('a[data-reference]');
-([...linksWithReference] as HTMLLinkElement[]).forEach((link) => {
+const linksWithReference = document.querySelectorAll('a[data-reference]')
+;([...linksWithReference] as HTMLLinkElement[]).forEach((link) => {
   const referenceData: ReferenceData = getReferenceData()
   const href = link.getAttribute('href')
   if (!href) return

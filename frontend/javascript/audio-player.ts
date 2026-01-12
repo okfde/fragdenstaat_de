@@ -11,7 +11,8 @@ document.querySelectorAll<HTMLDivElement>('.audio-player').forEach((root) => {
 
   const updatePlaying = (playing: boolean): void => {
     const iconClasses = playBtn?.querySelector('i')?.classList
-    if (playing) {      iconClasses?.add('fa-pause')
+    if (playing) {
+      iconClasses?.add('fa-pause')
       iconClasses?.remove('fa-play')
     } else {
       iconClasses?.remove('fa-pause')

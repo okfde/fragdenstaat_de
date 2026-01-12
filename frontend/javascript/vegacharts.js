@@ -148,9 +148,8 @@ document.querySelectorAll('[data-vegachart]').forEach((el) => {
     }
   }
 
-
   if (spec.columns) {
-    // If we have a facet chart with columns and 
+    // If we have a facet chart with columns and
     if (el.clientWidth < 500) {
       spec.columns = Math.floor(spec.columns / 2)
     }
