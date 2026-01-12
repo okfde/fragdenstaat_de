@@ -136,7 +136,7 @@ dev = [
 production = [
   "gunicorn",
   "pymemcache",
-  "channels_redis==4.1.0",
+  "channels_redis==4.3.0",
   "uvicorn",
   "sentry-sdk",
   "pillow-avif-plugin",
