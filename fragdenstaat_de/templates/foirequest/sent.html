@@ -1,7 +1,6 @@
 {# djlint:off D018 #}
 {% extends 'foirequest/sent.html' %}
 {% load newsletter_tags %}
-{% load frontendbuild %}
 {% block foirequest_sent_footer %}
     {% newsletter_is_subscribed as has_newsletter %}
     {% if has_newsletter %}
@@ -24,5 +23,4 @@
             <div class="col-md-8 mx-auto">{% include "fds_newsletter/plugins/newsletter_form.html" %}</div>
         </div>
     {% endif %}
-    {% include "_frontend.html" with entry_point="makerequest_purgestorage.js" %}
 {% endblock %}
