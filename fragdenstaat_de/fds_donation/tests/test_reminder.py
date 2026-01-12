@@ -2,6 +2,7 @@ from datetime import timedelta
 from decimal import Decimal
 
 from django.conf import settings
+from django.urls import reverse
 from django.utils import timezone
 
 import pytest
@@ -105,5 +106,5 @@ def test_send_incomplete_reminder(mailoutbox):
     assert len(mailoutbox) == 1
     m = mailoutbox[0]
     assert settings.SITE_URL + payment.get_absolute_payment_url() in m.body
-    assert donor.get_donate_url() in m.body
+    assert reverse("fds_donation:donor") in m.body
     assert list(m.to) == [donor.email]
