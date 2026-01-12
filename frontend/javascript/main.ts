@@ -8,7 +8,7 @@ import 'froide/frontend/javascript/snippets/share-links'
 import 'froide/frontend/javascript/snippets/inline-edit-forms'
 import 'froide/frontend/javascript/snippets/color-mode'
 import { initSearch } from 'froide/frontend/javascript/snippets/search'
-import { purgeStorageAfterLogout } from 'froide/frontend/javascript/snippets/purgestorage.ts'
+// import { purgeStorageAfterLogout } from 'froide/frontend/javascript/snippets/purgestorage.ts'
 
 import './donation-form'
 import './magnifier'
@@ -27,6 +27,6 @@ if (document.body.dataset.sentry !== undefined) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  purgeStorageAfterLogout()
+  // purgeStorageAfterLogout()
   initSearch([['recherchen', '/artikel/suche/']])
 })
