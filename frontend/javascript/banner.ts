@@ -61,7 +61,8 @@ function initializeBanner(banner: HTMLElement): boolean {
     '/abgeschlossen/',
     '/anfrage-stellen/',
     '/make-request/',
-    '/account/'
+    '/account/',
+    '/links/'
   ]
   if (blockedPaths.some((p) => path.includes(p))) {
     return removeBanner()
