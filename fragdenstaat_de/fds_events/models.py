@@ -7,9 +7,12 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 
+from cms.models import CMSPlugin
 from cms.models.fields import PlaceholderRelationField
 from cms.utils.placeholder import get_placeholder_from_slot
 from filer.fields.image import FilerImageField
+from taggit.managers import TaggableManager
+from taggit.models import TagBase, TaggedItemBase
 
 
 class EventManager(models.Manager):
@@ -20,6 +23,21 @@ class EventManager(models.Manager):
             .filter(public=True, end_date__gt=tomorrow)
             .order_by("start_date")
         )
+
+
+class EventTag(TagBase):
+    class Meta:
+        verbose_name = pgettext_lazy("physical event", "Event Tag")
+        verbose_name_plural = pgettext_lazy("physical event", "Event Tags")
+
+
+class TaggedEvent(TaggedItemBase):
+    tag = models.ForeignKey(EventTag, on_delete=models.CASCADE)
+    content_object = models.ForeignKey("Event", on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = pgettext_lazy("physical event", "Tagged Event")
+        verbose_name_plural = pgettext_lazy("physical event", "Tagged Events")
 
 
 class Event(models.Model):
@@ -40,6 +58,7 @@ class Event(models.Model):
     )
     public = models.BooleanField(default=False)
     placeholders = PlaceholderRelationField()
+    tags = TaggableManager(through=TaggedEvent)
 
     image = FilerImageField(
         null=True,
@@ -78,3 +97,16 @@ class Event(models.Model):
 
     def get_template(self):
         return "fds_events/placeholder.html"
+
+
+class NextEventsCMSPlugin(CMSPlugin):
+    tags = models.ManyToManyField(
+        EventTag,
+        help_text=_(
+            "Only show events with these tags",
+        ),
+        blank=True,
+    )
+    include_trials = models.BooleanField(
+        default=False, help_text=_("Include trials from lawsuits.")
+    )

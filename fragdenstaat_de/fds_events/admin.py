@@ -7,14 +7,26 @@ from django.utils.translation import gettext_lazy as _
 from cms.api import add_plugin
 from cms.toolbar.utils import get_object_edit_url
 
-from .models import Event
+from froide.helper.widgets import TagAutocompleteWidget
+
+from fragdenstaat_de.theme.admin import make_tag_autocomplete_admin
+
+from .models import Event, EventTag
+
+TAG_AUTOCOMPLETE_URL = make_tag_autocomplete_admin(
+    EventTag, "fds_events-eventtag-autocomplete"
+)
 
 
 class EventAdminForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = "__all__"
-        widgets = {"description": Textarea(), "location": Textarea()}
+        widgets = {
+            "description": Textarea(),
+            "location": Textarea(),
+            "tags": TagAutocompleteWidget(autocomplete_url=TAG_AUTOCOMPLETE_URL),
+        }
 
 
 @admin.register(Event)

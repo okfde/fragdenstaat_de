@@ -9,10 +9,9 @@ from django.contrib.admin.views.main import ChangeList
 from django.core.exceptions import PermissionDenied
 from django.db.models import Aggregate, Avg, Count, F, Max, Q, Sum, Value
 from django.db.models.functions import Concat
-from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
-from django.urls import path, reverse, reverse_lazy
+from django.urls import path, reverse
 from django.utils import formats, timezone
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -39,6 +38,7 @@ from froide.helper.widgets import TagAutocompleteWidget
 from fragdenstaat_de.fds_mailing.models import MailingMessage
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 from fragdenstaat_de.fds_newsletter.admin_utils import make_subscriber_tagger
+from fragdenstaat_de.theme.admin import make_tag_autocomplete_admin
 
 from .admin_utils import (
     ActiveRecurrencesListFilter,
@@ -72,36 +72,9 @@ def median(field):
     )
 
 
-DONOR_TAG_AUTOCOMPLETE = reverse_lazy("admin:fds_donation-donortag-autocomplete")
-
-
-class DonorTagAdmin(admin.ModelAdmin):
-    def get_urls(self):
-        urls = super().get_urls()
-        my_urls = [
-            path(
-                "autocomplete/",
-                self.admin_site.admin_view(self.autocomplete),
-                name="fds_donation-donortag-autocomplete",
-            ),
-        ]
-        return my_urls + urls
-
-    def autocomplete(self, request):
-        if not request.method == "GET":
-            raise PermissionDenied
-        if not self.has_change_permission(request):
-            raise PermissionDenied
-
-        query = request.GET.get("q", "")
-        tags = []
-        if query:
-            tags = DonorTag.objects.filter(name__istartswith=query).values_list(
-                "name", flat=True
-            )
-        return JsonResponse(
-            {"objects": [{"value": t, "label": t} for t in tags]}, safe=False
-        )
+DONOR_TAG_AUTOCOMPLETE = make_tag_autocomplete_admin(
+    DonorTag, "fds_donation-donortag-autocomplete"
+)
 
 
 class DonorAdminForm(forms.ModelForm):
@@ -143,6 +116,7 @@ class DonorChangeList(ChangeList):
         return ret
 
 
+@admin.register(Donor)
 class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     form = DonorAdminForm
 
@@ -691,6 +665,7 @@ class DonationChangeList(ChangeList):
         return ret
 
 
+@admin.register(Donation)
 class DonationAdmin(admin.ModelAdmin):
     def get_changelist(self, request):
         return DonationChangeList
@@ -1075,6 +1050,7 @@ class DonationAdmin(admin.ModelAdmin):
         return redirect("admin:fds_donation_donation_changelist")
 
 
+@admin.register(DonationGift)
 class DonationGiftAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = (
         "name",
@@ -1106,6 +1082,7 @@ class DonationGiftAdmin(SortableAdminMixin, admin.ModelAdmin):
     remaining_count.short_description = _("remaining count")
 
 
+@admin.register(DonationGiftOrder)
 class DonationGiftOrderAdmin(admin.ModelAdmin):
     date_hierarchy = "timestamp"
     raw_id_fields = ("donation",)
@@ -1212,17 +1189,10 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
     export_csv.short_description = _("export as csv")
 
 
+@admin.register(DefaultDonation)
 class DefaultDonationAdmin(DonationAdmin):
     list_display = [x for x in DonationAdmin.list_display if x != "project"]
     list_filter = [x for x in DonationAdmin.list_filter if x != "project"]
-
-
-admin.site.register(Donor, DonorAdmin)
-admin.site.register(Donation, DonationAdmin)
-admin.site.register(DonationGift, DonationGiftAdmin)
-admin.site.register(DonationGiftOrder, DonationGiftOrderAdmin)
-admin.site.register(DonorTag, DonorTagAdmin)
-admin.site.register(DefaultDonation, DefaultDonationAdmin)
 
 
 class DeferredDonationAdmin(admin.ModelAdmin):
