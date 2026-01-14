@@ -40,7 +40,7 @@
     {% if updated_articles %}
         <div class="blog-content">
             <p>
-                {% blocktranslate count counter=updated_articles|length %}
+                {% blocktranslate trimmed count counter=updated_articles|length %}
                     Updated article:
                 {% plural %}
                     Updated articles:
@@ -107,7 +107,7 @@
                 {% if authors_with_profiles %}
                     <div class="container-lg">
                         <h3 class="small text-secondary">
-                            {% blocktranslate count counter=authors_with_profiles|length %}
+                            {% blocktranslate trimmed count counter=authors_with_profiles|length %}
                                 About the author
                             {% plural %}
                                 About the authors
@@ -129,13 +129,13 @@
                     <div class="container-lg mt-4">
                         <h3 class="small text-secondary">
                             {% if authors_with_profiles %}
-                                {% blocktranslate count counter=authors_without_profiles|length %}
+                                {% blocktranslate trimmed count counter=authors_without_profiles|length %}
                                     Further author
                                 {% plural %}
                                     Further authors
                                 {% endblocktranslate %}
                             {% else %}
-                                {% blocktranslate count counter=authors_without_profiles|length %}
+                                {% blocktranslate trimmed count counter=authors_without_profiles|length %}
                                     Author
                                 {% plural %}
                                     Authors
@@ -173,7 +173,7 @@
                 <section>
                     <div class="container-lg">
                         <h3 class="small text-secondary">
-                            {% blocktranslate count counter=article_suggestions|length %}
+                            {% blocktranslate trimmed count counter=article_suggestions|length %}
                                 Related article
                             {% plural %}
                                 Related articles
