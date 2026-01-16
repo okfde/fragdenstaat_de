@@ -209,6 +209,7 @@ addopts = ["--reuse-db", "-m", "not stripe and not paypal"]
 markers = [
   "stripe: Run donation tests with stripe test keys",
   "paypal: Run donation tests with paypal sandbox keys",
+  "elasticsearch: Run tests requiring an elasticsearch instance",
 ]
 filterwarnings = [
   "ignore::DeprecationWarning:(?!fragdenstaat_de).*",
