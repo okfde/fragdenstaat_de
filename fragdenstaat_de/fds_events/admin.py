@@ -37,6 +37,7 @@ class EventAdmin(admin.ModelAdmin):
         "start_date",
         "end_date",
     )
+    prepopulated_fields = {"slug": ("title",)}
     search_fields = ["title"]
     form = EventAdminForm
 
