@@ -28,7 +28,7 @@ class NextEventsPlugin(CMSPluginBase):
         events = Event.objects.get_upcoming()
 
         if instance.tags.exists():
-            events = events.filter(tags__in=instance.tags.all())
+            events = events.filter(tags__in=instance.tags.all()).distinct()
 
         if instance.include_trials:
             lawsuits = Lawsuit.upcoming.all()
