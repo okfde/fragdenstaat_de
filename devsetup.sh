@@ -14,6 +14,12 @@ REPOS=("froide" "froide-campaign" "froide-legalaction" "froide-food" "froide-pay
 FRONTEND=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "froide_legalaction" "@okfde/filingcabinet")
 FRONTEND_DIR=("froide" "froide-food" "froide-exam" "froide-campaign" "froide-payment" "froide-legalaction" "django-filingcabinet")
 FROIDE_PEERS=("froide-campaign" "froide-food") # these have peer-dependencies on froide
+if [[ $(basename "$PWD") == "$MAIN" ]]; then
+  # make sure we're starting from the main project's parent dir,
+  # even when executed from main project
+  cd ..
+fi
+
 
 ask() {
     # https://djm.me/ask
