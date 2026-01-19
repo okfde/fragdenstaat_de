@@ -1,6 +1,8 @@
 import uuid
 from urllib.parse import urlencode
 
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from django.utils import timezone
 
@@ -166,6 +168,55 @@ def test_legacy_donor_redirect(client, view_name):
     next_path = urlencode({"next": reverse(f"fds_donation:donor{view_name}")})
     assert next_path in response.url
     assert response.url.startswith(reverse("fds_donation:donor-send-login-link"))
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("view_name", ["", "-change", "-donate"])
+def test_legacy_donor_manage(client, view_name, donor):
+    staff_user = UserFactory(username="staff")
+    staff_user.is_staff = True
+    staff_user.save()
+    permission = Permission.objects.get(
+        codename="change_donor",
+        content_type=ContentType.objects.get_for_model(Donor),
+    )
+
+    send_login_link_url = reverse("fds_donation:donor-send-login-link")
+
+    legacy_url = reverse(
+        f"fds_donation:donor-legacy{view_name}", kwargs={"token": str(donor.uuid)}
+    )
+    response = client.get(legacy_url)
+    assert response.status_code == 302
+    assert response.headers["Location"].startswith(send_login_link_url)
+
+    client.force_login(staff_user)
+
+    legacy_url = reverse(
+        f"fds_donation:donor-legacy{view_name}", kwargs={"token": str(donor.uuid)}
+    )
+    response = client.get(legacy_url)
+    assert response.status_code == 302
+    assert response.headers["Location"].startswith(send_login_link_url)
+
+    staff_user.user_permissions.add(permission)
+
+    bad_legacy_url = reverse(
+        f"fds_donation:donor-legacy{view_name}", kwargs={"token": str(uuid.uuid4())}
+    )
+    response = client.get(bad_legacy_url)
+    assert response.status_code == 404
+
+    legacy_url = reverse(
+        f"fds_donation:donor-legacy{view_name}", kwargs={"token": str(donor.uuid)}
+    )
+    response = client.get(legacy_url)
+    assert response.status_code == 302
+    assert response.headers["Location"].startswith(
+        reverse(f"fds_donation:donor{view_name}")
+    )
+    response = client.get(response.headers["Location"])
+    assert response.status_code == 200
 
 
 @pytest.mark.django_db

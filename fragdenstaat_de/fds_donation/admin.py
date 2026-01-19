@@ -334,6 +334,9 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             qs = qs.filter(any_donation__gt=0)
         return qs
 
+    def view_on_site(self, obj):
+        return reverse("fds_donation:donor-legacy", kwargs={"token": obj.uuid})
+
     def get_readonly_fields(self, request, obj):
         if obj.user and is_crew(obj.user):
             # Allow recurring amount change on crew donors for testing

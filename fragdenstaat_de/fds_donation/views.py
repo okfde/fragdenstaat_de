@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
@@ -349,9 +349,25 @@ def donor_login(request, donor_id, token, next_path):
     )
 
 
+def can_change_donor(request):
+    return request.user.is_staff and request.user.has_perm("fds_donation.change_donor")
+
+
 def get_legacy_redirect(url_name):
     def redirect_legacy_donor_view(request, token):
         path = reverse(url_name)
+        if can_change_donor(request):
+            donor = get_object_or_404(Donor, uuid=token)
+            request.session[DONOR_SESSION_KEY] = donor.id
+            messages.add_message(
+                request,
+                messages.INFO,
+                _("You are accessing the donor profile of {name} ({email})").format(
+                    name=donor.get_full_name(), email=donor.email
+                ),
+            )
+            return redirect(path)
+
         return redirect(
             update_query_params(
                 reverse("fds_donation:donor-send-login-link"), {"next": path}
