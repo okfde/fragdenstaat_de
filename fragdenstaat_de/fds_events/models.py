@@ -103,7 +103,7 @@ class NextEventsCMSPlugin(CMSPlugin):
     tags = models.ManyToManyField(
         EventTag,
         help_text=_(
-            "Only show events with these tags",
+            "Only show events with these tags.",
         ),
         blank=True,
     )
