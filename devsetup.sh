@@ -14,6 +14,11 @@ REPOS=("froide" "froide-campaign" "froide-legalaction" "froide-food" "froide-pay
 FRONTEND=("froide" "froide_food" "froide_exam" "froide_campaign" "froide_payment" "froide_legalaction" "@okfde/filingcabinet")
 FRONTEND_DIR=("froide" "froide-food" "froide-exam" "froide-campaign" "froide-payment" "froide-legalaction" "django-filingcabinet")
 FROIDE_PEERS=("froide-campaign" "froide-food") # these have peer-dependencies on froide
+
+ALL=("$MAIN" "${REPOS[@]}")
+
+PYTHON_VERSION="3.14"
+
 if [[ $(basename "$PWD") == "$MAIN" ]]; then
   # make sure we're starting from the main project's parent dir,
   # even when executed from main project
@@ -22,67 +27,47 @@ fi
 
 
 ask() {
-    # https://djm.me/ask
-    local prompt default reply
+  # https://djm.me/ask
+  local prompt default reply
 
-    if [ "${2:-}" = "Y" ]; then
-        prompt="Y/n"
-        default=Y
-    elif [ "${2:-}" = "N" ]; then
-        prompt="y/N"
-        default=N
-    else
-        prompt="y/n"
-        default=
-    fi
-
-    while true; do
-
-        # Ask the question (not using "read -p" as it uses stderr not stdout)
-        echo -n "$1 [$prompt] "
-
-        # Read the answer (use /dev/tty in case stdin is redirected from somewhere else)
-        read reply </dev/tty
-
-        # Default?
-        if [ -z "$reply" ]; then
-            reply=$default
-        fi
-
-        # Check if the reply is valid
-        case "$reply" in
-            Y*|y*) return 0 ;;
-            N*|n*) return 1 ;;
-        esac
-
-    done
-}
-
-install_precommit() {
-  local repo_dir="$1"
-  if [ -e "$repo_dir/.pre-commit-config.yaml" ]; then
-    pushd "$repo_dir"
-    pre-commit install
-    popd
-  fi
-}
-
-venv() {
-  echo "You need python >= 3.10, uv and pnpm installed."
-
-  python3 --version
-  pnpm --version
-  uv --version
-
-  if [ ! -d fds-env ]; then
-    if ask "Do you want to create a virtual environment using $(python3 --version)?" Y; then
-      echo "Creating virtual environment with uv and $(python3 --version)"
-      uv venv fds-env
-    fi
+  if [ "${2:-}" = "Y" ]; then
+    prompt="Y/n"
+    default=Y
+  elif [ "${2:-}" = "N" ]; then
+    prompt="y/N"
+    default=N
+  else
+    prompt="y/n"
+    default=
   fi
 
-  if [ ! -d fds-env ]; then
-    echo "Could not find virtual environment fds-env"
+  while true; do
+    # Ask the question (not using "read -p" as it uses stderr not stdout)
+    echo -n "$1 [$prompt] "
+
+    # Read the answer (use /dev/tty in case stdin is redirected from somewhere else)
+    read reply </dev/tty
+
+    # Default?
+    if [ -z "$reply" ]; then
+      reply=$default
+    fi
+
+    # Check if the reply is valid
+    case "$reply" in
+      Y*|y*) return 0 ;;
+      N*|n*) return 1 ;;
+    esac
+  done
+}
+
+check_versions() {
+  echo "You need python, uv and pnpm 9 installed."
+
+  uv --version >> /dev/null
+
+  if [[ "$(pnpm --version)" != 9.* ]]; then
+    echo You need to have pnpm v9 installed.
   fi
 }
 
@@ -109,17 +94,32 @@ pull() {
 }
 
 dependencies() {
-  source fds-env/bin/activate
-  echo "Installing $MAIN..."
+  echo "Creating virtual environments and installing dependencies..."
 
-  uv pip install -r $MAIN/requirements-dev.txt
-  install_precommit "$MAIN"
+  for name in "${ALL[@]}"; do
+    pushd "$name"
+    
+    if [ ! -d ".venv" ]; then
+      uv venv -p "$PYTHON_VERSION"
+    fi
 
-  echo "Cloning / installing all editable dependencies..."
+    uv sync --all-extras
+    source .venv/bin/activate
 
-  for name in "${REPOS[@]}"; do
-    uv pip install -e "./$name" --config-setting editable_mode=compat
-    install_precommit "$name"
+    if [[ $name == "froide" ]]; then
+      uv pip install -e ../django-filingcabinet
+    fi
+
+    if [[ $name == "$MAIN" ]]; then
+      for project in "${REPOS[@]}"; do
+        uv pip install -e "../$project" --config-setting editable_mode=compat
+      done
+    fi
+
+    if [ -e ".pre-commit-config.yaml" ]; then
+      pre-commit install
+    fi
+    popd
   done
 }
 
@@ -160,20 +160,22 @@ frontend() {
 }
 
 upgrade_frontend_repos() {
+  pushd "$MAIN"
   pnpm update "${FRONTEND[@]}"
+  popd
 }
 
 messages() {
-  fds-env/bin/python fragdenstaat_de/manage.py compilemessages -l de -i node_modules
+  pushd "$MAIN"
+  source .venv/bin/activate
+  python fragdenstaat_de/manage.py compilemessages -l de -i node_modules
+  popd
 }
 
 forall() {
   echo "Executing '$@' in all repos"
-  pushd $MAIN
-    "$@"
-  popd
 
-  for name in "${REPOS[@]}"; do
+  for name in "${ALL[@]}"; do
     pushd $name
       "$@"
     popd
@@ -188,7 +190,7 @@ help() {
 
 
 if [ -z "$1" ]; then
-  venv
+  check_versions
   pull
   dependencies
   frontend
