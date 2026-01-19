@@ -112,6 +112,15 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+production = [
+  "gunicorn",
+  "pymemcache",
+  "channels_redis==4.1.0",
+  "uvicorn",
+  "sentry-sdk",
+]
+
+[dependency-groups]
 dev = [
   "django-debug-toolbar>=3.2.1",
   "coverage",
@@ -131,15 +140,8 @@ dev = [
   "time-machine",
   "honcho",
   "ipdb",
-  "ipython>=7.31.1,<9",
+  "ipython",
   "pywatchman",
-]
-production = [
-  "gunicorn",
-  "pymemcache",
-  "channels_redis==4.1.0",
-  "uvicorn",
-  "sentry-sdk",
 ]
 
 [tool.uv.pip]
