@@ -17,10 +17,10 @@ from taggit.models import TagBase, TaggedItemBase
 
 class EventManager(models.Manager):
     def get_upcoming(self):
-        tomorrow = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
+        today = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
         return (
             self.get_queryset()
-            .filter(public=True, end_date__gt=tomorrow)
+            .filter(public=True, end_date__gt=today)
             .order_by("start_date")
         )
 
@@ -110,3 +110,4 @@ class NextEventsCMSPlugin(CMSPlugin):
     include_trials = models.BooleanField(
         default=False, help_text=_("Include trials from lawsuits.")
     )
+    limit = models.IntegerField(default=0, help_text=_("0 means all events"))

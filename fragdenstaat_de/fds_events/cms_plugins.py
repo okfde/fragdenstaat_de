@@ -30,12 +30,19 @@ class NextEventsPlugin(CMSPluginBase):
         if instance.tags.exists():
             events = events.filter(tags__in=instance.tags.all()).distinct()
 
+        if instance.limit != 0:
+            # upper limit
+            events = events[: instance.limit]
+
         if instance.include_trials:
             lawsuits = Lawsuit.upcoming.all()
 
-            objects = sorted([*events, *lawsuits], key=sort_event, reverse=True)
+            objects = sorted([*events, *lawsuits], key=sort_event)
         else:
             objects = events
+
+        if instance.limit != 0:
+            objects = objects[: instance.limit]
 
         context.update({"events": objects})
         return context
