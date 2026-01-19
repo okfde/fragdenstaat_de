@@ -124,9 +124,7 @@ frontend() {
   # Install and link all frontend packages
   for name in "${FRONTEND_DIR[@]}"; do
     pushd "$name"
-    if ! pnpm list -g --depth=0 | grep -q "$name"; then
-        pnpm link --global
-    fi
+    pnpm link --global
     pnpm install
     popd
   done
@@ -134,9 +132,7 @@ frontend() {
  # Link froide peer dependencies
   for name in "${FROIDE_PEERS[@]}"; do
     pushd "$name"
-    if ! pnpm list -g --depth=0 | grep -q "$name"; then
-        pnpm link --global "froide"
-    fi
+    pnpm link --global "froide"
     popd
   done
 
@@ -144,9 +140,7 @@ frontend() {
   pushd "$MAIN"
   pnpm install
   for name in "${FRONTEND[@]}"; do
-    if ! pnpm list -g --depth=0 | grep -q "$name"; then
-        pnpm link --global "$name"
-    fi
+    pnpm link --global "$name"
   done
   popd
 }
