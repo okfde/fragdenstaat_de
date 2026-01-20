@@ -82,11 +82,10 @@ class SendMailAction(BaseAction):
                 "SendMailAction requires an object with an 'email' attribute or a 'get_email' method."
             )
 
-        context = run.context.copy()
+        context = self.get_context().copy()
         obj_key = obj.__class__.__name__.lower()
         context[obj_key] = obj
         config.email_template.send(
             email,
             context=context,
-            subject=config.subject,
         )
