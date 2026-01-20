@@ -114,7 +114,7 @@ class EmailTemplate(models.Model):
         request.toolbar.set_object(self)
         ctx = {
             "placeholder": self.email_body,
-            "object": self,
+            "base_template": self.get_base_template(),
             "template": self.template,
             "extra_email_placeholder": self.get_extra_placeholder_name(),
         }
