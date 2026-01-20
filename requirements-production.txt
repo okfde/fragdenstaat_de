@@ -391,7 +391,7 @@ fonttools==4.60.0
     # via weasyprint
 froide @ git+https://github.com/okfde/froide.git@49379fb90adb33e568d49b8ffacb9912f8770ffc
     # via fragdenstaat-de (pyproject.toml)
-froide-campaign @ git+https://github.com/okfde/froide-campaign.git@caede728d94fe7b08437e4ae3229d7222b6a104b
+froide-campaign @ git+https://github.com/okfde/froide-campaign.git@20fc8860e32d660d49479147a1579bce41307bdb
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@5d45c091cbf481cd91cca5ca4505818a8f3bb446
     # via fragdenstaat-de (pyproject.toml)
