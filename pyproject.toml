@@ -108,6 +108,7 @@ dependencies = [
   "fcdocs-annotate @ git+https://github.com/okfde/fcdocs-annotate.git@main",
   "froide-evidencecollection @ git+https://github.com/okfde/froide-evidencecollection.git@main",
   "qrcode>=7.3.1",
+  "pytesseract>=0.3.13",
 ]
 
 [project.optional-dependencies]

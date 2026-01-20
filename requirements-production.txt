@@ -564,6 +564,7 @@ packaging==25.0
     #   gunicorn
     #   kombu
     #   pikepdf
+    #   pytesseract
 pandas==2.3.2
     # via fragdenstaat-de (pyproject.toml)
 pgpy==0.6.0
@@ -588,6 +589,7 @@ pillow==11.3.0
     #   easy-thumbnails
     #   froide
     #   pikepdf
+    #   pytesseract
     #   reportlab
     #   torchvision
     #   weasyprint
@@ -634,6 +636,8 @@ pypdf==6.0.0
     #   froide
 pyphen==0.17.2
     # via weasyprint
+pytesseract==0.3.13
+    # via fragdenstaat-de (pyproject.toml)
 python-crontab==3.3.0
     # via django-celery-beat
 python-dateutil==2.9.0.post0
