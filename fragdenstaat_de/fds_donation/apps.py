@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.apps import AppConfig
+from django.db.models.signals import post_save
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -53,6 +54,8 @@ class FdsDonationConfig(AppConfig):
             tag_subscriber_donor,
             user_email_changed,
         )
+        from .models import Recurrence
+        from .triggers import recurrence_created_trigger_listener
 
         status_changed.connect(payment_status_changed)
         subscription_canceled.connect(subscription_was_canceled)
@@ -68,6 +71,7 @@ class FdsDonationConfig(AppConfig):
             mailing_donation_preview_context_listener
         )
         gather_mailing_preview_context.connect(mailing_payment_preview_context_listener)
+        post_save.connect(recurrence_created_trigger_listener, sender=Recurrence)
 
         from froide.account.menu import MenuItem, menu_registry
 
