@@ -123,6 +123,13 @@ dependencies() {
   done
 }
 
+upgrade_backend_repos() {
+  pushd $MAIN
+  set -x
+  uv sync ${REPOS[@]/#/--upgrade-package }
+  popd
+}
+
 frontend() {
   pnpm_version=$(pnpm --version)
 
