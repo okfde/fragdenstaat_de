@@ -39,17 +39,17 @@ importers:
         specifier: ^4.7.0
         version: 4.7.0
       froide:
-        specifier: github:okfde/froide#old-request-flow
-        version: https://codeload.github.com/okfde/froide/tar.gz/49379fb90adb33e568d49b8ffacb9912f8770ffc(fuse.js@7.1.0)(typescript@5.9.3)
+        specifier: github:okfde/froide
+        version: https://codeload.github.com/okfde/froide/tar.gz/614dbf515f7bf1aaf4856b8547ff1ab96aee6582(fuse.js@7.1.0)(typescript@5.9.3)
       froide_campaign:
         specifier: github:okfde/froide-campaign
-        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/99f3e8dade30db11b9eaa0705d9f1106579f95d0(froide@https://codeload.github.com/okfde/froide/tar.gz/49379fb90adb33e568d49b8ffacb9912f8770ffc(fuse.js@7.1.0)(typescript@5.9.3))(typescript@5.9.3)
+        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/99f3e8dade30db11b9eaa0705d9f1106579f95d0(froide@https://codeload.github.com/okfde/froide/tar.gz/614dbf515f7bf1aaf4856b8547ff1ab96aee6582(fuse.js@7.1.0)(typescript@5.9.3))(typescript@5.9.3)
       froide_exam:
         specifier: github:okfde/froide-exam
         version: https://codeload.github.com/okfde/froide-exam/tar.gz/779005ccfc21a3e75aeb57eb486c91b670739a3c
       froide_food:
         specifier: github:okfde/froide-food
-        version: https://codeload.github.com/okfde/froide-food/tar.gz/a70bfc44e56e5d2338dc4ba3111ed376152d550b(@types/leaflet@1.9.20)(froide@https://codeload.github.com/okfde/froide/tar.gz/49379fb90adb33e568d49b8ffacb9912f8770ffc(fuse.js@7.1.0)(typescript@5.9.3))(typescript@5.9.3)
+        version: https://codeload.github.com/okfde/froide-food/tar.gz/a70bfc44e56e5d2338dc4ba3111ed376152d550b(@types/leaflet@1.9.20)(froide@https://codeload.github.com/okfde/froide/tar.gz/614dbf515f7bf1aaf4856b8547ff1ab96aee6582(fuse.js@7.1.0)(typescript@5.9.3))(typescript@5.9.3)
       froide_legalaction:
         specifier: github:okfde/froide-legalaction
         version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/fdcfec87724c7388d22d6377bcce9feb7de88662
@@ -1613,8 +1613,8 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
-  eventemitter3@5.0.1:
-    resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
+  eventemitter3@5.0.4:
+    resolution: {integrity: sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw==}
 
   exifr@7.1.3:
     resolution: {integrity: sha512-g/aje2noHivrRSLbAUtBPWFbxKdKhgj/xr1vATDdUXPOFYJlQ62Ft0oy+72V6XLIpDJfHs6gXLbBLAolqOXYRw==}
@@ -1692,8 +1692,8 @@ packages:
   fraction.js@5.3.4:
     resolution: {integrity: sha512-1X1NTtiJphryn/uLQz3whtY6jK3fTqoE3ohKs0tT+Ujr1W59oopxmoEh7Lu5p6vBaPbgoM0bzveAW4Qi5RyWDQ==}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/49379fb90adb33e568d49b8ffacb9912f8770ffc:
-    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/49379fb90adb33e568d49b8ffacb9912f8770ffc}
+  froide@https://codeload.github.com/okfde/froide/tar.gz/614dbf515f7bf1aaf4856b8547ff1ab96aee6582:
+    resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/614dbf515f7bf1aaf4856b8547ff1ab96aee6582}
     version: 6.0.0
 
   froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/99f3e8dade30db11b9eaa0705d9f1106579f95d0:
@@ -1989,8 +1989,8 @@ packages:
   lodash.uniqby@4.5.0:
     resolution: {integrity: sha512-IRt7cfTtHy6f1aRVA5n7kT8rgN3N1nH6MOWLcHfpWG2SH19E3JksLK38MktLxZDhlAjCP9jpIXkOnRXlu6oByQ==}
 
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  lodash@4.17.23:
+    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
 
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
@@ -2457,6 +2457,7 @@ packages:
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   terser@5.32.0:
     resolution: {integrity: sha512-v3Gtw3IzpBJ0ugkxEX8U0W6+TnPKRRCWGh1jC/iM/e3Ki5+qvO1L1EAZ56bZasc64aXHwRHNIQEzm6//i5cemQ==}
@@ -2519,8 +2520,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  ufo@1.6.2:
-    resolution: {integrity: sha512-heMioaxBcG9+Znsda5Q8sQbWnLJSl98AFDXTO80wELWEzX3hordXsTdxrIfMQoO9IY1MEnoGoPjpoKpMj+Yx0Q==}
+  ufo@1.6.3:
+    resolution: {integrity: sha512-yDJTmhydvl5lJzBmy/hyOAA0d+aqCBuwl818haVdYCRrWV84o7YyeVm4QlVHStqNrrJSTb6jKuFAVqAFsr+K3Q==}
 
   uglify-js@3.19.3:
     resolution: {integrity: sha512-v3Xu+yuwBXisp6QYTcH4UbH+xYJXqnq2m/LtQVWKWzYc1iehYnLixoQDN9FH6/j9/oybfd6W9Ghwkl8+UMKTKQ==}
@@ -3085,7 +3086,7 @@ snapshots:
       '@jsdevtools/ono': 7.1.3
       '@types/json-schema': 7.0.15
       js-yaml: 4.1.1
-      lodash: 4.17.21
+      lodash: 4.17.23
 
   '@hey-api/openapi-ts@0.83.1(typescript@5.9.3)':
     dependencies:
@@ -3635,7 +3636,7 @@ snapshots:
       '@transloadit/prettier-bytes': 0.3.5
       '@uppy/store-default': 5.0.0
       '@uppy/utils': 7.1.5
-      lodash: 4.17.21
+      lodash: 4.17.23
       mime-match: 1.0.2
       namespace-emitter: 2.0.1
       nanoid: 5.1.6
@@ -3649,7 +3650,7 @@ snapshots:
       '@uppy/thumbnail-generator': 5.1.0(@uppy/core@5.2.0)
       '@uppy/utils': 7.1.5
       classnames: 2.5.1
-      lodash: 4.17.21
+      lodash: 4.17.23
       nanoid: 5.1.6
       preact: 10.28.2
       shallow-equal: 3.1.0
@@ -3659,7 +3660,7 @@ snapshots:
       '@uppy/core': 5.2.0
       '@uppy/utils': 7.1.5
       classnames: 2.5.1
-      lodash: 4.17.21
+      lodash: 4.17.23
       nanoid: 5.1.6
       p-queue: 8.1.1
       preact: 10.28.2
@@ -3681,7 +3682,7 @@ snapshots:
 
   '@uppy/utils@7.1.5':
     dependencies:
-      lodash: 4.17.21
+      lodash: 4.17.23
       preact: 10.28.2
 
   '@vitejs/plugin-vue@6.0.3(vite@7.3.1(jiti@2.6.1)(sass@1.97.2)(terser@5.32.0))(vue@3.5.26(typescript@5.9.3))':
@@ -4355,7 +4356,7 @@ snapshots:
 
   esutils@2.0.3: {}
 
-  eventemitter3@5.0.1: {}
+  eventemitter3@5.0.4: {}
 
   exifr@7.1.3: {}
 
@@ -4420,7 +4421,7 @@ snapshots:
 
   fraction.js@5.3.4: {}
 
-  froide@https://codeload.github.com/okfde/froide/tar.gz/49379fb90adb33e568d49b8ffacb9912f8770ffc(fuse.js@7.1.0)(typescript@5.9.3):
+  froide@https://codeload.github.com/okfde/froide/tar.gz/614dbf515f7bf1aaf4856b8547ff1ab96aee6582(fuse.js@7.1.0)(typescript@5.9.3):
     dependencies:
       '@hey-api/openapi-ts': 0.83.1(typescript@5.9.3)
       '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/b5d3d6d49decaeeac1e95b88fb91c3f118b586a6(typescript@5.9.3)
@@ -4465,13 +4466,13 @@ snapshots:
       - universal-cookie
       - worker-loader
 
-  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/99f3e8dade30db11b9eaa0705d9f1106579f95d0(froide@https://codeload.github.com/okfde/froide/tar.gz/49379fb90adb33e568d49b8ffacb9912f8770ffc(fuse.js@7.1.0)(typescript@5.9.3))(typescript@5.9.3):
+  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/99f3e8dade30db11b9eaa0705d9f1106579f95d0(froide@https://codeload.github.com/okfde/froide/tar.gz/614dbf515f7bf1aaf4856b8547ff1ab96aee6582(fuse.js@7.1.0)(typescript@5.9.3))(typescript@5.9.3):
     dependencies:
       '@turf/bbox': 6.5.0
       '@types/leaflet': 1.9.20
       '@vue-leaflet/vue-leaflet': 0.8.1(leaflet@1.9.4)(vue@3.5.26(typescript@5.9.3))
       deepmerge: 4.3.1
-      froide: https://codeload.github.com/okfde/froide/tar.gz/49379fb90adb33e568d49b8ffacb9912f8770ffc(fuse.js@7.1.0)(typescript@5.9.3)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/614dbf515f7bf1aaf4856b8547ff1ab96aee6582(fuse.js@7.1.0)(typescript@5.9.3)
       leaflet: 1.9.4
       leaflet.icon.glyph: 0.3.0
       lodash.debounce: 4.0.8
@@ -4482,11 +4483,11 @@ snapshots:
 
   froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/779005ccfc21a3e75aeb57eb486c91b670739a3c: {}
 
-  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/a70bfc44e56e5d2338dc4ba3111ed376152d550b(@types/leaflet@1.9.20)(froide@https://codeload.github.com/okfde/froide/tar.gz/49379fb90adb33e568d49b8ffacb9912f8770ffc(fuse.js@7.1.0)(typescript@5.9.3))(typescript@5.9.3):
+  froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/a70bfc44e56e5d2338dc4ba3111ed376152d550b(@types/leaflet@1.9.20)(froide@https://codeload.github.com/okfde/froide/tar.gz/614dbf515f7bf1aaf4856b8547ff1ab96aee6582(fuse.js@7.1.0)(typescript@5.9.3))(typescript@5.9.3):
     dependencies:
       '@turf/bbox': 6.5.0
       '@vue-leaflet/vue-leaflet': 0.10.1(@types/leaflet@1.9.20)(leaflet@1.9.4)(typescript@5.9.3)
-      froide: https://codeload.github.com/okfde/froide/tar.gz/49379fb90adb33e568d49b8ffacb9912f8770ffc(fuse.js@7.1.0)(typescript@5.9.3)
+      froide: https://codeload.github.com/okfde/froide/tar.gz/614dbf515f7bf1aaf4856b8547ff1ab96aee6582(fuse.js@7.1.0)(typescript@5.9.3)
       leaflet: 1.9.4
       vue: 3.5.26(typescript@5.9.3)
       vue3-slide-up-down: 1.2.5(vue@3.5.26(typescript@5.9.3))
@@ -4742,7 +4743,7 @@ snapshots:
       lodash._baseiteratee: 4.7.0
       lodash._baseuniq: 4.6.0
 
-  lodash@4.17.21: {}
+  lodash@4.17.23: {}
 
   lru-cache@10.4.3: {}
 
@@ -4819,7 +4820,7 @@ snapshots:
       acorn: 8.15.0
       pathe: 2.0.3
       pkg-types: 1.3.1
-      ufo: 1.6.2
+      ufo: 1.6.3
 
   ms@2.1.3: {}
 
@@ -4866,7 +4867,7 @@ snapshots:
       pathe: 2.0.3
       pkg-types: 1.3.1
       tinyexec: 0.3.2
-      ufo: 1.6.2
+      ufo: 1.6.3
 
   ohash@1.1.6: {}
 
@@ -4902,7 +4903,7 @@ snapshots:
 
   p-queue@8.1.1:
     dependencies:
-      eventemitter3: 5.0.1
+      eventemitter3: 5.0.4
       p-timeout: 6.1.4
 
   p-retry@6.2.1:
@@ -5273,7 +5274,7 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  ufo@1.6.2: {}
+  ufo@1.6.3: {}
 
   uglify-js@3.19.3:
     optional: true
