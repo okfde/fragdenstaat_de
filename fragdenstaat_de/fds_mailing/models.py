@@ -115,6 +115,7 @@ class EmailTemplate(models.Model):
         ctx = {
             "placeholder": self.email_body,
             "base_template": self.get_base_template(),
+            "email_template": self,
             "template": self.template,
             "extra_email_placeholder": self.get_extra_placeholder_name(),
         }

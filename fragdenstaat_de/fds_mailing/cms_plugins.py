@@ -25,7 +25,7 @@ from .utils import render_plugin_text, render_plugin_web_html
 class EmailTemplateMixin:
     def get_render_template(self, context, instance, placeholder):
         template_base = "default"
-        obj = context.get("object")
+        obj = context.get("email_template")
         if obj is not None:
             template_base = obj.template
         template_name = self.render_template_template.format(name=template_base)

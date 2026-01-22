@@ -1,7 +1,7 @@
 {# djlint:off H021 #}
 {% load thumbnail %}
 {% load markup %}
-{% if object.template == "mjml" %}
+{% if email_template.template == "mjml" %}
     {% thumbnail instance.picture 768x0 crop=scale subject_location=instance.picture.subject_location as img %}
     <mj-image src="{{ img.url }}"
     {% if not instance.attributes.alt %}alt="{{ instance.picture.default_alt_text|default:"" }}"{% endif %}
