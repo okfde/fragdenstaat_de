@@ -85,7 +85,6 @@ dependencies = [
   "python-slugify>=8.0.4",
   "reportlab>=4.4.1",
   "requests>=2.32.3",
-  "sentry-sdk>=2.29.0",
   "torch>=2.9.1",
   "torchvision>=0.24.1",
   "unidecode>=1.3.8",
@@ -117,7 +116,7 @@ production = [
   "pymemcache",
   "channels_redis==4.1.0",
   "uvicorn",
-  "sentry-sdk",
+  "sentry-sdk>=2.29.0",
 ]
 
 [dependency-groups]
