@@ -569,7 +569,7 @@ pikepdf==9.11.0
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
     #   froide
-pillow==11.3.0
+pillow==12.1.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
