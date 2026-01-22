@@ -81,6 +81,7 @@ class FragDenStaatBase(German, Base):
                 "djangocms_frontend.contrib.collapse",
                 "djangocms_frontend.contrib.content",
                 "djangocms_frontend.contrib.grid",
+                "djangocms_frontend.contrib.icon",
                 # We use djangocms_picture instead
                 # "djangocms_frontend.contrib.image",
                 "djangocms_frontend.contrib.jumbotron",
