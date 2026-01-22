@@ -581,7 +581,7 @@ pikepdf==9.11.0
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
     #   froide
-pillow==11.3.0
+pillow==12.1.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
@@ -594,8 +594,6 @@ pillow==11.3.0
     #   torchvision
     #   weasyprint
     #   webp
-pillow-avif-plugin==1.5.2
-    # via fragdenstaat-de (pyproject.toml)
 prompt-toolkit==3.0.52
     # via click-repl
 propcache==0.3.2

@@ -74,7 +74,7 @@ dependencies = [
   "pandas>=2.2.2",
   "pgpy>=0.6.0",
   "phonenumbers>=8.13.45",
-  "pillow>=11.0.0",
+  "pillow>=12.1.0",
   "pikepdf>=9.7.0",
   "psycopg[binary]>=3.2.9",
   "pyisemail>=2.0.1",
@@ -140,7 +140,6 @@ production = [
   "channels_redis==4.1.0",
   "uvicorn",
   "sentry-sdk",
-  "pillow-avif-plugin",
 ]
 
 [tool.uv.pip]

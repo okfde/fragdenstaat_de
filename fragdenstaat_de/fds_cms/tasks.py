@@ -9,11 +9,6 @@ from easy_thumbnails.files import ThumbnailFile, generate_all_aliases
 from easy_thumbnails.optimize import optimize_thumbnail
 from PIL import Image
 
-try:
-    import pillow_avif  # noqa
-except ImportError:
-    pillow_avif = None
-
 logger = logging.getLogger(__name__)
 
 
@@ -26,8 +21,6 @@ def generate_thumbnails(model, pk, field):
 
 @shared_task
 def generate_avif_thumbnail(filepath: str, storage):
-    if pillow_avif is None:
-        return
     logger.info("Converting %s to avif", filepath)
     avif_path = ".".join([filepath, "avif"])
     img_file = storage.open(filepath, "rb")
