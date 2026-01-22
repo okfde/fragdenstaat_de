@@ -134,7 +134,7 @@
                     Singerstraße 109; 10179 Berlin
                 </p>
             </div>
-            <h3>Bestätigung über Geldzuwendungen/Mitgliedsbeitrag</h3>
+            <h1 class="h3">Bestätigung über Geldzuwendungen/Mitgliedsbeitrag</h1>
             <p>
                 im Sinne des § 10b des Einkommensteuergesetzes an eine der in § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes bezeichneten Körperschaften, Personenvereinigungen oder Vermögensmassen
             </p>
@@ -205,8 +205,8 @@
             </div>
         </section>
         <section>
-            <h3>Anlage zur Sammelbestätigung</h3>
-            <h3>Seite 1/1</h3>
+            <h2 class="h3">Anlage zur Sammelbestätigung</h2>
+            <div class="h3">Seite 1/1</div>
             <table>
                 <thead>
                     <tr>
@@ -230,7 +230,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <h3 class="mt-3">Gesamtsumme: {{ Jahressumme }} €</h3>
+            <div class="h3 mt-3">Gesamtsumme: {{ Jahressumme }} €</div>
             {% if receipt_already %}<p>* Zuwendung wurde bereits bestätigt.</p>{% endif %}
         </section>
     </body>

@@ -6,11 +6,11 @@
     <div class="card border-danger">
         <div class="card-header">
             {% if order.is_recurring %}
-                <h3>{% translate "Please set up a standing order" %}</h3>
+                <h1 class="h3">{% translate "Please set up a standing order" %}</h1>
             {% else %}
-                <h3>
+                <h1 class="h3">
                     {% blocktranslate with amount=order.total_gross %}Please transfer {{ amount }}&nbsp;Euro to{% endblocktranslate %}
-                </h3>
+                </h1>
             {% endif %}
         </div>
         <div class="card-body">{% include "fds_donation/includes/banktransfer_instructions.html" %}</div>

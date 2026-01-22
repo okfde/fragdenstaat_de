@@ -1,11 +1,11 @@
 {% load i18n %}
 {% if not payment.is_confirmed %}
     {% if order.is_recurring %}
-        <h3>{% translate "Please set up a standing order" %}</h3>
+        <h1 class="h3">{% translate "Please set up a standing order" %}</h1>
     {% else %}
-        <h3>
-            {% blocktranslate with amount=order.total_gross %}Please transfer {{ amount }}&nbsp;Euro an{% endblocktranslate %}
-        </h3>
+        <h1 class="h3">
+            {% blocktranslate with amount=order.total_gross %}Please transfer {{ amount }}&nbsp;Euro to{% endblocktranslate %}
+        </h1>
     {% endif %}
     <p>
         <strong>{% translate "Account holder" %}:&nbsp;</strong>Open Knowledge Foundation Deutschland e.V.
