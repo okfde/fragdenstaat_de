@@ -127,6 +127,7 @@ def get_donation_context(value, request):
     from fragdenstaat_de.fds_donation.models import Donation, Donor
 
     donor = Donor(
+        id=0,
         first_name=request.user.first_name,
         last_name=request.user.last_name,
         address="Example Street 1",
