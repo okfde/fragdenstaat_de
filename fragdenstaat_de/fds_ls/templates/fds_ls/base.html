@@ -1,11 +1,19 @@
 {% extends "cms/base.html" %}
 {% load cms_tags %}
 {% load static %}
+{% load djangocms_alias_tags %}
 {% block extra_css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'css/ls.css' %}">
 {% endblock %}
 {% block body_extra_attributes %}class="ls"{% endblock %}
+{% block top_block %}
+{% endblock top_block %}
 {% block navbar %}
     {% include "fds_ls/header.html" %}
 {% endblock %}
+{% block footer_container %}
+    <footer class="footer" id="footer">
+        <div class="container">{% static_alias "footer_ls" %}</div>
+    </footer>
+{% endblock footer_container %}

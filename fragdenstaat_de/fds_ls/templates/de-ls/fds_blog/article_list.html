@@ -84,20 +84,12 @@
                     {% if category_filter or month_filter or year_filter %}
                         <nav class="hstack gap-2">
                             {% if category_filter %}
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-secondary dropdown-toggle"
-                                            type="button"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false">{% trans "Categories…" %}</button>
-                                    <ul class="dropdown-menu">
-                                        {% for category in category_filter %}
-                                            <li>
-                                                <a href="{% url 'blog:article-category' slug=category.slug %}"
-                                                   class="dropdown-item">{{ category }}</a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+                                {% for category in category_filter %}
+                                    <button class="btn btn-sm btn-secondary">
+                                        <a href="{% url 'blog:article-category' slug=category.slug %}"
+                                           class="dropdown-item">{{ category }}</a>
+                                    </button>
+                                {% endfor %}
                             {% endif %}
                             {% if month_filter %}
                                 <div class="dropdown">

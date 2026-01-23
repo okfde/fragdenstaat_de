@@ -96,6 +96,13 @@ class BaseBlogListView(BaseBlogView):
     def get_paginate_by(self, queryset):
         return 12
 
+    def get_template_names(self):
+        lang = get_language()
+        return [
+            f"{lang}/fds_blog/{self.base_template_name}",
+            f"fds_blog/{self.base_template_name}",
+        ]
+
 
 class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView):
     base_template_name = "article_detail.html"
