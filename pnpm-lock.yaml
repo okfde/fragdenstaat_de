@@ -19,7 +19,7 @@ importers:
         version: 3.7.1
       '@okfde/filingcabinet':
         specifier: github:okfde/django-filingcabinet
-        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/bcb9e49cfa3f0994d61a742df967acf11f5b107a(typescript@5.9.3)
+        version: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/a8305cd447f464e166be14bf18f0dfd63ea8fdbb(typescript@5.9.3)
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -474,8 +474,8 @@ packages:
       prettier: ^3.5.3
       prettier-config-standard: ^7.0.0
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/bcb9e49cfa3f0994d61a742df967acf11f5b107a':
-    resolution: {tarball: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/bcb9e49cfa3f0994d61a742df967acf11f5b107a}
+  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/a8305cd447f464e166be14bf18f0dfd63ea8fdbb':
+    resolution: {tarball: https://codeload.github.com/okfde/django-filingcabinet/tar.gz/a8305cd447f464e166be14bf18f0dfd63ea8fdbb}
     version: 0.0.4
 
   '@panzoom/panzoom@4.6.1':
@@ -3181,7 +3181,7 @@ snapshots:
       - typescript
       - vue-eslint-parser
 
-  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/bcb9e49cfa3f0994d61a742df967acf11f5b107a(typescript@5.9.3)':
+  '@okfde/filingcabinet@https://codeload.github.com/okfde/django-filingcabinet/tar.gz/a8305cd447f464e166be14bf18f0dfd63ea8fdbb(typescript@5.9.3)':
     dependencies:
       '@popperjs/core': 2.11.8
       bootstrap: 5.3.8(@popperjs/core@2.11.8)
@@ -4424,7 +4424,7 @@ snapshots:
   froide@https://codeload.github.com/okfde/froide/tar.gz/4e301dc24585a91d09b7ee7cf880c1ca6b8fdb7d(fuse.js@7.1.0)(typescript@5.9.3):
     dependencies:
       '@hey-api/openapi-ts': 0.83.1(typescript@5.9.3)
-      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/bcb9e49cfa3f0994d61a742df967acf11f5b107a(typescript@5.9.3)
+      '@okfde/filingcabinet': https://codeload.github.com/okfde/django-filingcabinet/tar.gz/a8305cd447f464e166be14bf18f0dfd63ea8fdbb(typescript@5.9.3)
       '@panzoom/panzoom': 4.6.1
       '@popperjs/core': 2.11.8
       '@types/lodash.throttle': 4.1.9
