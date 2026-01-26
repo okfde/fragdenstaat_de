@@ -1,13 +1,13 @@
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.3
+    rev: v0.14.4
     hooks:
       - id: ruff
         args: [--fix]
       - id: ruff-format
 
   - repo: https://github.com/Riverside-Healthcare/djLint
-    rev: v1.35.2
+    rev: v1.36.4
     hooks:
       - id: djlint-reformat-django
       - id: djlint-django
@@ -26,6 +26,7 @@ repos:
       - id: ensure-consistent-dependencies
         name: Ensure consistent dependencies (pnpm/requirements.txt)
         language: python
+        language_version: '3.13'
         entry: scripts/ensure_consistent_dependencies.py
         additional_dependencies:
           - pyyaml
