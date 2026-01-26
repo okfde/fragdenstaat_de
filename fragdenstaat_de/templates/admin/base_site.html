@@ -1,0 +1,36 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}">
+{% endblock extrahead %}
+{% block extrastyle %}
+    {{ block.super }}
+    <style>
+    html[data-theme="light"] {
+        --primary: #356bde;
+        --secondary: #719DFF;
+        --link-fg: #0034A5;
+        --link-selected-fg: #001C5A;
+    }
+    
+    {% if "test" in request.get_host %}
+    :root {
+        --header-bg: #907941 !important;
+        --breadcrumbs-bg: #5d5226 !important;
+        --breadcrumbs-fg: #e8dfc4 !important;
+    }
+    {% elif "localhost" in request.get_host %}
+    :root {
+        --header-bg: #419055 !important;
+        --breadcrumbs-bg: #265d36 !important;
+        --breadcrumbs-fg: #c4e8cf !important;
+    }
+    {% endif %}
+    </style>
+{% endblock extrastyle %}
+{% block branding %}
+    <div>
+        <a href="{% url 'admin:index' %}">{{ site_header|default:_("Django administration") }}</a> ({{ request.get_host }})
+    </div>
+{% endblock branding %}
