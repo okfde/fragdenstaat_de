@@ -7,7 +7,9 @@
 }
     </style>
 {% endif %}
-<div class="box-card-header tight-margin d-flex align-items-center{% if instance.background_image %} has-background{% endif %} {{ classes }}" {{ instance.attributes_str }} id="card-header-{{ instance.pk }}">
+<div class="box-card-header tight-margin d-flex align-items-center{% if instance.background_image %} has-background{% endif %} {{ classes }}"
+     {{ instance.attributes_str }}
+     id="card-header-{{ instance.pk }}">
     <h3 class="h5 m-0 no-hyphens">{{ instance.title }}</h3>
     {% if instance.icon %}
         <div class="ms-auto">

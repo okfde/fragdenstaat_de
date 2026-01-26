@@ -17,7 +17,11 @@
          data-decline-url="{{ decline_url }}">
         <template class="cookie-consent__content">
             <div class="ratio ratio-{{ instance.attributes.ratio|default:"16x9" }}">
-                <iframe data-consent-src="{{ instance.embed_link }}" {{ instance.attributes_str }} frameborder="0" allowfullscreen="true" allow="encrypted-media; picture-in-picture"></iframe>
+                <iframe data-consent-src="{{ instance.embed_link }}"
+                        {{ instance.attributes_str }}
+                        frameborder="0"
+                        allowfullscreen="true"
+                        allow="encrypted-media; picture-in-picture"></iframe>
             </div>
         </template>
         <template class="cookie-consent__message">
@@ -54,7 +58,8 @@
     </div>
 {% else %}
     {# render <source> or <track> plugins #}
-    <video {{ instance.attributes_str }} {% if instance.poster %}poster="{{ instance.poster.url }}"{% endif %}>
+    <video {{ instance.attributes_str }}
+           {% if instance.poster %}poster="{{ instance.poster.url }}"{% endif %}>
         {% for plugin in instance.child_plugin_instances %}
             {% render_plugin plugin %}
         {% endfor %}

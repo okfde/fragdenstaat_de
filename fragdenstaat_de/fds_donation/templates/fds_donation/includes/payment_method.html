@@ -2,7 +2,9 @@
 {% load i18n %}
 <div class="hstack gap-2">
     {% if donation.icon %}
-        <img src="{% static "img/"|add:donation.icon %}" alt="" class="payment-icon">
+        <img src="{% static "img/"|add:donation.icon %}"
+             alt=""
+             class="payment-icon">
     {% endif %}
     <div>
         <span>{{ donation.get_method_display }}</span>
