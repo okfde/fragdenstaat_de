@@ -128,7 +128,6 @@ dev = [
   "mock",
   "pbr",
   "djlint",
-  "pre-commit",
   "pycodestyle",
   "pyflakes",
   "pytest-django",
@@ -141,6 +140,7 @@ dev = [
   "ipdb",
   "ipython",
   "pywatchman",
+  "prek>=0.3.0",
 ]
 
 [tool.uv.pip]

@@ -42,6 +42,6 @@ with (
         assert npm_version
         npm_version = npm_version.group(1)
 
-        assert (
-            npm_version == python_version
-        ), f"{python_module_name} versions differ in uv.lock and pnpm-lock.yaml ({python_version[:8]} vs. {npm_version[:8]}). Run `make dependencies` to fix this."
+        assert npm_version == python_version, (
+            f"{python_module_name} versions differ in uv.lock and pnpm-lock.yaml ({python_version[:8]} vs. {npm_version[:8]}). Run `make dependencies` to fix this."
+        )
