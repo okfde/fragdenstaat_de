@@ -1,6 +1,7 @@
 {% load cms_tags %}
 {% load thumbnail %}
-<div class="hero-image{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}" {{ instance.attributes_str }}>
+<div class="hero-image{% if instance.attributes.class %} {{ instance.attributes.class }}{% endif %}"
+     {{ instance.attributes_str }}>
     {% with picture=instance.picture %}
         <picture>
             {% if not ".svg" in instance.picture.url %}
