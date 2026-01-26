@@ -15,7 +15,7 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install
-      - uses: pre-commit/action@v3.0.1
+      - uses: j178/prek-action@v1
 
   test:
     runs-on: ubuntu-latest

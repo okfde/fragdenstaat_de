@@ -117,7 +117,7 @@ dependencies() {
     fi
 
     if [ -e ".pre-commit-config.yaml" ]; then
-      pre-commit install
+      prek install
     fi
     popd
   done
