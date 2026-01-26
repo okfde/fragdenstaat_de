@@ -4,6 +4,10 @@
     <picture>
         {% thumbnail picture 540x0 crop=smart subject_location=picture.subject_location as thumb %}
         <source srcset="{{ thumb.url }}.avif" type="image/avif" />
-        <img class="img-fluid" loading="lazy" src="{{ thumb.url }}" {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:"" }}"{% endif %} {{ attributes_str }}>
+        <img class="img-fluid"
+             loading="lazy"
+             src="{{ thumb.url }}"
+             {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:"" }}"{% endif %}
+             {{ attributes_str }}>
     </picture>
 </figure>

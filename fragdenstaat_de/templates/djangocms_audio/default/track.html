@@ -1,4 +1,9 @@
-<track kind="{{ instance.kind }}" src="{{ instance.src.url }}" {% if instance.srclang %}srclang="{{ instance.srclang }}"{% endif %} {% if instance.label %}label="{{ instance.label }}"{% endif %} default="true" {% if instance.attributes %}{{ instance.attributes_str }}{% endif %}>
+<track kind="{{ instance.kind }}"
+       src="{{ instance.src.url }}"
+       {% if instance.srclang %}srclang="{{ instance.srclang }}"{% endif %}
+       {% if instance.label %}label="{{ instance.label }}"{% endif %}
+       default="true"
+       {% if instance.attributes %}{{ instance.attributes_str }}{% endif %}>
 {% comment %}
     # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track
     # https://github.com/divio/django-filer/blob/master/filer/models/foldermodels.py
