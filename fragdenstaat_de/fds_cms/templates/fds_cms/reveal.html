@@ -2,7 +2,9 @@
 <div class="reveal-cutoff"
      data-cutoff="{{ instance.cutoff }}{{ instance.unit }}"
      style="--reveal-color: var({{ instance.css_color_variable }})">
-    <div class="reveal-inner {{ instance.attributes.class }}" id="reveal-{{ instance.pk }}" {{ instance.attributes_str }}>
+    <div class="reveal-inner {{ instance.attributes.class }}"
+         id="reveal-{{ instance.pk }}"
+         {{ instance.attributes_str }}>
         {% for plugin in instance.child_plugin_instances %}
             {% render_plugin plugin %}
         {% endfor %}
