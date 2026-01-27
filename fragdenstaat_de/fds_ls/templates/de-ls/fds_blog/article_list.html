@@ -1,4 +1,4 @@
-{% extends "fds_ls/base.html" %}
+{% extends "fds_blog/base.html" %}
 {% load i18n easy_thumbnails_tags cms_tags markup %}
 {% spaceless %}
     {% block canonical_url %}
@@ -92,36 +92,20 @@
                                 {% endfor %}
                             {% endif %}
                             {% if month_filter %}
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-secondary dropdown-toggle"
-                                            type="button"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false">{% trans "Months…" %}</button>
-                                    <ul class="dropdown-menu">
-                                        {% for date in month_filter %}
-                                            <li class="d-contents">
-                                                <a href="{% url 'blog:article-archive' year=date.year month=date.month %}"
-                                                   class="dropdown-item">{{ date|date:"F" }}</a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+                                {% for date in month_filter %}
+                                    <button class="btn btn-sm btn-secondary">
+                                        <a href="{% url 'blog:article-archive' year=date.year month=date.month %}"
+                                           class="dropdown-item">{{ date|date:"F" }}</a>
+                                    </button>
+                                {% endfor %}
                             {% endif %}
-                            {% if category_filter %}
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-secondary dropdown-toggle"
-                                            type="button"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false">{% trans "Years…" %}</button>
-                                    <ul class="dropdown-menu">
-                                        {% for date in year_filter %}
-                                            <li class="d-contents">
-                                                <a href="{% url 'blog:article-archive' year=date.year %}"
-                                                   class="dropdown-item">{{ date|date:"Y" }}</a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+                            {% if year_filter %}
+                                {% for date in year_filter %}
+                                    <button class="btn btn-sm btn-secondary">
+                                        <a href="{% url 'blog:article-archive' year=date.year %}"
+                                           class="dropdown-item">{{ date|date:"Y" }}</a>
+                                    </button>
+                                {% endfor %}
                             {% endif %}
                         </nav>
                     {% endif %}

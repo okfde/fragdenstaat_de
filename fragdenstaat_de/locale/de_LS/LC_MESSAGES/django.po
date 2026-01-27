@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: fragdenstaat_de/fds_blog/admin.py
 #, python-format
@@ -524,7 +524,13 @@ msgid_plural ""
 "                                About the authors\n"
 "                            "
 msgstr[0] ""
+"\n"
+"                        Geschrieben von\n"
+"                    "
 msgstr[1] ""
+"\n"
+"                        Geschrieben von\n"
+"                    "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
 msgid ""
