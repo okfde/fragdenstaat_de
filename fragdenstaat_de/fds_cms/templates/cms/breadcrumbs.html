@@ -15,7 +15,7 @@
     </li>
 {% endif %}
 {% for ance in ancestors %}
-    {% if ance.get_absolute_url != '/' %}
+    {% if ance.get_absolute_url != home_url %}
         <li {% if forloop.last %}class="breadcrumb-item active" aria-current="page"{% else %}class="breadcrumb-item"{% endif %}>
             <a href="{{ ance.get_absolute_url }}"
                {% if forloop.last %}aria-current="page"{% endif %}>{{ ance.get_menu_title }}</a>
