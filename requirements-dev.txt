@@ -110,7 +110,7 @@ dj-database-url==3.0.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
-django==5.2.7
+django==5.2.10
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   channels
@@ -429,7 +429,7 @@ filelock==3.19.1
     #   virtualenv
 fonttools==4.60.0
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@bcd3c04c8e8aba6a9da6a8314340d80d7bbcf9bc
+froide @ git+https://github.com/okfde/froide.git@50b8047ce9b7fa781e809651a270c564f69d3a5d
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@e09c38d9d0a993f0f15dd40c7a4213235d7c50c8
     # via fragdenstaat-de (pyproject.toml)
@@ -722,7 +722,7 @@ pyopenssl==25.3.0
     # via fragdenstaat-de (pyproject.toml)
 pyotp==2.9.0
     # via django-mfa3
-pypdf==6.0.0
+pypdf==6.6.2
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
@@ -910,7 +910,7 @@ unidecode==1.4.0
     # via fragdenstaat-de (pyproject.toml)
 uritemplate==4.2.0
     # via drf-spectacular
-urllib3==2.5.0
+urllib3==2.6.3
     # via
     #   elastic-transport
     #   requests
