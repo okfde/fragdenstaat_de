@@ -2,7 +2,7 @@
 #    uv pip compile -o requirements-dev.txt --extra dev pyproject.toml -p 3.12
 aiohappyeyeballs==2.6.1
     # via aiohttp
-aiohttp==3.12.15
+aiohttp==3.13.3
     # via geoip2
 aiosignal==1.4.0
     # via aiohttp
@@ -24,7 +24,7 @@ beautifulsoup4==4.13.5
     # via htmldocx
 billiard==4.2.1
     # via celery
-brotli==1.1.0 ; platform_python_implementation == 'CPython'
+brotli==1.2.0 ; platform_python_implementation == 'CPython'
     # via fonttools
 brotlicffi==1.1.0.0 ; platform_python_implementation != 'CPython'
     # via fonttools
@@ -427,9 +427,9 @@ filelock==3.19.1
     # via
     #   torch
     #   virtualenv
-fonttools==4.60.0
+fonttools==4.61.1
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@50b8047ce9b7fa781e809651a270c564f69d3a5d
+froide @ git+https://github.com/okfde/froide.git@65120f4e1fde52b399b0e1286dae74eb385e3929
     # via fragdenstaat-de (pyproject.toml)
 froide-campaign @ git+https://github.com/okfde/froide-campaign.git@e09c38d9d0a993f0f15dd40c7a4213235d7c50c8
     # via fragdenstaat-de (pyproject.toml)
@@ -694,7 +694,7 @@ ptyprocess==0.7.0 ; sys_platform != 'emscripten' and sys_platform != 'win32'
     # via pexpect
 pure-eval==0.2.3
     # via stack-data
-pyasn1==0.6.1
+pyasn1==0.6.2
     # via pgpy
 pycodestyle==2.14.0
     # via fragdenstaat-de (pyproject.toml)
@@ -859,7 +859,7 @@ text-unidecode==1.3
     # via python-slugify
 time-machine==2.19.0
     # via fragdenstaat-de (pyproject.toml)
-tinycss2==1.4.0
+tinycss2==1.5.1
     # via
     #   cssselect2
     #   svglib
@@ -929,7 +929,7 @@ wand==0.6.13
     #   froide
 wcwidth==0.2.13
     # via prompt-toolkit
-weasyprint==66.0
+weasyprint==68.0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-legal-advice-builder
