@@ -2,7 +2,7 @@
 #    uv pip compile -o requirements-dev.txt --extra dev pyproject.toml -p 3.12
 aiohappyeyeballs==2.6.1
     # via aiohttp
-aiohttp==3.12.15
+aiohttp==3.13.3
     # via geoip2
 aiosignal==1.4.0
     # via aiohttp
@@ -24,7 +24,7 @@ beautifulsoup4==4.13.5
     # via htmldocx
 billiard==4.2.1
     # via celery
-brotli==1.1.0 ; platform_python_implementation == 'CPython'
+brotli==1.2.0 ; platform_python_implementation == 'CPython'
     # via fonttools
 brotlicffi==1.1.0.0 ; platform_python_implementation != 'CPython'
     # via fonttools
@@ -110,7 +110,7 @@ dj-database-url==3.0.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide
-django==5.2.10
+django==6.0.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   channels
@@ -423,11 +423,11 @@ feedgen==1.0.0
     # via django-filingcabinet
 fido2==2.0.0
     # via django-mfa3
-filelock==3.19.1
+filelock==3.20.3
     # via
     #   torch
     #   virtualenv
-fonttools==4.60.0
+fonttools==4.60.2
     # via weasyprint
 froide @ git+https://github.com/okfde/froide.git@50b8047ce9b7fa781e809651a270c564f69d3a5d
     # via fragdenstaat-de (pyproject.toml)
@@ -694,7 +694,7 @@ ptyprocess==0.7.0 ; sys_platform != 'emscripten' and sys_platform != 'win32'
     # via pexpect
 pure-eval==0.2.3
     # via stack-data
-pyasn1==0.6.1
+pyasn1==0.6.2
     # via pgpy
 pycodestyle==2.14.0
     # via fragdenstaat-de (pyproject.toml)
@@ -920,7 +920,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-virtualenv==20.34.0
+virtualenv==20.36.1
     # via pre-commit
 wand==0.6.13
     # via
