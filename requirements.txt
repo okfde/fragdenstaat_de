@@ -384,9 +384,9 @@ filelock==3.19.1
     # via torch
 fonttools==4.60.0
     # via weasyprint
-froide @ git+https://github.com/okfde/froide.git@4e301dc24585a91d09b7ee7cf880c1ca6b8fdb7d
+froide @ git+https://github.com/okfde/froide.git@642a4192930848514547c0e094aa14cb6fb7eded
     # via fragdenstaat-de (pyproject.toml)
-froide-campaign @ git+https://github.com/okfde/froide-campaign.git@ffabb88763dc06ca670fcb2fa79857ff9fdd3f8b
+froide-campaign @ git+https://github.com/okfde/froide-campaign.git@e09c38d9d0a993f0f15dd40c7a4213235d7c50c8
     # via fragdenstaat-de (pyproject.toml)
 froide-crowdfunding @ git+https://github.com/okfde/froide-crowdfunding.git@5d45c091cbf481cd91cca5ca4505818a8f3bb446
     # via fragdenstaat-de (pyproject.toml)
@@ -396,7 +396,7 @@ froide-exam @ git+https://github.com/okfde/froide-exam.git@779005ccfc21a3e75aeb5
     # via fragdenstaat-de (pyproject.toml)
 froide-fax @ git+https://github.com/okfde/froide-fax.git@a629edada89e9e2eb9b04b8963ed10e0ba374109
     # via fragdenstaat-de (pyproject.toml)
-froide-food @ git+https://github.com/okfde/froide-food.git@a70bfc44e56e5d2338dc4ba3111ed376152d550b
+froide-food @ git+https://github.com/okfde/froide-food.git@7b369096a50a8abfd5ff00bb634dcb4f5101b605
     # via fragdenstaat-de (pyproject.toml)
 froide-govplan @ git+https://github.com/okfde/froide-govplan.git@7d304ae0e34e44f3bc34dce2b7e5f3c62bd64299
     # via fragdenstaat-de (pyproject.toml)
