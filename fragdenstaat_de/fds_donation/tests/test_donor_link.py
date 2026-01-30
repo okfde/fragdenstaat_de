@@ -1,3 +1,4 @@
+import re
 import uuid
 from urllib.parse import urlencode
 
@@ -148,13 +149,31 @@ def test_get_donor_link_bad_email(client, mailoutbox):
 
 
 @pytest.mark.django_db
-def test_get_donor_link(client, donor, mailoutbox):
+def test_get_donor_link(client, donor, mailoutbox, settings):
     send_link_url = reverse("fds_donation:donor-send-login-link")
     response = client.post(send_link_url, data={"email": donor.email})
     assert response.status_code == 302
     assert len(mailoutbox) == 1
     assert mailoutbox[0].subject == "Zugang zu deinem Spendenprofil bei FragDenStaat"
-    assert donor.get_login_url() in mailoutbox[0].body
+    url_pattern = re.compile(
+        settings.SITE_URL
+        + reverse(
+            "fds_donation:donor-login",
+            kwargs={
+                "donor_id": donor.id,
+                "token": "TOKEN",
+                "next_path": reverse("fds_donation:donor"),
+            },
+        ).replace("TOKEN", r"[^/]+")
+    )
+    match = url_pattern.search(mailoutbox[0].body)
+    assert match is not None
+    login_url = match.group(0)
+    response = client.get(login_url)
+    assert response.status_code == 200
+    response = client.post(login_url)
+    assert response.status_code == 302
+    assert client.session.get("donor_id") == donor.id
 
 
 @pytest.mark.django_db
