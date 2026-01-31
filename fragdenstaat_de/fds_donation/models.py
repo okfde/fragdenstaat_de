@@ -737,7 +737,7 @@ class Donation(models.Model):
                 return data["charges"][0]["payment_method_details"][
                     "sepa_debit" if self.method == "sepa" else "card"
                 ]
-            except KeyError:
+            except (KeyError, IndexError):
                 return
 
     @cached_property
