@@ -52,5 +52,6 @@
     "vega-interpreter": "^2.2.1",
     "vega-lite": "^6.4.2"
   },
-  "prettier": "prettier-config-standard"
+  "prettier": "prettier-config-standard",
+  "packageManager": "pnpm@9.15.9"
 }

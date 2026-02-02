@@ -116,7 +116,15 @@ dependencies() {
     install_precommit "$name"
   done
 }
+
 frontend() {
+  pnpm_version=$(pnpm --version)
+
+  if [[ $pnpm_version != 9.15* ]]; then
+    echo "You need to have pnpm@^9.15 installed"
+    exit 1
+  fi
+
   echo "Installing frontend dependencies..."
 
   # we need to link globally since local linking adjusts the lockfile
