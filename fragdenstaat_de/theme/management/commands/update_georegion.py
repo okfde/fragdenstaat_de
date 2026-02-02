@@ -1,12 +1,9 @@
-import os
+import zoneinfo
 from datetime import datetime
 
-from django.contrib.gis.db.models.functions import Area
-from django.contrib.gis.gdal import DataSource
-from django.contrib.gis.utils import LayerMapping
+from django.contrib.gis.geos import GEOSGeometry
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from django.utils.dateparse import parse_date
 
 from slugify import slugify
 
@@ -17,6 +14,7 @@ from froide.helper.tree_utils import get_new_child_params
 def get_higher_ars(ars):
     if not ars.rstrip("0"):
         return ""
+    ars = ars.rstrip("0")
     while True:
         if len(ars) == 2:
             return ""
@@ -42,7 +40,7 @@ def get_children(child):
 class Command(BaseCommand):
     """
     Loads this kind of shapefile:
-    https://sg.geodatenzentrum.de/web_download/vg/vg250-ew_3112/utm32s/shape/vg250-ew_3112.utm32s.shape.ebenen.zip
+    https://gdz.bkg.bund.de/index.php/default/verwaltungsgebiete-1-25-000-stand-31-12-vg25.html
     """
 
     help = "load shapefiles to georegion"
@@ -56,12 +54,12 @@ class Command(BaseCommand):
         path = options["path"]
 
         self.layers = [
-            ("Country", "VG250_STA.shp", "country", 0),
-            ("State", "VG250_LAN.shp", "state", 1),
-            ("Administrative District", "VG250_RBZ.shp", "admin_district", 2),
-            ("District", "VG250_KRS.shp", "district", 3),
-            ("Admin Cooperation", "VG250_VWG.shp", "admin_cooperation", 4),
-            ("Municipalities", "VG250_GEM.shp", "municipality", 5),
+            ("Country", "vg25_sta", "country", 0),
+            ("State", "vg25_lan", "state", 1),
+            ("Administrative District", "vg25_rbz", "admin_district", 2),
+            ("District", "vg25_krs", "district", 3),
+            ("Admin Cooperation", "vg25_vwg", "admin_cooperation", 4),
+            ("Municipalities", "vg25_gem", "municipality", 5),
         ]
 
         if command == "data":
@@ -70,22 +68,23 @@ class Command(BaseCommand):
             self.update_stats(path)
 
     def update_stats(self, path):
-        for name, filename, kind, _level in self.layers:
+        import geopandas as gpd
+
+        for name, layer_name, kind, _level in self.layers:
             self.stdout.write("\n%s\n" % name)
-            ds = self.get_ds(path, filename)
-            layer = ds[0]
+            layer = gpd.read_file(path, layer=layer_name)
             count = float(len(layer))
             for i, feature in enumerate(layer):
-                gf = int(feature["GF"].as_string())
+                gf = int(feature["GF"])
                 if gf < 4:
                     # Only import land masses
                     continue
                 self.stdout.write("%.2f%%\r" % (i / count * 100), ending="")
-                name = feature["GEN"].as_string()
-                region_identifier = feature["ARS"].as_string()
+                name = feature["GEN"]
+                region_identifier = feature["ARS"]
                 print(name, region_identifier)
 
-                population = feature["EWZ"].as_int()
+                population = feature["EWZ"]
                 if population is None:
                     continue
                 try:
@@ -116,44 +115,36 @@ class Command(BaseCommand):
                         geo_region.save(update_fields=["population"])
 
     def load(self, path):
+        import geopandas as gpd
+
         self.valid_date = datetime(
-            2021, 1, 1, 0, 0, 0, tzinfo=timezone.get_current_timezone()
+            2024, 12, 31, 0, 0, 0, tzinfo=timezone.get_current_timezone()
         )
 
         self.georegions = GeoRegion.objects.filter(kind__in=[x[2] for x in self.layers])
 
-        for name, filename, kind, level in self.layers:
-            self.stdout.write("\n%s\n" % name)
-            self.load_by_path(path, filename, kind, level)
+        for label, layer_name, region_kind, level in self.layers:
+            self.stdout.write(f"\n{label}\n")
+            layer = gpd.read_file(path, layer=layer_name)
+            layer = layer.to_crs("EPSG:4326")
+
+            layer = layer[(layer["BSG"] == 1) & (layer["GF"].isin([4, 9]))]
+            self.load_bkg(layer, region_kind, level)
 
         GeoRegion.fix_tree()
-        self.stdout.write("\nSet Gov seats\n")
-        self.set_gov_seats(path, "VG250_PK.shp")
 
-        self.stdout.write("Calculate Area\n")
-        GeoRegion.objects.all().update(area=Area("geom"))
-
-    def get_ds(self, path, filename):
-        path = os.path.abspath(os.path.join(path, filename))
-        return DataSource(path)
-
-    def load_by_path(self, path, filename, kind, level):
-        ds = self.get_ds(path, filename)
-        mapping = LayerMapping(GeoRegion, ds, {"geom": "POLYGON"})
-        self.load_bkg(ds, mapping, kind, level)
-
-    def load_bkg(self, ds, mapping, kind, level):
-        layer = ds[0]
+    def load_bkg(self, layer, kind, level):
         count = float(len(layer))
         old_ids = set(
             GeoRegion.objects.filter(kind=kind).values_list(
                 "region_identifier", flat=True
             )
         )
+        old_ids = {r.ljust(12, "0") for r in old_ids}
         current_ids = set()
-        for i, feature in enumerate(layer):
+        for i, (_index, feature) in enumerate(layer.iterrows()):
             self.stdout.write("%.2f%%\r" % (i / count * 100), ending="")
-            region_identifier = self.load_feature(feature, mapping, kind, level)
+            region_identifier = self.load_feature(feature, kind, level)
             if region_identifier is not None:
                 current_ids.add(region_identifier)
 
@@ -165,38 +156,23 @@ class Command(BaseCommand):
             invalid_on=self.valid_date
         )
 
-    def load_feature(self, feature, mapping, kind, level):
-        nuts = feature["NUTS"].as_string()
-        gf = int(feature["GF"].as_string())
-        if gf < 4:
-            # Only import land masses
-            return
-        name = feature["GEN"].as_string()
+    def load_feature(self, feature, kind, level):
+        nuts = str(feature["NUTS"])
+        name = feature["GEN"]
 
-        kind_detail = feature["BEZ"].as_string()
+        kind_detail = feature["BEZ"]
 
-        nbd = feature["NBD"].as_string()
+        nbd = feature["NBD"]
         full_name = "%s %s" % (kind_detail, name) if nbd == "ja" else name
         slug = slugify(full_name)
 
-        geom = mapping.feature_kwargs(feature)["geom"]
+        geom = feature["geometry"]
 
         extra_data = {}
+        berlin = zoneinfo.ZoneInfo("Europe/Berlin")
+        valid_on = feature["WSK"].to_pydatetime().astimezone(berlin)
 
-        try:
-            wsk = feature["WSK"].as_string()
-            if "/" in wsk:
-                wsk = wsk.replace("/", "-")
-            valid_on_date = parse_date(wsk)
-            valid_on = datetime.combine(
-                valid_on_date, datetime.min.time(), timezone.get_current_timezone()
-            )
-        except Exception as e:
-            print(wsk)
-            print(e)
-            valid_on = None
-
-        region_identifier = feature["ARS"].as_string()
+        region_identifier = feature["ARS"].ljust(12, "0")
 
         geo_region = GeoRegion.objects.filter(
             region_identifier=region_identifier, kind=kind
@@ -219,7 +195,9 @@ class Command(BaseCommand):
         tree_params = {}
         parent_region_identifier = region_identifier
         while True:
-            parent_region_identifier = get_higher_ars(parent_region_identifier)
+            parent_region_identifier = get_higher_ars(parent_region_identifier).ljust(
+                12, "0"
+            )
             print(name, region_identifier, parent_region_identifier)
             if parent_region_identifier:
                 try:
@@ -243,11 +221,7 @@ class Command(BaseCommand):
                 tree_params = get_new_child_params(None)
             break
 
-        dlm_id = (
-            feature["DEBKG_ID"].as_string()
-            if "DEBKG_ID" in feature
-            else feature["DLM_ID"].as_string()
-        )
+        dlm_id = feature["OBJID"] if "OBJID" in feature else feature["DLM_ID"]
 
         data = {
             "slug": slug,
@@ -257,8 +231,8 @@ class Command(BaseCommand):
             "level": level,
             "region_identifier": region_identifier,
             "global_identifier": nuts,
-            "geom": geom,
-            "area": feature.geom.area,
+            "geom": GEOSGeometry(geom.wkt, srid=4326),
+            "area": geom.area,
             "valid_on": valid_on,
             "invalid_on": None,
             "part_of": parent,
@@ -276,18 +250,3 @@ class Command(BaseCommand):
             data.update(tree_params)
             GeoRegion.objects.create(**data)
         return region_identifier
-
-    def set_gov_seats(self, path, filename):
-        ds = self.get_ds(path, filename)
-        mapping = LayerMapping(GeoRegion, ds, {"geom": "POINT"})
-        layer = ds[0]
-        count = float(len(layer))
-        for i, feature in enumerate(layer):
-            self.stdout.write("%.2f%%\r" % (i / count * 100), ending="")
-            region_identifier = feature["ARS"].as_string()
-            try:
-                gr = GeoRegion.objects.get(region_identifier=region_identifier)
-                gr.gov_seat = mapping.feature_kwargs(feature)["geom"]
-                gr.save()
-            except GeoRegion.DoesNotExist:
-                pass
