@@ -19,9 +19,11 @@
                             {% include "fds_blog/includes/_authors.html" %}
                         {% endwith %}
                     </div>
-                    <div class="d-none d-md-block ms-auto ps-3">
-                        {% include "fds_blog/includes/share_article.html" with id="article-header" %}
-                    </div>
+                    {% if not hide_share_links %}
+                        <div class="d-none d-md-block ms-auto ps-3">
+                            {% include "fds_blog/includes/share_article.html" with id="article-header" %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -74,27 +76,31 @@
 {% endblock article_content %}
 {% block article_footer %}
     <footer class="mb-3">
-        <section>
-            <div class="container-lg">
-                <div class="d-md-flex align-items-center">
-                    <h3 class="small text-secondary m-0 me-md-3">{% trans "Share article" %}</h3>
-                    {% include "fds_blog/includes/share_article.html" with id="article-footer" %}
-                </div>
-            </div>
-            {% if article.tags.count > 0 %}
-                <div class="container-lg d-flex flex-wrap align-items-center mt-3">
-                    <h3 class="small text-secondary m-0">{% trans "Tags" %}</h3>
-                    <ul class="list-unstyled d-contents">
-                        {% for tag in article.tags.all %}
-                            <li class="ms-2">
-                                <span aria-hidden="true" class="text-secondary">#</span>
-                                <a href="{% url 'blog:article-tagged' tag.slug %}">{{ tag.name }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-        </section>
+        {% if not hide_share_links and article.tags.count > 0 %}
+            <section>
+                {% if not hide_share_links %}
+                    <div class="container-lg">
+                        <div class="d-md-flex align-items-center">
+                            <h3 class="small text-secondary m-0 me-md-3">{% trans "Share article" %}</h3>
+                            {% include "fds_blog/includes/share_article.html" with id="article-footer" %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if article.tags.count > 0 %}
+                    <div class="container-lg d-flex flex-wrap align-items-center mt-3">
+                        <h3 class="small text-secondary m-0">{% trans "Tags" %}</h3>
+                        <ul class="list-unstyled d-contents">
+                            {% for tag in article.tags.all %}
+                                <li class="ms-2">
+                                    <span aria-hidden="true" class="text-secondary">#</span>
+                                    <a href="{% url 'blog:article-tagged' tag.slug %}">{{ tag.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </section>
+        {% endif %}
         {% if article.credits or authors_with_profiles or authors_without_profiles %}
             <section class="vstack gap-4">
                 {% if article.credits %}
@@ -149,25 +155,27 @@
                 {% endif %}
             </section>
         {% endif %}
-        {% block article_languages %}
-            {% with other_langs=article.other_languages %}
-                {% if other_langs %}
-                    <section>
-                        <div class="container-lg">
-                            <p>{% trans "This article is available in other languages." %}</p>
-                            <ul class="list-unstyled">
-                                {% for lang_article in other_langs %}
-                                    <li>
-                                        {{ lang_article.language|language_name }}:
-                                        <a href="{{ lang_article.get_absolute_url }}">{{ lang_article.title }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </section>
-                {% endif %}
-            {% endwith %}
-        {% endblock article_languages %}
+        {% if not hide_other_languages %}
+            {% block article_languages %}
+                {% with other_langs=article.other_languages %}
+                    {% if other_langs %}
+                        <section>
+                            <div class="container-lg">
+                                <p>{% trans "This article is available in other languages." %}</p>
+                                <ul class="list-unstyled">
+                                    {% for lang_article in other_langs %}
+                                        <li>
+                                            {{ lang_article.language|language_name }}:
+                                            <a href="{{ lang_article.get_absolute_url }}">{{ lang_article.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </section>
+                    {% endif %}
+                {% endwith %}
+            {% endblock article_languages %}
+        {% endif %}
         {% block article_suggestions %}
             {% if article_suggestions %}
                 <section>

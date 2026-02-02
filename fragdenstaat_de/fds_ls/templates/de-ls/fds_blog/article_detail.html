@@ -1,0 +1,29 @@
+{% extends "fds_blog/base.html" %}
+{% load i18n cms_tags %}
+{% load djangocms_alias_tags %}
+{% load markup %}
+{% load static %}
+{% load blog_tags %}
+{% block canonical_url %}
+    <link rel="canonical" href="{{ meta.url }}" />
+{% endblock canonical_url %}
+{% block title %}{{ article.meta_title }}{% endblock %}
+{% block meta %}
+    {% include "snippets/meta.html" with description=article.teaser|striptags keywords=article.tag_list %}
+    {% include "fds_blog/includes/social_meta.html" with article=article %}
+    {% with other_langs=article.other_languages %}
+        {% for lang_article in other_langs %}
+            <link rel="alternate"
+                  hreflang="{{ lang_article.language }}"
+                  href="{{ lang_article.get_full_url }}" />
+        {% endfor %}
+    {% endwith %}
+{% endblock %}
+{% block content_blog %}
+    {% spaceless %}
+        <article class="blog-article"
+                 {% if category.color %}style="--article-color: var(--bs-{{ category.color }}-rgb)"{% endif %}>
+            {% include "fds_blog/_article_detail.html" with hide_share_links=True hide_other_languages=True %}
+        </article>
+    {% endspaceless %}
+{% endblock content_blog %}
