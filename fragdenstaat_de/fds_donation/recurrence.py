@@ -214,10 +214,17 @@ def process_recurrence_on_donor(donor: Donor, current_date: datetime | None = No
     if donations:
         process_donations(donor, donations, current_date)
 
+    update_fields = []
     recurring_amount = donor.calculate_recurring_amount()
     if recurring_amount != donor.recurring_amount:
         donor.recurring_amount = recurring_amount
-        donor.save(update_fields=["recurring_amount"])
+        update_fields.append("recurring_amount")
+    streak_start = donor.get_recurrence_streak_start_date()
+    if streak_start != donor.recurrence_streak_start:
+        donor.recurrence_streak_start = streak_start
+        update_fields.append("recurrence_streak_start")
+    if update_fields:
+        donor.save(update_fields=update_fields)
 
 
 def process_subscription_donations(

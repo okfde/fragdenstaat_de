@@ -147,6 +147,7 @@ class Donor(models.Model):
     recurring_amount = models.DecimalField(
         max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
     )
+    recurrence_streak_start = models.DateTimeField(null=True, blank=True)
     invalid = models.BooleanField(default=False)
     duplicate = models.UUIDField(editable=False, null=True, blank=True)
 
@@ -799,7 +800,7 @@ class DonationGiftManager(models.Manager):
             | models.Q(inventory__gt=models.F("order_count"))
         )
         if donor:
-            streak_start = donor.get_recurrence_streak_start_date()
+            streak_start = donor.recurrence_streak_start
             if streak_start:
                 delta = relativedelta(streak_start, timezone.now())
                 gifts = gifts.filter(
