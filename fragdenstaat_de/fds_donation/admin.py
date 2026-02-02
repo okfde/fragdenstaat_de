@@ -138,6 +138,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         ActiveRecurrencesListFilter,
         DonorTotalAmountPerYearFilter,
         make_rangefilter("recurring_amount", _("recurring monthly amount")),
+        make_daterangefilter("recurrence_streak_start", _("Recurrence streak start")),
         make_daterangefilter("last_donation", _("Last donation")),
         "subscriber__subscribed",
         "email_confirmed",
@@ -220,6 +221,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                     "amount_total",
                     "amount_last_year",
                     "recurring_amount",
+                    "recurrence_streak_start",
                     "donation_count",
                     "last_donation",
                     "render_recurrences",
@@ -315,7 +317,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         if obj.user and is_crew(obj.user):
             # Allow recurring amount change on crew donors for testing
             return self.readonly_fields
-        return self.readonly_fields + ("recurring_amount",)
+        return self.readonly_fields + ("recurring_amount", "recurrence_streak_start")
 
     @admin.display(ordering="donation_count", description=_("Donation count"))
     def donation_count(self, obj):
