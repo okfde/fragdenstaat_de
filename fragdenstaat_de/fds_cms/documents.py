@@ -39,7 +39,6 @@ class CMSDocument(Document):
     )
     url = fields.TextField(
         fields={"raw": fields.KeywordField()},
-        analyzer=analyzer,
     )
     description = fields.TextField(
         fields={"raw": fields.KeywordField()},
