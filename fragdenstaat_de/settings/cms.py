@@ -297,6 +297,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                 "froide.publicbody.apps.PublicBodyNoConfig",
                 "froide.campaign",
                 "froide.foirequest.apps.FoiRequestNoConfig",
+                "froide.proof.apps.ProofNoConfig",
                 "fragdenstaat_de.fds_newsletter.apps.NewsletterNoConfig",
                 "fragdenstaat_de.fds_mailing.apps.FdsMailingNoConfig",
                 "fragdenstaat_de.fds_donation.apps.FdsDonationNoConfig",
