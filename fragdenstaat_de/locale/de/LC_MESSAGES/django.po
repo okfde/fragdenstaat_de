@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-14 11:21+0100\n"
-"PO-Revision-Date: 2025-12-17 14:29+0100\n"
+"POT-Creation-Date: 2026-02-05 13:18+0100\n"
+"PO-Revision-Date: 2026-02-05 13:29+0100\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -1317,6 +1317,7 @@ msgid "Accept"
 msgstr "Akzeptieren"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/feedback.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donationgiftform.html
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
 msgid "Submit"
 msgstr "Abschicken"
@@ -1384,6 +1385,12 @@ msgstr "Hat Dauerspenden"
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "recurring monthly amount"
 msgstr "wiederkehrender monatlicher Betrag"
+
+#: fragdenstaat_de/fds_donation/admin.py
+#, fuzzy
+#| msgid "Recurrences"
+msgid "Recurrence streak start"
+msgstr "Dauerspenden"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Last donation"
@@ -2096,20 +2103,21 @@ msgid ""
 msgstr "Verwalte Deine Spenden im FragDenStaat-Konto."
 
 #: fragdenstaat_de/fds_donation/forms.py
-msgid "Your name"
-msgstr "Dein Name"
+#, fuzzy
+#| msgid "This is the basis for the donation receipts."
+msgid "Use this address for future donation receipts."
+msgstr ""
+"Auf Basis dieser Informationen lassen wir Dir Deine Spendenbescheinigung "
+"zukommen."
 
 #: fragdenstaat_de/fds_donation/forms.py
-msgid "Your email address"
-msgstr "Deine E-Mail-Adresse"
+msgid "Unfortunately, there are no donation gifts available."
+msgstr "Leider sind keine Spendengeschenke verfügbar."
 
 #: fragdenstaat_de/fds_donation/forms.py
-msgid "Shipping address"
-msgstr "Versandadresse"
-
-#: fragdenstaat_de/fds_donation/forms.py
-msgid "Please choose your donation gift"
-msgstr "Wähle Dein Dankeschön aus"
+#: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donationgiftform.html
+msgid "No donation gifts are available for you at the moment."
+msgstr ""
 
 #: fragdenstaat_de/fds_donation/forms.py fragdenstaat_de/fds_donation/models.py
 msgid "Reason for cancellation"
@@ -2370,6 +2378,10 @@ msgstr ""
 "          %(amount_str)s&nbsp;€ von %(donation_goal_str)s&nbsp;€\n"
 "          "
 
+#: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donationgiftform.html
+msgid "Log in to your donor profile to select a donation gift."
+msgstr ""
+
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
 msgid "Thank you for your donation!"
 msgstr "Vielen Dank für Deine Spende!"
@@ -2534,6 +2546,10 @@ msgid "Frequent questions & contact"
 msgstr "Häufige Fragen & Kontakt"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+msgid "Downloads"
+msgstr "Downloads"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Pending banktransfers"
 msgstr "Ausstehende Überweisungen"
 
@@ -2649,6 +2665,14 @@ msgstr "Ändern"
 msgid "Continue"
 msgstr "Weiter"
 
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_shipping.html
+msgid "Shipping details"
+msgstr "Versandadresse"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_shipping.html
+msgid "Use receipt address"
+msgstr "Adresse der Spendenbescheinigung verwenden"
+
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
 msgid "Your details"
 msgstr "Persönliche Daten"
@@ -2656,14 +2680,6 @@ msgstr "Persönliche Daten"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
 msgid "&rarr; Do you want to donate as a company?"
 msgstr "&rarr; Möchtest Du als Firma spenden?"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
-msgid "Shipping details"
-msgstr "Versandadresse"
-
-#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
-msgid "Use receipt address"
-msgstr "Adresse der Spendenbescheinigung verwenden"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
 msgid ""
@@ -2817,6 +2833,10 @@ msgstr "Ansonsten freuen wir uns über dein Feedback:"
 msgid "back"
 msgstr "zurück"
 
+#: fragdenstaat_de/fds_donation/triggers.py
+msgid "Recurrence created"
+msgstr "Dauerspende erstellt"
+
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"
 msgid "donate/"
@@ -2838,7 +2858,6 @@ msgid "your-donation/"
 msgstr "ihre-spenden/"
 
 #: fragdenstaat_de/fds_donation/urls.py
-#| msgid "sending"
 msgctxt "url pattern"
 msgid "send-link/"
 msgstr "sende-link/"
@@ -2895,6 +2914,20 @@ msgstr ""
 
 #: fragdenstaat_de/fds_donation/views.py
 msgid ""
+"You need to be logged in as a donor to order a donation gift. Please request "
+"a login link first."
+msgstr ""
+
+#: fragdenstaat_de/fds_donation/views.py
+msgid "Your order has been created!"
+msgstr "Wir haben deine Bestellung erhalten!"
+
+#: fragdenstaat_de/fds_donation/views.py
+msgid "Please review your form submission."
+msgstr "Bitte überprüfe Deine Formulareingaben."
+
+#: fragdenstaat_de/fds_donation/views.py
+msgid ""
 "We have no associated donations with your account. If you have donated, let "
 "us know! Otherwise feel free to donate below."
 msgstr ""
@@ -2926,6 +2959,11 @@ msgstr "Dein Link ist abgelaufen, bitte fordere einen neuen an."
 msgid "You cannot access this donor with the current account."
 msgstr ""
 "Du kannst auf dieses Spenderprofil mit dem aktuellen Konto nicht zugreifen."
+
+#: fragdenstaat_de/fds_donation/views.py
+#, python-brace-format
+msgid "You are accessing the donor profile of {name} ({email})"
+msgstr ""
 
 #: fragdenstaat_de/fds_donation/views.py
 msgid "We have sent you a link to access your donations."
@@ -2964,6 +3002,26 @@ msgid "Create new event"
 msgstr "Neuen Termin erstellen"
 
 #: fragdenstaat_de/fds_events/models.py
+msgctxt "physical event"
+msgid "Event Tag"
+msgstr "Termin-Tag"
+
+#: fragdenstaat_de/fds_events/models.py
+msgctxt "physical event"
+msgid "Event Tags"
+msgstr "Termin-Tags"
+
+#: fragdenstaat_de/fds_events/models.py
+msgctxt "physical event"
+msgid "Tagged Event"
+msgstr "Getaggter Termin"
+
+#: fragdenstaat_de/fds_events/models.py
+msgctxt "physical event"
+msgid "Tagged Events"
+msgstr "Getaggte Termine"
+
+#: fragdenstaat_de/fds_events/models.py
 msgid "Title"
 msgstr "Titel"
 
@@ -2998,6 +3056,18 @@ msgstr "Ort"
 msgctxt "physical event"
 msgid "Event"
 msgstr "Termin"
+
+#: fragdenstaat_de/fds_events/models.py
+msgid "Only show events with these tags."
+msgstr "Zeige nur Termine mit diesen Schlagworten."
+
+#: fragdenstaat_de/fds_events/models.py
+msgid "Include trials from lawsuits."
+msgstr ""
+
+#: fragdenstaat_de/fds_events/models.py
+msgid "0 means all events"
+msgstr "0 bedeutet alle Termine"
 
 #: fragdenstaat_de/fds_events/templates/fds_events/event_detail.html
 msgid "Add to calendar"
@@ -4133,6 +4203,10 @@ msgid_plural "Setup mailing to %(count)s users"
 msgstr[0] "Mailing für an ein:e Nutzer:in anlegen"
 msgstr[1] "Mailing an %(count)s Nutzer:innen anlegen"
 
+#: fragdenstaat_de/templates/admin/base_site.html
+msgid "Django administration"
+msgstr "Admin"
+
 #: fragdenstaat_de/templates/cmssites/cmssite/gegenrechtsschutz.html
 msgid "Toggle navigation"
 msgstr "Navigation umschalten"
@@ -4605,6 +4679,18 @@ msgctxt "url part"
 msgid "campaign/"
 msgstr "kampagne/"
 
+#~ msgid "Your name"
+#~ msgstr "Dein Name"
+
+#~ msgid "Your email address"
+#~ msgstr "Deine E-Mail-Adresse"
+
+#~ msgid "Shipping address"
+#~ msgstr "Versandadresse"
+
+#~ msgid "Please choose your donation gift"
+#~ msgstr "Wähle Dein Dankeschön aus"
+
 #~ msgid "Sending...\\u202f{}"
 #~ msgstr "Sende...\\u202f{}"
 
@@ -4827,9 +4913,6 @@ msgstr "kampagne/"
 
 #~ msgid "Search for a matching request"
 #~ msgstr "Nach der zugehörigen Anfrage suchen"
-
-#~ msgid "No requests with these filters."
-#~ msgstr "Noch keine Anfragen mit diesen Filtereinstellungen."
 
 #~ msgid "select-request/"
 #~ msgstr "anfrage-waehlen/"
@@ -5408,9 +5491,6 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Sie sind gerade nicht eingeloggt, daher können Sie Ihr Passwort nicht "
 #~ "ändern."
-
-#~ msgid "Your password has been changed."
-#~ msgstr "Ihr Passwort wurde geändert."
 
 #~ msgid "You are currently logged in, you cannot get a password reset link."
 #~ msgstr ""
@@ -6466,9 +6546,6 @@ msgstr "kampagne/"
 
 #~ msgid "A postal reply was successfully added!"
 #~ msgstr "Eine per Post erhaltene Antwort wurde hinzugefügt!"
-
-#~ msgid "There were errors with your form submission!"
-#~ msgstr "Ihre Angaben waren fehlerhaft!"
 
 #~ msgid "Your document was attached to the message."
 #~ msgstr "Ihr Dokument wurde an die Antwort angehängt."
@@ -8579,10 +8656,6 @@ msgstr "kampagne/"
 
 #~ msgid "Ministry of Defence"
 #~ msgstr "Verteidigungsministerium"
-
-#, fuzzy
-#~ msgid "Administrative Section"
-#~ msgstr "Braucht Eingriff von Administrator"
 
 #~ msgid "%(name)s - <a href=\"%(url)s\">More Information</a>"
 #~ msgstr "%(name)s - <a href=\"%(url)s\">Details</a>"
