@@ -16,7 +16,6 @@ from fragdenstaat_de.fds_donation.models import (
     DonationGift,
     DonationGiftOrder,
     Donor,
-    Recurrence,
 )
 
 
@@ -148,6 +147,9 @@ def test_order_ineligible_amount(donor_client, donor, donation_gift):
 def test_order_ineligible_streak(donor_client, donor, donation_gift):
     donation_gift.min_streak_months = 11
     donation_gift.save()
+
+    assert DonationGift.objects.available(category="test", donor=donor).count() == 0
+
     response = donor_client.post(
         reverse(
             "fds_donation:make_order",
@@ -169,12 +171,11 @@ def test_order_ineligible_streak(donor_client, donor, donation_gift):
     assert response.url.startswith("/spenden/geschenk/")
 
     # Fix it
-    Recurrence.objects.create(
-        donor=donor,
-        active=True,
-        interval=12,
-        start_date=timezone.now() - timedelta(days=365),
-    )
+    donor.recurrence_streak_start = timezone.now() - timedelta(days=365)
+    donor.save()
+
+    assert DonationGift.objects.available(category="test", donor=donor).count() == 1
+
     response = donor_client.post(
         reverse(
             "fds_donation:make_order",
@@ -193,7 +194,7 @@ def test_order_ineligible_streak(donor_client, donor, donation_gift):
         },
     )
     assert response.status_code == 302
-    assert response.url.startswith("/spenden/geschenk/")
+    assert response.url.startswith("/spenden/danke/")
 
 
 @pytest.mark.django_db

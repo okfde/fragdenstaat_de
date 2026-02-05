@@ -802,10 +802,11 @@ class DonationGiftManager(models.Manager):
         if donor:
             streak_start = donor.recurrence_streak_start
             if streak_start:
-                delta = relativedelta(streak_start, timezone.now())
+                delta = relativedelta(timezone.now(), streak_start)
+                months = delta.years * 12 + delta.months
                 gifts = gifts.filter(
                     models.Q(min_streak_months=0)
-                    | models.Q(min_streak_months__lte=delta.months)
+                    | models.Q(min_streak_months__lte=months)
                 )
             else:
                 gifts = gifts.filter(min_streak_months=0)
