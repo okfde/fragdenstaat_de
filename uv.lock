@@ -922,7 +922,7 @@ wheels = [
 [[package]]
 name = "django-filingcabinet"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#b5d3d6d49decaeeac1e95b88fb91c3f118b586a6" }
+source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#4e3c77ce7a913efdf02b41260e5c9d21bc766833" }
 dependencies = [
     { name = "celery" },
     { name = "django" },
@@ -1912,7 +1912,7 @@ requires-dist = [
     { name = "pgpy", specifier = ">=0.6.0" },
     { name = "phonenumbers", specifier = ">=8.13.45" },
     { name = "pikepdf", specifier = ">=9.7.0" },
-    { name = "pillow", specifier = ">=11.0.0" },
+    { name = "pillow", specifier = ">=12.1.0" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.2.9" },
     { name = "pyisemail", specifier = ">=2.0.1" },
     { name = "pymemcache", marker = "extra == 'production'" },
@@ -1966,7 +1966,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#4e301dc24585a91d09b7ee7cf880c1ca6b8fdb7d" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#338f63ae940afe9473f506ad6bab3a7e92973c82" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2020,7 +2020,7 @@ dependencies = [
 [[package]]
 name = "froide-campaign"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#e1cd131adbe4e8cbc6aede85e372963e0d4894f0" }
+source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#e5a369a1feb7e387f456df0dc451667893c32e81" }
 dependencies = [
     { name = "django" },
     { name = "django-admin-sortable2" },
@@ -2040,7 +2040,7 @@ dependencies = [
 [[package]]
 name = "froide-evidencecollection"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#d38315cf8f9077bc4820073a499dce924948a2cb" }
+source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#8904d2c690df02e7b52845d8c3b0779251f1f19e" }
 dependencies = [
     { name = "django-cms" },
 ]
@@ -2048,12 +2048,12 @@ dependencies = [
 [[package]]
 name = "froide-exam"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-exam.git?rev=main#779005ccfc21a3e75aeb57eb486c91b670739a3c" }
+source = { git = "https://github.com/okfde/froide-exam.git?rev=main#dd9f3ed3fa6287d9c0e3238e3e94daa810b8e94f" }
 
 [[package]]
 name = "froide-fax"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-fax.git?rev=main#876bd0fd70ed707df28325965dc293cca30a2529" }
+source = { git = "https://github.com/okfde/froide-fax.git?rev=main#c413e0414356901e20737c1ebf25bce63bf5dee8" }
 dependencies = [
     { name = "phonenumbers" },
     { name = "pynacl" },
@@ -2065,7 +2065,7 @@ dependencies = [
 [[package]]
 name = "froide-food"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-food.git?rev=main#a70bfc44e56e5d2338dc4ba3111ed376152d550b" }
+source = { git = "https://github.com/okfde/froide-food.git?rev=main#29b2817b7545a4d06110d40cfd3ab16f3383f58e" }
 dependencies = [
     { name = "django-amenities" },
     { name = "geopy" },
@@ -2091,7 +2091,7 @@ dependencies = [
 [[package]]
 name = "froide-legalaction"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-legalaction.git?rev=main#fdcfec87724c7388d22d6377bcce9feb7de88662" }
+source = { git = "https://github.com/okfde/froide-legalaction.git?rev=main#8e5281408a57ab94e5304f1500601c3b164f511f" }
 dependencies = [
     { name = "django-fsm" },
 ]
@@ -2099,7 +2099,7 @@ dependencies = [
 [[package]]
 name = "froide-payment"
 version = "0.0.3"
-source = { git = "https://github.com/okfde/froide-payment.git?rev=main#c9771529a888ff14359e6367cf83495f5dc017ca" }
+source = { git = "https://github.com/okfde/froide-payment.git?rev=main#f9fd928ea1fbd59ab69dd3f72d0043348640c555" }
 dependencies = [
     { name = "django-countries" },
     { name = "django-localflavor" },
