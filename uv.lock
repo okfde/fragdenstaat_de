@@ -1941,7 +1941,7 @@ requires-dist = [
     { name = "pgpy", specifier = ">=0.6.0" },
     { name = "phonenumbers", specifier = ">=8.13.45" },
     { name = "pikepdf", specifier = ">=9.7.0" },
-    { name = "pillow", specifier = ">=11.0.0" },
+    { name = "pillow", specifier = ">=12.1.0" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.2.9" },
     { name = "pyisemail", specifier = ">=2.0.1" },
     { name = "pymemcache", marker = "extra == 'production'" },
