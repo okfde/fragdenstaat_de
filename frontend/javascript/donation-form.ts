@@ -392,7 +392,9 @@ const setupShipping = (form: HTMLFormElement) => {
   const setShippingFields = (): void => {
     shippingFields.forEach((el) => {
       const key = el.name.replace('shipping_', '')
-      el.value = addressFields[key]?.value ?? ''
+      if (el.value === '' && addressFields[key]) {
+        el.value = addressFields[key]?.value ?? ''
+      }
     })
   }
 
