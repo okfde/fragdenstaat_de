@@ -75,24 +75,24 @@ class TestDocumentAnalyzerConfiguration:
 
     def _assert_ngram_field(self, field_name, field):
         """Test that the field is configured to use the ngram analyzer."""
-        assert (
-            field.analyzer == get_ngram_analyzer()
-        ), f"Field '{field_name}' should use ngram analyzer"
+        assert field.analyzer == get_ngram_analyzer(), (
+            f"Field '{field_name}' should use ngram analyzer"
+        )
         # If no separate search analyzer is set, field.analyzer is used for searching.
-        assert (
-            hasattr(field, "search_analyzer") is False
-        ), f"Field '{field_name}' should not have 'search_analyzer' set"
-        assert (
-            hasattr(field, "search_quote_analyzer") is False
-        ), f"Field '{field_name}' should not have 'search_quote_analyzer' set"
+        assert hasattr(field, "search_analyzer") is False, (
+            f"Field '{field_name}' should not have 'search_analyzer' set"
+        )
+        assert hasattr(field, "search_quote_analyzer") is False, (
+            f"Field '{field_name}' should not have 'search_quote_analyzer' set"
+        )
 
     def _assert_no_analyzers(self, field_name, field):
         """Test that the field has no analyzers set, i.e. uses the standard analyzer."""
         for analyzer_type in ANALYZERS.keys():
             analyzer = getattr(field, analyzer_type, None)
-            assert (
-                analyzer is None
-            ), f"Field '{field_name}' should not have '{analyzer_type}' set"
+            assert analyzer is None, (
+                f"Field '{field_name}' should not have '{analyzer_type}' set"
+            )
 
     def _assert_full_text_analyzers(self, field_name, field):
         """Test that the field has the correct full-text analyzers set."""
