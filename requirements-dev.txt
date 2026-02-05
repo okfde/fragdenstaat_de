@@ -423,7 +423,7 @@ feedgen==1.0.0
     # via django-filingcabinet
 fido2==2.0.0
     # via django-mfa3
-filelock==3.19.1
+filelock==3.20.3
     # via
     #   torch
     #   virtualenv
@@ -920,7 +920,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-virtualenv==20.34.0
+virtualenv==20.36.1
     # via pre-commit
 wand==0.6.13
     # via
