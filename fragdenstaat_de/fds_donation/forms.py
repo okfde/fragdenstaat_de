@@ -17,6 +17,7 @@ from froide.account.utils import parse_address
 from froide.helper.content_urls import get_content_url
 from froide.helper.spam import SpamProtectionMixin
 from froide.helper.widgets import (
+    BootstrapCheckboxInput,
     BootstrapRadioSelect,
     BootstrapSelect,
     InlineBootstrapRadioSelect,
@@ -737,6 +738,11 @@ class DonationGiftForm(forms.Form):
             )
         },
     )
+    update_address = forms.BooleanField(
+        required=False,
+        label=_("Use this address for future donation receipts."),
+        widget=BootstrapCheckboxInput,
+    )
 
     def __init__(self, *args, **kwargs):
         self.category = kwargs.pop("category")
@@ -782,6 +788,12 @@ class DonationGiftForm(forms.Form):
         DonationGiftLogic.clean(self)
 
     def save(self):
+        if self.cleaned_data["update_address"]:
+            self.donor.address = self.cleaned_data["shipping_address"]
+            self.donor.postcode = self.cleaned_data["shipping_postcode"]
+            self.donor.city = self.cleaned_data["shipping_city"]
+            self.donor.country = self.cleaned_data["shipping_country"]
+            self.donor.save()
         order = DonationGiftOrder.objects.create(
             donation=self.donor.donations.all()
             .filter(completed=True)

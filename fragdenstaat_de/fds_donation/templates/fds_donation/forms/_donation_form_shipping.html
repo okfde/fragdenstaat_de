@@ -19,16 +19,19 @@
             </div>
         </div>
     </div>
-    <div>
-        <div class="row">
-            <div class="col-12">{% render_field form.shipping_address stacked=True %}</div>
-        </div>
-        <div class="row">
-            <div class="col-4">{% render_field form.shipping_postcode stacked=True %}</div>
-            <div class="col-8">{% render_field form.shipping_city stacked=True %}</div>
-        </div>
-        <div class="row">
-            <div class="col-12">{% render_field form.shipping_country stacked=True %}</div>
-        </div>
+    <div class="row">
+        <div class="col-12">{% render_field form.shipping_address stacked=True %}</div>
     </div>
+    <div class="row">
+        <div class="col-4">{% render_field form.shipping_postcode stacked=True %}</div>
+        <div class="col-8">{% render_field form.shipping_city stacked=True %}</div>
+    </div>
+    <div class="row">
+        <div class="col-12">{% render_field form.shipping_country stacked=True %}</div>
+    </div>
+    {% if form.update_address %}
+        <div class="row">
+            <div class="col-12">{% render_field form.update_address stacked=True %}</div>
+        </div>
+    {% endif %}
 </fieldset>
