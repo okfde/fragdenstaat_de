@@ -232,6 +232,9 @@ class Donor(models.Model):
     def get_url(self):
         return settings.SITE_URL + self.get_absolute_url()
 
+    def get_root_url(self):
+        return settings.SITE_URL + self.get_absolute_login_url(next_path="/")
+
     def get_donate_url(self):
         return settings.SITE_URL + self.get_absolute_donate_url()
 
