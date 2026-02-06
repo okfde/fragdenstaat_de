@@ -60,6 +60,7 @@
                    name="{{ action_checkbox_name }}"
                    value="{{ obj.pk|unlocalize }}" />
         {% endfor %}
+        {% if request.GET.auto_next %}<input type="hidden" name="auto_next" value="1" />{% endif %}
     </form>
     <script src="{% static 'js/merge_donors.js' %}"></script>
 {% endblock %}

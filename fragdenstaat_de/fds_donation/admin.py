@@ -277,7 +277,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             path(
                 "merge-donors/",
                 self.admin_site.admin_view(self.merge_donor_view),
-                name="fds_donation-donation-merge_donor",
+                name="fds_donation-donor-merge_donor",
             ),
         ]
         return my_urls + urls
@@ -397,28 +397,42 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
     @admin.action(description=_("Detect duplicate donors"))
     def detect_duplicates(self, request, queryset):
-        emails = defaultdict(list)
-        full_names = defaultdict(list)
+        key_funcs = {
+            "email": lambda obj: obj.email if obj.email else None,
+            "name_addres": lambda obj: (
+                obj.get_full_name(),
+                obj.address,
+                obj.postcode,
+                obj.city,
+            )
+            if obj.address and obj.get_full_name()
+            else None,
+            "iban": lambda obj: obj.attributes.get("iban")
+            if obj.attributes and obj.attributes.get("iban")
+            else None,
+        }
+        dupe_lists = {key: defaultdict(list) for key in key_funcs.keys()}
         id_sets = defaultdict(set)
 
         for obj in queryset:
-            if obj.email:
-                emails[obj.email].append(obj.id)
-            full_names[obj.get_full_name()].append(obj.id)
+            for key_name, key_func in key_funcs.items():
+                key = key_func(obj)
+                if key:
+                    dupe_lists[key_name][key].append(obj.id)
 
-        for ddict in (emails, full_names):
-            for id_list in ddict.values():
+        for _key, dupe_dict in dupe_lists.items():
+            for id_list in dupe_dict.values():
                 if len(id_list) > 1:
                     id_set = set()
-                    for x in id_list:
-                        if x in id_sets:
-                            id_set.update(id_sets[x])
-                        id_set.add(x)
-                        id_sets[x] = id_set
+                    for donor_id in id_list:
+                        if donor_id in id_sets:
+                            id_set.update(id_sets[donor_id])
+                        id_set.add(donor_id)
+                        id_sets[donor_id] = id_set
         already = set()
         count = 0
-        for key, id_set in id_sets.items():
-            if key in already:
+        for donor_id, id_set in id_sets.items():
+            if donor_id in already:
                 continue
             already.update(id_set)
             Donor.objects.filter(id__in=id_set).update(duplicate=uuid.uuid4())
@@ -442,7 +456,6 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         # Clear order of queryset to avoid ordering on non-existing annotation columns
         qs.order_by().update(invalid=True)
 
-    @admin.action(description=_("Merge donors"))
     def merge_donor_view(self, request):
         """
         Render the merge donor view.
@@ -450,13 +463,23 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         if not self.has_change_permission(request):
             raise PermissionDenied
 
+        auto_next = request.GET.get("auto_next")
+
         donor_ids = request.GET.get("donor_id", "")
         donor_ids = [donor_id for donor_id in donor_ids.split(",") if donor_id]
-        if not donor_ids:
+        if not auto_next and not donor_ids:
             self.message_user(request, _("No donors selected!"))
             return redirect("admin:fds_donation_donor_changelist")
-
-        queryset = Donor.objects.filter(id__in=donor_ids)
+        elif auto_next:
+            first_donor = (
+                Donor.objects.filter(duplicate__isnull=False).order_by("?").first()
+            )
+            if not first_donor:
+                self.message_user(request, _("No duplicate donors found!"))
+                return redirect("admin:fds_donation_donor_changelist")
+            queryset = Donor.objects.filter(duplicate=first_donor.duplicate)
+        else:
+            queryset = Donor.objects.filter(id__in=donor_ids)
 
         response = self.merge_donors(request, queryset)
         if response:
@@ -506,6 +529,11 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                         count=len(candidates), donor=donor
                     ),
                 )
+                if request.POST.get("auto_next"):
+                    return (
+                        redirect("admin:fds_donation_donor_merge_donor")
+                        + "?auto_next=1"
+                    )
                 return redirect("admin:fds_donation_donor_change", donor.id)
 
         if donor_form is None:

@@ -16,3 +16,9 @@
     </p>
     {{ block.super }}
 {% endblock %}
+{% block object-tools-items %}
+    <li>
+        <a href="{% url 'admin:fds_donation-donor-merge_donor' %}?auto_next=1">{% trans "Match duplicate donors" %}</a>
+    </li>
+    {{ block.super }}
+{% endblock %}
