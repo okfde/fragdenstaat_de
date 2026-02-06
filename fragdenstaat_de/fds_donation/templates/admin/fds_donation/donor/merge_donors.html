@@ -33,6 +33,19 @@
                             </td>
                         {% endfor %}
                     </tr>
+                    <tr>
+                        <td>Stats</td>
+                        <td>-</td>
+                        {% for donor in queryset %}
+                            <td>
+                                <ul>
+                                    <li>Total amount: {{ donor.amount_total }} EUR</li>
+                                    <li>Total donations: {{ donor.donation_count }}</li>
+                                    <li>Amount last year: {{ donor.amount_last_year }} EUR</li>
+                                </ul>
+                            </td>
+                        {% endfor %}
+                    </tr>
                     {% for field in form %}
                         <tr>
                             <td>{{ field.label }}</td>
@@ -53,6 +66,10 @@
             <input type="hidden" name="action" value="merge_donors" />
             <p>
                 <input type="submit" value="{% blocktrans %}Merge donors{% endblocktrans %}" />
+                <input type="submit"
+                       class="default"
+                       name="cancel"
+                       value="{% blocktrans %}Mark as not duplicates{% endblocktrans %}" />
             </p>
         </div>
         {% for obj in queryset %}

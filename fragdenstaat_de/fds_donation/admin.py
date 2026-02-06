@@ -501,7 +501,17 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                 self.message_user(request, _("Select across not allowed!"))
                 return
 
-        candidates = queryset.order_by("-id")
+        last_year = timezone.now().year - 1
+        donations_filter = Q(donations__received_timestamp__isnull=False)
+        candidates = queryset.order_by("-id").annotate(
+            amount_total=Sum("donations__amount", filter=donations_filter),
+            amount_last_year=Sum(
+                "donations__amount",
+                filter=donations_filter
+                & Q(donations__received_timestamp__year=last_year),
+            ),
+            donation_count=Count("donations", filter=donations_filter),
+        )
         candidate_ids = [x.id for x in candidates]
         if len(candidate_ids) < 2:
             self.message_user(request, _("Need to select more than one!"))
@@ -511,30 +521,34 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
         donor_form = None
         if request.POST and "salutation" in request.POST:
-            donor_form = MergeDonorForm(data=request.POST)
-            if donor_form.is_valid():
-                primary_id = None
-                if request.POST.get("primary") is not None:
-                    primary_id = request.POST["primary"]
-                    if primary_id not in candidate_ids:
-                        primary_id = None
-                if primary_id is None:
-                    primary_id = candidate_ids[0]
+            if request.POST.get("cancel"):
+                candidates.update(duplicate=None)
+            else:
+                donor_form = MergeDonorForm(data=request.POST)
+                if donor_form.is_valid():
+                    primary_id = None
+                    if request.POST.get("primary") is not None:
+                        primary_id = request.POST["primary"]
+                        if primary_id not in candidate_ids:
+                            primary_id = None
+                    if primary_id is None:
+                        primary_id = candidate_ids[0]
 
-                donor = merge_donors(candidates, primary_id, donor_form.cleaned_data)
-
-                self.message_user(
-                    request,
-                    _("Merged {count} donors into {donor}").format(
-                        count=len(candidates), donor=donor
-                    ),
-                )
-                if request.POST.get("auto_next"):
-                    return (
-                        redirect("admin:fds_donation-donor-merge_donor")
-                        + "?auto_next=1"
+                    donor = merge_donors(
+                        candidates, primary_id, donor_form.cleaned_data
                     )
-                return redirect("admin:fds_donation_donor_change", donor.id)
+
+                    self.message_user(
+                        request,
+                        _("Merged {count} donors into {donor}").format(
+                            count=len(candidates), donor=donor
+                        ),
+                    )
+            if request.POST.get("auto_next"):
+                return redirect(
+                    reverse("admin:fds_donation-donor-merge_donor") + "?auto_next=1"
+                )
+            return redirect("admin:fds_donation_donor_change", donor.id)
 
         if donor_form is None:
             merged_donor = propose_donor_merge(candidates, MergeDonorForm.Meta.fields)
