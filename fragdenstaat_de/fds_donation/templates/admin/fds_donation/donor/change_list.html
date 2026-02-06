@@ -13,6 +13,8 @@
         Durchschnitt letztes Jahr: {{ cl.amount_last_year_avg }}&nbsp;EUR
         <br />
         Wiederkehrend Monatssumme: {{ cl.total_amount_recurring }}&nbsp;EUR
+        <br />
+        Erkannte Duplikate: {{ cl.duplicates }}
     </p>
     {{ block.super }}
 {% endblock %}

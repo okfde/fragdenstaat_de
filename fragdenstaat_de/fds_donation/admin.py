@@ -96,6 +96,7 @@ class DonorChangeList(ChangeList):
             amount_total_avg=Avg("amount_total"),
             amount_last_year_avg=Avg("amount_last_year"),
             recurring_total=Sum("recurring_amount"),
+            duplicates=Count("duplicate", distinct=True),
         )
         self.amount_total_sum = q["amount_total_sum"]
         self.amount_total_avg = (
@@ -113,6 +114,7 @@ class DonorChangeList(ChangeList):
             else "-"
         )
         self.total_amount_recurring = q["recurring_total"]
+        self.duplicates = q["duplicates"] or 0
         return ret
 
 
