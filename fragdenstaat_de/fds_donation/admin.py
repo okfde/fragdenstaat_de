@@ -531,7 +531,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                 )
                 if request.POST.get("auto_next"):
                     return (
-                        redirect("admin:fds_donation_donor_merge_donor")
+                        redirect("admin:fds_donation-donor-merge_donor")
                         + "?auto_next=1"
                     )
                 return redirect("admin:fds_donation_donor_change", donor.id)
