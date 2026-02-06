@@ -3947,7 +3947,7 @@ msgstr "Ich habe zu viele E-Mails erhalten"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "I expected more updates regarding certain campaings"
-msgstr "Ich habe mehr Updates zu spezifischen Kampagnen erwartet"
+msgstr "Ich habe mehr Updates zu spezifischen Aktionen erwartet"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "I only signed up regarding a specific FOI request"
