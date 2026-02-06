@@ -10,6 +10,8 @@ from django.core.exceptions import BadRequest, ImproperlyConfigured
 from django.db.models import Case, When
 from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect
+from django.template import TemplateDoesNotExist
+from django.template.loader import select_template
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import get_language, ngettext, override
@@ -161,6 +163,18 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
             self.object.detail_template,
         ]
 
+    def get_edit_template(self):
+        lang = get_language()
+
+        candidates = [
+            f"{lang}/cms/blog_base.html",
+        ]
+
+        try:
+            return select_template(candidates).template.name
+        except TemplateDoesNotExist:
+            return "cms/blog_base.html"
+
     def get_context_data(self, object=None):
         context = super().get_context_data(object=object)
         related_articles = list(object.related.all())
@@ -201,7 +215,7 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
 
         if self.request.toolbar.edit_mode_active:
             context["force_cms_render"] = True
-            context["CMS_TEMPLATE"] = "cms/blog_base.html"
+            context["CMS_TEMPLATE"] = self.get_edit_template()
 
         return context
 
