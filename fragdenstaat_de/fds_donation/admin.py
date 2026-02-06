@@ -313,8 +313,8 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     def view_on_site(self, obj):
         return reverse("fds_donation:donor-legacy", kwargs={"token": obj.uuid})
 
-    def get_readonly_fields(self, request, obj):
-        if obj.user and is_crew(obj.user):
+    def get_readonly_fields(self, request, obj=None):
+        if obj and obj.user and is_crew(obj.user):
             # Allow recurring amount change on crew donors for testing
             return self.readonly_fields
         return self.readonly_fields + ("recurring_amount", "recurrence_streak_start")
@@ -1434,10 +1434,10 @@ class RecurrenceAdmin(admin.ModelAdmin):
             .prefetch_related("donations")
         )
 
-    def get_readonly_fields(self, request, obj):
-        if obj.cancel_date:
+    def get_readonly_fields(self, request, obj=None):
+        if obj and obj.cancel_date:
             return self.readonly_fields + ("cancel_date",)
-        if obj.method == "banktransfer":
+        if obj and obj.method == "banktransfer":
             return self.readonly_fields
         return self.readonly_fields + (
             "cancel_date",
