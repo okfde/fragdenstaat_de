@@ -11,17 +11,17 @@ jobs:
         uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
       - name: Install dependencies
         run: pnpm install
-      - uses: pre-commit/action@v3.0.1
+      - uses: j178/prek-action@v1
 
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.12', '3.13']
+        python-version: ['3.12', '3.13', '3.14']
     steps:
       - uses: actions/checkout@v4
       - name: Start Elasticsearch
@@ -31,7 +31,7 @@ jobs:
         with:
           enable-cache: true
           cache-dependency-glob: |
-            requirements*.txt
+            uv.lock
             pyproject.toml
           python-version: ${{ matrix.python-version }}
           activate-environment: true
@@ -39,14 +39,13 @@ jobs:
         uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
       - name: Install system-level dependencies
         run: sudo apt-get update && sudo apt-get install libxml2-dev libxslt1-dev python3-dev libgdal-dev gdal-bin libmagic-dev libmagickwand-dev gettext libpoppler-cpp-dev
       - name: Install dependencies
         run: |
-          uv pip install -r requirements-dev.txt
-          uv pip install -e . --no-deps
+          uv sync
           playwright install --with-deps chromium
           pnpm install
       - name: Build frontend
