@@ -21,3 +21,5 @@ htmlcov/
 django.po
 .env.*
 !fragdenstaat_de/locale/**/django.po
+.env
+!.env.example

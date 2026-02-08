@@ -117,6 +117,12 @@ dependencies() {
   done
 }
 
+dockerized() {
+  pull
+  docker compose build
+  docker compose run --rm django python manage.py migrate --skip-checks
+}
+
 frontend() {
   pnpm_version=$(pnpm --version)
 
@@ -187,7 +193,7 @@ if [ -z "$1" ]; then
   dependencies
   frontend
   messages
-  
+
   echo "Done!"
 else
   if [[ $(type -t "$1") == function ]]; then

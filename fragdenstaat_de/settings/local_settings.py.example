@@ -18,13 +18,13 @@ class Dev(FragDenStaatBase):
     @property
     def INSTALLED_APPS(self):
         installed = super(Dev, self).INSTALLED_APPS
-        # installed += ['debug_toolbar']
+        installed += ['debug_toolbar']
         return installed
 
     @property
     def MIDDLEWARE(self):
         return super(Dev, self).MIDDLEWARE + [
-            # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+            'debug_toolbar.middleware.DebugToolbarMiddleware',
         ]
 
     DATABASES = {
@@ -34,13 +34,13 @@ class Dev(FragDenStaatBase):
             'USER': 'fragdenstaat_de',                      # Not used with sqlite3.
             'PASSWORD': 'fragdenstaat_de',                  # Not used with sqlite3.
             'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '5436',                      # Set to empty string for default. Not used with sqlite3.
+            'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
         }
     }
 
     ELASTICSEARCH_DSL = {
         'default': {
-            'hosts': 'localhost:9206',
+            'hosts': 'localhost:9200',
             'timeout': 30,
         },
     }
