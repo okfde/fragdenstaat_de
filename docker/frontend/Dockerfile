@@ -1,4 +1,4 @@
-FROM node:24-bookworm-slim
+FROM node:22-bookworm-slim
 
 # Set up pnpm home directory
 ENV PNPM_HOME="/root/.local/share/pnpm"
