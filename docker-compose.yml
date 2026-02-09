@@ -1,6 +1,8 @@
 services:
   django:
-    build: .
+    build:
+      context: .
+      dockerfile: ./docker/django/Dockerfile
     command: >
       bash -c "python manage.py runserver"
     network_mode: "host"
@@ -12,13 +14,14 @@ services:
       - elasticsearch
 
   frontend:
-    build: .
-    command: >
-      bash -c "pnpm run dev"
-    network_mode: "host"
-    volumes:
-      - .:/app
-      - /app/node_modules
+      build:
+        context: .
+        dockerfile: ./docker/frontend/Dockerfile
+      command: "pnpm run dev"
+      network_mode: "host"
+      volumes:
+        - .:/app
+        - /app/node_modules
 
   db:
     image: postgis/postgis:16-3.4

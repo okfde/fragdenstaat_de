@@ -103,24 +103,36 @@ pull() {
 }
 
 dependencies() {
-  source fds-env/bin/activate
-  echo "Installing $MAIN..."
+  # Check if running in Docker environment
+  if $DOCKER; then
+      uv pip install \
+      --no-cache \
+      --system \
+      -r ./requirements-dev.txt
 
-  uv pip install -r $MAIN/requirements-dev.txt
-  install_precommit "$MAIN"
+    for name in "${REPOS[@]}"; do
+      uv pip install --system -e "./$name" --config-setting editable_mode=compat
+    done
+  else
+    source fds-env/bin/activate
+    echo "Installing $MAIN..."
 
-  echo "Cloning / installing all editable dependencies..."
+    uv pip install -r $MAIN/requirements-dev.txt
+    install_precommit "$MAIN"
 
-  for name in "${REPOS[@]}"; do
-    uv pip install -e "./$name" --config-setting editable_mode=compat
-    install_precommit "$name"
-  done
+    echo "Cloning / installing all editable dependencies..."
+    for name in "${REPOS[@]}"; do
+      uv pip install -e "./$name" --config-setting editable_mode=compat
+      install_precommit "$name"
+    done
+  fi
 }
+
 
 dockerized() {
   pull
   docker compose build
-  docker compose run --rm django python manage.py migrate --skip-checks
+  docker compose run --rm django python manage.py migrate
 }
 
 frontend() {
@@ -149,6 +161,11 @@ frontend() {
     pnpm link --global "froide"
     popd
   done
+
+  # Add a Docker-specific override
+  if $DOCKER; then
+    MAIN="."
+  fi
 
   # Setup main project and link dependencies
   pushd "$MAIN"

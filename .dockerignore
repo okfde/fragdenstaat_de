@@ -88,7 +88,3 @@ temp/
 
 # OS files
 Thumbs.db
-
-# Development scripts (not needed in container)
-devsetup.sh
-devsetuph.sh
