@@ -132,7 +132,7 @@ dependencies() {
 dockerized() {
   pull
   docker compose build
-  docker compose run --rm django python manage.py migrate
+  docker compose run --rm django python manage.py migrate --skip-checks
 }
 
 frontend() {

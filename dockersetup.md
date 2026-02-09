@@ -36,7 +36,7 @@ Django will be listening on http://localhost:8000, Vite on http://localhost:5173
 
 ### Initial setup
 
-devsetup.sh automatically runs `python manage.py migrate` after build. However, you may still need to:
+devsetup.sh automatically runs `python manage.py migrate --skip-checks` after build. However, you may still need to:
 
 1. Create a superuser
 ``` bash
