@@ -1,4 +1,5 @@
 import logging
+from datetime import timedelta
 from functools import reduce
 
 from django.conf import settings
@@ -17,6 +18,7 @@ from taggit.models import TagBase, TaggedItemBase
 from treebeard.mp_tree import MP_Node
 
 from froide.helper.email_sending import mail_registry
+from froide.helper.email_utils import make_address
 
 from . import subscribed, tag_subscriber, unsubscribed
 
@@ -24,6 +26,7 @@ logger = logging.getLogger(__name__)
 
 REFERENCE_PREFIX = "newsletter-"
 
+ACTIVATION_MAIL_DELAY = timedelta(minutes=5)
 
 subscriber_confirm_email = mail_registry.register(
     "fds_newsletter/email/subscriber_confirm",
@@ -138,6 +141,11 @@ class Newsletter(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_from_email(self):
+        if not self.sender_email:
+            return settings.DEFAULT_FROM_EMAIL
+        return make_address(self.sender_email, name=self.sender_name)
 
 
 class SubscriberTag(TagBase):
@@ -283,35 +291,71 @@ class Subscriber(models.Model):
             email=self.email, user=self.user, context=context, priority=False
         )
 
+    def can_send_activation(self):
+        return (
+            not self.last_activation_sent
+            or (timezone.now() - self.last_activation_sent) > ACTIVATION_MAIL_DELAY
+        )
+
     def send_activation_email(self, batch=False):
+        if not self.can_send_activation():
+            return
+
         context = self.get_email_context()
         context["action_url"] = self.get_subscribe_url()
-        if batch:
-            email_intent = subscriber_batch_confirm_email
-        else:
-            email_intent = subscriber_confirm_email
+        newsletter = self.newsletter
 
-        email_intent.send(
-            email=self.email,
-            user=self.user,
-            context=context,
-            ignore_active=True,
-            priority=True,
-        )
+        if batch:
+            if (
+                newsletter.confirm_batch_template
+                and newsletter.confirm_batch_template.active
+            ):
+                self.send_template(newsletter.confirm_batch_template, context)
+            else:
+                self.send_intent(subscriber_batch_confirm_email, context)
+        else:
+            if newsletter.confirm_template and newsletter.confirm_template.active:
+                self.send_template(newsletter.confirm_template, context)
+            else:
+                self.send_intent(subscriber_confirm_email, context)
+
         self.last_activation_sent = timezone.now()
         self.save()
 
     def send_already_email(self):
+        if not self.can_send_activation():
+            return
+
         context = self.get_email_context()
-        subscriber_already_email.send(
+        newsletter = self.newsletter
+        if (
+            newsletter.already_subscribed_template
+            and newsletter.already_subscribed_template.active
+        ):
+            self.send_template(newsletter.already_subscribed_template, context)
+        else:
+            self.send_intent(subscriber_already_email, context)
+        self.last_activation_sent = timezone.now()
+        self.save()
+
+    def send_template(self, template, context):
+        template.send(
+            self.email,
+            context=context,
+            user=self.user,
+            from_email=self.newsletter.get_from_email(),
+            priority=True,
+        )
+
+    def send_intent(self, email_intent, context):
+        email_intent.send(
             email=self.email,
             user=self.user,
+            from_email=self.newsletter.get_from_email(),
             context=context,
             ignore_active=True,
             priority=True,
         )
-        self.last_activation_sent = timezone.now()
-        self.save()
 
     def get_subscribe_url(self):
         return settings.SITE_URL + reverse(
