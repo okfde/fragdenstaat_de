@@ -26,6 +26,7 @@ from .models import (
 
 class SubscriptionResult(Enum):
     ALREADY_SUBSCRIBED = 0
+    ALREADY_SUBSCRIBED_EMAIL = 0
     SUBSCRIBED = 1
     CONFIRM = 2
 
@@ -61,6 +62,7 @@ def subscribe(
     email_confirmed=False,
     reference="",
     keyword="",
+    tags=None,
 ) -> SubscriptionReturn:
     if user and not user.is_authenticated:
         user = None
@@ -72,7 +74,9 @@ def subscribe(
         email_confirmed = True
 
     if user and email_confirmed:
-        return subscribe_user(newsletter, user, reference=reference, keyword=keyword)
+        return subscribe_user(
+            newsletter, user, reference=reference, keyword=keyword, tags=tags
+        )
     return subscribe_email(
         newsletter,
         email,
@@ -80,6 +84,7 @@ def subscribe(
         name=name,
         reference=reference,
         keyword=keyword,
+        tags=tags,
     )
 
 
@@ -109,11 +114,12 @@ def subscribe_email(
         )
 
     if tags:
-        for tag in tags:
-            subscriber.tags.add(tag)
+        subscriber.tags.add(*tags)
 
     if subscriber.subscribed:
-        return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
+        if not batch:
+            subscriber.send_already_email()
+        return (SubscriptionResult.ALREADY_SUBSCRIBED_EMAIL, subscriber)
     if not email_confirmed:
         subscriber.send_activation_email(batch=batch)
         return (SubscriptionResult.CONFIRM, subscriber)
@@ -122,7 +128,9 @@ def subscribe_email(
     return (SubscriptionResult.SUBSCRIBED, subscriber)
 
 
-def subscribe_user(newsletter, user, reference="", keyword="") -> SubscriptionReturn:
+def subscribe_user(
+    newsletter, user, reference="", keyword="", tags=None
+) -> SubscriptionReturn:
     try:
         subscriber = Subscriber.objects.filter(
             Q(email=user.email.lower()) | Q(user=user)
@@ -133,6 +141,9 @@ def subscribe_user(newsletter, user, reference="", keyword="") -> SubscriptionRe
             user=user,
             defaults={"reference": reference, "keyword": keyword},
         )
+    if tags:
+        subscriber.tags.add(*tags)
+
     if subscriber.subscribed:
         return (SubscriptionResult.ALREADY_SUBSCRIBED, subscriber)
 

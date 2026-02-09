@@ -4,6 +4,7 @@ from urllib.parse import urlencode
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import DisallowedHost
 from django.http import HttpResponse
 from django.shortcuts import Http404, get_object_or_404, redirect, render
 from django.urls import reverse
@@ -19,18 +20,80 @@ from .models import Newsletter, Subscriber, UnsubscribeFeedback
 from .utils import SubscriptionResult, subscribed_newsletters
 
 
+def is_accessing_user_allowed(request):
+    request_origin = request.META["HTTP_ORIGIN"]
+    try:
+        good_host = request.get_host()
+    except DisallowedHost:
+        pass
+    else:
+        good_origin = "%s://%s" % (
+            "https" if request.is_secure() else "http",
+            good_host,
+        )
+        if request_origin == good_origin:
+            return True
+
+    return False
+
+
 @require_POST
 @csrf_exempt
 def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
     if not is_ajax(request):
         raise Http404
-    return newsletter_subscribe_request(request, newsletter_slug=newsletter_slug)
+
+    include_user = is_accessing_user_allowed(request)
+    user = None
+    if include_user and request.user.is_authenticated:
+        user = request.user
+
+    newsletter = get_object_or_404(
+        Newsletter, slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
+    )
+
+    form = NewsletterForm(
+        data=request.POST,
+        request=request,
+    )
+    if form.is_valid():
+        result, subscriber = form.save(newsletter, user)
+
+        if result == SubscriptionResult.ALREADY_SUBSCRIBED:
+            return HttpResponse(
+                content=f"""<div class="alert alert-info" role="alert">
+            {_("You are already subscribed to our newsletter.")}
+            </div>""".encode("utf-8")
+            )
+        elif result == SubscriptionResult.SUBSCRIBED:
+            return HttpResponse(
+                content=f"""<div class="alert alert-primary" role="alert">
+            {_("You have been subscribed to our newsletter.")}
+            </div>""".encode("utf-8")
+            )
+
+        return HttpResponse(
+            content=f"""<div class="alert alert-primary" role="alert">
+        {_("You have received an email to confirm your subscription.")}
+        </div>""".encode("utf-8")
+        )
+    url = "{}?{}".format(
+        reverse(
+            "newsletter_subscribe_request",
+            kwargs={"newsletter_slug": newsletter.slug},
+        ),
+        urlencode({"email": form.data.get("email", "")}),
+    )
+    return HttpResponse(url)
 
 
 def newsletter_subscribe_request(request, newsletter_slug=None):
     newsletter = get_object_or_404(
         Newsletter, slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
     )
+    user = None
+    if request.user.is_authenticated:
+        user = request.user
 
     if request.method == "POST":
         form = NewsletterForm(
@@ -38,37 +101,7 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
             request=request,
         )
         if form.is_valid():
-            result, subscriber = form.save(newsletter, request.user)
-
-            user_subscriber = (
-                request.user.is_authenticated and subscriber.user == request.user
-            )
-
-            if not user_subscriber and result == SubscriptionResult.ALREADY_SUBSCRIBED:
-                subscriber.send_already_email()
-
-            if is_ajax(request):
-                # No-CSRF ajax request
-                # are allowed to access current user
-                if user_subscriber:
-                    if result == SubscriptionResult.ALREADY_SUBSCRIBED:
-                        return HttpResponse(
-                            content=f"""<div class="alert alert-info" role="alert">
-                        {_("You are already subscribed to our newsletter.")}
-                        </div>""".encode("utf-8")
-                        )
-                    elif result == SubscriptionResult.SUBSCRIBED:
-                        return HttpResponse(
-                            content=f"""<div class="alert alert-primary" role="alert">
-                        {_("You have been subscribed to our newsletter.")}
-                        </div>""".encode("utf-8")
-                        )
-
-                return HttpResponse(
-                    content=f"""<div class="alert alert-primary" role="alert">
-                {_("You have received an email to confirm your subscription.")}
-                </div>""".encode("utf-8")
-                )
+            result, subscriber = form.save(newsletter, user)
 
             if result == SubscriptionResult.CONFIRM:
                 messages.add_message(
@@ -93,15 +126,6 @@ def newsletter_subscribe_request(request, newsletter_slug=None):
             },
         )
 
-    if is_ajax(request):
-        url = "{}?{}".format(
-            reverse(
-                "newsletter_subscribe_request",
-                kwargs={"newsletter_slug": newsletter.slug},
-            ),
-            urlencode({"email": form.data.get("email", "")}),
-        )
-        return HttpResponse(url)
     return render(
         request,
         "fds_newsletter/subscribe.html",
