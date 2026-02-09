@@ -18,6 +18,7 @@ FragDenStaat.de is a Django project that uses the core `froide` project and othe
 You need to have installed:
 
 - Python 3.12+
+- uv
 - pnpm & npm
 - GDAL for Django's GeoDjango
 - freetype and imagemagick
@@ -28,7 +29,6 @@ You need to have installed:
 - pango
 - libgeoip
 - libmagic
-- uv
 
 All of these dependencies should be installable via package managers (e.g. `brew` on macOS).
 
@@ -62,12 +62,12 @@ This will start Postgres and Elasticsearch and listen on port 5432 and 9200 resp
 
 If you need to adjust settings, you can copy the `fragdenstaat_de/settings/local_settings.py.example` to `fragdenstaat_de/settings/local_settings.py` and edit it.
 
-To initialise the database:
+To initialize the database:
 
 ```bash
 # Activate virtualenv
-source fds-env/bin/activate
 cd fragdenstaat_de
+source .venv/bin/activate
 # Create database structure
 python manage.py migrate --skip-checks
 ```
@@ -97,8 +97,8 @@ gunzip -k -c dump.sql.gz | docker compose -f compose-dev.yaml exec -T db psql -U
 ### Quick start after setup
 
 ```bash
-source fds-env/bin/activate
 cd fragdenstaat_de
+source .venv/bin/activate
 # Start service in background with -d
 docker compose -f compose-dev.yaml up -d
 python manage.py runserver
@@ -109,12 +109,6 @@ python manage.py runserver
 ```bash
 cd fragdenstaat_de
 pnpm run dev
-```
-
-### Upgrade dependencies
-
-```bash
-make dependencies
 ```
 
 ### Main app dependencies
@@ -129,6 +123,14 @@ flowchart LR
     froide-->filingcabinet[[django-filingcabinet]]
     fragdenstaat_de-->cms([django-cms])
 
+```
+
+### Upgrade dependencies
+
+To upgrade `froide` and its related apps, run:
+
+```bash
+make dependencies
 ```
 
 ## License
