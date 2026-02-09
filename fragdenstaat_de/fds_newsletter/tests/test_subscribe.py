@@ -9,7 +9,11 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone
 
+import pytest
+
 from froide.foirequest.tests.factories import UserFactory
+
+from fragdenstaat_de.fds_newsletter.utils import subscribe
 
 from ..listeners import (
     activate_newsletter_subscription,
@@ -77,6 +81,37 @@ class NewsletterSubscriberTest(TestCase):
             newsletter=self.nl, email=self.email_2, subscribed__isnull=False
         )
         self.assertEqual(subscriber.reference, "test")
+        self.assertEqual(subscriber.user, None)
+
+    def test_default_newsletter_subscription_ajax(self):
+        mail.outbox = []
+        response = self.client.post(
+            reverse("newsletter_ajax_subscribe_request"),
+            data={"email": self.email_2, "reference": "test"},
+            headers={
+                "x-requested-with": "XMLHttpRequest",
+                "origin": "http://testserver",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(
+            Subscriber.objects.filter(
+                newsletter=self.nl,
+                email=self.email_2,
+                subscribed=None,
+                unsubscribed=None,
+            ).exists()
+        )
+        self.assertEqual(len(mail.outbox), 1)
+        message = mail.outbox[0]
+        match = re.search(r"://[^/]+(/.*)", message.body)
+        response = self.client.get(match.group(1))
+        self.assertEqual(response.status_code, 302)
+        subscriber = Subscriber.objects.get(
+            newsletter=self.nl, email=self.email_2, subscribed__isnull=False
+        )
+        self.assertEqual(subscriber.reference, "test")
+        self.assertEqual(subscriber.user, None)
 
     def test_newsletter_subscription_existing_user_with_email(self):
         response = self.client.post(
@@ -84,6 +119,28 @@ class NewsletterSubscriberTest(TestCase):
             data={"email": self.email_1, "reference": "test"},
         )
         self.assertEqual(response.status_code, 302)
+
+        subscriber = Subscriber.objects.get(
+            newsletter=self.nl, email=self.email_1, subscribed=None, unsubscribed=None
+        )
+        self.assertEqual(len(mail.outbox), 1)
+        # confirm subscription
+        subscriber.subscribe()
+        subscriber.refresh_from_db()
+        self.assertIsNotNone(subscriber.subscribed)
+        self.assertEqual(subscriber.user, self.user)
+        self.assertIsNone(subscriber.email)
+
+    def test_newsletter_subscription_existing_user_with_email_ajax(self):
+        response = self.client.post(
+            reverse("newsletter_ajax_subscribe_request"),
+            data={"email": self.email_1, "reference": "test"},
+            headers={
+                "x-requested-with": "XMLHttpRequest",
+                "origin": "http://testserver",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
 
         subscriber = Subscriber.objects.get(
             newsletter=self.nl, email=self.email_1, subscribed=None, unsubscribed=None
@@ -117,6 +174,31 @@ class NewsletterSubscriberTest(TestCase):
             ).exists()
         )
 
+    def test_newsletter_subscription_existing_user_subscriber_with_email_ajax(self):
+        self.client.logout()
+        mail.outbox = []
+        Subscriber.objects.create(
+            newsletter=self.nl, user=self.user, subscribed=timezone.now()
+        )
+        response = self.client.post(
+            reverse("newsletter_ajax_subscribe_request"),
+            data={"email": self.email_1, "reference": "test"},
+            headers={
+                "x-requested-with": "XMLHttpRequest",
+                "origin": "http://testserver",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        # Reminder already subscribed email
+        self.assertEqual(len(mail.outbox), 1)
+        # Email subscriber not present, because of user
+        self.assertFalse(
+            Subscriber.objects.filter(
+                newsletter=self.nl,
+                email=self.email_1,
+            ).exists()
+        )
+
     def test_newsletter_subscription_logged_in_same_email(self):
         self.client.force_login(self.user)
         response = self.client.post(
@@ -132,6 +214,57 @@ class NewsletterSubscriberTest(TestCase):
         self.assertIsNotNone(subscriber.subscribed)
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, "Willkommen zu unserem Newsletter")
+
+    def test_newsletter_subscription_logged_in_same_email_ajax(self):
+        self.client.force_login(self.user)
+        response = self.client.post(
+            reverse("newsletter_ajax_subscribe_request"),
+            data={"email": self.email_1, "reference": "test"},
+            headers={
+                "x-requested-with": "XMLHttpRequest",
+                "origin": "http://testserver",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+
+        subscriber = Subscriber.objects.get(
+            newsletter=self.nl,
+            user=self.user,
+        )
+        self.assertIsNotNone(subscriber.subscribed)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Willkommen zu unserem Newsletter")
+
+    def test_newsletter_subscription_logged_in_same_email_ajax_origin(self):
+        self.client.force_login(self.user)
+        response = self.client.post(
+            reverse("newsletter_ajax_subscribe_request"),
+            data={"email": self.email_1, "reference": "test"},
+            headers={
+                "x-requested-with": "XMLHttpRequest",
+                "origin": "null",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+
+        subscriber = Subscriber.objects.get(
+            newsletter=self.nl,
+            email=self.email_1,
+        )
+        self.assertIsNone(subscriber.subscribed)
+        self.assertEqual(len(mail.outbox), 1)
+        message = mail.outbox[0]
+        match = re.search(r"://[^/]+(/.*)", message.body)
+        response = self.client.get(match.group(1))
+        self.assertEqual(response.status_code, 302)
+        subscriber = Subscriber.objects.get(
+            newsletter=self.nl,
+            user=self.user,
+            email=None,
+            subscribed__isnull=False,
+        )
+        self.assertEqual(subscriber.reference, "test")
+        self.assertEqual(subscriber.user, self.user)
 
     def test_newsletter_subscription_logged_in_different_email(self):
         self.client.force_login(self.user)
@@ -468,3 +601,24 @@ class NewsletterSubscriberTest(TestCase):
                 keyword="foirequest:42",
             ).exists()
         )
+
+
+@pytest.mark.django_db
+def test_activation_delay(mailoutbox):
+    nl = Newsletter.objects.create(title="Newsletter", slug="newsletter")
+    subscribe(nl, "test@example.com")
+    assert len(mailoutbox) == 1
+    subscribe(nl, "test@example.com")
+    assert len(mailoutbox) == 1
+
+
+@pytest.mark.django_db
+def test_already_delay(mailoutbox):
+    nl = Newsletter.objects.create(title="Newsletter", slug="newsletter")
+    Subscriber.objects.create(
+        newsletter=nl, email="test@example.com", subscribed=timezone.now()
+    )
+    subscribe(nl, "test@example.com")
+    assert len(mailoutbox) == 1
+    subscribe(nl, "test@example.com")
+    assert len(mailoutbox) == 1

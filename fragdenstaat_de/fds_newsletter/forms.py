@@ -22,7 +22,12 @@ from .models import (
     Subscriber,
     UnsubscribeFeedback,
 )
-from .utils import import_csv, subscribe, subscribed_newsletters
+from .utils import (
+    SubscriptionReturn,
+    import_csv,
+    subscribe,
+    subscribed_newsletters,
+)
 
 
 class NewsletterForm(SpamProtectionMixin, forms.Form):
@@ -59,7 +64,7 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
         # Avoid validation error, just cut off
         return self.cleaned_data["keyword"][:255]
 
-    def save(self, newsletter, user):
+    def save(self, newsletter, user) -> SubscriptionReturn:
         email = self.cleaned_data["email"]
         reference = self.cleaned_data["reference"]
         keyword = self.cleaned_data["keyword"]
