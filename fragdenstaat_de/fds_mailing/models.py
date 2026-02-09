@@ -224,7 +224,7 @@ class EmailTemplate(models.Model):
         context = {"user": user, "name": user.get_full_name()}
         return self.send(user.email, context=context)
 
-    def send(self, email_address, context=None):
+    def send(self, email_address, context=None, **extra_kwargs):
         if not self.active:
             return
         if context is None:
@@ -238,15 +238,13 @@ class EmailTemplate(models.Model):
 
         email_content = self.get_email_content(context)
 
-        extra_kwargs = {}
         if email_content.html:
             extra_kwargs["html"] = email_content.html
 
         send_mail(
             email_content.subject,
             email_content.text,
-            make_address(email_address),
-            from_email=settings.DEFAULT_FROM_EMAIL,
+            email_address,
             **extra_kwargs,
         )
 
