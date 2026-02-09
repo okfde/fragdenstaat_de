@@ -60,6 +60,10 @@ pull() {
 dependencies() {
   echo "Creating virtual environments and installing dependencies..."
 
+  if ! command -v prek > /dev/null 2>&1; then
+    echo "prek is not installed. Run `uv tool install prek` to fix this. Make sure `$(uv tool dir)` is in your \$PATH. If it is not, run `uv run update-shell`."
+  fi
+
   for name in "${ALL[@]}"; do
     pushd "$name"
     
