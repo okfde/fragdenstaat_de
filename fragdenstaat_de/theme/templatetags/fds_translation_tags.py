@@ -49,3 +49,9 @@ def get_languages(request: HttpRequest, view) -> Sequence[TranslatedPage]:
         languages += [TranslatedPage(request.LANGUAGE_CODE, current_url)]
 
     return sorted(languages, key=lambda page: get_language_info(page[0])["name_local"])
+
+
+@register.simple_tag
+def get_translated_url(request: HttpRequest, view, language_code: str) -> str:
+    languages = get_languages(request, view)
+    return dict(languages).get(language_code, "")
