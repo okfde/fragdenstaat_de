@@ -108,6 +108,28 @@ class Newsletter(models.Model):
 
     visible = models.BooleanField(default=True, verbose_name=_("visible"))
 
+    confirm_template = models.ForeignKey(
+        "fds_mailing.EmailTemplate",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    confirm_batch_template = models.ForeignKey(
+        "fds_mailing.EmailTemplate",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    already_subscribed_template = models.ForeignKey(
+        "fds_mailing.EmailTemplate",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
     objects = NewsletterManager()
 
     class Meta:
