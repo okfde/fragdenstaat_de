@@ -140,7 +140,8 @@
                                 </li>
                                 <li>
                                     {% page_url "climate-helpdesk" as climate_url %}
-                                    <a class="dropdown-item" href="{{ climate_url|default:"/aktionen/climate-helpdesk/" }}">{% translate "Climate Helpdesk" %}</a>
+                                    <a class="dropdown-item"
+                                       href="{{ climate_url|default:"/aktionen/climate-helpdesk/" }}">{% translate "Climate Helpdesk" %}</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item"

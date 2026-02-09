@@ -1,5 +1,6 @@
 {% load cms_tags %}
-<div class="flex-grow-1 tight-margin {{ classes }}" {{ instance.attributes_str }}>
+<div class="flex-grow-1 tight-margin {{ classes }}"
+     {{ instance.attributes_str }}>
     {% for plugin in instance.child_plugin_instances %}
         {% render_plugin plugin %}
     {% endfor %}

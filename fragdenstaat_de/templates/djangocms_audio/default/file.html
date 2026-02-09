@@ -1,6 +1,7 @@
 {% load i18n cms_tags %}
 {% with instance.audio_file.extension as ext %}
-    <audio {% if instance.text_title %}title="{{ instance.text_title }}"{% endif %} {% if instance.attributes %}{{ instance.attributes_str }}{% endif %}>
+    <audio {% if instance.text_title %}title="{{ instance.text_title }}"{% endif %}
+           {% if instance.attributes %}{{ instance.attributes_str }}{% endif %}>
         <source src="{{ instance.audio_file.url }}"
                 type="audio/{% if ext == "mp3" %}mpeg{% else %}{{ ext }}{% endif %}">
         {{ instance.text_description }}

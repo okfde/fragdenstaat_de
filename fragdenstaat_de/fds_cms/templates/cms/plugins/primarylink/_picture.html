@@ -16,7 +16,13 @@
                 <source media="(min-width: 768px)" srcset="{{ thumb.url }}" />
                 {% thumbnail picture 320x185 crop subject_location=picture.subject_location as thumb %}
                 <source srcset="{{ thumb.url }}.avif" type="image/avif" />
-                <img class="w-100 h-auto {{ extra_classes }}" loading="lazy" width="320" height="185" src="{{ thumb.url }}" {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:picture.description|default:"" }}"{% endif %} {{ attributes_str }}>
+                <img class="w-100 h-auto {{ extra_classes }}"
+                     loading="lazy"
+                     width="320"
+                     height="185"
+                     src="{{ thumb.url }}"
+                     {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:picture.description|default:"" }}"{% endif %}
+                     {{ attributes_str }}>
             </picture>
         {% endwith %}
         {% if object.link %}</a>{% endif %}

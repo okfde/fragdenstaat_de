@@ -12,9 +12,23 @@
                                     sizes="{{ respimg.sizes }}"
                                     type="{{ source.mime_type }}" />
                         {% endfor %}
-                        <img class="img-{{ instance.size }} z-index-10 {{ instance.attributes.class }}" loading="lazy" width="{{ picture.width|floatformat:"0u" }}" height="{{ picture.height|floatformat:"0u" }}" src="{{ respimg.src }}" srcset="{{ respimg.srcset }}" sizes="{{ respimg.sizes }}" {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:"" }}"{% endif %} {{ instance.attributes_str }}>
+                        <img class="img-{{ instance.size }} z-index-10 {{ instance.attributes.class }}"
+                             loading="lazy"
+                             width="{{ picture.width|floatformat:"0u" }}"
+                             height="{{ picture.height|floatformat:"0u" }}"
+                             src="{{ respimg.src }}"
+                             srcset="{{ respimg.srcset }}"
+                             sizes="{{ respimg.sizes }}"
+                             {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:"" }}"{% endif %}
+                             {{ instance.attributes_str }}>
                     {% else %}
-                        <img class="img-{{ instance.size }} z-index-10 {{ instance.attributes.class }}" loading="lazy" width="{{ picture.width|floatformat:"0u" }}" height="{{ picture.height|floatformat:"0u" }}" src="{{ picture.url }}" {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:"" }}"{% endif %} {{ instance.attributes_str }}>
+                        <img class="img-{{ instance.size }} z-index-10 {{ instance.attributes.class }}"
+                             loading="lazy"
+                             width="{{ picture.width|floatformat:"0u" }}"
+                             height="{{ picture.height|floatformat:"0u" }}"
+                             src="{{ picture.url }}"
+                             {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:"" }}"{% endif %}
+                             {{ instance.attributes_str }}>
                     {% endif %}
                 </picture>
             {% endwith %}
