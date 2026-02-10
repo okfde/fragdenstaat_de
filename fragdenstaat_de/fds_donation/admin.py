@@ -7,7 +7,18 @@ from django.contrib import admin, messages
 from django.contrib.admin import helpers
 from django.contrib.admin.views.main import ChangeList
 from django.core.exceptions import PermissionDenied
-from django.db.models import Aggregate, Avg, Count, F, Max, Q, Sum, Value
+from django.db.models import (
+    Aggregate,
+    Avg,
+    Count,
+    Exists,
+    F,
+    Max,
+    OuterRef,
+    Q,
+    Sum,
+    Value,
+)
 from django.db.models.functions import Concat
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
@@ -89,6 +100,8 @@ class DonorAdminForm(forms.ModelForm):
 class DonorChangeList(ChangeList):
     def get_results(self, *args, **kwargs):
         ret = super().get_results(*args, **kwargs)
+
+        last_year = timezone.now().year - 1
         q = self.queryset.aggregate(
             amount_total_sum=Sum("amount_total"),
             amount_last_year_sum=Sum("amount_last_year"),
@@ -96,7 +109,14 @@ class DonorChangeList(ChangeList):
             amount_total_avg=Avg("amount_total"),
             amount_last_year_avg=Avg("amount_last_year"),
             recurring_total=Sum("recurring_amount"),
-            duplicates=Count("duplicate", distinct=True),
+            duplicates=Count(
+                "duplicate",
+                distinct=True,
+                filter=Q(
+                    duplicate__isnull=False,
+                    donations__received_timestamp__year=last_year,
+                ),
+            ),
         )
         self.amount_total_sum = q["amount_total_sum"]
         self.amount_total_avg = (
@@ -402,16 +422,20 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         key_funcs = {
             "email": lambda obj: obj.email if obj.email else None,
             "name_addres": lambda obj: (
-                obj.get_full_name(),
-                obj.address,
-                obj.postcode,
-                obj.city,
-            )
-            if obj.address and obj.get_full_name()
-            else None,
-            "iban": lambda obj: obj.attributes.get("iban")
-            if obj.attributes and obj.attributes.get("iban")
-            else None,
+                (
+                    obj.get_full_name(),
+                    obj.address,
+                    obj.postcode,
+                    obj.city,
+                )
+                if obj.address and obj.get_full_name()
+                else None
+            ),
+            "iban": lambda obj: (
+                obj.attributes.get("iban")
+                if obj.attributes and obj.attributes.get("iban")
+                else None
+            ),
         }
         dupe_lists = {key: defaultdict(list) for key in key_funcs.keys()}
         id_sets = defaultdict(set)
@@ -473,8 +497,16 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             self.message_user(request, _("No donors selected!"))
             return redirect("admin:fds_donation_donor_changelist")
         elif auto_next:
+            last_year = timezone.now().year - 1
+            donations = Donation.objects.filter(
+                received_timestamp__year=last_year, donor_id=OuterRef("pk")
+            )
+
             first_donor = (
-                Donor.objects.filter(duplicate__isnull=False).order_by("?").first()
+                Donor.objects.filter(duplicate__isnull=False)
+                .filter(Exists(donations))
+                .order_by("?")
+                .first()
             )
             if not first_donor:
                 self.message_user(request, _("No duplicate donors found!"))
@@ -862,10 +894,12 @@ class DonationAdmin(admin.ModelAdmin):
         short_description="Füge Tag zu zugehörigen Spender:innen hinzu",
     )
     tag_subscribers = make_subscriber_tagger(
-        lambda qs: Donor.objects.exclude(email="")
-        .filter(donations__in=qs)
-        .distinct()
-        .values_list("email", flat=True)
+        lambda qs: (
+            Donor.objects.exclude(email="")
+            .filter(donations__in=qs)
+            .distinct()
+            .values_list("email", flat=True)
+        )
     )
 
     def get_urls(self):
