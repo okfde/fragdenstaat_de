@@ -12,6 +12,11 @@
                 {% endif %}
             {% endwith %}
         {% elif recurrence.subscription %}
+            {% if recurrence.subscription.next_date %}
+                <div>
+                    {% blocktranslate with date=recurrence.subscription.next_date|date:"SHORT_DATE_FORMAT" %}Next time on {{ date }}.{% endblocktranslate %}
+                </div>
+            {% endif %}
             {% with modify_info=recurrence.subscription.get_modify_info cancel_info=recurrence.subscription.get_cancel_info %}
                 <ul class="list-unstyled mt-auto">
                     {% if modify_info.can_modify %}
