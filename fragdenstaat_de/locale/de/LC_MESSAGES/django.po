@@ -9020,3 +9020,7 @@ msgstr "kampagne/"
 
 #~ msgid "Awaiting user confirmation"
 #~ msgstr "Warte auf Nutzerbestätigung"
+
+#, python-format
+#~ msgid "Newsletter from %(date)s"
+#~ msgstr "Newsletter vom %(date)s"
