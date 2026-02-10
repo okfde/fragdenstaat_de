@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-05 13:18+0100\n"
-"PO-Revision-Date: 2026-02-05 13:29+0100\n"
+"POT-Creation-Date: 2026-02-10 11:56+0100\n"
+"PO-Revision-Date: 2026-02-10 12:03+0100\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "fragdenstaat_de/de/>\n"
@@ -1387,10 +1387,8 @@ msgid "recurring monthly amount"
 msgstr "wiederkehrender monatlicher Betrag"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, fuzzy
-#| msgid "Recurrences"
 msgid "Recurrence streak start"
-msgstr "Dauerspenden"
+msgstr "Start der Dauerspendenserie"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Last donation"
@@ -1476,13 +1474,17 @@ msgid "Mark invalid addresses"
 msgstr "Ungültige Adressen markieren"
 
 #: fragdenstaat_de/fds_donation/admin.py
+msgid "No donors selected!"
+msgstr "Keine Spender*innen ausgewählt!"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "No duplicate donors found!"
+msgstr "Keine Spender*innen-Dubletten gefunden!"
+
+#: fragdenstaat_de/fds_donation/admin.py
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
 msgid "Merge donors"
 msgstr "Spender*innen zusammenführen"
-
-#: fragdenstaat_de/fds_donation/admin.py
-msgid "No donors selected!"
-msgstr "Keine Spender*innen ausgewählt!"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Select across not allowed!"
@@ -2103,12 +2105,8 @@ msgid ""
 msgstr "Verwalte Deine Spenden im FragDenStaat-Konto."
 
 #: fragdenstaat_de/fds_donation/forms.py
-#, fuzzy
-#| msgid "This is the basis for the donation receipts."
 msgid "Use this address for future donation receipts."
-msgstr ""
-"Auf Basis dieser Informationen lassen wir Dir Deine Spendenbescheinigung "
-"zukommen."
+msgstr "Nutze diese Adresse für zukünftige Spendenbescheinigungen."
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Unfortunately, there are no donation gifts available."
@@ -2117,7 +2115,7 @@ msgstr "Leider sind keine Spendengeschenke verfügbar."
 #: fragdenstaat_de/fds_donation/forms.py
 #: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donationgiftform.html
 msgid "No donation gifts are available for you at the moment."
-msgstr ""
+msgstr "Gerade sind keine Spendengeschenke verfügbar."
 
 #: fragdenstaat_de/fds_donation/forms.py fragdenstaat_de/fds_donation/models.py
 msgid "Reason for cancellation"
@@ -2355,6 +2353,10 @@ msgstr "Spenden-Admin-Aufgaben"
 msgid "Export CSV"
 msgstr "Exportiere CSV"
 
+#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/change_list.html
+msgid "Match duplicate donors"
+msgstr "Spender*innen deduplizieren"
+
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/export_jzwb.html
 msgid "Execute"
 msgstr "Ausführen"
@@ -2362,6 +2364,10 @@ msgstr "Ausführen"
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
 msgid "Merge Donors"
 msgstr "Spender*innen zusammenführen"
+
+#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
+msgid "Mark as not duplicates"
+msgstr "Markiere als unterschiedlich"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donation_progress_bar.html
 msgid "Donation progress"
@@ -2380,7 +2386,7 @@ msgstr ""
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donationgiftform.html
 msgid "Log in to your donor profile to select a donation gift."
-msgstr ""
+msgstr "Logge dich in dein Spendenprofil ein, um ein Geschenk auszuwählen."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
 msgid "Thank you for your donation!"
@@ -2789,6 +2795,11 @@ msgstr ""
 "Deiner Bank anpasst."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
+#, python-format
+msgid "Next time on %(date)s."
+msgstr "Nächstes Mal am %(date)s."
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
 msgid "Adjust amount or interval"
 msgstr "Betrag oder Rhythmus anpassen"
 
@@ -2917,6 +2928,8 @@ msgid ""
 "You need to be logged in as a donor to order a donation gift. Please request "
 "a login link first."
 msgstr ""
+"Du musst in deinem Spendenprofil eingeloggt sein, um ein Spendengeschenk zu "
+"bestellen. Bitte fordere zuerst einen Login-Link an."
 
 #: fragdenstaat_de/fds_donation/views.py
 msgid "Your order has been created!"
@@ -2963,7 +2976,7 @@ msgstr ""
 #: fragdenstaat_de/fds_donation/views.py
 #, python-brace-format
 msgid "You are accessing the donor profile of {name} ({email})"
-msgstr ""
+msgstr "Du bist mit dem Spendenprofil von {name} ({email}) angemeldet."
 
 #: fragdenstaat_de/fds_donation/views.py
 msgid "We have sent you a link to access your donations."
@@ -3063,7 +3076,7 @@ msgstr "Zeige nur Termine mit diesen Schlagworten."
 
 #: fragdenstaat_de/fds_events/models.py
 msgid "Include trials from lawsuits."
-msgstr ""
+msgstr "Auch Verfahrenstermine von Klagen berücksichtigen."
 
 #: fragdenstaat_de/fds_events/models.py
 msgid "0 means all events"
@@ -4962,10 +4975,6 @@ msgstr "kampagne/"
 
 #~ msgid "Sending to all newsletter subscribers"
 #~ msgstr "Wird an alle Newsletter-Abonnent:innen versendet"
-
-#, python-format
-#~ msgid "Newsletter from %(date)s"
-#~ msgstr "Newsletter vom %(date)s"
 
 #~ msgid "Resolved"
 #~ msgstr "Erledigt"
