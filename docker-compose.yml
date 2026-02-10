@@ -34,7 +34,7 @@ services:
     network_mode: "host"
 
   elasticsearch:
-    build: ./deps/elasticsearch/
+    build: ./docker/elasticsearch/
     volumes:
       - es-data:/usr/share/elasticsearch/data
       - es-logs:/var/log
