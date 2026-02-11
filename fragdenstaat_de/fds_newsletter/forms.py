@@ -1,4 +1,5 @@
 from io import StringIO
+from urllib.parse import parse_qsl, unquote
 
 from django import forms
 from django.conf import settings
@@ -50,6 +51,7 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
     reference = forms.CharField(required=False, widget=forms.HiddenInput())
     keyword = forms.CharField(required=False, widget=forms.HiddenInput())
     next = forms.CharField(required=False, widget=forms.HiddenInput())
+    data = forms.CharField(required=False, widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -64,13 +66,23 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
         # Avoid validation error, just cut off
         return self.cleaned_data["keyword"][:255]
 
+    def clean_data(self):
+        encoded_data = self.cleaned_data.get("data", "")
+        return dict(parse_qsl(unquote(encoded_data)))
+
     def save(self, newsletter, user) -> SubscriptionReturn:
         email = self.cleaned_data["email"]
         reference = self.cleaned_data["reference"]
         keyword = self.cleaned_data["keyword"]
+        data = self.cleaned_data["data"]
 
         return subscribe(
-            newsletter, email, user=user, reference=reference, keyword=keyword
+            newsletter,
+            email,
+            user=user,
+            reference=reference,
+            keyword=keyword,
+            data=data,
         )
 
 

@@ -224,6 +224,8 @@ class Subscriber(models.Model):
     reference = models.CharField(max_length=255, blank=True)
     keyword = models.CharField(max_length=255, blank=True)
 
+    data = models.JSONField(blank=True, default=dict)
+
     tags = TaggableManager(through=TaggedSubscriber, blank=True)
 
     objects = SubscriberManager()

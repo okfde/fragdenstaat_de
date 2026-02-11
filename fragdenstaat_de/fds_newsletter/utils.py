@@ -63,6 +63,7 @@ def subscribe(
     reference="",
     keyword="",
     tags=None,
+    data=None,
 ) -> SubscriptionReturn:
     if user and not user.is_authenticated:
         user = None
@@ -75,7 +76,7 @@ def subscribe(
 
     if user and email_confirmed:
         return subscribe_user(
-            newsletter, user, reference=reference, keyword=keyword, tags=tags
+            newsletter, user, reference=reference, keyword=keyword, tags=tags, data=data
         )
     return subscribe_email(
         newsletter,
@@ -85,6 +86,7 @@ def subscribe(
         reference=reference,
         keyword=keyword,
         tags=tags,
+        data=data,
     )
 
 
@@ -97,6 +99,7 @@ def subscribe_email(
     keyword="",
     tags=None,
     batch=False,
+    data=None,
 ) -> SubscriptionReturn:
     try:
         subscriber = (
@@ -107,10 +110,16 @@ def subscribe_email(
             .get(newsletter=newsletter)
         )
     except Subscriber.DoesNotExist:
+        # Only add data on create
         subscriber, _created = Subscriber.objects.get_or_create(
             email=email.lower(),
             newsletter=newsletter,
-            defaults={"name": name, "reference": reference, "keyword": keyword},
+            defaults={
+                "name": name,
+                "reference": reference,
+                "keyword": keyword,
+                "data": data or {},
+            },
         )
 
     if tags:
@@ -129,17 +138,18 @@ def subscribe_email(
 
 
 def subscribe_user(
-    newsletter, user, reference="", keyword="", tags=None
+    newsletter, user, reference="", keyword="", tags=None, data=None
 ) -> SubscriptionReturn:
     try:
         subscriber = Subscriber.objects.filter(
             Q(email=user.email.lower()) | Q(user=user)
         ).get(newsletter=newsletter)
     except Subscriber.DoesNotExist:
+        # Only add data on create
         subscriber, _created = Subscriber.objects.get_or_create(
             newsletter=newsletter,
             user=user,
-            defaults={"reference": reference, "keyword": keyword},
+            defaults={"reference": reference, "keyword": keyword, "data": data or {}},
         )
     if tags:
         subscriber.tags.add(*tags)
@@ -231,7 +241,9 @@ def get_onboarding_subscribers(date: datetime.date, schedule_item):
     )
 
 
-def import_csv(csv_file, newsletter, reference="", email_confirmed=False, tags=None):
+def import_csv(
+    csv_file, newsletter, reference="", email_confirmed=False, tags=None, data=None
+):
     if tags is None:
         tags = set()
     else:
@@ -247,6 +259,7 @@ def import_csv(csv_file, newsletter, reference="", email_confirmed=False, tags=N
             name = ""
         row_tags = {t.strip() for t in row.get("tags", "").split(",") if t.strip()}
         row_tags |= tags
+        row_data = {k.lstrip("$"): v for k, v in row.items() if k.startswith("$")}
         subscribe_email(
             newsletter,
             email,
@@ -255,6 +268,7 @@ def import_csv(csv_file, newsletter, reference="", email_confirmed=False, tags=N
             reference=reference,
             tags=row_tags,
             batch=True,
+            data=row_data,
         )
 
 
