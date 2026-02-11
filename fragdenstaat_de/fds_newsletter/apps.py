@@ -30,7 +30,7 @@ class NewsletterConfig(AppConfig):
         from froide.bounce.signals import email_bounced, email_unsubscribed
         from froide.foirequestfollower.models import FoiRequestFollower
 
-        from . import subscribed, tag_subscriber
+        from . import subscribed, tag_subscriber, unsubscribed
         from .forms import NewsletterFollowExtra, NewsletterUserExtra
         from .listeners import (
             activate_newsletter_subscription,
@@ -43,6 +43,10 @@ class NewsletterConfig(AppConfig):
             subscribe_follower,
             user_email_changed,
         )
+        from .triggers import (
+            newsletter_subscribed_trigger_listener,
+            newsletter_unsubscribed_trigger_listener,
+        )
 
         account_canceled.connect(cancel_user)
         account_merged.connect(merge_user)
@@ -52,6 +56,8 @@ class NewsletterConfig(AppConfig):
         email_bounced.connect(handle_bounce)
         email_unsubscribed.connect(handle_unsubscribe)
         subscribed.connect(send_welcome_mail)
+        subscribed.connect(newsletter_subscribed_trigger_listener)
+        unsubscribed.connect(newsletter_unsubscribed_trigger_listener)
         user_extra_registry.register("registration", NewsletterUserExtra())
         user_extra_registry.register("follow", NewsletterFollowExtra())
         FoiRequestFollower.followed.connect(subscribe_follower)
