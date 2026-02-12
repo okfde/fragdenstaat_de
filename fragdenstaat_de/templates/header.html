@@ -179,12 +179,24 @@
                                 {{ donate_title|default:"Spenden" }}
                             </a>
                         </li>
-                        {% get_translated_url request view "de-ls" as url %}
+                        {% has_translation request view "de-ls" as has_ls_translation %}
+                        {% get_translated_url request view "de-ls" as ls_url %}
+                        {% page_url "home" "de-ls" as ls_home_url %}
                         <li class="nav-sm order-lg-last">
-                            <a class="btn btn-sm btn-outline-primary" href="{{ url }}">
-                                <i class="fa fa-language" aria-hidden="true"></i>
-                                Leichte Sprache an
-                            </a>
+                            {% if has_ls_translation %}
+                                <a class="btn btn-sm btn-outline-primary" href="{{ ls_url }}">
+                                    <i class="fa fa-language" aria-hidden="true"></i>
+                                    Leichte Sprache an
+                                </a>
+                            {% else %}
+                                <button class="btn btn-sm btn-outline-primary"
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#noLsTranslationModal">
+                                    <i class="fa fa-language" aria-hidden="true"></i>
+                                    Leichte Sprache an
+                                </button>
+                            {% endif %}
                         </li>
                         <li class="nav-sm d-lg-none">
                             <hr>
@@ -223,3 +235,36 @@
         </div>
     </nav>
 </header>
+<!-- Modal für fehlende Leichte Sprache Übersetzung -->
+<div class="modal fade"
+     id="noLsTranslationModal"
+     tabindex="-1"
+     aria-labelledby="noLsTranslationModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="noLsTranslationModalLabel">
+                    <i class="fa fa-language" aria-hidden="true"></i>
+                    Leichte Sprache
+                </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="{% trans 'Close' %}"></button>
+            </div>
+            <div class="modal-body">
+                <p>Diese Seite ist leider noch nicht in Leichter Sprache verfügbar.</p>
+                <p>Sie können zur Startseite in Leichter Sprache wechseln:</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hier bleiben</button>
+                {% page_url "home" "de-ls" as ls_home_url %}
+                <a href="{{ ls_home_url|default:'/de-ls/' }}" class="btn btn-primary">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    Zur Startseite in Leichter Sprache
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

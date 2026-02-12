@@ -55,3 +55,10 @@ def get_languages(request: HttpRequest, view) -> Sequence[TranslatedPage]:
 def get_translated_url(request: HttpRequest, view, language_code: str) -> str:
     languages = get_languages(request, view)
     return dict(languages).get(language_code, "")
+
+
+@register.simple_tag
+def has_translation(request: HttpRequest, view, language_code: str) -> bool:
+    """Check if a translation exists for the given language code"""
+    languages = get_languages(request, view)
+    return language_code in dict(languages)
