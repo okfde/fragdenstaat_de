@@ -181,7 +181,6 @@ fds_mailing_newsletterarchivecmsplugin
 fds_newsletter_newsletter
 fds_newsletter_newslettercmsplugin
 fds_newsletter_subscribertag
-fds_newsletter_taggedsubscriber
 filer_clipboard
 filer_clipboarditem
 filer_file
