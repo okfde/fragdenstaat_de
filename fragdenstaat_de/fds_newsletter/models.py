@@ -13,6 +13,7 @@ from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
+from flowcontrol.models import ActionBase
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
 from treebeard.mp_tree import MP_Node
@@ -564,3 +565,17 @@ class NewsletterCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return str(self.newsletter)
+
+
+class SubscribeToNewsletterActionConfig(ActionBase):
+    newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE)
+    email_confirmed = models.BooleanField(default=False)
+    reference = models.CharField(blank=True, max_length=255)
+
+    def __str__(self):
+        return _("Subscribe to newsletter {} ({})").format(
+            self.newsletter,
+            _("email already confirmed")
+            if self.email_confirmed
+            else _("email needs confirmation"),
+        )

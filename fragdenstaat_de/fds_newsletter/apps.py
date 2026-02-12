@@ -30,7 +30,12 @@ class NewsletterConfig(AppConfig):
         from froide.bounce.signals import email_bounced, email_unsubscribed
         from froide.foirequestfollower.models import FoiRequestFollower
 
-        from . import subscribed, tag_subscriber, unsubscribed
+        from . import (
+            actions,  # noqa: F401
+            subscribed,
+            tag_subscriber,
+            unsubscribed,
+        )
         from .forms import NewsletterFollowExtra, NewsletterUserExtra
         from .listeners import (
             activate_newsletter_subscription,
