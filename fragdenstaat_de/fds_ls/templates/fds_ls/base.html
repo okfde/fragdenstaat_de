@@ -2,6 +2,7 @@
 {% load cms_tags %}
 {% load static %}
 {% load djangocms_alias_tags %}
+{% load ls_tags %}
 {% block extra_css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'css/ls.css' %}">
@@ -13,6 +14,7 @@
     {% include "fds_ls/header.html" %}
 {% endblock %}
 {% block footer_container %}
+    {% render_contact_form %}
     <footer class="footer" id="footer">
         <div class="container">{% static_alias "footer_ls" %}</div>
     </footer>

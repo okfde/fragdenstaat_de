@@ -7,7 +7,7 @@
 {% load account_tags %}
 {% load search_helper %}
 {% load menu_tags %}
-{% load fds_translation_tags %}
+{% load ls_tags %}
 <header id="header">
     <div class="container-md">
         <a href="#main"
@@ -62,13 +62,7 @@
                         <hr>
                     </li>
                     <li class="ms-lg-auto nav-search order-lg-first">{% multi_search small=True %}</li>
-                    {% get_translated_url request view "de" as url %}
-                    <li class="nav-sm ms-lg-auto order-lg-last">
-                        <a class="btn btn-sm btn-primary" href="{{ url }}">
-                            <i class="fa fa-language" aria-hidden="true"></i>
-                            Leichte Sprache aus
-                        </a>
-                    </li>
+                    <li class="nav-sm ms-lg-auto order-lg-last">{% language_toggle %}</li>
                 </ul>
             </ul>
         </div>

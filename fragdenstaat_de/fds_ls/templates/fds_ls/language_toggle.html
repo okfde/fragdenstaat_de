@@ -1,0 +1,50 @@
+{% load i18n %}
+{% load static %}
+{% if has_translation %}
+    <a class="btn btn-sm {% if target_language == 'de-ls' %}btn-outline-primary{% else %}btn-primary{% endif %}"
+       href="{{ target_url }}">
+        <i class="fa fa-language" aria-hidden="true"></i>
+        {{ button_text }}
+    </a>
+{% else %}
+    <button class="btn btn-sm btn-outline-primary"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#noLsTranslationModal">
+        <i class="fa fa-language" aria-hidden="true"></i>
+        {{ button_text }}
+    </button>
+{% endif %}
+<!-- Modal for missing translation -->
+<div data-teleport="body"
+     class="modal fade"
+     id="noLsTranslationModal"
+     tabindex="-1"
+     aria-labelledby="noLsTranslationModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="noLsTranslationModalLabel">
+                    <i class="fa fa-language" aria-hidden="true"></i>
+                    Leichte Sprache
+                </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="{% trans 'Close' %}"></button>
+            </div>
+            <div class="modal-body">
+                <p>Diese Seite ist leider noch nicht in Leichter Sprache verfügbar.</p>
+                <p>Sie können zur Startseite in Leichter Sprache wechseln:</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hier bleiben</button>
+                <a href="{{ home_url }}" class="btn btn-primary">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    Zur Startseite in Leichter Sprache
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
