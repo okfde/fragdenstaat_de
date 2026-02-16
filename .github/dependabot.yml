@@ -10,6 +10,12 @@ updates:
       npm-dependencies:
         patterns:
           - '*'
+        update-types:
+          - 'minor'
+          - 'patch'
+    ignore:
+      - dependency-name: froide*
+      - dependency-name: '@okfde/filingcabinet'
   - package-ecosystem: uv
     directory: /
     schedule:
@@ -23,18 +29,6 @@ updates:
           - 'patch'
     ignore:
       - dependency-name: torch
-      - dependency-name: vision
-      - dependency-name: nvidia-cublas-cu12
-      - dependency-name: nvidia-cuda-cupti-cu12
-      - dependency-name: nvidia-cuda-nvrtc-cu12
-      - dependency-name: nvidia-cuda-runtime-cu12
-      - dependency-name: nvidia-cudnn-cu12
-      - dependency-name: nvidia-cufft-cu12
-      - dependency-name: nvidia-cufile-cu12
-      - dependency-name: nvidia-curand-cu12
-      - dependency-name: nvidia-cusolver-cu12
-      - dependency-name: nvidia-cusparse-cu12
-      - dependency-name: nvidia-cusparselt-cu12
-      - dependency-name: nvidia-nccl-cu12
-      - dependency-name: nvidia-nvjitlink-cu12
-      - dependency-name: nvidia-nvtx-cu12
+      - dependency-name: torchvision
+      - dependency-name: nvidia*
+      - dependency-name: django-filingcabinet
