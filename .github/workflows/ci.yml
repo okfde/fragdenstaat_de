@@ -55,6 +55,8 @@ jobs:
         run: |
           python manage.py compilemessages -i node_modules -l de
           python manage.py migrate
+        env:
+          DATABASE_URL: postgis://postgres:postgres@localhost/fragdenstaat_de
       - name: Run tests
         run: |
           coverage run --branch -m pytest --reuse-db
