@@ -107,6 +107,7 @@ class FragDenStaatBase(German, Base):
                 "froide_exam",
                 "froide_govplan.apps.FroideGovPlanConfig",
                 "froide_evidencecollection.apps.FroideEvidencecollectionConfig",
+                "froide_pressconference.apps.FroidePressconferenceConfig",
                 "legal_advice_builder.apps.LegalAdviceBuilderConfig",
                 "fcdocs_annotate.annotation.apps.AnnotationConfig",
                 "tinymce",
@@ -942,6 +943,9 @@ class FragDenStaatBase(German, Base):
         "PAPERLESS_REQUEST_FIELD", ""
     )  # custom_field id for foirequest reference
     PAPERLESS_RECIPIENT_GROUP = 57
+
+    CHROME_BINARY_PATH = os.environ.get("CHROME_BINARY_PATH")
+    CVD_CREDENTIALS = os.environ.get("CVD_CREDENTIALS", "")
 
     LEAFLET_CONFIG = {
         "TILES": [
