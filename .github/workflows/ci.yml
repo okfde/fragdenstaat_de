@@ -54,9 +54,6 @@ jobs:
       - name: Compile translations
         run: |
           python manage.py compilemessages -i node_modules -l de
-      - name: Run migrate
-        run: |
-          python manage.py migrate --skip-checks
       - name: Run tests
         run: |
           coverage run --branch -m pytest --reuse-db
