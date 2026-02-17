@@ -55,20 +55,16 @@ jobs:
         run: |
           python manage.py compilemessages -i node_modules -l de
           python manage.py migrate
-        env:
-          DATABASE_URL: postgis://postgres:postgres@localhost/fragdenstaat_de
       - name: Run tests
         run: |
           coverage run --branch -m pytest --reuse-db
           coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
-        env:
-          DATABASE_URL: postgis://postgres:postgres@localhost/fragdenstaat_de
     services:
       postgres:
         image: postgis/postgis:16-3.4
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: fragdenstaat_de
+          POSTGRES_PASSWORD: fragdenstaat_de
           POSTGRES_DB: fragdenstaat_de
         ports:
           - 5432:5432
