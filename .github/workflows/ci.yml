@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.12', '3.13']
+        python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - name: Start Elasticsearch
@@ -51,9 +51,10 @@ jobs:
           pnpm install
       - name: Build frontend
         run: pnpm run build
-      - name: Compile translations
+      - name: Compile translations and run migrate
         run: |
           python manage.py compilemessages -i node_modules -l de
+          python manage.py migrate
       - name: Run tests
         run: |
           coverage run --branch -m pytest --reuse-db
