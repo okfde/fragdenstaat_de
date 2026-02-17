@@ -21,7 +21,9 @@ from .utils import SubscriptionResult, subscribed_newsletters
 
 
 def is_accessing_user_allowed(request):
-    request_origin = request.META["HTTP_ORIGIN"]
+    request_origin = request.META.get("HTTP_ORIGIN")
+    if not request_origin:
+        return False
     try:
         good_host = request.get_host()
     except DisallowedHost:
