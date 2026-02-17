@@ -38,6 +38,8 @@ cms_cmsplugin
 cms_globalpagepermission
 cms_globalpagepermission_sites
 cms_page
+cms_page_placeholders
+cms_title
 cms_pagecontent
 cms_pagepermission
 cms_pageurl
@@ -100,6 +102,7 @@ djangocms_frontend_frontenduiitem
 djangocms_icon_icon
 djangocms_link_link
 djangocms_picture_picture
+djangocms_text_ckeditor_text
 djangocms_text_text
 djangocms_versioning_statetracking
 djangocms_versioning_version
@@ -167,7 +170,6 @@ fds_donation_donationprogressbarcmsplugin
 fds_donation_donor_subscriptions
 fds_donation_donortag
 fds_donation_emaildonationbuttoncmsplugin
-fds_donation_taggeddonor
 fds_events_event
 fds_mailing_conditioncmsplugin
 fds_mailing_emailactioncmsplugin
