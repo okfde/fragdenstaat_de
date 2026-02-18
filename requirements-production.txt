@@ -80,7 +80,7 @@ colorama==0.4.6 ; sys_platform == 'win32'
     #   qrcode
 cron-descriptor==2.0.6
     # via django-celery-beat
-cryptography==46.0.1
+cryptography==46.0.5
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   fido2
@@ -391,7 +391,7 @@ feedgen==1.0.0
     # via django-filingcabinet
 fido2==2.0.0
     # via django-mfa3
-filelock==3.19.1
+filelock==3.20.3
     # via torch
 fonttools==4.61.1
     # via weasyprint
@@ -592,7 +592,7 @@ pikepdf==9.11.0
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
     #   froide
-pillow==12.1.0
+pillow==12.1.1
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
@@ -737,7 +737,7 @@ sortabletable @ git+https://github.com/stefanw/djangocms-sortabletable.git@b0c01
     # via fragdenstaat-de (pyproject.toml)
 soupsieve==2.8
     # via beautifulsoup4
-sqlparse==0.5.3
+sqlparse==0.5.4
     # via django
 stripe==7.14.0
     # via
