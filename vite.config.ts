@@ -38,6 +38,7 @@ export default defineConfig(({ mode }) => ({
         campaign_map: r('froide_campaign', 'map.js'),
         campaign_questionaire: r('froide_campaign', 'questionaire.js'),
         consentbanner: './frontend/javascript/consentbanner.ts',
+        datefacet: r('froide_pressconference', 'datefacet.js'),
         document: r('froide', 'document.js'),
         docupload: r('froide', 'docupload.js'),
         exam_curriculum: r('froide_exam', 'curriculum.js'),
@@ -97,9 +98,9 @@ export default defineConfig(({ mode }) => ({
     vue(),
     devManifest(),
     mode === 'production' &&
-      sentryVitePlugin({
-        telemetry: false
-      })
+    sentryVitePlugin({
+      telemetry: false
+    })
   ],
   css: {
     devSourcemap: true,

@@ -56,6 +56,9 @@ importers:
       froide_payment:
         specifier: github:okfde/froide-payment
         version: https://codeload.github.com/okfde/froide-payment/tar.gz/d50d421bf2b72c01148aed45fc6e0e3ee127511c
+      froide_pressconference:
+        specifier: github:okfde/froide-pressconference
+        version: froide-pressconference@https://codeload.github.com/okfde/froide-pressconference/tar.gz/8c993919e20a7219d90fab72268e1b7bb52731bf
       vega:
         specifier: ^6.2.0
         version: 6.2.0
@@ -1750,6 +1753,10 @@ packages:
 
   fraction.js@5.3.4:
     resolution: {integrity: sha512-1X1NTtiJphryn/uLQz3whtY6jK3fTqoE3ohKs0tT+Ujr1W59oopxmoEh7Lu5p6vBaPbgoM0bzveAW4Qi5RyWDQ==}
+
+  froide-pressconference@https://codeload.github.com/okfde/froide-pressconference/tar.gz/8c993919e20a7219d90fab72268e1b7bb52731bf:
+    resolution: {tarball: https://codeload.github.com/okfde/froide-pressconference/tar.gz/8c993919e20a7219d90fab72268e1b7bb52731bf}
+    version: 0.0.0
 
   froide@https://codeload.github.com/okfde/froide/tar.gz/25d41bbef15ee06ee1ef35c2d52acd91cbaa9c20:
     resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/25d41bbef15ee06ee1ef35c2d52acd91cbaa9c20}
@@ -4542,6 +4549,8 @@ snapshots:
       signal-exit: 4.1.0
 
   fraction.js@5.3.4: {}
+
+  froide-pressconference@https://codeload.github.com/okfde/froide-pressconference/tar.gz/8c993919e20a7219d90fab72268e1b7bb52731bf: {}
 
   froide@https://codeload.github.com/okfde/froide/tar.gz/25d41bbef15ee06ee1ef35c2d52acd91cbaa9c20(fuse.js@7.1.0)(typescript@5.9.3):
     dependencies:
