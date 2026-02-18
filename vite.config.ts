@@ -98,9 +98,9 @@ export default defineConfig(({ mode }) => ({
     vue(),
     devManifest(),
     mode === 'production' &&
-    sentryVitePlugin({
-      telemetry: false
-    })
+      sentryVitePlugin({
+        telemetry: false
+      })
   ],
   css: {
     devSourcemap: true,
