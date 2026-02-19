@@ -217,7 +217,7 @@ class ContactNotAllowedDonor(DonorLogicMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class IsFormaldDonor(DonorLogicMixin, CMSPluginBase):
+class IsFormalDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Formal donor")
 
     def should_render(self, context):
@@ -225,7 +225,7 @@ class IsFormaldDonor(DonorLogicMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class IsInformaldDonor(DonorLogicMixin, CMSPluginBase):
+class IsInformalDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Informal donor")
 
     def should_render(self, context):

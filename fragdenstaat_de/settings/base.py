@@ -289,6 +289,8 @@ class FragDenStaatBase(German, Base):
         "IsNotRecentDonor",
         "ContactAllowedDonor",
         "ContactNotAllowedDonor",
+        "IsFormalDonor",
+        "IsInformalDonor",
         "IsNewsletterSubscriberPlugin",
         "IsNotNewsletterSubscriberPlugin",
         "EmailDonationButtonPlugin",
@@ -783,10 +785,12 @@ class FragDenStaatBase(German, Base):
                     )
                 ],
                 "hide_content_funcs": [
-                    lambda email: email.from_[1]
-                    in (
-                        "noreply@dhl.com",  # Hide DHL delivery emails
-                        "noreply-bscw@itzbund.de",  # Hide BSCW.bund.de auto messages
+                    lambda email: (
+                        email.from_[1]
+                        in (
+                            "noreply@dhl.com",  # Hide DHL delivery emails
+                            "noreply-bscw@itzbund.de",  # Hide BSCW.bund.de auto messages
+                        )
                     )
                 ],
                 "recipient_blocklist_regex": rec(
