@@ -111,6 +111,15 @@ cd fragdenstaat_de
 pnpm run dev
 ```
 
+To do frontend development on your local network,
+e.g. to allow mobile devices to access the dev server,
+at http://myhost.mylocaldomain in this example:
+
+- check `Dev.__init__` in `local_settings.py.example`
+  and copy/uncomment the relevant parts
+- run `python manage.py runserver myhost.mylocaldomain:8000`
+- run `pnpm run serve --host=myhost.mylocaldomain` (instead of `pnpm run dev`)
+
 ### Upgrade dependencies
 
 ```bash
