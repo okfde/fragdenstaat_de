@@ -23,6 +23,7 @@ class LanguageUtilsMiddleware(LanguageCookieMiddleware):
             and request.LANGUAGE_CODE != settings.LANGUAGE_CODE
             and request.LANGUAGE_CODE.startswith(settings.LANGUAGE_CODE)
             and not request.current_page
+            and not request.path.startswith(f"/{request.LANGUAGE_CODE}/admin/")
         ):
             path = request.get_full_path().removeprefix(f"/{request.LANGUAGE_CODE}")
             return redirect(path, permanent=True)
