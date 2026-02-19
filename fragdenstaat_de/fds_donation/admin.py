@@ -555,6 +555,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
 
         donor_form = None
         if request.POST and "salutation" in request.POST:
+            donor = None
             if request.POST.get("cancel"):
                 candidates.update(duplicate=None)
             else:
@@ -582,6 +583,8 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                 return redirect(
                     reverse("admin:fds_donation-donor-merge_donor") + "?auto_next=1"
                 )
+            if donor is None:
+                return redirect("admin:fds_donation_donor_changelist")
             return redirect("admin:fds_donation_donor_change", donor.id)
 
         if donor_form is None:
