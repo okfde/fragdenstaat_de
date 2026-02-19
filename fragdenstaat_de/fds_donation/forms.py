@@ -824,6 +824,11 @@ def get_merge_donor_form(admin_site):
                 ),
             }
 
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for f in ("attributes",):
+                self.fields[f].widget.attrs["readonly"] = True
+
     return MergeDonorForm
 
 
