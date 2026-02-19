@@ -95,6 +95,8 @@ class CMSSettingsMixin:
         "IsNotRecentDonor",
         "ContactAllowedDonor",
         "ContactNotAllowedDonor",
+        "IsFormaldDonor",
+        "IsInformaldDonor",
         "IsNewsletterSubscriberPlugin",
         "IsNotNewsletterSubscriberPlugin",
         "EmailDonationButtonPlugin",

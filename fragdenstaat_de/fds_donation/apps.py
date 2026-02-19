@@ -102,6 +102,7 @@ def mailing_donation_preview_context_listener(sender, **kwargs):
             "user_donor": _("User donor"),
             "recent_donor": _("Recent donor"),
             "recurring_donor": _("Recurring donor"),
+            "formal_donor": _("formal donor"),
         },
         provide_context=get_donation_context,
     )
@@ -146,6 +147,8 @@ def get_donation_context(value, request):
     elif value == "recurring_donor":
         donor.recurring_amount = 10
         donor.last_donation = timezone.now()
+    elif value == "formal_donor":
+        donor.salutation = "formal"
 
     donation = Donation(
         amount=Decimal("10.00"),

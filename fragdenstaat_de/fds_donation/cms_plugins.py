@@ -217,6 +217,22 @@ class ContactNotAllowedDonor(DonorLogicMixin, CMSPluginBase):
 
 
 @plugin_pool.register_plugin
+class IsFormaldDonor(DonorLogicMixin, CMSPluginBase):
+    name = _("Formal donor")
+
+    def should_render(self, context):
+        return context.get("donor") and context["donor"].is_formal()
+
+
+@plugin_pool.register_plugin
+class IsInformaldDonor(DonorLogicMixin, CMSPluginBase):
+    name = _("Informal donor")
+
+    def should_render(self, context):
+        return not context.get("donor") or not context["donor"].is_formal()
+
+
+@plugin_pool.register_plugin
 class DonationProgressBarPlugin(CMSPluginBase):
     model = DonationProgressBarCMSPlugin
     module = _("Donations")

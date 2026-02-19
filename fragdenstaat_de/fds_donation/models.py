@@ -205,6 +205,9 @@ class Donor(models.Model):
             name = self.get_full_name()
         return "{} {}".format(salutation, name)
 
+    def is_formal(self):
+        return self.salutation.startswith("formal")
+
     def get_full_address(self):
         return "\n".join(
             x
