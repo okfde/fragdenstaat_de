@@ -420,7 +420,9 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     @admin.action(description=_("Detect duplicate donors"))
     def detect_duplicates(self, request, queryset):
         key_funcs = {
-            "email": lambda obj: obj.email if obj.email else None,
+            "email": lambda obj: (
+                obj.email if obj.email and obj.email_confirmed else None
+            ),
             "name_addres": lambda obj: (
                 (
                     obj.get_full_name(),
