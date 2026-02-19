@@ -1,18 +1,19 @@
 {% load i18n %}
+{% load icons %}
 {% load static %}
 {% if has_translation %}
-    <a class="btn btn-sm {% if target_language == 'de-ls' %}btn-outline-primary{% else %}btn-primary{% endif %}"
+    <a class="btn btn-sm {% if target_language == 'de-ls' %}btn-outline-primary{% else %}btn-primary{% endif %} leichte-sprache-toggle"
        href="{{ target_url }}">
-        <i class="fa fa-language" aria-hidden="true"></i>
-        {{ button_text }}
+        {% render_svg "img/icon-leichte-sprache.svg" %}
+        Leichte Sprache
     </a>
 {% else %}
-    <button class="btn btn-sm btn-outline-primary"
+    <button class="btn btn-sm btn-outline-primary leichte-sprache-toggle"
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#noLsTranslationModal">
-        <i class="fa fa-language" aria-hidden="true"></i>
-        {{ button_text }}
+        {% render_svg "img/icon-leichte-sprache.svg" %}
+        Leichte Sprache
     </button>
 {% endif %}
 <!-- Modal for missing translation -->

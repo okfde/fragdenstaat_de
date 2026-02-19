@@ -3,10 +3,6 @@
 {% load static %}
 {% load djangocms_alias_tags %}
 {% load ls_tags %}
-{% block extra_css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/ls.css' %}">
-{% endblock %}
 {% block body_extra_attributes %}class="ls"{% endblock %}
 {% block top_block %}
 {% endblock top_block %}
