@@ -109,10 +109,12 @@ def get_email(donors):
 
 def get_user(donors):
     proposed_email = get_email(donors)
-    return first(
-        [d.user for d in donors if d.user and d.user.email == proposed_email],
-        default=None,
-    )
+    matching_email_users = [
+        d.user for d in donors if d.user and d.user.email == proposed_email
+    ]
+    if matching_email_users:
+        return matching_email_users[0]
+    return first(sort_donors(d for d in donors if d.user), default=None, attr="user")
 
 
 def merge_dict(attr: str):
