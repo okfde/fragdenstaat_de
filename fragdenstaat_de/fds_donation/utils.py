@@ -18,17 +18,118 @@ MERGE_DONOR_FIELDS = [
     "postcode",
     "country",
     "email",
+    "email_confirmed",
     "identifier",
     "attributes",
-    "email_confirmed",
     "contact_allowed",
     "receipt",
     "note",
     "invalid",
-    "active",
     "user",
     "subscriber",
 ]
+
+
+def sort_donors(donors: list[Donor]):
+    return sorted(
+        donors,
+        key=lambda x: x.first_donation,
+        reverse=True,
+    )
+
+
+def first(lis, default="", attr=None):
+    if len(lis):
+        if attr:
+            return getattr(lis[0], attr)
+        return lis[0]
+    return default
+
+
+def get_latest_filled(attr: str, default=""):
+    def latest_filled(donors):
+        return first(
+            sort_donors([d for d in donors if getattr(d, attr, "")]),
+            default=default,
+            attr=attr,
+        )
+
+    return latest_filled
+
+
+def get_latest_known(attr: str):
+    def latest_known(donors):
+        return first(
+            sort_donors(
+                [d for d in donors if getattr(d, attr) is not None],
+            ),
+            default=None,
+            attr=attr,
+        )
+
+    return latest_known
+
+
+def get_latest(attr: str):
+    def latest(donors):
+        return first(
+            sort_donors(donors),
+            default=None,
+            attr=attr,
+        )
+
+    return latest
+
+
+def get_falsiest(attr: str):
+    def falsiest(donors):
+        return all(getattr(d, attr) for d in donors)
+
+    return falsiest
+
+
+def string_merge(attr: str):
+    def merge(donors):
+        return "\n\n".join(getattr(d, attr) for d in donors).strip()
+
+    return merge
+
+
+def get_email(donors):
+    return first(
+        sorted(
+            [d for d in donors if d.email and d.email_confirmed],
+            key=lambda x: x.email_confirmed,
+            reverse=True,
+        ),
+        default="",
+        attr="email",
+    )
+
+
+def get_user(donors):
+    proposed_email = get_email(donors)
+    return first(
+        [d.user for d in donors if d.user and d.user.email == proposed_email],
+        default=None,
+    )
+
+
+def merge_dict(attr: str):
+    def merge(donors):
+        data = {}
+        for d in donors:
+            d_data = getattr(d, attr)
+            if not d_data:
+                continue
+            d_key = f"{d.id}_{attr}"
+            data.setdefault(d_key, {})
+            data[d_key].update(d_data)
+        return data
+
+    return merge
+
+
 DONOR_SESSION_KEY = "donor_id"
 
 
@@ -47,23 +148,25 @@ def subscribe_donor_newsletter(donor, email_confirmed=False):
 def propose_donor_merge(candidates, fields=None):
     if fields is None:
         fields = MERGE_DONOR_FIELDS
+
+    MERGE_DONOR_DECISIONS = {
+        # Take newest confirmed email address
+        "email": get_email,
+        "email_confirmed": get_latest("email_confirmed"),
+        "contact_allowed": get_latest_known("contact_allowed"),
+        "receipt": get_latest_known("contact_allowed"),
+        "note": string_merge("note"),
+        "invalid": get_falsiest("invalid"),
+        "user": get_user,
+        "attributes": merge_dict("attributes"),
+        "subscriber": get_latest_filled("subscriber", default=None),
+    }
     merged_donor_data = {}
     for field in fields:
-        best_value = None
-        for donor in candidates:
-            val = getattr(donor, field)
-            if best_value is None:
-                if isinstance(val, dict):
-                    best_value = dict(val)
-                else:
-                    best_value = val
-                continue
-            if isinstance(val, dict):
-                best_value.update(val)
-            elif val:
-                best_value = val
-        if best_value is not None:
-            merged_donor_data[field] = best_value
+        if field in MERGE_DONOR_DECISIONS:
+            merged_donor_data[field] = MERGE_DONOR_DECISIONS[field](candidates)
+        else:
+            merged_donor_data[field] = get_latest_filled(field)(candidates)
 
     merged_donor = Donor(**merged_donor_data)
     return merged_donor
@@ -82,14 +185,16 @@ def merge_donors(candidates, primary_id, validated_data=None):
     from .services import detect_recurring_on_donor
 
     # Collect old ids and references
-    old_uuids = []
-    old_ids = []
+
+    old_fields = ["id", "uuid", "email", "email_confirmed"]
+    old_data = []
+    old_addresses = []
     subscriptions = []
     for candidate in candidates:
         if candidate.id == primary_id:
             continue
-        old_uuids.append(str(candidate.uuid))
-        old_ids.append(str(candidate.id))
+        old_data.append({f: str(getattr(candidate, f))} for f in old_fields)
+        old_addresses.append(candidate.get_full_address())
 
         for sub in candidate.subscriptions.all():
             subscriptions.append(sub)
@@ -101,16 +206,19 @@ def merge_donors(candidates, primary_id, validated_data=None):
         for key, val in validated_data.items():
             setattr(merged_donor, key, val)
 
+    merged_address = merged_donor.get_full_address()
+    for old_address in old_addresses:
+        if merged_address != old_address:
+            merged_donor.note += "\n\n---\n{old_address}\n---\n\n"
+            merged_donor.note = merged_donor.note.strip()
+
     # Add old ids to attributes
     attrs = merged_donor.attributes or {}
 
-    old_val = attrs.get("old_uuids", "").split(",")
-    old_uuids.extend([x for x in old_val if x])
-    attrs["old_uuids"] = ",".join(old_uuids)
-
-    old_val = attrs.get("old_ids", "").split(",")
-    old_ids.extend([x for x in old_val if x])
-    attrs["old_ids"] = ",".join(old_ids)
+    if "old_data" in attrs:
+        attrs["old_data"].extend(old_data)
+    else:
+        attrs["old_data"] = old_data
 
     merged_donor.attributes = attrs
 
