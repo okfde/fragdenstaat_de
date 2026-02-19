@@ -193,7 +193,7 @@ def merge_donors(candidates, primary_id, validated_data=None):
     for candidate in candidates:
         if candidate.id == primary_id:
             continue
-        old_data.append({f: str(getattr(candidate, f))} for f in old_fields)
+        old_data.append({f: str(getattr(candidate, f)) for f in old_fields})
         old_addresses.append(candidate.get_full_address())
 
         for sub in candidate.subscriptions.all():
