@@ -211,7 +211,9 @@ def merge_donors(candidates, primary_id, validated_data=None):
     merged_address = merged_donor.get_full_address()
     for old_address in old_addresses:
         if merged_address != old_address:
-            merged_donor.note += "\n\n---\n{old_address}\n---\n\n"
+            merged_donor.note += "\n\n---\n{old_address}\n---\n\n".format(
+                old_address=old_address
+            )
             merged_donor.note = merged_donor.note.strip()
 
     # Add old ids to attributes
