@@ -95,7 +95,7 @@ def string_merge(attr: str):
     return merge
 
 
-def get_latest_by_email(attr: str):
+def get_latest_by_email(attr: str, default=""):
     def latest_by_email(donors):
         return first(
             sorted(
@@ -103,7 +103,7 @@ def get_latest_by_email(attr: str):
                 key=lambda x: x.email_confirmed,
                 reverse=True,
             ),
-            default="",
+            default=default,
             attr=attr,
         )
 
@@ -157,7 +157,7 @@ def propose_donor_merge(candidates, fields=None):
     MERGE_DONOR_DECISIONS = {
         # Take newest confirmed email address
         "email": get_latest_by_email("email"),
-        "email_confirmed": get_latest_by_email("email_confirmed"),
+        "email_confirmed": get_latest_by_email("email_confirmed", default=None),
         "contact_allowed": get_latest_known("contact_allowed"),
         "receipt": get_latest_known("contact_allowed"),
         "note": string_merge("note"),
