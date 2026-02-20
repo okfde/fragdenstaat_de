@@ -4392,3 +4392,44 @@ msgstr ""
 msgctxt "url part"
 msgid "campaign/"
 msgstr ""
+
+#: fragdenstaat_de/fds_ls/templates/fds_ls/feedback.html
+msgctxt "Leichte Sprache"
+msgid "[Feedback form heading]"
+msgstr "Rückmeldung zu diesem Text"
+
+#: fragdenstaat_de/fds_ls/templates/fds_ls/feedback.html
+msgctxt "Leichte Sprache"
+msgid "[Feedback form description]"
+msgstr ""
+"War dieser Text schwer zu verstehen?<br />"
+"Haben Sie eine Barriere gefunden?<br />"
+"Dann sagen Sie uns bitte Bescheid.<br />"
+"Nutzen Sie dafür dieses Formular.<br />"
+"Oder schreiben Sie uns eine E-Mail: "
+"<a href=\"mailto:info@fragdenstaat.de\">info@fragdenstaat.de</a>.<br />"
+"Vielen Dank für Ihre Hilfe!"
+
+#: fragdenstaat_de/fds_ls/templates/fds_ls/language_toggle.html
+msgid "Easy language"
+msgstr "Leichte Sprache"
+
+#: fragdenstaat_de/fds_ls/templates/fds_ls/language_toggle.html
+msgctxt "Leichte Sprache"
+msgid "[No easy language translation available]"
+msgstr "Diese Seite ist leider noch nicht in Leichter Sprache verfügbar."
+
+#: fragdenstaat_de/fds_ls/templates/fds_ls/language_toggle.html
+msgctxt "Leichte Sprache"
+msgid "[Switch to easy language homepage]"
+msgstr "Sie können zur Startseite in Leichter Sprache wechseln:"
+
+#: fragdenstaat_de/fds_ls/templates/fds_ls/language_toggle.html
+msgctxt "Leichte Sprache"
+msgid "[Stay here]"
+msgstr "Hier bleiben"
+
+#: fragdenstaat_de/fds_ls/templates/fds_ls/language_toggle.html
+msgctxt "Leichte Sprache"
+msgid "[Go to easy language homepage]"
+msgstr "Zur Startseite in Leichter Sprache"
