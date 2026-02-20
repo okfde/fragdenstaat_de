@@ -95,20 +95,23 @@ def string_merge(attr: str):
     return merge
 
 
-def get_email(donors):
-    return first(
-        sorted(
-            [d for d in donors if d.email and d.email_confirmed],
-            key=lambda x: x.email_confirmed,
-            reverse=True,
-        ),
-        default="",
-        attr="email",
-    )
+def get_latest_by_email(attr: str):
+    def latest_by_email(donors):
+        return first(
+            sorted(
+                [d for d in donors if d.email and d.email_confirmed],
+                key=lambda x: x.email_confirmed,
+                reverse=True,
+            ),
+            default="",
+            attr=attr,
+        )
+
+    return latest_by_email
 
 
 def get_user(donors):
-    proposed_email = get_email(donors)
+    proposed_email = get_latest_by_email("email")(donors)
     matching_email_users = [
         d.user for d in donors if d.user and d.user.email == proposed_email
     ]
@@ -153,8 +156,8 @@ def propose_donor_merge(candidates, fields=None):
 
     MERGE_DONOR_DECISIONS = {
         # Take newest confirmed email address
-        "email": get_email,
-        "email_confirmed": get_latest("email_confirmed"),
+        "email": get_latest_by_email("email"),
+        "email_confirmed": get_latest_by_email("email_confirmed"),
         "contact_allowed": get_latest_known("contact_allowed"),
         "receipt": get_latest_known("contact_allowed"),
         "note": string_merge("note"),
