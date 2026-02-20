@@ -581,6 +581,16 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                             count=len(candidates), donor=donor
                         ),
                     )
+                else:
+                    self.message_user(
+                        request,
+                        _("Error on merge of {ids}: {error}").format(
+                            ids=str(candidate_ids),
+                            error=str(donor_form.errors),
+                        ),
+                        level=messages.ERROR,
+                    )
+                    return redirect("admin:fds_donation_donor_changelist")
             if request.POST.get("auto_next"):
                 return redirect(
                     reverse("admin:fds_donation-donor-merge_donor") + "?auto_next=1"
