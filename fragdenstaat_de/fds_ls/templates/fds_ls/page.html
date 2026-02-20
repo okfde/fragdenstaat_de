@@ -9,15 +9,18 @@
 {% block navbar %}
     {{ block.super }}
     {% block breadcrumbs %}
-        <nav aria-label="breadcrumb"
-             {% if request.current_page.fdspageextension.breadcrumb_background %} class="text-bg-{{ request.current_page.fdspageextension.breadcrumb_background }}{% if request.current_page.fdspageextension.breadcrumb_overlay %} breadcrumb-overlay{% endif %}
-             "
-             {% endif %}>
-            <div class="container-md">
-                <ol class="breadcrumb">
-                    {% show_breadcrumb 0 "cms/breadcrumbs.html" %}
-                </ol>
-            </div>
-        </nav>
+        {% page_url "home" as home_url %}
+        {% if request.current_page.get_absolute_url != home_url %}
+            <nav aria-label="breadcrumb"
+                 {% if request.current_page.fdspageextension.breadcrumb_background %} class="text-bg-{{ request.current_page.fdspageextension.breadcrumb_background }}{% if request.current_page.fdspageextension.breadcrumb_overlay %} breadcrumb-overlay{% endif %}
+                 "
+                 {% endif %}>
+                <div class="container-md">
+                    <ol class="breadcrumb">
+                        {% show_breadcrumb 0 "cms/breadcrumbs.html" %}
+                    </ol>
+                </div>
+            </nav>
+        {% endif %}
     {% endblock breadcrumbs %}
 {% endblock navbar %}
