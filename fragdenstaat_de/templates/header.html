@@ -37,6 +37,9 @@
                         <span class="visually-hidden">{{ SITE_NAME }}</span>
                     </a>
                 </li>
+                {% if request.LANGUAGE_CODE == 'de' and reduced != True %}
+                    <li class="d-lg-none">{% language_toggle %}</li>
+                {% endif %}
                 {% if request.user.is_authenticated and reduced != True %}
                     <li id="menu-user-nav">
                         <div>
@@ -180,7 +183,7 @@
                             </a>
                         </li>
                         {% if request.LANGUAGE_CODE == 'de' %}
-                            <li class="nav-sm order-lg-last">{% language_toggle %}</li>
+                            <li class="nav-sm order-lg-last d-none d-lg-block">{% language_toggle %}</li>
                         {% endif %}
                         <li class="nav-sm d-lg-none">
                             <hr>

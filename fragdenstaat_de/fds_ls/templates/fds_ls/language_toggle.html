@@ -5,7 +5,7 @@
     <a class="btn btn-sm {% if target_language == 'de-ls' %}btn-outline-primary{% else %}btn-primary{% endif %} leichte-sprache-toggle"
        href="{{ target_url }}">
         {% render_svg "img/icon-leichte-sprache.svg" %}
-        Leichte Sprache
+        <span class="d-none d-lg-inline">Leichte Sprache</span>
     </a>
 {% else %}
     <button class="btn btn-sm btn-outline-primary leichte-sprache-toggle"
@@ -13,7 +13,7 @@
             data-bs-toggle="modal"
             data-bs-target="#noLsTranslationModal">
         {% render_svg "img/icon-leichte-sprache.svg" %}
-        Leichte Sprache
+        <span class="d-none d-lg-inline">Leichte Sprache</span>
     </button>
 {% endif %}
 <!-- Modal for missing translation -->
