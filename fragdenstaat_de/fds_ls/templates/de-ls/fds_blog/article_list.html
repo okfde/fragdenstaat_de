@@ -81,31 +81,23 @@
                             {% endblocktrans %}
                         </p>
                     {% endif %}
-                    {% if category_filter or month_filter or year_filter %}
-                        <nav class="hstack gap-2">
+                    {% if category_filter or year_filter %}
+                        <nav class="vstack gap-2">
                             {% if category_filter %}
-                                {% for category in category_filter %}
-                                    <button class="btn btn-sm btn-secondary">
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% for category in category_filter %}
                                         <a href="{% url 'blog:article-category' slug=category.slug %}"
-                                           class="dropdown-item">{{ category }}</a>
-                                    </button>
-                                {% endfor %}
-                            {% endif %}
-                            {% if month_filter %}
-                                {% for date in month_filter %}
-                                    <button class="btn btn-sm btn-secondary">
-                                        <a href="{% url 'blog:article-archive' year=date.year month=date.month %}"
-                                           class="dropdown-item">{{ date|date:"F" }}</a>
-                                    </button>
-                                {% endfor %}
+                                           class="btn btn-sm btn-secondary{% if category.color %} text-bg-{{ category.color }}{% endif %}">{{ category }}</a>
+                                    {% endfor %}
+                                </div>
                             {% endif %}
                             {% if year_filter %}
-                                {% for date in year_filter %}
-                                    <button class="btn btn-sm btn-secondary">
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% for date in year_filter %}
                                         <a href="{% url 'blog:article-archive' year=date.year %}"
-                                           class="dropdown-item">{{ date|date:"Y" }}</a>
-                                    </button>
-                                {% endfor %}
+                                           class="btn btn-sm btn-secondary">{{ date|date:"Y" }}</a>
+                                    {% endfor %}
+                                </div>
                             {% endif %}
                         </nav>
                     {% endif %}
