@@ -1,40 +1,33 @@
-body.ls,
-body.ls * {
+body.ls {
   hyphens: manual !important;
+  font-size: 1.25rem;
+  line-height: 1.5;
 }
 
-body.ls,
+body.ls main {
+  font-family: "Inter", sans-serif !important;
+}
+
 body.ls .breadcrumb-item,
 body.ls .breadcrumb-item > *,
 body.ls .btn,
 body.ls .leichte-sprache-toggle {
-    font-size: 1.25rem;
-    line-height: 1.5;
-}
-
-body.ls main,
-body.ls main *:not(.fa) {
-  font-family: "Inter", sans-serif !important;
+  font-size: 1.25rem;
+  line-height: 1.5;
 }
 
 body.ls .lead > p {
-    font-size: 1.5rem;
-    line-height: 2.5;
+  font-size: 1.5rem;
+  line-height: 2.5;
 }
 
 body.ls .app-blog {
-    >* h2,
-    >* h3,
-    >* h4,
-    >* h5,
-    >* h6,
-    >* ul,
-    >* ol,
-    >* p,
-    >* details {
-      font-size: 1.5rem;
-      line-height: 2.5;
-    }
+  h2, h3, h4, h5, h6,
+  ul, ol, p, details {
+    font-family: inherit !important;
+    font-size: 1.5rem;
+    line-height: 2.5;
+  }
 }
 
 .leichte-sprache-toggle svg {
@@ -43,7 +36,7 @@ body.ls .app-blog {
 }
 
 body.ls .leichte-sprache-toggle svg,
-#noLsTranslationModal >* svg {
+#noLsTranslationModal svg {
   height: 1.25rem;
   width: auto;
 }
