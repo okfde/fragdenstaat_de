@@ -42,7 +42,8 @@ body.ls .app-blog {
   width: auto;
 }
 
-body.ls .leichte-sprache-toggle svg {
+body.ls .leichte-sprache-toggle svg,
+#noLsTranslationModal >* svg {
   height: 1.25rem;
   width: auto;
 }
