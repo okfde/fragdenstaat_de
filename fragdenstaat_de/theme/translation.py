@@ -5,6 +5,10 @@ from django.utils.translation import get_language
 
 LANGUAGE_CODES = set(dict(settings.LANGUAGES).keys())
 
+# Sublanguages have their own dedicated toggle and should be excluded
+# from the general language switcher.
+SUBLANGUAGE_CODES = {"de-ls"}
+
 
 def get_other_languages() -> set[str]:
     """
