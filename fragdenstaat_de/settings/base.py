@@ -139,6 +139,13 @@ class FragDenStaatBase(German, Base):
         TEMP[0]["DIRS"] = [
             THEME_ROOT / "templates",
         ] + list(TEMP[0]["DIRS"])
+        # Replace the default app directories loader with our language-aware version
+        loaders = TEMP[0]["OPTIONS"]["loaders"]
+        for i, loader in enumerate(loaders):
+            if loader == "django.template.loaders.app_directories.Loader":
+                loaders[i] = (
+                    "fragdenstaat_de.theme.template_loader.LanguagePrefixLoader"
+                )
         cps = TEMP[0]["OPTIONS"]["context_processors"]
         cps.extend(
             [
