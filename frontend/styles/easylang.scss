@@ -1,0 +1,42 @@
+body.easylang {
+  hyphens: manual !important;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+body.easylang main {
+  font-family: "Inter", sans-serif !important;
+}
+
+body.easylang .breadcrumb-item,
+body.easylang .breadcrumb-item > *,
+body.easylang .btn,
+body.easylang .easylang-toggle {
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+body.easylang .lead > p {
+  font-size: 1.5rem;
+  line-height: 2.5;
+}
+
+body.easylang .app-blog {
+  h2, h3, h4, h5, h6,
+  ul, ol, p, details {
+    font-family: inherit !important;
+    font-size: 1.5rem;
+    line-height: 2.5;
+  }
+}
+
+.easylang-toggle svg {
+  height: 1rem;
+  width: auto;
+}
+
+body.easylang .easylang-toggle svg,
+#noEasylangTranslationModal svg {
+  height: 1.25rem;
+  width: auto;
+}
