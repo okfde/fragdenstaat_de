@@ -138,6 +138,12 @@ class FragDenStaatBase(German, Base):
         TEMP[0]["DIRS"] = [
             THEME_ROOT / "templates",
         ] + list(TEMP[0]["DIRS"])
+
+        # Add our language-aware loader before the default app directories loader.
+        TEMP[0]["OPTIONS"]["loaders"].insert(
+            0, "fragdenstaat_de.theme.template_loader.LanguagePrefixLoader"
+        )
+
         cps = TEMP[0]["OPTIONS"]["context_processors"]
         cps.extend(
             [
