@@ -1,0 +1,55 @@
+{% load i18n %}
+{% load static %}
+{% load icons %}
+{% load content_helper %}
+{% load cms_tags %}
+{% load easylang_tags %}
+<header id="header">
+    <div class="container-md">
+        <a href="#main"
+           class="visually-hidden-focusable skippy text-bg-blue-500 p-3 position-fixed top-0">
+            {% trans "Skip to main content" %}
+        </a>
+    </div>
+    <nav class="bg-body">
+        <div class="container-lg">
+            <ul class="nav-ul w-100">
+                <li class="d-lg-none">
+                    <button class="btn btn-link nav-toggle-menu"
+                            data-target="main"
+                            aria-controls="menu-main">
+                        <span class="navbar-toggler-icon"></span>
+                        <span class="visually-hidden">{% trans "Menu" %}</span>
+                    </button>
+                </li>
+                {% page_url "home" as home_url %}
+                <li class="order-lg-first nav-logo">
+                    <a href="{{ home_url|default:'/' }}">
+                        {% render_svg "img/header_logo.svg" %}
+                        <span class="visually-hidden">{{ SITE_NAME }}</span>
+                    </a>
+                </li>
+                <li class="d-lg-none">{% easylang_toggle %}</li>
+                <ul class="nav-menu nav-menu-expanded py-3 py-lg-0" id="menu-main">
+                    <li class="nav-break d-none d-lg-block" aria-hidden="true"></li>
+                    {% if home_url %}
+                        {% page_attribute "menu_title" "home" as home_title %}
+                    {% endif %}
+                    <li>
+                        <a href="{{ home_url|default:'/' }}"
+                           {% if request.path == home_url %}class="active" aria-current="page"{% endif %}>{{ home_title|default:"Startseite" }}</a>
+                    </li>
+                    {% page_url "investigations" as investigations_url %}
+                    {% if investigations_url %}
+                        {% page_attribute "menu_title" "investigations" as investigations_title %}
+                    {% endif %}
+                    <li>
+                        <a href="{{ investigations_url|default:'/recherchen/' }}"
+                           {% if request.path|startswith:investigations_url %}class="active" aria-current="page"{% endif %}>{{ investigations_title|default:"Recherchen" }}</a>
+                    </li>
+                    <li class="nav-sm ms-lg-auto order-lg-last d-none d-lg-block">{% easylang_toggle %}</li>
+                </ul>
+            </ul>
+        </div>
+    </nav>
+</header>
