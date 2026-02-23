@@ -2,16 +2,18 @@
 {% load icons %}
 {% load static %}
 {% if has_translation %}
-    <a class="btn btn-sm {% if target_language == 'de-ls' %}btn-outline-primary{% else %}btn-primary{% endif %} easylang-toggle"
-       href="{{ target_url }}">
+    <a class="easylang-toggle btn btn-sm {% if target_language != 'de-ls' %}btn-primary{% else %}btn-outline-primary{% endif %}"
+       href="{{ target_url }}"
+       role="switch"
+       aria-checked="{% if target_language != 'de-ls' %}true{% else %}false{% endif %}">
         {% render_svg "img/icon-leichte-sprache.svg" %}
         <span class="d-none d-lg-inline">{% trans "Easy language" %}</span>
     </a>
 {% else %}
-    <button class="btn btn-sm btn-outline-primary easylang-toggle"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#noEasylangTranslationModal">
+    <button class="easylang-toggle btn btn-sm btn-outline-primary">
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#noEasylangTranslationModal">
         {% render_svg "img/icon-leichte-sprache.svg" %}
         <span class="d-none d-lg-inline">{% trans "Easy language" %}</span>
     </button>
