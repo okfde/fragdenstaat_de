@@ -1,0 +1,51 @@
+body.easylang {
+  .breadcrumb-item,
+  .breadcrumb-item > *,
+  .btn,
+  .nav-menu,
+  .footer__menu li {
+    hyphens: manual !important;
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  main {
+    h2, h3, h4, h5, h6,
+    ul, ol, p, details {
+    font-size: 1.5rem;
+    line-height: 2.5;
+    }
+  }
+
+  .app-blog {
+    h2, h3, h4, h5, h6,
+    ul, ol, p, details {
+      font-family: inherit !important;
+    }
+  }
+
+  .blog-header .btn-secondary:hover,
+  .blog-header .btn-secondary:focus-visible {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: var(--bs-white);
+  }
+
+  article footer,
+  .feedback {
+    p, h3, h4 {
+      font-size: 1.25rem;
+      line-height: 2;
+    }
+  }
+}
+
+.easylang-toggle svg {
+  height: 1rem;
+  width: auto;
+}
+
+body.easylang .easylang-toggle svg {
+  height: 1.25rem;
+  width: auto;
+}
