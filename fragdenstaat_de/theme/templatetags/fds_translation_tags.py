@@ -67,3 +67,9 @@ def get_languages(
         languages = set(languages) - SUBLANGUAGE_CODES
 
     return sorted(languages, key=lambda page: get_language_info(page[0])["name_local"])
+
+
+@register.simple_tag
+def get_translated_url(request: HttpRequest, view, language_code: str) -> str:
+    languages = get_languages(request, view)
+    return dict(languages).get(language_code, "")
