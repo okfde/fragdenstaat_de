@@ -23,7 +23,9 @@
     {% spaceless %}
         <article class="blog-article"
                  {% if category.color %}style="--article-color: var(--bs-{{ category.color }}-rgb)"{% endif %}>
-            {% include article.content_template %}
+            {% block article_content %}
+                {% include article.content_template %}
+            {% endblock article_content %}
         </article>
     {% endspaceless %}
 {% endblock content_blog %}
