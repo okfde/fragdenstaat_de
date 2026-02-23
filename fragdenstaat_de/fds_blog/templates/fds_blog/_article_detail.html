@@ -2,6 +2,7 @@
 {% load markup %}
 {% load static %}
 {% load blog_tags %}
+{% load fds_translation_tags %}
 {% block article_header %}
     <header class="blog-header">
         <div class="blog-header-meta">
@@ -52,6 +53,20 @@
                     {% if not forloop.last %},{% endif %}
                 {% endfor %}
             </p>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block easylang_article_link %}
+    {% get_translated_url request view "de-ls" as url %}
+    {% if request.LANGUAGE_CODE == "de" and url %}
+        <div class="blog-content mb-3">
+            <div class="text-container infotextbox">
+                <p style="text-align: center;">
+                    {% blocktrans trimmed context "Leichte Sprache" %}
+                        [Article available in easy language at "{{ url }}"]
+                    {% endblocktrans %}
+                </p>
+            </div>
         </div>
     {% endif %}
 {% endblock %}
