@@ -4,6 +4,7 @@ from django.conf import settings
 from django.utils.translation import get_language
 
 LANGUAGE_CODES = set(dict(settings.LANGUAGES).keys())
+SUBLANGUAGE_CODES = {"de-ls"}
 
 
 def get_other_languages() -> set[str]:
