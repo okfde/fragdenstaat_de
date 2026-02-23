@@ -6,6 +6,7 @@ from django.urls import translate_url
 from django.utils.translation import get_language_info
 
 from fragdenstaat_de.theme.translation import (
+    SUBLANGUAGE_CODES,
     TranslatedPage,
     TranslatedView,
     get_other_languages,
@@ -15,7 +16,9 @@ register = template.Library()
 
 
 @register.simple_tag
-def get_languages(request: HttpRequest, view) -> Sequence[TranslatedPage]:
+def get_languages(
+    request: HttpRequest, view, exclude_sublanguages=False
+) -> Sequence[TranslatedPage]:
     current_language = request.LANGUAGE_CODE
     other_languages = get_other_languages()
 
@@ -47,5 +50,10 @@ def get_languages(request: HttpRequest, view) -> Sequence[TranslatedPage]:
     if current_language not in dict(languages).keys():
         languages = list(languages)
         languages += [TranslatedPage(request.LANGUAGE_CODE, current_url)]
+
+    if exclude_sublanguages:
+        languages = [
+            lang for lang in languages if lang.language_code not in SUBLANGUAGE_CODES
+        ]
 
     return sorted(languages, key=lambda page: get_language_info(page[0])["name_local"])
