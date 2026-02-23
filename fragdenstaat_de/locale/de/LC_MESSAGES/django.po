@@ -1377,7 +1377,7 @@ msgstr "Deutsch"
 
 #: fragdenstaat_de/settings/base.py
 msgid "German (Easy Language)"
-msgstr "Deutsch (Leichte Sprache"
+msgstr "Deutsch (Leichte Sprache)"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Germany"
