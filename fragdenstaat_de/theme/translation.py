@@ -7,6 +7,7 @@ from django.utils.translation import get_language, override
 from cms.apphook_pool import apphook_pool
 
 LANGUAGE_CODES = set(dict(settings.LANGUAGES).keys())
+SUBLANGUAGE_CODES = {"de-ls"}
 
 
 class TranslatedPage(NamedTuple):

@@ -2,7 +2,7 @@
 {% load cache %}
 {% load fds_translation_tags %}
 {% cache 300 language_switcher request.get_full_path %}
-    {% get_languages request view as languages %}
+    {% get_languages request view exclude_sublanguages=True as languages %}
     {% get_current_language as LANGUAGE_CODE %}
     <div class="dropdown">
         <button class="btn btn-secondary btn-sm dropdown-toggle"
