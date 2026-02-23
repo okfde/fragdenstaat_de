@@ -57,6 +57,20 @@
         </div>
     {% endif %}
 {% endblock %}
+{% block easylang_article_link %}
+    {% get_article_language_url article "de-ls" as url %}
+    {% if request.LANGUAGE_CODE == "de" and url %}
+        <div class="blog-content mb-3">
+            <div class="text-container infotextbox">
+                <p class="text-center">
+                    {% blocktrans trimmed context "Leichte Sprache" %}
+                        [Article available in easy language at "{{ url }}"]
+                    {% endblocktrans %}
+                </p>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
 {% block article_content %}
     {% comment %}
         if the article is in edit mode, or the article has manually inserted ads (via cms),
