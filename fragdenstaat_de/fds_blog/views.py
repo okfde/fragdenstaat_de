@@ -10,6 +10,7 @@ from django.core.exceptions import BadRequest, ImproperlyConfigured
 from django.db.models import Case, When
 from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect
+from django.template.loader import select_template
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import get_language, ngettext, override
@@ -190,7 +191,10 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
 
         if self.request.toolbar.edit_mode_active:
             context["force_cms_render"] = True
-            context["CMS_TEMPLATE"] = "cms/blog_base.html"
+            lang = get_language()
+            context["CMS_TEMPLATE"] = select_template(
+                [f"{lang}/cms/blog_base.html", "cms/blog_base.html"]
+            ).template.name
 
         return context
 
