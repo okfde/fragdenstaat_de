@@ -1,0 +1,17 @@
+{% extends "cms/base.html" %}
+{% load cms_tags %}
+{% load static %}
+{% load djangocms_alias_tags %}
+{% load easylang_tags %}
+{% block body_extra_attributes %}class="easylang"{% endblock %}
+{% block top_block %}
+{% endblock top_block %}
+{% block navbar %}
+    {% include "fds_easylang/header.html" %}
+{% endblock %}
+{% block footer_container %}
+    {% render_contact_form %}
+    <footer class="footer" id="footer">
+        <div class="container">{% static_alias "footer_easylang" %}</div>
+    </footer>
+{% endblock footer_container %}

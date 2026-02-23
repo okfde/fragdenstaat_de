@@ -1,0 +1,53 @@
+{% load i18n %}
+{% load icons %}
+{% load static %}
+{% if has_translation %}
+    <a class="btn btn-sm {% if target_language == 'de-ls' %}btn-outline-primary{% else %}btn-primary{% endif %} easylang-toggle"
+       href="{{ target_url }}">
+        {% render_svg "img/icon-leichte-sprache.svg" %}
+        <span class="d-none d-lg-inline">{% trans "Easy language" %}</span>
+    </a>
+{% else %}
+    <button class="btn btn-sm btn-outline-primary easylang-toggle"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#noEasylangTranslationModal">
+        {% render_svg "img/icon-leichte-sprache.svg" %}
+        <span class="d-none d-lg-inline">{% trans "Easy language" %}</span>
+    </button>
+{% endif %}
+<!-- Modal for missing translation -->
+<div data-teleport="body"
+     class="modal fade"
+     id="noEasylangTranslationModal"
+     tabindex="-1"
+     aria-labelledby="noEasylangTranslationModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="noEasylangTranslationModalLabel">
+                    {% render_svg "img/icon-leichte-sprache.svg" %}
+                    {% trans "Easy language" %}
+                </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="{% trans 'Close' %}"></button>
+            </div>
+            <div class="modal-body">
+                <p>{% trans "[No easy language translation available]" context "Leichte Sprache" %}</p>
+                <p>{% trans "[Switch to easy language homepage]" context "Leichte Sprache" %}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "[Stay here]" context "Leichte Sprache" %}
+                </button>
+                <a href="{{ home_url }}" class="btn btn-primary">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    {% trans "[Go to easy language homepage]" context "Leichte Sprache" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
