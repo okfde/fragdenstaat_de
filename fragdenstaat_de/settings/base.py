@@ -29,6 +29,7 @@ class FragDenStaatBase(German, Base):
 
     LANGUAGES = (
         ("de", _("German")),
+        ("de-ls", _("German (Easy Language)")),
         ("en", _("English")),
     )
 
@@ -216,6 +217,7 @@ class FragDenStaatBase(German, Base):
         1: (
             {"code": "de"},
             {"code": "en"},
+            {"code": "de-ls"},
         ),
         "default": {
             # the default; let .active_translations() return fallbacks too.
@@ -251,6 +253,14 @@ class FragDenStaatBase(German, Base):
                 "code": "en",
                 "hide_untranslated": True,
                 "name": _("English"),
+                "redirect_on_fallback": True,
+                "fallbacks": ["de"],
+            },
+            {
+                "public": True,
+                "code": "de-ls",
+                "hide_untranslated": True,
+                "name": _("German (Easy Language)"),
                 "redirect_on_fallback": True,
                 "fallbacks": ["de"],
             },
