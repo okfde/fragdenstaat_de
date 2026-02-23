@@ -64,6 +64,7 @@ class FragDenStaatBase(German, Base):
                 "fragdenstaat_de.fds_fximport.apps.FdsFxImportConfig",
                 "fragdenstaat_de.fds_paperless",
                 "fragdenstaat_de.fds_events",
+                "fragdenstaat_de.fds_easylang",
                 # Additional CMS plugins
                 "djangocms_text",
                 "djangocms_text.contrib.text_ckeditor4",
@@ -278,12 +279,14 @@ class FragDenStaatBase(German, Base):
     CMS_TEMPLATES = [
         ("cms/home.html", "Homepage template"),
         ("cms/page.html", "Page template"),
+        ("fds_easylang/page.html", "Page template (Easy Language)"),
         ("cms/page_headerless.html", "Page without header"),
         ("cms/page_reduced.html", "Page reduced"),
         ("cms/page_reduced_dark.html", "Page reduced (dark)"),
         ("cms/page_minimal.html", "Page minimal"),
         ("cms/page_breadcrumb.html", "Page with breadcrumbs"),
         ("cms/blog_base.html", "Blog base template"),
+        ("de-ls/cms/blog_base.html", "Blog base template (Easy Language)"),
         ("cms/help_base.html", "Help base template"),
         ("cms/pub_base.html", "Book Publication template"),
         ("froide_govplan/base.html", "Govplan base template"),

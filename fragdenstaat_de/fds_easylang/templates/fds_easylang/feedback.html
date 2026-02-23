@@ -1,0 +1,12 @@
+{% load i18n %}
+<div class="design-container text-bg-body-tertiary text-body">
+    <div class="container ">
+        <div class="py-5 row">
+            <div class="col col-md-10 lead">
+                <h2>{% trans "[Feedback form heading]" context "Leichte Sprache" %}</h2>
+                <p>{% trans "[Feedback form description]" context "Leichte Sprache" %}</p>
+                {% include "fds_cms/feedback.html" %}
+            </div>
+        </div>
+    </div>
+</div>

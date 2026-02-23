@@ -1,0 +1,17 @@
+{% extends "fds_easylang/page.html" %}
+{% block extra_head %}
+    {{ block.super }}
+    <link rel="alternate"
+          type="application/rss+xml"
+          title="{{ SITE_NAME }} Blog"
+          href="{% url 'blog:article-latest-feed' %}" />
+{% endblock extra_head %}
+{% block breadcrumbs %}
+    {% include "snippets/breadcrumbs.html" %}
+{% endblock breadcrumbs %}
+{% block body %}
+    {% block app_body %}
+        {% block content %}
+        {% endblock content %}
+    {% endblock app_body %}
+{% endblock body %}

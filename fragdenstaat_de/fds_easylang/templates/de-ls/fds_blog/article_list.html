@@ -1,0 +1,24 @@
+{% extends "fds_blog/article_list.html" %}
+{% load i18n %}
+{% block blog_list_filters %}
+    {% if category_filter or year_filter %}
+        <nav class="vstack gap-2">
+            {% if category_filter %}
+                <div class="d-flex flex-wrap gap-2">
+                    {% for category in category_filter %}
+                        <a href="{% url 'blog:article-category' slug=category.slug %}"
+                           class="btn btn-sm btn-secondary{% if category.color %} text-bg-{{ category.color }}{% endif %}">{{ category }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if year_filter %}
+                <div class="d-flex flex-wrap gap-2">
+                    {% for date in year_filter %}
+                        <a href="{% url 'blog:article-archive' year=date.year %}"
+                           class="btn btn-sm btn-secondary">{{ date|date:"Y" }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </nav>
+    {% endif %}
+{% endblock blog_list_filters %}

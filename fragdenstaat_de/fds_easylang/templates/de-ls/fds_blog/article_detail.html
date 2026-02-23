@@ -1,0 +1,4 @@
+{% extends "fds_blog/article_detail.html" %}
+{% block article_content %}
+    {% include "fds_blog/_article_detail.html" with hide_share_links=True hide_other_languages=True %}
+{% endblock article_content %}
