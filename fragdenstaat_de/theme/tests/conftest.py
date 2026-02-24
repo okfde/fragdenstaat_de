@@ -1,7 +1,7 @@
 import re
 
 import pytest
-from elasticsearch import Elasticsearch
+from elasticsearch import BadRequestError, Elasticsearch
 from elasticsearch_dsl import Document, Text
 
 from froide.helper.search import (
@@ -40,7 +40,11 @@ def test_index(elasticsearch_client):
     index = get_index("docs")
     index.document(TestDocument)
     # Timeout has to be set here - is ignored when set in Elasticsearch().
-    index.create(timeout="60s")
+    try:
+        index.create(timeout="60s")
+    except BadRequestError:
+        index.delete()
+        index.create(timeout="60s")
 
     # Create test documents.
     for doc in search_docs:
