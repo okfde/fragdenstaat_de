@@ -159,7 +159,7 @@ def propose_donor_merge(candidates, fields=None):
         "email": get_latest_by_email("email"),
         "email_confirmed": get_latest_by_email("email_confirmed", default=None),
         "contact_allowed": get_latest_known("contact_allowed"),
-        "receipt": get_latest_known("contact_allowed"),
+        "receipt": get_latest_known("receipt"),
         "note": string_merge("note"),
         "invalid": get_falsiest("invalid"),
         "user": get_user,
