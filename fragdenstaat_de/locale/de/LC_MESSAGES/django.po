@@ -607,9 +607,9 @@ msgid ""
 msgstr ""
 "\n"
 "                                Durchsuchen Sie unsere aktuellen oder "
-"verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a "
-"href=\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-"
-"Feed</a> abonnieren.\n"
+"verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a href="
+"\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-Feed</a> "
+"abonnieren.\n"
 "                            "
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
@@ -1140,8 +1140,8 @@ msgid ""
 "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/"
 "\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr ""
-"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" "
-"target=\"_blank\">Font Awesome 4 Icon Liste</a>"
+"Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target="
+"\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Background image"
@@ -1787,7 +1787,6 @@ msgstr "Dauerspender*in"
 
 #: fragdenstaat_de/fds_donation/apps.py
 #, fuzzy
-#| msgid "No donor"
 msgid "formal donor"
 msgstr "Keine Spender*in"
 
@@ -1855,13 +1854,11 @@ msgstr "Spender*in darf nicht kontaktiert werden"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 #, fuzzy
-#| msgid "No donor"
 msgid "Formal donor"
 msgstr "Keine Spender*in"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 #, fuzzy
-#| msgid "Information"
 msgid "Informal donor"
 msgstr "Informationen"
 
@@ -3730,7 +3727,6 @@ msgstr "Mailing vom %s"
 
 #: fragdenstaat_de/fds_newsletter/actions.py
 #, fuzzy
-#| msgid "You have been subscribed to our newsletter."
 msgid "Subscribe to newsletter"
 msgstr "Willkommen zu unserem Newsletter!"
 
@@ -3983,13 +3979,11 @@ msgstr ""
 
 #: fragdenstaat_de/fds_newsletter/models.py
 #, fuzzy
-#| msgid "Email confirmed"
 msgid "email already confirmed"
 msgstr "E-Mail bestätigt"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 #, fuzzy
-#| msgid "Awaiting user confirmation"
 msgid "email needs confirmation"
 msgstr "Warte auf Nutzerbestätigung"
 
@@ -4118,13 +4112,11 @@ msgstr "Abos anpassen"
 
 #: fragdenstaat_de/fds_newsletter/triggers.py
 #, fuzzy
-#| msgid "newsletter subscriber"
 msgid "Newsletter subscribed"
 msgstr "Newsletter-Abonennt:in"
 
 #: fragdenstaat_de/fds_newsletter/triggers.py
 #, fuzzy
-#| msgid "newsletter subscriber"
 msgid "Newsletter unsubscribed"
 msgstr "Newsletter-Abonennt:in"
 
@@ -4205,11 +4197,11 @@ msgstr "Dokumente importieren"
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
 #, python-format
 msgid ""
-"The documents will be imported to the request <a href=\"%(url)s\" "
-"target=\"_blank\">“%(title)s”</a>."
+"The documents will be imported to the request <a href=\"%(url)s\" target="
+"\"_blank\">“%(title)s”</a>."
 msgstr ""
-"Die Dokumente werden in die Anfrage <a href=\"%(url)s\" "
-"target=\"_blank\">„%(title)s“</a> importiert."
+"Die Dokumente werden in die Anfrage <a href=\"%(url)s\" target=\"_blank"
+"\">„%(title)s“</a> importiert."
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/select_documents.html
 msgid "Preview document"
@@ -4334,8 +4326,8 @@ msgid ""
 "and played, resulting in a data transfer to YouTube."
 msgstr ""
 "Um Ihnen ein YouTube-Video anzuzeigen, benötigen wir Ihre Einwilligung. Wenn "
-"Sie auf Akzeptieren klicken, wird <a href=\"%(direct_url)s\" "
-"target=\"_blank\">das Video</a> geladen und abgespielt. Dadurch findet eine "
+"Sie auf Akzeptieren klicken, wird <a href=\"%(direct_url)s\" target=\"_blank"
+"\">das Video</a> geladen und abgespielt. Dadurch findet eine "
 "Datenübermittlung an YouTube statt."
 
 #: fragdenstaat_de/templates/djangocms_video/default/video_player.html
@@ -4345,8 +4337,8 @@ msgstr "Mehr erfahren"
 #: fragdenstaat_de/templates/djangocms_video/default/video_player.html
 #, python-format
 msgid ""
-"You have chosen to not show YouTube videos on our site. <a "
-"href=\"%(manage_cookies)s\">Change cookie preferences</a>"
+"You have chosen to not show YouTube videos on our site. <a href="
+"\"%(manage_cookies)s\">Change cookie preferences</a>"
 msgstr ""
 "Sie haben entschieden, keine YouTube-Videos auf unserer Seite anzuzeigen. <a "
 "href=\"%(manage_cookies)s\">Cookie-Präferenzen bearbeiten</a>"
@@ -5232,11 +5224,11 @@ msgstr "kampagne/"
 #~ msgstr "Hilfebereich: FragDenStaat und Informationsfreiheit"
 
 #~ msgid ""
-#~ "Support area: FragDenStaat and <abbr title=\"Freedom of "
-#~ "Information\">FOI</abbr>"
+#~ "Support area: FragDenStaat and <abbr title=\"Freedom of Information"
+#~ "\">FOI</abbr>"
 #~ msgstr ""
-#~ "Hilfebereich: FragDenStaat und <abbr "
-#~ "title=\"Informationsfreiheitsgesetz\">IFG</abbr>"
+#~ "Hilfebereich: FragDenStaat und <abbr title=\"Informationsfreiheitsgesetz"
+#~ "\">IFG</abbr>"
 
 #~ msgid "Chapters"
 #~ msgstr "Kapitel"
@@ -5341,8 +5333,8 @@ msgstr "kampagne/"
 #~ msgstr "Stellen Sie jetzt eine Anfrage!"
 
 #~ msgid ""
-#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn."
-#~ "org\">the Open Knowledge Foundation</a>. If you want to support Froide, "
+#~ "Froide is a free and Open Source Project by <a href=\"http://www.okfn.org"
+#~ "\">the Open Knowledge Foundation</a>. If you want to support Froide, "
 #~ "please visit the <a href=\"%(url)s\">repository on GitHub</a>."
 #~ msgstr ""
 #~ "Über FragDenStaat.de können Sie Behörden in Deutschland nach "
@@ -5451,20 +5443,19 @@ msgstr "kampagne/"
 
 #~ msgid ""
 #~ "You agree to our <a href=\"%(url_terms)s\" class=\"target-new\">Terms and "
-#~ "Conditions</a> and <a href=\"%(url_privacy)s\" class=\"target-"
-#~ "new\">Privacy Statement</a>"
+#~ "Conditions</a> and <a href=\"%(url_privacy)s\" class=\"target-new"
+#~ "\">Privacy Statement</a>"
 #~ msgstr ""
-#~ "Sie stimmen unseren <a href=\"%(url_terms)s\" class=\"target-"
-#~ "new\">Nutzungsbedingungen</a> und <a href=\"%(url_privacy)s\" "
-#~ "class=\"target-new\">Datenschutzbedingungen</a> zu."
+#~ "Sie stimmen unseren <a href=\"%(url_terms)s\" class=\"target-new"
+#~ "\">Nutzungsbedingungen</a> und <a href=\"%(url_privacy)s\" class=\"target-"
+#~ "new\">Datenschutzbedingungen</a> zu."
 
 #~ msgid ""
-#~ "This email address already has an account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Please login using that email address.</a>"
+#~ "This email address already has an account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Please login using that email address.</a>"
 #~ msgstr ""
-#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein."
-#~ "</a>"
+#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein.</a>"
 
 #~ msgid ""
 #~ "This email address is already registered, but not yet confirmed! Please "
@@ -7301,17 +7292,17 @@ msgstr "kampagne/"
 #~ "status."
 #~ msgstr ""
 #~ "Diese Anfrage hat eine Antwort erhalten und ist in einem unbekannten "
-#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a "
-#~ "href=\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
+#~ "Zustand. Wenn Sie diese Anfrage gestellt haben, bitte <a href="
+#~ "\"%(login_url)s\">loggen Sie sich ein</a> und setzen Sie einen neuen "
 #~ "Status."
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, please read the latest response and <a href=\"#set-"
 #~ "status\" data-tabgo=\"tab\">set a new status for this request</a>!"
 #~ msgstr ""
-#~ "<b>Hallo %(name)s</b>, bitte lesen Sie die letzte Antwort und <a "
-#~ "href=\"#set-status\" data-tabgo=\"tab\">geben Sie einen neuen Status für "
-#~ "diese Anfrage an!</a>"
+#~ "<b>Hallo %(name)s</b>, bitte lesen Sie die letzte Antwort und <a href="
+#~ "\"#set-status\" data-tabgo=\"tab\">geben Sie einen neuen Status für diese "
+#~ "Anfrage an!</a>"
 
 #~ msgid ""
 #~ "<b>Hey %(name)s</b>, your request is <b>overdue</b>!<br/>\n"
@@ -7322,19 +7313,19 @@ msgstr "kampagne/"
 #~ " Bitte handeln Sie jetzt:"
 
 #~ msgid ""
-#~ "Have you received a reply by <b>postal mail</b>? &rarr; <a data-"
-#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
+#~ "Have you received a reply by <b>postal mail</b>? &rarr; <a data-tabgo="
+#~ "\"tab\" href=\"#add-postal-reply\">Add it to the records below!</a>"
 #~ msgstr ""
-#~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-"
-#~ "tabgo=\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort "
-#~ "unbedingt hinzu!</a>"
+#~ "Haben Sie eine <b>Antwort per Post</b> erhalten? &rarr; <a data-tabgo="
+#~ "\"tab\" href=\"#add-postal-reply\">Fügen Sie diese Antwort unbedingt "
+#~ "hinzu!</a>"
 
 #~ msgid ""
 #~ "Have you not gotten any reply? &rarr; <a data-tabgo=\"tab\" href=\"#write-"
 #~ "message\">Write a reminder to the public body!</a>"
 #~ msgstr ""
-#~ "Haben Sie keine Antwort erhalten? &rarr; <a data-tabgo=\"tab\" "
-#~ "href=\"#write-message\">Fragen Sie bei der Behörde nach!</a>"
+#~ "Haben Sie keine Antwort erhalten? &rarr; <a data-tabgo=\"tab\" href="
+#~ "\"#write-message\">Fragen Sie bei der Behörde nach!</a>"
 
 #~ msgid "You request has been refused."
 #~ msgstr "Ihre Anfrage wurde abgelehnt."
@@ -7726,13 +7717,13 @@ msgstr "kampagne/"
 #~ msgstr "Fehlende E-Mailadresse!"
 
 #~ msgid ""
-#~ "This email address already has an account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Please login using that email address in order to "
-#~ "follow this account.</a>"
+#~ "This email address already has an account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Please login using that email address in order to follow "
+#~ "this account.</a>"
 #~ msgstr ""
-#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" "
-#~ "class=\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein "
-#~ "um Benachrichtigungen zu erhalten.</a>"
+#~ "Diese E-Mailadresse hat schon einen Account. <a href=\"%s?simple\" class="
+#~ "\"target-small\">Bitte loggen Sie sich mit dieser E-Mailadresse ein um "
+#~ "Benachrichtigungen zu erhalten.</a>"
 
 #~ msgid "You cannot follow your own requests."
 #~ msgstr "Sie erhalten schon Benachrichtigungen für Ihre Anfragen."
@@ -8435,10 +8426,9 @@ msgstr "kampagne/"
 #~ "Freedom of Information requests</a> to get a feeling for what Freedom of "
 #~ "Information is all about."
 #~ msgstr ""
-#~ "Sie können sich zum Beispiel die <a "
-#~ "href=\"%(foirequests_url)s\">existierende Informations&shy;freiheits&shy;"
-#~ "anfragen</a> ansehen, um zu verstehen wie Informations&shy;freiheit "
-#~ "funktioniert."
+#~ "Sie können sich zum Beispiel die <a href=\"%(foirequests_url)s"
+#~ "\">existierende Informations&shy;freiheits&shy;anfragen</a> ansehen, um "
+#~ "zu verstehen wie Informations&shy;freiheit funktioniert."
 
 #~ msgid "Write to them here"
 #~ msgstr "Schreiben Sie hier an sie"
@@ -8466,8 +8456,8 @@ msgstr "kampagne/"
 #~ msgstr ""
 #~ "Wenn Sie sich einloggen, können Sie mit einem Klick eine identische "
 #~ "Anfrage in Ihrem Namen stellen, um Zugang zu diesen Dokumenten zu "
-#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?"
-#~ "next=%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
+#~ "erhalten, die wir nicht veröffentlichen dürfen. <a href=\"%(url)s?next="
+#~ "%(next)s\">Sie können sich hier einloggen oder registrieren.</a>"
 
 #~ msgid "No Public Bodies found in this jurisdiction for this query."
 #~ msgstr "Es wurden keine Behörden mit diesem Zuständigkeitsbereich gefunden."
@@ -8718,8 +8708,8 @@ msgstr "kampagne/"
 #~ "You agree to our <a href=\"%(url)s\" class=\"target-new\">Privacy "
 #~ "Statement</a>"
 #~ msgstr ""
-#~ "Sie stimmen unserer <a href=\"%(url)s\" class=\"target-"
-#~ "new\">Datenschutzerklärung</a> zu"
+#~ "Sie stimmen unserer <a href=\"%(url)s\" class=\"target-new"
+#~ "\">Datenschutzerklärung</a> zu"
 
 #~ msgid ""
 #~ "This request will be public\n"
@@ -9041,3 +9031,12 @@ msgstr "kampagne/"
 #~ "\n"
 #~ "                        Über die Autor:innen\n"
 #~ "                    "
+
+#~ msgid "You have been subscribed to our newsletter."
+#~ msgstr "Willkommen zu unserem Newsletter!"
+
+#~ msgid "Information"
+#~ msgstr "Informationen"
+
+#~ msgid "Awaiting user confirmation"
+#~ msgstr "Warte auf Nutzerbestätigung"
