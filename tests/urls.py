@@ -17,6 +17,10 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path("blog/", include("fragdenstaat_de.fds_blog.urls", namespace="blog")),
     path(
+        "veranstaltungen/",
+        include("fragdenstaat_de.fds_events.urls", namespace="fds_events"),
+    ),
+    path(
         "spenden/spende/",
         include("fragdenstaat_de.fds_donation.urls", namespace="fds_donation"),
     ),
