@@ -846,7 +846,7 @@ class NewsletterArchiveCMSPlugin(CMSPlugin):
     number_of_mailings = models.PositiveIntegerField(
         _("number of mailing"),
         default=6,
-        help_text=_("0 means all the mailings. Should be devisible by 3."),
+        help_text=_("0 means all the mailings. Should be divisible by 3."),
     )
 
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-25 10:35+0100\n"
+"POT-Creation-Date: 2026-02-25 13:04+0100\n"
 "PO-Revision-Date: 2026-02-10 12:03+0100\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
@@ -102,7 +102,7 @@ msgid "0 means all the entries"
 msgstr "0 bedeutet alle Anfragen"
 
 #: fragdenstaat_de/fds_mailing/models.py
-msgid "0 means all the mailings. Should be devisible by 3."
+msgid "0 means all the mailings. Should be divisible by 3."
 msgstr "0 bedeutet alle Nachrichten. Sollte durch 3 teilbar sein."
 
 #: fragdenstaat_de/fds_ogimage/urls.py
