@@ -234,7 +234,7 @@ django-filter==25.1
     #   django-filingcabinet
     #   froide
     #   froide-campaign
-django-flowcontrol==0.0.5
+django-flowcontrol==0.0.6
     # via fragdenstaat-de (pyproject.toml)
 django-formtools==2.5.1
     # via django-cms
