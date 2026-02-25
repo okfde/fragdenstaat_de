@@ -115,6 +115,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
   "django-debug-toolbar>=3.2.1",
+  "django-extended-makemessages>=1.7.1",
   "coverage",
   "factory-boy",
   "faker",
