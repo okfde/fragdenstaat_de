@@ -76,7 +76,7 @@
                         <p>
                             {% page_url "newsletter" as newsletter_url %}
                             {% url "blog:article-latest-feed" as feed_url %}
-                            {% blocktrans with newsletter=newsletter_url feed=feed_url %}
+                            {% blocktrans with newsletter=newsletter_url feed=feed_url trimmed %}
                                 Browse our recent or historical articles. Stay up to date by subscribing to our <a href="{{ newsletter }}">newsletter</a> or the <a href="{{ feed }}">RSS feed</a>.
                             {% endblocktrans %}
                         </p>

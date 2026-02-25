@@ -24,9 +24,9 @@
         </div>
         <div class="text-end">
             <small {% if not white_text %}class="text-body-secondary"{% else %}class="text-white"{% endif %}>
-                {% blocktrans %}
-          {{ amount_str }}&nbsp;€ of {{ donation_goal_str }}&nbsp;€
-          {% endblocktrans %}
+                {% blocktrans trimmed %}
+                    {{ amount_str }}&nbsp;€ of {{ donation_goal_str }}&nbsp;€
+                {% endblocktrans %}
             </small>
         </div>
     </div>

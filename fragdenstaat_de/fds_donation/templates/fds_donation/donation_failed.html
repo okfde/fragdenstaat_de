@@ -5,9 +5,9 @@
     {% page_url "donate" as donate_url %}
     <h2 class="text-center">{% translate "Donation failed!" %}</h2>
     <p class="lead">
-        {% blocktranslate %}
-    Your donation with your chosen payment provider has not completed successfully.
-    {% endblocktranslate %}
+        {% blocktranslate trimmed %}
+            Your donation with your chosen payment provider has not completed successfully.
+        {% endblocktranslate %}
     </p>
     <p>
         <a href="{{ donate_url }}" class="btn btn-lg btn-primary">{% translate "Try again" %}</a>
