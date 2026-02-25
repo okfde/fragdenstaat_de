@@ -133,6 +133,7 @@ django==5.2.10
     #   django-datashow
     #   django-debug-toolbar
     #   django-entangled
+    #   django-extended-makemessages
     #   django-filer
     #   django-filingcabinet
     #   django-filter
@@ -237,6 +238,8 @@ django-elasticsearch-dsl==8.2
     #   froide
 django-entangled==0.6.3
     # via djangocms-frontend
+django-extended-makemessages==1.7.1
+    # via fragdenstaat-de (pyproject.toml)
 django-filer==3.3.2
     # via
     #   fragdenstaat-de (pyproject.toml)
