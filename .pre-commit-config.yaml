@@ -29,3 +29,10 @@ repos:
         entry: scripts/ensure_consistent_dependencies.py
         additional_dependencies:
           - pyyaml
+  - repo: local
+    hooks:
+      - id: django-blocktrans-trimmed
+        name: Ensure blocktrans/blocktranslate use trimmed
+        language: python
+        entry: scripts/enforce_blocktrans_trimmed.py
+        files: \.html$
