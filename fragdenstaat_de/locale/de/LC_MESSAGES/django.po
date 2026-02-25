@@ -418,7 +418,7 @@ msgstr "Breadcrumb-Hintergrund"
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 #, python-format
 msgid "Browse our recent or historical articles. Stay up to date by subscribing to our <a href=\"%(newsletter)s\">newsletter</a> or the <a href=\"%(feed)s\">RSS feed</a>."
-msgstr "Durchsuchen Sie unsere aktuellen oder verganenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a href=\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-Feed</a> abonnieren."
+msgstr "Durchsuchen Sie unsere aktuellen oder vergangenen Artikel. Bleiben Sie auf dem Laufenden, indem Sie unseren <a href=\"%(newsletter)s\">Newsletter</a> oder den <a href=\"%(feed)s\">RSS-Feed</a> abonnieren."
 
 #: fragdenstaat_de/fds_donation/export.py
 msgid "CSV"
