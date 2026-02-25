@@ -3,8 +3,8 @@
 {% load form_helper %}
 {% block app_body %}
     <h1>
-        {% blocktrans %}
-        You successfully unsubscribed from {{ newsletter }}.
+        {% blocktrans trimmed %}
+            You successfully unsubscribed from {{ newsletter }}.
         {% endblocktrans %}
     </h1>
     <p>{% trans "We'd love to know why you chose to unsubscribe." %}</p>

@@ -24,9 +24,9 @@
                         <strong class="highlight">{{ email }}</strong>
                     </li>
                     <li>
-                        {% blocktranslate %}
-              Click the <strong class="highlight">confirmation link</strong> in the email from {{ SITE_NAME }}.
-            {% endblocktranslate %}
+                        {% blocktranslate trimmed %}
+                            Click the <strong class="highlight">confirmation link</strong> in the email from {{ SITE_NAME }}.
+                        {% endblocktranslate %}
                     </li>
                 </ol>
             {% else %}
@@ -36,9 +36,9 @@
             {% endif %}
             {% if receipt %}
                 <p class="lead">
-                    {% blocktranslate %}
-          The <strong>donation receipts</strong> that we send at the beginning of next year can only be sent to <strong>confirmed email addresses!</strong>
-          {% endblocktranslate %}
+                    {% blocktranslate trimmed %}
+                        The <strong>donation receipts</strong> that we send at the beginning of next year can only be sent to <strong>confirmed email addresses!</strong>
+                    {% endblocktranslate %}
                 </p>
             {% endif %}
         </div>

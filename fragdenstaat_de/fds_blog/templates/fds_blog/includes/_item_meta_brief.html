@@ -10,11 +10,11 @@
         {% with authors=article.authors.all %}
             {% if authors %}
                 {% if authors|length >= 2 %}
-                    {% blocktrans with author=authors.0.get_full_name count count=authors|length|add:-1 %}
-          {{author}} and {{count}} other
-          {% plural %}
-          {{author}} and {{count}} others
-          {% endblocktrans %}
+                    {% blocktrans with author=authors.0.get_full_name count count=authors|length|add:-1 trimmed %}
+                        {{ author }} and {{ count }} other
+                    {% plural %}
+                        {{ author }} and {{ count }} others
+                    {% endblocktrans %}
                 {% else %}
                     {{ authors.0.get_full_name }}
                 {% endif %}

@@ -33,9 +33,9 @@
                       class="horizontal-form disable-submit">
                     {% csrf_token %}
                     <p>
-                        {% blocktrans %}
-              We automatically import the message from frontex for you and permanently store it on FragDenStaat.
-            {% endblocktrans %}
+                        {% blocktrans trimmed %}
+                            We automatically import the message from frontex for you and permanently store it on FragDenStaat.
+                        {% endblocktrans %}
                     </p>
                     <p class="text-right">
                         <button class="btn btn-primary" type="submit" id="frontex-import-button">
