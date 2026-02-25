@@ -25,4 +25,4 @@ commitdependencies: dependencies
 	git commit -m "Update dependencies"
 
 messagesde:
-	python manage.py makemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file
+	python manage.py extendedmakemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file --no-wrap --sort-output
