@@ -36,7 +36,7 @@ jobs:
           echo PATH=$PATH >> $GITHUB_ENV
       - name: Install dependencies
         run: |
-          uv pip sync requirements.txt
+          uv pip sync requirements-dev.txt
           uv pip install -e . --no-deps
       - name: Setup Git
         run: |
