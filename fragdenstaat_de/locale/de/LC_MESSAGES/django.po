@@ -857,6 +857,10 @@ msgstr "{dup} Duplikate gefunden bei {donors} Spender*innen"
 msgid "Detecting recurrences on donors..."
 msgstr "Erkenne Dauerspenden bei Spender*innen…"
 
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
+msgid "Disable easy language"
+msgstr "Leichte Sprache ausschalten"
+
 #: fragdenstaat_de/templates/admin/base_site.html
 msgid "Django administration"
 msgstr "Admin"
@@ -1033,6 +1037,10 @@ msgstr "E-Mail-Body"
 msgid "E-mail address"
 msgstr "E-Mail"
 
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
+msgid "Easy language"
+msgstr "Leichte Sprache"
+
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -1116,6 +1124,10 @@ msgstr "E-Mail-Vorlage für diese Aktion."
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Email was sent."
 msgstr "E-Mail wurde versendet."
+
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
+msgid "Enable easy language"
+msgstr "Leichte Sprache einschalten"
 
 #: fragdenstaat_de/fds_events/models.py
 #: fragdenstaat_de/fds_events/templates/fds_events/event_detail.html
@@ -1253,6 +1265,10 @@ msgstr "Feedback"
 msgid "Fields 'name' and 'email' required."
 msgstr "Felder 'name' und 'email' sind verpflichtend."
 
+#: fragdenstaat_de/fds_easylang/templates/de-ls/fds_blog/article_list.html
+msgid "Filter articles"
+msgstr "Artikel filtern"
+
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Financial reasons"
 msgstr "Finanzielle Gründe"
@@ -1316,6 +1332,10 @@ msgstr "FragDenStaat-Spenden-Geschenk-App"
 #: fragdenstaat_de/fds_donation/apps.py
 msgid "FragDenStaat Donations"
 msgstr "FragDenStaat-Spenden"
+
+#: fragdenstaat_de/fds_easylang/apps.py
+msgid "FragDenStaat Easy Language App"
+msgstr "FragDenStaat-App für Leichte Sprache"
 
 #: fragdenstaat_de/fds_events/apps.py fragdenstaat_de/fds_events/utils.py
 msgid "FragDenStaat Events"
@@ -1382,6 +1402,10 @@ msgstr "Generiere Split-Mailing"
 #: fragdenstaat_de/settings/base.py fragdenstaat_de/settings/cms.py
 msgid "German"
 msgstr "Deutsch"
+
+#: fragdenstaat_de/settings/base.py
+msgid "German (Easy Language)"
+msgstr "Deutsch (Leichte Sprache)"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Germany"
@@ -1955,6 +1979,7 @@ msgstr "Maximale Anzahl Tage Pause. 0 heißt keine Obergrenze."
 msgid "Medium"
 msgstr "Mittel"
 
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/header.html
 #: fragdenstaat_de/templates/header.html fragdenstaat_de/theme/cms_plugins.py
 msgid "Menu"
 msgstr "Menü"
@@ -3057,6 +3082,7 @@ msgstr "Sechs"
 msgid "Size"
 msgstr "Größe"
 
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/header.html
 #: fragdenstaat_de/templates/header.html
 #: fragdenstaat_de/templates/header_minimal.html
 msgid "Skip to main content"
@@ -3454,6 +3480,10 @@ msgstr "Navigation umschalten"
 msgid "Top Featured"
 msgstr "Top Prominent"
 
+#: fragdenstaat_de/fds_easylang/templates/de-ls/fds_blog/article_list.html
+msgid "Topic"
+msgstr "Thema"
+
 #: fragdenstaat_de/fds_cms/templates/cms/help_base.html
 msgid "Topics"
 msgstr "Themen"
@@ -3686,6 +3716,10 @@ msgstr "Hervorhebung von uns"
 msgid "With your donation you can also create a FragDenStaat account where you can manage your details, donations and requests."
 msgstr "Verwalte Deine Spenden im FragDenStaat-Konto."
 
+#: fragdenstaat_de/fds_easylang/templates/de-ls/fds_blog/article_list.html
+msgid "Year"
+msgstr "Jahr"
+
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 msgid "Years…"
 msgstr "Jahre…"
@@ -3875,6 +3909,22 @@ msgstr[1] "Deine Dauerspenden"
 #, python-brace-format
 msgid "Your {recurring} donation amount"
 msgstr "Deine {recurring}e Spende"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+#, python-format
+msgctxt "Leichte Sprache"
+msgid "[Article available in easy language at \"%(url)s\"]"
+msgstr "Diesen Text gibt es auch in <a href=\"%(url)s\">Leichter Sprache</a>."
+
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/feedback.html
+msgctxt "Leichte Sprache"
+msgid "[Feedback form description]"
+msgstr ""
+
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/feedback.html
+msgctxt "Leichte Sprache"
+msgid "[Feedback form heading]"
+msgstr ""
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"
@@ -7073,9 +7123,6 @@ msgstr "❌ Spende abbrechen"
 #~ msgid "Similar Requests"
 #~ msgstr "Ähnliche Anfragen"
 
-#~ msgid "Similar articles"
-#~ msgstr "Ähnliche Artikel"
-
 #~ msgid "Simple"
 #~ msgstr "Einfach"
 
@@ -7440,9 +7487,6 @@ msgstr "❌ Spende abbrechen"
 
 #~ msgid "Top Public Bodies"
 #~ msgstr "Top-Behörden"
-
-#~ msgid "Topic"
-#~ msgstr "Thema"
 
 #~ msgid "Topic Slug"
 #~ msgstr "Thema-URL-Kürzel"
@@ -7952,6 +7996,22 @@ msgstr "❌ Spende abbrechen"
 
 #~ msgid "[... Show complete request text]"
 #~ msgstr "[… Zeige kompletten Anfragetext]"
+
+#~ msgctxt "Leichte Sprache"
+#~ msgid "[Go to easy language homepage]"
+#~ msgstr "Zur Startseite in Leichter Sprache"
+
+#~ msgctxt "Leichte Sprache"
+#~ msgid "[No easy language translation available]"
+#~ msgstr "Diese Seite ist leider noch nicht in Leichter Sprache verfügbar."
+
+#~ msgctxt "Leichte Sprache"
+#~ msgid "[Stay here]"
+#~ msgstr "Hier bleiben"
+
+#~ msgctxt "Leichte Sprache"
+#~ msgid "[Switch to easy language homepage]"
+#~ msgstr "Sie können zur Startseite in Leichter Sprache wechseln:"
 
 #~ msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
 #~ msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
