@@ -9,16 +9,6 @@ from cms.apphook_pool import apphook_pool
 LANGUAGE_CODES = set(dict(settings.LANGUAGES).keys())
 
 
-def get_other_languages() -> set[str]:
-    """
-    returns the language codes of all settings.LANGUAGES,
-    except for the language code of the current request.
-    """
-    other_languages = LANGUAGE_CODES.copy()
-    other_languages.remove(get_language())
-    return other_languages
-
-
 class TranslatedPage(NamedTuple):
     language_code: str
     url: str
@@ -36,6 +26,16 @@ class TranslatedView:
         The current language may be omitted.
         """
         raise NotImplementedError
+
+
+def get_other_languages() -> set[str]:
+    """
+    returns the language codes of all settings.LANGUAGES,
+    except for the language code of the current request.
+    """
+    other_languages = LANGUAGE_CODES.copy()
+    other_languages.remove(get_language())
+    return other_languages
 
 
 def get_published_languages(page) -> set[str]:
