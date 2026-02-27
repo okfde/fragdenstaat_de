@@ -38,6 +38,21 @@ class TranslatedView:
         raise NotImplementedError
 
 
+def get_published_languages(page) -> set[str]:
+    """Return the set of language codes for which a CMS page has published content."""
+    return set(page.pagecontent_set.values_list("language", flat=True))
+
+
+def get_published_page_urls(page) -> list["TranslatedPage"]:
+    """Return TranslatedPage entries for each published language of a plain CMS page."""
+    published_languages = get_published_languages(page)
+    return [
+        TranslatedPage(url.language, url.get_absolute_url(url.language))
+        for url in page.get_urls()
+        if url.language in published_languages
+    ]
+
+
 def translate_url_languages(current_url: str, languages) -> list[TranslatedPage]:
     """Build translated page list via Django's translate_url()."""
     result = []
