@@ -127,7 +127,7 @@ class NewslettersUserForm(forms.Form):
                     subscriber.subscribe()
 
 
-class NewsletterUserExtra:
+class NewsletterExtra:
     def on_init(self, form):
         form.fields["newsletter"] = forms.TypedChoiceField(
             widget=BootstrapRadioSelect,
@@ -164,7 +164,7 @@ class NewsletterUserExtra:
         )
 
 
-class NewsletterFollowExtra(NewsletterUserExtra):
+class NewsletterFollowExtra(NewsletterExtra):
     def on_save(self, form, user):
         """
         successful follow and newsletter in follow context

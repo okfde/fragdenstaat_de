@@ -36,7 +36,7 @@ class NewsletterConfig(AppConfig):
             tag_subscriber,
             unsubscribed,
         )
-        from .forms import NewsletterFollowExtra, NewsletterUserExtra
+        from .forms import NewsletterFollowExtra
         from .listeners import (
             activate_newsletter_subscription,
             cancel_user,
@@ -63,7 +63,6 @@ class NewsletterConfig(AppConfig):
         subscribed.connect(send_welcome_mail)
         subscribed.connect(newsletter_subscribed_trigger_listener)
         unsubscribed.connect(newsletter_unsubscribed_trigger_listener)
-        user_extra_registry.register("registration", NewsletterUserExtra())
         user_extra_registry.register("follow", NewsletterFollowExtra())
         FoiRequestFollower.followed.connect(subscribe_follower)
         tag_subscriber.connect(set_new_subscriber_tag)
