@@ -1,14 +1,37 @@
 services:
+  django:
+    build:
+      context: .
+      dockerfile: ./docker/django/Dockerfile
+    command: >
+      bash -c "python manage.py runserver"
+    network_mode: "host"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - db
+      - elasticsearch
+
+  frontend:
+      build:
+        context: .
+        dockerfile: ./docker/frontend/Dockerfile
+      command: "pnpm run dev"
+      network_mode: "host"
+      volumes:
+        - .:/app
+        - /app/node_modules
+
   db:
     image: postgis/postgis:16-3.4
     volumes:
       - pg-data:/var/lib/postgresql/
-    ports:
-      - '127.0.0.1:5432:5432'
     environment:
       POSTGRES_USER: fragdenstaat_de
       POSTGRES_DB: fragdenstaat_de
       POSTGRES_PASSWORD: fragdenstaat_de
+    network_mode: "host"
 
   elasticsearch:
     build: ./docker/elasticsearch/
@@ -22,10 +45,16 @@ services:
       - 'cluster.routing.allocation.disk.watermark.high=2gb'
       - 'cluster.routing.allocation.disk.watermark.flood_stage=1gb'
       - 'xpack.security.enabled=false'
-    ports:
-      - '127.0.0.1:9200:9200'
+    network_mode: "host"
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    network_mode: "host"
 
 volumes:
   es-data:
   es-logs:
   pg-data:
+  redis_data:

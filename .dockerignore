@@ -1,3 +1,90 @@
+# Version control (main + all nested repos like froide/*/.git)
 .git/
+.gitignore
+.gitattributes
+**/.git/
+**/.gitignore
+
+# IDE/Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+*.so
+.Python
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Node
 node_modules/
-*.egg-info
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store/
+.pnpm-cache/
+.pnpm-store/
+.pnpm-cache/
+
+# Frontend build artifacts (exclude from build context)
+**/dist/
+**/build/
+**/.vite/
+**/.nuxt/
+**/.output/
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# Frontend build artifacts
+**/dist/
+**/build/
+**/.vite/
+
+# Documentation
+*.md
+docs/
+*.rst
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.docker/
+
+# Database
+*.sqlite3
+*.db
+*.sql
+
+# Logs
+*.log
+logs/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.temp
+
+# OS files
+Thumbs.db
