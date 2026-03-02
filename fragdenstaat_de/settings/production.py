@@ -52,7 +52,7 @@ class FragDenStaat(FragDenStaatBase):
     STATIC_URL = env("STATIC_URL", "https://static.frag-den-staat.de/static/")
     CONTRACTOR_URL = STATIC_URL.replace("/static/", "/assets/")
 
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
     INTERNAL_MEDIA_PREFIX = "/protected/"
 
