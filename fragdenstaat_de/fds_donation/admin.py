@@ -966,33 +966,28 @@ class DonationAdmin(admin.ModelAdmin):
             return timezone.localtime(date).isoformat()
 
         def make_dicts(queryset):
-            for donation in queryset.select_related("donor"):
+            for donation in queryset.select_related("donor", "payment"):
                 yield {
                     "id": donation.id,
                     "timestamp": to_local(donation.timestamp),
                     "amount": donation.amount,
                     "amount_received": donation.amount_received,
                     "received_timestamp": to_local(donation.received_timestamp),
-                    "method": donation.method,
                     "purpose": donation.purpose,
                     "reference": donation.reference,
+                    "project": donation.project,
                     "keyword": donation.keyword,
                     "recurring": donation.recurring,
+                    "method": donation.method,
+                    "transaction_id": donation.get_transaction_id(),
                     "first_recurring": donation.first_recurring,
                     "donor_id": donation.donor_id,
                     "number": donation.number,
+                    "name": donation.donor.get_full_name(),
+                    "email": donation.donor.email,
                     "city": donation.donor.city,
                     "country": donation.donor.country,
                     "postcode": donation.donor.postcode,
-                    "donor_recurring_amount": donation.donor.recurring_amount,
-                    "first_donation": to_local(donation.donor.first_donation),
-                    "last_donation": to_local(donation.donor.last_donation),
-                    "subscribed": donation.donor.subscriber
-                    and to_local(donation.donor.subscriber.subscribed),
-                    "become_user": donation.donor.become_user,
-                    "receipt": donation.donor.receipt,
-                    "tags": ", ".join(x.name for x in donation.donor.tags.all()),
-                    "donation_count": donation.donor.donations.all().count(),
                 }
 
         response = self.changelist_view(request)
@@ -1002,8 +997,6 @@ class DonationAdmin(admin.ModelAdmin):
             return response
 
         return export_csv_response(dict_to_csv_stream(make_dicts(queryset)))
-
-    export_csv.short_description = _("Export to CSV")
 
     def match_banktransfer(self, request, queryset):
         count = queryset.count()

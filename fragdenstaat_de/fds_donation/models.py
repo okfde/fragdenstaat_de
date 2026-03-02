@@ -736,6 +736,32 @@ class Donation(models.Model):
         """
         return CHECKOUT_PAYMENT_CHOICES_DICT.get(self.method, self.method)
 
+    def get_transaction_id(self):
+        if self.identifier:
+            return self.identifier
+        ident = self.find_transaction_id()
+        if ident:
+            self.identifier = ident
+            self.save(update_fields=["identifier"])
+        return ident
+
+    def find_transaction_id(self):
+        if self.method == "paypal":
+            if self.payment:
+                data = json.loads(self.payment.extra_data)
+                if "paypal_resource" in data:
+                    return data["paypal_resource"]["id"]
+                else:
+                    return data["response"]["purchase_units"][0]["payments"][
+                        "captures"
+                    ][0]["id"]
+            else:
+                return self.identifier
+        elif self.method in ("creditcard", "sepa"):
+            if self.payment:
+                return self.payment.transaction_id
+        return self.identifier
+
     @cached_property
     def payment_method_details(self) -> Any | None:
         if self.payment and self.payment.extra_data:
