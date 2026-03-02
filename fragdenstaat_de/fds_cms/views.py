@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
+from django.views.decorators.cache import cache_control
 
 import qrcode
 from cms.models import PageContent, PageUrl
@@ -42,6 +43,7 @@ class CMSPageSearch(BaseSearchView):
         return qs.filter("term", language=self.request.LANGUAGE_CODE)
 
 
+@cache_control(max_age=3600)
 def cms_plain_api(request, slug):
     # Create CMS slug path
     base_path = request.current_page.get_absolute_url().rsplit("/", 2)[0]
