@@ -130,7 +130,7 @@ class NewslettersUserForm(forms.Form):
 class NewsletterUserExtra:
     def on_init(self, form):
         form.fields["newsletter"] = forms.TypedChoiceField(
-            widget=forms.RadioSelect,
+            widget=BootstrapRadioSelect,
             choices=(
                 (
                     1,
