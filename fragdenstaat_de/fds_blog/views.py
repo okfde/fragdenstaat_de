@@ -74,7 +74,11 @@ class BaseBlogView(object):
 
     def get_template_names(self):
         template_path = "fds_blog"
-        return os.path.join(template_path, self.base_template_name)
+        name = os.path.join(template_path, self.base_template_name)
+        lang = get_language()
+        if lang:
+            return [f"{lang}/{name}", name]
+        return [name]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -149,7 +153,11 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
         return self.render_to_response(context)
 
     def get_template_names(self):
-        return [self.object.detail_template]
+        name = self.object.detail_template
+        lang = get_language()
+        if lang:
+            return [f"{lang}/{name}", name]
+        return [name]
 
     def get_context_data(self, object=None):
         context = super().get_context_data(object=object)
