@@ -402,5 +402,8 @@ def send_donor_login_link(request):
 
 def donor_logout(request):
     if request.method == "POST":
-        del request.session[DONOR_SESSION_KEY]
+        try:
+            del request.session[DONOR_SESSION_KEY]
+        except KeyError:
+            pass
     return redirect("/")
