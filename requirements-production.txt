@@ -417,7 +417,7 @@ froide-payment @ git+https://github.com/okfde/froide-payment.git@d50d421bf2b72c0
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide-crowdfunding
-froide-pressconference @ git+https://github.com/okfde/froide-pressconference.git@62ed6e8af8ddfb25013f537d5087a1ae8d4e99da
+froide-pressconference @ git+https://github.com/okfde/froide-pressconference.git@a0bb29354d9e73fb55f50985240b3d53757a53bf
     # via fragdenstaat-de (pyproject.toml)
 frozenlist==1.7.0
     # via
