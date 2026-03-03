@@ -544,7 +544,7 @@ lxml==6.0.1
     #   pikepdf
     #   python-docx
     #   svglib
-lxml-html-clean==0.4.2
+lxml-html-clean==0.4.4
     # via
     #   html-text
     #   lxml
@@ -740,7 +740,7 @@ pyotp==2.9.0
     # via django-mfa3
 pyparsing==3.3.2
     # via froide-pressconference
-pypdf==6.6.2
+pypdf==6.7.5
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   django-filingcabinet
