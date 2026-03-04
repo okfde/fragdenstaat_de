@@ -748,6 +748,8 @@ class Donation(models.Model):
     def find_transaction_id(self):
         if self.method == "paypal":
             if self.payment:
+                if self.payment.transaction_id:
+                    return self.payment.transaction_id
                 data = json.loads(self.payment.extra_data)
                 if "paypal_resource" in data:
                     return data["paypal_resource"]["id"]
