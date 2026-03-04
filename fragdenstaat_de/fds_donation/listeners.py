@@ -51,7 +51,8 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         PaymentStatus.REJECTED,
         PaymentStatus.CANCELED,
     ):
-        obj.received_timestamp = None
+        obj.received_timestamp = instance.received_timestamp
+        obj.amount_reveived = instance.received_amount
     elif instance.status in (PaymentStatus.PENDING, PaymentStatus.DEFERRED):
         obj.completed = True
         obj.received_timestamp = None
