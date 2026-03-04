@@ -55,7 +55,7 @@ importers:
         version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/8e5281408a57ab94e5304f1500601c3b164f511f
       froide_payment:
         specifier: github:okfde/froide-payment
-        version: https://codeload.github.com/okfde/froide-payment/tar.gz/a1c94dfa5c7442cddda48327b47f347dfc5189d1
+        version: https://codeload.github.com/okfde/froide-payment/tar.gz/46a5e12899ad059ca06221872a9c0cac7f1d2a47
       froide_pressconference:
         specifier: github:okfde/froide-pressconference
         version: https://codeload.github.com/okfde/froide-pressconference/tar.gz/05245faeb4a355f48b2ae14f2a0ba87658d0bce1
@@ -1804,8 +1804,8 @@ packages:
     resolution: {tarball: https://codeload.github.com/okfde/froide-legalaction/tar.gz/8e5281408a57ab94e5304f1500601c3b164f511f}
     version: 1.0.0
 
-  froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/a1c94dfa5c7442cddda48327b47f347dfc5189d1:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-payment/tar.gz/a1c94dfa5c7442cddda48327b47f347dfc5189d1}
+  froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/46a5e12899ad059ca06221872a9c0cac7f1d2a47:
+    resolution: {tarball: https://codeload.github.com/okfde/froide-payment/tar.gz/46a5e12899ad059ca06221872a9c0cac7f1d2a47}
     version: 1.0.0
 
   froide_pressconference@https://codeload.github.com/okfde/froide-pressconference/tar.gz/05245faeb4a355f48b2ae14f2a0ba87658d0bce1:
@@ -4672,7 +4672,7 @@ snapshots:
 
   froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/8e5281408a57ab94e5304f1500601c3b164f511f: {}
 
-  froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/a1c94dfa5c7442cddda48327b47f347dfc5189d1:
+  froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/46a5e12899ad059ca06221872a9c0cac7f1d2a47:
     dependencies:
       '@stripe/stripe-js': 7.9.0
 
