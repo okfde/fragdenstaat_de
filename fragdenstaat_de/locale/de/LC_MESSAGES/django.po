@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-25 13:04+0100\n"
+"POT-Creation-Date: 2026-03-05 11:47+0100\n"
 "PO-Revision-Date: 2026-02-10 12:03+0100\n"
 "Last-Translator: krmax44 <github@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
@@ -1193,7 +1193,6 @@ msgstr "Exportiere CSV"
 msgid "Export JZWB..."
 msgstr "JZWB exportieren…"
 
-#: fragdenstaat_de/fds_donation/admin.py
 #: fragdenstaat_de/fds_newsletter/admin.py
 msgid "Export to CSV"
 msgstr "Exportiere als CSV"
