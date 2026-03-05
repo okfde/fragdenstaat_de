@@ -235,9 +235,12 @@ class ArticleListView(BaseBlogListView, ListView, BreadcrumbView):
         context["year_filter"] = (
             self.get_queryset().dates("start_publication", "year").reverse()
         )
-        context["category_filter"] = Category.objects.all().prefetch_related(
-            "translations"
+        context["category_filter"] = (
+            Category.objects.filter(articles__in=self.get_queryset())
+            .distinct()
+            .prefetch_related("translations")
         )
+
         return context
 
     def get_breadcrumbs(self, context):
