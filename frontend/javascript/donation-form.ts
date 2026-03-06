@@ -41,6 +41,7 @@ const fees: FeeMap = {
 class DonationForm {
   form: HTMLFormElement
   quickpayment: HTMLFormElement | null = null
+  quickpaymentAvailable: boolean = false
 
   constructor(form: HTMLFormElement) {
     this.form = form
@@ -290,6 +291,7 @@ class DonationForm {
   private setupQuickpayment(): void {
     this.quickpayment = this.form.querySelector('[data-quickpayment]')
     this.quickpayment?.addEventListener('quickpaymentAvailable', () => {
+      this.quickpaymentAvailable = true
       this.updateQuickpayment()
       this.form.removeAttribute('hidden')
     })
@@ -348,7 +350,7 @@ class DonationForm {
   }
 
   private updateQuickpayment(): void {
-    if (this.quickpayment === null) {
+    if (this.quickpayment === null || !this.quickpaymentAvailable) {
       return
     }
     const formData = new FormData(this.form)
