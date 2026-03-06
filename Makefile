@@ -24,5 +24,10 @@ commitdependencies: dependencies
 	git add requirements.txt requirements-dev.txt requirements-production.txt pnpm-lock.yaml
 	git commit -m "Update dependencies"
 
+MAKEMESSAGES_OPTS = --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file --no-wrap --sort-output
+
 messagesde:
-	python manage.py extendedmakemessages -l de --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file --no-wrap --sort-output
+	python manage.py extendedmakemessages -l de $(MAKEMESSAGES_OPTS)
+
+messagesls:
+	python manage.py extendedmakemessages -l de_LS $(MAKEMESSAGES_OPTS)

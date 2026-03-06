@@ -6,6 +6,7 @@
 {% load cms_tags %}
 {% load account_tags %}
 {% load search_helper %}
+{% load easylang_tags %}
 {% if request.user.is_authenticated %}
     {% get_menu_items as menu_items %}
 {% endif %}
@@ -36,6 +37,9 @@
                         <span class="visually-hidden">{{ SITE_NAME }}</span>
                     </a>
                 </li>
+                {% if request.LANGUAGE_CODE == 'de' and reduced != True %}
+                    <li class="d-lg-none">{% easylang_toggle %}</li>
+                {% endif %}
                 {% if request.user.is_authenticated and reduced != True %}
                     <li id="menu-user-nav">
                         <div>
@@ -178,6 +182,9 @@
                                 {{ donate_title|default:"Spenden" }}
                             </a>
                         </li>
+                        {% if request.LANGUAGE_CODE == 'de' %}
+                            <li class="nav-sm order-lg-last d-none d-lg-block">{% easylang_toggle %}</li>
+                        {% endif %}
                         <li class="nav-sm d-lg-none">
                             <hr>
                         </li>
