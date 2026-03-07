@@ -408,7 +408,7 @@ froide-govplan @ git+https://github.com/okfde/froide-govplan.git@7d304ae0e34e44f
     # via fragdenstaat-de (pyproject.toml)
 froide-legalaction @ git+https://github.com/okfde/froide-legalaction.git@8e5281408a57ab94e5304f1500601c3b164f511f
     # via fragdenstaat-de (pyproject.toml)
-froide-payment @ git+https://github.com/okfde/froide-payment.git@0aa0ef4449cfe796b28575b17c9cbc9a501a47b4
+froide-payment @ git+https://github.com/okfde/froide-payment.git@4e96b8c0e22f42357209c3ccbdb36d6cc75062df
     # via
     #   fragdenstaat-de (pyproject.toml)
     #   froide-crowdfunding
