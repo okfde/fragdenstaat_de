@@ -480,8 +480,16 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                 Q(postcode="")
                 | Q(address="")
                 | Q(city="")
-                | Q(last_name="")
+                # Postcode is not 5 digits but country is Germany
                 | ~(Q(postcode__regex=r"^\d{5}$") | ~Q(country="DE"))
+                # Company name not set and last name or first name not set
+                | (Q(company_name="") & (Q(last_name="") | Q(first_name="")))
+                # Company name set but only one of last name or first name set
+                | (
+                    ~Q(company_name="")
+                    & (Q(last_name="") | Q(first_name=""))
+                    & ~(Q(last_name="") & Q(first_name=""))
+                )
             )
             # Clear order of queryset to avoid ordering on non-existing annotation columns
             queryset.exclude(invalid_address_q).filter(invalid=True).order_by().update(
