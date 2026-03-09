@@ -5,8 +5,8 @@ set -e
 # `dyld` when launching protected processes (https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/RuntimeProtections/RuntimeProtections.html#//apple_ref/doc/uid/TP40016462-CH3-SW1)
 # This causes macOS to remove the DYLD_ env variables when running this script, so we have to set them again
 if [ !  -z "${FRAGDENSTAAT_DYLD_LIBRARY_PATH:-}" ]; then
-    export LD_LIBRARY_PATH=${FRAGDENSTAAT_DYLD_LIBRARY_PATH:-}:${LD_LIBRARY_PATH:-}
-    export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH:${DYLD_LIBRARY_PATH:-}
+  export LD_LIBRARY_PATH=${FRAGDENSTAAT_DYLD_LIBRARY_PATH:-}:${LD_LIBRARY_PATH:-}
+  export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH:${DYLD_LIBRARY_PATH:-}
 fi
 
 MAIN=fragdenstaat_de
@@ -17,7 +17,7 @@ FROIDE_PEERS=("froide-campaign" "froide-food") # these have peer-dependencies on
 
 ALL=("$MAIN" "${REPOS[@]}")
 
-PYTHON_VERSION="3.14"
+PYTHON_VERSION="3.13"
 
 if [[ $(basename "$PWD") == "$MAIN" ]]; then
   # make sure we're starting from the main project's parent dir,
@@ -78,12 +78,12 @@ dependencies() {
     uv sync --all-extras
 
     if [[ $name == "froide" ]]; then
-      uv pip install -e ../django-filingcabinet
+      uv pip install -e ../django-filingcabinet --no-deps
     fi
 
     if [[ $name == "$MAIN" ]]; then
       for project in "${REPOS[@]}"; do
-        uv pip install -e "../$project" --config-setting editable_mode=compat
+        uv pip install -e "../$project" --config-setting editable_mode=compat --no-deps
       done
     fi
 
