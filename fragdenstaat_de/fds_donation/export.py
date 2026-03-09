@@ -7,6 +7,7 @@ from typing import Optional
 
 from django import forms
 from django.http import HttpResponse, StreamingHttpResponse
+from django.template.defaultfilters import floatformat
 from django.utils import formats, timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
@@ -194,12 +195,12 @@ jzwb_mails = {
 }
 
 
-def format_number(num: Decimal) -> str:
-    return ("%.2f €" % num).replace(".", ",")
+def format_amount_with_currency(num: Decimal) -> str:
+    return "{} €".format(format_amount(num))
 
 
-def format_number_no_currency(num: Decimal) -> str:
-    return ("%.2f" % num).replace(".", ",")
+def format_amount(num: Decimal) -> str:
+    return floatformat(num, "2g")
 
 
 def get_zwbs(donors, year: int):
@@ -251,7 +252,7 @@ def get_zwb_data(donor: Donor, donation_data):
         "Land": donor.country.name,
         "Anrede": donor.get_salutation_display(),
         "Briefanrede": donor.get_german_salutation(),
-        "Jahressumme": format_number_no_currency(total_amount),
+        "Jahressumme": format_amount(total_amount),
         "JahressummeInWorten": amount_to_words(total_amount),
         "NutzerKonto": donor_account,
         "receipt_already": any(d["receipt_date"] for d in donation_data),
@@ -300,7 +301,7 @@ def get_donation_data(donations, ignore_receipt_date: Optional[datetime] = None)
     return [
         {
             "date": format_date(donation.received_timestamp),
-            "formatted_amount": format_number(donation.amount),
+            "formatted_amount": format_amount_with_currency(donation.amount),
             "receipt_date": (
                 donation.receipt_date < ignore_receipt_date
                 if ignore_receipt_date and donation.receipt_date
@@ -405,7 +406,7 @@ def send_jzwb_mailing(
         "donor": donor,
         "name": donor.get_full_name(),
         "salutation": donor.get_salutation(),
-        "total_amount": format_number_no_currency(total_amount),
+        "total_amount": format_amount(total_amount),
     }
 
     jzwb_mail = jzwb_mails[year]
