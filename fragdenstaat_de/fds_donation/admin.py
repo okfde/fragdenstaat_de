@@ -991,9 +991,6 @@ class DonationAdmin(admin.ModelAdmin):
                     "postcode": donation.donor.postcode,
                 }
 
-        import ipdb
-
-        ipdb.set_trace()
         response = self.changelist_view(request)
         try:
             queryset = response.context_data["cl"].queryset
