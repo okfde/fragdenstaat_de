@@ -29,10 +29,6 @@ jobs:
       - name: Setup uv
         uses: astral-sh/setup-uv@v6
         with:
-          enable-cache: true
-          cache-dependency-glob: |
-            uv.lock
-            pyproject.toml
           python-version: ${{ matrix.python-version }}
           activate-environment: true
       - name: Install pnpm
