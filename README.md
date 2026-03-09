@@ -89,6 +89,10 @@ python manage.py search_index --populate
 Example of loading SQL dumps into Docker postgres:
 
 ```bash
+./devsetup.sh load_dump
+
+# or
+
 docker compose -f compose-dev.yaml exec db dropdb -U fragdenstaat_de fragdenstaat_de
 docker compose -f compose-dev.yaml exec db createdb -U fragdenstaat_de -O fragdenstaat_de fragdenstaat_de
 gunzip -k -c dump.sql.gz | docker compose -f compose-dev.yaml exec -T db psql -U fragdenstaat_de

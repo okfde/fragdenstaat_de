@@ -98,7 +98,6 @@ dependencies() {
 
 upgrade_backend_repos() {
   pushd $MAIN
-  set -x
   uv sync ${REPOS[@]/#/--upgrade-package }
   popd
 }
@@ -149,6 +148,44 @@ messages() {
   pushd "$MAIN"
   source .venv/bin/activate
   python fragdenstaat_de/manage.py compilemessages -l de -i node_modules
+  popd
+}
+
+load_dump() {
+  pushd "$MAIN"
+
+  # special command to restore a light fragdenstaat dump for staff
+  docker compose -f compose-dev.yaml up -d db
+
+  docker compose -f compose-dev.yaml exec db dropdb -U fragdenstaat_de fragdenstaat_de
+  docker compose -f compose-dev.yaml exec db dropdb -U fragdenstaat_de froide || true
+  docker compose -f compose-dev.yaml exec db createdb -U fragdenstaat_de -O fragdenstaat_de fragdenstaat_de
+
+  curl http://10.9.0.201:9000/fragdenstaat_de_light.sql.gz --output - | gunzip | (docker compose -f compose-dev.yaml exec -T db psql -U fragdenstaat_de > /dev/null)
+
+  psql() {
+    docker compose -f compose-dev.yaml exec db psql -U fragdenstaat_de "$@"
+  }
+
+  # set sites to localhost
+  psql -c "UPDATE django_site SET domain = 'localhost:8000' WHERE domain = 'fragdenstaat.de';"
+  psql -c "UPDATE django_site SET domain = 'localhost:8001' WHERE domain = 'gegenrechtsschutz.de';"
+  psql -c "UPDATE django_site SET domain = 'localhost:8002' WHERE domain = 'ueberbrueckungsfonds.de';"
+
+  # create another database for froide testing
+  psql -c "CREATE USER froide WITH CREATEDB PASSWORD 'froide';" || true
+  psql -c "CREATE DATABASE froide OWNER froide;"
+
+  echo "Running migrations..."
+
+  echo "Restored database successfully! You might have to apply migrations."
+
+  read -p "Please enter your email address to set the account password (or press Ctrl+C to abort):" email
+  
+  source .venv/bin/activate
+  python manage.py changepassword "$email"
+  deactivate
+
   popd
 }
 
