@@ -340,7 +340,12 @@ class Donor(models.Model):
 
     @property
     def can_receive_receipt(self):
-        return self.receipt and self.email and self.email_confirmed and self.postcode
+        return (
+            (self.receipt or self.receipt is None)
+            and self.email
+            and self.email_confirmed
+            and self.postcode
+        )
 
     def incomplete_donations(self):
         """
