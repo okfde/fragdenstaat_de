@@ -25,18 +25,11 @@ jobs:
       - name: Setup uv
         uses: astral-sh/setup-uv@v2
         with:
-          enable-cache: true
-          cache-dependency-glob: |
-            requirements*.txt
-            pyproject.toml
-      - name: Setup venv
-        run: |
-          uv venv --python 3.12
-          source .venv/bin/activate
-          echo PATH=$PATH >> $GITHUB_ENV
+          python-version: '3.13'
+          activate-environment: true
       - name: Install dependencies
         run: |
-          uv pip sync requirements-dev.txt
+          uv sync
           uv pip install -e . --no-deps
       - name: Setup Git
         run: |
