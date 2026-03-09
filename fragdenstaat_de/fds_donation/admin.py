@@ -7,6 +7,7 @@ from django.contrib import admin, messages
 from django.contrib.admin import helpers
 from django.contrib.admin.views.main import ChangeList
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.db.models import (
     Aggregate,
     Avg,
@@ -472,17 +473,23 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
             ),
         )
 
-    @admin.action(description=_("Mark invalid addresses"))
+    @admin.action(description=_("Update invalid addresses"))
     def mark_invalid_addresses(self, request, queryset):
-        qs = queryset.filter(
-            Q(postcode="")
-            | Q(address="")
-            | Q(city="")
-            | Q(last_name="")
-            | ~(Q(postcode__regex=r"^\d{5}$") | ~Q(country="DE"))
-        )
-        # Clear order of queryset to avoid ordering on non-existing annotation columns
-        qs.order_by().update(invalid=True)
+        with transaction.atomic():
+            invalid_address_q = (
+                Q(postcode="")
+                | Q(address="")
+                | Q(city="")
+                | Q(last_name="")
+                | ~(Q(postcode__regex=r"^\d{5}$") | ~Q(country="DE"))
+            )
+            # Clear order of queryset to avoid ordering on non-existing annotation columns
+            queryset.exclude(invalid_address_q).filter(invalid=True).order_by().update(
+                invalid=False
+            )
+            queryset.filter(invalid_address_q).filter(invalid=False).order_by().update(
+                invalid=True
+            )
 
     def merge_donor_view(self, request):
         """
