@@ -919,21 +919,22 @@ class DonationAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super().get_urls()
+        info = self.opts.app_label, self.opts.model_name
         my_urls = [
             path(
                 "export-csv/",
                 self.admin_site.admin_view(self.export_csv),
-                name="fds_donation-donation-export_csv",
+                name="%s-%s-export_csv" % info,
             ),
             path(
                 "import-banktransfers/",
                 self.admin_site.admin_view(self.import_banktransfers),
-                name="fds_donation-donation-import_banktransfers",
+                name="%s-%s-import_banktransfers" % info,
             ),
             path(
                 "import-paypal/",
                 self.admin_site.admin_view(self.import_paypal),
-                name="fds_donation-donation-import_paypal",
+                name="%s-%s-import_paypal" % info,
             ),
         ]
         return my_urls + urls
@@ -990,6 +991,9 @@ class DonationAdmin(admin.ModelAdmin):
                     "postcode": donation.donor.postcode,
                 }
 
+        import ipdb
+
+        ipdb.set_trace()
         response = self.changelist_view(request)
         try:
             queryset = response.context_data["cl"].queryset
