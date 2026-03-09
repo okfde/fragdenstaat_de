@@ -213,7 +213,7 @@
                         <th>Datum der Zuwendung</th>
                         <th>Art der Zuwendung (Geldzuwendung / Mitgliedsbeitrag)</th>
                         <th>Verzicht auf die Erstattung von Aufwendungen (ja/nein)</th>
-                        <th>Betrag in Euro</th>
+                        <th style="text-align: right">Betrag in Euro</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -222,7 +222,7 @@
                             <td>{{ donation.date }}</td>
                             <td>Geldzuwendung</td>
                             <td>Nein</td>
-                            <td>
+                            <td style="text-align: right">
                                 {{ donation.formatted_amount }}
                                 {% if donation.receipt_date %}*{% endif %}
                             </td>
