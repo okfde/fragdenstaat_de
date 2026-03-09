@@ -18,12 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup uv
-        uses: astral-sh/setup-uv@v2
       - name: Install system-level dependencies
         run: sudo apt-get update && sudo apt-get install libxml2-dev libxslt1-dev libgdal-dev gdal-bin libmagic-dev libmagickwand-dev libpoppler-cpp-dev gettext
       - name: Setup uv
-        uses: astral-sh/setup-uv@v2
+        uses: astral-sh/setup-uv@v6
         with:
           python-version: '3.13'
           activate-environment: true
