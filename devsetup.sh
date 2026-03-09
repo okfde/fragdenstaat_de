@@ -26,12 +26,14 @@ if [[ $(basename "$PWD") == "$MAIN" ]]; then
 fi
 
 check_versions() {
-  echo "You need python, uv and pnpm 9 installed."
-
-  uv --version >> /dev/null
+  if ! command -v uv > /dev/null 2>&1 || ! command -v pnpm > /dev/null 2>&1 ; then
+    echo "You need python, uv and pnpm 9 installed."
+    exit 1
+  fi
 
   if [[ "$(pnpm --version)" != 9.* ]]; then
-    echo You need to have pnpm v9 installed.
+    echo "You need to have pnpm v9 installed, but are using $(pnpm --version)."
+    exit 1
   fi
 }
 
@@ -61,7 +63,8 @@ dependencies() {
   echo "Creating virtual environments and installing dependencies..."
 
   if ! command -v prek > /dev/null 2>&1; then
-    echo "prek is not installed. Run `uv tool install prek` to fix this. Make sure `$(uv tool dir)` is in your \$PATH. If it is not, run `uv run update-shell`."
+    echo "prek is not installed. Run \`uv tool install prek\` to fix this. Make sure \`$(uv tool dir)\` is in your \$PATH. If it is not, run \`uv tool update-shell\`."
+    exit 1
   fi
 
   for name in "${ALL[@]}"; do
@@ -71,8 +74,8 @@ dependencies() {
       uv venv -p "$PYTHON_VERSION"
     fi
 
-    uv sync --all-extras
     source .venv/bin/activate
+    uv sync --all-extras
 
     if [[ $name == "froide" ]]; then
       uv pip install -e ../django-filingcabinet
@@ -87,6 +90,8 @@ dependencies() {
     if [ -e ".pre-commit-config.yaml" ]; then
       prek install
     fi
+
+    deactivate
     popd
   done
 }
