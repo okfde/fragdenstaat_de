@@ -19,7 +19,7 @@ frontend_dependencies:
 dependencies: backend_dependencies frontend_dependencies
 
 commitdependencies: dependencies
-	git add requirements.txt requirements-dev.txt requirements-production.txt pnpm-lock.yaml
+	git add uv.lock pnpm-lock.yaml
 	git commit -m "Update dependencies"
 
 messagesde:

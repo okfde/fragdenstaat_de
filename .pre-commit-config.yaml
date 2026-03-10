@@ -24,7 +24,7 @@ repos:
   - repo: local
     hooks:
       - id: ensure-consistent-dependencies
-        name: Ensure consistent dependencies (pnpm/requirements.txt)
+        name: Ensure consistent dependencies (pnpm/uv.lock)
         language: python
         language_version: '3.13'
         entry: scripts/ensure_consistent_dependencies.py
