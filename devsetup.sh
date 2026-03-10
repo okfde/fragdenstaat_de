@@ -147,7 +147,7 @@ upgrade_frontend_repos() {
 messages() {
   pushd "$MAIN"
   source .venv/bin/activate
-  python fragdenstaat_de/manage.py compilemessages -l de -i node_modules
+  python manage.py compilemessages -l de -i node_modules
   popd
 }
 
