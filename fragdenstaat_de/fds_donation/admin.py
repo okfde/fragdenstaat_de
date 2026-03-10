@@ -313,7 +313,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         any_donation = {}
         if donation_projects:
             values = donation_projects.split(",")
-            project_q = DonorProjectFilter.get_q(values, "donations__project__in")
+            project_q = DonorProjectFilter.get_q(values, "project__in")
             donations_filter &= project_q
             any_donation = {"any_donation": Count("donations", filter=project_q)}
 

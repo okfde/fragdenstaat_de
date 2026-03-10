@@ -108,8 +108,10 @@ class NewsletterAdmin(admin.ModelAdmin):
 class SubscriberTagListFilter(MultiFilterMixin, TaggitListFilter):
     tag_class = TaggedSubscriber
     title = "Tags"
-    parameter_name = "tags__slug"
+    parameter_name = "tag__slug"
     lookup_name = "__in"
+    related_model = TaggedSubscriber
+    related_model_fk_field = "content_object"
 
 
 class SubscriberAdminForm(forms.ModelForm):

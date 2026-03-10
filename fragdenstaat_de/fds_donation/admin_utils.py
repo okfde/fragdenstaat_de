@@ -9,13 +9,15 @@ from django.utils.translation import gettext_lazy as _
 
 from froide.helper.admin_utils import MultiFilterMixin, TaggitListFilter
 
-from .models import DONATION_PROJECTS, Recurrence, TaggedDonor
+from .models import DONATION_PROJECTS, Donation, Recurrence, TaggedDonor
 
 
 class DonorProjectFilter(MultiFilterMixin, SimpleListFilter):
     title = "Project"
-    parameter_name = "donations__project"
+    parameter_name = "project"
     lookup_name = "__in"
+    related_model = Donation
+    related_model_fk_field = "donor_id"
 
     def queryset(self, request, queryset):
         """
@@ -33,8 +35,10 @@ class DonorProjectFilter(MultiFilterMixin, SimpleListFilter):
 class DonorTagListFilter(MultiFilterMixin, TaggitListFilter):
     tag_class = TaggedDonor
     title = "Tags"
-    parameter_name = "tags__slug"
+    parameter_name = "tag__slug"
     lookup_name = "__in"
+    related_model = TaggedDonor
+    related_model_fk_field = "content_object"
 
 
 class DonorTotalAmountPerYearFilter(SimpleListFilter):
@@ -86,7 +90,7 @@ class DonorTotalAmountPerYearFilter(SimpleListFilter):
             donation_projects = self.request.GET.get(DonorProjectFilter.parameter_name)
             if donation_projects:
                 values = donation_projects.split(",")
-                project_q = DonorProjectFilter.get_q(values, "donations__project__in")
+                project_q = DonorProjectFilter.get_q(values, "project__in")
                 donations_filter &= project_q
 
             # Annotate donors with total donation amount for specified year
