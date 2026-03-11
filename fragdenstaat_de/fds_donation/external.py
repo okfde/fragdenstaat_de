@@ -57,16 +57,19 @@ def update_iban_on_donor(donor, iban, reference):
 
 
 def get_or_create_bank_transfer_donor(row):
-    if pd.notnull(row["iban"]):
-        donors = Donor.objects.filter(attributes__iban=row["iban"])
+    if pd.notnull(row["iban"]) and row["iban"]:
+        donors = Donor.objects.filter(
+            Q(identifier=row["iban"]) | Q(attributes__iban=row["iban"])
+        )
         if len(donors) > 0:
             return donors[0]
 
     transfer_code = find_transfer_code(row["reference"])
     if transfer_code is not None:
-        payment = Payment.objects.filter(transaction_id=transfer_code).first()
-        if payment is not None:
-            donation = Donation.objects.get(payment=payment)
+        donation = Donation.objects.filter(
+            payment__transaction_id=transfer_code
+        ).first()
+        if donation:
             donor = donation.donor
             if donor:
                 update_iban_on_donor(donor, row["iban"], row["reference"])
