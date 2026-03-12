@@ -6,7 +6,6 @@ from typing import Any
 from urllib.parse import urlencode
 
 from django.conf import settings
-from django.contrib.postgres.fields import HStoreField
 from django.core.exceptions import ValidationError
 from django.db import connection, models
 from django.db.models.functions import RowNumber
@@ -122,7 +121,7 @@ class Donor(models.Model):
 
     email = models.EmailField(blank=True, default="")
     identifier = models.CharField(blank=True, max_length=256)
-    attributes = HStoreField(null=True, blank=True)
+    attributes = models.JSONField(blank=True, default=dict)
 
     active = models.BooleanField(default=False)
     first_donation = models.DateTimeField(default=timezone.now)
