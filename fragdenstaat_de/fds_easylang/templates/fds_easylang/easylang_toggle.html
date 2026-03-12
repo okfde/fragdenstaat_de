@@ -1,55 +1,10 @@
 {% load i18n %}
 {% load icons %}
 {% load static %}
-{% if has_translation %}
-    <a class="easylang-toggle btn btn-sm {% if target_language != 'de-ls' %}btn-primary{% else %}btn-outline-primary{% endif %}"
-       href="{{ target_url }}"
-       role="switch"
-       aria-checked="{% if target_language != 'de-ls' %}true{% else %}false{% endif %}">
-        {% render_svg "img/icon-leichte-sprache.svg" %}
-        <span class="d-none d-lg-inline">{% trans "Easy language" %}</span>
-    </a>
-{% else %}
-    <button class="easylang-toggle btn btn-sm btn-outline-primary">
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#noEasylangTranslationModal">
-        {% render_svg "img/icon-leichte-sprache.svg" %}
-        <span class="d-none d-lg-inline">{% trans "Easy language" %}</span>
-    </button>
-{% endif %}
-<!-- Modal for missing translation -->
-<div data-teleport="body"
-     class="modal fade"
-     id="noEasylangTranslationModal"
-     tabindex="-1"
-     aria-labelledby="noEasylangTranslationModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="noEasylangTranslationModalLabel">
-                    {% render_svg "img/icon-leichte-sprache.svg" %}
-                    {% trans "Easy language" %}
-                </h5>
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="{% trans 'Close' %}"></button>
-            </div>
-            <div class="modal-body">
-                <p>{% trans "[No easy language translation available]" context "Leichte Sprache" %}</p>
-                <p>{% trans "[Switch to easy language homepage]" context "Leichte Sprache" %}</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    {% trans "[Stay here]" context "Leichte Sprache" %}
-                </button>
-                <a href="{{ home_url }}" class="btn btn-primary">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    {% trans "[Go to easy language homepage]" context "Leichte Sprache" %}
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+<a class="easylang-toggle btn btn-sm {% if target_language != 'de-ls' %}btn-primary{% else %}btn-outline-primary{% endif %}"
+   href="{% if has_translation %}{{ target_url }}{% else %}{{ home_url }}{% endif %}"
+   role="switch"
+   aria-checked="{% if target_language != 'de-ls' %}true{% else %}false{% endif %}">
+    {% render_svg "img/icon-leichte-sprache.svg" %}
+    <span class="d-none d-lg-inline">{% trans "Easy language" %}</span>
+</a>
