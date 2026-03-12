@@ -30,8 +30,8 @@ importers:
         specifier: ^5.3.8
         version: 5.3.8(@popperjs/core@2.11.8)
       django-cookie-consent:
-        specifier: ^0.9.0
-        version: 0.9.0
+        specifier: ^1.0.0
+        version: 1.0.0
       dompurify:
         specifier: ^3.3.1
         version: 3.3.1
@@ -1538,8 +1538,8 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  django-cookie-consent@0.9.0:
-    resolution: {integrity: sha512-mCwftoHMai3cMpvRU8g5AHN68Kph0syvMN0ycLpDZFR+iv5zVqosoVsapCWDC7O1r5Wnex4fiX6sKIQql749tg==}
+  django-cookie-consent@1.0.0:
+    resolution: {integrity: sha512-sgos/Shzdq9dSjpXDNHeZBvByp1RdkNvnPjduvXfx5mMArNJiVvdP2Ca5tdVbVg1mMjTtElFVZa6xl4HvY12cQ==}
 
   dom-serializer@2.0.0:
     resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
@@ -4343,7 +4343,7 @@ snapshots:
   detect-libc@2.1.2:
     optional: true
 
-  django-cookie-consent@0.9.0: {}
+  django-cookie-consent@1.0.0: {}
 
   dom-serializer@2.0.0:
     dependencies:
