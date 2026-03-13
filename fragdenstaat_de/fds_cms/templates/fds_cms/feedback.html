@@ -1,6 +1,7 @@
 {% load form_helper %}
 {% load i18n %}
-<form action="{% url 'fds_cms_contact:contact' %}" method="post">
+<form action="{% url form_action|default:'fds_cms_contact:contact' %}"
+      method="post">
     {% csrf_token %}
     {% render_form form %}
     <p class="text-end">

@@ -12,6 +12,7 @@ urlpatterns = [
     path("crowdfunding/", include("froide_crowdfunding.urls")),
     path("food/", include("froide_food.urls")),
     path("exam/", include("froide_exam.urls")),
+    path("easylang/", include("fragdenstaat_de.fds_easylang.urls")),
 ]
 
 urlpatterns += i18n_patterns(

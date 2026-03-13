@@ -1,6 +1,5 @@
 from django import template
 
-from fragdenstaat_de.fds_cms.contact import ContactForm
 from fragdenstaat_de.theme.templatetags.fds_translation_tags import get_languages
 from fragdenstaat_de.theme.translation import has_translatable_content
 
@@ -35,17 +34,3 @@ def easylang_toggle(context):
         "target_language": target_language,
         "target_url": target_url,
     }
-
-
-@register.inclusion_tag("fds_easylang/feedback.html", takes_context=True)
-def render_contact_form(context):
-    request = context["request"]
-
-    form_class = ContactForm
-
-    if request.method == "POST":
-        form = form_class(request.POST)
-    else:
-        form = form_class()
-
-    return {"form": form, "request": request}
