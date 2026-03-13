@@ -5,7 +5,8 @@
             <div class="col col-md-10 feedback">
                 <h2>{% trans "[Feedback form heading]" context "Leichte Sprache" %}</h2>
                 <p>{% trans "[Feedback form description]" context "Leichte Sprache" %}</p>
-                {% include "fds_cms/feedback.html" %}
+                <a href="{% url 'fds_easylang:contact_form' %}?next={{ request.get_full_path|urlencode }}"
+                   class="btn btn-primary">{% trans "Open contact form" context "Leichte Sprache" %}</a>
             </div>
         </div>
     </div>

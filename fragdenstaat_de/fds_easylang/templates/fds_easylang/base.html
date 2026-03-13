@@ -10,7 +10,9 @@
     {% include "fds_easylang/header.html" %}
 {% endblock %}
 {% block footer_container %}
-    {% render_contact_form %}
+    {% block feedback %}
+        {% include "fds_easylang/feedback.html" %}
+    {% endblock feedback %}
     <footer class="footer" id="footer">
         <div class="container">{% static_alias "footer_easylang" %}</div>
     </footer>
