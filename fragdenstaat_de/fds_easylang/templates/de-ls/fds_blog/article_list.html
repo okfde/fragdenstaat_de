@@ -1,0 +1,30 @@
+{% extends "fds_blog/article_list.html" %}
+{% load i18n %}
+{% block blog_list_filters %}
+    {% if category_filter or year_filter %}
+        <nav class="vstack gap-3 mt-3" aria-label="{% trans 'Filter articles' %}">
+            {% if category_filter %}
+                <div>
+                    <span class="d-block fs-5 fw-bold mb-2">{% trans "Topic" %}</span>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for cat in category_filter %}
+                            <a href="{% url 'blog:article-category' slug=cat.slug %}"
+                               class="btn btn-sm btn-secondary">{{ cat }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            {% if year_filter %}
+                <div>
+                    <span class="d-block fs-5 fw-bold mb-2">{% trans "Year" %}</span>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for date in year_filter %}
+                            <a href="{% url 'blog:article-archive' year=date.year %}"
+                               class="btn btn-sm btn-secondary">{{ date|date:"Y" }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </nav>
+    {% endif %}
+{% endblock blog_list_filters %}

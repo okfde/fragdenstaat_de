@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="design-container text-bg-body-tertiary text-body">
+    <div class="container">
+        <div class="py-5 row">
+            <div class="col col-md-10 feedback">
+                <h2>{% trans "[Feedback form heading]" context "Leichte Sprache" %}</h2>
+                <p>{% trans "[Feedback form description]" context "Leichte Sprache" %}</p>
+                <a href="{% url 'fds_easylang:contact_form' %}?next={{ request.get_full_path|urlencode }}"
+                   class="btn btn-primary">{% trans "Open contact form" context "Leichte Sprache" %}</a>
+            </div>
+        </div>
+    </div>
+</div>

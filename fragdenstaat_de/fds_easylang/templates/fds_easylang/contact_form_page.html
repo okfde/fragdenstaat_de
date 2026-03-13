@@ -1,0 +1,31 @@
+{% extends "fds_easylang/base.html" %}
+{% load i18n %}
+{% load form_helper %}
+{% block app_body %}
+    <div class="design-container text-bg-body-tertiary text-body">
+        <div class="container">
+            <div class="py-5 row">
+                <div class="col col-md-10 feedback">
+                    <h2>{% trans "[Feedback form heading]" context "Leichte Sprache" %}</h2>
+                    <p>{% trans "[Feedback form description]" context "Leichte Sprache" %}</p>
+                    {% if next %}
+                        <p>
+                            {% trans "Your feedback is about this page:" context "Leichte Sprache" %}
+                            <a href="{{ next }}">{{ next }}</a>
+                        </p>
+                    {% endif %}
+                    <form action="{% url 'fds_easylang:contact_form' %}" method="post">
+                        {% csrf_token %}
+                        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+                        {% render_form form %}
+                        <p class="text-end">
+                            <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock app_body %}
+{% block feedback %}
+{% endblock feedback %}
