@@ -1,0 +1,27 @@
+{% extends "foirequest/body/actions/send_message.html" %}
+{% load i18n %}
+{% load form_helper %}
+{% load fax_tags %}
+{% block send_message_form %}
+    {% if object|can_fax_request:request %}
+        {% if request.user != object.user and form.signature %}
+            <div class="alert alert-warning">
+                {% blocktranslate with name=object.user.get_full_name trimmed %}
+                    {{ name }} has not added a signature to their account, so sending
+                {% endblocktranslate %}
+            </div>
+        {% else %}
+            <details class="mb-3" {% if form.signature.errors %}open{% endif %}>
+                <summary>{% translate "Show fax sending options" %}</summary>
+                <div class="card">
+                    <div class="card-body">
+                        {% render_field form.send_fax horizontal=False %}
+                        {% if form.signature %}
+                            {% render_field form.signature horizontal=False %}
+                        {% endif %}
+                    </div>
+                </div>
+            </details>
+        {% endif %}
+    {% endif %}
+{% endblock send_message_form %}
