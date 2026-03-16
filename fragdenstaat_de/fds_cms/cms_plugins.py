@@ -1,5 +1,6 @@
 import json
 import urllib.parse
+from pathlib import Path
 
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
@@ -10,6 +11,8 @@ from cms.plugin_pool import plugin_pool
 from datashow.models import Dataset
 from datashow.table import RowQueryset
 from djangocms_picture.cms_plugins import PicturePlugin as BasePicturePlugin
+from easy_thumbnails.files import get_thumbnailer
+from filingcabinet.models import PageAnnotation
 
 from froide.foirequest.models import FoiRequest
 from froide.helper.auth import is_crew
@@ -65,11 +68,33 @@ class PageAnnotationPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         context["instance"] = instance
-        context["title"] = instance.title or instance.page_annotation.title
-        context["description"] = (
-            instance.description or instance.page_annotation.description
+        page_annotation = (
+            PageAnnotation.objects.filter(id=instance.page_annotation_id)
+            .select_related(
+                "page",
+                "page__document",
+            )
+            .get()
         )
-        context["object"] = instance.page_annotation
+        context["title"] = instance.title or page_annotation.title
+        context["description"] = instance.description or page_annotation.description
+        context["object"] = page_annotation
+
+        document = page_annotation.page.document
+        images = {}
+        if page_annotation.image:
+            thumbnailer = get_thumbnailer(page_annotation.image)
+
+            for size in (1140, 940, 768):
+                thumbnail = thumbnailer.get_thumbnail({"size": (size, 0)})
+                images[f"w{size}"] = document.get_authorized_file_url(
+                    Path(thumbnail.name).name
+                )
+        context["image_url"] = document.get_authorized_file_url(
+            Path(page_annotation.image.name).name
+        )
+        context["unpublished"] = not document.is_public()
+        context["images"] = images
 
         return context
 
