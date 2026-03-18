@@ -1996,7 +1996,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#5b8fa64959ee994786d1b3e8013a75080299c574" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#d7cd2746749e0f142c61509130318bed17af47ee" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2083,8 +2083,9 @@ source = { git = "https://github.com/okfde/froide-exam.git?rev=main#dd9f3ed3fa62
 [[package]]
 name = "froide-fax"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-fax.git?rev=main#c413e0414356901e20737c1ebf25bce63bf5dee8" }
+source = { git = "https://github.com/okfde/froide-fax.git?rev=main#92eb2404d4baeb32d0ff9587d95615e83e9f382f" }
 dependencies = [
+    { name = "django" },
     { name = "phonenumbers" },
     { name = "pynacl" },
     { name = "pytz" },
