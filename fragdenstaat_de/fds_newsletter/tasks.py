@@ -21,3 +21,17 @@ def gather_subscriber_tags():
 
     for subscriber in qs.iterator():
         subscriber.update_tags()
+
+
+@celery_app.task(name="fragdenstaat_de.fds_newsletter.gather_subscriber_tags")
+def run_subscriber_import(subscriber_import_id):
+    from .models import SubscriberImport
+
+    try:
+        subscriber_import = SubscriberImport.objects.get(
+            completed=None, id=subscriber_import_id
+        )
+    except SubscriberImport.DoesNotExist:
+        return
+
+    subscriber_import.run_import()
