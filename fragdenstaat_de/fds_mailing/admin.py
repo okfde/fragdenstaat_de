@@ -539,7 +539,7 @@ class MailingMessageAdmin(admin.ModelAdmin):
 
     @admin.action(description=_("Reset sent status"))
     def reset_sent_status(self, request, queryset):
-        queryset.update(sent=None)
+        queryset.update(sent=None, bounced=False)
 
 
 # Monkey-Patch UserAdmin.send_mail to create mailing instead
