@@ -300,7 +300,7 @@ class Subscriber(models.Model):
             or (timezone.now() - self.last_activation_sent) > ACTIVATION_MAIL_DELAY
         )
 
-    def send_activation_email(self, batch=False):
+    def send_activation_email(self, batch=False, activation_template=None):
         if not self.can_send_activation():
             return
 
@@ -308,7 +308,9 @@ class Subscriber(models.Model):
         context["action_url"] = self.get_subscribe_url()
         newsletter = self.newsletter
 
-        if batch:
+        if activation_template is not None:
+            self.send_template(activation_template, context)
+        elif batch:
             if (
                 newsletter.confirm_batch_template
                 and newsletter.confirm_batch_template.active

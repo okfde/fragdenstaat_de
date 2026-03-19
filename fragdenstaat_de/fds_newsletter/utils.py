@@ -101,6 +101,7 @@ def subscribe_email(
     new_tags=None,
     batch=False,
     data=None,
+    activation_template=None,
 ) -> SubscriptionReturn:
     created = False
     try:
@@ -135,7 +136,9 @@ def subscribe_email(
             subscriber.send_already_email()
         return (SubscriptionResult.ALREADY_SUBSCRIBED_EMAIL, subscriber)
     if not email_confirmed:
-        subscriber.send_activation_email(batch=batch)
+        subscriber.send_activation_email(
+            batch=batch, activation_template=activation_template
+        )
         return (SubscriptionResult.CONFIRM, subscriber)
 
     subscriber = subscriber.subscribe(reference=reference, keyword=keyword, batch=batch)
@@ -254,6 +257,7 @@ def import_csv(
     tags=None,
     new_tags=None,
     data=None,
+    activation_template=None,
 ):
     if tags is None:
         tags = set()
@@ -281,6 +285,7 @@ def import_csv(
             new_tags=new_tags,
             batch=True,
             data=row_data,
+            activation_template=activation_template,
         )
 
 

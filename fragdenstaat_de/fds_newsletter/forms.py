@@ -3,7 +3,9 @@ from urllib.parse import parse_qsl, unquote
 
 from django import forms
 from django.conf import settings
-from django.forms import ModelForm, ValidationError
+from django.contrib.admin import site as admin_site
+from django.contrib.admin.widgets import ForeignKeyRawIdWidget
+from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 
 from taggit.forms import TagField
@@ -176,9 +178,6 @@ class NewsletterFollowExtra(NewsletterUserExtra):
 class SubscriberImportForm(forms.Form):
     csv_file = forms.FileField(label=_("CSV file"))
     reference = forms.CharField(label=_("Import reference label"), required=True)
-    email_confirmed = forms.BooleanField(
-        label=_("Email addresses are confirmed"), required=False
-    )
     tags = TagField(
         label=_("Tags"),
         widget=TagAutocompleteWidget(
@@ -197,23 +196,25 @@ class SubscriberImportForm(forms.Form):
         help_text=_("Comma separated and quoted"),
     )
 
-    def clean_email_confirmed(self):
+    email_confirmed = forms.BooleanField(
+        label=_("Email addresses are confirmed"), required=False
+    )
+    activation_template = forms.ModelChoiceField(
+        label=_("Activation template for unconfirmed email addresses"),
+        required=False,
+        queryset=EmailTemplate.objects.all(),
+        widget=ForeignKeyRawIdWidget(
+            Newsletter._meta.get_field("confirm_batch_template").remote_field,
+            admin_site,
+        ),
+    )
+
+    def clean(self):
         email_confirmed = self.cleaned_data["email_confirmed"]
-
-        if not email_confirmed:
-            try:
-                EmailTemplate.objects.get(
-                    mail_intent="fds_newsletter/email/subscriber_batch_confirm",
-                    active=True,
-                )
-            except (EmailTemplate.DoesNotExist, EmailTemplate.MultipleObjectsReturned):
-                raise ValidationError(
-                    _(
-                        "Make sure there exists one active mailing template for the batch confirm intent (fds_newsletter/email/subscriber_batch_confirm)."
-                    )
-                ) from None
-
-        return email_confirmed
+        activation_template = self.cleaned_data["activation_template"]
+        if not email_confirmed and not activation_template:
+            raise forms.ValidationError(_("You need to choose an activation template"))
+        return self.cleaned_data
 
     def save(self, newsletter):
         csv_file = self.cleaned_data["csv_file"]
@@ -225,6 +226,7 @@ class SubscriberImportForm(forms.Form):
             tags=self.cleaned_data["tags"],
             new_tags=self.cleaned_data["new_tags"],
             email_confirmed=self.cleaned_data["email_confirmed"],
+            activation_template=self.cleaned_data["activation_template"],
         )
 
 
