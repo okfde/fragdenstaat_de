@@ -16,6 +16,7 @@ from cms.models.pluginmodel import CMSPlugin
 from flowcontrol.models import ActionBase
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
+from taggit.utils import parse_tags
 from treebeard.mp_tree import MP_Node
 
 from froide.helper.email_sending import mail_registry
@@ -561,6 +562,67 @@ class UnsubscribeFeedback(models.Model):
                 fields=["subscriber", "newsletter"], name="unique_feedback_subscriber"
             )
         ]
+
+
+class SubscriberImport(models.Model):
+    created = models.DateTimeField(default=timezone.now)
+    newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE)
+    data_file = models.FileField(
+        help_text=_(
+            "CSV file with 'email' and optional 'name' or 'first_name', 'last_name' and 'tags' columns."
+        ),
+        upload_to="newsletter_import",
+    )
+    reference = models.CharField(blank=True, max_length=255)
+    tags = models.CharField(blank=True, max_length=255)
+    new_tags = models.CharField(blank=True, max_length=255)
+    email_confirmed = models.BooleanField(default=False)
+    activation_template = models.ForeignKey(
+        "fds_mailing.EmailTemplate", null=True, blank=True, on_delete=models.SET_NULL
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL
+    )
+    completed = models.DateTimeField(null=True, blank=True)
+    row_count = models.IntegerField(null=True, blank=True)
+    imported_count = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("Subscriber Import")
+        verbose_name_plural = _("Subscriber Imports")
+        ordering = ("-created",)
+
+    def __str__(self):
+        return f"{self.reference} ({self.created})"
+
+    def clean(self):
+        if not self.email_confirmed and not self.activation_template:
+            raise ValidationError(
+                _("If email not confirmed, you need to provide an activation template")
+            )
+
+    def run_import(self):
+        from .utils import import_csv
+
+        if self.completed:
+            return
+
+        tags = parse_tags(self.tags)
+        new_tags = parse_tags(self.new_tags)
+
+        row_count, imported_count = import_csv(
+            self.data_file.open(mode="rt"),
+            self.newsletter,
+            reference=self.reference,
+            tags=tags,
+            new_tags=new_tags,
+            email_confirmed=self.email_confirmed,
+            activation_template=self.activation_template,
+        )
+        self.completed = timezone.now()
+        self.row_count = row_count
+        self.imported_count = imported_count
+        self.save(update_fields=["completed", "row_count", "imported_count"])
 
 
 class NewsletterCMSPlugin(CMSPlugin):

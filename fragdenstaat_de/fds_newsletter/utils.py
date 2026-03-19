@@ -241,6 +241,8 @@ def import_csv(
     data=None,
     activation_template=None,
 ):
+    total = 0
+    already = 0
     if tags is None:
         tags = set()
     else:
@@ -257,7 +259,7 @@ def import_csv(
         row_tags = {t.strip() for t in row.get("tags", "").split(",") if t.strip()}
         row_tags |= tags
         row_data = {k.lstrip("$"): v for k, v in row.items() if k.startswith("$")}
-        subscribe_email(
+        result = subscribe_email(
             newsletter,
             email,
             name=name,
@@ -269,6 +271,10 @@ def import_csv(
             data=row_data,
             activation_template=activation_template,
         )
+        if result[0] == SubscriptionResult.ALREADY_SUBSCRIBED_EMAIL:
+            already += 1
+        total += 1
+    return total, total - already
 
 
 def get_subscribers(newsletter: Newsletter, segments: Optional[list[Segment]] = None):

@@ -4,7 +4,6 @@ from django.contrib import admin
 from django.db.models import Case, Count, F, IntegerField, Q, Value, When
 from django.db.models.functions import Cast, Collate, ExtractDay, Now, TruncDate
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
 from django.urls import path, reverse, reverse_lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
@@ -25,12 +24,12 @@ from froide.helper.widgets import TagAutocompleteWidget
 from fragdenstaat_de.fds_mailing.models import MailingMessage
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
-from .forms import SubscriberImportForm
 from .models import (
     SUBSCRIBER_TAG_AUTOCOMPLETE_URL,
     Newsletter,
     Segment,
     Subscriber,
+    SubscriberImport,
     SubscriberTag,
     TaggedSegment,
     TaggedSubscriber,
@@ -48,17 +47,6 @@ class NewsletterAdmin(admin.ModelAdmin):
         "confirm_batch_template",
         "already_subscribed_template",
     )
-
-    def get_urls(self):
-        urls = super().get_urls()
-        my_urls = [
-            path(
-                "<int:pk>/import-csv/",
-                self.admin_site.admin_view(self.import_csv),
-                name="fds_newsletter-import_csv",
-            ),
-        ]
-        return my_urls + urls
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -89,26 +77,6 @@ class NewsletterAdmin(admin.ModelAdmin):
         )
 
     admin_subscribers.short_description = ""
-
-    def import_csv(self, request, pk):
-        newsletter = Newsletter.objects.get(pk=pk)
-        if request.method == "POST":
-            form = SubscriberImportForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save(newsletter)
-                self.message_user(request, _("Subscribers imported."))
-                return redirect("admin:fds_newsletter_newsletter_change", pk)
-        else:
-            form = SubscriberImportForm()
-        opts = self.model._meta
-        ctx = {
-            "app_label": opts.app_label,
-            "opts": opts,
-            "form": form,
-            "admin": self,
-            "object": newsletter,
-        }
-        return render(request, "fds_newsletter/admin/import_csv.html", ctx)
 
 
 class SubscriberTagListFilter(MultiFilterMixin, TaggitListFilter):
@@ -367,3 +335,53 @@ class UnsubscribeFeedbackAdmin(admin.ModelAdmin):
     search_fields = ("comment",)
     date_hierarchy = "created"
     raw_id_fields = ("subscriber",)
+
+
+@admin.register(SubscriberImport)
+class SubscriberImportAdmin(admin.ModelAdmin):
+    list_display = ("created", "newsletter", "reference", "completed")
+    list_filter = (
+        "newsletter",
+        "completed",
+    )
+    date_hierarchy = "created"
+    raw_id_fields = ("activation_template",)
+    readonly_fields = ("created", "user", "completed", "row_count", "imported_count")
+
+    actions = ["start_import"]
+
+    def save_model(self, request, obj, form, change):
+        if not obj.completed:
+            obj.user = request.user
+        super().save_model(request, obj, form, change)
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj is None:
+            return super().get_readonly_fields(request, obj)
+        if obj.completed:
+            return (
+                "created",
+                "newsletter",
+                "data_file",
+                "reference",
+                "tags",
+                "new_tags",
+                "email_confirmed",
+                "activation_template",
+                "user",
+                "completed",
+                "row_count",
+                "imported_count",
+            )
+        return super().get_readonly_fields(request, obj)
+
+    @admin.action(description=_("Start import"))
+    def start_import(self, request, queryset):
+        from .tasks import run_subscriber_import
+
+        queryset = queryset.filter(completed=None)
+
+        for sub_import in queryset:
+            run_subscriber_import.delay(sub_import.pk)
+
+        self.message_user(request, _("Import has started..."))
