@@ -36,7 +36,9 @@ def continue_sending(mailing_id):
 
     try:
         mailing = Mailing.objects.get(
-            id=mailing_id, ready=True, submitted=True, sent=False, sending=False
+            id=mailing_id,
+            ready=True,
+            submitted=True,
         )
     except Mailing.DoesNotExist:
         return

@@ -760,13 +760,14 @@ class MailingMessage(models.Model):
             self.email = self.subscriber.get_email()
             self.name = self.subscriber.get_name()
 
-    def send(self, mailing_context=None, extra_kwargs=None):
-        assert self.sent is None
+    def send(self, mailing_context=None, extra_kwargs=None, force=False):
+        if self.sent is not None:
+            raise Exception("Tried sending already sent mailing message!")
 
         if not self.email:
             self.delete()
             return
-        if not self.mailing.sending:
+        if not self.mailing.submitted and not force:
             logger.error("Mailing %s not sending, not sending message", self.mailing)
             return
 
