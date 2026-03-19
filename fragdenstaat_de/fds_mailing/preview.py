@@ -42,6 +42,7 @@ def provide_subscriber_context(sender, **kwargs):
             pk=0,
             subscribed=timezone.now(),
             email=request.user.email,
+            name=request.user.get_full_name(),
             newsletter=Newsletter.objects.get_default(),
         )
         if value == "old_subscriber":
