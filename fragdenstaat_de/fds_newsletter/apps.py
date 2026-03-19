@@ -82,10 +82,6 @@ def setup_newsletter_mails():
     if welcome:
         for _nl_slug, intent_id in welcome.items():
             mail_registry.register(intent_id, NL_CONTEXT_VARS)
-    schedule = getattr(settings, "NEWSLETTER_ONBOARDING_SCHEDULE", [])
-    for item in schedule:
-        if item["mail_intent"]:
-            mail_registry.register(item["mail_intent"], NL_CONTEXT_VARS)
 
 
 def export_user_data(user):

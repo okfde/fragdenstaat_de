@@ -12,8 +12,6 @@ from django.db.models import Q
 from django.db.models.functions import Collate
 from django.utils import timezone
 
-from froide.helper.email_sending import mail_registry
-
 from .models import (
     Newsletter,
     Segment,
@@ -222,22 +220,6 @@ def cleanup_feedback():
     now = timezone.now()
     hour_ago = now - timedelta(hours=1)
     UnsubscribeFeedback.objects.filter(created__lt=hour_ago).update(subscriber=None)
-
-
-def send_onboarding_schedule(date: datetime.date):
-    schedule = getattr(settings, "NEWSLETTER_ONBOARDING_SCHEDULE", [])
-    for item in schedule:
-        send_onboarding_schedule_item(date, item)
-
-
-def send_onboarding_schedule_item(date: datetime.date, schedule_item):
-    intent = mail_registry.get_intent(schedule_item["mail_intent"])
-    if not intent:
-        return
-
-    subscribers = get_onboarding_subscribers(date, schedule_item)
-    for subscriber in subscribers:
-        subscriber.send_mail_intent(intent)
 
 
 def get_onboarding_subscribers(date: datetime.date, schedule_item):
