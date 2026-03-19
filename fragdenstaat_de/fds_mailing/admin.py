@@ -483,6 +483,7 @@ class ContinuousMailingAdmin(MailingAdminMixin, admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.is_continuous = True
+        obj.submitted = obj.ready
         obj.sending = obj.ready
         if obj.ready and not obj.sending_date:
             obj.sending_date = timezone.now()
