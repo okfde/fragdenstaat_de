@@ -188,6 +188,14 @@ class SubscriberImportForm(forms.Form):
         required=False,
         help_text=_("Comma separated and quoted"),
     )
+    new_tags = TagField(
+        label=_("Tags only for new subscribers"),
+        widget=TagAutocompleteWidget(
+            autocomplete_url=SUBSCRIBER_TAG_AUTOCOMPLETE_URL,
+        ),
+        required=False,
+        help_text=_("Comma separated and quoted"),
+    )
 
     def clean_email_confirmed(self):
         email_confirmed = self.cleaned_data["email_confirmed"]
@@ -215,6 +223,7 @@ class SubscriberImportForm(forms.Form):
             newsletter,
             reference=self.cleaned_data["reference"],
             tags=self.cleaned_data["tags"],
+            new_tags=self.cleaned_data["new_tags"],
             email_confirmed=self.cleaned_data["email_confirmed"],
         )
 

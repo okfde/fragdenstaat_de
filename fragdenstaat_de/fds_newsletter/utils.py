@@ -98,9 +98,11 @@ def subscribe_email(
     reference="",
     keyword="",
     tags=None,
+    new_tags=None,
     batch=False,
     data=None,
 ) -> SubscriptionReturn:
+    created = False
     try:
         subscriber = (
             Subscriber.objects.annotate(
@@ -111,7 +113,7 @@ def subscribe_email(
         )
     except Subscriber.DoesNotExist:
         # Only add data on create
-        subscriber, _created = Subscriber.objects.get_or_create(
+        subscriber, created = Subscriber.objects.get_or_create(
             email=email.lower(),
             newsletter=newsletter,
             defaults={
@@ -124,6 +126,9 @@ def subscribe_email(
 
     if tags:
         subscriber.tags.add(*tags)
+
+    if created and new_tags:
+        subscriber.tags.add(*new_tags)
 
     if subscriber.subscribed:
         if not batch:
@@ -242,7 +247,13 @@ def get_onboarding_subscribers(date: datetime.date, schedule_item):
 
 
 def import_csv(
-    csv_file, newsletter, reference="", email_confirmed=False, tags=None, data=None
+    csv_file,
+    newsletter,
+    reference="",
+    email_confirmed=False,
+    tags=None,
+    new_tags=None,
+    data=None,
 ):
     if tags is None:
         tags = set()
@@ -267,6 +278,7 @@ def import_csv(
             email_confirmed=email_confirmed,
             reference=reference,
             tags=row_tags,
+            new_tags=new_tags,
             batch=True,
             data=row_data,
         )
