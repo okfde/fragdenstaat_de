@@ -910,6 +910,8 @@ class FragDenStaatBase(German, Base):
         ),
     }
 
+    FLOWCONTROL_TEMPLATE_FILTERS = ["fragdenstaat_de.theme.filters"]
+
     FDS_OGIMAGE_URL = "https://ogimage.frag-den-staat.de/api/{hash}?path={path}"
     APP_SITE_URL = "https://app.fragdenstaat.de"
 
