@@ -100,6 +100,7 @@ class NewsletterAdmin(admin.ModelAdmin):
             "app_label": opts.app_label,
             "opts": opts,
             "form": form,
+            "admin": self,
             "object": newsletter,
         }
         return render(request, "fds_newsletter/admin/import_csv.html", ctx)
