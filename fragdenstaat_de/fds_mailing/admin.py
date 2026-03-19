@@ -511,6 +511,7 @@ class MailingMessageAdmin(admin.ModelAdmin):
         ("user", ForeignKeyFilter),
     )
     search_fields = ("email", "name")
+    actions = ["reset_sent_status"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request).select_related("mailing")
@@ -535,6 +536,10 @@ class MailingMessageAdmin(admin.ModelAdmin):
         context = message.get_email_context()
         html = email_template.get_body_html(context, preview=True)
         return HttpResponse(content=html.encode("utf-8"))
+
+    @admin.action(description=_("Reset sent status"))
+    def reset_sent_status(self, request, queryset):
+        queryset.update(sent=None)
 
 
 # Monkey-Patch UserAdmin.send_mail to create mailing instead
