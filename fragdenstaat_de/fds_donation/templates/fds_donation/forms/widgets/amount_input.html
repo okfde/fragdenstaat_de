@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n humanize %}
 <div class="amount-group {% if 'is-invalid' in widget.attrs.class %}is-invalid{% endif %}">
     {% if presets %}
         <div class="hstack flex-wrap gap-1">
@@ -6,7 +6,7 @@
                 <button type="button"
                         class="btn btn-outline-primary{% if preset|stringformat:'d' == widget.value %} active{% endif %}"
                         data-value="{{ preset }}"
-                        data-target="{{ widget.attrs.id }}">{{ preset }} {{ currency }}</button>
+                        data-target="{{ widget.attrs.id }}">{{ preset|intcomma }} {{ currency }}</button>
             {% endfor %}
             {# djlint:off H021 #}
             <div class="input-group" style="max-width: 20rem;">
