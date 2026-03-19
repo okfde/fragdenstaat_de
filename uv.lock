@@ -984,16 +984,16 @@ wheels = [
 
 [[package]]
 name = "django-flowcontrol"
-version = "0.0.7"
+version = "0.0.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "django-treebeard" },
     { name = "python-dateutil" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/bc/c2/107f07933dacef3e542cf93bd07a609d8f4e3c6df8667b7569bb7fa33044/django_flowcontrol-0.0.7.tar.gz", hash = "sha256:4f50520522feb49565176b12dd4047bc3516be4092e33ba0f37cafe4637e6112", size = 22757, upload-time = "2026-03-19T11:35:59.083Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4a/51/c48f71301160341f17933deb0e50e816b67b80970ca6fd6d9f7012876673/django_flowcontrol-0.0.8.tar.gz", hash = "sha256:7b9892b286d2151390aba99f601cbcbbe0e30c17c27c9f38d9c7f4ab2fd102bd", size = 22777, upload-time = "2026-03-19T16:38:18.141Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a3/a6/4ab72c38ecbefd2b2d4063a2d0808d1914129f4ef9e8cbe336fcec8a4b3b/django_flowcontrol-0.0.7-py3-none-any.whl", hash = "sha256:3498cd02a6f2a80755e442082ea8d557aefdfdd3494ca5634ca4c345e4793ca7", size = 31327, upload-time = "2026-03-19T11:35:57.988Z" },
+    { url = "https://files.pythonhosted.org/packages/b4/c9/8473c1a66e0f9d759beb6558c9e6a224f6c13dd83e44d38230857e3cf3f0/django_flowcontrol-0.0.8-py3-none-any.whl", hash = "sha256:3faedd7a3f5299bf675f9d68ae5b4cad0355fa841247e3e551d9a624375f1497", size = 31348, upload-time = "2026-03-19T16:38:19.005Z" },
 ]
 
 [[package]]
@@ -1887,7 +1887,7 @@ requires-dist = [
     { name = "django-filer", specifier = ">=3.0.0" },
     { name = "django-filingcabinet", git = "https://github.com/okfde/django-filingcabinet.git?rev=main" },
     { name = "django-filter", specifier = ">=25.1" },
-    { name = "django-flowcontrol", specifier = ">=0.0.7" },
+    { name = "django-flowcontrol", specifier = ">=0.0.8" },
     { name = "django-legal-advice-builder", git = "https://github.com/fragdenstaat/django-legal-advice-builder.git?rev=main" },
     { name = "django-logentry-admin", specifier = ">=1.1.0" },
     { name = "django-mfa3", specifier = ">=1.0.0" },
