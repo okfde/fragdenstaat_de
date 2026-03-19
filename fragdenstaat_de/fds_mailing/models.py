@@ -649,6 +649,8 @@ class ContinuousMailing(Mailing):
             email=email_address,
             user=context.get("user"),
             name=context.get("name", ""),
+            subscriber=context.get("subscriber"),
+            donor=context.get("donor"),
             is_continuous=True,
         )
         if context.get("user"):
