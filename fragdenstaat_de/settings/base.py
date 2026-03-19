@@ -180,13 +180,7 @@ class FragDenStaatBase(German, Base):
         return (date - timedelta(days=3), date - timedelta(days=2))
 
     NEWSLETTER_WELCOME_MAILINTENT = {DEFAULT_NEWSLETTER: "fds_newsletter/email/welcome"}
-    NEWSLETTER_ONBOARDING_SCHEDULE = [
-        {
-            "newsletter": DEFAULT_NEWSLETTER,
-            "mail_intent": "fds_newsletter/email/intro",
-            "date": three_days_ago_but_not_sundays,
-        }
-    ]
+
     NEWSLETTER_PIXEL_ORIGIN = env("NEWSLETTER_PIXEL_ORIGIN", "http://localhost:8000")
     NEWSLETTER_PIXEL_LOG = env("NEWSLETTER_PIXEL_LOG", "/var/log/pixel.log")
 
