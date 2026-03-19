@@ -43,6 +43,11 @@ from .utils import unsubscribe_queryset
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ("title", "visible", "subscriber_count", "admin_subscribers")
     prepopulated_fields = {"slug": ("title",)}
+    raw_id_fields = (
+        "confirm_template",
+        "confirm_batch_template",
+        "already_subscribed_template",
+    )
 
     def get_urls(self):
         urls = super().get_urls()
