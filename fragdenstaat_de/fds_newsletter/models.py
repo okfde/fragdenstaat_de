@@ -294,6 +294,10 @@ class Subscriber(models.Model):
             email=self.email, user=self.user, context=context, priority=False
         )
 
+    @property
+    def can_email(self):
+        return self.subscribed is not None
+
     def can_send_activation(self):
         return (
             not self.last_activation_sent

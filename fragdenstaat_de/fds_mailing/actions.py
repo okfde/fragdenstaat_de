@@ -73,6 +73,10 @@ class SendMailAction(BaseAction):
         if obj is None:
             raise ValueError("SendMailAction requires an object to run on.")
 
+        if not getattr(obj, "can_email", True):
+            run.append_log("{}: Cannot send email to {}".format(config, obj))
+            return
+
         email = getattr(obj, "email", None)
         if not email:
             if hasattr(obj, "get_email"):
