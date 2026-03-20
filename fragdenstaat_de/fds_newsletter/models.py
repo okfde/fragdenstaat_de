@@ -1,3 +1,5 @@
+import codecs
+import io
 import logging
 from datetime import timedelta
 from functools import reduce
@@ -621,15 +623,23 @@ class SubscriberImport(models.Model):
         tags = parse_tags(self.tags)
         new_tags = parse_tags(self.new_tags)
 
-        row_count, imported_count = import_csv(
-            self.data_file.open(mode="rt"),
-            self.newsletter,
-            reference=self.reference,
-            tags=tags,
-            new_tags=new_tags,
-            email_confirmed=self.email_confirmed,
-            activation_template=self.activation_template,
-        )
+        with self.data_file.open(mode="rb") as fh:
+            raw = fh.read(32)
+            fh.seek(0)
+            if raw.startswith(codecs.BOM_UTF8):
+                encoded_fh = io.TextIOWrapper(fh, encoding="utf-8-sig")
+            else:
+                encoded_fh = io.TextIOWrapper(fh, encoding="utf-8")
+
+            row_count, imported_count = import_csv(
+                encoded_fh,
+                self.newsletter,
+                reference=self.reference,
+                tags=tags,
+                new_tags=new_tags,
+                email_confirmed=self.email_confirmed,
+                activation_template=self.activation_template,
+            )
         self.completed = timezone.now()
         self.row_count = row_count
         self.imported_count = imported_count
