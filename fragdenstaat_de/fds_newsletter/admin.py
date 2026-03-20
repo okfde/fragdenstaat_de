@@ -339,14 +339,21 @@ class UnsubscribeFeedbackAdmin(admin.ModelAdmin):
 
 @admin.register(SubscriberImport)
 class SubscriberImportAdmin(admin.ModelAdmin):
-    list_display = ("created", "newsletter", "reference", "completed")
+    list_display = ("created", "newsletter", "reference", "started", "completed")
     list_filter = (
         "newsletter",
         "completed",
     )
     date_hierarchy = "created"
     raw_id_fields = ("activation_template",)
-    readonly_fields = ("created", "user", "completed", "row_count", "imported_count")
+    readonly_fields = (
+        "created",
+        "user",
+        "started",
+        "completed",
+        "row_count",
+        "imported_count",
+    )
 
     actions = ["start_import"]
 
@@ -358,7 +365,7 @@ class SubscriberImportAdmin(admin.ModelAdmin):
     def get_readonly_fields(self, request, obj=None):
         if obj is None:
             return super().get_readonly_fields(request, obj)
-        if obj.completed:
+        if obj.started:
             return (
                 "created",
                 "newsletter",
@@ -369,6 +376,7 @@ class SubscriberImportAdmin(admin.ModelAdmin):
                 "email_confirmed",
                 "activation_template",
                 "user",
+                "started",
                 "completed",
                 "row_count",
                 "imported_count",
@@ -377,11 +385,10 @@ class SubscriberImportAdmin(admin.ModelAdmin):
 
     @admin.action(description=_("Start import"))
     def start_import(self, request, queryset):
-        from .tasks import run_subscriber_import
-
-        queryset = queryset.filter(completed=None)
-
+        queryset = queryset.filter(started=None)
+        count = queryset.count()
         for sub_import in queryset:
-            run_subscriber_import.delay(sub_import.pk)
-
-        self.message_user(request, _("Import has started..."))
+            sub_import.start_import()
+        self.message_user(
+            request, _("{} subscriber imports have been queued.").format(count)
+        )

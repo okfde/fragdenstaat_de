@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
-from django.db import models
+from django.db import models, transaction
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.crypto import get_random_string
@@ -583,6 +583,7 @@ class SubscriberImport(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL
     )
+    started = models.DateTimeField(null=True, blank=True)
     completed = models.DateTimeField(null=True, blank=True)
     row_count = models.IntegerField(null=True, blank=True)
     imported_count = models.IntegerField(null=True, blank=True)
@@ -600,6 +601,16 @@ class SubscriberImport(models.Model):
             raise ValidationError(
                 _("If email not confirmed, you need to provide an activation template")
             )
+
+    def start_import(self):
+        from .tasks import run_subscriber_import
+
+        if self.started or self.completed:
+            raise ValueError("Already started or completed")
+
+        self.started = timezone.now()
+        self.save(update_fields=["started"])
+        transaction.on_commit(lambda: run_subscriber_import.delay(self.pk))
 
     def run_import(self):
         from .utils import import_csv
