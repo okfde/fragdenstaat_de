@@ -3,6 +3,7 @@ from datetime import timedelta
 
 from django.apps import AppConfig
 from django.conf import settings
+from django.db.models.signals import pre_delete
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -46,8 +47,10 @@ class NewsletterConfig(AppConfig):
             merge_user,
             send_welcome_mail,
             subscribe_follower,
+            subscriber_import_delete_file,
             user_email_changed,
         )
+        from .models import SubscriberImport
         from .triggers import (
             newsletter_subscribed_trigger_listener,
             newsletter_unsubscribed_trigger_listener,
@@ -67,6 +70,7 @@ class NewsletterConfig(AppConfig):
         user_extra_registry.register("follow", NewsletterFollowExtra())
         FoiRequestFollower.followed.connect(subscribe_follower)
         tag_subscriber.connect(set_new_subscriber_tag)
+        pre_delete.connect(subscriber_import_delete_file, sender=SubscriberImport)
 
         registry.register(export_user_data)
 

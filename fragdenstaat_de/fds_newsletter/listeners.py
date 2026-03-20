@@ -160,3 +160,7 @@ def send_welcome_mail(sender, batch=False, **kwargs):
         if not intent:
             return
         sender.send_mail_intent(intent)
+
+
+def subscriber_import_delete_file(sender, instance, **kwargs):
+    instance.data_file.delete(False)
