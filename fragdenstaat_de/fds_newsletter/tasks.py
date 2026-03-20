@@ -23,7 +23,7 @@ def gather_subscriber_tags():
         subscriber.update_tags()
 
 
-@celery_app.task(name="fragdenstaat_de.fds_newsletter.gather_subscriber_tags")
+@celery_app.task(name="fragdenstaat_de.fds_newsletter.run_subscriber_import")
 def run_subscriber_import(subscriber_import_id):
     from .models import SubscriberImport
 
