@@ -158,7 +158,7 @@
                             <ul class="list-unstyled">
                                 {% for lang_article in other_langs %}
                                     <li>
-                                        {{ lang_article.language|language_name }}:
+                                        {{ lang_article.language|language_name_translated }}:
                                         <a href="{{ lang_article.get_absolute_url }}">{{ lang_article.title }}</a>
                                     </li>
                                 {% endfor %}
