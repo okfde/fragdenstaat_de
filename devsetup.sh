@@ -173,7 +173,7 @@ load_dump() {
   psql -c "UPDATE django_site SET domain = 'localhost:8002' WHERE domain = 'ueberbrueckungsfonds.de';"
 
   # create another database for froide testing
-  psql -c "CREATE USER froide WITH CREATEDB PASSWORD 'froide';" || true
+  psql -c "CREATE USER froide WITH SUPERUSER PASSWORD 'froide';" || true
   psql -c "CREATE DATABASE froide OWNER froide;"
 
   echo "Running migrations..."
