@@ -1169,14 +1169,15 @@ phonenumberslite = [
 
 [[package]]
 name = "django-polymorphic"
-version = "4.10.3"
+version = "4.11.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
+    { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/35/cf/33a48c20bca36e179979bddff6afbca1c3fecf8bc27af638c747152485d6/django_polymorphic-4.10.3.tar.gz", hash = "sha256:8b8e4fbb195659ec8d694cf81504d5d1bdf8fba39c8742e945e2f8b19ae794f2", size = 55615, upload-time = "2026-01-16T00:09:18.331Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/78/a8/1e3355d85b14fe192c802377bbd6bb3e60410f35aefd0f6b669b7264cf24/django_polymorphic-4.11.2.tar.gz", hash = "sha256:0b16060f50f0f196a8c5141a2f8f7d7d5289e7c78cf81aef2d63ff55762011ca", size = 61767, upload-time = "2026-03-07T16:02:14.2Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/92/e9/b74bef2cd6eba3147102a6ae384b25f11c8c43a6fbb302cfefb920fdf9ce/django_polymorphic-4.10.3-py3-none-any.whl", hash = "sha256:9c5983ba87534dc253ade67c35416cb71164bf6b6d4af4e44362750d02a6d5d6", size = 71917, upload-time = "2026-01-16T00:09:16.775Z" },
+    { url = "https://files.pythonhosted.org/packages/3e/17/c56283bead21d36e401d200d04321dd1f788766d330e7e88ae83a52e48e4/django_polymorphic-4.11.2-py3-none-any.whl", hash = "sha256:4bf61d6faec4870aee91b997292be45db3ebbd644dea072607efcee8ca27301a", size = 79070, upload-time = "2026-03-07T16:02:12.94Z" },
 ]
 
 [[package]]
