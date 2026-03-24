@@ -7,7 +7,7 @@
         {% if request.user != object.user and form.signature %}
             <div class="alert alert-warning">
                 {% blocktranslate with name=object.user.get_full_name trimmed %}
-                    {{ name }} has not added a signature to their account, so sending
+                    {{ name }} has not added a signature to their account, so you cannot send a fax.
                 {% endblocktranslate %}
             </div>
         {% else %}

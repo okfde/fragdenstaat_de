@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-23 10:24+0100\n"
-"PO-Revision-Date: 2026-03-06 15:01+0000\n"
+"POT-Creation-Date: 2026-03-24 13:12+0100\n"
+"PO-Revision-Date: 2026-03-24 13:12+0100\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16.1\n"
+"X-Generator: Poedit 3.9\n"
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid " (copy)"
@@ -62,6 +62,11 @@ msgstr[1] "%(n)s Artikel"
 #, python-format
 msgid "%(n)s articles"
 msgstr "%(n)s Artikel"
+
+#: fragdenstaat_de/templates/foirequest/body/actions/send_message.html
+#, python-format
+msgid "%(name)s has not added a signature to their account, so you cannot send a fax."
+msgstr "%(name)s hat keine Unterschrift im Konto hinterlegt, daher können Sie kein Fax senden."
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/social_meta.html
 #, python-format
@@ -427,10 +432,8 @@ msgid "CSV"
 msgstr "CSV"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, fuzzy
-#| msgid "Requires an email column. Optionally, name (or first_name, last_name) can be provided."
 msgid "CSV file with 'email' and optional 'name' or 'first_name', 'last_name' and 'tags' columns."
-msgstr "Benötigt eine \"email\" Spalte. Optional kann auch die Spalte name (oder first_name, last_name) angegeben werden."
+msgstr "CSV-Datei mit einer ‘email’-Spalte und optional folgende Spalten: ‘name’ oder ‘first_name’, ‘last_name’ und ‘tags’."
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "CSV imported as mailing."
@@ -1274,9 +1277,8 @@ msgid "For example a private email address"
 msgstr "Zum Beispiel eine private E-Mail-Adresse"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
-#, fuzzy
 msgid "Formal donor"
-msgstr "Keine Spender*in"
+msgstr "Spender*in (Siezen)"
 
 #: fragdenstaat_de/fds_mailing/models.py
 msgid "Formal email template"
@@ -1611,7 +1613,7 @@ msgstr "Icon"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "If email not confirmed, you need to provide an activation template"
-msgstr ""
+msgstr "Falls E-Mail-Adressen nicht bestätigt sind, muss ein Aktivierungs-Template ausgewählt werden"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "If present, this page will be displayed as the ancestor in the breadcrumbs."
@@ -1666,9 +1668,8 @@ msgid "Info Subtle"
 msgstr "Info Subtil"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
-#, fuzzy
 msgid "Informal donor"
-msgstr "Informationen"
+msgstr "Spender*in (Duzen)"
 
 #: fragdenstaat_de/fds_blog/cms_plugins.py
 msgid "Infotextbox Box"
@@ -1685,10 +1686,12 @@ msgid "Interval"
 msgstr "Turnus"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
+#, python-brace-format
 msgid "Invalid amount format: '{}'. Please enter a valid number."
 msgstr "Ungültiger Betrag: '{}'. Bitte geben Sie eine gültige Zahl ein."
 
 #: fragdenstaat_de/fds_mailing/admin.py
+#, python-brace-format
 msgid "Invalid form: {}"
 msgstr "Ungültiges Formular: {}"
 
@@ -2196,6 +2199,7 @@ msgid "One click FoiRequest form"
 msgstr "Ein-Klick-Anfrage-Formular"
 
 #: fragdenstaat_de/fds_cms/models.py
+#, python-brace-format
 msgid "One click form for {}"
 msgstr "Ein-Klick Formular für {}"
 
@@ -2677,10 +2681,8 @@ msgid "Resend donation email"
 msgstr "Spenden-E-Mail neu verschicken"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, fuzzy
-#| msgid "Set status"
 msgid "Reset sent status"
-msgstr "Status festlegen"
+msgstr "Sende-Status zurücksetzen"
 
 #: fragdenstaat_de/fds_cms/templates/fds_cms/search.html
 #, python-format
@@ -2866,6 +2868,7 @@ msgid "Sending %(mailing)s to %(count)d people"
 msgstr "%(mailing)s werden an %(count)d Menschen versendet"
 
 #: fragdenstaat_de/fds_donation/admin.py
+#, python-brace-format
 msgid "Sending JZWB email to {} donors."
 msgstr "Sende JZWB-E-Mail an {} Spender*innen."
 
@@ -2880,12 +2883,14 @@ msgid "Sending to %(recipient_count)s newsletter subscribers of %(segment_count)
 msgstr "Sended an %(recipient_count)s Newsletter-Abonnierende aus %(segment_count)s Segmenten"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-msgid "Sending...\\u202f{}"
-msgstr "Sende...\\u202f{}"
+#, python-brace-format
+msgid "Sending... {}"
+msgstr "Sende… {}"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-msgid "Sent\\u202f{}"
-msgstr "Gesendet\\u202f{}"
+#, python-brace-format
+msgid "Sent {}"
+msgstr "Gesendet {}"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Set Password Form"
@@ -2958,6 +2963,10 @@ msgstr "Versandadresse"
 #: fragdenstaat_de/fds_events/models.py
 msgid "Short description, will be shown in the list view"
 msgstr "Kurze Beschreibung, die in der Liste angezeigt wird"
+
+#: fragdenstaat_de/templates/foirequest/body/actions/send_message.html
+msgid "Show fax sending options"
+msgstr "Zeige Fax-Versende-Optionen"
 
 #: fragdenstaat_de/fds_blog/models.py
 msgid "Show featured articles only"
@@ -3051,7 +3060,7 @@ msgstr "Start-Datum der Veröffentlichung. Wird genutzt, um die Artikel-URL zu b
 
 #: fragdenstaat_de/fds_newsletter/admin.py
 msgid "Start import"
-msgstr ""
+msgstr "Import beginnen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Start workflow for donors..."
@@ -3115,6 +3124,7 @@ msgid "Subscribe to newsletter"
 msgstr "Newsletter abonnieren"
 
 #: fragdenstaat_de/fds_newsletter/models.py
+#, python-brace-format
 msgid "Subscribe to newsletter {} ({})"
 msgstr "Newsletter {} abonnieren ({})"
 
@@ -3123,16 +3133,12 @@ msgid "Subscribed date"
 msgstr "Abonnier-Datum"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, fuzzy
-#| msgid "Subscribers imported."
 msgid "Subscriber Import"
-msgstr "Abonnent:innen importiert."
+msgstr "Abonnement-Import-Vorgang"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, fuzzy
-#| msgid "Subscribers imported."
 msgid "Subscriber Imports"
-msgstr "Abonnent:innen importiert."
+msgstr "Abonnement-Import-Vorgänge"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "Subscriber Tag"
@@ -3144,7 +3150,7 @@ msgstr "Abonennt:innen-Tags"
 
 #: fragdenstaat_de/fds_newsletter/actions.py
 msgid "Subscribes the current object's email address to a configured newsletter"
-msgstr ""
+msgstr "Fügt die E-Mail-Adresse des aktuellen Objekts in den konfigurierten Newsletter ein"
 
 #: fragdenstaat_de/theme/colors.py
 msgid "Success"
@@ -3326,6 +3332,7 @@ msgid "The status of donations made by bank transfer is updated at the beginning
 msgstr "Der Status von Spenden per Überweisung aktualisiert sich erst zu Beginn des Folgemonats, da erst dann die Kontoauszüge abgeglichen werden."
 
 #: fragdenstaat_de/fds_mailing/forms.py
+#, python-brace-format
 msgid "The sum of the groups must not be greater than 100. You entered {}."
 msgstr "Die Summe der Gruppen darf nicht größer als 100 sein. Du hast {} eingegeben."
 
@@ -3468,10 +3475,8 @@ msgid "Update donor details"
 msgstr "Daten aktualisieren"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, fuzzy
-#| msgid "Mark invalid addresses"
 msgid "Update invalid addresses"
-msgstr "Ungültige Adressen markieren"
+msgstr "Ungültige Adressen aktualisieren"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Update personal data for receipts"
@@ -3636,6 +3641,10 @@ msgstr "Ja, gerne!"
 msgid "You are accessing the donor profile of {name} ({email})"
 msgstr "Du bist mit dem Spendenprofil von {name} ({email}) angemeldet."
 
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "You are already subscribed to our newsletter."
+msgstr "Du bist schon in unserem Newsletter."
+
 #: fragdenstaat_de/fds_donation/views.py
 msgid "You are logged in with a different account than the one associated with this donor."
 msgstr "Du bist mit einem anderen Konto eingeloggt als das, was mit dem Spenderprofil verknüpft ist."
@@ -3676,6 +3685,10 @@ msgstr "Du erhältst derzeit keine Spendenbescheinigung."
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
 msgid "You got mail"
 msgstr "Du hast Post"
+
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "You have been subscribed to our newsletter."
+msgstr "Willkommen zu unserem Newsletter!"
 
 #: fragdenstaat_de/templates/djangocms_video/default/video_player.html
 #, python-format
@@ -3879,6 +3892,7 @@ msgid "campaign/"
 msgstr "kampagne/"
 
 #: fragdenstaat_de/fds_donation/models.py
+#, python-brace-format
 msgid "canceled on {}"
 msgstr "gekündigt am {}"
 
@@ -4022,14 +4036,12 @@ msgid "e.g. name@example.org"
 msgstr "z.B. name@beispiel.de"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, fuzzy
 msgid "email already confirmed"
-msgstr "E-Mail bestätigt"
+msgstr "E-Mail schon bestätigt"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, fuzzy
 msgid "email needs confirmation"
-msgstr "Warte auf Nutzerbestätigung"
+msgstr "E-Mail braucht Bestätigung"
 
 #: fragdenstaat_de/fds_mailing/models.py
 msgid "email template"
@@ -4064,9 +4076,8 @@ msgid "featured date"
 msgstr "prominent Datum"
 
 #: fragdenstaat_de/fds_donation/apps.py
-#, fuzzy
 msgid "formal donor"
-msgstr "Keine Spender*in"
+msgstr "Spender*in (Siezen)"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "grid rows"
@@ -4462,10 +4473,9 @@ msgstr ""
 "{url}"
 
 #: fragdenstaat_de/fds_newsletter/admin.py
-#, fuzzy
-#| msgid "Subscribers imported."
+#, python-brace-format
 msgid "{} subscriber imports have been queued."
-msgstr "Abonnent:innen importiert."
+msgstr "{} Abonnement-Imports werden gestartet."
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "✅ Confirm donations"
@@ -6914,13 +6924,11 @@ msgstr "❌ Spende abbrechen"
 #~ msgid "Sending to newsletter subscribers of %(segment_count)s segments"
 #~ msgstr "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
 
-#, python-brace-format
-#~ msgid "Sending... {}"
-#~ msgstr "Sende… {}"
+#~ msgid "Sending...\\u202f{}"
+#~ msgstr "Sende...\\u202f{}"
 
-#, python-brace-format
-#~ msgid "Sent {}"
-#~ msgstr "Gesendet {}"
+#~ msgid "Sent\\u202f{}"
+#~ msgstr "Gesendet\\u202f{}"
 
 #~ msgid "Set Concrete Law"
 #~ msgstr "Konkretes Gesetz festlegen"
@@ -7566,9 +7574,6 @@ msgstr "❌ Spende abbrechen"
 #~ msgid "You already made an identical request"
 #~ msgstr "Sie haben schon eine identische Anfrage gestellt"
 
-#~ msgid "You are already subscribed to our newsletter."
-#~ msgstr "Du bist schon in unserem Newsletter."
-
 #~ msgid "You are currently <span class=\"green\">following</span> this request and you will get email updates."
 #~ msgstr "Sie erhalten <span class=\"green\">Benachrichtigungen</span> zu dieser Anfrage per E-Mail."
 
@@ -7658,9 +7663,6 @@ msgstr "❌ Spende abbrechen"
 
 #~ msgid "You have been logged out."
 #~ msgstr "Sie wurden ausgeloggt."
-
-#~ msgid "You have been subscribed to our newsletter."
-#~ msgstr "Willkommen zu unserem Newsletter!"
 
 #~ msgid "You have not yet confirmed that you want to follow this request. Click the link in the mail that was sent to you."
 #~ msgstr "Sie haben noch nicht bestätigt, dass Sie Benachrichtigungen für diese Anfrage wünschen. Klicken Sie den Link in der E-Mail an, den wir Ihnen gesendet haben."
