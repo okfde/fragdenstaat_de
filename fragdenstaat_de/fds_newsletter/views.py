@@ -62,21 +62,24 @@ def newsletter_ajax_subscribe_request(request, newsletter_slug=None):
         result, subscriber = form.save(newsletter, user)
 
         if result == SubscriptionResult.ALREADY_SUBSCRIBED:
+            msg = _("You are already subscribed to our newsletter.")
             return HttpResponse(
                 content=f"""<div class="alert alert-info" role="alert">
-            {_("You are already subscribed to our newsletter.")}
+            {msg}
             </div>""".encode("utf-8")
             )
         elif result == SubscriptionResult.SUBSCRIBED:
+            msg = _("You have been subscribed to our newsletter.")
             return HttpResponse(
                 content=f"""<div class="alert alert-primary" role="alert">
-            {_("You have been subscribed to our newsletter.")}
+            {msg}
             </div>""".encode("utf-8")
             )
 
+        msg = _("You have received an email to confirm your subscription.")
         return HttpResponse(
             content=f"""<div class="alert alert-primary" role="alert">
-        {_("You have received an email to confirm your subscription.")}
+        {msg}
         </div>""".encode("utf-8")
         )
     url = "{}?{}".format(
