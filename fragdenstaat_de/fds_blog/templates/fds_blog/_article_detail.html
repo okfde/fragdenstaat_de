@@ -116,7 +116,7 @@
                         <div class="row row-cols-1 row-cols-md-2 g-3">
                             {% for author in authors_with_profiles %}
                                 <div class="col d-flex">
-                                    <div class="border border-2 border-gray-300 p-3 tight-margin">
+                                    <div class="w-100 border border-2 border-gray-300 p-3 tight-margin">
                                         <h4 class="fs-6">{{ author.get_full_name }}</h4>
                                         {{ author.user.profile_text | markdown }}
                                     </div>
