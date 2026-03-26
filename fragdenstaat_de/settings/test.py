@@ -8,6 +8,10 @@ from .base import THEME_ROOT, FragDenStaatBase, env
 
 
 class Test(FragDenStaatBase):
+    @property
+    def INSTALLED_APPS(self):
+        return super().INSTALLED_APPS + ["django_extended_makemessages"]
+
     CELERY_TASK_ALWAYS_EAGER = True
     CELERY_TASK_EAGER_PROPAGATES = True
     ALLOWED_HOSTS = ("localhost", "testserver")

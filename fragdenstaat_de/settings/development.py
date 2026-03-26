@@ -12,6 +12,10 @@ class Dev(DevMixin, FragDenStaatBase):
 
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
+    @property
+    def INSTALLED_APPS(self):
+        return super().INSTALLED_APPS + ["django_extended_makemessages"]
+
     DATABASES = {
         "default": {
             "ENGINE": "django.contrib.gis.db.backends.postgis",
