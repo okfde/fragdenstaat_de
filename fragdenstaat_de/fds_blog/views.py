@@ -6,6 +6,7 @@ from calendar import month_name
 from typing import Any
 
 from django.contrib.auth import get_user_model
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import BadRequest, ImproperlyConfigured
 from django.db.models import Case, When
 from django.http import Http404
@@ -68,7 +69,9 @@ class BaseBlogView(object):
 
     def get_queryset(self):
         queryset = self.get_base_queryset()
-        queryset = queryset.filter(language=self.request.LANGUAGE_CODE)
+        queryset = queryset.filter(
+            language=self.request.LANGUAGE_CODE, sites=get_current_site(self.request)
+        )
         return self.optimize(queryset)
 
     def get_template_names(self):
