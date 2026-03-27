@@ -173,7 +173,7 @@
         {% endif %}
         {% if not hide_other_languages %}
             {% block article_languages %}
-                {% with other_langs=article.other_languages %}
+                {% with other_langs=article.other_main_languages %}
                     {% if other_langs %}
                         <section>
                             <div class="container-lg">

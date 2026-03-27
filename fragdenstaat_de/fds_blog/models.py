@@ -26,6 +26,7 @@ from taggit.models import TagBase, TaggedItemBase
 
 from fragdenstaat_de.fds_cms.utils import get_request
 from fragdenstaat_de.theme.colors import BACKGROUND
+from fragdenstaat_de.theme.translation import SUBLANGUAGE_CODES
 
 from . import model_bases as entry
 from .managers import (
@@ -497,6 +498,9 @@ class Article(
                     self.__class__.objects.filter(uuid=self.uuid).exclude(pk=self.pk)
                 )
         return self._other_languages
+
+    def other_main_languages(self):
+        return self.other_languages().exclude(language__in=SUBLANGUAGE_CODES)
 
     def get_language_url(self, lang):
         if self.language == lang:
