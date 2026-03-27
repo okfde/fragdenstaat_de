@@ -38,3 +38,8 @@ def get_blog_preview(context, amount=6):
 @register.filter
 def has_author_images(authors: List[Author]) -> bool:
     return any(author.user and author.user.profile_photo for author in authors)
+
+
+@register.simple_tag
+def get_article_language_url(article: Article, lang_code: str) -> str:
+    return article.get_language_url(lang_code) or ""
