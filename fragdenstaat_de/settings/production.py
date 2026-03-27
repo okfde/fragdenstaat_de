@@ -314,6 +314,7 @@ class CMSSiteProduction(CMSSiteBase):
     MEDIA_URL = env("MEDIA_URL", "https://media.frag-den-staat.de/files/")
     STATIC_ROOT = env("DJANGO_STATIC_ROOT")
     STATIC_URL = env("STATIC_URL", "https://static.frag-den-staat.de/static/")
+    META_SITE_PROTOCOL = "https"
 
     LOGGING = dict(FragDenStaat.LOGGING)
 

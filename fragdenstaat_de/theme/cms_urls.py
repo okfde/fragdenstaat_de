@@ -6,6 +6,7 @@ from django.urls import include, path
 
 from froide.account.views import bad_login_view_redirect
 
+from fragdenstaat_de.fds_blog.redirect_views import ArticleRedirectView
 from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 
 from .utils import handler500  # noqa
@@ -43,11 +44,21 @@ SECRET_URLS = getattr(settings, "SECRET_URLS", {})
 urlpatterns += i18n_patterns(
     path("%s/login/" % SECRET_URLS.get("admin", "admin"), bad_login_view_redirect),
     path("%s/" % SECRET_URLS.get("admin", "admin"), admin.site.urls),
-    path("", include("cms.urls")),
+    path("cookies/", include("cookie_consent.urls")),
+    path(
+        "t/<int:pk>",
+        ArticleRedirectView.as_view(),
+        name="article-short-url",
+    ),
     prefix_default_language=False,
 )
 
-if settings.DEBUG:
+if settings.DEBUG and "debug_toolbar" in settings.INSTALLED_APPS:
     from debug_toolbar.toolbar import debug_toolbar_urls
 
     urlpatterns += debug_toolbar_urls()
+
+urlpatterns += i18n_patterns(
+    path("", include("cms.urls")),
+    prefix_default_language=False,
+)
