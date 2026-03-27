@@ -48,7 +48,9 @@
 {% block messages %}{% endblock %}
 {% block body %}
     {% block app_body %}
-        {% placeholder "content" %}
+        {% block content_blog %}
+            {% placeholder "content" %}
+        {% endblock content_blog %}
     {% endblock %}
 {% endblock %}
 {% block footer_container %}

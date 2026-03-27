@@ -18,9 +18,15 @@ def obj_for_value(self, value):
     return obj
 
 
+class BlogNoConfig(AppConfig):
+    name = "fragdenstaat_de.fds_blog"
+    verbose_name = "FragDenStaat Blog (no config)"
+
+
 class BlogConfig(AppConfig):
     name = "fragdenstaat_de.fds_blog"
     verbose_name = "FragDenStaat Blog"
+    default = True
 
     def ready(self):
         from froide.account import account_merged

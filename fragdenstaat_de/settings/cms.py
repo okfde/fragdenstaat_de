@@ -300,6 +300,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                 "froide.campaign",
                 "froide.foirequest.apps.FoiRequestNoConfig",
                 "froide.proof.apps.ProofNoConfig",
+                "fragdenstaat_de.fds_blog.apps.BlogNoConfig",
                 "fragdenstaat_de.fds_newsletter.apps.NewsletterNoConfig",
                 "fragdenstaat_de.fds_mailing.apps.FdsMailingNoConfig",
                 "fragdenstaat_de.fds_donation.apps.FdsDonationNoConfig",
@@ -314,6 +315,15 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
     FILINGCABINET_MEDIA_PUBLIC_PREFIX = "docs"
     FILINGCABINET_MEDIA_PRIVATE_PREFIX = "docs-private"
 
+    META_SITE_PROTOCOL = "http"
+    ARTICLE_CONTENT_TEMPLATES = [
+        ("fds_blog/content/_article_no_image.html", _("No image in article")),
+        ("fds_blog/content/_article_video_header.html", _("Video header")),
+    ]
+    ARTICLE_DETAIL_TEMPLATES = [
+        ("fds_blog/article_detail_dark.html", _("Dark mode template"))
+    ]
+    MEDIA_URL = values.Value("/media/")
     STATIC_URL = values.Value("/static/")
     STATIC_ROOT = THEME_ROOT.parent / "public"
 
