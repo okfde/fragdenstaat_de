@@ -2,7 +2,7 @@
 {% load icons %}
 {% load static %}
 <a class="easylang-toggle btn btn-sm {% if target_language != 'de-ls' %}btn-primary{% else %}btn-outline-primary{% endif %}"
-   href="{% if has_translation %}{{ target_url }}{% else %}{{ home_url }}{% endif %}"
+   href="{{ target_url }}"
    role="switch"
    aria-checked="{% if target_language != 'de-ls' %}true{% else %}false{% endif %}">
     {% render_svg "img/icon-leichte-sprache.svg" %}

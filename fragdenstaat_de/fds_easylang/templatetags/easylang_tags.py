@@ -11,7 +11,6 @@ register = template.Library()
 def easylang_toggle(context):
     """
     Renders a button to toggle between de and de-ls languages.
-    Shows a modal if no translation is available.
     """
     request = context["request"]
     view = context.get("view")
@@ -26,18 +25,15 @@ def easylang_toggle(context):
     if has_translatable_content(request, view):
         languages = get_languages(request, view)
         language_dict = dict(languages)
-        target_url = language_dict.get(target_language, "")
-        has_translation = target_language in language_dict
+        target_url = language_dict.get(target_language, f"/{target_language}/")
+    # Fall back to homepage of the target language.
     else:
-        target_url = ""
-        has_translation = False
+        target_url = f"/{target_language}/"
 
     return {
         "current_language": current_language,
         "target_language": target_language,
-        "has_translation": has_translation,
         "target_url": target_url,
-        "home_url": f"/{target_language}/",
     }
 
 

@@ -344,11 +344,11 @@ class TestEasyLanguageRedirect:
 class TestEasylangToggle:
     """Tests `easylang_toggle` template tag output.
 
-    has_translation=True only when actual translated content exists for the
-    target language — plain CMS pages with a published translation, apphook
+    target_url points to the specific translated page when actual translated
+    content exists — plain CMS pages with a published translation, apphook
     root pages with a published translation, and blog articles linked by UUID.
-    All other cases (non-CMS pages, apphook subpages, unlinked articles) give
-    has_translation=False.
+    All other cases (non-CMS pages, apphook subpages, unlinked articles) fall
+    back to the target language home page.
     """
 
     def _get_toggle_context(self, client, url):
@@ -373,20 +373,18 @@ class TestEasylangToggle:
 
     def test_non_cms_no_translation_from_de(self, client):
         ctx = self._get_toggle_context(client, "/account/login/")
-        assert not ctx["has_translation"]
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
-        assert ctx["home_url"] == "/de-ls/"
+        assert ctx["target_url"] == "/de-ls/"
 
     def test_non_cms_no_translation_from_de_ls(self, client):
         """de-ls non-CMS URLs redirect, so we check the redirected response."""
         response = get(client, "/de-ls/account/login/")
         assert response.status_code == 301
         ctx = self._get_toggle_context(client, response["Location"])
-        assert not ctx["has_translation"]
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
-        assert ctx["home_url"] == "/de-ls/"
+        assert ctx["target_url"] == "/de-ls/"
 
     # --- Plain CMS page ---
 
@@ -395,7 +393,6 @@ class TestEasylangToggle:
         add_language_to_page(page, "de-ls", "Testseite Leicht", admin_user)
 
         ctx = self._get_toggle_context(client, page.get_absolute_url("de"))
-        assert ctx["has_translation"] is True
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
         assert ctx["target_url"] == page.get_absolute_url("de-ls")
@@ -405,7 +402,6 @@ class TestEasylangToggle:
         add_language_to_page(page, "de-ls", "Testseite Leicht", admin_user)
 
         ctx = self._get_toggle_context(client, page.get_absolute_url("de-ls"))
-        assert ctx["has_translation"] is True
         assert ctx["current_language"] == "de-ls"
         assert ctx["target_language"] == "de"
         assert ctx["target_url"] == page.get_absolute_url("de")
@@ -418,43 +414,38 @@ class TestEasylangToggle:
         )
 
         ctx = self._get_toggle_context(client, page.get_absolute_url("de"))
-        assert not ctx["has_translation"]
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
-        assert ctx["home_url"] == "/de-ls/"
+        assert ctx["target_url"] == "/de-ls/"
 
     def test_cms_page_without_translation(self, client, cms_page):
         page = cms_page("Testseite", "de")
 
         ctx = self._get_toggle_context(client, page.get_absolute_url("de"))
-        assert not ctx["has_translation"]
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
-        assert ctx["home_url"] == "/de-ls/"
+        assert ctx["target_url"] == "/de-ls/"
 
     # --- CMS apphook page ---
 
     def test_apphook_with_translation_from_de(self, client, blog_page):
         ctx = self._get_toggle_context(client, blog_page.get_absolute_url("de"))
-        assert ctx["has_translation"] is True
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
         assert ctx["target_url"] == blog_page.get_absolute_url("de-ls")
 
     def test_apphook_with_translation_from_de_ls(self, client, blog_page):
         ctx = self._get_toggle_context(client, blog_page.get_absolute_url("de-ls"))
-        assert ctx["has_translation"] is True
         assert ctx["current_language"] == "de-ls"
         assert ctx["target_language"] == "de"
         assert ctx["target_url"] == blog_page.get_absolute_url("de")
 
     def test_apphook_without_translation(self, client, event_page):
-        """CMS apphook page without de-ls: has_translation=False."""
+        """CMS apphook page without de-ls: target_url falls back to language home."""
         ctx = self._get_toggle_context(client, event_page.get_absolute_url("de"))
-        assert not ctx["has_translation"]
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
-        assert ctx["home_url"] == "/de-ls/"
+        assert ctx["target_url"] == "/de-ls/"
 
     # --- Blog article ---
 
@@ -469,7 +460,6 @@ class TestEasylangToggle:
         )
 
         ctx = self._get_toggle_context(client, de_article.get_absolute_url())
-        assert ctx["has_translation"] is True
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
         assert ctx["target_url"] == de_ls_article.get_absolute_url()
@@ -485,7 +475,6 @@ class TestEasylangToggle:
         )
 
         ctx = self._get_toggle_context(client, de_ls_article.get_absolute_url())
-        assert ctx["has_translation"] is True
         assert ctx["current_language"] == "de-ls"
         assert ctx["target_language"] == "de"
         assert ctx["target_url"] == de_article.get_absolute_url()
@@ -501,41 +490,37 @@ class TestEasylangToggle:
         )
 
         ctx = self._get_toggle_context(client, de_article.get_absolute_url())
-        assert not ctx["has_translation"]
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
-        assert ctx["home_url"] == "/de-ls/"
+        assert ctx["target_url"] == "/de-ls/"
 
     def test_blog_without_translation(self, client, blog_page, category_de):
-        """Single de article with no de-ls counterpart: has_translation=False."""
+        """Single de article with no de-ls counterpart: target_url falls back to language home."""
         article = create_article("de", category_de)
 
         ctx = self._get_toggle_context(client, article.get_absolute_url())
-        assert not ctx["has_translation"]
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
-        assert ctx["home_url"] == "/de-ls/"
+        assert ctx["target_url"] == "/de-ls/"
 
     def test_blog_de_ls_without_de_counterpart(self, client, blog_page, category_de_ls):
-        """Standalone de-ls article with no linked de article: has_translation=False."""
+        """Standalone de-ls article with no linked de article: target_url falls back to language home."""
         article = create_article("de-ls", category_de_ls)
 
         ctx = self._get_toggle_context(client, article.get_absolute_url())
-        assert not ctx["has_translation"]
         assert ctx["current_language"] == "de-ls"
         assert ctx["target_language"] == "de"
-        assert ctx["home_url"] == "/de/"
+        assert ctx["target_url"] == "/de/"
 
     # --- Event (apphook subpage) ---
 
     def test_event_without_apphook_translation(self, client, event_page):
-        """Event detail page — apphook has no de-ls: has_translation=False."""
+        """Event detail page — apphook has no de-ls: target_url falls back to language home."""
         event = create_event()
         ctx = self._get_toggle_context(client, event.get_absolute_url())
-        assert not ctx["has_translation"]
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
-        assert ctx["home_url"] == "/de-ls/"
+        assert ctx["target_url"] == "/de-ls/"
 
     def test_event_with_apphook_translation(self, client, event_page, admin_user):
         """Event detail page — even with a de-ls apphook, individual events have no translated content, so the toggle should not offer a link."""
@@ -545,10 +530,9 @@ class TestEasylangToggle:
 
         event = create_event()
         ctx = self._get_toggle_context(client, event.get_absolute_url())
-        assert not ctx["has_translation"]
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
-        assert ctx["home_url"] == "/de-ls/"
+        assert ctx["target_url"] == "/de-ls/"
 
 
 class FakeBlogView(BaseBlogView):
