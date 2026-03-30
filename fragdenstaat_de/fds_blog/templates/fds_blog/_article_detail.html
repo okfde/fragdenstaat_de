@@ -7,22 +7,24 @@
         <div class="blog-header-meta">
             <div class="container-lg py-5">
                 <h1>
-                    <span class="d-block fw-normal fs-5 mb-2">{{ article.kicker }}</span>
+                    {% if article.kicker %}<span class="d-block fw-normal fs-5 mb-2">{{ article.kicker }}</span>{% endif %}
                     <span>{% render_model article "title" %}</span>
                 </h1>
                 {% if article.teaser %}
                     <div class="lead">{% render_model article "teaser" "" "" "safe" %}</div>
                 {% endif %}
-                <div class="d-flex mt-5 align-items-center">
-                    <div>
-                        {% with authors=article.get_authors %}
-                            {% include "fds_blog/includes/_authors.html" %}
-                        {% endwith %}
+                {% block article_header_authors %}
+                    <div class="d-flex mt-5 align-items-center">
+                        <div>
+                            {% with authors=article.get_authors %}
+                                {% include "fds_blog/includes/_authors.html" %}
+                            {% endwith %}
+                        </div>
+                        <div class="d-none d-md-block ms-auto ps-3">
+                            {% include "fds_blog/includes/share_article.html" with id="article-header" %}
+                        </div>
                     </div>
-                    <div class="d-none d-md-block ms-auto ps-3">
-                        {% include "fds_blog/includes/share_article.html" with id="article-header" %}
-                    </div>
-                </div>
+                {% endblock article_header_authors %}
             </div>
         </div>
         <div class="backdrop">

@@ -317,6 +317,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
 
     META_SITE_PROTOCOL = "http"
     ARTICLE_CONTENT_TEMPLATES = [
+        ("cmssites/article/_grs_affected.html", _("GRS affected")),
         ("fds_blog/content/_article_no_image.html", _("No image in article")),
         ("fds_blog/content/_article_video_header.html", _("Video header")),
     ]
