@@ -186,6 +186,7 @@ class FragDenStaatBase(German, Base):
     ARTICLE_CONTENT_TEMPLATES = [
         ("fds_blog/content/_article_no_image.html", _("No image in article")),
         ("fds_blog/content/_article_video_header.html", _("Video header")),
+        ("cmssites/article/_grs_affected.html", _("Gegenrechtsschutz affected person")),
     ]
     ARTICLE_DETAIL_TEMPLATES = [
         ("fds_blog/article_detail_dark.html", _("Dark mode template"))
