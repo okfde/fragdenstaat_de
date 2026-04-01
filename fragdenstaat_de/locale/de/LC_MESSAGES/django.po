@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-25 11:31+0100\n"
+"POT-Creation-Date: 2026-04-01 10:18+0200\n"
 "PO-Revision-Date: 2026-03-24 13:12+0100\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
@@ -532,7 +532,6 @@ msgstr "Climate Helpdesk"
 
 #: fragdenstaat_de/fds_cms/templates/cms/plugins/dropdown_banner.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_modal.html
-#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
 msgid "Close"
 msgstr "Schließen"
@@ -853,6 +852,10 @@ msgstr "{dup} Duplikate gefunden bei {donors} Spender*innen"
 msgid "Detecting recurrences on donors..."
 msgstr "Erkenne Dauerspenden bei Spender*innen…"
 
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
+msgid "Disable easy language"
+msgstr "Leichte Sprache ausschalten"
+
 #: fragdenstaat_de/templates/admin/base_site.html
 msgid "Django administration"
 msgstr "Admin"
@@ -1113,6 +1116,10 @@ msgstr "E-Mail-Vorlage für diese Aktion."
 msgid "Email was sent."
 msgstr "E-Mail wurde versendet."
 
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
+msgid "Enable easy language"
+msgstr "Leichte Sprache einschalten"
+
 #: fragdenstaat_de/fds_events/models.py
 #: fragdenstaat_de/fds_events/templates/fds_events/event_detail.html
 msgid "End"
@@ -1248,6 +1255,10 @@ msgstr "Feedback"
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_list.html
 msgid "Fields 'name' and 'email' required."
 msgstr "Felder 'name' und 'email' sind verpflichtend."
+
+#: fragdenstaat_de/fds_easylang/templates/de-ls/fds_blog/article_list.html
+msgid "Filter articles"
+msgstr "Artikel filtern"
 
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Financial reasons"
@@ -3408,6 +3419,10 @@ msgstr "Navigation umschalten"
 msgid "Top Featured"
 msgstr "Top Prominent"
 
+#: fragdenstaat_de/fds_easylang/templates/de-ls/fds_blog/article_list.html
+msgid "Topic"
+msgstr "Thema"
+
 #: fragdenstaat_de/fds_cms/templates/cms/help_base.html
 msgid "Topics"
 msgstr "Themen"
@@ -3627,6 +3642,10 @@ msgstr "Hervorhebung von uns"
 msgid "With your donation you can also create a FragDenStaat account where you can manage your details, donations and requests."
 msgstr "Verwalte Deine Spenden im FragDenStaat-Konto."
 
+#: fragdenstaat_de/fds_easylang/templates/de-ls/fds_blog/article_list.html
+msgid "Year"
+msgstr "Jahr"
+
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 msgid "Years…"
 msgstr "Jahre…"
@@ -3815,26 +3834,6 @@ msgstr ""
 msgctxt "Leichte Sprache"
 msgid "[Feedback form heading]"
 msgstr ""
-
-#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
-msgctxt "Leichte Sprache"
-msgid "[Go to easy language homepage]"
-msgstr "Zur Startseite in Leichter Sprache"
-
-#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
-msgctxt "Leichte Sprache"
-msgid "[No easy language translation available]"
-msgstr "Diese Seite ist leider noch nicht in Leichter Sprache verfügbar."
-
-#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
-msgctxt "Leichte Sprache"
-msgid "[Stay here]"
-msgstr "Hier bleiben"
-
-#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
-msgctxt "Leichte Sprache"
-msgid "[Switch to easy language homepage]"
-msgstr "Sie können zur Startseite in Leichter Sprache wechseln:"
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"
@@ -7029,9 +7028,6 @@ msgstr "❌ Spende abbrechen"
 #~ msgid "Similar Requests"
 #~ msgstr "Ähnliche Anfragen"
 
-#~ msgid "Similar articles"
-#~ msgstr "Ähnliche Artikel"
-
 #~ msgid "Simple"
 #~ msgstr "Einfach"
 
@@ -7396,9 +7392,6 @@ msgstr "❌ Spende abbrechen"
 
 #~ msgid "Top Public Bodies"
 #~ msgstr "Top-Behörden"
-
-#~ msgid "Topic"
-#~ msgstr "Thema"
 
 #~ msgid "Topic Slug"
 #~ msgstr "Thema-URL-Kürzel"
@@ -7917,6 +7910,22 @@ msgstr "❌ Spende abbrechen"
 
 #~ msgid "[... Show complete request text]"
 #~ msgstr "[… Zeige kompletten Anfragetext]"
+
+#~ msgctxt "Leichte Sprache"
+#~ msgid "[Go to easy language homepage]"
+#~ msgstr "Zur Startseite in Leichter Sprache"
+
+#~ msgctxt "Leichte Sprache"
+#~ msgid "[No easy language translation available]"
+#~ msgstr "Diese Seite ist leider noch nicht in Leichter Sprache verfügbar."
+
+#~ msgctxt "Leichte Sprache"
+#~ msgid "[Stay here]"
+#~ msgstr "Hier bleiben"
+
+#~ msgctxt "Leichte Sprache"
+#~ msgid "[Switch to easy language homepage]"
+#~ msgstr "Sie können zur Startseite in Leichter Sprache wechseln:"
 
 #~ msgid "^author/(?P<username>[\\w\\.@+-]+)/$"
 #~ msgstr "^autor/(?P<username>[\\w\\.@+-]+)/$"
