@@ -142,7 +142,17 @@ class MailingAdminMixin:
 
     @admin.display(description=_("Recipients"))
     def recipients(self, obj):
-        if obj.total_recipients == 0:
+        if obj.total_recipients == 0 and obj.newsletter_id:
+            if not hasattr(self, "_newsletter_recipients_cache"):
+                self._newsletter_recipients_cache = {}
+            if obj.newsletter_id and obj.segments.count() == 0:
+                if obj.newsletter_id not in self._newsletter_recipients_cache:
+                    self._newsletter_recipients_cache[obj.newsletter_id] = (
+                        obj.get_recipient_count()
+                        if obj.newsletter_id
+                        else obj.get_recipient_count()
+                    )
+                return self._newsletter_recipients_cache[obj.newsletter_id]
             return obj.get_recipient_count()
         return obj.total_recipients
 
@@ -307,26 +317,6 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
         if obj.sending:
             return _("Sending...\u202f{}").format(sent_percentage)
         return _("Sent\u202f{}").format(sent_percentage)
-
-    @admin.display(description=_("Recipients"))
-    def recipients(self, obj):
-        if obj.total_recipients == 0:
-            return obj.get_recipient_count()
-        return obj.total_recipients
-
-    @admin.display(description=_("Open rate"))
-    def open_rate(self, obj):
-        if not obj.tracking:
-            return "n/a"
-        if not (obj.sending or obj.sent):
-            return "..."
-        if obj.total_recipients == 0:
-            return "-"
-        return "{}%".format(
-            formats.number_format(
-                obj.open_count / obj.total_recipients * 100, decimal_pos=3
-            )
-        )
 
     def trigger_continue_sending(self, request, queryset):
         for mailing in queryset:
