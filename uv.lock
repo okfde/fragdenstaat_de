@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -1998,7 +1998,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#015cf872b14679425dae771d0a0a3bd4c702d692" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#d418f06341cd1fca718b731d7df85ca339f073c9" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2145,7 +2145,7 @@ dependencies = [
 [[package]]
 name = "froide-pressconference"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-pressconference.git?rev=main#05245faeb4a355f48b2ae14f2a0ba87658d0bce1" }
+source = { git = "https://github.com/okfde/froide-pressconference.git?rev=main#3a0b53205952336afc4b77d25b73080977793813" }
 dependencies = [
     { name = "django" },
     { name = "django-cms" },
