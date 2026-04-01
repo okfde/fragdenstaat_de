@@ -6,7 +6,6 @@
 local_settings.py
 build/
 public/
-static/
 .idea/
 fds-env/
 favicon-result.json

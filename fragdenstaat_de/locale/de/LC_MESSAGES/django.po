@@ -532,6 +532,7 @@ msgstr "Climate Helpdesk"
 
 #: fragdenstaat_de/fds_cms/templates/cms/plugins/dropdown_banner.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_modal.html
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
 msgid "Close"
 msgstr "Schließen"
@@ -1024,6 +1025,10 @@ msgstr "E-Mail-Body"
 msgid "E-mail address"
 msgstr "E-Mail"
 
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
+msgid "Easy language"
+msgstr "Leichte Sprache"
+
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -1308,6 +1313,10 @@ msgstr "FragDenStaat-Spenden-Geschenk-App"
 msgid "FragDenStaat Donations"
 msgstr "FragDenStaat-Spenden"
 
+#: fragdenstaat_de/fds_easylang/apps.py
+msgid "FragDenStaat Easy Language App"
+msgstr "FragDenStaat-App für Leichte Sprache"
+
 #: fragdenstaat_de/fds_events/apps.py fragdenstaat_de/fds_events/utils.py
 msgid "FragDenStaat Events"
 msgstr "FragDenStaat-Termine"
@@ -1365,6 +1374,10 @@ msgstr "Generiere Split-Mailing"
 #: fragdenstaat_de/settings/base.py fragdenstaat_de/settings/cms.py
 msgid "German"
 msgstr "Deutsch"
+
+#: fragdenstaat_de/settings/base.py
+msgid "German (Easy Language)"
+msgstr "Deutsch (Leichte Sprache)"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Germany"
@@ -1924,6 +1937,7 @@ msgstr "Maximale Anzahl Tage Pause. 0 heißt keine Obergrenze."
 msgid "Medium"
 msgstr "Mittel"
 
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/header.html
 #: fragdenstaat_de/templates/header.html fragdenstaat_de/theme/cms_plugins.py
 msgid "Menu"
 msgstr "Menü"
@@ -3002,6 +3016,7 @@ msgstr "Sechs"
 msgid "Size"
 msgstr "Größe"
 
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/header.html
 #: fragdenstaat_de/templates/header.html
 #: fragdenstaat_de/templates/header_minimal.html
 msgid "Skip to main content"
@@ -3784,6 +3799,42 @@ msgstr[1] "Deine Dauerspenden"
 #, python-brace-format
 msgid "Your {recurring} donation amount"
 msgstr "Deine {recurring}e Spende"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+#, python-format
+msgctxt "Leichte Sprache"
+msgid "[Article available in easy language at \"%(url)s\"]"
+msgstr "Diesen Text gibt es auch in <a href=\"%(url)s\">Leichter Sprache</a>."
+
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/feedback.html
+msgctxt "Leichte Sprache"
+msgid "[Feedback form description]"
+msgstr ""
+
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/feedback.html
+msgctxt "Leichte Sprache"
+msgid "[Feedback form heading]"
+msgstr ""
+
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
+msgctxt "Leichte Sprache"
+msgid "[Go to easy language homepage]"
+msgstr "Zur Startseite in Leichter Sprache"
+
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
+msgctxt "Leichte Sprache"
+msgid "[No easy language translation available]"
+msgstr "Diese Seite ist leider noch nicht in Leichter Sprache verfügbar."
+
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
+msgctxt "Leichte Sprache"
+msgid "[Stay here]"
+msgstr "Hier bleiben"
+
+#: fragdenstaat_de/fds_easylang/templates/fds_easylang/easylang_toggle.html
+msgctxt "Leichte Sprache"
+msgid "[Switch to easy language homepage]"
+msgstr "Sie können zur Startseite in Leichter Sprache wechseln:"
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"

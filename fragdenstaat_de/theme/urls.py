@@ -103,6 +103,7 @@ urlpatterns = [
         FeatureViewSet.as_view({"get": "retrieve"}),
         name="api-features-detail",
     ),
+    path("easylang/", include("fragdenstaat_de.fds_easylang.urls")),
 ]
 
 urlpatterns += [

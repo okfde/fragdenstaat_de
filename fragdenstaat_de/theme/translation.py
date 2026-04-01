@@ -7,6 +7,7 @@ from django.utils.translation import get_language, override
 from cms.apphook_pool import apphook_pool
 
 LANGUAGE_CODES = set(dict(settings.LANGUAGES).keys())
+SUBLANGUAGE_CODES = {"de-ls"}
 
 
 class TranslatedPage(NamedTuple):
@@ -26,6 +27,34 @@ class TranslatedView:
         The current language may be omitted.
         """
         raise NotImplementedError
+
+
+def has_translatable_content(request, view) -> bool:
+    """Return True if the current URL is backed by actual translated content.
+
+    Returns False for non-CMS pages and apphook subpages whose view does not
+    implement TranslatedView — cases where any language URL is derived purely
+    from URL manipulation rather than from real translated content.
+    """
+    page = getattr(request, "current_page", None) or None
+
+    if isinstance(view, TranslatedView):
+        return True
+    if not page:
+        return False  # non-CMS page
+    if not page.get_application_urls():
+        return True  # plain CMS page
+    # CMS apphook: distinguish root from subpage
+    page_url = page.get_absolute_url(request.LANGUAGE_CODE)
+    if request.path.rstrip("/") == (page_url or "").rstrip("/"):
+        return True  # apphook root
+    # Apphook subpage: only has real translations if the view implements TranslatedView
+    try:
+        match = resolve(request.path_info)
+        view_class = getattr(match.func, "view_class", None)
+        return view_class is not None and issubclass(view_class, TranslatedView)
+    except Resolver404:
+        return False
 
 
 def get_other_languages() -> set[str]:

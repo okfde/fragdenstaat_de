@@ -11,6 +11,7 @@ from django.core.exceptions import BadRequest, ImproperlyConfigured
 from django.db.models import Case, When
 from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect
+from django.template.loader import select_template
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import get_language, ngettext, override
@@ -76,7 +77,11 @@ class BaseBlogView(object):
 
     def get_template_names(self):
         template_path = "fds_blog"
-        return os.path.join(template_path, self.base_template_name)
+        name = os.path.join(template_path, self.base_template_name)
+        lang = get_language()
+        if lang:
+            return [f"{lang}/{name}", name]
+        return [name]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -151,7 +156,11 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
         return self.render_to_response(context)
 
     def get_template_names(self):
-        return [self.object.detail_template]
+        name = self.object.detail_template
+        lang = get_language()
+        if lang:
+            return [f"{lang}/{name}", name]
+        return [name]
 
     def get_context_data(self, object=None):
         context = super().get_context_data(object=object)
@@ -193,7 +202,10 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
 
         if self.request.toolbar.edit_mode_active:
             context["force_cms_render"] = True
-            context["CMS_TEMPLATE"] = "cms/blog_base.html"
+            lang = get_language()
+            context["CMS_TEMPLATE"] = select_template(
+                [f"{lang}/cms/blog_base.html", "cms/blog_base.html"]
+            ).template.name
 
         return context
 
