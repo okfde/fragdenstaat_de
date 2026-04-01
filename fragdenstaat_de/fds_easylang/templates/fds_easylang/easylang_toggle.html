@@ -7,5 +7,11 @@
    aria-checked="{% if target_language == 'de-ls' %}false{% else %}true{% endif %}"
    aria-label="{% if target_language == 'de-ls' %}{% trans "Enable easy language" %}{% else %}{% trans "Disable easy language" %}{% endif %}">
     {% render_svg "img/icon-leichte-sprache.svg" %}
-    <span class="d-none d-lg-inline">{% trans "Easy language" %}</span>
+    <span class="d-none d-lg-inline">
+        {% if target_language == 'de-ls' %}
+            {% trans "Easy language" %}
+        {% else %}
+            {% trans "Disable easy language" %}
+        {% endif %}
+    </span>
 </a>
