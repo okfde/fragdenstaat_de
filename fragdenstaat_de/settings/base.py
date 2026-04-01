@@ -26,6 +26,8 @@ class FragDenStaatBase(German, Base):
     ROOT_URLCONF = "fragdenstaat_de.theme.urls"
     ASGI_APPLICATION = "fragdenstaat_de.routing.application"
 
+    EASYLANG_ENABLED = False
+
     LANGUAGES = (
         ("de", _("German")),
         ("de-ls", _("German (Easy Language)")),
@@ -213,40 +215,41 @@ class FragDenStaatBase(German, Base):
     CMS_CONFIRM_VERSION4 = True
     CMS_MIGRATION_USER_ID = 1
 
-    CMS_LANGUAGES = {
-        # Customize this
-        "default": {
-            "public": True,
-            "hide_untranslated": True,
-            "redirect_on_fallback": True,
-            "fallbacks": [],
-        },
-        1: [
-            {
+    @property
+    def CMS_LANGUAGES(self):
+        return {
+            "default": {
                 "public": True,
-                "code": "de",
                 "hide_untranslated": True,
-                "name": _("German"),
                 "redirect_on_fallback": True,
+                "fallbacks": [],
             },
-            {
-                "public": True,
-                "code": "en",
-                "hide_untranslated": True,
-                "name": _("English"),
-                "redirect_on_fallback": True,
-                "fallbacks": ["de"],
-            },
-            {
-                "public": True,
-                "code": "de-ls",
-                "hide_untranslated": True,
-                "name": _("German (Easy Language)"),
-                "redirect_on_fallback": True,
-                "fallbacks": ["de"],
-            },
-        ],
-    }
+            1: [
+                {
+                    "public": True,
+                    "code": "de",
+                    "hide_untranslated": True,
+                    "name": _("German"),
+                    "redirect_on_fallback": True,
+                },
+                {
+                    "public": True,
+                    "code": "en",
+                    "hide_untranslated": True,
+                    "name": _("English"),
+                    "redirect_on_fallback": True,
+                    "fallbacks": ["de"],
+                },
+                {
+                    "public": self.EASYLANG_ENABLED,
+                    "code": "de-ls",
+                    "hide_untranslated": True,
+                    "name": _("German (Easy Language)"),
+                    "redirect_on_fallback": True,
+                    "fallbacks": ["de"],
+                },
+            ],
+        }
 
     CMS_SIDEFRAME_ENABLED = False
     CMS_TOOLBAR_ANONYMOUS_ON = False
