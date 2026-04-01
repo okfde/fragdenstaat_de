@@ -5,6 +5,7 @@ import os.path
 from calendar import month_name
 from typing import Any
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import BadRequest, ImproperlyConfigured
@@ -69,9 +70,17 @@ class BaseBlogView(object):
         return self.model.published.all()
 
     def get_queryset(self):
+        language = self.request.LANGUAGE_CODE
+        if (
+            language == "de-ls"
+            and not settings.EASYLANG_ENABLED
+            and not self.request.user.is_staff
+        ):
+            raise Http404
+
         queryset = self.get_base_queryset()
         queryset = queryset.filter(
-            language=self.request.LANGUAGE_CODE, sites=get_current_site(self.request)
+            language=language, sites=get_current_site(self.request)
         )
         return self.optimize(queryset)
 
