@@ -1,6 +1,7 @@
 import uuid
 from datetime import timedelta
 
+from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.test import Client
 from django.utils import timezone, translation
@@ -17,6 +18,21 @@ from fragdenstaat_de.fds_events.models import Event
 
 HTTP_HOST = "localhost"
 
+# Parameter combinations for tests gated by EASYLANG_ENABLED + staff status.
+# Only boundary cases: enabled (anyone through), disabled+anonymous (blocked),
+# disabled+staff (through).
+# (easylang_enabled, user_fixture, expected_status)
+EASYLANG_GATE_PARAMS = [
+    (True, None, 200),
+    (False, None, 404),
+    (False, "staff_user", 200),
+]
+EASYLANG_GATE_IDS = [
+    "enabled-anonymous",
+    "disabled-anonymous",
+    "disabled-staff",
+]
+
 
 @pytest.fixture(autouse=True)
 def _reset_language():
@@ -25,6 +41,35 @@ def _reset_language():
     lang = translation.get_language()
     yield
     translation.activate(lang)
+
+
+@pytest.fixture
+def easylang_enabled(request, settings):
+    """Set EASYLANG_ENABLED and sync the CMS `public` flag for de-ls.
+
+    django-configurations evaluates the `CMS_LANGUAGES` property once at
+    startup, so the `public` value for de-ls is baked in.  Changing
+    `settings.EASYLANG_ENABLED` alone leaves the CMS cache stale.
+    This fixture updates both and clears the CMS cache.
+
+    Use via `indirect=True`:
+        @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    """
+    from cms.utils.conf import VERIFIED
+
+    value = request.param
+    cms_langs = settings.CMS_LANGUAGES
+    dels_lang = next(lang for lang in cms_langs.get(1, []) if lang["code"] == "de-ls")
+    original = dels_lang["public"]
+
+    settings.EASYLANG_ENABLED = value
+    dels_lang["public"] = value
+    cms_langs.pop(VERIFIED, None)
+
+    yield value
+
+    dels_lang["public"] = original
+    cms_langs.pop(VERIFIED, None)
 
 
 def get(client: Client, url: str, **kwargs):
@@ -50,14 +95,30 @@ def add_language_to_page(page, language, title, user, publish=True, **kwargs):
         publish_page_content(page, language, user)
 
 
+def maybe_login(client, request, user_fixture):
+    """Log in as the given user fixture, if provided."""
+    if user_fixture:
+        user = request.getfixturevalue(user_fixture)
+        client.force_login(user)
+
+
 @pytest.fixture
 def admin_user(db):
-    from django.contrib.auth import get_user_model
-
     User = get_user_model()
     return User.objects.create_superuser(
         username="admin", email="admin@example.com", password="admin"
     )
+
+
+@pytest.fixture
+def staff_user(db):
+    User = get_user_model()
+    user = User.objects.create_user(
+        username="staff", email="staff@example.com", password="staff"
+    )
+    user.is_staff = True
+    user.save(update_fields=["is_staff"])
+    return user
 
 
 @pytest.fixture
@@ -184,53 +245,92 @@ class TestEasyLanguageRedirect:
     Non-CMS pages should be redirected to the default language equivalent.
     CMS pages with a de-ls translation should render; without one they redirect.
     Admin URLs are exempt from redirection.
+    Blog views additionally gate de-ls access on EASYLANG_ENABLED / staff status.
     """
 
     # --- Non-CMS ---
 
-    def test_non_cms_redirects(self, client):
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_non_cms_redirects(self, client, easylang_enabled):
         response = get(client, "/de-ls/account/login/")
         assert response.status_code == 301
         assert response["Location"] == "/account/login/"
 
-    def test_non_cms_preserves_query_string(self, client):
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_non_cms_preserves_query_string(self, client, easylang_enabled):
         response = get(client, "/de-ls/account/login/", QUERY_STRING="next=/")
         assert response.status_code == 301
         assert response["Location"] == "/account/login/?next=/"
 
-    def test_non_cms_post_not_redirected(self, client):
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_non_cms_post_not_redirected(self, client, easylang_enabled):
         """POST requests to /de-ls/ are not redirected (middleware only handles GET)."""
         response = client.post("/de-ls/account/login/", HTTP_HOST=HTTP_HOST)
         assert response.status_code != 301
 
-    def test_non_cms_de_not_redirected(self, client):
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_non_cms_de_not_redirected(self, client, easylang_enabled):
         response = get(client, "/account/login/")
         assert response.status_code != 301
 
     # --- Admin (exception) ---
 
-    def test_admin_not_redirected(self, client, admin_user):
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_admin_not_redirected(self, client, admin_user, easylang_enabled):
         client.force_login(admin_user)
         response = get(client, "/de-ls/admin/")
         assert response.status_code == 200
 
-    def test_admin_subpage_not_redirected(self, client, admin_user):
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_admin_subpage_not_redirected(self, client, admin_user, easylang_enabled):
         client.force_login(admin_user)
         response = get(client, "/de-ls/admin/fds_blog/article/")
         assert response.status_code == 200
 
     # --- Plain CMS page ---
 
-    def test_cms_page_with_translation(self, client, admin_user, cms_page):
+    @pytest.mark.parametrize(
+        "easylang_enabled, user_fixture, expected_status",
+        EASYLANG_GATE_PARAMS,
+        ids=EASYLANG_GATE_IDS,
+        indirect=["easylang_enabled"],
+    )
+    def test_cms_page_with_translation(
+        self,
+        client,
+        admin_user,
+        cms_page,
+        request,
+        easylang_enabled,
+        user_fixture,
+        expected_status,
+    ):
+        maybe_login(client, request, user_fixture)
         page = cms_page("Testseite", "de")
         add_language_to_page(page, "de-ls", "Testseite Leicht", admin_user)
 
         de_ls_url = page.get_absolute_url("de-ls")
         response = get(client, de_ls_url)
-        assert response.status_code == 200
+        assert response.status_code == expected_status
 
-    def test_cms_page_with_unpublished_translation(self, client, admin_user, cms_page):
+    @pytest.mark.parametrize(
+        "easylang_enabled, user_fixture, expected_status",
+        EASYLANG_GATE_PARAMS,
+        ids=EASYLANG_GATE_IDS,
+        indirect=["easylang_enabled"],
+    )
+    def test_cms_page_with_unpublished_translation(
+        self,
+        client,
+        admin_user,
+        cms_page,
+        request,
+        easylang_enabled,
+        user_fixture,
+        expected_status,
+    ):
         """An unpublished de-ls translation should behave like no translation."""
+        maybe_login(client, request, user_fixture)
         page = cms_page("Testseite", "de")
         add_language_to_page(
             page, "de-ls", "Testseite Leicht", admin_user, publish=False
@@ -239,20 +339,40 @@ class TestEasyLanguageRedirect:
         de_url = page.get_absolute_url("de")
         de_ls_url = f"/de-ls{de_url}"
         response = get(client, de_ls_url)
-        assert response.status_code == 302
-        assert de_url in response["Location"]
+        # Allowed through the gate → 302 redirect to de (no published translation).
+        assert response.status_code == (302 if expected_status == 200 else 404)
+        if response.status_code == 302:
+            assert de_url in response["Location"]
 
-    def test_cms_page_without_translation(self, client, cms_page):
+    @pytest.mark.parametrize(
+        "easylang_enabled, user_fixture, expected_status",
+        EASYLANG_GATE_PARAMS,
+        ids=EASYLANG_GATE_IDS,
+        indirect=["easylang_enabled"],
+    )
+    def test_cms_page_without_translation(
+        self,
+        client,
+        cms_page,
+        request,
+        easylang_enabled,
+        user_fixture,
+        expected_status,
+    ):
+        maybe_login(client, request, user_fixture)
         page = cms_page("Testseite", "de")
 
         de_url = page.get_absolute_url("de")
         de_ls_url = f"/de-ls{de_url}"
         response = get(client, de_ls_url)
 
-        assert response.status_code == 302
-        assert de_url in response["Location"]
+        # Allowed through the gate → 302 redirect to de (no translation).
+        assert response.status_code == (302 if expected_status == 200 else 404)
+        if response.status_code == 302:
+            assert de_url in response["Location"]
 
-    def test_cms_page_de_not_redirected(self, client, cms_page):
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_cms_page_de_not_redirected(self, client, cms_page, easylang_enabled):
         page = cms_page("Testseite", "de")
 
         de_url = page.get_absolute_url("de")
@@ -261,39 +381,109 @@ class TestEasyLanguageRedirect:
 
     # --- CMS apphook page ---
 
-    def test_apphook_with_translation(self, client, blog_page):
+    @pytest.mark.parametrize(
+        "easylang_enabled, user_fixture, expected_status",
+        EASYLANG_GATE_PARAMS,
+        ids=EASYLANG_GATE_IDS,
+        indirect=["easylang_enabled"],
+    )
+    def test_apphook_with_translation(
+        self,
+        client,
+        blog_page,
+        request,
+        easylang_enabled,
+        user_fixture,
+        expected_status,
+    ):
+        maybe_login(client, request, user_fixture)
+
         de_ls_url = blog_page.get_absolute_url("de-ls")
         response = get(client, de_ls_url)
-        assert response.status_code == 200
+        assert response.status_code == expected_status
 
-    def test_apphook_without_translation(self, client, event_page):
+    @pytest.mark.parametrize(
+        "easylang_enabled, user_fixture, expected_status",
+        EASYLANG_GATE_PARAMS,
+        ids=EASYLANG_GATE_IDS,
+        indirect=["easylang_enabled"],
+    )
+    def test_apphook_without_translation(
+        self,
+        client,
+        event_page,
+        request,
+        easylang_enabled,
+        user_fixture,
+        expected_status,
+    ):
+        maybe_login(client, request, user_fixture)
         de_url = event_page.get_absolute_url("de")
         de_ls_url = f"/de-ls{de_url}"
         response = get(client, de_ls_url)
-        assert response.status_code == 302
-        assert de_url in response["Location"]
+        # Allowed through the gate → 302 redirect to de (no de-ls translation).
+        assert response.status_code == (302 if expected_status == 200 else 404)
+        if response.status_code == 302:
+            assert de_url in response["Location"]
 
-    def test_apphook_de_not_redirected(self, client, blog_page):
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_apphook_de_not_redirected(self, client, blog_page, easylang_enabled):
         de_url = blog_page.get_absolute_url("de")
         response = get(client, de_url)
         assert response.status_code == 200
 
     # --- Blog article ---
 
-    def test_blog_de_article_accessible(self, client, category_de):
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_blog_de_article_accessible(self, client, category_de, easylang_enabled):
         article = create_article("de", category_de)
         response = get(client, article.get_absolute_url())
         assert response.status_code == 200
 
-    def test_blog_de_ls_article_accessible(self, client, blog_page, category_de_ls):
+    @pytest.mark.parametrize(
+        "easylang_enabled, user_fixture, expected_status",
+        EASYLANG_GATE_PARAMS,
+        ids=EASYLANG_GATE_IDS,
+        indirect=["easylang_enabled"],
+    )
+    def test_blog_de_ls_article_accessible(
+        self,
+        client,
+        blog_page,
+        category_de_ls,
+        request,
+        easylang_enabled,
+        user_fixture,
+        expected_status,
+    ):
+        maybe_login(client, request, user_fixture)
+
         article = create_article("de-ls", category_de_ls)
         response = get(client, article.get_absolute_url())
-        assert response.status_code == 200
+        assert response.status_code == expected_status
 
+    @pytest.mark.parametrize(
+        "easylang_enabled, user_fixture",
+        [
+            (True, None),
+            (False, None),
+            (False, "staff_user"),
+        ],
+        ids=["enabled-anonymous", "disabled-anonymous", "disabled-staff"],
+        indirect=["easylang_enabled"],
+    )
     def test_blog_de_article_not_found_via_de_ls(
-        self, client, blog_page, category_de_ls
+        self,
+        client,
+        blog_page,
+        category_de_ls,
+        request,
+        easylang_enabled,
+        user_fixture,
     ):
         """A translated article is not accessible under /de-ls/ (different slug → 404)."""
+        maybe_login(client, request, user_fixture)
+
         shared_uuid = uuid.uuid4()
         de_article = create_article(
             "de", category_de_ls, title="German", uuid=shared_uuid
@@ -307,13 +497,15 @@ class TestEasyLanguageRedirect:
 
     # --- Event (apphook subpage) ---
 
-    def test_event_de_accessible(self, client, event_page):
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_event_de_accessible(self, client, event_page, easylang_enabled):
         event = create_event()
         response = get(client, event.get_absolute_url())
         assert response.status_code == 200
 
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
     def test_event_de_ls_redirects_without_apphook_translation(
-        self, client, event_page
+        self, client, event_page, easylang_enabled
     ):
         """An event under /de-ls/ should redirect when the apphook page has no de-ls."""
         event = create_event()
@@ -323,8 +515,9 @@ class TestEasyLanguageRedirect:
         assert response.status_code == 301
         assert de_url in response["Location"]
 
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
     def test_event_de_ls_redirects_with_apphook_translation(
-        self, client, event_page, admin_user
+        self, client, event_page, admin_user, easylang_enabled
     ):
         """An event under /de-ls/ should redirect even when the apphook page has de-ls,
         because individual events have no translated content."""
@@ -360,6 +553,8 @@ class TestEasylangToggle:
         )
 
         response = get(client, url)
+        assert response.status_code == 200
+
         request = response.wsgi_request
         view = (
             getattr(response, "context_data", {}).get("view")
@@ -397,7 +592,10 @@ class TestEasylangToggle:
         assert ctx["target_language"] == "de-ls"
         assert ctx["target_url"] == page.get_absolute_url("de-ls")
 
-    def test_cms_page_with_translation_from_de_ls(self, client, admin_user, cms_page):
+    @pytest.mark.parametrize("easylang_enabled", [True], indirect=True)
+    def test_cms_page_with_translation_from_de_ls(
+        self, client, admin_user, cms_page, easylang_enabled
+    ):
         page = cms_page("Testseite", "de")
         add_language_to_page(page, "de-ls", "Testseite Leicht", admin_user)
 
@@ -434,7 +632,10 @@ class TestEasylangToggle:
         assert ctx["target_language"] == "de-ls"
         assert ctx["target_url"] == blog_page.get_absolute_url("de-ls")
 
-    def test_apphook_with_translation_from_de_ls(self, client, blog_page):
+    @pytest.mark.parametrize("easylang_enabled", [True], indirect=True)
+    def test_apphook_with_translation_from_de_ls(
+        self, client, blog_page, easylang_enabled
+    ):
         ctx = self._get_toggle_context(client, blog_page.get_absolute_url("de-ls"))
         assert ctx["current_language"] == "de-ls"
         assert ctx["target_language"] == "de"
@@ -464,8 +665,30 @@ class TestEasylangToggle:
         assert ctx["target_language"] == "de-ls"
         assert ctx["target_url"] == de_ls_article.get_absolute_url()
 
-    def test_blog_with_translation_from_de_ls(self, client, blog_page, category_de_ls):
+    @pytest.mark.parametrize(
+        "easylang_enabled, user_fixture",
+        [
+            (True, None),
+            (False, "staff_user"),
+        ],
+        ids=[
+            "enabled-anonymous",
+            "disabled-staff",
+        ],
+        indirect=["easylang_enabled"],
+    )
+    def test_blog_with_translation_from_de_ls(
+        self,
+        client,
+        blog_page,
+        category_de_ls,
+        request,
+        easylang_enabled,
+        user_fixture,
+    ):
         """Toggle from de-ls article should point back to de."""
+        maybe_login(client, request, user_fixture)
+
         shared_uuid = uuid.uuid4()
         de_article = create_article(
             "de", category_de_ls, title="German", uuid=shared_uuid
@@ -479,7 +702,12 @@ class TestEasylangToggle:
         assert ctx["target_language"] == "de"
         assert ctx["target_url"] == de_article.get_absolute_url()
 
-    def test_blog_with_unpublished_translation(self, client, blog_page, category_de_ls):
+    def test_blog_with_unpublished_translation(
+        self,
+        client,
+        blog_page,
+        category_de_ls,
+    ):
         """An unpublished de-ls translation should not count as available."""
         shared_uuid = uuid.uuid4()
         de_article = create_article(
@@ -503,8 +731,30 @@ class TestEasylangToggle:
         assert ctx["target_language"] == "de-ls"
         assert ctx["target_url"] == "/de-ls/"
 
-    def test_blog_de_ls_without_de_counterpart(self, client, blog_page, category_de_ls):
+    @pytest.mark.parametrize(
+        "easylang_enabled, user_fixture",
+        [
+            (True, None),
+            (False, "staff_user"),
+        ],
+        ids=[
+            "enabled-anonymous",
+            "disabled-staff",
+        ],
+        indirect=["easylang_enabled"],
+    )
+    def test_blog_de_ls_without_de_counterpart(
+        self,
+        client,
+        blog_page,
+        category_de_ls,
+        request,
+        easylang_enabled,
+        user_fixture,
+    ):
         """Standalone de-ls article with no linked de article: target_url falls back to language home."""
+        maybe_login(client, request, user_fixture)
+
         article = create_article("de-ls", category_de_ls)
 
         ctx = self._get_toggle_context(client, article.get_absolute_url())
@@ -533,6 +783,16 @@ class TestEasylangToggle:
         assert ctx["current_language"] == "de"
         assert ctx["target_language"] == "de-ls"
         assert ctx["target_url"] == "/de-ls/"
+
+
+@pytest.mark.django_db
+class TestEasylangContextProcessor:
+    """Tests that the context processor exposes easylang_enabled."""
+
+    @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
+    def test_easylang_enabled_in_context(self, client, easylang_enabled):
+        response = get(client, "/account/login/")
+        assert response.context["easylang_enabled"] is easylang_enabled
 
 
 class FakeBlogView(BaseBlogView):
