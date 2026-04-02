@@ -2145,7 +2145,7 @@ dependencies = [
 [[package]]
 name = "froide-pressconference"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-pressconference.git?rev=main#205342ffe31609800988203acc9a90202ec428d9" }
+source = { git = "https://github.com/okfde/froide-pressconference.git?rev=main#6df0af7639e14fa6537b76925c92420aff9e6259" }
 dependencies = [
     { name = "django" },
     { name = "django-cms" },
