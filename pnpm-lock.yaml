@@ -52,7 +52,7 @@ importers:
         version: https://codeload.github.com/okfde/froide-food/tar.gz/29b2817b7545a4d06110d40cfd3ab16f3383f58e(@types/leaflet@1.9.20)(froide@https://codeload.github.com/okfde/froide/tar.gz/44848867209f0d91fc047f729e792f2739cd079b(fuse.js@7.1.0)(typescript@5.9.3))(typescript@5.9.3)
       froide_legalaction:
         specifier: github:okfde/froide-legalaction
-        version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/8e5281408a57ab94e5304f1500601c3b164f511f
+        version: https://codeload.github.com/okfde/froide-legalaction/tar.gz/1308784a7065d0dd9302deb36d43d1277b4594bb
       froide_payment:
         specifier: github:okfde/froide-payment
         version: https://codeload.github.com/okfde/froide-payment/tar.gz/4e96b8c0e22f42357209c3ccbdb36d6cc75062df
@@ -1805,8 +1805,8 @@ packages:
     peerDependencies:
       froide: github:okfde/froide
 
-  froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/8e5281408a57ab94e5304f1500601c3b164f511f:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-legalaction/tar.gz/8e5281408a57ab94e5304f1500601c3b164f511f}
+  froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/1308784a7065d0dd9302deb36d43d1277b4594bb:
+    resolution: {tarball: https://codeload.github.com/okfde/froide-legalaction/tar.gz/1308784a7065d0dd9302deb36d43d1277b4594bb}
     version: 1.0.0
 
   froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/4e96b8c0e22f42357209c3ccbdb36d6cc75062df:
@@ -4696,7 +4696,7 @@ snapshots:
       - '@types/leaflet'
       - typescript
 
-  froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/8e5281408a57ab94e5304f1500601c3b164f511f: {}
+  froide_legalaction@https://codeload.github.com/okfde/froide-legalaction/tar.gz/1308784a7065d0dd9302deb36d43d1277b4594bb: {}
 
   froide_payment@https://codeload.github.com/okfde/froide-payment/tar.gz/4e96b8c0e22f42357209c3ccbdb36d6cc75062df:
     dependencies:
