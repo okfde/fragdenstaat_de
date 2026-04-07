@@ -822,6 +822,7 @@ def get_merge_donor_form(admin_site):
                 "subscriber": ForeignKeyRawIdWidget(
                     Donor._meta.get_field("subscriber").remote_field, admin_site
                 ),
+                "attributes": forms.HiddenInput(),
             }
 
         def __init__(self, *args, **kwargs):

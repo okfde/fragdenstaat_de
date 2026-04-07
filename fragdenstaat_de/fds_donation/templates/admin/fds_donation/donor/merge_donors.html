@@ -47,22 +47,27 @@
                         {% endfor %}
                     </tr>
                     {% for field in form %}
-                        <tr>
-                            <td>{{ field.label }}</td>
-                            <td data-value="{{ field.value }}" data-field="{{ field.name }}">{{ field }}</td>
-                            {% for donor in queryset %}
-                                {% with val=donor|get_field_by_key:field.name %}
-                                    <td>
-                                        <span data-donor="{{ donor.id }}"
-                                              data-value="{% if val is None %}{% else %}{{ val }}{% endif %}"
-                                              data-field="{{ field.name }}">{{ val }}</span>
-                                    </td>
-                                {% endwith %}
-                            {% endfor %}
-                        </tr>
+                        {% if not field.is_hidden %}
+                            <tr>
+                                <td>{{ field.label }}</td>
+                                <td data-value="{{ field.value }}" data-field="{{ field.name }}">{{ field }}</td>
+                                {% for donor in queryset %}
+                                    {% with val=donor|get_field_by_key:field.name %}
+                                        <td>
+                                            <span data-donor="{{ donor.id }}"
+                                                  data-value="{% if val is None %}{% elif val.id %}{{ val.id }}{% elif val|date:"SHORT_DATETIME_FORMAT" %}{{ val|date:"SHORT_DATETIME_FORMAT" }}{% else %}{{ val|unlocalize }}{% endif %}"
+                                                  data-field="{{ field.name }}">{{ val }}</span>
+                                        </td>
+                                    {% endwith %}
+                                {% endfor %}
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
+            {% for field in form %}
+                {% if field.is_hidden %}{{ field }}{% endif %}
+            {% endfor %}
             <input type="hidden" name="action" value="merge_donors" />
             <p>
                 <input type="submit" value="{% blocktrans %}Merge donors{% endblocktrans %}" />
