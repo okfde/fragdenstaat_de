@@ -23,6 +23,7 @@
             {% include "fds_cms/social_meta.html" with title=title description=description image_url=image.url %}
         {% endwith %}
     {% endif %}
+    {% if table %}<meta name="robots" content="nofollow">{% endif %}
 {% endblock meta %}
 {% block body %}
     <div class="text-bg-secondary">
