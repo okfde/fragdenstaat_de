@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 
 import sentry_sdk
 from sentry_sdk.integrations.celery import CeleryIntegration
@@ -229,17 +230,23 @@ class FragDenStaat(FragDenStaatBase):
             "django.request": {
                 "level": "ERROR",
             },
+            "django": {
+                "level": "INFO",
+                "handlers": ["console"],
+                "propagate": True,
+            },
         },
         "disable_existing_loggers": True,
         "handlers": {
             "console": {
                 "class": "logging.StreamHandler",
+                "stream": sys.stdout,
                 "formatter": "verbose",
             },
         },
         "formatters": {
             "verbose": {
-                "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
+                "format": "%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s"
             }
         },
         "version": 1,
