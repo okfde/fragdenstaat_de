@@ -1998,7 +1998,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#b1e29fb31b1e12c13b284f67e7b04c73145406db" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#1a732b37e489c670cb1ee4ec7e1077aff8832829" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2132,7 +2132,7 @@ dependencies = [
 [[package]]
 name = "froide-payment"
 version = "0.0.3"
-source = { git = "https://github.com/okfde/froide-payment.git?rev=main#4e96b8c0e22f42357209c3ccbdb36d6cc75062df" }
+source = { git = "https://github.com/okfde/froide-payment.git?rev=main#9a30856439601569bf52a87aa9bd053c266e1851" }
 dependencies = [
     { name = "django-countries" },
     { name = "django-localflavor" },
