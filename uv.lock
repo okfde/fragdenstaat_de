@@ -2124,7 +2124,7 @@ dependencies = [
 [[package]]
 name = "froide-legalaction"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-legalaction.git?rev=main#1308784a7065d0dd9302deb36d43d1277b4594bb" }
+source = { git = "https://github.com/okfde/froide-legalaction.git?rev=main#7376c410519d59567e271e2777e3fdb2b670bd10" }
 dependencies = [
     { name = "django-fsm" },
 ]
