@@ -18,7 +18,7 @@ class FragDenStaat(FragDenStaatBase):
     CELERY_TASK_EAGER_PROPAGATES = False
     CELERY_SEND_TASK_ERROR_EMAILS = True
 
-    ADMINS = (("FragDenStaat.de", "mail@fragdenstaat.de"),)
+    ADMINS = ()
     MANAGERS = (("FragDenStaat.de", "mail@fragdenstaat.de"),)
 
     SECURE_FRAME_DENY = True
