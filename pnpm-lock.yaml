@@ -58,7 +58,7 @@ importers:
         version: https://codeload.github.com/okfde/froide-payment/tar.gz/9a30856439601569bf52a87aa9bd053c266e1851
       froide_pressconference:
         specifier: github:okfde/froide-pressconference
-        version: https://codeload.github.com/okfde/froide-pressconference/tar.gz/95e34c45000087bf7e7fa7e4037b9c9a5ffc09b1
+        version: https://codeload.github.com/okfde/froide-pressconference/tar.gz/7a9e936b0f0648abd34a1ad6a81b4cceddd0f9ad
       vega:
         specifier: ^6.2.0
         version: 6.2.0
@@ -1813,8 +1813,8 @@ packages:
     resolution: {tarball: https://codeload.github.com/okfde/froide-payment/tar.gz/9a30856439601569bf52a87aa9bd053c266e1851}
     version: 1.0.0
 
-  froide_pressconference@https://codeload.github.com/okfde/froide-pressconference/tar.gz/95e34c45000087bf7e7fa7e4037b9c9a5ffc09b1:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-pressconference/tar.gz/95e34c45000087bf7e7fa7e4037b9c9a5ffc09b1}
+  froide_pressconference@https://codeload.github.com/okfde/froide-pressconference/tar.gz/7a9e936b0f0648abd34a1ad6a81b4cceddd0f9ad:
+    resolution: {tarball: https://codeload.github.com/okfde/froide-pressconference/tar.gz/7a9e936b0f0648abd34a1ad6a81b4cceddd0f9ad}
     version: 1.0.0
 
   fs.realpath@1.0.0:
@@ -4702,7 +4702,7 @@ snapshots:
     dependencies:
       '@stripe/stripe-js': 7.9.0
 
-  froide_pressconference@https://codeload.github.com/okfde/froide-pressconference/tar.gz/95e34c45000087bf7e7fa7e4037b9c9a5ffc09b1:
+  froide_pressconference@https://codeload.github.com/okfde/froide-pressconference/tar.gz/7a9e936b0f0648abd34a1ad6a81b4cceddd0f9ad:
     dependencies:
       choices.js: 11.1.0
       d3: 7.9.0

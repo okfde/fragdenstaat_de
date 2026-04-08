@@ -2145,10 +2145,13 @@ dependencies = [
 [[package]]
 name = "froide-pressconference"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-pressconference.git?rev=main#95e34c45000087bf7e7fa7e4037b9c9a5ffc09b1" }
+source = { git = "https://github.com/okfde/froide-pressconference.git?rev=main#7a9e936b0f0648abd34a1ad6a81b4cceddd0f9ad" }
 dependencies = [
     { name = "django" },
     { name = "django-cms" },
+    { name = "django-contrib-comments" },
+    { name = "django-filter" },
+    { name = "elasticsearch-dsl" },
     { name = "lxml" },
     { name = "pydoll-python" },
     { name = "pyparsing", extra = ["diagrams"] },
