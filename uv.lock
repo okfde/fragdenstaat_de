@@ -871,16 +871,16 @@ wheels = [
 
 [[package]]
 name = "django-datashow"
-version = "0.1.10"
+version = "0.1.11"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "django-admin-sortable2" },
     { name = "markdown" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/35/cd/9d523de13f8b88467dcccf62dee5a829facda7eba4200fbc637a5227d942/django_datashow-0.1.10.tar.gz", hash = "sha256:d03067e4fb75a531bf81f62493c2490682c3cc1de079be230d7a41e3aa9e1f54", size = 39737, upload-time = "2025-02-26T12:41:29.41Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e5/1b/2b3bf03bffaf31d49822f221a37798cf6a0c18a1e57722de5303fc71f062/django_datashow-0.1.11.tar.gz", hash = "sha256:b8de026068ea7dc356a9691fdec58e98155abf86091760569e64ed417b709e4f", size = 39754, upload-time = "2026-04-08T16:08:18.572Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6c/29/6e5b6260aff4eb38370d94712070d4b60b6a42a667c6a7451ab2d7dd1a10/django_datashow-0.1.10-py3-none-any.whl", hash = "sha256:13f1969fd4f1ed6db0d91b53a87979eb16e1fdcf733b42f70b7be88569104aa0", size = 49400, upload-time = "2025-02-26T12:41:28.401Z" },
+    { url = "https://files.pythonhosted.org/packages/a9/4c/99dc8961dcfdc82fc8cf18e9f545ae21f6b0edb1b42e6f25932b075febb6/django_datashow-0.1.11-py3-none-any.whl", hash = "sha256:24fc50111cc22c5cbcd5237eff9f154e4dd447bdf0299443e45b169b14c77447", size = 49414, upload-time = "2026-04-08T16:08:17.725Z" },
 ]
 
 [[package]]
@@ -1885,7 +1885,7 @@ requires-dist = [
     { name = "django-contrib-comments", specifier = ">=2.2.0" },
     { name = "django-cookie-consent", specifier = ">=0.6.0" },
     { name = "django-crossdomainmedia", specifier = ">=0.0.4" },
-    { name = "django-datashow", specifier = ">=0.1.10" },
+    { name = "django-datashow", specifier = ">=0.1.11" },
     { name = "django-elasticsearch-dsl", specifier = ">=8.0,<9.0" },
     { name = "django-filer", specifier = ">=3.0.0" },
     { name = "django-filingcabinet", git = "https://github.com/okfde/django-filingcabinet.git?rev=main" },
@@ -1998,7 +1998,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#1a732b37e489c670cb1ee4ec7e1077aff8832829" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#16a4bbf8028bca3f5c8ab43a416ba23cc98b72aa" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
