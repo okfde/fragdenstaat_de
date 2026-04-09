@@ -75,22 +75,29 @@ class NewsletterLogicMixin:
             if context["request"].user.is_authenticated:
                 context["user"] = context["request"].user
 
-        is_subscriber = None  # unknown by default
-        if context.get("user") and context["user"].is_authenticated:
-            subscribers = Subscriber.objects.filter(
-                newsletter__slug=settings.DEFAULT_NEWSLETTER, user=context["user"]
-            )
-            if subscribers:
-                context["subscriber"] = subscribers[0]
-                is_subscriber = True
-            else:
-                # Definitely not a subscriber
-                is_subscriber = False
-
+        is_subscriber = self._is_subscriber(context)
         context["show_newsletter"] = is_subscriber is False or (
             not mailing_link and is_subscriber is None
         )
         return context
+
+    def _is_subscriber(self, context) -> bool | None:
+        is_subscriber = None  # unknown by default
+        if context.get("user") and context["user"].is_authenticated:
+            if not hasattr(context["user"], "_subscriber_cache"):
+                subscribers = Subscriber.objects.filter(
+                    newsletter__slug=settings.DEFAULT_NEWSLETTER, user=context["user"]
+                )
+                if subscribers:
+                    context["subscriber"] = subscribers[0]
+                    is_subscriber = True
+                else:
+                    # Definitely not a subscriber
+                    is_subscriber = False
+                context["user"]._subscriber_cache = is_subscriber
+            else:
+                is_subscriber = context["user"]._subscriber_cache
+        return is_subscriber
 
     def should_render(self):
         raise NotImplementedError
