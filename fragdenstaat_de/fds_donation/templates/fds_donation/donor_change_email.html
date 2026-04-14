@@ -2,20 +2,25 @@
 {% load form_helper %}
 {% load i18n %}
 {% block title %}
-    {% translate "Your donor details" %}
+    {% translate "Update your email address" %}
 {% endblock %}
 {% block app_body %}
     <div class="row justify-content-center">
         <div class="col-8">
-            <h3>{% translate "Update your donor details" %}</h3>
-            <p>{% translate "This is the basis for the donation receipts." %}</p>
+            <h3>{% translate "Update your email address" %}</h3>
+            {% if object.email %}
+                <p>
+                    {% translate "Your current email address is:" %}
+                    <strong>{{ object.email }}</strong>
+                </p>
+            {% endif %}
             <form method="post" action="">
                 {% csrf_token %}
                 {% render_form form %}
                 <div class="text-end">
                     <a href="{% url "fds_donation:donor" %}"
                        class="btn btn-secondary text-end">{% translate "Cancel" %}</a>
-                    <button type="submit" class="btn btn-primary">{% translate "Update donor details" %}</button>
+                    <button type="submit" class="btn btn-primary">{% translate "Update email address" %}</button>
                 </div>
             </form>
         </div>

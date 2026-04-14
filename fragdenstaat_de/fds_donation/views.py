@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, TemplateView, UpdateView
@@ -22,13 +23,19 @@ from .form_settings import DonationFormFactory, DonationSettingsForm
 from .forms import (
     DonationGiftForm,
     DonorDetailsForm,
+    DonorEmailForm,
     DonorEmailLinkForm,
     QuickDonationForm,
     SimpleDonationForm,
 )
 from .models import DonationFormViewCount, Donor
 from .services import confirm_donor_email
-from .utils import DONOR_SESSION_KEY, get_donor_from_request
+from .utils import (
+    DONOR_SESSION_KEY,
+    get_donor_from_request,
+    merge_donor_with_same_confirmed_emails,
+    validate_email_change_token,
+)
 
 
 @require_POST
@@ -148,51 +155,62 @@ class DonationFailedView(TemplateView):
         return ctx
 
 
+def get_donor_and_warn(request):
+    donor = get_donor_from_request(request)
+    if request.user.is_authenticated and donor is not None:
+        if donor.user and donor.user != request.user:
+            messages.add_message(
+                request,
+                messages.WARNING,
+                _(
+                    "You are logged in with a different account than the one associated with this donor."
+                ),
+            )
+    return donor
+
+
+def no_donor_found(request):
+    if request.user.is_authenticated:
+        messages.add_message(
+            request,
+            messages.INFO,
+            _(
+                "We have no associated donations with your account. "
+                "If you have donated, let us know! "
+                "Otherwise feel free to donate below."
+            ),
+        )
+        return redirect("/spenden/")
+    return redirect(
+        update_query_params(
+            reverse("fds_donation:donor-send-login-link"),
+            {"next": request.get_full_path()},
+        )
+    )
+
+
 class DonorMixin:
     model = Donor
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.object is None:
-            return self.no_donor_found(request)
+            return no_donor_found(request)
         return super().post(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.object is None:
-            return self.no_donor_found(request)
+            return no_donor_found(request)
         confirm_donor_email(self.object, request=self.request)
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
-    def no_donor_found(self, request):
-        if self.request.user.is_authenticated:
-            messages.add_message(
-                request,
-                messages.INFO,
-                _(
-                    "We have no associated donations with your account. "
-                    "If you have donated, let us know! "
-                    "Otherwise feel free to donate below."
-                ),
-            )
-            return redirect("/spenden/")
-        else:
-            return redirect("fds_donation:donor-send-login-link")
-
     def get_object(self, queryset=None):
-        donor = get_donor_from_request(self.request)
-        if self.request.user.is_authenticated and donor is not None:
-            if donor.user and donor.user != self.request.user:
-                messages.add_message(
-                    self.request,
-                    messages.WARNING,
-                    _(
-                        "You are logged in with a different account than the one associated with this donor."
-                    ),
-                )
+        return get_donor_and_warn(self.request)
 
-        return donor
+    def get_success_url(self):
+        return reverse("fds_donation:donor")
 
 
 class DonorView(DonorMixin, DetailView, BreadcrumbView):
@@ -251,6 +269,35 @@ class DonorChangeView(DonorMixin, UpdateView, BreadcrumbView):
     def get_breadcrumbs(self, context):
         return get_base_breadcrumb(context["object"]) + [
             (_("Change your details"), context["object"].get_absolute_change_url())
+        ]
+
+
+class DonorChangeEmailView(DonorMixin, UpdateView, BreadcrumbView):
+    form_class = DonorEmailForm
+    template_name = "fds_donation/donor_change_email.html"
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        # Remove instance, as form is not a model form
+        kwargs.pop("instance", None)
+        return kwargs
+
+    def form_valid(self, form):
+        result = form.send_confirmation_email(self.object)
+        if result:
+            messages.add_message(
+                self.request,
+                messages.SUCCESS,
+                _("We send you an email to confirm your new email address."),
+            )
+        return redirect("fds_donation:donor")
+
+    def get_breadcrumbs(self, context):
+        return get_base_breadcrumb(context["object"]) + [
+            (
+                _("Change your email address"),
+                reverse("fds_donation:donor-change_email"),
+            )
         ]
 
 
@@ -347,6 +394,58 @@ def donor_login(request, donor_id, token, next_path):
             "next": next_path,
         },
     )
+
+
+def donor_confirm_email(request, donor_id, token):
+    donor = get_donor_and_warn(request)
+    if donor is None:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            _(
+                "In order to confirm your new email address, you need to be logged into the right donor profile."
+            ),
+        )
+
+        return no_donor_found(request)
+
+    email = request.GET.get("email")
+    if not email:
+        return redirect("fds_donation:donor")
+
+    requesting_donor, valid_email = validate_email_change_token(donor_id, token, email)
+    if valid_email is None:
+        # Token expired or invalid
+        messages.add_message(
+            request,
+            messages.WARNING,
+            _("Your link has expired, please request a new one."),
+        )
+        return redirect("fds_donation:donor")
+
+    if donor.id != requesting_donor.id:
+        messages.add_message(
+            request,
+            messages.WARNING,
+            _("The link you clicked did not come from this donor profile."),
+        )
+        return redirect("fds_donation:donor")
+
+    if request.method == "POST":
+        if valid_email != donor.email:
+            donor.email = valid_email
+            donor.email_confirmed = timezone.now()
+            donor.save(update_fields=["email", "email_confirmed"])
+            merge_donor_with_same_confirmed_emails(donor)
+
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                _("Your email has been changed."),
+            )
+        return redirect("fds_donation:donor")
+
+    return render(request, "account/go.html", {"form_action": request.get_full_path()})
 
 
 def can_change_donor(request):

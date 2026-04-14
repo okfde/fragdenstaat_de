@@ -2,9 +2,11 @@ import logging
 from datetime import timedelta
 from decimal import Decimal
 from typing import Optional, Tuple
+from urllib.parse import urlencode
 
 from django.conf import settings
 from django.db import models, transaction
+from django.urls import reverse
 from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta
@@ -20,6 +22,7 @@ from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 from .models import Donation, Donor
 from .tasks import process_recurrence_task
 from .utils import (
+    get_email_change_token,
     merge_donor_list,
     subscribe_donor_newsletter,
 )
@@ -148,6 +151,15 @@ donor_login_link_email = mail_registry.register(
 
 no_donor_with_email_email = mail_registry.register(
     "fds_donation/email/no_donor_with_email",
+)
+
+
+donor_change_email_email = mail_registry.register(
+    "fds_donation/email/donor_change_email",
+    (
+        "donor",
+        "action_url",
+    ),
 )
 
 
@@ -662,3 +674,16 @@ def send_donor_login_link(donor: Donor | None, email: str, next_path=None):
             ignore_active=True,
             priority=True,
         )
+
+
+def send_email_change_link(donor: Donor, email: str):
+    token = get_email_change_token(donor, email)
+    token_path = reverse(
+        "fds_donation:donor-confirm_email",
+        kwargs={"donor_id": donor.id, "token": token},
+    )
+    qs = urlencode({"email": email}, doseq=True)
+    action_url = f"{settings.SITE_URL}{token_path}?{qs}"
+    donor_change_email_email.send(
+        email, context={"donor": donor, "action_url": action_url}
+    )
