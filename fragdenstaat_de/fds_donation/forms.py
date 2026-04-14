@@ -43,7 +43,7 @@ from .models import (
     Donor,
     Recurrence,
 )
-from .services import get_or_create_donor, send_donor_login_link
+from .services import get_or_create_donor, send_donor_login_link, send_email_change_link
 from .utils import MERGE_DONOR_FIELDS
 from .validators import validate_not_too_many_uppercase
 from .widgets import AmountInput
@@ -477,6 +477,23 @@ def get_basic_info_fields(
 def get_basic_info_form(**kwargs):
     fields = get_basic_info_fields(**kwargs)
     return type("BasicInfoForm", (forms.Form,), fields)
+
+
+class DonorEmailForm(forms.Form):
+    email = forms.EmailField(
+        label=_("Email"),
+        required=True,
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": _("e.g. name@example.org")}
+        ),
+    )
+
+    def send_confirmation_email(self, donor: Donor):
+        email = self.cleaned_data["email"]
+        if email != donor.email:
+            send_email_change_link(donor, email)
+            return True
+        return False
 
 
 class BasicDonorForm(get_basic_info_form(), forms.Form):

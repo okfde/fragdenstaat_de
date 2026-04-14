@@ -13,6 +13,13 @@
     </div>
     <div class="container">
         <div class="border border-2 border-yellow-300 text-bg-body p-3 mt-n3 col-lg-6 col-md-8 d-flex flex-column">
+            {% if object.email %}
+                <p>
+                    {% translate "Your donor contact email address is:" %}
+                    <br />
+                    <strong>{{ object.email }}</strong>
+                </p>
+            {% endif %}
             {% if object.can_receive_receipt %}
                 <p>{% translate "You will receive a donation receipt at the start of each year via e-mail." %}</p>
                 <a href="{% url "fds_donation:donor-change" %}"
@@ -22,6 +29,8 @@
                 <a href="{% url "fds_donation:donor-change" %}"
                    class="action-link arrow">{% trans "Enter personal data for donation receipts" %}</a>
             {% endif %}
+            <a href="{% url "fds_donation:donor-change_email" %}"
+               class="action-link arrow">{% trans "Update your email address" %}</a>
             {% page_url "help:donations" as help_donations_url %}
             <a href="{{ help_donations_url }}" class="action-link arrow">{% trans "Frequent questions & contact" %}</a>
         </div>

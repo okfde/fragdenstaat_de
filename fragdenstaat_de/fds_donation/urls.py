@@ -5,9 +5,11 @@ from .views import (
     DonationCompleteView,
     DonationFailedView,
     DonationView,
+    DonorChangeEmailView,
     DonorChangeView,
     DonorDonationActionView,
     DonorView,
+    donor_confirm_email,
     donor_login,
     donor_logout,
     get_legacy_redirect,
@@ -58,6 +60,14 @@ urlpatterns = [
     re_path(
         pgettext_lazy(
             "url pattern",
+            r"^email/(?P<donor_id>\d+)/(?P<token>[^/]+)/$",
+        ),
+        donor_confirm_email,
+        name="donor-confirm_email",
+    ),
+    re_path(
+        pgettext_lazy(
+            "url pattern",
             r"^your-donation/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-"
             "[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})/$",
         ),
@@ -68,6 +78,11 @@ urlpatterns = [
         pgettext_lazy("url pattern", "your-donation/change/"),
         DonorChangeView.as_view(),
         name="donor-change",
+    ),
+    path(
+        pgettext_lazy("url pattern", "your-donation/change-email/"),
+        DonorChangeEmailView.as_view(),
+        name="donor-change_email",
     ),
     re_path(
         pgettext_lazy(

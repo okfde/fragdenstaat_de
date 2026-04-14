@@ -1,0 +1,9 @@
+{% autoescape off %}{{ donor.get_salutation }},
+
+bitte bestätige deine E-Mail-Adresse:
+
+{{ action_url }}
+
+Beste Grüße
+{{ site_name }}
+{% endautoescape off %}

@@ -328,8 +328,12 @@ SIGN_SEP = "~"
 DONOR_TOKEN_MAX_AGE = 60 * 60 * 24 * 3  # 3 days
 
 
-def get_signer():
-    return TimestampSigner(sep=SIGN_SEP, salt="donor-login-token")
+def get_signer(salt="donor-login-token"):
+    return TimestampSigner(sep=SIGN_SEP, salt=salt)
+
+
+def get_email_change_signer():
+    return get_signer("donor-emailchange-token")
 
 
 def get_str_to_sign(donor) -> str:
@@ -339,6 +343,18 @@ def get_str_to_sign(donor) -> str:
 def get_donor_login_token(donor):
     signer = get_signer()
     value = signer.sign(get_str_to_sign(donor)).split(SIGN_SEP, 1)[1]
+    return value
+
+
+def get_email_change_str_to_sign(donor: Donor, new_email: str) -> str:
+    return f"{donor.uuid}|{new_email}"
+
+
+def get_email_change_token(donor: Donor, new_email: str):
+    signer = get_email_change_signer()
+    value = signer.sign(get_email_change_str_to_sign(donor, new_email)).split(
+        SIGN_SEP, 1
+    )[1]
     return value
 
 
@@ -364,6 +380,30 @@ def validate_donor_token(donor_id, token) -> tuple[Donor | None, bool]:
     return donor, True
 
 
+def validate_email_change_token(
+    donor_id: int, token: str, email: str | None
+) -> tuple[Donor | None, str | None]:
+    if email is None:
+        return None, None
+    try:
+        donor = Donor.objects.get(id=donor_id)
+        sign_this = get_email_change_str_to_sign(donor, email)
+    except Donor.DoesNotExist:
+        sign_this = "-"
+        donor = None
+    signer = get_email_change_signer()
+    signed_value = f"{sign_this}{SIGN_SEP}{token}"
+    try:
+        signer.unsign(signed_value, max_age=DONOR_TOKEN_MAX_AGE)
+    except SignatureExpired:
+        return donor, None
+    except BadSignature:
+        return donor, None
+    if donor is None:
+        return None, None
+    return donor, email
+
+
 def get_donor_from_request(request) -> Donor | None:
     if donor_id := request.session.get(DONOR_SESSION_KEY):
         try:
@@ -379,3 +419,12 @@ def get_donor_from_request(request) -> Donor | None:
     if len(donors) == 1:
         return donors[0]
     return merge_donor_list(donors)
+
+
+def merge_donor_with_same_confirmed_emails(donor):
+    email = donor.email
+    other_donors = Donor.objects.filter(
+        email=email, email_confirmed__isnull=False
+    ).exclude(id=donor.id)
+    if other_donors:
+        merge_donor_list([donor] + list(other_donors))
