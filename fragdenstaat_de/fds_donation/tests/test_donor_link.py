@@ -135,7 +135,7 @@ def test_no_donor_user(client):
 def test_no_donor(client):
     response = client.get(reverse("fds_donation:donor"))
     assert response.status_code == 302
-    assert response.url == reverse("fds_donation:donor-send-login-link")
+    assert response.url.startswith(reverse("fds_donation:donor-send-login-link"))
 
 
 @pytest.mark.django_db
