@@ -5,7 +5,7 @@
 {% endblock %}
 {% block app_body %}
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-md-8 col-lg-6">
             {% if has_donation %}
                 <h3>{% translate "Create a new donation" %}</h3>
             {% else %}
@@ -77,11 +77,13 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <button type="submit" class="btn btn-primary">{% translate "Donate" %}</button>
-                {% if has_donation %}
-                    <a href="{% url "fds_donation:donor" %}"
-                       class="btn btn-secondary text-end">{% translate "Cancel" %}</a>
-                {% endif %}
+                <p class="text-end">
+                    {% if has_donation %}
+                        <a href="{% url "fds_donation:donor" %}"
+                           class="btn btn-secondary text-end">{% translate "Cancel" %}</a>
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary">{% translate "Donate" %}</button>
+                </p>
             </form>
         </div>
     </div>
