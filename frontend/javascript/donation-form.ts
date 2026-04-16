@@ -54,8 +54,11 @@ class DonationForm {
 
     const amountGroup = this.form.querySelector('.amount-group')
     if (amountGroup !== null) {
-      this.setupAmountGroup(amountGroup)
-      this.amountChanged(amountGroup.querySelector('input'))
+      const input = amountGroup.querySelector('input')
+      if (input) {
+        input.addEventListener('change', () => this.amountChanged(input))
+        this.amountChanged(input)
+      }
     }
     this.form
       .querySelectorAll<HTMLInputElement>('[data-toggle="radiocollapse"]')
@@ -245,49 +248,6 @@ class DonationForm {
       })
   }
 
-  private setupAmountGroup(amountGroup: Element): void {
-    const input = amountGroup.querySelector('input')
-    const buttons = amountGroup.querySelectorAll('button')
-    const otherAmount = amountGroup.querySelector('.btn-other-amount')
-
-    if (input != null) {
-      amountGroup.querySelectorAll('[data-focus]').forEach((focusClick) => {
-        focusClick.addEventListener('click', () => {
-          input.focus()
-        })
-      })
-
-      const updateButtons = () => {
-        let hasAny = false
-
-        otherAmount?.classList.remove('active')
-        buttons.forEach((button) => {
-          if (button.dataset.value === input.value) {
-            hasAny = true
-            button.classList.add('active')
-          } else {
-            button.classList.remove('active')
-          }
-        })
-
-        if (!hasAny && input.value !== '') otherAmount?.classList.add('active')
-      }
-
-      buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-          const value = button.dataset.value ?? ''
-          input.value = value
-          this.amountChanged(input)
-
-          updateButtons()
-        })
-      })
-
-      input.addEventListener('change', updateButtons)
-      input.addEventListener('input', () => this.amountChanged(input))
-    }
-  }
-
   private setupQuickpayment(): void {
     this.quickpayment = this.form.querySelector('[data-quickpayment]')
     this.quickpayment?.addEventListener('quickpaymentAvailable', () => {
@@ -472,4 +432,47 @@ if (donationForm !== null) {
 const shippingForm = document.querySelectorAll('.shipping-form')
 shippingForm.forEach((form) => {
   setupShipping(form as HTMLFormElement)
+})
+
+const amountGroups = document.querySelectorAll('.amount-group')
+amountGroups.forEach((amountGroup) => {
+  const input = amountGroup.querySelector('input')
+  const buttons = amountGroup.querySelectorAll('button')
+  const otherAmount = amountGroup.querySelector('.btn-other-amount')
+
+  if (input != null) {
+    amountGroup.querySelectorAll('[data-focus]').forEach((focusClick) => {
+      focusClick.addEventListener('click', () => {
+        input.focus()
+      })
+    })
+
+    const updateButtons = () => {
+      let hasAny = false
+
+      otherAmount?.classList.remove('active')
+      buttons.forEach((button) => {
+        if (button.dataset.value === input.value) {
+          hasAny = true
+          button.classList.add('active')
+        } else {
+          button.classList.remove('active')
+        }
+      })
+
+      if (!hasAny && input.value !== '') otherAmount?.classList.add('active')
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const value = button.dataset.value ?? ''
+        input.value = value
+        input.dispatchEvent(new Event('change'))
+        updateButtons()
+      })
+    })
+    updateButtons()
+
+    input.addEventListener('change', updateButtons)
+  }
 })
