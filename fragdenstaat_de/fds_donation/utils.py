@@ -1,8 +1,13 @@
 import re
+from decimal import ROUND_UP, Decimal
 
 from django.conf import settings
+from django.contrib.humanize.templatetags.humanize import intcomma
 from django.core.signing import BadSignature, SignatureExpired, TimestampSigner
 from django.db.models import Min
+from django.template.defaultfilters import floatformat
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext_lazy
 
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_newsletter
 
@@ -428,3 +433,76 @@ def merge_donor_with_same_confirmed_emails(donor):
     ).exclude(id=donor.id)
     if other_donors:
         merge_donor_list([donor] + list(other_donors))
+
+
+def get_upgrade_amounts(
+    amount: Decimal, interval: int, upgrade_percentages=(15, 30, 50)
+):
+    one = Decimal("1")
+    amount_per_month = amount / interval
+    if amount_per_month < 10:
+        round_to = 1
+    elif amount_per_month < 20:
+        round_to = 5
+    else:
+        round_to = 10
+    new_amounts = set()
+    for percent in upgrade_percentages:
+        extra = amount_per_month * percent / 100
+        new_amount = amount_per_month + extra
+        new_amount = new_amount * interval
+        new_amount = (new_amount / round_to).quantize(one, ROUND_UP) * round_to
+        new_amounts.add(new_amount)
+    return sorted(new_amounts)
+
+
+def format_amount_interval(amount: Decimal, interval: int):
+    return (
+        _("{amount} Euro every year").format(amount=intcomma(amount))
+        if interval == 12
+        else ngettext_lazy(
+            "{amount} Euro every month",
+            "{amount} Euro every {interval} months",
+            interval,
+        ).format(amount=intcomma(amount), interval=interval)
+    )
+
+
+def format_interval(interval: int):
+    return (
+        _("every year")
+        if interval == 12
+        else ngettext_lazy(
+            "every month",
+            "every {interval} months",
+            interval,
+        ).format(interval=interval)
+    )
+
+
+def format_amount_with_currency(num: Decimal) -> str:
+    return "{} {}".format(format_amount(num), settings.DEFAULT_CURRENCY_LABEL)
+
+
+def format_decimal_amount_with_currency(num: Decimal) -> str:
+    return "{} {}".format(format_decimal_amount(num), settings.DEFAULT_CURRENCY_LABEL)
+
+
+def format_amount(num: Decimal) -> str:
+    return intcomma(num)
+
+
+def format_decimal_amount(num: Decimal) -> str:
+    return floatformat(num, "2g")
+
+
+def make_presets(presets: list[int]) -> list[tuple[int, str]]:
+    return [
+        (
+            amount,
+            "{amount} {currency}".format(
+                amount=intcomma(amount), currency=settings.FROIDE_CONFIG["currency"]
+            ),
+        )
+        for amount in presets
+    ]
