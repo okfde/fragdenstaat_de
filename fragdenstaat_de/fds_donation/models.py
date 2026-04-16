@@ -296,6 +296,9 @@ class Donor(models.Model):
             total=models.Sum(models.F("amount") / models.F("interval"))
         )["total"] or decimal.Decimal("0.00")
 
+    def get_current_recurrence(self):
+        return self.recurrences.filter(cancel_date=None).order_by("-start_date").first()
+
     def get_recurrence_streak_start_date(self):
         """
         Returns the start date of the current recurrence streak.
@@ -486,6 +489,10 @@ class Recurrence(models.Model):
     def __str__(self):
         return "{donor}: {desc}".format(donor=self.donor, desc=self.get_description())
 
+    @property
+    def amount_per_month(self):
+        return self.amount / self.interval
+
     def get_description(self):
         return ngettext_lazy(
             "{amount} EUR every month via {method} since {start}.",
@@ -531,6 +538,8 @@ class Recurrence(models.Model):
         )["total_amount"] or decimal.Decimal("0.00")
 
     def days(self):
+        if self.start_date is None:
+            return 0
         last_date = timezone.now()
         if self.cancel_date:
             last_date = self.cancel_date
@@ -571,6 +580,13 @@ class Recurrence(models.Model):
         If no donations exist, returns None.
         """
         return self.donations.order_by("timestamp").last()
+
+    def update_from_subscription(self):
+        if not self.subscription:
+            return
+        self.interval = self.subscription.plan.interval
+        self.amount = self.subscription.plan.amount
+        self.save(update_fields=["interval", "amount"])
 
 
 class DonationManager(models.Manager):
@@ -1221,3 +1237,10 @@ class RemoteDonationFormCMSPlugin(CMSPlugin):
         plugin_data.update(request_data)
 
         return RemoteDonationForm(form_settings=plugin_data)
+
+
+class UpgradeRecurrenceFormCMSPlugin(CMSPlugin):
+    next_url = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return _("Upgrade Recurrence plugin: %s").format(self.next_url)

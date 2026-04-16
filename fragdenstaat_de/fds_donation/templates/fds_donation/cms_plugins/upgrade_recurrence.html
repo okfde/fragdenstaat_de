@@ -1,0 +1,17 @@
+{% load i18n %}
+{% load cms_tags %}
+{% load form_helper %}
+{% if form.can_upgrade %}
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+    <form method="POST" action="{% url "fds_donation:upgrade_recurrence" %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next_url }}" />
+        {{ form.recurrence }}
+        {{ form.upgrade_amount }}
+        <p class="text-end">
+            <button type="submit" class="btn btn-primary">{% translate "Upgrade donation" %}</button>
+        </p>
+    </form>
+{% endif %}

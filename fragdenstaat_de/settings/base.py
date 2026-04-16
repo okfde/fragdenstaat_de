@@ -612,6 +612,8 @@ class FragDenStaatBase(German, Base):
     EMAIL_SUBJECT_PREFIX = "[AdminFragDenStaat] "
 
     DEFAULT_CURRENCY = "EUR"
+    DEFAULT_CURRENCY_LABEL = "Euro"
+    DEFAULT_CURRENCY_SYMBOL = "€"
     DEFAULT_DECIMAL_PLACES = 2
     PAYMENT_HOST = "localhost:8000"
     PAYMENT_USES_SSL = False
