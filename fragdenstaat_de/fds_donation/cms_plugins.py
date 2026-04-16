@@ -11,6 +11,7 @@ from cms.plugin_pool import plugin_pool
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
 from fragdenstaat_de.fds_mailing.cms_plugins import EmailRenderMixin, EmailTemplateMixin
 
+from .forms import RecurrenceUpgradeForm
 from .models import (
     DefaultDonation,
     DonationFormCMSPlugin,
@@ -20,6 +21,7 @@ from .models import (
     Donor,
     EmailDonationButtonCMSPlugin,
     RemoteDonationFormCMSPlugin,
+    UpgradeRecurrenceFormCMSPlugin,
 )
 from .utils import get_donor_from_request
 
@@ -52,6 +54,37 @@ class DonationGiftFormPlugin(CMSPluginBase):
                 donor=context["donor"],
                 category=instance.category,
             )
+            active_recurrence = context["donor"].get_current_recurrence()
+            if active_recurrence:
+                context["upgrade_form"] = RecurrenceUpgradeForm(
+                    recurrence=active_recurrence
+                )
+
+        return context
+
+
+@plugin_pool.register_plugin
+class UpgradeRecurrencePlugin(CMSPluginBase):
+    model = UpgradeRecurrenceFormCMSPlugin
+    module = _("Donations")
+    name = _("Upgrade recurrence")
+    text_enabled = True
+    cache = False
+    allow_children = True
+    render_template = "fds_donation/cms_plugins/upgrade_recurrence.html"
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+
+        context["donor"] = get_donor_from_request(context["request"])
+        context["next_url"] = instance.next_url or "/"
+
+        if context["donor"]:
+            active_recurrence = context["donor"].get_current_recurrence()
+            if active_recurrence:
+                context["form"] = RecurrenceUpgradeForm(
+                    recurrence=active_recurrence, stand_alone=True
+                )
 
         return context
 

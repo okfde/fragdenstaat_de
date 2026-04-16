@@ -1,5 +1,6 @@
 import json
 import logging
+from decimal import Decimal
 from typing import cast, override
 from urllib.parse import parse_qsl
 
@@ -44,7 +45,14 @@ from .models import (
     Recurrence,
 )
 from .services import get_or_create_donor, send_donor_login_link, send_email_change_link
-from .utils import MERGE_DONOR_FIELDS
+from .utils import (
+    MERGE_DONOR_FIELDS,
+    format_amount_interval,
+    format_amount_with_currency,
+    format_interval,
+    get_upgrade_amounts,
+    make_presets,
+)
 from .validators import validate_not_too_many_uppercase
 from .widgets import AmountInput
 
@@ -150,7 +158,9 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
             # No once option -> not choosing purpose
             self.fields["purpose"].widget = forms.HiddenInput()
 
-        self.fields["amount"].widget.presets = self.settings["amount_presets"]
+        self.fields["amount"].widget.presets = make_presets(
+            self.settings["amount_presets"]
+        )
         self.fields["reference"].initial = self.settings["reference"]
         self.fields["keyword"].initial = self.settings["keyword"]
         if self.settings["purpose"]:
@@ -343,7 +353,9 @@ class RemoteDonationForm(forms.Form):
         self.fields["initial_interval"].initial = (
             self.settings.get("initial_interval", None) or interval_choices[0][0]
         )
-        self.fields["initial_amount"].widget.presets = self.settings["amount_presets"]
+        self.fields["initial_amount"].widget.presets = make_presets(
+            self.settings["amount_presets"]
+        )
         self.fields["initial_amount"].initial = self.settings["initial_amount"]
         self.fields["pk_campaign"].initial = self.settings["reference"]
         self.fields["pk_keyword"].initial = self.settings["keyword"]
@@ -773,6 +785,8 @@ class DonationGiftForm(forms.Form):
         if self.gift_options:
             self.fields["chosen_gift"].queryset = self.gift_options
             self.fields["chosen_gift"].initial = self.gift_options[0].id
+            if len(self.gift_options) == 1:
+                self.fields["chosen_gift"].widget = forms.HiddenInput()
             self.fields["chosen_gift"].widget.attrs["data-needs-address"] = json.dumps(
                 {gift.id: gift.needs_address for gift in self.gift_options}
             )
@@ -803,6 +817,13 @@ class DonationGiftForm(forms.Form):
                 _("No donation gifts are available for you at the moment.")
             )
         DonationGiftLogic.clean(self)
+        self.related_donation = (
+            self.donor.donations.all().filter(completed=True).latest("timestamp")
+        )
+        if DonationGiftOrder.objects.filter(donation=self.related_donation).exists():
+            raise forms.ValidationError(
+                _("You have already ordered this donation gift.")
+            )
 
     def save(self):
         if self.cleaned_data["update_address"]:
@@ -811,10 +832,9 @@ class DonationGiftForm(forms.Form):
             self.donor.city = self.cleaned_data["shipping_city"]
             self.donor.country = self.cleaned_data["shipping_country"]
             self.donor.save()
+
         order = DonationGiftOrder.objects.create(
-            donation=self.donor.donations.all()
-            .filter(completed=True)
-            .latest("timestamp"),
+            donation=self.related_donation,
             donation_gift=self.cleaned_data["chosen_gift"],
             first_name=self.cleaned_data["shipping_first_name"],
             last_name=self.cleaned_data["shipping_last_name"],
@@ -946,3 +966,92 @@ class DonorEmailLinkForm(SpamProtectionMixin, forms.Form):
         except Donor.DoesNotExist:
             donor = None
         send_donor_login_link(donor, email, next_path=next_path)
+
+
+class RecurrenceUpgradeForm(forms.Form):
+    def __init__(self, recurrence=None, stand_alone=False, *args, **kwargs):
+        self.recurrence: Recurrence | None = recurrence
+        super().__init__(*args, **kwargs)
+        self.fields["recurrence"] = forms.ModelChoiceField(
+            Recurrence.objects.all(),
+            initial=recurrence,
+            widget=forms.HiddenInput,
+            required=True,
+        )
+        amounts = get_upgrade_amounts(recurrence.amount, recurrence.interval)
+
+        if stand_alone:
+            choices = [
+                (
+                    amount,
+                    format_amount_with_currency(amount),
+                )
+                for amount in amounts
+            ]
+            self.fields["upgrade_amount"] = forms.DecimalField(
+                localize=True,
+                required=True,
+                initial=None,
+                min_value=MIN_AMOUNT,
+                max_digits=19,
+                decimal_places=2,
+                label=_("Upgrade your donation"),
+                widget=AmountInput(
+                    attrs={
+                        "title": _("Amount in Euro, comma as decimal separator"),
+                        "class": "text-end",
+                    },
+                    presets=choices,
+                    amount_label="{} {}".format(
+                        settings.DEFAULT_CURRENCY_LABEL,
+                        format_interval(recurrence.interval),
+                    ),
+                ),
+            )
+        else:
+            choices = [
+                (
+                    amount,
+                    # Translators: to X Euros per year
+                    _("to {}").format(
+                        format_amount_interval(amount, recurrence.interval)
+                    ),
+                )
+                for amount in amounts
+            ]
+            choices += [("", _("I cannot increase my donation"))]
+            self.fields["upgrade_amount"] = forms.TypedChoiceField(
+                coerce=Decimal,
+                label=_("Could you increase your donation?"),
+                required=True,
+                empty_value="",
+                initial="-",
+                choices=choices,
+                widget=BootstrapRadioSelect,
+            )
+
+    def can_upgrade(self):
+        subscription = self.recurrence.subscription
+        if not subscription:
+            return False
+        modify_info = subscription.get_modify_info()
+        return modify_info.can_modify
+
+    def save(self):
+        amount = self.cleaned_data["upgrade_amount"]
+        if not amount:
+            return
+        if self.can_upgrade():
+            subscription = self.recurrence.subscription
+            return self.modify_subscription(subscription)
+
+    def modify_subscription(self, subscription):
+        provider = subscription.get_provider()
+        result = provider.modify_subscription(
+            subscription,
+            amount=self.cleaned_data["upgrade_amount"],
+            interval=subscription.plan.interval,
+        )
+        if result:
+            self.recurrence.update_from_subscription()
+        return result

@@ -26,6 +26,7 @@ from .forms import (
     DonorEmailForm,
     DonorEmailLinkForm,
     QuickDonationForm,
+    RecurrenceUpgradeForm,
     SimpleDonationForm,
 )
 from .models import DonationFormViewCount, Donor
@@ -55,15 +56,71 @@ def make_order(request, category):
         data=request.POST, category=category, request=request, donor=donor
     )
     if form.is_valid():
-        messages.add_message(
-            request, messages.SUCCESS, _("Your order has been created!")
-        )
         form.save()
+        upgrade_result = handle_upgrade(request)
+        if upgrade_result is True:
+            if upgrade_result:
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    _(
+                        "Your order has been created and your donation has been updated."
+                    ),
+                )
+        elif upgrade_result is False:
+            messages.add_message(
+                request,
+                messages.WARNING,
+                _("Your order has been created but we could not update your donation."),
+            )
+        else:
+            messages.add_message(
+                request, messages.SUCCESS, _("Your order has been created.")
+            )
+
         return get_redirect(request)
-    messages.add_message(
-        request, messages.ERROR, _("Please review your form submission.")
-    )
+    if form.errors:
+        error_message = "\n".join(form.errors.get("__all__", []))
+        messages.add_message(request, messages.ERROR, error_message)
     return redirect(request.POST.get("form_path", "/"))
+
+
+@require_POST
+def upgrade_recurrence(request):
+    result = handle_upgrade(request)
+    if result is True:
+        messages.add_message(
+            request, messages.SUCCESS, _("Your recurrence has been updated.")
+        )
+    elif result is False:
+        messages.add_message(
+            request, messages.ERROR, _("Upgrade of recurrence failed.")
+        )
+    else:
+        messages.add_message(request, messages.ERROR, _("Form could not be processed."))
+
+    return get_redirect(request)
+
+
+def handle_upgrade(request) -> bool | None:
+    donor = get_donor_from_request(request)
+    if donor is None:
+        return
+    recurrence = None
+    recurrence_id = request.POST.get("recurrence")
+    if recurrence_id is not None:
+        try:
+            recurrence_id = int(recurrence_id)
+        except ValueError:
+            return
+        recurrence = donor.recurrences.filter(id=recurrence_id).first()
+    if recurrence is None:
+        return
+
+    form = RecurrenceUpgradeForm(recurrence=recurrence, data=request.POST)
+    if not form.is_valid():
+        return
+    return form.save()
 
 
 class DonationView(FormView):

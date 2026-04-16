@@ -1,20 +1,22 @@
 {% load i18n humanize %}
 <div class="amount-group {% if 'is-invalid' in widget.attrs.class %}is-invalid{% endif %}">
     {% if presets %}
-        <div class="hstack flex-wrap gap-1">
-            {% for preset in presets %}
-                <button type="button"
-                        class="btn btn-outline-primary{% if preset|stringformat:'d' == widget.value %} active{% endif %}"
-                        data-value="{{ preset }}"
-                        data-target="{{ widget.attrs.id }}">{{ preset|intcomma }} {{ currency }}</button>
+        <div class="btn-toolbar flex-md-nowrap" role="toolbar">
+            {% for amount, label in presets %}
+                <div class="btn-group mb-2">
+                    <button type="button"
+                            class="btn btn-outline-primary text-nowrap me-1{% if amount == widget.value %} active{% endif %}"
+                            data-value="{{ amount }}"
+                            data-target="{{ widget.attrs.id }}">{{ label }}</button>
+                </div>
             {% endfor %}
             {# djlint:off H021 #}
-            <div class="input-group" style="max-width: 20rem;">
+            <div class="input-group flex-nowrap mb-2">
                 <button type="button"
-                        class="btn btn-outline-secondary btn-other-amount"
+                        class="btn btn-outline-secondary btn-other-amount btn-group d-none d-sm-inline"
                         data-focus="{{ widget.attrs.id }}">{% trans "Other amount" %}</button>
                 {% include "django/forms/widgets/text.html" %}
-                <span class="input-group-text">{{ currency }}</span>
+                <span class="input-group-text">{{ amount_label }}</span>
             </div>
         </div>
     {% endif %}

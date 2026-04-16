@@ -15,12 +15,14 @@ from .views import (
     get_legacy_redirect,
     make_order,
     send_donor_login_link,
+    upgrade_recurrence,
 )
 
 app_name = "fds_donation"
 
 urlpatterns = [
     path("order/<slug:category>/", make_order, name="make_order"),
+    path("recurrence/upgrade/", upgrade_recurrence, name="upgrade_recurrence"),
     path(
         pgettext_lazy("url pattern", "donate/"), DonationView.as_view(), name="donate"
     ),
