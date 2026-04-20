@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -951,7 +951,7 @@ wheels = [
 [[package]]
 name = "django-filingcabinet"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#e15f2199b19178ae9b0dd42a994829bc04634bac" }
+source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#8ffb53086b0150a96778eb11adea95428184d8c8" }
 dependencies = [
     { name = "celery" },
     { name = "django" },
@@ -1885,7 +1885,7 @@ requires-dist = [
     { name = "django-contrib-comments", specifier = ">=2.2.0" },
     { name = "django-cookie-consent", specifier = ">=0.6.0" },
     { name = "django-crossdomainmedia", specifier = ">=0.0.4" },
-    { name = "django-datashow", specifier = ">=0.1.11" },
+    { name = "django-datashow", specifier = ">=0.1.10" },
     { name = "django-elasticsearch-dsl", specifier = ">=8.0,<9.0" },
     { name = "django-filer", specifier = ">=3.0.0" },
     { name = "django-filingcabinet", git = "https://github.com/okfde/django-filingcabinet.git?rev=main" },
@@ -1998,7 +1998,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#293757dd55c99e25ac009e318fb087b3d6b0eecb" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#a4367dd1d101df72e24c2477d92d0387355f89db" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2072,9 +2072,15 @@ dependencies = [
 [[package]]
 name = "froide-evidencecollection"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#8dc6edd4f98730103ac86498899502ed723e7946" }
+source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#b8c056180c9e69041bfba7c855cc9a21da4b4f02" }
 dependencies = [
     { name = "django-cms" },
+    { name = "django-elasticsearch-dsl" },
+    { name = "django-filter" },
+    { name = "elasticsearch-dsl" },
+    { name = "froide" },
+    { name = "openpyxl" },
+    { name = "requests" },
 ]
 
 [[package]]
@@ -2132,7 +2138,7 @@ dependencies = [
 [[package]]
 name = "froide-payment"
 version = "0.0.3"
-source = { git = "https://github.com/okfde/froide-payment.git?rev=main#9a30856439601569bf52a87aa9bd053c266e1851" }
+source = { git = "https://github.com/okfde/froide-payment.git?rev=main#9740b38c32ca7bb5cae1a41d707ea1bf8e466c63" }
 dependencies = [
     { name = "django-countries" },
     { name = "django-localflavor" },
