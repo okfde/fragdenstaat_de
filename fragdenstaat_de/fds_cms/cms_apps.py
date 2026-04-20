@@ -40,7 +40,8 @@ class FdsCmsSearchApp(CMSApp):
         # for all installed CMS search apps.
         # There doesn't seem to be a 'ready' hook, so we use this.
         if page is not None and language == settings.LANGUAGE_CODE:
-            search_registry.register(make_add_search(page.pk))
+            name = f"cms-search-{page.pk}"
+            search_registry.register(make_add_search(page.pk), name)
         return ["fragdenstaat_de.fds_cms.urls"]
 
 
