@@ -34,7 +34,7 @@ class BlogConfig(AppConfig):
         from froide.helper.search import search_registry
 
         account_merged.connect(merge_user)
-        search_registry.register(add_search)
+        search_registry.register(add_search, "blog")
 
         from .api_views import ArticleTagViewSet
 
@@ -59,7 +59,6 @@ def add_search(request):
     try:
         return {
             "title": _("Investigations"),
-            "name": "blog",
             "url": reverse("blog:article-search"),
             "order": 6,
         }
