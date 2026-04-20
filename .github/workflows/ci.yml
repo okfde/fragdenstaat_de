@@ -51,7 +51,7 @@ jobs:
           python manage.py compilemessages -i node_modules -l de
       - name: Run tests
         run: |
-          coverage run --branch -m pytest --reuse-db
+          pytest -n auto --cov --cov-report= fragdenstaat_de/
           coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
     services:
       postgres:

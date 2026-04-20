@@ -123,7 +123,6 @@ production = [
 dev = [
   "django-debug-toolbar>=3.2.1",
   "django-extended-makemessages>=1.7.1",
-  "coverage",
   "factory-boy",
   "faker",
   "mock",
@@ -142,6 +141,8 @@ dev = [
   "ipython",
   "pywatchman",
   "prek>=0.3.0",
+  "pytest-xdist>=3.8.0",
+  "pytest-cov>=7.1.0",
 ]
 
 [tool.uv]
@@ -201,12 +202,18 @@ ignore = "T002,T003,H005,H006,H021,H023,H029,H030,H031"
 custom_blocks = "cache"
 ignore_blocks = "thumbnail"
 
-[tool.pytest.ini_options]
+[tool.pytest]
 DJANGO_CONFIGURATION = "Test"
 DJANGO_SETTINGS_MODULE = "fragdenstaat_de.settings.test"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
-testpaths = ["fragdenstaat_de", "tests"]
-addopts = ["--reuse-db", "-m", "not stripe and not paypal"]
+addopts = [
+  "--reuse-db",
+  "-m",
+  "not stripe and not paypal",
+  "--dist",
+  "loadgroup",
+  "--ignore=.venv",
+]
 markers = [
   "stripe: Run donation tests with stripe test keys",
   "paypal: Run donation tests with paypal sandbox keys",
