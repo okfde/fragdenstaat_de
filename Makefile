@@ -6,10 +6,6 @@ test:
 	ruff check
 	pytest --reuse-db
 
-testci:
-	coverage run --branch -m pytest --reuse-db
-	coverage report
-
 backend_dependencies:
 	./devsetup.sh upgrade_backend_repos
 

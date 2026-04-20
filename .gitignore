@@ -16,7 +16,7 @@ data/
 *hot-update.json
 *hot-update.js
 htmlcov/
-.coverage
+.coverage*
 django.po
 .env.*
 !fragdenstaat_de/locale/**/django.po

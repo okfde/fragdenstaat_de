@@ -107,6 +107,7 @@ class TestDocumentAnalyzerConfiguration:
 
 
 @pytest.mark.elasticsearch
+@pytest.mark.xdist_group(name="sequential")
 class TestSearchFilterSet:
     """
     Tests for a realistic search scenario using the BaseSearchFilterSet with preprocessing.
@@ -138,6 +139,7 @@ class TestSearchFilterSet:
 
 
 @pytest.mark.elasticsearch
+@pytest.mark.xdist_group(name="sequential")
 class TestElasticsearchAnalyzers:
     """
     Tests for directly testing the output of the analyzers (tokens) in Elasticsearch.
@@ -222,6 +224,7 @@ test_cases = [
 
 
 @pytest.mark.elasticsearch
+@pytest.mark.xdist_group(name="sequential")
 class TestQueryPreprocessor:
     @pytest.mark.parametrize(
         "input_text, expected_output", test_cases, ids=[t[0] for t in test_cases]
