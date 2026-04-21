@@ -49,7 +49,7 @@ from .utils import (
     MERGE_DONOR_FIELDS,
     format_amount_interval,
     format_amount_with_currency,
-    format_interval,
+    get_next_min_amount,
     get_upgrade_amounts,
     make_presets,
 )
@@ -77,6 +77,7 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
                 "class": "text-end",
             },
             presets=[],
+            min_value=MIN_AMOUNT,
         ),
     )
     interval = forms.TypedChoiceField(
@@ -331,6 +332,7 @@ class RemoteDonationForm(forms.Form):
                 "class": "text-end",
             },
             presets=[],
+            min_value=MIN_AMOUNT,
         ),
     )
     initial_interval = forms.TypedChoiceField(
@@ -978,9 +980,14 @@ class RecurrenceUpgradeForm(forms.Form):
             widget=forms.HiddenInput,
             required=True,
         )
+        self.fields["stand_alone"] = forms.BooleanField(
+            initial=stand_alone,
+            widget=forms.HiddenInput,
+            required=False,
+        )
         amounts = get_upgrade_amounts(recurrence.amount, recurrence.interval)
-
         if stand_alone:
+            new_min_amount = get_next_min_amount(recurrence.amount)
             choices = [
                 (
                     amount,
@@ -988,24 +995,31 @@ class RecurrenceUpgradeForm(forms.Form):
                 )
                 for amount in amounts
             ]
+            if recurrence.interval == 1:
+                label = _("Your new monthly amount:")
+            elif recurrence.interval == 12:
+                label = _("Your new yearly amount:")
+            elif recurrence.interval == 3:
+                label = _("Your new quarterly amount:")
+            else:
+                label = _("Your new amount every {} months:").format(
+                    recurrence.interval
+                )
             self.fields["upgrade_amount"] = forms.DecimalField(
                 localize=True,
                 required=True,
                 initial=None,
-                min_value=MIN_AMOUNT,
+                min_value=new_min_amount,
                 max_digits=19,
                 decimal_places=2,
-                label=_("Upgrade your donation"),
+                label=label,
                 widget=AmountInput(
                     attrs={
                         "title": _("Amount in Euro, comma as decimal separator"),
                         "class": "text-end",
                     },
                     presets=choices,
-                    amount_label="{} {}".format(
-                        settings.DEFAULT_CURRENCY_LABEL,
-                        format_interval(recurrence.interval),
-                    ),
+                    min_value=new_min_amount,
                 ),
             )
         else:
