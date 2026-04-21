@@ -476,3 +476,36 @@ amountGroups.forEach((amountGroup) => {
     input.addEventListener('change', updateButtons)
   }
 })
+
+function parseAmount(value: string): number {
+  return parseFloat(value.replace(',', '.'))
+}
+
+function validateAmount(input: HTMLInputElement) {
+  // Reset first so native constraints (pattern, required) can surface.
+  input.setCustomValidity('')
+
+  // Only check our custom rule when the native checks already pass.
+  if (input.validity.valid) {
+    const trimmed = input.value.trim()
+    const amount = parseAmount(trimmed)
+    const min = parseFloat(input.dataset.min ?? '0')
+    if (!isNaN(min) && amount < min) {
+      input.setCustomValidity(input.dataset.errormin ?? '')
+    }
+  }
+  input.classList.toggle('is-invalid', !input.validity.valid)
+}
+
+const amountInputs = document.querySelectorAll('.amount-input')
+amountInputs.forEach((input) => {
+  // Re-evaluate our custom rule whenever the value changes.
+  input.addEventListener('change', () =>
+    validateAmount(input as HTMLInputElement)
+  )
+
+  // Show error state when the user leaves the field.
+  input.addEventListener('blur', () =>
+    validateAmount(input as HTMLInputElement)
+  )
+})

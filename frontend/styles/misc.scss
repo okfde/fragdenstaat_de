@@ -137,3 +137,8 @@
 .privacy-blur:hover > div {
   display: none;
 }
+
+.amount-input {
+  max-width: 10ch;
+  min-width: 5ch;
+}
