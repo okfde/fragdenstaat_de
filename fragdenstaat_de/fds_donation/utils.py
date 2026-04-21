@@ -1,5 +1,5 @@
 import re
-from decimal import ROUND_UP, Decimal
+from decimal import ROUND_DOWN, ROUND_UP, Decimal
 
 from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import intcomma
@@ -435,25 +435,49 @@ def merge_donor_with_same_confirmed_emails(donor):
         merge_donor_list([donor] + list(other_donors))
 
 
-def get_upgrade_amounts(
-    amount: Decimal, interval: int, upgrade_percentages=(15, 30, 50)
-):
+def get_upgrade_amounts(amount: Decimal, interval: int):
     one = Decimal("1")
     amount_per_month = amount / interval
+    step = None
+    percentages = (15, 25, 35)
+    new_amounts = set()
     if amount_per_month < 10:
         round_to = 1
-    elif amount_per_month < 20:
+        step = Decimal("5")
+    elif amount_per_month < 25:
+        round_to = 5
+        step = Decimal("5")
+    elif amount_per_month < 100:
         round_to = 5
     else:
         round_to = 10
-    new_amounts = set()
-    for percent in upgrade_percentages:
-        extra = amount_per_month * percent / 100
-        new_amount = amount_per_month + extra
+
+    base_amount = amount_per_month
+    if amount_per_month < 25:
+        amount = (amount_per_month / step).quantize(one, ROUND_UP) * step
+        if amount > amount_per_month:
+            new_amounts.add(amount * interval)
+            base_amount = amount
+
+    def make_amount(base, add_extra):
+        new_amount = base + add_extra
         new_amount = new_amount * interval
         new_amount = (new_amount / round_to).quantize(one, ROUND_UP) * round_to
-        new_amounts.add(new_amount)
-    return sorted(new_amounts)
+        return new_amount
+
+    if step is not None:
+        for i in range(1, 4):
+            new_amounts.add(make_amount(base_amount, step * i))
+    else:
+        for percent in percentages:
+            extra = amount_per_month * percent / 100
+            new_amounts.add(make_amount(amount_per_month, extra))
+    return sorted(new_amounts)[:3]
+
+
+def get_next_min_amount(amount):
+    one = Decimal("1")
+    return (amount + one).quantize(one, ROUND_DOWN)
 
 
 def format_amount_interval(amount: Decimal, interval: int):

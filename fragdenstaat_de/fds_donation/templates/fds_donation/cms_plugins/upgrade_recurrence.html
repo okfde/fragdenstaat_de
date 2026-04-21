@@ -8,10 +8,14 @@
     <form method="POST" action="{% url "fds_donation:upgrade_recurrence" %}">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next_url }}" />
+        {{ form.stand_alone }}
         {{ form.recurrence }}
-        {{ form.upgrade_amount }}
-        <p class="text-end">
-            <button type="submit" class="btn btn-primary">{% translate "Upgrade donation" %}</button>
-        </p>
+        <label class="fw-bold" for="{{ form.upgrade_amount.auto_id }}">{{ form.upgrade_amount.label }}</label>
+        <div class="row">
+            <div class="col-auto">{{ form.upgrade_amount }}</div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-2">{% translate "Upgrade donation" %}</button>
+            </div>
+        </div>
     </form>
 {% endif %}
