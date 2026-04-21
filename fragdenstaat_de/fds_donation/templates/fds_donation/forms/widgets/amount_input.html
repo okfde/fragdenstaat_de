@@ -1,7 +1,7 @@
 {% load i18n humanize %}
 <div class="amount-group {% if 'is-invalid' in widget.attrs.class %}is-invalid{% endif %}">
     {% if presets %}
-        <div class="btn-toolbar flex-md-nowrap" role="toolbar">
+        <div class="btn-toolbar" role="toolbar">
             {% for amount, label in presets %}
                 <div class="btn-group mb-2">
                     <button type="button"
@@ -13,10 +13,10 @@
             {# djlint:off H021 #}
             <div class="input-group flex-nowrap mb-2">
                 <button type="button"
-                        class="btn btn-outline-secondary btn-other-amount btn-group d-none d-sm-inline"
+                        class="btn btn-outline-secondary text-nowrap btn-other-amount btn-group d-none d-sm-inline"
                         data-focus="{{ widget.attrs.id }}">{% trans "Other amount" %}</button>
                 {% include "django/forms/widgets/text.html" %}
-                <span class="input-group-text">{{ amount_label }}</span>
+                {% if amount_label %}<span class="input-group-text">{{ amount_label }}</span>{% endif %}
             </div>
         </div>
     {% endif %}
