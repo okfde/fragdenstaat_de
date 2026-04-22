@@ -168,19 +168,32 @@ def subscribe_user(
 
 
 def has_newsletter(user, newsletter=None, newsletter_slug=None) -> bool:
+    return bool(
+        get_subscriber(user, newsletter=newsletter, newsletter_slug=newsletter_slug)
+    )
+
+
+def get_subscriber(user, newsletter=None, newsletter_slug=None) -> Subscriber | None:
     if not user.is_authenticated:
         return None
-    if not newsletter:
-        try:
-            newsletter = Newsletter.objects.get(
-                slug=newsletter_slug or settings.DEFAULT_NEWSLETTER
-            )
-        except Newsletter.DoesNotExist:
-            return None
-
-    return Subscriber.objects.filter(
-        newsletter=newsletter, user=user, subscribed__isnull=False
-    ).exists()
+    if newsletter:
+        filt = {"newsletter": newsletter}
+        is_default = newsletter.slug == newsletter_slug
+    else:
+        filt = {"newsletter__slug": newsletter_slug or settings.DEFAULT_NEWSLETTER}
+        is_default = (
+            newsletter_slug is None or newsletter_slug == settings.DEFAULT_NEWSLETTER
+        )
+    if is_default:
+        subscriber = None
+        if not hasattr(user, "_subscriber_cache"):
+            subscribers = Subscriber.objects.filter(**filt).filter(user=user)
+            if subscribers:
+                subscriber = subscribers[0]
+            user._subscriber_cache = subscriber
+        else:
+            subscriber = user._subscriber_cache
+    return subscriber
 
 
 def subscribed_newsletters(user) -> List[Newsletter]:
