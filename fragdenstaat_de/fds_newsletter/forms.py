@@ -132,14 +132,17 @@ class NewsletterUserExtra:
             choices=(
                 (
                     1,
-                    "Ja, ich möchte den Newsletter zum Thema Informationsfreiheit erhalten!",
+                    _("Yes, I want to receive the newsletter."),
                 ),
-                (0, "Nein, ich möchte keinen Newsletter."),
+                (0, _("No, I don't want to receive the newsletter.")),
             ),
             coerce=lambda x: bool(int(x)),
             required=True,
-            label="Newsletter",
-            error_messages={"required": "Sie müssen sich entscheiden."},
+            label=_("Newsletter"),
+            help_text=_(
+                "If you decide to receive the newsletter, you will receive emails about current and relevant investigations, lawsuits and campaigns."
+            ),
+            error_messages={"required": _("You have to decide.")},
         )
 
     def on_clean(self, form):
