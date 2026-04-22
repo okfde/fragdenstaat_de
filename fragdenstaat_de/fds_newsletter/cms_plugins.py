@@ -1,11 +1,11 @@
-from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import NewsletterCMSPlugin, Subscriber
+from .models import NewsletterCMSPlugin
 from .templatetags.newsletter_tags import get_newsletter_context
+from .utils import has_newsletter
 
 
 @plugin_pool.register_plugin
@@ -82,22 +82,10 @@ class NewsletterLogicMixin:
         return context
 
     def _is_subscriber(self, context) -> bool | None:
-        is_subscriber = None  # unknown by default
-        if context.get("user") and context["user"].is_authenticated:
-            if not hasattr(context["user"], "_subscriber_cache"):
-                subscribers = Subscriber.objects.filter(
-                    newsletter__slug=settings.DEFAULT_NEWSLETTER, user=context["user"]
-                )
-                if subscribers:
-                    context["subscriber"] = subscribers[0]
-                    is_subscriber = True
-                else:
-                    # Definitely not a subscriber
-                    is_subscriber = False
-                context["user"]._subscriber_cache = is_subscriber
-            else:
-                is_subscriber = context["user"]._subscriber_cache
-        return is_subscriber
+        user = context.get("user")
+        if user and user.is_authenticated:
+            return has_newsletter(user)
+        return None
 
     def should_render(self):
         raise NotImplementedError

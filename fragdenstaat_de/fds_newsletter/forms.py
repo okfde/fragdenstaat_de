@@ -18,6 +18,7 @@ from .models import (
 )
 from .utils import (
     SubscriptionReturn,
+    has_newsletter,
     subscribe,
     subscribed_newsletters,
 )
@@ -121,6 +122,11 @@ class NewslettersUserForm(forms.Form):
 
 class NewsletterUserExtra:
     def on_init(self, form):
+        if hasattr(form, "request"):
+            request = form.request
+            if request.user.is_authenticated and has_newsletter(request.user):
+                return
+
         form.fields["newsletter"] = forms.TypedChoiceField(
             widget=BootstrapRadioSelect,
             choices=(
