@@ -352,6 +352,14 @@ class EmailHeaderCMSPlugin(VariableTemplateMixin, CMSPlugin):
         return self.label
 
 
+class RawCodeCMSPlugin(CMSPlugin):
+    label = models.CharField(max_length=255)
+    code = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.label
+
+
 class MailingBaseManager(models.Manager):
     def get_tracked(self):
         return (

@@ -1,11 +1,14 @@
 from django.conf import settings
-from django.template import Context, Variable, VariableDoesNotExist
+from django.template import Context, Template, Variable, VariableDoesNotExist
 from django.template.loader import TemplateDoesNotExist, get_template
 from django.utils.html import format_html, mark_safe
 from django.utils.translation import gettext_lazy as _
 
+import nh3
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
+
+from froide.helper.text_utils import convert_html_to_text
 
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
 
@@ -18,6 +21,7 @@ from .models import (
     EmailStoryCMSPlugin,
     Mailing,
     NewsletterArchiveCMSPlugin,
+    RawCodeCMSPlugin,
 )
 from .utils import render_plugin_text, render_plugin_web_html
 
@@ -285,6 +289,51 @@ class EmailHeaderPlugin(EmailTemplateMixin, EmailRenderMixin, CMSPluginBase):
     def render_web_html(self, context, instance):
         # TODO: Add support for header?
         return ""
+
+
+@plugin_pool.register_plugin
+class RawCodePlugin(CMSPluginBase):
+    model = RawCodeCMSPlugin
+    module = _("Email")
+    name = _("Raw Code")
+    allow_children = False
+    render_template = "email/raw_code.html"
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context["code"] = instance.code
+        return context
+
+    def render_text(self, context, instance):
+        web_html = self.render_web_html(context, instance)
+        return convert_html_to_text(web_html)
+
+    def render_web_html(self, context, instance):
+        content = instance.code
+        if "<mj-" in content:
+            content = nh3.clean(
+                content,
+                tags={
+                    "p",
+                    "ol",
+                    "ul",
+                    "li",
+                    "a",
+                    "i",
+                    "em",
+                    "strong",
+                    "h1",
+                    "h2",
+                    "h3",
+                    "h4",
+                    "h5",
+                    "h6",
+                    "hr",
+                },
+            )
+
+        template = Template(content)
+        return template.render(Context(context))
 
 
 @plugin_pool.register_plugin
