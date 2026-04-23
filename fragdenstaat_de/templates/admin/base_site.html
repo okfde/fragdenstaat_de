@@ -1,5 +1,9 @@
 {% extends 'admin/base.html' %}
 {% load static %}
+{% block title %}
+    {% if subtitle %}{{ subtitle }} |{% endif %}
+    {{ title }} | {{ site_title|default:_("Django site admin") }}
+{% endblock %}
 {% block extrahead %}
     {{ block.super }}
     <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}">
