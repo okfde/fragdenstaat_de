@@ -30,6 +30,7 @@ class NewsletterConfig(AppConfig):
         from froide.account.registries import user_extra_registry
         from froide.bounce.signals import email_bounced, email_unsubscribed
         from froide.foirequestfollower.models import FoiRequestFollower
+        from froide.searchalert.models import Alert
 
         from . import (
             actions,  # noqa: F401
@@ -46,6 +47,7 @@ class NewsletterConfig(AppConfig):
             handle_unsubscribe,
             merge_user,
             send_welcome_mail,
+            subscribe_alert,
             subscribe_follower,
             subscriber_import_delete_file,
             user_email_changed,
@@ -68,7 +70,9 @@ class NewsletterConfig(AppConfig):
         unsubscribed.connect(newsletter_unsubscribed_trigger_listener)
         user_extra_registry.register("registration", NewsletterUserExtra())
         user_extra_registry.register("follow", NewsletterFollowExtra())
+        user_extra_registry.register("alert", NewsletterFollowExtra())
         FoiRequestFollower.followed.connect(subscribe_follower)
+        Alert.subscribed.connect(subscribe_alert)
         tag_subscriber.connect(set_new_subscriber_tag)
         pre_delete.connect(subscriber_import_delete_file, sender=SubscriberImport)
 

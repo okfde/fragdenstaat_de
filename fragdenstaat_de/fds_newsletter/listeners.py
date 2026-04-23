@@ -87,6 +87,32 @@ def cancel_user(sender, user=None, **kwargs):
     ).delete()
 
 
+def subscribe_alert(sender, request=None, **kwargs):
+    if not sender.email_confirmed:
+        return
+
+    newsletter_reference = None
+    if sender.context and sender.context.get("newsletter"):
+        newsletter_reference = "alert_extra"
+    elif request is not None and request.GET.get("newsletter"):
+        newsletter_reference = "alert_extra_emaillink"
+
+    if newsletter_reference is None:
+        return
+
+    email = sender.email
+    if not email:
+        email = sender.user.email
+
+    subscribe_to_default_newsletter(
+        email,
+        user=sender.user,
+        email_confirmed=True,
+        reference=newsletter_reference,
+        keyword="searchalert:{}".format(sender.id),
+    )
+
+
 def subscribe_follower(sender, request=None, **kwargs):
     if not sender.confirmed:
         return
