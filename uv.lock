@@ -1998,7 +1998,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#a4367dd1d101df72e24c2477d92d0387355f89db" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#faa949d8d1ac367c775aad85509de3f37c9cd12b" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2072,7 +2072,7 @@ dependencies = [
 [[package]]
 name = "froide-evidencecollection"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#b8c056180c9e69041bfba7c855cc9a21da4b4f02" }
+source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#fbf61d80e5d41dfb04d0940e974dfb7b576272d4" }
 dependencies = [
     { name = "django-cms" },
     { name = "django-elasticsearch-dsl" },
@@ -2086,7 +2086,7 @@ dependencies = [
 [[package]]
 name = "froide-exam"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-exam.git?rev=main#dd9f3ed3fa6287d9c0e3238e3e94daa810b8e94f" }
+source = { git = "https://github.com/okfde/froide-exam.git?rev=main#161f78ea19981ae1189b8886b205bc6fe4aa9eae" }
 
 [[package]]
 name = "froide-fax"
