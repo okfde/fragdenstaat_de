@@ -301,15 +301,19 @@ class RawCodePlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        context["code"] = instance.code
+        context["output"] = self._render_code(context, instance)
         return context
+
+    def _render_code(self, context, instance):
+        template = Template(instance.code)
+        return template.render(Context(context))
 
     def render_text(self, context, instance):
         web_html = self.render_web_html(context, instance)
         return convert_html_to_text(web_html)
 
     def render_web_html(self, context, instance):
-        content = instance.code
+        content = self._render_code(context, instance)
         if "<mj-" in content:
             content = nh3.clean(
                 content,
@@ -331,9 +335,7 @@ class RawCodePlugin(CMSPluginBase):
                     "hr",
                 },
             )
-
-        template = Template(content)
-        return template.render(Context(context))
+        return content
 
 
 @plugin_pool.register_plugin
