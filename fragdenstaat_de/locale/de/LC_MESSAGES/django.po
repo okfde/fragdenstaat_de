@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-04-14 20:41+0200\n"
+"PO-Revision-Date: 2026-04-23 17:04+0200\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -861,6 +861,10 @@ msgstr "Erkenne Dauerspenden bei Spender*innen…"
 msgid "Django administration"
 msgstr "Admin"
 
+#: fragdenstaat_de/templates/admin/base_site.html
+msgid "Django site admin"
+msgstr "Django Admin"
+
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Do you want a donation receipt?"
 msgstr "Möchtest Du eine Spendenbescheinigung?"
@@ -1632,6 +1636,10 @@ msgstr "Falls E-Mail-Adressen nicht bestätigt sind, muss ein Aktivierungs-Templ
 msgid "If present, this page will be displayed as the ancestor in the breadcrumbs."
 msgstr "Wenn angegeben, wird diese Seite als Vorgänger in den Breadcrumbs angezeigt."
 
+#: fragdenstaat_de/fds_newsletter/forms.py
+msgid "If you decide to receive the newsletter, you will receive emails about current and relevant investigations, lawsuits and campaigns."
+msgstr "Wenn Sie sich für den Newsletter entscheiden, dann erhalten Sie E-Mails zu aktuellen und relevanten Recherchen, Klagen und Kampagnen."
+
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 msgid "If you want to change the payment method, please cancel your recurring donation and create a new one here."
 msgstr "Wenn Du die Zahlungsart ändern willst, kündige bitte Deine Dauerspende und lege hier eine neue an."
@@ -1715,6 +1723,10 @@ msgstr "Ungültiges Formular: {}"
 #: fragdenstaat_de/fds_blog/apps.py
 msgid "Investigations"
 msgstr "Recherchen"
+
+#: fragdenstaat_de/fds_blog/alert.py
+msgid "Investigations and articles"
+msgstr "Recherchen und Artikel"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Is contact allowed donor"
@@ -2051,6 +2063,7 @@ msgstr "Neuigkeiten"
 
 #: fragdenstaat_de/fds_mailing/cms_plugins.py
 #: fragdenstaat_de/fds_newsletter/cms_plugins.py
+#: fragdenstaat_de/fds_newsletter/forms.py
 msgid "Newsletter"
 msgstr "Newsletter"
 
@@ -2171,6 +2184,10 @@ msgstr "Keine Ergebnisse gefunden."
 msgid "No time? Donate with one click!"
 msgstr "Keine Zeit? Spende mit einem Klick!"
 
+#: fragdenstaat_de/fds_newsletter/forms.py
+msgid "No, I don't want to receive the newsletter."
+msgstr "Nein, ich möchte den Newsletter nicht erhalten."
+
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "No, thank you."
 msgstr "Nein, danke."
@@ -2219,6 +2236,13 @@ msgstr "Ein-Klick-Anfrage-Formular"
 #, python-brace-format
 msgid "One click form for {}"
 msgstr "Ein-Klick Formular für {}"
+
+#: fragdenstaat_de/fds_blog/templates/fds_blog/search.html
+#, python-format
+msgid "One result"
+msgid_plural "%(num)s results"
+msgstr[0] "One result"
+msgstr[1] "%(num)s Ergebnisse"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "One time donation amount"
@@ -2577,6 +2601,10 @@ msgstr "Fragebogen"
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Random split mailings created."
 msgstr "Zufällige Split-Mailings erstellt."
+
+#: fragdenstaat_de/fds_mailing/cms_plugins.py
+msgid "Raw Code"
+msgstr "Rohquelltext"
 
 #: fragdenstaat_de/fds_cms/templates/cms/plugins/primarylink/campaign.html
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/plugins/archive.html
@@ -3662,6 +3690,10 @@ msgstr "Jahre…"
 msgid "Yellow"
 msgstr "Gelb"
 
+#: fragdenstaat_de/fds_newsletter/forms.py
+msgid "Yes, I want to receive the newsletter."
+msgstr "Ja, ich möchte den Newsletter erhalten."
+
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Yes, once a year via email."
 msgstr "Ja, einmal im Jahr per E-Mail."
@@ -3734,6 +3766,7 @@ msgid "You have received an email to confirm your subscription."
 msgstr "Du hast eine E-Mail erhalten, um Dein Abonnement zu bestätigen."
 
 #: fragdenstaat_de/fds_donation/forms.py
+#: fragdenstaat_de/fds_newsletter/forms.py
 msgid "You have to decide."
 msgstr "Du musst dich entscheiden."
 
