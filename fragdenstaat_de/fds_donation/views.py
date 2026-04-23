@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, TemplateView, UpdateView
@@ -72,6 +73,14 @@ def make_order(request, category):
 def upgrade_recurrence(request):
     result = handle_upgrade(request)
     if result is True:
+        if is_ajax(request):
+            return HttpResponse(
+                format_html(
+                    '<div class="alert alert-success">{}</div>'.format(
+                        _("Your recurrence has been updated.")
+                    )
+                )
+            )
         messages.add_message(
             request, messages.SUCCESS, _("Your recurrence has been updated.")
         )
@@ -82,6 +91,8 @@ def upgrade_recurrence(request):
     else:
         messages.add_message(request, messages.ERROR, _("Form could not be processed."))
 
+    if is_ajax(request):
+        return HttpResponse(request.get_full_path())
     return get_redirect(request)
 
 

@@ -2,20 +2,24 @@
 {% load cms_tags %}
 {% load form_helper %}
 {% if form.can_upgrade %}
-    {% for plugin in instance.child_plugin_instances %}
-        {% render_plugin plugin %}
-    {% endfor %}
-    <form method="POST" action="{% url "fds_donation:upgrade_recurrence" %}">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ next_url }}" />
-        {{ form.stand_alone }}
-        {{ form.recurrence }}
-        <label class="fw-bold" for="{{ form.upgrade_amount.auto_id }}">{{ form.upgrade_amount.label }}</label>
-        <div class="row">
-            <div class="col-auto">{{ form.upgrade_amount }}</div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-2">{% translate "Upgrade donation" %}</button>
+    <div>
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+        <form method="POST"
+              action="{% url "fds_donation:upgrade_recurrence" %}"
+              class="ajaxified ajax-parent">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next_url }}" />
+            {{ form.stand_alone }}
+            {{ form.recurrence }}
+            <label class="fw-bold" for="{{ form.upgrade_amount.auto_id }}">{{ form.upgrade_amount.label }}</label>
+            <div class="row">
+                <div class="col-auto">{{ form.upgrade_amount }}</div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">{% translate "Upgrade donation" %}</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 {% endif %}
