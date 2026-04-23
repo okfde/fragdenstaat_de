@@ -1,6 +1,5 @@
 import json
 import logging
-from decimal import Decimal
 from typing import cast, override
 from urllib.parse import parse_qsl
 
@@ -47,7 +46,6 @@ from .models import (
 from .services import get_or_create_donor, send_donor_login_link, send_email_change_link
 from .utils import (
     MERGE_DONOR_FIELDS,
-    format_amount_interval,
     format_amount_with_currency,
     get_next_min_amount,
     get_upgrade_amounts,
@@ -971,7 +969,7 @@ class DonorEmailLinkForm(SpamProtectionMixin, forms.Form):
 
 
 class RecurrenceUpgradeForm(forms.Form):
-    def __init__(self, recurrence=None, stand_alone=False, *args, **kwargs):
+    def __init__(self, recurrence=None, choice_count=3, *args, **kwargs):
         self.recurrence: Recurrence | None = recurrence
         super().__init__(*args, **kwargs)
         self.fields["recurrence"] = forms.ModelChoiceField(
@@ -980,69 +978,42 @@ class RecurrenceUpgradeForm(forms.Form):
             widget=forms.HiddenInput,
             required=True,
         )
-        self.fields["stand_alone"] = forms.BooleanField(
-            initial=stand_alone,
-            widget=forms.HiddenInput,
-            required=False,
+        amounts = get_upgrade_amounts(
+            recurrence.amount, recurrence.interval, choice_count=choice_count
         )
-        amounts = get_upgrade_amounts(recurrence.amount, recurrence.interval)
-        if stand_alone:
-            new_min_amount = get_next_min_amount(recurrence.amount)
-            choices = [
-                (
-                    amount,
-                    format_amount_with_currency(amount),
-                )
-                for amount in amounts
-            ]
-            if recurrence.interval == 1:
-                label = _("Your new monthly amount:")
-            elif recurrence.interval == 12:
-                label = _("Your new yearly amount:")
-            elif recurrence.interval == 3:
-                label = _("Your new quarterly amount:")
-            else:
-                label = _("Your new amount every {} months:").format(
-                    recurrence.interval
-                )
-            self.fields["upgrade_amount"] = forms.DecimalField(
-                localize=True,
-                required=True,
-                initial=None,
-                min_value=new_min_amount,
-                max_digits=19,
-                decimal_places=2,
-                label=label,
-                widget=AmountInput(
-                    attrs={
-                        "title": _("Amount in Euro, comma as decimal separator"),
-                        "class": "text-end",
-                    },
-                    presets=choices,
-                    min_value=new_min_amount,
-                ),
+        new_min_amount = get_next_min_amount(recurrence.amount)
+        choices = [
+            (
+                amount,
+                format_amount_with_currency(amount),
             )
+            for amount in amounts
+        ]
+        if recurrence.interval == 1:
+            label = _("Your new monthly amount:")
+        elif recurrence.interval == 12:
+            label = _("Your new yearly amount:")
+        elif recurrence.interval == 3:
+            label = _("Your new quarterly amount:")
         else:
-            choices = [
-                (
-                    amount,
-                    # Translators: to X Euros per year
-                    _("to {}").format(
-                        format_amount_interval(amount, recurrence.interval)
-                    ),
-                )
-                for amount in amounts
-            ]
-            choices += [("", _("I cannot increase my donation"))]
-            self.fields["upgrade_amount"] = forms.TypedChoiceField(
-                coerce=Decimal,
-                label=_("Could you increase your donation?"),
-                required=True,
-                empty_value="",
-                initial="-",
-                choices=choices,
-                widget=BootstrapRadioSelect,
-            )
+            label = _("Your new amount every {} months:").format(recurrence.interval)
+        self.fields["upgrade_amount"] = forms.DecimalField(
+            localize=True,
+            required=True,
+            initial=None,
+            min_value=new_min_amount,
+            max_digits=19,
+            decimal_places=2,
+            label=label,
+            widget=AmountInput(
+                attrs={
+                    "title": _("Amount in Euro, comma as decimal separator"),
+                    "class": "text-end",
+                },
+                presets=choices,
+                min_value=new_min_amount,
+            ),
+        )
 
     def can_upgrade(self):
         subscription = self.recurrence.subscription

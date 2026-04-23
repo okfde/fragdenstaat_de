@@ -435,11 +435,13 @@ def merge_donor_with_same_confirmed_emails(donor):
         merge_donor_list([donor] + list(other_donors))
 
 
-def get_upgrade_amounts(amount: Decimal, interval: int):
+def get_upgrade_amounts(amount: Decimal, interval: int, choice_count=3):
+    if choice_count <= 0:
+        return []
     one = Decimal("1")
     amount_per_month = amount / interval
     step = None
-    percentages = (15, 25, 35)
+    percentages = [15 + 5 * i for i in range(choice_count)]
     new_amounts = set()
     if amount_per_month < 10:
         round_to = 1
@@ -466,13 +468,16 @@ def get_upgrade_amounts(amount: Decimal, interval: int):
         return new_amount
 
     if step is not None:
-        for i in range(1, 4):
+        for i in range(1, 1 + choice_count):
             new_amounts.add(make_amount(base_amount, step * i))
     else:
         for percent in percentages:
             extra = amount_per_month * percent / 100
             new_amounts.add(make_amount(amount_per_month, extra))
-    return sorted(new_amounts)[:3]
+    choices = sorted(new_amounts)
+    if choice_count == 1 and len(choices) > 1:
+        return [choices[1]]
+    return choices[:choice_count]
 
 
 def get_next_min_amount(amount):

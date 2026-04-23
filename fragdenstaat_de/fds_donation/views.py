@@ -101,7 +101,6 @@ def handle_upgrade(request) -> bool | None:
     if donor is None:
         return
     recurrence = None
-    stand_alone = bool(request.POST.get("stand_alone"))
     recurrence_id = request.POST.get("recurrence")
     if recurrence_id is not None:
         try:
@@ -112,9 +111,7 @@ def handle_upgrade(request) -> bool | None:
     if recurrence is None:
         return
 
-    form = RecurrenceUpgradeForm(
-        recurrence=recurrence, stand_alone=stand_alone, data=request.POST
-    )
+    form = RecurrenceUpgradeForm(recurrence=recurrence, data=request.POST)
     if not form.is_valid():
         return
     return form.save()
