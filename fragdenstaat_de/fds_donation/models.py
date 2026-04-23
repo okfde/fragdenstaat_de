@@ -1240,7 +1240,8 @@ class RemoteDonationFormCMSPlugin(CMSPlugin):
 
 
 class UpgradeRecurrenceFormCMSPlugin(CMSPlugin):
+    choice_count = models.SmallIntegerField(default=3)
     next_url = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return _("Upgrade Recurrence plugin: %s").format(self.next_url)
+        return _("Upgrade Recurrence ({})").format(self.choice_count)
