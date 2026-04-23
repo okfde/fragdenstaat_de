@@ -18,7 +18,6 @@ def banktransfer_setup(settings, live_server):
     settings.ALLOWED_HOSTS = ["*"]
 
 
-@pytest.mark.asyncio(loop_scope="session")
 async def fill_donation_page(page: Page, donor_email):
     await page.get_by_placeholder("Vorname").fill("Peter")
     await page.get_by_placeholder("Nachname").fill("Parker")
@@ -31,6 +30,7 @@ async def fill_donation_page(page: Page, donor_email):
 DONATION_DONE_URL = re.compile(r".*spenden/spende/spenden/abgeschlossen/.*")
 
 
+@pytest.mark.xdist_group(name="sequential")
 @pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 async def test_banktransfer_once(
@@ -61,6 +61,7 @@ async def test_banktransfer_once(
     assert "IBAN" in message.body
 
 
+@pytest.mark.xdist_group(name="sequential")
 @pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 async def test_banktransfer_recurring(
