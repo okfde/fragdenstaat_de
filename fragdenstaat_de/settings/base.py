@@ -282,6 +282,7 @@ class FragDenStaatBase(German, Base):
         "PicturePlugin",
         "EmailButtonPlugin",
         "ConditionPlugin",
+        "RawCodePlugin",
     ]
     CMS_PLACEHOLDER_CONF = {
         "email_body": {
