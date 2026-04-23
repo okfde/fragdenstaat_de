@@ -50,6 +50,10 @@ EMAIL_TEMPLATE_CHOICES = [
 COLLAPSE_NEWLINES = re.compile(r"((?:\r?\n){3,})")
 
 
+def get_default_sender_email():
+    return settings.SITE_EMAIL
+
+
 class EmailTemplate(models.Model):
     name = models.CharField(max_length=255)
     created = models.DateTimeField(default=timezone.now)
@@ -396,7 +400,7 @@ class Mailing(models.Model):
     )
     segments = models.ManyToManyField(Segment, blank=True)
     sender_name = models.CharField(max_length=255)
-    sender_email = models.EmailField(max_length=255, default=settings.SITE_EMAIL)
+    sender_email = models.EmailField(max_length=255, default=get_default_sender_email)
 
     sender_user = models.ForeignKey(
         User,
