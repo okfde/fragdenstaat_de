@@ -14,7 +14,6 @@ from django.utils.translation import gettext as _
 from cms.toolbar.utils import get_object_edit_url
 from cms.utils.plugins import copy_plugins_to_placeholder
 
-from froide.account.admin import UserAdmin
 from froide.follow.admin import FollowerAdmin
 from froide.helper.admin_utils import (
     ForeignKeyFilter,
@@ -532,62 +531,6 @@ class MailingMessageAdmin(admin.ModelAdmin):
     def reset_sent_status(self, request, queryset):
         queryset.update(sent=None, bounced=False)
 
-
-# Monkey-Patch UserAdmin.send_mail to create mailing instead
-
-original_send_mail = UserAdmin.send_mail
-
-
-def send_mail(self, request, queryset):
-    """
-    Send mail to users
-
-    """
-
-    if request.POST.get("subject"):
-        subject = request.POST.get("subject", "")
-        mailing = Mailing.objects.create(
-            creator_user=request.user, name=subject, publish=False
-        )
-        MailingMessage.objects.bulk_create(
-            [
-                MailingMessage(
-                    mailing=mailing,
-                    name=user.get_full_name(),
-                    email=user.email,
-                    user=user,
-                )
-                for user in queryset
-            ]
-        )
-        change_url = reverse("admin:fds_mailing_mailing_change", args=[mailing.id])
-        return redirect(change_url)
-
-    return original_send_mail(self, request, queryset)
-
-
-send_mail.short_description = _("Setup mailing to users...")
-send_mail.allowed_permissions = ("change",)
-UserAdmin.send_mail = send_mail
-
-
-def execute_send_mail_template(admin, request, queryset, action_obj):
-    count = queryset.count()
-    if count != 1:
-        admin.message_user(
-            request, _("You can only send to one user at a time."), level=messages.ERROR
-        )
-        return
-    for user in queryset:
-        action_obj.send_to_user(user)
-
-    admin.message_user(request, _("Email was sent."), level=messages.INFO)
-
-
-UserAdmin.send_mail_template = make_choose_object_action(
-    EmailTemplate, execute_send_mail_template, _("Send email via template...")
-)
-UserAdmin.actions += ["send_mail_template"]
 
 # Monkey-Patch PublicBodyAdmin to create mailing for PublicBodies
 

@@ -1,8 +1,11 @@
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.core.exceptions import BadRequest, PermissionDenied
 from django.db.models import Model, Q
 from django.http import JsonResponse
-from django.urls import path, reverse_lazy
+from django.shortcuts import redirect
+from django.urls import path, reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from django_amenities.admin import AmenityAdmin as OldAmenityAdmin
@@ -15,14 +18,113 @@ from froide_crowdfunding import admin as crowdfunding_admin
 from froide_crowdfunding.models import Contribution
 from leaflet.admin import LeafletGeoAdmin
 
+from froide.account.admin import UserAdmin as FroideUserAdmin
+from froide.account.services import AccountService
 from froide.georegion import admin as georegion_admin
 from froide.georegion.models import GeoRegion
+from froide.helper.admin_utils import make_choose_object_action
 from froide.publicbody import admin as pb_admin
 from froide.publicbody.models import ProposedPublicBody, PublicBody
 
 from fragdenstaat_de.fds_donation.models import Donation
-from fragdenstaat_de.fds_mailing.models import MailingMessage
+from fragdenstaat_de.fds_mailing.models import EmailTemplate, Mailing, MailingMessage
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
+
+User = get_user_model()
+
+
+def execute_send_mail_template(admin, request, queryset, action_obj):
+    count = queryset.count()
+    if count != 1:
+        admin.message_user(
+            request,
+            _("You can only send to one user at a time."),
+            level=messages.ERROR,
+        )
+        return
+    for user in queryset:
+        action_obj.send_to_user(user)
+
+    admin.message_user(request, _("Email was sent."), level=messages.INFO)
+
+
+class UserAdmin(FroideUserAdmin):
+    actions = FroideUserAdmin.actions + [
+        "send_mail_template",
+        "activate_journalist",
+        "activate_plus",
+    ]
+
+    send_mail_template = make_choose_object_action(
+        EmailTemplate, execute_send_mail_template, _("Send email via template...")
+    )
+
+    @admin.action(
+        description=_("Send mailing to users..."),
+        permissions=("change",),
+    )
+    def send_mail(self, request, queryset):
+        # override UserAdmin.send_mail to create mailing instead
+
+        if request.POST.get("subject"):
+            subject = request.POST.get("subject", "")
+            mailing = Mailing.objects.create(
+                creator_user=request.user, name=subject, publish=False
+            )
+            MailingMessage.objects.bulk_create(
+                [
+                    MailingMessage(
+                        mailing=mailing,
+                        name=user.get_full_name(),
+                        email=user.email,
+                        user=user,
+                    )
+                    for user in queryset
+                ]
+            )
+            change_url = reverse("admin:fds_mailing_mailing_change", args=[mailing.id])
+            return redirect(change_url)
+
+        return super().send_mail(request, queryset)
+
+    @admin.action(
+        description=_("Mark user as journalist and send mail..."),
+        permissions=("change",),
+    )
+    def activate_journalist(self, request, queryset):
+        journalist_group = Group.objects.get(name="Journalists")
+        plus_group = Group.objects.get(name="FragDenStaat Plus")
+        for user in queryset:
+            if not user.is_trusted:
+                user.is_trusted = True
+                user.save(update_fields=["is_trusted"])
+
+            user.groups.add(plus_group)  # plus group also needed for journalists
+
+            # this also sends the proper email for journalists
+            AccountService(user).add_to_group(journalist_group)
+
+        self.message_user(request, _("Successfully executed."))
+
+    @admin.action(
+        description=_("Give user access to Plus and send mail..."),
+        permissions=("change",),
+    )
+    def activate_plus(self, request, queryset):
+        plus_group = Group.objects.get(name="FragDenStaat Plus")
+        for user in queryset:
+            if not user.is_trusted:
+                user.is_trusted = True
+                user.save(update_fields=["is_trusted"])
+
+            # this also sends the proper email for journalists
+            AccountService(user).add_to_group(plus_group)
+
+        self.message_user(request, _("Successfully executed."))
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 
 
 class GeoRegionAdmin(georegion_admin.GeoRegionMixin, LeafletGeoAdmin):
