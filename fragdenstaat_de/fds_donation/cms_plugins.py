@@ -77,7 +77,7 @@ class UpgradeRecurrencePlugin(CMSPluginBase):
             active_recurrence = context["donor"].get_current_recurrence()
             if active_recurrence:
                 context["form"] = RecurrenceUpgradeForm(
-                    recurrence=active_recurrence, stand_alone=True
+                    recurrence=active_recurrence, choice_count=instance.choice_count
                 )
 
         return context
