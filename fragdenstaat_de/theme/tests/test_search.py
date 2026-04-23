@@ -184,7 +184,7 @@ test_cases = [
         "Informationsfreiheitsgesetze",
         "(information freiheit gesetz)",
     ),
-    ("Fußgängerübergang", "(fuss gang uber gang)"),
+    ("Fußgängerübergang", "Fußgängerübergang"),
     (
         'Ministerium "Kleine Anfrage"',
         'Ministerium "Kleine Anfrage"',

@@ -34,4 +34,6 @@ search_docs = [
     {"id": "18", "content": "Hund und Maus, Hunde und Mäuse."},
     {"id": "19", "content": "das Verkehrskonzept für Verkehrsmittel"},
     {"id": "20", "content": "Er lief über den Gang."},
+    {"id": "21", "content": "Der Wal in der Ostsee ist ein Buckelwal."},
+    {"id": "22", "content": "Verwaltung in der Treskowallee in Walsrode"},
 ]
