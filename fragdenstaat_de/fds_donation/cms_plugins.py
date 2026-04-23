@@ -54,12 +54,6 @@ class DonationGiftFormPlugin(CMSPluginBase):
                 donor=context["donor"],
                 category=instance.category,
             )
-            active_recurrence = context["donor"].get_current_recurrence()
-            if active_recurrence:
-                context["upgrade_form"] = RecurrenceUpgradeForm(
-                    recurrence=active_recurrence
-                )
-
         return context
 
 
