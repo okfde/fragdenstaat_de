@@ -57,26 +57,9 @@ def make_order(request, category):
     )
     if form.is_valid():
         form.save()
-        upgrade_result = handle_upgrade(request)
-        if upgrade_result is True:
-            if upgrade_result:
-                messages.add_message(
-                    request,
-                    messages.SUCCESS,
-                    _(
-                        "Your order has been created and your donation has been updated."
-                    ),
-                )
-        elif upgrade_result is False:
-            messages.add_message(
-                request,
-                messages.WARNING,
-                _("Your order has been created but we could not update your donation."),
-            )
-        else:
-            messages.add_message(
-                request, messages.SUCCESS, _("Your order has been created.")
-            )
+        messages.add_message(
+            request, messages.SUCCESS, _("Your order has been created.")
+        )
 
         return get_redirect(request)
     if form.errors:
