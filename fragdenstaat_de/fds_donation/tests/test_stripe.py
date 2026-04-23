@@ -15,7 +15,7 @@ import froide_payment.provider.stripe
 import payments.core
 import pytest
 import stripe
-from playwright.sync_api import Page
+from playwright.async_api import Page
 
 from fragdenstaat_de.fds_donation.forms import QuickDonationForm
 from fragdenstaat_de.fds_donation.models import Donation
@@ -167,39 +167,42 @@ def stripe_sepa_setup(settings, live_server, monkeypatch):
     yield forwarder
 
 
-def fill_donation_page(page: Page, donor_email):
-    page.get_by_placeholder("Vorname").fill("Peter")
-    page.get_by_placeholder("Nachname").fill("Parker")
-    page.get_by_placeholder("z.B. name@beispiel.de").fill(donor_email)
-    page.get_by_text("Nein, danke.").nth(1).click()
-    page.get_by_text("Nein, danke.").nth(2).click()
-    page.get_by_label("Was ist drei plus vier?").fill("7")
+async def fill_donation_page(page: Page, donor_email):
+    await page.get_by_placeholder("Vorname").fill("Peter")
+    await page.get_by_placeholder("Nachname").fill("Parker")
+    await page.get_by_placeholder("z.B. name@beispiel.de").fill(donor_email)
+    await page.get_by_text("Nein, danke.").nth(1).click()
+    await page.get_by_text("Nein, danke.").nth(2).click()
+    await page.get_by_label("Was ist drei plus vier?").fill("7")
 
 
 DONATION_DONE_URL = re.compile(r".*spenden/spende/spenden/abgeschlossen/.*")
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.stripe
-def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_setup):
+async def test_sepa_recurring_donation_success(
+    page: Page, live_server, stripe_sepa_setup
+):
     donor_email = "peter.parker@example.com"
 
-    page.goto(live_server.url + reverse("fds_donation:donate"))
-    page.get_by_role("button", name="5 Euro").click()
-    page.get_by_text("monatlich").click()
-    page.get_by_text("SEPA-Lastschrift", exact=True).click()
-    fill_donation_page(page, donor_email)
-    with page.expect_navigation():
-        page.get_by_role("button", name="Jetzt spenden").click()
+    await page.goto(live_server.url + reverse("fds_donation:donate"))
+    await page.get_by_role("button", name="5 Euro").click()
+    await page.get_by_text("monatlich").click()
+    await page.get_by_text("SEPA-Lastschrift", exact=True).click()
+    await fill_donation_page(page, donor_email)
+    async with page.expect_navigation():
+        await page.get_by_role("button", name="Jetzt spenden").click()
 
     with stripe_sepa_setup.wait_for_events(["invoice.payment_succeeded"]):
-        page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success"])
-        page.get_by_role("button", name="Jetzt spenden").click()
+        await page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success"])
+        await page.get_by_role("button", name="Jetzt spenden").click()
 
-        page.wait_for_url(DONATION_DONE_URL)
+        await page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
-        assert page.get_by_text(donor_email).is_visible()
+        assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
+        assert await page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
 
@@ -232,25 +235,25 @@ def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_se
     subscription = donation.order.subscription
     old_plan = subscription.plan
     assert old_plan.interval == 1
-    page.goto(
+    await page.goto(
         live_server.url
         + reverse(
             "froide_payment:subscription-detail", kwargs={"token": subscription.token}
         )
     )
-    page.locator("#id_amount").fill("10")
-    page.locator("#id_interval_1").click()
+    await page.locator("#id_amount").fill("10")
+    await page.locator("#id_interval_1").click()
     mail.outbox = []
-    page.get_by_role("button", name="Dauerspende ändern").click()
-    page.wait_for_load_state("networkidle")
+    await page.get_by_role("button", name="Dauerspende ändern").click()
+    await page.wait_for_load_state("networkidle")
 
     # Open confirmation link in email
     assert mail.outbox[-1].to[0] == subscription.customer.user_email
     message = mail.outbox[-1]
     match = re.search(r"http://\S+", message.body)
     assert match
-    page.goto(match.group(0))
-    page.wait_for_load_state("networkidle")
+    await page.goto(match.group(0))
+    await page.wait_for_load_state("networkidle")
 
     # Check subscription change
     subscription.refresh_from_db()
@@ -263,16 +266,16 @@ def test_sepa_recurring_donation_success(page: Page, live_server, stripe_sepa_se
     assert stripe_sub.trial_end is not None
 
     # Change IBAN
-    page.goto(
+    await page.goto(
         live_server.url
         + reverse(
             "froide_payment:subscription-detail", kwargs={"token": subscription.token}
         )
     )
-    page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success_delayed"])
-    page.get_by_role("button", name="IBAN ändern").click()
-    page.wait_for_selector(".show.alert-dismissible")
-    assert page.get_by_text("wurde aktualisiert")
+    await page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success_delayed"])
+    await page.get_by_role("button", name="IBAN ändern").click()
+    await page.wait_for_selector(".show.alert-dismissible")
+    assert await page.get_by_text("wurde aktualisiert")
 
     stripe_sub = stripe.Subscription.retrieve(subscription.remote_reference)
     stripe_pm_id = stripe_sub.default_payment_method
@@ -316,29 +319,30 @@ def stripe_mocked_time(time_machine, monkeypatch):
     stripe.test_helpers.TestClock.delete(time_mover.test_clock)
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.stripe
-def test_sepa_shorten_recurring_interval(
+async def test_sepa_shorten_recurring_interval(
     page: Page, live_server, stripe_sepa_setup, stripe_mocked_time
 ):
     donor_email = "peter.parker@example.com"
 
-    page.goto(live_server.url + reverse("fds_donation:donate"))
-    page.get_by_role("button", name="5 Euro").click()
-    page.get_by_text("jährlich", exact=True).click()
-    page.get_by_text("SEPA-Lastschrift", exact=True).click()
-    fill_donation_page(page, donor_email)
-    with page.expect_navigation():
-        page.get_by_role("button", name="Jetzt spenden").click()
+    await page.goto(live_server.url + reverse("fds_donation:donate"))
+    await page.get_by_role("button", name="5 Euro").click()
+    await page.get_by_text("jährlich", exact=True).click()
+    await page.get_by_text("SEPA-Lastschrift", exact=True).click()
+    await fill_donation_page(page, donor_email)
+    async with page.expect_navigation():
+        await page.get_by_role("button", name="Jetzt spenden").click()
 
     with stripe_sepa_setup.wait_for_events(["invoice.payment_succeeded"]):
-        page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success"])
-        page.get_by_role("button", name="Jetzt spenden").click()
+        await page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success"])
+        await page.get_by_role("button", name="Jetzt spenden").click()
 
-        page.wait_for_url(DONATION_DONE_URL)
+        await page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
-        assert page.get_by_text(donor_email).is_visible()
+        assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
+        assert await page.get_by_text(donor_email).is_visible()
 
     stripe_event_id = [
         event.event_id
@@ -376,27 +380,27 @@ def test_sepa_shorten_recurring_interval(
         next_date = date.today() + timedelta(days=5)
         assert last_order.service_end.date() > next_date
 
-        page.goto(
+        await page.goto(
             live_server.url
             + reverse(
                 "froide_payment:subscription-detail",
                 kwargs={"token": subscription.token},
             )
         )
-        page.locator("#id_amount").fill("10")
-        page.get_by_text("monatlich").click()
-        page.locator("#id_next_date").fill(next_date.strftime("%Y-%m-%d"))
+        await page.locator("#id_amount").fill("10")
+        await page.get_by_text("monatlich").click()
+        await page.locator("#id_next_date").fill(next_date.strftime("%Y-%m-%d"))
         mail.outbox = []
-        page.get_by_role("button", name="Dauerspende ändern").click()
-        page.wait_for_load_state("networkidle")
+        await page.get_by_role("button", name="Dauerspende ändern").click()
+        await page.wait_for_load_state("networkidle")
 
         # Open confirmation link in email
         assert mail.outbox[-1].to[0] == subscription.customer.user_email
         message = mail.outbox[-1]
         match = re.search(r"http://\S+", message.body)
         assert match
-        page.goto(match.group(0))
-        page.wait_for_load_state("networkidle")
+        await page.goto(match.group(0))
+        await page.wait_for_load_state("networkidle")
 
         logging.info("waiting for webhooks to complete")
 
@@ -454,33 +458,34 @@ def test_sepa_shorten_recurring_interval(
     assert payment.captured_amount == 10
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.stripe
-def test_sepa_once_donation_additional_fields(
+async def test_sepa_once_donation_additional_fields(
     page: Page, live_server, stripe_sepa_setup
 ):
     donor_email = "peter.parker@example.com"
 
-    page.goto(live_server.url + reverse("fds_donation:donate"))
-    page.get_by_role("button", name="5 Euro").click()
-    page.get_by_text("SEPA-Lastschrift", exact=True).click()
-    fill_donation_page(page, donor_email)
-    page.get_by_role("button", name="Jetzt spenden").click()
+    await page.goto(live_server.url + reverse("fds_donation:donate"))
+    await page.get_by_role("button", name="5 Euro").click()
+    await page.get_by_text("SEPA-Lastschrift", exact=True).click()
+    await fill_donation_page(page, donor_email)
+    await page.get_by_role("button", name="Jetzt spenden").click()
 
     with stripe_sepa_setup.wait_for_events(["charge.succeeded"]):
-        page.locator("#id_iban").fill(STRIPE_TEST_IBANS["additional_fields"])
-        page.get_by_role("button", name="Jetzt spenden").click()
+        await page.locator("#id_iban").fill(STRIPE_TEST_IBANS["additional_fields"])
+        await page.get_by_role("button", name="Jetzt spenden").click()
 
-        page.get_by_placeholder("Adresse").fill("Teststraße 1")
-        page.get_by_placeholder("Ort").fill("Zürich")
-        page.get_by_placeholder("Postleitzahl").fill("1234")
+        await page.get_by_placeholder("Adresse").fill("Teststraße 1")
+        await page.get_by_placeholder("Ort").fill("Zürich")
+        await page.get_by_placeholder("Postleitzahl").fill("1234")
 
-        page.get_by_role("button", name="Jetzt spenden").click()
+        await page.get_by_role("button", name="Jetzt spenden").click()
 
-        page.wait_for_url(DONATION_DONE_URL)
+        await page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
-        assert page.get_by_text(donor_email).is_visible()
+        assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
+        assert await page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
 
@@ -514,26 +519,29 @@ def test_sepa_once_donation_additional_fields(
     assert donation.order.subscription is None
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.stripe
-def test_sepa_recurring_donation_failed(page: Page, live_server, stripe_sepa_setup):
+async def test_sepa_recurring_donation_failed(
+    page: Page, live_server, stripe_sepa_setup
+):
     donor_email = "peter.parker@example.com"
 
-    page.goto(live_server.url + reverse("fds_donation:donate"))
-    page.get_by_role("button", name="5 Euro").click()
-    page.get_by_text("monatlich").click()
-    page.get_by_text("SEPA-Lastschrift", exact=True).click()
-    fill_donation_page(page, donor_email)
-    page.get_by_role("button", name="Jetzt spenden").click()
+    await page.goto(live_server.url + reverse("fds_donation:donate"))
+    await page.get_by_role("button", name="5 Euro").click()
+    await page.get_by_text("monatlich").click()
+    await page.get_by_text("SEPA-Lastschrift", exact=True).click()
+    await fill_donation_page(page, donor_email)
+    await page.get_by_role("button", name="Jetzt spenden").click()
 
     with stripe_sepa_setup.wait_for_events(["customer.subscription.deleted"]):
-        page.locator("#id_iban").fill(STRIPE_TEST_IBANS["failed"])
-        page.get_by_role("button", name="Jetzt spenden").click()
+        await page.locator("#id_iban").fill(STRIPE_TEST_IBANS["failed"])
+        await page.get_by_role("button", name="Jetzt spenden").click()
 
-        page.wait_for_url(DONATION_DONE_URL)
+        await page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
-        assert page.get_by_text(donor_email).is_visible()
+        assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
+        assert await page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
 
@@ -559,25 +567,26 @@ def test_sepa_recurring_donation_failed(page: Page, live_server, stripe_sepa_set
     assert donation.amount_received == 0
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.stripe
-def test_sepa_once_donation_disputed(page: Page, live_server, stripe_sepa_setup):
+async def test_sepa_once_donation_disputed(page: Page, live_server, stripe_sepa_setup):
     donor_email = "peter.parker@example.com"
 
-    page.goto(live_server.url + reverse("fds_donation:donate"))
-    page.get_by_role("button", name="5 Euro").click()
-    page.get_by_text("SEPA-Lastschrift", exact=True).click()
-    fill_donation_page(page, donor_email)
-    page.get_by_role("button", name="Jetzt spenden").click()
+    await page.goto(live_server.url + reverse("fds_donation:donate"))
+    await page.get_by_role("button", name="5 Euro").click()
+    await page.get_by_text("SEPA-Lastschrift", exact=True).click()
+    await fill_donation_page(page, donor_email)
+    await page.get_by_role("button", name="Jetzt spenden").click()
 
     with stripe_sepa_setup.wait_for_events(["charge.dispute.closed"]):
-        page.locator("#id_iban").fill(STRIPE_TEST_IBANS["disputed"])
-        page.get_by_role("button", name="Jetzt spenden").click()
+        await page.locator("#id_iban").fill(STRIPE_TEST_IBANS["disputed"])
+        await page.get_by_role("button", name="Jetzt spenden").click()
 
-        page.wait_for_url(DONATION_DONE_URL)
+        await page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
-        assert page.get_by_text(donor_email).is_visible()
+        assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
+        assert await page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
 
@@ -595,36 +604,39 @@ def test_sepa_once_donation_disputed(page: Page, live_server, stripe_sepa_setup)
     assert donation.amount_received == 0
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.stripe
-def test_creditcard_recurring_donation_success(
+async def test_creditcard_recurring_donation_success(
     page: Page, live_server, stripe_sepa_setup
 ):
     donor_email = "peter.parker@example.com"
 
-    page.goto(live_server.url + reverse("fds_donation:donate"))
-    page.get_by_role("button", name="5 Euro").click()
-    page.get_by_text("monatlich").click()
-    page.get_by_text("Kreditkarte", exact=True).click()
-    fill_donation_page(page, donor_email)
-    page.get_by_role("button", name="Jetzt spenden").click()
+    await page.goto(live_server.url + reverse("fds_donation:donate"))
+    await page.get_by_role("button", name="5 Euro").click()
+    await page.get_by_text("monatlich").click()
+    await page.get_by_text("Kreditkarte", exact=True).click()
+    await fill_donation_page(page, donor_email)
+    await page.get_by_role("button", name="Jetzt spenden").click()
 
     with stripe_sepa_setup.wait_for_events(["invoice.payment_succeeded"]):
         frame = page.frame_locator('iframe[name^="__privateStripeFrame"]').first
-        frame.locator(".CardField-restWrapper").click()
-        frame.get_by_placeholder("Kartennummer").fill(STRIPE_TEST_CARDS["success"])
+        await frame.locator(".CardField-restWrapper").click()
+        await frame.get_by_placeholder("Kartennummer").fill(
+            STRIPE_TEST_CARDS["success"]
+        )
         next_year = datetime.now().year + 1
-        frame.get_by_placeholder("MM/JJ").fill("12 / {}".format(next_year))
-        frame.get_by_placeholder("Prüfziffer").fill("123")
-        frame.get_by_placeholder("PLZ").click()
-        frame.get_by_placeholder("PLZ").fill("12345")
+        await frame.get_by_placeholder("MM/JJ").fill("12 / {}".format(next_year))
+        await frame.get_by_placeholder("Prüfziffer").fill("123")
+        await frame.get_by_placeholder("PLZ").click()
+        await frame.get_by_placeholder("PLZ").fill("12345")
 
-        page.get_by_role("button").click()
+        await page.get_by_role("button").click()
 
-        page.wait_for_url(DONATION_DONE_URL)
+        await page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
-        assert page.get_by_text(donor_email).is_visible()
+        assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
+        assert await page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
 
@@ -641,34 +653,39 @@ def test_creditcard_recurring_donation_success(
     assert donation.order.subscription is not None
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.stripe
-def test_creditcard_once_donation_success(page: Page, live_server, stripe_sepa_setup):
+async def test_creditcard_once_donation_success(
+    page: Page, live_server, stripe_sepa_setup
+):
     donor_email = "peter.parker@example.com"
 
-    page.goto(live_server.url + reverse("fds_donation:donate"))
-    page.get_by_role("button", name="5 Euro").click()
-    # page.get_by_text("monatlich").click()
-    page.get_by_text("Kreditkarte", exact=True).click()
+    await page.goto(live_server.url + reverse("fds_donation:donate"))
+    await page.get_by_role("button", name="5 Euro").click()
+    # await page.get_by_text("monatlich").click()
+    await page.get_by_text("Kreditkarte", exact=True).click()
     fill_donation_page(page, donor_email)
-    page.get_by_role("button", name="Jetzt spenden").click()
+    await page.get_by_role("button", name="Jetzt spenden").click()
 
     with stripe_sepa_setup.wait_for_events(["charge.succeeded"]):
         frame = page.frame_locator('iframe[name^="__privateStripeFrame"]').first
-        frame.locator(".CardField-restWrapper").click()
-        frame.get_by_placeholder("Kartennummer").fill(STRIPE_TEST_CARDS["success"])
+        await frame.locator(".CardField-restWrapper").click()
+        await frame.get_by_placeholder("Kartennummer").fill(
+            STRIPE_TEST_CARDS["success"]
+        )
         next_year = datetime.now().year + 1
-        frame.get_by_placeholder("MM/JJ").fill("12 / {}".format(next_year))
-        frame.get_by_placeholder("Prüfziffer").fill("123")
-        frame.get_by_placeholder("PLZ").click()
-        frame.get_by_placeholder("PLZ").fill("12345")
+        await frame.get_by_placeholder("MM/JJ").fill("12 / {}".format(next_year))
+        await frame.get_by_placeholder("Prüfziffer").fill("123")
+        await frame.get_by_placeholder("PLZ").click()
+        await frame.get_by_placeholder("PLZ").fill("12345")
 
-        page.get_by_role("button").click()
+        await page.get_by_role("button").click()
 
-        page.wait_for_url(DONATION_DONE_URL)
+        await page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
-        assert page.get_by_text(donor_email).is_visible()
+        assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
+        assert await page.get_by_text(donor_email).is_visible()
 
         print("waiting for webhooks to complete...")
 
@@ -685,6 +702,7 @@ def test_creditcard_once_donation_success(page: Page, live_server, stripe_sepa_s
     assert donation.order.subscription is None
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.stripe
 def test_quick_donation(client, unsuspicious):

@@ -6,7 +6,7 @@ from django.urls import reverse
 
 import payments.core
 import pytest
-from playwright.sync_api import Page
+from playwright.async_api import Page
 
 from fragdenstaat_de.fds_donation.models import Donation
 
@@ -140,41 +140,42 @@ def paypal_setup(settings, live_server, monkeypatch):
     yield forwarder
 
 
-def fill_donation_page(page: Page, donor_email):
-    page.get_by_placeholder("Vorname").fill("Peter")
-    page.get_by_placeholder("Nachname").fill("Parker")
-    page.get_by_placeholder("z.B. name@beispiel.de").fill(donor_email)
-    page.get_by_text("Nein, danke.").nth(1).click()
-    page.get_by_text("Nein, danke.").nth(2).click()
-    page.get_by_label("Was ist drei plus vier?").fill("7")
+async def fill_donation_page(page: Page, donor_email):
+    await page.get_by_placeholder("Vorname").fill("Peter")
+    await page.get_by_placeholder("Nachname").fill("Parker")
+    await page.get_by_placeholder("z.B. name@beispiel.de").fill(donor_email)
+    await page.get_by_text("Nein, danke.").nth(1).click()
+    await page.get_by_text("Nein, danke.").nth(2).click()
+    await page.get_by_label("Was ist drei plus vier?").fill("7")
 
 
-def login_paypal(page: Page):
+async def login_paypal(page: Page):
     test_account = os.environ["PAYPAL_TEST_ACCOUNT"]
     test_password = os.environ["PAYPAL_TEST_PASSWORD"]
-    page.locator("#email").fill(test_account)
-    page.locator("#btnNext").click()
-    page.locator("#password").fill(test_password)
-    page.locator("#btnLogin").click()
+    await page.locator("#email").fill(test_account)
+    await page.locator("#btnNext").click()
+    await page.locator("#password").fill(test_password)
+    await page.locator("#btnLogin").click()
 
 
 DONATION_DONE_URL = re.compile(r".*spenden/spende/spenden/abgeschlossen/.*")
 DONATION_FAILED_URL = re.compile(r".*spenden/spende/spenden/fehlgeschlagen/.*")
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.paypal
-def test_paypal_once(page: Page, live_server, paypal_setup):
+async def test_paypal_once(page: Page, live_server, paypal_setup):
     donor_email = "peter.parker@example.com"
 
-    page.goto(live_server.url + reverse("fds_donation:donate"))
-    page.get_by_role("button", name="5 Euro").click()
-    page.get_by_text("Paypal", exact=True).click()
-    fill_donation_page(page, donor_email)
+    await page.goto(live_server.url + reverse("fds_donation:donate"))
+    await page.get_by_role("button", name="5 Euro").click()
+    await page.get_by_text("Paypal", exact=True).click()
+    await fill_donation_page(page, donor_email)
 
-    page.get_by_role("button", name="Jetzt spenden").click()
+    await page.get_by_role("button", name="Jetzt spenden").click()
 
-    login_paypal(page)
+    await login_paypal(page)
 
     donation = Donation.objects.filter(
         donor__email=donor_email, amount=5, recurring=False, method="paypal"
@@ -185,11 +186,11 @@ def test_paypal_once(page: Page, live_server, paypal_setup):
     # Checkout order approved + payment capture completed
     paypal_setup.max_request_count = 2
     with paypal_setup:
-        page.get_by_test_id("submit-button-initial").click()
-        page.wait_for_url(DONATION_DONE_URL)
+        await page.get_by_test_id("submit-button-initial").click()
+        await page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
-        assert page.get_by_text(donor_email).is_visible()
+        assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
+        assert await page.get_by_text(donor_email).is_visible()
 
         print("Waiting for webhooks...")
 
@@ -200,16 +201,17 @@ def test_paypal_once(page: Page, live_server, paypal_setup):
     assert payment.status == "confirmed"
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.paypal
-def test_paypal_recurring(page: Page, live_server, paypal_setup):
+async def test_paypal_recurring(page: Page, live_server, paypal_setup):
     donor_email = "peter.parker@example.com"
 
-    page.goto(live_server.url + reverse("fds_donation:donate"))
-    page.get_by_role("button", name="5 Euro").click()
-    page.get_by_text("monatlich").click()
-    page.get_by_text("Paypal", exact=True).click()
-    fill_donation_page(page, donor_email)
+    await page.goto(live_server.url + reverse("fds_donation:donate"))
+    await page.get_by_role("button", name="5 Euro").click()
+    await page.get_by_text("monatlich").click()
+    await page.get_by_text("Paypal", exact=True).click()
+    await fill_donation_page(page, donor_email)
 
     # Sometimes: Billing plan created + catalog product created, billing subscription created
     # Always: payment sale completed + billing subscription activated
@@ -219,9 +221,9 @@ def test_paypal_recurring(page: Page, live_server, paypal_setup):
         "PAYMENT.SALE.COMPLETED",
     }
     with paypal_setup:
-        page.get_by_role("button", name="Jetzt spenden").click()
+        await page.get_by_role("button", name="Jetzt spenden").click()
 
-        login_paypal(page)
+        await login_paypal(page)
 
         donation = Donation.objects.filter(
             donor__email=donor_email, amount=5, recurring=True, method="paypal"
@@ -230,12 +232,12 @@ def test_paypal_recurring(page: Page, live_server, paypal_setup):
         assert donation.payment.status != "pending"
         assert donation.payment.status != "confirmed"
 
-        page.locator('[data-test-id="continueButton"]').click()
+        await page.locator('[data-test-id="continueButton"]').click()
 
-        page.wait_for_url(DONATION_DONE_URL)
+        await page.wait_for_url(DONATION_DONE_URL)
 
-        assert page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
-        assert page.get_by_text(donor_email).is_visible()
+        assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
+        assert await page.get_by_text(donor_email).is_visible()
 
         print("Waiting for webhooks...")
 
@@ -248,19 +250,20 @@ def test_paypal_recurring(page: Page, live_server, paypal_setup):
     assert payment.status == "confirmed"
 
 
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
 @pytest.mark.paypal
-def test_paypal_cancel(page: Page, live_server, paypal_setup):
+async def test_paypal_cancel(page: Page, live_server, paypal_setup):
     donor_email = "peter.parker@example.com"
 
-    page.goto(live_server.url + reverse("fds_donation:donate"))
-    page.get_by_role("button", name="5 Euro").click()
-    page.get_by_text("Paypal", exact=True).click()
-    fill_donation_page(page, donor_email)
+    await page.goto(live_server.url + reverse("fds_donation:donate"))
+    await page.get_by_role("button", name="5 Euro").click()
+    await page.get_by_text("Paypal", exact=True).click()
+    await fill_donation_page(page, donor_email)
 
-    page.get_by_role("button", name="Jetzt spenden").click()
+    await page.get_by_role("button", name="Jetzt spenden").click()
 
-    login_paypal(page)
+    await login_paypal(page)
 
     donation = Donation.objects.filter(
         donor__email=donor_email, amount=5, recurring=False, method="paypal"
@@ -268,10 +271,10 @@ def test_paypal_cancel(page: Page, live_server, paypal_setup):
     assert donation.received_timestamp is None
     assert donation.payment.status != "pending"
     assert donation.payment.status != "confirmed"
-    page.get_by_test_id("cancel-link").click()
-    page.wait_for_url(DONATION_FAILED_URL)
+    await page.get_by_test_id("cancel-link").click()
+    await page.wait_for_url(DONATION_FAILED_URL)
 
-    assert page.get_by_text("Spende fehlgeschlagen!").is_visible()
+    assert await page.get_by_text("Spende fehlgeschlagen!").is_visible()
 
     donation.refresh_from_db()
     assert donation.completed is False
