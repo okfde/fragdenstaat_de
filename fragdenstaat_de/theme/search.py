@@ -4,6 +4,9 @@ from elasticsearch_dsl import analyzer, token_filter
 
 from froide.helper.search.filters import BaseQueryPreprocessor
 
+MIN_SUBTOKEN_LENGTH = 4
+
+
 # German stop words from Lucene:
 # https://github.com/apache/lucene/blob/main/lucene/analysis/common/src/resources/org/apache/lucene/analysis/snowball/german_stop.txt
 german_stop = token_filter("german_stop", type="stop", stopwords="_german_")
@@ -15,8 +18,6 @@ german_stemmer = token_filter("de_stemmer", type="stemmer", name="light_german")
 
 # Hyphenation decompounder for breaking up German compound words.
 # Uses the data from https://github.com/uschindler/german-decompounder.
-# Options such as min_subword_size do not seem to work, so short words have been explicitly
-# excluded from the word list.
 decomp = token_filter(
     "decomp",
     type="hyphenation_decompounder",
@@ -26,6 +27,10 @@ decomp = token_filter(
     no_sub_matches=True,
 )
 
+# Crude precision filter; replace once decomp false positives are handled properly.
+# Length filtering is done with a separate filter as the min_subword_size option
+# of the hyphenation_decompounder does not work as expected.
+length = token_filter("length", type="length", min=MIN_SUBTOKEN_LENGTH)
 
 # Token filter that runs multiple filters in parallel and merges the results.
 # Un-stemmed subwords from the decompounder are discarded while the original
@@ -40,6 +45,7 @@ multiplexer = token_filter(
         # Apply decompounding and process the resulting subwords.
         [
             decomp,
+            length,
             "german_normalization",
             "asciifolding",
             german_stemmer,
@@ -201,6 +207,11 @@ class QueryPreprocessor(BaseQueryPreprocessor):
         # Use `startswith` because the decompounder sometimes removes the last character,
         # e.g. "gesetze" -> "gesetz".
         if not tokens[0].startswith("".join(tokens[1:])):
+            return text
+
+        # If any subtoken is short enough that the indexer dropped it,
+        # the decomposition isn't usable for a precise AND rewrite.
+        if any(len(t) < MIN_SUBTOKEN_LENGTH for t in tokens[1:]):
             return text
 
         # Stem the tokens to match different word forms.

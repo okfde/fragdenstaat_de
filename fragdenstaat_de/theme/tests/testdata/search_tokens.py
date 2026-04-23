@@ -39,7 +39,7 @@ text_analyzer_tests = [
         [
             "fußgängerübergang",
             "fussgangerubergang",
-            "fuss",
+            # "fuss" filtered out because len("fuß") < MIN_SUBTOKEN_LENGTH
             "gang",
             "uber",
         ],
@@ -49,7 +49,7 @@ text_analyzer_tests = [
         [
             "fußgängerübergänge",
             "fussgangerubergang",
-            "fuss",
+            # "fuss" filtered out because len("fuß") < MIN_SUBTOKEN_LENGTH
             "gang",
             "uber",
             # For some reason, the second "gang" is missing here.
@@ -75,6 +75,7 @@ text_analyzer_tests = [
     ),
     # Example of false stemming + weird decompounding.
     ("Schülerinnen", ["schülerinnen", "schulerinn", "rinn"]),
+    ("Verwaltung", ["verwaltung"]),
 ]
 
 search_analyzer_tests = [

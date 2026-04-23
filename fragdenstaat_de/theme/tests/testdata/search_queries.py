@@ -95,7 +95,8 @@ search_tests = [
         ],
     ),
     ("Gesetz", ["1", "2"], [["Informationsfreiheitsgesetz"], ["Gesetz"]]),
-    ("Fußgänger", ["3"], [["Fußgängerübergänge"]]),
+    # Missing match: "Fußgängerübergänge"
+    ("Fußgänger", [], []),
     (
         "Übergang",
         ["20", "3"],
@@ -132,8 +133,8 @@ search_tests = [
     ("gut stadt", ["3"], [["Gütersloh", "gut", "Stadt"]]),
     (
         "gut | städte",
-        ["3", "5", "4", "15"],
-        [["Gütersloh", "gut", "Stadt"], ["Güterverkehrskonzept"], ["Stadt"], ["gut"]],
+        ["3", "5", "15", "4"],
+        [["Gütersloh", "gut", "Stadt"], ["Güterverkehrskonzept"], ["gut"], ["Stadt"]],
     ),
     # --- Multi-word queries.
     ("neues Gesetz", ["2"], [["neues", "Gesetz"]]),
@@ -184,6 +185,11 @@ search_tests = [
     ),
     # --- Normal search and exact phrase search combined.
     ('Ministerium "Kleine Anfrage"', ["9"], [["Ministerium", "Kleine Anfrage"]]),
+    # --- Searches related to short words.
+    # "Ver-wal-tung" but also "Buckelwal" do not match because "Wal" has been filtered out from decompounding.
+    ("Wal", ["21"], [["Wal"]]),
+    ("Buckelwal", ["21"], [["Buckelwal"]]),
+    ("Verwaltung", ["22"], [["Verwaltung"]]),
 ]
 
 
