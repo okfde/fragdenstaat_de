@@ -24,6 +24,8 @@ from parler.models import TranslatableModel, TranslatedFields
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
 
+from froide.helper.language import get_default_language, get_language_choices
+
 from fragdenstaat_de.fds_cms.utils import get_request
 from fragdenstaat_de.theme.colors import BACKGROUND
 
@@ -300,7 +302,11 @@ class TagsEntry(models.Model):
 
 class LanguageEntry(models.Model):
     language = models.CharField(
-        max_length=5, editable=True, blank=False, null=True, choices=settings.LANGUAGES
+        max_length=5,
+        editable=True,
+        blank=False,
+        null=True,
+        choices=get_language_choices,
     )
     uuid = models.UUIDField(db_index=True, null=True, blank=True)
 
@@ -562,8 +568,8 @@ class LatestArticlesPlugin(CMSPlugin):
     article_language = models.CharField(
         _("language"),
         blank=True,
-        choices=settings.LANGUAGES,
-        default=settings.LANGUAGE_CODE,
+        choices=get_language_choices,
+        default=get_default_language,
         max_length=5,
     )
     categories = models.ManyToManyField(

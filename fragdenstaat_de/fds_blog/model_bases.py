@@ -13,6 +13,18 @@ from filer.fields.file import FilerFileField
 from .managers import DRAFT, HIDDEN, PUBLISHED
 
 
+def get_content_template_choices():
+    return [
+        ("fds_blog/_article_detail.html", _("Default template"))
+    ] + settings.ARTICLE_CONTENT_TEMPLATES
+
+
+def get_detail_template_choices():
+    return [
+        ("fds_blog/article_detail.html", _("Default template"))
+    ] + settings.ARTICLE_DETAIL_TEMPLATES
+
+
 class CoreEntry(models.Model):
     """
     Abstract core entry model class providing
@@ -206,8 +218,7 @@ class ContentTemplateEntry(models.Model):
         _("content template"),
         max_length=250,
         default="fds_blog/_article_detail.html",
-        choices=[("fds_blog/_article_detail.html", _("Default template"))]
-        + settings.ARTICLE_CONTENT_TEMPLATES,
+        choices=get_content_template_choices,
         help_text=_("Template used to display the article's content."),
     )
 
@@ -225,8 +236,7 @@ class DetailTemplateEntry(models.Model):
         _("detail template"),
         max_length=250,
         default="fds_blog/article_detail.html",
-        choices=[("fds_blog/article_detail.html", _("Default template"))]
-        + settings.ARTICLE_DETAIL_TEMPLATES,
+        choices=get_detail_template_choices,
         help_text=_("Template used to display the article's detail page."),
     )
 
