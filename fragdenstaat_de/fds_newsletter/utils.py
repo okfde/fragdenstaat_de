@@ -193,7 +193,8 @@ def get_subscriber(user, newsletter=None, newsletter_slug=None) -> Subscriber | 
             user._subscriber_cache = subscriber
         else:
             subscriber = user._subscriber_cache
-    return subscriber
+        return subscriber
+    return Subscriber.objects.filter(**filt).filter(user=user).first()
 
 
 def subscribed_newsletters(user) -> List[Newsletter]:
