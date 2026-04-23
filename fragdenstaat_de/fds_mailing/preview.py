@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.dispatch import receiver
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from fragdenstaat_de.fds_newsletter.models import Subscriber
@@ -80,4 +81,51 @@ def provide_action_context(sender, **kwargs):
             "has_action": _("Has action"),
         },
         get_action_info,
+    )
+
+
+@receiver(gather_mailing_preview_context)
+def provide_searchalert_context(sender, **kwargs):
+    def get_searchalert_info(value, request):
+        from froide.searchalert.configuration import AlertEvent, AlertSection
+        from froide.searchalert.models import Alert
+
+        if value == "no_alert":
+            return
+        alert = Alert(
+            pk=0,
+            email_confirmed=timezone.now(),
+            user=request.user,
+            query=request.user.get_full_name(),
+            sections={"foirequest": True},
+        )
+
+        return {
+            "alert": alert,
+            "total_count": 13,
+            "sections": [
+                AlertSection(
+                    key="foirequest",
+                    title="Example section",
+                    url="http://example.com",
+                    results=[
+                        AlertEvent(
+                            title="Example title",
+                            url="http://example.org",
+                            content=mark_safe("highlighted <em>text</em> parts"),
+                        )
+                    ],
+                    result_count=1,
+                )
+            ],
+            "since_date": timezone.now() - alert.get_relative_delta(),
+        }
+
+    return MailingPreviewContextProvider(
+        "searchalert_alert",
+        {
+            "no_alert": _("---"),
+            "alert": _("Provide alert"),
+        },
+        get_searchalert_info,
     )
