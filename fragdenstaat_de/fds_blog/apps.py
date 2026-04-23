@@ -32,9 +32,13 @@ class BlogConfig(AppConfig):
         from froide.account import account_merged
         from froide.api import api_router
         from froide.helper.search import search_registry
+        from froide.searchalert import alert_registry
+
+        from .alert import ArticleAlertConfiguration
 
         account_merged.connect(merge_user)
         search_registry.register(add_search, "blog")
+        alert_registry.register(ArticleAlertConfiguration())
 
         from .api_views import ArticleTagViewSet
 

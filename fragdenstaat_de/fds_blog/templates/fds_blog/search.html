@@ -1,5 +1,6 @@
 {% extends "fds_blog/article_list.html" %}
 {% load i18n %}
+{% load searchalert_tags %}
 {% block title %}
     {% translate "Search articles" %} –
     {{ block.super }}
@@ -36,9 +37,15 @@
         <div class="col-12 col-md-3">{{ form.category }}</div>
         <div class="col-12 col-md-3">{{ form.sort }}</div>
     </form>
+    <div class="row my-3">
+        <div class="col-6">{% search_alert_form query=form.q.value %}</div>
+        <div class="col-6 text-end">
+            {% blocktrans with num=page_obj.paginator.formatted_count count counter=count %}One result{% plural %}{{ num }} results{% endblocktrans %}
+        </div>
+    </div>
 {% endblock %}
 {% block blog_list_items %}
-    {% if object_list and form.q.value %}
+    {% if object_list %}
         {% for article in object_list %}
             {% include "fds_blog/includes/blog_item_list.html" with article=article %}
         {% endfor %}

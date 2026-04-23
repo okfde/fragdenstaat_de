@@ -1,6 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 
 import django_filters
+from django_filters.widgets import DateRangeWidget
+from elasticsearch_dsl.query import Q as ESQ
 
 from froide.helper.search.filters import BaseSearchFilterSet
 from froide.helper.widgets import BootstrapSelect
@@ -25,6 +27,11 @@ class ArticleFilterset(BaseSearchFilterSet):
         method="filter_author",
     )
 
+    start_publication = django_filters.DateFromToRangeFilter(
+        method="filter_start_publication",
+        widget=DateRangeWidget,
+    )
+
     sort = django_filters.ChoiceFilter(
         choices=[
             ("-start_publication", _("Publication date (newest first)")),
@@ -41,6 +48,15 @@ class ArticleFilterset(BaseSearchFilterSet):
 
     def filter_author(self, qs, name, value):
         return qs.filter(author=value.id)
+
+    def filter_start_publication(self, qs, name, value):
+        range_kwargs = {}
+        if value.start is not None:
+            range_kwargs["gte"] = value.start
+        if value.stop is not None:
+            range_kwargs["lte"] = value.stop
+
+        return self.apply_filter(qs, name, ESQ("range", created_at=range_kwargs))
 
     def add_sort(self, qs, name, value):
         if value:
