@@ -22,9 +22,9 @@
             <p class="search-highlight">{{ article.query_highlight }}</p>
         {% elif article.teaser %}
             {% if not TRUNCWORDS_COUNT %}
-                {% render_model article "teaser" "" "" "safe" %}
+                {% render_model article "teaser" %}
             {% else %}
-                {% render_model article "teaser" "" "" "truncatewords_html:TRUNCWORDS_COUNT|safe" %}
+                {% render_model article "teaser" "" "" "truncatewords_html:TRUNCWORDS_COUNT" %}
             {% endif %}
         {% endif %}
     </div>

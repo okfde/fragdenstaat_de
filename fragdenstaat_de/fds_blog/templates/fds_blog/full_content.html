@@ -4,7 +4,7 @@
 {% load thumbnail markup i18n %}
 {% block before_main %}
     <header>
-        {% if object.teaser %}{{ object.teaser|safe }}{% endif %}
+        {% if object.teaser %}{{ object.teaser }}{% endif %}
         {% if object.image %}
             <figure>
                 {# Use full domain URL because of use in feeds #}
@@ -20,7 +20,7 @@
                         {% else %}
                             <p>
                                 {{ article_image_label }}
-                                {{ object.image.author|safe }}
+                                {{ object.image.author }}
                             </p>
                         {% endif %}
                     {% endif %}

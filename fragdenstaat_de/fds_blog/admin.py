@@ -17,7 +17,6 @@ from adminsortable2.admin import (
 from cms.api import add_plugin
 from cms.toolbar.utils import get_object_edit_url
 from djangocms_alias.models import Alias
-from djangocms_text.widgets import TextEditorWidget
 from parler.admin import TranslatableAdmin
 
 from froide.helper.admin_utils import make_choose_object_action, make_nullfilter
@@ -145,7 +144,6 @@ class ArticleAdminForm(forms.ModelForm):
         model = Article
         fields = "__all__"
         widgets = {
-            "teaser": TextEditorWidget(),
             "tags": TagAutocompleteWidget(
                 autocomplete_url=reverse_lazy("api:articletag-autocomplete")
             ),

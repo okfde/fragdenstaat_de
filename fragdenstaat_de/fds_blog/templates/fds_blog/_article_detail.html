@@ -11,7 +11,7 @@
                     <span>{% render_model article "title" %}</span>
                 </h1>
                 {% if article.teaser %}
-                    <div class="lead">{% render_model article "teaser" "" "" "safe" %}</div>
+                    <div class="lead">{% render_model article "teaser" %}</div>
                 {% endif %}
                 {% block article_header_authors %}
                     <div class="d-flex mt-5 align-items-center">

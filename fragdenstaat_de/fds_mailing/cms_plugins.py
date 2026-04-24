@@ -314,8 +314,8 @@ class RawCodePlugin(CMSPluginBase):
 
     def render_web_html(self, context, instance):
         content = self._render_code(context, instance)
-        if "<mj-" in content:
-            content = nh3.clean(
+        content = mark_safe(
+            nh3.clean(
                 content,
                 tags={
                     "p",
@@ -335,6 +335,7 @@ class RawCodePlugin(CMSPluginBase):
                     "hr",
                 },
             )
+        )
         return content
 
 

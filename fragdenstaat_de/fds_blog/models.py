@@ -19,6 +19,7 @@ from cms.toolbar.utils import get_object_edit_url
 from cms.utils.placeholder import get_placeholder_from_slot
 from cms.utils.plugins import get_plugins
 from djangocms_alias.models import Alias
+from djangocms_text.fields import HTMLField
 from filer.fields.image import FilerImageField
 from parler.models import TranslatableModel, TranslatedFields
 from taggit.managers import TaggableManager
@@ -359,7 +360,7 @@ class FeaturedEntry(models.Model):
 
 class DetailsEntry(models.Model):
     kicker = models.CharField(max_length=100, blank=True)
-    teaser = models.TextField(blank=True)
+    teaser = HTMLField(blank=True)
     credits = models.TextField(blank=True)
 
     class Meta:
@@ -707,9 +708,9 @@ class ArticlePreviewPlugin(CMSPlugin):
 
 class DetailsBoxCMSPlugin(CMSPlugin):
     title = models.CharField(max_length=100, blank=True)
-    content = models.TextField(blank=True)
+    content = HTMLField(blank=True)
     inline = models.BooleanField(default=False)
 
 
 class InfotextboxCMSPlugin(CMSPlugin):
-    content = models.TextField(blank=True)
+    content = HTMLField(blank=True)
