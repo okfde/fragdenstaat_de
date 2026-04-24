@@ -1,1 +1,0 @@
-{{ newsletter.title }} - Bestätige das Abbestellen

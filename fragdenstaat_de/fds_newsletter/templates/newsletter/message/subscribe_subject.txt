@@ -1,1 +1,0 @@
-{{ newsletter.title }} - Bestätigen Sie Ihre Abonnement
