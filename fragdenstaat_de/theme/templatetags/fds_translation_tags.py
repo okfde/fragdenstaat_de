@@ -58,16 +58,17 @@ def get_languages(
         # Non-CMS page.
         translated_pages = translate_url_languages(current_url, other_languages)
 
-    # add current language, if omitted
-    if current_language not in dict(translated_pages).keys():
-        translated_pages = list(translated_pages)
-        translated_pages += [TranslatedPage(current_language, current_url)]
+    # Add current language if missing and allowed.
+    existing_codes = {tp.language_code for tp in translated_pages}
+    if current_language in allowed_languages and current_language not in existing_codes:
+        translated_pages.append(TranslatedPage(current_language, current_url))
 
-    # Filter to languages allowed (USER_LANGUAGES or LANGUAGES).
+    # Drop any language that isn't in the allowed set.
     translated_pages = [
         tp for tp in translated_pages if tp.language_code in allowed_languages
     ]
 
     return sorted(
-        translated_pages, key=lambda page: get_language_info(page[0])["name_local"]
+        translated_pages,
+        key=lambda tp: get_language_info(tp.language_code)["name_local"],
     )
