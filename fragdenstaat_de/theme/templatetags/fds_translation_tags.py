@@ -9,7 +9,7 @@ from cms.models import Page
 from fragdenstaat_de.theme.translation import (
     TranslatedPage,
     TranslatedView,
-    get_other_languages,
+    get_language_codes,
     get_published_languages,
     get_published_page_urls,
     translate_apphook_subpage,
@@ -20,9 +20,12 @@ register = template.Library()
 
 
 @register.simple_tag
-def get_languages(request: HttpRequest, view) -> Sequence[TranslatedPage]:
+def get_languages(
+    request: HttpRequest, view, user_only: bool = True
+) -> Sequence[TranslatedPage]:
     current_language = request.LANGUAGE_CODE
-    other_languages = get_other_languages()
+    allowed_languages = get_language_codes(user_only=user_only)
+    other_languages = allowed_languages - {current_language}
 
     current_url = request.get_full_path()
 
@@ -59,5 +62,8 @@ def get_languages(request: HttpRequest, view) -> Sequence[TranslatedPage]:
     if current_language not in dict(languages).keys():
         languages = list(languages)
         languages += [TranslatedPage(current_language, current_url)]
+
+    # Filter to languages allowed (USER_LANGUAGES or LANGUAGES).
+    languages = [lang for lang in languages if lang.language_code in allowed_languages]
 
     return sorted(languages, key=lambda page: get_language_info(page[0])["name_local"])

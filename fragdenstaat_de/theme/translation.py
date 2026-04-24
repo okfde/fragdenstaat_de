@@ -1,12 +1,11 @@
 from typing import NamedTuple, Sequence
 
-from django.conf import settings
 from django.urls import NoReverseMatch, Resolver404, resolve, reverse, translate_url
-from django.utils.translation import get_language, override
+from django.utils.translation import override
 
 from cms.apphook_pool import apphook_pool
 
-LANGUAGE_CODES = set(dict(settings.LANGUAGES).keys())
+from froide.helper.language import get_language_choices, get_user_language_choices
 
 
 class TranslatedPage(NamedTuple):
@@ -28,14 +27,16 @@ class TranslatedView:
         raise NotImplementedError
 
 
-def get_other_languages() -> set[str]:
+def get_language_codes(user_only: bool = True) -> set[str]:
     """
-    returns the language codes of all settings.LANGUAGES,
-    except for the language code of the current request.
+    Returns the set of language codes available for language switching.
+
+    When user_only is True (default), uses settings.USER_LANGUAGES
+    (the subset of languages surfaced to end users). Otherwise uses
+    the full settings.LANGUAGES.
     """
-    other_languages = LANGUAGE_CODES.copy()
-    other_languages.remove(get_language())
-    return other_languages
+    choices = get_user_language_choices() if user_only else get_language_choices()
+    return set(dict(choices).keys())
 
 
 def get_published_languages(page) -> list[str]:
