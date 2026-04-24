@@ -10,7 +10,7 @@
             <span class="inline_detailbox">
                 <a class="inline_detailbox--title">{{ instance.title }}</a>
                 <template>
-                    <div class="inline_detailbox--content">{{ instance.content|safe }}</div>
+                    <div class="inline_detailbox--content">{{ instance.content }}</div>
                 </template>
             </span>
         {% endif %}
@@ -19,7 +19,7 @@
             <summary>
                 <strong>{{ instance.title }}</strong>
             </summary>
-            {{ instance.content|safe }}
+            {{ instance.content }}
         </details>
     {% endif %}
 {% endspaceless %}
