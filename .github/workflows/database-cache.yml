@@ -1,0 +1,32 @@
+name: Create database cache
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 14 * * 0
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start database
+        run: docker compose -f compose-dev.yaml up --wait db
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.13'
+          activate-environment: true
+      - name: Install system-level dependencies
+        run: sudo apt-get update && sudo apt-get install libgdal-dev gdal-bin
+      - name: Install dependencies
+        run: uv sync
+      - name: Run migrations
+        run: python manage.py migrate --skip-checks # due to django-cms issue
+      - name: Create database dump
+        run: docker compose -f compose-dev.yaml exec db pg_dump -U fragdenstaat_de fragdenstaat_de | gzip > dump.gz
+      - name: Save dump
+        uses: actions/cache/save@v5
+        with:
+          path: dump.gz
+          key: ${{ runner.os }}-${{ hashFiles('compose-dev.yaml') }}

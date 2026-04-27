@@ -24,8 +24,8 @@ jobs:
         python-version: ['3.12', '3.13', '3.14']
     steps:
       - uses: actions/checkout@v4
-      - name: Start Elasticsearch
-        run: docker compose -f compose-dev.yaml up --wait elasticsearch
+      - name: Start services
+        run: docker compose -f compose-dev.yaml up --wait
       - name: Setup uv
         uses: astral-sh/setup-uv@v6
         with:
@@ -49,16 +49,16 @@ jobs:
       - name: Compile translations
         run: |
           python manage.py compilemessages -i node_modules -l de
+      - name: Restore database cache
+        uses: actions/cache/restore@v5
+        id: db_cache
+        with:
+          path: dump.gz
+          key: ${{ runner.os }}-${{ hashFiles('compose-dev.yaml') }}
+      - name: Restore database
+        if: steps.db_cache.outputs.cache-hit == 'true'
+        run: ./scripts/restore_cached_db.sh
       - name: Run tests
         run: |
           pytest -n auto --cov --cov-report= fragdenstaat_de/
           coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
-    services:
-      postgres:
-        image: postgis/postgis:16-3.4
-        env:
-          POSTGRES_USER: fragdenstaat_de
-          POSTGRES_PASSWORD: fragdenstaat_de
-          POSTGRES_DB: fragdenstaat_de
-        ports:
-          - 5432:5432
