@@ -140,7 +140,7 @@ class NewsletterUserExtra:
             required=True,
             label=_("Newsletter"),
             help_text=_(
-                "If you decide to receive the newsletter, you will receive emails about current and relevant investigations, lawsuits and campaigns."
+                "If you decide to receive the newsletter, you will receive emails about current and relevant investigations, lawsuits and campaigns. You can cancel anytime."
             ),
             error_messages={"required": _("You have to decide.")},
         )
