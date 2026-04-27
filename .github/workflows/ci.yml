@@ -6,10 +6,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+        uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: pnpm
@@ -23,17 +23,17 @@ jobs:
       matrix:
         python-version: ['3.12', '3.13', '3.14']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Start services
         run: docker compose -f compose-dev.yaml up --wait
       - name: Setup uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           python-version: ${{ matrix.python-version }}
           activate-environment: true
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+        uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: pnpm
