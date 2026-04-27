@@ -9,11 +9,11 @@ jobs:
   dump:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Start database
         run: docker compose -f compose-dev.yaml up --wait db
       - name: Setup uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           python-version: '3.13'
           activate-environment: true
