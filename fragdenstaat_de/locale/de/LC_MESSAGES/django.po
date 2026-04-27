@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-04-23 17:04+0200\n"
+"PO-Revision-Date: 2026-04-27 16:43+0200\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -1637,8 +1637,8 @@ msgid "If present, this page will be displayed as the ancestor in the breadcrumb
 msgstr "Wenn angegeben, wird diese Seite als Vorgänger in den Breadcrumbs angezeigt."
 
 #: fragdenstaat_de/fds_newsletter/forms.py
-msgid "If you decide to receive the newsletter, you will receive emails about current and relevant investigations, lawsuits and campaigns."
-msgstr "Wenn Sie sich für den Newsletter entscheiden, dann erhalten Sie E-Mails zu aktuellen und relevanten Recherchen, Klagen und Kampagnen."
+msgid "If you decide to receive the newsletter, you will receive emails about current and relevant investigations, lawsuits and campaigns. You can cancel anytime."
+msgstr "Wenn Sie sich für den Newsletter entscheiden, dann erhalten Sie E-Mails zu aktuellen und relevanten Recherchen, Klagen und Kampagnen. Sie können ihn jederzeit abbestellen."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 msgid "If you want to change the payment method, please cancel your recurring donation and create a new one here."
@@ -2561,6 +2561,10 @@ msgstr "Primär-Link"
 #: fragdenstaat_de/theme/colors.py
 msgid "Primary Subtle"
 msgstr "Primär Subtil"
+
+#: fragdenstaat_de/fds_mailing/preview.py
+msgid "Provide alert"
+msgstr "Such-Abo hinzufügen"
 
 #: fragdenstaat_de/fds_paperless/filters.py
 msgid "Public Body"
