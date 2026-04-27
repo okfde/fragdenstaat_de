@@ -25,7 +25,11 @@ from parler.models import TranslatableModel, TranslatedFields
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
 
-from froide.helper.language import get_default_language, get_language_choices
+from froide.helper.language import (
+    get_default_language,
+    get_language_choices,
+    get_user_language_choices,
+)
 
 from fragdenstaat_de.fds_cms.utils import get_request
 from fragdenstaat_de.theme.colors import BACKGROUND
@@ -504,6 +508,10 @@ class Article(
                     self.__class__.objects.filter(uuid=self.uuid).exclude(pk=self.pk)
                 )
         return self._other_languages
+
+    def other_user_languages(self):
+        codes = [code for code, _ in get_user_language_choices()]
+        return self.other_languages().filter(language__in=codes)
 
     def get_language_url(self, lang):
         if self.language == lang:
