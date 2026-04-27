@@ -41,7 +41,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install libxml2-dev libxslt1-dev python3-dev libgdal-dev gdal-bin libmagic-dev libmagickwand-dev gettext libpoppler-cpp-dev
       - name: Install dependencies
         run: |
-          uv sync
+          uv sync --locked
           playwright install --with-deps chromium
           pnpm install
       - name: Build frontend
