@@ -638,6 +638,28 @@ class DonationManager(models.Manager):
         )
 
 
+class DonorEvent(models.Model):
+    class Kind(models.TextChoices):
+        PROMPT_UPGRADE_RECURRENCE = (
+            "prompt_upgrade_recurrence",
+            _("prompt recurrence upgrade"),
+        )
+        UPGRADE_RECURRENCE = "upgrade_recurrence", _("upgraded recurrence")
+
+    donor = models.ForeignKey(Donor, on_delete=models.CASCADE, related_name="events")
+    timestamp = models.DateTimeField(default=timezone.now)
+    kind = models.CharField(max_length=255, choices=Kind.choices)
+    reference = models.CharField(max_length=255, blank=True)
+    context = models.JSONField(default=dict)
+
+    class Meta:
+        verbose_name = _("donor event")
+        verbose_name_plural = _("donor events")
+
+    def __str__(self):
+        return f"{self.donor} - {self.get_kind_display()} at {self.timestamp}"
+
+
 class Donation(models.Model):
     donor = models.ForeignKey(
         Donor,
