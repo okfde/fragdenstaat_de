@@ -97,8 +97,10 @@ def process_new_donation(donation, received_now=False, domain_obj=None):
 def subscription_was_canceled(sender, **kwargs):
     if sender is None:
         return
-
     Recurrence.objects.filter(subscription=sender).update(cancel_date=sender.canceled)
+    recurrence = Recurrence.objects.filter(subscription=sender).first()
+    if recurrence:
+        detect_recurring_on_donor(recurrence.donor)
 
 
 def user_email_changed(sender, old_email=None, **kwargs):
