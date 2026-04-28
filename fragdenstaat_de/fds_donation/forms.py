@@ -7,6 +7,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.core.validators import MinValueValidator
+from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
@@ -969,6 +970,8 @@ class DonorEmailLinkForm(SpamProtectionMixin, forms.Form):
 
 
 class RecurrenceUpgradeForm(forms.Form):
+    reference = forms.CharField(widget=forms.HiddenInput, required=False)
+
     def __init__(self, recurrence=None, choice_count=3, *args, **kwargs):
         self.recurrence: Recurrence | None = recurrence
         super().__init__(*args, **kwargs)
@@ -1038,5 +1041,5 @@ class RecurrenceUpgradeForm(forms.Form):
             interval=subscription.plan.interval,
         )
         if result:
-            self.recurrence.update_from_subscription()
+            self.recurrence.update_from_subscription(last_upgrade=timezone.now())
         return result
