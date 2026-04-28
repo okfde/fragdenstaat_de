@@ -11,7 +11,7 @@ from django.utils.translation import ngettext_lazy
 
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_newsletter
 
-from .models import Donation, Donor, Recurrence, update_donation_numbers
+from .models import Donation, Donor, DonorEvent, Recurrence, update_donation_numbers
 
 MERGE_DONOR_FIELDS = [
     "salutation",
@@ -253,6 +253,8 @@ def merge_donors(candidates, primary_id, validated_data=None):
     Donation.objects.filter(donor_id__in=old_donor_ids).update(donor=merged_donor)
     # Transfer recurrences
     Recurrence.objects.filter(donor_id__in=old_donor_ids).update(donor=merged_donor)
+    # Transfer events
+    DonorEvent.objects.filter(donor_id__in=old_donor_ids).update(donor=merged_donor)
     # Delete old donors
     Donor.objects.filter(id__in=old_donor_ids).delete()
 
