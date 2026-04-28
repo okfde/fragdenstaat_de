@@ -19,6 +19,7 @@ from .models import (
     DonationGiftFormCMSPlugin,
     DonationProgressBarCMSPlugin,
     Donor,
+    DonorEvent,
     EmailDonationButtonCMSPlugin,
     RemoteDonationFormCMSPlugin,
     UpgradeRecurrenceFormCMSPlugin,
@@ -74,10 +75,21 @@ class UpgradeRecurrencePlugin(CMSPluginBase):
         context["next_url"] = instance.next_url or "/"
 
         if context["donor"]:
+            DonorEvent.objects.create(
+                donor=context["donor"],
+                reference=context["request"].GET.get("pk_campaign", ""),
+                kind=DonorEvent.Kind.PROMPT_UPGRADE_RECURRENCE,
+            )
             active_recurrence = context["donor"].get_current_recurrence()
-            if active_recurrence:
+            if active_recurrence and active_recurrence.should_upgrade(
+                instance.days_since
+            ):
                 context["form"] = RecurrenceUpgradeForm(
-                    recurrence=active_recurrence, choice_count=instance.choice_count
+                    recurrence=active_recurrence,
+                    choice_count=instance.choice_count,
+                    initial={
+                        "reference": context["request"].GET.get("pk_campaign", "")
+                    },
                 )
 
         return context

@@ -11,6 +11,7 @@
               class="ajaxified ajax-parent">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next_url }}" />
+            {{ form.reference }}
             {{ form.recurrence }}
             <label class="fw-bold" for="{{ form.upgrade_amount.auto_id }}">{{ form.upgrade_amount.label }}</label>
             <div class="row">
@@ -20,5 +21,12 @@
                 </div>
             </div>
         </form>
+    </div>
+{% elif request.toolbar.edit_mode_active %}
+    <div style="outline: 1px solid red; min-height: 2rem">
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+        <p>{{ instance }}</p>
     </div>
 {% endif %}

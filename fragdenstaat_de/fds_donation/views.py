@@ -30,7 +30,7 @@ from .forms import (
     RecurrenceUpgradeForm,
     SimpleDonationForm,
 )
-from .models import DonationFormViewCount, Donor
+from .models import DonationFormViewCount, Donor, DonorEvent
 from .services import confirm_donor_email
 from .utils import (
     DONOR_SESSION_KEY,
@@ -114,7 +114,27 @@ def handle_upgrade(request) -> bool | None:
     form = RecurrenceUpgradeForm(recurrence=recurrence, data=request.POST)
     if not form.is_valid():
         return
-    return form.save()
+    previous_amount = recurrence.amount
+    previous_amount_per_month = recurrence.amount_per_month
+    result = form.save()
+    if result:
+        DonorEvent.objects.create(
+            donor=donor,
+            kind=DonorEvent.Kind.UPGRADE_RECURRENCE,
+            reference=form.cleaned_data["reference"],
+            context={
+                "previous_amount": float(previous_amount),
+                "previous_amount_decimal": str(previous_amount),
+                "previous_amount_per_month": float(previous_amount_per_month),
+                "previous_amount_per_month_decimal": str(previous_amount_per_month),
+                "new_amount": float(recurrence.amount),
+                "new_amount_decimal": str(recurrence.amount),
+                "new_amount_per_month": float(recurrence.amount_per_month),
+                "new_amount_per_month_decimal": str(recurrence.amount_per_month),
+                "request": dict(request.GET),
+            },
+        )
+    return result
 
 
 class DonationView(FormView):
