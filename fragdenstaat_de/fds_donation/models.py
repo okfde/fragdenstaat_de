@@ -470,6 +470,7 @@ class Recurrence(models.Model):
     amount = models.DecimalField(
         max_digits=12, decimal_places=settings.DEFAULT_DECIMAL_PLACES, default=0
     )
+    last_upgrade = models.DateTimeField(null=True, blank=True)
     cancel_date = models.DateTimeField(null=True, blank=True)
     cancel_reason = models.CharField(
         max_length=255,
@@ -581,12 +582,21 @@ class Recurrence(models.Model):
         """
         return self.donations.order_by("timestamp").last()
 
-    def update_from_subscription(self):
+    def update_from_subscription(self, last_upgrade=None):
         if not self.subscription:
             return
+        if last_upgrade:
+            self.last_upgrade = last_upgrade
         self.interval = self.subscription.plan.interval
         self.amount = self.subscription.plan.amount
-        self.save(update_fields=["interval", "amount"])
+        self.save(update_fields=["interval", "amount", "last_upgrade"])
+
+    def should_upgrade(self, days_between_upgrade):
+        if not days_between_upgrade:
+            return True
+        last_upgrade = self.last_upgrade or self.start_date
+        days_since = (timezone.now() - last_upgrade).days
+        return days_between_upgrade < days_since
 
 
 class DonationManager(models.Manager):
@@ -1263,6 +1273,7 @@ class RemoteDonationFormCMSPlugin(CMSPlugin):
 
 class UpgradeRecurrenceFormCMSPlugin(CMSPlugin):
     choice_count = models.SmallIntegerField(default=3)
+    days_since = models.IntegerField(default=0)
     next_url = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
