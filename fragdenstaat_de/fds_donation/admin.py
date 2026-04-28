@@ -70,6 +70,7 @@ from .models import (
     DonationGift,
     DonationGiftOrder,
     Donor,
+    DonorEvent,
     DonorTag,
     Recurrence,
 )
@@ -1552,3 +1553,29 @@ class RecurrenceAdmin(admin.ModelAdmin):
 
     def days(self, obj):
         return obj.days()
+
+
+@admin.register(DonorEvent)
+class DonorEventAdmin(admin.ModelAdmin):
+    readonly_fields = (
+        "donor",
+        "timestamp",
+        "kind",
+        "reference",
+        "context",
+    )
+    raw_id_fields = ("donor",)
+    list_display = (
+        "donor",
+        "timestamp",
+        "kind",
+        "reference",
+    )
+    date_hierarchy = "timestamp"
+    list_filter = (
+        "kind",
+        ("donor", ForeignKeyFilter),
+    )
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("donor")
