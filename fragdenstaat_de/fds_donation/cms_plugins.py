@@ -8,6 +8,8 @@ from django.utils.translation import gettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
+from froide.helper.auth import is_crew
+
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
 from fragdenstaat_de.fds_mailing.cms_plugins import EmailRenderMixin, EmailTemplateMixin
 
@@ -75,11 +77,12 @@ class UpgradeRecurrencePlugin(CMSPluginBase):
         context["next_url"] = instance.next_url or "/"
 
         if context["donor"]:
-            DonorEvent.objects.create(
-                donor=context["donor"],
-                reference=context["request"].GET.get("pk_campaign", ""),
-                kind=DonorEvent.Kind.PROMPT_UPGRADE_RECURRENCE,
-            )
+            if not is_crew(context["request"]):
+                DonorEvent.objects.create(
+                    donor=context["donor"],
+                    reference=context["request"].GET.get("pk_campaign", ""),
+                    kind=DonorEvent.Kind.PROMPT_UPGRADE_RECURRENCE,
+                )
             active_recurrence = context["donor"].get_current_recurrence()
             if active_recurrence and active_recurrence.should_upgrade(
                 instance.days_since
