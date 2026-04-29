@@ -115,6 +115,7 @@ class FragDenStaatBase(German, Base):
                 "froide_govplan.apps.FroideGovPlanConfig",
                 "froide_evidencecollection.apps.FroideEvidencecollectionConfig",
                 "froide_pressconference.apps.FroidePressconferenceConfig",
+                "froide_election.apps.FroideElectionConfig",
                 "legal_advice_builder.apps.LegalAdviceBuilderConfig",
                 "fcdocs_annotate.annotation.apps.AnnotationConfig",
                 "tinymce",
