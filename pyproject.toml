@@ -32,9 +32,9 @@ dependencies = [
   "django-datashow>=0.1.10",
   "django-elasticsearch-dsl>=8.0,<9.0",
   "django-filer>=3.0.0",
-  "django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@main",
+  "django-filingcabinet @ git+https://github.com/okfde/django-filingcabinet.git@krmax44/treebeard",
   "django-filter>=25.1",
-  "django-flowcontrol>=0.0.8",
+  "django-flowcontrol @ git+https://github.com/krmax44/django-flowcontrol.git@krmax44/treebeard-5",
   "django-logentry-admin>=1.1.0",
   "django-mfa3>=1.0.0",
   "django-parler>=2.3",
@@ -92,7 +92,7 @@ dependencies = [
   "webp>=0.4.0",
   "websockets>=13.0.1",
   "django-amenities @ git+https://github.com/okfde/django-amenities.git@main",
-  "froide @ git+https://github.com/okfde/froide.git@main",
+  "froide @ git+https://github.com/okfde/froide.git@krmax44/treebeard",
   "froide-campaign @ git+https://github.com/okfde/froide-campaign.git@main",
   "froide-food @ git+https://github.com/okfde/froide-food.git@main",
   "froide-fax @ git+https://github.com/okfde/froide-fax.git@main",
@@ -146,7 +146,10 @@ dev = [
 ]
 
 [tool.uv]
-override-dependencies = ["numpy<2.4.0"]
+override-dependencies = [
+  "numpy<2.4.0",
+  "froide @ git+https://github.com/okfde/froide.git@krmax44/treebeard",
+]
 
 [build-system]
 requires = ["setuptools"]
