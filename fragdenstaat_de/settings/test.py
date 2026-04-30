@@ -31,7 +31,7 @@ class Test(FragDenStaatBase):
     }
 
     TEST_SELENIUM_DRIVER = values.Value("chrome")
-    ROOT_URLCONF = "tests.urls"
+    ROOT_URLCONF = "fragdenstaat_de.tests.urls"
 
     GEOIP_PATH = None
 
@@ -42,7 +42,7 @@ class Test(FragDenStaatBase):
     ELASTICSEARCH_DSL = {
         "default": {"hosts": "http://localhost:9200"},
     }
-    FIXTURE_DIRS = [os.path.join(THEME_ROOT, "..", "tests", "fixtures")]
+    FIXTURE_DIRS = [os.path.join(THEME_ROOT, "tests", "fixtures")]
 
     PAYMENT_VARIANTS = {
         # 'default': ('payments.dummy.DummyProvider', {})

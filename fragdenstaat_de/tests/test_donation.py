@@ -2,6 +2,7 @@ from django.core import mail
 from django.core.management import call_command
 
 import pytest
+from playwright.async_api import Page
 
 from fragdenstaat_de.fds_donation.models import Donation
 
@@ -12,20 +13,23 @@ def django_db_setup(django_db_setup, django_db_blocker):
         call_command("loaddata", "cms.json")
 
 
+@pytest.mark.xdist_group(name="sequential")
+@pytest.mark.asyncio(loop_scope="session")
 @pytest.mark.django_db
-def test_donation_page(page, live_server, django_db_setup):
+async def test_donation_page(page: Page, live_server, django_db_setup):
     mail.outbox = []
-    response = page.goto(live_server.url + "/spenden/spende/spenden/")
+    response = await page.goto(live_server.url + "/spenden/spende/spenden/")
+    assert response
     assert response.status == 200
-    page.click("text=20 Euro")
-    page.fill("#id_first_name", "Test")
-    page.fill("#id_last_name", "Testor")
-    page.fill("#id_email", "test@example.com")
-    page.click("text=Überweisung")
-    page.click("#id_contact_1")
-    page.click("#id_account_1")
-    page.fill("input[name=test]", "7")
-    page.click("#donate-now")
+    await page.click("text=20 Euro")
+    await page.fill("#id_first_name", "Test")
+    await page.fill("#id_last_name", "Testor")
+    await page.fill("#id_email", "test@example.com")
+    await page.click("text=Überweisung")
+    await page.click("#id_contact_1")
+    await page.click("#id_account_1")
+    await page.fill("input[name=test]", "7")
+    await page.click("#donate-now")
     assert page.url.startswith(
         live_server.url + "/spenden/spende/spenden/abgeschlossen/"
     )
