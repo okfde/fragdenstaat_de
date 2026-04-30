@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-04-27 16:43+0200\n"
+"PO-Revision-Date: 2026-04-30 11:39+0200\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -1142,6 +1142,10 @@ msgstr "Enddatum der Veröffentlichung."
 msgid "English"
 msgstr "Englisch"
 
+#: fragdenstaat_de/fds_donation/widgets.py
+msgid "Enter a number with up to two decimal places."
+msgstr "Gibt eine Zahl mit bis zu zwei Dezimalstellen ein."
+
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/\" target=\"_blank\">FontAwesome 4 icon set</a>"
 msgstr "Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target=\"_blank\">Font Awesome 4 Icon Liste</a>"
@@ -1300,6 +1304,10 @@ msgstr "Follow Template"
 #: fragdenstaat_de/fds_cms/contact.py
 msgid "For example a private email address"
 msgstr "Zum Beispiel eine private E-Mail-Adresse"
+
+#: fragdenstaat_de/fds_donation/views.py
+msgid "Form could not be processed."
+msgstr "Das Formular konnte nicht verarbeitet werden."
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Formal donor"
@@ -2495,10 +2503,6 @@ msgstr "Bitte wähle die zutreffenden Aussagen aus. Falls nichts zutrifft, klick
 msgid "Please note that you currently have the following recurring donations active:"
 msgstr "Bitte beachte, dass momentan folgende Dauerspenden für Dich aktiv sind:"
 
-#: fragdenstaat_de/fds_donation/views.py
-msgid "Please review your form submission."
-msgstr "Bitte überprüfe Deine Formulareingaben."
-
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer.txt
@@ -3380,6 +3384,11 @@ msgstr "Vielen Dank!"
 msgid "The <strong>donation receipts</strong> that we send at the beginning of next year can only be sent to <strong>confirmed email addresses!</strong>"
 msgstr "Die <strong>Spendenbescheinigung</strong>, die wir zu Beginn des kommenden Jahres versenden, können wir Dir nur an eine <strong>bestätigte E-Mail-Adresse</strong> zukommen lassen!"
 
+#: fragdenstaat_de/fds_donation/widgets.py
+#, python-brace-format
+msgid "The amount needs to be at least {}."
+msgstr "Der Betrag muss mindestens {} sein."
+
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "The chosen donation gift is no longer available, sorry!"
 msgstr "Das ausgewählte Spendengeschenk ist leider nicht mehr verfügbar, sorry!"
@@ -3600,6 +3609,23 @@ msgid_plural "Updated articles:"
 msgstr[0] "Neuerer Artikel:"
 msgstr[1] "Neuere Artikel:"
 
+#: fragdenstaat_de/fds_donation/models.py
+#, python-brace-format
+msgid "Upgrade Recurrence ({})"
+msgstr "Dauerspende-Erhöhung ({})"
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/upgrade_recurrence.html
+msgid "Upgrade donation"
+msgstr "Spende erhöhen"
+
+#: fragdenstaat_de/fds_donation/views.py
+msgid "Upgrade of recurrence failed."
+msgstr "Erhöhung der Dauerspende fehlgeschlagen."
+
+#: fragdenstaat_de/fds_donation/cms_plugins.py
+msgid "Upgrade recurrence"
+msgstr "Dauerspende erhöhen"
+
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_shipping.html
 msgid "Use receipt address"
 msgstr "Adresse der Spendenbescheinigung verwenden"
@@ -3790,6 +3816,10 @@ msgstr "Du erhältst derzeit keine Spendenbescheinigung."
 msgid "You got mail"
 msgstr "Du hast Post"
 
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "You have already ordered this donation gift."
+msgstr "Du hast dieses Spendengeschenk schon bestellt."
+
 #: fragdenstaat_de/fds_newsletter/views.py
 msgid "You have been subscribed to our newsletter."
 msgstr "Willkommen zu unserem Newsletter!"
@@ -3887,17 +3917,38 @@ msgstr "Dein Link ist abgelaufen, bitte fordere einen neuen an."
 msgid "Your mailing is being sent."
 msgstr "Ihr Mailing wird versendet."
 
+#: fragdenstaat_de/fds_donation/forms.py
+#, python-brace-format
+msgid "Your new amount every {} months:"
+msgstr "Dein neuer Beitrag alle {} Monate:"
+
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "Your new monthly amount:"
+msgstr "Dein neuer monatlicher Beitrag:"
+
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "Your new quarterly amount:"
+msgstr "Dein neuer vierteljährlicher Beitrag:"
+
+#: fragdenstaat_de/fds_donation/forms.py
+msgid "Your new yearly amount:"
+msgstr "Dein neuer jährlicher Beitrag:"
+
 #: fragdenstaat_de/fds_newsletter/views.py
 msgid "Your newsletter subscriptions have been updated."
 msgstr "Deine Newsletter-Abonnements wurden aktualisiert."
 
 #: fragdenstaat_de/fds_donation/views.py
-msgid "Your order has been created!"
-msgstr "Wir haben deine Bestellung erhalten!"
+msgid "Your order has been created."
+msgstr "Deine Bestellung wurde erstellt."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/_donation_form_step2.html
 msgid "Your payment details will be transmitted securely in the next step."
 msgstr "Die Eingabe Deiner Zahlungsinformationen erfolgt sicher verschlüsselt im nächsten Schritt."
+
+#: fragdenstaat_de/fds_donation/views.py
+msgid "Your recurrence has been updated."
+msgstr "Deine Dauerspende wurde aktualisiert."
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Your recurring donation"
@@ -4146,6 +4197,14 @@ msgid "donor"
 msgstr "Spender*in"
 
 #: fragdenstaat_de/fds_donation/models.py
+msgid "donor event"
+msgstr "Spender*in-Ereignis"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "donor events"
+msgstr "Spender*in-Ereignisse"
+
+#: fragdenstaat_de/fds_donation/models.py
 msgid "donors"
 msgstr "Spender*innen"
 
@@ -4193,9 +4252,20 @@ msgstr "E-Mail-Vorlagen"
 msgid "end publication"
 msgstr "Ende der Veröffentlichung"
 
+#: fragdenstaat_de/fds_donation/utils.py
+#, python-brace-format
+msgid "every month"
+msgid_plural "every {interval} months"
+msgstr[0] "jeden Monat"
+msgstr[1] "alle {interval} Monate"
+
 #: fragdenstaat_de/fds_donation/models.py
 msgid "every six months"
 msgstr "alle sechs Monate"
+
+#: fragdenstaat_de/fds_donation/utils.py
+msgid "every year"
+msgstr "jedes Jahr"
 
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "excerpt"
@@ -4404,6 +4474,10 @@ msgctxt "url part"
 msgid "profile/<str:slug>/_og/"
 msgstr "profil/<str:slug>/_og/"
 
+#: fragdenstaat_de/fds_donation/models.py
+msgid "prompt recurrence upgrade"
+msgstr "Aufforderung Dauerspende erhöhen"
+
 #: fragdenstaat_de/fds_mailing/models.py
 msgid "publish"
 msgstr "veröffentlichen"
@@ -4543,6 +4617,11 @@ msgstr "Tracking"
 msgid "unsubscribe date"
 msgstr "Abbestell-Datum"
 
+#: fragdenstaat_de/fds_donation/models.py
+#| msgid "Has active recurrences"
+msgid "upgraded recurrence"
+msgstr "Dauerspende erhöht"
+
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "user"
 msgstr "Nutzer:in"
@@ -4596,6 +4675,19 @@ msgstr "{amount} EUR {str_interval}."
 #, python-brace-format
 msgid "{amount} EUR."
 msgstr "{amount} EUR."
+
+#: fragdenstaat_de/fds_donation/utils.py
+#, python-brace-format
+msgid "{amount} Euro every month"
+msgid_plural "{amount} Euro every {interval} months"
+msgstr[0] "{amount} Euro jeden Monat"
+msgstr[1] "{amount} Euro alle {interval} Monate"
+
+#: fragdenstaat_de/fds_donation/utils.py
+#, python-brace-format
+#| msgid "amount last year"
+msgid "{amount} Euro every year"
+msgstr "{amount} Euro jedes Jahr"
 
 #: fragdenstaat_de/fds_donation/tasks.py
 #, python-brace-format
@@ -6614,6 +6706,9 @@ msgstr "❌ Spende abbrechen"
 #~ msgid "Please remove the following personally identifying information of %(name)s:<br/><strong>address and email address</strong>. You can leave the name."
 #~ msgstr "Bitte entfernen Sie die folgenden personenbezogenen Daten von %(name)s:<br/><strong>Adresse und Emailadresse</strong>. Sie können den Namen stehen lassen."
 
+#~ msgid "Please review your form submission."
+#~ msgstr "Bitte überprüfe Deine Formulareingaben."
+
 #~ msgid "Please review your request before sending it."
 #~ msgstr "Bitte überprüfen Sie Ihre Anfrage bevor Sie sie absenden."
 
@@ -8048,9 +8143,6 @@ msgstr "❌ Spende abbrechen"
 #~ msgid "account"
 #~ msgstr "account"
 
-#~ msgid "amount last year"
-#~ msgstr "Betrag letztes Jahr"
-
 #~ msgid "and last name"
 #~ msgstr "und Ihr Nachname"
 
@@ -8109,16 +8201,6 @@ msgstr "❌ Spende abbrechen"
 
 #~ msgid "donate"
 #~ msgstr "spenden"
-
-#, fuzzy
-#~| msgid "donor"
-#~ msgid "donor event"
-#~ msgstr "Spender*in"
-
-#, fuzzy
-#~| msgid "donors"
-#~ msgid "donor events"
-#~ msgstr "Spender*innen"
 
 #~ msgid "edit your request again"
 #~ msgstr "Bearbeiten Sie Ihre Anfrage noch mal"
