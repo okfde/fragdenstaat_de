@@ -77,7 +77,7 @@ class UpgradeRecurrencePlugin(CMSPluginBase):
         context["next_url"] = instance.next_url or "/"
 
         if context["donor"]:
-            if not is_crew(context["request"]):
+            if not is_crew(context["request"].user):
                 DonorEvent.objects.create(
                     donor=context["donor"],
                     reference=context["request"].GET.get("pk_campaign", ""),
