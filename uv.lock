@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -7,7 +7,10 @@ resolution-markers = [
 ]
 
 [manifest]
-overrides = [{ name = "numpy", specifier = "<2.4.0" }]
+overrides = [
+    { name = "froide", git = "https://github.com/okfde/froide.git?rev=pajowu%2Fproject_requests_in_search" },
+    { name = "numpy", specifier = "<2.4.0" },
+]
 
 [[package]]
 name = "aiofiles"
@@ -1926,7 +1929,7 @@ requires-dist = [
     { name = "elasticsearch", specifier = ">=8.0.0,<9.0.0" },
     { name = "elasticsearch-dsl", specifier = ">=8.0.0,<9.0.0" },
     { name = "fcdocs-annotate", git = "https://github.com/okfde/fcdocs-annotate.git?rev=main" },
-    { name = "froide", git = "https://github.com/okfde/froide.git?rev=main" },
+    { name = "froide", git = "https://github.com/okfde/froide.git?rev=pajowu%2Fproject_requests_in_search" },
     { name = "froide-campaign", git = "https://github.com/okfde/froide-campaign.git?rev=main" },
     { name = "froide-crowdfunding", git = "https://github.com/okfde/froide-crowdfunding.git?rev=main" },
     { name = "froide-evidencecollection", git = "https://github.com/okfde/froide-evidencecollection.git?rev=main" },
@@ -2009,7 +2012,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#114b5ae6769054388c7cb945136c3bc88a2759bb" }
+source = { git = "https://github.com/okfde/froide.git?rev=pajowu%2Fproject_requests_in_search#3c9a08bbaefe4cccfdb532de426aee106037532d" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
