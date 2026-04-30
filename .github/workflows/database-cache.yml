@@ -1,13 +1,28 @@
 name: Create database cache
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: 0 14 * * 0
+  push:
+    branches:
+      - main
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      cache_hit: ${{ steps.db_cache.outputs.cache-hit }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Restore database cache
+        uses: actions/cache/restore@v5
+        id: db_cache
+        with:
+          path: cache-dump.sql
+          key: db-${{ runner.os }}-${{ hashFiles('fragdenstaat_de/**/migrations/*.py') }}
+
   dump:
     runs-on: ubuntu-latest
+    needs: check
+    if: needs.check.outputs.cache_hit != 'true' # don't use == 'false'!
     steps:
       - uses: actions/checkout@v6
       - name: Start database
@@ -24,9 +39,9 @@ jobs:
       - name: Run migrations
         run: python manage.py migrate --skip-checks # due to django-cms issue
       - name: Create database dump
-        run: docker compose -f compose-dev.yaml exec db pg_dump -U fragdenstaat_de fragdenstaat_de | gzip > dump.gz
+        run: docker compose -f compose-dev.yaml exec db pg_dump -U fragdenstaat_de fragdenstaat_de > cache-dump.sql
       - name: Save dump
         uses: actions/cache/save@v5
         with:
-          path: dump.gz
-          key: ${{ runner.os }}-${{ hashFiles('compose-dev.yaml') }}
+          path: cache-dump.sql
+          key: db-${{ runner.os }}-${{ hashFiles('fragdenstaat_de/**/migrations/*.py') }}

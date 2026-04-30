@@ -53,8 +53,8 @@ jobs:
         uses: actions/cache/restore@v5
         id: db_cache
         with:
-          path: dump.gz
-          key: ${{ runner.os }}-${{ hashFiles('compose-dev.yaml') }}
+          path: cache-dump.sql
+          key: db-${{ runner.os }}-${{ hashFiles('fragdenstaat_de/**/migrations/*.py') }}
       - name: Restore database
         if: steps.db_cache.outputs.cache-hit == 'true'
         run: ./scripts/restore_cached_db.sh
