@@ -816,3 +816,8 @@ class DatawrapperCMSPlugin(CMSPlugin):
         help_text=_("Enter the “Visualization only” link from Datawrapper."),
         verbose_name=_("Datawrapper URL"),
     )
+
+
+class SearchAlertCMSPlugin(CMSPlugin):
+    button_label = models.CharField(max_length=255, blank=True)
+    query = models.CharField(max_length=255, blank=True)

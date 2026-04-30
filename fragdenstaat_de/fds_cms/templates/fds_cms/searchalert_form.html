@@ -1,0 +1,14 @@
+{% extends "searchalert/_alert_form.html" %}
+{% load i18n %}
+{% block button %}
+    <button data-bs-toggle="modal"
+            data-bs-target="#{{ form.id }}"
+            class="btn btn-primary">
+        {% if label %}
+            {{ label }}
+        {% else %}
+            <i class="fa fa-bell-o" aria-hidden="true"></i>
+            {% translate "Search alert" %}
+        {% endif %}
+    </button>
+{% endblock button %}

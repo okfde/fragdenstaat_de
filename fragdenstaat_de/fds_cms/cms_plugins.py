@@ -45,6 +45,7 @@ from .models import (
     PretixEmbedCMSPlugin,
     PrimaryLinkCMSPlugin,
     RevealMoreCMSPlugin,
+    SearchAlertCMSPlugin,
     ShareLinksCMSPlugin,
     SliderCMSPlugin,
     SVGImageCMSPlugin,
@@ -848,3 +849,12 @@ class DarkModeToggle(CMSPluginBase):
     module = _("Elements")
     name = _("Dark Mode Toggle")
     render_template = "snippets/darkmode_toggle.html"
+
+
+@plugin_pool.register_plugin
+class SearchAlertPlugin(CMSPluginBase):
+    model = SearchAlertCMSPlugin
+    module = _("Elements")
+    name = _("Search Alert")
+    text_enabled = True
+    render_template = "fds_cms/searchalert.html"
