@@ -2009,7 +2009,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#03a90f1f7f8f3ee7680c258bada12182d2e5b253" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#114b5ae6769054388c7cb945136c3bc88a2759bb" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2162,7 +2162,7 @@ dependencies = [
 [[package]]
 name = "froide-pressconference"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-pressconference.git?rev=main#7cdeb11676a4047b2f834bd693ea6f7eb735658e" }
+source = { git = "https://github.com/okfde/froide-pressconference.git?rev=main#993495fc152d43d041a206ba40154ae860c2d93c" }
 dependencies = [
     { name = "django" },
     { name = "django-cms" },
