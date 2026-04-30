@@ -768,7 +768,7 @@ wheels = [
 
 [[package]]
 name = "django-cms"
-version = "5.0.5"
+version = "5.0.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
@@ -780,9 +780,9 @@ dependencies = [
     { name = "packaging" },
     { name = "setuptools" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/27/46/4e59e5c707280a472072414f22b67597f48fef6ace9bfcb0019625e644ad/django_cms-5.0.5.tar.gz", hash = "sha256:56f33fed820acfc326bf08d9a4a75e6ad3a1c1e027a0352c5444fe124e1d6bfd", size = 5413885, upload-time = "2025-11-12T10:20:09.377Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9c/5a/27b1be55674af1e5e0bc04e3471cbfeb22e20526660ea54707fbcbecf332/django_cms-5.0.6.tar.gz", hash = "sha256:01121c88e3c0d0a7c6a70451bf358e05b9c783db49b7ffe4d35753a0b7e9faa6", size = 5437196, upload-time = "2026-02-22T08:01:27.51Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/71/4e/796e1134b2d96c8c7ee7b53edd2c3f257854e521b3f33010d937db434d3f/django_cms-5.0.5-py2.py3-none-any.whl", hash = "sha256:def63bcf129bf518bea1985cd67cfad710a6b4a0d7340ef4a24c969cced7a2ac", size = 3312860, upload-time = "2025-11-12T10:20:07.454Z" },
+    { url = "https://files.pythonhosted.org/packages/7a/3f/dca51941d8ba128ba16f5c8adf01c58387273abe39822b64234000e69f4d/django_cms-5.0.6-py2.py3-none-any.whl", hash = "sha256:d8027d34c3cbfde73b0ae491649ecd51b96f35e9f47186e45379778c2eda9b34", size = 3336570, upload-time = "2026-02-22T08:01:25.426Z" },
 ]
 
 [[package]]
