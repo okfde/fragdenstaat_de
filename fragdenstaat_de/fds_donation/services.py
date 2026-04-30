@@ -16,6 +16,7 @@ from froide.account.models import User
 from froide.account.services import AccountService
 from froide.helper.auth import is_crew
 from froide.helper.email_sending import mail_registry
+from froide.helper.utils import update_query_params
 
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
@@ -107,10 +108,7 @@ incomplete_donation_reminder_email = mail_registry.register(
         "salutation",
         "donor",
         "donation",
-        "payment",
-        "order",
         "donate_url",
-        "payment_url",
     ),
 )
 
@@ -621,17 +619,25 @@ def send_incomplete_donation_reminder(donation):
     if not donor.email:
         return
 
+    params = {
+        "initial_amount": str(donation.amount),
+    }
+    if donation.payment and donation.payment.order:
+        if donation.payment.order.subscription:
+            params["initial_interval"] = str(
+                donation.payment.order.subscription.plan.interval
+            )
+
+    donate_url = update_query_params(donor.get_donate_url(), params)
+
     context = {
         "name": donor.get_full_name(),
         "first_name": donor.first_name,
         "last_name": donor.last_name,
         "salutation": donor.get_salutation(),
-        "payment": donation.payment,
-        "order": donation.payment.order if donation.payment else None,
         "donor": donor,
         "donation": donation,
-        "donate_url": donor.get_donate_url(),
-        "payment_url": settings.SITE_URL + donation.payment.get_absolute_payment_url(),
+        "donate_url": donate_url,
     }
 
     incomplete_donation_reminder_email.send(
