@@ -88,7 +88,7 @@ class UserAdmin(FroideUserAdmin):
         return super().send_mail(request, queryset)
 
     @admin.action(
-        description=_("Mark user as journalist and send mail..."),
+        description=_("Mark user as journalist (with Plus) and send mail..."),
         permissions=("change",),
     )
     def activate_journalist(self, request, queryset):
