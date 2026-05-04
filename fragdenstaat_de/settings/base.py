@@ -801,7 +801,8 @@ class FragDenStaatBase(German, Base):
                     r"^pad\.donotreply@frontex\.europa\.eu|"
                     r"^noreply@.*|^empfangsbestaetigung@bahn\.de$|.*\.local$|^postmaster@.*|"
                     r"^askema\.noreply@ema\.europa\.eu$|^.*@nomail\.ec\.europa\.eu$|"
-                    r"^eingangsbestaetigung@jobcenter-ge\.de$"
+                    r"^eingangsbestaetigung@jobcenter-ge\.de$|"
+                    r"@bmwe\.de$",
                 ),
                 "content_urls": {
                     "terms": "/nutzungsbedingungen/",
