@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -768,7 +768,7 @@ wheels = [
 
 [[package]]
 name = "django-cms"
-version = "5.0.5"
+version = "5.0.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
@@ -780,9 +780,9 @@ dependencies = [
     { name = "packaging" },
     { name = "setuptools" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/27/46/4e59e5c707280a472072414f22b67597f48fef6ace9bfcb0019625e644ad/django_cms-5.0.5.tar.gz", hash = "sha256:56f33fed820acfc326bf08d9a4a75e6ad3a1c1e027a0352c5444fe124e1d6bfd", size = 5413885, upload-time = "2025-11-12T10:20:09.377Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9c/5a/27b1be55674af1e5e0bc04e3471cbfeb22e20526660ea54707fbcbecf332/django_cms-5.0.6.tar.gz", hash = "sha256:01121c88e3c0d0a7c6a70451bf358e05b9c783db49b7ffe4d35753a0b7e9faa6", size = 5437196, upload-time = "2026-02-22T08:01:27.51Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/71/4e/796e1134b2d96c8c7ee7b53edd2c3f257854e521b3f33010d937db434d3f/django_cms-5.0.5-py2.py3-none-any.whl", hash = "sha256:def63bcf129bf518bea1985cd67cfad710a6b4a0d7340ef4a24c969cced7a2ac", size = 3312860, upload-time = "2025-11-12T10:20:07.454Z" },
+    { url = "https://files.pythonhosted.org/packages/7a/3f/dca51941d8ba128ba16f5c8adf01c58387273abe39822b64234000e69f4d/django_cms-5.0.6-py2.py3-none-any.whl", hash = "sha256:d8027d34c3cbfde73b0ae491649ecd51b96f35e9f47186e45379778c2eda9b34", size = 3336570, upload-time = "2026-02-22T08:01:25.426Z" },
 ]
 
 [[package]]
@@ -951,7 +951,7 @@ wheels = [
 [[package]]
 name = "django-filingcabinet"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#8ffb53086b0150a96778eb11adea95428184d8c8" }
+source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#110c9b8ea8b6a2a97ba0961dfde87351877173ee" }
 dependencies = [
     { name = "celery" },
     { name = "django" },
@@ -987,16 +987,16 @@ wheels = [
 
 [[package]]
 name = "django-flowcontrol"
-version = "0.0.8"
+version = "0.0.10"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "django-treebeard" },
     { name = "python-dateutil" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4a/51/c48f71301160341f17933deb0e50e816b67b80970ca6fd6d9f7012876673/django_flowcontrol-0.0.8.tar.gz", hash = "sha256:7b9892b286d2151390aba99f601cbcbbe0e30c17c27c9f38d9c7f4ab2fd102bd", size = 22777, upload-time = "2026-03-19T16:38:18.141Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/76/5f/d03ee3a7c92da0707ad8dba33d499161d3b8b0c0b29c70297186a68d7f29/django_flowcontrol-0.0.10.tar.gz", hash = "sha256:1c6a5a3da68c677872afe5b5f253dc26c591699a30ffeaf8981f2ddb29178bd4", size = 22817, upload-time = "2026-05-04T08:03:25.47Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b4/c9/8473c1a66e0f9d759beb6558c9e6a224f6c13dd83e44d38230857e3cf3f0/django_flowcontrol-0.0.8-py3-none-any.whl", hash = "sha256:3faedd7a3f5299bf675f9d68ae5b4cad0355fa841247e3e551d9a624375f1497", size = 31348, upload-time = "2026-03-19T16:38:19.005Z" },
+    { url = "https://files.pythonhosted.org/packages/a9/bb/1df985c65d88d3d2fb3bfd4126a6ef27487dce5891444aa2b2ebc1af525b/django_flowcontrol-0.0.10-py3-none-any.whl", hash = "sha256:e2ef472a93aa3e1684d205014faf3649aac515f63deed5c77908385d3baf4bef", size = 31386, upload-time = "2026-05-04T08:03:24.527Z" },
 ]
 
 [[package]]
@@ -1246,14 +1246,14 @@ wheels = [
 
 [[package]]
 name = "django-treebeard"
-version = "4.8.0"
+version = "5.0.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7a/d2/615c2d33b3b55e106ee590b164c0d4a8372527293c85c61175e81ded2aea/django_treebeard-4.8.0.tar.gz", hash = "sha256:61b8076b576107da21f6f6040774c0d17025200c2efdb70dd1f14b18c9206c3a", size = 292517, upload-time = "2025-12-03T03:58:40.625Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/19/31/d9380569d2e185458240497c948591d9183bd5c77d11800441b1ccee6933/django_treebeard-5.0.5.tar.gz", hash = "sha256:edca8ef8f92a92d607a1310838fe02806414d0678187316b43b48677aff2f51c", size = 299223, upload-time = "2026-02-19T13:47:17.211Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/aa/3a/3731f6d5696b5dfd1c7830a64450e1f49b512cb192b2d3e37b72cc75470b/django_treebeard-4.8.0-py3-none-any.whl", hash = "sha256:ecaa7a0bbfa86a48fc91ff335513e83c841cdfe1add6229d04ac7096198d5d51", size = 70997, upload-time = "2025-12-03T03:58:37.292Z" },
+    { url = "https://files.pythonhosted.org/packages/21/27/fac0bc188340e39b35ec916b6da2919c387df2e512d622af665e59600f97/django_treebeard-5.0.5-py3-none-any.whl", hash = "sha256:879b3103c2d25fb98750e3b61d9bcda58c18e4617f5e1156bbc50a79104c9f1f", size = 76185, upload-time = "2026-02-19T13:47:15.636Z" },
 ]
 
 [[package]]
@@ -1908,7 +1908,7 @@ requires-dist = [
     { name = "django-sekizai", specifier = ">=4.1.0" },
     { name = "django-storages", specifier = ">=1.14.6" },
     { name = "django-taggit", specifier = ">=6.1.0" },
-    { name = "django-treebeard", specifier = ">=4.7.1" },
+    { name = "django-treebeard", specifier = ">=5" },
     { name = "djangocms-alias", specifier = ">=3.0.3" },
     { name = "djangocms-audio", specifier = ">=2.1.1" },
     { name = "djangocms-frontend", specifier = ">=2.1.3" },
@@ -2009,7 +2009,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#114b5ae6769054388c7cb945136c3bc88a2759bb" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#b74d267a01290e309e879e36fcf46867d415e65a" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
