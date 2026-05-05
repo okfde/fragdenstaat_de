@@ -32,6 +32,7 @@ class LanguageUtilsMiddleware(LanguageCookieMiddleware):
             and not has_translatable_content(request, view=None)
         ):
             path = request.get_full_path().removeprefix(f"/{request.LANGUAGE_CODE}")
-            return redirect(path, permanent=True)
+            if path:
+                return redirect(path, permanent=True)
 
         return super().__call__(request)

@@ -147,6 +147,15 @@ def cms_page(admin_user):
 
 
 @pytest.fixture
+def cms_homepage(cms_page, admin_user):
+    """Plain CMS page set as homepage, published in de and de-ls."""
+    page = cms_page("Start", "de")
+    add_language_to_page(page, "de-ls", "Start Leicht", admin_user)
+    page.set_as_homepage(admin_user)
+    return page
+
+
+@pytest.fixture
 def blog_page(cms_page, admin_user):
     """CMS page with the blog apphook, published in de and de-ls.
 
@@ -247,6 +256,59 @@ class TestEasyLanguageRedirect:
     Admin URLs are exempt from redirection.
     Blog views additionally gate de-ls access on EASYLANG_ENABLED / staff status.
     """
+
+    # --- /de-ls/ language root ---
+
+    @pytest.mark.parametrize("url", ["/de-ls/", "/de-ls"])
+    def test_de_ls_no_homepage(self, client, url):
+        """No de-ls homepage: /de-ls(/) lands at /."""
+        response = get(client, url, follow=True)
+
+        # LanguageUtilsMiddleware strips the /de-ls prefix and redirects to /.
+        redirect_chain = [("/", 301)]
+
+        # Without trailing slash there is an extra hop in the redirect chain.
+        if url == "/de-ls":
+            redirect_chain = [("/de-ls/", 301)] + redirect_chain
+
+        assert response.status_code == 200
+        assert response.redirect_chain == redirect_chain
+
+    @pytest.mark.parametrize(
+        "easylang_enabled, user_fixture, redirect_chain",
+        [
+            (True, None, []),
+            (
+                False,
+                None,
+                [("/", 302)],
+            ),
+            (False, "staff_user", []),
+        ],
+        ids=EASYLANG_GATE_IDS,
+        indirect=["easylang_enabled"],
+    )
+    @pytest.mark.parametrize("url", ["/de-ls/", "/de-ls"])
+    def test_de_ls_cms_homepage(
+        self,
+        client,
+        cms_homepage,
+        request,
+        easylang_enabled,
+        user_fixture,
+        redirect_chain,
+        url,
+    ):
+        """With a de-ls homepage: renders for permitted users, redirects to / when hidden."""
+        maybe_login(client, request, user_fixture)
+        response = get(client, url, follow=True)
+
+        # Without trailing slash there is an extra hop in the redirect chain.
+        if url == "/de-ls":
+            redirect_chain = [("/de-ls/", 301)] + redirect_chain
+
+        assert response.status_code == 200
+        assert response.redirect_chain == redirect_chain
 
     # --- Non-CMS ---
 
