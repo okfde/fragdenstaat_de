@@ -1433,7 +1433,7 @@ msgstr "GIF einer Katze die wild auf eine Tastatur hackt"
 
 #: fragdenstaat_de/theme/admin.py
 msgid "Give user access to Plus and send mail..."
-msgstr "Gib Konto Zugang zu Plus und sende E-Mail…"
+msgstr "Gib Konto Zugang zu Plus und sende E-Mail..."
 
 #: fragdenstaat_de/settings/base.py
 msgid "Give warning"
@@ -1747,12 +1747,10 @@ msgid "Interval"
 msgstr "Turnus"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
-#, python-brace-format
 msgid "Invalid amount format: '{}'. Please enter a valid number."
 msgstr "Ungültiger Betrag: '{}'. Bitte geben Sie eine gültige Zahl ein."
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, python-brace-format
 msgid "Invalid form: {}"
 msgstr "Ungültiges Formular: {}"
 
@@ -1977,7 +1975,7 @@ msgstr "Markiere als unterschiedlich"
 
 #: fragdenstaat_de/theme/admin.py
 msgid "Mark user as journalist (with Plus) and send mail..."
-msgstr "Markiere Konto als Journalist*in (mit Plus) und sende E-Mail…"
+msgstr "Markiere Konto als Journalist*in (mit Plus) und sende E-Mail..."
 
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/change_list.html
 msgid "Match duplicate donors"
@@ -2274,7 +2272,6 @@ msgid "One click FoiRequest form"
 msgstr "Ein-Klick-Anfrage-Formular"
 
 #: fragdenstaat_de/fds_cms/models.py
-#, python-brace-format
 msgid "One click form for {}"
 msgstr "Ein-Klick Formular für {}"
 
@@ -2976,7 +2973,6 @@ msgid "Sending %(mailing)s to %(count)d people"
 msgstr "%(mailing)s werden an %(count)d Menschen versendet"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, python-brace-format
 msgid "Sending JZWB email to {} donors."
 msgstr "Sende JZWB-E-Mail an {} Spender*innen."
 
@@ -2991,14 +2987,12 @@ msgid "Sending to %(recipient_count)s newsletter subscribers of %(segment_count)
 msgstr "Sended an %(recipient_count)s Newsletter-Abonnierende aus %(segment_count)s Segmenten"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, python-brace-format
-msgid "Sending... {}"
-msgstr "Sende… {}"
+msgid "Sending...\\u202f{}"
+msgstr "Sende...\\u202f{}"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, python-brace-format
-msgid "Sent {}"
-msgstr "Gesendet {}"
+msgid "Sent\\u202f{}"
+msgstr "Gesendet\\u202f{}"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Set Password Form"
@@ -3229,7 +3223,6 @@ msgid "Subscribe to newsletter"
 msgstr "Newsletter abonnieren"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, python-brace-format
 msgid "Subscribe to newsletter {} ({})"
 msgstr "Newsletter {} abonnieren ({})"
 
@@ -3415,7 +3408,6 @@ msgid "The <strong>donation receipts</strong> that we send at the beginning of n
 msgstr "Die <strong>Spendenbescheinigung</strong>, die wir zu Beginn des kommenden Jahres versenden, können wir Dir nur an eine <strong>bestätigte E-Mail-Adresse</strong> zukommen lassen!"
 
 #: fragdenstaat_de/fds_donation/widgets.py
-#, python-brace-format
 msgid "The amount needs to be at least {}."
 msgstr "Der Betrag muss mindestens {} sein."
 
@@ -3450,7 +3442,6 @@ msgid "The status of donations made by bank transfer is updated at the beginning
 msgstr "Der Status von Spenden per Überweisung aktualisiert sich erst zu Beginn des Folgemonats, da erst dann die Kontoauszüge abgeglichen werden."
 
 #: fragdenstaat_de/fds_mailing/forms.py
-#, python-brace-format
 msgid "The sum of the groups must not be greater than 100. You entered {}."
 msgstr "Die Summe der Gruppen darf nicht größer als 100 sein. Du hast {} eingegeben."
 
@@ -3640,7 +3631,6 @@ msgstr[0] "Neuerer Artikel:"
 msgstr[1] "Neuere Artikel:"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, python-brace-format
 msgid "Upgrade Recurrence ({})"
 msgstr "Dauerspende-Erhöhung ({})"
 
@@ -3952,7 +3942,6 @@ msgid "Your mailing is being sent."
 msgstr "Ihr Mailing wird versendet."
 
 #: fragdenstaat_de/fds_donation/forms.py
-#, python-brace-format
 msgid "Your new amount every {} months:"
 msgstr "Dein neuer Beitrag alle {} Monate:"
 
@@ -4004,12 +3993,12 @@ msgstr "Diesen Text gibt es auch in <a href=\"%(url)s\">Leichter Sprache</a>."
 #: fragdenstaat_de/fds_easylang/templates/fds_easylang/feedback.html
 msgctxt "Leichte Sprache"
 msgid "[Feedback form description]"
-msgstr "[Feedback form description]"
+msgstr "[Beschreibung für Feedback-Formular]"
 
 #: fragdenstaat_de/fds_easylang/templates/fds_easylang/feedback.html
 msgctxt "Leichte Sprache"
 msgid "[Feedback form heading]"
-msgstr "[Feedback form heading]"
+msgstr "[Überschrift für Feedback-Formular]"
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"
@@ -4115,7 +4104,6 @@ msgid "campaign/"
 msgstr "kampagne/"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, python-brace-format
 msgid "canceled on {}"
 msgstr "gekündigt am {}"
 
@@ -4688,36 +4676,30 @@ msgid "your-donation/donate/"
 msgstr "ihre-spenden/spenden/"
 
 #: fragdenstaat_de/fds_donation/forms.py
-#, python-brace-format
 msgid "{amount} EUR donation {str_interval} to {site_name}"
 msgstr "{amount} EUR Spende {str_interval} an {site_name}"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, python-brace-format
 msgid "{amount} EUR every month via {method} since {start}."
 msgid_plural "{amount} EUR every {interval} months via {method} since {start}."
 msgstr[0] "{amount} EUR jeden Monat via {method} seit {start}."
 msgstr[1] "{amount} EUR alle {interval} Monate via {method} seit {start}"
 
 #: fragdenstaat_de/fds_donation/forms.py
-#, python-brace-format
 msgid "{amount} EUR {str_interval}."
 msgstr "{amount} EUR {str_interval}."
 
 #: fragdenstaat_de/fds_donation/forms.py
-#, python-brace-format
 msgid "{amount} EUR."
 msgstr "{amount} EUR."
 
 #: fragdenstaat_de/fds_donation/utils.py
-#, python-brace-format
 msgid "{amount} every month"
 msgid_plural "{amount} every {interval} months"
 msgstr[0] "{amount} jeden Monat"
 msgstr[1] "{amount} alle {interval} Monate"
 
 #: fragdenstaat_de/fds_donation/utils.py
-#, python-brace-format
 msgid "{amount} every year"
 msgstr "{amount} jedes Jahr"
 
@@ -4740,7 +4722,6 @@ msgstr ""
 "{url}"
 
 #: fragdenstaat_de/fds_newsletter/admin.py
-#, python-brace-format
 msgid "{} subscriber imports have been queued."
 msgstr "{} Abonnement-Imports werden gestartet."
 
@@ -7175,11 +7156,13 @@ msgstr "❌ Spende abbrechen"
 #~ msgid "Sending to newsletter subscribers of %(segment_count)s segments"
 #~ msgstr "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
 
-#~ msgid "Sending...\\u202f{}"
-#~ msgstr "Sende...\\u202f{}"
+#, python-brace-format
+#~ msgid "Sending... {}"
+#~ msgstr "Sende… {}"
 
-#~ msgid "Sent\\u202f{}"
-#~ msgstr "Gesendet\\u202f{}"
+#, python-brace-format
+#~ msgid "Sent {}"
+#~ msgstr "Gesendet {}"
 
 #~ msgid "Set Concrete Law"
 #~ msgstr "Konkretes Gesetz festlegen"
