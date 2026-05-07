@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -951,7 +951,7 @@ wheels = [
 [[package]]
 name = "django-filingcabinet"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#110c9b8ea8b6a2a97ba0961dfde87351877173ee" }
+source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#53fe999d9c984bed84bf0e76aca5d0dab9d2954b" }
 dependencies = [
     { name = "celery" },
     { name = "django" },
@@ -2009,7 +2009,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#054040b7d0cdd511e02c687bac63082bb34231c1" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#fe862008f5af83eddef60e17120c52b07449cf5f" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
