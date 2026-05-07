@@ -2009,7 +2009,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#fe862008f5af83eddef60e17120c52b07449cf5f" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#9cd22c4482ea05c499eecc3ec031df70e15c4c2d" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
