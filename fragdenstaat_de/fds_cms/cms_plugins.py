@@ -761,9 +761,14 @@ class DatashowTablePlugin(CMSPluginBase):
         context["table"] = instance.table
         context["dataset"] = instance.table.dataset
         query_data = dict(urllib.parse.parse_qsl(instance.query))
-        context["object_list"] = RowQueryset(instance.table, formdata=query_data)[
-            : instance.limit
-        ]
+        try:
+            context["object_list"] = RowQueryset(instance.table, formdata=query_data)[
+                : instance.limit
+            ]
+        except FileNotFoundError:
+            # If the file is not accessible, just return an empty list
+            # to not break the rest of the page.
+            context["object_list"] = []
         columns = instance.table.get_formatted_columns()
         # Force disable sorting for all columns
         for column, _css in columns:
