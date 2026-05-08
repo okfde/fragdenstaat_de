@@ -488,14 +488,15 @@ def get_next_min_amount(amount):
 
 
 def format_amount_interval(amount: Decimal, interval: int):
+    amount = format_amount_with_currency(amount)
     return (
-        _("{amount} Euro every year").format(amount=intcomma(amount))
+        _("{amount} every year").format(amount=amount)
         if interval == 12
         else ngettext_lazy(
-            "{amount} Euro every month",
-            "{amount} Euro every {interval} months",
+            "{amount} every month",
+            "{amount} every {interval} months",
             interval,
-        ).format(amount=intcomma(amount), interval=interval)
+        ).format(amount=amount, interval=interval)
     )
 
 
@@ -520,7 +521,8 @@ def format_decimal_amount_with_currency(num: Decimal) -> str:
 
 
 def format_amount(num: Decimal) -> str:
-    return intcomma(num)
+    empty_decimal = intcomma(Decimal("0.00"))[1:]
+    return intcomma(num).removesuffix(empty_decimal)
 
 
 def format_decimal_amount(num: Decimal) -> str:
