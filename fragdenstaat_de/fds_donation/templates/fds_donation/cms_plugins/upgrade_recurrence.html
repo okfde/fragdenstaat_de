@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load cms_tags %}
 {% load form_helper %}
-{% if form.can_upgrade %}
+{% if form and form.can_upgrade %}
     <div>
         {% for plugin in instance.child_plugin_instances %}
             {% render_plugin plugin %}
@@ -21,6 +21,30 @@
                 </div>
             </div>
         </form>
+    </div>
+{% elif form and form.recurrence.subscription %}
+    <div>
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+        <p>{% translate "Increase your donation by 5 Euro, 20 percent or double it, as you feel like!" %}</p>
+        <p>
+            {% blocktranslate description=form.recurrence.get_short_description reference=form.recurrence.subscription.remote_reference trimmed %}
+                Please adjust your current standing order ({{ description }}) with reference “{{ reference }}” in your online banking.
+            {% endblocktranslate %}
+        </p>
+    </div>
+{% elif form %}
+    <div>
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+        <p>{% translate "Increase your donation by 5 Euro, 20 percent or double it, as you feel like!" %}</p>
+        <p>
+            {% blocktranslate description=form.recurrence.get_short_description trimmed %}
+                Please adjust your current standing order ({{ description }}).
+            {% endblocktranslate %}
+        </p>
     </div>
 {% elif request.toolbar.edit_mode_active %}
     <div style="outline: 1px solid red; min-height: 2rem">

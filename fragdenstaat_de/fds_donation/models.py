@@ -515,6 +515,11 @@ class Recurrence(models.Model):
             else ""
         )
 
+    def get_short_description(self):
+        from .utils import format_amount_interval
+
+        return format_amount_interval(self.amount, self.interval)
+
     def get_interval_display(self):
         return RECURRING_INTERVAL_CHOICES_DICT[self.interval]
 
