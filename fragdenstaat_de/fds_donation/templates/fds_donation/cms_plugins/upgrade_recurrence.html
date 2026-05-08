@@ -29,7 +29,7 @@
         {% endfor %}
         <p>{% translate "Increase your donation by 5 Euro, 20 percent or double it, as you feel like!" %}</p>
         <p>
-            {% blocktranslate description=form.recurrence.get_short_description reference=form.recurrence.subscription.remote_reference trimmed %}
+            {% blocktranslate with description=form.recurrence.get_short_description reference=form.recurrence.subscription.remote_reference trimmed %}
                 Please adjust your current standing order ({{ description }}) with reference “{{ reference }}” in your online banking.
             {% endblocktranslate %}
         </p>
@@ -41,7 +41,7 @@
         {% endfor %}
         <p>{% translate "Increase your donation by 5 Euro, 20 percent or double it, as you feel like!" %}</p>
         <p>
-            {% blocktranslate description=form.recurrence.get_short_description trimmed %}
+            {% blocktranslate with description=form.recurrence.get_short_description trimmed %}
                 Please adjust your current standing order ({{ description }}).
             {% endblocktranslate %}
         </p>
