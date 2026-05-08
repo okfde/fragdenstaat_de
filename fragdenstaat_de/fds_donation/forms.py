@@ -1018,6 +1018,9 @@ class RecurrenceUpgradeForm(forms.Form):
             ),
         )
 
+    def get_recurrence(self):
+        return self.recurrence
+
     def can_upgrade(self):
         subscription = self.recurrence.subscription
         if not subscription:

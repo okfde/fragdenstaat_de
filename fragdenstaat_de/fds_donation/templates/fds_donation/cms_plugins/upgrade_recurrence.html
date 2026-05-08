@@ -22,29 +22,27 @@
             </div>
         </form>
     </div>
-{% elif form and form.recurrence.subscription %}
-    <div>
-        {% for plugin in instance.child_plugin_instances %}
-            {% render_plugin plugin %}
-        {% endfor %}
-        <p>{% translate "Increase your donation by 5 Euro, 20 percent or double it, as you feel like!" %}</p>
-        <p>
-            {% blocktranslate with description=form.recurrence.get_short_description reference=form.recurrence.subscription.remote_reference trimmed %}
-                Please adjust your current standing order ({{ description }}) with reference “{{ reference }}” in your online banking.
-            {% endblocktranslate %}
-        </p>
-    </div>
 {% elif form %}
     <div>
         {% for plugin in instance.child_plugin_instances %}
             {% render_plugin plugin %}
         {% endfor %}
-        <p>{% translate "Increase your donation by 5 Euro, 20 percent or double it, as you feel like!" %}</p>
-        <p>
-            {% blocktranslate with description=form.recurrence.get_short_description trimmed %}
-                Please adjust your current standing order ({{ description }}).
-            {% endblocktranslate %}
-        </p>
+        {% with recurrence=form.get_recurrence %}
+            <p>{% translate "You can increase your donation by 5 Euro, 20 percent or double it, as you feel like!" %}</p>
+            {% if recurrence.subscription %}
+                <p>
+                    {% blocktranslate with description=recurrence.get_short_description reference=recurrence.subscription.remote_reference trimmed %}
+                        Please adjust your current standing order ({{ description }}) with reference “{{ reference }}” in your online banking.
+                    {% endblocktranslate %}
+                </p>
+            {% else %}
+                <p>
+                    {% blocktranslate with description=recurrence.get_short_description trimmed %}
+                        Please adjust your current standing order ({{ description }}).
+                    {% endblocktranslate %}
+                </p>
+            {% endif %}
+        {% endwith %}
     </div>
 {% elif request.toolbar.edit_mode_active %}
     <div style="outline: 1px solid red; min-height: 2rem">
