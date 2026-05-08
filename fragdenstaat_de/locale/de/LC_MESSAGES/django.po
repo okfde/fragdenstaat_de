@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-04-30 14:36+0200\n"
+"PO-Revision-Date: 2026-05-08 14:55+0200\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -1121,7 +1121,7 @@ msgstr "E-Mail-Adresse für diesen Nutzer schon vorhanden."
 msgid "Email template to use for this action."
 msgstr "E-Mail-Vorlage für diese Aktion."
 
-#: fragdenstaat_de/fds_mailing/admin.py
+#: fragdenstaat_de/theme/admin.py
 msgid "Email was sent."
 msgstr "E-Mail wurde versendet."
 
@@ -1431,6 +1431,10 @@ msgstr "Account bekommen"
 msgid "Gif of a cat furiously typing on a keyboard"
 msgstr "GIF einer Katze die wild auf eine Tastatur hackt"
 
+#: fragdenstaat_de/theme/admin.py
+msgid "Give user access to Plus and send mail..."
+msgstr "Gib Konto Zugang zu Plus und sende E-Mail…"
+
 #: fragdenstaat_de/settings/base.py
 msgid "Give warning"
 msgstr "Verwarnen"
@@ -1716,6 +1720,10 @@ msgstr "Im Jahr:"
 msgid "Include trials from lawsuits."
 msgstr "Auch Verfahrenstermine von Klagen berücksichtigen."
 
+#: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/upgrade_recurrence.html
+msgid "Increase your donation by 5 Euro, 20 percent or double it, as you feel like!"
+msgstr "Erhöhe jetzt Deine Dauerspende um 5 Euro, 20 Prozent oder verdopple sie – ganz wie es zu Dir passt!"
+
 #: fragdenstaat_de/theme/colors.py
 msgid "Info"
 msgstr "Info"
@@ -1970,6 +1978,10 @@ msgstr "Karten-Fläche-Vorlage"
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
 msgid "Mark as not duplicates"
 msgstr "Markiere als unterschiedlich"
+
+#: fragdenstaat_de/theme/admin.py
+msgid "Mark user as journalist (with Plus) and send mail..."
+msgstr "Markiere Konto als Journalist*in (mit Plus) und sende E-Mail…"
 
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/change_list.html
 msgid "Match duplicate donors"
@@ -2456,6 +2468,16 @@ msgstr "Abspielen/Pausieren"
 msgid "Playback speed"
 msgstr "Wiedergabegeschwindigkeit"
 
+#: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/upgrade_recurrence.html
+#, python-format
+msgid "Please adjust your current standing order (%(description)s) with reference “%(reference)s” in your online banking."
+msgstr "Bitte passe deinen aktuellen Dauerauftrag (%(description)s) mit dem Verwendungszweck „%(reference)s“ direkt bei deiner Bank an."
+
+#: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/upgrade_recurrence.html
+#, python-format
+msgid "Please adjust your current standing order (%(description)s)."
+msgstr "Bitte passe deinen aktuellen Dauerauftrag an (%(description)s)."
+
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Please complete your shipping address."
 msgstr "Bitte gib eine Versandadresse an."
@@ -2890,13 +2912,17 @@ msgstr "Sende Spenden-Erinnerung"
 msgid "Send email"
 msgstr "Sende E-Mail"
 
-#: fragdenstaat_de/fds_mailing/admin.py
+#: fragdenstaat_de/theme/admin.py
 msgid "Send email via template..."
 msgstr "Sende E-Mail mit Mailing-Template..."
 
 #: fragdenstaat_de/fds_donation/export.py
 msgid "Send mailing"
 msgstr "Mailing senden"
+
+#: fragdenstaat_de/theme/admin.py
+msgid "Send mailing to users..."
+msgstr "Sende Mailing an diese User..."
 
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/change_form.html
 #, python-format
@@ -3021,10 +3047,6 @@ msgid "Setup mailing to one user"
 msgid_plural "Setup mailing to %(count)s users"
 msgstr[0] "Mailing für an ein:e Nutzer:in anlegen"
 msgstr[1] "Mailing an %(count)s Nutzer:innen anlegen"
-
-#: fragdenstaat_de/fds_mailing/admin.py
-msgid "Setup mailing to users..."
-msgstr "Lege Mailing für diese User an..."
 
 #: fragdenstaat_de/theme/cms_plugins.py
 msgid "Seven"
@@ -3254,6 +3276,10 @@ msgstr "Erfolgreich"
 #: fragdenstaat_de/templates/index.html
 msgid "Successful Requests"
 msgstr "Erfolgreiche Anfragen"
+
+#: fragdenstaat_de/theme/admin.py
+msgid "Successfully executed."
+msgstr "Erfolgreich ausgeführt."
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Suspicious"
@@ -3808,7 +3834,7 @@ msgstr "Sie können bis zu drei Schlagwörter kombinieren."
 msgid "You can link articles here that are part of a series."
 msgstr "Hier können Artikel, die zu einer Serie gehören, verknüpft werden."
 
-#: fragdenstaat_de/fds_mailing/admin.py
+#: fragdenstaat_de/theme/admin.py
 msgid "You can only send to one user at a time."
 msgstr "Sie können mit dieser Aktion nur ein:e Nutzer*in adressieren."
 
@@ -3978,12 +4004,12 @@ msgstr "Diesen Text gibt es auch in <a href=\"%(url)s\">Leichter Sprache</a>."
 #: fragdenstaat_de/fds_easylang/templates/fds_easylang/feedback.html
 msgctxt "Leichte Sprache"
 msgid "[Feedback form description]"
-msgstr ""
+msgstr "[Feedback form description]"
 
 #: fragdenstaat_de/fds_easylang/templates/fds_easylang/feedback.html
 msgctxt "Leichte Sprache"
 msgid "[Feedback form heading]"
-msgstr ""
+msgstr "[Feedback form heading]"
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"
@@ -4816,16 +4842,6 @@ msgstr "❌ Spende abbrechen"
 #~ msgstr ""
 #~ "\n"
 #~ "                %(type)s - %(court)s\n"
-#~ "                "
-
-#, python-format
-#~ msgid ""
-#~ "\n"
-#~ "              %(type)s of %(court)s on %(date)s\n"
-#~ "              "
-#~ msgstr ""
-#~ "\n"
-#~ "                %(type)s - %(court)s vom %(date)s\n"
 #~ "                "
 
 #~ msgid ""
