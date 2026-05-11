@@ -4676,30 +4676,36 @@ msgid "your-donation/donate/"
 msgstr "ihre-spenden/spenden/"
 
 #: fragdenstaat_de/fds_donation/forms.py
+#, python-brace-format
 msgid "{amount} EUR donation {str_interval} to {site_name}"
 msgstr "{amount} EUR Spende {str_interval} an {site_name}"
 
 #: fragdenstaat_de/fds_donation/models.py
+#, python-brace-format
 msgid "{amount} EUR every month via {method} since {start}."
 msgid_plural "{amount} EUR every {interval} months via {method} since {start}."
 msgstr[0] "{amount} EUR jeden Monat via {method} seit {start}."
 msgstr[1] "{amount} EUR alle {interval} Monate via {method} seit {start}"
 
 #: fragdenstaat_de/fds_donation/forms.py
+#, python-brace-format
 msgid "{amount} EUR {str_interval}."
 msgstr "{amount} EUR {str_interval}."
 
 #: fragdenstaat_de/fds_donation/forms.py
+#, python-brace-format
 msgid "{amount} EUR."
 msgstr "{amount} EUR."
 
 #: fragdenstaat_de/fds_donation/utils.py
+#, python-brace-format
 msgid "{amount} every month"
 msgid_plural "{amount} every {interval} months"
 msgstr[0] "{amount} jeden Monat"
 msgstr[1] "{amount} alle {interval} Monate"
 
 #: fragdenstaat_de/fds_donation/utils.py
+#, python-brace-format
 msgid "{amount} every year"
 msgstr "{amount} jedes Jahr"
 
