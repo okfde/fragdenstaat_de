@@ -19,7 +19,7 @@ You need to have installed:
 
 - Python 3.12+
 - uv
-- pnpm & npm
+- pnpm 9.x & npm
 - GDAL for Django's GeoDjango
 - freetype and imagemagick
 - postgresql bindings
@@ -27,10 +27,12 @@ You need to have installed:
 - qpdf
 - ocrmypdf
 - pango
-- libgeoip
+- libmaxminddb
 - libmagic
 
 All of these dependencies should be installable via package managers (e.g. `brew` on macOS).
+
+You also need `prek` for managing pre-commit hooks. Install it with `uv tool install prek`.
 
 To make the setup easier the following script (`devsetup.sh`) creates a virtual environment, sets up and installs all repos of the Python backend and installs and links all repos of the JavaScript frontend build.
 
@@ -72,6 +74,8 @@ source .venv/bin/activate
 python manage.py migrate --skip-checks
 ```
 
+#### Load CMS fixtures into the database
+
 To get started with some data:
 
 ```bash
@@ -79,23 +83,22 @@ To get started with some data:
 python manage.py loaddata tests/fixtures/cms.json
 # Create a superuser
 python manage.py createsuperuser
-# Create and populate search index
-python manage.py search_index --create
-python manage.py search_index --populate
 ```
 
-### Import SQL dumps
+#### Import SQL dumps
 
-Example of loading SQL dumps into Docker postgres:
+Alternatively, load a light SQL dump:
 
 ```bash
 ./devsetup.sh load_dump
+```
 
-# or
+#### Populate the search index after loading data
 
-docker compose -f compose-dev.yaml exec db dropdb -U fragdenstaat_de fragdenstaat_de
-docker compose -f compose-dev.yaml exec db createdb -U fragdenstaat_de -O fragdenstaat_de fragdenstaat_de
-gunzip -k -c dump.sql.gz | docker compose -f compose-dev.yaml exec -T db psql -U fragdenstaat_de
+```bash
+# Create and populate search index
+python manage.py search_index --create
+python manage.py search_index --populate
 ```
 
 ### Quick start after setup
@@ -105,14 +108,34 @@ cd fragdenstaat_de
 source .venv/bin/activate
 # Start service in background with -d
 docker compose -f compose-dev.yaml up -d
+# Run front-end
+pnpm run dev
+
 python manage.py runserver
 ```
 
-### Frontend development
+### Run tests locally
+
+Set up the test environment:
 
 ```bash
+# Activate virtualenv
 cd fragdenstaat_de
-pnpm run dev
+source .venv/bin/activate
+
+# Install test dependencies
+uv pip install ruff
+playwright install
+
+# Precompile front end assets
+pnpm run build
+```
+
+Run the tests locally:
+
+```bash
+docker compose -f compose-dev.yaml up -d
+make test
 ```
 
 ### Main app dependencies
