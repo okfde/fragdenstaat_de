@@ -299,6 +299,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                 "froide.publicbody.apps.PublicBodyNoConfig",
                 "froide.campaign",
                 "django_comments",
+                "froide.comments",
                 "froide.foirequest.apps.FoiRequestNoConfig",
                 "froide.proof.apps.ProofNoConfig",
                 "fragdenstaat_de.fds_blog.apps.BlogNoConfig",
