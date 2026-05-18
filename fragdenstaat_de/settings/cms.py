@@ -298,6 +298,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                 "froide.georegion",
                 "froide.publicbody.apps.PublicBodyNoConfig",
                 "froide.campaign",
+                "django_comments",
                 "froide.foirequest.apps.FoiRequestNoConfig",
                 "froide.proof.apps.ProofNoConfig",
                 "fragdenstaat_de.fds_blog.apps.BlogNoConfig",
