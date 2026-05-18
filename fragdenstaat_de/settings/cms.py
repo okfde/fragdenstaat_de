@@ -13,6 +13,15 @@ importer.install(check_options=True)
 
 
 class CMSSettingsMixin:
+    def __init__(self):
+
+        from django.contrib import admin as django_admin
+
+        def noop():
+            pass
+
+        django_admin.autodiscover = noop
+
     CMS_PERMISSION = True
     CMS_RAW_ID_USERS = True
     CMS_CONFIRM_VERSION4 = True
@@ -298,8 +307,6 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                 "froide.georegion",
                 "froide.publicbody.apps.PublicBodyNoConfig",
                 "froide.campaign",
-                "django_comments",
-                "froide.comments",
                 "froide.foirequest.apps.FoiRequestNoConfig",
                 "froide.proof.apps.ProofNoConfig",
                 "fragdenstaat_de.fds_blog.apps.BlogNoConfig",
