@@ -219,6 +219,7 @@ class FragDenStaatBase(German, Base):
     CMS_RAW_ID_USERS = True
     CMS_CONFIRM_VERSION4 = True
     CMS_MIGRATION_USER_ID = 1
+    VERSIONING_ALIAS_MODELS_ENABLED = True
 
     @property
     def CMS_LANGUAGES(self):
