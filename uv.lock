@@ -1012,15 +1012,6 @@ wheels = [
 ]
 
 [[package]]
-name = "django-fsm"
-version = "3.0.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/06/0b/605c646b09bcf4d49aa64fec87c732c6acbff93b945339381a6df0f78e99/django-fsm-3.0.1.tar.gz", hash = "sha256:d6436f5931e09d76e9a434781548627deab80c74cd6726adce95b31b5ddd4d1e", size = 12800, upload-time = "2025-10-07T16:33:27.398Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/fc/87/ad5a38d1a8241b485835c6e6158634b29e885be78424ca42fb63df15b965/django_fsm-3.0.1-py2.py3-none-any.whl", hash = "sha256:ea07be2da221efa5cb8743cc94e0bb64fd962adff594f82269040eb4708c30c6", size = 12454, upload-time = "2025-10-07T16:33:26.218Z" },
-]
-
-[[package]]
 name = "django-fsm-2"
 version = "4.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1796,6 +1787,7 @@ dependencies = [
     { name = "froide" },
     { name = "froide-campaign" },
     { name = "froide-crowdfunding" },
+    { name = "froide-election" },
     { name = "froide-evidencecollection" },
     { name = "froide-exam" },
     { name = "froide-fax" },
@@ -1929,6 +1921,7 @@ requires-dist = [
     { name = "froide", git = "https://github.com/okfde/froide.git?rev=main" },
     { name = "froide-campaign", git = "https://github.com/okfde/froide-campaign.git?rev=main" },
     { name = "froide-crowdfunding", git = "https://github.com/okfde/froide-crowdfunding.git?rev=main" },
+    { name = "froide-election", git = "https://github.com/okfde/froide-election.git?rev=main" },
     { name = "froide-evidencecollection", git = "https://github.com/okfde/froide-evidencecollection.git?rev=main" },
     { name = "froide-exam", git = "https://github.com/okfde/froide-exam.git?rev=main" },
     { name = "froide-fax", git = "https://github.com/okfde/froide-fax.git?rev=main" },
@@ -2081,6 +2074,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "froide-election"
+version = "0.0.1"
+source = { git = "https://github.com/okfde/froide-election.git?rev=main#b9c3663561c8fb2b4d03d1988385d5c2f460bc3a" }
+dependencies = [
+    { name = "django-cms" },
+    { name = "froide" },
+]
+
+[[package]]
 name = "froide-evidencecollection"
 version = "0.0.1"
 source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#fbf61d80e5d41dfb04d0940e974dfb7b576272d4" }
@@ -2141,9 +2143,10 @@ dependencies = [
 [[package]]
 name = "froide-legalaction"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-legalaction.git?rev=main#7376c410519d59567e271e2777e3fdb2b670bd10" }
+source = { git = "https://github.com/okfde/froide-legalaction.git?rev=main#a2eeb730116994faa33bbba831555dc8d6d1763d" }
 dependencies = [
-    { name = "django-fsm" },
+    { name = "django" },
+    { name = "froide" },
 ]
 
 [[package]]
