@@ -923,6 +923,11 @@ class FragDenStaatBase(German, Base):
     }
 
     FLOWCONTROL_TEMPLATE_FILTERS = ["fragdenstaat_de.theme.filters"]
+    FLOWCONTROL_CONTENT_TYPES = [
+        "fds_donation.donor",
+        "fds_newsletter.subscriber",
+        "account.user",
+    ]
 
     FDS_OGIMAGE_URL = "https://ogimage.frag-den-staat.de/api/{hash}?path={path}"
     APP_SITE_URL = "https://app.fragdenstaat.de"
