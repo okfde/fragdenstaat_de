@@ -69,7 +69,7 @@ dependencies() {
 
   for name in "${ALL[@]}"; do
     pushd "$name"
-    
+
     if [ ! -d ".venv" ]; then
       uv venv -p "$PYTHON_VERSION"
     fi
@@ -145,10 +145,8 @@ upgrade_frontend_repos() {
 }
 
 messages() {
-  pushd "$MAIN"
-  source .venv/bin/activate
-  python manage.py compilemessages -l de -i node_modules
-  popd
+  source $MAIN/.venv/bin/activate
+  python $MAIN/manage.py compilemessages -l de -i node_modules
 }
 
 load_dump() {
@@ -181,7 +179,7 @@ load_dump() {
   echo "Restored database successfully! You might have to apply migrations."
 
   read -p "Please enter your email address to set the account password (or press Ctrl+C to abort):" email
-  
+
   source .venv/bin/activate
   python manage.py changepassword "$email"
   deactivate
@@ -212,7 +210,7 @@ if [ -z "$1" ]; then
   dependencies
   frontend
   messages
-  
+
   echo "Done!"
 else
   if [[ $(type -t "$1") == function ]]; then
