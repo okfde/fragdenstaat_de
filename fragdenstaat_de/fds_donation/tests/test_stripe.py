@@ -275,7 +275,7 @@ async def test_sepa_recurring_donation_success(
     await page.locator("#id_iban").fill(STRIPE_TEST_IBANS["success_delayed"])
     await page.get_by_role("button", name="IBAN ändern").click()
     await page.wait_for_selector(".show.alert-dismissible")
-    assert await page.get_by_text("wurde aktualisiert")
+    assert await page.get_by_text("wurde aktualisiert").is_visible()
 
     stripe_sub = stripe.Subscription.retrieve(subscription.remote_reference)
     stripe_pm_id = stripe_sub.default_payment_method
