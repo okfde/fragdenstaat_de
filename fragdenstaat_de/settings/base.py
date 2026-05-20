@@ -646,6 +646,9 @@ class FragDenStaatBase(German, Base):
         "default": ("payments.dummy.DummyProvider", {}),
     }
     PAYMENT_CHECK_THRESHOLD = int(env("PAYMENT_CHECK_THRESHOLD", "1000"))
+    PAYMENT_SUBSCRIPTION_ACCESS_FUNC = (
+        "fragdenstaat_de.fds_donation.auth.check_subscription_access"
+    )
     DONATION_PROJECTS = [
         ("FDS", "FragDenStaat"),  # First project becomes default project
         ("CFG", "Code for Germany"),
