@@ -1,5 +1,7 @@
 import re
 import uuid
+from datetime import timedelta
+from decimal import Decimal
 from urllib.parse import urlencode
 
 from django.contrib.auth.models import Permission
@@ -8,10 +10,12 @@ from django.urls import reverse
 from django.utils import timezone
 
 import pytest
+from froide_payment.models import Customer, Order, Payment, Plan, Subscription
 
 from froide.account.factories import UserFactory
 
-from fragdenstaat_de.fds_donation.models import Donation, Donor
+from ..models import Donation, Donor, Recurrence
+from .factories import DonationFactory
 
 
 @pytest.fixture
@@ -257,3 +261,71 @@ def test_deduplicate_donor_user(client, donor, other_donor):
 
     with pytest.raises(Donor.DoesNotExist):
         donor.refresh_from_db()
+
+
+def make_subscription(donor, provider="sepa"):
+    date = timezone.now()
+    amount = Decimal("5")
+    plan = Plan.objects.create(
+        name="Monthly Donation",
+        slug="monthly-donation",
+        interval=1,
+        amount=amount,
+        provider=provider,
+    )
+    customer = Customer.objects.create(user_email=donor.email)
+    subscription = Subscription.objects.create(
+        plan=plan,
+        customer=customer,
+        remote_reference="abc",
+        created=date - timedelta(minutes=1),
+        active=False,
+    )
+    order = Order.objects.create(
+        user_email=donor.email,
+        total_net=amount,
+        total_gross=amount,
+        remote_reference="def",
+        is_donation=True,
+        description="Monthly donation",
+        subscription=subscription,
+    )
+    payment = Payment.objects.create(
+        order=order,
+        variant=provider,
+        transaction_id="xyz",
+    )
+    recurrence = Recurrence.objects.create(
+        subscription=subscription,
+        donor=donor,
+        method=provider,
+        start_date=date,
+        interval=1,
+        amount=amount,
+    )
+    donation = DonationFactory.create(
+        donor=donor,
+        method=provider,
+        timestamp=date,
+        order=order,
+        payment=payment,
+        completed=True,
+        amount=amount,
+        recurrence=recurrence,
+    )
+    return donation, subscription
+
+
+@pytest.mark.django_db
+def test_subscription_access(client, donor):
+    _donation, subscription = make_subscription(
+        donor,
+    )
+    sub_url = subscription.get_absolute_url()
+    response = client.get(sub_url)
+    assert response.status_code == 302
+    assert client.post(donor.get_absolute_url()).status_code == 302
+    assert client.session.get("donor_id") is not None
+
+    response = client.get(sub_url)
+    assert response.status_code == 200
