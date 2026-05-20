@@ -235,24 +235,21 @@ async def test_sepa_recurring_donation_success(
     subscription = donation.order.subscription
     old_plan = subscription.plan
     assert old_plan.interval == 1
-    await page.goto(
-        live_server.url
-        + reverse(
-            "froide_payment:subscription-detail", kwargs={"token": subscription.token}
-        )
+
+    sub_url = live_server.url + reverse(
+        "froide_payment:subscription-detail", kwargs={"token": subscription.token}
     )
+    # Not logged in
+    await page.goto(sub_url)
+    assert "/account/login/" in page.url
+    # Login donor
+    await page.goto(live_server.url + donation.donor.get_absolute_url())
+    # Go to subscription url
+    await page.goto(sub_url)
     await page.locator("#id_amount").fill("10")
     await page.locator("#id_interval_1").click()
     mail.outbox = []
     await page.get_by_role("button", name="Dauerspende ändern").click()
-    await page.wait_for_load_state("networkidle")
-
-    # Open confirmation link in email
-    assert mail.outbox[-1].to[0] == subscription.customer.user_email
-    message = mail.outbox[-1]
-    match = re.search(r"http://\S+", message.body)
-    assert match
-    await page.goto(match.group(0))
     await page.wait_for_load_state("networkidle")
 
     # Check subscription change
@@ -380,6 +377,9 @@ async def test_sepa_shorten_recurring_interval(
         next_date = date.today() + timedelta(days=5)
         assert last_order.service_end.date() > next_date
 
+        # Login as donor
+        await page.goto(live_server.url + donation.donor.get_absolute_url())
+
         await page.goto(
             live_server.url
             + reverse(
@@ -392,14 +392,6 @@ async def test_sepa_shorten_recurring_interval(
         await page.locator("#id_next_date").fill(next_date.strftime("%Y-%m-%d"))
         mail.outbox = []
         await page.get_by_role("button", name="Dauerspende ändern").click()
-        await page.wait_for_load_state("networkidle")
-
-        # Open confirmation link in email
-        assert mail.outbox[-1].to[0] == subscription.customer.user_email
-        message = mail.outbox[-1]
-        match = re.search(r"http://\S+", message.body)
-        assert match
-        await page.goto(match.group(0))
         await page.wait_for_load_state("networkidle")
 
         logging.info("waiting for webhooks to complete")
@@ -665,7 +657,7 @@ async def test_creditcard_once_donation_success(
     await page.get_by_role("button", name="5 Euro").click()
     # await page.get_by_text("monatlich").click()
     await page.get_by_text("Kreditkarte", exact=True).click()
-    fill_donation_page(page, donor_email)
+    await fill_donation_page(page, donor_email)
     await page.get_by_role("button", name="Jetzt spenden").click()
 
     with stripe_sepa_setup.wait_for_events(["charge.succeeded"]):
