@@ -140,9 +140,6 @@ def merge_dict(attr: str):
     return merge
 
 
-DONOR_SESSION_KEY = "donor_id"
-
-
 def subscribe_donor_newsletter(donor, email_confirmed=False):
     result, subscriber = subscribe_to_newsletter(
         settings.DONOR_NEWSLETTER,
@@ -409,23 +406,6 @@ def validate_email_change_token(
     if donor is None:
         return None, None
     return donor, email
-
-
-def get_donor_from_request(request) -> Donor | None:
-    if donor_id := request.session.get(DONOR_SESSION_KEY):
-        try:
-            return Donor.objects.get(id=donor_id)
-        except Donor.DoesNotExist:
-            pass
-
-    if not request.user.is_authenticated:
-        return None
-    donors = Donor.objects.filter(user=request.user, email_confirmed__isnull=False)
-    if not donors:
-        return None
-    if len(donors) == 1:
-        return donors[0]
-    return merge_donor_list(donors)
 
 
 def merge_donor_with_same_confirmed_emails(donor):
