@@ -103,6 +103,20 @@ def subscription_was_canceled(sender, **kwargs):
         detect_recurring_on_donor(recurrence.donor)
 
 
+def subscription_was_modified(sender, **kwargs):
+    if sender is None:
+        return
+    try:
+        recurrence = Recurrence.objects.get(subscription=sender)
+    except Recurrence.DoesNotExist:
+        return
+    amount_per_month = sender.plan.amount / sender.plan.interval
+    last_upgrade = None
+    if amount_per_month > recurrence.amount_per_month:
+        last_upgrade = timezone.now()
+    recurrence.update_from_subscription(last_upgrade=last_upgrade)
+
+
 def user_email_changed(sender, old_email=None, **kwargs):
     try:
         # Connect user to existing
@@ -113,6 +127,12 @@ def user_email_changed(sender, old_email=None, **kwargs):
         confirmed_email_donor.save()
     except Donor.DoesNotExist:
         pass
+
+
+def activate_user(sender, **kwargs):
+    Donor.objects.filter(user=sender.user, email_confirmed__isnull=True).update(
+        email_confirmed=timezone.now()
+    )
 
 
 def cancel_user(sender, user=None, **kwargs):

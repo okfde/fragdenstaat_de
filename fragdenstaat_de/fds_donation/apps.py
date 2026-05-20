@@ -29,10 +29,12 @@ class FdsDonationConfig(AppConfig):
             sepa_notification,
             subscription_cancel_feedback,
             subscription_canceled,
+            subscription_modified,
         )
         from payments.signals import status_changed
 
         from froide.account import (
+            account_activated,
             account_canceled,
             account_email_changed,
             account_merged,
@@ -43,6 +45,7 @@ class FdsDonationConfig(AppConfig):
         from fragdenstaat_de.fds_newsletter import tag_subscriber
 
         from .listeners import (
+            activate_user,
             cancel_user,
             export_user_data,
             merge_user,
@@ -51,6 +54,7 @@ class FdsDonationConfig(AppConfig):
             save_subscription_cancel_feedback,
             sepa_payment_processing,
             subscription_was_canceled,
+            subscription_was_modified,
             tag_subscriber_donor,
             user_email_changed,
         )
@@ -59,8 +63,10 @@ class FdsDonationConfig(AppConfig):
 
         status_changed.connect(payment_status_changed)
         subscription_canceled.connect(subscription_was_canceled)
+        subscription_modified.connect(subscription_was_modified)
         subscription_cancel_feedback.connect(save_subscription_cancel_feedback)
         sepa_notification.connect(sepa_payment_processing)
+        account_activated.connect(activate_user)
         account_canceled.connect(cancel_user)
         account_email_changed.connect(user_email_changed)
         account_merged.connect(merge_user)
