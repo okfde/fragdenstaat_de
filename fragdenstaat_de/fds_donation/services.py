@@ -181,7 +181,7 @@ def get_or_create_donor(data, user=None, subscription=None):
 
 def create_donor(data, user=None, subscription=None):
     email_confirmed = None
-    if user is not None and user.email:
+    if user is not None and user.email and user.is_active:
         if user.email.lower() == data["email"].lower():
             email_confirmed = user.date_joined
     recurring_amount = Decimal(0)
