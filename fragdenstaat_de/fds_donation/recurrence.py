@@ -406,7 +406,7 @@ def get_late_recurrences(now=None):
     # Check if last donation was before the known until date
     # minus the interval.
     queries = [
-        Q(last_date__lt=known_until - relativedelta(months=interval))
+        Q(last_date__date__lt=known_until - relativedelta(months=interval))
         & Q(interval=interval)
         for interval, _ in RECURRING_INTERVAL_CHOICES
     ]
