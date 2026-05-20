@@ -13,6 +13,7 @@ from froide.helper.auth import is_crew
 from fragdenstaat_de.fds_cms.utils import get_plugin_children
 from fragdenstaat_de.fds_mailing.cms_plugins import EmailRenderMixin, EmailTemplateMixin
 
+from .auth import get_donor_from_request
 from .forms import RecurrenceUpgradeForm
 from .models import (
     DefaultDonation,
@@ -26,7 +27,6 @@ from .models import (
     RemoteDonationFormCMSPlugin,
     UpgradeRecurrenceFormCMSPlugin,
 )
-from .utils import get_donor_from_request
 
 
 @plugin_pool.register_plugin

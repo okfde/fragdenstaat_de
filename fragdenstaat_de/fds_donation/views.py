@@ -20,6 +20,7 @@ from froide.helper.utils import (
 
 from fragdenstaat_de.fds_donation.utils import validate_donor_token
 
+from .auth import get_donor_from_request, login_donor, logout_donor
 from .form_settings import DonationFormFactory, DonationSettingsForm
 from .forms import (
     DonationGiftForm,
@@ -31,10 +32,7 @@ from .forms import (
     SimpleDonationForm,
 )
 from .models import DonationFormViewCount, Donor, DonorEvent
-from .services import confirm_donor_email
 from .utils import (
-    DONOR_SESSION_KEY,
-    get_donor_from_request,
     merge_donor_with_same_confirmed_emails,
     validate_email_change_token,
 )
@@ -273,7 +271,6 @@ class DonorMixin:
         self.object = self.get_object()
         if self.object is None:
             return no_donor_found(request)
-        confirm_donor_email(self.object, request=self.request)
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
@@ -452,8 +449,7 @@ def donor_login(request, donor_id, token, next_path):
                 )
             return redirect(next_path)
 
-        donor.update_last_login()
-        request.session[DONOR_SESSION_KEY] = donor.id
+        login_donor(request, donor)
 
         return redirect(next_path)
 
@@ -528,7 +524,7 @@ def get_legacy_redirect(url_name):
         path = reverse(url_name)
         if can_change_donor(request):
             donor = get_object_or_404(Donor, uuid=token)
-            request.session[DONOR_SESSION_KEY] = donor.id
+            login_donor(request, donor, update_login=False)
             messages.add_message(
                 request,
                 messages.INFO,
@@ -572,8 +568,5 @@ def send_donor_login_link(request):
 
 def donor_logout(request):
     if request.method == "POST":
-        try:
-            del request.session[DONOR_SESSION_KEY]
-        except KeyError:
-            pass
+        logout_donor(request)
     return redirect("/")
