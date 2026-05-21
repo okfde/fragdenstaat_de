@@ -102,6 +102,8 @@ class CMSSettingsMixin:
         "IsNotRecurringDonorPlugin",
         "IsRecentDonor",
         "IsNotRecentDonor",
+        "HasRecentlyUpgraded",
+        "HasNotRecentlyUpgraded",
         "ContactAllowedDonor",
         "ContactNotAllowedDonor",
         "IsFormalDonor",

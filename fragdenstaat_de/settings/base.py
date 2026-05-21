@@ -289,6 +289,8 @@ class FragDenStaatBase(German, Base):
         "IsNotRecurringDonorPlugin",
         "IsRecentDonor",
         "IsNotRecentDonor",
+        "HasRecentlyUpgraded",
+        "HasNotRecentlyUpgraded",
         "ContactAllowedDonor",
         "ContactNotAllowedDonor",
         "IsFormalDonor",
