@@ -1498,6 +1498,7 @@ class RecurrenceAdmin(admin.ModelAdmin):
         "amount",
         "sum_amount",
         "days",
+        "last_upgrade",
     )
     fieldsets = (
         (
@@ -1514,6 +1515,7 @@ class RecurrenceAdmin(admin.ModelAdmin):
                     "amount",
                     "sum_amount",
                     "days",
+                    "last_upgrade",
                 )
             },
         ),
@@ -1538,6 +1540,8 @@ class RecurrenceAdmin(admin.ModelAdmin):
         )
 
     def get_readonly_fields(self, request, obj=None):
+        if request.user.is_superuser:
+            return ()
         if obj and obj.cancel_date:
             return self.readonly_fields + ("cancel_date",)
         if obj and obj.method == "banktransfer":
