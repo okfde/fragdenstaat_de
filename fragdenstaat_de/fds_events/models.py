@@ -20,7 +20,11 @@ class EventManager(models.Manager):
         today = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
         return (
             self.get_queryset()
-            .filter(public=True, end_date__gt=today)
+            .filter(public=True)
+            .filter(
+                models.Q(end_date__gt=today)
+                | models.Q(start_date__gt=today, end_date__isnull=True)
+            )
             .order_by("start_date")
         )
 
@@ -49,17 +53,9 @@ class Event(models.Model):
         max_length=255,
     )
     start_date = models.DateTimeField(_("Start"))
-    end_date = models.DateTimeField(_("End"))
-    short_location = models.CharField(
-        blank=True,
-        max_length=255,
-    )
-    location = models.TextField(
-        _("Location"),
-        max_length=255,
-        blank=True,
-        null=True,
-    )
+    end_date = models.DateTimeField(_("End"), null=True, blank=True)
+    short_location = models.CharField(blank=True, max_length=255)
+    location = models.TextField(_("Location"), blank=True)
     public = models.BooleanField(default=False)
     placeholders = PlaceholderRelationField()
     tags = TaggableManager(through=TaggedEvent)

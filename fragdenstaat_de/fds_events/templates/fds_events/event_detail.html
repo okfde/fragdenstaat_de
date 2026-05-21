@@ -51,18 +51,20 @@
                         {{ event.start_date | date:"DATETIME_FORMAT" }}
                     </time>
                 </div>
-                <div class="col col-6 col-md-3">
-                    <h2 class="h6">{% trans "End" %}</h2>
-                    {% if event.end_date.date != event.start_date.date %}
-                        <time datetime="{{ event.end_date|date:"c" }}">
-                            {{ event.end_date | date:"DATETIME_FORMAT" }}
-                        </time>
-                    {% else %}
-                        <time datetime="{{ event.end_date|date:"c" }}">
-                            {{ event.end_date | date:"TIME_FORMAT" }}
-                        </time>
-                    {% endif %}
-                </div>
+                {% if event.end_date %}
+                    <div class="col col-6 col-md-3">
+                        <h2 class="h6">{% trans "End" %}</h2>
+                        {% if event.end_date.date != event.start_date.date %}
+                            <time datetime="{{ event.end_date|date:"c" }}">
+                                {{ event.end_date | date:"DATETIME_FORMAT" }}
+                            </time>
+                        {% else %}
+                            <time datetime="{{ event.end_date|date:"c" }}">
+                                {{ event.end_date | date:"TIME_FORMAT" }}
+                            </time>
+                        {% endif %}
+                    </div>
+                {% endif %}
                 <div class="col col-12 col-md-3 mt-3 mt-md-0">
                     <a href="{{ event.get_ical_url }}"><i class="fa fa-download"></i> {% trans "Add to calendar" %}</a>
                     {% include "snippets/share_buttons.html" with text=event.title links=True url=event.get_absolute_domain_url copy_text=copy_text %}

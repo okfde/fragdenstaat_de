@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -45,7 +47,7 @@ def make_ical_event(event: Event):
     obj.add("uid", uid % "fds-event")
     obj.add("dtstamp", timezone.now())
     obj.add("dtstart", event.start_date)
-    obj.add("dtend", event.end_date)
+    obj.add("dtend", event.end_date or (event.start_date + timedelta(hours=1)))
 
     if event.location:
         obj.add("location", event.location)
