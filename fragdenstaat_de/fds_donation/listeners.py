@@ -11,7 +11,7 @@ from froide_payment.models import PaymentStatus
 from fragdenstaat_de.fds_newsletter.models import Subscriber
 
 from .forms import SubscriptionCancelFeedbackForm
-from .models import Donation, Donor, Recurrence
+from .models import Donation, Donor, DonorEvent, Recurrence
 from .services import (
     create_donation_from_payment,
     detect_recurring_on_donor,
@@ -114,6 +114,28 @@ def subscription_was_modified(sender, **kwargs):
     last_upgrade = None
     if amount_per_month > recurrence.amount_per_month:
         last_upgrade = timezone.now()
+        kind = DonorEvent.Kind.UPGRADE_RECURRENCE
+    elif amount_per_month < recurrence.amount_per_month:
+        kind = DonorEvent.Kind.DOWNGRADE_RECURRENCE
+    else:
+        kind = DonorEvent.Kind.MODIFY_RECURRENCE
+    DonorEvent.objects.create(
+        donor=recurrence.donor,
+        kind=kind,
+        context={
+            "previous_interval": recurrence.interval,
+            "previous_amount": float(recurrence.amount),
+            "previous_amount_decimal": str(recurrence.amount),
+            "previous_amount_per_month": float(recurrence.amount_per_month),
+            "previous_amount_per_month_decimal": str(recurrence.amount_per_month),
+            "new_interval": sender.plan.interval,
+            "new_amount": float(sender.plan.amount),
+            "new_amount_decimal": str(sender.plan.amount),
+            "new_amount_per_month": float(amount_per_month),
+            "new_amount_per_month_decimal": str(amount_per_month),
+            "request": {},
+        },
+    )
     recurrence.update_from_subscription(last_upgrade=last_upgrade)
 
 
