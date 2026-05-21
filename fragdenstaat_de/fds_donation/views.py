@@ -121,10 +121,12 @@ def handle_upgrade(request) -> bool | None:
             kind=DonorEvent.Kind.UPGRADE_RECURRENCE,
             reference=form.cleaned_data["reference"],
             context={
+                "previous_interval": recurrence.interval,
                 "previous_amount": float(previous_amount),
                 "previous_amount_decimal": str(previous_amount),
                 "previous_amount_per_month": float(previous_amount_per_month),
                 "previous_amount_per_month_decimal": str(previous_amount_per_month),
+                "new_interval": recurrence.interval,
                 "new_amount": float(recurrence.amount),
                 "new_amount_decimal": str(recurrence.amount),
                 "new_amount_per_month": float(recurrence.amount_per_month),

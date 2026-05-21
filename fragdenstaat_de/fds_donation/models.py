@@ -660,6 +660,8 @@ class DonorEvent(models.Model):
             _("prompt recurrence upgrade"),
         )
         UPGRADE_RECURRENCE = "upgrade_recurrence", _("upgraded recurrence")
+        DOWNGRADE_RECURRENCE = "downgrade_recurrence", _("downgraded recurrence")
+        MODIFY_RECURRENCE = "modify_recurrence", _("modified recurrence")
 
     donor = models.ForeignKey(Donor, on_delete=models.CASCADE, related_name="events")
     timestamp = models.DateTimeField(default=timezone.now)
