@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -2152,7 +2152,7 @@ dependencies = [
 [[package]]
 name = "froide-payment"
 version = "0.0.3"
-source = { git = "https://github.com/okfde/froide-payment.git?rev=main#9740b38c32ca7bb5cae1a41d707ea1bf8e466c63" }
+source = { git = "https://github.com/okfde/froide-payment.git?rev=main#a910efa63000ca720ee03270ebf823def1338f07" }
 dependencies = [
     { name = "django-countries" },
     { name = "django-localflavor" },
