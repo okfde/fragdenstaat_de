@@ -1541,7 +1541,7 @@ class RecurrenceAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if request.user.is_superuser:
-            return ()
+            return ("sum_amount", "days")
         if obj and obj.cancel_date:
             return self.readonly_fields + ("cancel_date",)
         if obj and obj.method == "banktransfer":
