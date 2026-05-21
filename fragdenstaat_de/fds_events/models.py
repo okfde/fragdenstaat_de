@@ -50,7 +50,11 @@ class Event(models.Model):
     )
     start_date = models.DateTimeField(_("Start"))
     end_date = models.DateTimeField(_("End"))
-    location = models.CharField(
+    short_location = models.CharField(
+        blank=True,
+        max_length=255,
+    )
+    location = models.TextField(
         _("Location"),
         max_length=255,
         blank=True,
@@ -71,6 +75,8 @@ class Event(models.Model):
     objects = EventManager()
 
     class Meta:
+        ordering = ("-start_date",)
+        get_latest_by = "start_date"
         verbose_name = pgettext_lazy("physical event", "Event")
         verbose_name_plural = pgettext_lazy("physical event", "Events")
 

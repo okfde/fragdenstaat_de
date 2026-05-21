@@ -24,7 +24,6 @@ class EventAdminForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             "description": Textarea(),
-            "location": Textarea(),
             "tags": TagAutocompleteWidget(autocomplete_url=TAG_AUTOCOMPLETE_URL),
         }
 
@@ -32,7 +31,13 @@ class EventAdminForm(forms.ModelForm):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     date_hierarchy = "start_date"
-    list_display = ("title", "start_date", "end_date", "get_edit_link")
+    list_display = (
+        "title",
+        "start_date",
+        "end_date",
+        "short_location",
+        "get_edit_link",
+    )
     list_filter = (
         "start_date",
         "end_date",
