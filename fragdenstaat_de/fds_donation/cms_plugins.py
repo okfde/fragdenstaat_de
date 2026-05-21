@@ -242,6 +242,35 @@ class IsNotRecentDonor(DonorLogicMixin, CMSPluginBase):
         return not context.get("donor") or not context["donor"].recently_donated
 
 
+RECURRENCE_UPGRADE_ASK_DAYS = 180
+
+
+@plugin_pool.register_plugin
+class HasRecentlyUpgraded(DonorLogicMixin, CMSPluginBase):
+    name = _("Has recently upgraded")
+
+    def should_render(self, context):
+        if donor := context.get("donor"):
+            active_recurrence = donor.get_current_recurrence()
+            return active_recurrence and active_recurrence.should_upgrade(
+                RECURRENCE_UPGRADE_ASK_DAYS
+            )
+        return False
+
+
+@plugin_pool.register_plugin
+class HasNotRecentlyUpgraded(DonorLogicMixin, CMSPluginBase):
+    name = _("Has not recently upgraded")
+
+    def should_render(self, context):
+        if donor := context.get("donor"):
+            active_recurrence = donor.get_current_recurrence()
+            if not active_recurrence:
+                return True
+            return not active_recurrence.should_upgrade(RECURRENCE_UPGRADE_ASK_DAYS)
+        return True
+
+
 @plugin_pool.register_plugin
 class ContactAllowedDonor(DonorLogicMixin, CMSPluginBase):
     name = _("Is contact allowed donor")
