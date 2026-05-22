@@ -30,7 +30,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from adminsortable2.admin import SortableAdminMixin
-from flowcontrol.engine import start_flowrun
+from flowcontrol.engine import create_flowrun
 from flowcontrol.models import Flow
 from froide_payment.models import PaymentStatus
 
@@ -288,7 +288,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     )
     start_flow_on_donor = make_choose_object_action(
         Flow.objects.get_active(),
-        lambda admin, request, qs, obj: [start_flowrun(obj, donor) for donor in qs],
+        lambda admin, request, qs, obj: [create_flowrun(obj, donor) for donor in qs],
         _("Start workflow for donors..."),
     )
 
