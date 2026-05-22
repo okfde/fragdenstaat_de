@@ -922,7 +922,7 @@ class DonationAdmin(admin.ModelAdmin):
         action_name="tag_donors",
         autocomplete_url=DONOR_TAG_AUTOCOMPLETE,
         field=lambda obj, tags: obj.donor.tags.add(*tags),
-        short_description="Füge Tag zu zugehörigen Spender:innen hinzu",
+        short_description=_("Add tag to donors..."),
     )
     tag_subscribers = make_subscriber_tagger(
         lambda qs: (
