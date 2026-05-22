@@ -164,6 +164,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         make_rangefilter("recurring_amount", _("recurring monthly amount")),
         make_daterangefilter("recurrence_streak_start", _("Recurrence streak start")),
         make_daterangefilter("last_donation", _("Last donation")),
+        make_daterangefilter("first_donation", _("First donation")),
         "subscriber__subscribed",
         "email_confirmed",
         "become_user",
@@ -1481,6 +1482,8 @@ class RecurrenceAdmin(admin.ModelAdmin):
         "method",
         "interval",
         ("donor", ForeignKeyFilter),
+        make_daterangefilter("start_date", _("Start date")),
+        make_daterangefilter("cancel_date", _("Cancel date")),
     )
     search_fields = ("donor__email",)
     raw_id_fields = (
