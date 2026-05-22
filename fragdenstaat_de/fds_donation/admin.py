@@ -1531,6 +1531,15 @@ class RecurrenceAdmin(admin.ModelAdmin):
         ),
     )
 
+    actions = ["tag_donors"]
+
+    tag_donors = make_batch_tag_action(
+        action_name="tag_donors",
+        autocomplete_url=DONOR_TAG_AUTOCOMPLETE,
+        field=lambda obj, tags: obj.donor.tags.add(*tags),
+        short_description=_("Add tag to donors..."),
+    )
+
     def get_queryset(self, request):
         return (
             super()
