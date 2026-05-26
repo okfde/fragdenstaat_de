@@ -11,6 +11,7 @@ from dateutil.relativedelta import relativedelta
 from froide_payment.models import Subscription
 
 from .models import RECURRING_INTERVAL_CHOICES, Donation, Donor, Recurrence
+from .triggers import run_recurrence_created_trigger
 
 
 @dataclass
@@ -225,6 +226,7 @@ def process_recurrence_on_donor(donor: Donor, current_date: datetime | None = No
         update_fields.append("recurrence_streak_start")
     if update_fields:
         donor.save(update_fields=update_fields)
+        run_recurrence_created_trigger(obj=donor)
 
 
 def process_subscription_donations(
