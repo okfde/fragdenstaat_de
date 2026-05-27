@@ -173,8 +173,6 @@ class FragDenStaatBase(German, Base):
     DEFAULT_NEWSLETTER = "fragdenstaat"
     DONOR_NEWSLETTER = "spenden"
 
-    NEWSLETTER_WELCOME_MAILINTENT = {DEFAULT_NEWSLETTER: "fds_newsletter/email/welcome"}
-
     NEWSLETTER_PIXEL_ORIGIN = env("NEWSLETTER_PIXEL_ORIGIN", "http://localhost:8000")
     NEWSLETTER_PIXEL_LOG = env("NEWSLETTER_PIXEL_LOG", "/var/log/pixel.log")
 

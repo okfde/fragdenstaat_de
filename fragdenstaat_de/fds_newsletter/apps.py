@@ -2,7 +2,6 @@ import json
 from datetime import timedelta
 
 from django.apps import AppConfig
-from django.conf import settings
 from django.db.models.signals import pre_delete
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -46,7 +45,6 @@ class NewsletterConfig(AppConfig):
             handle_bounce,
             handle_unsubscribe,
             merge_user,
-            send_welcome_mail,
             subscribe_alert,
             subscribe_follower,
             subscriber_import_delete_file,
@@ -65,7 +63,6 @@ class NewsletterConfig(AppConfig):
         account_confirmed.connect(check_account_confirmed_wants_newsletter)
         email_bounced.connect(handle_bounce)
         email_unsubscribed.connect(handle_unsubscribe)
-        subscribed.connect(send_welcome_mail)
         subscribed.connect(newsletter_subscribed_trigger_listener)
         unsubscribed.connect(newsletter_unsubscribed_trigger_listener)
         user_extra_registry.register("registration", NewsletterUserExtra())
@@ -77,19 +74,6 @@ class NewsletterConfig(AppConfig):
         pre_delete.connect(subscriber_import_delete_file, sender=SubscriberImport)
 
         registry.register(export_user_data)
-
-        setup_newsletter_mails()
-
-
-def setup_newsletter_mails():
-    from froide.helper.email_sending import mail_registry
-
-    NL_CONTEXT_VARS = ("subscriber", "newsletter")
-
-    welcome = getattr(settings, "NEWSLETTER_WELCOME_MAILINTENT", None)
-    if welcome:
-        for _nl_slug, intent_id in welcome.items():
-            mail_registry.register(intent_id, NL_CONTEXT_VARS)
 
 
 def export_user_data(user):

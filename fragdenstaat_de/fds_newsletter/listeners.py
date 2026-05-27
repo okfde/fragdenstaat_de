@@ -1,7 +1,3 @@
-from django.conf import settings
-
-from froide.helper.email_sending import mail_registry
-
 from .models import REFERENCE_PREFIX, Subscriber
 from .utils import subscribe_to_default_newsletter, unsubscribe_queryset
 
@@ -169,23 +165,6 @@ def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):
     else:
         subscribers = Subscriber.objects.filter(email=bounce.email)
     unsubscribe_queryset(subscribers, method="bounced")
-
-
-def send_welcome_mail(sender, batch=False, **kwargs):
-    welcome = getattr(settings, "NEWSLETTER_WELCOME_MAILINTENT", None)
-    if not welcome:
-        return
-    if batch:
-        return
-    if not sender.subscribed:
-        return
-    for nl_slug, intent_id in welcome.items():
-        if sender.newsletter.slug != nl_slug:
-            continue
-        intent = mail_registry.get_intent(intent_id)
-        if not intent:
-            return
-        sender.send_mail_intent(intent)
 
 
 def subscriber_import_delete_file(sender, instance, **kwargs):
