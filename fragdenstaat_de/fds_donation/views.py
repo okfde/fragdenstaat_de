@@ -10,6 +10,8 @@ from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, TemplateView, UpdateView
 from django.views.generic.edit import FormView
 
+from froide_payment import RedirectNeeded
+
 from froide.helper.breadcrumbs import Breadcrumbs, BreadcrumbView
 from froide.helper.utils import (
     get_redirect,
@@ -69,7 +71,16 @@ def make_order(request, category):
 
 @require_POST
 def upgrade_recurrence(request):
-    result = handle_upgrade(request)
+    try:
+        result = handle_upgrade(request)
+    except RedirectNeeded as red_url:
+        next_url = request.POST.get("next")
+        request.session["next"] = next_url
+        url = str(red_url)
+        if is_ajax(request):
+            return HttpResponse(url)
+        return redirect(url)
+
     if result is True:
         if is_ajax(request):
             return HttpResponse(

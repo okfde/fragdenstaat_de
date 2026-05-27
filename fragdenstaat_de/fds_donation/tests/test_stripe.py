@@ -248,7 +248,6 @@ async def test_sepa_recurring_donation_success(
     await page.goto(sub_url)
     await page.locator("#id_amount").fill("10")
     await page.locator("#id_interval_1").click()
-    mail.outbox = []
     await page.get_by_role("button", name="Dauerspende ändern").click()
     await page.wait_for_load_state("networkidle")
 
