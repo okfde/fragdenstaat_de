@@ -181,7 +181,6 @@ section-order = [
   "local-folder",
 ]
 default-section = "third-party"
-known-local-folder = ["froide"]
 
 [tool.ruff.lint.isort.sections]
 django = ["django"]
