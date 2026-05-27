@@ -1,6 +1,8 @@
+import asyncio
 import os
 import re
 import time
+from decimal import Decimal
 
 from django.urls import reverse
 
@@ -112,9 +114,8 @@ class PaypalWebhookForwarder:
                     if http_request_count >= self.max_request_count:
                         break
                     time.sleep(0.1)
-                    if (
-                        self.target_event_set
-                        and self.target_event_set == self.seen_event_set
+                    if self.target_event_set and not len(
+                        self.target_event_set - self.seen_event_set
                     ):
                         break
         finally:
@@ -149,13 +150,63 @@ async def fill_donation_page(page: Page, donor_email):
     await page.get_by_label("Was ist drei plus vier?").fill("7")
 
 
+async def try_selectors(page: Page, selectors: list[str], value: str | None = None):
+    for sel in selectors:
+        try:
+            print("trying", sel)
+            el = await page.query_selector(sel)
+            if el and el.is_visible():
+                print("found element", sel, value)
+                if value:
+                    await el.fill(value)
+                else:
+                    await el.click()
+                return True
+        except Exception as e:
+            print(e)
+            continue
+    print("failed")
+    return False
+
+
 async def login_paypal(page: Page):
     test_account = os.environ["PAYPAL_TEST_ACCOUNT"]
     test_password = os.environ["PAYPAL_TEST_PASSWORD"]
-    await page.locator("#email").fill(test_account)
-    await page.locator("#btnNext").click()
-    await page.locator("#password").fill(test_password)
-    await page.locator("#btnLogin").click()
+    email_selectors = [
+        "input#email",
+        "input[type=email]",
+        "input[name=email]",
+        "input[name=login_email]",
+    ]
+    password_selectors = [
+        "input#password",
+        "input[type=password]",
+        "input[name='login_password']",
+    ]
+    next_selectors = [
+        "button:has-text('Next')",
+        "button:has-text('Continue')",
+    ]
+    login_selectors = [
+        "button#btnLogin",
+        "button[name='action']",
+        "button[value='submitPassword']",
+        "button:has-text('Log In')",
+        "button:has-text('Log in')",
+    ]
+    entered_username = False
+    while not entered_username:
+        entered_username = await try_selectors(page, email_selectors, test_account)
+        await asyncio.sleep(1)
+
+    print("clicking button")
+    await try_selectors(page, next_selectors)
+    await asyncio.sleep(1)
+    entered_password = False
+    while not entered_password:
+        entered_password = await try_selectors(page, password_selectors, test_password)
+        await asyncio.sleep(1)
+    await try_selectors(page, login_selectors)
 
 
 DONATION_DONE_URL = re.compile(r".*spenden/spende/spenden/abgeschlossen/.*")
@@ -186,7 +237,7 @@ async def test_paypal_once(page: Page, live_server, paypal_setup):
     # Checkout order approved + payment capture completed
     paypal_setup.max_request_count = 2
     with paypal_setup:
-        await page.get_by_test_id("submit-button-initial").click()
+        await page.locator("button", has_text="Pay").click()
         await page.wait_for_url(DONATION_DONE_URL)
 
         assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
@@ -241,13 +292,34 @@ async def test_paypal_recurring(page: Page, live_server, paypal_setup):
 
         print("Waiting for webhooks...")
 
-    time.sleep(2)
+    await asyncio.sleep(2)
     donation.refresh_from_db()
     assert donation.completed is True
     assert donation.received_timestamp is not None
     payment = donation.payment
     assert donation.order.subscription_id is not None
     assert payment.status == "confirmed"
+
+    subscription = donation.order.subscription
+    sub_url = live_server.url + reverse(
+        "froide_payment:subscription-detail", kwargs={"token": subscription.token}
+    )
+    old_plan = subscription.plan
+    await page.goto(live_server.url + donation.donor.get_absolute_url())
+    # Go to subscription url
+    await page.goto(sub_url)
+    await page.locator("#id_amount").fill("10")
+    await page.locator("#id_interval_1").click()
+    await page.get_by_role("button", name="Dauerspende ändern").click()
+
+    await page.locator("input[type=submit]").click()
+    await page.wait_for_load_state("networkidle")
+
+    # Check subscription change
+    subscription.refresh_from_db()
+    assert subscription.plan != old_plan
+    assert subscription.plan.amount == Decimal("10")
+    assert subscription.plan.interval == 3
 
 
 @pytest.mark.asyncio(loop_scope="session")
@@ -264,6 +336,7 @@ async def test_paypal_cancel(page: Page, live_server, paypal_setup):
     await page.get_by_role("button", name="Jetzt spenden").click()
 
     await login_paypal(page)
+    await asyncio.sleep(2)
 
     donation = Donation.objects.filter(
         donor__email=donor_email, amount=5, recurring=False, method="paypal"
@@ -271,7 +344,8 @@ async def test_paypal_cancel(page: Page, live_server, paypal_setup):
     assert donation.received_timestamp is None
     assert donation.payment.status != "pending"
     assert donation.payment.status != "confirmed"
-    await page.get_by_test_id("cancel-link").click()
+    await page.locator("#cancelLink").click()
+
     await page.wait_for_url(DONATION_FAILED_URL)
 
     assert await page.get_by_text("Spende fehlgeschlagen!").is_visible()

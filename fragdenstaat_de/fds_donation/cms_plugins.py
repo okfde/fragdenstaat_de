@@ -74,7 +74,7 @@ class UpgradeRecurrencePlugin(CMSPluginBase):
         context = super().render(context, instance, placeholder)
 
         context["donor"] = get_donor_from_request(context["request"])
-        context["next_url"] = instance.next_url or "/"
+        context["next_url"] = instance.next_url or context["request"].get_full_path()
 
         if context["donor"]:
             if not is_crew(context["request"].user):
