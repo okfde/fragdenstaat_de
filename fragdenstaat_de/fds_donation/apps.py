@@ -43,6 +43,7 @@ class FdsDonationConfig(AppConfig):
         from fragdenstaat_de.fds_mailing import gather_mailing_preview_context
         from fragdenstaat_de.fds_newsletter import tag_subscriber
 
+        from . import actions  # noqa: F401
         from .listeners import (
             activate_user,
             cancel_user,
