@@ -22,6 +22,7 @@ from cms.models.pluginmodel import CMSPlugin
 from dateutil.relativedelta import relativedelta
 from django_countries.fields import CountryField
 from djangocms_frontend.fields import AttributesField
+from flowcontrol.models import ActionBase
 from froide_payment.models import (
     CHECKOUT_PAYMENT_CHOICES_DICT,
     Order,
@@ -653,6 +654,10 @@ class DonationManager(models.Manager):
         )
 
 
+def get_donor_event_kinds():
+    return DonorEvent.Kind.choices
+
+
 class DonorEvent(models.Model):
     class Kind(models.TextChoices):
         PROMPT_UPGRADE_RECURRENCE = (
@@ -665,7 +670,7 @@ class DonorEvent(models.Model):
 
     donor = models.ForeignKey(Donor, on_delete=models.CASCADE, related_name="events")
     timestamp = models.DateTimeField(default=timezone.now)
-    kind = models.CharField(max_length=255, choices=Kind.choices)
+    kind = models.CharField(max_length=255, choices=get_donor_event_kinds)
     reference = models.CharField(max_length=255, blank=True)
     context = models.JSONField(default=dict)
 
@@ -1285,3 +1290,24 @@ class UpgradeRecurrenceFormCMSPlugin(CMSPlugin):
 
     def __str__(self):
         return _("Upgrade Recurrence ({})").format(self.choice_count)
+
+
+class DonorTagActionConfig(ActionBase):
+    tag = models.ForeignKey(
+        DonorTag,
+        on_delete=models.CASCADE,
+        verbose_name=_("Donor Tag"),
+    )
+    remove = models.BooleanField(
+        default=False,
+        verbose_name=_("Remove tag"),
+        help_text=_(
+            "If checked will remove the tag from the donor instead of adding it."
+        ),
+    )
+
+    def __str__(self):
+        if self.remove:
+            return _("Remove tag {}").format(self.tag)
+        else:
+            return _("Add tag {}").format(self.tag)
