@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from flowcontrol.base import BaseAction
 from flowcontrol.registry import register_action
 
-from .models import SubscribeToNewsletterActionConfig
+from .models import SubscriberTagActionConfig, SubscribeToNewsletterActionConfig
 from .utils import subscribe
 
 
@@ -37,3 +37,19 @@ class SubscribeToNewsletterAction(BaseAction):
             email_confirmed=config.email_confirmed,
             reference=config.reference,
         )
+
+
+@register_action
+class ChangeSubscriberTag(BaseAction):
+    verbose_name = _("Add or removes a tag on the subscriber")
+    description = _("Adds or removes the specified tag on the subscriber")
+    group = _("Mailing")
+    model = SubscriberTagActionConfig
+
+    def run(self, *, run, obj, config: SubscriberTagActionConfig):
+        if obj is None:
+            raise ValueError("ChangeSubscriberTag requires an object to run on.")
+        if config.remove:
+            obj.tags.remove(config.tag)
+        else:
+            obj.tags.add(config.tag)

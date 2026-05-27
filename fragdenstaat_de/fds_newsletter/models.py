@@ -668,3 +668,24 @@ class SubscribeToNewsletterActionConfig(ActionBase):
             if self.email_confirmed
             else _("email needs confirmation"),
         )
+
+
+class SubscriberTagActionConfig(ActionBase):
+    tag = models.ForeignKey(
+        SubscriberTag,
+        on_delete=models.CASCADE,
+        verbose_name=_("Subscriber Tag"),
+    )
+    remove = models.BooleanField(
+        default=False,
+        verbose_name=_("Remove tag"),
+        help_text=_(
+            "If checked will remove the tag from the subscriber instead of adding it."
+        ),
+    )
+
+    def __str__(self):
+        if self.remove:
+            return _("Remove tag {}").format(self.tag)
+        else:
+            return _("Add tag {}").format(self.tag)
