@@ -41,10 +41,11 @@ class SubscribeToNewsletterAction(BaseAction):
 
 @register_action
 class ChangeSubscriberTag(BaseAction):
-    verbose_name = _("Add or removes a tag on the subscriber")
+    verbose_name = _("Change tag on subscriber")
     description = _("Adds or removes the specified tag on the subscriber")
     group = _("Mailing")
     model = SubscriberTagActionConfig
+    raw_id_fields = ("tag",)
 
     def run(self, *, run, obj, config: SubscriberTagActionConfig):
         if obj is None:

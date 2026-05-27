@@ -8,10 +8,11 @@ from .models import DonorTagActionConfig
 
 @register_action
 class ChangeDonorTag(BaseAction):
-    verbose_name = _("Add or removes a tag on the donor")
+    verbose_name = _("Change tag on donor")
     description = _("Adds or removes the specified tag on the donor")
     group = _("Donor")
     model = DonorTagActionConfig
+    raw_id_fields = ("tag",)
 
     def run(self, *, run, obj, config: DonorTagActionConfig):
         if obj is None:
