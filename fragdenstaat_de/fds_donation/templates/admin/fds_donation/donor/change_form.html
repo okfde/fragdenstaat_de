@@ -1,5 +1,7 @@
 {% extends "admin/change_form.html" %}
 {% load i18n %}
+{% load flowcontrol %}
+{% load mailing_tags %}
 {% block object-tools-items %}
     {% if original.pk %}
         <li>
@@ -10,4 +12,35 @@
         </li>
     {% endif %}
     {{ block.super }}
+{% endblock %}
+{% block after_related_objects %}
+    {% if original.pk %}
+        <div class="module aligned">
+            <h2 class="fieldset-heading">{% translate "Flows" %}</h2>
+            {% with flowruns=original|get_flowruns %}
+                {% for flowrun in flowruns %}
+                    {% include "flowcontrol/includes/flowrun.html" with object=flowrun %}
+                {% empty %}
+                    <p>{% translate "No flows found." %}</p>
+                {% endfor %}
+            {% endwith %}
+        </div>
+        <div class="module aligned">
+            <h2 class="fieldset-heading">{% translate "Mailings" %}</h2>
+            {% with mailings=original|get_mailingmessages %}
+                {% if mailings %}
+                    <ul>
+                        {% for message in mailings %}
+                            <li>
+                                {% if message.sent %}{{ message.sent|date:"SHORT_DATETIME_FORMAT" }} -{% endif %}
+                                <a href="{% url 'admin:fds_mailing_mailing_change' object.id %}">{{ message.mailing }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{% translate "No mailings found." %}</p>
+                {% endif %}
+            {% endwith %}
+        </div>
+    {% endif %}
 {% endblock %}
