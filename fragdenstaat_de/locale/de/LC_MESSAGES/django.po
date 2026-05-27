@@ -2843,7 +2843,7 @@ msgstr "Entferne Tag"
 #: fragdenstaat_de/fds_donation/models.py
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "Remove tag {}"
-msgstr "Entfernt Tag {}"
+msgstr "Entferne Tag {}"
 
 #: fragdenstaat_de/templates/header.html
 msgid "Requests"
