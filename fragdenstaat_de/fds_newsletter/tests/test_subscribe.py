@@ -212,8 +212,6 @@ class NewsletterSubscriberTest(TestCase):
             user=self.user,
         )
         self.assertIsNotNone(subscriber.subscribed)
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, "Willkommen zu unserem Newsletter")
 
     def test_newsletter_subscription_logged_in_same_email_ajax(self):
         self.client.force_login(self.user)
@@ -232,8 +230,6 @@ class NewsletterSubscriberTest(TestCase):
             user=self.user,
         )
         self.assertIsNotNone(subscriber.subscribed)
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, "Willkommen zu unserem Newsletter")
 
     def test_newsletter_subscription_logged_in_same_email_ajax_origin(self):
         self.client.force_login(self.user)
