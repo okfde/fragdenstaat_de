@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-05-21 10:50+0200\n"
+"PO-Revision-Date: 2026-05-27 11:27+0200\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -168,6 +168,24 @@ msgstr "Weitere Spende hinzufügen"
 msgid "Add category to articles..."
 msgstr "Kategorien zu Artikeln hinzufügen…"
 
+#: fragdenstaat_de/fds_donation/actions.py
+msgid "Add or removes a tag on the donor"
+msgstr "Fügt einen Tag hinzu oder entfernt ihn bei einem Spendi"
+
+#: fragdenstaat_de/fds_newsletter/actions.py
+msgid "Add or removes a tag on the subscriber"
+msgstr "Fügt einen Tag hinzu oder entfernt ihn bei einer Abonnent*in"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Add tag to donors..."
+msgstr "Füge Tag zu Spendis hinzu…"
+
+#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_newsletter/models.py
+#, python-brace-format
+msgid "Add tag {}"
+msgstr "Füge tag {} hinzu"
+
 #: fragdenstaat_de/fds_events/templates/fds_events/event_detail.html
 msgid "Add to calendar"
 msgstr "Zum Kalender hinzufügen"
@@ -179,6 +197,14 @@ msgstr "Weiterer Inhalt"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_form.html
 msgid "Address"
 msgstr "Adresse"
+
+#: fragdenstaat_de/fds_donation/actions.py
+msgid "Adds or removes the specified tag on the donor"
+msgstr "Fügt einen Tag hinzu oder entfernt ihn bei einer Spendi"
+
+#: fragdenstaat_de/fds_newsletter/actions.py
+msgid "Adds or removes the specified tag on the subscriber"
+msgstr "Fügt einen Tag hinzu oder entfernt ihn bei einer Abonnent*in"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
 msgid "Adjust amount or interval"
@@ -452,6 +478,10 @@ msgstr "Kampagnen-Vorlage"
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_form.html
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Cancel date"
+msgstr "Kündigungsdatum"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
 msgid "Cancel your subscription"
@@ -989,6 +1019,7 @@ msgstr "Spenden zusammengeführt."
 msgid "Donations via credit card, SEPA or Paypal do not work via our .onion-site."
 msgstr "Spenden per Kreditkarte, SEPA-Lastschrift oder Paypal funktionieren leider nicht über unsere .onion-Seite."
 
+#: fragdenstaat_de/fds_donation/actions.py
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Donor"
 msgstr "Spender*innen"
@@ -1281,6 +1312,10 @@ msgstr "Finanzielle Gründe"
 msgid "Finland"
 msgstr "Finnland"
 
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "First donation"
+msgstr "Erste Spende"
+
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "First name"
 msgstr "Vorname"
@@ -1288,6 +1323,10 @@ msgstr "Vorname"
 #: fragdenstaat_de/theme/cms_plugins.py
 msgid "Five"
 msgstr "Fünf"
+
+#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/change_form.html
+msgid "Flows"
+msgstr "Abläufe"
 
 #: fragdenstaat_de/theme/apps.py
 msgid "Foirequest"
@@ -1672,6 +1711,14 @@ msgstr "Ich habe zu viele E-Mails erhalten"
 msgid "Icon"
 msgstr "Icon"
 
+#: fragdenstaat_de/fds_donation/models.py
+msgid "If checked will remove the tag from the donor instead of adding it."
+msgstr "Wenn angehakt, wird der Tag von der Spendi entfernt, anstatt ihn hinzuzufügen."
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "If checked will remove the tag from the subscriber instead of adding it."
+msgstr "Wenn angehakt, wird der Tag von der Abonnent*in entfernt, anstatt ihn hinzuzufügen."
+
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "If email not confirmed, you need to provide an activation template"
 msgstr "Falls E-Mail-Adressen nicht bestätigt sind, muss ein Aktivierungs-Template ausgewählt werden"
@@ -1959,6 +2006,10 @@ msgstr "Sendedatum des Mailings ist in der Vergangenheit."
 msgid "Mailing was set up."
 msgstr "Mailing wurde vorbereitet."
 
+#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/change_form.html
+msgid "Mailings"
+msgstr "Mailings"
+
 #: fragdenstaat_de/templates/header.html
 msgid "Make request"
 msgstr "Anfrage stellen"
@@ -2204,9 +2255,17 @@ msgstr "Keine Spender*innen-Dubletten gefunden!"
 msgid "No file provided."
 msgstr "Keine Datei ausgewählt."
 
+#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/change_form.html
+msgid "No flows found."
+msgstr "Keine Abläufe gefunden."
+
 #: fragdenstaat_de/settings/base.py fragdenstaat_de/settings/cms.py
 msgid "No image in article"
 msgstr "Kein Bild im Artikel"
+
+#: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/change_form.html
+msgid "No mailings found."
+msgstr "Keine Mailings gefunden."
 
 #: fragdenstaat_de/templates/organization/organization_list.html
 msgid "No organizations found."
@@ -2776,6 +2835,17 @@ msgstr "Remote-Spendenform"
 msgid "Remove category from articles..."
 msgstr "Kategorie von Artikeln entfernen…"
 
+#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "Remove tag"
+msgstr "Entferne Tag"
+
+#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_newsletter/models.py
+#, python-brace-format
+msgid "Remove tag {}"
+msgstr "Entfernt Tag {}"
+
 #: fragdenstaat_de/templates/header.html
 msgid "Requests"
 msgstr "Anfragen"
@@ -3166,6 +3236,10 @@ msgstr "Spanien"
 #: fragdenstaat_de/fds_events/templates/fds_events/event_detail.html
 msgid "Start"
 msgstr "Beginn"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Start date"
+msgstr "Startdatum"
 
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "Start date of publication. Used to build the entry's URL."
@@ -7297,9 +7371,6 @@ msgstr "❌ Spende abbrechen"
 
 #~ msgid "Status:"
 #~ msgstr "Status:"
-
-#~ msgid "Stay up to date"
-#~ msgstr "Auf dem Laufenden bleiben"
 
 #~ msgid "Step 1 - Find the Public Body"
 #~ msgstr "Schritt 1 - Wählen Sie die Behörde"
