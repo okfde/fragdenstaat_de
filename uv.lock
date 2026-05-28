@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -2056,7 +2056,7 @@ dependencies = [
 [[package]]
 name = "froide-campaign"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#aa7ccdff040a9fcbbfd875b10404052f57b045a6" }
+source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#a0e2104ec97486965cfc182cdc21d04824397bd7" }
 dependencies = [
     { name = "django" },
     { name = "django-admin-sortable2" },
