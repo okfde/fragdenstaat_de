@@ -113,3 +113,6 @@ class NextEventsCMSPlugin(CMSPlugin):
         default=False, help_text=_("Include trials from lawsuits.")
     )
     limit = models.IntegerField(default=0, help_text=_("0 means all events"))
+
+    def copy_relations(self, oldinstance):
+        self.tags.set(oldinstance.tags.all())
