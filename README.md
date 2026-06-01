@@ -124,7 +124,6 @@ cd fragdenstaat_de
 source .venv/bin/activate
 
 # Install test dependencies
-uv pip install ruff
 playwright install
 
 # Precompile front end assets
