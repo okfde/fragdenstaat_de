@@ -17,7 +17,7 @@ FROIDE_PEERS=("froide-campaign" "froide-food") # these have peer-dependencies on
 
 ALL=("$MAIN" "${REPOS[@]}")
 
-PYTHON_VERSION="3.13"
+export UV_PYTHON="3.13"
 
 if [[ $(basename "$PWD") == "$MAIN" ]]; then
   # make sure we're starting from the main project's parent dir,
@@ -69,13 +69,9 @@ dependencies() {
 
   for name in "${ALL[@]}"; do
     pushd "$name"
-
-    if [ ! -d ".venv" ]; then
-      uv venv -p "$PYTHON_VERSION"
-    fi
-
-    source .venv/bin/activate
+    
     uv sync --all-extras
+    source .venv/bin/activate
 
     if [[ $name == "froide" ]]; then
       uv pip install -e ../django-filingcabinet --no-deps
@@ -173,8 +169,6 @@ load_dump() {
   # create another database for froide testing
   psql -c "CREATE USER froide WITH SUPERUSER PASSWORD 'froide';" || true
   psql -c "CREATE DATABASE froide OWNER froide;"
-
-  echo "Running migrations..."
 
   echo "Restored database successfully! You might have to apply migrations."
 
