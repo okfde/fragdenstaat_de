@@ -3,7 +3,7 @@
 {% load cms_tags %}
 {% load djangocms_alias_tags %}
 {% block body %}
-    {% render_placeholder placeholder %}
+    {% render_uncached_placeholder placeholder %}
     {% if extra_email_placeholder %}
         {% static_alias extra_email_placeholder %}
     {% endif %}

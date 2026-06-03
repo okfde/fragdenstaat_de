@@ -297,6 +297,7 @@ class RawCodePlugin(CMSPluginBase):
     module = _("Email")
     name = _("Raw Code")
     allow_children = False
+    cache = False
     render_template = "email/raw_code.html"
 
     def render(self, context, instance, placeholder):
