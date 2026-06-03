@@ -9,7 +9,7 @@ def check_subscription_access(request, subscription):
     donor = get_donor_from_request(request)
     if donor is None:
         return False
-    if donor.user and subscription.customer:
+    if donor.user and subscription.customer.user:
         return donor.user == subscription.customer.user
     return Recurrence.objects.filter(donor=donor, subscription=subscription).exists()
 

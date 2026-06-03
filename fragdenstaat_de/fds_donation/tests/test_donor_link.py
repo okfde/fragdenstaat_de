@@ -263,7 +263,7 @@ def test_deduplicate_donor_user(client, donor, other_donor):
         donor.refresh_from_db()
 
 
-def make_subscription(donor, provider="sepa"):
+def make_subscription(donor, user, provider="sepa"):
     date = timezone.now()
     amount = Decimal("5")
     plan = Plan.objects.create(
@@ -318,14 +318,23 @@ def make_subscription(donor, provider="sepa"):
 
 @pytest.mark.django_db
 def test_subscription_access(client, donor):
-    _donation, subscription = make_subscription(
-        donor,
-    )
+    _donation, subscription = make_subscription(donor, None)
     sub_url = subscription.get_absolute_url()
     response = client.get(sub_url)
     assert response.status_code == 302
     assert client.post(donor.get_absolute_url()).status_code == 302
     assert client.session.get("donor_id") is not None
 
+    response = client.get(sub_url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_subscription_access_user(client, dummy_user, donor):
+    donor.user = dummy_user
+    donor.save()
+    _donation, subscription = make_subscription(donor, dummy_user)
+    sub_url = subscription.get_absolute_url()
+    client.force_login(dummy_user)
     response = client.get(sub_url)
     assert response.status_code == 200
