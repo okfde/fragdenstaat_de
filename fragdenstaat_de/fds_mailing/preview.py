@@ -103,6 +103,7 @@ def provide_searchalert_context(sender, **kwargs):
         return {
             "alert": alert,
             "total_count": 13,
+            "user": request.user,
             "sections": [
                 AlertSection(
                     key="foirequest",

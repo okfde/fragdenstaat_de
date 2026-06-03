@@ -100,7 +100,7 @@ def mailing_donation_preview_context_listener(sender, **kwargs):
     return MailingPreviewContextProvider(
         name="donor",
         options={
-            "no_donor": _("No donor"),
+            "no_donor": "---",
             "donor": _("One-time donor"),
             "user_donor": _("User donor"),
             "recent_donor": _("Recent donor"),
@@ -163,6 +163,9 @@ def get_donation_context(value, request):
 def get_payment_context(value, request):
     """Get payment context for the mailing preview."""
     from froide_payment.models import Customer, Order, Payment, Plan, Subscription
+
+    if value == "no_payment":
+        return None
 
     data = {
         "first_name": request.user.first_name,
