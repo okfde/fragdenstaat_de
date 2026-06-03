@@ -88,6 +88,15 @@ def email_template():
         position="last-child",
         target=body_plugin,
     )
+    add_plugin(
+        et.email_body,
+        "RawCodePlugin",
+        "de",
+        label="Raw Coe",
+        code="""<mj-text>{% if action_url %}!<a href="{{ action_url }}">link</a>!{% endif %}</mj-text>""",
+        position="last-child",
+        target=body_plugin,
+    )
     return et
 
 
@@ -185,3 +194,27 @@ def test_mailing_render_context(mailing):
         f'<a href="{settings.SITE_URL}/action/?pk_campaign={mailing.mailing_ident}" target="_blank"'
         in email_content.html
     )
+
+
+@pytest.mark.django_db
+def test_mailing_render_uncached(mailing, settings, newsletter):
+    settings.CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "KEY_PREFIX": "test",
+            "TIMEOUT": "3600",
+        }
+    }
+    mailing.auto_populate()
+    mailing_messages = mailing.recipients.all()
+    assert mailing_messages.count() == 1
+    mailing_message = mailing_messages[0]
+    context = mailing_message.get_email_context()
+    context["action_url"] = settings.SITE_URL + "/action1/"
+    context["escape_chars"] = "Hello"
+    email_content = mailing.get_email_content(context)
+    assert f'!<a href="{settings.SITE_URL}/action1/' in email_content.html
+
+    context["action_url"] = settings.SITE_URL + "/action2/"
+    email_content = mailing.get_email_content(context)
+    assert f'!<a href="{settings.SITE_URL}/action2/' in email_content.html
