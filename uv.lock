@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -2004,7 +2004,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#5c2ce8742b50ac97d10cc9bd9fc59027f8c36193" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#69aed583171018bfd22c46b695b265d7d03b01f0" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
