@@ -181,6 +181,28 @@ def test_get_donor_link(client, donor, mailoutbox, settings):
 
 
 @pytest.mark.django_db
+@pytest.mark.parametrize(
+    "path_query,expected",
+    [
+        ("test/?foo=bar&baz=qux", "/test/?foo=bar&baz=qux"),
+        ("?foo=bar&next=/test2/", "/test2/?foo=bar"),
+        ("?foo=bar", "/?foo=bar"),
+    ],
+)
+def test_get_donor_link_query_params(client, donor, path_query, expected):
+    url = donor.get_root_url() + path_query
+    response = client.get(url)
+    next_path = response.context["next"]
+    form_action = response.context["form_action"]
+    assert response.status_code == 200
+    response = client.post(form_action, data={"next": next_path})
+    assert response.status_code == 302
+    assert client.session.get("donor_id") == donor.id
+    assert response.url == next_path
+    assert response.url == expected
+
+
+@pytest.mark.django_db
 @pytest.mark.parametrize("view_name", ["", "-change", "-donate"])
 def test_legacy_donor_redirect(client, view_name):
     legacy_url = reverse(

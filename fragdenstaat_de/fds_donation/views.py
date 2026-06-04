@@ -439,11 +439,10 @@ class DonorDonationActionView(DonorMixin, UpdateView, BreadcrumbView):
 
 
 def donor_login(request, donor_id, token, next_path):
-    if next_path == "/":
-        # If no further path is given, try extracting next parameter
-        next_path = get_redirect_url(request, default=next_path)
-    # TODO: carry query params to next?
     if request.method == "POST":
+        next_path = request.POST.get(
+            "next", next_path + "?" + request.META.get("QUERY_STRING", "")
+        )
         donor, valid = validate_donor_token(donor_id, token)
         if not valid:
             # Token expired or invalid
@@ -466,9 +465,17 @@ def donor_login(request, donor_id, token, next_path):
 
         return redirect(next_path)
 
+    if next_path == "/":
+        # If no further path is given, try extracting next parameter
+        extra_params = dict(request.GET)
+        extra_params.pop("next", None)
+        next_path = get_redirect_url(request, default=next_path, params=extra_params)
+    else:
+        next_path = next_path + "?" + request.META.get("QUERY_STRING", "")
+
     return render(
         request,
-        "account/go.html",
+        "helper/auto_submit.html",
         {
             "form_action": request.get_full_path(),
             "next": next_path,
