@@ -439,10 +439,10 @@ class DonorDonationActionView(DonorMixin, UpdateView, BreadcrumbView):
 
 
 def donor_login(request, donor_id, token, next_path):
+    query_string = request.META.get("QUERY_STRING", "")
+    query_string = ("?" + query_string) if query_string else ""
     if request.method == "POST":
-        next_path = request.POST.get(
-            "next", next_path + "?" + request.META.get("QUERY_STRING", "")
-        )
+        next_path = request.POST.get("next", next_path + query_string)
         donor, valid = validate_donor_token(donor_id, token)
         if not valid:
             # Token expired or invalid
@@ -471,7 +471,7 @@ def donor_login(request, donor_id, token, next_path):
         extra_params.pop("next", None)
         next_path = get_redirect_url(request, default=next_path, params=extra_params)
     else:
-        next_path = next_path + "?" + request.META.get("QUERY_STRING", "")
+        next_path = next_path + query_string
 
     return render(
         request,
