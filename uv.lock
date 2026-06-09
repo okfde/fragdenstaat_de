@@ -2078,7 +2078,7 @@ dependencies = [
 [[package]]
 name = "froide-election"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-election.git?rev=main#2f55370d33bc20a09e41078720c81f5fb0992193" }
+source = { git = "https://github.com/okfde/froide-election.git?rev=main#8a372171be83dcb612c4dd273c8d8c530e88aa18" }
 dependencies = [
     { name = "django-cms" },
     { name = "froide" },
