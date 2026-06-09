@@ -984,6 +984,7 @@ class DonationGiftOrder(models.Model):
 
     note = models.TextField(blank=True)
 
+    processing = models.DateTimeField(null=True, blank=True)
     shipped = models.DateTimeField(null=True, blank=True)
     tracking = models.CharField(max_length=255, blank=True)
 

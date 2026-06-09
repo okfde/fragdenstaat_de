@@ -1203,16 +1203,18 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         "donation_amount",
         "donation_amount_received",
         "recurring_amount",
+        "processing",
         "shipped",
     )
     list_filter = (
         make_nullfilter("donation__received_timestamp", _("donation received")),
         make_nullfilter("shipped", _("has shipped")),
+        make_nullfilter("processing", _("is processing")),
         make_daterangefilter("timestamp", _("order timestamp")),
         "donation_gift",
     )
     search_fields = ("email", "donation__donor__email", "donation_gift__name")
-    actions = ["notify_shipped", "set_shipped", "export_csv"]
+    actions = ["set_processing", "set_shipped", "notify_shipped", "export_csv"]
 
     def get_queryset(self, request):
         return (
@@ -1221,34 +1223,31 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
             .select_related("donation", "donation__donor", "donation_gift")
         )
 
+    @admin.display(description=_("donation amount"))
     def donation_amount(self, obj):
         if obj.donation:
             return obj.donation.amount
         return None
 
-    donation_amount.short_description = _("donation amount")
-
+    @admin.display(description=_("donation amount received"))
     def donation_amount_received(self, obj):
         if obj.donation:
             return obj.donation.amount_received
         return None
 
-    donation_amount_received.short_description = _("donation amount received")
-
+    @admin.display(description=_("donation received date"))
     def donation_received(self, obj):
         if obj.donation:
             return obj.donation.received_timestamp
         return None
 
-    donation_received.short_description = _("donation received date")
-
+    @admin.display(description=_("recurring amount"))
     def recurring_amount(self, obj):
         if obj.donation:
             return obj.donation.donor.recurring_amount
         return None
 
-    recurring_amount.short_description = _("recurring amount")
-
+    @admin.action(description=_("Send shipped email and set date"))
     def notify_shipped(self, request, queryset):
         queryset = queryset.filter(shipped=None)
         count = len(queryset)
@@ -1262,8 +1261,18 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
             level=messages.INFO,
         )
 
-    notify_shipped.short_description = _("Send shipped email and set date")
+    @admin.action(description=_("Set processing date"))
+    def set_processing(self, request, queryset):
+        queryset = queryset.filter(processing=None)
+        count = len(queryset)
+        queryset.update(processing=timezone.now())
+        self.message_user(
+            request,
+            _("Set {count} order to processing.").format(count=count),
+            level=messages.INFO,
+        )
 
+    @admin.action(description=_("Set shipped date"))
     def set_shipped(self, request, queryset):
         queryset = queryset.filter(shipped=None)
         count = len(queryset)
@@ -1274,8 +1283,7 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
             level=messages.INFO,
         )
 
-    set_shipped.short_description = _("Set shipped date")
-
+    @admin.action(description=_("export as csv"))
     def export_csv(self, request, queryset):
         def get_rows(queryset):
             for object in queryset:
@@ -1294,8 +1302,6 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
 
         donor_data = list(get_rows(queryset))
         return export_csv_response(dict_to_csv_stream(donor_data))
-
-    export_csv.short_description = _("export as csv")
 
 
 @admin.register(DefaultDonation)
