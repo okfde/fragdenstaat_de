@@ -1199,12 +1199,12 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         "donation_gift",
         "email",
         "timestamp",
+        "processing",
+        "shipped",
         "donation_received",
         "donation_amount",
         "donation_amount_received",
         "recurring_amount",
-        "processing",
-        "shipped",
     )
     list_filter = (
         make_nullfilter("donation__received_timestamp", _("donation received")),
