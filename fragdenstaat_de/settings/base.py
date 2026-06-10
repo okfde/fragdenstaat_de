@@ -829,7 +829,7 @@ class FragDenStaatBase(German, Base):
                 "unsubscribe_enabled": True,
                 "unsubscribe_format": "unsub+{token}@fragdenstaat.de",
                 "auto_reply_subject_regex": rec(
-                    r"^(Auto-?Reply|Out of office|Out of the office|Abwesenheitsnotiz|"
+                    r"(Auto-?Reply|Out of office|Out of the office|Abwesenheitsnotiz|"
                     r"Automatische Antwort|automatische Empfangsbestätigung)"
                 ),
                 "auto_reply_email_regex": rec("^auto(reply|responder|antwort)@"),
