@@ -1340,7 +1340,10 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
 
         order_data = list(get_rows(queryset))
         filename = "giftorders_{}.csv".format(timezone.now().strftime("%Y%m%d%H%M%S"))
-        return export_csv_response(dict_to_csv_stream(order_data), name=filename)
+        return export_csv_response(
+            dict_to_csv_stream(order_data, encoding="latin1", delimiter=";"),
+            name=filename,
+        )
 
 
 @admin.register(DefaultDonation)
