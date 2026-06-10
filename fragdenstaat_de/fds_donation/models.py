@@ -1,5 +1,6 @@
 import decimal
 import json
+import re
 import uuid
 from datetime import date, datetime, timedelta
 from typing import Any
@@ -1000,6 +1001,24 @@ class DonationGiftOrder(models.Model):
 
     def get_full_name(self):
         return "{} {}".format(self.first_name, self.last_name)
+
+    def get_name_or_company(self):
+        name = self.get_full_name().strip()
+        if self.company_name:
+            return self.company_name
+        return name
+
+    def get_street_without_housenumber(self):
+        if self.address:
+            return re.sub(r"\s*\d+\w*\s*$", "", self.address)
+        return ""
+
+    def get_housenumber(self):
+        if self.address:
+            match = re.search(r"\s*(\d+\w*)\s*$", self.address)
+            if match:
+                return match.group(1)
+        return ""
 
     def formatted_address(self):
         company = ""

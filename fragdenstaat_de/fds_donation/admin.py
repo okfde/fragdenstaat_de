@@ -3,6 +3,7 @@ import uuid
 from collections import defaultdict
 
 from django import forms
+from django.conf import settings
 from django.contrib import admin, messages
 from django.contrib.admin import helpers
 from django.contrib.admin.views.main import ChangeList
@@ -1214,7 +1215,13 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         "donation_gift",
     )
     search_fields = ("email", "donation__donor__email", "donation_gift__name")
-    actions = ["set_processing", "set_shipped", "notify_shipped", "export_csv"]
+    actions = [
+        "set_processing",
+        "set_shipped",
+        "notify_shipped",
+        "export_csv",
+        "export_post_csv",
+    ]
 
     def get_queryset(self, request):
         return (
@@ -1286,22 +1293,54 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
     @admin.action(description=_("export as csv"))
     def export_csv(self, request, queryset):
         def get_rows(queryset):
-            for object in queryset:
+            for obj in queryset:
                 yield {
-                    "id": object.id,
-                    "email": object.email,
-                    "first_name": object.first_name,
-                    "last_name": object.last_name,
-                    "company_name": object.company_name,
-                    "address": object.address,
-                    "postcode": object.postcode,
-                    "city": object.city,
-                    "country": object.country.name,
-                    "full_address": object.formatted_address(),
+                    "id": obj.id,
+                    "email": obj.email,
+                    "first_name": obj.first_name,
+                    "last_name": obj.last_name,
+                    "company_name": obj.company_name,
+                    "address": obj.address,
+                    "postcode": obj.postcode,
+                    "city": obj.city,
+                    "country": obj.country.name,
+                    "full_address": obj.formatted_address(),
                 }
 
         donor_data = list(get_rows(queryset))
         return export_csv_response(dict_to_csv_stream(donor_data))
+
+    @admin.action(description=_("Export as Post Internetmarke CSV"))
+    def export_post_csv(self, request, queryset):
+        def get_rows(queryset):
+            # First row is sender data
+            yield {
+                "NAME": settings.SITE_NAME,
+                "ZUSATZ": "",
+                "STRASSE": "Singerstr.",
+                "NUMMER": "109",
+                "PLZ": "10179",
+                "STADT": "Berlin",
+                "LAND": "DEU",
+                "ADRESS_TYP": "HOUSE",
+                "REFERENZ": "",
+            }
+            for obj in queryset:
+                yield {
+                    "NAME": obj.get_name_or_company()[:50],
+                    "ZUSATZ": "",
+                    "STRASSE": obj.get_street_without_housenumber()[:40],
+                    "NUMMER": obj.get_housenumber()[:7],
+                    "PLZ": obj.postcode[:9],
+                    "STADT": obj.city[:40],
+                    "LAND": obj.country.alpha3,
+                    "ADRESS_TYP": "HOUSE",
+                    "REFERENZ": "FDS-GO-{}".format(obj.id)[:20],
+                }
+
+        order_data = list(get_rows(queryset))
+        filename = "giftorders_{}.csv".format(timezone.now().strftime("%Y%m%d%H%M%S"))
+        return export_csv_response(dict_to_csv_stream(order_data), name=filename)
 
 
 @admin.register(DefaultDonation)
