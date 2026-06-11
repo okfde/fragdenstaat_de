@@ -26,6 +26,7 @@ class CMSSettingsMixin:
     CMS_RAW_ID_USERS = True
     CMS_CONFIRM_VERSION4 = True
     CMS_MIGRATION_USER_ID = 1
+    VERSIONING_ALIAS_MODELS_ENABLED = True
 
     CMS_CORE_APPS = [
         "fragdenstaat_de.fds_cms.apps.FdsCmsNoConfig",
