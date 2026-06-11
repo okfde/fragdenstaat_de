@@ -2058,7 +2058,7 @@ dependencies = [
 [[package]]
 name = "froide-campaign"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#a0e2104ec97486965cfc182cdc21d04824397bd7" }
+source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#3406cf0f268881f95b8b622078208ecef7e10193" }
 dependencies = [
     { name = "django" },
     { name = "django-admin-sortable2" },

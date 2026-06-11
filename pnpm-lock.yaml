@@ -43,7 +43,7 @@ importers:
         version: https://codeload.github.com/okfde/froide/tar.gz/c22a4e43592c968d69ae5448a879f8432fda5a63(fuse.js@7.3.0)(typescript@5.9.3)
       froide_campaign:
         specifier: github:okfde/froide-campaign
-        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/a0e2104ec97486965cfc182cdc21d04824397bd7(froide@https://codeload.github.com/okfde/froide/tar.gz/c22a4e43592c968d69ae5448a879f8432fda5a63(fuse.js@7.3.0)(typescript@5.9.3))(typescript@5.9.3)
+        version: https://codeload.github.com/okfde/froide-campaign/tar.gz/3406cf0f268881f95b8b622078208ecef7e10193(froide@https://codeload.github.com/okfde/froide/tar.gz/c22a4e43592c968d69ae5448a879f8432fda5a63(fuse.js@7.3.0)(typescript@5.9.3))(typescript@5.9.3)
       froide_exam:
         specifier: github:okfde/froide-exam
         version: https://codeload.github.com/okfde/froide-exam/tar.gz/161f78ea19981ae1189b8886b205bc6fe4aa9eae
@@ -1783,8 +1783,8 @@ packages:
     resolution: {tarball: https://codeload.github.com/okfde/froide/tar.gz/c22a4e43592c968d69ae5448a879f8432fda5a63}
     version: 6.0.0
 
-  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/a0e2104ec97486965cfc182cdc21d04824397bd7:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-campaign/tar.gz/a0e2104ec97486965cfc182cdc21d04824397bd7}
+  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/3406cf0f268881f95b8b622078208ecef7e10193:
+    resolution: {tarball: https://codeload.github.com/okfde/froide-campaign/tar.gz/3406cf0f268881f95b8b622078208ecef7e10193}
     version: 1.0.0
     peerDependencies:
       froide: github:okfde/froide
@@ -4653,7 +4653,7 @@ snapshots:
       - universal-cookie
       - worker-loader
 
-  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/a0e2104ec97486965cfc182cdc21d04824397bd7(froide@https://codeload.github.com/okfde/froide/tar.gz/c22a4e43592c968d69ae5448a879f8432fda5a63(fuse.js@7.3.0)(typescript@5.9.3))(typescript@5.9.3):
+  froide_campaign@https://codeload.github.com/okfde/froide-campaign/tar.gz/3406cf0f268881f95b8b622078208ecef7e10193(froide@https://codeload.github.com/okfde/froide/tar.gz/c22a4e43592c968d69ae5448a879f8432fda5a63(fuse.js@7.3.0)(typescript@5.9.3))(typescript@5.9.3):
     dependencies:
       '@turf/bbox': 6.5.0
       '@types/leaflet': 1.9.20
