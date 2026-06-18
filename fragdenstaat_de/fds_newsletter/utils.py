@@ -305,7 +305,11 @@ def get_subscribers(newsletter: Newsletter, segments: Optional[list[Segment]] = 
 
 
 def generate_random_split(
-    name: str, newsletter: Newsletter, segments: list[Segment], groups: list[int]
+    name: str,
+    newsletter: Newsletter,
+    segments: list[Segment],
+    groups: list[int],
+    add_remaining: bool = True,
 ) -> list[Segment]:
     subscribers = get_subscribers(newsletter, segments)
 
@@ -352,10 +356,21 @@ def generate_random_split(
         group_letter = string.ascii_uppercase[i]
         segment = Segment.add_root(
             name=f"Group {group_letter} ({groups[i]}%) {name}",
-            description=f"""Selects {groups[i]}% of the subscribers
-                of newsletter {newsletter.title} and
-                with segments {segments}""",
+            description=f"""Selects {groups[i]}% of the subscribers of newsletter {newsletter.title} and with segments {segments}""",
         )
         segment.tags.add(group_tag)
         target_segments.append(segment)
+    if add_remaining:
+        other_group_letters = ", ".join(
+            string.ascii_uppercase[i] for i in range(len(group_tags))
+        )
+        group_letter = string.ascii_uppercase[len(group_tags)]
+        remaining_percent = 100 - sum(groups)
+        remaining_segment = Segment.add_root(
+            name=f"Group {group_letter} ({remaining_percent}%) {name}",
+            description=f"""Selects subscribers of newsletter {newsletter.title} not in segments {other_group_letters}""",
+            negate=True,
+        )
+        remaining_segment.tags.add(*group_tags)
+        target_segments.append(remaining_segment)
     return target_segments

@@ -82,6 +82,11 @@ class RandomSplitForm(forms.Form):
         help_text=_("e.g. 20,20"),
         initial="20,20",
     )
+    add_remaining = forms.BooleanField(
+        label=_("Add segment for remaining subscribers"),
+        required=False,
+        initial=True,
+    )
 
     def __init__(self, *arg, **kwargs):
         super().__init__(*arg, **kwargs)
@@ -113,6 +118,7 @@ class RandomSplitForm(forms.Form):
             self.cleaned_data["newsletter"],
             self.cleaned_data["segments"],
             self.cleaned_data["groups"],
+            add_remaining=self.cleaned_data["add_remaining"],
         )
 
         for segment in target_segments:
