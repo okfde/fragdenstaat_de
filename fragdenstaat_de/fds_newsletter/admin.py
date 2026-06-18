@@ -301,7 +301,8 @@ class SegmentAdmin(TreeAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        qs = qs.prefetch_related("tags")
+        # TODO reenable when fixed: https://github.com/django-treebeard/django-treebeard/issues/405
+        # qs = qs.prefetch_related("tags")
         return qs
 
     def tag_list(self, obj):
