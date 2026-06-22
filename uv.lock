@@ -2227,11 +2227,12 @@ dependencies = [
 [[package]]
 name = "froide-evidencecollection"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#f778c6e8b717c2ad156ffd70be7f2b1a90ebd2d8" }
+source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#7f3fef8acc6d4d5b617dcc0008ad28b411743c2e" }
 dependencies = [
     { name = "django-cms" },
     { name = "django-elasticsearch-dsl" },
     { name = "django-filter" },
+    { name = "django-treebeard" },
     { name = "elasticsearch-dsl" },
     { name = "froide" },
     { name = "openpyxl" },
