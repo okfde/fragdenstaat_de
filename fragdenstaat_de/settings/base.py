@@ -270,6 +270,7 @@ class FragDenStaatBase(German, Base):
         ("de-ls/cms/blog_base.html", "Blog base template (Easy Language)"),
         ("cms/help_base.html", "Help base template"),
         ("cms/pub_base.html", "Book Publication template"),
+        ("froide_evidencecollection/base.html", "Evidence Collection base template"),
         ("froide_govplan/base.html", "Govplan base template"),
         ("cms/page_anon.html", "Page without tracking"),
         ("cmssites/cmssite/gegenrechtsschutz.html", "Gegenrechtsschutz Template"),
