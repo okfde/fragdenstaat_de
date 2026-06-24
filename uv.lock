@@ -2227,7 +2227,7 @@ dependencies = [
 [[package]]
 name = "froide-evidencecollection"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#fabd3bcbd5540b18b539d2d46f183d40158391b6" }
+source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#3e1224008925c193a9750d71699abc202763499f" }
 dependencies = [
     { name = "django-cms" },
     { name = "django-elasticsearch-dsl" },
@@ -2295,7 +2295,7 @@ dependencies = [
 [[package]]
 name = "froide-payment"
 version = "0.0.3"
-source = { git = "https://github.com/okfde/froide-payment.git?rev=main#8b816534903c4ad5d04efb27c3a11cfde0e9c094" }
+source = { git = "https://github.com/okfde/froide-payment.git?rev=main#456366da217d0da008aa154e6faa472320ca4000" }
 dependencies = [
     { name = "django-countries" },
     { name = "django-localflavor" },
