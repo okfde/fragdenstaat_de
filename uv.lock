@@ -2295,7 +2295,7 @@ dependencies = [
 [[package]]
 name = "froide-payment"
 version = "0.0.3"
-source = { git = "https://github.com/okfde/froide-payment.git?rev=main#456366da217d0da008aa154e6faa472320ca4000" }
+source = { git = "https://github.com/okfde/froide-payment.git?rev=main#87bef54b08da0b0c33b3da97266901616831587c" }
 dependencies = [
     { name = "django-countries" },
     { name = "django-localflavor" },
