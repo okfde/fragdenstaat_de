@@ -745,7 +745,7 @@ class DatashowDatasetsPlugin(CMSPluginBase):
     render_template = "fds_cms/datashow/datasets.html"
 
     def render(self, context, instance, placeholder):
-        context["datasets"] = Dataset.objects.all()
+        context["datasets"] = Dataset.objects.filter(listed=True)
         return super().render(context, instance, placeholder)
 
 
