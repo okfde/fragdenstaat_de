@@ -77,22 +77,24 @@ class UpgradeRecurrencePlugin(CMSPluginBase):
         context["next_url"] = instance.next_url or context["request"].get_full_path()
 
         if context["donor"]:
-            if not is_crew(context["request"].user):
-                DonorEvent.objects.create(
-                    donor=context["donor"],
-                    reference=context["request"].GET.get("pk_campaign", ""),
-                    kind=DonorEvent.Kind.PROMPT_UPGRADE_RECURRENCE,
-                )
             active_recurrence = context["donor"].get_current_recurrence()
             if active_recurrence and active_recurrence.should_upgrade(
                 instance.days_since
             ):
+                reference = instance.reference or context["request"].GET.get(
+                    "pk_campaign", ""
+                )
+                if not is_crew(context["request"].user):
+                    DonorEvent.objects.create(
+                        donor=context["donor"],
+                        reference=reference,
+                        kind=DonorEvent.Kind.PROMPT_UPGRADE_RECURRENCE,
+                    )
+
                 context["form"] = RecurrenceUpgradeForm(
                     recurrence=active_recurrence,
                     choice_count=instance.choice_count,
-                    initial={
-                        "reference": context["request"].GET.get("pk_campaign", "")
-                    },
+                    initial={"reference": reference},
                 )
 
         return context

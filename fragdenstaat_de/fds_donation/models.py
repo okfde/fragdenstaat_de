@@ -1306,6 +1306,7 @@ class RemoteDonationFormCMSPlugin(CMSPlugin):
 class UpgradeRecurrenceFormCMSPlugin(CMSPlugin):
     choice_count = models.SmallIntegerField(default=3)
     days_since = models.IntegerField(default=0)
+    reference = models.CharField(max_length=255, blank=True)
     next_url = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
