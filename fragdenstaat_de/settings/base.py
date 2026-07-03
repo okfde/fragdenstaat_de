@@ -516,6 +516,10 @@ class FragDenStaatBase(German, Base):
             },
         }
 
+    FILER_REMOVE_FILE_VALIDATORS = [
+        "application/octet-stream",
+    ]
+
     THUMBNAIL_PROCESSORS = (
         "easy_thumbnails.processors.colorspace",
         "easy_thumbnails.processors.autocrop",
