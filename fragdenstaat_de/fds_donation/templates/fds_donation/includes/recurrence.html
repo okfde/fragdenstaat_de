@@ -22,7 +22,7 @@
                     {% if modify_info.can_modify %}
                         <li>
                             <a class="action-link arrow"
-                               href="{{ recurrence.subscription.get_absolute_url }}">{% translate "Adjust amount or interval" %}</a>
+                               href="{{ recurrence.subscription.get_absolute_url }}">{% translate "Adjust amount, interval or IBAN" %}</a>
                         </li>
                     {% endif %}
                     {% if cancel_info.can_cancel %}

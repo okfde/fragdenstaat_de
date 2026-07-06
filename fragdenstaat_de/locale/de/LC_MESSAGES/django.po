@@ -198,8 +198,8 @@ msgid "Adds or removes the specified tag on the subscriber"
 msgstr "Fügt einen Tag hinzu oder entfernt ihn bei einer Abonnent*in"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
-msgid "Adjust amount or interval"
-msgstr "Betrag oder Rhythmus anpassen"
+msgid "Adjust amount, interval or IBAN"
+msgstr "Betrag, Rhythmus oder IBAN anpassen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Admin"

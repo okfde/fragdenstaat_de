@@ -178,7 +178,7 @@ msgid "Address"
 msgstr ""
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/recurrence.html
-msgid "Adjust amount or interval"
+msgid "Adjust amount, interval or IBAN"
 msgstr ""
 
 #: fragdenstaat_de/fds_donation/admin.py
