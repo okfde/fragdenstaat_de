@@ -622,6 +622,7 @@ class SubscriberImport(models.Model):
 
         tags = parse_tags(self.tags)
         new_tags = parse_tags(self.new_tags)
+        new_tags.append("imported")
 
         with self.data_file.open(mode="rb") as fh:
             raw = fh.read(32)
