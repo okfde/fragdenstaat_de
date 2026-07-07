@@ -675,6 +675,18 @@ class FragDenStaatBase(German, Base):
         "store_errors_even_if_ignored": True,
     }
 
+    def CELERY_TASK_ROUTES(self):
+        routes = super().CELERY_TASK_ROUTES
+        routes.update(
+            {
+                "fragdenstaat_de.fds_newsletter.tasks.run_subscriber_import": {
+                    # FIXME: This should be get it's own queue name
+                    "queue": "convert",
+                },
+            }
+        )
+        return routes
+
     if "DJANGO_CELERY_BROKER_URL" in os.environ:
         CELERY_BROKER_URL = env("DJANGO_CELERY_BROKER_URL")
 
