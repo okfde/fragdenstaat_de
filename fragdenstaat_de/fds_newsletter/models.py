@@ -689,3 +689,41 @@ class SubscriberTagActionConfig(ActionBase):
             return _("Remove tag {}").format(self.tag)
         else:
             return _("Add tag {}").format(self.tag)
+
+
+class InSegmentActionConfig(ActionBase):
+    segment = models.ForeignKey(
+        Segment,
+        on_delete=models.PROTECT,
+        verbose_name=_("Segment"),
+    )
+    negate = models.BooleanField(
+        default=False,
+        verbose_name=_("Negate condition"),
+        help_text=_("If not in segment"),
+    )
+
+    def __str__(self):
+        if self.negate:
+            return _("If not in segment '{}'").format(self.segment)
+        else:
+            return _("If in segment '{}'").format(self.segment)
+
+
+class HasTagActionConfig(ActionBase):
+    tag = models.ForeignKey(
+        SubscriberTag,
+        on_delete=models.PROTECT,
+        verbose_name=_("Subscriber Tag"),
+    )
+    negate = models.BooleanField(
+        default=False,
+        verbose_name=_("Negate condition"),
+        help_text=_("If doesn't have tag"),
+    )
+
+    def __str__(self):
+        if self.negate:
+            return _("If doesn't have tag '{}'").format(self.tag)
+        else:
+            return _("If has tag '{}'").format(self.tag)
