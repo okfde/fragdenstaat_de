@@ -158,13 +158,69 @@ def test_mailing_unsubscribe(mailing):
     assert len(mail.outbox) == 1
     email = mail.outbox[0]
     unsubscribe_header = email.extra_headers["List-Unsubscribe"]
-    subject = unsubscribe_header.split("subject=")[1][:-1]
+    unsub_mail, unsub_url = unsubscribe_header.split(",")
+    subject = unsub_mail.split("subject=")[1][:-1]
     reference = subject.split("-", 1)[1]
     assert reference == context["unsubscribe_reference"]
     handle_unsubscribe(None, email.to[0], reference)
     subscriber.refresh_from_db()
     assert subscriber.unsubscribed is not None
     assert subscriber.unsubscribe_method == "unsubscribe-mail"
+    assert subscriber.unsubscribe_reference == mailing.mailing_ident
+
+
+@pytest.mark.django_db
+def test_mailing_unsubscribe_post(mailing, client):
+    assert mailing.get_subscribers().count() == 1
+    mailing.auto_populate()
+    assert mailing.recipients.count() == 1
+
+    mailing_message = mailing.recipients.first()
+    context = mailing_message.get_email_context()
+    subscribers = mailing.newsletter.subscribers.all()
+    assert subscribers.count() == 2
+    subscribers = subscribers.filter(subscribed__isnull=False)
+    subscriber = subscribers.first()
+    assert subscriber.email == mailing_message.email
+    assert subscriber == mailing_message.subscriber
+    assert context["subscriber"] == subscriber
+    assert context["unsubscribe_reference"] == "newsletter-{}-{}".format(
+        subscriber.id, mailing.mailing_ident
+    )
+    assert mailing.mailing_ident in context["unsubscribe_url"]
+    assert context["unsubscribe_url"] == subscriber.get_unsubscribe_url(
+        reference=mailing.mailing_ident
+    )
+
+    email_content = mailing.get_email_content(context)
+    assert email_content.subject == "Test subject & {}".format(mailing_message.email)
+    assert (
+        f"{settings.SITE_URL}/link/?pk_campaign={mailing.mailing_ident}"
+        in email_content.text
+    )
+    assert (
+        f"{settings.SITE_URL}/link/?pk_campaign={mailing.mailing_ident}"
+        in email_content.html
+    )
+    assert 'href="http://example.com/"' in email_content.html
+    assert '<img src="{}'.format(settings.NEWSLETTER_PIXEL_ORIGIN) in email_content.html
+
+    mail.outbox = []
+    mailing.sending = True
+    mailing_message.send()
+
+    assert len(mail.outbox) == 1
+    email = mail.outbox[0]
+    unsubscribe_header = email.extra_headers["List-Unsubscribe"]
+    unsub_mail, unsub_url = unsubscribe_header.split(",")
+
+    unsub_url = unsub_url.strip()[1:-1]
+
+    response = client.post(unsub_url, data={"List-Unsubscribe": "One-Click"})
+    assert response.status_code == 200
+    subscriber.refresh_from_db()
+    assert subscriber.unsubscribed is not None
+    assert subscriber.unsubscribe_method == "unsubscribe-post"
     assert subscriber.unsubscribe_reference == mailing.mailing_ident
 
 

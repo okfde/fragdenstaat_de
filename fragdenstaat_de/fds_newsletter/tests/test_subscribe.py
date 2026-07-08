@@ -523,7 +523,8 @@ class NewsletterSubscriberTest(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         email = mail.outbox[0]
         unsubscribe_header = email.extra_headers["List-Unsubscribe"]
-        subject = unsubscribe_header.split("subject=")[1][:-1]
+        unsub_mail, _unsub_url = unsubscribe_header.split(",")
+        subject = unsub_mail.split("subject=")[1][:-1]
         reference = subject.split("-", 1)[1]
 
         handle_unsubscribe(None, self.email_1, reference)

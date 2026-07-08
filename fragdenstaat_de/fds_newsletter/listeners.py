@@ -135,7 +135,7 @@ def subscribe_follower(sender, request=None, **kwargs):
     )
 
 
-def handle_unsubscribe(sender, email, reference, **kwargs):
+def handle_unsubscribe(sender, email, reference, method="unsubscribe-mail", **kwargs):
     if not reference.startswith(REFERENCE_PREFIX):
         # not for us
         return
@@ -154,7 +154,7 @@ def handle_unsubscribe(sender, email, reference, **kwargs):
     if (subscriber.email and subscriber.email.lower() == email) or (
         subscriber.user and subscriber.user.email.lower() == email
     ):
-        subscriber.unsubscribe(method="unsubscribe-mail", reference=unsub_reference)
+        subscriber.unsubscribe(method=method, reference=unsub_reference)
 
 
 def handle_bounce(sender, bounce, should_deactivate=False, **kwargs):
