@@ -13,6 +13,29 @@ from fragdenstaat_de.fds_mailing.models import (
 )
 
 
+def filter_mailing_messages_to_object(obj, email):
+    """Filter a queryset of MailingMessage to the given object."""
+    qs = MailingMessage.objects.all()
+    obj_key = obj.__class__.__name__.lower()
+    fields = {field.name for field in MailingMessage._meta.get_fields()}
+    if obj_key in fields:
+        return qs.filter(**{obj_key: obj})
+
+    return qs.filter(email=email)
+
+
+def get_email_from_object(obj):
+    email = getattr(obj, "email", None)
+    if not email:
+        if hasattr(obj, "get_email"):
+            email = obj.get_email()
+    if not email:
+        raise ValueError(
+            "Requires an object with an 'email' attribute or a 'get_email' method."
+        )
+    return email
+
+
 @register_action
 class DelayMailAction(BaseAction):
     verbose_name = _("Delay if mail sent recently")
@@ -27,14 +50,7 @@ class DelayMailAction(BaseAction):
         if config.delay_days == 0:
             return FlowDirective.CONTINUE
 
-        email = getattr(obj, "email", None)
-        if not email:
-            if hasattr(obj, "get_email"):
-                email = obj.get_email()
-        if not email:
-            raise ValueError(
-                "DelayMailAction requires an object with an 'email' attribute or a 'get_email' method."
-            )
+        email = get_email_from_object(obj)
 
         if config.max_delay_days > 0:
             key = f"_delay_mail_action_{config.id}"
@@ -77,17 +93,21 @@ class SendMailAction(BaseAction):
             run.append_log("{}: Cannot send email to {}".format(config, obj))
             return
 
-        email = getattr(obj, "email", None)
-        if not email:
-            if hasattr(obj, "get_email"):
-                email = obj.get_email()
-        if not email:
-            raise ValueError(
-                "SendMailAction requires an object with an 'email' attribute or a 'get_email' method."
+        email = get_email_from_object(obj)
+        obj_key = obj.__class__.__name__.lower()
+
+        if config.only_once:
+            # Check if an email has already been sent to this contact with this template
+            mailing_message_exists = (
+                filter_mailing_messages_to_object(obj, email)
+                .filter(mailing__email_template=config.email_template)
+                .exists()
             )
+            if mailing_message_exists:
+                run.append_log("{}: Email already sent to {}".format(config, obj))
+                return
 
         context = self.get_context().copy()
-        obj_key = obj.__class__.__name__.lower()
         context[obj_key] = obj
         config.email_template.send(
             email,

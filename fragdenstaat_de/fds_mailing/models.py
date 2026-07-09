@@ -911,6 +911,10 @@ class SendMailActionConfig(ActionBase):
         on_delete=models.CASCADE,
         help_text=_("Email template to use for this action."),
     )
+    only_once = models.BooleanField(
+        default=True,
+        help_text=_("Only send this email once to this contact."),
+    )
 
     def __str__(self):
         return _("Template: {template}").format(template=self.email_template)
