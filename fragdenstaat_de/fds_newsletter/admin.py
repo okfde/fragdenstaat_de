@@ -8,6 +8,8 @@ from django.urls import path, reverse, reverse_lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
+from flowcontrol.engine import create_flowrun
+from flowcontrol.models import Flow
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
@@ -15,6 +17,7 @@ from froide.helper.admin_utils import (
     MultiFilterMixin,
     TaggitListFilter,
     make_batch_tag_action,
+    make_choose_object_action,
     make_daterangefilter,
     make_rangefilter,
 )
@@ -134,10 +137,16 @@ class SubscriberAdmin(SetupMailingMixin, admin.ModelAdmin):
         "export_subscribers_csv",
         "update_tags",
         "tag_all",
+        "start_flow_on_subscriber",
     ] + SetupMailingMixin.actions
 
     tag_all = make_batch_tag_action(
         field="tags", autocomplete_url=SUBSCRIBER_TAG_AUTOCOMPLETE_URL
+    )
+    start_flow_on_subscriber = make_choose_object_action(
+        Flow.objects.get_active(),
+        lambda admin, request, qs, obj: [create_flowrun(obj, sub) for sub in qs],
+        _("Start workflow for subscribers..."),
     )
 
     def get_queryset(self, request):
