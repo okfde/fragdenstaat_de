@@ -67,6 +67,9 @@ def get_email_context(subscriber):
         "unsubscribe_reference": "{prefix}{pk}".format(
             prefix=REFERENCE_PREFIX, pk=subscriber.id
         ),
+        "list_id": "newsletter/{id} <{id}.newsletter.{domain}>".format(
+            id=subscriber.newsletter.slug, domain=site.domain
+        ),
     }
 
     if subscriber.user:

@@ -802,6 +802,10 @@ class MailingMessage(models.Model):
 
         unsubscribe_reference = context.get("unsubscribe_reference")
 
+        headers = extra_kwargs.pop("headers", {})
+        if list_id := context.get("list_id"):
+            headers["List-Id"] = list_id
+
         try:
             logger.debug("Sending mailing message to: %s.", self)
 
@@ -811,6 +815,7 @@ class MailingMessage(models.Model):
                 make_address(self.email, name=self.name),
                 from_email=self.mailing.get_sender(),
                 unsubscribe_reference=unsubscribe_reference,
+                headers=headers,
                 **extra_kwargs,
             )
             self.sent = timezone.now()
