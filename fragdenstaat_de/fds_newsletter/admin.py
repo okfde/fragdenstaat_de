@@ -340,7 +340,14 @@ class UnsubscribeFeedbackAdmin(admin.ModelAdmin):
 
 @admin.register(SubscriberImport)
 class SubscriberImportAdmin(admin.ModelAdmin):
-    list_display = ("created", "newsletter", "reference", "started", "completed")
+    list_display = (
+        "label",
+        "created",
+        "newsletter",
+        "reference",
+        "started",
+        "completed",
+    )
     list_filter = (
         "newsletter",
         "completed",
@@ -374,6 +381,7 @@ class SubscriberImportAdmin(admin.ModelAdmin):
                 "reference",
                 "tags",
                 "new_tags",
+                "data_columns",
                 "email_confirmed",
                 "activation_template",
                 "user",

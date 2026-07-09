@@ -567,6 +567,7 @@ class UnsubscribeFeedback(models.Model):
 
 
 class SubscriberImport(models.Model):
+    label = models.CharField(max_length=255, blank=True)
     created = models.DateTimeField(default=timezone.now)
     newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE)
     data_file = models.FileField(
@@ -578,6 +579,7 @@ class SubscriberImport(models.Model):
     reference = models.CharField(blank=True, max_length=255)
     tags = models.CharField(blank=True, max_length=255)
     new_tags = models.CharField(blank=True, max_length=255)
+    data_columns = models.TextField(blank=True)
     email_confirmed = models.BooleanField(default=False)
     activation_template = models.ForeignKey(
         "fds_mailing.EmailTemplate", null=True, blank=True, on_delete=models.SET_NULL
@@ -623,6 +625,9 @@ class SubscriberImport(models.Model):
         tags = parse_tags(self.tags)
         new_tags = parse_tags(self.new_tags)
         new_tags.append("imported")
+        data_columns = [
+            c for col in self.data_columns.splitlines() if (c := col.strip())
+        ]
 
         with self.data_file.open(mode="rb") as fh:
             raw = fh.read(32)
@@ -638,6 +643,7 @@ class SubscriberImport(models.Model):
                 reference=self.reference,
                 tags=tags,
                 new_tags=new_tags,
+                data_columns=data_columns,
                 email_confirmed=self.email_confirmed,
                 activation_template=self.activation_template,
             )

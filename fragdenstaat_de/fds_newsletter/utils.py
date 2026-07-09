@@ -252,7 +252,7 @@ def import_csv(
     email_confirmed=False,
     tags=None,
     new_tags=None,
-    data=None,
+    data_columns=None,
     activation_template=None,
 ):
     total = 0
@@ -261,6 +261,11 @@ def import_csv(
         tags = set()
     else:
         tags = set(tags)
+    if data_columns is None:
+        data_columns = set()
+    else:
+        data_columns = set(data_columns)
+
     reader = csv.DictReader(csv_file)
     for row in reader:
         email = row["email"]
@@ -272,7 +277,7 @@ def import_csv(
             name = ""
         row_tags = {t.strip() for t in row.get("tags", "").split(",") if t.strip()}
         row_tags |= tags
-        row_data = {k.lstrip("$"): v for k, v in row.items() if k.startswith("$")}
+        row_data = {k: v for k, v in row.items() if k in data_columns}
         result = subscribe_email(
             newsletter,
             email,
