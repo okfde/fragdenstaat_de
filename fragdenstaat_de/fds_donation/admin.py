@@ -289,7 +289,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         lambda qs: qs.exclude(email="").values_list("email", flat=True)
     )
     start_flow_on_donor = make_choose_object_action(
-        Flow.objects.get_active(),
+        Flow.objects.get_active,
         lambda admin, request, qs, obj: [create_flowrun(obj, donor) for donor in qs],
         _("Start workflow for donors..."),
     )

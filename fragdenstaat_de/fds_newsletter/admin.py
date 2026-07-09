@@ -144,7 +144,7 @@ class SubscriberAdmin(SetupMailingMixin, admin.ModelAdmin):
         field="tags", autocomplete_url=SUBSCRIBER_TAG_AUTOCOMPLETE_URL
     )
     start_flow_on_subscriber = make_choose_object_action(
-        Flow.objects.get_active(),
+        Flow.objects.get_active,
         lambda admin, request, qs, obj: [create_flowrun(obj, sub) for sub in qs],
         _("Start workflow for subscribers..."),
     )
