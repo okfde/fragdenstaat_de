@@ -722,6 +722,9 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                     "location": donor.city,
                     "country": donor.country.name,
                     "salutation": donor.get_salutation(),
+                    "iban": donor.attributes.get("iban", "")
+                    if donor.attributes
+                    else "",
                 }
 
         donor_data = list(get_donor_row(queryset))
