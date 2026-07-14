@@ -59,6 +59,7 @@ from .admin_utils import (
     DonorTagListFilter,
     DonorTotalAmountPerYearFilter,
     PassiveDonationListFilter,
+    StartingAndActiveRecurrencesFilter,
 )
 from .export import JZWBExportForm
 from .models import (
@@ -161,6 +162,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "active",
         make_nullfilter("recurrences", _("Has recurring donations")),
         ActiveRecurrencesListFilter,
+        StartingAndActiveRecurrencesFilter,
         DonorTotalAmountPerYearFilter,
         make_rangefilter("recurring_amount", _("recurring monthly amount")),
         make_daterangefilter("recurrence_streak_start", _("Recurrence streak start")),

@@ -233,3 +233,28 @@ class ActiveRecurrencesListFilter(admin.SimpleListFilter):
         elif self.value() == "1":
             return queryset.filter(condition)
         return queryset
+
+
+class StartingAndActiveRecurrencesFilter(admin.SimpleListFilter):
+    title = _("Has starting and active recurrences")
+    parameter_name = "starting_and_active_recurrences"
+
+    def lookups(self, request, model_admin):
+        return (
+            ("0", _("None")),
+            ("1", _("Has some")),
+        )
+
+    def queryset(self, request, queryset):
+        recently = timezone.now() - timezone.timedelta(days=65)
+        condition = Exists(
+            Recurrence.objects.filter(
+                cancel_date__isnull=True,
+                donor_id=OuterRef("pk"),
+            ).filter(Q(start_date__gte=recently) | Q(active=True))
+        )
+        if self.value() == "0":
+            return queryset.exclude(condition)
+        elif self.value() == "1":
+            return queryset.filter(condition)
+        return queryset
