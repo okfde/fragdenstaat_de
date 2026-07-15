@@ -332,7 +332,7 @@ class DonationProgressBarPlugin(CMSPluginBase):
 
         total_sum = qs.aggregate(amount=Sum("amount"))["amount"]
 
-        return total_sum or Decimal(0.0)
+        return (total_sum or Decimal(0.0)) + instance.initial_amount
 
     def get_donation_goal_perc(self, instance, donated_amount):
         donation_goal = instance.donation_goal

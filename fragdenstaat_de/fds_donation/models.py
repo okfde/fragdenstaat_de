@@ -1155,6 +1155,9 @@ class DonationFormCMSPlugin(CMSPlugin):
 
 class DonationProgressBarCMSPlugin(CMSPlugin):
     start_date = models.DateTimeField()
+    initial_amount = models.DecimalField(
+        decimal_places=2, max_digits=10, blank=True, default=decimal.Decimal
+    )
     reached_goal = models.DecimalField(
         decimal_places=2, max_digits=10, blank=True, null=True
     )
