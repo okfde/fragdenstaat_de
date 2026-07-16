@@ -3,3 +3,7 @@
     {{ block.super }}
     <meta name="robots" content="noindex" />
 {% endblock %}
+{% block body %}
+    {{ block.super }}
+    {% include "fds_donation/includes/donor_logout.html" %}
+{% endblock %}
