@@ -134,12 +134,5 @@
             {% include "account/includes/set_password_now.html" %}
         </section>
     {% endif %}
-    {% if request.user != donor.user %}
-        <div class="container my-5">
-            <form action="{% url 'fds_donation:donor-logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary">{% translate "Log out of this donor profile" %}</button>
-            </form>
-        </div>
-    {% endif %}
+    {% include "fds_donation/includes/donor_logout.html" %}
 {% endblock body %}
