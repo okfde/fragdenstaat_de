@@ -369,6 +369,7 @@ class ConditionPlugin(CMSPluginBase):
     model = ConditionCMSPlugin
     module = _("Context")
     name = _("Condition")
+    cache = False
     allow_children = True
     render_template_template = "email/condition.html"
 
