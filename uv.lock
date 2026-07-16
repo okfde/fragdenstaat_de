@@ -1085,16 +1085,16 @@ wheels = [
 
 [[package]]
 name = "django-flowcontrol"
-version = "0.0.18"
+version = "0.0.19"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "django-treebeard" },
     { name = "python-dateutil" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f7/6f/3e81671f2ca6912775341dcb6cf6765f4f58e9a3c4d278615e4d2f6d0105/django_flowcontrol-0.0.18.tar.gz", hash = "sha256:94ed4db06d23ec2df4e49fe125bd747005c10aa961aae4455b0282f433cba339", size = 32711, upload-time = "2026-07-16T10:02:20.373Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f2/4e/015a142047e246daec9177b676a299c3ce9cc0de8e6a34da1d56aa07af73/django_flowcontrol-0.0.19.tar.gz", hash = "sha256:ecc9200f0cd79bbe55bf2ec743123708ad42f8520500c3cde70dc655990bea8e", size = 32744, upload-time = "2026-07-16T13:08:36.142Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/23/fe/2222e4f44fb95f9bfa47839e8dd2895135c8a46dfb25244bad63f134ff78/django_flowcontrol-0.0.18-py3-none-any.whl", hash = "sha256:aa66b46e534750a1a19a3e6ee58dbaa51fd34f9b4c72ad748c71d60242610c49", size = 46084, upload-time = "2026-07-16T10:02:19.382Z" },
+    { url = "https://files.pythonhosted.org/packages/72/4c/b8f0ce2cf6717614ae8441622f2b1f178b76f003e80a8eacab4cd23421a2/django_flowcontrol-0.0.19-py3-none-any.whl", hash = "sha256:04456055793e3724d3db9b589936fddc84ffe7e739615348284b36c04efcb1c7", size = 46115, upload-time = "2026-07-16T13:08:35.228Z" },
 ]
 
 [[package]]
@@ -2033,7 +2033,7 @@ requires-dist = [
     { name = "django-filer", specifier = ">=3.0.0" },
     { name = "django-filingcabinet", git = "https://github.com/okfde/django-filingcabinet.git?rev=main" },
     { name = "django-filter", specifier = ">=25.1" },
-    { name = "django-flowcontrol", specifier = ">=0.0.18" },
+    { name = "django-flowcontrol", specifier = ">=0.0.19" },
     { name = "django-legal-advice-builder", git = "https://github.com/fragdenstaat/django-legal-advice-builder.git?rev=main" },
     { name = "django-logentry-admin", specifier = ">=1.1.0" },
     { name = "django-mfa3", specifier = ">=1.0.0" },
@@ -2227,7 +2227,7 @@ dependencies = [
 [[package]]
 name = "froide-evidencecollection"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#bd2b27f17f6ae771c18d49f94f60bdd27acfedb9" }
+source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#f90f4c669a4174a7276bfea5a35bccd74476dc27" }
 dependencies = [
     { name = "django-cms" },
     { name = "django-elasticsearch-dsl" },
