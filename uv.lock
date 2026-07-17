@@ -2227,7 +2227,7 @@ dependencies = [
 [[package]]
 name = "froide-evidencecollection"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#f90f4c669a4174a7276bfea5a35bccd74476dc27" }
+source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#c22b4b8b7b5df48ffd65c274a51d0e6f749d3a06" }
 dependencies = [
     { name = "django-cms" },
     { name = "django-elasticsearch-dsl" },
