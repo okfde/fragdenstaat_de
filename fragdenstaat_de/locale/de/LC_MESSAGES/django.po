@@ -2710,7 +2710,7 @@ msgstr "Lila"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Purpose"
-msgstr "Verwendungszweck"
+msgstr "Spendenzweck"
 
 #: fragdenstaat_de/templates/foirequest/body/body.html
 msgid "Questionnaire"
