@@ -918,15 +918,15 @@ wheels = [
 
 [[package]]
 name = "django-cookie-consent"
-version = "0.9.0"
+version = "1.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "django-appconf" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/81/5b/d11d40d69a58615a18a6684fca485d8f40e9b9a2c871dd1ab828d7190d18/django_cookie_consent-0.9.0.tar.gz", hash = "sha256:c26e57ec6dc671ffe035f9b4f319e58cfff23edf7d3d4ccfe9cbdbcb0d3f7918", size = 29214, upload-time = "2025-09-28T18:33:24.947Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9a/80/fa34d2240e55097d02285fb63716e6e5c2bad5b42748749fa41986520563/django_cookie_consent-1.0.0.tar.gz", hash = "sha256:f78a6f9a55c2d7e1daa64118181891d313bf363158825f637ab24e3d0856eb14", size = 30039, upload-time = "2026-02-04T20:36:32.999Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/77/c1/2fb5cab1f9996432d6757459bac00a2eee06ae6872e5eef2a3b889a4ecef/django_cookie_consent-0.9.0-py3-none-any.whl", hash = "sha256:45e5eff53745ec26c6d009545f3827960e01994c1b55f0db97b846e2cef5da83", size = 27996, upload-time = "2025-09-28T18:33:23.42Z" },
+    { url = "https://files.pythonhosted.org/packages/69/fb/53822dc832ac952097574c51de5d7ef716679ad7f9a47c92de93c8771145/django_cookie_consent-1.0.0-py3-none-any.whl", hash = "sha256:964b870ee5a9d6db6c62edb303f65671df91a5281d36cf77187dbdc5f724d971", size = 28597, upload-time = "2026-02-04T20:36:31.839Z" },
 ]
 
 [[package]]
@@ -2026,7 +2026,7 @@ requires-dist = [
     { name = "django-configurations", specifier = ">=2.5.1" },
     { name = "django-contractor", specifier = ">=0.0.8" },
     { name = "django-contrib-comments", specifier = ">=2.2.0" },
-    { name = "django-cookie-consent", specifier = ">=0.6.0,<1.0.0" },
+    { name = "django-cookie-consent", specifier = ">=1.0.0,<2.0.0" },
     { name = "django-crossdomainmedia", specifier = ">=0.0.4" },
     { name = "django-datashow", specifier = ">=0.1.10" },
     { name = "django-elasticsearch-dsl", specifier = ">=8.0,<9.0" },
