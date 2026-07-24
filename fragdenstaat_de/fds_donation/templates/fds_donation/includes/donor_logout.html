@@ -1,0 +1,9 @@
+{% load i18n %}
+{% if donor and request.user != donor.user %}
+    <div class="container my-5">
+        <form action="{% url 'fds_donation:donor-logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary">{% translate "Log out of this donor profile" %}</button>
+        </form>
+    </div>
+{% endif %}
