@@ -188,7 +188,8 @@ class DonationView(FormView):
 def quick_donation(request):
     if request.method != "POST":
         return JsonResponse({"error": "Invalid request method"}, status=405)
-    form = QuickDonationForm(
+    form = DonationFormFactory().make_form(
+        form_class=QuickDonationForm,
         data=request.POST,
         user=request.user,
         request=request,
