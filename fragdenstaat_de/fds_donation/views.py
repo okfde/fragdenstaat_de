@@ -306,9 +306,11 @@ class DonorView(DonorMixin, DetailView, BreadcrumbView):
         except IndexError:
             last_donation = None
 
-        has_pending = any(
-            not d.received_timestamp and d.method == "banktransfer" for d in donations
-        )
+        pending_banktransfers = [
+            d
+            for d in donations
+            if not d.received_timestamp and d.method == "banktransfer"
+        ]
 
         donation_downloads = sorted(
             {
@@ -324,7 +326,7 @@ class DonorView(DonorMixin, DetailView, BreadcrumbView):
                 "recurrences": self.object.recurrences.filter(cancel_date=None),
                 "donations": donations,
                 "last_donation": last_donation,
-                "has_pending": has_pending,
+                "pending_banktransfers": pending_banktransfers,
                 "donation_downloads": donation_downloads,
             }
         )
