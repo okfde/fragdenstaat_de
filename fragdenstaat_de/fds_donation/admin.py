@@ -1,11 +1,13 @@
 import tempfile
 import uuid
 from collections import defaultdict
+from decimal import Decimal
 
 from django import forms
 from django.conf import settings
 from django.contrib import admin, messages
 from django.contrib.admin import helpers
+from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.admin.views.main import ChangeList
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
@@ -923,6 +925,7 @@ class DonationAdmin(admin.ModelAdmin):
         "match_banktransfer",
         "clear_receipt_date",
         "tag_subscribers",
+        "mark_refunded",
     ]
 
     tag_donors = make_batch_tag_action(
@@ -1022,6 +1025,7 @@ class DonationAdmin(admin.ModelAdmin):
 
         return export_csv_response(dict_to_csv_stream(make_dicts(queryset)))
 
+    @admin.action(description=_("Match planned to received banktransfer"))
     def match_banktransfer(self, request, queryset):
         count = queryset.count()
         fail = False
@@ -1060,8 +1064,7 @@ class DonationAdmin(admin.ModelAdmin):
         pending.save()
         self.message_user(request, _("Donations matched."), level=messages.INFO)
 
-    match_banktransfer.short_description = _("Match planned to received banktransfer")
-
+    @admin.action(description=_("Resend donation email"))
     def resend_donation_mail(self, request, queryset):
         from .services import send_donation_email
 
@@ -1083,13 +1086,11 @@ class DonationAdmin(admin.ModelAdmin):
             level=messages.INFO,
         )
 
-    resend_donation_mail.short_description = _("Resend donation email")
-
+    @admin.action(description=_("Clear receipt date"))
     def clear_receipt_date(self, request, queryset):
         queryset.update(receipt_date=None)
 
-    clear_receipt_date.short_description = _("Clear receipt date")
-
+    @admin.action(description=_("Send donation reminder"))
     def send_donation_reminder(self, request, queryset):
         from .services import send_donation_reminder_email
 
@@ -1105,7 +1106,31 @@ class DonationAdmin(admin.ModelAdmin):
             level=messages.INFO,
         )
 
-    send_donation_reminder.short_description = _("Send donation reminder")
+    @admin.action(description=_("Mark banktransfer donation as refunded"))
+    def mark_refunded(self, request, queryset):
+        queryset = queryset.filter(method="banktransfer")
+        if queryset.count() != 1:
+            self.message_user(
+                request,
+                _("You can only select one banktransfer donation at a time."),
+                level=messages.ERROR,
+            )
+        LogEntry.objects.log_actions(
+            user_id=request.user.id,
+            queryset=queryset,
+            action_flag=CHANGE,
+            change_message="action:mark_refunded",
+        )
+        donation = queryset[0]
+        donation.amount_received = Decimal("0")
+        donation.received_timestamp = None
+        donation.note += f"\nRefunded: {timezone.now().isoformat()}\n"
+        donation.save()
+        self.message_user(
+            request,
+            _("Banktransfer marked as refunded."),
+            level=messages.SUCCESS,
+        )
 
     def import_banktransfers(self, request):
         from .tasks import import_banktransfers_task
