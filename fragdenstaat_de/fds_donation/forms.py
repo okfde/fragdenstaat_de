@@ -29,6 +29,7 @@ from .models import (
     CHECKOUT_PAYMENT_CHOICES_DICT,
     DEFAULT_DONATION_PROJECT,
     INTERVAL_CHOICES,
+    INTERVAL_CHOICES_DICT,
     MIN_AMOUNT,
     ONCE,
     ONCE_RECURRING,
@@ -192,7 +193,11 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
                 interval_choices = [
                     x for x in interval_choices if x != INTERVAL_CHOICES[0][0]
                 ]
-            interval_choices = [x for x in INTERVAL_CHOICES if x[0] in interval_choices]
+            interval_choices = [
+                (x, INTERVAL_CHOICES_DICT[x])
+                for x in interval_choices
+                if x in INTERVAL_CHOICES_DICT
+            ]
         return interval_choices
 
     @property
