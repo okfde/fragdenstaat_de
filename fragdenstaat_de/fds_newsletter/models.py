@@ -140,6 +140,10 @@ class Newsletter(models.Model):
         related_name="+",
     )
 
+    default_segment = models.ForeignKey(
+        "Segment", null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
+    )
+
     objects = NewsletterManager()
 
     class Meta:

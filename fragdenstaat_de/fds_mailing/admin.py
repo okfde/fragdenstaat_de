@@ -287,6 +287,14 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
             obj.creator_user = request.user
         super().save_model(request, obj, form, change)
 
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        obj = form.instance
+        if not change or not obj.ready:
+            # We are adding or still changing
+            if obj.newsletter and obj.newsletter.default_segment:
+                obj.segments.add(obj.newsletter.default_segment)
+
     def changelist_view(self, request, extra_context=None):
         if extra_context is None:
             extra_context = {}
