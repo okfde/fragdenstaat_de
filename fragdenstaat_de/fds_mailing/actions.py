@@ -124,7 +124,7 @@ class HasReceivedMailing(BaseAction):
     description = _("Check if a subscriber has received a mailing")
     group = _("Mailing")
     model = HasReceivedMailingActionConfig
-    raw_id_fields = ("tag",)
+    raw_id_fields = ("mailing",)
     has_children = True
 
     def run(self, *, run, obj, config: HasReceivedMailingActionConfig):

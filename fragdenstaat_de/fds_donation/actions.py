@@ -44,6 +44,7 @@ class IfHasRecentlyDonated(BaseAction):
     description = _("Checks if object has recently donated")
     group = _("Donor")
     model = RecentlyDonatedActionConfig
+    has_children = True
 
     def run(self, *, run, obj, config: RecentlyDonatedActionConfig):
         if obj is None:
