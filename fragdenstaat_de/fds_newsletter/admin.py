@@ -6,6 +6,7 @@ from django.db.models import Case, Count, F, IntegerField, Q, Value, When
 from django.db.models.functions import Cast, Collate, ExtractDay, Now, TruncDate
 from django.http import JsonResponse
 from django.urls import path, reverse, reverse_lazy
+from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
@@ -30,6 +31,7 @@ from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 
 from .models import (
     SUBSCRIBER_TAG_AUTOCOMPLETE_URL,
+    ArchivedSegment,
     Newsletter,
     Segment,
     Subscriber,
@@ -359,9 +361,10 @@ class SegmentAdmin(TreeAdmin):
     search_fields = ("name",)
     date_hierarchy = "created"
     list_filter = [SubscriberTagSegmentListFilter]
+    actions = ["archive_segments"]
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
+        qs = super().get_queryset(request).filter(archived__isnull=True)
         # TODO reenable when fixed: https://github.com/django-treebeard/django-treebeard/issues/405
         # qs = qs.prefetch_related("tags")
         return qs
@@ -382,12 +385,35 @@ class SegmentAdmin(TreeAdmin):
                 self._newsletter = None
         return self._newsletter
 
+    @admin.display(
+        ordering="subscriber_count", description=_("active subscriber count")
+    )
     def subscriber_count(self, obj):
         # FIXME: n+1 query with ballooning joins
         return obj.get_subscribers(newsletter=self.get_default_newsletter()).count()
 
-    subscriber_count.admin_order_field = "subscriber_count"
-    subscriber_count.short_description = _("active subscriber count")
+    @admin.action(description=_("Archive segments"))
+    def archive_segments(self, request, queryset):
+        queryset.update(archived=timezone.now())
+
+    @admin.action(description=_("Unarchive segments"))
+    def unarchive_segments(self, request, queryset):
+        queryset.update(archived=None)
+
+
+@admin.register(ArchivedSegment)
+class ArchivedSegmentAdmin(SegmentAdmin):
+    actions = ["unarchive_segments"]
+
+    def get_queryset(self, request):
+        qs = (
+            super(SegmentAdmin, self)
+            .get_queryset(request)
+            .filter(archived__isnull=False)
+        )
+        # TODO reenable when fixed: https://github.com/django-treebeard/django-treebeard/issues/405
+        # qs = qs.prefetch_related("tags")
+        return qs
 
 
 @admin.register(UnsubscribeFeedback)

@@ -505,6 +505,7 @@ class Segment(MP_Node):
         verbose_name=_("contains subscribers with all of these"),
     )
     negate = models.BooleanField(default=False, verbose_name=_("negate tags"))
+    archived = models.DateTimeField(null=True, blank=True)
 
     node_order_by = ["name"]
 
@@ -538,6 +539,11 @@ class Segment(MP_Node):
             out_qs = reduce(lambda x, y: x & y, children_qs)
             return out_qs
         return qs
+
+
+class ArchivedSegment(Segment):
+    class Meta:
+        proxy = True
 
 
 UNSUBSCRIBE_REASONS = [
