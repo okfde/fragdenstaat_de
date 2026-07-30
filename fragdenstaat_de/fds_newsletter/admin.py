@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.db.models import Case, Count, F, IntegerField, Q, Value, When
 from django.db.models.functions import Cast, Collate, ExtractDay, Now, TruncDate
 from django.http import JsonResponse
@@ -38,7 +39,7 @@ from .models import (
     TaggedSubscriber,
     UnsubscribeFeedback,
 )
-from .utils import unsubscribe_queryset
+from .utils import subscribe, unsubscribe_queryset
 
 
 @admin.register(Newsletter)
@@ -103,9 +104,36 @@ class SubscriberAdminForm(forms.ModelForm):
         }
 
 
+class AddSubscriberAdminForm(forms.ModelForm):
+    class Meta:
+        model = Subscriber
+        fields = ["newsletter", "name", "email", "reference", "tags"]
+        widgets = {
+            "tags": TagAutocompleteWidget(
+                autocomplete_url=SUBSCRIBER_TAG_AUTOCOMPLETE_URL,
+                allow_new=False,
+            ),
+        }
+
+    def save(self, commit=True):
+        if commit:
+            raise Exception("Only works in admin!")
+        subscriber = Subscriber(
+            newsletter=self.cleaned_data["newsletter"],
+            email=self.cleaned_data["email"].lower(),
+            name=self.cleaned_data["name"],
+            reference=self.cleaned_data["reference"],
+        )
+        return subscriber
+
+    def save_m2m(self):
+        pass
+
+
 @admin.register(Subscriber)
 class SubscriberAdmin(SetupMailingMixin, admin.ModelAdmin):
     form = SubscriberAdminForm
+    add_form = AddSubscriberAdminForm
     raw_id_fields = ("user",)
     list_display = (
         "admin_email",
@@ -177,6 +205,29 @@ class SubscriberAdmin(SetupMailingMixin, admin.ModelAdmin):
         )
         qs = qs.prefetch_related("tags")
         return qs
+
+    def get_form(self, request, obj=None, **kwargs):
+        if obj is None:
+            kwargs["form"] = self.add_form
+        return super().get_form(request, obj, **kwargs)
+
+    def save_model(self, request, obj, form, change):
+        if change:
+            return super().save_model(request, obj, form, change)
+        User = get_user_model()
+        user = User.objects.filter(email_deterministic=obj.email).first()
+        result, subscriber = subscribe(
+            obj.newsletter,
+            obj.email,
+            user=user,
+            name=obj.name,
+            email_confirmed=True,
+            reference=obj.reference,
+            tags=form.cleaned_data["tags"],
+        )
+        obj.id = subscriber.id
+        obj.pk = subscriber.pk
+        obj.refresh_from_db()
 
     def tag_list(self, obj):
         return ", ".join([str(tag) for tag in obj.tags.all()])
