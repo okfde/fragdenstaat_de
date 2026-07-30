@@ -408,6 +408,7 @@ class SubscriberImportAdmin(admin.ModelAdmin):
         "reference",
         "started",
         "completed",
+        "imported_count",
     )
     list_filter = (
         "newsletter",
