@@ -1126,7 +1126,9 @@ class DonationFormCMSPlugin(CMSPlugin):
             "interval_choices": self.interval_choices,
             "amount_presets": self.amount_presets,
             "initial_amount": self.initial_amount or "",
-            "initial_interval": self.initial_interval or "",
+            "initial_interval": ""
+            if self.initial_interval is None
+            else self.initial_interval,
             "min_amount": self.min_amount,
             "reference": self.reference or reference,
             "keyword": self.keyword or keyword,
