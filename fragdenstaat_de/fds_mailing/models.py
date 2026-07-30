@@ -35,6 +35,7 @@ from fragdenstaat_de.fds_newsletter.utils import get_subscribers
 from . import mailing_submitted
 from .pixel_log import generate_random_unique_pixel_url
 from .utils import get_url_tagger, render_text, render_web_html
+from .validators import validate_sender_domain
 
 User = get_user_model()
 logger = logging.getLogger()
@@ -408,7 +409,11 @@ class Mailing(models.Model):
     )
     segments = models.ManyToManyField(Segment, blank=True)
     sender_name = models.CharField(max_length=255)
-    sender_email = models.EmailField(max_length=255, default=get_default_sender_email)
+    sender_email = models.EmailField(
+        max_length=255,
+        default=get_default_sender_email,
+        validators=[validate_sender_domain],
+    )
 
     sender_user = models.ForeignKey(
         User,
