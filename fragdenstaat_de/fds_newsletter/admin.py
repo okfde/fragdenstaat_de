@@ -50,6 +50,7 @@ class NewsletterAdmin(admin.ModelAdmin):
         "confirm_template",
         "confirm_batch_template",
         "already_subscribed_template",
+        "default_segment",
     )
 
     def get_queryset(self, request):
