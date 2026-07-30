@@ -12,7 +12,7 @@ from django.core.exceptions import ValidationError
 from django.db import connection, models
 from django.db.models.functions import RowNumber
 from django.urls import reverse
-from django.utils import timezone
+from django.utils import formats, timezone
 from django.utils.formats import date_format, number_format
 from django.utils.functional import cached_property
 from django.utils.http import url_has_allowed_host_and_scheme
@@ -1338,3 +1338,22 @@ class DonorTagActionConfig(ActionBase):
             return _("Remove tag {}").format(self.tag)
         else:
             return _("Add tag {}").format(self.tag)
+
+
+class RecentlyDonatedActionConfig(ActionBase):
+    since_date = models.DateTimeField(null=True, blank=True)
+    since_days = models.PositiveSmallIntegerField(default=0)
+    negate = models.BooleanField(
+        default=False,
+        verbose_name=_("Negate condition"),
+        help_text=_("If hasn't recently donated"),
+    )
+
+    def __str__(self):
+        since = _("{} days ago").format(self.since_days)
+        if self.since_date:
+            since = formats.date_format(self.since_date, "SHORT_DATETIME_FORMAT")
+        if self.negate:
+            return _("Has not donated since {}").format(since)
+        else:
+            return _("Has donated since {}").format(since)
