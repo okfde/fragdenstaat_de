@@ -928,3 +928,21 @@ class SendMailActionConfig(ActionBase):
 
     def __str__(self):
         return _("Template: {template}").format(template=self.email_template)
+
+
+class HasReceivedMailingActionConfig(ActionBase):
+    mailing = models.ForeignKey(
+        Mailing,
+        on_delete=models.CASCADE,
+        help_text=_("Mailing to check."),
+    )
+    negate = models.BooleanField(
+        default=False,
+        help_text=_("Negate the condition."),
+    )
+
+    def __str__(self):
+        if self.negate:
+            return _("Has not received mailing: {mailing}").format(mailing=self.mailing)
+        else:
+            return _("Has received mailing: {mailing}").format(mailing=self.mailing)

@@ -6,8 +6,11 @@ from django.utils.translation import gettext_lazy as _
 from flowcontrol.base import BaseAction, FlowDirective
 from flowcontrol.registry import register_action
 
-from fragdenstaat_de.fds_mailing.models import (
+from fragdenstaat_de.fds_newsletter.models import Subscriber
+
+from .models import (
     DelayMailActionConfig,
+    HasReceivedMailingActionConfig,
     MailingMessage,
     SendMailActionConfig,
 )
@@ -113,3 +116,32 @@ class SendMailAction(BaseAction):
             email,
             context=context,
         )
+
+
+@register_action
+class HasReceivedMailing(BaseAction):
+    verbose_name = _("If has received mailing")
+    description = _("Check if a subscriber has received a mailing")
+    group = _("Mailing")
+    model = HasReceivedMailingActionConfig
+    raw_id_fields = ("tag",)
+    has_children = True
+
+    def run(self, *, run, obj, config: HasReceivedMailingActionConfig):
+        if obj is None:
+            raise ValueError("HasTagSegment requires an object to run on.")
+
+        if isinstance(obj, Subscriber):
+            has_received = MailingMessage.objects.filter(
+                mailing=config.mailing, subscriber=obj
+            ).exists()
+        else:
+            email = get_email_from_object()
+            qs = filter_mailing_messages_to_object(obj, email)
+            has_received = qs.filter(mailing=config.mailing).exists()
+
+        if has_received and not config.negate:
+            return FlowDirective.ENTER
+        elif not has_received and config.negate:
+            return FlowDirective.ENTER
+        return FlowDirective.CONTINUE
