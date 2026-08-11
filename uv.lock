@@ -2144,7 +2144,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#0780a021c43d283971a3f8599be1ebaba578a23b" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#d21c3767dceef7409438ada7962cb4882a9bbbd5" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2227,7 +2227,7 @@ dependencies = [
 [[package]]
 name = "froide-evidencecollection"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#c22b4b8b7b5df48ffd65c274a51d0e6f749d3a06" }
+source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#ffa4026a1e56e2387f04d81c47fb660adcbca628" }
 dependencies = [
     { name = "django-cms" },
     { name = "django-elasticsearch-dsl" },
@@ -2247,7 +2247,7 @@ source = { git = "https://github.com/okfde/froide-exam.git?rev=main#161f78ea1998
 [[package]]
 name = "froide-fax"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-fax.git?rev=main#f75fa98ee8237dcf0b5551696ae1b8323c56606e" }
+source = { git = "https://github.com/okfde/froide-fax.git?rev=main#b9ef016b13841d30964531ba8e05a7073bad2f95" }
 dependencies = [
     { name = "django" },
     { name = "phonenumbers" },
