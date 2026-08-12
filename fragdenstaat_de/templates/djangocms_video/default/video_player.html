@@ -17,8 +17,9 @@
          data-decline-url="{{ decline_url }}">
         <template class="cookie-consent__content">
             <div class="ratio ratio-{{ instance.attributes.ratio|default:"16x9" }}">
-                <iframe data-consent-src="{{ instance.embed_link }}"
+                <iframe data-consent-src="{{ instance.embed_link_with_parameters }}"
                         {{ instance.attributes_str }}
+                        referrerpolicy="strict-origin-when-cross-origin"
                         frameborder="0"
                         allowfullscreen="true"
                         allow="encrypted-media; picture-in-picture"></iframe>
@@ -27,7 +28,7 @@
         <template class="cookie-consent__message">
             <div class="ratio ratio-{{ instance.attributes.ratio|default:"16x9" }} position-relative">
                 {% include "djangocms_video/default/_embed_thumbnail.html" with picture=instance.poster %}
-                <div class="d-flex flex-column align-items-center justify-content-center text-md-center p-3 p-md-5 {% if instance.poster %}text-bg-gray-900 bg-opacity-90{% else %}text-bg-body-tertiary{% endif %}">
+                <div class="d-flex flex-column align-items-center justify-content-center text-md-center p-3 p-md-5 {% if instance.poster %}text-bg-gray-900 bg-opacity-90{% else %}text-bg-body-secondary{% endif %}">
                     {% page_url "privacy-policy" as privacy %}
                     <h3 class="visually-hidden">{% trans "Consent for YouTube video embed" %}</h3>
                     <p>
