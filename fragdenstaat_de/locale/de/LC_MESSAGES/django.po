@@ -4833,7 +4833,7 @@ msgstr "❌ Spende abbrechen"
 
 #: fragdenstaat_de/templates/account/login.html
 msgid "Create a new account to create FOI requests or manage your donations!"
-msgstr "Erstellen Sie ein neues Konto, um IFG-Anträge zu stellen oder Ihre Spenden zu verwalten!"
+msgstr "Erstellen Sie ein neues Konto, um IFG-Anfragen zu stellen oder Ihre Spenden zu verwalten!"
 
 #~ msgid ""
 #~ "\n"
