@@ -153,7 +153,8 @@ def user_email_changed(sender, old_email=None, **kwargs):
 
 
 def activate_user(sender, **kwargs):
-    Donor.objects.filter(user=sender.user, email_confirmed__isnull=True).update(
+    user = sender
+    Donor.objects.filter(user=user, email_confirmed__isnull=True).update(
         email_confirmed=timezone.now()
     )
 
