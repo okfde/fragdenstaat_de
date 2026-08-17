@@ -228,6 +228,8 @@ class FragDenStaat(FragDenStaatBase):
             },
             "django.request": {
                 "level": "ERROR",
+                "handlers": ["console"],
+                "propagate": False,
             },
             "django": {
                 "handlers": ["console"],
