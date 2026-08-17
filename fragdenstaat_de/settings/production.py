@@ -209,7 +209,7 @@ class FragDenStaat(FragDenStaatBase):
     GEOIP_PATH = env("DJANGO_GEOIP_PATH")
 
     LOGGING = {
-        "root": {"handlers": ["console"], "level": "WARNING"},
+        "root": {"handlers": ["console"], "level": "INFO"},
         "loggers": {
             "froide": {
                 "level": "INFO",
@@ -229,8 +229,12 @@ class FragDenStaat(FragDenStaatBase):
             "django.request": {
                 "level": "ERROR",
             },
+            "django": {
+                "handlers": ["console"],
+                "level": "INFO",
+            },
         },
-        "disable_existing_loggers": True,
+        "disable_existing_loggers": False,
         "handlers": {
             "console": {
                 "class": "logging.StreamHandler",
