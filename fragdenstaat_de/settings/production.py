@@ -235,6 +235,14 @@ class FragDenStaat(FragDenStaatBase):
                 "handlers": ["console"],
                 "level": "INFO",
             },
+            "elastic_transport": {
+                "level": "WARNING",
+                "propagate": False,
+            },
+            "elasticsearch": {
+                "level": "WARNING",
+                "propagate": False,
+            },
         },
         "disable_existing_loggers": False,
         "handlers": {
