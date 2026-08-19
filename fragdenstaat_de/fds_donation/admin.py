@@ -1,4 +1,5 @@
 import tempfile
+import unicodedata
 import uuid
 from collections import defaultdict
 from decimal import Decimal
@@ -1342,6 +1343,21 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
 
     @admin.action(description=_("Export as Post Internetmarke CSV"))
     def export_post_csv(self, request, queryset):
+
+        def try_latinize_name(name):
+            parts = []
+            for n in name:
+                check = n.encode("latin-1", "ignore").decode("latin-1")
+                if check:
+                    parts.append(check)
+                else:
+                    parts.append(
+                        unicodedata.normalize("NFKD", n)
+                        .encode("latin-1", "ignore")
+                        .decode("latin-1")
+                    )
+            return "".join(parts)
+
         def get_rows(queryset):
             # First row is sender data
             yield {
@@ -1356,8 +1372,9 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
                 "REFERENZ": "",
             }
             for obj in queryset:
+                name = obj.get_name_or_company()[:50]
                 yield {
-                    "NAME": obj.get_name_or_company()[:50],
+                    "NAME": try_latinize_name(name),
                     "ZUSATZ": "",
                     "STRASSE": obj.get_street_without_housenumber()[:40],
                     "NUMMER": obj.get_housenumber()[:7],
