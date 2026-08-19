@@ -36,7 +36,7 @@ class FragDenStaatBase(German, Base):
         ("en", _("English")),
     )
 
-    EASYLANG_ENABLED = False
+    EASYLANG_ENABLED = True
 
     @property
     def INSTALLED_APPS(self):
