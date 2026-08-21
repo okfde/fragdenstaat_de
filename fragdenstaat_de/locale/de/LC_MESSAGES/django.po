@@ -168,6 +168,12 @@ msgstr "Weitere Spende hinzufügen"
 msgid "Add category to articles..."
 msgstr "Kategorien zu Artikeln hinzufügen…"
 
+#: fragdenstaat_de/fds_mailing/forms.py
+#, fuzzy
+#| msgid "Add or removes a tag on the subscriber"
+msgid "Add segment for remaining subscribers"
+msgstr "Fügt einen Tag hinzu oder entfernt ihn bei einer Abonnent*in"
+
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Add tag to donors..."
 msgstr "Füge Tag zu Spendis hinzu…"
@@ -282,6 +288,12 @@ msgctxt "noun"
 msgid "Archive"
 msgstr "Archiv"
 
+#: fragdenstaat_de/fds_newsletter/admin.py
+#, fuzzy
+#| msgid "segments"
+msgid "Archive segments"
+msgstr "Segmente"
+
 #: fragdenstaat_de/fds_blog/models.py
 #, python-format
 msgid "Article \"%s\""
@@ -381,6 +393,12 @@ msgstr "BLZ"
 #: fragdenstaat_de/fds_donation/tasks.py
 #, python-brace-format
 msgid "Bank transfers imported for {project}"
+msgstr "Überweisungen für {project} importiert"
+
+#: fragdenstaat_de/fds_donation/admin.py
+#, fuzzy
+#| msgid "Bank transfers imported for {project}"
+msgid "Banktransfer marked as refunded."
 msgstr "Überweisungen für {project} importiert"
 
 #: fragdenstaat_de/fds_cms/models.py
@@ -539,9 +557,25 @@ msgstr "Ändere deine E-Mail-Adresse "
 msgid "Chapter overview:"
 msgstr "Kapitelübersicht:"
 
+#: fragdenstaat_de/fds_mailing/actions.py
+msgid "Check if a subscriber has received a mailing"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/actions.py
+msgid "Check if an object has a specific tag"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/actions.py
+msgid "Check if an object is in a specific segment"
+msgstr ""
+
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donation_complete.html
 msgid "Check your emails for your account"
 msgstr "Rufe Deine E-Mails ab"
+
+#: fragdenstaat_de/fds_donation/actions.py
+msgid "Checks if object has recently donated"
+msgstr ""
 
 #: fragdenstaat_de/fds_paperless/templates/fds_paperless/list_users.html
 msgid "Choose the recipient"
@@ -1251,6 +1285,10 @@ msgstr "Exportiere CSV"
 msgid "Export JZWB..."
 msgstr "JZWB exportieren…"
 
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "Export as Post Internetmarke CSV"
+msgstr ""
+
 #: fragdenstaat_de/fds_newsletter/admin.py
 msgid "Export to CSV"
 msgstr "Exportiere als CSV"
@@ -1518,6 +1556,21 @@ msgstr "Hat Aktion"
 msgid "Has active recurrences"
 msgstr "Hat aktive Dauerspenden"
 
+#: fragdenstaat_de/fds_donation/models.py
+#, fuzzy
+#| msgid "Last donation"
+msgid "Has donated since {}"
+msgstr "Letzte Spende"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "Has not donated since {}"
+msgstr ""
+
+#: fragdenstaat_de/fds_mailing/models.py
+#, python-brace-format
+msgid "Has not received mailing: {mailing}"
+msgstr ""
+
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Has not recently upgraded"
 msgstr "Hat keine Dauerspende/nicht erhöht"
@@ -1525,6 +1578,12 @@ msgstr "Hat keine Dauerspende/nicht erhöht"
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Has payment record"
 msgstr "Hat Zahlungseingang"
+
+#: fragdenstaat_de/fds_mailing/models.py
+#, fuzzy, python-brace-format
+#| msgid "I received too many emails"
+msgid "Has received mailing: {mailing}"
+msgstr "Ich habe zu viele E-Mails erhalten"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
 msgid "Has recently upgraded"
@@ -1537,6 +1596,12 @@ msgstr "Hat Dauerspenden"
 #: fragdenstaat_de/fds_donation/admin_utils.py
 msgid "Has some"
 msgstr "Hat manche"
+
+#: fragdenstaat_de/fds_donation/admin_utils.py
+#, fuzzy
+#| msgid "Has active recurrences"
+msgid "Has starting and active recurrences"
+msgstr "Hat aktive Dauerspenden"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Heading level"
@@ -1723,8 +1788,60 @@ msgid "If checked will remove the tag from the subscriber instead of adding it."
 msgstr "Wenn angehakt, wird der Tag von der Abonnent*in entfernt, anstatt ihn hinzuzufügen."
 
 #: fragdenstaat_de/fds_newsletter/models.py
+msgid "If doesn't have tag"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "If doesn't have tag '{}'"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/models.py
 msgid "If email not confirmed, you need to provide an activation template"
 msgstr "Falls E-Mail-Adressen nicht bestätigt sind, muss ein Aktivierungs-Template ausgewählt werden"
+
+#: fragdenstaat_de/fds_mailing/actions.py
+#, fuzzy
+#| msgid "I received too many emails"
+msgid "If has received mailing"
+msgstr "Ich habe zu viele E-Mails erhalten"
+
+#: fragdenstaat_de/fds_donation/actions.py
+#, fuzzy
+#| msgid "Is recent donor"
+msgid "If has recently donated"
+msgstr "Hat vor kurzem gespendet"
+
+#: fragdenstaat_de/fds_newsletter/actions.py
+msgid "If has tag"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "If has tag '{}'"
+msgstr ""
+
+#: fragdenstaat_de/fds_donation/models.py
+#, fuzzy
+#| msgid "Has not recently upgraded"
+msgid "If hasn't recently donated"
+msgstr "Hat keine Dauerspende/nicht erhöht"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "If in segment '{}'"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/actions.py
+#, fuzzy
+#| msgid "segment"
+msgid "If is in segment"
+msgstr "Segment"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "If not in segment"
+msgstr ""
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "If not in segment '{}'"
+msgstr ""
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "If present, this page will be displayed as the ancestor in the breadcrumbs."
@@ -1969,7 +2086,7 @@ msgstr "Logge dich in dein Spendenprofil ein, um ein Geschenk auszuwählen."
 msgid "Log out"
 msgstr "Abmelden"
 
-#: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/includes/donor_logout.html
 msgid "Log out of this donor profile"
 msgstr "Aus diesem Spendenprofil ausloggen"
 
@@ -2003,6 +2120,12 @@ msgstr "Name des Mailings"
 msgid "Mailing sending date in the past."
 msgstr "Sendedatum des Mailings ist in der Vergangenheit."
 
+#: fragdenstaat_de/fds_mailing/models.py
+#, fuzzy
+#| msgid "Mailing from %s"
+msgid "Mailing to check."
+msgstr "Mailing vom %s"
+
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Mailing was set up."
 msgstr "Mailing wurde vorbereitet."
@@ -2034,6 +2157,12 @@ msgstr "Karten-Fläche-Vorlage"
 #: fragdenstaat_de/fds_donation/templates/admin/fds_donation/donor/merge_donors.html
 msgid "Mark as not duplicates"
 msgstr "Markiere als unterschiedlich"
+
+#: fragdenstaat_de/fds_donation/admin.py
+#, fuzzy
+#| msgid "Need two banktransfer donations from same donor."
+msgid "Mark banktransfer donation as refunded"
+msgstr "Brauche zwei Überweisungsspenden von gleicher Spender*in."
 
 #: fragdenstaat_de/theme/admin.py
 msgid "Mark user as journalist (with Plus) and send mail..."
@@ -2142,6 +2271,13 @@ msgstr "Mehr als einer muss ausgewählt werden!"
 msgid "Need two banktransfer donations from same donor."
 msgstr "Brauche zwei Überweisungsspenden von gleicher Spender*in."
 
+#: fragdenstaat_de/fds_donation/models.py
+#: fragdenstaat_de/fds_newsletter/models.py
+#, fuzzy
+#| msgid "Negate the condition."
+msgid "Negate condition"
+msgstr "Bedingung umkehren."
+
 #: fragdenstaat_de/fds_mailing/models.py
 msgid "Negate the condition."
 msgstr "Bedingung umkehren."
@@ -2239,10 +2375,6 @@ msgstr "Keine Audiodatei verfügbar."
 #: fragdenstaat_de/fds_donation/templates/fds_donation/cms_plugins/donationgiftform.html
 msgid "No donation gifts are available for you at the moment."
 msgstr "Gerade sind keine Spendengeschenke verfügbar."
-
-#: fragdenstaat_de/fds_donation/apps.py
-msgid "No donor"
-msgstr "Keine Spender*in"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "No donors selected!"
@@ -2379,6 +2511,10 @@ msgstr "Nur Schnellspende-Möglichkeit"
 #: fragdenstaat_de/fds_donation/models.py
 msgid "Only recurring"
 msgstr "Nur mehrfach"
+
+#: fragdenstaat_de/fds_mailing/models.py
+msgid "Only send this email once to this contact."
+msgstr ""
 
 #: fragdenstaat_de/fds_events/models.py
 msgid "Only show events with these tags."
@@ -2961,6 +3097,12 @@ msgstr "Alle Abonnent:innen anzeigen"
 msgid "See requests"
 msgstr "Anfragen entdecken"
 
+#: fragdenstaat_de/fds_newsletter/models.py
+#, fuzzy
+#| msgid "Segments"
+msgid "Segment"
+msgstr "Segmente"
+
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Segments"
 msgstr "Segmente"
@@ -3043,6 +3185,10 @@ msgstr "Sende {sent} Erinnerungs-E-Mails."
 msgid "Sender e-mail"
 msgstr "Absender:in-E-Mail"
 
+#: fragdenstaat_de/fds_mailing/validators.py
+msgid "Sender email needs to come from allowed domains."
+msgstr ""
+
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "Sender name"
 msgstr "Absender:innenname"
@@ -3086,6 +3232,12 @@ msgstr "Markiere Artikel als Übersetzungen voneinander"
 msgid "Set donation banner..."
 msgstr "Spenden-Banner setzen..."
 
+#: fragdenstaat_de/fds_donation/admin.py
+#, fuzzy
+#| msgid "Set receipt date"
+msgid "Set processing date"
+msgstr "Empfangsdatum setzen"
+
 #: fragdenstaat_de/fds_donation/export.py
 msgid "Set receipt date"
 msgstr "Empfangsdatum setzen"
@@ -3093,6 +3245,12 @@ msgstr "Empfangsdatum setzen"
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Set shipped date"
 msgstr "Setze Versanddatum"
+
+#: fragdenstaat_de/fds_donation/admin.py
+#, fuzzy, python-brace-format
+#| msgid "Set {count} order to shipped."
+msgid "Set {count} order to processing."
+msgstr "Setze {count} Bestellungen auf versandt."
 
 #: fragdenstaat_de/fds_donation/admin.py
 #, python-brace-format
@@ -3247,6 +3405,12 @@ msgstr "Import beginnen"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Start workflow for donors..."
+msgstr "Starte Workflow für Spender*innen…"
+
+#: fragdenstaat_de/fds_newsletter/admin.py
+#, fuzzy
+#| msgid "Start workflow for donors..."
+msgid "Start workflow for subscribers..."
 msgstr "Starte Workflow für Spender*innen…"
 
 #: fragdenstaat_de/fds_donation/admin.py
@@ -3638,6 +3802,12 @@ msgstr "URL"
 msgid "URLs to the external pixels."
 msgstr "URLs zu den externen Pixeln."
 
+#: fragdenstaat_de/fds_newsletter/admin.py
+#, fuzzy
+#| msgid "segments"
+msgid "Unarchive segments"
+msgstr "Segmente"
+
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Unfortunately, all available donation gifts have been reserved."
 msgstr "Leider sind alle verfügbaren Spendengeschenke schon weg."
@@ -3907,6 +4077,12 @@ msgstr "Du kannst deine Dauerspende um 5 Euro oder 20 Prozent erhöhen oder verd
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "You can link articles here that are part of a series."
 msgstr "Hier können Artikel, die zu einer Serie gehören, verknüpft werden."
+
+#: fragdenstaat_de/fds_donation/admin.py
+#, fuzzy
+#| msgid "You can only send to one user at a time."
+msgid "You can only select one banktransfer donation at a time."
+msgstr "Sie können mit dieser Aktion nur ein:e Nutzer*in adressieren."
 
 #: fragdenstaat_de/theme/admin.py
 msgid "You can only send to one user at a time."
@@ -4446,6 +4622,10 @@ msgstr "Foto-Credit: "
 msgid "is continuous"
 msgstr "ist kontinuierlich"
 
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "is processing"
+msgstr ""
+
 #: fragdenstaat_de/fds_blog/admin.py
 msgid "is visible"
 msgstr "Veröffentlicht"
@@ -4818,6 +4998,10 @@ msgid ""
 msgstr ""
 "{count} neue Spendengeschenk-Bestellungen in der letzten Woche\n"
 "{url}"
+
+#: fragdenstaat_de/fds_donation/models.py
+msgid "{} days ago"
+msgstr ""
 
 #: fragdenstaat_de/fds_newsletter/admin.py
 msgid "{} subscriber imports have been queued."
@@ -5253,9 +5437,6 @@ msgstr "❌ Spende abbrechen"
 
 #~ msgid "Add or removes a tag on the donor"
 #~ msgstr "Fügt einen Tag hinzu oder entfernt ihn bei einem Spendi"
-
-#~ msgid "Add or removes a tag on the subscriber"
-#~ msgstr "Fügt einen Tag hinzu oder entfernt ihn bei einer Abonnent*in"
 
 #~ msgid "Add tags to multiple requests"
 #~ msgstr "Fügen Sie Tags zu mehreren Anfragen hinzu"
@@ -6600,6 +6781,9 @@ msgstr "❌ Spende abbrechen"
 
 #~ msgid "No article found."
 #~ msgstr "Keine Artikel gefunden."
+
+#~ msgid "No donor"
+#~ msgstr "Keine Spender*in"
 
 #~ msgid "No events yet"
 #~ msgstr "Noch keine Ereignisse"
