@@ -30,6 +30,7 @@ repos:
         entry: scripts/ensure_consistent_dependencies.py
         additional_dependencies:
           - pyyaml
+
   - repo: local
     hooks:
       - id: django-blocktrans-trimmed
@@ -37,3 +38,12 @@ repos:
         language: python
         entry: scripts/enforce_blocktrans_trimmed.py
         files: \.html$
+
+  - repo: local
+    hooks:
+      - id: makemessages-de
+        name: Ensure German translations are up to date
+        language: system
+        entry: make checkmessagesde
+        files: \.(py|html|txt|po)$
+        pass_filenames: false
