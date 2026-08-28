@@ -190,38 +190,38 @@
                             <hr>
                         </li>
                         {% if not request.user.is_authenticated %}
-                            {% url 'account-login' as login_url %}
                             <li class="nav-sm order-lg-last d-lg-none d-xl-block">
                                 <a href="{% url 'account-signup' %}?next={{ request.path|urlencode }}">
                                     <i class="fa fa-user-plus d-inline" aria-hidden="true"></i>
-                                    {% blocktrans %}Sign Up{% endblocktrans %}</a>
-                                </li>
-                                <li class="nav-sm order-lg-last">
-                                    <a href="{% url 'account-login' %}?next={{ request.path|urlencode }}">
-                                        <i class="fa fa-sign-in d-inline" aria-hidden="true"></i>
-                                        {% blocktrans %}Sign in{% endblocktrans %}
-                                    </a>
-                                </li>
-                                <li class="nav-sm d-md-none">
-                                    <hr>
-                                </li>
-                            {% endif %}
-                            <li class="ms-lg-auto nav-search order-lg-first">{% multi_search small=True %}</li>
-                        </ul>
-                    {% endif %}
-                    {% if reduced == True %}
-                        {% page_url "donate" as donate_url %}
-                        <li class="ms-auto d-none d-lg-block" data-donationlink="true">
-                            <a class="link-danger"
-                               data-reference="site-header"
-                               href="{{ donate_url|default:'/spenden/' }}">
-                                <i class="fa fa-heart" aria-hidden="true"></i>
-                                <span class="visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
-                                <span class="d-none d-lg-inline" aria-hidden="true">{% blocktrans %}Donate{% endblocktrans %}</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-    </header>
+                                    {% blocktrans %}Sign Up{% endblocktrans %}
+                                </a>
+                            </li>
+                            <li class="nav-sm order-lg-last">
+                                <a href="{% url 'account-login' %}?next={{ request.path|urlencode }}">
+                                    <i class="fa fa-sign-in d-inline" aria-hidden="true"></i>
+                                    {% blocktrans %}Sign in{% endblocktrans %}
+                                </a>
+                            </li>
+                            <li class="nav-sm d-md-none">
+                                <hr>
+                            </li>
+                        {% endif %}
+                        <li class="ms-lg-auto nav-search order-lg-first">{% multi_search small=True %}</li>
+                    </ul>
+                {% endif %}
+                {% if reduced == True %}
+                    {% page_url "donate" as donate_url %}
+                    <li class="ms-auto d-none d-lg-block" data-donationlink="true">
+                        <a class="link-danger"
+                           data-reference="site-header"
+                           href="{{ donate_url|default:'/spenden/' }}">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                            <span class="visually-hidden">{% blocktrans %}Donate{% endblocktrans %}</span>
+                            <span class="d-none d-lg-inline" aria-hidden="true">{% blocktrans %}Donate{% endblocktrans %}</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
