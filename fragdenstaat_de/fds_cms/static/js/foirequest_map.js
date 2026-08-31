@@ -70,7 +70,9 @@ function getColorMode() {
 }
 
 function getTileLayerUrl() {
-    return `//cartodb-basemaps-{s}.global.ssl.fastly.net/${getColorMode()}_all/{z}/{x}/{y}${window.L.Browser.retina ? '@2x' : ''}.png`
+    return `https://{s}.basemaps.cartocdn.com/rastertiles/${
+        getColorMode()
+      }_all/{z}/{x}/{y}}${window.L.Browser.retina ? '@2x' : ''}.png?key=cb1_2n7i_1_5aa3a7088d21f7ccc61aaf96`
 }
 
 

@@ -989,7 +989,7 @@ class FragDenStaatBase(German, Base):
         "TILES": [
             (
                 "Carto",
-                "//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+                "//{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}}.png?key=cb1_2n7i_1_5aa3a7088d21f7ccc61aaf96",
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
             )
         ]
