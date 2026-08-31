@@ -2144,7 +2144,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#a83f2c28e96f15c55f3009cdadbf2a8fcf17fda8" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#ddcee29d47571e65ab9b24b3ad17d03df556d4d3" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2198,7 +2198,7 @@ dependencies = [
 [[package]]
 name = "froide-campaign"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#3406cf0f268881f95b8b622078208ecef7e10193" }
+source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#84e718219d0ce8bce3c666654a7f2218338a51cf" }
 dependencies = [
     { name = "django" },
     { name = "django-admin-sortable2" },
@@ -2260,7 +2260,7 @@ dependencies = [
 [[package]]
 name = "froide-food"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-food.git?rev=main#29b2817b7545a4d06110d40cfd3ab16f3383f58e" }
+source = { git = "https://github.com/okfde/froide-food.git?rev=main#d153a06f0c1ef986009891804d5b22b3c3f1efef" }
 dependencies = [
     { name = "django-amenities" },
     { name = "geopy" },
