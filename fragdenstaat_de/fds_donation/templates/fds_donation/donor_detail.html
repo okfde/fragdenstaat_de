@@ -105,15 +105,15 @@
                                 <td>{{ donation.purpose }}</td>
                                 <td>{% include "fds_donation/includes/payment_method.html" with donation=donation %}</td>
                                 <td>
-                                    {% if donation.payment %}
-                                        <div {% if donation.payment.status_color %}class="text-{{ donation.payment.status_color }}"{% endif %}>
-                                            <i class="fa fa-{{ donation.payment.status_icon }}" aria-hidden="true"></i>
-                                            {{ donation.payment.get_status_display }}
-                                        </div>
-                                    {% elif donation.received_timestamp %}
+                                    {% if donation.received_timestamp %}
                                         <div class="text-success">
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                             {% trans "Confirmed" %}
+                                        </div>
+                                    {% elif donation.payment %}
+                                        <div {% if donation.payment.status_color %}class="text-{{ donation.payment.status_color }}"{% endif %}>
+                                            <i class="fa fa-{{ donation.payment.status_icon }}" aria-hidden="true"></i>
+                                            {{ donation.payment.get_status_display }}
                                         </div>
                                     {% else %}
                                         <div class="text-warning">
