@@ -446,6 +446,10 @@ def donor_login(request, donor_id, token, next_path):
     query_string = ("?" + query_string) if query_string else ""
     if request.method == "POST":
         next_path = request.POST.get("next", next_path + query_string)
+        donor = get_donor_from_request(request)
+        if donor is not None and donor.id == int(donor_id):
+            # if already logged in as the correct donor, just redirect
+            return redirect(next_path)
         donor, valid = validate_donor_token(donor_id, token)
         if not valid:
             # Token expired or invalid
