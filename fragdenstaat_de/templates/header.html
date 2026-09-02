@@ -190,17 +190,19 @@
                             <hr>
                         </li>
                         {% if not request.user.is_authenticated %}
-                            {% url 'account-login' as login_url %}
+                            <li class="nav-sm order-lg-last d-lg-none d-xl-block">
+                                <a href="{% url 'account-signup' %}?next={{ request.path|urlencode }}">
+                                    <i class="fa fa-user-plus d-inline" aria-hidden="true"></i>
+                                    {% blocktrans %}Sign Up{% endblocktrans %}
+                                </a>
+                            </li>
                             <li class="nav-sm order-lg-last">
                                 <a href="{% url 'account-login' %}?next={{ request.path|urlencode }}">
-                                    <i class="fa fa-sign-in d-none d-lg-inline" aria-hidden="true"></i>
+                                    <i class="fa fa-sign-in d-inline" aria-hidden="true"></i>
                                     {% blocktrans %}Sign in{% endblocktrans %}
                                 </a>
                             </li>
                             <li class="nav-sm d-lg-none">
-                                <a href="{% url 'account-signup' %}?next={{ request.path|urlencode }}">{% blocktrans %}Sign Up{% endblocktrans %}</a>
-                            </li>
-                            <li class="nav-sm d-md-none">
                                 <hr>
                             </li>
                         {% endif %}
