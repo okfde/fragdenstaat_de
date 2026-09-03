@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import NoReverseMatch
 from django.utils.cache import add_never_cache_headers
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 from cms.cache import page as cms_cache_page_module
@@ -31,6 +32,16 @@ from fragdenstaat_de.theme.colors import (
     BACKGROUND,
     BORDER_COLORS,
     get_css_color_variable,
+)
+
+FONTAWESOME_ICON_URL = "https://fontawesome.com/v4.7.0/icons/"
+
+ICON_HELP_TEXT = format_lazy(
+    _(
+        'Enter an icon name from the <a href="{url}" target="_blank">'
+        "FontAwesome 4 icon set</a>"
+    ),
+    url=FONTAWESOME_ICON_URL,
 )
 
 
@@ -553,9 +564,7 @@ class CardHeaderCMSPlugin(CMSPlugin):
         _("Icon"),
         max_length=50,
         blank=True,
-        help_text=_(
-            """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
-        ),
+        help_text=ICON_HELP_TEXT,
     )
     background_image = FilerImageField(
         null=True,
@@ -623,9 +632,7 @@ class CardIconCMSPlugin(CMSPlugin):
     icon = models.CharField(
         max_length=255,
         blank=True,
-        help_text=_(
-            """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
-        ),
+        help_text=ICON_HELP_TEXT,
     )
     attributes = AttributesField()
 
@@ -642,9 +649,7 @@ class CardLinkCMSPlugin(CMSPlugin):
         _("Icon"),
         max_length=50,
         blank=True,
-        help_text=_(
-            """Enter an icon name from the <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">FontAwesome 4 icon set</a>"""
-        ),
+        help_text=ICON_HELP_TEXT,
     )
     attributes = AttributesField()
 
