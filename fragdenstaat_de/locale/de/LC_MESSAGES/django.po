@@ -1209,8 +1209,9 @@ msgid "Enter a number with up to two decimal places."
 msgstr "Gibt eine Zahl mit bis zu zwei Dezimalstellen ein."
 
 #: fragdenstaat_de/fds_cms/models.py
-msgid "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/\" target=\"_blank\">FontAwesome 4 icon set</a>"
-msgstr "Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target=\"_blank\">Font Awesome 4 Icon Liste</a>"
+#, python-brace-format
+msgid "Enter an icon name from the <a href=\"{url}\" target=\"_blank\">FontAwesome 4 icon set</a>"
+msgstr "Icon-Name aus der <a href=\"{url}\" target=\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Enter personal data for donation receipts"
@@ -4479,8 +4480,9 @@ msgid "e.g. 20,20"
 msgstr "z.B. 20,20"
 
 #: fragdenstaat_de/fds_donation/forms.py
-msgid "e.g. name@example.org"
-msgstr "z.B. name@beispiel.de"
+#, python-brace-format
+msgid "e.g. {email}"
+msgstr "z.B. {email}"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "email already confirmed"
@@ -4516,6 +4518,13 @@ msgstr "alle sechs Monate"
 #: fragdenstaat_de/fds_donation/utils.py
 msgid "every year"
 msgstr "jedes Jahr"
+
+#. Translators: Domain part (after the "@") of the example email address
+#. shown as a placeholder in email input fields.
+#: fragdenstaat_de/fds_donation/forms.py
+msgctxt "example email address"
+msgid "example.org"
+msgstr "beispiel.de"
 
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "excerpt"
@@ -4638,6 +4647,13 @@ msgstr "Dauerspende geändert"
 #: fragdenstaat_de/fds_donation/models.py
 msgid "monthly"
 msgstr "monatlich"
+
+#. Translators: Local part (before the "@") of the example email address
+#. shown as a placeholder in email input fields.
+#: fragdenstaat_de/fds_donation/forms.py
+msgctxt "example email address"
+msgid "name"
+msgstr "name"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "name"
