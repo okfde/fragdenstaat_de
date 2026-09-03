@@ -9,7 +9,9 @@ from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.core.validators import MinValueValidator
 from django.utils import timezone
 from django.utils.html import format_html
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 
 from froide_payment.forms import StartPaymentMixin
 from froide_payment.utils import interval_description
@@ -60,6 +62,20 @@ logger = logging.getLogger(__name__)
 
 
 DEFAULT_PURPOSE = _("General donation")
+
+# The example address is assembled from its parts to avoid xgettext
+# warnings about embedded email addresses.
+EXAMPLE_EMAIL = format_lazy(
+    "{local}@{domain}",
+    # Translators: Local part (before the "@") of the example email address
+    # shown as a placeholder in email input fields.
+    local=pgettext_lazy("example email address", "name"),
+    # Translators: Domain part (after the "@") of the example email address
+    # shown as a placeholder in email input fields.
+    domain=pgettext_lazy("example email address", "example.org"),
+)
+
+EMAIL_PLACEHOLDER = format_lazy(_("e.g. {email}"), email=EXAMPLE_EMAIL)
 
 
 class BasicDonationForm(StartPaymentMixin, forms.Form):
@@ -502,7 +518,7 @@ class DonorEmailForm(forms.Form):
         label=_("Email"),
         required=True,
         widget=forms.EmailInput(
-            attrs={"class": "form-control", "placeholder": _("e.g. name@example.org")}
+            attrs={"class": "form-control", "placeholder": EMAIL_PLACEHOLDER}
         ),
     )
 
@@ -519,7 +535,7 @@ class BasicDonorForm(get_basic_info_form(), forms.Form):
         label=_("Email"),
         required=True,
         widget=forms.EmailInput(
-            attrs={"class": "form-control", "placeholder": _("e.g. name@example.org")}
+            attrs={"class": "form-control", "placeholder": EMAIL_PLACEHOLDER}
         ),
     )
 
@@ -946,7 +962,7 @@ class DonorEmailLinkForm(SpamProtectionMixin, forms.Form):
         label=_("Email"),
         required=True,
         widget=forms.EmailInput(
-            attrs={"class": "form-control", "placeholder": _("e.g. name@example.org")}
+            attrs={"class": "form-control", "placeholder": EMAIL_PLACEHOLDER}
         ),
     )
     next_path = forms.CharField(
