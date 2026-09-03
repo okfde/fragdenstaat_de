@@ -1063,6 +1063,12 @@ class DonationAdmin(admin.ModelAdmin):
         received.delete()
         # Save after delete so donation number is updated correctly
         pending.save()
+        if pending.payment:
+            payment = pending.payment
+            if pending.received_timestamp:
+                payment.status = PaymentStatus.CONFIRMED
+            payment.received_amount = pending.amount_received
+            payment.save()
         self.message_user(request, _("Donations matched."), level=messages.INFO)
 
     @admin.action(description=_("Resend donation email"))
