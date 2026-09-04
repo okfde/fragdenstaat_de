@@ -154,9 +154,14 @@ def user_email_changed(sender, old_email=None, **kwargs):
 
 def activate_user(sender, **kwargs):
     user = sender
+    # Same user but unconfirmed email, confirm email
     Donor.objects.filter(user=user, email_confirmed__isnull=True).update(
         email_confirmed=timezone.now()
     )
+    # Same confirmed email, but no user, connect user
+    Donor.objects.filter(
+        email=user.email, email_confirmed__isnull=False, user__isnull=True
+    ).update(user=user)
 
 
 def cancel_user(sender, user=None, **kwargs):
