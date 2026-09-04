@@ -1,5 +1,8 @@
-{% extends "fds_donation/base.html" %}
+{% extends "simple_base.html" %}
 {% load i18n form_helper %}
+{% block title %}
+    {% translate "Get a link to your donor profile" %}
+{% endblock %}
 {% block app_body %}
     <div class="row mt-5 justify-content-center">
         <div class="col-md-8 col-lg-6">
