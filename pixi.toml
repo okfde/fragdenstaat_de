@@ -1,0 +1,7 @@
+[workspace]
+name = "fragdenstaat_de"
+channels = ["conda-forge"]
+platforms = ["linux-64", "linux-aarch64", "osx-64", "osx-arm64"]
+
+[dependencies]
+gettext-tools = "==0.25.1"
