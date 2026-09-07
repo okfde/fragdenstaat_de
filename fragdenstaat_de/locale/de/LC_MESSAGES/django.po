@@ -593,6 +593,10 @@ msgstr "Klicke <strong class=\"highlight\">den Bestätigungs-Link</strong> in de
 msgid "Climate Helpdesk"
 msgstr "Climate Helpdesk"
 
+#: fragdenstaat_de/templates/header.html
+msgid "Democracy"
+msgstr "Demokratie"
+
 #: fragdenstaat_de/fds_cms/templates/cms/plugins/dropdown_banner.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_modal.html
 #: fragdenstaat_de/fds_fximport/templates/fds_fximport/import_frag.html
