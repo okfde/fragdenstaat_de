@@ -37,6 +37,17 @@ check_versions() {
   fi
 }
 
+check_pixi() {
+  if ! command -v pixi > /dev/null 2>&1; then
+    if [ -x "$HOME/.pixi/bin/pixi" ]; then
+      export PATH="$HOME/.pixi/bin:$PATH"
+    else
+      echo "pixi is not installed. Run \`curl -fsSL https://pixi.sh/install.sh | bash\` or \`brew install pixi\` to fix this. It provides the pinned gettext version used to build the translations."
+      exit 1
+    fi
+  fi
+}
+
 pull() {
   echo "Cloning / installing $MAIN"
 
@@ -67,6 +78,8 @@ dependencies() {
     exit 1
   fi
 
+  check_pixi
+
   for name in "${ALL[@]}"; do
     pushd "$name"
     
@@ -78,6 +91,8 @@ dependencies() {
     fi
 
     if [[ $name == "$MAIN" ]]; then
+      pixi install
+
       for project in "${REPOS[@]}"; do
         uv pip install -e "../$project" --config-setting editable_mode=compat --no-deps
       done
@@ -141,8 +156,11 @@ upgrade_frontend_repos() {
 }
 
 messages() {
+  check_pixi
   source $MAIN/.venv/bin/activate
-  python $MAIN/manage.py compilemessages -l de -i node_modules
+  pushd $MAIN
+    pixi run -- python manage.py compilemessages -l de -i node_modules
+  popd
 }
 
 load_dump() {
