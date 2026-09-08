@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import HStoreField
 from django.core.exceptions import ValidationError
 from django.db import connection, models
+from django.db.models import Exists, OuterRef
 from django.db.models.functions import RowNumber
 from django.urls import reverse
 from django.utils import formats, timezone
@@ -295,12 +296,25 @@ class Donor(models.Model):
         """
         Calculate the total recurring amount for this donor.
         """
-        return self.recurrences.filter(cancel_date__isnull=True).aggregate(
-            total=models.Sum(models.F("amount") / models.F("interval"))
-        )["total"] or decimal.Decimal("0.00")
+        has_completed_donation = Exists(
+            Donation.objects.filter(completed=True, recurrence_id=OuterRef("pk"))
+        )
+        return self.recurrences.filter(has_completed_donation).filter(
+            cancel_date__isnull=True
+        ).aggregate(total=models.Sum(models.F("amount") / models.F("interval")))[
+            "total"
+        ] or decimal.Decimal("0.00")
 
     def get_current_recurrence(self):
-        return self.recurrences.filter(cancel_date=None).order_by("-start_date").first()
+        has_completed_donation = Exists(
+            Donation.objects.filter(completed=True, recurrence_id=OuterRef("pk"))
+        )
+        return (
+            self.recurrences.filter(has_completed_donation)
+            .filter(cancel_date=None)
+            .order_by("-start_date")
+            .first()
+        )
 
     def get_recurrence_streak_start_date(self):
         """
