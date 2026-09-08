@@ -16,7 +16,7 @@
                  src="{{ respimg.src }}"
                  srcset="{{ respimg.srcset }}"
                  sizes="{{ respimg.sizes }}"
-                 {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:"" }}"{% endif %}
+                 {% if not attributes.alt %}alt="{{ picture.default_alt_text|default:picture.description|default:"" }}"{% endif %}
                  {{ instance.attributes_str }}>
         {% endwith %}
     </picture>
