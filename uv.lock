@@ -2144,7 +2144,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#ddcee29d47571e65ab9b24b3ad17d03df556d4d3" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#33a4226638db163e8813c3192bdbc0e23d7ef5d9" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2270,7 +2270,7 @@ dependencies = [
 [[package]]
 name = "froide-govplan"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-govplan.git?rev=main#7d304ae0e34e44f3bc34dce2b7e5f3c62bd64299" }
+source = { git = "https://github.com/okfde/froide-govplan.git?rev=main#94e2c04370898afca3fcdd98d2993360bd8dcdde" }
 dependencies = [
     { name = "django-admin-sortable2" },
     { name = "django-cms" },
