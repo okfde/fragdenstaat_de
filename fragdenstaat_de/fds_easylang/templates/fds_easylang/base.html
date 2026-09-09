@@ -1,7 +1,6 @@
 {% extends "cms/base.html" %}
 {% load cms_tags %}
 {% load static %}
-{% load djangocms_alias_tags %}
 {% load easylang_tags %}
 {% block body_extra_attributes %}class="easylang"{% endblock %}
 {% block top_block %}
@@ -11,7 +10,5 @@
 {% endblock %}
 {% block footer_container %}
     {% include "fds_easylang/feedback.html" %}
-    <footer class="footer" id="footer">
-        <div class="container">{% static_alias "footer_easylang" %}</div>
-    </footer>
+    {% include "snippets/footer.html" with alias="footer_easylang" hide_banner=True %}
 {% endblock footer_container %}

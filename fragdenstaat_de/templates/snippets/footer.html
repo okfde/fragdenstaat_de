@@ -1,0 +1,13 @@
+{% load djangocms_alias_tags %}
+{% load i18n %}
+{% with alias=alias|default:"footer" %}
+    {% if not hide_banner %}
+        <div class="fds-banner" data-banner="bottomBanner" hidden>{% static_alias "bottom_banner" %}</div>
+    {% endif %}
+    <footer class="footer" id="footer">
+        <div class="container">
+            <h2 class="visually-hidden">{% trans "Footer" %}</h2>
+            {% static_alias alias %}
+        </div>
+    </footer>
+{% endwith %}
