@@ -24,7 +24,7 @@
                           action="{% url "cookie_consent_decline" cookie_group.varname %}"
                           method="POST">
                         {% csrf_token %}
-                        <button class="btn btn-outline-secondary" type="submit">{% trans "Decline" %}</button>
+                        <button class="btn btn-outline-primary" type="submit">{% trans "Decline" %}</button>
                     </form>
                 {% endif %}
             </div>
