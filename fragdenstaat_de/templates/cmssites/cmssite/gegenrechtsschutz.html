@@ -1,61 +1,13 @@
-{% extends "cms/page.html" %}
-{% load djangocms_alias_tags %}
+{% extends "cmssites/grs_base.html" %}
 {% load cms_tags %}
-{% load menu_tags %}
-{% load i18n %}
-{% load static %}
 {% block meta %}
-    {# Translators: meta keywords #}
-    <meta name="keywords" content="Gegenrechtsschutz" />
-    <link rel="icon" type="image/png" href="{% static 'grs/favicon.png' %}">
+    {{ block.super }}
     {% include "fds_cms/social_meta.html" with object=request.current_page %}
 {% endblock %}
-{% block top_block %}{% endblock %}
-{% block navbar %}
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-        <div class="container-fluid">
-            <button class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown"
-                    aria-expanded="false"
-                    aria-label="{% trans "Toggle navigation" %}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            {% static_alias "grs_navbar_logo" %}
-            {% page_url "donate" as donate_url %}
-            <a href="{{ donate_url }}"
-               class="btn btn-outline-danger order-md-last ms-md-2">
-                <i class="fa fa-heart" aria-hidden="true"></i>
-                <span class="visually-hidden">{% trans "Donate" %}</span>
-                <span class="d-none d-md-inline" aria-hidden="true">{% trans "Donate" %}</span>
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav ms-auto py-3">
-                    {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
-                    <li class="nav-item d-md-none">
-                        <a href="{{ donate_url }}" class="nav-link link-danger">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                            {% trans "Donate" %}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-{% endblock %}
-{% block messages %}{% endblock %}
 {% block body %}
     {% block app_body %}
         {% block content_blog %}
             {% placeholder "content" %}
         {% endblock content_blog %}
     {% endblock %}
-{% endblock %}
-{% block footer_container %}
-    {% static_alias "grs_footer" %}
-{% endblock %}
-{% block scripts %}
-    {% include "_frontend.html" with entry_point="gegenrechtsschutz.js" %}
 {% endblock %}

@@ -1,0 +1,103 @@
+{% extends "cms/base.html" %}
+{% load djangocms_alias_tags %}
+{% load cms_tags %}
+{% load menu_tags %}
+{% load i18n %}
+{% load static %}
+{% load icons %}
+{% block meta %}
+    <meta name="keywords" content="Überbrückungsfonds" />
+    <link rel="icon" type="image/png" href="{% static 'ubf/favicon.png' %}">
+{% endblock %}
+{% block body_extra_attributes %}{{ block.super }} class="text-bg-primary"{% endblock %}
+{% block top_block %}{% endblock %}
+{% block navbar %}
+    <nav class="navbar text-bg-primary border-bottom border-merlot-75 py-0">
+        <div class="container ubf-section d-md-flex flex-wrap flex-md-nowrap text-uppercase py-3">
+            <a class="text-reset text-decoration-none flex-grow-1 "
+               href="https://ueberbrueckungsfonds.de">
+                <span class="visually-hidden">Überbrückungsfonds</span>
+                <div aria-hidden="true" class="d-flex h3 m-0 pe-md-3">
+                    {% spaceless %}
+                        Überbrückungs
+                        <div class="logo-arrow" aria-hidden="true"></div>
+                        fonds:
+                    {% endspaceless %}
+                </div>
+            </a>
+            <ul class="navbar-nav h3 flex flex-row gap-2 gap-lg-3 flex-wrap">
+                {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
+            </ul>
+        </div>
+        <div class="border-bottom border-merlot-75 w-100 order-first">
+            <div class="container ubf-section py-2">
+                <a href="https://fragdenstaat.de"
+                   target="_blank"
+                   class="link-white logo-fds">
+                    {% render_svg "img/header_logo.svg" %}
+                    <span class="visually-hidden">Ein Projekt von FragDenStaat</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+{% block messages %}{% endblock %}
+{% block footer_container %}
+    <footer id="footer" class="ubf-section">
+        <div class="row gy-3 gx-0">
+            <div class="col col-12 col-lg-7">
+                <nav class="navbar py-0">
+                    <ul class="navbar-nav h3 flex flex-row gap-2 gap-lg-3 flex-wrap text-uppercase">
+                        {% block footer_nav %}
+                            {% show_menu 0 1 0 0 "menu/bs_menu.html" %}
+                        {% endblock footer_nav %}
+                    </ul>
+                </nav>
+            </div>
+            <div class="col col-12 col-lg-5 pt-3 pt-lg-0">
+                <ul class="list-unstyled footer-socials small">
+                    <li>
+                        <a class="footer-link"
+                           href="https://chaos.social/@fragdenstaat"
+                           rel="noopener"
+                           target="_blank">
+                            {% render_svg "img/socials/mastodon.svg" %}
+                            Mastodon
+                        </a>
+                    </li>
+                    <li>
+                        <a class="footer-link"
+                           href="https://bsky.app/profile/fragdenstaat.de"
+                           rel="noopener"
+                           target="_blank">
+                            {% render_svg "img/socials/bluesky.svg" %}
+                            Bluesky
+                        </a>
+                    </li>
+                    <li>
+                        <a class="footer-link"
+                           href="https://instagram.com/fragdenstaat"
+                           rel="noopener"
+                           target="_blank">
+                            {% render_svg "img/socials/instagram.svg" %}
+                            Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a class="footer-link"
+                           href="https://www.linkedin.com/company/fragdenstaat"
+                           rel="noopener"
+                           target="_blank">
+                            {% render_svg "img/socials/linkedin.svg" %}
+                            LinkedIn
+                        </a>
+                    </li>
+                </ul>
+                {% static_alias "ubf_footer" %}
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+{% block scripts %}
+    {% include "_frontend.html" with entry_point="ubf.js" %}
+{% endblock %}
