@@ -45,6 +45,11 @@
     </nav>
 {% endblock %}
 {% block messages %}{% endblock %}
+{% block body %}
+    <div class="container py-5">
+        {% block app_body %}{% endblock %}
+    </div>
+{% endblock %}
 {% block footer_container %}
     {% static_alias "grs_footer" %}
 {% endblock %}
