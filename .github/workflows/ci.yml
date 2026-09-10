@@ -16,6 +16,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - uses: j178/prek-action@v1
+        env:
+          SKIP: makemessages-de
 
   test:
     runs-on: ubuntu-latest
@@ -37,18 +39,27 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
+      - name: Setup pixi
+        uses: prefix-dev/setup-pixi@v0.10.2
+        with:
+          cache: true
       - name: Install system-level dependencies
-        run: sudo apt-get update && sudo apt-get install libxml2-dev libxslt1-dev python3-dev libgdal-dev gdal-bin libmagic-dev libmagickwand-dev gettext libpoppler-cpp-dev
+        run: sudo apt-get update && sudo apt-get install libxml2-dev libxslt1-dev python3-dev libgdal-dev gdal-bin libmagic-dev libmagickwand-dev libpoppler-cpp-dev
       - name: Install dependencies
         run: |
           uv sync --locked
           playwright install --with-deps chromium
           pnpm install
+      - name: Check German translations are up to date
+        if: matrix.python-version == '3.13'
+        run: |
+          make checkmessagesde
+          git diff --exit-code -- '**/django.po'
       - name: Build frontend
         run: pnpm run build
       - name: Compile translations
         run: |
-          python manage.py compilemessages -i node_modules -l de
+          pixi run -- python manage.py compilemessages -i node_modules -l de
       - name: Restore database cache
         uses: actions/cache/restore@v5
         id: db_cache

@@ -178,7 +178,6 @@ msgstr "Füge Tag zu Spendis hinzu…"
 
 #: fragdenstaat_de/fds_donation/models.py
 #: fragdenstaat_de/fds_newsletter/models.py
-#, python-brace-format
 msgid "Add tag {}"
 msgstr "Füge tag {} hinzu"
 
@@ -526,7 +525,7 @@ msgstr "Sprache ändern"
 
 #: fragdenstaat_de/fds_donation/actions.py
 msgid "Change tag on donor"
-msgstr "Ändere Tag auf Spendie"
+msgstr "Ändere Tag auf Spendi"
 
 #: fragdenstaat_de/fds_newsletter/actions.py
 msgid "Change tag on subscriber"
@@ -554,7 +553,7 @@ msgstr "Prüft, ob das Abo ein bestimmtes Mailing erhalten hat"
 
 #: fragdenstaat_de/fds_newsletter/actions.py
 msgid "Check if an object has a specific tag"
-msgstr "Prüft, ob Objekt ein bestimmten Tag hat"
+msgstr "Prüft, ob Objekt einen bestimmten Tag hat"
 
 #: fragdenstaat_de/fds_newsletter/actions.py
 msgid "Check if an object is in a specific segment"
@@ -592,10 +591,6 @@ msgstr "Klicke <strong class=\"highlight\">den Bestätigungs-Link</strong> in de
 #: fragdenstaat_de/templates/header.html
 msgid "Climate Helpdesk"
 msgstr "Climate Helpdesk"
-
-#: fragdenstaat_de/templates/header.html
-msgid "Democracy"
-msgstr "Demokratie"
 
 #: fragdenstaat_de/fds_cms/templates/cms/plugins/dropdown_banner.html
 #: fragdenstaat_de/fds_donation/templates/fds_donation/includes/banktransfer_modal.html
@@ -885,6 +880,10 @@ msgstr "Pausieren, falls gerade angemailt"
 #: fragdenstaat_de/fds_mailing/actions.py
 msgid "Delays next action if an email was sent recently."
 msgstr "Pausiert, falls eine E-Mail kürzlich gesendet wurde."
+
+#: fragdenstaat_de/templates/header.html
+msgid "Democracy"
+msgstr "Demokratie"
 
 #: fragdenstaat_de/fds_donation/forms.py
 msgid "Denmark"
@@ -1214,8 +1213,9 @@ msgid "Enter a number with up to two decimal places."
 msgstr "Gibt eine Zahl mit bis zu zwei Dezimalstellen ein."
 
 #: fragdenstaat_de/fds_cms/models.py
-msgid "Enter an icon name from the <a href=\"https://fontawesome.com/v4.7.0/icons/\" target=\"_blank\">FontAwesome 4 icon set</a>"
-msgstr "Icon Name aus der <a href=\"https://fontawesome.com/v4.7.0/icons/\" target=\"_blank\">Font Awesome 4 Icon Liste</a>"
+#, python-brace-format
+msgid "Enter an icon name from the <a href=\"{url}\" target=\"_blank\">FontAwesome 4 icon set</a>"
+msgstr "Icon-Name aus der <a href=\"{url}\" target=\"_blank\">Font Awesome 4 Icon Liste</a>"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_detail.html
 msgid "Enter personal data for donation receipts"
@@ -1500,7 +1500,7 @@ msgstr "Deutschland"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_login_link_form.html
 msgid "Get a link to your donor profile"
-msgstr "Erhalten einen Link zu Deinem Spendenprofil"
+msgstr "Erhalte einen Link zu Deinem Spendenprofil"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_login_link_form.html
 msgid "Get a link to your donor profile!"
@@ -1560,12 +1560,10 @@ msgid "Has active recurrences"
 msgstr "Hat aktive Dauerspenden"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, python-brace-format
 msgid "Has donated since {}"
 msgstr "Hat gespendet seit {}"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, python-brace-format
 msgid "Has not donated since {}"
 msgstr "Hat nicht gespendet seit {}"
 
@@ -1792,7 +1790,6 @@ msgid "If doesn't have tag"
 msgstr "Falls Tag nicht vorhanden"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, python-brace-format
 msgid "If doesn't have tag '{}'"
 msgstr "Falls Tag ‘{}’ nicht vorhanden"
 
@@ -1813,7 +1810,6 @@ msgid "If has tag"
 msgstr "Falls Tag vorhanden"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, python-brace-format
 msgid "If has tag '{}'"
 msgstr "Falls Tag ‘{}’ vorhanden"
 
@@ -1822,7 +1818,6 @@ msgid "If hasn't recently donated"
 msgstr "Falls nicht kürzlich gespendet"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, python-brace-format
 msgid "If in segment '{}'"
 msgstr "Falls im Segment ‘{}’"
 
@@ -1835,7 +1830,6 @@ msgid "If not in segment"
 msgstr "Falls nicht im Segment"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, python-brace-format
 msgid "If not in segment '{}'"
 msgstr "Falls nicht im Segment ‘{}’"
 
@@ -1918,12 +1912,10 @@ msgid "Interval"
 msgstr "Turnus"
 
 #: fragdenstaat_de/fds_donation/admin_utils.py
-#, python-brace-format
 msgid "Invalid amount format: '{}'. Please enter a valid number."
 msgstr "Ungültiger Betrag: '{}'. Bitte geben Sie eine gültige Zahl ein."
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, python-brace-format
 msgid "Invalid form: {}"
 msgstr "Ungültiges Formular: {}"
 
@@ -2466,7 +2458,6 @@ msgid "One click FoiRequest form"
 msgstr "Ein-Klick-Anfrage-Formular"
 
 #: fragdenstaat_de/fds_cms/models.py
-#, python-brace-format
 msgid "One click form for {}"
 msgstr "Ein-Klick Formular für {}"
 
@@ -2971,7 +2962,6 @@ msgstr "Entferne Tag"
 
 #: fragdenstaat_de/fds_donation/models.py
 #: fragdenstaat_de/fds_newsletter/models.py
-#, python-brace-format
 msgid "Remove tag {}"
 msgstr "Entferne Tag {}"
 
@@ -3191,7 +3181,6 @@ msgid "Sending %(mailing)s to %(count)d people"
 msgstr "%(mailing)s werden an %(count)d Menschen versendet"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, python-brace-format
 msgid "Sending JZWB email to {} donors."
 msgstr "Sende JZWB-E-Mail an {} Spender*innen."
 
@@ -3206,12 +3195,10 @@ msgid "Sending to %(recipient_count)s newsletter subscribers of %(segment_count)
 msgstr "Sended an %(recipient_count)s Newsletter-Abonnierende aus %(segment_count)s Segmenten"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, python-brace-format
 msgid "Sending... {}"
 msgstr "Sende… {}"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-#, python-brace-format
 msgid "Sent {}"
 msgstr "Gesendet {}"
 
@@ -3401,7 +3388,7 @@ msgstr "Starte Workflow für Spender*innen…"
 
 #: fragdenstaat_de/fds_newsletter/admin.py
 msgid "Start workflow for subscribers..."
-msgstr "Starte Workflow für Abonennties…"
+msgstr "Starte Workflow für Abonnenties…"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Stats"
@@ -3461,7 +3448,6 @@ msgid "Subscribe to newsletter"
 msgstr "Newsletter abonnieren"
 
 #: fragdenstaat_de/fds_newsletter/models.py
-#, python-brace-format
 msgid "Subscribe to newsletter {} ({})"
 msgstr "Newsletter {} abonnieren ({})"
 
@@ -3647,7 +3633,6 @@ msgid "The <strong>donation receipts</strong> that we send at the beginning of n
 msgstr "Die <strong>Spendenbescheinigung</strong>, die wir zu Beginn des kommenden Jahres versenden, können wir Dir nur an eine <strong>bestätigte E-Mail-Adresse</strong> zukommen lassen!"
 
 #: fragdenstaat_de/fds_donation/widgets.py
-#, python-brace-format
 msgid "The amount needs to be at least {}."
 msgstr "Der Betrag muss mindestens {} sein."
 
@@ -3682,7 +3667,6 @@ msgid "The status of donations made by bank transfer is updated at the beginning
 msgstr "Der Status von Spenden per Überweisung aktualisiert sich erst zu Beginn des Folgemonats, da erst dann die Kontoauszüge abgeglichen werden."
 
 #: fragdenstaat_de/fds_mailing/forms.py
-#, python-brace-format
 msgid "The sum of the groups must not be greater than 100. You entered {}."
 msgstr "Die Summe der Gruppen darf nicht größer als 100 sein. Du hast {} eingegeben."
 
@@ -3876,7 +3860,6 @@ msgstr[0] "Neuerer Artikel:"
 msgstr[1] "Neuere Artikel:"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, python-brace-format
 msgid "Upgrade Recurrence ({})"
 msgstr "Dauerspende-Erhöhung ({})"
 
@@ -4192,7 +4175,6 @@ msgid "Your mailing is being sent."
 msgstr "Ihr Mailing wird versendet."
 
 #: fragdenstaat_de/fds_donation/forms.py
-#, python-brace-format
 msgid "Your new amount every {} months:"
 msgstr "Dein neuer Beitrag alle {} Monate:"
 
@@ -4355,7 +4337,6 @@ msgid "campaign/"
 msgstr "kampagne/"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, python-brace-format
 msgid "canceled on {}"
 msgstr "gekündigt am {}"
 
@@ -4507,8 +4488,9 @@ msgid "e.g. 20,20"
 msgstr "z.B. 20,20"
 
 #: fragdenstaat_de/fds_donation/forms.py
-msgid "e.g. name@example.org"
-msgstr "z.B. name@beispiel.de"
+#, python-brace-format
+msgid "e.g. {email}"
+msgstr "z.B. {email}"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "email already confirmed"
@@ -4544,6 +4526,13 @@ msgstr "alle sechs Monate"
 #: fragdenstaat_de/fds_donation/utils.py
 msgid "every year"
 msgstr "jedes Jahr"
+
+#. Translators: Domain part (after the "@") of the example email address
+#. shown as a placeholder in email input fields.
+#: fragdenstaat_de/fds_donation/forms.py
+msgctxt "example email address"
+msgid "example.org"
+msgstr "beispiel.de"
 
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "excerpt"
@@ -4666,6 +4655,13 @@ msgstr "Dauerspende geändert"
 #: fragdenstaat_de/fds_donation/models.py
 msgid "monthly"
 msgstr "monatlich"
+
+#. Translators: Local part (before the "@") of the example email address
+#. shown as a placeholder in email input fields.
+#: fragdenstaat_de/fds_donation/forms.py
+msgctxt "example email address"
+msgid "name"
+msgstr "name"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "name"
@@ -4992,12 +4988,10 @@ msgstr ""
 "{url}"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, python-brace-format
 msgid "{} days ago"
 msgstr "{} Tage her"
 
 #: fragdenstaat_de/fds_newsletter/admin.py
-#, python-brace-format
 msgid "{} subscriber imports have been queued."
 msgstr "{} Abonnement-Imports werden gestartet."
 
