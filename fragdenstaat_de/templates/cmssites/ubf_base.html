@@ -42,6 +42,11 @@
     </nav>
 {% endblock %}
 {% block messages %}{% endblock %}
+{% block body %}
+    <div class="ubf-section">
+        {% block app_body %}{% endblock %}
+    </div>
+{% endblock %}
 {% block footer_container %}
     <footer id="footer" class="ubf-section">
         <div class="row gy-3 gx-0">
