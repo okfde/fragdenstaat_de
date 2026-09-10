@@ -6,4 +6,5 @@ def theme_settings(request):
         "SENTRY_JS_URL": settings.SENTRY_JS_URL,
         "MATOMO_SITE_ID": settings.MATOMO_SITE_ID,
         "EASYLANG_ENABLED": getattr(settings, "EASYLANG_ENABLED", False),
+        "CMSSITE_BASE_TEMPLATE": getattr(settings, "CMSSITE_BASE_TEMPLATE", None),
     }

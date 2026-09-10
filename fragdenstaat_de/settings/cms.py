@@ -482,6 +482,8 @@ class GegenrechtsschutzMixin:
     MATOMO_SITE_ID = "57"
     SENTRY_JS_URL = ""
 
+    CMSSITE_BASE_TEMPLATE = "cmssites/grs_base.html"
+
     CMS_TEMPLATES = [
         ("cmssites/cmssite/gegenrechtsschutz.html", "Gegenrechtsschutz Template"),
     ]
@@ -496,6 +498,8 @@ class UbfMixin:
     SITE_LOGO = ""
     MATOMO_SITE_ID = "60"
     SENTRY_JS_URL = ""
+
+    CMSSITE_BASE_TEMPLATE = "cmssites/ubf_base.html"
 
     CMS_TEMPLATES = [
         ("cmssites/cmssite/ubf.html", "Ubf Template"),
