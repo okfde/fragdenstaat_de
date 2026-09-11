@@ -107,6 +107,11 @@ def get_latest_by_email(attr: str, default=""):
                 [d for d in donors if d.email and d.email_confirmed],
                 key=lambda x: x.email_confirmed,
                 reverse=True,
+            )
+            + sorted(
+                [d for d in donors if d.email and not d.email_confirmed],
+                key=lambda x: x.id,
+                reverse=True,
             ),
             default=default,
             attr=attr,
