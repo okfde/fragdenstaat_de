@@ -168,6 +168,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         StartingAndActiveRecurrencesFilter,
         DonorTotalAmountPerYearFilter,
         make_rangefilter("recurring_amount", _("recurring monthly amount")),
+        make_rangefilter("donation_count", _("received donation count")),
         make_daterangefilter("recurrence_streak_start", _("Recurrence streak start")),
         make_daterangefilter("last_donation", _("Last donation")),
         make_daterangefilter("first_donation", _("First donation")),
