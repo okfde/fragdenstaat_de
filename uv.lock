@@ -723,34 +723,34 @@ wheels = [
 
 [package.optional-dependencies]
 cudart = [
-    { name = "nvidia-cuda-runtime", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-runtime" },
 ]
 cufft = [
-    { name = "nvidia-cufft", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cufft" },
 ]
 cufile = [
-    { name = "nvidia-cufile", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cufile" },
 ]
 cupti = [
-    { name = "nvidia-cuda-cupti", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-cupti" },
 ]
 curand = [
-    { name = "nvidia-curand", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-curand" },
 ]
 cusolver = [
-    { name = "nvidia-cusolver", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cusolver" },
 ]
 cusparse = [
-    { name = "nvidia-cusparse", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cusparse" },
 ]
 nvjitlink = [
-    { name = "nvidia-nvjitlink", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-nvjitlink" },
 ]
 nvrtc = [
-    { name = "nvidia-cuda-nvrtc", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-nvrtc" },
 ]
 nvtx = [
-    { name = "nvidia-nvtx", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-nvtx" },
 ]
 
 [[package]]
@@ -866,7 +866,7 @@ wheels = [
 
 [[package]]
 name = "django-cms"
-version = "5.0.7"
+version = "5.0.9"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
@@ -878,9 +878,9 @@ dependencies = [
     { name = "packaging" },
     { name = "setuptools" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/94/04/957044a4eb103368c5cf4084d649f863d0b3c3abda58ea93596d1623d287/django_cms-5.0.7.tar.gz", hash = "sha256:dbb9cda5c1e4a9b436c1149479db4722fda8404196cfeb2ad0d5cb1a2e228cc8", size = 5464398, upload-time = "2026-05-08T14:12:14.901Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/cc/bb/d848e100cc3fe2b54a5c81d30cd604ea918ace9d749af1050aa131990a04/django_cms-5.0.9.tar.gz", hash = "sha256:89f362910d152781e859a9cec1d223f87c95c814ea19c4e967736b9a5d1c4145", size = 5301641, upload-time = "2026-07-10T16:24:08.903Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e4/25/dd004f876c48da2056ecf67e3d78fd31b0ef4a6dde2838a5d33b53056613/django_cms-5.0.7-py2.py3-none-any.whl", hash = "sha256:68dddfbbd7268066745db50eb63438468cff4917a3b8bb9b08e629ef9e233d94", size = 3366163, upload-time = "2026-05-08T14:12:12.285Z" },
+    { url = "https://files.pythonhosted.org/packages/81/29/2651e7a8c11c7322cbacb655e1f1ee447b609587a7b9c226a3b4875e009f/django_cms-5.0.9-py2.py3-none-any.whl", hash = "sha256:5c37b691c295604b10ccafdf9245bed109c9d54a92c39aa6558f65baca84f972", size = 3244619, upload-time = "2026-07-10T16:24:06.708Z" },
 ]
 
 [[package]]
