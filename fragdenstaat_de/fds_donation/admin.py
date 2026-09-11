@@ -1249,6 +1249,7 @@ class DonationGiftOrderAdmin(admin.ModelAdmin):
         make_nullfilter("shipped", _("has shipped")),
         make_nullfilter("processing", _("is processing")),
         make_daterangefilter("timestamp", _("order timestamp")),
+        "donation_gift__category_slug",
         "donation_gift",
     )
     search_fields = ("email", "donation__donor__email", "donation_gift__name")
