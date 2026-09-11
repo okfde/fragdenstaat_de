@@ -11,7 +11,7 @@ from django.contrib.postgres.fields import HStoreField
 from django.core.exceptions import ValidationError
 from django.db import connection, models
 from django.db.models import Exists, OuterRef
-from django.db.models.functions import RowNumber
+from django.db.models.functions import RowNumber, Trunc
 from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.formats import date_format, number_format
@@ -354,6 +354,23 @@ class Donor(models.Model):
             recently_donated = timezone.now() - self.last_donation <= year
         return recently_donated
 
+    def get_receiving_donations(self):
+        return annotate_donations_with_receiving(self.donations)
+
+    def has_recently_donated(self, days_since_donation=180):
+        stats = (
+            self.get_receiving_donations()
+            .filter(receiving=True)
+            .aggregate(last_receiving_donation=models.Max("timestamp"))
+        )
+        if stats["last_receiving_donation"]:
+            days_since_last_receiving_donation = (
+                timezone.now() - stats["last_receiving_donation"]
+            ).days
+            if days_since_last_receiving_donation < days_since_donation:
+                return False
+        return True
+
     @property
     def is_eligible_for_gift(self):
         return self.recurring_amount >= 10
@@ -613,12 +630,15 @@ class Recurrence(models.Model):
         self.amount = self.subscription.plan.amount
         self.save(update_fields=["interval", "amount", "last_upgrade"])
 
-    def should_upgrade(self, days_between_upgrade):
+    def should_upgrade(self, days_between_upgrade=180):
         if not days_between_upgrade:
             return True
         last_upgrade = self.last_upgrade or self.start_date
         days_since = (timezone.now() - last_upgrade).days
-        return days_between_upgrade < days_since
+        could_upgrade = days_between_upgrade < days_since
+        if not could_upgrade:
+            return False
+        return self.donor.has_recently_donated(days_between_upgrade)
 
 
 class DonationManager(models.Manager):
@@ -1371,3 +1391,37 @@ class RecentlyDonatedActionConfig(ActionBase):
             return _("Has not donated since {}").format(since)
         else:
             return _("Has donated since {}").format(since)
+
+
+def annotate_donations_with_receiving(
+    donations: models.QuerySet[Donation],
+) -> models.QuerySet[Donation]:
+    """
+    Annotates a donation queryset of donations with a boolean field 'receiving'
+    that indicates whether the donation is still expected to be received or has
+    already been received.
+    """
+    return donations.annotate(
+        month_start=Trunc("timestamp", "month", output_field=models.DateTimeField())
+    ).annotate(
+        receiving=models.ExpressionWrapper(
+            models.Q(received_timestamp__isnull=False)
+            | (
+                models.Q(method="banktransfer")
+                & models.Q(month_start__gt=timezone.now() - timedelta(days=35))
+            )
+            | (
+                models.Q(method="sepa")
+                & models.Q(timestamp__gt=timezone.now() - timedelta(days=24))
+                & ~models.Q(
+                    payment__status__in=[
+                        PaymentStatus.REJECTED,
+                        PaymentStatus.REFUNDED,
+                        PaymentStatus.ERROR,
+                        PaymentStatus.CANCELED,
+                    ]
+                )
+            ),
+            output_field=models.BooleanField(),
+        )
+    )
