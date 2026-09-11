@@ -308,6 +308,10 @@ msgstr "Artikel-Schlagworte"
 msgid "Article archive"
 msgstr "Artikel-Archiv"
 
+#: fragdenstaat_de/fds_blog/templates/fds_blog/_article_detail.html
+msgid "Article content"
+msgstr "Artikel-Inhalt"
+
 #: fragdenstaat_de/fds_blog/cms_toolbars.py
 msgid "Article overview"
 msgstr "Artikel-Übersicht"
@@ -1379,6 +1383,10 @@ msgstr "Follow-Mailing"
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Follow template"
 msgstr "Follow Template"
+
+#: fragdenstaat_de/templates/snippets/footer.html
+msgid "Footer"
+msgstr "Fußzeile"
 
 #: fragdenstaat_de/fds_cms/contact.py
 msgid "For example a private email address"

@@ -6,13 +6,13 @@
     {{ block.super }}
 {% endblock title %}
 {% block blog_list_header %}
-    <h2>
+    <h1 class="h2">
         {% if form.q.value %}
             {% blocktranslate with q=form.q.value %}Search results for “{{ q }}”{% endblocktranslate %}
         {% else %}
             {% translate "Search articles" %}
         {% endif %}
-    </h2>
+    </h1>
     <form class="row froide-auto-submit row-gap-2"
           role="search"
           method="get"
@@ -40,7 +40,9 @@
     <div class="row my-3">
         <div class="col-6">{% search_alert_form query=form.q.value %}</div>
         <div class="col-6 text-end">
-            {% blocktrans with num=page_obj.paginator.formatted_count count counter=count %}One result{% plural %}{{ num }} results{% endblocktrans %}
+            <h2 class="heading-reset">
+                {% blocktrans with num=page_obj.paginator.formatted_count count counter=count %}One result{% plural %}{{ num }} results{% endblocktrans %}
+            </h2>
         </div>
     </div>
 {% endblock %}

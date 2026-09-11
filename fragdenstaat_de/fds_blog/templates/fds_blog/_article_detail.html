@@ -72,6 +72,7 @@
     {% endif %}
 {% endblock %}
 {% block article_content %}
+    <h2 class="visually-hidden">{% trans "Article content" %}</h2>
     {% comment %}
         if the article is in edit mode, or the article has manually inserted ads (via cms),
         don't automatically insert ads
@@ -97,14 +98,14 @@
                 {% if not hide_share_links %}
                     <div class="container-lg">
                         <div class="d-md-flex align-items-center">
-                            <h3 class="small text-secondary m-0 me-md-3">{% trans "Share article" %}</h3>
+                            <h2 class="h3 small text-secondary m-0 me-md-3">{% trans "Share article" %}</h2>
                             {% include "fds_blog/includes/share_article.html" with id="article-footer" %}
                         </div>
                     </div>
                 {% endif %}
                 {% if article.tags.count > 0 %}
                     <div class="container-lg d-flex flex-wrap align-items-center mt-3">
-                        <h3 class="small text-secondary m-0">{% trans "Tags" %}</h3>
+                        <h2 class="h3 small text-secondary m-0">{% trans "Tags" %}</h2>
                         <ul class="list-unstyled d-contents">
                             {% for tag in article.tags.all %}
                                 <li class="ms-2">
@@ -121,25 +122,25 @@
             <section class="vstack gap-4">
                 {% if article.credits %}
                     <div class="container-lg">
-                        <h3 class="small text-secondary">{% translate "Credits" %}</h3>
+                        <h2 class="h3 small text-secondary">{% translate "Credits" %}</h2>
                         <div class="border border-2 border-gray-300 p-3 tight-margin">{{ article.credits | linebreaksbr | markdown }}</div>
                     </div>
                 {% endif %}
                 {# Separate authors into two groups: authors_with_profiles & authors_without_profiles #}
                 {% if authors_with_profiles %}
                     <div class="container-lg">
-                        <h3 class="small text-secondary">
+                        <h2 class="h3 small text-secondary">
                             {% blocktranslate trimmed count counter=authors_with_profiles|length %}
                                 About the author
                             {% plural %}
                                 About the authors
                             {% endblocktranslate %}
-                        </h3>
+                        </h2>
                         <div class="row row-cols-1 row-cols-md-2 g-3">
                             {% for author in authors_with_profiles %}
                                 <div class="col d-flex">
                                     <div class="w-100 border border-2 border-gray-300 p-3 tight-margin">
-                                        <h4 class="fs-6">{{ author.get_full_name }}</h4>
+                                        <h3 class="h4 fs-6">{{ author.get_full_name }}</h3>
                                         {{ author.user.profile_text | markdown }}
                                     </div>
                                 </div>
@@ -149,7 +150,7 @@
                 {% endif %}
                 {% if authors_without_profiles %}
                     <div class="container-lg mt-4">
-                        <h3 class="small text-secondary">
+                        <h2 class="h3 small text-secondary">
                             {% if authors_with_profiles %}
                                 {% blocktranslate trimmed count counter=authors_without_profiles|length %}
                                     Further author
@@ -163,7 +164,7 @@
                                     Authors
                                 {% endblocktranslate %}
                             {% endif %}
-                        </h3>
+                        </h2>
                         <ul class="list-unstyled d-md-flex flex-wrap gap-3">
                             {% for author in authors_without_profiles %}<li class="mb-1">{{ author.get_full_name }}</li>{% endfor %}
                         </ul>
@@ -196,13 +197,13 @@
             {% if article_suggestions %}
                 <section>
                     <div class="container-lg">
-                        <h3 class="small text-secondary">
+                        <h2 class="h3 small text-secondary">
                             {% blocktranslate trimmed count counter=article_suggestions|length %}
                                 Related article
                             {% plural %}
                                 Related articles
                             {% endblocktranslate %}
-                        </h3>
+                        </h2>
                         <div class="row g-3 g-lg-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
                             {% for article in article_suggestions %}
                                 {% include "fds_blog/includes/blog_item_short.html" with article=article %}
