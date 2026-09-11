@@ -1,11 +1,13 @@
 {% load i18n %}
 <div class="position-relative">
-    <h3 class="h6 mb-2">
+    {% with heading_tag=heading_tag|default:"h3" %}
+        <{{ heading_tag }} class="h6 mb-2">
         {% if article.kicker %}
             <span class="d-block mb-1 text-body-secondary fw-normal small">{{ article.kicker }}<span class="visually-hidden">:</span></span>
         {% endif %}
         <a href="{{ article.get_absolute_url }}" class="stretched-link">{{ article.title }}</a>
-    </h3>
+        </{{ heading_tag }}>
+    {% endwith %}
     <div class="small text-secondary">
         {% with authors=article.authors.all %}
             {% if authors %}
