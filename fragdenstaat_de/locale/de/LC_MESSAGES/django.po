@@ -2430,6 +2430,7 @@ msgid "Normal"
 msgstr "Normal"
 
 #: fragdenstaat_de/fds_donation/admin.py
+#: fragdenstaat_de/fds_newsletter/admin.py
 msgid "Not available"
 msgstr "Nicht verfügbar"
 
@@ -3195,12 +3196,12 @@ msgid "Sending to %(recipient_count)s newsletter subscribers of %(segment_count)
 msgstr "Sended an %(recipient_count)s Newsletter-Abonnierende aus %(segment_count)s Segmenten"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-msgid "Sending... {}"
-msgstr "Sende… {}"
+msgid "Sending...\\u202f{}"
+msgstr "Sende...\\u202f{}"
 
 #: fragdenstaat_de/fds_mailing/admin.py
-msgid "Sent {}"
-msgstr "Gesendet {}"
+msgid "Sent\\u202f{}"
+msgstr "Gesendet\\u202f{}"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Set Password Form"
@@ -4656,16 +4657,16 @@ msgstr "Dauerspende geändert"
 msgid "monthly"
 msgstr "monatlich"
 
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "name"
+msgstr "Name"
+
 #. Translators: Local part (before the "@") of the example email address
 #. shown as a placeholder in email input fields.
 #: fragdenstaat_de/fds_donation/forms.py
 msgctxt "example email address"
 msgid "name"
 msgstr "name"
-
-#: fragdenstaat_de/fds_newsletter/models.py
-msgid "name"
-msgstr "Name"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "negate tags"
@@ -4779,6 +4780,10 @@ msgstr "vierteljährlich"
 #: fragdenstaat_de/fds_mailing/models.py
 msgid "ready"
 msgstr "bereit"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "received donation count"
+msgstr "Anzahl erhaltener Spenden"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "recurring amount"
@@ -7432,11 +7437,11 @@ msgstr "❌ Spende abbrechen"
 #~ msgid "Sending to newsletter subscribers of %(segment_count)s segments"
 #~ msgstr "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
 
-#~ msgid "Sending...\\u202f{}"
-#~ msgstr "Sende...\\u202f{}"
+#~ msgid "Sending... {}"
+#~ msgstr "Sende… {}"
 
-#~ msgid "Sent\\u202f{}"
-#~ msgstr "Gesendet\\u202f{}"
+#~ msgid "Sent {}"
+#~ msgstr "Gesendet {}"
 
 #~ msgid "Set Concrete Law"
 #~ msgstr "Konkretes Gesetz festlegen"
