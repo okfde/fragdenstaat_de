@@ -4677,16 +4677,16 @@ msgstr "Dauerspende geändert"
 msgid "monthly"
 msgstr "monatlich"
 
-#: fragdenstaat_de/fds_newsletter/models.py
-msgid "name"
-msgstr "Name"
-
 #. Translators: Local part (before the "@") of the example email address
 #. shown as a placeholder in email input fields.
 #: fragdenstaat_de/fds_donation/forms.py
 msgctxt "example email address"
 msgid "name"
 msgstr "name"
+
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "name"
+msgstr "Name"
 
 #: fragdenstaat_de/fds_newsletter/models.py
 msgid "negate tags"
