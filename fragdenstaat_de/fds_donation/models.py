@@ -543,8 +543,8 @@ class Recurrence(models.Model):
             start=date_format(self.start_date, "SHORT_DATE_FORMAT"),
         ) + (
             " ({})".format(
-                _("canceled on {}").format(
-                    date_format(self.cancel_date, "SHORT_DATE_FORMAT")
+                _("canceled on {date}").format(
+                    date=date_format(self.cancel_date, "SHORT_DATE_FORMAT")
                 )
             )
             if self.cancel_date
@@ -1354,7 +1354,9 @@ class UpgradeRecurrenceFormCMSPlugin(CMSPlugin):
     next_url = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return _("Upgrade Recurrence ({})").format(self.choice_count)
+        return _("Upgrade Recurrence ({choice_count})").format(
+            choice_count=self.choice_count
+        )
 
 
 class CheckDonorTagCMSPlugin(CMSPlugin):
@@ -1371,9 +1373,9 @@ class CheckDonorTagCMSPlugin(CMSPlugin):
 
     def __str__(self):
         if self.negate:
-            return _("Donor doesn't have tag '{}'").format(self.tag)
+            return _("Donor doesn't have tag '{tag}'").format(tag=self.tag)
         else:
-            return _("Donor has tag '{}'").format(self.tag)
+            return _("Donor has tag '{tag}'").format(tag=self.tag)
 
 
 class DonorTagActionConfig(ActionBase):
@@ -1392,9 +1394,9 @@ class DonorTagActionConfig(ActionBase):
 
     def __str__(self):
         if self.remove:
-            return _("Remove tag {}").format(self.tag)
+            return _("Remove tag {tag}").format(tag=self.tag)
         else:
-            return _("Add tag {}").format(self.tag)
+            return _("Add tag {tag}").format(tag=self.tag)
 
 
 class RecentlyDonatedActionConfig(ActionBase):
@@ -1407,13 +1409,13 @@ class RecentlyDonatedActionConfig(ActionBase):
     )
 
     def __str__(self):
-        since = _("{} days ago").format(self.since_days)
+        since = _("{days} days ago").format(days=self.since_days)
         if self.since_date:
             since = formats.date_format(self.since_date, "SHORT_DATETIME_FORMAT")
         if self.negate:
-            return _("Has not donated since {}").format(since)
+            return _("Has not donated since {since}").format(since=since)
         else:
-            return _("Has donated since {}").format(since)
+            return _("Has donated since {since}").format(since=since)
 
 
 def annotate_donations_with_receiving(
