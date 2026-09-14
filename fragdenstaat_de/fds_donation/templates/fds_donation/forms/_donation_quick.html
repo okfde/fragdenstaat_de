@@ -1,10 +1,10 @@
 {% load i18n %}
 <div class="quick-payment-container mb-3" hidden>
     {% if not form.quick_payment_only %}
-        <div class="border rounded p-3 mb-3">
-            <h4>{% translate "No time? Donate with one click!" %}</h4>
+        <fieldset class="border rounded p-3 mb-3">
+            <legend class="h4">{% translate "No time? Donate with one click!" %}</legend>
             {% include "froide_payment/payment/quickpayment.html" with amount=form.amount.value interval=form.interval.value %}
-        </div>
+        </fieldset>
     {% else %}
         {% include "froide_payment/payment/quickpayment.html" with amount=form.amount.value interval=form.interval.value %}
     {% endif %}

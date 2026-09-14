@@ -1,7 +1,12 @@
 {% load i18n %}
 {% load cms_tags %}
 {# size can be sm, lg or xl, which will adjust the heading font size #}
-{% with size=size|default:"lg" %}
+{% with size=size|default:"lg" heading_tag=heading_tag|default:"h3" %}
+    {% if size == "sm" %}
+        {% firstof "h5" as heading_class %}
+    {% elif size == "lg" %}
+        {% firstof "h4" as heading_class %}
+    {% endif %}
     <div>
         {% if hide_date != True %}
             <div class="text-end small text-secondary">
@@ -10,12 +15,12 @@
                 </time>
             </div>
         {% endif %}
-        <h3 class="{% if size == "lg" %}h4{% elif size == "sm" %}h5{% endif %} mt-0 mb-2">
-            {% if article.kicker %}
-                <span class="d-block mb-1 text-body-secondary fw-normal fs-base hyphens-auto">{{ article.kicker }}<span class="visually-hidden">:</span></span>
-            {% endif %}
-            <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
-        </h3>
+        <{{ heading_tag }} class="{{ heading_class }} mt-0 mb-2">
+        {% if article.kicker %}
+            <span class="d-block mb-1 text-body-secondary fw-normal fs-base hyphens-auto">{{ article.kicker }}<span class="visually-hidden">:</span></span>
+        {% endif %}
+        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+        </{{ heading_tag }}>
     </div>
     <div class="tight-margin">
         {% if article.query_highlight %}

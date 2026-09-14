@@ -12,9 +12,9 @@
                 </div>
             {% endif %}
             <div class="flex-grow-1 tight-margin p-3">
-                <h5>
+                <h3 class="h5">
                     <a href="{{ user.get_absolute_url }}">{{ user.get_full_name }}</a>
-                </h5>
+                </h3>
                 {% if user.profile_text %}
                     {% if user.is_staff %}
                         {{ user.profile_text|markdown }}
