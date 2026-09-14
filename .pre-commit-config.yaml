@@ -38,6 +38,11 @@ repos:
         language: python
         entry: scripts/enforce_blocktrans_trimmed.py
         files: \.html$
+      - id: gettext-named-placeholders
+        name: Ensure translatable strings use named placeholders
+        language: python
+        entry: scripts/enforce_named_placeholders.py
+        files: \.py$
 
   - repo: local
     hooks:
