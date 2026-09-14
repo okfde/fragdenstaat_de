@@ -21,13 +21,11 @@ commitdependencies: dependencies
 MAKEMESSAGES_OPTS = --ignore public --ignore froide-env --ignore node_modules --ignore htmlcov --ignore src --add-location file --no-wrap --sort-output --keep-header
 MAKEMESSAGES_EXTRA_OPTS =
 
-PIXI = $(shell command -v pixi 2> /dev/null || echo $(HOME)/.pixi/bin/pixi)
-
 messagesde:
-	$(PIXI) run -- python manage.py extendedmakemessages -l de $(MAKEMESSAGES_OPTS) $(MAKEMESSAGES_EXTRA_OPTS)
+	python manage.py extendedmakemessages -l de $(MAKEMESSAGES_OPTS) $(MAKEMESSAGES_EXTRA_OPTS)
 
 messagesls:
-	$(PIXI) run -- python manage.py extendedmakemessages -l de_LS $(MAKEMESSAGES_OPTS)
+	python manage.py extendedmakemessages -l de_LS $(MAKEMESSAGES_OPTS)
 
 checkmessagesde:
 	$(MAKE) messagesde MAKEMESSAGES_EXTRA_OPTS="--no-untranslated --no-fuzzy"

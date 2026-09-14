@@ -10,7 +10,6 @@ public/
 fds-env/
 favicon-result.json
 node_modules/
-.pixi/
 froide/
 data/
 *.map
