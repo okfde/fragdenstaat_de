@@ -723,34 +723,34 @@ wheels = [
 
 [package.optional-dependencies]
 cudart = [
-    { name = "nvidia-cuda-runtime", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-runtime" },
 ]
 cufft = [
-    { name = "nvidia-cufft", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cufft" },
 ]
 cufile = [
-    { name = "nvidia-cufile", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cufile" },
 ]
 cupti = [
-    { name = "nvidia-cuda-cupti", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-cupti" },
 ]
 curand = [
-    { name = "nvidia-curand", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-curand" },
 ]
 cusolver = [
-    { name = "nvidia-cusolver", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cusolver" },
 ]
 cusparse = [
-    { name = "nvidia-cusparse", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cusparse" },
 ]
 nvjitlink = [
-    { name = "nvidia-nvjitlink", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-nvjitlink" },
 ]
 nvrtc = [
-    { name = "nvidia-cuda-nvrtc", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-nvrtc" },
 ]
 nvtx = [
-    { name = "nvidia-nvtx", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-nvtx" },
 ]
 
 [[package]]
@@ -1049,7 +1049,7 @@ wheels = [
 [[package]]
 name = "django-filingcabinet"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#53fe999d9c984bed84bf0e76aca5d0dab9d2954b" }
+source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#84a51f43cf3389f6978274653284c9f7fb012086" }
 dependencies = [
     { name = "celery" },
     { name = "django" },
@@ -2144,7 +2144,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#7c862ca4c9c7d7ea62b56b8f8bb5c3e5500a5076" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#9e0abc06390cb227f1fdfbd88d2f735eeabfc330" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2242,7 +2242,7 @@ dependencies = [
 [[package]]
 name = "froide-exam"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-exam.git?rev=main#161f78ea19981ae1189b8886b205bc6fe4aa9eae" }
+source = { git = "https://github.com/okfde/froide-exam.git?rev=main#3e74b262612d2db38c8db339c2fec19143865759" }
 
 [[package]]
 name = "froide-fax"
