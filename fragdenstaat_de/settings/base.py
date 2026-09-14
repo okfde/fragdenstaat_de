@@ -289,6 +289,7 @@ class FragDenStaatBase(German, Base):
         "IsRecentDonor",
         "IsNotRecentDonor",
         "HasRecentlyUpgraded",
+        "CheckDonorTag",
         "HasNotRecentlyUpgraded",
         "ContactAllowedDonor",
         "ContactNotAllowedDonor",
