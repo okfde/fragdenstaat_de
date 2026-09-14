@@ -242,6 +242,8 @@ admin.site.register(Contribution, ContributionAdmin)
 def make_tag_autocomplete_admin(model: type[Model], url_name: str):
     @admin.register(model)
     class TagAutocompleteAdmin(admin.ModelAdmin):
+        search_fields = ("name",)
+
         def get_urls(self):
             urls = super().get_urls()
             my_urls = [
