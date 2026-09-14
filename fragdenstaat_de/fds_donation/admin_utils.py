@@ -116,8 +116,8 @@ class DonorTotalAmountPerYearFilter(SimpleListFilter):
                     messages.error(
                         self.request,
                         _(
-                            "Invalid amount format: '{}'. Please enter a valid number."
-                        ).format(val[0]),
+                            "Invalid amount format: '{value}'. Please enter a valid number."
+                        ).format(value=val[0]),
                     )
                     return queryset
 
@@ -128,8 +128,8 @@ class DonorTotalAmountPerYearFilter(SimpleListFilter):
                     messages.error(
                         self.request,
                         _(
-                            "Invalid amount format: '{}'. Please enter a valid number."
-                        ).format(val[1]),
+                            "Invalid amount format: '{value}'. Please enter a valid number."
+                        ).format(value=val[1]),
                     )
                     return queryset
 

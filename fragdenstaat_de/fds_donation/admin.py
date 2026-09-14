@@ -656,7 +656,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
                     count = queryset.count()
                     self.message_user(
                         request,
-                        _("Sending JZWB email to {} donors.").format(count),
+                        _("Sending JZWB email to {count} donors.").format(count=count),
                         level=messages.INFO,
                     )
                     return

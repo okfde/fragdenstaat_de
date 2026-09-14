@@ -382,7 +382,7 @@ class OneClickFoiRequestCMSPlugin(CMSPlugin):
     )
 
     def __str__(self):
-        return _("One click form for {}").format(self.foirequest)
+        return _("One click form for {foirequest}").format(foirequest=self.foirequest)
 
 
 class VegaChartCMSPlugin(CMSPlugin):

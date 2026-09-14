@@ -682,9 +682,9 @@ class SubscribeToNewsletterActionConfig(ActionBase):
     reference = models.CharField(blank=True, max_length=255)
 
     def __str__(self):
-        return _("Subscribe to newsletter {} ({})").format(
-            self.newsletter,
-            _("email already confirmed")
+        return _("Subscribe to newsletter {newsletter} ({confirmation})").format(
+            newsletter=self.newsletter,
+            confirmation=_("email already confirmed")
             if self.email_confirmed
             else _("email needs confirmation"),
         )
@@ -706,9 +706,9 @@ class SubscriberTagActionConfig(ActionBase):
 
     def __str__(self):
         if self.remove:
-            return _("Remove tag {}").format(self.tag)
+            return _("Remove tag {tag}").format(tag=self.tag)
         else:
-            return _("Add tag {}").format(self.tag)
+            return _("Add tag {tag}").format(tag=self.tag)
 
 
 class InSegmentActionConfig(ActionBase):
@@ -725,9 +725,9 @@ class InSegmentActionConfig(ActionBase):
 
     def __str__(self):
         if self.negate:
-            return _("If not in segment '{}'").format(self.segment)
+            return _("If not in segment '{segment}'").format(segment=self.segment)
         else:
-            return _("If in segment '{}'").format(self.segment)
+            return _("If in segment '{segment}'").format(segment=self.segment)
 
 
 class HasTagActionConfig(ActionBase):
@@ -744,6 +744,6 @@ class HasTagActionConfig(ActionBase):
 
     def __str__(self):
         if self.negate:
-            return _("If doesn't have tag '{}'").format(self.tag)
+            return _("If doesn't have tag '{tag}'").format(tag=self.tag)
         else:
-            return _("If has tag '{}'").format(self.tag)
+            return _("If has tag '{tag}'").format(tag=self.tag)
