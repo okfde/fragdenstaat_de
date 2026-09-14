@@ -19,6 +19,10 @@
         {% endfor %}
     {% endwith %}
 {% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    {% include "_frontend.html" with entry_point="redact_banner.js" %}
+{% endblock scripts %}
 {% block content_blog %}
     {% spaceless %}
         <article class="blog-article"
