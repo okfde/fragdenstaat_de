@@ -641,7 +641,7 @@ class Recurrence(models.Model):
         if not could_upgrade:
             return False
         return self.donor.has_recently_donated(
-            days_between_upgrade, extra_filters={"recurring": False}
+            days_between_upgrade, extra_filters={"recurrence": None}
         )
 
 
