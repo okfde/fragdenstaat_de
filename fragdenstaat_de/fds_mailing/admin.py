@@ -322,8 +322,8 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
             )
         )
         if obj.sending:
-            return _("Sending...\u202f{percentage}").format(percentage=sent_percentage)
-        return _("Sent\u202f{percentage}").format(percentage=sent_percentage)
+            return _("Sending... {percentage}").format(percentage=sent_percentage)
+        return _("Sent {percentage}").format(percentage=sent_percentage)
 
     def trigger_continue_sending(self, request, queryset):
         for mailing in queryset:
