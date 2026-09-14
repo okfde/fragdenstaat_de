@@ -162,8 +162,9 @@ class DonorLogicMixin:
 
     def add_to_context(self, context):
         if not context.get("donor"):
-            if logged_in_donor := get_donor_from_request(context["request"]):
-                context["donor"] = logged_in_donor
+            if request := context.get("request"):
+                if logged_in_donor := get_donor_from_request(request):
+                    context["donor"] = logged_in_donor
         return context
 
     def should_render(self):
