@@ -488,7 +488,8 @@ class SubscriberImportAdmin(admin.ModelAdmin):
         for sub_import in queryset:
             sub_import.start_import()
         self.message_user(
-            request, _("{} subscriber imports have been queued.").format(count)
+            request,
+            _("{count} subscriber imports have been queued.").format(count=count),
         )
 
 

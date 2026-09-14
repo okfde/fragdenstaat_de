@@ -107,8 +107,8 @@ class RandomSplitForm(forms.Form):
         if group_total > 100:
             raise forms.ValidationError(
                 _(
-                    "The sum of the groups must not be greater than 100. You entered {}."
-                ).format(group_total)
+                    "The sum of the groups must not be greater than 100. You entered {total}."
+                ).format(total=group_total)
             )
         return groups
 

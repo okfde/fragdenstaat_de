@@ -1020,7 +1020,9 @@ class RecurrenceUpgradeForm(forms.Form):
         elif recurrence.interval == 3:
             label = _("Your new quarterly amount:")
         else:
-            label = _("Your new amount every {} months:").format(recurrence.interval)
+            label = _("Your new amount every {interval} months:").format(
+                interval=recurrence.interval
+            )
         self.fields["upgrade_amount"] = forms.DecimalField(
             localize=True,
             required=True,
