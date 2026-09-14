@@ -3232,13 +3232,13 @@ msgstr "Sended an %(recipient_count)s Newsletter-Abonnierende aus %(segment_coun
 
 #: fragdenstaat_de/fds_mailing/admin.py
 #, python-brace-format
-msgid "Sending...\\u202f{percentage}"
-msgstr "Sende...\\u202f{percentage}"
+msgid "Sending... {percentage}"
+msgstr "Sende... {percentage}"
 
 #: fragdenstaat_de/fds_mailing/admin.py
 #, python-brace-format
-msgid "Sent\\u202f{percentage}"
-msgstr "Gesendet\\u202f{percentage}"
+msgid "Sent {percentage}"
+msgstr "Gesendet {percentage}"
 
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Set Password Form"
@@ -7521,11 +7521,19 @@ msgstr "❌ Spende abbrechen"
 #~ msgid "Sending to newsletter subscribers of %(segment_count)s segments"
 #~ msgstr "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
 
+#, python-brace-format
+#~ msgid "Sending...\\u202f{percentage}"
+#~ msgstr "Sende...\\u202f{percentage}"
+
 #~ msgid "Sending...\\u202f{}"
 #~ msgstr "Sende...\\u202f{}"
 
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
+
+#, python-brace-format
+#~ msgid "Sent\\u202f{percentage}"
+#~ msgstr "Gesendet\\u202f{percentage}"
 
 #~ msgid "Sent\\u202f{}"
 #~ msgstr "Gesendet\\u202f{}"
