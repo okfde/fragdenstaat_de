@@ -32,3 +32,6 @@ updates:
       - dependency-name: torchvision
       - dependency-name: nvidia*
       - dependency-name: django-filingcabinet
+    
+    exclude-paths:
+      - '*.txt'
