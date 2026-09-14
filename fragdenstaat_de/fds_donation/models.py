@@ -357,10 +357,12 @@ class Donor(models.Model):
     def get_receiving_donations(self):
         return annotate_donations_with_receiving(self.donations)
 
-    def has_recently_donated(self, days_since_donation=180):
+    def has_recently_donated(self, days_since_donation=180, extra_filters=None):
+        if extra_filters is None:
+            extra_filters = {}
         stats = (
             self.get_receiving_donations()
-            .filter(receiving=True)
+            .filter(receiving=True, **extra_filters)
             .aggregate(last_receiving_donation=models.Max("timestamp"))
         )
         if stats["last_receiving_donation"]:
@@ -638,7 +640,9 @@ class Recurrence(models.Model):
         could_upgrade = days_between_upgrade < days_since
         if not could_upgrade:
             return False
-        return self.donor.has_recently_donated(days_between_upgrade)
+        return self.donor.has_recently_donated(
+            days_between_upgrade, extra_filters={"recurring": False}
+        )
 
 
 class DonationManager(models.Manager):
