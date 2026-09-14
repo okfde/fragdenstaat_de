@@ -22,7 +22,6 @@ from .models import (
     DonationFormViewCount,
     DonationGiftFormCMSPlugin,
     DonationProgressBarCMSPlugin,
-    Donor,
     DonorEvent,
     EmailDonationButtonCMSPlugin,
     RemoteDonationFormCMSPlugin,
@@ -163,13 +162,8 @@ class DonorLogicMixin:
 
     def add_to_context(self, context):
         if not context.get("donor"):
-            if not context.get("user") and context.get("request"):
-                if context["request"].user.is_authenticated:
-                    context["user"] = context["request"].user
-            if context.get("user") and context["user"].is_authenticated:
-                donors = Donor.objects.filter(user=context["user"])
-                if donors:
-                    context["donor"] = donors[0]
+            if logged_in_donor := get_donor_from_request(context["request"]):
+                context["donor"] = logged_in_donor
         return context
 
     def should_render(self):
