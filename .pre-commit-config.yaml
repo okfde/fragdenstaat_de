@@ -41,6 +41,14 @@ repos:
 
   - repo: local
     hooks:
+      - id: gettext-named-placeholders
+        name: Ensure translatable strings use named placeholders
+        language: python
+        entry: scripts/enforce_named_placeholders.py
+        files: \.py$
+
+  - repo: local
+    hooks:
       - id: makemessages-de
         name: Ensure German translations are up to date
         language: system
