@@ -16,6 +16,7 @@ from fragdenstaat_de.fds_mailing.cms_plugins import EmailRenderMixin, EmailTempl
 from .auth import get_donor_from_request
 from .forms import RecurrenceUpgradeForm
 from .models import (
+    CheckDonorTagCMSPlugin,
     DefaultDonation,
     DonationFormCMSPlugin,
     DonationFormViewCount,
@@ -155,6 +156,7 @@ class DonorLogicMixin:
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
+        context["instance"] = instance
         context = self.add_to_context(context)
         context["should_render"] = self.should_render(context)
         return context
@@ -176,6 +178,7 @@ class DonorLogicMixin:
     def render_text(self, context, instance):
         from fragdenstaat_de.fds_mailing.utils import render_plugin_text
 
+        context["instance"] = instance
         context = self.add_to_context(context)
 
         if self.should_render(context):
@@ -186,6 +189,7 @@ class DonorLogicMixin:
     def render_web_html(self, context, instance):
         from fragdenstaat_de.fds_mailing.utils import render_plugin_web_html
 
+        context["instance"] = instance
         context = self.add_to_context(context)
 
         if self.should_render(context):
@@ -303,6 +307,25 @@ class IsInformalDonor(DonorLogicMixin, CMSPluginBase):
 
     def should_render(self, context):
         return not context.get("donor") or not context["donor"].is_formal()
+
+
+@plugin_pool.register_plugin
+class CheckDonorTag(DonorLogicMixin, CMSPluginBase):
+    name = _("Check Donor Tag")
+    model = CheckDonorTagCMSPlugin
+    raw_id_fields = ("tag",)
+
+    def should_render(self, context):
+        if not context.get("donor"):
+            return False
+        donor = context["donor"]
+        instance = context["instance"]
+        has_tag = donor.tags.filter(pk=instance.tag_id).exists()
+        if has_tag and not instance.negate:
+            return True
+        elif not has_tag and instance.negate:
+            return True
+        return False
 
 
 @plugin_pool.register_plugin

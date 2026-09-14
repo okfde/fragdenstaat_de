@@ -1357,6 +1357,25 @@ class UpgradeRecurrenceFormCMSPlugin(CMSPlugin):
         return _("Upgrade Recurrence ({})").format(self.choice_count)
 
 
+class CheckDonorTagCMSPlugin(CMSPlugin):
+    tag = models.ForeignKey(
+        DonorTag,
+        on_delete=models.PROTECT,
+        verbose_name=_("Donor Tag"),
+    )
+    negate = models.BooleanField(
+        default=False,
+        verbose_name=_("Negate condition"),
+        help_text=_("If doesn't have tag"),
+    )
+
+    def __str__(self):
+        if self.negate:
+            return _("Donor doesn't have tag '{}'").format(self.tag)
+        else:
+            return _("Donor has tag '{}'").format(self.tag)
+
+
 class DonorTagActionConfig(ActionBase):
     tag = models.ForeignKey(
         DonorTag,
