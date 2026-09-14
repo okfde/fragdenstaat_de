@@ -529,7 +529,7 @@ msgstr "Sprache ändern"
 
 #: fragdenstaat_de/fds_donation/actions.py
 msgid "Change tag on donor"
-msgstr "Ändere Tag auf Spendie"
+msgstr "Ändere Tag auf Spendi"
 
 #: fragdenstaat_de/fds_newsletter/actions.py
 msgid "Change tag on subscriber"
@@ -552,10 +552,8 @@ msgid "Chapter overview:"
 msgstr "Kapitelübersicht:"
 
 #: fragdenstaat_de/fds_donation/cms_plugins.py
-#, fuzzy
-#| msgid "Donor Tag"
 msgid "Check Donor Tag"
-msgstr "Spender*in-Tag"
+msgstr "Prüft Spender*innen-Tag"
 
 #: fragdenstaat_de/fds_mailing/actions.py
 msgid "Check if a subscriber has received a mailing"
@@ -563,7 +561,7 @@ msgstr "Prüft, ob das Abo ein bestimmtes Mailing erhalten hat"
 
 #: fragdenstaat_de/fds_newsletter/actions.py
 msgid "Check if an object has a specific tag"
-msgstr "Prüft, ob Objekt ein bestimmten Tag hat"
+msgstr "Prüft, ob Objekt einen bestimmten Tag hat"
 
 #: fragdenstaat_de/fds_newsletter/actions.py
 msgid "Check if an object is in a specific segment"
@@ -1078,16 +1076,12 @@ msgid "Donor Tags"
 msgstr "Spender*innen Tags"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, fuzzy
-#| msgid "If doesn't have tag '{}'"
 msgid "Donor doesn't have tag '{}'"
-msgstr "Falls Tag ‘{}’ nicht vorhanden"
+msgstr "Spender*in hat Tag ‘{}’ nicht"
 
 #: fragdenstaat_de/fds_donation/models.py
-#, fuzzy
-#| msgid "If has tag '{}'"
 msgid "Donor has tag '{}'"
-msgstr "Falls Tag ‘{}’ vorhanden"
+msgstr "Spender*in hat Tag ‘{}’"
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Down"
@@ -1526,7 +1520,7 @@ msgstr "Deutschland"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_login_link_form.html
 msgid "Get a link to your donor profile"
-msgstr "Erhalten einen Link zu Deinem Spendenprofil"
+msgstr "Erhalte einen Link zu Deinem Spendenprofil"
 
 #: fragdenstaat_de/fds_donation/templates/fds_donation/donor_login_link_form.html
 msgid "Get a link to your donor profile!"
@@ -3416,7 +3410,7 @@ msgstr "Starte Workflow für Spender*innen…"
 
 #: fragdenstaat_de/fds_newsletter/admin.py
 msgid "Start workflow for subscribers..."
-msgstr "Starte Workflow für Abonennties…"
+msgstr "Starte Workflow für Abonnenties…"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "Stats"
@@ -4809,10 +4803,8 @@ msgid "ready"
 msgstr "bereit"
 
 #: fragdenstaat_de/fds_donation/admin.py
-#, fuzzy
-#| msgid "One time donation amount"
 msgid "received donation count"
-msgstr "Einmaliger Spendenbetrag"
+msgstr "Anzahl erhaltener Spenden"
 
 #: fragdenstaat_de/fds_donation/admin.py
 msgid "recurring amount"
@@ -7469,11 +7461,9 @@ msgstr "❌ Spende abbrechen"
 #~ msgid "Sending to newsletter subscribers of %(segment_count)s segments"
 #~ msgstr "Sende an alle Newsletter-Abonnenties von %(segment_count)s Segmenten"
 
-#, python-brace-format
 #~ msgid "Sending... {}"
 #~ msgstr "Sende… {}"
 
-#, python-brace-format
 #~ msgid "Sent {}"
 #~ msgstr "Gesendet {}"
 
