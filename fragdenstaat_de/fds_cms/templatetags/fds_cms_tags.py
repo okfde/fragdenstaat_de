@@ -103,6 +103,18 @@ def get_breadcrumb_ancestor(context, navigation_node):
     return {"title": title, "url": url}
 
 
+@register.simple_tag(takes_context=True)
+def uses_cms_scaffold(context):
+    """Whether the page renders via cms/scaffold.html, which collects assets via sekizai."""
+    request = context.get("request")
+    return bool(
+        getattr(request, "current_page", None)
+        or context.get("force_cms_render")
+        or context.get("alias_content")
+        or context.get("CMSSITE_BASE_TEMPLATE")
+    )
+
+
 def get_foirequest_features(foirequests, key_func, geometry_func):
     geo_groups = {}
     for foirequest in foirequests:
