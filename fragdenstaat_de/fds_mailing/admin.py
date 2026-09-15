@@ -322,8 +322,8 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
             )
         )
         if obj.sending:
-            return _("Sending...\u202f{}").format(sent_percentage)
-        return _("Sent\u202f{}").format(sent_percentage)
+            return _("Sending... {percentage}").format(percentage=sent_percentage)
+        return _("Sent {percentage}").format(percentage=sent_percentage)
 
     def trigger_continue_sending(self, request, queryset):
         for mailing in queryset:
@@ -349,7 +349,9 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
             )
         else:
             self.message_user(
-                request, _("Invalid form: {}").format(form.errors), level=messages.ERROR
+                request,
+                _("Invalid form: {errors}").format(errors=form.errors),
+                level=messages.ERROR,
             )
         return redirect("admin:fds_mailing_mailing_changelist")
 

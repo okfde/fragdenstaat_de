@@ -31,8 +31,8 @@ class AmountInput(forms.TextInput):
         )
         ctx["widget"]["attrs"].setdefault("data-min", self.min_value)
         ctx["widget"]["attrs"]["data-errormin"] = _(
-            "The amount needs to be at least {}."
-        ).format(format_amount_with_currency(self.min_value))
+            "The amount needs to be at least {amount}."
+        ).format(amount=format_amount_with_currency(self.min_value))
         ctx["currency"] = settings.FROIDE_CONFIG["currency"]
         ctx["amount_label"] = self.amount_label
         ctx["presets"] = self.presets
