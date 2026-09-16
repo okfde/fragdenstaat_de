@@ -110,14 +110,14 @@ def cms_homepage(cms_page, admin_user):
 def blog_page(cms_page, admin_user):
     """CMS page with the blog apphook, published in de and de-ls.
 
-    After creating the page we reload the URL conf so the apphook's `blog`
-    namespace is registered (CMS normally builds apphook patterns at cms.urls
-    import time, before any test data exists).
+    Uses the same slug as production. After creating the page we reload the
+    URL conf so the apphook's `blog` namespace is registered (CMS normally
+    builds apphook patterns at cms.urls import time, before any test data exists).
     """
     page = cms_page(
-        "Blog", "de", slug="blog", apphook="FdsBlogApp", apphook_namespace="blog"
+        "Artikel", "de", slug="artikel", apphook="FdsBlogApp", apphook_namespace="blog"
     )
-    add_language_to_page(page, "de-ls", "Blog", admin_user, slug="blog")
+    add_language_to_page(page, "de-ls", "Artikel", admin_user, slug="artikel")
 
     # Refresh resolvers after adding the de-ls translation.
     reload_urls()
@@ -447,7 +447,9 @@ class TestEasyLanguageRedirect:
     # --- Blog article ---
 
     @pytest.mark.parametrize("easylang_enabled", [True, False], indirect=True)
-    def test_blog_de_article_accessible(self, client, category_de, easylang_enabled):
+    def test_blog_de_article_accessible(
+        self, client, blog_page, category_de, easylang_enabled
+    ):
         article = create_article("de", category_de)
         response = get(client, article.get_absolute_url())
         assert response.status_code == 200
