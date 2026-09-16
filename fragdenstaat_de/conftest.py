@@ -2,9 +2,8 @@ from django.contrib.auth import get_user_model
 
 import pytest
 from cms import api as cms_api
-from cms.appresolver import clear_app_resolvers, get_app_patterns
 
-from fragdenstaat_de.tests.utils import publish_page_content
+from fragdenstaat_de.tests.utils import publish_page_content, reload_urls
 
 
 @pytest.fixture
@@ -27,8 +26,7 @@ def cms_page(admin_user):
         publish_page_content(page, language, admin_user)
         pages.append(page)
         if kwargs.get("apphook"):
-            clear_app_resolvers()
-            get_app_patterns()
+            reload_urls()
         return page
 
     yield _create
@@ -37,4 +35,4 @@ def cms_page(admin_user):
     for page in reversed(pages):
         page.delete()
     if has_apphook:
-        clear_app_resolvers()
+        reload_urls()
