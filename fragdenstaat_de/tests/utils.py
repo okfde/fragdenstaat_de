@@ -1,5 +1,18 @@
+from importlib import import_module, reload
+
 from cms import api as cms_api
+from cms.utils.apphook_reload import reload_urlconf
 from djangocms_versioning.models import Version
+
+
+def reload_urls():
+    """Rebuild URL patterns after CMS apphook pages were added or removed.
+
+    The test ROOT_URLCONF imports its patterns from theme.urls, which is not
+    reloaded by reload_urlconf() and would keep stale apphook resolvers.
+    """
+    reload(import_module("fragdenstaat_de.theme.urls"))
+    reload_urlconf()
 
 
 def publish_page_content(page, language, user):

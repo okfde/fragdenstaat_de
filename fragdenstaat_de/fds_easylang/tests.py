@@ -7,13 +7,12 @@ from django.test import Client
 from django.utils import timezone, translation
 
 import pytest
-from cms.appresolver import clear_app_resolvers, get_app_patterns
 
 from fragdenstaat_de.fds_blog.managers import PUBLISHED
 from fragdenstaat_de.fds_blog.models import Article, Category
 from fragdenstaat_de.fds_blog.views import ArticleDetailView, BaseBlogView
 from fragdenstaat_de.fds_events.models import Event
-from fragdenstaat_de.tests.utils import add_language_to_page
+from fragdenstaat_de.tests.utils import add_language_to_page, reload_urls
 
 HTTP_HOST = "localhost"
 
@@ -111,9 +110,9 @@ def cms_homepage(cms_page, admin_user):
 def blog_page(cms_page, admin_user):
     """CMS page with the blog apphook, published in de and de-ls.
 
-    After creating the page we re-populate the global APP_RESOLVERS so
-    that applications_page_check() can find the apphook page (it is
-    normally populated at cms.urls import time, before any test data exists).
+    After creating the page we reload the URL conf so the apphook's `blog`
+    namespace is registered (CMS normally builds apphook patterns at cms.urls
+    import time, before any test data exists).
     """
     page = cms_page(
         "Blog", "de", slug="blog", apphook="FdsBlogApp", apphook_namespace="blog"
@@ -121,8 +120,7 @@ def blog_page(cms_page, admin_user):
     add_language_to_page(page, "de-ls", "Blog", admin_user, slug="blog")
 
     # Refresh resolvers after adding the de-ls translation.
-    clear_app_resolvers()
-    get_app_patterns()
+    reload_urls()
 
     return page
 
@@ -536,8 +534,7 @@ class TestEasyLanguageRedirect:
         """An event under /de-ls/ should redirect even when the apphook page has de-ls,
         because individual events have no translated content."""
         add_language_to_page(event_page, "de-ls", "Veranstaltungen", admin_user)
-        clear_app_resolvers()
-        get_app_patterns()
+        reload_urls()
 
         event = create_event()
         de_url = event.get_absolute_url()
@@ -789,8 +786,7 @@ class TestEasylangToggle:
     def test_event_with_apphook_translation(self, client, event_page, admin_user):
         """Event detail page — even with a de-ls apphook, individual events have no translated content, so the toggle should not offer a link."""
         add_language_to_page(event_page, "de-ls", "Veranstaltungen", admin_user)
-        clear_app_resolvers()
-        get_app_patterns()
+        reload_urls()
 
         event = create_event()
         ctx = self._get_toggle_context(client, event.get_absolute_url())
