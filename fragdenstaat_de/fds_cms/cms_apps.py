@@ -12,7 +12,14 @@ from .templatetags.fds_cms_tags import get_soft_root
 
 def make_add_search(page_pk):
     def add_search(request):
-        page = Page.objects.get(pk=page_pk)
+        # Registered callbacks are never removed, so skip pages that were
+        # deleted or no longer use this apphook since registration.
+        page = Page.objects.filter(
+            pk=page_pk, application_urls=FdsCmsSearchApp.__name__
+        ).first()
+        if page is None:
+            return
+
         page_root = get_soft_root(page)
         if not page_root.has_translation(request.LANGUAGE_CODE):
             return
