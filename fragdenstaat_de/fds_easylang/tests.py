@@ -7,14 +7,13 @@ from django.test import Client
 from django.utils import timezone, translation
 
 import pytest
-from cms import api as cms_api
 from cms.appresolver import clear_app_resolvers, get_app_patterns
-from djangocms_versioning.models import Version
 
 from fragdenstaat_de.fds_blog.managers import PUBLISHED
 from fragdenstaat_de.fds_blog.models import Article, Category
 from fragdenstaat_de.fds_blog.views import ArticleDetailView, BaseBlogView
 from fragdenstaat_de.fds_events.models import Event
+from fragdenstaat_de.tests.utils import add_language_to_page
 
 HTTP_HOST = "localhost"
 
@@ -81,33 +80,11 @@ def get(client: Client, url: str, **kwargs):
     return client.get(url, HTTP_HOST=HTTP_HOST, **kwargs)
 
 
-def publish_page_content(page, language, user):
-    """Publish a page's content for the given language via djangocms-versioning."""
-    content = page.pagecontent_set(manager="_original_manager").get(language=language)
-    version = Version.objects.get_for_content(content)
-    version.publish(user)
-
-
-def add_language_to_page(page, language, title, user, publish=True, **kwargs):
-    """Add a language translation to an existing page, optionally publishing it."""
-    cms_api.create_page_content(language, title, page, created_by=user, **kwargs)
-    if publish:
-        publish_page_content(page, language, user)
-
-
 def maybe_login(client, request, user_fixture):
     """Log in as the given user fixture, if provided."""
     if user_fixture:
         user = request.getfixturevalue(user_fixture)
         client.force_login(user)
-
-
-@pytest.fixture
-def admin_user(db):
-    User = get_user_model()
-    return User.objects.create_superuser(
-        username="admin", email="admin@example.com", password="admin"
-    )
 
 
 @pytest.fixture
@@ -119,31 +96,6 @@ def staff_user(db):
     user.is_staff = True
     user.save(update_fields=["is_staff"])
     return user
-
-
-@pytest.fixture
-def cms_page(admin_user):
-    """Factory: creates published CMS pages, cleans up after the test."""
-    pages = []
-
-    def _create(title, language, **kwargs):
-        page = cms_api.create_page(
-            title, "cms/page.html", language, created_by=admin_user, **kwargs
-        )
-        publish_page_content(page, language, admin_user)
-        pages.append(page)
-        if kwargs.get("apphook"):
-            clear_app_resolvers()
-            get_app_patterns()
-        return page
-
-    yield _create
-
-    has_apphook = any(p.application_urls for p in pages)
-    for page in reversed(pages):
-        page.delete()
-    if has_apphook:
-        clear_app_resolvers()
 
 
 @pytest.fixture
