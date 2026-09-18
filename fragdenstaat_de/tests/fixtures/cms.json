@@ -295,7 +295,10 @@
             "path": "",
             "language": "de",
             "page": 1,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -306,7 +309,10 @@
             "path": "aktionen",
             "language": "de",
             "page": 2,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -317,7 +323,10 @@
             "path": "recherchen",
             "language": "de",
             "page": 3,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -328,7 +337,10 @@
             "path": "spenden/spenden",
             "language": "de",
             "page": 4,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -339,7 +351,10 @@
             "path": "artikel",
             "language": "de",
             "page": 5,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -350,7 +365,10 @@
             "path": "crowdfunding",
             "language": "de",
             "page": 6,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -361,7 +379,10 @@
             "path": "kontakt",
             "language": "de",
             "page": 7,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -372,7 +393,10 @@
             "path": "hilfe/suche",
             "language": "de",
             "page": 8,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -383,7 +407,10 @@
             "path": "food",
             "language": "de",
             "page": 9,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -394,7 +421,10 @@
             "path": "exam",
             "language": "de",
             "page": 10,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -405,7 +435,10 @@
             "path": "spenden",
             "language": "de",
             "page": 11,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
@@ -416,7 +449,10 @@
             "path": "hilfe",
             "language": "de",
             "page": 12,
-            "managed": true
+            "managed": true,
+            "site": [
+                "example.com"
+            ]
         }
     },
     {
