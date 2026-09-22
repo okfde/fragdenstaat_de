@@ -232,3 +232,28 @@ def remind_incomplete_donations_task():
     from .services import remind_incomplete_donations
 
     remind_incomplete_donations()
+
+
+@celery_app.task(name="fragdenstaat_de.fds_donation.new_donation")
+def send_gift_order_inventory_warning_notification(gift_id):
+    from .models import DonationGift
+
+    try:
+        gift = DonationGift.objects.get(
+            id=gift_id,
+        )
+    except DonationGift.DoesNotExist:
+        return
+
+    admin_url = settings.SITE_URL + reverse(
+        "admin:fds_donation_donationgift_change", args=(gift.id,)
+    )
+    mail_managers(
+        str(_("Donation gift order inventory warning: {name}").format(name=gift.name)),
+        admin_url,
+    )
+    send_notification(
+        _("🚨 Donation gift order inventory warning: {name} ({id})").format(
+            name=gift.name, id=gift.id
+        )
+    )

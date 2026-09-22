@@ -11,14 +11,17 @@ from froide_payment.models import PaymentStatus
 from fragdenstaat_de.fds_newsletter.models import Subscriber
 
 from .forms import SubscriptionCancelFeedbackForm
-from .models import Donation, Donor, DonorEvent, Recurrence
+from .models import Donation, DonationGiftOrder, Donor, DonorEvent, Recurrence
 from .services import (
     create_donation_from_payment,
     detect_recurring_on_donor,
     send_donation_email,
     send_sepa_notification,
 )
-from .tasks import send_donation_notification
+from .tasks import (
+    send_donation_notification,
+    send_gift_order_inventory_warning_notification,
+)
 
 
 def payment_status_changed(sender=None, instance=None, **kwargs):
@@ -288,3 +291,19 @@ def save_subscription_cancel_feedback(sender, data=None, **kwargs):
     form = SubscriptionCancelFeedbackForm(data=data)
     if form.is_valid():
         form.save(subscription=sender)
+
+
+INVENTORY_PERCENT_WARNING = 5.0
+
+
+def gift_order_inventory_check(sender, instance, created, **kwargs):
+    if not created:
+        return
+    gift = instance.donation_gift
+    if not gift.inventory:
+        return
+    order_count = DonationGiftOrder.objects.filter(donation_gift=gift).count()
+    left = gift.inventory - order_count
+    threshold = gift.inventory * INVENTORY_PERCENT_WARNING / 100.0
+    if left == threshold or (left > threshold and (left - 1) < threshold):
+        send_gift_order_inventory_warning_notification.delay(gift.id)
