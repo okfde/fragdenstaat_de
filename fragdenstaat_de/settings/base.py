@@ -622,6 +622,8 @@ class FragDenStaatBase(German, Base):
     SITE_URL = "http://localhost:8000"
     SENDER_DOMAINS = ["fragdenstaat.de"]
 
+    MANAGERS = (("FragDenStaat.de", "mail@fragdenstaat.de"),)
+
     SECRET_URLS = {
         "admin": "admin",
     }
