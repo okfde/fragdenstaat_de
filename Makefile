@@ -22,7 +22,7 @@ MAKEMESSAGES_OPTS = --ignore public --ignore froide-env --ignore node_modules --
 MAKEMESSAGES_EXTRA_OPTS =
 
 messagesde:
-	python manage.py extendedmakemessages -l de $(MAKEMESSAGES_OPTS) $(MAKEMESSAGES_EXTRA_OPTS)
+	uv run manage.py extendedmakemessages -l de $(MAKEMESSAGES_OPTS) $(MAKEMESSAGES_EXTRA_OPTS)
 
 messagesls:
 	python manage.py extendedmakemessages -l de_LS $(MAKEMESSAGES_OPTS)
