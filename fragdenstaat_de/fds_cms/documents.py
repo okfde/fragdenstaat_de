@@ -5,7 +5,6 @@ https://github.com/divio/aldryn-search/blob/master/aldryn_search/search_indexes.
 
 from django.db.models import Q
 from django.utils import translation
-from django.utils.html import strip_tags
 
 from cms.models import PageContent
 from django_elasticsearch_dsl import Document, fields
@@ -18,6 +17,8 @@ from froide.helper.search import (
     get_search_quote_analyzer,
     get_text_analyzer,
 )
+
+from fragdenstaat_de.theme.search import html_to_text
 
 from .utils import clean_join, get_request, render_placeholder
 
@@ -98,7 +99,7 @@ class CMSDocument(Document):
         placeholders = current_page.get_placeholders(language)
         for placeholder in placeholders:
             text_bits.append(
-                strip_tags(render_placeholder(context, placeholder))[:MAX_CHARS]
+                html_to_text(render_placeholder(context, placeholder))[:MAX_CHARS]
             )
 
         page_meta_description = current_page.get_meta_description(
