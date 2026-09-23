@@ -1,4 +1,7 @@
+import html
 import re
+
+from django.utils.html import strip_tags
 
 from elasticsearch_dsl import analyzer, token_filter
 
@@ -136,6 +139,14 @@ def get_stemming_analyzer():
             german_stemmer,
         ],
     )
+
+
+def html_to_text(value):
+    """
+    Converts HTML to plain text for the search index by removing tags
+    and decoding entities. Elasticsearch HTML-escapes highlights itself.
+    """
+    return html.unescape(strip_tags(value))
 
 
 class QueryPreprocessor(BaseQueryPreprocessor):

@@ -8,7 +8,11 @@ from froide.helper.search import (
     get_text_analyzer,
 )
 
-from fragdenstaat_de.theme.search import QueryPreprocessor, get_decompounder_analyzer
+from fragdenstaat_de.theme.search import (
+    QueryPreprocessor,
+    get_decompounder_analyzer,
+    html_to_text,
+)
 from fragdenstaat_de.theme.tests.testdata.search_queries import (
     exact_phrase_search_tests,
     search_tests,
@@ -233,3 +237,18 @@ class TestQueryPreprocessor:
         preprocessor = QueryPreprocessor()
 
         assert preprocessor.prepare_query(input_text) == expected_output
+
+
+@pytest.mark.parametrize(
+    "value, expected",
+    [
+        ("<p>Tom &amp; Jerry</p>", "Tom & Jerry"),
+        ('<p class="lead">&quot;Hallo&quot;&nbsp;Welt</p>', '"Hallo"\xa0Welt'),
+        ("<p>&lt;script&gt;alert(1)&lt;/script&gt;</p>", "<script>alert(1)</script>"),
+        ("<p>Tom &amp;amp; Jerry</p>", "Tom &amp; Jerry"),
+        ("", ""),
+    ],
+)
+def test_html_to_text(value, expected):
+    """Search content is indexed as plain text without tags or entities."""
+    assert html_to_text(value) == expected
