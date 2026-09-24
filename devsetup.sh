@@ -114,7 +114,7 @@ EOF
 
 upgrade_backend_repos() {
   pushd $MAIN
-  uv sync ${REPOS[@]/#/--upgrade-package } "$@"
+  uv sync --all-extras ${REPOS[@]/#/--upgrade-package } "$@"
   popd
 }
 
