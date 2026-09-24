@@ -109,7 +109,8 @@ install_editables() {
 
 upgrade_backend_repos() {
   pushd $MAIN
-  uv sync ${REPOS[@]/#/--upgrade-package }
+  # Upgrade our repos in uv.lock, but keep their editable installs in the venv
+  uv sync --all-extras --inexact ${REPOS[@]/#/--no-install-package } ${REPOS[@]/#/--upgrade-package }
   popd
 }
 
