@@ -103,13 +103,18 @@ install_editables() {
     uv pip install -e "../$project" "${install_args[@]}" --no-deps
   done
 
+  cat > Makefile.local <<EOF
+export UV_NO_SYNC=1
+UV_SYNC_ARGS = --inexact ${editables[*]/#/--no-install-package }
+EOF
+
   deactivate
   popd
 }
 
 upgrade_backend_repos() {
   pushd $MAIN
-  uv sync ${REPOS[@]/#/--upgrade-package }
+  uv sync ${REPOS[@]/#/--upgrade-package } "$@"
   popd
 }
 
