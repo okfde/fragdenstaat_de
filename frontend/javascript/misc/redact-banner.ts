@@ -168,6 +168,8 @@ function build(): HTMLElement {
 
 document.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem(STORAGE_KEY) !== null) return
+  if (location.pathname !== '/' && !location.pathname.startsWith('/artikel'))
+    return
 
   injectStyles()
   const root = build()
