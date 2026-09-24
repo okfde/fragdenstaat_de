@@ -1,5 +1,7 @@
 // dev: localStorage.removeItem('redact-banner-dismissed')
 const STORAGE_KEY = 'redact-banner-dismissed'
+// once dismissed, stay hidden this long — so a later campaign can show again
+// const DISMISSAL_DURATION = 1000 * 60 * 60 * 24 * 90 // 90 days
 const CAMPAIGN_URL = '/ifg-retten/'
 const LABEL = 'INFORMATIONSFREIHEIT RETTEN!'
 // opposing angles so the two tapes cross in an X; offset spreads them apart
@@ -9,6 +11,16 @@ const TAPES = [
   { angle: -25, offset: '5vw', delay: 0.25 },
   { angle: -75, offset: '-20vw', delay: 0.5 }
 ]
+
+/** localStorage keeps no metadata, so the dismissal time is stored explicitly. */
+function isDismissed(): boolean {
+  const timestamp = Number(localStorage.getItem(STORAGE_KEY))
+  return timestamp > 0 // && Date.now() - timestamp < DISMISSAL_DURATION
+}
+
+function rememberDismissal() {
+  localStorage.setItem(STORAGE_KEY, String(Date.now()))
+}
 
 function injectStyles() {
   const style = document.createElement('style')
@@ -167,7 +179,7 @@ function build(): HTMLElement {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem(STORAGE_KEY) !== null) return
+  if (isDismissed()) return
   if (location.pathname !== '/' && !location.pathname.startsWith('/artikel'))
     return
 
@@ -180,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
   )
 
   const dismiss = () => {
-    localStorage.setItem(STORAGE_KEY, '1')
+    rememberDismissal()
     root.remove()
     document.removeEventListener('keydown', onKeydown)
   }
@@ -193,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // following the link counts as dismissing: mark it before navigating away
   root
     .querySelector('.redact-tapes-more')
-    ?.addEventListener('click', () => localStorage.setItem(STORAGE_KEY, '1'))
+    ?.addEventListener('click', rememberDismissal)
   document.addEventListener('keydown', onKeydown)
 
   // the overlay sits at the end of the body, so without this a keyboard user
