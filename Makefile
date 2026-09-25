@@ -2,12 +2,14 @@ export DJANGO_SETTINGS_MODULE=fragdenstaat_de.settings.test
 export DJANGO_CONFIGURATION=Test
 export PYTHONWARNINGS=ignore,default:::fragdenstaat_de
 
+-include Makefile.local
+
 test:
 	ruff check
 	pytest --reuse-db
 
 backend_dependencies:
-	./devsetup.sh upgrade_backend_repos
+	./devsetup.sh upgrade_backend_repos $(UV_SYNC_ARGS)
 
 frontend_dependencies:
 	./devsetup.sh upgrade_frontend_repos

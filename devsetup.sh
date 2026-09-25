@@ -69,32 +69,52 @@ dependencies() {
 
   for name in "${ALL[@]}"; do
     pushd "$name"
-    
+
     uv sync --all-extras
-    source .venv/bin/activate
-
-    if [[ $name == "froide" ]]; then
-      uv pip install -e ../django-filingcabinet --no-deps
-    fi
-
-    if [[ $name == "$MAIN" ]]; then
-      for project in "${REPOS[@]}"; do
-        uv pip install -e "../$project" --config-setting editable_mode=compat --no-deps
-      done
-    fi
 
     if [ -e ".pre-commit-config.yaml" ]; then
       prek install
     fi
 
-    deactivate
     popd
+
+    install_editables "$name"
   done
+}
+
+install_editables() {
+  local name=$1
+  local editables=()
+  local install_args=()
+
+  if [[ $name == "froide" ]]; then
+    editables=("django-filingcabinet")
+  elif [[ $name == "$MAIN" ]]; then
+    editables=("${REPOS[@]}")
+    install_args=(--config-setting editable_mode=compat)
+  else
+    return
+  fi
+
+  pushd "$name"
+  source .venv/bin/activate
+
+  for project in "${editables[@]}"; do
+    uv pip install -e "../$project" "${install_args[@]}" --no-deps
+  done
+
+  cat > Makefile.local <<EOF
+export UV_NO_SYNC=1
+UV_SYNC_ARGS = --inexact ${editables[*]/#/--no-install-package }
+EOF
+
+  deactivate
+  popd
 }
 
 upgrade_backend_repos() {
   pushd $MAIN
-  uv sync ${REPOS[@]/#/--upgrade-package }
+  uv sync --all-extras ${REPOS[@]/#/--upgrade-package } "$@"
   popd
 }
 
