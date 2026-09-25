@@ -1,7 +1,6 @@
 import logging
 from datetime import timedelta
 from decimal import Decimal
-from typing import Optional, Tuple
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -70,6 +69,7 @@ donor_thanks_optin_email = mail_registry.register(
         "order",
         "donor",
         "donation",
+        "action_url",
     ),
 )
 
@@ -267,7 +267,7 @@ def send_donation_email(donation, domain_obj=None):
     return True
 
 
-def send_donor_optin_email(donor):
+def send_donor_optin_email(donor: Donor):
     if not donor.email:
         return
 
@@ -451,7 +451,7 @@ recurring_buckets = [  # in days
 ]
 
 
-def get_bucket(days: int) -> Optional[Tuple[int, int]]:
+def get_bucket(days: int) -> tuple[int, int] | None:
     for bucket in recurring_buckets:
         if bucket[0] <= days <= bucket[1]:
             return bucket
@@ -496,7 +496,7 @@ def send_donation_reminder_email(donation):
         ignore_active=True,
         priority=True,
     )
-    donation.note += "\n\n{} {}\n".format(REMINDER_TEXT, now.isoformat())
+    donation.note += f"\n\n{REMINDER_TEXT} {now.isoformat()}\n"
     donation.note = donation.note.strip()
     donation.save()
     return True
@@ -648,8 +648,8 @@ def send_incomplete_donation_reminder(donation):
         priority=True,
     )
     donation.email_sent = timezone.now()
-    donation.note += "{}: {}\n\n".format(
-        INCOMPLETE_DONATION_NOTE, donation.email_sent.isoformat()
+    donation.note += (
+        f"{INCOMPLETE_DONATION_NOTE}: {donation.email_sent.isoformat()}\n\n"
     )
     donation.save(update_fields=["email_sent", "note"])
     donor.email_confirmation_sent = donation.email_sent
