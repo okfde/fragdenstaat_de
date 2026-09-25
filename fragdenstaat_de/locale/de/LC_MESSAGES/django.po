@@ -2008,10 +2008,6 @@ msgstr "Ist Dauerspender*in"
 msgid "Italy"
 msgstr "Italien"
 
-#: fragdenstaat_de/fds_mailing/models.py
-msgid "Key to check in the context."
-msgstr "Schlüssel der im Kontext gesucht wird."
-
 #: fragdenstaat_de/fds_cms/cms_plugins.py
 msgid "Language Switcher"
 msgstr "Sprachen-Menü"
@@ -2570,10 +2566,6 @@ msgstr "OpenSearch Suchfeld"
 #: fragdenstaat_de/fds_cms/contact.py
 msgid "Optional contact"
 msgstr "Optionale Kontaktmöglichkeit"
-
-#: fragdenstaat_de/fds_mailing/models.py
-msgid "Optional value to check on key. Checks for presence if empty."
-msgstr "Optionaler Wert, mit dem der Schlüsselwert verglichen wird. Falls leer, wird nur die Präsenz des Schlüssels geprüft."
 
 #: fragdenstaat_de/templates/error_base.html
 msgid "Or, read some of our recent articles:"
@@ -6592,6 +6584,9 @@ msgstr "🚨 Warnung zum Spendengeschenk Lagerbestand: {name} ({id})"
 #~ msgid "Keep it <strong>focused and concise</strong>."
 #~ msgstr "Halten Sie es <strong>kurz und bündig</strong>."
 
+#~ msgid "Key to check in the context."
+#~ msgstr "Schlüssel der im Kontext gesucht wird."
+
 #~ msgid "Kind Regards,"
 #~ msgstr "Mit freundlichen Grüßen"
 
@@ -6963,6 +6958,9 @@ msgstr "🚨 Warnung zum Spendengeschenk Lagerbestand: {name} ({id})"
 
 #~ msgid "Open document in new tab"
 #~ msgstr "Dokument in neuem Tab öffnen"
+
+#~ msgid "Optional value to check on key. Checks for presence if empty."
+#~ msgstr "Optionaler Wert, mit dem der Schlüsselwert verglichen wird. Falls leer, wird nur die Präsenz des Schlüssels geprüft."
 
 #~ msgid "Optional. Affiliation will be shown next to your name"
 #~ msgstr "Optional. Ihre Organisation wird neben Ihrem Namen angezeigt."
