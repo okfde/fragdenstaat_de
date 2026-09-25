@@ -22,6 +22,7 @@ from cms.utils.placeholder import get_placeholder_from_slot
 from djangocms_frontend.fields import AttributesField
 from filer.fields.image import FilerImageField
 from flowcontrol.models import ActionBase
+from flowcontrol.utils import validate_template_condition
 from mjml import mjml2html
 
 from froide.helper.email_sending import EmailContent, mail_registry, send_mail
@@ -876,27 +877,10 @@ class NewsletterArchiveCMSPlugin(CMSPlugin):
 
 
 class ConditionCMSPlugin(CMSPlugin):
-    context_key = models.CharField(
-        max_length=255,
-        help_text=_("Key to check in the context."),
-    )
-    context_value = models.CharField(
-        max_length=255,
-        blank=True,
-        help_text=_("Optional value to check on key. Checks for presence if empty."),
-    )
-    negate = models.BooleanField(
-        default=False,
-        help_text=_("Negate the condition."),
-    )
+    condition = models.TextField(blank=False, validators=[validate_template_condition])
 
     def __str__(self):
-        return "%s%s%s%s" % (
-            "not " if self.negate else "",
-            self.context_key,
-            " == " if self.context_value else "",
-            self.context_value,
-        )
+        return self.condition
 
 
 class DelayMailActionConfig(ActionBase):
