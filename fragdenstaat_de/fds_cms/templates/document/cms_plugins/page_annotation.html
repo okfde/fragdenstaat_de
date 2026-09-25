@@ -1,19 +1,18 @@
 {% load thumbnail %}
 {% load i18n %}
-<div class="cms-page-annotation">
+<div class="cms-page-annotation"
+     {% if unpublished %}style="outline: 2px dashed red"{% endif %}>
     {% if title %}<h4>{{ title }}</h4>{% endif %}
     {% if description or object.highlight %}<figure>{% endif %}
         {% if object.image %}
             <picture>
-                <source media="(min-width: 1200px)"
-                        srcset="{% thumbnail object.image 1140x0 %}">
-                <source media="(min-width: 992px)"
-                        srcset="{% thumbnail object.image 940x0 %}">
+                <source media="(min-width: 1200px)" srcset="{{ images.w1140 }}">
+                <source media="(min-width: 992px)" srcset="{{ images.w940 }}">
                 <img class="img-fluid mx-auto d-block"
-                     src="{% thumbnail object.image 768x0 crop=scale %}"
+                     src="{{ images.w768 }}"
                      alt="{{ title }}"
                      loading="lazy"
-                     {% if instance.zoom %}data-zoomwidth="{{ object.width }}" data-zoom="{{ object.image.url }}"{% endif %}>
+                     {% if instance.zoom %}data-zoomwidth="{{ object.width }}" data-zoom="{{ image_url }}"{% endif %}>
             </picture>
         {% else %}
             <div class="spinner-grow" role="status"></div>
