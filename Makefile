@@ -22,10 +22,10 @@ MAKEMESSAGES_OPTS = --ignore public --ignore froide-env --ignore node_modules --
 MAKEMESSAGES_EXTRA_OPTS =
 
 messagesde:
-	uv run manage.py extendedmakemessages -l de $(MAKEMESSAGES_OPTS) $(MAKEMESSAGES_EXTRA_OPTS)
+	.venv/bin/python manage.py extendedmakemessages -l de $(MAKEMESSAGES_OPTS) $(MAKEMESSAGES_EXTRA_OPTS)
 
 messagesls:
-	python manage.py extendedmakemessages -l de_LS $(MAKEMESSAGES_OPTS)
+	.venv/bin/python manage.py extendedmakemessages -l de_LS $(MAKEMESSAGES_OPTS)
 
 checkmessagesde:
 	$(MAKE) messagesde MAKEMESSAGES_EXTRA_OPTS="--no-untranslated --no-fuzzy"
