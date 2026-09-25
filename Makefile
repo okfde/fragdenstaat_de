@@ -3,8 +3,8 @@ export DJANGO_CONFIGURATION=Test
 export PYTHONWARNINGS=ignore,default:::fragdenstaat_de
 
 test:
-	ruff check
-	pytest --reuse-db
+	uv run ruff check
+	uv run pytest --reuse-db
 
 backend_dependencies:
 	./devsetup.sh upgrade_backend_repos
