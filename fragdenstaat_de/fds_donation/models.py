@@ -375,7 +375,7 @@ class Donor(models.Model):
 
     @property
     def is_eligible_for_gift(self):
-        return self.recurring_amount >= 10
+        return self.recurring_amount >= 5
 
     @property
     def can_receive_receipt(self):
