@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 
 from django.conf import settings
-from django.core.mail import mail_admins
+from django.core.mail import mail_managers
 from django.utils import timezone
 
 from froide.celery import app as celery_app
@@ -24,7 +24,7 @@ def send_mailing(mailing_id, sending_date):
             sending_date=sending_date,
         )
     except Mailing.DoesNotExist:
-        mail_admins("Mailing %d not sent!" % mailing_id, "")
+        mail_managers("Mailing %d not sent!" % mailing_id, "")
         return
     mailing.finalize()
     mailing.send()
