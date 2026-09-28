@@ -1,7 +1,7 @@
 // dev: localStorage.removeItem('redact-banner-dismissed')
 const STORAGE_KEY = 'redact-banner-dismissed'
 // once dismissed, stay hidden this long — so a later campaign can show again
-// const DISMISSAL_DURATION = 1000 * 60 * 60 * 24 * 90 // 90 days
+const DISMISSAL_DURATION = 1000 * 60 * 60 * 24 // 24 hours
 const CAMPAIGN_URL = '/ifg-retten/'
 const LABEL = 'INFORMATIONSFREIHEIT RETTEN!'
 // opposing angles so the two tapes cross in an X; offset spreads them apart
@@ -15,7 +15,7 @@ const TAPES = [
 /** localStorage keeps no metadata, so the dismissal time is stored explicitly. */
 function isDismissed(): boolean {
   const timestamp = Number(localStorage.getItem(STORAGE_KEY))
-  return timestamp > 0 // && Date.now() - timestamp < DISMISSAL_DURATION
+  return timestamp > 0 && Date.now() - timestamp < DISMISSAL_DURATION
 }
 
 function rememberDismissal() {
