@@ -307,3 +307,19 @@ def gift_order_inventory_check(sender, instance, created, **kwargs):
     threshold = gift.inventory * INVENTORY_PERCENT_WARNING / 100.0
     if left == threshold or (left > threshold and (left - 1) < threshold):
         send_gift_order_inventory_warning_notification.delay(gift.id)
+
+
+def gift_order_tag_donor(sender, instance, created, **kwargs):
+    if not created:
+        return
+    donation = instance.donation
+    if not donation:
+        return
+    donor = donation.donor
+    if not donor:
+        return
+
+    gift = instance.donation_gift
+    if not gift.category_slug:
+        return
+    donor.tags.add(f"giftorder:{gift.category_slug}")

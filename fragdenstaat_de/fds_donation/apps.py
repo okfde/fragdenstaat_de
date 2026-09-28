@@ -50,6 +50,7 @@ class FdsDonationConfig(AppConfig):
             cancel_user,
             export_user_data,
             gift_order_inventory_check,
+            gift_order_tag_donor,
             merge_user,
             payment_status_changed,
             remove_newsletter_subscriber,
@@ -79,6 +80,7 @@ class FdsDonationConfig(AppConfig):
         )
         gather_mailing_preview_context.connect(mailing_payment_preview_context_listener)
         post_save.connect(gift_order_inventory_check, sender=DonationGiftOrder)
+        post_save.connect(gift_order_tag_donor, sender=DonationGiftOrder)
 
         from froide.account.menu import MenuItem, menu_registry
 
