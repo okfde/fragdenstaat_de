@@ -44,6 +44,7 @@
     {% if cms_toolbar.edit_mode_active %}
         {% include "_frontend.html" with entry_point="fds_cms.js" %}
     {% endif %}
+    {% include "_frontend.html" with entry_point="redact_banner.js" %}
     {{ block.super }}
 {% endblock scripts %}
 {% block below_scripts %}

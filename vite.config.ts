@@ -67,7 +67,7 @@ export default defineConfig(({ mode }) => ({
         tagautocomplete: r('froide', 'tagautocomplete.ts'),
         ubf: './frontend/javascript/ubf.ts',
         vegacharts: './frontend/javascript/vegacharts.js',
-        opensearch: './frontend/javascript/opensearch.ts'
+        redact_banner: './frontend/javascript/misc/redact-banner.ts'
       },
       output: {
         entryFileNames: '[name].js',
