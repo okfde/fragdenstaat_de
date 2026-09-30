@@ -35,7 +35,7 @@ from fragdenstaat_de.fds_newsletter.utils import get_subscribers
 
 from . import mailing_submitted
 from .pixel_log import generate_random_unique_pixel_url
-from .utils import get_url_tagger, render_text, render_web_html
+from .utils import get_url_tagger, make_feedback_id, render_text, render_web_html
 from .validators import validate_sender_domain
 
 User = get_user_model()
@@ -810,6 +810,8 @@ class MailingMessage(models.Model):
         headers = extra_kwargs.pop("headers", {})
         if list_id := context.get("list_id"):
             headers["List-Id"] = list_id
+
+        headers["Feedback-ID"] = make_feedback_id(self)
 
         try:
             logger.debug("Sending mailing message to: %s.", self)
