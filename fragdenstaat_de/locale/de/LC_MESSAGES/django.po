@@ -2827,6 +2827,11 @@ msgstr "Primär-Link"
 msgid "Primary Subtle"
 msgstr "Primär Subtil"
 
+#: fragdenstaat_de/templates/foirequest/body/body.html
+#: fragdenstaat_de/templates/foirequest/header/tabs.html
+msgid "Propose legal action"
+msgstr "Klage prüfen"
+
 #: fragdenstaat_de/fds_mailing/preview.py
 msgid "Provide alert"
 msgstr "Such-Abo hinzufügen"
