@@ -223,3 +223,19 @@ def get_url_tagger(mailing_campaign: str, query_param: str = "pk_campaign") -> s
         return url_regex.sub(replace_match, text)
 
     return tag_urls
+
+
+def make_feedback_id(mes):
+    """
+    Make a Google FBL Feedback-ID value
+    CampaignIDX:CustomerID2:MailTypeID3:SenderId
+    https://support.google.com/mail/answer/6254652?hl=en&sjid=16643589742702893151-EU
+    """
+
+    sender_id = "fragdenstaat.de"[:15]
+    mailtype_id = mes.mailing.id
+    customer_id = ""
+    if mes.subscriber:
+        customer_id = mes.subscriber.id
+
+    return f":{customer_id}:{mailtype_id}:{sender_id}"
