@@ -157,6 +157,7 @@ class MailingAdminMixin:
 
 
 class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
+    list_per_page = 20
     raw_id_fields = ("email_template",)
     filter_horizontal = ("segments",)
     list_display = (
