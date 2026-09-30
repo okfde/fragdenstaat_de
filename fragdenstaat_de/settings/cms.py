@@ -298,6 +298,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                 "froide.team.apps.TeamNoConfig",
                 "froide.accesstoken.apps.AccessTokenNoConfig",
                 "froide.helper",
+                "froide.bounce",
             ]
             + self.CMS_CORE_APPS
             + ["easy_thumbnails", "treebeard"]
