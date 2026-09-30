@@ -1,8 +1,10 @@
 import logging
+from functools import partial
 from pathlib import Path
 
 from django.conf import settings
 from django.core.mail import mail_admins
+from django.db import transaction
 from django.utils import timezone
 
 from froide.celery import app as celery_app
@@ -27,33 +29,31 @@ def send_mailing(mailing_id, sending_date):
         mail_admins("Mailing %d not sent!" % mailing_id, "")
         return
     mailing.finalize()
-    mailing.send()
+
+    continue_sending.delay(mailing_id)
 
 
 @celery_app.task(name="fragdenstaat_de.fds_mailing.continue_sending")
 def continue_sending(mailing_id):
     from .models import Mailing
 
-    try:
-        mailing = Mailing.objects.get(
-            id=mailing_id,
-            ready=True,
-            submitted=True,
-        )
-    except Mailing.DoesNotExist:
-        return
+    mailings = Mailing.objects.select_for_update().filter(
+        id=mailing_id, ready=True, submitted=True, sent=False, sending=False
+    )
+    with transaction.atomic():
+        mailing = mailings.first()
+        if mailing is None:
+            return
 
-    missing_recipients = mailing.recipients.all().filter(sent__isnull=True)
-    context = mailing.get_email_context()
+        mailing.continue_sending()
 
-    try:
-        for recipient in missing_recipients:
-            recipient.send(context)
+    missing_count = mailing.get_waiting_recipients().count()
+    if missing_count == 0:
         mailing.sent = True
         mailing.sent_date = timezone.now()
-    finally:
-        mailing.sending = False
         mailing.save()
+    else:
+        transaction.on_commit(partial(continue_sending.delay, mailing.id))
 
 
 @celery_app.task(name="fragdenstaat_de.fds_mailing.process_pixel_log")

@@ -274,3 +274,90 @@ def test_mailing_render_uncached(mailing, settings, newsletter):
     context["action_url"] = settings.SITE_URL + "/action2/"
     email_content = mailing.get_email_content(context)
     assert f'!<a href="{settings.SITE_URL}/action2/' in email_content.html
+
+
+class FakeTask:
+    called = None
+
+    def delay(self, *args, **kwargs):
+        self.called = (args, kwargs)
+
+    def apply_async(self, *args, **kwargs):
+        self.called = (args, kwargs)
+
+
+@pytest.mark.django_db(transaction=True)
+def test_submit_and_send_mailing(mailing, admin_user, monkeypatch):
+    from .. import tasks
+
+    Subscriber.objects.create(
+        email="subscribed3@example.org",
+        newsletter=mailing.newsletter,
+        subscribed=timezone.now(),
+    )
+
+    mailing.submitted = False
+    mailing.save()
+    assert mailing.sending_date is None
+
+    fake_task = FakeTask()
+    with monkeypatch.context() as m:
+        m.setattr(tasks, "send_mailing", fake_task)
+        mailing.submit(admin_user)
+
+    assert fake_task.called is not None
+    assert fake_task.called[0][0][0] == mailing.id
+    assert fake_task.called[1]["eta"] == mailing.sending_date
+
+    assert mailing.submitted is True
+    assert mailing.sender_user == admin_user
+    assert mailing.sending_date is not None
+
+    assert mailing.sending is False
+
+    assert mailing.get_waiting_recipients().count() == 0
+
+    fake_task = FakeTask()
+    with monkeypatch.context() as m:
+        m.setattr(tasks, "continue_sending", fake_task)
+        tasks.send_mailing(mailing.id, mailing.sending_date)
+
+    assert fake_task.called[0][0] == mailing.id
+    mailing.refresh_from_db()
+    assert mailing.get_waiting_recipients().count() == 2
+
+    original_continue_sending = Mailing.continue_sending
+
+    def continue_sending_small(self):
+        return original_continue_sending(self, batch_size=1)
+
+    called_continue = None
+
+    def mock_call(mailing_id):
+        nonlocal called_continue
+        called_continue = mailing_id
+
+    with monkeypatch.context() as m:
+        m.setattr(Mailing, "continue_sending", continue_sending_small)
+        m.setattr(tasks.continue_sending, "delay", mock_call)
+        tasks.continue_sending(mailing.id)
+
+    mailing.refresh_from_db()
+    assert mailing.sending is False
+    assert mailing.sent is False
+    assert mailing.sent_date is None
+    assert mailing.get_waiting_recipients().count() == 1
+    assert called_continue == mailing.id
+
+    called_continue = None
+
+    with monkeypatch.context() as m:
+        m.setattr(tasks.continue_sending, "delay", mock_call)
+        tasks.continue_sending(mailing.id)
+
+    mailing.refresh_from_db()
+    assert called_continue is None
+    assert mailing.sending is False
+    assert mailing.sent is True
+    assert mailing.sent_date is not None
+    assert mailing.get_waiting_recipients().count() == 0
