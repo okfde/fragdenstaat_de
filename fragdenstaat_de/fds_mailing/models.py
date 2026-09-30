@@ -604,18 +604,21 @@ class Mailing(models.Model):
         )
         mailing_submitted.send(sender=self, mailing=self)
 
-    def send(self):
-        if self.sending or self.sent or not self.submitted:
-            return
-
-        recipients = self.recipients.all()
-
+    def get_waiting_recipients(self):
+        recipients = self.recipients.filter(sent__isnull=True)
         if self.newsletter:
             # Force limit to selected newsletter
             recipients = recipients.filter(
                 subscriber__newsletter=self.newsletter,
                 subscriber__subscribed__isnull=False,
             )
+        return recipients
+
+    def continue_sending(self, batch_size=500):
+        if self.sending or self.sent or not self.submitted:
+            return
+
+        recipients = self.get_waiting_recipients()
 
         logger.info(
             _("Sending %(mailing)s to %(count)d people"),
@@ -627,19 +630,15 @@ class Mailing(models.Model):
         context = self.get_email_context()
 
         try:
-            for recipient in recipients:
+            for recipient in recipients.select_for_update()[:batch_size]:
                 recipient.send(context)
-
-            self.sent = True
-            self.sent_date = timezone.now()
 
         except Exception:
             logger.exception("Mailing %s sending failed", self.name)
             mail_managers("Sending out {} partly failed".format(self.name), "")
 
-        finally:
-            self.sending = False
-            self.save()
+        self.sending = False
+        self.save()
 
 
 class ContinuousMailingManager(MailingBaseManager):

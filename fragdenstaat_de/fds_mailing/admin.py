@@ -254,7 +254,7 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
         urls = super().get_urls()
 
         my_urls = [
-            re_path(r"^(.+)/send/$", self.send, name="fds_mailing_mailing_send"),
+            re_path(r"^(.+)/submit/$", self.submit, name="fds_mailing_mailing_send"),
             path(
                 "random-split/",
                 self.admin_site.admin_view(self.random_split),
@@ -387,7 +387,7 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
             self.message_user(request, _("CSV imported as mailing."))
         return redirect("admin:fds_mailing_mailing_changelist")
 
-    def send(self, request, object_id):
+    def submit(self, request, object_id):
         if request.method != "POST":
             raise PermissionDenied
         if not self.has_change_permission(request):
@@ -408,7 +408,10 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
 
         mailing.submit(request.user)
 
-        messages.info(request, _("Your mailing is being sent."))
+        if mailing.sending_date:
+            messages.info(request, _("Your mailing is scheduled."))
+        else:
+            messages.info(request, _("Your mailing is being sent."))
 
         return redirect(change_url)
 

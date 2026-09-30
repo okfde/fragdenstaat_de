@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-09-22 13:27+0100\n"
+"PO-Revision-Date: 2026-09-30 11:52+0100\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -4212,6 +4212,10 @@ msgstr "Dein Link ist abgelaufen, bitte fordere einen neuen an."
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Your mailing is being sent."
 msgstr "Ihr Mailing wird versendet."
+
+#: fragdenstaat_de/fds_mailing/admin.py
+msgid "Your mailing is scheduled."
+msgstr "Ihr Mailing ist eingeplant."
 
 #: fragdenstaat_de/fds_donation/forms.py
 #, python-brace-format
