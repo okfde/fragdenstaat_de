@@ -301,6 +301,19 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
         extra_context["random_split_form"] = RandomSplitForm()
         return super().changelist_view(request, extra_context=extra_context)
 
+    def get_readonly_fields(self, request, obj=None):
+        if obj and obj.ready:
+            return self.readonly_fields + (
+                "tracking",
+                "sender_name",
+                "sender_email",
+                "email_template",
+                "newsletter",
+                "segments",
+                "sending_date",
+            )
+        return self.readonly_fields
+
     @admin.display(description=_("Segments"))
     def segment_list(self, obj):
         return ", ".join([segment.name for segment in obj.segments.all()]) or "-"
@@ -325,6 +338,7 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
             return _("Sending... {percentage}").format(percentage=sent_percentage)
         return _("Sent {percentage}").format(percentage=sent_percentage)
 
+    @admin.action(description=_("Continue sending mailing"))
     def trigger_continue_sending(self, request, queryset):
         for mailing in queryset:
             continue_sending.delay(mailing.id)
@@ -332,8 +346,6 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
         self.message_user(
             request, _("Continue sending selected mailings."), level=messages.INFO
         )
-
-    trigger_continue_sending.short_description = _("Continue sending mailing")
 
     def random_split(self, request):
         if not request.method == "POST":
