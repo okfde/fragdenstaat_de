@@ -767,6 +767,8 @@ class FragDenStaatBase(German, Base):
                     rec(r"(?:Kennwort|Passwort) (?:ist|lautet): (.*)"),
                     rec(r"(?:Kennwort|Passwort): (.*)"),
                     rec(r"Token: ([A-Z0-9]+)"),
+                    rec(r"Benutzer: ([\w+\.]+)"),
+                    rec(r"(https://\S+ticketKey=\S+)"),
                     rec(r"(https://wetransfer.com/downloads/.*)"),
                     rec(r"(https://send.firefox.com/download/.*)"),
                 ],
@@ -819,6 +821,7 @@ class FragDenStaatBase(German, Base):
                         in (
                             "noreply@dhl.com",  # Hide DHL delivery emails
                             "noreply-bscw@itzbund.de",  # Hide BSCW.bund.de auto messages
+                            "noreply@online-projektportal.de",  # Hide online drive
                         )
                     )
                 ],
