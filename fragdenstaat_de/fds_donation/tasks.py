@@ -234,7 +234,9 @@ def remind_incomplete_donations_task():
     remind_incomplete_donations()
 
 
-@celery_app.task(name="fragdenstaat_de.fds_donation.new_donation")
+@celery_app.task(
+    name="fragdenstaat_de.fds_donation.gift_order_inventory_warning_notification"
+)
 def send_gift_order_inventory_warning_notification(gift_id):
     from .models import DonationGift
 
