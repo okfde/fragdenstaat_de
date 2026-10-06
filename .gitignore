@@ -20,3 +20,4 @@ htmlcov/
 django.po
 .env.*
 !fragdenstaat_de/locale/**/django.po
+Makefile.local
