@@ -3,13 +3,16 @@ from collections import OrderedDict
 from django import forms
 from django.contrib import admin, messages
 from django.contrib.admin.filters import SimpleListFilter
+from django.db import models
 from django.db.models import Exists, OuterRef, Q, Sum
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from froide.helper.admin_utils import MultiFilterMixin, TaggitListFilter
 
-from .models import DONATION_PROJECTS, Donation, Recurrence, TaggedDonor
+from fragdenstaat_de.fds_donation.models import DonorTag
+
+from .models import DONATION_PROJECTS, Donation, Donor, Recurrence, TaggedDonor
 
 
 class DonorProjectFilter(MultiFilterMixin, SimpleListFilter):
@@ -39,6 +42,52 @@ class DonorTagListFilter(MultiFilterMixin, TaggitListFilter):
     lookup_name = "__in"
     related_model = TaggedDonor
     related_model_fk_field = "content_object"
+
+
+class DonationDonorTagListFilter(MultiFilterMixin, TaggitListFilter):
+    tag_class = TaggedDonor
+    title = _("Donor tags")
+    parameter_name = "tags__slug"
+    lookup_name = "__in"
+    related_model = Donor
+    related_model_fk_field = "tags"
+
+    def lookups(self, request, model_admin):
+        """
+        Returns a list of tuples. The first element in each tuple is the coded value
+        for the option that will appear in the URL query. The second element is the
+        human-readable name for the option that will appear in the right sidebar.
+        """
+        filters = []
+        tags = DonorTag.objects.all()
+        for tag in tags:
+            filters.append((tag.slug, _(tag.name)))
+        return filters
+
+    @classmethod
+    def get_q(cls, values, lookup):
+        includes = [v for v in values if not v.startswith("~")]
+        excludes = [v[1:] for v in values if v.startswith("~")]
+
+        if not lookup.endswith("__in"):
+            lookup += "__in"
+
+        def exists(values):
+            return models.Exists(
+                Donor.objects.filter(
+                    **{
+                        "id": models.OuterRef("donor_id"),
+                        lookup: values,
+                    }
+                )
+            )
+
+        q = models.Q()
+        if includes:
+            q &= exists(includes)
+        if excludes:
+            q &= ~exists(excludes)
+        return q
 
 
 class DonorTotalAmountPerYearFilter(SimpleListFilter):

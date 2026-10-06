@@ -58,6 +58,7 @@ from fragdenstaat_de.theme.admin import make_tag_autocomplete_admin
 
 from .admin_utils import (
     ActiveRecurrencesListFilter,
+    DonationDonorTagListFilter,
     DonorProjectFilter,
     DonorTagListFilter,
     DonorTotalAmountPerYearFilter,
@@ -828,6 +829,7 @@ class DonationAdmin(admin.ModelAdmin):
         ("recurrence", ForeignKeyFilter),
         make_nullfilter("payment", _("Has payment record")),
         "payment__status",
+        DonationDonorTagListFilter,
     )
     date_hierarchy = "timestamp"
     raw_id_fields = ("donor", "order", "payment")
