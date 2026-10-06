@@ -473,6 +473,12 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
         ] + locales
 
 
+# SITES = {
+#     2: GegenrechtsschutzMixin,
+#     3: UbfMixin
+# }
+
+
 class GegenrechtsschutzMixin:
     SITE_ID = int(env("DJANGO_SITE_ID", 2))
     SITE_KEY = "grs"
@@ -506,3 +512,6 @@ class UbfMixin:
         ("cmssites/cmssite/ubf.html", "Ubf Template"),
         ("cmssites/cmssite/ubf_reduced.html", "Ubf Reduced Template"),
     ]
+
+
+SITES = {2: GegenrechtsschutzMixin, 3: UbfMixin}
