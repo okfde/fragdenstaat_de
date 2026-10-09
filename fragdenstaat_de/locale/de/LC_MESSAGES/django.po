@@ -3480,7 +3480,7 @@ msgstr "Abschicken"
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid "Submitted"
-msgstr "Gesendet"
+msgstr "Eingereicht"
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/plugins/newsletter_form.html
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/subscribe.html
