@@ -2,9 +2,11 @@ export DJANGO_SETTINGS_MODULE=fragdenstaat_de.settings.test
 export DJANGO_CONFIGURATION=Test
 export PYTHONWARNINGS=ignore,default:::fragdenstaat_de
 
+RUN = uv run --no-sync
+
 test:
-	ruff check
-	pytest --reuse-db
+	$(RUN) ruff check
+	$(RUN) pytest --reuse-db
 
 backend_dependencies:
 	./devsetup.sh upgrade_backend_repos
@@ -22,10 +24,10 @@ MAKEMESSAGES_OPTS = --ignore public --ignore froide-env --ignore node_modules --
 MAKEMESSAGES_EXTRA_OPTS =
 
 messagesde:
-	.venv/bin/python manage.py extendedmakemessages -l de $(MAKEMESSAGES_OPTS) $(MAKEMESSAGES_EXTRA_OPTS)
+	$(RUN) python manage.py extendedmakemessages -l de $(MAKEMESSAGES_OPTS) $(MAKEMESSAGES_EXTRA_OPTS)
 
 messagesls:
-	.venv/bin/python manage.py extendedmakemessages -l de_LS $(MAKEMESSAGES_OPTS)
+	$(RUN) python manage.py extendedmakemessages -l de_LS $(MAKEMESSAGES_OPTS)
 
 checkmessagesde:
 	$(MAKE) messagesde MAKEMESSAGES_EXTRA_OPTS="--no-untranslated --no-fuzzy"
