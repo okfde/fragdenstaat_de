@@ -302,7 +302,7 @@ msgstr "Artikel-Schlagwort"
 
 #: fragdenstaat_de/fds_blog/models.py
 msgid "Article Tags"
-msgstr "Artikel-Schlagworte"
+msgstr "Artikel-Schlagwörter"
 
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 msgid "Article archive"
@@ -2541,7 +2541,7 @@ msgstr "Sende E-Mail nur einmal an diesen Kontakt."
 
 #: fragdenstaat_de/fds_events/models.py
 msgid "Only show events with these tags."
-msgstr "Zeige nur Termine mit diesen Schlagworten."
+msgstr "Zeige nur Termine mit diesen Schlagwörtern."
 
 #: fragdenstaat_de/fds_cms/models.py
 msgid "Only show icons"
@@ -4926,7 +4926,7 @@ msgstr "Abonnier-Datum"
 
 #: fragdenstaat_de/fds_blog/models.py fragdenstaat_de/fds_cms/models.py
 msgid "tags"
-msgstr "Tags"
+msgstr "Schlagwörter"
 
 #: fragdenstaat_de/fds_blog/models.py fragdenstaat_de/fds_cms/models.py
 msgid "template"
@@ -6070,7 +6070,7 @@ msgstr "🚨 Warnung zum Spendengeschenk Lagerbestand: {name} ({id})"
 #~ msgstr "Format"
 
 #~ msgid "Found duplicate tags."
-#~ msgstr "Doppelte Schlagworte gefunden."
+#~ msgstr "Doppelte Schlagwörter gefunden."
 
 #~ msgid "FragDenStaat Account"
 #~ msgstr "FragDenStaat-Konto"
