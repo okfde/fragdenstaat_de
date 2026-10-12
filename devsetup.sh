@@ -144,15 +144,20 @@ frontend() {
   # Setup main project and link dependencies
   pushd "$MAIN"
   pnpm install
+  link_frontend_repos
+  popd
+}
+
+link_frontend_repos() {
   for name in "${FRONTEND[@]}"; do
     pnpm link --global "$name"
   done
-  popd
 }
 
 upgrade_frontend_repos() {
   pushd "$MAIN"
   pnpm update "${FRONTEND[@]}"
+  link_frontend_repos
   popd
 }
 
