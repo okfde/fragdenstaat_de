@@ -146,6 +146,11 @@ class DonorChangeList(ChangeList):
         return ret
 
 
+def start_flow_on_donors(admin, request, qs, obj):
+    for donor in qs:
+        create_flowrun(obj, donor)
+
+
 @admin.register(Donor)
 class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     form = DonorAdminForm
@@ -297,7 +302,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
     )
     start_flow_on_donor = make_choose_object_action(
         Flow.objects.get_active,
-        lambda admin, request, qs, obj: [create_flowrun(obj, donor) for donor in qs],
+        start_flow_on_donors,
         _("Start workflow for donors..."),
     )
 
