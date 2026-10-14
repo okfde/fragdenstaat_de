@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-10-06 10:42+0100\n"
+"PO-Revision-Date: 2026-10-14 11:51+0100\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -4497,6 +4497,10 @@ msgstr "Spende erhalten"
 msgid "donation received date"
 msgstr "Datum Spende erhalten"
 
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "donation received timestamp"
+msgstr "Datum Spende erhalten"
+
 #: fragdenstaat_de/fds_donation/admin.py fragdenstaat_de/fds_donation/models.py
 msgid "donations"
 msgstr "Spenden"
@@ -4805,6 +4809,10 @@ msgstr "Prozent"
 msgid "private"
 msgstr "privat"
 
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "processing timestamp"
+msgstr "Bearbeitungszeitpunkt"
+
 #: fragdenstaat_de/fds_ogimage/urls.py
 msgctxt "url part"
 msgid "profile/<str:slug>/_og/"
@@ -4895,6 +4903,10 @@ msgstr "gesendet"
 #: fragdenstaat_de/fds_mailing/models.py
 msgid "sent date"
 msgstr "Versendet am"
+
+#: fragdenstaat_de/fds_donation/admin.py
+msgid "shipped timestamp"
+msgstr "Versandzeitpunkt"
 
 #: fragdenstaat_de/fds_blog/model_bases.py
 msgid "sites"
