@@ -2,6 +2,7 @@ from urllib.parse import quote
 
 from django.apps import apps
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -26,6 +27,10 @@ from taggit.models import Tag
 
 from froide.document.models import Document, DocumentCollection
 
+from fragdenstaat_de.fds_cms.sites import (
+    get_default_site_settings,
+    validate_site_settings,
+)
 from fragdenstaat_de.theme.colors import (
     BACKDROP,
     BACKGROUND,
@@ -85,6 +90,19 @@ def validate_space_separated_urls(value):
     for url in value.split(" "):
         if not url.startswith("https://"):
             raise ValidationError("Invalid URL: %s" % url)
+
+
+class SiteSettings(models.Model):
+    site = models.OneToOneField(
+        Site, related_name="site_settings", on_delete=models.CASCADE
+    )
+    settings = models.JSONField(
+        default=get_default_site_settings,
+        validators=[validate_site_settings],
+    )
+
+    def __str__(self):
+        return _("Settings for {site}").format(site=self.site)
 
 
 @extension_pool.register

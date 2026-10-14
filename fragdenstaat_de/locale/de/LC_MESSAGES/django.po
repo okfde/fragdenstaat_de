@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-10-14 11:51+0100\n"
+"PO-Revision-Date: 2026-10-14 20:12+0100\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #: fragdenstaat_de/fds_mailing/admin.py
 msgid " (copy)"
@@ -3279,6 +3279,11 @@ msgstr "Setze {count} Bestellungen auf in Bearbeitung."
 #, python-brace-format
 msgid "Set {count} order to shipped."
 msgstr "Setze {count} Bestellungen auf versandt."
+
+#: fragdenstaat_de/fds_cms/models.py
+#, python-brace-format
+msgid "Settings for {site}"
+msgstr "Einstellungen für {site}"
 
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/send_mailing.html
 msgid "Setup mailing"
