@@ -41,20 +41,7 @@ CKEDITOR.plugins.add('figureblockquote', {
           requiredClasses: { 'blockquote-figure': true }
         }
       },
-      requiredContent: {
-        blockquote: {
-          classes: { blockquote: true },
-          requiredClasses: { blockquote: true }
-        },
-        figcaption: {
-          classes: { 'blockquote-footer': true },
-          requiredClasses: { 'blockquote-footer': true }
-        },
-        figure: {
-          classes: { 'blockquote-figure': true },
-          requiredClasses: { 'blockquote-figure': true }
-        }
-      },
+      requiredContent: 'blockquote',
       upcast: function (element) {
         return element.name == 'figure' && element.hasClass('blockquote-figure')
       }
