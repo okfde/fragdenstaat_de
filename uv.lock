@@ -1487,16 +1487,16 @@ wheels = [
 
 [[package]]
 name = "djangocms-versioning"
-version = "2.7.1"
+version = "2.8.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django-cms" },
     { name = "django-fsm-2" },
     { name = "packaging" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3b/c1/9228c586c458f591aec0b64618d359bd9df47eeedb39a57b178c7455eb3d/djangocms_versioning-2.7.1.tar.gz", hash = "sha256:7aea6eced4fbcc2e180fb16ea2bfc59c0144f848b4211a7898625274e2a3b187", size = 639341, upload-time = "2026-09-20T09:04:36.185Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ca/6e/da9891adfcd5d7d6cb236efcbc9cd5180dfdc4b2298bea5ebf1cb39ad6d4/djangocms_versioning-2.8.0.tar.gz", hash = "sha256:cc71d2baa139ff3a87b202eef7a25c41993e6807b55ca64f63a921b2a1b80ad0", size = 646668, upload-time = "2026-10-05T13:39:57.375Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/75/f5/3e98f555e11f6d46827c0cdcebee3f5a2d4c109f80efc95aa5af0ab9be47/djangocms_versioning-2.7.1-py3-none-any.whl", hash = "sha256:5c8dbf6566e0155deeba2cdea6b3cc0dd3154031c01f1d4a968d4b195cbb4ba2", size = 684464, upload-time = "2026-09-20T09:04:33.887Z" },
+    { url = "https://files.pythonhosted.org/packages/d3/b1/44942124f06c25b4038570a59079938825124e9c9825b46f81c4231070e4/djangocms_versioning-2.8.0-py3-none-any.whl", hash = "sha256:4ad9b43692549d11a7b56f294043aa72cd359b74950135149eec80a84d702745", size = 688707, upload-time = "2026-10-05T13:39:55.61Z" },
 ]
 
 [[package]]
@@ -2012,7 +2012,7 @@ requires-dist = [
     { name = "django-amenities", git = "https://github.com/okfde/django-amenities.git?rev=main" },
     { name = "django-celery-beat", specifier = ">=2.8.1" },
     { name = "django-celery-email", specifier = ">=3.0.0" },
-    { name = "django-cms", specifier = ">=5.0.5,<6" },
+    { name = "django-cms", specifier = ">=5.1,<6" },
     { name = "django-configurations", specifier = ">=2.5.1" },
     { name = "django-contractor", specifier = ">=0.0.8" },
     { name = "django-contrib-comments", specifier = ">=2.2.0" },
@@ -2038,7 +2038,7 @@ requires-dist = [
     { name = "djangocms-icon", specifier = ">=2.1.0" },
     { name = "djangocms-link", specifier = ">=5.0.1" },
     { name = "djangocms-picture", specifier = ">=4.1.1" },
-    { name = "djangocms-text", specifier = ">=0.9.1" },
+    { name = "djangocms-text", specifier = ">=1.0.1,<2" },
     { name = "djangocms-transfer", specifier = ">=2.0.1" },
     { name = "djangocms-versioning", specifier = ">=2.5.1" },
     { name = "djangocms-video", specifier = ">=3.1.0" },
@@ -2134,7 +2134,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#a63b9ba6963522de61ef47a594200976bcdb9261" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#67a21dcbacd1996fa02564cb9bdfff2d6d00ce07" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2188,7 +2188,7 @@ dependencies = [
 [[package]]
 name = "froide-campaign"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#84e718219d0ce8bce3c666654a7f2218338a51cf" }
+source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#15a5defb7f035fe4f65a40f7083f3588f684cd71" }
 dependencies = [
     { name = "django" },
     { name = "django-admin-sortable2" },
