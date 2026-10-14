@@ -6,5 +6,14 @@ def theme_settings(request):
         "SENTRY_JS_URL": settings.SENTRY_JS_URL,
         "MATOMO_SITE_ID": settings.MATOMO_SITE_ID,
         "EASYLANG_ENABLED": getattr(settings, "EASYLANG_ENABLED", False),
-        "CMSSITE_BASE_TEMPLATE": getattr(settings, "CMSSITE_BASE_TEMPLATE", None),
+        "CURRENT_LANGUAGE_CODE": getattr(
+            request, "LANGUAGE_CODE", settings.LANGUAGE_CODE
+        ),
+        "DEFAULT_LANGUAGE_CODE": settings.LANGUAGE_CODE,
+        "USER_LANGUAGES": getattr(settings, "USER_LANGUAGES", settings.LANGUAGES),
     }
+
+
+def site_settings(request):
+    site_settings = request.site.site_settings.settings
+    return site_settings
