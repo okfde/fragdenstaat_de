@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
+from django.apps import apps
 
 
 class Migration(migrations.Migration):
@@ -12,10 +13,13 @@ class Migration(migrations.Migration):
         ("taggit", "0002_auto_20150616_2121"),
         ("cms", "0020_old_tree_cleanup"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("publicbody", "0021_proposedpublicbody"),
-        ("foirequest", "0026_deliverystatus_retry_count"),
         ("fds_cms", "0004_primarylinkcmsplugin"),
     ]
+    if apps.is_installed("froide.foirequest"):
+        dependencies += [
+            ("foirequest", "0026_deliverystatus_retry_count"),
+            ("publicbody", "0021_proposedpublicbody"),
+        ]
 
     operations = [
         migrations.CreateModel(

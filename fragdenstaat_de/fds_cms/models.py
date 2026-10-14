@@ -1,5 +1,6 @@
 from urllib.parse import quote
 
+from django.apps import apps
 from django.conf import settings
 from django.core import validators
 from django.core.exceptions import ValidationError
@@ -24,8 +25,6 @@ from filingcabinet.models import DocumentPortal, PageAnnotation
 from taggit.models import Tag
 
 from froide.document.models import Document, DocumentCollection
-from froide.foirequest.models import FoiProject, FoiRequest
-from froide.publicbody.models import Category, Classification, Jurisdiction, PublicBody
 
 from fragdenstaat_de.theme.colors import (
     BACKDROP,
@@ -289,100 +288,110 @@ def get_foirequest_list_template_choices():
     return FoiRequestListCMSPlugin.TEMPLATES
 
 
-class FoiRequestListCMSPlugin(CMSPlugin):
-    """
-    CMS Plugin for displaying FoiRequests
-    """
-
-    TEMPLATES = [
-        ("", _("Default template")),
-        ("foirequest/cms_plugins/list_follow.html", _("Follow template")),
-        ("foirequest/cms_plugins/map_regions.html", _("Map region template")),
-        ("foirequest/cms_plugins/map_points.html", _("Map points template")),
-    ]
-
-    resolution = models.CharField(
-        blank=True, max_length=50, choices=FoiRequest.RESOLUTION.choices
+if apps.is_installed("froide.foirequest"):
+    from froide.foirequest.models import FoiProject, FoiRequest
+    from froide.publicbody.models import (
+        Category,
+        Classification,
+        Jurisdiction,
+        PublicBody,
     )
 
-    status = models.CharField(
-        blank=True, max_length=50, choices=FoiRequest.STATUS.choices
-    )
-
-    project = models.ForeignKey(
-        FoiProject, null=True, blank=True, on_delete=models.SET_NULL
-    )
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL
-    )
-
-    tags = models.ManyToManyField(Tag, verbose_name=_("tags"), blank=True)
-
-    jurisdiction = models.ForeignKey(
-        Jurisdiction, null=True, blank=True, on_delete=models.SET_NULL
-    )
-    category = models.ForeignKey(
-        Category, null=True, blank=True, on_delete=models.SET_NULL
-    )
-    classification = models.ForeignKey(
-        Classification, null=True, blank=True, on_delete=models.SET_NULL
-    )
-    publicbody = models.ForeignKey(
-        PublicBody, null=True, blank=True, on_delete=models.SET_NULL
-    )
-
-    number_of_entries = models.PositiveIntegerField(
-        _("number of entries"), default=1, help_text=_("0 means all the entries")
-    )
-    offset = models.PositiveIntegerField(
-        _("offset"),
-        default=0,
-        help_text=_("number of entries to skip from top of list"),
-    )
-    template = models.CharField(
-        _("template"),
-        blank=True,
-        max_length=250,
-        choices=get_foirequest_list_template_choices,
-        help_text=_("template used to display the plugin"),
-    )
-
-    def __str__(self):
-        return _("%s FOI requests") % self.number_of_entries
-
-    @property
-    def render_template(self):
+    class FoiRequestListCMSPlugin(CMSPlugin):
         """
-        Override render_template to use
-        the template_to_render attribute
+        CMS Plugin for displaying FoiRequests
         """
-        return self.template_to_render
 
-    def copy_relations(self, old_instance):
-        """
-        Duplicate ManyToMany relations on plugin copy
-        """
-        self.tags.set(old_instance.tags.all())
+        TEMPLATES = [
+            ("", _("Default template")),
+            ("foirequest/cms_plugins/list_follow.html", _("Follow template")),
+            ("foirequest/cms_plugins/map_regions.html", _("Map region template")),
+            ("foirequest/cms_plugins/map_points.html", _("Map points template")),
+        ]
 
+        resolution = models.CharField(
+            blank=True, max_length=50, choices=FoiRequest.RESOLUTION.choices
+        )
 
-class OneClickFoiRequestCMSPlugin(CMSPlugin):
-    TEMPLATES = [
-        ("", _("Default template")),
-    ]
+        status = models.CharField(
+            blank=True, max_length=50, choices=FoiRequest.STATUS.choices
+        )
 
-    foirequest = models.ForeignKey(
-        FoiRequest, related_name="+", on_delete=models.CASCADE
-    )
-    redirect_url = models.CharField(default="", max_length=255, blank=True)
-    reference = models.CharField(default="", max_length=255, blank=True)
+        project = models.ForeignKey(
+            FoiProject, null=True, blank=True, on_delete=models.SET_NULL
+        )
 
-    template = models.CharField(
-        _("Template"), choices=TEMPLATES, default="", max_length=50, blank=True
-    )
+        user = models.ForeignKey(
+            settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL
+        )
 
-    def __str__(self):
-        return _("One click form for {foirequest}").format(foirequest=self.foirequest)
+        tags = models.ManyToManyField(Tag, verbose_name=_("tags"), blank=True)
+
+        jurisdiction = models.ForeignKey(
+            Jurisdiction, null=True, blank=True, on_delete=models.SET_NULL
+        )
+        category = models.ForeignKey(
+            Category, null=True, blank=True, on_delete=models.SET_NULL
+        )
+        classification = models.ForeignKey(
+            Classification, null=True, blank=True, on_delete=models.SET_NULL
+        )
+        publicbody = models.ForeignKey(
+            PublicBody, null=True, blank=True, on_delete=models.SET_NULL
+        )
+
+        number_of_entries = models.PositiveIntegerField(
+            _("number of entries"), default=1, help_text=_("0 means all the entries")
+        )
+        offset = models.PositiveIntegerField(
+            _("offset"),
+            default=0,
+            help_text=_("number of entries to skip from top of list"),
+        )
+        template = models.CharField(
+            _("template"),
+            blank=True,
+            max_length=250,
+            choices=get_foirequest_list_template_choices,
+            help_text=_("template used to display the plugin"),
+        )
+
+        def __str__(self):
+            return _("%s FOI requests") % self.number_of_entries
+
+        @property
+        def render_template(self):
+            """
+            Override render_template to use
+            the template_to_render attribute
+            """
+            return self.template_to_render
+
+        def copy_relations(self, old_instance):
+            """
+            Duplicate ManyToMany relations on plugin copy
+            """
+            self.tags.set(old_instance.tags.all())
+
+    class OneClickFoiRequestCMSPlugin(CMSPlugin):
+        TEMPLATES = [
+            ("", _("Default template")),
+        ]
+
+        foirequest = models.ForeignKey(
+            FoiRequest, related_name="+", on_delete=models.CASCADE
+        )
+        redirect_url = models.CharField(default="", max_length=255, blank=True)
+        reference = models.CharField(default="", max_length=255, blank=True)
+
+        template = models.CharField(
+            _("Template"), choices=TEMPLATES, default="", max_length=50, blank=True
+        )
+
+        def __str__(self):
+            return _("One click form for {foirequest}").format(
+                foirequest=self.foirequest
+            )
 
 
 class VegaChartCMSPlugin(CMSPlugin):
