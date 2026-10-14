@@ -2,9 +2,8 @@ from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemaps_views
+from django.shortcuts import redirect
 from django.urls import include, path
-
-from froide.account.views import bad_login_view_redirect
 
 from fragdenstaat_de.fds_blog.redirect_views import ArticleRedirectView
 from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
@@ -13,10 +12,8 @@ from .utils import handler500  # noqa
 
 sitemaps = {"cmspages": FdsCMSSitemap}
 
-PROTOCOL = settings.SITE_URL.split(":")[0]
-
 for klass in sitemaps.values():
-    klass.protocol = PROTOCOL
+    klass.protocol = settings.META_SITE_PROTOCOL
 
 
 sitemap_urlpatterns = [
@@ -40,9 +37,13 @@ urlpatterns = [
 urlpatterns += sitemap_urlpatterns
 
 
+def no_login(request):
+    return redirect("/")
+
+
 SECRET_URLS = getattr(settings, "SECRET_URLS", {})
 urlpatterns += i18n_patterns(
-    path("%s/login/" % SECRET_URLS.get("admin", "admin"), bad_login_view_redirect),
+    path("%s/login/" % SECRET_URLS.get("admin", "admin"), no_login),
     path("%s/" % SECRET_URLS.get("admin", "admin"), admin.site.urls),
     path("cookies/", include("cookie_consent.urls")),
     path(

@@ -114,8 +114,6 @@ class BaseFeed(Feed):
 
 
 class LatestArticlesFeed(BaseFeed):
-    feed_copyright = settings.SITE_NAME
-
     def item_author_email(self, item):
         """
         Return the first author's email.
@@ -135,6 +133,9 @@ class LatestArticlesFeed(BaseFeed):
 
     def feed_url(self):
         return self.site_url + reverse("blog:article-latest-feed")
+
+    def feed_copyright(self):
+        return settings.SITE_NAME
 
 
 class LatestArticlesTeaserFeed(LatestArticlesFeed):
