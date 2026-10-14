@@ -1497,16 +1497,16 @@ wheels = [
 
 [[package]]
 name = "djangocms-versioning"
-version = "2.5.1"
+version = "2.8.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django-cms" },
     { name = "django-fsm-2" },
     { name = "packaging" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/45/b5/1d45a428b77d2c111cec40127d7332d82ee01e08507effca86a7bc6ef81d/djangocms_versioning-2.5.1.tar.gz", hash = "sha256:8e4d69e583918a8bb6264049a865c68abd2adc8cd14aa150b8ab1ad4d852a226", size = 575272, upload-time = "2026-02-09T16:27:03.595Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ca/6e/da9891adfcd5d7d6cb236efcbc9cd5180dfdc4b2298bea5ebf1cb39ad6d4/djangocms_versioning-2.8.0.tar.gz", hash = "sha256:cc71d2baa139ff3a87b202eef7a25c41993e6807b55ca64f63a921b2a1b80ad0", size = 646668, upload-time = "2026-10-05T13:39:57.375Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3f/63/68ef96671ceacdc00667170f5e57063d0919cdf6dd19dcd7cd8fd0e6a3ae/djangocms_versioning-2.5.1-py3-none-any.whl", hash = "sha256:f396014400dab3a561227d5395496aec40666f5e36aa8337f99aff8752249581", size = 609196, upload-time = "2026-02-09T16:27:01.669Z" },
+    { url = "https://files.pythonhosted.org/packages/d3/b1/44942124f06c25b4038570a59079938825124e9c9825b46f81c4231070e4/djangocms_versioning-2.8.0-py3-none-any.whl", hash = "sha256:4ad9b43692549d11a7b56f294043aa72cd359b74950135149eec80a84d702745", size = 688707, upload-time = "2026-10-05T13:39:55.61Z" },
 ]
 
 [[package]]
@@ -2022,7 +2022,7 @@ requires-dist = [
     { name = "django-amenities", git = "https://github.com/okfde/django-amenities.git?rev=main" },
     { name = "django-celery-beat", specifier = ">=2.8.1" },
     { name = "django-celery-email", specifier = ">=3.0.0" },
-    { name = "django-cms", specifier = ">=5.0.5,<6" },
+    { name = "django-cms", specifier = ">=5.1,<6" },
     { name = "django-configurations", specifier = ">=2.5.1" },
     { name = "django-contractor", specifier = ">=0.0.8" },
     { name = "django-contrib-comments", specifier = ">=2.2.0" },
@@ -2048,7 +2048,7 @@ requires-dist = [
     { name = "djangocms-icon", specifier = ">=2.1.0" },
     { name = "djangocms-link", specifier = ">=5.0.1" },
     { name = "djangocms-picture", specifier = ">=4.1.1" },
-    { name = "djangocms-text", specifier = ">=0.9.1" },
+    { name = "djangocms-text", specifier = ">=1.0.1,<2" },
     { name = "djangocms-transfer", specifier = ">=2.0.1" },
     { name = "djangocms-versioning", specifier = ">=2.5.1" },
     { name = "djangocms-video", specifier = ">=3.1.0" },
