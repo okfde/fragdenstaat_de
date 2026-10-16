@@ -188,6 +188,23 @@ def process_recurrence_task(donor_id):
     process_recurrence_on_donor(donor)
 
 
+@celery_app.task(name="fragdenstaat_de.fds_donation.process_new_donation_task")
+def process_new_donation_task(donation_id):
+    from .models import Donation
+    from .recurrence import process_recurrence_on_donor
+    from .services import process_new_donation
+
+    try:
+        donation = Donation.objects.get(id=donation_id)
+    except Donation.DoesNotExist:
+        return
+
+    if donation.donor:
+        process_recurrence_on_donor(donation.donor)
+
+    process_new_donation(donation)
+
+
 @celery_app.task(name="fragdenstaat_de.fds_donation.send_donation_tasks_update_mail")
 def send_donation_tasks_update_mail():
     from froide_payment.models import PaymentStatus

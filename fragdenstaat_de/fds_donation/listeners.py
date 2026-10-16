@@ -1,6 +1,7 @@
 import json
 from datetime import timedelta
 from decimal import Decimal
+from functools import partial
 
 from django.db import transaction
 from django.db.models import Max, Q, Sum
@@ -15,11 +16,10 @@ from .models import Donation, DonationGiftOrder, Donor, DonorEvent, Recurrence
 from .services import (
     create_donation_from_payment,
     detect_recurring_on_donor,
-    send_donation_email,
     send_sepa_notification,
 )
 from .tasks import (
-    send_donation_notification,
+    process_new_donation_task,
     send_gift_order_inventory_warning_notification,
 )
 
@@ -69,33 +69,7 @@ def payment_status_changed(sender=None, instance=None, **kwargs):
         obj.donor.save()
     obj.save()
 
-    now = timezone.now()
-    if obj.received_timestamp:
-        received_now = now - obj.received_timestamp <= timedelta(days=2)
-    else:
-        received_now = False
-
-    detect_recurring_on_donor(obj.donor)
-    process_new_donation(obj, received_now=received_now, domain_obj=domain_obj)
-
-
-def process_new_donation(donation, received_now=False, domain_obj=None):
-    payment = donation.payment
-    if payment is None:
-        return
-    if not donation.completed:
-        return
-    if donation.recurring and not donation.first_recurring:
-        # do not send email for recurring donations
-        return
-
-    pending_ok = payment.variant in ("lastschrift", "banktransfer", "sepa")
-    confirmed = payment.status == PaymentStatus.CONFIRMED
-    pending = payment.status in (PaymentStatus.PENDING, PaymentStatus.DEFERRED)
-    if (confirmed and received_now and not pending_ok) or (pending and pending_ok):
-        if not donation.email_sent:
-            transaction.on_commit(lambda: send_donation_notification.delay(donation.id))
-            send_donation_email(donation, domain_obj=domain_obj)
+    transaction.on_commit(partial(process_new_donation_task.delay, obj.id))
 
 
 def subscription_was_canceled(sender, **kwargs):

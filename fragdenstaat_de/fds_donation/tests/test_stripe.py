@@ -18,7 +18,7 @@ import stripe
 from playwright.async_api import Page
 
 from fragdenstaat_de.fds_donation.forms import QuickDonationForm
-from fragdenstaat_de.fds_donation.models import Donation
+from fragdenstaat_de.fds_donation.models import Donation, Donor
 
 from .utils import ProcessReader
 
@@ -203,6 +203,11 @@ async def test_sepa_recurring_donation_success(
 
         assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
         assert await page.get_by_text(donor_email).is_visible()
+
+        email_message = mail.outbox[0]
+        assert email_message.subject == "Vielen Dank für Ihre Spende"
+        donor = Donor.objects.get(email=donor_email)
+        assert donor.recurring_amount == 5
 
         print("waiting for webhooks to complete...")
 

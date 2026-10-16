@@ -1,6 +1,7 @@
 import logging
 from datetime import timedelta
 from decimal import Decimal
+from functools import partial
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -9,6 +10,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta
+from froide_payment.models import PaymentStatus
 
 from froide.account.auth import try_login_user_without_mfa
 from froide.account.models import User
@@ -20,7 +22,7 @@ from froide.helper.utils import update_query_params
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
 from .models import Donation, Donor
-from .tasks import process_recurrence_task
+from .tasks import process_recurrence_task, send_donation_notification
 from .utils import (
     get_email_change_token,
     merge_donor_list,
@@ -214,7 +216,7 @@ def create_donor(data, user=None, subscription=None):
     return donor
 
 
-def send_donation_email(donation, domain_obj=None):
+def send_donation_email(donation):
     if donation.email_sent:
         return
     donor = donation.donor
@@ -223,7 +225,6 @@ def send_donation_email(donation, domain_obj=None):
 
     extra_context = {}
     if donor.email_confirmed:
-        needs_optin = False
         # No opt-in needed
         if donor.email_confirmation_sent:
             # not a new donor
@@ -231,14 +232,8 @@ def send_donation_email(donation, domain_obj=None):
         else:
             mail_intent = new_donor_thanks_email
     else:
-        needs_optin = True
         mail_intent = donor_thanks_optin_email
         extra_context = {"action_url": donor.get_url()}
-
-    if domain_obj is not None and not needs_optin:
-        # payment not a donation
-        # and no optin needed
-        return
 
     context = {
         "name": donor.get_full_name(),
@@ -459,7 +454,32 @@ def get_bucket(days: int) -> tuple[int, int] | None:
 
 
 def detect_recurring_on_donor(donor):
-    transaction.on_commit(lambda: process_recurrence_task.delay(donor.id))
+    transaction.on_commit(partial(process_recurrence_task.delay, donor.id))
+
+
+def process_new_donation(donation):
+    payment = donation.payment
+    if payment is None:
+        return
+    if not donation.completed:
+        return
+    if donation.recurring and not donation.first_recurring:
+        # do not send email for recurring donations
+        return
+
+    now = timezone.now()
+    if donation.received_timestamp:
+        received_now = now - donation.received_timestamp <= timedelta(days=2)
+    else:
+        received_now = False
+
+    pending_ok = payment.variant in ("lastschrift", "banktransfer", "sepa")
+    confirmed = payment.status == PaymentStatus.CONFIRMED
+    pending = payment.status in (PaymentStatus.PENDING, PaymentStatus.DEFERRED)
+    if (confirmed and received_now and not pending_ok) or (pending and pending_ok):
+        if not donation.email_sent:
+            send_donation_notification.delay(donation.id)
+            send_donation_email(donation)
 
 
 def send_donation_reminder_email(donation):
