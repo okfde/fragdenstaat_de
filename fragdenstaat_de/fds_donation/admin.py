@@ -51,7 +51,7 @@ from froide.helper.auth import is_crew
 from froide.helper.csv_utils import dict_to_csv_stream, export_csv_response
 from froide.helper.widgets import TagAutocompleteWidget
 
-from fragdenstaat_de.fds_mailing.models import MailingMessage
+from fragdenstaat_de.fds_mailing.models import EmailTemplate, MailingMessage
 from fragdenstaat_de.fds_mailing.utils import SetupMailingMixin
 from fragdenstaat_de.fds_newsletter.admin_utils import make_subscriber_tagger
 from fragdenstaat_de.theme.admin import make_tag_autocomplete_admin
@@ -149,6 +149,17 @@ class DonorChangeList(ChangeList):
 def start_flow_on_donors(admin, request, qs, obj):
     for donor in qs:
         create_flowrun(obj, donor)
+
+
+def send_emailtemplate_to_donors(admin, request, qs, obj):
+    for donor in qs.exclude(email=""):
+        obj.send(
+            donor.email,
+            context={
+                "donor": donor,
+                "object": donor,
+            },
+        )
 
 
 @admin.register(Donor)
@@ -294,6 +305,7 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         "export_donor_csv",
         "tag_subscribers",
         "start_flow_on_donor",
+        "send_emailtemplate",
     ] + SetupMailingMixin.actions
 
     tag_all = make_batch_tag_action(autocomplete_url=DONOR_TAG_AUTOCOMPLETE)
@@ -304,6 +316,12 @@ class DonorAdmin(SetupMailingMixin, admin.ModelAdmin):
         Flow.objects.get_active,
         start_flow_on_donors,
         _("Start workflow for donors..."),
+    )
+
+    send_emailtemplate = make_choose_object_action(
+        EmailTemplate,
+        send_emailtemplate_to_donors,
+        _("Send email template directly..."),
     )
 
     def get_changelist(self, request):
