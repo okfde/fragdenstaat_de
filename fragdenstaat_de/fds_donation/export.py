@@ -307,7 +307,10 @@ def get_donation_data(donations, ignore_receipt_date: Optional[datetime] = None)
 def amount_to_words(amount: Decimal) -> str:
     from num2words import num2words
 
-    euro, cents = [int(x) for x in str(amount).split(".")]
+    if not amount:
+        euro, cents = 0, 0
+    else:
+        euro, cents = [int(x) for x in str(amount).split(".")]
     euro_word = num2words(euro, lang="de")
     if cents:
         cent_words = num2words(cents, lang="de")
