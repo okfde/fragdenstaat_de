@@ -1,5 +1,4 @@
 from .models import Donor, Recurrence
-from .services import confirm_donor_email
 from .utils import merge_donor_list
 
 DONOR_SESSION_KEY = "donor_id"
@@ -32,6 +31,8 @@ def get_donor_from_request(request) -> Donor | None:
 
 
 def login_donor(request, donor, update_login=True):
+    from .services import confirm_donor_email
+
     if update_login:
         confirm_donor_email(donor, request=request)
         donor.update_last_login()

@@ -21,6 +21,7 @@ from froide.helper.utils import update_query_params
 
 from fragdenstaat_de.fds_newsletter.utils import subscribe_to_default_newsletter
 
+from .auth import DONOR_SESSION_KEY
 from .models import Donation, Donor
 from .tasks import process_recurrence_task, send_donation_notification
 from .utils import (
@@ -163,28 +164,31 @@ donor_change_email_email = mail_registry.register(
 )
 
 
-def get_or_create_donor(data, user=None, subscription=None):
+def get_or_create_donor(data, user=None, subscription=None, request=None):
     if user is not None:
-        try:
-            donor = Donor.objects.get(user=user)
-            if subscription:
-                donor.recurring_amount = subscription.plan.amount_year / 12
-                donor.subscriptions.add(subscription)
-            donor.save()
+        donor = None
+        donors = Donor.objects.filter(user=user)
+        if len(donors) > 1:
+            donor = merge_donor_list(list(donors))
+        elif donors:
+            donor = donors[0]
+        if donor:
             return donor
-        except Donor.DoesNotExist:
-            return create_donor(data, user=user, subscription=subscription)
-    if subscription is not None:
-        donor = Donor.objects.filter(subscriptions=subscription).first()
-        if donor is not None:
-            return donor
-    return create_donor(data, user=user, subscription=subscription)
+    if request is not None:
+        donor_id = request.session.get(DONOR_SESSION_KEY)
+        donor_email = request.session.get("donor_email")
+        if donor_id and donor_email and donor_email == data["email"]:
+            # Same device donates with same email address
+            donor = Donor.objects.filter(id=donor_id, email=donor_email).first()
+            if donor is not None:
+                return donor
+    return create_donor(data, user=user, subscription=subscription, request=request)
 
 
-def create_donor(data, user=None, subscription=None):
+def create_donor(data, user=None, subscription=None, request=None):
     email_confirmed = None
     if user is not None and user.email and user.is_active:
-        if user.email.lower() == data["email"].lower():
+        if user.email.lower() == data["email"]:
             email_confirmed = user.date_joined
     recurring_amount = Decimal(0)
     if subscription:
@@ -198,7 +202,7 @@ def create_donor(data, user=None, subscription=None):
         postcode=data.get("postcode", ""),
         city=data.get("city", ""),
         country=data.get("country", ""),
-        email=data["email"].lower(),
+        email=data["email"],
         user=user,
         email_confirmed=email_confirmed,
         recurring_amount=recurring_amount,
@@ -212,6 +216,10 @@ def create_donor(data, user=None, subscription=None):
     if donor.email_confirmed and donor.contact_allowed:
         subscribe_to_default_newsletter(donor.email, user=user)
         subscribe_donor_newsletter(donor)
+
+    if request:
+        request.session[DONOR_SESSION_KEY] = donor.id
+        request.session["donor_email"] = donor.email
 
     return donor
 

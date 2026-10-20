@@ -271,7 +271,10 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
         donor = data.get("donor")
         if donor is None:
             donor = get_or_create_donor(
-                self.cleaned_data, user=self.user, subscription=order.subscription
+                self.cleaned_data,
+                user=self.user,
+                subscription=order.subscription,
+                request=self.request,
             )
         if order.subscription:
             donor.subscriptions.add(order.subscription)
@@ -538,6 +541,9 @@ class BasicDonorForm(get_basic_info_form(), forms.Form):
             attrs={"class": "form-control", "placeholder": EMAIL_PLACEHOLDER}
         ),
     )
+
+    def clean_email(self):
+        return self.cleaned_data["email"].lower()
 
 
 class DonorForm(BasicDonorForm):

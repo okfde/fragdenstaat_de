@@ -11,7 +11,14 @@ from django.utils import timezone
 import pytest
 
 from ..form_settings import DonationFormFactory, DonationSettingsForm
-from ..models import MIN_AMOUNT, ONCE, RECURRING, DonationFormViewCount, DonationGift
+from ..models import (
+    MIN_AMOUNT,
+    ONCE,
+    RECURRING,
+    DonationFormViewCount,
+    DonationGift,
+    Donor,
+)
 from .factories import DonationGiftOrderFactory
 
 User = get_user_model()
@@ -323,3 +330,38 @@ def test_form_prefill(client, monkeypatch):
     form = settings_form.make_donation_form(request=request, user=request.user)
     assert form.initial["interval"] == 1
     assert form.fields["amount"].min_value == MIN_AMOUNT
+
+
+@pytest.mark.django_db
+def test_donor_in_session(client):
+    path = reverse("fds_donation:donate")
+    post_data = {
+        "amount": "5",
+        "interval": "0",
+        "first_name": "Test",
+        "last_name": "Test",
+        "email": "test@example.com",
+        "payment_method": "banktransfer",
+        "receipt": "0",
+        "contact": "1",
+        "account": "0",
+        "form_settings": make_settings(
+            {
+                "interval": "once_recurring",
+            }
+        ),
+        "test": str(3 + 4),
+    }
+    response = client.post(path, post_data)
+    assert response.status_code == 302
+
+    donors = Donor.objects.all()
+    assert len(donors) == 1
+    assert donors[0].donations.filter(completed=False).count() == 1
+
+    response = client.post(path, post_data)
+    assert response.status_code == 302
+
+    donors = Donor.objects.all()
+    assert len(donors) == 1
+    assert donors[0].donations.filter(completed=False).count() == 2
