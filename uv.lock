@@ -723,34 +723,34 @@ wheels = [
 
 [package.optional-dependencies]
 cudart = [
-    { name = "nvidia-cuda-runtime", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-runtime" },
 ]
 cufft = [
-    { name = "nvidia-cufft", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cufft" },
 ]
 cufile = [
-    { name = "nvidia-cufile", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cufile" },
 ]
 cupti = [
-    { name = "nvidia-cuda-cupti", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-cupti" },
 ]
 curand = [
-    { name = "nvidia-curand", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-curand" },
 ]
 cusolver = [
-    { name = "nvidia-cusolver", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cusolver" },
 ]
 cusparse = [
-    { name = "nvidia-cusparse", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cusparse" },
 ]
 nvjitlink = [
-    { name = "nvidia-nvjitlink", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-nvjitlink" },
 ]
 nvrtc = [
-    { name = "nvidia-cuda-nvrtc", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-nvrtc" },
 ]
 nvtx = [
-    { name = "nvidia-nvtx", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-nvtx" },
 ]
 
 [[package]]
@@ -2144,7 +2144,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#3d404e5224222e91a4ef0837026e1e2df60761c5" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#4bf660b035871658df2cb6214347197521e7ec9b" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2198,7 +2198,7 @@ dependencies = [
 [[package]]
 name = "froide-campaign"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#15a5defb7f035fe4f65a40f7083f3588f684cd71" }
+source = { git = "https://github.com/okfde/froide-campaign.git?rev=main#d19cb50cc53bb16a52b75973f516d8ec2c64d1c7" }
 dependencies = [
     { name = "django" },
     { name = "django-admin-sortable2" },
@@ -2295,7 +2295,7 @@ dependencies = [
 [[package]]
 name = "froide-payment"
 version = "0.0.3"
-source = { git = "https://github.com/okfde/froide-payment.git?rev=main#732774d1aa03c95ef0b082bafdb0598834158e57" }
+source = { git = "https://github.com/okfde/froide-payment.git?rev=main#521fe6025abc9cba86f7b7f7ea31364c911ddcb5" }
 dependencies = [
     { name = "django-countries" },
     { name = "django-localflavor" },
