@@ -2247,7 +2247,7 @@ source = { git = "https://github.com/okfde/froide-exam.git?rev=main#3e74b262612d
 [[package]]
 name = "froide-fax"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-fax.git?rev=main#cc562a636aac5362868b51e7c7a0b2d6f60ed476" }
+source = { git = "https://github.com/okfde/froide-fax.git?rev=main#5f590b8424e66901bc38027696a56dcf87257007" }
 dependencies = [
     { name = "django" },
     { name = "phonenumbers" },
