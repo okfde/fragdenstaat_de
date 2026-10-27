@@ -141,7 +141,7 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
 
         return self.optimize(qs)
 
-    def get_object(self, queryset=None):
+    def get_object(self, queryset=None) -> Article:
         if "article" in self.kwargs:
             return self.kwargs["article"]
 
@@ -236,7 +236,7 @@ class ArticleDetailView(BaseBlogView, DetailView, BreadcrumbView, TranslatedView
                 obj.title,
                 self.request.path
                 if self.request.toolbar.edit_mode_active
-                else self.get_view_url(),
+                else obj.get_absolute_url(),
             )
         ]
 
