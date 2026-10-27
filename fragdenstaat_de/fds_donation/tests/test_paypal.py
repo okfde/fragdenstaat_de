@@ -237,7 +237,7 @@ async def test_paypal_once(page: Page, live_server, paypal_setup):
     # Checkout order approved + payment capture completed
     paypal_setup.max_request_count = 2
     with paypal_setup:
-        await page.locator("button", has_text="Pay").click()
+        await page.get_by_test_id("submit-button-initial").click()
         await page.wait_for_url(DONATION_DONE_URL)
 
         assert await page.get_by_text("Vielen Dank für Deine Spende!").is_visible()
@@ -344,7 +344,8 @@ async def test_paypal_cancel(page: Page, live_server, paypal_setup):
     assert donation.received_timestamp is None
     assert donation.payment.status != "pending"
     assert donation.payment.status != "confirmed"
-    await page.locator("#cancelLink").click()
+
+    await page.get_by_test_id("cancel-link").click()
 
     await page.wait_for_url(DONATION_FAILED_URL)
 
