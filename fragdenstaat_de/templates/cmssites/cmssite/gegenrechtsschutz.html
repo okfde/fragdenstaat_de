@@ -1,9 +1,5 @@
-{% extends "cmssites/grs_base.html" %}
+{% extends "cms/page.html" %}
 {% load cms_tags %}
-{% block meta %}
-    {{ block.super }}
-    {% include "fds_cms/social_meta.html" with object=request.current_page %}
-{% endblock %}
 {% block body %}
     {% block app_body %}
         {% block content_blog %}
