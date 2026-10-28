@@ -17,12 +17,14 @@
         <div class="row">
             <div class="col-12">{% render_field form.initial_amount stacked=True %}</div>
         </div>
-        <div class="row">
-            <div class="col-12" data-group="interval">{% render_field form.initial_interval inline=True %}</div>
-        </div>
+        {% if not form.initial_interval.is_hidden %}
+            <div class="row">
+                <div class="col-12" data-group="interval">{% render_field form.initial_interval inline=True %}</div>
+            </div>
+        {% endif %}
         {% for field in form.hidden_fields %}{{ field }}{% endfor %}
         <div class="d-grid gap-2 mx-auto col-8">
-            <button type="submit" class="btn btn-primary btn-lg mb-3 hideparent">{% trans "Continue" %}</button>
+            <button type="submit" class="btn btn-primary btn-lg mb-3">{% trans "Continue" %}</button>
         </div>
     </fieldset>
 </form>
