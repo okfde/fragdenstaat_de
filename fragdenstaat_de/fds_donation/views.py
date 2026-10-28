@@ -185,6 +185,10 @@ class DonationView(FormView):
         return redirect(order.get_absolute_payment_url(method))
 
 
+class DonationEmbedView(DonationView):
+    template_name = "fds_donation/forms/donation_embed.html"
+
+
 def quick_donation(request):
     if request.method != "POST":
         return JsonResponse({"error": "Invalid request method"}, status=405)

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+    {% trans "Donation" %}
+{% endblock title %}
+{% block top_block %}{% endblock %}
+{% block navbar %}{% endblock %}
+{% block app_body %}
+    {% include "fds_donation/forms/_donation_form.html" %}
+{% endblock %}
+{% block footer_container %}{% endblock %}

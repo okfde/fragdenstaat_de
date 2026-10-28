@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-11-05 11:41+0000\n"
+"PO-Revision-Date: 2026-11-11 13:08+0000\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -981,6 +981,7 @@ msgstr "Jetzt spenden"
 
 #: fragdenstaat_de/fds_donation/admin.py
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/donation.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/donation_embed.html
 msgid "Donation"
 msgstr "Spende"
 
@@ -4461,6 +4462,11 @@ msgstr "spenden/"
 msgctxt "url pattern"
 msgid "donate/complete/"
 msgstr "spenden/abgeschlossen/"
+
+#: fragdenstaat_de/fds_donation/urls.py
+msgctxt "url pattern"
+msgid "donate/embed/"
+msgstr "spenden/embed/"
 
 #: fragdenstaat_de/fds_donation/urls.py
 msgctxt "url pattern"

@@ -1,8 +1,10 @@
 from django.urls import path, re_path
 from django.utils.translation import pgettext_lazy
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 from .views import (
     DonationCompleteView,
+    DonationEmbedView,
     DonationFailedView,
     DonationView,
     DonorChangeEmailView,
@@ -25,6 +27,11 @@ urlpatterns = [
     path("recurrence/upgrade/", upgrade_recurrence, name="upgrade_recurrence"),
     path(
         pgettext_lazy("url pattern", "donate/"), DonationView.as_view(), name="donate"
+    ),
+    path(
+        pgettext_lazy("url pattern", "donate/embed/"),
+        xframe_options_exempt(DonationEmbedView.as_view()),
+        name="donate-embed",
     ),
     path(
         pgettext_lazy("url pattern", "donate/complete/"),
