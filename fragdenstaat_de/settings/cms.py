@@ -366,7 +366,6 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                     "django.contrib.messages.context_processors.messages",
                     "sekizai.context_processors.sekizai",
                     "cms.context_processors.cms_settings",
-                    "fragdenstaat_de.theme.context_processors.theme_settings",
                     "fragdenstaat_de.theme.context_processors.site_settings",
                 ],
             },
