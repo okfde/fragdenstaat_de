@@ -272,6 +272,15 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
     FRONTEND_BUILD_DIR = BASE_DIR / "build"
     FRONTEND_SERVER_URL = "http://localhost:5173/static/"
 
+    ALLOWED_HOSTS = ("*",)
+    ALLOWED_REDIRECT_HOSTS = (
+        "*",
+        "localhost:8000",
+        "localhost:8001",
+        "localhost:8002",
+        "localhost:8003",
+    )
+
     LANGUAGE_CODE = "de"
     LANGUAGES = (
         ("en", _("English")),
