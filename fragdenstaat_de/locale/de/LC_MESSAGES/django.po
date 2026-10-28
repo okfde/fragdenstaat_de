@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-10-19 12:16+0200\n"
+"PO-Revision-Date: 2026-10-28 15:00+0000\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -985,6 +985,7 @@ msgstr "Jetzt spenden"
 
 #: fragdenstaat_de/fds_donation/admin.py
 #: fragdenstaat_de/fds_donation/templates/fds_donation/forms/donation.html
+#: fragdenstaat_de/fds_donation/templates/fds_donation/forms/donation_embed.html
 msgid "Donation"
 msgstr "Spende"
 
@@ -3284,6 +3285,11 @@ msgstr "Setze {count} Bestellungen auf in Bearbeitung."
 msgid "Set {count} order to shipped."
 msgstr "Setze {count} Bestellungen auf versandt."
 
+#: fragdenstaat_de/fds_cms/models.py
+#, python-brace-format
+msgid "Settings for {site}"
+msgstr "Einstellungen für {site}"
+
 #: fragdenstaat_de/fds_mailing/templates/admin/fds_mailing/mailing/send_mailing.html
 msgid "Setup mailing"
 msgstr "Mailing einrichten"
@@ -3372,6 +3378,7 @@ msgid "Size"
 msgstr "Größe"
 
 #: fragdenstaat_de/fds_easylang/templates/fds_easylang/header.html
+#: fragdenstaat_de/templates/cmssites/fds_base.html
 #: fragdenstaat_de/templates/header.html
 #: fragdenstaat_de/templates/header_minimal.html
 msgid "Skip to main content"
