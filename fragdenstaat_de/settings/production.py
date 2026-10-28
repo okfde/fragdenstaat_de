@@ -62,8 +62,10 @@ class FragDenStaat(FragDenStaatBase):
         "media.frag-den-staat.de",
         "testserver",
     ]
-    ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS + ["sanktionsfrei.de"]
     CSRF_TRUSTED_ORIGINS = [x for x in env("CSRF_TRUSTED_ORIGINS", "").split(",") if x]
+    ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS + [
+        x.split("://", 1)[1] for x in CSRF_TRUSTED_ORIGINS if x
+    ]
 
     PAYMENT_HOST = env("PAYMENT_HOST", "fragdenstaat.de")
     PAYMENT_USES_SSL = True
@@ -309,6 +311,9 @@ class CMSSiteProduction(CMSSiteBase):
     TEMPLATE_DEBUG = False
     FRONTEND_DEBUG = False
     ALLOWED_HOSTS = [x for x in env("ALLOWED_HOSTS", "").split(",") if x]
+    ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS
+    CSRF_TRUSTED_ORIGINS = [x for x in env("CSRF_TRUSTED_ORIGINS", "").split(",") if x]
+
     SECRET_KEY = env("DJANGO_SECRET_KEY")
     FDS_THUMBNAIL_ENABLE_AVIF = True
 

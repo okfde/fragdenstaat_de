@@ -629,7 +629,20 @@ class FragDenStaatBase(German, Base):
     }
 
     ALLOWED_HOSTS = ("*",)
-    ALLOWED_REDIRECT_HOSTS = ("*",)
+    ALLOWED_REDIRECT_HOSTS = (
+        "*",
+        "localhost:8000",
+        "localhost:8001",
+        "localhost:8002",
+        "localhost:8003",
+    )
+    CSRF_TRUSTED_ORIGINS = [
+        "https://test.zerschlagdenstaat.de",
+        "http://localhost:8000",
+        "http://localhost:8001",
+        "http://localhost:8002",
+        "http://localhost:8003",
+    ]
 
     CREW_GROUP = 13
 
