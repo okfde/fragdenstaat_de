@@ -142,7 +142,9 @@ class BasicDonationForm(StartPaymentMixin, forms.Form):
             self.quick_payment_only = True
 
         if hasattr(self, "request"):
-            self.fields["form_url"].initial = self.request.path
+            self.fields["form_url"].initial = self.request.build_absolute_uri(
+                location=self.request.path
+            )
             self.fields["query_params"].initial = self.request.GET.urlencode()
 
         if self.settings["min_amount"] and self.settings["min_amount"] >= MIN_AMOUNT:

@@ -121,13 +121,16 @@ def test_donation_form_track_data():
     form = form_factory.make_form(
         request=request,
     )
-    assert form.fields["form_url"].initial == "/donation/"
+    assert form.fields["form_url"].initial == "http://testserver/donation/"
 
     html = render_to_string(
         "fds_donation/forms/_donation_form.html",
         {"form": form, "request": request},
     )
-    assert '''input type="hidden" name="form_url" value="/donation/"''' in html
+    assert (
+        '''input type="hidden" name="form_url" value="http://testserver/donation/"'''
+        in html
+    )
     assert '''input type="hidden" name="reference" value="a"''' in html
     assert '''input type="hidden" name="keyword" value="b"''' in html
     assert '''input type="hidden" name="purpose" value="c"''' in html
