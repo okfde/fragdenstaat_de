@@ -7,7 +7,7 @@ from configurations import Configuration, importer, values
 
 import froide
 
-from fragdenstaat_de.settings.base import THEME_ROOT, env
+from fragdenstaat_de.settings.base import THEME_ROOT, FragDenStaatBase
 
 importer.install(check_options=True)
 
@@ -136,6 +136,8 @@ class CMSSettingsMixin:
         }
     }
     CMS_PLUGIN_CONTEXT_PROCESSORS = ["fragdenstaat_de.fds_mailing.utils.add_style"]
+
+    CMS_TEMPLATES = FragDenStaatBase.CMS_TEMPLATES
 
     DJANGOCMS_PICTURE_NESTING = True
 
@@ -308,11 +310,6 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                 "flowcontrol",
                 "filingcabinet",
                 "froide.document.apps.DocumentNoConfig",
-                "froide.georegion",
-                "froide.publicbody.apps.PublicBodyNoConfig",
-                "froide.campaign",
-                "froide.foirequest.apps.FoiRequestNoConfig",
-                "froide.proof.apps.ProofNoConfig",
                 "fragdenstaat_de.fds_blog.apps.BlogNoConfig",
                 "fragdenstaat_de.fds_newsletter.apps.NewsletterNoConfig",
                 "fragdenstaat_de.fds_mailing.apps.FdsMailingNoConfig",
@@ -369,8 +366,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
                     "django.contrib.messages.context_processors.messages",
                     "sekizai.context_processors.sekizai",
                     "cms.context_processors.cms_settings",
-                    "fragdenstaat_de.theme.context_processors.theme_settings",
-                    "froide.helper.context_processors.site_settings",
+                    "fragdenstaat_de.theme.context_processors.site_settings",
                 ],
             },
         }
@@ -378,7 +374,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
 
     MIDDLEWARE = [
         "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.contrib.sites.middleware.CurrentSiteMiddleware",
+        "fragdenstaat_de.fds_cms.middleware.CMSSiteMiddleware",
         "django.middleware.locale.LocaleMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
@@ -453,17 +449,7 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
         }
     }
 
-    @property
-    def ELASTICSEARCH_INDEX_PREFIX(self):
-        return self.SITE_KEY
-
-    @property
-    def MFA_DOMAIN(self):
-        return self.SITE_URL.rsplit("/", 1)[1]
-
-    @property
-    def MFA_SITE_TITLE(self):
-        return self.SITE_NAME
+    ELASTICSEARCH_INDEX_PREFIX = "cms"
 
     @property
     def LOCALE_PATHS(self):
@@ -471,38 +457,3 @@ class CMSSiteBase(CMSSettingsMixin, Configuration):
         return [
             self.PROJECT_ROOT / "locale",
         ] + locales
-
-
-class GegenrechtsschutzMixin:
-    SITE_ID = int(env("DJANGO_SITE_ID", 2))
-    SITE_KEY = "grs"
-    SITE_URL = "https://gegenrechtsschutz.de"
-    SITE_NAME = "Gegenrechtsschutz"
-    SITE_EMAIL = "info@gegenrechtsschutz.de"
-    SITE_LOGO = ""
-    MATOMO_SITE_ID = "57"
-    SENTRY_JS_URL = ""
-
-    CMSSITE_BASE_TEMPLATE = "cmssites/grs_base.html"
-
-    CMS_TEMPLATES = [
-        ("cmssites/cmssite/gegenrechtsschutz.html", "Gegenrechtsschutz Template"),
-    ]
-
-
-class UbfMixin:
-    SITE_ID = int(env("DJANGO_SITE_ID", 3))
-    SITE_KEY = "ubf"
-    SITE_URL = "https://ueberbrueckungsfonds.de"
-    SITE_NAME = "Überbrückungsfonds"
-    SITE_EMAIL = "fonds@fragdenstaat.de"
-    SITE_LOGO = ""
-    MATOMO_SITE_ID = "60"
-    SENTRY_JS_URL = ""
-
-    CMSSITE_BASE_TEMPLATE = "cmssites/ubf_base.html"
-
-    CMS_TEMPLATES = [
-        ("cmssites/cmssite/ubf.html", "Ubf Template"),
-        ("cmssites/cmssite/ubf_reduced.html", "Ubf Reduced Template"),
-    ]

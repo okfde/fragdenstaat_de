@@ -295,7 +295,8 @@
             "path": "",
             "language": "de",
             "page": 1,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -306,7 +307,8 @@
             "path": "aktionen",
             "language": "de",
             "page": 2,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -317,7 +319,8 @@
             "path": "recherchen",
             "language": "de",
             "page": 3,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -328,7 +331,8 @@
             "path": "spenden/spenden",
             "language": "de",
             "page": 4,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -339,7 +343,8 @@
             "path": "artikel",
             "language": "de",
             "page": 5,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -350,7 +355,8 @@
             "path": "crowdfunding",
             "language": "de",
             "page": 6,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -361,7 +367,8 @@
             "path": "kontakt",
             "language": "de",
             "page": 7,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -372,7 +379,8 @@
             "path": "hilfe/suche",
             "language": "de",
             "page": 8,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -383,7 +391,8 @@
             "path": "food",
             "language": "de",
             "page": 9,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -394,7 +403,8 @@
             "path": "exam",
             "language": "de",
             "page": 10,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -405,7 +415,8 @@
             "path": "spenden",
             "language": "de",
             "page": 11,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
@@ -416,7 +427,8 @@
             "path": "hilfe",
             "language": "de",
             "page": 12,
-            "managed": true
+            "managed": true,
+            "site_id": 1
         }
     },
     {
