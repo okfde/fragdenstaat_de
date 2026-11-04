@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-11-03 10:47+0000\n"
+"PO-Revision-Date: 2026-11-04 11:48+0000\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -1727,11 +1727,8 @@ msgstr ""
 "%(site_name)s"
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribed.html
-#, fuzzy
-#| msgctxt "salutation neutral"
-#| msgid "Hello"
 msgid "Hello!"
-msgstr "Hallo"
+msgstr "Hallo!"
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/email/subscriber_batch_confirm.txt
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/email/subscriber_confirm.txt
@@ -4047,7 +4044,7 @@ msgstr "Wir haben dir einen Link zu deinem Spenderprofil geschickt."
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribed.html
 #, python-format
 msgid "We have unsubscribed you with the email address <strong>%(email)s</strong> from our list."
-msgstr ""
+msgstr "Wir haben dich mit der E-Mail-Adresse <strong>%(email)s</strong> von unserer Liste genommen."
 
 #: fragdenstaat_de/fds_donation/views.py
 msgid "We send you an email to confirm your new email address."
@@ -4058,16 +4055,9 @@ msgid "We subscribed you again."
 msgstr "Wir haben dein Abo wieder aktiviert."
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "        We unsubscribed <strong>%(email)s</strong>. If you did not intent for this to happen, you can undo it.\n"
-#| "        "
+#, python-format
 msgid "We unsubscribed <strong>%(email)s</strong>. If you did not intent for this to happen, you can undo it."
-msgstr ""
-"\n"
-"        Wir haben das Abo für <strong>%(email)s</strong> gekündigt. Falls du das nicht wolltest, kannst du es hier rückgängig machen.\n"
-"        "
+msgstr "Wir haben das Abo für <strong>%(email)s</strong> gekündigt. Falls du das nicht wolltest, kannst du es hier rückgängig machen."
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
 msgid "We'd love to know why you chose to unsubscribe."
@@ -4129,6 +4119,10 @@ msgstr "Du bist schon in unserem Newsletter."
 #: fragdenstaat_de/fds_donation/views.py
 msgid "You are logged in with a different account than the one associated with this donor."
 msgstr "Du bist mit einem anderen Konto eingeloggt als das, was mit dem Spenderprofil verknüpft ist."
+
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "You are not subscribed to this topic."
+msgstr "Du hast diese Liste nicht abonniert."
 
 #: fragdenstaat_de/fds_donation/forms.py
 #, python-brace-format
