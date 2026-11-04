@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load form_helper %}
+{% block app_body %}
+    <h1>{% translate "Hello!" %}</h1>
+    <p>
+        {% blocktranslate trimmed with email=email %}
+        We have unsubscribed you with the email address <strong>{{ email }}</strong> from our list.
+        {% endblocktranslate %}
+    </p>
+{% endblock app_body %}

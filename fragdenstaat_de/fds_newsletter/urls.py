@@ -8,7 +8,9 @@ from .views import (
     newsletter_subscribe_request,
     newsletter_user_settings,
     undo_unsubscribe,
+    unsegment,
     unsubscribe_feedback,
+    unsubscribed,
 )
 
 urlpatterns = [
@@ -45,6 +47,16 @@ urlpatterns = [
         "<slug:newsletter_slug>/subscription/undo-unsubscribe/",
         undo_unsubscribe,
         name="newsletter_undo_unsubscribe",
+    ),
+    path(
+        "<slug:newsletter_slug>/subscription/<int:pk>/unsegment/<slug:activation_code>/<int:segment_id>/",
+        unsegment,
+        name="newsletter_unsegment",
+    ),
+    path(
+        "<slug:newsletter_slug>/unsubscribed/",
+        unsubscribed,
+        name="newsletter_unsubscribed",
     ),
     path(
         _("<slug:newsletter_slug>/feedback/"),

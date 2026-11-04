@@ -16,7 +16,7 @@ from django.views.decorators.http import require_POST
 from froide.helper.utils import get_redirect, is_ajax
 
 from .forms import NewsletterForm, NewslettersUserForm, UnsubscribeFeedbackForm
-from .models import Newsletter, Subscriber, UnsubscribeFeedback
+from .models import Newsletter, Segment, Subscriber, UnsubscribeFeedback
 from .utils import SubscriptionResult, subscribed_newsletters
 
 
@@ -270,6 +270,51 @@ def undo_unsubscribe(request, newsletter_slug=None):
     messages.add_message(request, messages.INFO, _("We subscribed you again."))
 
     return redirect(newsletter.subscribed_url or "/")
+
+
+def unsegment(request, newsletter_slug, pk, activation_code, segment_id):
+    newsletter = get_object_or_404(Newsletter, slug=newsletter_slug)
+    subscriber = get_object_or_404(
+        Subscriber,
+        newsletter=newsletter,
+        pk=pk,
+        activation_code=activation_code,
+        unsubscribed=None,
+    )
+    segment = get_object_or_404(Segment, id=segment_id, user_editable=True)
+
+    subscriber_tags = subscriber.tags.all()
+    segment_tags = segment.tags.all()
+    subscriber_has_tags = set(segment_tags) & set(subscriber_tags)
+    if not subscriber_has_tags:
+        messages.add_message(
+            request, messages.INFO, _("You are not subscribed to this topic.")
+        )
+        return redirect(newsletter.subscribed_url or "/")
+
+    if request.method == "POST":
+        subscriber.tags.remove(*segment_tags)
+        subscriber.data.setdefault("segments_removed", {})
+        subscriber.data["segments_removed"][f"{segment.id}"] = (
+            timezone.now().isoformat()
+        )
+        subscriber.save()
+        return (
+            redirect("newsletter_unsubscribed")
+            + "?"
+            + urlencode({"email": subscriber.get_email()})
+        )
+
+    return render(
+        request,
+        "fds_newsletter/unsubscribe.html",
+        {"form_action": request.get_full_path()},
+    )
+
+
+def unsubscribed(request):
+    email = request.GET.get("email", "")
+    return render(request, "fds_newsletter/unsubscribed.html", {"email": email})
 
 
 def legacy_unsubscribe(request, newsletter_slug=None, email=None, activation_code=None):

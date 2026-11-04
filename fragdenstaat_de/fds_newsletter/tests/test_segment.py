@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.utils import timezone
 
 import pytest
@@ -22,16 +23,16 @@ def subscriber_factory():
 
 @pytest.fixture
 def segment_factory():
-    def factory(parent=None, tags=None, negate=False):
+    def factory(parent=None, tags=None, **kwargs):
         if parent is None:
             segment = Segment.add_root(
                 name="Test Root Segment [{}]".format(", ".join(tags if tags else [])),
-                negate=negate,
+                **kwargs,
             )
         else:
             segment = parent.add_child(
                 name="Test Child Segment [{}]".format(", ".join(tags if tags else [])),
-                negate=negate,
+                **kwargs,
             )
 
         if tags:
@@ -196,3 +197,24 @@ def test_segment_negated_tags(newsletter, subscriber_factory, segment_factory):
 
     result = get_subscribers(newsletter, segments=[parent_segment])
     assert {subscriber4} == set(result)
+
+
+@pytest.mark.django_db
+def test_unsegment(client, subscriber_factory, segment_factory, newsletter):
+    sub = subscriber_factory(newsletter, tags={"topic", "other"})
+    segment = segment_factory(tags=["topic"], user_editable=True)
+    unsegment_url = reverse(
+        "newsletter_unsegment",
+        kwargs={
+            "newsletter_slug": newsletter.slug,
+            "pk": sub.pk,
+            "activation_code": sub.activation_code,
+            "segment_id": segment.id,
+        },
+    )
+
+    response = client.post(unsegment_url)
+    assert response.status_code == 302
+    sub.refresh_from_db()
+    assert sub.unsubscribed is None
+    assert ["other"] == sub.tags.all().values_list("name", flat=True)
