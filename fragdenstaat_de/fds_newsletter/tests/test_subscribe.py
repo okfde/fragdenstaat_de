@@ -1,4 +1,5 @@
 import re
+from datetime import timedelta
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -25,6 +26,7 @@ from ..listeners import (
     user_email_changed,
 )
 from ..models import Newsletter, Subscriber
+from .factories import SubscriberFactory
 
 User = get_user_model()
 
@@ -626,3 +628,72 @@ def test_already_delay(mailoutbox):
     assert len(mailoutbox) == 1
     subscribe(nl, "test@example.com")
     assert len(mailoutbox) == 1
+
+
+@pytest.mark.django_db
+def test_undo_unsubscribe(client, newsletter):
+    sub = SubscriberFactory.create(newsletter=newsletter, subscribed=timezone.now())
+    unsub_url = sub.get_unsubscribe_url()
+    response = client.post(unsub_url)
+    assert response.status_code == 302
+    url = response.headers["Location"]
+    response = client.get(url)
+    assert response.status_code == 200
+    sub.refresh_from_db()
+    assert sub.unsubscribed is not None
+    response = client.post(
+        reverse(
+            "newsletter_undo_unsubscribe",
+            kwargs={"newsletter_slug": newsletter.slug},
+        )
+    )
+    assert response.status_code == 302
+    sub.refresh_from_db()
+    assert sub.subscribed is not None
+    assert sub.data.get("undo_subscribe") is not None
+
+
+@pytest.mark.django_db
+def test_undo_unsubscribe_no_subscriber(client, newsletter):
+    response = client.post(
+        reverse(
+            "newsletter_undo_unsubscribe",
+            kwargs={"newsletter_slug": newsletter.slug},
+        )
+    )
+    assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_undo_unsubscribe_on_subscribed(client, newsletter):
+    sub = SubscriberFactory.create(newsletter=newsletter, subscribed=timezone.now())
+    unsub_url = sub.get_unsubscribe_url()
+    response = client.post(unsub_url)
+    assert response.status_code == 302
+    sub.refresh_from_db()
+    sub.subscribe()
+    response = client.post(
+        reverse(
+            "newsletter_undo_unsubscribe",
+            kwargs={"newsletter_slug": newsletter.slug},
+        )
+    )
+    assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_undo_unsubscribe_too_late(client, newsletter):
+    sub = SubscriberFactory.create(newsletter=newsletter, subscribed=timezone.now())
+    unsub_url = sub.get_unsubscribe_url()
+    response = client.post(unsub_url)
+    assert response.status_code == 302
+    sub.refresh_from_db()
+    sub.unsubscribed = timezone.now() - timedelta(hours=2)
+    sub.save()
+    response = client.post(
+        reverse(
+            "newsletter_undo_unsubscribe",
+            kwargs={"newsletter_slug": newsletter.slug},
+        )
+    )
+    assert response.status_code == 404

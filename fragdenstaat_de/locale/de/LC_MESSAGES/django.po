@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 15:30+0200\n"
-"PO-Revision-Date: 2026-10-28 15:00+0000\n"
+"PO-Revision-Date: 2026-11-03 10:47+0000\n"
 "Last-Translator: Anett Seeker <anett.seeker@okfn.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/fragdenstaat_de/de/>\n"
 "Language: de\n"
@@ -499,6 +499,10 @@ msgstr "Dauerspende kündigen"
 msgid "Cancellation"
 msgstr "Kündigung"
 
+#: fragdenstaat_de/fds_newsletter/models.py
+msgid "Cannot negate and be user editable"
+msgstr "Segment kann nicht negieren und editierbar sein"
+
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 msgid "Categories…"
 msgstr "Kategorien…"
@@ -596,6 +600,10 @@ msgstr "Bestätigungsdatum entfernen"
 #, python-format
 msgid "Click the <strong class=\"highlight\">confirmation link</strong> in the email from %(SITE_NAME)s."
 msgstr "Klicke <strong class=\"highlight\">den Bestätigungs-Link</strong> in der E-Mail von %(SITE_NAME)s."
+
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
+msgid "Clicked the wrong link?"
+msgstr "Falschen Link geklickt?"
 
 #: fragdenstaat_de/templates/header.html
 msgid "Climate Helpdesk"
@@ -1717,6 +1725,13 @@ msgstr ""
 "\n"
 "Beste Grüße\n"
 "%(site_name)s"
+
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribed.html
+#, fuzzy
+#| msgctxt "salutation neutral"
+#| msgid "Hello"
+msgid "Hello!"
+msgstr "Hallo"
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/email/subscriber_batch_confirm.txt
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/email/subscriber_confirm.txt
@@ -2884,6 +2899,10 @@ msgstr "Zufällige Split-Mailings erstellt."
 msgid "Raw Code"
 msgstr "Rohquelltext"
 
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
+msgid "Re-subscribe now"
+msgstr "Wieder abonnieren"
+
 #: fragdenstaat_de/fds_cms/templates/cms/plugins/primarylink/campaign.html
 #: fragdenstaat_de/fds_mailing/templates/fds_mailing/plugins/archive.html
 msgid "Read more"
@@ -4013,6 +4032,10 @@ msgstr "Schade, dass du deinen Dauerauftrag kündigen möchtest. Wenn du das auc
 msgid "We automatically import the message from frontex for you and permanently store it on FragDenStaat."
 msgstr "Wir importieren die Nachricht von Frontex automatisch für Sie und speichern sie dauerhaft auf FragDenStaat."
 
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "We could not find a recent unsubscription."
+msgstr "Wir konnten keine kürzliche Abo-Kündigung finden."
+
 #: fragdenstaat_de/fds_donation/views.py
 msgid "We have no associated donations with your account. If you have donated, let us know! Otherwise feel free to donate below."
 msgstr "Wir haben keine mit Deinem Konto verknüpften Spenden gefunden. Falls Du gespendet hast, lasse es uns wissen! Ansonsten hast Du weiter unten die Gelegenheit zu spenden."
@@ -4021,9 +4044,30 @@ msgstr "Wir haben keine mit Deinem Konto verknüpften Spenden gefunden. Falls Du
 msgid "We have sent you a link to access your donations."
 msgstr "Wir haben dir einen Link zu deinem Spenderprofil geschickt."
 
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribed.html
+#, python-format
+msgid "We have unsubscribed you with the email address <strong>%(email)s</strong> from our list."
+msgstr ""
+
 #: fragdenstaat_de/fds_donation/views.py
 msgid "We send you an email to confirm your new email address."
 msgstr "Wir haben dir eine E-Mail gesendet zum Bestätigen deiner neuen E-Mail-Adresse."
+
+#: fragdenstaat_de/fds_newsletter/views.py
+msgid "We subscribed you again."
+msgstr "Wir haben dein Abo wieder aktiviert."
+
+#: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "        We unsubscribed <strong>%(email)s</strong>. If you did not intent for this to happen, you can undo it.\n"
+#| "        "
+msgid "We unsubscribed <strong>%(email)s</strong>. If you did not intent for this to happen, you can undo it."
+msgstr ""
+"\n"
+"        Wir haben das Abo für <strong>%(email)s</strong> gekündigt. Falls du das nicht wolltest, kannst du es hier rückgängig machen.\n"
+"        "
 
 #: fragdenstaat_de/fds_newsletter/templates/fds_newsletter/unsubscribe_feedback.html
 msgid "We'd love to know why you chose to unsubscribe."

@@ -162,6 +162,9 @@ def confirm_subscribe(request, newsletter_slug=None, pk=None, activation_code=No
     return redirect(newsletter.subscribed_url or "/")
 
 
+SUBSCRIBER_SESSION_KEY = "subscriber_id"
+
+
 def confirm_unsubscribe(request, newsletter_slug=None, pk=None, activation_code=None):
     newsletter = get_object_or_404(Newsletter, slug=newsletter_slug)
     subscriber = get_object_or_404(
@@ -171,14 +174,14 @@ def confirm_unsubscribe(request, newsletter_slug=None, pk=None, activation_code=
         subscriber.unsubscribe(
             method="unsubscribe-link", reference=request.GET.get("pk_campaign", "")
         )
+        if not request.user.is_authenticated:
+            request.session[SUBSCRIBER_SESSION_KEY] = subscriber.id
 
         return redirect(
             reverse(
                 "newsletter_unsubscribe_feedback",
                 kwargs={"newsletter_slug": newsletter.slug},
             )
-            + "?activation_code="
-            + activation_code
         )
     return render(
         request,
@@ -187,25 +190,35 @@ def confirm_unsubscribe(request, newsletter_slug=None, pk=None, activation_code=
     )
 
 
-def unsubscribe_feedback(request, newsletter_slug=None):
-    newsletter = get_object_or_404(Newsletter, slug=newsletter_slug)
-
+def _get_subscriber_from_request(request, newsletter):
+    subscriber = None
     if request.user.is_authenticated:
         subscriber = get_object_or_404(
             Subscriber, newsletter=newsletter, user=request.user
         )
     else:
-        subscriber = get_object_or_404(
-            Subscriber,
-            newsletter=newsletter,
-            activation_code=request.GET.get("activation_code"),
-        )
+        subscriber_id = request.session.get(SUBSCRIBER_SESSION_KEY)
+        if subscriber_id:
+            subscriber = get_object_or_404(
+                Subscriber,
+                newsletter=newsletter,
+                id=subscriber_id,
+            )
+
+    if not subscriber:
+        raise Http404
+    return subscriber
+
+
+def unsubscribe_feedback(request, newsletter_slug=None):
+    newsletter = get_object_or_404(Newsletter, slug=newsletter_slug)
+    subscriber = _get_subscriber_from_request(request, newsletter)
 
     # make sure the user unsubscribed, and the unsubscription happened recently
     # and the survey has been filled out yet
     if (
         subscriber.unsubscribed is None
-        or subscriber.unsubscribed > timezone.now() + timedelta(hours=1)
+        or subscriber.unsubscribed < timezone.now() - timedelta(hours=1)
         or UnsubscribeFeedback.objects.filter(
             subscriber=subscriber, newsletter=newsletter
         ).exists()
@@ -233,8 +246,30 @@ def unsubscribe_feedback(request, newsletter_slug=None):
     return render(
         request,
         "fds_newsletter/unsubscribe_feedback.html",
-        {"form": form, "newsletter": newsletter},
+        {"form": form, "newsletter": newsletter, "subscriber": subscriber},
     )
+
+
+@require_POST
+def undo_unsubscribe(request, newsletter_slug=None):
+    newsletter = get_object_or_404(Newsletter, slug=newsletter_slug)
+    subscriber: Subscriber = _get_subscriber_from_request(request, newsletter)
+    if (
+        subscriber.unsubscribed is None
+        or subscriber.unsubscribed < timezone.now() - timedelta(hours=1)
+    ):
+        messages.add_message(
+            request, messages.WARNING, _("We could not find a recent unsubscription.")
+        )
+        if request.user.is_authenticated:
+            return redirect("account-settings")
+        raise Http404
+    subscriber.data["undo_subscribe"] = timezone.now().isoformat()
+    subscriber.subscribe()
+
+    messages.add_message(request, messages.INFO, _("We subscribed you again."))
+
+    return redirect(newsletter.subscribed_url or "/")
 
 
 def legacy_unsubscribe(request, newsletter_slug=None, email=None, activation_code=None):

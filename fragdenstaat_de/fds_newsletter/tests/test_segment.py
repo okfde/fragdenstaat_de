@@ -2,19 +2,9 @@ from django.utils import timezone
 
 import pytest
 
-from ..models import Newsletter, Segment
+from ..models import Segment
 from ..utils import get_subscribers
 from .factories import SubscriberFactory
-
-
-@pytest.fixture
-def newsletter():
-    """Fixture to create a newsletter."""
-    return Newsletter.objects.create(
-        title="Test Newsletter",
-        slug="test-newsletter",
-        description="Test description",
-    )
 
 
 @pytest.fixture

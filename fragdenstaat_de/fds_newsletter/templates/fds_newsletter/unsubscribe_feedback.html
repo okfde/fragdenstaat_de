@@ -7,6 +7,17 @@
             You successfully unsubscribed from {{ newsletter }}.
         {% endblocktrans %}
     </h1>
+    <h2>{% translate "Clicked the wrong link?" %}</h2>
+    <p>
+        {% blocktranslate trimmed with email=subscriber.email %}
+            We unsubscribed <strong>{{ email }}</strong>. If you did not intent for this to happen, you can undo it.
+        {% endblocktranslate %}
+        <form method="post"
+              action="{% url 'newsletter_undo_unsubscribe' newsletter_slug=subscriber.newsletter.slug %}">
+            {% csrf_token %}
+            <button type="submit">{% translate "Re-subscribe now" %}</button>
+        </form>
+    </p>
     <p>{% trans "We'd love to know why you chose to unsubscribe." %}</p>
     <form method="post" action="">
         {% csrf_token %}
