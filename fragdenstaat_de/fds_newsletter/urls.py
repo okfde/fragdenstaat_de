@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .views import (
     confirm_subscribe,
     confirm_unsubscribe,
+    manage_subscriptions,
     newsletter_ajax_subscribe_request,
     newsletter_subscribe_request,
     newsletter_user_settings,
@@ -42,6 +43,11 @@ urlpatterns = [
         "<slug:newsletter_slug>/subscription/<int:pk>/unsubscribe/<slug:activation_code>/",
         confirm_unsubscribe,
         name="newsletter_confirm_unsubscribe",
+    ),
+    path(
+        "<slug:newsletter_slug>/subscription/<int:pk>/manage/<slug:activation_code>/",
+        manage_subscriptions,
+        name="newsletter_manage_subscriptions",
     ),
     path(
         "<slug:newsletter_slug>/subscription/undo-unsubscribe/",

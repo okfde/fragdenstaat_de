@@ -363,3 +363,16 @@ def newsletter_user_settings(request):
         messages.add_message(request, messages.ERROR, form.errors)
 
     return redirect("account-settings")
+
+
+def manage_subscriptions(request, newsletter_slug, pk, activation_code):
+    newsletter = get_object_or_404(Newsletter, slug=newsletter_slug)
+    subscriber = get_object_or_404(
+        Subscriber, newsletter=newsletter, pk=pk, activation_code=activation_code
+    )
+    subscribers = Subscriber.objects.filter(
+        user=subscriber.user, email=subscriber.email, subscribed__isnull=False
+    )
+    Newsletter
+
+    return render(request, "fds_newsletter/manage.html", {})
