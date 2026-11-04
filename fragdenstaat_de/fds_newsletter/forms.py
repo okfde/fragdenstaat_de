@@ -45,11 +45,17 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
     keyword = forms.CharField(required=False, widget=forms.HiddenInput())
     next = forms.CharField(required=False, widget=forms.HiddenInput())
     data = forms.CharField(required=False, widget=forms.HiddenInput())
+    form_url = forms.CharField(required=False, widget=forms.HiddenInput())
+    query_params = forms.CharField(required=False, widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.request.user.is_authenticated:
             self.fields["email"].initial = self.request.user.email
+        self.fields["form_url"].initial = self.request.build_absolute_uri(
+            location=self.request.path
+        )
+        self.fields["query_params"].initial = self.request.GET.urlencode()
 
     def clean_reference(self):
         # Avoid validation error, just cut off
@@ -63,11 +69,19 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
         encoded_data = self.cleaned_data.get("data", "")
         return dict(parse_qsl(unquote(encoded_data)))
 
+    def clean_query_params(self):
+        encoded_data = self.cleaned_data.get("query_params", "")
+        return dict(parse_qsl(unquote(encoded_data), keep_blank_values=True))
+
     def save(self, newsletter, user) -> SubscriptionReturn:
         email = self.cleaned_data["email"]
         reference = self.cleaned_data["reference"]
         keyword = self.cleaned_data["keyword"]
         data = self.cleaned_data["data"]
+        query_params = self.cleaned_data["query_params"]
+        form_url = self.cleaned_data["form_url"]
+
+        data["query_params"] = query_params
 
         return subscribe(
             newsletter,
@@ -76,6 +90,7 @@ class NewsletterForm(SpamProtectionMixin, forms.Form):
             reference=reference,
             keyword=keyword,
             data=data,
+            form_url=form_url,
         )
 
 

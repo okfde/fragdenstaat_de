@@ -232,6 +232,7 @@ class Subscriber(models.Model):
     unsubscribe_reference = models.CharField(max_length=255, blank=True)
     email_hash = models.CharField(max_length=64, blank=True)
 
+    form_url = models.CharField(max_length=1024, blank=True)
     reference = models.CharField(max_length=255, blank=True)
     keyword = models.CharField(max_length=255, blank=True)
 
@@ -506,6 +507,7 @@ class Segment(MP_Node):
     )
     negate = models.BooleanField(default=False, verbose_name=_("negate tags"))
     archived = models.DateTimeField(null=True, blank=True)
+    user_editable = models.BooleanField(default=False)
 
     node_order_by = ["name"]
 
@@ -515,6 +517,10 @@ class Segment(MP_Node):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if self.negate and self.user_editable:
+            raise ValidationError(_("Cannot negate and be user editable"))
 
     def get_subscribers(self, newsletter=None):
         qs = Subscriber.objects.filter(subscribed__isnull=False)

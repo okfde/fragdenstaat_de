@@ -361,7 +361,7 @@ class SegmentAdmin(TreeAdmin):
     list_display = ("name", "created", "tag_list", "subscriber_count")
     search_fields = ("name",)
     date_hierarchy = "created"
-    list_filter = [SubscriberTagSegmentListFilter]
+    list_filter = [SubscriberTagSegmentListFilter, "user_editable"]
     actions = ["archive_segments"]
 
     def get_queryset(self, request):

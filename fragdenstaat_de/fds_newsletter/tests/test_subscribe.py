@@ -61,7 +61,12 @@ class NewsletterSubscriberTest(TestCase):
         mail.outbox = []
         response = self.client.post(
             reverse("newsletter_subscribe_request"),
-            data={"email": self.email_2, "reference": "test"},
+            data={
+                "email": self.email_2,
+                "reference": "test",
+                "form_url": "http://example.com",
+                "query_params": "a=1&b=%20",
+            },
         )
         self.assertEqual(response.status_code, 302)
         self.assertTrue(
@@ -82,6 +87,8 @@ class NewsletterSubscriberTest(TestCase):
         )
         self.assertEqual(subscriber.reference, "test")
         self.assertEqual(subscriber.user, None)
+        self.assertEqual(subscriber.form_url, "http://example.com")
+        self.assertEqual(subscriber.data["query_params"], {"a": "1", "b": " "})
 
     def test_default_newsletter_subscription_ajax(self):
         mail.outbox = []

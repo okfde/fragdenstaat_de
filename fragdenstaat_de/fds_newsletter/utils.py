@@ -60,6 +60,7 @@ def subscribe(
     email_confirmed=False,
     reference="",
     keyword="",
+    form_url="",
     tags=None,
     data=None,
 ) -> SubscriptionReturn:
@@ -74,7 +75,13 @@ def subscribe(
 
     if user and email_confirmed:
         return subscribe_user(
-            newsletter, user, reference=reference, keyword=keyword, tags=tags, data=data
+            newsletter,
+            user,
+            reference=reference,
+            keyword=keyword,
+            tags=tags,
+            data=data,
+            form_url=form_url,
         )
     return subscribe_email(
         newsletter,
@@ -85,6 +92,7 @@ def subscribe(
         keyword=keyword,
         tags=tags,
         data=data,
+        form_url=form_url,
     )
 
 
@@ -95,6 +103,7 @@ def subscribe_email(
     name="",
     reference="",
     keyword="",
+    form_url="",
     tags=None,
     new_tags=None,
     batch=False,
@@ -119,6 +128,7 @@ def subscribe_email(
                 "name": name,
                 "reference": reference,
                 "keyword": keyword,
+                "form_url": form_url,
                 "data": data or {},
             },
         )
@@ -144,7 +154,7 @@ def subscribe_email(
 
 
 def subscribe_user(
-    newsletter, user, reference="", keyword="", tags=None, data=None
+    newsletter, user, reference="", keyword="", form_url="", tags=None, data=None
 ) -> SubscriptionReturn:
     try:
         subscriber = Subscriber.objects.filter(
@@ -155,7 +165,12 @@ def subscribe_user(
         subscriber, _created = Subscriber.objects.get_or_create(
             newsletter=newsletter,
             user=user,
-            defaults={"reference": reference, "keyword": keyword, "data": data or {}},
+            defaults={
+                "reference": reference,
+                "keyword": keyword,
+                "form_url": form_url,
+                "data": data or {},
+            },
         )
     if tags:
         subscriber.tags.add(*tags)
