@@ -309,7 +309,7 @@ class MailingAdmin(MailingAdminMixin, admin.ModelAdmin):
                 "sender_name",
                 "sender_email",
                 "email_template",
-                "newsletter",
+                # "newsletter",
                 "segments",
                 "sending_date",
             )
