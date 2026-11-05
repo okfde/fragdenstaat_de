@@ -2,35 +2,57 @@
 {% load cms_tags %}
 {# size can be sm, lg or xl, which will adjust the heading font size #}
 {% with size=size|default:"lg" heading_tag=heading_tag|default:"h3" %}
-    {% if size == "sm" %}
+    {% if size == "xs" %}
+        {% firstof "h6" as heading_class %}
+    {% elif size == "sm" %}
         {% firstof "h5" as heading_class %}
     {% elif size == "lg" %}
         {% firstof "h4" as heading_class %}
     {% endif %}
     <div>
-        {% if hide_date != True %}
-            <div class="text-end small text-secondary">
-                <time datetime="{{ article.start_publication|date:'c' }}">
-                    {{ article.start_publication|date:"DATE_FORMAT" }}
-                </time>
-            </div>
-        {% endif %}
         <{{ heading_tag }} class="{{ heading_class }} mt-0 mb-2">
         {% if article.kicker %}
-            <span class="d-block mb-1 text-body-secondary fw-normal fs-base hyphens-auto">{{ article.kicker }}<span class="visually-hidden">:</span></span>
+            <span class="d-block mb-1 text-body-secondary fw-normal hyphens-auto {% if size == "xs" %}small{% else %}fs-base{% endif %}">{{ article.kicker }}<span class="visually-hidden">:</span></span>
         {% endif %}
         <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
         </{{ heading_tag }}>
     </div>
     <div class="tight-margin">
-        {% if article.query_highlight %}
-            <p class="search-highlight">{{ article.query_highlight }}</p>
-        {% elif article.teaser %}
-            {% if not TRUNCWORDS_COUNT %}
-                {% render_model article "teaser" %}
-            {% else %}
-                {% render_model article "teaser" "" "" "truncatewords_html:TRUNCWORDS_COUNT" %}
+        {% if not hide_teaser %}
+            {% if article.query_highlight %}
+                <p class="search-highlight">{{ article.query_highlight }}</p>
+            {% elif article.teaser %}
+                {% if not TRUNCWORDS_COUNT %}
+                    {% render_model article "teaser" %}
+                {% else %}
+                    {% render_model article "teaser" "" "" "truncatewords_html:TRUNCWORDS_COUNT" %}
+                {% endif %}
             {% endif %}
+        {% endif %}
+        {% if not hide_authors or not hide_date %}
+            <div class="small text-secondary">
+                {% if not hide_authors %}
+                    {% with authors=article.authors.all %}
+                        {% if authors %}
+                            {% if authors|length >= 2 %}
+                                {% blocktrans with author=authors.0.get_full_name count count=authors|length|add:-1 trimmed %}
+                                    {{ author }} and {{ count }} other
+                                {% plural %}
+                                    {{ author }} and {{ count }} others
+                                {% endblocktrans %}
+                            {% else %}
+                                {{ authors.0.get_full_name }}
+                            {% endif %}
+                            –
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
+                {% if not hide_date %}
+                    <time datetime="{{ article.start_publication|date:'c' }}">
+                        {{ article.start_publication|date:"DATE_FORMAT" }}
+                    </time>
+                {% endif %}
+            </div>
         {% endif %}
     </div>
 {% endwith %}

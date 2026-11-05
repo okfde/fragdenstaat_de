@@ -4,5 +4,7 @@
             {% include "fds_blog/includes/blog_picture.html" with picture=article.image columns="col-12 col-md-10 col-lg-8" %}
         </a>
     {% endif %}
-    <div {% if article.image %}class="mt-3"{% endif %}>{% include "fds_blog/includes/_item_meta_brief.html" %}</div>
+    <div {% if article.image %}class="mt-3"{% endif %}>
+        {% include "fds_blog/includes/_item_meta.html" with hide_teaser=True size="xs" %}
+    </div>
 </article>

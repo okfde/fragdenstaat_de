@@ -30,7 +30,7 @@ msgstr " (Kopie)"
 msgid "%(amount_str)s&nbsp;€ of %(donation_goal_str)s&nbsp;€"
 msgstr "%(amount_str)s&nbsp;€ von %(donation_goal_str)s&nbsp;€"
 
-#: fragdenstaat_de/fds_blog/templates/fds_blog/includes/_item_meta_brief.html
+#: fragdenstaat_de/fds_blog/templates/fds_blog/includes/_item_meta.html
 #, python-format
 msgid "%(author)s and %(count)s other"
 msgid_plural "%(author)s and %(count)s others"
