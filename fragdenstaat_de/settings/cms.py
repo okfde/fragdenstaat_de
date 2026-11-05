@@ -196,7 +196,7 @@ class CMSSettingsMixin:
                 "Outdent",
                 "Indent",
                 "-",
-                "figureblockquote",
+                # "figureblockquote",
                 "-",
                 "Link",
                 "Unlink",

@@ -394,7 +394,7 @@ class FragDenStaatBase(German, Base):
                 "Outdent",
                 "Indent",
                 "-",
-                "figureblockquote",
+                # "figureblockquote",
                 "-",
                 "Link",
                 "Unlink",
