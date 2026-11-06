@@ -3,9 +3,6 @@
 {% load menu_tags %}
 {% block navbar %}
     {{ block.super }}
-    {% if request.current_page.fdspageextension.breadcrumb_overlay %}
-        {% include "snippets/messages.html" %}
-    {% endif %}
     <nav aria-label="breadcrumb"
          {% if request.current_page.fdspageextension.breadcrumb_background %} class="text-bg-{{ request.current_page.fdspageextension.breadcrumb_background }}{% if request.current_page.fdspageextension.breadcrumb_overlay %} breadcrumb-overlay{% endif %}
          "
@@ -18,7 +15,9 @@
     </nav>
 {% endblock navbar %}
 {% block messages %}
-    {% if not request.current_page.fdspageextension.breadcrumb_overlay %}
+    {% if request.current_page.fdspageextension.breadcrumb_background and request.current_page.fdspageextension.breadcrumb_overlay %}
+        {% include "snippets/messages.html" with overlay=True %}
+    {% else %}
         {% include "snippets/messages.html" %}
     {% endif %}
 {% endblock messages %}
