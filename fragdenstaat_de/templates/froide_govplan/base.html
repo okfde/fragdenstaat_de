@@ -3,3 +3,6 @@
     {{ block.super }}
     {% include "snippets/breadcrumbs.html" with breadcrumbs_background="blue-10" overlay=True %}
 {% endblock navbar %}
+{% block messages %}
+    {% include "snippets/messages.html" with overlay=True %}
+{% endblock messages %}
