@@ -1,12 +1,6 @@
-{% load i18n %}
 {% load icons %}
 <header id="header">
-    <div class="container-md">
-        <a href="#main"
-           class="visually-hidden-focusable skippy text-bg-blue-500 p-3 position-fixed top-0">
-            {% trans "Skip to main content" %}
-        </a>
-    </div>
+    <div class="container-md">{% include "snippets/skip_link.html" %}</div>
     <nav class="bg-body">
         <div class="container-md">
             <a href="{{ home_url|default:'/' }}">
