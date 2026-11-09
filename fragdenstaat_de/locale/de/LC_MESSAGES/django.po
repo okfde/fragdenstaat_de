@@ -3373,10 +3373,7 @@ msgstr "Sechs"
 msgid "Size"
 msgstr "Größe"
 
-#: fragdenstaat_de/fds_easylang/templates/fds_easylang/header.html
-#: fragdenstaat_de/templates/cmssites/fds_base.html
-#: fragdenstaat_de/templates/header.html
-#: fragdenstaat_de/templates/header_minimal.html
+#: fragdenstaat_de/templates/snippets/skip_link.html
 msgid "Skip to main content"
 msgstr "Zum Hauptinhalt springen"
 
