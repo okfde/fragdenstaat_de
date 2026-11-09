@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load djangocms_alias_tags %}
 {% load form_helper i18n %}
-{% block body %}
+{% block breadcrumbs %}
     <div class="bg-body-tertiary">
         <div class="container">
             <div class="row justify-content-left">
@@ -21,6 +21,8 @@
             </div>
         </div>
     </div>
+{% endblock breadcrumbs %}
+{% block body %}
     <div class="bg-body-tertiary py-2">
         <div class="container mb-5">
             <div class="row justify-content-left">
