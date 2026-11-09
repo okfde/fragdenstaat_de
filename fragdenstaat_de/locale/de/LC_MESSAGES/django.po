@@ -2262,9 +2262,7 @@ msgstr "Monate…"
 msgid "My donations"
 msgstr "Meine Spenden"
 
-#: fragdenstaat_de/templates/legal_advice_builder/answer_form.html
-#: fragdenstaat_de/templates/legal_advice_builder/form_wizard.html
-#: fragdenstaat_de/templates/legal_advice_builder/klageautomat_info.html
+#: fragdenstaat_de/templates/legal_advice_builder/includes/breadcrumbs.html
 msgid "My requests"
 msgstr "Meine Anfragen"
 
