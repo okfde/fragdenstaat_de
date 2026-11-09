@@ -2,6 +2,7 @@
 {% load static i18n %}
 {% load thumbnail %}
 {% load cms_tags %}
+{% load breadcrumb_helper %}
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'datashow/css/datashow.css' %}">
@@ -36,31 +37,15 @@
                         <span class="visually-hidden">{% trans "Home Page" %}</span>
                     </a>
                 </li>
-                <li class="breadcrumb-item">
-                    {% if dataset %}
-                        {% page_url "datasets" as datasets_url %}
-                        <a href="{{ datasets_url|default:'/daten/' }}">{% translate "Datasets" %}</a>
-                    {% else %}
-                        {% translate "Datasets" %}
-                    {% endif %}
-                </li>
-                <li class="breadcrumb-item">
-                    {% if table %}
-                        <a href="{{ dataset.get_absolute_url }}">{{ dataset.name }}</a>
-                    {% else %}
-                        {{ dataset.name }}
-                    {% endif %}
-                </li>
+                {% page_url "datasets" as datasets_url %}
+                {% breadcrumb_item _("Datasets") datasets_url|default:"/daten/" %}
+                {% breadcrumb_item dataset.name dataset.get_absolute_url %}
                 {% if table and dataset.default_table != table %}
-                    <li class="breadcrumb-item">
-                        {% if row %}
-                            <a href="{{ table.get_absolute_url }}">{{ table.label }}</a>
-                        {% else %}
-                            {{ table.label }}
-                        {% endif %}
-                    </li>
+                    {% breadcrumb_item table.label table.get_absolute_url %}
                 {% endif %}
-                {% if row %}<li class="breadcrumb-item">{{ row_label|truncatewords:5 }}</li>{% endif %}
+                {% if row %}
+                    {% breadcrumb_item row_label|truncatewords:5 current=True %}
+                {% endif %}
             </ol>
         </nav>
     </div>
