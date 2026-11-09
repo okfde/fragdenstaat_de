@@ -1,8 +1,7 @@
 {% extends "cms/page.html" %}
 {% load cms_tags %}
 {% load menu_tags %}
-{% block navbar %}
-    {{ block.super }}
+{% block breadcrumbs %}
     <nav aria-label="breadcrumb"
          {% if request.current_page.fdspageextension.breadcrumb_background %} class="text-bg-{{ request.current_page.fdspageextension.breadcrumb_background }}{% if request.current_page.fdspageextension.breadcrumb_overlay %} breadcrumb-overlay{% endif %}
          "
@@ -13,7 +12,7 @@
             </ol>
         </div>
     </nav>
-{% endblock navbar %}
+{% endblock breadcrumbs %}
 {% block messages %}
     {% if request.current_page.fdspageextension.breadcrumb_background and request.current_page.fdspageextension.breadcrumb_overlay %}
         {% include "snippets/messages.html" with overlay=True %}
