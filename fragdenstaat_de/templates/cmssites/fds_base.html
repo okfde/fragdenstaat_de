@@ -3,18 +3,12 @@
 {% load cms_tags %}
 {% load icons %}
 {% load menu_tags %}
-{% load i18n %}
 {% load static %}
 {% block meta %}{% endblock %}
 {% block top_block %}{% endblock %}
 {% block navbar %}
     <header id="header">
-        <div class="container-lg">
-            <a href="#main"
-               class="visually-hidden-focusable skippy text-bg-blue-500 p-3 position-fixed top-0">
-                {% trans "Skip to main content" %}
-            </a>
-        </div>
+        <div class="container-lg">{% include "snippets/skip_link.html" %}</div>
         <nav class="bg-body">
             <div class="container-lg">
                 <ul class="nav-ul w-100">
