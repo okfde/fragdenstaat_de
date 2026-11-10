@@ -1,7 +1,6 @@
 from datetime import timedelta
 
 from django.contrib import messages
-from django.contrib import messages
 from django.contrib.auth.middleware import AuthenticationMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.test.client import RequestFactory
