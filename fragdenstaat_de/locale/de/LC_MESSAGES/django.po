@@ -218,10 +218,6 @@ msgstr "Werbung"
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
-#: fragdenstaat_de/fds_cms/templates/djangocms_alias/base.html
-msgid "Aliases"
-msgstr "Aliase"
-
 #: fragdenstaat_de/fds_blog/models.py
 #: fragdenstaat_de/fds_blog/templates/fds_blog/article_list.html
 msgid "All articles"
@@ -5527,6 +5523,9 @@ msgstr "🚨 Warnung zum Spendengeschenk Lagerbestand: {name} ({id})"
 
 #~ msgid "Add these tags to all selected requests:"
 #~ msgstr "Füge diese Tags zu allen gewählten Anfragen hinzu:"
+
+#~ msgid "Aliases"
+#~ msgstr "Aliase"
 
 #~ msgid "All bodies that work on administrative tasks of this jurisdiction."
 #~ msgstr "Alle Einrichtungen, die Verwaltungs­aufgaben des Landes wahrnehmen."
