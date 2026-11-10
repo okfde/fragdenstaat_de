@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.contrib import messages
+from django.contrib import messages
 from django.contrib.auth.middleware import AuthenticationMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.test.client import RequestFactory
@@ -129,6 +130,41 @@ def test_gift_already_ordered(donor_client, donor, donation_gift):
 
 
 @pytest.mark.django_db
+def test_gift_already_ordered_email(donor_client, donor, donation_gift):
+    same_donor = Donor.objects.create(email=donor.email)
+    other_donation = Donation.objects.create(
+        donor=same_donor, amount=10.0, completed=True
+    )
+    DonationGiftOrder.objects.create(
+        donation=other_donation, donation_gift=donation_gift
+    )
+
+    response = donor_client.post(
+        reverse(
+            "fds_donation:make_order",
+            kwargs={"category": "test"},
+        ),
+        {
+            "next": "/spenden/danke/",
+            "form_path": "/spenden/geschenk/",
+            "chosen_gift": donation_gift.id,
+            "shipping_first_name": "Test",
+            "shipping_last_name": "User",
+            "shipping_address": "Test Street 1",
+            "shipping_city": "Test City",
+            "shipping_postcode": "12345",
+            "shipping_country": "DE",
+        },
+    )
+    assert response.status_code == 302
+    assert response.url.startswith("/spenden/geschenk/")
+    assert DonationGiftOrder.objects.count() == 1
+    mes = list(messages.get_messages(response.wsgi_request))[0]
+    assert mes.level == messages.ERROR
+    assert mes.message == "Du hast dieses Spendengeschenk schon bestellt."
+
+
+@pytest.mark.django_db
 def test_order_ineligible_amount(donor_client, donor, donation_gift):
     donation_gift.min_recurring_amount = 20.0
     donation_gift.save()
@@ -151,6 +187,10 @@ def test_order_ineligible_amount(donor_client, donor, donation_gift):
     )
     assert response.status_code == 302
     assert response.url.startswith("/spenden/geschenk/")
+    assert DonationGiftOrder.objects.count() == 0
+    mes = list(messages.get_messages(response.wsgi_request))[0]
+    assert mes.level == messages.ERROR
+    assert mes.message == "Gerade sind keine Spendengeschenke verfügbar."
     assert DonationGiftOrder.objects.count() == 0
     mes = list(messages.get_messages(response.wsgi_request))[0]
     assert mes.level == messages.ERROR
@@ -209,6 +249,9 @@ def test_order_ineligible_streak(donor_client, donor, donation_gift):
     mes = list(messages.get_messages(response.wsgi_request))[0]
     assert mes.level == messages.ERROR
     assert mes.message == "Gerade sind keine Spendengeschenke verfügbar."
+    mes = list(messages.get_messages(response.wsgi_request))[0]
+    assert mes.level == messages.ERROR
+    assert mes.message == "Gerade sind keine Spendengeschenke verfügbar."
 
     # Fix it
     donor.recurrence_streak_start = timezone.now() - timedelta(days=365)
@@ -263,6 +306,9 @@ def test_order_no_inventory_left(donor_client, donor, donation_gift):
     )
     assert response.status_code == 302
     assert response.url.startswith("/spenden/geschenk/")
+    mes = list(messages.get_messages(response.wsgi_request))[0]
+    assert mes.level == messages.ERROR
+    assert mes.message == "Gerade sind keine Spendengeschenke verfügbar."
     mes = list(messages.get_messages(response.wsgi_request))[0]
     assert mes.level == messages.ERROR
     assert mes.message == "Gerade sind keine Spendengeschenke verfügbar."
