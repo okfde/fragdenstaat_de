@@ -5,7 +5,7 @@
 {% load cms_tags %}
 {% load easylang_tags %}
 <header id="header">
-    <div class="container-md">{% include "snippets/skip_link.html" %}</div>
+    {% include "snippets/skip_link.html" with skip_link_container="container-md" %}
     <nav class="bg-body">
         <div class="container-lg">
             <ul class="nav-ul w-100">
