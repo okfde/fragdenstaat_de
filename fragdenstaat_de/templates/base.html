@@ -8,6 +8,9 @@
     data-staticurl="{{ STATIC_URL }}"
     {% if request.user.is_staff %}data-sentry="{{ SENTRY_JS_URL }}"{% endif %}
 {% endblock %}
+{% block skip_link %}
+    {% include "snippets/skip_link.html" %}
+{% endblock skip_link %}
 {% block top_block %}
     <div class="dropdown-wrapper">{% static_alias "dropdown_banner" %}</div>
 {% endblock %}
