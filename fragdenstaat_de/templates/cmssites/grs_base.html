@@ -9,6 +9,9 @@
     <meta name="keywords" content="Gegenrechtsschutz" />
     <link rel="icon" type="image/png" href="{% static 'grs/favicon.png' %}">
 {% endblock %}
+{% block skip_link %}
+    {% include "snippets/skip_link.html" with skip_link_container="container-fluid" skip_link_class="text-bg-primary" %}
+{% endblock skip_link %}
 {% block top_block %}{% endblock %}
 {% block navbar %}
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">

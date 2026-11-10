@@ -10,6 +10,9 @@
     <link rel="icon" type="image/png" href="{% static 'ubf/favicon.png' %}">
 {% endblock %}
 {% block body_extra_attributes %}{{ block.super }} class="text-bg-primary"{% endblock %}
+{% block skip_link %}
+    {% include "snippets/skip_link.html" with skip_link_container="container ubf-section py-0" skip_link_class="text-bg-white z-3" %}
+{% endblock skip_link %}
 {% block top_block %}{% endblock %}
 {% block navbar %}
     <nav class="navbar text-bg-primary border-bottom border-merlot-75 py-0">
