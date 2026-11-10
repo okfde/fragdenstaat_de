@@ -23,6 +23,11 @@ class FdsCmsConfig(AppConfig):
         thumbnail_created.disconnect(thumbnail_created_callback)
         thumbnail_created.connect(async_optimize_thumbnail)
 
+        from djangocms_alias.admin import AliasAdmin
+
+        AliasAdmin.fields = AliasAdmin.fields + ("static_code",)
+        AliasAdmin.readonly_fields = ()
+
 
 def merge_user(sender, old_user=None, new_user=None, **kwargs):
     from .models import FoiRequestListCMSPlugin
