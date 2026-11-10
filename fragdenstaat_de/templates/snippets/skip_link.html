@@ -1,5 +1,7 @@
 {% load i18n %}
-<a href="#main"
-   class="visually-hidden-focusable skippy {{ skip_link_class|default:'text-bg-blue-500' }} p-3 position-fixed top-0">
-    {% trans "Skip to main content" %}
-</a>
+<div class="{{ skip_link_container|default:'container-lg' }}">
+    <a href="#main"
+       class="visually-hidden-focusable skippy {{ skip_link_class|default:'text-bg-blue-500' }} p-3 position-fixed top-0">
+        {% trans "Skip to main content" %}
+    </a>
+</div>
