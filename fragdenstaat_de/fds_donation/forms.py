@@ -852,6 +852,13 @@ class DonationGiftForm(forms.Form):
             raise forms.ValidationError(
                 _("You have already ordered this donation gift.")
             )
+        if DonationGiftOrder.objects.filter(
+            donation__donor_id=self.related_donation.donor_id,
+            donation_gift=self.cleaned_data["chosen_gift"],
+        ).exists():
+            raise forms.ValidationError(
+                _("You have already ordered this donation gift.")
+            )
 
     def save(self):
         if self.cleaned_data["update_address"]:
