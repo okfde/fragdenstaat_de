@@ -9,6 +9,9 @@
     {% if request.user.is_staff %}data-sentry="{{ SENTRY_JS_URL }}"{% endif %}
 {% endblock body_extra_attributes %}
 {% block body_tag %}
+    {% block skip_link %}
+        {% include "snippets/skip_link.html" %}
+    {% endblock skip_link %}
     {% if request.user.is_authenticated and request.session.impostor %}
         {% include "account/includes/impostor.html" %}
     {% endif %}

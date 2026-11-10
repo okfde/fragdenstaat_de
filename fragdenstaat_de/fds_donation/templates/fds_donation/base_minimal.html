@@ -1,4 +1,7 @@
 {% extends "fds_donation/base.html" %}
+{% block skip_link %}
+    {% include "snippets/skip_link.html" with skip_link_container="container-md" %}
+{% endblock skip_link %}
 {% block top_block %}{% endblock %}
 {% block navbar %}
     {% include "header_minimal.html" %}
