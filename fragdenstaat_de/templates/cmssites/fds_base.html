@@ -32,5 +32,5 @@
 {% endblock %}
 {% block messages %}{% endblock %}
 {% block footer_container %}
-    {% static_alias "footer_"|add:request.site.domain %}
+    {% with hide_banner=1 alias="footer_"|add:request.site.domain %}{{ block.super }}{% endwith %}
 {% endblock %}
