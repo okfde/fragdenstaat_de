@@ -2,6 +2,7 @@ import re
 from typing import List, Tuple
 
 from django import template
+from django.contrib.sites.shortcuts import get_current_site
 
 from ..models import Article, Author
 
@@ -29,10 +30,12 @@ def split_for_banner(content: str) -> Tuple[str, str]:
 
 @register.inclusion_tag("fds_blog/blog_preview.html", takes_context=True)
 def get_blog_preview(context, amount=6):
+    request = context.get("request")
+    site = get_current_site(request)
     amount = min(int(amount), 20)
-    articles = Article.published.all()[:amount]
+    articles = Article.published.on_site(site)[:amount]
 
-    return {"articles": articles, "request": context.get("request")}
+    return {"articles": articles, "request": request}
 
 
 @register.filter
