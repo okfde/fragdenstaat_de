@@ -4,6 +4,8 @@ from cms.sitemaps import CMSSitemap
 
 
 class FdsCMSSitemap(CMSSitemap):
+    protocol = "https"
+
     def items(self):
         """
         Copy from CMSSitemap and filter further by fds page extension

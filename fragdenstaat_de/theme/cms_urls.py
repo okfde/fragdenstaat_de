@@ -11,22 +11,11 @@ from fragdenstaat_de.fds_cms.sitemaps import FdsCMSSitemap
 from .utils import handler500  # noqa
 
 sitemaps = {"cmspages": FdsCMSSitemap}
-
-for klass in sitemaps.values():
-    klass.protocol = settings.META_SITE_PROTOCOL
-
-
 sitemap_urlpatterns = [
     path(
         "sitemap.xml",
-        sitemaps_views.index,
-        {"sitemaps": sitemaps, "sitemap_url_name": "sitemaps"},
-    ),
-    path(
-        "sitemap-<slug:section>.xml",
         sitemaps_views.sitemap,
         {"sitemaps": sitemaps},
-        name="sitemaps",
     ),
 ]
 
