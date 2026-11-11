@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.contrib.sitemaps import Sitemap
+from django.contrib.sites.models import Site
 from django.utils import timezone
 
 from .models import Article
@@ -17,7 +18,8 @@ class BlogSitemap(Sitemap):
         self.url_cache = {}
 
     def items(self):
-        return Article.published.all()
+        site = Site.objects.get_current()
+        return Article.published.on_site(site)
 
     def lastmod(self, obj):
         return obj.last_update

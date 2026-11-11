@@ -1,6 +1,7 @@
 from xml.sax.saxutils import escape
 
 from django.conf import settings
+from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.syndication.views import Feed
 from django.core.cache import cache
 from django.urls import reverse
@@ -52,7 +53,9 @@ class BaseFeed(Feed):
         response = cache.get(cache_key)
 
         if response is None:
+            self.request = request
             response = super().__call__(request, *args, **kwargs)
+            self.request = None
             cache.set(cache_key, response, 900)  # cache for 15 minutes
 
         return response
@@ -100,7 +103,8 @@ class BaseFeed(Feed):
         """
         Items are published entries.
         """
-        return Article.published.all()
+        site = get_current_site(self.request)
+        return Article.published.on_site(site)
 
     @clean_feed_output
     def item_title(self, item):

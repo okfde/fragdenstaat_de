@@ -106,12 +106,6 @@ class Author(models.Model):
         """
         return self.user.get_full_name() if self.user else self.get_full_name()
 
-    def articles_published(self):
-        """
-        Returns author's published entries.
-        """
-        return articles_published(self.articles)
-
     def get_full_name(self):
         if self.user:
             return self.user.get_full_name()
@@ -239,12 +233,6 @@ class Category(TranslatableModel):
 
     def __str__(self):
         return self.title
-
-    def articles_published(self):
-        """
-        Returns category's published entries.
-        """
-        return articles_published(self.articles)
 
     def get_absolute_url(self):
         return reverse("blog:article-category", kwargs={"slug": self.slug})

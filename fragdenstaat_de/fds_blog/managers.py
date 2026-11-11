@@ -1,4 +1,3 @@
-from django.contrib.sites.models import Site
 from django.db import models
 from django.utils import timezone
 
@@ -9,29 +8,35 @@ HIDDEN = 1
 PUBLISHED = 2
 
 
-def articles_published(queryset):
+def articles_published(queryset, site=None):
     """
     Return only the entries published.
     """
     now = timezone.now()
+    filter_kwargs = {}
+    if site is not None:
+        filter_kwargs = {"sites": site}
     return queryset.filter(
         models.Q(start_publication__lte=now) | models.Q(start_publication=None),
         models.Q(end_publication__gt=now) | models.Q(end_publication=None),
         status=PUBLISHED,
-        sites=Site.objects.get_current(),
+        **filter_kwargs,
     )
 
 
-def articles_visible(queryset):
+def articles_visible(queryset, site=None):
     """
     Return only the entries published.
     """
     now = timezone.now()
+    filter_kwargs = {}
+    if site is not None:
+        filter_kwargs = {"sites": site}
     return queryset.filter(
         models.Q(start_publication__lte=now) | models.Q(start_publication=None),
         models.Q(end_publication__gt=now) | models.Q(end_publication=None),
         models.Q(status=PUBLISHED) | models.Q(status=HIDDEN),
-        sites=Site.objects.get_current(),
+        **filter_kwargs,
     )
 
 
@@ -48,17 +53,14 @@ class ArticlePublishedManager(models.Manager):
         """
         Return published entries.
         """
-        return articles_published(super(ArticlePublishedManager, self).get_queryset())
+        qs = super().get_queryset()
+        return articles_published(qs)
 
-    def on_site(self):
+    def on_site(self, site):
         """
         Return entries published on current site.
         """
-        return (
-            super(ArticlePublishedManager, self)
-            .get_queryset()
-            .filter(sites=Site.objects.get_current())
-        )
+        return self.get_queryset().filter(sites=site)
 
     def search(self, pattern):
         """
@@ -96,7 +98,6 @@ class RelatedPublishedManager(models.Manager):
                 models.Q(articles__end_publication__gt=now)
                 | models.Q(articles__end_publication=None),
                 articles__status=PUBLISHED,
-                articles__sites=Site.objects.get_current(),
             )
             .distinct()
         )
