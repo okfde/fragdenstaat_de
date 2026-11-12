@@ -93,7 +93,7 @@ install_editables() {
     editables=("${REPOS[@]}")
     install_args=(--config-setting editable_mode=compat)
   else
-    return
+    return 0
   fi
 
   pushd "$name"
