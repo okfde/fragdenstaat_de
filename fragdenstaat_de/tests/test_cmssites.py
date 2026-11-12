@@ -51,6 +51,7 @@ def apply_configuration(configuration_class, settings, ignore=None, overrides=No
 def setup_site(
     settings,
     domain,
+    template,
     base_template,
     user,
 ):
@@ -69,7 +70,7 @@ def setup_site(
     )
     page = cms_api.create_page(
         "Test Index",
-        "cms/page.html",
+        template,
         "de",
         slug="",
         overwrite_url="/",
@@ -92,7 +93,9 @@ def setup_site(
 @pytest.fixture
 def cms_site(settings, dummy_user):
     domain = "cms.local"
-    with setup_site(settings, domain, "fds_base.html", dummy_user) as site:
+    with setup_site(
+        settings, domain, "cms/page.html", "fds_base.html", dummy_user
+    ) as site:
         yield site
 
 
@@ -122,7 +125,11 @@ def test_cms_site_pages(client, cms_site, settings):
 @pytest.mark.django_db
 def test_cms_grs(client, settings, dummy_user):
     with setup_site(
-        settings, "gegenrechtsschutz.de", "grs_base.html", dummy_user
+        settings,
+        "gegenrechtsschutz.de",
+        "cmssites/cmssite/gegenrechtsschutz.html",
+        "grs_base.html",
+        dummy_user,
     ) as cms_site:
         headers = {"Host": cms_site.domain, "Origin": f"http://{cms_site.domain}/"}
         response = client.get("/", headers=headers, HTTP_HOST=cms_site.domain)
@@ -142,7 +149,11 @@ def test_cms_grs(client, settings, dummy_user):
 @pytest.mark.django_db
 def test_cms_ubf(client, settings, dummy_user):
     with setup_site(
-        settings, "ueberbrueckungsfonds.de", "ubf_base.html", dummy_user
+        settings,
+        "ueberbrueckungsfonds.de",
+        "cmssites/cmssite/ubf.html",
+        "cmssites/ubf_base.html",
+        dummy_user,
     ) as cms_site:
         headers = {"Host": cms_site.domain, "Origin": f"http://{cms_site.domain}/"}
         response = client.get("/", headers=headers, HTTP_HOST=cms_site.domain)
