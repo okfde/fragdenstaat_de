@@ -174,6 +174,10 @@ def get_or_create_donor(data, user=None, subscription=None, request=None):
             donor = donors[0]
         if donor:
             return donor
+    if subscription is not None:
+        donor = Donor.objects.filter(subscriptions=subscription).first()
+        if donor is not None:
+            return donor
     if request is not None:
         donor_id = request.session.get(DONOR_SESSION_KEY)
         donor_email = request.session.get("donor_email")
