@@ -163,7 +163,8 @@ upgrade_frontend_repos() {
 
 messages() {
   source $MAIN/.venv/bin/activate
-  python $MAIN/manage.py compilemessages -l de -i node_modules
+  python $MAIN/manage.py compilemessages -l de -i node_modules -i .venv
+  deactivate
 }
 
 load_dump() {
