@@ -3,7 +3,7 @@ from django.conf import settings
 
 def page_site_settings(request, key, default=None):
     current_page = getattr(request, "current_page", None)
-    if current_page:
+    if current_page and current_page.site_id != settings.SITE_ID:
         return current_page.site.site_settings.settings.get(key, default)
     return default
 
