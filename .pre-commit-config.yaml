@@ -21,33 +21,12 @@ repos:
         entry: pnpm lint
         args: [--no-warn-ignored]
 
-  - repo: https://github.com/okfde/froide
-    rev: cefd528b8a5bdb6baafa92ee63f4e1f90ee44380
+  - repo: https://github.com/fragdenstaat/pre-commit
+    rev: 86b4cdc9b7dc892154fb064d3c702d3ece9d5716
     hooks:
       - id: django-blocktrans-trimmed
       - id: gettext-named-placeholders
-      - id: makemessages-de
-
-  - repo: local
-    hooks:
-      - id: unlink-frontend-repos
-        name: Unlink frontend repos
-        language: script
-        entry: ./devsetup.sh
-        args: [unlink_frontend_repos]
-        files: pnpm-lock.yaml
-        stages: [pre-commit]
-      # - id: ensure-consistent-dependencies
-      #   name: Ensure consistent dependencies (pnpm/uv.lock)
-      #   language: python
-      #   language_version: '3.13'
-      #   entry: scripts/ensure_consistent_dependencies.py
-      #   additional_dependencies:
-      #     - pyyaml
-      - id: relink-frontend-repos
-        name: Re-link frontend repos
-        language: script
-        entry: ./devsetup.sh
-        args: [relink_frontend_repos]
-        always_run: true
-        stages: [post-commit]
+      - id: checkmessages-de
+      - id: unlink-frontend
+      - id: ensure-consistent-dependencies
+      - id: relink-frontend
