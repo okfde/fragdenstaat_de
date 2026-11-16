@@ -1,0 +1,6 @@
+allowBuilds:
+  '@parcel/watcher': false
+  '@sentry/cli': false
+  esbuild: false
+  exifreader: false
+blockExoticSubdeps: false # for filingcabinet through froide
