@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% load djangocms_alias_tags %}
 {% load form_helper %}
-{% block body %}
+{% block breadcrumbs %}
     {% include "legal_advice_builder/includes/breadcrumbs.html" %}
+{% endblock breadcrumbs %}
+{% block body %}
     <div class="bg-body-tertiary py-2">
         <div class="container mb-5">
             <div class="row justify-content-left">

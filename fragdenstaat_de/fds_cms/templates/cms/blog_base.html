@@ -6,8 +6,10 @@
           title="{{ SITE_NAME }} Blog"
           href="{% url 'blog:article-latest-feed' %}" />
 {% endblock extra_head %}
-{% block body %}
+{% block breadcrumbs %}
     {% include "snippets/breadcrumbs.html" %}
+{% endblock breadcrumbs %}
+{% block body %}
     {% block app_body %}
         {% block content %}
         {% endblock content %}
