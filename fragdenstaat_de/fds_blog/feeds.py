@@ -54,8 +54,10 @@ class BaseFeed(Feed):
 
         if response is None:
             self.request = request
+            self.site = get_current_site(self.request)
             response = super().__call__(request, *args, **kwargs)
             self.request = None
+            self.site = None
             cache.set(cache_key, response, 900)  # cache for 15 minutes
 
         return response
@@ -76,14 +78,14 @@ class BaseFeed(Feed):
     def title(self, obj=None):
         if obj:
             return obj.title
-        return settings.SITE_NAME
+        return self.site.name
 
     @property
     def site_url(self):
         """
         Return the URL of the current site.
         """
-        return settings.SITE_URL
+        return f"https://{self.site.domain}"
 
     def link(self):
         return self.site_url
@@ -139,7 +141,7 @@ class LatestArticlesFeed(BaseFeed):
         return self.site_url + reverse("blog:article-latest-feed")
 
     def feed_copyright(self):
-        return settings.SITE_NAME
+        return self.site.name
 
 
 class LatestArticlesTeaserFeed(LatestArticlesFeed):
