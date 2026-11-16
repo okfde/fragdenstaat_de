@@ -1,1 +1,5 @@
 {% extends "cms/base.html" %}
+{% block scripts %}
+    {{ block.super }}
+    {% include "_frontend.html" with entry_point="redact_banner.js" %}
+{% endblock scripts %}
