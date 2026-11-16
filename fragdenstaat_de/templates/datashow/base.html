@@ -25,7 +25,7 @@
     {% endif %}
     {% if table %}<meta name="robots" content="nofollow">{% endif %}
 {% endblock meta %}
-{% block body %}
+{% block breadcrumbs %}
     <div class="text-bg-secondary">
         <nav class="container-md" aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -64,6 +64,8 @@
             </ol>
         </nav>
     </div>
+{% endblock breadcrumbs %}
+{% block body %}
     {% block app_body %}
         {% block content %}{% endblock %}
     {% endblock %}
