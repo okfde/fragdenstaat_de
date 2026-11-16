@@ -4,3 +4,5 @@ allowBuilds:
   esbuild: false
   exifreader: false
 blockExoticSubdeps: false # for filingcabinet through froide
+publicHoistPattern:
+  - pdfjs-dist
