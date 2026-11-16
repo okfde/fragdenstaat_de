@@ -74,6 +74,7 @@ dependencies() {
 
     if [ -e ".pre-commit-config.yaml" ]; then
       prek install
+      prek install -t post-commit
     fi
 
     popd
@@ -137,28 +138,6 @@ frontend() {
 
   # Install main project dependencies
   pnpm -C "$MAIN" install
-}
-
-unlink_file="$MAIN/node_modules/.unlinked"
-
-unlink_frontend_repos() {
-  # ensure that pnpm lockfile changes are staged
-  # git diff --name-only --cached pnpm-lock.yaml || exit 0
-
-  touch "$unlink_file"
-
-  pushd "$MAIN"
-  pnpm unlink "${FRONTEND[@]}"
-  git add pnpm-lock.yaml pnpm-workspace.yaml
-  # git rm --cached pnpm-workspace.yaml || true
-  popd
-}
-
-relink_frontend_repos() {
-  if [ -f "$unlink_file" ]; then
-    rm "$unlink_file"
-    frontend
-  fi
 }
 
 upgrade_frontend_repos() {
