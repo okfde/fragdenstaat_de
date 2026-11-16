@@ -117,41 +117,48 @@ upgrade_backend_repos() {
 frontend() {
   pnpm_version=$(pnpm --version)
 
-  if [[ $pnpm_version != 9.15* ]]; then
-    echo "You need to have pnpm@^9.15 installed"
+  if [[ $pnpm_version != 12.* ]]; then
+    echo "You need to have pnpm@^12 installed"
     exit 1
   fi
 
   echo "Installing frontend dependencies..."
 
-  # we need to link globally since local linking adjusts the lockfile
-
-  # Install and link all frontend packages
-  for name in "${FRONTEND_DIR[@]}"; do
-    pushd "$name"
-    pnpm link --global
-    pnpm install
-    popd
-  done
-
- # Link froide peer dependencies
+  # Link froide peer dependencies
   for name in "${FROIDE_PEERS[@]}"; do
-    pushd "$name"
-    pnpm link --global "froide"
-    popd
+    pnpm -C "$name" link "$PWD/froide"
   done
 
-  # Setup main project and link dependencies
+  # Link dependencies and install their dependencies
+  pnpm -C "$MAIN" link "${FRONTEND_DIR[@]/#/$PWD/}"
+  for name in "${FRONTEND_DIR[@]}"; do
+    pnpm -C "$name" install
+  done
+
+  # Install main project dependencies
+  pnpm -C "$MAIN" install
+}
+
+unlink_file="$MAIN/node_modules/.unlinked"
+
+unlink_frontend_repos() {
+  # ensure that pnpm lockfile changes are staged
+  # git diff --name-only --cached pnpm-lock.yaml || exit 0
+
+  touch "$unlink_file"
+
   pushd "$MAIN"
-  pnpm install
-  link_frontend_repos
+  pnpm unlink "${FRONTEND[@]}"
+  git add pnpm-lock.yaml pnpm-workspace.yaml
+  # git rm --cached pnpm-workspace.yaml || true
   popd
 }
 
-link_frontend_repos() {
-  for name in "${FRONTEND[@]}"; do
-    pnpm link --global "$name"
-  done
+relink_frontend_repos() {
+  if [ -f "$unlink_file" ]; then
+    rm "$unlink_file"
+    frontend
+  fi
 }
 
 upgrade_frontend_repos() {

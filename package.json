@@ -41,7 +41,7 @@
     "django-cookie-consent": "^0.9.0",
     "dompurify": "^3.4.9",
     "font-awesome": "^4.7.0",
-    "froide": "github:okfde/froide",
+    "froide": "github:okfde/froide#krmax44\/pnpm-upgrade",
     "froide_campaign": "github:okfde/froide-campaign",
     "froide_exam": "github:okfde/froide-exam",
     "froide_food": "github:okfde/froide-food",
@@ -54,5 +54,5 @@
     "vega-lite": "^6.4.3"
   },
   "prettier": "prettier-config-standard",
-  "packageManager": "pnpm@9.15.9"
+  "packageManager": "pnpm@12.21.0"
 }

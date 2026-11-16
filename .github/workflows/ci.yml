@@ -6,15 +6,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - name: Install pnpm
-        uses: pnpm/action-setup@v5
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: pnpm/setup@v3
         with:
-          node-version: 24
-          cache: pnpm
-      - name: Install dependencies
-        run: pnpm install
+          cache: true
       - uses: j178/prek-action@v1
         env:
           SKIP: makemessages-de
@@ -25,27 +20,23 @@ jobs:
       matrix:
         python-version: ['3.12', '3.13', '3.14']
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Start services
         run: docker compose -f compose-dev.yaml up --wait
+      - name: Install system-level dependencies
+        run: sudo apt-get update && sudo apt-get install libxml2-dev libxslt1-dev python3-dev libgdal-dev gdal-bin libmagic-dev libmagickwand-dev gettext libpoppler-cpp-dev
       - name: Setup uv
-        uses: astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@v10.3.3
         with:
           python-version: ${{ matrix.python-version }}
           activate-environment: true
-      - name: Install pnpm
-        uses: pnpm/action-setup@v5
-      - uses: actions/setup-node@v6
+      - uses: pnpm/setup@v3
         with:
-          node-version: 24
-          cache: pnpm
-      - name: Install system-level dependencies
-        run: sudo apt-get update && sudo apt-get install libxml2-dev libxslt1-dev python3-dev libgdal-dev gdal-bin libmagic-dev libmagickwand-dev gettext libpoppler-cpp-dev
+          cache: true
       - name: Install dependencies
         run: |
           uv sync --locked
           playwright install --with-deps chromium
-          pnpm install
       - name: Check German translations are up to date
         if: matrix.python-version == '3.13'
         run: |
@@ -54,8 +45,7 @@ jobs:
       - name: Build frontend
         run: pnpm run build
       - name: Compile translations
-        run: |
-          python manage.py compilemessages -i node_modules -l de
+        run: python manage.py compilemessages -i node_modules -l de
       - name: Restore database cache
         uses: actions/cache/restore@v5
         id: db_cache
