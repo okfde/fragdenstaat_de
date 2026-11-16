@@ -22,7 +22,10 @@ with (
     open("uv.lock", "rb") as uv_lock_fd,
     open(file="pnpm-lock.yaml", mode="r") as pnpm_lock_fd,
 ):
-    pnpm_lock = yaml.load(pnpm_lock_fd, yaml.SafeLoader)
+    pnpm_docs = yaml.load_all(pnpm_lock_fd, yaml.SafeLoader)
+
+    pnpm_lock = list(pnpm_docs)[-1]
+
     npm_packages = pnpm_lock["importers"]["."]["dependencies"]
 
     uv_lock = tomllib.load(uv_lock_fd)
