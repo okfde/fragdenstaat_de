@@ -3,6 +3,9 @@
 {% load static %}
 {% load easylang_tags %}
 {% block body_extra_attributes %}class="easylang"{% endblock %}
+{% block skip_link %}
+    {% include "snippets/skip_link.html" with skip_link_container="container-md" %}
+{% endblock skip_link %}
 {% block top_block %}
 {% endblock top_block %}
 {% block navbar %}

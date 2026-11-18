@@ -373,6 +373,11 @@ $font-sizes-by-breakpoint: (
   }
 }
 
+// mirrors froide/frontend/styles/components/misc.scss, which ubf doesn't import
+.skippy {
+  z-index: 1070;
+}
+
 .logo-fds svg {
   height: 1.5rem;
   width: auto;
