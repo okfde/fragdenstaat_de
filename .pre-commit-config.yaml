@@ -5,12 +5,15 @@ repos:
       - id: ruff
         args: [--fix]
       - id: ruff-format
+        priority: 10
 
   - repo: https://github.com/Riverside-Healthcare/djLint
     rev: v1.36.4
     hooks:
       - id: djlint-reformat-django
+        priority: 10
       - id: djlint-django
+        priority: 10
 
   - repo: local
     hooks:
@@ -20,13 +23,20 @@ repos:
         files: \.(js|ts|vue)?$
         entry: pnpm lint
         args: [--no-warn-ignored]
+        priority: 10
 
   - repo: https://github.com/fragdenstaat/pre-commit
     rev: 86b4cdc9b7dc892154fb064d3c702d3ece9d5716
     hooks:
       - id: django-blocktrans-trimmed
+        priority: 10
       - id: gettext-named-placeholders
+        priority: 10
       - id: checkmessages-de
+        priority: 10
       - id: unlink-frontend
+        priority: 20
       - id: ensure-consistent-dependencies
+        priority: 30
       - id: relink-frontend
+        priority: 40
