@@ -139,11 +139,12 @@ dev = [
   "honcho",
   "ipdb",
   "ipython",
+  "playwright>=1.65.0",
   "pywatchman",
   "prek>=0.3.0",
   "pytest-xdist>=3.8.0",
   "pytest-cov>=7.1.0",
-  "pytest-playwright-asyncio>=0.7.2",
+  "pytest-playwright-asyncio>=0.10.0",
   "ruff>=0.15.15",
 ]
 
