@@ -1051,7 +1051,7 @@ svg = [
 [[package]]
 name = "django-filingcabinet"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#3921166074f67d4c41a73cc4662a88ab7eef3c51" }
+source = { git = "https://github.com/okfde/django-filingcabinet.git?rev=main#5f825a21cf276d2e0bf5a703a1b9c5a630a5a44a" }
 dependencies = [
     { name = "celery" },
     { name = "django" },
@@ -2136,7 +2136,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#692f2daca525e1095a1973dd74af1a5a65ad89ed" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#1fe2f42710eefa59f6c4ee0e5452c235dc6034c1" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
