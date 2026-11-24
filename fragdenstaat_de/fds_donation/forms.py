@@ -30,6 +30,7 @@ from .form_settings import DonationFormFactory
 from .models import (
     CHECKOUT_PAYMENT_CHOICES_DICT,
     DEFAULT_DONATION_PROJECT,
+    DEFAULT_PURPOSE,
     INTERVAL_CHOICES,
     INTERVAL_CHOICES_DICT,
     MIN_AMOUNT,
@@ -60,8 +61,6 @@ from .widgets import AmountInput
 
 logger = logging.getLogger(__name__)
 
-
-DEFAULT_PURPOSE = _("General donation")
 
 # The example address is assembled from its parts to avoid xgettext
 # warnings about embedded email addresses.

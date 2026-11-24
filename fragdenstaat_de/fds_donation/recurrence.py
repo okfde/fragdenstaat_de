@@ -10,7 +10,13 @@ from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 from froide_payment.models import Subscription
 
-from .models import RECURRING_INTERVAL_CHOICES, Donation, Donor, Recurrence
+from .models import (
+    DEFAULT_PURPOSE,
+    RECURRING_INTERVAL_CHOICES,
+    Donation,
+    Donor,
+    Recurrence,
+)
 from .triggers import run_recurrence_created_trigger
 
 
@@ -229,6 +235,14 @@ def process_recurrence_on_donor(donor: Donor, current_date: datetime | None = No
         run_recurrence_created_trigger(obj=donor)
 
 
+def update_purpose_from_first_donation(recurrence: Recurrence):
+    first_donation = recurrence.first_donation()
+    if first_donation.purpose and first_donation.purpose != str(DEFAULT_PURPOSE):
+        Donation.objects.filter(recurrence=recurrence, purpose="").update(
+            purpose=first_donation.purpose
+        )
+
+
 def process_subscription_donations(
     donor: Donor, donations, current_date: datetime | None = None
 ):
@@ -243,6 +257,8 @@ def process_subscription_donations(
         Donation.objects.filter(
             id__in=[donation.id for donation in subscription_donations]
         ).update(recurrence=recurrence)
+
+        update_purpose_from_first_donation(recurrence)
 
 
 def process_donations(donor: Donor, donations, current_date: datetime | None = None):
@@ -281,6 +297,8 @@ def process_donations(donor: Donor, donations, current_date: datetime | None = N
             Donation.objects.filter(
                 id__in=[donation.id for donation in streak.donations]
             ).update(recurrence=recurrence)
+
+        update_purpose_from_first_donation(recurrence)
 
     # Remove recurrence from selected donations not detected as streaks if they don't have a subscription
     donations.filter(
