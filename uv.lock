@@ -2136,7 +2136,7 @@ dev = [
 [[package]]
 name = "froide"
 version = "6.0.0"
-source = { git = "https://github.com/okfde/froide.git?rev=main#1fe2f42710eefa59f6c4ee0e5452c235dc6034c1" }
+source = { git = "https://github.com/okfde/froide.git?rev=main#65bdbb3548bfe7a8691b9330b0dace95d71f48d0" }
 dependencies = [
     { name = "celery" },
     { name = "channels" },
@@ -2219,7 +2219,7 @@ dependencies = [
 [[package]]
 name = "froide-evidencecollection"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#224f06191a68266fa238d2abef000ad3fab42859" }
+source = { git = "https://github.com/okfde/froide-evidencecollection.git?rev=main#4250af313e55904c0cc3da30563e5c7cc04395c8" }
 dependencies = [
     { name = "django-cms" },
     { name = "django-elasticsearch-dsl" },
