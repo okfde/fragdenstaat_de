@@ -165,6 +165,13 @@ def update_direct_debit(row):
     payment.change_status_and_save(PaymentStatus.CONFIRMED)
 
 
+def make_transfer_ident(row, index=0):
+    local_date = row["date_received"].date()
+    return "{date}-{ref}-{iban}-{i}".format(
+        date=local_date.isoformat(), ref=row["reference"], iban=row["iban"], i=index
+    )
+
+
 def import_banktransfers(xls_file, project):
     df = pd.read_excel(xls_file)
     df = df.rename(
@@ -197,10 +204,7 @@ def import_banktransfers(xls_file, project):
         if DEBIT_PATTERN.search(row["reference"]):
             update_direct_debit(row)
             continue
-        local_date = row["date_received"].date()
-        transfer_ident = "{date}-{ref}-{iban}-{i}".format(
-            date=local_date.isoformat(), ref=row["reference"], iban=row["iban"], i=i
-        )
+        transfer_ident = make_transfer_ident(row, i)
         is_new = import_banktransfer(transfer_ident, row, project)
         count += 1
         if is_new:

@@ -1507,7 +1507,7 @@ msgstr "GRS betroffene"
 msgid "Gegenrechtsschutz affected person"
 msgstr "Gegenrechtsschutz betroffene Person"
 
-#: fragdenstaat_de/fds_donation/forms.py
+#: fragdenstaat_de/fds_donation/models.py
 msgid "General donation"
 msgstr "Allgemeine Spende"
 
