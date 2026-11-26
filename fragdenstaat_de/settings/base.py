@@ -890,6 +890,7 @@ class FragDenStaatBase(German, Base):
         "api_key_yelp": os.environ.get("YELP_API_KEY", ""),
         "api_key_foursquare": os.environ.get("FOURSQUARE_API_KEY"),
     }
+    FROIDE_EXAM_DOCUMENTCOLLECTION = 188
     GOVPLAN_NAME = "Koalitionstracker"
     AMENITY_CATEGORY_FUNC = None
     AMENITY_TOPICS = {
