@@ -2234,7 +2234,7 @@ dependencies = [
 [[package]]
 name = "froide-exam"
 version = "0.0.1"
-source = { git = "https://github.com/okfde/froide-exam.git?rev=main#3e74b262612d2db38c8db339c2fec19143865759" }
+source = { git = "https://github.com/okfde/froide-exam.git?rev=main#eae1c70cf50b732b0c5b843ddf589a382d06e235" }
 
 [[package]]
 name = "froide-fax"

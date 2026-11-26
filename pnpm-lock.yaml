@@ -46,7 +46,7 @@ importers:
         version: https://codeload.github.com/okfde/froide-campaign/tar.gz/d19cb50cc53bb16a52b75973f516d8ec2c64d1c7(froide@https://codeload.github.com/okfde/froide/tar.gz/65bdbb3548bfe7a8691b9330b0dace95d71f48d0(fuse.js@7.5.0)(typescript@5.9.3))(typescript@5.9.3)
       froide_exam:
         specifier: github:okfde/froide-exam
-        version: https://codeload.github.com/okfde/froide-exam/tar.gz/3e74b262612d2db38c8db339c2fec19143865759
+        version: https://codeload.github.com/okfde/froide-exam/tar.gz/eae1c70cf50b732b0c5b843ddf589a382d06e235
       froide_food:
         specifier: github:okfde/froide-food
         version: https://codeload.github.com/okfde/froide-food/tar.gz/d153a06f0c1ef986009891804d5b22b3c3f1efef(@types/leaflet@1.9.20)(froide@https://codeload.github.com/okfde/froide/tar.gz/65bdbb3548bfe7a8691b9330b0dace95d71f48d0(fuse.js@7.5.0)(typescript@5.9.3))(typescript@5.9.3)
@@ -1805,8 +1805,8 @@ packages:
     peerDependencies:
       froide: github:okfde/froide
 
-  froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/3e74b262612d2db38c8db339c2fec19143865759:
-    resolution: {tarball: https://codeload.github.com/okfde/froide-exam/tar.gz/3e74b262612d2db38c8db339c2fec19143865759}
+  froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/eae1c70cf50b732b0c5b843ddf589a382d06e235:
+    resolution: {tarball: https://codeload.github.com/okfde/froide-exam/tar.gz/eae1c70cf50b732b0c5b843ddf589a382d06e235}
     version: 1.0.0
 
   froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/d153a06f0c1ef986009891804d5b22b3c3f1efef:
@@ -4698,7 +4698,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/3e74b262612d2db38c8db339c2fec19143865759: {}
+  froide_exam@https://codeload.github.com/okfde/froide-exam/tar.gz/eae1c70cf50b732b0c5b843ddf589a382d06e235: {}
 
   froide_food@https://codeload.github.com/okfde/froide-food/tar.gz/d153a06f0c1ef986009891804d5b22b3c3f1efef(@types/leaflet@1.9.20)(froide@https://codeload.github.com/okfde/froide/tar.gz/65bdbb3548bfe7a8691b9330b0dace95d71f48d0(fuse.js@7.5.0)(typescript@5.9.3))(typescript@5.9.3):
     dependencies:
